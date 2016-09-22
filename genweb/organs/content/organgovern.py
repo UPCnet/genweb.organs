@@ -4,10 +4,17 @@ from zope import schema
 from plone.directives import form
 from plone.app.textfield import RichText
 from genweb.organs import _
-from plone.app.dexterity import PloneMessageFactory as _PMF
 from collective import dexteritytextindexer
 from plone.app.users.userdataschema import checkEmailAddress
 from plone.namedfile.field import NamedBlobImage
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+
+organType = SimpleVocabulary(
+    [SimpleTerm(value='Open', title=_(u'Open to everybody')),
+     SimpleTerm(value='Members', title=_(u'Restricted to Members')),
+     SimpleTerm(value='Affected', title=_(u'Restricted to Affected')),
+     ]
+)
 
 
 class IOrgangovern(form.Schema):
@@ -16,14 +23,14 @@ class IOrgangovern(form.Schema):
 
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
-        title=_PMF(u'label_title', default=u'Title'),
+        title=_(u'Title'),
         required=True
     )
 
-    """ Dubte: ha de searchable? required? si es fa servir per la URL"""
     dexteritytextindexer.searchable('acronim')
     acronim = schema.TextLine(
         title=_(u'Acronym'),
+        description=_(u"Acronym Description"),
         required=False
     )
 
@@ -31,6 +38,13 @@ class IOrgangovern(form.Schema):
     descripcioOrgan = RichText(
         title=_(u"Organ Govern description"),
         required=False,
+    )
+
+    tipus = schema.Choice(
+        title=_(u"Organ Govern type"),
+        vocabulary=organType,
+        default=_(u'Open'),
+        required=True,
     )
 
     membresOrgan = RichText(
@@ -64,6 +78,7 @@ class IOrgangovern(form.Schema):
 
     logoOrgan = NamedBlobImage(
         title=_(u"Organ logo"),
+        description=_(u'Logo description'),
         required=False,
     )
 
@@ -73,17 +88,21 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
-    dexteritytextindexer.searchable('bodyMail')
-    bodyMail = RichText(
-        title=_(u"Body Mail"),
-        description=_(u"Body Mail description"),
+    bodyMailconvoquing = RichText(
+        title=_(u"Body Mail convoquing"),
+        description=_(u"Body Mail convoquing description"),
         required=False,
     )
 
-    dexteritytextindexer.searchable('signatura')
-    signatura = RichText(
-        title=_(u"Signatura"),
-        description=_(u"Signatura description"),
+    bodyMailSend = RichText(
+        title=_(u"Body Mail send"),
+        description=_(u"Body Mail send description"),
+        required=False,
+    )
+
+    footerMail = RichText(
+        title=_(u"footerMail"),
+        description=_(u"footerMail description"),
         required=False,
     )
 
