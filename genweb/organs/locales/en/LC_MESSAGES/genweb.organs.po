@@ -1,0 +1,95 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2016-09-22 08:52+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: ./genweb/organs/content/organgovern.py:26
+msgid "Acronym"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:71
+msgid "Agreement and document labels"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:78
+msgid "Body Mail"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:79
+msgid "Body Mail description"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:48
+msgid "Enter email lists adresses, separated by commas."
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:72
+msgid "Enter labels, separated by commas."
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:60
+msgid "Enter the from used in the mail form"
+msgstr ""
+
+#: ./genweb/organs/configure.zcml:29
+msgid "Extension profile for genweb.organs."
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:59
+msgid "From mail"
+msgstr ""
+
+#: ./genweb/organs/configure.zcml:29
+msgid "Genweb Organs de Govern"
+msgstr ""
+
+#: ./genweb/organs/profiles/default/types/genweb.organs.organgovern.xml
+msgid "Organ Govern"
+msgstr ""
+
+#: ./genweb/organs/profiles/default/types/genweb.organs.organgovern.xml
+msgid "Organ Govern Type Description"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:32
+msgid "Organ Govern description"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:37
+msgid "Organ Govern members"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:66
+msgid "Organ logo"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:42
+msgid "Organ permanently invited people"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:85
+msgid "Signatura"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:86
+msgid "Signatura description"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:53
+msgid "Stakeholders mail address"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:47
+msgid "mail address"
+msgstr ""
