@@ -43,6 +43,70 @@
       </div>
   </div>
 
+    <tal:RelatedDocs tal:define="item view/SessionsInside" tal:condition="item">
+      <h3 i18n:translate="">Sessions list</h3>
+      <table class="listing">
+        <thead>
+          <tr>
+            <th style="width:34%">&nbsp;
+              <tal:title i18n:translate="">Title</tal:title>
+            </th>
+            <th style="width:16%">&nbsp;
+              <tal:head i18n:translate="">Session date</tal:head>
+            </th>
+            <th style="width:20%">&nbsp;
+              <tal:head i18n:translate="">Session place</tal:head>
+            </th>
+            <th style="width:13%">&nbsp;
+              <tal:head i18n:translate="">Session start time</tal:head>
+            </th>
+            <th style="width:17%">&nbsp;
+              <tal:head i18n:translate="">State</tal:head>
+            </th>
+          </tr>
+        </thead>
+        <tal:documents repeat="item view/SessionsInside">
+          <tal:block tal:define="obj item/getObject;">
+            <tr>
+              <td>&nbsp;
+                <a href="#"
+                       tal:attributes="href obj/absolute_url;"
+                       tal:content="obj/title">
+                        Item Title
+                </a>
+              </td>
+              <td>&nbsp;
+                <tal:data tal:condition="obj/dataSessio"
+                          tal:content="python:obj.dataSessio.strftime('%d/%m/%Y')" >
+                  Data de la Sessió
+                </tal:data>
+              </td>
+              <td>&nbsp;
+                <tal:data tal:condition="obj/llocConvocatoria"
+                          tal:content="obj/llocConvocatoria">
+                  Lloc Convocatoria
+                </tal:data>
+              </td>
+              <td>&nbsp;
+                <tal:data tal:condition="obj/horaInici"
+                          tal:content="python:obj.horaInici.strftime('%H:%M')">
+                  Hora inici
+                </tal:data>
+              </td>
+              <td>&nbsp;
+                <span tal:content="item/review_state"
+                      i18n:translate=""
+                      i18n:domain="genweb"
+                      tal:attributes="class item/review_state">
+                  Status
+                </span>
+              </td>
+            </tr>
+          </tal:block>
+        </tal:documents>
+      </table>
+    </tal:RelatedDocs>
+
   </metal:content-core>
 
 </body>

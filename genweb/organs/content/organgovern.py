@@ -8,6 +8,7 @@ from collective import dexteritytextindexer
 from plone.app.users.userdataschema import checkEmailAddress
 from plone.namedfile.field import NamedBlobImage
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+from Products.CMFCore.utils import getToolByName
 
 organType = SimpleVocabulary(
     [SimpleTerm(value='Open', title=_(u'Open to everybody')),
@@ -15,6 +16,9 @@ organType = SimpleVocabulary(
      SimpleTerm(value='Affected', title=_(u'Restricted to Affected')),
      ]
 )
+
+cols=50
+rows=15
 
 
 class IOrgangovern(form.Schema):
@@ -110,3 +114,16 @@ class IOrgangovern(form.Schema):
 class View(grok.View):
     grok.context(IOrgangovern)
     grok.template('organgovern_view')
+
+    def SessionsInside(self):
+        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        data = portal_catalog.searchResults(
+            portal_type='genweb.organs.sessio',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        # The last modified is the first shown.
+        return sorted(data, key=lambda item: item.start, reverse=True)

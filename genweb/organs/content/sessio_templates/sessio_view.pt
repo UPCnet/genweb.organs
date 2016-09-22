@@ -1,0 +1,94 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="ca"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="genweb.rectorat">
+<body>
+
+<metal:content-core fill-slot="content-core"
+                    tal:define="portal_url context/@@plone_portal_state/portal_url;">
+    <br/>
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        <li class="active"><a href="#ordreTab" data-toggle="tab">Ordre del dia</a></li>
+        <li><a href="#assistentsTab" data-toggle="tab">Assistents</a></li>
+        <li><a href="#convocatsTab" data-toggle="tab">Convocats</a></li>
+        <li><a href="#convidatsTab" data-toggle="tab">Convidats</a></li>
+        <li><a href="#excusatsTab" data-toggle="tab">Excusats</a></li>
+
+        <li role="presentation" class="dropdown" style="float:right">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+             role="button" aria-haspopup="true" aria-expanded="true"> Notificar... <span class="caret"></span> </a>
+           <ul class="dropdown-menu">
+            <li><a href="send_message">Enviar missatge</a></li>
+            <li><a href="#">Per mail</a>
+            <li role="separator" class="divider"></li>
+            <li><a href="#notificationsList">Veure historial</a></li>
+          </ul>
+        </li>
+
+    </ul>
+
+  <div id="sessionTabs" class="tab-content">
+      <div class="tab-pane active" id="ordreTab">
+          <ul>
+            <li tal:condition="context/dataSessio">
+              <b i18n:translate="">Data:</b>
+              <span style="float:right"
+                    tal:content="python:context.dataSessio.strftime('%d/%m/%Y')"></span>
+            </li>
+            <li tal:condition="context/horaInici">
+              <b i18n:translate="">Session start time</b>:
+              <span style="float:right"
+                    tal:content="python:context.horaInici.strftime('%H:%M')"></span>
+            </li>
+            <li tal:condition="context/horaFi">
+              <b i18n:translate="">Session end time</b>:
+              <span style="float:right"
+                    tal:content="python:context.horaFi.strftime('%H:%M')"></span>
+            </li>
+            <li tal:condition="context/llocConvocatoria">
+              <b i18n:translate="">Lloc:</b>
+              <span style="float:right"
+                    tal:content="context/llocConvocatoria"></span>
+            </li>
+
+          </ul>
+      </div>
+
+      <div class="tab-pane" id="assistentsTab">
+        <tal:block tal:condition="context/membresOrgan">
+          <div tal:replace="structure context/membresOrgan/output|nothing" />
+        </tal:block>
+      </div>
+
+      <div class="tab-pane" id="convocatsTab">
+        <tal:block tal:condition="context/membresConvocats">
+          <div tal:replace="structure context/membresConvocats/output|nothing" />
+        </tal:block>
+      </div>
+
+      <div class="tab-pane" id="convidatsTab">
+        <tal:block tal:condition="context/membresConvidats">
+          <div tal:replace="structure context/membresConvidats/output|nothing" />
+        </tal:block>
+      </div>
+
+      <div class="tab-pane" id="excusatsTab">
+        <tal:block tal:condition="context/llistaExcusats">
+          <div tal:replace="structure context/llistaExcusats/output|nothing" />
+        </tal:block>
+      </div>
+
+  </div>
+
+<div>
+
+
+
+
+</metal:content-core>
+
+</body>
+</html>
