@@ -49,7 +49,7 @@
         <thead>
           <tr>
             <th style="width:34%">&nbsp;
-              <tal:title i18n:translate="">Title</tal:title>
+              <tal:title i18n:translate="">Organ Title</tal:title>
             </th>
             <th style="width:16%">&nbsp;
               <tal:head i18n:translate="">Session date</tal:head>

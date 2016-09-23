@@ -2,18 +2,11 @@
 import datetime
 from five import grok
 from zope import schema
-from plone import api
-import re
-from plone.indexer import indexer
 from plone.directives import dexterity
 from plone.directives import form
 from plone.app.textfield import RichText
-from zope.annotation.interfaces import IAnnotations
 from genweb.organs import _
-from plone.app.dexterity import PloneMessageFactory as _PMF
 from collective import dexteritytextindexer
-from Products.CMFCore.utils import getToolByName
-from datetime import date
 
 
 class InvalidEmailError(schema.ValidationError):
@@ -27,7 +20,7 @@ class ISessio(form.Schema):
 
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
-        title=_PMF(u'label_title', default=u'Title'),
+        title=_(u'Session Title'),
         required=True
     )
 
@@ -92,14 +85,6 @@ class ISessio(form.Schema):
         required=False,
     )
 
-    ''' Eliminar
-    dexteritytextindexer.searchable('ordreSessio')
-    ordreSessio = RichText(
-        title=_(u"Session order"),
-        required=False,
-    )
-     '''
-
     dexteritytextindexer.searchable('bodyMail')
     bodyMail = RichText(
         title=_(u"Body Mail"),
@@ -124,6 +109,7 @@ class ISessio(form.Schema):
         title=_(u"Audio link"),
         required=False,
     )
+
 
 @form.default_value(field=ISessio['anySessio'])
 def anySessioDefaultValue(data):

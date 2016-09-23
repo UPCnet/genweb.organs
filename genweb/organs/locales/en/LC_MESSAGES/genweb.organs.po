@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-09-22 12:49+0000\n"
+"POT-Creation-Date: 2016-09-23 11:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,68 +14,67 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: ./genweb/organs/content/organgovern.py:36
+#: ./genweb/organs/content/organgovern.py:33
 msgid "Acronym"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:37
+#: ./genweb/organs/content/organgovern.py:34
 msgid "Acronym Description"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:90
+#: ./genweb/organs/content/organgovern.py:88
 msgid "Agreement and document labels"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:124
+#: ./genweb/organs/content/sessio.py:109
 msgid "Audio link"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:105
+#: ./genweb/organs/content/sessio.py:90
 msgid "Body Mail"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:96
+#: ./genweb/organs/content/organgovern.py:95
 msgid "Body Mail convoquing"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:97
+#: ./genweb/organs/content/organgovern.py:96
 msgid "Body Mail convoquing description"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:106
+#: ./genweb/organs/content/sessio.py:91
 msgid "Body Mail description"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:102
+#: ./genweb/organs/content/organgovern.py:101
 msgid "Body Mail send"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:103
+#: ./genweb/organs/content/organgovern.py:102
 msgid "Body Mail send description"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:66
-#: ./genweb/organs/content/sessio.py:67
+#: ./genweb/organs/content/sessio.py:60
 msgid "Enter email lists adresses, separated by commas."
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:91
+#: ./genweb/organs/content/organgovern.py:89
 msgid "Enter labels, separated by commas."
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:78
+#: ./genweb/organs/content/organgovern.py:76
 msgid "Enter the from used in the mail form"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:91
+#: ./genweb/organs/content/organgovern.py:90
+msgid "Esborrany, Pendent d'aprovació, Aprovat, Informat, No aprovat, Derogat, Informatiu"
+msgstr ""
+
+#: ./genweb/organs/content/sessio.py:84
 msgid "Excused members"
 msgstr ""
 
-#: ./genweb/organs/configure.zcml:29
-msgid "Extension profile for genweb.organs."
-msgstr ""
-
-#: ./genweb/organs/content/organgovern.py:77
+#: ./genweb/organs/content/organgovern.py:75
 msgid "From mail"
 msgstr ""
 
@@ -83,19 +82,27 @@ msgstr ""
 msgid "Genweb Organs de Govern"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:79
+#: ./genweb/organs/content/sessio.py:72
 msgid "Incoming members list"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:85
+#: ./genweb/organs/configure.zcml:29
+msgid "Installs Organs de Govern package"
+msgstr ""
+
+#: ./genweb/organs/content/sessio.py:78
 msgid "Invited members"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:85
+#: ./genweb/organs/content/organgovern.py:83
 msgid "Logo description"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:50
+#: ./genweb/organs/content/organgovern.py:64
+msgid "Mail address help"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:47
 msgid "Open"
 msgstr ""
 
@@ -111,24 +118,33 @@ msgstr ""
 msgid "Organ Govern Type Description"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:43
+#: ./genweb/organs/content/organgovern.py:40
 msgid "Organ Govern description"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:55
+#: ./genweb/organs/content/organgovern.py:52
 msgid "Organ Govern members"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:48
+#: ./genweb/organs/content/organgovern.py:45
 msgid "Organ Govern type"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:84
+#: ./genweb/organs/content/organgovern.py:27
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:52
+msgid "Organ Title"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:82
 msgid "Organ logo"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:60
+#: ./genweb/organs/content/organgovern.py:57
 msgid "Organ permanently invited people"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:58
+msgid "Organ permanently invited people description."
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:16
@@ -143,34 +159,38 @@ msgstr ""
 msgid "Session"
 msgstr ""
 
+#: ./genweb/organs/content/sessio.py:23
+msgid "Session Title"
+msgstr ""
+
 #: ./genweb/organs/profiles/default/types/genweb.organs.sessio.xml
 msgid "Session Type Description"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:55
-#: ./genweb/organs/content/sessio.py:46
+#: ./genweb/organs/content/sessio.py:39
 msgid "Session date"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:61
+#: ./genweb/organs/content/sessio.py:54
 msgid "Session end time"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:41
+#: ./genweb/organs/content/sessio.py:34
 msgid "Session number"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:58
-#: ./genweb/organs/content/sessio.py:51
+#: ./genweb/organs/content/sessio.py:44
 msgid "Session place"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:61
-#: ./genweb/organs/content/sessio.py:56
+#: ./genweb/organs/content/sessio.py:49
 msgid "Session start time"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:36
+#: ./genweb/organs/content/sessio.py:29
 msgid "Session year"
 msgstr ""
 
@@ -178,41 +198,40 @@ msgstr ""
 msgid "Sessions list"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:112
+#: ./genweb/organs/content/sessio.py:97
 msgid "Signatura"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:113
+#: ./genweb/organs/content/sessio.py:98
 msgid "Signatura description"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:71
-#: ./genweb/organs/content/sessio.py:72
+#: ./genweb/organs/content/organgovern.py:69
+#: ./genweb/organs/content/sessio.py:65
 msgid "Stakeholders mail address"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:70
+msgid "Stakeholders mail address help."
 msgstr ""
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:64
 msgid "State"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:30
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:52
-msgid "Title"
-msgstr ""
-
-#: ./genweb/organs/content/sessio.py:119
+#: ./genweb/organs/content/sessio.py:104
 msgid "Video link"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:108
+#: ./genweb/organs/content/organgovern.py:107
 msgid "footerMail"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:109
+#: ./genweb/organs/content/organgovern.py:108
 msgid "footerMail description"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:65
-#: ./genweb/organs/content/sessio.py:66
+#: ./genweb/organs/content/organgovern.py:63
+#: ./genweb/organs/content/sessio.py:59
 msgid "mail address"
 msgstr ""

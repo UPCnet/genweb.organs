@@ -17,9 +17,6 @@ organType = SimpleVocabulary(
      ]
 )
 
-cols=50
-rows=15
-
 
 class IOrgangovern(form.Schema):
     """ Tipus Organ de Govern
@@ -27,7 +24,7 @@ class IOrgangovern(form.Schema):
 
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
-        title=_(u'Title'),
+        title=_(u'Organ Title'),
         required=True
     )
 
@@ -58,18 +55,19 @@ class IOrgangovern(form.Schema):
 
     convidatsPermanentsOrgan = RichText(
         title=_(u"Organ permanently invited people"),
+        description=_(u"Organ permanently invited people description."),
         required=False,
     )
 
     adrecaLlista = schema.Text(
         title=_(u"mail address"),
-        description=_(u"Enter email lists adresses, separated by commas."),
+        description=_(u"Mail address help"),
         required=False,
     )
 
     adrecaAfectatsLlista = schema.Text(
         title=_(u"Stakeholders mail address"),
-        description=_(u"Enter email lists adresses, separated by commas."),
+        description=_(u"Stakeholders mail address help."),
         required=False,
     )
 
@@ -89,6 +87,7 @@ class IOrgangovern(form.Schema):
     estatsLlista = schema.Text(
         title=_(u"Agreement and document labels"),
         description=_(u"Enter labels, separated by commas."),
+        default=_(u"Esborrany, Pendent d'aprovació, Aprovat, Informat, No aprovat, Derogat, Informatiu"),
         required=False,
     )
 
