@@ -57,13 +57,13 @@ class ISessio(form.Schema):
 
     adrecaLlista = schema.Text(
         title=_(u"mail address"),
-        description=_(u"Enter email lists adresses, separated by commas."),
+        description=_(u"notification_mail_help"),
         required=True,
     )
 
     adrecaAfectatsLlista = schema.Text(
         title=_(u"Stakeholders mail address"),
-        description=_(u"Enter email lists adresses, separated by commas."),
+        description=_(u"affected_mail_help"),
         required=False,
     )
 

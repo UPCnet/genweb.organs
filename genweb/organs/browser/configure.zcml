@@ -14,4 +14,10 @@
       directory="static"
       />
 
+    <!--   ++resource++genweb.organs.stylesheets/genweb_organs.css -->
+    <browser:resourceDirectory
+      name="genweb.organs.stylesheets"
+      directory="stylesheets"
+      />
+
 </configure>

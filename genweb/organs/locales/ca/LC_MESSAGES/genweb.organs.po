@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-09-23 11:49+0000\n"
+"POT-Creation-Date: 2016-09-26 14:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,10 +54,6 @@ msgstr "Plantilla del missatge d'Enviar missatge"
 msgid "Body Mail send description"
 msgstr "Missatge que s'adjunta al clicar el botó d'enviar missatge. S'hi afegeix NOMÉS el peu del missatge."
 
-#: ./genweb/organs/content/sessio.py:60
-msgid "Enter email lists adresses, separated by commas."
-msgstr "Indiqueu la llista de correu o les adreces separades per comes."
-
 #: ./genweb/organs/content/organgovern.py:89
 msgid "Enter labels, separated by commas."
 msgstr "Literals que es faran servir com a estats d'aprovació dels Punts de l'ordre del dia."
@@ -72,7 +68,7 @@ msgstr ""
 
 #: ./genweb/organs/content/sessio.py:84
 msgid "Excused members"
-msgstr ""
+msgstr "Persones excusades"
 
 #: ./genweb/organs/content/organgovern.py:75
 msgid "From mail"
@@ -84,7 +80,7 @@ msgstr ""
 
 #: ./genweb/organs/content/sessio.py:72
 msgid "Incoming members list"
-msgstr ""
+msgstr "Persones convocades"
 
 #: ./genweb/organs/configure.zcml:29
 msgid "Installs Organs de Govern package"
@@ -92,7 +88,7 @@ msgstr ""
 
 #: ./genweb/organs/content/sessio.py:78
 msgid "Invited members"
-msgstr ""
+msgstr "Persones invitades"
 
 #: ./genweb/organs/content/organgovern.py:83
 msgid "Logo description"
@@ -131,7 +127,6 @@ msgid "Organ Govern type"
 msgstr "Tipus d'òrgan"
 
 #: ./genweb/organs/content/organgovern.py:27
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:52
 msgid "Organ Title"
 msgstr "Títol de l'órgan"
 
@@ -176,16 +171,22 @@ msgstr "Data de la sessió"
 msgid "Session end time"
 msgstr "Hora de finalització de la sessió"
 
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:58
+msgid "Session location"
+msgstr "Lloc de la convocatòria"
+
 #: ./genweb/organs/content/sessio.py:34
 msgid "Session number"
 msgstr "Número de sessió"
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:58
 #: ./genweb/organs/content/sessio.py:44
 msgid "Session place"
-msgstr "Lloc de la sessió"
+msgstr "Lloc de la convocatòria"
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:61
+msgid "Session start"
+msgstr "Hora d'inici"
+
 #: ./genweb/organs/content/sessio.py:49
 msgid "Session start time"
 msgstr "Hora dínici de la sessió"
@@ -217,11 +218,19 @@ msgstr "Llista d'adreces de les persones afectades a les que es voldrà notifica
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:64
 msgid "State"
-msgstr ""
+msgstr "Estat"
+
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:52
+msgid "Title"
+msgstr "Títol"
 
 #: ./genweb/organs/content/sessio.py:104
 msgid "Video link"
-msgstr ""
+msgstr "Enllaç al video"
+
+#: ./genweb/organs/content/sessio.py:66
+msgid "affected_mail_help"
+msgstr "Llista d'adreces de les persones afectades a les que es voldrà notificar la informació de les sessions."
 
 #: ./genweb/organs/content/organgovern.py:107
 msgid "footerMail"
@@ -235,3 +244,7 @@ msgstr "Peu del missatge que s'adjunta tant al missatge de convocar com al de en
 #: ./genweb/organs/content/sessio.py:59
 msgid "mail address"
 msgstr "Adreces de notificació"
+
+#: ./genweb/organs/content/sessio.py:60
+msgid "notification_mail_help"
+msgstr "Adreces a les que han d'arribar els missatges relatius a la sessió."

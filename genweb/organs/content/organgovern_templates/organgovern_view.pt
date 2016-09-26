@@ -10,7 +10,7 @@
 
   <metal:content-core fill-slot="content-core">
   <br/>
-  <div id="content">
+  <div id="contentOrgan">
       <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
           <li class="active"><a href="#descriptionTab" data-toggle="tab">Descripció</a></li>
           <li><a href="#composicionTab" data-toggle="tab">Composició</a></li>
@@ -45,20 +45,20 @@
 
     <tal:RelatedDocs tal:define="item view/SessionsInside" tal:condition="item">
       <h3 i18n:translate="">Sessions list</h3>
-      <table class="listing">
+      <table class="table table-striped">
         <thead>
           <tr>
             <th style="width:34%">&nbsp;
-              <tal:title i18n:translate="">Organ Title</tal:title>
+              <tal:title i18n:translate="">Title</tal:title>
             </th>
             <th style="width:16%">&nbsp;
               <tal:head i18n:translate="">Session date</tal:head>
             </th>
             <th style="width:20%">&nbsp;
-              <tal:head i18n:translate="">Session place</tal:head>
+              <tal:head i18n:translate="">Session location</tal:head>
             </th>
             <th style="width:13%">&nbsp;
-              <tal:head i18n:translate="">Session start time</tal:head>
+              <tal:head i18n:translate="">Session start</tal:head>
             </th>
             <th style="width:17%">&nbsp;
               <tal:head i18n:translate="">State</tal:head>

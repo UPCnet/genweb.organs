@@ -1,0 +1,42 @@
+/*#contentOrgan li.active {
+    background-color: red;
+}
+
+#contentOrgan > .active > a {
+    background-color: green;
+}
+
+#contentOrgan li {
+    background-color: blue;
+}
+*/
+
+.portaltype-genweb-organs-organgovern div.tab-pane.active {
+    padding-top: 20px;
+    background-color: #f0f0f0;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+ul#tabs.nav.nav-tabs {
+    margin: 0px;
+}
+
+#contentOrgan #tabs li a {
+    background-image: none;
+    background-color: #D4D4D4;
+    padding: 10px 20px 10px 20px;
+    border: none;
+    margin-right: 5px;
+}
+
+#contentOrgan #tabs li.active a {
+    background-image: none;
+    background-color: #f0f0f0;
+    border: none;
+    font-weight: bold;
+}
+
+.nav-tabs {
+    border-bottom: 0px solid #B2B2B2 !important;
+}

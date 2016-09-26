@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-09-23 11:49+0000\n"
+"POT-Creation-Date: 2016-09-26 14:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,10 +52,6 @@ msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:102
 msgid "Body Mail send description"
-msgstr ""
-
-#: ./genweb/organs/content/sessio.py:60
-msgid "Enter email lists adresses, separated by commas."
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:89
@@ -131,7 +127,6 @@ msgid "Organ Govern type"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:27
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:52
 msgid "Organ Title"
 msgstr ""
 
@@ -176,16 +171,22 @@ msgstr ""
 msgid "Session end time"
 msgstr ""
 
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:58
+msgid "Session location"
+msgstr ""
+
 #: ./genweb/organs/content/sessio.py:34
 msgid "Session number"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:58
 #: ./genweb/organs/content/sessio.py:44
 msgid "Session place"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:61
+msgid "Session start"
+msgstr ""
+
 #: ./genweb/organs/content/sessio.py:49
 msgid "Session start time"
 msgstr ""
@@ -219,8 +220,16 @@ msgstr ""
 msgid "State"
 msgstr ""
 
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:52
+msgid "Title"
+msgstr ""
+
 #: ./genweb/organs/content/sessio.py:104
 msgid "Video link"
+msgstr ""
+
+#: ./genweb/organs/content/sessio.py:66
+msgid "affected_mail_help"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:107
@@ -234,4 +243,8 @@ msgstr ""
 #: ./genweb/organs/content/organgovern.py:63
 #: ./genweb/organs/content/sessio.py:59
 msgid "mail address"
+msgstr ""
+
+#: ./genweb/organs/content/sessio.py:60
+msgid "notification_mail_help"
 msgstr ""
