@@ -9,6 +9,11 @@ from plone.app.users.userdataschema import checkEmailAddress
 from plone.namedfile.field import NamedBlobImage
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from Products.CMFCore.utils import getToolByName
+from plone.autoform import directives
+from plone.supermodel.directives import fieldset
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.supermodel import model
+from plone.directives import dexterity
 
 organType = SimpleVocabulary(
     [SimpleTerm(value='Open', title=_(u'Open to everybody')),
@@ -22,11 +27,29 @@ class IOrgangovern(form.Schema):
     """ Tipus Organ de Govern
     """
 
+    fieldset('assistents',
+             label=u'Assistens',
+             fields=['body2', 'membresOrgan', 'convidatsPermanentsOrgan']
+             )
+
+    # fieldset('notificacions',
+    #          label=u'Notifications',
+    #          fields=['adrecaLlista', 'adrecaAfectatsLlista', 'bodyMailconvoquing', 'bodyMailSend', 'footerMail']
+    #          )
+
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_(u'Organ Title'),
         required=True
     )
+
+    form.widget(body2='plone.app.z3cform.wysiwyg.WysiwygFieldWidget')
+    model.primary('body2')
+    body2 = schema.Text(
+        title=u"Body text",
+        required=False,
+        default=u"Body text goes here"
+        )
 
     dexteritytextindexer.searchable('acronim')
     acronim = schema.TextLine(
@@ -35,8 +58,8 @@ class IOrgangovern(form.Schema):
         required=False
     )
 
-    dexteritytextindexer.searchable('descripcioOrgan')
-    descripcioOrgan = RichText(
+    directives.widget(descripcioOrgan=WysiwygFieldWidget)
+    descripcioOrgan = schema.Text(
         title=_(u"Organ Govern description"),
         required=False,
     )
@@ -48,12 +71,14 @@ class IOrgangovern(form.Schema):
         required=True,
     )
 
-    membresOrgan = RichText(
+    directives.widget(membresOrgan=WysiwygFieldWidget)
+    membresOrgan = schema.Text(
         title=_(u"Organ Govern members"),
         required=False,
     )
 
-    convidatsPermanentsOrgan = RichText(
+    directives.widget(convidatsPermanentsOrgan=WysiwygFieldWidget)
+    convidatsPermanentsOrgan = schema.Text(
         title=_(u"Organ permanently invited people"),
         description=_(u"Organ permanently invited people description."),
         required=False,
@@ -91,23 +116,33 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
-    bodyMailconvoquing = RichText(
+    directives.widget(bodyMailconvoquing=WysiwygFieldWidget)
+    bodyMailconvoquing = schema.Text(
         title=_(u"Body Mail convoquing"),
         description=_(u"Body Mail convoquing description"),
         required=False,
     )
 
-    bodyMailSend = RichText(
+    directives.widget(bodyMailSend=WysiwygFieldWidget)
+    bodyMailSend = schema.Text(
         title=_(u"Body Mail send"),
         description=_(u"Body Mail send description"),
         required=False,
     )
 
-    footerMail = RichText(
+    directives.widget(footerMail=WysiwygFieldWidget)
+    footerMail = schema.Text(
         title=_(u"footerMail"),
         description=_(u"footerMail description"),
         required=False,
     )
+
+
+class Edit(dexterity.EditForm):
+    """A standard edit form.
+    """
+    grok.context(IOrgangovern)
+    enable_form_tabbing = True
 
 
 class View(grok.View):
