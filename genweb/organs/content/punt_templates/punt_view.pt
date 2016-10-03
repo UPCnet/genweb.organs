@@ -16,6 +16,7 @@
     </div>
 
     <tal:Sessions tal:define="item view/FilesInside" tal:condition="item">
+    <h3 i18n:translate="">Filelist</h3>
     <br/>
       <table class="table table-striped">
           <tal:documents repeat="item view/FilesInside">

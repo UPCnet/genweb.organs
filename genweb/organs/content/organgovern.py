@@ -59,7 +59,7 @@ class IOrgangovern(form.Schema):
     tipus = schema.Choice(
         title=_(u"Organ Govern type"),
         vocabulary=organType,
-        default=_(u'Open'),
+        default=_(u'Open to everybody'),
         required=True,
     )
 
