@@ -28,11 +28,11 @@ msgstr "Estats d'aprovació"
 
 #: ./genweb/organs/content/sessio.py:109
 msgid "Audio link"
-msgstr ""
+msgstr "Enllaç al fitxer d'audio"
 
 #: ./genweb/organs/content/sessio.py:90
 msgid "Body Mail"
-msgstr ""
+msgstr "Cos del missatge de convocatòria"
 
 #: ./genweb/organs/content/organgovern.py:95
 msgid "Body Mail convoquing"
@@ -44,7 +44,7 @@ msgstr "Missatge que s'adjunta al convocar una sessió. S'hi afegeix el peu del 
 
 #: ./genweb/organs/content/sessio.py:91
 msgid "Body Mail description"
-msgstr ""
+msgstr "Cos del missatge de convocatòria"
 
 #: ./genweb/organs/content/organgovern.py:101
 msgid "Body Mail send"

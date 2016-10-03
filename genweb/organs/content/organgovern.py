@@ -29,27 +29,19 @@ class IOrgangovern(form.Schema):
 
     fieldset('assistents',
              label=u'Assistens',
-             fields=['body2', 'membresOrgan', 'convidatsPermanentsOrgan']
+             fields=['membresOrgan', 'convidatsPermanentsOrgan']
              )
 
-    # fieldset('notificacions',
-    #          label=u'Notifications',
-    #          fields=['adrecaLlista', 'adrecaAfectatsLlista', 'bodyMailconvoquing', 'bodyMailSend', 'footerMail']
-    #          )
+    fieldset('notificacions',
+             label=u'Notifications',
+             fields=['adrecaLlista', 'adrecaAfectatsLlista', 'bodyMailconvoquing', 'bodyMailSend', 'footerMail']
+             )
 
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_(u'Organ Title'),
         required=True
     )
-
-    form.widget(body2='plone.app.z3cform.wysiwyg.WysiwygFieldWidget')
-    model.primary('body2')
-    body2 = schema.Text(
-        title=u"Body text",
-        required=False,
-        default=u"Body text goes here"
-        )
 
     dexteritytextindexer.searchable('acronim')
     acronim = schema.TextLine(

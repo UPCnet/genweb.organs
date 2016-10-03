@@ -7,6 +7,7 @@ from plone.directives import form
 from plone.app.textfield import RichText
 from genweb.organs import _
 from collective import dexteritytextindexer
+from Products.CMFCore.utils import getToolByName
 
 
 class InvalidEmailError(schema.ValidationError):
@@ -21,12 +22,6 @@ class ISessio(form.Schema):
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_(u'Session Title'),
-        required=True
-    )
-
-    ''' str(date.today().year) '''
-    anySessio = schema.TextLine(
-        title=_(u"Session year"),
         required=True
     )
 
@@ -111,11 +106,6 @@ class ISessio(form.Schema):
     )
 
 
-@form.default_value(field=ISessio['anySessio'])
-def anySessioDefaultValue(data):
-    return datetime.datetime.today().year
-
-
 @form.default_value(field=ISessio['numSessio'])
 def numSessioDefaultValue(data):
     return 666
@@ -156,12 +146,25 @@ def adrecaAfectatsLlistaDefaultValue(data):
     return data.context.adrecaAfectatsLlista
 
 
-class View(grok.View):
-    grok.context(ISessio)
-    grok.template('sessio_view')
-
-
 class Edit(dexterity.EditForm):
     """A standard edit form.
     """
     grok.context(ISessio)
+
+
+class View(grok.View):
+    grok.context(ISessio)
+    grok.template('sessio_view')
+
+    def PuntsInside(self):
+        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        data = portal_catalog.searchResults(
+            portal_type='genweb.organs.punt',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        # The last modified is the first shown.
+        return sorted(data, key=lambda item: item.start, reverse=True)

@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="ca"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="genweb.rectorat">
+<body>
+
+<metal:content-core fill-slot="content-core">
+    <br/>
+    <div id="contentPunt">
+
+      PUNT o acord
+
+    </div>
+
+    <tal:Sessions tal:define="item view/FilesInside" tal:condition="item">
+    <br/>
+      <table class="table table-striped">
+          <tal:documents repeat="item view/FilesInside">
+            <tal:block tal:define="obj item/getObject;">
+              <tr>
+                <td>&nbsp;
+                  <a href="#"
+                         tal:attributes="href obj/absolute_url;"
+                         tal:content="obj/title">
+                          Item Title
+                  </a>
+                </td>
+
+              </tr>
+            </tal:block>
+          </tal:documents>
+      </table>
+    </tal:Sessions>
+
+</metal:content-core>
+
+</body>
+</html>

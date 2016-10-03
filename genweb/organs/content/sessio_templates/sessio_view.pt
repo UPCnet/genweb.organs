@@ -7,31 +7,27 @@
       i18n:domain="genweb.rectorat">
 <body>
 
-<metal:content-core fill-slot="content-core"
-                    tal:define="portal_url context/@@plone_portal_state/portal_url;">
+<metal:content-core fill-slot="content-core">
     <br/>
-    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-        <li class="active"><a href="#ordreTab" data-toggle="tab">Ordre del dia</a></li>
-        <li><a href="#assistentsTab" data-toggle="tab">Assistents</a></li>
-        <li><a href="#convocatsTab" data-toggle="tab">Convocats</a></li>
-        <li><a href="#convidatsTab" data-toggle="tab">Convidats</a></li>
-        <li><a href="#excusatsTab" data-toggle="tab">Excusats</a></li>
+    <div id="contentSessio">
+      <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+          <li class="active"><a href="#ordreTab" data-toggle="tab">Ordre del dia</a></li>
+          <li><a href="#assistentsTab" data-toggle="tab">Assistents</a></li>
 
-        <li role="presentation" class="dropdown" style="float:right">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#"
-             role="button" aria-haspopup="true" aria-expanded="true"> Notificar... <span class="caret"></span> </a>
-           <ul class="dropdown-menu">
-            <li><a href="send_message">Enviar missatge</a></li>
-            <li><a href="#">Per mail</a>
-            <li role="separator" class="divider"></li>
-            <li><a href="#notificationsList">Veure historial</a></li>
-          </ul>
-        </li>
+          <li role="presentation" class="dropdown" style="float:right">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+               role="button" aria-haspopup="true" aria-expanded="true"> Notificar... <span class="caret"></span> </a>
+             <ul class="dropdown-menu notify">
+              <li><a href="send_message">Enviar missatge</a></li>
+              <li><a href="#">Per mail</a>
+              <li role="separator" class="divider"></li>
+              <li><a href="#notificationsList">Veure historial</a></li>
+            </ul>
+          </li>
+      </ul>
 
-    </ul>
-
-  <div id="sessionTabs" class="tab-content">
-      <div class="tab-pane active" id="ordreTab">
+      <div id="sessionTabs" class="tab-content">
+        <div class="tab-pane active" id="ordreTab">
           <ul>
             <li tal:condition="context/dataSessio">
               <b i18n:translate="">Data:</b>
@@ -55,37 +51,37 @@
             </li>
 
           </ul>
+        </div>
+
+        <div class="tab-pane" id="assistentsTab">
+          <tal:block tal:condition="context/membresConvocats">
+            <div tal:replace="structure context/membresConvocats/output|nothing" />
+          </tal:block>
+        </div>
+
       </div>
-
-      <div class="tab-pane" id="assistentsTab">
-        <tal:block tal:condition="context/membresOrgan">
-          <div tal:replace="structure context/membresOrgan/output|nothing" />
-        </tal:block>
-      </div>
-
-      <div class="tab-pane" id="convocatsTab">
-        <tal:block tal:condition="context/membresConvocats">
-          <div tal:replace="structure context/membresConvocats/output|nothing" />
-        </tal:block>
-      </div>
-
-      <div class="tab-pane" id="convidatsTab">
-        <tal:block tal:condition="context/membresConvidats">
-          <div tal:replace="structure context/membresConvidats/output|nothing" />
-        </tal:block>
-      </div>
-
-      <div class="tab-pane" id="excusatsTab">
-        <tal:block tal:condition="context/llistaExcusats">
-          <div tal:replace="structure context/llistaExcusats/output|nothing" />
-        </tal:block>
-      </div>
-
-  </div>
-
-<div>
+    </div>
 
 
+    <tal:Sessions tal:define="item view/PuntsInside" tal:condition="item">
+    <br/>
+      <table class="table table-striped">
+          <tal:documents repeat="item view/PuntsInside">
+            <tal:block tal:define="obj item/getObject;">
+              <tr>
+                <td>&nbsp;
+                  <a href="#"
+                         tal:attributes="href obj/absolute_url;"
+                         tal:content="obj/titlePunt">
+                          Item Title
+                  </a>
+                </td>
+
+              </tr>
+            </tal:block>
+          </tal:documents>
+      </table>
+    </tal:Sessions>
 
 
 </metal:content-core>

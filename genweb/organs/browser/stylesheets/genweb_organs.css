@@ -11,18 +11,21 @@
 }
 */
 
-.portaltype-genweb-organs-organgovern div.tab-pane.active {
+.portaltype-genweb-organs-organgovern div.tab-pane.active,
+.portaltype-genweb-organs-sessio div.tab-pane.active {
     padding-top: 20px;
     background-color: #f0f0f0;
     padding-left: 20px;
     padding-bottom: 20px;
+    padding-right: 20px;
 }
 
 ul#tabs.nav.nav-tabs {
     margin: 0px;
 }
 
-#contentOrgan #tabs li a {
+#contentOrgan #tabs li a,
+#contentSessio #tabs li a {
     background-image: none;
     background-color: #D4D4D4;
     padding: 10px 20px 10px 20px;
@@ -30,7 +33,8 @@ ul#tabs.nav.nav-tabs {
     margin-right: 5px;
 }
 
-#contentOrgan #tabs li.active a {
+#contentOrgan #tabs li.active a,
+#contentSessio #tabs li.active a {
     background-image: none;
     background-color: #f0f0f0;
     border: none;
@@ -39,4 +43,17 @@ ul#tabs.nav.nav-tabs {
 
 .nav-tabs {
     border-bottom: 0px solid #B2B2B2 !important;
+}
+
+#contentSessio #tabs > li.dropdown.open > ul > li > a {
+    background-color: white;
+    color: black;
+}
+
+
+#ordreTab li {
+    border-bottom: 1px solid white;
+    list-style: outside none;
+    padding-bottom: 8px;
+    padding-top: 8px;
 }

@@ -19,31 +19,41 @@
       </ul>
       <div id="organsTabs" class="tab-content">
           <div class="tab-pane active" id="descriptionTab">
+            <div tal:replace="structure context/acronim" />
+            <div tal:replace="structure context/tipus" />
+            logoOrgan
+
             <tal:block tal:condition="context/descripcioOrgan">
-              <div tal:replace="structure context/descripcioOrgan/output|nothing" />
+              <div tal:replace="structure context/descripcioOrgan" />
             </tal:block>
           </div>
 
           <div class="tab-pane" id="composicionTab">
             <tal:block tal:condition="context/membresOrgan">
-              <div tal:replace="structure context/membresOrgan/output|nothing" />
+              <div tal:replace="structure context/membresOrgan" />
             </tal:block>
+
+            <div tal:replace="structure context/convidatsPermanentsOrgan" />
+
           </div>
 
           <div class="tab-pane" id="adrecesTab">
             <tal:block tal:condition="context/adrecaLlista">
               <div tal:content="context/adrecaLlista" />
             </tal:block>
+
+            <div tal:content="context/adrecaAfectatsLlista" />
+
           </div>
 
           <div class="tab-pane" id="acordsTab">
-              <h1>Acords to include</h1>
+          ... ¿?
           </div>
 
       </div>
   </div>
 
-    <tal:RelatedDocs tal:define="item view/SessionsInside" tal:condition="item">
+    <tal:Sessions tal:define="item view/SessionsInside" tal:condition="item">
       <h3 i18n:translate="">Sessions list</h3>
       <table class="table table-striped">
         <thead>
@@ -105,7 +115,7 @@
           </tal:block>
         </tal:documents>
       </table>
-    </tal:RelatedDocs>
+    </tal:Sessions>
 
   </metal:content-core>
 
