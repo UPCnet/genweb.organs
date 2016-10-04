@@ -6,7 +6,7 @@ from zope.schema import TextLine
 from z3c.form import button
 from plone.directives import form
 from Products.statusmessages.interfaces import IStatusMessage
-from genweb.organs.interfaces import IGenweborgansLayer
+from genweb.organs.interfaces import IGenwebOrgansLayer
 from plone.app.textfield import RichText
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
@@ -37,7 +37,7 @@ class Message(form.SchemaForm):
     grok.context(ISessio)
     grok.template("message_view")
     grok.require('zope2.View')
-    grok.layer(IGenweborgansLayer)
+    grok.layer(IGenwebOrgansLayer)
 
     ignoreContext = True
 
