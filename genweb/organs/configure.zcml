@@ -45,6 +45,4 @@
         layer=".interfaces.IGenwebOrgansLayer"
     />
 
-    <adapter factory=".indexer.SearchableText" />
-
 </configure>
