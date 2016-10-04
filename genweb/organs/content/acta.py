@@ -111,12 +111,6 @@ def llistaExcusatsDefaultValue(data):
     return data.context.llistaExcusats
 
 
-@form.default_value(field=IActa['ordreSessio'])
-def ordreSessioDefaultValue(data):
-    # copy ordreSessio from Session (parent object)
-    return data.context.ordreSessio
-
-
 @form.default_value(field=IActa['actaBody'])
 def actaBodyDefaultValue(data):
     # copy ordreSessio from Session in Acta

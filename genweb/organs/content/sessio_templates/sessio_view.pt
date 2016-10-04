@@ -84,6 +84,56 @@
     </tal:Sessions>
 
 
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"
+         tal:define="loginfo view/LogInformation"
+         tal:condition="loginfo">
+      <span class="panel panel-default">
+        <div class="panel-heading" role="tab" id="logInfo">
+          <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#infoLogData" aria-expanded="false" aria-controls="infoLogData" name="notificationsList">
+              <i class="icon-chevron-down"></i>
+              <tal:omit-tag i18n:translate="">Notifications history</tal:omit-tag>
+            </a>
+          </h4>
+        </div>
+        <div id="infoLogData" class="panel-collapse collapse caixa_llistats_home" role="tabpanel" aria-labelledby="logInfo">
+
+          <div class="accordion-content">
+
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>
+                         <tal:data i18n:translate="">Data i hora</tal:data>
+                       </th>
+                      <th>
+                        <tal:data i18n:translate="">Notificador</tal:data>
+                      </th>
+                      <th>
+                        <tal:data i18n:translate="">Destinataris</tal:data>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tal:documents repeat="data loginfo">
+                      <tr>
+                        <td tal:define="value data/dateMail"
+                            tal:content="python:value.strftime('%d/%m/%Y %H:%M:%S')">
+                        </td>
+                        <td tal:content="data/fromMail"></td>
+                        <td tal:content="data/toMail"></td>
+                      </tr>
+                    </tal:documents>
+                  </tbody>
+                </table>
+              </div>
+
+          </div>
+        </div>
+      </span>
+    </div>
+
 </metal:content-core>
 
 </body>

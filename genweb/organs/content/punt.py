@@ -6,6 +6,7 @@ from plone.directives import form
 from genweb.organs import _
 from collective import dexteritytextindexer
 from Products.CMFCore.utils import getToolByName
+from plone.app.textfield import RichText
 
 
 class InvalidEmailError(schema.ValidationError):
@@ -21,6 +22,30 @@ class IPunt(form.Schema):
     titlePunt = schema.TextLine(
         title=_(u'Punt Title'),
         required=True
+    )
+
+    proposalPoint = schema.TextLine(
+        title=_(u'Proposal point number'),
+        required=False
+    )
+
+    agreement = schema.TextLine(
+        title=_(u'Agreement number'),
+        required=False
+    )
+
+    dexteritytextindexer.searchable('defaultContent')
+    defaultContent = RichText(
+        title=_(u"Proposal description"),
+        description=_(u"Default content shown in the document view"),
+        required=False,
+    )
+
+    estatsLlista = schema.Text(
+        title=_(u"Agreement and document labels"),
+        description=_(u"Enter labels, separated by commas."),
+        default=_(u"Esborrany, Pendent d'aprovació, Aprovat, Informat, No aprovat, Derogat, Informatiu"),
+        required=False,
     )
 
 

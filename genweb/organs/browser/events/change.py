@@ -12,7 +12,7 @@ def sessio_changed(session, event):
         shows the info in the template
     """
     # si passem estat a convocat cal enviar mail de convocatoria...
-
+    import ipdb;ipdb.set_trace()
     if event.transition is None:
         # Quan crees element també executa aquesta acció, i ID no existeix
         # Fem el bypass
@@ -40,11 +40,6 @@ def sessio_changed(session, event):
                 place = ''
             else:
                 place = str(session.llocConvocatoria.encode('utf-8'))
-
-            if session.ordreSessio is None:
-                ordenField = ''
-            else:
-                ordenField = str(session.ordreSessio.output.encode('utf-8'))
 
             if session.bodyMail is None:
                 customBody = ''
@@ -80,7 +75,7 @@ def sessio_changed(session, event):
                     '</strong><br/><br/>Lloc: ' + place + "<br/>Data: " + sessiondate + \
                     "<br/>Hora d'inici: " + starthour + \
                     "<br/>Hora de fi: " + endHour + \
-                    '<br/><br/><strong> Ordre del dia </strong>' + ordenField + '</body>'
+                    '<br/><br/>/body>'
                 bodyMail = moreData + str(introData)
 
             if lang == 'es':
@@ -93,7 +88,7 @@ def sessio_changed(session, event):
                     '</strong><br/><br/>Lugar: ' + place + "<br/>Fecha: " + sessiondate + \
                     "<br/>Hora de inicio: " + starthour + \
                     "<br/>Hora de finalización: " + endHour + \
-                    '<br/><br/><strong> Orden del día </strong>' + ordenField
+                    '<br/><br/>'
                 bodyMail = moreData + str(introData)
 
             if lang == 'en':
@@ -108,7 +103,7 @@ def sessio_changed(session, event):
                     '</strong><br/><br/>Place: ' + place + "<br/>Date: " + sessiondate + \
                     "<br/>Start time: " + starthour + \
                     "<br/>End time: " + endHour + \
-                    '<br/><br/><strong> Contents </strong>' + ordenField
+                    '<br/><br/>'
                 bodyMail = moreData + str(introData)
 
             # Sending Mail!

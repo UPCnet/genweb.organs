@@ -151,3 +151,9 @@ class View(grok.View):
 
         # The last modified is the first shown.
         return sorted(data, key=lambda item: item.start, reverse=True)
+
+    def selectedOrganType(self):
+        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """
+        value = self.context.estatsLlista
+        return value
