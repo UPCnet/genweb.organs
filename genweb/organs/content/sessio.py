@@ -8,6 +8,8 @@ from plone.app.textfield import RichText
 from genweb.organs import _
 from collective import dexteritytextindexer
 from Products.CMFCore.utils import getToolByName
+from plone import api
+from zope.annotation.interfaces import IAnnotations
 
 
 class InvalidEmailError(schema.ValidationError):
@@ -168,3 +170,33 @@ class View(grok.View):
 
         # The last modified is the first shown.
         return sorted(data, key=lambda item: item.start, reverse=True)
+
+    def ActasInside(self):
+        """ Retorna les actes creades aquí dintre (sense tenir compte estat)
+        """
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        data = portal_catalog.searchResults(portal_type='genweb.organs.acta',
+                                            sort_on='getObjPositionInParent',
+                                            path={'query': folder_path,
+                                                  'depth': 1})
+        return data
+
+    def LogInformation(self):
+        """ Obtain send mail annotations
+        """
+
+        if api.user.is_anonymous():
+            return False
+        else:
+            annotations = IAnnotations(self.context)
+            # This is used to remove log entries manually
+            # import ipdb;ipdb.set_trace()
+            # aaa = annotations['genweb.organs.logMail']
+            # pp(aaa)       # Search the desired entry position
+            # aaa.pop(0)    # remove the entry
+            # annotations['genweb.organs.logMail'] = aaa
+            try:
+                return sorted(annotations['genweb.organs.logMail'], reverse=True)
+            except:
+                return False

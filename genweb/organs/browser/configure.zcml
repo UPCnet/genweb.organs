@@ -20,4 +20,22 @@
       directory="stylesheets"
       />
 
+    <!-- Used to print custom ACTA -->
+    <browser:page
+      for="*"
+      name="printActa"
+      class=".views.ActaPrintView"
+      layer="..interfaces.IGenwebOrgansLayer"
+      permission="zope2.View"
+    />
+
+    <!-- Used to add mail information to session log annotation -->
+    <browser:page
+      for="*"
+      name="addLogMail"
+      class=".views.AddLogMail"
+      layer="..interfaces.IGenwebOrgansLayer"
+      permission="zope2.View"
+    />
+
 </configure>

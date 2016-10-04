@@ -4,6 +4,8 @@ from plone.dexterity.content import Item
 
 from genweb.organs.content.organgovern import IOrgangovern
 from genweb.organs.content.sessio import ISessio
+from genweb.organs.content.punt import IPunt
+from genweb.organs.content.acta import IActa
 
 
 class Organgovern(Item):
@@ -12,3 +14,11 @@ class Organgovern(Item):
 
 class Sessio(Item):
     implements(ISessio)
+
+
+class Punt(Item):
+    implements(IPunt)
+
+
+class Acta(Item):
+    implements(IActa)
