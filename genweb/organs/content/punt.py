@@ -8,10 +8,28 @@ from collective import dexteritytextindexer
 from Products.CMFCore.utils import getToolByName
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+import logging
 
 
 class InvalidEmailError(schema.ValidationError):
     __doc__ = u'Please enter a valid e-mail address.'
+
+
+def _createLoggingVocabulary():
+    """ Create zope.schema vocabulary from Python logging levels.
+    """
+    for level, name in logging._levelNames.items():
+
+        # logging._levelNames dictionary is bidirectional, let's
+        # get numeric keys only
+
+        if type(level) == int:
+            term = SimpleTerm(value=level, token=str(level), title=name)
+            yield term
+
+# Construct SimpleVocabulary objects of log level -> name mappings
+logging_vocabulary = SimpleVocabulary(list(_createLoggingVocabulary()))
 
 
 class IPunt(form.Schema):
@@ -43,11 +61,10 @@ class IPunt(form.Schema):
         required=False,
     )
 
-    estatsLlista = schema.Text(
+    estatsLlista = schema.Choice(
         title=_(u"Agreement and document labels"),
-        description=_(u"Enter labels, separated by commas."),
-        default=_(u"Esborrany, Pendent d'aprovació, Aprovat, Informat, No aprovat, Derogat, Informatiu"),
-        required=False,
+        vocabulary=logging_vocabulary,
+        required=True,
     )
 
 
