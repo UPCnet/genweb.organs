@@ -111,7 +111,7 @@ msgstr "Destinataris"
 #: ./genweb/organs/content/organgovern.py:105
 #: ./genweb/organs/content/punt.py:46
 msgid "Enter labels, separated by commas."
-msgstr "Literals que es faran servir com a estats d'aprovació dels Punts de l'ordre del dia."
+msgstr "Indiqueu, separats per comes, els literals que es faran servir com a estats d'aprovació dels Punts de l'ordre del dia."
 
 #: ./genweb/organs/content/organgovern.py:92
 msgid "Enter the from used in the mail form"

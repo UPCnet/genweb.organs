@@ -12,7 +12,6 @@ def sessio_changed(session, event):
         shows the info in the template
     """
     # si passem estat a convocat cal enviar mail de convocatoria...
-    import ipdb;ipdb.set_trace()
     if event.transition is None:
         # Quan crees element també executa aquesta acció, i ID no existeix
         # Fem el bypass

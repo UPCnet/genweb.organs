@@ -4,12 +4,13 @@ from five import grok
 from zope import schema
 from plone.directives import dexterity
 from plone.directives import form
-from plone.app.textfield import RichText
 from genweb.organs import _
 from collective import dexteritytextindexer
 from Products.CMFCore.utils import getToolByName
 from plone import api
 from zope.annotation.interfaces import IAnnotations
+from plone.autoform import directives
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 
 
 class InvalidEmailError(schema.ValidationError):
@@ -64,33 +65,38 @@ class ISessio(form.Schema):
         required=False,
     )
 
+    directives.widget(membresConvocats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('membresConvocats')
-    membresConvocats = RichText(
+    membresConvocats = schema.Text(
         title=_(u"Incoming members list"),
         required=False,
     )
 
+    directives.widget(membresConvidats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('membresConvidats')
-    membresConvidats = RichText(
+    membresConvidats = schema.Text(
         title=_(u"Invited members"),
         required=False,
     )
 
+    directives.widget(llistaExcusats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('llistaExcusats')
-    llistaExcusats = RichText(
+    llistaExcusats = schema.Text(
         title=_(u"Excused members"),
         required=False,
     )
 
+    directives.widget(bodyMail=WysiwygFieldWidget)
     dexteritytextindexer.searchable('bodyMail')
-    bodyMail = RichText(
+    bodyMail = schema.Text(
         title=_(u"Body Mail"),
         description=_(u"Body Mail description"),
         required=False,
     )
 
+    directives.widget(signatura=WysiwygFieldWidget)
     dexteritytextindexer.searchable('signatura')
-    signatura = RichText(
+    signatura = schema.Text(
         title=_(u"Signatura"),
         description=_(u"Signatura description"),
         required=False,

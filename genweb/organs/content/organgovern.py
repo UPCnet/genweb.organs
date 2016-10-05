@@ -2,7 +2,6 @@
 from five import grok
 from zope import schema
 from plone.directives import form
-from plone.app.textfield import RichText
 from genweb.organs import _
 from collective import dexteritytextindexer
 from plone.app.users.userdataschema import checkEmailAddress
@@ -12,8 +11,8 @@ from Products.CMFCore.utils import getToolByName
 from plone.autoform import directives
 from plone.supermodel.directives import fieldset
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from plone.supermodel import model
 from plone.directives import dexterity
+
 
 organType = SimpleVocabulary(
     [SimpleTerm(value='Open', title=_(u'Open to everybody')),

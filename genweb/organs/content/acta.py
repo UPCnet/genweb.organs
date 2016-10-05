@@ -2,7 +2,6 @@
 from five import grok
 from zope import schema
 from plone.directives import form
-from plone.app.textfield import RichText
 from plone.namedfile.field import NamedFile
 from plone.formwidget.multifile import MultiFileFieldWidget
 from plone.directives import dexterity
@@ -11,6 +10,8 @@ from plone.app.dexterity import PloneMessageFactory as _PMF
 from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from collective import dexteritytextindexer
 from genweb.organs import utils
+from plone.autoform import directives
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 
 
 class IActa(form.Schema):
@@ -43,54 +44,54 @@ class IActa(form.Schema):
         required=False,
     )
 
+    directives.widget(membresConvocats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('membresConvocats')
-    membresConvocats = RichText(
+    membresConvocats = schema.Text(
         title=_(u"Attending members"),
         required=False,
     )
 
+    directives.widget(membresConvidats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('membresConvidats')
-    membresConvidats = RichText(
+    membresConvidats = schema.Text(
         title=_(u"Invited members"),
         required=False,
     )
 
+    directives.widget(llistaExcusats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('llistaExcusats')
-    llistaExcusats = RichText(
+    llistaExcusats = schema.Text(
         title=_(u"Excused members"),
         required=False,
     )
 
+    directives.widget(llistaNoAssistens=WysiwygFieldWidget)
     dexteritytextindexer.searchable('llistaNoAssistens')
-    llistaNoAssistens = RichText(
+    llistaNoAssistens = schema.Text(
         title=_(u"Missing members"),
         required=False,
     )
 
+    directives.widget(ordreSessio=WysiwygFieldWidget)
     dexteritytextindexer.searchable('ordreSessio')
-    ordreSessio = RichText(
+    ordreSessio = schema.Text(
         title=_(u"Session order"),
         required=False,
     )
 
+    directives.widget(actaBody=WysiwygFieldWidget)
     dexteritytextindexer.searchable('actaBody')
-    actaBody = RichText(
+    actaBody = schema.Text(
         title=_(u"Acta Body"),
         required=False,
     )
 
+    directives.widget(footer=WysiwygFieldWidget)
     dexteritytextindexer.searchable('footer')
-    footer = RichText(
+    footer = schema.Text(
         title=_(u"Footer"),
         required=False,
     )
-
-    dexteritytextindexer.searchable('OriginalFiles')
-    form.widget(OriginalFiles=MultiFileFieldWidget)
-    OriginalFiles = schema.List(title=_(u"Files"),
-                                description=_(u"Attached files description"),
-                                value_type=NamedFile(),
-                                required=False,)
 
 
 @form.default_value(field=IActa['membresConvidats'])

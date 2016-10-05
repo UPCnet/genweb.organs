@@ -6,7 +6,8 @@ from plone.directives import form
 from genweb.organs import _
 from collective import dexteritytextindexer
 from Products.CMFCore.utils import getToolByName
-from plone.app.textfield import RichText
+from plone.autoform import directives
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 
 
 class InvalidEmailError(schema.ValidationError):
@@ -34,8 +35,9 @@ class IPunt(form.Schema):
         required=False
     )
 
+    directives.widget(defaultContent=WysiwygFieldWidget)
     dexteritytextindexer.searchable('defaultContent')
-    defaultContent = RichText(
+    defaultContent = schema.Text(
         title=_(u"Proposal description"),
         description=_(u"Default content shown in the document view"),
         required=False,
