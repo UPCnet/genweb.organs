@@ -11,23 +11,32 @@
     <br/>
     <div id="contentSessio">
       <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-          <li class="active"><a href="#ordreTab" data-toggle="tab">Ordre del dia</a></li>
-          <li><a href="#assistentsTab" data-toggle="tab">Assistents</a></li>
-
-          <li role="presentation" class="dropdown" style="float:right">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#"
-               role="button" aria-haspopup="true" aria-expanded="true"> Notificar... <span class="caret"></span> </a>
-             <ul class="dropdown-menu notify">
-              <li><a href="send_message">Enviar missatge</a></li>
-              <li><a href="#">Per mail</a>
-              <li role="separator" class="divider"></li>
-              <li><a href="#notificationsList">Veure historial</a></li>
-            </ul>
-          </li>
+        <li class="active"><a href="#ordreTab" data-toggle="tab">Ordre del dia</a></li>
+        <li><a href="#dadesTab" data-toggle="tab">Dades</a></li>
+        <li><a href="#assistentsTab" data-toggle="tab">Assistents</a></li>
+        <li tal:define="loginfo view/LogInformation" tal:condition="loginfo"><a href="#notificationsTab" data-toggle="tab">Historial</a></li>
       </ul>
 
       <div id="sessionTabs" class="tab-content">
-        <div class="tab-pane active" id="ordreTab">
+        <div class="tab-pane active" id="ordreTab" tal:define="item view/PuntsInside" tal:condition="item">
+          <table class="table table-striped table-bordered table-hover table-responsive">
+            <tal:documents repeat="item view/PuntsInside">
+              <tal:block tal:define="obj item/getObject;">
+                <tr>
+                  <td>&nbsp;
+                    <a href="#"
+                           tal:attributes="href obj/absolute_url;"
+                           tal:content="obj/titlePunt">
+                            Item Title
+                    </a>
+                  </td>
+                </tr>
+              </tal:block>
+            </tal:documents>
+          </table>
+        </div>
+
+        <div class="tab-pane" id="dadesTab">
           <ul>
             <li tal:condition="context/dataSessio">
               <b i18n:translate="">Data:</b>
@@ -49,90 +58,50 @@
               <span style="float:right"
                     tal:content="context/llocConvocatoria"></span>
             </li>
-
+            <li tal:condition="context/llocConvocatoria">
+              <b i18n:translate="">Organ de govern:</b>
+              <span style="float:right"
+                    tal:content="view/OrganTitle"></span>
+            </li>
           </ul>
         </div>
 
         <div class="tab-pane" id="assistentsTab">
-          <tal:block tal:condition="context/membresConvocats">
-            <div tal:replace="structure context/membresConvocats/output|nothing" />
-          </tal:block>
+          Assistents
+        </div>
+
+        <div class="tab-pane" id="notificationsTab" tal:define="loginfo view/LogInformation" tal:condition="loginfo">
+          <table class="table table-bordered table-condensed table-responsive" >
+            <thead>
+              <tr>
+                <th>
+                   <tal:data i18n:translate="">Data i hora</tal:data>
+                 </th>
+                <th>
+                  <tal:data i18n:translate="">Notificador</tal:data>
+                </th>
+                <th>
+                  <tal:data i18n:translate="">Destinataris</tal:data>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tal:documents repeat="data loginfo">
+                <tr>
+                  <td tal:define="value data/dateMail"
+                      tal:content="python:value.strftime('%d/%m/%Y %H:%M:%S')">
+                  </td>
+                  <td tal:content="data/fromMail"></td>
+                  <td tal:content="data/toMail"></td>
+                </tr>
+              </tal:documents>
+            </tbody>
+          </table>
         </div>
 
       </div>
     </div>
 
-
-    <tal:Sessions tal:define="item view/PuntsInside" tal:condition="item">
-    <br/>
-      <table class="table table-striped">
-          <tal:documents repeat="item view/PuntsInside">
-            <tal:block tal:define="obj item/getObject;">
-              <tr>
-                <td>&nbsp;
-                  <a href="#"
-                         tal:attributes="href obj/absolute_url;"
-                         tal:content="obj/titlePunt">
-                          Item Title
-                  </a>
-                </td>
-
-              </tr>
-            </tal:block>
-          </tal:documents>
-      </table>
-    </tal:Sessions>
-
-
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"
-         tal:define="loginfo view/LogInformation"
-         tal:condition="loginfo">
-      <span class="panel panel-default">
-        <div class="panel-heading" role="tab" id="logInfo">
-          <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#infoLogData" aria-expanded="false" aria-controls="infoLogData" name="notificationsList">
-              <i class="icon-chevron-down"></i>
-              <tal:omit-tag i18n:translate="">Notifications history</tal:omit-tag>
-            </a>
-          </h4>
-        </div>
-        <div id="infoLogData" class="panel-collapse collapse caixa_llistats_home" role="tabpanel" aria-labelledby="logInfo">
-
-          <div class="accordion-content">
-
-              <div class="table-responsive">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>
-                         <tal:data i18n:translate="">Data i hora</tal:data>
-                       </th>
-                      <th>
-                        <tal:data i18n:translate="">Notificador</tal:data>
-                      </th>
-                      <th>
-                        <tal:data i18n:translate="">Destinataris</tal:data>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tal:documents repeat="data loginfo">
-                      <tr>
-                        <td tal:define="value data/dateMail"
-                            tal:content="python:value.strftime('%d/%m/%Y %H:%M:%S')">
-                        </td>
-                        <td tal:content="data/fromMail"></td>
-                        <td tal:content="data/toMail"></td>
-                      </tr>
-                    </tal:documents>
-                  </tbody>
-                </table>
-              </div>
-
-          </div>
-        </div>
-      </span>
-    </div>
 
 </metal:content-core>
 

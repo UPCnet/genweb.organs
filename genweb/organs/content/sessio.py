@@ -25,12 +25,17 @@ class ISessio(form.Schema):
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_(u'Session Title'),
-        required=True
+        required=True,
+    )
+
+    any = schema.TextLine(
+        title=_(u"Year"),
+        required=False,
     )
 
     numSessio = schema.TextLine(
         title=_(u"Session number"),
-        required=True,
+        required=False,
     )
 
     dataSessio = schema.Date(
@@ -206,3 +211,9 @@ class View(grok.View):
                 return sorted(annotations['genweb.organs.logMail'], reverse=True)
             except:
                 return False
+
+    def OrganTitle(self):
+        """ Retorna el títol de l'òrgan
+        """
+        title = self.context.aq_parent.Title()
+        return title

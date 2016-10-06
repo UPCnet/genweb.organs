@@ -10,20 +10,14 @@
 
   <metal:content-core fill-slot="content-core">
   <br/>
-  <span tal:content="view/selectedOrganType"></span>
   <div id="contentOrgan">
       <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
           <li class="active"><a href="#descriptionTab" data-toggle="tab">Descripció</a></li>
           <li><a href="#composicionTab" data-toggle="tab">Composició</a></li>
-          <li><a href="#adrecesTab" data-toggle="tab">Adreces</a></li>
-          <li><a href="#acordsTab" data-toggle="tab">Acords</a></li>
+          <li><a href="#acordsTab" data-toggle="tab">Acords aprovats</a></li>
       </ul>
       <div id="organsTabs" class="tab-content">
           <div class="tab-pane active" id="descriptionTab">
-            <div tal:replace="structure context/acronim" />
-            <div tal:replace="structure context/tipus" />
-            logoOrgan
-
             <tal:block tal:condition="context/descripcioOrgan">
               <div tal:replace="structure context/descripcioOrgan" />
             </tal:block>
@@ -33,22 +27,13 @@
             <tal:block tal:condition="context/membresOrgan">
               <div tal:replace="structure context/membresOrgan" />
             </tal:block>
-
-            <div tal:replace="structure context/convidatsPermanentsOrgan" />
-
-          </div>
-
-          <div class="tab-pane" id="adrecesTab">
-            <tal:block tal:condition="context/adrecaLlista">
-              <div tal:content="context/adrecaLlista" />
+            <tal:block tal:condition="context/convidatsPermanentsOrgan">
+              <div tal:replace="structure context/convidatsPermanentsOrgan" />
             </tal:block>
-
-            <div tal:content="context/adrecaAfectatsLlista" />
-
           </div>
 
           <div class="tab-pane" id="acordsTab">
-          ... ¿?
+
           </div>
 
       </div>

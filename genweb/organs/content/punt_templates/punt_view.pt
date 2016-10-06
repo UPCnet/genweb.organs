@@ -21,6 +21,7 @@
       <table class="table table-striped">
           <tal:documents repeat="item view/FilesInside">
             <tal:block tal:define="obj item/getObject;">
+
               <tr>
                 <td>&nbsp;
                   <a href="#"

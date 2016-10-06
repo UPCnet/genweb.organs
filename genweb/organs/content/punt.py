@@ -8,28 +8,36 @@ from collective import dexteritytextindexer
 from Products.CMFCore.utils import getToolByName
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-import logging
+from zope.schema.vocabulary import SimpleVocabulary
+from zope.schema.interfaces import IContextSourceBinder
+from zope.interface import directlyProvides
+from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
+
+import unicodedata
 
 
 class InvalidEmailError(schema.ValidationError):
     __doc__ = u'Please enter a valid e-mail address.'
 
 
-def _createLoggingVocabulary():
-    """ Create zope.schema vocabulary from Python logging levels.
-    """
-    for level, name in logging._levelNames.items():
+def llistamails(context):
+    """ Create zope.schema vocabulary from Python logging levels. """
 
-        # logging._levelNames dictionary is bidirectional, let's
-        # get numeric keys only
+    terms = []
 
-        if type(level) == int:
-            term = SimpleTerm(value=level, token=str(level), title=name)
-            yield term
+    values = context.aq_parent.estatsLlista
+    mails = values.split(',')
 
-# Construct SimpleVocabulary objects of log level -> name mappings
-logging_vocabulary = SimpleVocabulary(list(_createLoggingVocabulary()))
+    for item in mails:
+        if isinstance(item, str):
+            flattened = unicodedata.normalize('NFKD', item.decode('utf-8')).encode('ascii', errors='ignore')
+        else:
+            flattened = unicodedata.normalize('NFKD', item).encode('ascii', errors='ignore')
+
+        terms.append(SimpleVocabulary.createTerm(item, flattened, item))
+
+    return SimpleVocabulary(terms)
+directlyProvides(llistamails, IContextSourceBinder)
 
 
 class IPunt(form.Schema):
@@ -53,6 +61,12 @@ class IPunt(form.Schema):
         required=False
     )
 
+    directives.widget(acord=SingleCheckBoxFieldWidget)
+    acord = schema.List(
+        title=_(u'Es un acord?'),
+        required=False,
+    )
+
     directives.widget(defaultContent=WysiwygFieldWidget)
     dexteritytextindexer.searchable('defaultContent')
     defaultContent = schema.Text(
@@ -63,7 +77,7 @@ class IPunt(form.Schema):
 
     estatsLlista = schema.Choice(
         title=_(u"Agreement and document labels"),
-        vocabulary=logging_vocabulary,
+        source=llistamails,
         required=True,
     )
 

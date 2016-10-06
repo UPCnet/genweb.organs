@@ -51,13 +51,22 @@ ul#tabs.nav.nav-tabs {
 }
 
 
-#ordreTab li {
+#dadesTab li {
     border-bottom: 1px solid white;
     list-style: outside none;
     padding-bottom: 8px;
     padding-top: 8px;
 }
 
+#dadesTab ul {
+    margin-left:0px;
+}
+
 a.collapsed .icon-chevron-down{
     background-position: -456px -72px;
 }
+
+table th {
+    background-color: #F7F7F7!important;
+}
+
