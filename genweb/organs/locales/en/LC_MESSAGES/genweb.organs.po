@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-06 16:43+0000\n"
+"POT-Creation-Date: 2016-10-07 11:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,6 +15,7 @@ msgstr ""
 "Domain: DOMAIN\n"
 
 #: ./genweb/organs/content/organgovern.py:47
+#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:42
 msgid "Acronym"
 msgstr ""
 
@@ -27,7 +28,7 @@ msgid "Acta"
 msgstr ""
 
 #: ./genweb/organs/browser/views/acta_print.pt:99
-#: ./genweb/organs/content/acta.py:85
+#: ./genweb/organs/content/acta.py:83
 #: ./genweb/organs/content/acta_templates/acta_view.pt:142
 msgid "Acta Body"
 msgstr ""
@@ -49,8 +50,12 @@ msgstr ""
 msgid "Agreement number"
 msgstr ""
 
+#: ./genweb/organs/content/organgovern.py:30
+msgid "Assistants"
+msgstr ""
+
 #: ./genweb/organs/browser/views/acta_print.pt:74
-#: ./genweb/organs/content/acta.py:50
+#: ./genweb/organs/content/acta.py:48
 #: ./genweb/organs/content/acta_templates/acta_view.pt:40
 msgid "Attending members"
 msgstr ""
@@ -121,7 +126,7 @@ msgid "Esborrany, Pendent d'aprovació, Aprovat, Informat, No aprovat, Derogat, 
 msgstr ""
 
 #: ./genweb/organs/browser/views/acta_print.pt:84
-#: ./genweb/organs/content/acta.py:64
+#: ./genweb/organs/content/acta.py:62
 #: ./genweb/organs/content/acta_templates/acta_view.pt:74
 msgid "Excused members"
 msgstr ""
@@ -134,7 +139,7 @@ msgstr ""
 msgid "Files"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:92
+#: ./genweb/organs/content/acta.py:90
 #: ./genweb/organs/content/acta_templates/acta_view.pt:148
 msgid "Footer"
 msgstr ""
@@ -144,7 +149,7 @@ msgid "From mail"
 msgstr ""
 
 #: ./genweb/organs/configure.zcml:31
-msgid "Genweb Organs de Govern"
+msgid "Genweb Organs de Govern (genweb.organs)"
 msgstr ""
 
 #: ./genweb/organs/browser/views/acta_print.pt:59
@@ -164,7 +169,7 @@ msgid "Installs Organs de Govern package"
 msgstr ""
 
 #: ./genweb/organs/browser/views/acta_print.pt:79
-#: ./genweb/organs/content/acta.py:57
+#: ./genweb/organs/content/acta.py:55
 #: ./genweb/organs/content/acta_templates/acta_view.pt:57
 msgid "Invited members"
 msgstr ""
@@ -179,6 +184,7 @@ msgid "Lloc:"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:98
+#: ./genweb/organs/content/organsfolder.py:15
 msgid "Logo description"
 msgstr ""
 
@@ -213,7 +219,7 @@ msgid "Missatge no enviat. Comprovi els destinataris del missatge"
 msgstr ""
 
 #: ./genweb/organs/browser/views/acta_print.pt:89
-#: ./genweb/organs/content/acta.py:71
+#: ./genweb/organs/content/acta.py:69
 #: ./genweb/organs/content/acta_templates/acta_view.pt:91
 msgid "Missing members"
 msgstr ""
@@ -224,6 +230,10 @@ msgstr ""
 
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:81
 msgid "Notificador"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:35
+msgid "Notifications"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:18
@@ -263,6 +273,7 @@ msgid "Organ de govern:"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:97
+#: ./genweb/organs/content/organsfolder.py:14
 msgid "Organ logo"
 msgstr ""
 
@@ -272,6 +283,18 @@ msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:73
 msgid "Organ permanently invited people description."
+msgstr ""
+
+#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:45
+msgid "Organ type"
+msgstr ""
+
+#: ./genweb/organs/profiles/default/types/genweb.organs.organsfolder.xml
+msgid "Organs Folder"
+msgstr ""
+
+#: ./genweb/organs/profiles/default/types/genweb.organs.organsfolder.xml
+msgid "Organs Folder Type Description"
 msgstr ""
 
 #: ./genweb/organs/content/acta_templates/acta_view.pt:24
@@ -326,13 +349,13 @@ msgstr ""
 msgid "Session Type Description"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:28
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:51
+#: ./genweb/organs/content/acta.py:26
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:55
 #: ./genweb/organs/content/sessio.py:42
 msgid "Session date"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:43
+#: ./genweb/organs/content/acta.py:41
 #: ./genweb/organs/content/acta_templates/acta_view.pt:118
 #: ./genweb/organs/content/sessio.py:57
 msgid "Session end time"
@@ -342,7 +365,7 @@ msgstr ""
 msgid "Session info"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:54
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:58
 msgid "Session location"
 msgstr ""
 
@@ -351,27 +374,27 @@ msgid "Session number"
 msgstr ""
 
 #: ./genweb/organs/browser/views/acta_print.pt:94
-#: ./genweb/organs/content/acta.py:78
+#: ./genweb/organs/content/acta.py:76
 #: ./genweb/organs/content/acta_templates/acta_view.pt:136
 msgid "Session order"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:33
+#: ./genweb/organs/content/acta.py:31
 #: ./genweb/organs/content/sessio.py:47
 msgid "Session place"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:57
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:61
 msgid "Session start"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:38
+#: ./genweb/organs/content/acta.py:36
 #: ./genweb/organs/content/acta_templates/acta_view.pt:113
 #: ./genweb/organs/content/sessio.py:52
 msgid "Session start time"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:43
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:47
 msgid "Sessions list"
 msgstr ""
 
@@ -392,7 +415,8 @@ msgstr ""
 msgid "Stakeholders mail address help."
 msgstr ""
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:60
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:64
+#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:48
 msgid "State"
 msgstr ""
 
@@ -400,7 +424,8 @@ msgstr ""
 msgid "This content will be used as message content"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:48
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:52
+#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:39
 msgid "Title"
 msgstr ""
 
@@ -414,6 +439,11 @@ msgstr ""
 
 #: ./genweb/organs/content/sessio.py:69
 msgid "affected_mail_help"
+msgstr ""
+
+#. Default: "There are currently no Organs in this folder."
+#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:87
+msgid "description_no_items_in_folder"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:125

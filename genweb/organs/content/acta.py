@@ -2,8 +2,6 @@
 from five import grok
 from zope import schema
 from plone.directives import form
-from plone.namedfile.field import NamedFile
-from plone.formwidget.multifile import MultiFileFieldWidget
 from plone.directives import dexterity
 from genweb.organs import _
 from plone.app.dexterity import PloneMessageFactory as _PMF

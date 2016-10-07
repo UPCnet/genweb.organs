@@ -27,13 +27,13 @@ class IOrgangovern(form.Schema):
     """
 
     fieldset('assistents',
-             label=u'Assistens',
+             label=_(u'Assistants'),
              fields=['membresOrgan', 'convidatsPermanentsOrgan']
              )
 
     fieldset('notificacions',
-             label=u'Notifications',
-             fields=['adrecaLlista', 'adrecaAfectatsLlista', 'bodyMailconvoquing', 'bodyMailSend', 'footerMail']
+             label=_(u'Notifications'),
+             fields=['adrecaLlista', 'adrecaAfectatsLlista', 'bodyMailconvoquing', 'bodyMailSend', 'footerMail'],
              )
 
     dexteritytextindexer.searchable('title')

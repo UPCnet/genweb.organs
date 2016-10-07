@@ -10,6 +10,10 @@
 
   <metal:content-core fill-slot="content-core">
   <br/>
+  <div class="pull-right" tal:condition="context/logoOrgan">
+    <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan"/>
+  </div>
+  <div class="clearfix"></div>
   <div id="contentOrgan">
       <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
           <li class="active"><a href="#descriptionTab" data-toggle="tab">Descripció</a></li>
