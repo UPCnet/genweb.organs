@@ -37,6 +37,7 @@ from genweb.theme.browser.interfaces import IGenwebTheme
 from genweb.core.browser.viewlets import gwCSSViewletManager
 from genweb.core.browser.viewlets import baseResourcesViewlet
 from genweb.organs.interfaces import IGenwebOrgansLayer
+from plone.app.layout.navigation.root import getNavigationRootObject
 
 
 grok.context(Interface)
@@ -140,3 +141,25 @@ class gwHeader(viewletBase):
                 },
             }
         return custom_links[lang]
+
+    def getLogo(self):
+        from genweb.organs.content.organsfolder import IOrgansfolder
+        IOrgansfolder.providedBy(self.context)
+
+        portal_state = self.context.restrictedTraverse('@@plone_portal_state')
+        root = getNavigationRootObject(self.context, portal_state.portal())
+        phisycal_path = aq_inner(self.context).getPhysicalPath()
+        relative = phisycal_path[len(root.getPhysicalPath()):]
+
+        image = ''
+        for i in range(len(relative)):
+            now = relative[:i + 1]
+            obj = aq_inner(root.restrictedTraverse(now))
+            if IOrgansfolder.providedBy(obj):
+                try:
+                    obj.logoOrgan.filename
+                    image = obj.absolute_url() + '/@@images/logoOrgan'
+                except:
+                    image = self.root_url() + '/++genweb++static/images/logoUPC.png'
+
+        return image

@@ -291,7 +291,7 @@ msgstr "Tipus d'Órgan de govern"
 
 #: ./genweb/organs/profiles/default/types/genweb.organs.organsfolder.xml
 msgid "Organs Folder"
-msgstr "Carpeta per organitzar els órgans de govern"
+msgstr "Organs de govern"
 
 #: ./genweb/organs/profiles/default/types/genweb.organs.organsfolder.xml
 msgid "Organs Folder Type Description"

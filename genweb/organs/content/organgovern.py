@@ -156,3 +156,12 @@ class View(grok.View):
         """
         value = self.context.estatsLlista
         return value
+
+    def nomembers(self):
+        # If no members, hide the tab
+        if self.context.membresOrgan is None and self.context.convidatsPermanentsOrgan is None:
+            return False
+        return True
+
+    def getAcords(self):
+        return True

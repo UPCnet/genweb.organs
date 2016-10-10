@@ -8,7 +8,7 @@
 
 <body>
 
-<!-- 
+<!--
   <metal:title fill-slot="content-title">
   </metal:title>
 
@@ -24,13 +24,13 @@
                         limit_display python:limit_display and int(limit_display) or None;
                         more_url more_url|request/more_url|string:folder_contents;
                         is_a_topic python:context.portal_type=='Topic';
-                        folderContents folderContents|nothing; 
+                        folderContents folderContents|nothing;
                         folderContents python:context.getFolderContents(contentFilter, batch=True, b_size=limit_display or 100);">
-                        
-    <div class="pull-right" tal:condition="context/logoOrgan">
+
+<!--     <div class="pull-right" tal:condition="context/logoOrgan">
       <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan"/>
     </div>
-    <div class="clearfix"></div>
+    <div class="clearfix"></div> -->
     <tal:Organs tal:define="item view/OrgansInside" tal:condition="item">
       <table class="table table-striped">
         <thead>

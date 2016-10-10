@@ -165,15 +165,13 @@
   </div>
 
   <div class="bannerOrgans">
-    <div style="float:left; height: 64px; ">
-      <a href="http://www.upc.edu" target="_blank">
-          <img tal:attributes="src string:${portal_url}/++genweb++static/images/logoUPC.png"
-               i18n:attributes="alt label_alt_logo; title label_title_logo"
-                />
+    <div style="float:left;">
+      <a>
+          <img tal:attributes="src viewlet/getLogo" style="height:65px;" />
       </a>
     </div>
     <div class="header-image l3-image"
-         tal:attributes="class string:header-image ${viewlet/get_image_class}"> 
+         tal:attributes="class string:header-image ${viewlet/get_image_class}">
     </div>
 
   </div>
