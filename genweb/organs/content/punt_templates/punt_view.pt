@@ -7,35 +7,64 @@
       i18n:domain="genweb.organs">
 <body>
 
+
+
 <metal:content-core fill-slot="content-core">
+
+  <div tal:condition="view/isAcord">
     <br/>
-    <div id="contentPunt">
+    <div class="alert alert-info" role="alert">Aquest punt està marcat com Acord.</div>
+  </div>
 
-      PUNT o acord
+ <table class="table table-bordered table-condensed table-responsive" >
+    <thead>
+      <tr>
+        <th>
+          <tal:data i18n:translate="">Proposal point number</tal:data>
+        </th>
+        <th>
+          <tal:data i18n:translate="">Agreement number</tal:data>
+        </th>
+        <th>
+           <tal:data i18n:translate="">Agreement and document labels</tal:data>
+         </th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td tal:content="context/proposalPoint"></td>
+          <td tal:content="context/agreement"></td>
+          <td tal:content="context/estatsLlista"></td>
+        </tr>
+    </tbody>
+  </table>
 
-    </div>
+  <div tal:condition="context/defaultContent">
+    <h2 i18n:translate="">Contingut</h2>
+    <span tal:replace="structure context/defaultContent" />
+  </div>
 
-    <tal:Sessions tal:define="item view/FilesInside" tal:condition="item">
-    <h3 i18n:translate="">Filelist</h3>
-    <br/>
-      <table class="table table-striped">
-          <tal:documents repeat="item view/FilesInside">
-            <tal:block tal:define="obj item/getObject;">
+  <tal:Sessions tal:define="item view/FilesInside" tal:condition="item">
+  <h3 i18n:translate="">Filelist</h3>
+  <br/>
+    <table class="table table-striped">
+        <tal:documents repeat="item view/FilesInside">
+          <tal:block tal:define="obj item/getObject;">
 
-              <tr>
-                <td>&nbsp;
-                  <a href="#"
-                         tal:attributes="href obj/absolute_url;"
-                         tal:content="obj/title">
-                          Item Title
-                  </a>
-                </td>
+            <tr>
+              <td>&nbsp;
+                <a href="#"
+                       tal:attributes="href obj/absolute_url;"
+                       tal:content="obj/title">
+                        Item Title
+                </a>
+              </td>
 
-              </tr>
-            </tal:block>
-          </tal:documents>
-      </table>
-    </tal:Sessions>
+            </tr>
+          </tal:block>
+        </tal:documents>
+    </table>
+  </tal:Sessions>
 
 </metal:content-core>
 

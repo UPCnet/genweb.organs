@@ -45,8 +45,8 @@ class IPunt(form.Schema):
         tots els punts que es considerin oportunes
     """
 
-    dexteritytextindexer.searchable('titlePunt')
-    titlePunt = schema.TextLine(
+    dexteritytextindexer.searchable('title')
+    title = schema.TextLine(
         title=_(u'Punt Title'),
         required=True
     )
@@ -104,3 +104,8 @@ class View(grok.View):
 
         # The last modified is the first shown.
         return sorted(data, key=lambda item: item.start, reverse=True)
+
+    def isAcord(self):
+        if self.context.acordOrgan:
+            return True
+        return False

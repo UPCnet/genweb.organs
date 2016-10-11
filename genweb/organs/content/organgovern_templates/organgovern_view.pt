@@ -61,7 +61,7 @@
           </div>
 
           <div tal:condition="view/getAcords" class="tab-pane" id="acordsTab">
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered table-hover table-responsive">
               <thead>
                 <tr>
                   <th>&nbsp;
@@ -84,7 +84,7 @@
                     <td>&nbsp;
                       <a href="#"
                              tal:attributes="href obj/absolute_url;"
-                             tal:content="obj/titlePunt">
+                             tal:content="obj/title">
                               Item Title
                       </a>
                     </td>

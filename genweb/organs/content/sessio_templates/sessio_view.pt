@@ -26,7 +26,7 @@
                   <td>&nbsp;
                     <a href="#"
                            tal:attributes="href obj/absolute_url;"
-                           tal:content="obj/titlePunt">
+                           tal:content="obj/title">
                             Item Title
                     </a>
                   </td>
