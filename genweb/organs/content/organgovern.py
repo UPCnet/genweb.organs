@@ -164,4 +164,16 @@ class View(grok.View):
         return True
 
     def getAcords(self):
-        return True
+        # If acords in site, publish the tab and the contents...
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+
+        data = portal_catalog.searchResults(
+            portal_type='genweb.organs.punt',
+            sort_on='getObjPositionInParent',
+            sort_order='reverse',
+            acordOrgan=True,
+            path={'query': folder_path,
+                  'depth': 2})
+
+        return data

@@ -61,8 +61,8 @@ class IPunt(form.Schema):
         required=False
     )
 
-    directives.widget(acord=SingleCheckBoxFieldWidget)
-    acord = schema.List(
+    directives.widget(acordOrgan=SingleCheckBoxFieldWidget)
+    acordOrgan = schema.List(
         title=_(u'Es un acord?'),
         required=False,
     )

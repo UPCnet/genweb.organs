@@ -27,10 +27,6 @@
                         folderContents folderContents|nothing;
                         folderContents python:context.getFolderContents(contentFilter, batch=True, b_size=limit_display or 100);">
 
-<!--     <div class="pull-right" tal:condition="context/logoOrgan">
-      <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan"/>
-    </div>
-    <div class="clearfix"></div> -->
     <tal:Organs tal:define="item view/OrgansInside" tal:condition="item">
       <table class="table table-striped">
         <thead>

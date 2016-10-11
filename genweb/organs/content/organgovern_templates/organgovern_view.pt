@@ -21,8 +21,12 @@
           <li class="active" tal:condition="context/descripcioOrgan">
             <a href="#descriptionTab" data-toggle="tab">Descripció</a>
           </li>
-          <li tal:condition="view/nomembers"><a href="#composicionTab" data-toggle="tab">Composició</a></li>
-          <li><a href="#acordsTab" data-toggle="tab">Acords aprovats</a></li>
+          <li tal:condition="view/nomembers">
+            <a href="#composicionTab" data-toggle="tab">Composició</a>
+          </li>
+          <li tal:condition="view/getAcords">
+            <a href="#acordsTab" data-toggle="tab">Acords aprovats</a>
+          </li>
       </ul>
       <div id="organsTabs" class="tab-content">
           <div class="tab-pane active" id="descriptionTab">
@@ -57,45 +61,52 @@
           </div>
 
           <div tal:condition="view/getAcords" class="tab-pane" id="acordsTab">
-            <tal:documents repeat="item view/SessionsInside">
-              <tal:block tal:define="obj item/getObject;">
+            <table class="table table-striped">
+              <thead>
                 <tr>
-                  <td>&nbsp;
-                    <a href="#"
-                           tal:attributes="href obj/absolute_url;"
-                           tal:content="obj/title">
-                            Item Title
-                    </a>
-                  </td>
-                  <td>&nbsp;
-                    <tal:data tal:condition="obj/dataSessio"
-                              tal:content="python:obj.dataSessio.strftime('%d/%m/%Y')" >
-                      Data de la Sessió
-                    </tal:data>
-                  </td>
-                  <td>&nbsp;
-                    <tal:data tal:condition="obj/llocConvocatoria"
-                              tal:content="obj/llocConvocatoria">
-                      Lloc Convocatoria
-                    </tal:data>
-                  </td>
-                  <td>&nbsp;
-                    <tal:data tal:condition="obj/horaInici"
-                              tal:content="python:obj.horaInici.strftime('%H:%M')">
-                      Hora inici
-                    </tal:data>
-                  </td>
-                  <td>&nbsp;
-                    <span tal:content="item/review_state"
-                          i18n:translate=""
-                          i18n:domain="genweb"
-                          tal:attributes="class item/review_state">
-                      Status
-                    </span>
-                  </td>
+                  <th>&nbsp;
+                    <tal:title i18n:translate="">Title</tal:title>
+                  </th>
+                  <th>&nbsp;
+                    <tal:head i18n:translate="">Proposal point number</tal:head>
+                  </th>
+                  <th>&nbsp;
+                    <tal:head i18n:translate="">Agreement number</tal:head>
+                  </th>
+                  <th>&nbsp;
+                    <tal:head i18n:translate="">Agreement and document labels</tal:head>
+                  </th>
                 </tr>
-              </tal:block>
-            </tal:documents>
+              </thead>
+              <tal:documents repeat="item view/getAcords">
+                <tal:block tal:define="obj item/getObject;">
+                  <tr>
+                    <td>&nbsp;
+                      <a href="#"
+                             tal:attributes="href obj/absolute_url;"
+                             tal:content="obj/titlePunt">
+                              Item Title
+                      </a>
+                    </td>
+                    <td>&nbsp;
+                      <span tal:content="obj/proposalPoint">
+                        Punt
+                      </span>
+                    </td>
+                    <td>&nbsp;
+                      <span tal:content="obj/agreement">
+                        Numero
+                      </span>
+                    </td>
+                    <td>&nbsp;
+                      <span tal:content="obj/estatsLlista">
+                        Status
+                      </span>
+                    </td>
+                  </tr>
+                </tal:block>
+              </tal:documents>
+            </table>
           </div>
 
       </div>
