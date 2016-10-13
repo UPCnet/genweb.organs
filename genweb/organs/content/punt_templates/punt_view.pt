@@ -7,13 +7,11 @@
       i18n:domain="genweb.organs">
 <body>
 
-
-
 <metal:content-core fill-slot="content-core">
 
   <div tal:condition="view/isAcord">
     <br/>
-    <div class="alert alert-alert" role="alert">Aquest punt està marcat com Acord.</div>
+    <div class="alert alert-alert" role="alert" i18n:translate="">Esteu visualitzant un punt marcat com Acord.</div>
   </div>
 
  <table class="table table-bordered table-condensed table-responsive" >
@@ -44,49 +42,49 @@
     <span tal:replace="structure context/defaultContent" />
   </div>
 
-  <tal:Sessions tal:define="item view/publicFilesInside" tal:condition="item">
-  <h3 i18n:translate="">Fitxers públics</h3>
-  <br/>
-    <table class="table table-striped">
-        <tal:documents repeat="item view/publicFilesInside">
-          <tal:block tal:define="obj item/getObject;">
-
-            <tr>
-              <td>&nbsp;
-                <a href="#"
-                       tal:attributes="href obj/absolute_url;"
-                       tal:content="obj/title">
-                        Item Title
-                </a>
-              </td>
-
-            </tr>
-          </tal:block>
-        </tal:documents>
+  <tal:Sessions tal:define="itemPublic view/publicFilesInside;
+                            itemPrivate view/privateFilesInside">
+    <table class="table table-bordered table-condensed table-responsive">
+    <thead>
+      <tr>
+        <th>
+          <tal:data i18n:translate="">Fitxers a publicar</tal:data>
+        </th>
+        <th>
+           <tal:data i18n:translate="">Fitxers interns</tal:data>
+         </th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>&nbsp;
+            <tal:documents repeat="itemPublic view/publicFilesInside">
+            <tal:block tal:define="objPublic itemPublic/getObject;">
+              <a href="#"
+                     tal:attributes="href objPublic/absolute_url;"
+                     tal:content="objPublic/title">
+                      Item Title
+              </a>
+              <br/>&nbsp;
+            </tal:block>
+            </tal:documents>
+          </td>
+          <td>&nbsp;
+            <tal:documents repeat="itemPrivate view/privateFilesInside">
+            <tal:block tal:define="objPrivate itemPrivate/getObject;">
+              <a href="#"
+                     tal:attributes="href objPrivate/absolute_url;"
+                     tal:content="objPrivate/title">
+                      Item Title
+              </a>
+              <br/>&nbsp;
+            </tal:block>
+            </tal:documents>
+          </td>
+        </tr>
     </table>
   </tal:Sessions>
 
-  <tal:Sessions tal:define="item view/privateFilesInside" tal:condition="item">
-  <h3 i18n:translate="">Fitxers privats</h3>
-  <br/>
-    <table class="table table-striped">
-        <tal:documents repeat="item view/privateFilesInside">
-          <tal:block tal:define="obj item/getObject;">
-
-            <tr>
-              <td>&nbsp;
-                <a href="#"
-                       tal:attributes="href obj/absolute_url;"
-                       tal:content="obj/title">
-                        Item Title
-                </a>
-              </td>
-
-            </tr>
-          </tal:block>
-        </tal:documents>
-    </table>
-  </tal:Sessions>
 
 </metal:content-core>
 

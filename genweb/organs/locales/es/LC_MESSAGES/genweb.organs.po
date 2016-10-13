@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-07 11:08+0000\n"
+"POT-Creation-Date: 2016-10-13 15:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Domain: DOMAIN\n"
 
 #: ./genweb/organs/content/organgovern.py:47
-#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:42
+#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:38
 msgid "Acronym"
 msgstr ""
 
@@ -42,11 +42,14 @@ msgid "Acta:"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:103
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:77
 #: ./genweb/organs/content/punt.py:79
 msgid "Agreement and document labels"
 msgstr ""
 
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:74
 #: ./genweb/organs/content/punt.py:60
+#: ./genweb/organs/content/punt_templates/punt_view.pt:24
 msgid "Agreement number"
 msgstr ""
 
@@ -92,6 +95,10 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+#: ./genweb/organs/content/punt_templates/punt_view.pt:41
+msgid "Contingut"
+msgstr ""
+
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:78
 msgid "Data i hora"
 msgstr ""
@@ -117,6 +124,10 @@ msgstr ""
 msgid "Enter the from used in the mail form"
 msgstr ""
 
+#: ./genweb/organs/content/file.py:19
+msgid "Es tracta d'un fitxer privat?"
+msgstr ""
+
 #: ./genweb/organs/content/punt.py:66
 msgid "Es un acord?"
 msgstr ""
@@ -125,18 +136,46 @@ msgstr ""
 msgid "Esborrany, Pendent d'aprovació, Aprovat, Informat, No aprovat, Derogat, Informatiu"
 msgstr ""
 
+#: ./genweb/organs/content/file_templates/file_view.pt:16
+msgid "Esteu visualitzant un fitxer <strong>PRIVAT</strong>."
+msgstr ""
+
+#: ./genweb/organs/content/file_templates/file_view.pt:21
+msgid "Esteu visualitzant un fitxer <strong>PUBLIC</strong>."
+msgstr ""
+
+#: ./genweb/organs/content/punt_templates/punt_view.pt:14
+msgid "Esteu visualitzant un punt marcat com Acord."
+msgstr ""
+
 #: ./genweb/organs/browser/views/acta_print.pt:84
 #: ./genweb/organs/content/acta.py:62
 #: ./genweb/organs/content/acta_templates/acta_view.pt:74
 msgid "Excused members"
 msgstr ""
 
-#: ./genweb/organs/content/punt_templates/punt_view.pt:19
-msgid "Filelist"
+#: ./genweb/organs/profiles/default/types/genweb.organs.file.xml
+msgid "File"
+msgstr ""
+
+#: ./genweb/organs/profiles/default/types/genweb.organs.file.xml
+msgid "File Type Description"
+msgstr ""
+
+#: ./genweb/organs/content/file_templates/file_view.pt:48
+msgid "File contents"
 msgstr ""
 
 #: ./genweb/organs/content/acta_templates/acta_view.pt:155
 msgid "Files"
+msgstr ""
+
+#: ./genweb/organs/content/punt_templates/punt_view.pt:51
+msgid "Fitxers a publicar"
+msgstr ""
+
+#: ./genweb/organs/content/punt_templates/punt_view.pt:54
+msgid "Fitxers interns"
 msgstr ""
 
 #: ./genweb/organs/content/acta.py:90
@@ -285,7 +324,7 @@ msgstr ""
 msgid "Organ permanently invited people description."
 msgstr ""
 
-#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:45
+#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:41
 msgid "Organ type"
 msgstr ""
 
@@ -297,6 +336,14 @@ msgstr ""
 msgid "Organs Folder Type Description"
 msgstr ""
 
+#: ./genweb/organs/content/file.py:20
+msgid "Per defecte els fitxers són privats. Si vol fer públic el fitxer, cal desmarcar aquesta opció."
+msgstr ""
+
+#: ./genweb/organs/content/file.py:26
+msgid "Please upload a document"
+msgstr ""
+
 #: ./genweb/organs/content/acta_templates/acta_view.pt:24
 msgid "Print Acta"
 msgstr ""
@@ -305,7 +352,9 @@ msgstr ""
 msgid "Proposal description"
 msgstr ""
 
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:71
 #: ./genweb/organs/content/punt.py:55
+#: ./genweb/organs/content/punt_templates/punt_view.pt:21
 msgid "Proposal point number"
 msgstr ""
 
@@ -350,7 +399,7 @@ msgid "Session Type Description"
 msgstr ""
 
 #: ./genweb/organs/content/acta.py:26
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:55
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:124
 #: ./genweb/organs/content/sessio.py:42
 msgid "Session date"
 msgstr ""
@@ -365,7 +414,7 @@ msgstr ""
 msgid "Session info"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:58
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:127
 msgid "Session location"
 msgstr ""
 
@@ -384,7 +433,7 @@ msgstr ""
 msgid "Session place"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:61
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:130
 msgid "Session start"
 msgstr ""
 
@@ -394,7 +443,7 @@ msgstr ""
 msgid "Session start time"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:47
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:116
 msgid "Sessions list"
 msgstr ""
 
@@ -415,8 +464,8 @@ msgstr ""
 msgid "Stakeholders mail address help."
 msgstr ""
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:64
-#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:48
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:133
+#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:44
 msgid "State"
 msgstr ""
 
@@ -424,8 +473,8 @@ msgstr ""
 msgid "This content will be used as message content"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:52
-#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:39
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:68
+#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:35
 msgid "Title"
 msgstr ""
 
@@ -442,7 +491,7 @@ msgid "affected_mail_help"
 msgstr ""
 
 #. Default: "There are currently no Organs in this folder."
-#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:87
+#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:83
 msgid "description_no_items_in_folder"
 msgstr ""
 
