@@ -160,6 +160,6 @@ class gwHeader(viewletBase):
                     obj.logoOrgan.filename
                     image = obj.absolute_url() + '/@@images/logoOrgan'
                 except:
-                    image = self.root_url() + '/++genweb++static/images/logoUPC.png'
+                    image = ''  # loads default image
 
         return image

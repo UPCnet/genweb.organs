@@ -1,9 +1,14 @@
 <?xml version="1.0"?>
 <object name="portal_catalog">
 
-  <index name="acordOrgan" meta_type="BooleanIndex">
+  <index name="genweb.organs.acordOrgan" meta_type="BooleanIndex">
     <indexed_attr value="acordOrgan"/>
   </index>
-  <column value="acordOrgan"/>
+  <column value="genweb.organs.acordOrgan"/>
+
+  <index name="genweb.organs.hiddenfile" meta_type="BooleanIndex">
+    <indexed_attr value="hiddenfile"/>
+  </index>
+  <column value="genweb.organs.hiddenfile"/>
 
 </object>

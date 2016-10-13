@@ -42,7 +42,7 @@ directlyProvides(llistamails, IContextSourceBinder)
 
 class IPunt(form.Schema):
     """ Tipus Punt: Per a cada Òrgan de Govern es podran crear
-        tots els punts que es considerin oportunes
+        tots els punts que es considerin oportuns
     """
 
     dexteritytextindexer.searchable('title')
@@ -92,18 +92,35 @@ class View(grok.View):
     grok.context(IPunt)
     grok.template('punt_view')
 
-    def FilesInside(self):
+    def publicFilesInside(self):
         """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
         """
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         data = portal_catalog.searchResults(
-            portal_type='File',
+            portal_type='genweb.organs.file',
+            sort_on='getObjPositionInParent',
+            sort_order='reverse',
+            path={'query': folder_path,
+                  'depth': 1},
+            hiddenfile=False)
+
+        return data
+
+    def privateFilesInside(self):
+        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        data = portal_catalog.searchResults(
+            portal_type='genweb.organs.file',
+            hiddenfile=True,
+            sort_on='getObjPositionInParent',
+            sort_order='reverse',
             path={'query': folder_path,
                   'depth': 1})
 
-        # The last modified is the first shown.
-        return sorted(data, key=lambda item: item.start, reverse=True)
+        return data
 
     def isAcord(self):
         if self.context.acordOrgan:

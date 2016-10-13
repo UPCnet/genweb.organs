@@ -7,6 +7,7 @@ from genweb.organs.content.sessio import ISessio
 from genweb.organs.content.punt import IPunt
 from genweb.organs.content.acta import IActa
 from genweb.organs.content.organsfolder import IOrgansfolder
+from genweb.organs.content.file import IFile
 
 
 class Organgovern(Item):
@@ -24,5 +25,10 @@ class Punt(Item):
 class Acta(Item):
     implements(IActa)
 
+
 class Organsfolder(Item):
     implements(IOrgansfolder)
+
+
+class File(Item):
+    implements(IFile)

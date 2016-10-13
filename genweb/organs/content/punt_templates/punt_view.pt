@@ -13,7 +13,7 @@
 
   <div tal:condition="view/isAcord">
     <br/>
-    <div class="alert alert-info" role="alert">Aquest punt està marcat com Acord.</div>
+    <div class="alert alert-alert" role="alert">Aquest punt està marcat com Acord.</div>
   </div>
 
  <table class="table table-bordered table-condensed table-responsive" >
@@ -44,11 +44,33 @@
     <span tal:replace="structure context/defaultContent" />
   </div>
 
-  <tal:Sessions tal:define="item view/FilesInside" tal:condition="item">
-  <h3 i18n:translate="">Filelist</h3>
+  <tal:Sessions tal:define="item view/publicFilesInside" tal:condition="item">
+  <h3 i18n:translate="">Fitxers públics</h3>
   <br/>
     <table class="table table-striped">
-        <tal:documents repeat="item view/FilesInside">
+        <tal:documents repeat="item view/publicFilesInside">
+          <tal:block tal:define="obj item/getObject;">
+
+            <tr>
+              <td>&nbsp;
+                <a href="#"
+                       tal:attributes="href obj/absolute_url;"
+                       tal:content="obj/title">
+                        Item Title
+                </a>
+              </td>
+
+            </tr>
+          </tal:block>
+        </tal:documents>
+    </table>
+  </tal:Sessions>
+
+  <tal:Sessions tal:define="item view/privateFilesInside" tal:condition="item">
+  <h3 i18n:translate="">Fitxers privats</h3>
+  <br/>
+    <table class="table table-striped">
+        <tal:documents repeat="item view/privateFilesInside">
           <tal:block tal:define="obj item/getObject;">
 
             <tr>

@@ -1,40 +1,40 @@
 <?xml version="1.0"?>
-<object name="genweb.organs.punt" meta_type="Dexterity FTI"
+<object name="genweb.organs.file" meta_type="Dexterity FTI"
    i18n:domain="genweb.organs"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
- <property name="title" i18n:translate="">punt</property>
- <property name="description" i18n:translate="">Punt Type Description</property>
+ <property name="title" i18n:translate="">File</property>
+ <property name="description" i18n:translate="">File Type Description</property>
  <property name="icon_expr"></property>
- <property name="factory">genweb.organs.punt</property>
- <property name="add_view_expr">string:${folder_url}/++add++genweb.organs.punt</property>
+ <property name="factory">genweb.organs.file</property>
+ <property name="add_view_expr">string:${folder_url}/++add++genweb.organs.file</property>
  <property name="link_target"></property>
  <property name="immediate_view">view</property>
  <property name="global_allow">False</property>
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types">
-     <element value="File"/>
-     <element value="genweb.organs.punt"/>
+     <element value="genweb.organs.file"/>
+     <element value="genweb.organs.file"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view_fallback">False</property>
  <property name="add_permission">cmf.AddPortalContent</property>
- <property name="klass">plone.dexterity.content.Container</property>
+ <property name="klass">genweb.organs.content.File</property>
 
  <property name="behaviors">
-  <element value="plone.app.dexterity.behaviors.metadata.ICategorization"/>
-  <element value="plone.app.dexterity.behaviors.metadata.IPublication"/>
   <element value="plone.app.content.interfaces.INameFromTitle"/>
-  <element value="plone.app.dexterity.behaviors.discussion.IAllowDiscussion"/>
-  <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
-  <element value="Products.CMFPlone.interfaces.constrains.ISelectableConstrainTypes"/>
-  <element value="plone.app.relationfield.behavior.IRelatedItems"/>
-  <element value="plone.app.multilingual.dx.interfaces.IDexterityTranslatable"/>
-  <element value="plone.app.dexterity.behaviors.nextprevious.INextPreviousToggle"/>
-  <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
+  <element value="plone.app.dexterity.behaviors.metadata.IDublinCore" />
+  <element value="plone.app.dexterity.behaviors.metadata.ICategorization" />
+  <element value="plone.app.dexterity.behaviors.metadata.IPublication" />
+  <element value="plone.app.dexterity.behaviors.metadata.IOwnership" />
+  <element value="plone.app.dexterity.behaviors.filename.INameFromFileName" />
+  <element value="plone.app.dexterity.behaviors.discussion.IAllowDiscussion" />
+  <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation" />
+  <element value="plone.app.relationfield.behavior.IRelatedItems" />
+  <element value="plone.app.multilingual.dx.interfaces.IDexterityTranslatable" />
   <element value="plone.app.referenceablebehavior.referenceable.IReferenceable" />
  </property>
 
- <property name="schema">genweb.organs.content.punt.IPunt</property>
+ <property name="schema">genweb.organs.content.file.IFile</property>
  <property
     name="model_source">&lt;model xmlns="http://namespaces.plone.org/supermodel/schema"&gt;
       &lt;schema /&gt;
