@@ -42,48 +42,49 @@
     <span tal:replace="structure context/defaultContent" />
   </div>
 
-  <tal:Sessions tal:define="itemPublic view/publicFilesInside;
+  <table class="table table-bordered table-condensed table-responsive" tal:condition="view/hihaFitxers">
+    <tal:files tal:define="itemPublic view/publicFilesInside;
                             itemPrivate view/privateFilesInside">
-    <table class="table table-bordered table-condensed table-responsive">
-    <thead>
-      <tr>
-        <th>
-          <tal:data i18n:translate="">Fitxers a publicar</tal:data>
-        </th>
-        <th>
-           <tal:data i18n:translate="">Fitxers interns</tal:data>
-         </th>
-      </tr>
-    </thead>
-    <tbody>
+      <thead>
         <tr>
-          <td>&nbsp;
-            <tal:documents repeat="itemPublic view/publicFilesInside">
-            <tal:block tal:define="objPublic itemPublic/getObject;">
-              <a href="#"
-                     tal:attributes="href objPublic/absolute_url;"
+          <th tal:condition="itemPublic">
+            <tal:data i18n:translate="">Fitxers a publicar</tal:data>
+          </th>
+          <th tal:condition="itemPrivate">
+             <tal:data i18n:translate="">Fitxers interns</tal:data>
+           </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td tal:condition="itemPublic">
+            <ul>
+              <tal:documents repeat="itemPublic view/publicFilesInside">
+                <li tal:define="objPublic itemPublic/getObject;">
+                  <a tal:attributes="href objPublic/absolute_url;"
                      tal:content="objPublic/title">
-                      Item Title
-              </a>
-              <br/>&nbsp;
-            </tal:block>
-            </tal:documents>
+                     Public Item Title
+                  </a>
+                  </li>
+              </tal:documents>
+            </ul>
           </td>
-          <td>&nbsp;
-            <tal:documents repeat="itemPrivate view/privateFilesInside">
-            <tal:block tal:define="objPrivate itemPrivate/getObject;">
-              <a href="#"
-                     tal:attributes="href objPrivate/absolute_url;"
+          <td tal:condition="itemPrivate">
+            <ul>
+              <tal:documents repeat="itemPrivate view/privateFilesInside">
+                <li tal:define="objPrivate itemPrivate/getObject;">
+                  <a tal:attributes="href objPrivate/absolute_url;"
                      tal:content="objPrivate/title">
-                      Item Title
-              </a>
-              <br/>&nbsp;
-            </tal:block>
-            </tal:documents>
+                     Private Item Title
+                  </a>
+                </li>
+              </tal:documents>
+            </ul>
           </td>
         </tr>
-    </table>
-  </tal:Sessions>
+      </tbody>
+    </tal:files>
+  </table>
 
 
 </metal:content-core>

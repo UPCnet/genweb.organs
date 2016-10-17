@@ -126,3 +126,9 @@ class View(grok.View):
         if self.context.acordOrgan:
             return True
         return False
+
+    def hihaFitxers(self):
+        if self.privateFilesInside() or self.publicFilesInside():
+            return True
+        else:
+            return False
