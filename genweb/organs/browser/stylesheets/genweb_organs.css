@@ -70,3 +70,13 @@ table th {
     background-color: #F7F7F7!important;
 }
 
+
+
+.containerIcons {
+    text-align: center;
+    padding: 10px;
+}
+
+.containerIcons > i {
+    position:relative;
+    top: calc(50% - 10px); /* 50% - 3/4 of icon height */

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-13 15:55+0000\n"
+"POT-Creation-Date: 2016-10-17 11:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,12 +99,12 @@ msgstr ""
 msgid "Contingut"
 msgstr ""
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:78
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:95
 msgid "Data i hora"
 msgstr ""
 
 #: ./genweb/organs/content/acta_templates/acta_view.pt:108
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:42
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:59
 msgid "Data:"
 msgstr ""
 
@@ -112,7 +112,7 @@ msgstr ""
 msgid "Default content shown in the document view"
 msgstr ""
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:84
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:101
 msgid "Destinataris"
 msgstr ""
 
@@ -122,6 +122,10 @@ msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:91
 msgid "Enter the from used in the mail form"
+msgstr ""
+
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:19
+msgid "Enviar"
 msgstr ""
 
 #: ./genweb/organs/content/file.py:19
@@ -203,6 +207,10 @@ msgstr ""
 msgid "Incoming members list"
 msgstr ""
 
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:16
+msgid "Informar"
+msgstr ""
+
 #: ./genweb/organs/configure.zcml:31
 msgid "Installs Organs de Govern package"
 msgstr ""
@@ -218,7 +226,7 @@ msgid "Lloc de realitzacio:"
 msgstr ""
 
 #: ./genweb/organs/content/acta_templates/acta_view.pt:123
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:57
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:74
 msgid "Lloc:"
 msgstr ""
 
@@ -267,7 +275,7 @@ msgstr ""
 msgid "New message"
 msgstr ""
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:81
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:98
 msgid "Notificador"
 msgstr ""
 
@@ -307,7 +315,7 @@ msgstr ""
 msgid "Organ Title"
 msgstr ""
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:62
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:79
 msgid "Organ de govern:"
 msgstr ""
 
@@ -342,6 +350,10 @@ msgstr ""
 
 #: ./genweb/organs/content/file.py:26
 msgid "Please upload a document"
+msgstr ""
+
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:22
+msgid "Presentacio"
 msgstr ""
 
 #: ./genweb/organs/content/acta_templates/acta_view.pt:24
