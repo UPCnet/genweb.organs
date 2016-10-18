@@ -29,11 +29,10 @@ def sessio_changed(session, event):
 
             sessionLink = str(session.absolute_url())
             senderPerson = str(organ.fromMail)
-
             if session.signatura is None:
                 signatura = ''
             else:
-                signatura = str(session.signatura.output.encode('utf-8'))
+                signatura = str(session.signatura.encode('utf-8'))
 
             if session.llocConvocatoria is None:
                 place = ''
@@ -43,7 +42,7 @@ def sessio_changed(session, event):
             if session.bodyMail is None:
                 customBody = ''
             else:
-                customBody = str(session.bodyMail.output.encode('utf-8'))
+                customBody = str(session.bodyMail.encode('utf-8'))
 
             if session.adrecaLlista is None:
                 recipientPerson = organ.adrecaLlista.replace(' ', '').encode('utf-8').split(',')

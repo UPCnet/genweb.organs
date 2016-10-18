@@ -11,6 +11,7 @@ from plone import api
 from zope.annotation.interfaces import IAnnotations
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.supermodel.directives import fieldset
 
 
 class InvalidEmailError(schema.ValidationError):
@@ -21,6 +22,16 @@ class ISessio(form.Schema):
     """ Tipus Sessio: Per a cada Òrgan de Govern es podran crear
         totes les sessions que es considerin oportunes
     """
+
+    fieldset('assistents',
+             label=_(u'Assistents'),
+             fields=['membresConvocats', 'membresConvidats', 'llistaExcusats']
+             )
+
+    fieldset('notificacions',
+             label=_(u'Notifications'),
+             fields=['adrecaLlista', 'adrecaAfectatsLlista', 'bodyMail', 'signatura'],
+             )
 
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
@@ -107,7 +118,6 @@ class ISessio(form.Schema):
         required=False,
     )
 
-    '''Camps per enllaçar àudio i vídeo'''
     enllacVideo = schema.TextLine(
         title=_(u"Video link"),
         required=False,
@@ -182,7 +192,7 @@ class View(grok.View):
         # The last modified is the first shown.
         return sorted(data, key=lambda item: item.start, reverse=True)
 
-    def ActasInside(self):
+    def ActesInside(self):
         """ Retorna les actes creades aquí dintre (sense tenir compte estat)
         """
         folder_path = '/'.join(self.context.getPhysicalPath())
@@ -217,3 +227,15 @@ class View(grok.View):
         """
         title = self.context.aq_parent.Title()
         return title
+
+    def hihaMultimedia(self):
+        if self.context.enllacVideo or self.context.enllacAudio:
+            return True
+        else:
+            return False
+
+    def hihaPersones(self):
+        if self.context.membresConvocats or self.context.membresConvidats or self.context.llistaExcusats:
+            return True
+        else:
+            return False

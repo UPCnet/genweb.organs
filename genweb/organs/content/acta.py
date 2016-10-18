@@ -10,12 +10,23 @@ from collective import dexteritytextindexer
 from genweb.organs import utils
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.supermodel.directives import fieldset
 
 
 class IActa(form.Schema):
     """ Tipus Sessio: Per a cada Òrgan de Govern es podran crear
         totes les sessions que es considerin oportunes
     """
+    fieldset('assistents',
+             label=_(u'Assistents'),
+             fields=['membresConvocats', 'membresConvidats', 'llistaExcusats', 'llistaNoAssistens']
+             )
+
+    fieldset('acta',
+             label=_(u'Acta'),
+             fields=['actaBody', 'footer'],
+             )
+
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_PMF(u'label_title', default=u'Title'),
@@ -91,7 +102,6 @@ class IActa(form.Schema):
         required=False,
     )
 
-
 @form.default_value(field=IActa['membresConvidats'])
 def membresConvidatsDefaultValue(data):
     # copy membresConvidats from Session (parent object)
@@ -108,12 +118,6 @@ def membresConvocatsDefaultValue(data):
 def llistaExcusatsDefaultValue(data):
     # copy llistaExcusats from Session (parent object)
     return data.context.llistaExcusats
-
-
-@form.default_value(field=IActa['actaBody'])
-def actaBodyDefaultValue(data):
-    # copy ordreSessio from Session in Acta
-    return data.context.ordreSessio
 
 
 # Hidden field used only to render and generate the PDF

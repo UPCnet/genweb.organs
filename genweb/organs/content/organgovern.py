@@ -27,7 +27,7 @@ class IOrgangovern(form.Schema):
     """
 
     fieldset('assistents',
-             label=_(u'Assistants'),
+             label=_(u'Assistents'),
              fields=['membresOrgan', 'convidatsPermanentsOrgan']
              )
 

@@ -71,7 +71,6 @@ class IPunt(form.Schema):
     dexteritytextindexer.searchable('defaultContent')
     defaultContent = schema.Text(
         title=_(u"Proposal description"),
-        description=_(u"Default content shown in the document view"),
         required=False,
     )
 

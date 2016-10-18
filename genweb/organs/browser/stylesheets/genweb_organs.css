@@ -51,14 +51,17 @@ ul#tabs.nav.nav-tabs {
 }
 
 
-#dadesTab li {
+#dadesTab li,
+#multimediaTab li
+ {
     border-bottom: 1px solid white;
     list-style: outside none;
     padding-bottom: 8px;
     padding-top: 8px;
 }
 
-#dadesTab ul {
+#dadesTab ul,
+#multimediaTab ul{
     margin-left:0px;
 }
 
