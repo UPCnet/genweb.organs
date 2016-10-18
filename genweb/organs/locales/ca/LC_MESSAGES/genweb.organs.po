@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-18 10:26+0000\n"
+"POT-Creation-Date: 2016-10-18 12:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgstr "Acta:"
 
 #: ./genweb/organs/content/organgovern.py:103
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:77
-#: ./genweb/organs/content/punt.py:79
+#: ./genweb/organs/content/punt.py:78
 msgid "Agreement and document labels"
 msgstr "Estats d'aprovació"
 
@@ -50,8 +50,13 @@ msgid "Agreement number"
 msgstr "Número d'acord"
 
 #: ./genweb/organs/content/organgovern.py:30
+#: ./genweb/organs/content/sessio.py:27
 msgid "Assistants"
 msgstr "Assistents"
+
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:33
+msgid "Assistents"
+msgstr ""
 
 #: ./genweb/organs/browser/views/acta_print.pt:74
 #: ./genweb/organs/content/acta.py:48
@@ -59,11 +64,12 @@ msgstr "Assistents"
 msgid "Attending members"
 msgstr "Llista de persones assistents"
 
-#: ./genweb/organs/content/sessio.py:117
+#: ./genweb/organs/content/sessio.py:127
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:110
 msgid "Audio link"
-msgstr "Enllaç al fitxer d'audio"
+msgstr "Enllaç al fitxer d'audio de la sessió"
 
-#: ./genweb/organs/content/sessio.py:97
+#: ./genweb/organs/content/sessio.py:108
 msgid "Body Mail"
 msgstr "Cos del missatge de convocatòria"
 
@@ -75,7 +81,7 @@ msgstr "Plantilla del missatge de convocatòria de la sessió"
 msgid "Body Mail convoquing description"
 msgstr "Missatge que s'adjunta al convocar una sessió. S'hi afegeix el peu del missatge i la capçalera."
 
-#: ./genweb/organs/content/sessio.py:98
+#: ./genweb/organs/content/sessio.py:109
 msgid "Body Mail description"
 msgstr "Cos del missatge de convocatòria"
 
@@ -95,20 +101,20 @@ msgstr "Cancel·lar"
 msgid "Contingut"
 msgstr "Contingut"
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:79
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:32
+msgid "Dades"
+msgstr ""
+
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:122
 msgid "Data i hora"
 msgstr "Data i hora"
 
 #: ./genweb/organs/content/acta_templates/acta_view.pt:108
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:42
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:43
 msgid "Data:"
 msgstr "Data:"
 
-#: ./genweb/organs/content/punt.py:74
-msgid "Default content shown in the document view"
-msgstr " "
-
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:85
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:128
 msgid "Destinataris"
 msgstr "Destinataris"
 
@@ -187,6 +193,10 @@ msgstr "Adreça de qui envia els missatges"
 msgid "Genweb Organs de Govern (genweb.organs)"
 msgstr "Genweb Organs de Govern (genweb.organs)"
 
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:35
+msgid "Historial"
+msgstr ""
+
 #: ./genweb/organs/browser/views/acta_print.pt:59
 msgid "Hora d'inici:"
 msgstr "Hora d'inici:"
@@ -195,7 +205,7 @@ msgstr "Hora d'inici:"
 msgid "Hora de fi:"
 msgstr "Hora de fi:"
 
-#: ./genweb/organs/content/sessio.py:76
+#: ./genweb/organs/content/sessio.py:87
 msgid "Incoming members list"
 msgstr "Persones convocades"
 
@@ -211,14 +221,14 @@ msgstr "Installs Organs de Govern package"
 #: ./genweb/organs/content/acta.py:55
 #: ./genweb/organs/content/acta_templates/acta_view.pt:57
 msgid "Invited members"
-msgstr "Persones invitades"
+msgstr "Persones convidades"
 
 #: ./genweb/organs/browser/views/acta_print.pt:48
 msgid "Lloc de realitzacio:"
 msgstr "Lloc de realitzacio:"
 
 #: ./genweb/organs/content/acta_templates/acta_view.pt:123
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:57
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:58
 msgid "Lloc:"
 msgstr "Lloc:"
 
@@ -239,7 +249,7 @@ msgstr "Adreces de correu separades per comes."
 msgid "Message"
 msgstr "Missatge"
 
-#: ./genweb/organs/browser/events/change.py:120
+#: ./genweb/organs/browser/events/change.py:119
 #: ./genweb/organs/browser/views.py:113
 msgid "Missatge enviat correctament"
 msgstr "Missatge enviat correctament"
@@ -249,7 +259,7 @@ msgstr "Missatge enviat correctament"
 msgid "Missatge enviat per: "
 msgstr "Missatge enviat per: "
 
-#: ./genweb/organs/browser/events/change.py:123
+#: ./genweb/organs/browser/events/change.py:122
 msgid "Missatge no enviat. Comprovi el from i el to del missatge"
 msgstr "Missatge no enviat. Comprovi el from i el to del missatge"
 
@@ -263,15 +273,20 @@ msgstr "Missatge no enviat. Comprovi els destinataris del missatge"
 msgid "Missing members"
 msgstr "Llista de persones no assistents"
 
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:34
+msgid "Multimedia"
+msgstr ""
+
 #: ./genweb/organs/content/send_templates/message_view.pt:18
 msgid "New message"
 msgstr "Nou missatge"
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:82
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:125
 msgid "Notificador"
 msgstr "Notificador"
 
 #: ./genweb/organs/content/organgovern.py:35
+#: ./genweb/organs/content/sessio.py:32
 msgid "Notifications"
 msgstr "Notificacions"
 
@@ -303,7 +318,7 @@ msgstr "Tipus d'òrgan"
 msgid "Organ Title"
 msgstr "Títol de l'órgan"
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:62
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:63
 msgid "Organ de govern:"
 msgstr "Organ de govern:"
 
@@ -386,19 +401,19 @@ msgstr "Sessió del dia:"
 msgid "Session"
 msgstr "Sessió"
 
-#: ./genweb/organs/content/sessio.py:27
+#: ./genweb/organs/content/sessio.py:38
 msgid "Session Title"
 msgstr "Títol de la sessió"
 
 #: ./genweb/organs/content/acta.py:26
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:124
-#: ./genweb/organs/content/sessio.py:42
+#: ./genweb/organs/content/sessio.py:53
 msgid "Session date"
 msgstr "Data de la sessió"
 
 #: ./genweb/organs/content/acta.py:41
 #: ./genweb/organs/content/acta_templates/acta_view.pt:118
-#: ./genweb/organs/content/sessio.py:57
+#: ./genweb/organs/content/sessio.py:68
 msgid "Session end time"
 msgstr "Hora de finalització de la sessió"
 
@@ -410,7 +425,7 @@ msgstr "Dades de la sessió"
 msgid "Session location"
 msgstr "Lloc de la convocatòria"
 
-#: ./genweb/organs/content/sessio.py:37
+#: ./genweb/organs/content/sessio.py:48
 msgid "Session number"
 msgstr "Número de sessió"
 
@@ -421,7 +436,7 @@ msgid "Session order"
 msgstr "Ordre del dia"
 
 #: ./genweb/organs/content/acta.py:31
-#: ./genweb/organs/content/sessio.py:47
+#: ./genweb/organs/content/sessio.py:58
 msgid "Session place"
 msgstr "Lloc de la convocatòria"
 
@@ -431,24 +446,24 @@ msgstr "Hora d'inici"
 
 #: ./genweb/organs/content/acta.py:36
 #: ./genweb/organs/content/acta_templates/acta_view.pt:113
-#: ./genweb/organs/content/sessio.py:52
+#: ./genweb/organs/content/sessio.py:63
 msgid "Session start time"
-msgstr "Hora dínici de la sessió"
+msgstr "Hora d'inici de la sessió"
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:116
 msgid "Sessions list"
 msgstr "Llistat de sessions"
 
-#: ./genweb/organs/content/sessio.py:105
+#: ./genweb/organs/content/sessio.py:116
 msgid "Signatura"
 msgstr "Signatura del missatge"
 
-#: ./genweb/organs/content/sessio.py:106
+#: ./genweb/organs/content/sessio.py:117
 msgid "Signatura description"
 msgstr "Signatura que s'utilitza "
 
 #: ./genweb/organs/content/organgovern.py:84
-#: ./genweb/organs/content/sessio.py:68
+#: ./genweb/organs/content/sessio.py:79
 msgid "Stakeholders mail address"
 msgstr "Adreces dels afectats"
 
@@ -470,15 +485,16 @@ msgstr "El següent contingut s'adjuntarà al missatge de correu"
 msgid "Title"
 msgstr "Títol"
 
-#: ./genweb/organs/content/sessio.py:112
+#: ./genweb/organs/content/sessio.py:122
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:104
 msgid "Video link"
-msgstr "Enllaç al video"
+msgstr "Enllaç al video de la sessió"
 
-#: ./genweb/organs/content/sessio.py:32
+#: ./genweb/organs/content/sessio.py:43
 msgid "Year"
-msgstr "Any"
+msgstr "Any de la sessió"
 
-#: ./genweb/organs/content/sessio.py:69
+#: ./genweb/organs/content/sessio.py:80
 msgid "affected_mail_help"
 msgstr "Llista d'adreces de les persones afectades a les que es voldrà notificar la informació de les sessions."
 
@@ -496,10 +512,10 @@ msgid "footerMail description"
 msgstr "Peu del missatge que s'adjunta tant al missatge de convocar com al de enviar missatge."
 
 #: ./genweb/organs/content/organgovern.py:78
-#: ./genweb/organs/content/sessio.py:62
+#: ./genweb/organs/content/sessio.py:73
 msgid "mail address"
 msgstr "Adreces de notificació"
 
-#: ./genweb/organs/content/sessio.py:63
+#: ./genweb/organs/content/sessio.py:74
 msgid "notification_mail_help"
 msgstr "Adreces a les que han d'arribar els missatges relatius a la sessió."
