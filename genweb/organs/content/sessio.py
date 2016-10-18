@@ -119,9 +119,9 @@ class ISessio(form.Schema):
     )
 
 
-@form.default_value(field=ISessio['numSessio'])
-def numSessioDefaultValue(data):
-    return 666
+# @form.default_value(field=ISessio['numSessio'])
+# def numSessioDefaultValue(data):
+#     return 666
 
 
 @form.default_value(field=ISessio['dataSessio'])
