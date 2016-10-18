@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-17 11:11+0000\n"
+"POT-Creation-Date: 2016-10-18 10:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,10 +32,6 @@ msgstr "Acta"
 #: ./genweb/organs/content/acta_templates/acta_view.pt:142
 msgid "Acta Body"
 msgstr "Cos de l'acta"
-
-#: ./genweb/organs/profiles/default/types/genweb.organs.acta.xml
-msgid "Acta Type Description"
-msgstr " "
 
 #: ./genweb/organs/browser/views/acta_print.pt:43
 msgid "Acta:"
@@ -99,12 +95,12 @@ msgstr "Cancel·lar"
 msgid "Contingut"
 msgstr "Contingut"
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:95
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:79
 msgid "Data i hora"
 msgstr "Data i hora"
 
 #: ./genweb/organs/content/acta_templates/acta_view.pt:108
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:59
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:42
 msgid "Data:"
 msgstr "Data:"
 
@@ -112,7 +108,7 @@ msgstr "Data:"
 msgid "Default content shown in the document view"
 msgstr " "
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:101
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:85
 msgid "Destinataris"
 msgstr "Destinataris"
 
@@ -124,7 +120,7 @@ msgstr "Indiqueu, separats per comes, els literals que es faran servir com a est
 msgid "Enter the from used in the mail form"
 msgstr "Aquest és el remitent de les notificacions"
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:19
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:20
 msgid "Enviar"
 msgstr "Enviar"
 
@@ -161,10 +157,6 @@ msgstr "Persones excusades"
 #: ./genweb/organs/profiles/default/types/genweb.organs.file.xml
 msgid "File"
 msgstr "Fitxer"
-
-#: ./genweb/organs/profiles/default/types/genweb.organs.file.xml
-msgid "File Type Description"
-msgstr " "
 
 #: ./genweb/organs/content/file_templates/file_view.pt:48
 msgid "File contents"
@@ -207,7 +199,7 @@ msgstr "Hora de fi:"
 msgid "Incoming members list"
 msgstr "Persones convocades"
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:16
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:17
 msgid "Informar"
 msgstr "Informar"
 
@@ -226,7 +218,7 @@ msgid "Lloc de realitzacio:"
 msgstr "Lloc de realitzacio:"
 
 #: ./genweb/organs/content/acta_templates/acta_view.pt:123
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:74
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:57
 msgid "Lloc:"
 msgstr "Lloc:"
 
@@ -275,7 +267,7 @@ msgstr "Llista de persones no assistents"
 msgid "New message"
 msgstr "Nou missatge"
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:98
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:82
 msgid "Notificador"
 msgstr "Notificador"
 
@@ -295,10 +287,6 @@ msgstr "S'ha cancel·lat la operació."
 msgid "Organ Govern"
 msgstr "Òrgan de govern"
 
-#: ./genweb/organs/profiles/default/types/genweb.organs.organgovern.xml
-msgid "Organ Govern Type Description"
-msgstr " "
-
 #: ./genweb/organs/content/organgovern.py:54
 msgid "Organ Govern description"
 msgstr "Descripció"
@@ -315,7 +303,7 @@ msgstr "Tipus d'òrgan"
 msgid "Organ Title"
 msgstr "Títol de l'órgan"
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:79
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:62
 msgid "Organ de govern:"
 msgstr "Organ de govern:"
 
@@ -340,10 +328,6 @@ msgstr "Tipus d'Órgan de govern"
 msgid "Organs Folder"
 msgstr "Organs de govern"
 
-#: ./genweb/organs/profiles/default/types/genweb.organs.organsfolder.xml
-msgid "Organs Folder Type Description"
-msgstr " "
-
 #: ./genweb/organs/content/file.py:20
 msgid "Per defecte els fitxers són privats. Si vol fer públic el fitxer, cal desmarcar aquesta opció."
 msgstr "Per defecte els fitxers són privats. Si vol fer públic el fitxer, cal desmarcar aquesta opció."
@@ -352,7 +336,7 @@ msgstr "Per defecte els fitxers són privats. Si vol fer públic el fitxer, cal 
 msgid "Please upload a document"
 msgstr "Si us plau, pujeu un document"
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:22
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:23
 msgid "Presentacio"
 msgstr "Presentació"
 
@@ -370,13 +354,13 @@ msgstr "Contingut"
 msgid "Proposal point number"
 msgstr "Punt de l'ordre del dia"
 
+#: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
+msgid "Punt"
+msgstr "Punt"
+
 #: ./genweb/organs/content/punt.py:50
 msgid "Punt Title"
 msgstr "Títol del punt de l'ordre del dia"
-
-#: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
-msgid "Punt Type Description"
-msgstr " "
 
 #: ./genweb/organs/content/sendMessage.py:25
 msgid "Recipients"
@@ -405,10 +389,6 @@ msgstr "Sessió"
 #: ./genweb/organs/content/sessio.py:27
 msgid "Session Title"
 msgstr "Títol de la sessió"
-
-#: ./genweb/organs/profiles/default/types/genweb.organs.sessio.xml
-msgid "Session Type Description"
-msgstr " "
 
 #: ./genweb/organs/content/acta.py:26
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:124
@@ -523,7 +503,3 @@ msgstr "Adreces de notificació"
 #: ./genweb/organs/content/sessio.py:63
 msgid "notification_mail_help"
 msgstr "Adreces a les que han d'arribar els missatges relatius a la sessió."
-
-#: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
-msgid "punt"
-msgstr "Punt de l'ordre del dia"

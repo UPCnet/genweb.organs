@@ -3,7 +3,7 @@
    i18n:domain="genweb.organs"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title" i18n:translate="">File</property>
- <property name="description" i18n:translate="">File Type Description</property>
+ <property name="description"></property>
  <property name="icon_expr"></property>
  <property name="factory">genweb.organs.file</property>
  <property name="add_view_expr">string:${folder_url}/++add++genweb.organs.file</property>
