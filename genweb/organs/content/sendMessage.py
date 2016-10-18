@@ -13,6 +13,10 @@ from genweb.organs.content.sessio import ISessio
 from zope.annotation.interfaces import IAnnotations
 from genweb.organs.browser.views import sessio_sendMail
 from AccessControl import Unauthorized
+from plone.autoform import directives
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from zope import schema
+
 
 grok.templatedir("send_templates")
 
@@ -26,10 +30,17 @@ class IMessage(form.Schema):
         description=_("Mail address separated by commas."),
         required=False)
 
-    message = RichText(
-        title=_('Message'),
+    directives.widget(message=WysiwygFieldWidget)
+    message = schema.Text(
+        title=_(u"Message"),
         description=_("This content will be used as message content"),
-        required=False)
+        required=False,
+    )
+
+    # message = RichText(
+    #     title=_('Message'),
+    #     description=_("This content will be used as message content"),
+    #     required=False)
 
 
 class Message(form.SchemaForm):
