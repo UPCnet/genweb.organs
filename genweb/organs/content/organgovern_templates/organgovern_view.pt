@@ -20,13 +20,13 @@
   <div id="contentOrgan">
       <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
           <li class="active" tal:condition="context/descripcioOrgan">
-            <a href="#descriptionTab" data-toggle="tab">Descripció</a>
+            <a href="#descriptionTab" data-toggle="tab" i18n:translate="">Description</a>
           </li>
           <li tal:condition="view/nomembers">
-            <a href="#composicionTab" data-toggle="tab">Composició</a>
+            <a href="#composicionTab" data-toggle="tab" i18n:translate="">Composicio</a>
           </li>
           <li tal:condition="view/getAcords">
-            <a href="#acordsTab" data-toggle="tab">Acords aprovats</a>
+            <a href="#acordsTab" data-toggle="tab" i18n:translate="">Acords aprovats</a>
           </li>
       </ul>
       <div id="organsTabs" class="tab-content">
@@ -41,10 +41,10 @@
               <div class="panel-heading">
                 <ul class="nav nav-tabs">
                     <li tal:condition="context/membresOrgan" class="active">
-                      <a href="#tab1primary" data-toggle="tab">Persones assistents</a>
+                      <a href="#tab1primary" data-toggle="tab" i18n:translate="">Persones assistents</a>
                     </li>
                     <li tal:condition="context/convidatsPermanentsOrgan">
-                      <a href="#tab2primary" data-toggle="tab">Persones convidades</a>
+                      <a href="#tab2primary" data-toggle="tab" i18n:translate="">Persones convidades</a>
                     </li>
                 </ul>
               </div>

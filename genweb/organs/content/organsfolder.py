@@ -11,8 +11,8 @@ class IOrgansfolder(form.Schema):
     """
 
     logoOrganFolder = NamedBlobImage(
-        title=_(u"Organ logo"),
-        description=_(u'Logo description'),
+        title=_(u"Organs folder logo"),
+        description=_(u'Logo organs folder description'),
         required=False,
     )
 
