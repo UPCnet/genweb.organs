@@ -144,22 +144,23 @@ class gwHeader(viewletBase):
 
     def getLogo(self):
         from genweb.organs.content.organsfolder import IOrgansfolder
-        IOrgansfolder.providedBy(self.context)
-
-        portal_state = self.context.restrictedTraverse('@@plone_portal_state')
-        root = getNavigationRootObject(self.context, portal_state.portal())
-        phisycal_path = aq_inner(self.context).getPhysicalPath()
-        relative = phisycal_path[len(root.getPhysicalPath()):]
-
-        image = ''
-        for i in range(len(relative)):
-            now = relative[:i + 1]
-            obj = aq_inner(root.restrictedTraverse(now))
-            if IOrgansfolder.providedBy(obj):
-                try:
-                    obj.logoOrgan.filename
-                    image = obj.absolute_url() + '/@@images/logoOrgan'
-                except:
-                    image = ''  # loads default image
-
-        return image
+        if IOrgansfolder.providedBy(self.context):
+            try:
+                self.context.logoOrganFolder.filename
+                return self.context.absolute_url() + '/@@images/logoOrganFolder'
+            except:
+                return None
+        else:
+            portal_state = self.context.restrictedTraverse('@@plone_portal_state')
+            root = getNavigationRootObject(self.context, portal_state.portal())
+            phisycal_path = aq_inner(self.context).getPhysicalPath()
+            relative = phisycal_path[len(root.getPhysicalPath()):]
+            for i in range(len(relative)):
+                now = relative[:i + 1]
+                obj = aq_inner(root.restrictedTraverse(now))
+                if IOrgansfolder.providedBy(obj):
+                    try:
+                        obj.logoOrganFolder.filename
+                        return obj.absolute_url() + '/@@images/logoOrganFolder'
+                    except:
+                        return None  # loads default image

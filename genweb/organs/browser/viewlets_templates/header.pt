@@ -167,7 +167,7 @@
   <div class="bannerOrgans">
     <div style="float:left;">
       <a>
-          <img tal:attributes="src viewlet/getLogo" style="height:65px;" />
+          <img tal:attributes="src viewlet/getLogo" style="height:65px; width: auto;" />
       </a>
     </div>
     <div class="header-image l3-image"

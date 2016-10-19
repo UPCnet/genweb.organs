@@ -121,9 +121,24 @@ class ActaPrintView(BrowserView):
     __call__ = ViewPageTemplateFile('views/acta_print.pt')
 
     def organGovernTitle(self):
-        """ Get organGovern Title used for printing the acta
-        """
+        """ Get organGovern Title used for printing the acta """
         return self.aq_parent.aq_parent.aq_parent.Title()
+
+    def getOrganLogo(self):
+        """ Getlogo to use in print """
+        try:
+            self.context.aq_parent.aq_parent.logoOrganFolder.filename
+            return self.context.aq_parent.aq_parent.aq_parent.absolute_url() + '/@@images/logoOrganFolder'
+        except:
+            return self.context.aq_parent.aq_parent.aq_parent.absolute_url() + '/capcalera.jpg'
+
+    def getSessionLogo(self):
+        """ Getlogo to use in print """
+        try:
+            self.context.aq_parent.aq_parent.logoOrgan.filename
+            return self.context.aq_parent.aq_parent.absolute_url() + '/@@images/logoOrgan'
+        except:
+            return None
 
 
 class AddLogMail(BrowserView):

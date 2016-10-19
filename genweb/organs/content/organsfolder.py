@@ -10,7 +10,7 @@ class IOrgansfolder(form.Schema):
     """ Tipus Organs Folder: Carpeta que conté Organs
     """
 
-    logoOrgan = NamedBlobImage(
+    logoOrganFolder = NamedBlobImage(
         title=_(u"Organ logo"),
         description=_(u'Logo description'),
         required=False,

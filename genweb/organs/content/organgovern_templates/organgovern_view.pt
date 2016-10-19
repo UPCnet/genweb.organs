@@ -11,7 +11,8 @@
   <metal:content-core fill-slot="content-core">
   <br/>
   <div class="pull-right" tal:condition="context/logoOrgan">
-    <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan"/>
+    <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan"
+         style="max-height: 60px; width: auto;"/>
     <br/><br/>
   </div>
   <div class="clearfix"></div>
