@@ -1,109 +1,109 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="genweb.organs">
+  <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="genweb.organs">
 
-<head>
-    <style type="text/css">
-        a:hover {text-decoration:none;}
-        a {text-decoration:none;}
-        .plain a {color:#555555;font-family: 'Source Sans Pro', sans-serif;font-size: 12px;}
-        body {font-family: 'Source Sans Pro',
-              sans-serif;font-size: 10px;
-              color: #333333;
-              width:733px;}
-        h2 {margin-bottom:20px !important;}
-        h3 {font-family: 'Source Sans Pro',
-              sans-serif;font-size: 12px;
-              }
-    </style>
+  <head>
+  <style type="text/css">
+      a:hover {text-decoration:none;}
+      a {text-decoration:none;}
+      .plain a {color:#555555;font-family: 'Source Sans Pro', sans-serif;font-size: 12px;}
+      body {font-family: 'Source Sans Pro',
+            sans-serif;font-size: 10px;
+            color: #333333;
+            width:733px;}
+      h2 {margin-bottom:20px !important;}
+      h3 {font-family: 'Source Sans Pro',
+            sans-serif;font-size: 12px;
+            }
+  </style>
 
-     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,733,600' rel='stylesheet' type='text/css'>
-     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="++genweb++stylesheets/genwebupc.css">
-    <title i18n:translate="">Acta</title>
-</head>
+   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,733,600' rel='stylesheet' type='text/css'>
+   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+   <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="++genweb++stylesheets/genwebupc.css">
+  <title i18n:translate="">Acta</title>
+  </head>
 
-<body>
-<!--     <img src="++resource++genweb.organs.static/logo_UPC_full.jpg" style="width:300px;"> -->
-    <h1 style="text-align: left" tal:content="view/organGovernTitle">CONSELL DE GOVERN</h1>
-    <hr/>
+  <body>
+  <!--     <img src="++resource++genweb.organs.static/logo_UPC_full.jpg" style="width:300px;"> -->
+  <h1 style="text-align: left" tal:content="view/organGovernTitle">CONSELL2 DE GOVERN</h1>
+  <hr/>
 
-    <div class="container-fluid" style="border-bottom: 1px solid #b2b2b2;">
+  <div class="container-fluid" style="border-bottom: 1px solid #b2b2b2;">
+    <div class="row-fluid">
+      <div class="span12" style="margin-bottom: 0px">
         <div class="row-fluid">
-            <div class="span12" style="margin-bottom: 0px">
-                <div class="row-fluid">
-                    <div class="span8">
-                        <tal:omit-tag tal:condition="context/Title">
-                            <th style="display: inline-block;"><strong i18n:translate="">Acta</strong>:</th>
-                            <span tal:content="context/Title"></span>
-                        </tal:omit-tag>
-                        <br/>
-                        <tal:omit-tag tal:condition="context/llocConvocatoria">
-                            <th style="display: inline-block;"><strong i18n:translate="">Lloc de realitzacio</strong>:</th>
-                            <span tal:content="context/llocConvocatoria"></span>
-                        </tal:omit-tag>
-                    </div>
-                    <div class="span4">
-                        <tal:omit-tag tal:condition="context/dataSessio">
-                            <th style="display: inline-block;"><strong i18n:translate="">Sessio del dia</strong>:</th>
-                            <span tal:content="python:context.dataSessio.strftime('%d/%m/%Y')"></span>
-                        </tal:omit-tag>
-                        <br/>
-                        <tal:omit-tag tal:condition="context/horaInici">
-                            <th style="display: inline-block;"><strong i18n:translate="">Session start</strong>:</th>
-                            <span tal:content="python:context.horaInici.strftime('%H:%M')"></span>
-                        </tal:omit-tag>
-                        <br/>
-                        <tal:omit-tag tal:condition="context/horaFi">
-                            <th style="display: inline-block;"><strong i18n:translate="">Hora de fi</strong>:</th>
-                            <span tal:content="python:context.horaFi.strftime('%H:%M')"></span>
-                        </tal:omit-tag>
-                    </div>
-                </div>
-            </div>
+          <div class="span8">
+            <tal:omit-tag tal:condition="context/Title">
+              <th style="display: inline-block;"><strong i18n:translate="">Acta</strong>:</th>
+              <span tal:content="context/Title"></span>
+            </tal:omit-tag>
+            <br/>
+            <tal:omit-tag tal:condition="context/llocConvocatoria">
+              <th style="display: inline-block;"><strong i18n:translate="">Lloc de realitzacio</strong>:</th>
+              <span tal:content="context/llocConvocatoria"></span>
+            </tal:omit-tag>
+          </div>
+          <div class="span4">
+            <tal:omit-tag tal:condition="context/dataSessio">
+              <th style="display: inline-block;"><strong i18n:translate="">Sessio del dia</strong>:</th>
+              <span tal:content="python:context.dataSessio.strftime('%d/%m/%Y')"></span>
+            </tal:omit-tag>
+            <br/>
+            <tal:omit-tag tal:condition="context/horaInici">
+              <th style="display: inline-block;"><strong i18n:translate="">Session start</strong>:</th>
+              <span tal:content="python:context.horaInici.strftime('%H:%M')"></span>
+            </tal:omit-tag>
+            <br/>
+            <tal:omit-tag tal:condition="context/horaFi">
+              <th style="display: inline-block;"><strong i18n:translate="">Hora de fi</strong>:</th>
+              <span tal:content="python:context.horaFi.strftime('%H:%M')"></span>
+            </tal:omit-tag>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 
-    <tal:block tal:condition="context/membresConvocats">
-        <h3 i18n:translate=""> Attending members </h3>
-        <div tal:replace="structure context/membresConvocats/output|nothing" />
-    </tal:block>
+  <tal:block tal:condition="context/membresConvocats">
+      <h3 i18n:translate=""> Attending members </h3>
+      <div tal:replace="structure context/membresConvocats"/>
+  </tal:block>
 
-    <tal:block tal:condition="context/membresConvidats">
-        <h3 i18n:translate=""> Invited members </h3>
-        <div tal:replace="structure context/membresConvidats/output|nothing" />
-    </tal:block>
+  <tal:block tal:condition="context/membresConvidats">
+      <h3 i18n:translate=""> Invited members </h3>
+      <span tal:replace="structure context/membresConvidats" />
+  </tal:block>
 
-    <tal:block tal:condition="context/llistaExcusats">
-        <h3 i18n:translate=""> Excused members </h3>
-        <div tal:replace="structure context/llistaExcusats/output|nothing" />
-    </tal:block>
+  <tal:block tal:condition="context/llistaExcusats">
+      <h3 i18n:translate=""> Excused members </h3>
+      <span tal:replace="structure context/llistaExcusats"/>
+  </tal:block>
 
-    <tal:block tal:condition="context/llistaNoAssistens">
-        <h3 i18n:translate=""> Missing members </h3>
-        <div tal:replace="structure context/llistaNoAssistens/output|nothing" />
-    </tal:block>
+  <tal:block tal:condition="context/llistaNoAssistens">
+      <h3 i18n:translate=""> Missing members </h3>
+      <span tal:replace="structure context/llistaNoAssistens"/>
+  </tal:block>
 
-    <tal:block tal:condition="context/ordreSessio">
-        <h3 i18n:translate=""> Session order </h3>
-        <div tal:replace="structure context/ordreSessio/output|nothing" />
-    </tal:block>
+  <tal:block tal:condition="context/ordreSessio">
+      <h3 i18n:translate=""> Session order </h3>
+      <span tal:replace="structure context/ordreSessio" />
+  </tal:block>
 
-    <tal:block tal:condition="context/actaBody">
-        <h3 i18n:translate=""> Acta Body </h3>
-        <div tal:replace="structure context/actaBody/output|nothing" />
-    </tal:block>
+  <tal:block tal:condition="context/actaBody">
+      <h3 i18n:translate=""> Acta Body </h3>
+      <span tal:replace="structure context/actaBody" />
+  </tal:block>
 
-    <tal:block tal:condition="context/footer">
-      <br/>
-        <div tal:replace="structure context/footer/output|nothing" />
-    </tal:block>
+  <tal:block tal:condition="context/footer">
+    <br/>
+      <span tal:replace="structure context/footer" />
+  </tal:block>
 
-</body>
-</html>
+  </body>
+  </html>
