@@ -1,18 +1,6 @@
-/*#contentOrgan li.active {
-    background-color: red;
-}
-
-#contentOrgan > .active > a {
-    background-color: green;
-}
-
-#contentOrgan li {
-    background-color: blue;
-}
-*/
-
 .portaltype-genweb-organs-organgovern div.tab-pane.active,
-.portaltype-genweb-organs-sessio div.tab-pane.active {
+.portaltype-genweb-organs-sessio div.tab-pane.active,
+.portaltype-genweb-organs-acta div.tab-pane.active {
     padding-top: 20px;
     background-color: #f0f0f0;
     padding-left: 20px;
@@ -25,7 +13,8 @@ ul#tabs.nav.nav-tabs {
 }
 
 #contentOrgan #tabs li a,
-#contentSessio #tabs li a {
+#contentSessio #tabs li a,
+#contentActa #tabs li a {
     background-image: none;
     background-color: #D4D4D4;
     padding: 10px 20px 10px 20px;
@@ -34,7 +23,8 @@ ul#tabs.nav.nav-tabs {
 }
 
 #contentOrgan #tabs li.active a,
-#contentSessio #tabs li.active a {
+#contentSessio #tabs li.active a,
+#contentActa #tabs li.active a  {
     background-image: none;
     background-color: #f0f0f0;
     border: none;
@@ -49,7 +39,6 @@ ul#tabs.nav.nav-tabs {
     background-color: white;
     color: black;
 }
-
 
 #dadesTab li,
 #multimediaTab li
@@ -72,8 +61,6 @@ a.collapsed .icon-chevron-down{
 table th {
     background-color: #F7F7F7!important;
 }
-
-
 
 .containerIcons {
     text-align: center;

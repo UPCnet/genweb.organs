@@ -1,0 +1,70 @@
+/* START CSS PRINT */
+
+@media print {
+    @page {
+        margin: 1.5cm;
+    }
+
+    body {
+        font-size: 12pt !important;
+    }
+
+    .nav-collapse-eines,
+    #portal-personaltools-wrapper,
+    #portal-globalnav,
+    #portal-column-one,
+    .alert,
+    #edit-bar,
+    #viewlet-below-content-title,
+    #viewlet-above-content-title,
+    .header-image,
+    #cookies,
+    .extraInfo {display: none !important;}
+
+    #portal-column-content {
+        margin:0 !important;
+        width:100% !important;
+    }
+
+    #peu .span8 {
+        width:100% !important;
+    }
+
+    #commenting {
+        display:none !important;
+    }
+
+    #viewlet-below-content > a {
+        display:none !important;
+    }
+
+    input[type="submit"] {
+        display:none !important;
+    }
+
+    #content-core > button {display:none !important;}
+
+    .linkNotificacions { display:none !important; }
+
+    .btnActa {display:none !important; }
+
+    #peu > div > div.row-fluid {
+        display:none !important;
+    }
+
+    div.pageBreak {
+        page-break-before: always !important;
+    }
+
+    #portal-breadcrumbs {display: inline !important;}
+
+    .reply-to-comment-button {display:none !important;}
+
+
+#content a:link:after,
+#content a:visited:after {
+   content: " [" attr() "] " !important;
+}
+}
+
+/* END CSS PRINT */

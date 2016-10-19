@@ -14,8 +14,8 @@ from plone.supermodel.directives import fieldset
 
 
 class IActa(form.Schema):
-    """ Tipus Sessio: Per a cada Òrgan de Govern es podran crear
-        totes les sessions que es considerin oportunes
+    """ Tipus ACTA: Per a cada Òrgan de Govern es podran crear
+        totes les actes que es considerin oportunes
     """
     fieldset('assistents',
              label=_(u'Assistents'),
@@ -101,6 +101,7 @@ class IActa(form.Schema):
         title=_(u"Footer"),
         required=False,
     )
+
 
 @form.default_value(field=IActa['membresConvidats'])
 def membresConvidatsDefaultValue(data):

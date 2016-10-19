@@ -9,100 +9,32 @@
 
 <metal:content-core fill-slot="content-core">
 
-<script type="text/javascript">
-  function printPage(newWindow){
-    newWindow.focus();
-    newWindow.print();
-  }
-</script>
+  <script type="text/javascript">
+    function printPage(newWindow){
+      newWindow.focus();
+      newWindow.print();
+    }
+  </script>
 
-<iframe name="iframe" id="iframe" width="1" height="1" src="printActa"></iframe>
+  <iframe name="iframe" id="iframe" width="1" height="1" src="printActa"></iframe>
 
-  <tal:omit-tag condition="view/isReader">
-    <a class="btn btn-info btnActa" style="float:right"
-        href="javascript:printPage(iframe);">
-        <i class="icon-print icon-white"></i> <span i18n:translate=""> Print Acta </span>
-    </a>
-  </tal:omit-tag>
+    <tal:omit-tag condition="view/isReader">
+      <a class="btn btn-info btnActa" style="float:right"
+          href="javascript:printPage(iframe);">
+          <i class="icon-print icon-white"></i> <span i18n:translate=""> Print Acta </span>
+      </a>
+    </tal:omit-tag>
 
+  <div class="clearfix"></div>
 
-  <div>
-    <div class="span12">
-      <div class="span8">
+  <div id="contentActa">
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+      <li class="active"><a href="#dadesTab" data-toggle="tab" i18n:translate="">Dades</a></li>
+      <li><a href="#assistentsTab" data-toggle="tab" i18n:translate="">Assistents</a></li>
+    </ul>
 
-        <tal:block tal:condition="context/membresConvocats">
-          <hr/>
-          <div class="accordion" id="accordionConvocats">
-              <div class="accordion-heading">
-                <h3 class="accordion-toggle" data-toggle="collapse"
-                    style="color: #557c95; padding-left: 0px;"
-                   data-parent="#accordionConvocats" href="#collapseConvocats">
-                  <tal:omit-tag i18n:translate="">Attending members</tal:omit-tag>
-                   <i class="icon-chevron-down"></i>
-                </h3>
-              </div>
-              <div id="collapseConvocats" class="collapse">
-                  <div tal:replace="structure context/membresConvocats/output|nothing" />
-              </div>
-          </div>
-        </tal:block>
-
-        <tal:block tal:condition="context/membresConvidats">
-          <hr/>
-          <div class="accordion" id="accordionConvidats">
-              <div class="accordion-heading">
-                <h3 class="accordion-toggle" data-toggle="collapse"
-                    style="color: #557c95; padding-left: 0px;"
-                   data-parent="#accordionConvidats" href="#collapseConvidats">
-                  <tal:omit-tag i18n:translate="">Invited members</tal:omit-tag>
-                   <i class="icon-chevron-down"></i>
-                </h3>
-              </div>
-              <div id="collapseConvidats" class="collapse">
-                  <div tal:replace="structure context/membresConvidats/output|nothing" />
-              </div>
-          </div>
-        </tal:block>
-
-        <tal:block tal:condition="context/llistaExcusats">
-          <hr/>
-          <div class="accordion" id="accordionExcusats">
-              <div class="accordion-heading">
-                <h3 class="accordion-toggle" data-toggle="collapse"
-                    style="color: #557c95; padding-left: 0px;"
-                   data-parent="#accordionExcusats" href="#collapseExcusats">
-                  <tal:omit-tag i18n:translate="">Excused members</tal:omit-tag>
-                   <i class="icon-chevron-down"></i>
-                </h3>
-              </div>
-              <div id="collapseExcusats" class="collapse">
-                  <div tal:replace="structure context/llistaExcusats/output|nothing" />
-              </div>
-          </div>
-        </tal:block>
-
-        <tal:block tal:condition="context/llistaNoAssistens">
-          <hr/>
-          <div class="accordion" id="accordionNoAssistens">
-              <div class="accordion-heading">
-                <h3 class="accordion-toggle" data-toggle="collapse"
-                    style="color: #557c95; padding-left: 0px;"
-                   data-parent="#accordionNoAssistens" href="#collapseNoAssistens">
-                  <tal:omit-tag i18n:translate="">Missing members</tal:omit-tag>
-                   <i class="icon-chevron-down"></i>
-                </h3>
-              </div>
-              <div id="collapseNoAssistens" class="collapse">
-                  <div tal:replace="structure context/llistaNoAssistens/output|nothing" />
-              </div>
-          </div>
-        </tal:block>
-
-      </div>
-
-      <div class="span4 resultsBox" >
-        <h3 style="text-align: center;"
-            i18n:translate=""> Session info </h3>
+    <div id="actaTabs" class="tab-content">
+      <div class="tab-pane active" id="dadesTab">
         <ul>
           <li tal:condition="context/dataSessio">
             <b i18n:translate="">Data:</b>
@@ -124,38 +56,72 @@
             <span style="float:right"
                   tal:content="context/llocConvocatoria"></span>
           </li>
+
         </ul>
       </div>
+
+      <div class="tab-pane" id="assistentsTab">
+        <div class="panel with-nav-tabs panel-primary">
+          <div class="panel-heading">
+            <ul class="nav nav-tabs">
+                <li tal:condition="context/membresConvocats" class="active">
+                  <a href="#tab1primary" data-toggle="tab" i18n:translate="">Attending members</a>
+                </li>
+                <li tal:condition="context/membresConvidats">
+                  <a href="#tab2primary" data-toggle="tab" i18n:translate="">Invited members</a>
+                </li>
+                <li tal:condition="context/llistaExcusats">
+                  <a href="#tab3primary" data-toggle="tab" i18n:translate="">Excused members</a>
+                </li>
+                <li tal:condition="context/llistaNoAssistens">
+                  <a href="#tab4primary" data-toggle="tab" i18n:translate="">Missing members</a>
+                </li>
+            </ul>
+          </div>
+          <div class="panel-body">
+            <div class="tab-content">
+              <div tal:condition="context/membresConvocats" class="tab-pane fade in active" id="tab1primary">
+                <span tal:replace="structure context/membresConvocats" />
+              </div>
+              <div tal:condition="context/membresConvidats" class="tab-pane fade" id="tab2primary">
+                <span tal:replace="structure context/membresConvidats" />
+              </div>
+              <div tal:condition="context/llistaExcusats" class="tab-pane fade" id="tab3primary">
+                <span tal:replace="structure context/llistaExcusats" />
+              </div>
+              <div tal:condition="context/llistaNoAssistens" class="tab-pane fade" id="tab4primary">
+                <span tal:replace="structure context/llistaNoAssistens" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+
   </div>
 
-  <div style="clear:both;"></div>
+  <div class="clearfix"></div>
 
   <tal:block tal:condition="context/ordreSessio">
     <hr/>
     <h3 i18n:translate=""> Session order </h3>
-    <div tal:replace="structure context/ordreSessio/output|nothing" />
+    <div tal:content="structure context/ordreSessio" />
   </tal:block>
 
   <tal:block tal:condition="context/actaBody">
     <hr/>
     <h3 i18n:translate=""> Acta Body </h3>
-    <div tal:replace="structure context/actaBody/output|nothing" />
+    <div tal:replace="structure context/actaBody" />
   </tal:block>
 
   <tal:block tal:condition="context/footer">
     <hr/>
     <h3 i18n:translate=""> Footer </h3>
-    <div tal:replace="structure context/footer/output|nothing" />
+    <div tal:replace="structure context/footer" />
   </tal:block>
-
-  <tal:bck:files tal:condition="python: 'OriginalFiles' in view.w" >
     <hr/>
-    <tal:files tal:condition="python:getattr(context, 'OriginalFiles', None)">
-      <h3 i18n:translate=""> Files </h3>
-      <div tal:content="structure view/w/OriginalFiles/render" style="padding-bottom:22px;"/>
-    </tal:files>
-  </tal:bck:files>
+
 
 </metal:content-core>
 

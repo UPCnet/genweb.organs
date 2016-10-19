@@ -14,7 +14,7 @@
     <div class="alert alert-alert" role="alert" i18n:translate="">Esteu visualitzant un punt marcat com Acord.</div>
   </div>
 
- <table class="table table-bordered table-condensed table-responsive" >
+  <table class="table table-bordered table-condensed table-responsive" >
     <thead>
       <tr>
         <th>
@@ -87,7 +87,6 @@
       </tbody>
     </tal:files>
   </table>
-
 
 </metal:content-core>
 

@@ -15,7 +15,6 @@
   <metal:description fill-slot="content-description">
   </metal:description> -->
 
-
   <metal:content-core fill-slot="content-core">
     <metal:listingmacro define-macro="listing"
       tal:define="contentFilter contentFilter|request/contentFilter|nothing;
@@ -27,65 +26,65 @@
                         folderContents folderContents|nothing;
                         folderContents python:context.getFolderContents(contentFilter, batch=True, b_size=limit_display or 100);">
 
-    <tal:Organs tal:define="item view/OrgansInside" tal:condition="item">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>&nbsp;
-              <tal:title i18n:translate="">Title</tal:title>
-            </th>
-            <th>&nbsp;
-              <tal:head i18n:translate="">Acronym</tal:head>
-            </th>
-            <th>&nbsp;
-              <tal:head i18n:translate="">Organ type</tal:head>
-            </th>
-            <th>&nbsp;
-              <tal:head i18n:translate="">State</tal:head>
-            </th>
-          </tr>
-        </thead>
-        <tal:documents repeat="item view/OrgansInside">
-          <tal:block tal:define="obj item/getObject;">
+      <tal:Organs tal:define="item view/OrgansInside" tal:condition="item">
+        <table class="table table-striped">
+          <thead>
             <tr>
-              <td>&nbsp;
-                <a href="#"
-                       tal:attributes="href obj/absolute_url;"
-                       tal:content="obj/title">
-                        Item Title
-                </a>
-              </td>
-              <td>&nbsp;
-                <span tal:content="obj/acronim">
-                        Item Description
-                </span>
-              </td>
-              <td>&nbsp;
-                <span tal:content="obj/tipus">
-                        Item Description
-                </span>
-              </td>
-              <td>&nbsp;
-                <span tal:content="item/review_state"
-                      i18n:translate=""
-                      i18n:domain="genweb"
-                      tal:attributes="class item/review_state">
-                  Status
-                </span>
-              </td>
+              <th>&nbsp;
+                <tal:title i18n:translate="">Title</tal:title>
+              </th>
+              <th>&nbsp;
+                <tal:head i18n:translate="">Acronym</tal:head>
+              </th>
+              <th>&nbsp;
+                <tal:head i18n:translate="">Organ type</tal:head>
+              </th>
+              <th>&nbsp;
+                <tal:head i18n:translate="">State</tal:head>
+              </th>
             </tr>
-          </tal:block>
-        </tal:documents>
-      </table>
-    </tal:Organs>
+          </thead>
+          <tal:documents repeat="item view/OrgansInside">
+            <tal:block tal:define="obj item/getObject;">
+              <tr>
+                <td>&nbsp;
+                  <a href="#"
+                         tal:attributes="href obj/absolute_url;"
+                         tal:content="obj/title">
+                          Item Title
+                  </a>
+                </td>
+                <td>&nbsp;
+                  <span tal:content="obj/acronim">
+                          Item Description
+                  </span>
+                </td>
+                <td>&nbsp;
+                  <span tal:content="obj/tipus">
+                          Item Description
+                  </span>
+                </td>
+                <td>&nbsp;
+                  <span tal:content="item/review_state"
+                        i18n:translate=""
+                        i18n:domain="genweb"
+                        tal:attributes="class item/review_state">
+                    Status
+                  </span>
+                </td>
+              </tr>
+            </tal:block>
+          </tal:documents>
+        </table>
+      </tal:Organs>
 
-    <metal:empty metal:define-slot="no_items_in_listing">
+      <metal:empty metal:define-slot="no_items_in_listing">
         <p class="discreet"
            tal:condition="not: folderContents"
            i18n:translate="description_no_items_in_folder">
             There are currently no Organs in this folder.
         </p>
-    </metal:empty>
+      </metal:empty>
 
     </metal:listingmacro>
   </metal:content-core>

@@ -26,11 +26,11 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="++genweb++stylesheets/genwebupc.css">
-    <title>Acta</title>
+    <title i18n:translate="">Acta</title>
 </head>
 
 <body>
-    <img src="++resource++genweb.organs.static/logo_UPC_full.jpg" style="width:300px;">
+<!--     <img src="++resource++genweb.organs.static/logo_UPC_full.jpg" style="width:300px;"> -->
     <h1 style="text-align: left" tal:content="view/organGovernTitle">CONSELL DE GOVERN</h1>
     <hr/>
 
@@ -40,18 +40,18 @@
                 <div class="row-fluid">
                     <div class="span8">
                         <tal:omit-tag tal:condition="context/Title">
-                            <th style="display: inline-block;"><strong i18n:translate="">Acta:</strong></th>
+                            <th style="display: inline-block;"><strong i18n:translate="">Acta</strong>:</th>
                             <span tal:content="context/Title"></span>
                         </tal:omit-tag>
                         <br/>
                         <tal:omit-tag tal:condition="context/llocConvocatoria">
-                            <th style="display: inline-block;"><strong i18n:translate="">Lloc de realitzacio:</strong></th>
+                            <th style="display: inline-block;"><strong i18n:translate="">Lloc de realitzacio</strong>:</th>
                             <span tal:content="context/llocConvocatoria"></span>
                         </tal:omit-tag>
                     </div>
                     <div class="span4">
                         <tal:omit-tag tal:condition="context/dataSessio">
-                            <th style="display: inline-block;"><strong i18n:translate="">Sessio del dia:</strong></th>
+                            <th style="display: inline-block;"><strong i18n:translate="">Sessio del dia</strong>:</th>
                             <span tal:content="python:context.dataSessio.strftime('%d/%m/%Y')"></span>
                         </tal:omit-tag>
                         <br/>
@@ -61,7 +61,7 @@
                         </tal:omit-tag>
                         <br/>
                         <tal:omit-tag tal:condition="context/horaFi">
-                            <th style="display: inline-block;"><strong i18n:translate="">Hora de fi:</strong></th>
+                            <th style="display: inline-block;"><strong i18n:translate="">Hora de fi</strong>:</th>
                             <span tal:content="python:context.horaFi.strftime('%H:%M')"></span>
                         </tal:omit-tag>
                     </div>
