@@ -39,7 +39,7 @@ class IActa(form.Schema):
     )
 
     llocConvocatoria = schema.TextLine(
-        title=_(u"Session place"),
+        title=_(u"Session location"),
         required=False,
     )
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-18 12:42+0000\n"
+"POT-Creation-Date: 2016-10-19 06:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgid "Acronym Description"
 msgstr ""
 
 #: ./genweb/organs/content/acta.py:26
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:35
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:49
 #: ./genweb/organs/profiles/default/types/genweb.organs.acta.xml
 msgid "Acta"
 msgstr ""
@@ -63,8 +63,8 @@ msgstr ""
 msgid "Attending members"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:127
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:111
+#: ./genweb/organs/content/sessio.py:126
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:125
 msgid "Audio link"
 msgstr ""
 
@@ -92,7 +92,7 @@ msgstr ""
 msgid "Body Mail send description"
 msgstr ""
 
-#: ./genweb/organs/content/sendMessage.py:143
+#: ./genweb/organs/content/sendMessage.py:154
 msgid "Cancel"
 msgstr ""
 
@@ -100,20 +100,20 @@ msgstr ""
 msgid "Contingut"
 msgstr ""
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:32
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:46
 msgid "Dades"
 msgstr ""
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:139
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:153
 msgid "Data i hora"
 msgstr ""
 
 #: ./genweb/organs/content/acta_templates/acta_view.pt:108
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:44
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:58
 msgid "Data:"
 msgstr ""
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:145
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:159
 msgid "Destinataris"
 msgstr ""
 
@@ -125,7 +125,7 @@ msgstr ""
 msgid "Enter the from used in the mail form"
 msgstr ""
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:20
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:34
 msgid "Enviar"
 msgstr ""
 
@@ -192,12 +192,8 @@ msgstr ""
 msgid "Genweb Organs de Govern (genweb.organs)"
 msgstr ""
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:36
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:50
 msgid "Historial"
-msgstr ""
-
-#: ./genweb/organs/browser/views/acta_print.pt:59
-msgid "Hora d'inici:"
 msgstr ""
 
 #: ./genweb/organs/browser/views/acta_print.pt:64
@@ -208,7 +204,7 @@ msgstr ""
 msgid "Incoming members list"
 msgstr ""
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:17
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:31
 msgid "Informar"
 msgstr ""
 
@@ -227,7 +223,7 @@ msgid "Lloc de realitzacio:"
 msgstr ""
 
 #: ./genweb/organs/content/acta_templates/acta_view.pt:123
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:59
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:73
 msgid "Lloc:"
 msgstr ""
 
@@ -240,11 +236,11 @@ msgstr ""
 msgid "Mail address help"
 msgstr ""
 
-#: ./genweb/organs/content/sendMessage.py:26
+#: ./genweb/organs/content/sendMessage.py:30
 msgid "Mail address separated by commas."
 msgstr ""
 
-#: ./genweb/organs/content/sendMessage.py:30
+#: ./genweb/organs/content/sendMessage.py:35
 msgid "Message"
 msgstr ""
 
@@ -254,7 +250,7 @@ msgid "Missatge enviat correctament"
 msgstr ""
 
 #: ./genweb/organs/browser/views.py:164
-#: ./genweb/organs/content/sendMessage.py:133
+#: ./genweb/organs/content/sendMessage.py:144
 msgid "Missatge enviat per: "
 msgstr ""
 
@@ -272,15 +268,11 @@ msgstr ""
 msgid "Missing members"
 msgstr ""
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:34
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:48
 msgid "Multimedia"
 msgstr ""
 
-#: ./genweb/organs/content/send_templates/message_view.pt:18
-msgid "New message"
-msgstr ""
-
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:142
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:156
 msgid "Notificador"
 msgstr ""
 
@@ -293,7 +285,7 @@ msgstr ""
 msgid "Open to everybody"
 msgstr ""
 
-#: ./genweb/organs/content/sendMessage.py:145
+#: ./genweb/organs/content/sendMessage.py:156
 msgid "Operation Cancelled."
 msgstr ""
 
@@ -317,7 +309,7 @@ msgstr ""
 msgid "Organ Title"
 msgstr ""
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:64
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:78
 msgid "Organ de govern:"
 msgstr ""
 
@@ -350,7 +342,7 @@ msgstr ""
 msgid "Please upload a document"
 msgstr ""
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:23
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:37
 msgid "Presentacio"
 msgstr ""
 
@@ -376,7 +368,7 @@ msgstr ""
 msgid "Punt Title"
 msgstr ""
 
-#: ./genweb/organs/content/sendMessage.py:25
+#: ./genweb/organs/content/sendMessage.py:29
 msgid "Recipients"
 msgstr ""
 
@@ -388,7 +380,7 @@ msgstr ""
 msgid "Restricted to Members"
 msgstr ""
 
-#: ./genweb/organs/content/sendMessage.py:66
+#: ./genweb/organs/content/sendMessage.py:77
 msgid "Send"
 msgstr ""
 
@@ -420,7 +412,9 @@ msgstr ""
 msgid "Session info"
 msgstr ""
 
+#: ./genweb/organs/content/acta.py:42
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:127
+#: ./genweb/organs/content/sessio.py:58
 msgid "Session location"
 msgstr ""
 
@@ -434,11 +428,7 @@ msgstr ""
 msgid "Session order"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:42
-#: ./genweb/organs/content/sessio.py:58
-msgid "Session place"
-msgstr ""
-
+#: ./genweb/organs/browser/views/acta_print.pt:59
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:130
 msgid "Session start"
 msgstr ""
@@ -457,10 +447,6 @@ msgstr ""
 msgid "Signatura"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:117
-msgid "Signatura description"
-msgstr ""
-
 #: ./genweb/organs/content/organgovern.py:84
 #: ./genweb/organs/content/sessio.py:79
 msgid "Stakeholders mail address"
@@ -475,7 +461,7 @@ msgstr ""
 msgid "State"
 msgstr ""
 
-#: ./genweb/organs/content/sendMessage.py:31
+#: ./genweb/organs/content/sendMessage.py:36
 msgid "This content will be used as message content"
 msgstr ""
 
@@ -484,8 +470,8 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:122
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:105
+#: ./genweb/organs/content/sessio.py:121
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:119
 msgid "Video link"
 msgstr ""
 

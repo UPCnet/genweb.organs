@@ -56,7 +56,7 @@
                         </tal:omit-tag>
                         <br/>
                         <tal:omit-tag tal:condition="context/horaInici">
-                            <th style="display: inline-block;"><strong i18n:translate="">Hora d'inici:</strong></th>
+                            <th style="display: inline-block;"><strong i18n:translate="">Session start</strong>:</th>
                             <span tal:content="python:context.horaInici.strftime('%H:%M')"></span>
                         </tal:omit-tag>
                         <br/>

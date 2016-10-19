@@ -55,7 +55,7 @@ class ISessio(form.Schema):
     )
 
     llocConvocatoria = schema.TextLine(
-        title=_(u"Session place"),
+        title=_(u"Session location"),
         required=False,
     )
 
@@ -114,7 +114,6 @@ class ISessio(form.Schema):
     dexteritytextindexer.searchable('signatura')
     signatura = schema.Text(
         title=_(u"Signatura"),
-        description=_(u"Signatura description"),
         required=False,
     )
 
