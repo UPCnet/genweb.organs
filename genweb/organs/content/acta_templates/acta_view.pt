@@ -37,22 +37,22 @@
       <div class="tab-pane active" id="dadesTab">
         <ul>
           <li tal:condition="context/dataSessio">
-            <b i18n:translate="">Data:</b>
+            <b i18n:translate="">Data</b>
             <span style="float:right"
                   tal:content="python:context.dataSessio.strftime('%d/%m/%Y')"></span>
           </li>
           <li tal:condition="context/horaInici">
-            <b i18n:translate="">Session start time</b>:
+            <b i18n:translate="">Session start time</b>
             <span style="float:right"
                   tal:content="python:context.horaInici.strftime('%H:%M')"></span>
           </li>
           <li tal:condition="context/horaFi">
-            <b i18n:translate="">Session end time</b>:
+            <b i18n:translate="">Session end time</b>
             <span style="float:right"
                   tal:content="python:context.horaFi.strftime('%H:%M')"></span>
           </li>
           <li tal:condition="context/llocConvocatoria">
-            <b i18n:translate="">Lloc:</b>
+            <b i18n:translate="">Lloc</b>
             <span style="float:right"
                   tal:content="context/llocConvocatoria"></span>
           </li>

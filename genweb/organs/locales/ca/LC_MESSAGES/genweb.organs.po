@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-19 12:56+0000\n"
+"POT-Creation-Date: 2016-10-19 13:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,11 +109,14 @@ msgstr "Contingut"
 msgid "Dades"
 msgstr "Dades"
 
+#: ./genweb/organs/content/acta_templates/acta_view.pt:40
+msgid "Data"
+msgstr "Data"
+
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:153
 msgid "Data i hora"
 msgstr "Data i hora"
 
-#: ./genweb/organs/content/acta_templates/acta_view.pt:40
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:58
 msgid "Data:"
 msgstr "Data:"
@@ -227,11 +230,14 @@ msgstr "Installs Organs de Govern package"
 msgid "Invited members"
 msgstr "Persones convidades"
 
+#: ./genweb/organs/content/acta_templates/acta_view.pt:55
+msgid "Lloc"
+msgstr "Lloc"
+
 #: ./genweb/organs/browser/views/acta_print.pt:54
 msgid "Lloc de realitzacio"
 msgstr "Lloc de realització"
 
-#: ./genweb/organs/content/acta_templates/acta_view.pt:55
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:73
 msgid "Lloc:"
 msgstr "Lloc:"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-19 12:56+0000\n"
+"POT-Creation-Date: 2016-10-19 13:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,11 +109,14 @@ msgstr "contenido"
 msgid "Dades"
 msgstr "Datos"
 
+#: ./genweb/organs/content/acta_templates/acta_view.pt:40
+msgid "Data"
+msgstr "Fecha"
+
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:153
 msgid "Data i hora"
 msgstr "Fecha y hora"
 
-#: ./genweb/organs/content/acta_templates/acta_view.pt:40
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:58
 msgid "Data:"
 msgstr "Fecha:"
@@ -148,7 +151,7 @@ msgstr "La opción marcada indica que se trata de un fichero interno"
 
 #: ./genweb/organs/content/punt.py:66
 msgid "Es un acord?"
-msgstr "¿Se trata de un acuerdo?"
+msgstr "Marcar esta opción si se trata de un acuerdo"
 
 #: ./genweb/organs/content/organgovern.py:105
 msgid "Esborrany, Pendent d'aprovació, Aprovat, Informat, No aprovat, Derogat, Informatiu"
@@ -164,7 +167,7 @@ msgstr "Estáis visualizando un fichero <strong>PÚBLICO</strong>."
 
 #: ./genweb/organs/content/punt_templates/punt_view.pt:14
 msgid "Esteu visualitzant un punt marcat com Acord."
-msgstr "Estáis visualizando un fichero Punto marcado como Acuerdo."
+msgstr "Estáis visualizando un Punto del orden del día marcado como Acuerdo."
 
 #: ./genweb/organs/browser/views/acta_print.pt:90
 #: ./genweb/organs/content/acta.py:73
@@ -227,11 +230,14 @@ msgstr "Installs Organs de Govern package"
 msgid "Invited members"
 msgstr "Personas invitadas"
 
+#: ./genweb/organs/content/acta_templates/acta_view.pt:55
+msgid "Lloc"
+msgstr "Lugar"
+
 #: ./genweb/organs/browser/views/acta_print.pt:54
 msgid "Lloc de realitzacio"
 msgstr "Lugar de realización"
 
-#: ./genweb/organs/content/acta_templates/acta_view.pt:55
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:73
 msgid "Lloc:"
 msgstr "Lugar:"
