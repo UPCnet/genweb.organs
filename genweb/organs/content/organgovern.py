@@ -138,22 +138,7 @@ class View(grok.View):
     grok.context(IOrgangovern)
     grok.template('organgovern_view')
 
-    def SessionsInside(self):
-        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
-        """
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        data = portal_catalog.searchResults(
-            portal_type='genweb.organs.sessio',
-            path={'query': folder_path,
-                  'depth': 1})
-
-        # The last modified is the first shown.
-        return sorted(data, key=lambda item: item.start, reverse=True)
-
     def selectedOrganType(self):
-        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
-        """
         value = self.context.estatsLlista
         return value
 
@@ -163,17 +148,46 @@ class View(grok.View):
             return False
         return True
 
+    def SessionsInside(self):
+        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        values = portal_catalog.searchResults(
+            portal_type='genweb.organs.sessio',
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+        for obj in values:
+            value = obj.getObject()
+            results.append(dict(title=value.title,
+                                absolute_url=value.absolute_url(),
+                                dataSessio=value.dataSessio.strftime('%d/%m/%Y'),
+                                llocConvocatoria=value.llocConvocatoria,
+                                horaInici=value.horaInici.strftime('%H:%M'),
+                                review_state=obj.review_state))
+        return results
+
     def getAcords(self):
         # If acords in site, publish the tab and the contents...
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
-        data = portal_catalog.searchResults(
+        values = portal_catalog.searchResults(
             portal_type='genweb.organs.punt',
             sort_on='getObjPositionInParent',
-            sort_order='reverse',
             acordOrgan=True,
             path={'query': folder_path,
                   'depth': 2})
 
-        return data
+        results = []
+        for obj in values:
+            value = obj.getObject()
+            results.append(dict(title=value.title,
+                                absolute_url=value.absolute_url(),
+                                proposalPoint=value.proposalPoint,
+                                agreement=value.agreement,
+                                estatsLlista=value.estatsLlista))
+        return results

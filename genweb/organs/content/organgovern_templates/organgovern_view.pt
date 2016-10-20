@@ -80,32 +80,31 @@
                 </tr>
               </thead>
               <tal:documents repeat="item view/getAcords">
-                <tal:block tal:define="obj item/getObject;">
                   <tr>
                     <td>&nbsp;
                       <a href="#"
-                             tal:attributes="href obj/absolute_url;"
-                             tal:content="obj/title">
+                             tal:attributes="href item/absolute_url;"
+                             tal:content="item/title">
                               Item Title
                       </a>
                     </td>
                     <td>&nbsp;
-                      <span tal:content="obj/proposalPoint">
+                      <span tal:content="item/proposalPoint">
                         Punt
                       </span>
                     </td>
                     <td>&nbsp;
-                      <span tal:content="obj/agreement">
+                      <span tal:content="item/agreement">
                         Numero
                       </span>
                     </td>
                     <td>&nbsp;
-                      <span tal:content="obj/estatsLlista">
+                      <span tal:content="item/estatsLlista"
+                            i18n:translate="">
                         Status
                       </span>
                     </td>
                   </tr>
-                </tal:block>
               </tal:documents>
             </table>
           </div>
@@ -136,30 +135,29 @@
           </tr>
         </thead>
         <tal:documents repeat="item view/SessionsInside">
-          <tal:block tal:define="obj item/getObject;">
             <tr>
               <td>&nbsp;
                 <a href="#"
-                       tal:attributes="href obj/absolute_url;"
-                       tal:content="obj/title">
+                       tal:attributes="href item/absolute_url;"
+                       tal:content="item/title">
                         Item Title
                 </a>
               </td>
               <td>&nbsp;
-                <tal:data tal:condition="obj/dataSessio"
-                          tal:content="python:obj.dataSessio.strftime('%d/%m/%Y')" >
+                <tal:data tal:condition="item/dataSessio"
+                          tal:content="item/dataSessio" >
                   Data de la Sessió
                 </tal:data>
               </td>
               <td>&nbsp;
-                <tal:data tal:condition="obj/llocConvocatoria"
-                          tal:content="obj/llocConvocatoria">
+                <tal:data tal:condition="item/llocConvocatoria"
+                          tal:content="item/llocConvocatoria">
                   Lloc Convocatoria
                 </tal:data>
               </td>
               <td>&nbsp;
-                <tal:data tal:condition="obj/horaInici"
-                          tal:content="python:obj.horaInici.strftime('%H:%M')">
+                <tal:data tal:condition="item/horaInici"
+                          tal:content="item/horaInici">
                   Hora inici
                 </tal:data>
               </td>
@@ -172,7 +170,6 @@
                 </span>
               </td>
             </tr>
-          </tal:block>
         </tal:documents>
       </table>
     </tal:Sessions>

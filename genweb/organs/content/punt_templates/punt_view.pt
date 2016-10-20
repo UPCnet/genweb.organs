@@ -60,10 +60,10 @@
           <td tal:condition="itemPublic">
             <ul>
               <tal:documents repeat="itemPublic view/publicFilesInside">
-                <li tal:define="objPublic itemPublic/getObject;" style="list-style: none;">
+                <li style="list-style: none;">
                 <i class="icon-file"></i>
-                  <a tal:attributes="href objPublic/absolute_url;"
-                     tal:content="objPublic/title">
+                  <a tal:attributes="href itemPublic/absolute_url;"
+                     tal:content="itemPublic/title">
                      Public Item Title
                   </a>
                   </li>
@@ -73,10 +73,10 @@
           <td tal:condition="itemPrivate">
             <ul>
               <tal:documents repeat="itemPrivate view/privateFilesInside">
-                <li tal:define="objPrivate itemPrivate/getObject;" style="list-style: none;">
+                <li style="list-style: none;">
                 <i class="icon-file"></i>
-                  <a tal:attributes="href objPrivate/absolute_url;"
-                     tal:content="objPrivate/title">
+                  <a tal:attributes="href itemPrivate/absolute_url;"
+                     tal:content="itemPrivate/title">
                      Private Item Title
                   </a>
                 </li>

@@ -91,36 +91,6 @@ class View(grok.View):
     grok.context(IPunt)
     grok.template('punt_view')
 
-    def publicFilesInside(self):
-        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
-        """
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        data = portal_catalog.searchResults(
-            portal_type='genweb.organs.file',
-            sort_on='getObjPositionInParent',
-            sort_order='reverse',
-            path={'query': folder_path,
-                  'depth': 1},
-            hiddenfile=False)
-
-        return data
-
-    def privateFilesInside(self):
-        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
-        """
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        data = portal_catalog.searchResults(
-            portal_type='genweb.organs.file',
-            hiddenfile=True,
-            sort_on='getObjPositionInParent',
-            sort_order='reverse',
-            path={'query': folder_path,
-                  'depth': 1})
-
-        return data
-
     def isAcord(self):
         if self.context.acordOrgan:
             return True
@@ -131,3 +101,39 @@ class View(grok.View):
             return True
         else:
             return False
+
+    def publicFilesInside(self):
+        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        values = portal_catalog.searchResults(
+            portal_type='genweb.organs.file',
+            sort_on='getObjPositionInParent',
+            hiddenfile=False,
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+        for obj in values:
+            results.append(dict(title=obj.Title,
+                                absolute_url=obj.getURL()))
+        return results
+
+    def privateFilesInside(self):
+        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        values = portal_catalog.searchResults(
+            portal_type='genweb.organs.file',
+            hiddenfile=True,
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+        for obj in values:
+            results.append(dict(title=obj.Title,
+                                absolute_url=obj.getURL()))
+        return results

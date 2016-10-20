@@ -28,17 +28,16 @@ class View(grok.View):
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
             portal_type='genweb.organs.organgovern',
+            sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
 
-        # The last modified is the first shown.
-        # return sorted(data, key=lambda item: item.start, reverse=True)
         results = []
         for obj in values:
             value = obj.getObject()
             results.append(dict(title=value.title,
                                 absolute_url=value.absolute_url(),
                                 acronim=value.acronim,
-                                tipus=_(value.tipus),
+                                tipus=value.tipus,
                                 review_state=obj.review_state))
         return results

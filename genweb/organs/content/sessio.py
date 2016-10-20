@@ -128,11 +128,6 @@ class ISessio(form.Schema):
     )
 
 
-# @form.default_value(field=ISessio['numSessio'])
-# def numSessioDefaultValue(data):
-#     return 666
-
-
 @form.default_value(field=ISessio['dataSessio'])
 def dataSessioDefaultValue(data):
     return datetime.datetime.today()
@@ -183,24 +178,33 @@ class View(grok.View):
         """
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
-        data = portal_catalog.searchResults(
+        values = portal_catalog.searchResults(
             portal_type='genweb.organs.punt',
             path={'query': folder_path,
                   'depth': 1})
 
-        # The last modified is the first shown.
-        return sorted(data, key=lambda item: item.start, reverse=True)
+        results = []
+        for obj in values:
+            results.append(dict(title=obj.Title,
+                                absolute_url=obj.getURL()))
+        return results
 
     def ActesInside(self):
         """ Retorna les actes creades aquí dintre (sense tenir compte estat)
         """
         folder_path = '/'.join(self.context.getPhysicalPath())
         portal_catalog = getToolByName(self, 'portal_catalog')
-        data = portal_catalog.searchResults(portal_type='genweb.organs.acta',
-                                            sort_on='getObjPositionInParent',
-                                            path={'query': folder_path,
-                                                  'depth': 1})
-        return data
+        values = portal_catalog.searchResults(
+            portal_type='genweb.organs.acta',
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+        for obj in values:
+            results.append(dict(title=obj.Title,
+                                absolute_url=obj.getURL()))
+        return results
 
     def LogInformation(self):
         """ Obtain send mail annotations
