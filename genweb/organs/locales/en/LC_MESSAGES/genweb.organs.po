@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-20 11:26+0000\n"
+"POT-Creation-Date: 2016-10-20 16:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,6 +13,10 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
+
+#: ./genweb/organs/content/file_templates/file_view.pt:57
+msgid "<strong>No s'ha afegit cap fitxer.</strong>"
+msgstr ""
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:29
 msgid "Acords aprovats"
@@ -40,12 +44,12 @@ msgid "Acta Body"
 msgstr "Acta body"
 
 #: ./genweb/organs/content/organgovern.py:103
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:78
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:77
 #: ./genweb/organs/content/punt.py:78
 msgid "Agreement and document labels"
 msgstr "Agreement and document labels"
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:75
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:74
 #: ./genweb/organs/content/punt.py:60
 #: ./genweb/organs/content/punt_templates/punt_view.pt:24
 msgid "Agreement number"
@@ -154,11 +158,11 @@ msgstr "It is an agreement?"
 msgid "Esborrany, Pendent d'aprovació, Aprovat, Informat, No aprovat, Derogat, Informatiu"
 msgstr "Draft, Pending Approval, Approved, Informed, Not approved, Repealed, Informative"
 
-#: ./genweb/organs/content/file_templates/file_view.pt:14
+#: ./genweb/organs/content/file_templates/file_view.pt:16
 msgid "Esteu visualitzant un fitxer <strong>PRIVAT</strong>."
 msgstr "You're viewing a <strong> PRIVATE </ strong>file."
 
-#: ./genweb/organs/content/file_templates/file_view.pt:19
+#: ./genweb/organs/content/file_templates/file_view.pt:21
 msgid "Esteu visualitzant un fitxer <strong>PUBLIC</strong>."
 msgstr "You're viewing a <strong> PUBLIC </ strong>file."
 
@@ -176,7 +180,7 @@ msgstr "Excused members"
 msgid "File"
 msgstr "File"
 
-#: ./genweb/organs/content/file_templates/file_view.pt:46
+#: ./genweb/organs/content/file_templates/file_view.pt:48
 msgid "File contents"
 msgstr "File contents"
 
@@ -301,7 +305,7 @@ msgstr "Open"
 msgid "Operation Cancelled."
 msgstr "The operation was canceled."
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:182
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:180
 msgid "Ordre del dia"
 msgstr "Agenda"
 
@@ -361,11 +365,11 @@ msgstr "By default the files are private. If you want to publish the file, you n
 msgid "Persones Convocades"
 msgstr "Convoqued Members"
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:44
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:43
 msgid "Persones assistents"
 msgstr "Attendees"
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:47
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:46
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:93
 msgid "Persones convidades"
 msgstr "Invited members"
@@ -390,7 +394,7 @@ msgstr "Print acta"
 msgid "Proposal description"
 msgstr "Content"
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:72
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:71
 #: ./genweb/organs/content/punt.py:55
 #: ./genweb/organs/content/punt_templates/punt_view.pt:21
 msgid "Proposal point number"
@@ -420,6 +424,10 @@ msgstr "Restricted to Members"
 msgid "Send"
 msgstr "Send"
 
+#: ./genweb/organs/browser/events/change.py:147
+msgid "Sessio convocada per: "
+msgstr ""
+
 #: ./genweb/organs/browser/views/acta_print.pt:60
 msgid "Sessio del dia"
 msgstr "Session date"
@@ -433,7 +441,7 @@ msgid "Session Title"
 msgstr "Session Title"
 
 #: ./genweb/organs/content/acta.py:37
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:124
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:123
 #: ./genweb/organs/content/sessio.py:53
 msgid "Session date"
 msgstr "Session Date"
@@ -445,7 +453,7 @@ msgid "Session end time"
 msgstr "End Time Session"
 
 #: ./genweb/organs/content/acta.py:42
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:127
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:126
 #: ./genweb/organs/content/sessio.py:58
 msgid "Session location"
 msgstr "Session Location"
@@ -461,7 +469,7 @@ msgid "Session order"
 msgstr "Agenda"
 
 #: ./genweb/organs/browser/views/acta_print.pt:65
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:130
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:129
 msgid "Session start"
 msgstr "Start time of the session"
 
@@ -471,7 +479,7 @@ msgstr "Start time of the session"
 msgid "Session start time"
 msgstr "Start time of the session"
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:116
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:115
 msgid "Sessions list"
 msgstr "Sessions list"
 
@@ -488,7 +496,7 @@ msgstr "Addresses of the affected"
 msgid "Stakeholders mail address help."
 msgstr "List of addresses of the people affected, thta want to be notified."
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:133
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:132
 #: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:43
 msgid "State"
 msgstr "State"
@@ -497,7 +505,7 @@ msgstr "State"
 msgid "This content will be used as message content"
 msgstr "The following content will be attached to email."
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:69
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:68
 #: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:34
 msgid "Title"
 msgstr "Title"
