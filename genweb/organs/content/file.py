@@ -72,3 +72,10 @@ class View(grok.View):
     def is_audiotype(self):
         ct = self.context.file.contentType
         return 'audio/' in ct
+
+    def hihaFile(self):
+        try:
+            self.context.file.filename
+            return True
+        except:
+            return False

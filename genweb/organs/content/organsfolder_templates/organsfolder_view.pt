@@ -47,9 +47,8 @@
           <tal:documents repeat="item view/OrgansInside">
               <tr>
                 <td>&nbsp;
-                  <a href="#"
-                         tal:attributes="href item/absolute_url;"
-                         tal:content="item/title">
+                  <a tal:attributes="href item/absolute_url;"
+                     tal:content="item/title">
                           Item Title
                   </a>
                 </td>
@@ -60,14 +59,15 @@
                 </td>
                 <td>&nbsp;
                   <span tal:content="item/tipus"
-                        i18n:translate=""
-                        i18n:domain="genweb.organs">
+                        i18n:translate="">
                           Item Type
                   </span>
                 </td>
                 <td>&nbsp;
                   <span tal:content="item/review_state"
-                        tal:attributes="class item/review_state">
+                        tal:attributes="class item/review_state"
+                        i18n:translate=""
+                        i18n:domain="plone">
                           Item Status
                   </span>
                 </td>
