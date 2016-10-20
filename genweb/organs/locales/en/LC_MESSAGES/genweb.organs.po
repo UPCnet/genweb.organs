@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-20 10:30+0000\n"
+"POT-Creation-Date: 2016-10-20 11:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -110,22 +110,19 @@ msgid "Dades"
 msgstr "Data"
 
 #: ./genweb/organs/content/acta_templates/acta_view.pt:40
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:58
 msgid "Data"
 msgstr "Data"
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:153
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:151
 msgid "Data i hora"
 msgstr "Date and Time"
-
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:58
-msgid "Data:"
-msgstr "Date:"
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:23
 msgid "Description"
 msgstr "Description"
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:159
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:157
 msgid "Destinataris"
 msgstr "Recipients"
 
@@ -231,16 +228,13 @@ msgid "Invited members"
 msgstr "Invited members"
 
 #: ./genweb/organs/content/acta_templates/acta_view.pt:55
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:73
 msgid "Lloc"
 msgstr "Place"
 
 #: ./genweb/organs/browser/views/acta_print.pt:54
 msgid "Lloc de realitzacio"
 msgstr "Place"
-
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:73
-msgid "Lloc:"
-msgstr "Place:"
 
 #: ./genweb/organs/content/organgovern.py:98
 msgid "Logo description"
@@ -290,7 +284,7 @@ msgstr "List of people not attending"
 msgid "Multimedia"
 msgstr "Multimedia"
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:156
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:154
 msgid "Notificador"
 msgstr "Notifier"
 
@@ -307,7 +301,7 @@ msgstr "Open"
 msgid "Operation Cancelled."
 msgstr "The operation was canceled."
 
-#: ./genweb/organs/content/sessio_templates/sessio_view.pt:184
+#: ./genweb/organs/content/sessio_templates/sessio_view.pt:182
 msgid "Ordre del dia"
 msgstr "Agenda"
 
@@ -329,15 +323,15 @@ msgstr "Organ of Government type"
 
 #: ./genweb/organs/content/organgovern.py:41
 msgid "Organ Title"
-msgstr "Organ of Government title"
+msgstr "Government Organ title"
 
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:78
-msgid "Organ de govern:"
-msgstr "Organ of Government:"
+msgid "Organ de govern"
+msgstr "Government Organ"
 
 #: ./genweb/organs/content/organgovern.py:97
 msgid "Organ logo"
-msgstr "Organ of Government Logo"
+msgstr "Government Organ Logo"
 
 #: ./genweb/organs/content/organgovern.py:72
 msgid "Organ permanently invited people"
@@ -439,7 +433,7 @@ msgid "Session Title"
 msgstr "Session Title"
 
 #: ./genweb/organs/content/acta.py:37
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:125
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:124
 #: ./genweb/organs/content/sessio.py:53
 msgid "Session date"
 msgstr "Session Date"
@@ -451,7 +445,7 @@ msgid "Session end time"
 msgstr "End Time Session"
 
 #: ./genweb/organs/content/acta.py:42
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:128
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:127
 #: ./genweb/organs/content/sessio.py:58
 msgid "Session location"
 msgstr "Session Location"
@@ -467,7 +461,7 @@ msgid "Session order"
 msgstr "Agenda"
 
 #: ./genweb/organs/browser/views/acta_print.pt:65
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:131
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:130
 msgid "Session start"
 msgstr "Start time of the session"
 
@@ -477,7 +471,7 @@ msgstr "Start time of the session"
 msgid "Session start time"
 msgstr "Start time of the session"
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:117
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:116
 msgid "Sessions list"
 msgstr "Sessions list"
 
@@ -494,7 +488,7 @@ msgstr "Addresses of the affected"
 msgid "Stakeholders mail address help."
 msgstr "List of addresses of the people affected, thta want to be notified."
 
-#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:134
+#: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:133
 #: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:43
 msgid "State"
 msgstr "State"

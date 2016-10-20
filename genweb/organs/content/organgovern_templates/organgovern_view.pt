@@ -146,19 +146,19 @@
               <td>&nbsp;
                 <tal:data tal:condition="item/dataSessio"
                           tal:content="item/dataSessio" >
-                  Data de la Sessió
+                        Data de la Sessio
                 </tal:data>
               </td>
               <td>&nbsp;
                 <tal:data tal:condition="item/llocConvocatoria"
                           tal:content="item/llocConvocatoria">
-                  Lloc Convocatoria
+                        Lloc Convocatoria
                 </tal:data>
               </td>
               <td>&nbsp;
                 <tal:data tal:condition="item/horaInici"
                           tal:content="item/horaInici">
-                  Hora inici
+                        Hora inici
                 </tal:data>
               </td>
               <td>&nbsp;
@@ -166,7 +166,7 @@
                       i18n:translate=""
                       i18n:domain="genweb"
                       tal:attributes="class item/review_state">
-                  Status
+                      Review State
                 </span>
               </td>
             </tr>

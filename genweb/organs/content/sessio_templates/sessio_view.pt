@@ -55,27 +55,27 @@
       <div class="tab-pane active" id="dadesTab">
         <ul>
           <li tal:condition="context/dataSessio">
-            <b i18n:translate="">Data:</b>
+            <b i18n:translate="">Data</b><b>:</b>
             <span style="float:right"
                   tal:content="python:context.dataSessio.strftime('%d/%m/%Y')"></span>
           </li>
           <li tal:condition="context/horaInici">
-            <b i18n:translate="">Session start time</b>:
+            <b i18n:translate="">Session start time</b><b>:</b>
             <span style="float:right"
                   tal:content="python:context.horaInici.strftime('%H:%M')"></span>
           </li>
           <li tal:condition="context/horaFi">
-            <b i18n:translate="">Session end time</b>:
+            <b i18n:translate="">Session end time</b><b>:</b>
             <span style="float:right"
                   tal:content="python:context.horaFi.strftime('%H:%M')"></span>
           </li>
           <li tal:condition="context/llocConvocatoria">
-            <b i18n:translate="">Lloc:</b>
+            <b i18n:translate="">Lloc</b><b>:</b>
             <span style="float:right"
                   tal:content="context/llocConvocatoria"></span>
           </li>
           <li tal:condition="context/llocConvocatoria">
-            <b i18n:translate="">Organ de govern:</b>
+            <b i18n:translate="">Organ de govern</b><b>:</b>
             <span style="float:right"
                   tal:content="view/OrganTitle"></span>
           </li>
@@ -116,13 +116,13 @@
       <div class="tab-pane" id="multimediaTab" tal:condition=="view/hihaMultimedia">
         <ul>
           <li tal:condition="context/enllacVideo">
-            <b i18n:translate="">Video link</b>:
+            <b i18n:translate="">Video link</b><b>:</b>
             <br/>
             <a tal:attributes="href context/enllacVideo"><span tal:content="context/enllacVideo"></span></a>
           </li>
           <div class="clearfix"></div>
           <li tal:condition="context/enllacAudio">
-            <b i18n:translate="">Audio link</b>:
+            <b i18n:translate="">Audio link</b><b>:</b>
             <br/>
             <a tal:attributes="href context/enllacAudio"><span tal:content="context/enllacAudio"></span></a>
           </li>
