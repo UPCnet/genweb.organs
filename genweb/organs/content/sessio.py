@@ -30,7 +30,7 @@ class ISessio(form.Schema):
 
     fieldset('notificacions',
              label=_(u'Notifications'),
-             fields=['adrecaLlista', 'adrecaAfectatsLlista', 'bodyMail', 'signatura'],
+             fields=['adrecaAfectatsLlista', 'bodyMail', 'signatura'],
              )
 
     dexteritytextindexer.searchable('title')
@@ -224,6 +224,15 @@ class View(grok.View):
                 return sorted(annotations['genweb.organs.logMail'], reverse=True)
             except:
                 return False
+
+    def valuesTable(self):
+        values = dict(dataSessio=self.context.dataSessio.strftime('%d/%m/%Y'),
+                      horaInici=self.context.horaInici.strftime('%H:%M'),
+                      horaFi=self.context.horaFi.strftime('%H:%M'),
+                      llocConvocatoria=self.context.llocConvocatoria,
+                      organTitle=self.OrganTitle(),
+                      )
+        return values
 
     def OrganTitle(self):
         """ Retorna el títol de l'òrgan

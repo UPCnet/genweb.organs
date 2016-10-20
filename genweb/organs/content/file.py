@@ -24,7 +24,7 @@ class IFile(form.Schema):
 
     file = NamedBlobFile(
         title=_(u"Please upload a document"),
-        required=False,
+        required=True,
     )
 
 

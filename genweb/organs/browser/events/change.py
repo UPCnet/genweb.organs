@@ -143,9 +143,8 @@ def addAnnotation(object, recipients):
 
         dateMail = datetime.now()
         username = api.user.get_current().id
-
-        values = dict(dateMail=dateMail,
-                      fromMail="Sessió convocada per: " + str(username),
+        values = dict(dateMail=dateMail.strftime('%d/%m/%Y %H:%M:%S'),
+                      fromMail=_("Sessio convocada per: ") + str(username),
                       toMail=', '.join(map(str, recipients)))
 
         data.append(values)

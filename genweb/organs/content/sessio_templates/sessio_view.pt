@@ -7,7 +7,7 @@
       i18n:domain="genweb.organs">
 <body>
 
-<metal:content-core fill-slot="content-core">
+<metal:content-core fill-slot="content-core" tal:define="loginfo view/LogInformation">
 
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -28,13 +28,13 @@
   <div style="float:right">
     <div style="display:flex">
       <div class="containerIcons">
-        <a tal:attributes="href view/LogInformation" i18n:attributes="title Informar; alt Informar"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informar</span></a>
+        <a href="" i18n:attributes="title Informar; alt Informar"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informar</span></a>
       </div>
       <div class="containerIcons">
         <a data-toggle="modal" href="send_message" data-target="#myModal" i18n:attributes="title Enviar; alt Enviar"><i class="fa fa-envelope fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Enviar</span></a>
       </div>
       <div class="containerIcons">
-        <a tal:attributes="href view/LogInformation" i18n:attributes="title Presentacio; alt Presentacio"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
+        <a href="" i18n:attributes="title Presentacio; alt Presentacio"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
       </div>
     </div>
   </div>
@@ -47,37 +47,37 @@
       <li tal:condition="view/hihaPersones"><a href="#assistentsTab" data-toggle="tab" i18n:translate="">Assistents</a></li>
       <li tal:condition="view/hihaMultimedia"><a href="#multimediaTab" data-toggle="tab" i18n:translate="">Multimedia</a></li>
       <li tal:condition="view/ActesInside"><a href="#actaTab" data-toggle="tab" i18n:translate="">Acta</a></li>
-      <li tal:condition="view/LogInformation"><a href="#notificationsTab" data-toggle="tab" i18n:translate="">Historial</a></li>
+      <li tal:condition="loginfo"><a href="#notificationsTab" data-toggle="tab" i18n:translate="">Historial</a></li>
     </ul>
 
     <div id="sessionTabs" class="tab-content">
 
-      <div class="tab-pane active" id="dadesTab">
+      <div class="tab-pane active" id="dadesTab" tal:define="item view/valuesTable">
         <ul>
-          <li tal:condition="context/dataSessio">
+          <li tal:condition="item/dataSessio">
             <b i18n:translate="">Data</b><b>:</b>
             <span style="float:right"
-                  tal:content="python:context.dataSessio.strftime('%d/%m/%Y')"></span>
+                  tal:content="item/dataSessio"></span>
           </li>
-          <li tal:condition="context/horaInici">
+          <li tal:condition="item/horaInici">
             <b i18n:translate="">Session start time</b><b>:</b>
             <span style="float:right"
-                  tal:content="python:context.horaInici.strftime('%H:%M')"></span>
+                  tal:content="item/horaInici"></span>
           </li>
-          <li tal:condition="context/horaFi">
+          <li tal:condition="item/horaFi">
             <b i18n:translate="">Session end time</b><b>:</b>
             <span style="float:right"
-                  tal:content="python:context.horaFi.strftime('%H:%M')"></span>
+                  tal:content="item/horaFi"></span>
           </li>
-          <li tal:condition="context/llocConvocatoria">
+          <li tal:condition="item/llocConvocatoria">
             <b i18n:translate="">Lloc</b><b>:</b>
             <span style="float:right"
-                  tal:content="context/llocConvocatoria"></span>
+                  tal:content="item/llocConvocatoria"></span>
           </li>
-          <li tal:condition="context/llocConvocatoria">
+          <li tal:condition="item/organTitle">
             <b i18n:translate="">Organ de govern</b><b>:</b>
             <span style="float:right"
-                  tal:content="view/OrganTitle"></span>
+                  tal:content="item/organTitle"></span>
           </li>
         </ul>
       </div>
@@ -143,7 +143,7 @@
         </tal:documents>
       </div>
 
-      <div class="tab-pane" id="notificationsTab" tal:define="loginfo view/LogInformation" tal:condition="loginfo">
+      <div class="tab-pane" id="notificationsTab" tal:condition="loginfo">
         <table class="table table-bordered table-condensed table-responsive" >
           <thead>
             <tr>
@@ -161,9 +161,7 @@
           <tbody>
             <tal:documents repeat="data loginfo">
               <tr>
-                <td tal:define="value data/dateMail"
-                    tal:content="python:value.strftime('%d/%m/%Y %H:%M:%S')">
-                </td>
+                <td tal:content="data/dateMail"></td>
                 <td tal:content="data/fromMail"></td>
                 <td tal:content="data/toMail"></td>
               </tr>
