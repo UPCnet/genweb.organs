@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-19 13:01+0000\n"
+"POT-Creation-Date: 2016-10-20 10:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -300,7 +300,7 @@ msgid "Notifications"
 msgstr "Notificaciones"
 
 #: ./genweb/organs/content/organgovern.py:18
-msgid "Open to everybody"
+msgid "Open"
 msgstr "Abierto"
 
 #: ./genweb/organs/content/sendMessage.py:156
@@ -349,7 +349,7 @@ msgstr "Lista de nombres de las personas que se invitan a este órgano de forma 
 
 #: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:40
 msgid "Organ type"
-msgstr "Tipo de Órgano de gobierno"
+msgstr "Tipo de órgano de gobierno"
 
 #: ./genweb/organs/profiles/default/types/genweb.organs.organsfolder.xml
 msgid "Organs Folder"
@@ -415,11 +415,11 @@ msgid "Recipients"
 msgstr "Destinatarios"
 
 #: ./genweb/organs/content/organgovern.py:20
-msgid "Restricted to Affected"
+msgid "Restricted_to_Affected"
 msgstr "Restringido a afectados"
 
 #: ./genweb/organs/content/organgovern.py:19
-msgid "Restricted to Members"
+msgid "Restricted_to_Members"
 msgstr "Restringido a miembros"
 
 #: ./genweb/organs/content/sendMessage.py:77
@@ -522,7 +522,7 @@ msgid "affected_mail_help"
 msgstr "Lista de direcciones de correo de las personas afectadas a las que se notificará la información de las sesiones."
 
 #. Default: "There are currently no Organs in this folder."
-#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:82
+#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:80
 msgid "description_no_items_in_folder"
 msgstr "No hay ningún Órgano de gobierno en esta carpeta."
 

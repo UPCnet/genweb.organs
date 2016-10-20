@@ -26,10 +26,19 @@ class View(grok.View):
         """
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
-        data = portal_catalog.searchResults(
+        values = portal_catalog.searchResults(
             portal_type='genweb.organs.organgovern',
             path={'query': folder_path,
                   'depth': 1})
 
         # The last modified is the first shown.
-        return sorted(data, key=lambda item: item.start, reverse=True)
+        # return sorted(data, key=lambda item: item.start, reverse=True)
+        results = []
+        for obj in values:
+            value = obj.getObject()
+            results.append(dict(title=value.title,
+                                absolute_url=value.absolute_url(),
+                                acronim=value.acronim,
+                                tipus=_(value.tipus),
+                                review_state=obj.review_state))
+        return results

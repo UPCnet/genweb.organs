@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-19 13:01+0000\n"
+"POT-Creation-Date: 2016-10-20 10:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:29
 msgid "Acords aprovats"
-msgstr ""
+msgstr "Agreements approved"
 
 #: ./genweb/organs/content/organgovern.py:47
 #: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:37
@@ -98,7 +98,7 @@ msgstr "Cancel"
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:26
 msgid "Composicio"
-msgstr ""
+msgstr "Composition"
 
 #: ./genweb/organs/content/punt_templates/punt_view.pt:41
 msgid "Contingut"
@@ -111,7 +111,7 @@ msgstr "Data"
 
 #: ./genweb/organs/content/acta_templates/acta_view.pt:40
 msgid "Data"
-msgstr ""
+msgstr "Data"
 
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:153
 msgid "Data i hora"
@@ -123,7 +123,7 @@ msgstr "Date:"
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:23
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:159
 msgid "Destinataris"
@@ -143,7 +143,7 @@ msgstr "Send"
 
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:17
 msgid "Enviar missatge"
-msgstr ""
+msgstr "Send message"
 
 #: ./genweb/organs/content/file.py:19
 msgid "Es tracta d'un fitxer privat?"
@@ -232,7 +232,7 @@ msgstr "Invited members"
 
 #: ./genweb/organs/content/acta_templates/acta_view.pt:55
 msgid "Lloc"
-msgstr ""
+msgstr "Place"
 
 #: ./genweb/organs/browser/views/acta_print.pt:54
 msgid "Lloc de realitzacio"
@@ -300,8 +300,8 @@ msgid "Notifications"
 msgstr "Notifications"
 
 #: ./genweb/organs/content/organgovern.py:18
-msgid "Open to everybody"
-msgstr "Open to everybody"
+msgid "Open"
+msgstr "Open"
 
 #: ./genweb/organs/content/sendMessage.py:156
 msgid "Operation Cancelled."
@@ -309,7 +309,7 @@ msgstr "The operation was canceled."
 
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:184
 msgid "Ordre del dia"
-msgstr ""
+msgstr "Agenda"
 
 #: ./genweb/organs/profiles/default/types/genweb.organs.organgovern.xml
 msgid "Organ Govern"
@@ -365,20 +365,20 @@ msgstr "By default the files are private. If you want to publish the file, you n
 
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:90
 msgid "Persones Convocades"
-msgstr ""
+msgstr "Convoqued Members"
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:44
 msgid "Persones assistents"
-msgstr ""
+msgstr "Attendees"
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:47
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:93
 msgid "Persones convidades"
-msgstr ""
+msgstr "Invited members"
 
 #: ./genweb/organs/content/sessio_templates/sessio_view.pt:96
 msgid "Persones excusades"
-msgstr ""
+msgstr "Missing members"
 
 #: ./genweb/organs/content/file.py:26
 msgid "Please upload a document"
@@ -415,12 +415,12 @@ msgid "Recipients"
 msgstr "Recipients"
 
 #: ./genweb/organs/content/organgovern.py:20
-msgid "Restricted to Affected"
-msgstr "Restricted to affected"
+msgid "Restricted_to_Affected"
+msgstr "Restricted to Affected"
 
 #: ./genweb/organs/content/organgovern.py:19
-msgid "Restricted to Members"
-msgstr "Restricted to members"
+msgid "Restricted_to_Members"
+msgstr "Restricted to Members"
 
 #: ./genweb/organs/content/sendMessage.py:77
 msgid "Send"
@@ -432,7 +432,7 @@ msgstr "Session date"
 
 #: ./genweb/organs/profiles/default/types/genweb.organs.sessio.xml
 msgid "Session"
-msgstr "Sessión"
+msgstr "Session"
 
 #: ./genweb/organs/content/sessio.py:38
 msgid "Session Title"
@@ -479,7 +479,7 @@ msgstr "Start time of the session"
 
 #: ./genweb/organs/content/organgovern_templates/organgovern_view.pt:117
 msgid "Sessions list"
-msgstr ""
+msgstr "Sessions list"
 
 #: ./genweb/organs/content/sessio.py:116
 msgid "Signatura"
@@ -522,7 +522,7 @@ msgid "affected_mail_help"
 msgstr "List of addresses of the persons concerned, that will be notified notified on sessions modifications."
 
 #. Default: "There are currently no Organs in this folder."
-#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:82
+#: ./genweb/organs/content/organsfolder_templates/organsfolder_view.pt:80
 msgid "description_no_items_in_folder"
 msgstr "No Governing Body in this folder."
 

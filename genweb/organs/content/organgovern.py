@@ -15,9 +15,9 @@ from plone.directives import dexterity
 
 
 organType = SimpleVocabulary(
-    [SimpleTerm(value='Open', title=_(u'Open to everybody')),
-     SimpleTerm(value='Members', title=_(u'Restricted to Members')),
-     SimpleTerm(value='Affected', title=_(u'Restricted to Affected')),
+    [SimpleTerm(value='Open', title=_(u'Open')),
+     SimpleTerm(value='Restricted_to_Members', title=_(u'Restricted_to_Members')),
+     SimpleTerm(value='Restricted_to_Affected', title=_(u'Restricted_to_Affected')),
      ]
 )
 

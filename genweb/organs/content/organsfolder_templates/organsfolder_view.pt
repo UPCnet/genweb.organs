@@ -45,35 +45,33 @@
             </tr>
           </thead>
           <tal:documents repeat="item view/OrgansInside">
-            <tal:block tal:define="obj item/getObject;">
               <tr>
                 <td>&nbsp;
                   <a href="#"
-                         tal:attributes="href obj/absolute_url;"
-                         tal:content="obj/title">
+                         tal:attributes="href item/absolute_url;"
+                         tal:content="item/title">
                           Item Title
                   </a>
                 </td>
                 <td>&nbsp;
-                  <span tal:content="obj/acronim">
+                  <span tal:content="item/acronim">
                           Item Description
                   </span>
                 </td>
                 <td>&nbsp;
-                  <span tal:content="obj/tipus">
-                          Item Description
+                  <span tal:content="item/tipus"
+                        i18n:translate=""
+                        i18n:domain="genweb.organs">
+                          Item Type
                   </span>
                 </td>
                 <td>&nbsp;
                   <span tal:content="item/review_state"
-                        i18n:translate=""
-                        i18n:domain="genweb"
                         tal:attributes="class item/review_state">
-                    Status
+                          Item Status
                   </span>
                 </td>
               </tr>
-            </tal:block>
           </tal:documents>
         </table>
       </tal:Organs>
