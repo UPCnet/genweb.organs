@@ -186,7 +186,9 @@ class View(grok.View):
         results = []
         for obj in values:
             results.append(dict(title=obj.Title,
-                                absolute_url=obj.getURL()))
+                                absolute_url=obj.getURL(),
+                                proposalPoint=obj.getObject().proposalPoint,
+                                review_state=obj.review_state))
         return results
 
     def ActesInside(self):
@@ -248,6 +250,12 @@ class View(grok.View):
 
     def hihaPersones(self):
         if self.context.membresConvocats or self.context.membresConvidats or self.context.llistaExcusats:
+            return True
+        else:
+            return False
+
+    def showActaTab(self):
+        if self.hihaMultimedia() or self.ActesInside():
             return True
         else:
             return False

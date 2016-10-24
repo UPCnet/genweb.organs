@@ -13,7 +13,6 @@
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types">
      <element value="genweb.organs.file"/>
-     <element value="genweb.organs.punt"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view_fallback">False</property>

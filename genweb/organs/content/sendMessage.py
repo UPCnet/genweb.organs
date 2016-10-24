@@ -141,7 +141,8 @@ class Message(form.SchemaForm):
             body = str(formData['message'].output.encode('utf-8'))
 
             values = dict(dateMail=dateMail,
-                          fromMail=_("Missatge enviat per: ") + username,
+                          message=_("Message send"),
+                          fromMail=username,
                           toMail=toMail)
 
             data.append(values)

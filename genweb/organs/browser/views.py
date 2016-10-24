@@ -176,7 +176,8 @@ class AddLogMail(BrowserView):
                 return
 
             values = dict(dateMail=dateMail,
-                          fromMail=_("Missatge enviat per: ") + username,
+                          message=_("Send mail"),
+                          fromMail=username,
                           toMail=toMail)
 
             data.append(values)
