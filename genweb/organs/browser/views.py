@@ -15,6 +15,7 @@ def sessio_sendMail(session, recipients, body):
     """
     lang = getToolByName(session, 'portal_languages').getPreferredLanguage()
     now = strftime("%d/%m/%Y %H:%M:%S")
+
     sessiontitle = str(session.Title())
 
     sessiondate = session.dataSessio.strftime("%d/%m/%Y")
@@ -26,17 +27,12 @@ def sessio_sendMail(session, recipients, body):
     if session.signatura is None:
         signatura = ''
     else:
-        signatura = session.signatura.output.encode('utf-8')
+        signatura = session.signatura.encode('utf-8')
 
     if session.llocConvocatoria is None:
         place = ''
     else:
         place = session.llocConvocatoria.encode('utf-8')
-
-    if session.ordreSessio is None:
-        ordenField = ''
-    else:
-        ordenField = session.ordreSessio.output.encode('utf-8')
 
     senderPerson = str(organ.fromMail)
 
@@ -57,7 +53,6 @@ def sessio_sendMail(session, recipients, body):
     </head>
     <body>
     """
-
     if lang == 'ca':
         session.notificationDate = now
         subjectMail = "Missatge de la sessió: " + sessiontitle + ' - ' + sessiondate
@@ -68,7 +63,7 @@ def sessio_sendMail(session, recipients, body):
             '</strong><br/><br/>Lloc: ' + place + "<br/>Data: " + sessiondate + \
             "<br/>Hora d'inici: " + starthour + \
             "<br/>Hora de fi: " + endHour + \
-            '<br/><br/><strong> Ordre del dia </strong>' + ordenField + '</body>'
+            '<br/><br/><strong> Ordre del dia </strong></body>'
         bodyMail = moreData + str(introData)
 
     if lang == 'es':
@@ -81,7 +76,7 @@ def sessio_sendMail(session, recipients, body):
             '</strong><br/><br/>Lugar: ' + place + "<br/>Fecha: " + sessiondate + \
             "<br/>Hora de inicio: " + starthour + \
             "<br/>Hora de finalización: " + endHour + \
-            '<br/><br/><strong> Orden del día </strong>' + ordenField
+            '<br/><br/><strong> Orden del día </strong>'
         bodyMail = moreData + str(introData)
 
     if lang == 'en':
@@ -96,7 +91,7 @@ def sessio_sendMail(session, recipients, body):
             '</strong><br/><br/>Place: ' + place + "<br/>Date: " + sessiondate + \
             "<br/>Start time: " + starthour + \
             "<br/>End time: " + endHour + \
-            '<br/><br/><strong> Contents </strong>' + ordenField
+            '<br/><br/><strong> Contents </strong>'
         bodyMail = moreData + str(introData)
 
     # Sending Mail!

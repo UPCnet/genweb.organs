@@ -7,7 +7,6 @@ from z3c.form import button
 from plone.directives import form
 from Products.statusmessages.interfaces import IStatusMessage
 from genweb.organs.interfaces import IGenwebOrgansLayer
-from plone.app.textfield import RichText
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
 from zope.annotation.interfaces import IAnnotations
@@ -85,7 +84,6 @@ class Message(form.SchemaForm):
         lang = self.context.language
 
         if formData['recipients'] is None or formData['message'] is None:
-
             if formData['recipients'] is None:
                 if lang == 'ca':
                     emptyfields.append("Destinataris")
@@ -138,9 +136,9 @@ class Message(form.SchemaForm):
             noBlanks = ' '.join(toMessage.split())
             toMail = noBlanks.replace(' ', ',')
 
-            body = str(formData['message'].output.encode('utf-8'))
+            body = formData['message'].encode('utf-8')
 
-            values = dict(dateMail=dateMail,
+            values = dict(dateMail=dateMail.strftime('%d/%m/%Y %H:%M:%S'),
                           message=_("Message send"),
                           fromMail=username,
                           toMail=toMail)
