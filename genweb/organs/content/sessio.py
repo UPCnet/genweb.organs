@@ -205,7 +205,8 @@ class View(grok.View):
         results = []
         for obj in values:
             results.append(dict(title=obj.Title,
-                                absolute_url=obj.getURL()))
+                                absolute_url=obj.getURL(),
+                                date=obj.getObject().dataSessio.strftime('%d/%m/%Y')))
         return results
 
     def LogInformation(self):

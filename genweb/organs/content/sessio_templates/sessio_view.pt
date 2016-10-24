@@ -20,7 +20,7 @@
         <span href="" i18n:attributes="title Presentacio; alt Presentacio"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></span>
       </div>
       <div class="containerIcons">
-        <span href="" i18n:attributes="title Informar; alt Informar"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informar</span></span>
+        <a href="informar_sessio" i18n:attributes="title Informar; alt Informar"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informar</span></a>
       </div>
     </div>
   </div>
@@ -112,25 +112,45 @@
             <a tal:attributes="href context/enllacAudio"><span tal:content="context/enllacAudio"></span></a>
           </li>
         </ul>
-        <div tal:condition=="view/ActesInside">
-          <tal:documents repeat="item view/ActesInside">
-              <ul>
-                <li>&nbsp;
-                  <a href="#"
-                         tal:attributes="href item/absolute_url;"
-                         tal:content="item/title">
-                          Item Title
-                  </a>
-                </li>
-              </ul>
-          </tal:documents>
+        <div class="clearfix"></div>
+        <div tal:condition="view/ActesInside">
+          <table class="table table-condensed table-responsive" >
+            <thead>
+              <tr>
+                <th>
+                   <tal:data i18n:translate="">Title</tal:data>
+                 </th>
+                <th>
+                  <tal:data i18n:translate="">Data</tal:data>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tal:documents repeat="item view/ActesInside">
+                <tr>
+                  <td>
+                    <a href="#"
+                       tal:attributes="href item/absolute_url;"
+                       tal:content="item/title">
+                        Item Title
+                    </a>
+                  </td>
+                  <td>
+                    <span tal:content="item/date">
+                        Item Data
+                    </span>
+                  </td>
+                </tr>
+              </tal:documents>
+            </tbody>
+          </table>
         </div>
       </div>
 
 
 
       <div class="tab-pane" id="notificationsTab" tal:condition="loginfo">
-        <table class="table table-bordered table-condensed table-responsive" >
+        <table class="table table-condensed table-responsive" >
           <thead>
             <tr>
               <th>
@@ -175,7 +195,6 @@
               <a tal:attributes="href item/absolute_url;">
                      <span tal:content="item/proposalPoint"></span>.
                      <span tal:content="item/title">Item Title</span>
-
               </a>
               <div class="btn-group btn-group-xs" role="group"
                    style="float: right;" aria-label="Edit actions">
