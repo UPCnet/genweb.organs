@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-25 15:45+0000\n"
+"POT-Creation-Date: 2016-10-25 15:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,10 +49,6 @@ msgstr "Cuerpo del acta"
 
 #: ./genweb/organs/content/manualimport.py:26
 msgid "Add content separated by -- and they will by added as Agreements."
-msgstr ""
-
-#: ./genweb/organs/content/templates/sessio_view.pt:179
-msgid "Afegir punts"
 msgstr ""
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:74
@@ -227,7 +223,7 @@ msgstr "Historial"
 msgid "Hora de fi"
 msgstr "Hora de finalización"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:190
+#: ./genweb/organs/content/templates/sessio_view.pt:179
 msgid "Importador de punts"
 msgstr ""
 

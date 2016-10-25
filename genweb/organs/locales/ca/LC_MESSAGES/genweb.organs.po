@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-25 15:45+0000\n"
+"POT-Creation-Date: 2016-10-25 15:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,10 +50,6 @@ msgstr "Cos de l'acta"
 #: ./genweb/organs/content/manualimport.py:26
 msgid "Add content separated by -- and they will by added as Agreements."
 msgstr "Des d'aquí es poden afegir punts i el corresponent número de punt a la sessió. <br/>Cal escriure només un punt per linia i separant el número i el títol amb 2 guions. Exemple: <br/>    1 -- Informe del rector<br/>    2 -- Informació dels nomenaments<br/>    3 -- Aprovació d’una declaració"
-
-#: ./genweb/organs/content/templates/sessio_view.pt:179
-msgid "Afegir punts"
-msgstr "Importador de punt"
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:74
 msgid "Agreement and document label"
@@ -227,7 +223,7 @@ msgstr "Historial"
 msgid "Hora de fi"
 msgstr "Hora de finalització"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:190
+#: ./genweb/organs/content/templates/sessio_view.pt:179
 msgid "Importador de punts"
 msgstr "Importador de punts"
 
