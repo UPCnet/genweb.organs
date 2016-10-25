@@ -17,6 +17,8 @@ from plone.supermodel.directives import fieldset
 class InvalidEmailError(schema.ValidationError):
     __doc__ = u'Please enter a valid e-mail address.'
 
+grok.templatedir("templates")
+
 
 class ISessio(form.Schema):
     """ Tipus Sessio: Per a cada Òrgan de Govern es podran crear

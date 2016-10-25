@@ -5,6 +5,8 @@ from plone.namedfile.field import NamedBlobImage
 from Products.CMFCore.utils import getToolByName
 from genweb.organs import _
 
+grok.templatedir("templates")
+
 
 class IOrgansfolder(form.Schema):
     """ Tipus Organs Folder: Carpeta que conté Organs

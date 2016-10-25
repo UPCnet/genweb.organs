@@ -21,6 +21,8 @@ organType = SimpleVocabulary(
      ]
 )
 
+grok.templatedir("templates")
+
 
 class IOrgangovern(form.Schema):
     """ Tipus Organ de Govern

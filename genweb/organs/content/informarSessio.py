@@ -16,8 +16,7 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope import schema
 
-
-grok.templatedir("informar_templates")
+grok.templatedir("templates")
 
 
 class IMessage(form.Schema):

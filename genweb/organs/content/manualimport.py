@@ -2,7 +2,6 @@
 from plone import api
 from five import grok
 from datetime import datetime
-from zope.schema import TextLine
 from z3c.form import button
 from plone.directives import form
 from Products.statusmessages.interfaces import IStatusMessage
@@ -10,7 +9,6 @@ from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
 from zope.annotation.interfaces import IAnnotations
-from genweb.organs.browser.views import sessio_sendMail
 from AccessControl import Unauthorized
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
@@ -22,29 +20,18 @@ grok.templatedir("templates")
 class IMessage(form.Schema):
     """ Define the fields of this form
     """
-
-    recipients = TextLine(
-        title=_("Recipients"),
-        description=_("Mail address separated by commas."),
-        required=False)
-
     directives.widget(message=WysiwygFieldWidget)
     message = schema.Text(
-        title=_(u"Message"),
-        description=_("This content will be used as message content"),
+        title=_(u"Manual Import"),
+        description=_("Add content separated by -- and they will by added as Agreements."),
         required=False,
     )
 
-    # message = RichText(
-    #     title=_('Message'),
-    #     description=_("This content will be used as message content"),
-    #     required=False)
-
 
 class Message(form.SchemaForm):
-    grok.name('send_message')
+    grok.name('manualStructureCreation')
     grok.context(ISessio)
-    grok.template("message_view")
+    grok.template("manualimport_view")
     grok.require('zope2.View')
     grok.layer(IGenwebOrgansLayer)
 
@@ -70,7 +57,6 @@ class Message(form.SchemaForm):
 
     def updateWidgets(self):
         super(Message, self).updateWidgets()
-        self.widgets["recipients"].value = self.context.adrecaLlista
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):
@@ -78,38 +64,19 @@ class Message(form.SchemaForm):
             in properties and redirect to the
             front page, showing a status message to say
             the message was received. """
-        emptyfields = []
         formData, errors = self.extractData()
         lang = self.context.language
-
-        if formData['recipients'] is None or formData['message'] is None:
-            if formData['recipients'] is None:
-                if lang == 'ca':
-                    emptyfields.append("Destinataris")
-                elif lang == 'es':
-                    emptyfields.append("Destinatarios")
-                else:
-                    emptyfields.append("Recipients")
-
-            if formData['message'] is None:
-                if lang == 'ca':
-                    emptyfields.append("Missatge")
-                elif lang == 'es':
-                    emptyfields.append("Mensaje")
-                else:
-                    emptyfields.append("Message")
-
-            empty = ', '.join(emptyfields) + '.'
+        if formData['message'] is None:
             if lang == 'ca':
                 message = "Falten camps obligatoris: "
             if lang == 'es':
                 message = "Faltan campos obligatorios: "
             if lang == 'en':
                 message = "Required fields missing: "
-            IStatusMessage(self.request).addStatusMessage(message + empty, type="error")
+            IStatusMessage(self.request).addStatusMessage(message, type="error")
             return
 
-        """ Adding send mail information to context in annotation format
+        """ Adding message information to context in annotation format
         """
         KEY = 'genweb.organs.logMail'
         annotations = IAnnotations(self.context)
@@ -130,22 +97,26 @@ class Message(form.SchemaForm):
                 username = api.user.get_current().id
             else:
                 username = ''
-
-            toMessage = formData['recipients'].encode('utf-8').decode('ascii', 'ignore')
-            noBlanks = ' '.join(toMessage.split())
-            toMail = noBlanks.replace(' ', ',')
-
-            body = formData['message'].encode('utf-8')
-
+            toMail = ''
             values = dict(dateMail=dateMail.strftime('%d/%m/%Y %H:%M:%S'),
-                          message=_("Message send"),
+                          message=_("Massive agreements imported"),
                           fromMail=username,
                           toMail=toMail)
 
             data.append(values)
             annotations[KEY] = data
 
-            sessio_sendMail(self.context, toMail, body)  # Send mail
+            # Creating new objects
+            text = formData['message']
+            lines = text.splitlines()
+            for line in lines:
+                value = line.split('--')
+                obj = api.content.create(
+                    type='genweb.organs.punt',
+                    title=value[1],
+                    container=self.context)
+
+                obj.proposalPoint = value[0]
 
         return self.request.response.redirect(self.context.absolute_url())
 

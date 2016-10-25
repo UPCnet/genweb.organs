@@ -114,17 +114,7 @@
         </ul>
         <div class="clearfix"></div>
         <div tal:condition="view/ActesInside">
-          <table class="table table-condensed table-responsive" >
-            <thead>
-              <tr>
-                <th>
-                   <tal:data i18n:translate="">Title</tal:data>
-                 </th>
-                <th>
-                  <tal:data i18n:translate="">Data</tal:data>
-                </th>
-              </tr>
-            </thead>
+          <table>
             <tbody>
               <tal:documents repeat="item view/ActesInside">
                 <tr>
@@ -146,8 +136,6 @@
           </table>
         </div>
       </div>
-
-
 
       <div class="tab-pane" id="notificationsTab" tal:condition="loginfo">
         <table class="table table-condensed table-responsive" >
@@ -181,19 +169,36 @@
       </div>
 
     </div>
-
   </div>
 
-  <div class="clearfix"></div>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title" id="myModalLabel" i18n:translate="">Afegir punts</h4>
+         </div>
+         <div class="modal-body">
+           ...
+         </div>
+       </div>
+     </div>
+   </div>
+
+  <div style="float:right">
+    <br/>
+      <a class="btn btn-info" data-toggle="modal" href="manualStructureCreation" data-target="#myModal"><i class="fa fa-sticky-note" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Importador de punts</span></a>
+  </div>
 
   <div tal:define="item view/PuntsInside" tal:condition="item">
+  <br/>
     <h2 i18n:translate="">Ordre del dia</h2>
     <table class="table table-hover table-responsive">
       <tal:documents repeat="item view/PuntsInside">
           <tr>
             <td>&nbsp;
               <a tal:attributes="href item/absolute_url;">
-                     <span tal:content="item/proposalPoint"></span>.
+                     <span tal:content="item/proposalPoint"></span>
                      <span tal:content="item/title">Item Title</span>
               </a>
               <div class="btn-group btn-group-xs" role="group"
@@ -201,10 +206,10 @@
               <span style="margin-right: 10px;" class="label label-default"
                     tal:content="item/review_state"
                     i18n:domain="plone" i18n:translate="">Default</span>
-                <a type="button" class="btn btn-info" data-title="Edit"
-                   tal:attributes="href string:${item/absolute_url}/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                <a type="button" class="btn btn-danger" data-title="Delete"
-                   tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete" ><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                <a style="margin-right: 3px;" type="button" class="edit label label-primary" data-title="Edit"
+                   tal:attributes="href string:${item/absolute_url}/edit"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;editar</a>
+                <a type="button" class="remove label label-important" data-title="Delete"
+                   tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;esborrar</a>
               </div>
             </td>
           </tr>

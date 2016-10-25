@@ -11,6 +11,8 @@ from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.MimeTypeItem import guess_icon_path
 
+grok.templatedir("templates")
+
 
 class IFile(form.Schema):
     """ Tipus File: Per marcar si són públics o privats """

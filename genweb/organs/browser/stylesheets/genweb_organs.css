@@ -70,3 +70,10 @@ table th {
 .containerIcons > i {
     position:relative;
     top: calc(50% - 10px); /* 50% - 3/4 of icon height */
+}
+
+
+#form-widgets-message {
+    width: 530px;
+    height: 265px;
+ }

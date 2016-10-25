@@ -15,6 +15,8 @@ from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
 
 import unicodedata
 
+grok.templatedir("templates")
+
 
 class InvalidEmailError(schema.ValidationError):
     __doc__ = u'Please enter a valid e-mail address.'

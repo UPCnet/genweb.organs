@@ -12,6 +12,8 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 
+grok.templatedir("templates")
+
 
 class IActa(form.Schema):
     """ Tipus ACTA: Per a cada Òrgan de Govern es podran crear
