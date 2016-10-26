@@ -146,8 +146,11 @@ class gwHeader(viewletBase):
         from genweb.organs.content.organsfolder import IOrgansfolder
         if IOrgansfolder.providedBy(self.context):
             try:
-                self.context.logoOrganFolder.filename
-                return self.context.absolute_url() + '/@@images/logoOrganFolder'
+                if self.context.customImage:
+                    self.context.logoOrganFolder.filename
+                    return self.context.absolute_url() + '/@@images/logoOrganFolder'
+                else:
+                    return None
             except:
                 return None
         else:
@@ -160,7 +163,10 @@ class gwHeader(viewletBase):
                 obj = aq_inner(root.restrictedTraverse(now))
                 if IOrgansfolder.providedBy(obj):
                     try:
-                        obj.logoOrganFolder.filename
-                        return obj.absolute_url() + '/@@images/logoOrganFolder'
+                        if self.context.customImage:
+                            obj.logoOrganFolder.filename
+                            return obj.absolute_url() + '/@@images/logoOrganFolder'
+                        else:
+                            return None
                     except:
                         return None  # loads default image

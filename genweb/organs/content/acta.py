@@ -11,6 +11,7 @@ from genweb.organs import utils
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
+from plone.namedfile.field import NamedBlobImage
 
 grok.templatedir("templates")
 
@@ -104,6 +105,17 @@ class IActa(form.Schema):
         required=False,
     )
 
+    defaultImg = schema.Bool(
+        title=_(u'Fer servir la imatge per defecte'),
+        description=_(u"Desmarcar aquesta opció si, en imprimir, no es vol fer servir la imatge de l'òrgan, sino la que s'adjunta aquí mateix."),
+        default=True,
+    )
+
+    actaImage = NamedBlobImage(
+        title=_(u"Imatge de les actes"),
+        description=_(u"Imatge que es fa servir en imprimir les actes, en comptes de fer servir la de tot l'òrgan."),
+        required=False,
+    )
 
 @form.default_value(field=IActa['membresConvidats'])
 def membresConvidatsDefaultValue(data):

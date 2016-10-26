@@ -11,8 +11,6 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.interfaces import IContextSourceBinder
 from zope.interface import directlyProvides
-from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
-
 import unicodedata
 
 grok.templatedir("templates")
@@ -63,10 +61,10 @@ class IPunt(form.Schema):
         required=False
     )
 
-    directives.widget(acordOrgan=SingleCheckBoxFieldWidget)
-    acordOrgan = schema.List(
+    acordOrgan = schema.Bool(
         title=_(u'Es un acord?'),
         required=False,
+        default=False,
     )
 
     directives.widget(defaultContent=WysiwygFieldWidget)

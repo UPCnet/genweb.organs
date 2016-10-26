@@ -4,6 +4,7 @@ from plone.directives import form
 from plone.namedfile.field import NamedBlobImage
 from Products.CMFCore.utils import getToolByName
 from genweb.organs import _
+from zope import schema
 
 grok.templatedir("templates")
 
@@ -11,6 +12,13 @@ grok.templatedir("templates")
 class IOrgansfolder(form.Schema):
     """ Tipus Organs Folder: Carpeta que conté Organs
     """
+
+    customImage = schema.Bool(
+        title=_(u'Fer servir la imatge personalitzada?'),
+        description=_(u'Si es vol fer servir la imatge estandard o la imatge que es puja a continuació'),
+        required=False,
+        default=False,
+    )
 
     logoOrganFolder = NamedBlobImage(
         title=_(u"Organs folder logo"),
