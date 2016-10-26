@@ -117,6 +117,13 @@ class IActa(form.Schema):
         required=False,
     )
 
+
+@form.default_value(field=IActa['title'])
+def titleDefaultValue(data):
+    # copy membresConvidats from Session (parent object)
+    return 'Acta - ' + data.context.Title()
+
+
 @form.default_value(field=IActa['membresConvidats'])
 def membresConvidatsDefaultValue(data):
     # copy membresConvidats from Session (parent object)

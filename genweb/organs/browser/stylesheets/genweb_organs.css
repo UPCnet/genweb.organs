@@ -78,3 +78,18 @@ table th {
     width: 530px;
     height: 190px;
  }
+
+/* add 98% to width */
+input#form-widgets-title,
+input#form-widgets-llocConvocatoria,
+input#form-widgets-horaInici,
+input#form-widgets-horaFi,
+input#form-widgets-IBasic-title,
+input#form-widgets-acronim,
+input#form-widgets-fromMail ,
+input#form-widgets-any,
+input#form-widgets-numSessio,
+input#form-widgets-enllacVideo,
+input#form-widgets-enllacAudio,
+input#form-widgets-proposalPoint,
+input#form-widgets-agreement {width: 98%;}
