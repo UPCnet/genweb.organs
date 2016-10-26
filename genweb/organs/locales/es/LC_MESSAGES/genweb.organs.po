@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-26 11:47+0000\n"
+"POT-Creation-Date: 2016-10-26 14:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,7 @@ msgid "Acta"
 msgstr "Acta"
 
 #: ./genweb/organs/browser/views/acta_print.pt:105
-#: ./genweb/organs/content/acta.py:97
+#: ./genweb/organs/content/acta.py:98
 #: ./genweb/organs/content/templates/acta_view.pt:114
 msgid "Acta Body"
 msgstr "Cuerpo del acta"
@@ -67,14 +67,14 @@ msgstr "Estados de aprobación"
 msgid "Agreement number"
 msgstr "Número de acuerdo"
 
-#: ./genweb/organs/content/acta.py:24
+#: ./genweb/organs/content/acta.py:25
 #: ./genweb/organs/content/organgovern.py:32
 #: ./genweb/organs/content/sessio.py:29
 msgid "Assistents"
 msgstr "Asistentes"
 
 #: ./genweb/organs/browser/views/acta_print.pt:80
-#: ./genweb/organs/content/acta.py:62
+#: ./genweb/organs/content/acta.py:63
 #: ./genweb/organs/content/templates/acta_view.pt:68
 msgid "Attending members"
 msgstr "Lista de personas asistentes"
@@ -140,7 +140,7 @@ msgstr "Fecha y hora"
 msgid "Description"
 msgstr "Descripción"
 
-#: ./genweb/organs/content/acta.py:110
+#: ./genweb/organs/content/acta.py:111
 msgid "Desmarcar aquesta opció si, en imprimir, no es vol fer servir la imatge de l'òrgan, sino la que s'adjunta aquí mateix."
 msgstr "Desmarcar esta opción si, al imprimir, NO se quiere utilizar la imagen del órgano, sino la que se adjunta a continuación."
 
@@ -185,12 +185,12 @@ msgid "Esteu visualitzant un punt marcat com Acord."
 msgstr "Estáis visualizando un Punto del orden del día marcado como Acuerdo."
 
 #: ./genweb/organs/browser/views/acta_print.pt:90
-#: ./genweb/organs/content/acta.py:76
+#: ./genweb/organs/content/acta.py:77
 #: ./genweb/organs/content/sessio.py:103
 msgid "Excused members"
 msgstr "Personas excusadas"
 
-#: ./genweb/organs/content/acta.py:109
+#: ./genweb/organs/content/acta.py:110
 msgid "Fer servir la imatge per defecte"
 msgstr "Utilizar la imagen por defecto"
 
@@ -214,7 +214,7 @@ msgstr "Ficheros a publicar"
 msgid "Fitxers interns"
 msgstr "Ficheros internos"
 
-#: ./genweb/organs/content/acta.py:104
+#: ./genweb/organs/content/acta.py:105
 #: ./genweb/organs/content/templates/acta_view.pt:120
 msgid "Footer"
 msgstr "Pie del acta"
@@ -235,11 +235,11 @@ msgstr "Historial"
 msgid "Hora de fi"
 msgstr "Hora de finalización"
 
-#: ./genweb/organs/content/acta.py:115
+#: ./genweb/organs/content/acta.py:116
 msgid "Imatge de les actes"
 msgstr "Imagen de las actas"
 
-#: ./genweb/organs/content/acta.py:116
+#: ./genweb/organs/content/acta.py:117
 msgid "Imatge que es fa servir en imprimir les actes, en comptes de fer servir la de tot l'òrgan."
 msgstr "Imagen que se utilizará al imprimir las actas, en lugar de la de todo el órgano."
 
@@ -247,7 +247,7 @@ msgstr "Imagen que se utilizará al imprimir las actas, en lugar de la de todo e
 msgid "Importador de punts"
 msgstr "Importador de puntos"
 
-#: ./genweb/organs/content/acta.py:29
+#: ./genweb/organs/content/acta.py:30
 msgid "Imprimir"
 msgstr "Imprimir"
 
@@ -264,7 +264,7 @@ msgid "Installs Organs de Govern package"
 msgstr "Installs Organs de Govern package"
 
 #: ./genweb/organs/browser/views/acta_print.pt:85
-#: ./genweb/organs/content/acta.py:69
+#: ./genweb/organs/content/acta.py:70
 #: ./genweb/organs/content/sessio.py:96
 msgid "Invited members"
 msgstr "Personas invitadas"
@@ -330,7 +330,7 @@ msgid "Missatge no enviat. Comprovi els destinataris del missatge"
 msgstr "Mensaje no enviado. Compruebe los destinatarios del mensaje."
 
 #: ./genweb/organs/browser/views/acta_print.pt:95
-#: ./genweb/organs/content/acta.py:83
+#: ./genweb/organs/content/acta.py:84
 #: ./genweb/organs/content/templates/acta_view.pt:77
 msgid "Missing members"
 msgstr "Lista de personas no asistentes"
@@ -500,19 +500,19 @@ msgstr "Sesión"
 msgid "Session Title"
 msgstr "Título de la sesión"
 
-#: ./genweb/organs/content/acta.py:40
+#: ./genweb/organs/content/acta.py:41
 #: ./genweb/organs/content/sessio.py:55
 #: ./genweb/organs/content/templates/organgovern_view.pt:115
 msgid "Session date"
 msgstr "Fecha de la sesión"
 
-#: ./genweb/organs/content/acta.py:55
+#: ./genweb/organs/content/acta.py:56
 #: ./genweb/organs/content/sessio.py:70
 #: ./genweb/organs/content/templates/acta_view.pt:50
 msgid "Session end time"
 msgstr "Hora de finalización de la sesión"
 
-#: ./genweb/organs/content/acta.py:45
+#: ./genweb/organs/content/acta.py:46
 #: ./genweb/organs/content/sessio.py:60
 #: ./genweb/organs/content/templates/organgovern_view.pt:118
 msgid "Session location"
@@ -523,7 +523,7 @@ msgid "Session number"
 msgstr "Número de sesión"
 
 #: ./genweb/organs/browser/views/acta_print.pt:100
-#: ./genweb/organs/content/acta.py:90
+#: ./genweb/organs/content/acta.py:91
 #: ./genweb/organs/content/templates/acta_view.pt:108
 msgid "Session order"
 msgstr "Orden del día"
@@ -533,7 +533,7 @@ msgstr "Orden del día"
 msgid "Session start"
 msgstr "Hora de inicio"
 
-#: ./genweb/organs/content/acta.py:50
+#: ./genweb/organs/content/acta.py:51
 #: ./genweb/organs/content/sessio.py:65
 #: ./genweb/organs/content/templates/acta_view.pt:45
 msgid "Session start time"

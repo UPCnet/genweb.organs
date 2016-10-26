@@ -12,6 +12,7 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from plone.namedfile.field import NamedBlobImage
+from Products.CMFCore.utils import getToolByName
 
 grok.templatedir("templates")
 
@@ -168,6 +169,35 @@ def horaIniciDefaultValue(data):
 def horaFiDefaultValue(data):
     # copy horaFi from Session (parent object)
     return data.context.horaFi
+
+
+@form.default_value(field=IActa['ordreSessio'])
+def ordreSessioDefaultValue(data):
+    # Copy all Punts from Session to Acta
+    return Punts2Acta(data)
+
+
+def Punts2Acta(self):
+    """ Retorna els punt en format text per mostrar a l'ordre
+        del dia de les actes
+    """
+    portal_catalog = getToolByName(self.context, 'portal_catalog')
+    folder_path = '/'.join(self.context.getPhysicalPath())
+    values = portal_catalog.searchResults(
+        portal_type='genweb.organs.punt',
+        sort_on='getObjPositionInParent',
+        path={'query': folder_path,
+              'depth': 1})
+
+    results = []
+    for obj in values:
+        value = obj.getObject()
+        if value.proposalPoint:
+            number = str(value.proposalPoint) + '.- '
+        else:
+            number = ''
+        results.append(number + str(obj.Title))
+    return '<br/>'.join(results)
 
 
 class View(dexterity.DisplayForm):
