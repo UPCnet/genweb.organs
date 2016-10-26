@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-26 08:19+0000\n"
+"POT-Creation-Date: 2016-10-26 11:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,8 +36,8 @@ msgid "Acronym Description"
 msgstr "Nom curt que donarà lloc a la URL simplificada de l'òrgan."
 
 #: ./genweb/organs/browser/views/acta_print.pt:30
-#: ./genweb/organs/content/acta.py:29
 #: ./genweb/organs/content/templates/sessio_view.pt:34
+#: ./genweb/organs/profiles/default/types/genweb.organs.acta.xml
 msgid "Acta"
 msgstr "Acta"
 
@@ -160,7 +160,7 @@ msgstr "Aquest és el remitent de les notificacions"
 msgid "Enviar"
 msgstr "Enviar"
 
-#: ./genweb/organs/content/file.py:21
+#: ./genweb/organs/content/file.py:20
 msgid "Es tracta d'un fitxer privat?"
 msgstr "L'opció marcada indica que es tracta d'un fitxer intern"
 
@@ -194,7 +194,7 @@ msgstr "Persones excusades"
 msgid "Fer servir la imatge per defecte"
 msgstr "Fer servir la imatge per defecte"
 
-#: ./genweb/organs/content/organsfolder.py:17
+#: ./genweb/organs/content/organsfolder.py:16
 msgid "Fer servir la imatge personalitzada?"
 msgstr "Fer servir la imatge personalitzada?"
 
@@ -247,6 +247,10 @@ msgstr "Imatge que es fa servir en imprimir les actes, en comptes de fer servir 
 msgid "Importador de punts"
 msgstr "Importador de punts"
 
+#: ./genweb/organs/content/acta.py:29
+msgid "Imprimir"
+msgstr "Imprimir"
+
 #: ./genweb/organs/content/sessio.py:89
 msgid "Incoming members list"
 msgstr "Persones convocades"
@@ -278,7 +282,7 @@ msgstr "Lloc de realització"
 msgid "Logo description"
 msgstr "Logo que es podrà usar a la impressió de documents i a les actes."
 
-#: ./genweb/organs/content/organsfolder.py:25
+#: ./genweb/organs/content/organsfolder.py:24
 msgid "Logo organs folder description"
 msgstr "Imatge que es farà servir com a capçalera en aquest òrgan i en imprimir les actes."
 
@@ -403,11 +407,11 @@ msgstr "Tipus d'òrgan de govern"
 msgid "Organs Folder"
 msgstr "Carpeta Unitat"
 
-#: ./genweb/organs/content/organsfolder.py:24
+#: ./genweb/organs/content/organsfolder.py:23
 msgid "Organs folder logo"
 msgstr "Imatge de capçalera"
 
-#: ./genweb/organs/content/file.py:22
+#: ./genweb/organs/content/file.py:21
 msgid "Per defecte els fitxers són privats. Si vol fer públic el fitxer, cal desmarcar aquesta opció."
 msgstr "Per defecte els fitxers són privats. Si vol fer públic el fitxer, cal desmarcar aquesta opció."
 
@@ -428,7 +432,7 @@ msgstr "Persones convidades"
 msgid "Persones excusades"
 msgstr "Persones excusades"
 
-#: ./genweb/organs/content/file.py:28
+#: ./genweb/organs/content/file.py:27
 msgid "Please upload a document"
 msgstr "Si us plau, afegiu un document"
 
@@ -539,7 +543,7 @@ msgstr "Hora d'inici de la sessió"
 msgid "Sessions list"
 msgstr "Llistat de sessions"
 
-#: ./genweb/organs/content/organsfolder.py:18
+#: ./genweb/organs/content/organsfolder.py:17
 msgid "Si es vol fer servir la imatge estandard o la imatge que es puja a continuació"
 msgstr "Si es vol fer servir la imatge per defecte o la imatge que s'indica a continuació"
 

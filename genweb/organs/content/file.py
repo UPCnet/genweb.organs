@@ -5,7 +5,6 @@ from plone.directives import dexterity
 from plone.directives import form
 from genweb.organs import _
 from plone.namedfile.field import NamedBlobFile
-from plone.memoize.view import memoize
 from zope.component import getMultiAdapter
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName

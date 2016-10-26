@@ -5,7 +5,6 @@ from plone.namedfile.field import NamedBlobImage
 from Products.CMFCore.utils import getToolByName
 from genweb.organs import _
 from zope import schema
-
 grok.templatedir("templates")
 
 

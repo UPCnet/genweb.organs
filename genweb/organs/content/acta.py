@@ -25,8 +25,8 @@ class IActa(form.Schema):
              fields=['membresConvocats', 'membresConvidats', 'llistaExcusats', 'llistaNoAssistens']
              )
 
-    fieldset('acta',
-             label=_(u'Acta'),
+    fieldset('imprimir',
+             label=_(u'Imprimir'),
              fields=['actaBody', 'footer'],
              )
 

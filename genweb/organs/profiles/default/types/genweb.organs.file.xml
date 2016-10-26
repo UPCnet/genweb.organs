@@ -12,8 +12,6 @@
  <property name="global_allow">False</property>
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types">
-     <element value="genweb.organs.file"/>
-     <element value="genweb.organs.file"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view_fallback">False</property>
@@ -21,17 +19,11 @@
  <property name="klass">genweb.organs.content.File</property>
 
  <property name="behaviors">
-  <element value="plone.app.content.interfaces.INameFromTitle"/>
-  <element value="plone.app.dexterity.behaviors.metadata.IDublinCore" />
-  <element value="plone.app.dexterity.behaviors.metadata.ICategorization" />
-  <element value="plone.app.dexterity.behaviors.metadata.IPublication" />
-  <element value="plone.app.dexterity.behaviors.metadata.IOwnership" />
-  <element value="plone.app.dexterity.behaviors.filename.INameFromFileName" />
-  <element value="plone.app.dexterity.behaviors.discussion.IAllowDiscussion" />
-  <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation" />
-  <element value="plone.app.relationfield.behavior.IRelatedItems" />
-  <element value="plone.app.multilingual.dx.interfaces.IDexterityTranslatable" />
-  <element value="plone.app.referenceablebehavior.referenceable.IReferenceable" />
+    <element value="plone.app.content.interfaces.INameFromTitle" />
+    <element value="plone.app.dexterity.behaviors.metadata.IBasic" />
+    <element value="plone.app.dexterity.behaviors.metadata.ICategorization" />
+    <element value="plone.app.relationfield.behavior.IRelatedItems" />
+    <element value="plone.app.referenceablebehavior.referenceable.IReferenceable" />
  </property>
 
  <property name="schema">genweb.organs.content.file.IFile</property>

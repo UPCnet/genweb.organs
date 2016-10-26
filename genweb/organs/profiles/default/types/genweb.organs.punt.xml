@@ -21,16 +21,11 @@
 
  <property name="behaviors">
   <element value="plone.app.dexterity.behaviors.metadata.ICategorization"/>
-  <element value="plone.app.dexterity.behaviors.metadata.IPublication"/>
   <element value="plone.app.content.interfaces.INameFromTitle"/>
-  <element value="plone.app.dexterity.behaviors.discussion.IAllowDiscussion"/>
-  <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
-  <element value="Products.CMFPlone.interfaces.constrains.ISelectableConstrainTypes"/>
   <element value="plone.app.relationfield.behavior.IRelatedItems"/>
-  <element value="plone.app.multilingual.dx.interfaces.IDexterityTranslatable"/>
-  <element value="plone.app.dexterity.behaviors.nextprevious.INextPreviousToggle"/>
   <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
   <element value="plone.app.referenceablebehavior.referenceable.IReferenceable" />
+  <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation" />
  </property>
 
  <property name="schema">genweb.organs.content.punt.IPunt</property>
