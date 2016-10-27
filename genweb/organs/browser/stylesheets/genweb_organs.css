@@ -93,3 +93,10 @@ input#form-widgets-enllacVideo,
 input#form-widgets-enllacAudio,
 input#form-widgets-proposalPoint,
 input#form-widgets-agreement {width: 98%;}
+
+/*  Hide view action tab */
+.portaltype-genweb-organs-organsfolder #plone-contentmenu-display,
+.portaltype-genweb-organs-acta #plone-contentmenu-display,
+.portaltype-genweb-organs-organgovern #plone-contentmenu-display,
+.portaltype-genweb-organs-punt #plone-contentmenu-display,
+.portaltype-genweb-organs-sessio #plone-contentmenu-display {display:none;}
