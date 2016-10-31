@@ -12,6 +12,19 @@
   <div>
 
     <metal:block define-macro="content-core">
+
+      <tal:block tal:condition="context/defaultContent">
+        <h3 i18n:translate="" tal:condition="view/isReader"> Proposal description </h3>
+        <h3 i18n:translate="" tal:condition="not:view/isReader"> Contingut </h3>
+          <div tal:replace="structure context/defaultContent" />
+       </tal:block>
+
+      <tal:block tal:condition="view/isReader">
+        <h3 i18n:translate="" tal:condition="context/alternateContent"> Alternate description </h3>
+        <div tal:condition="context/alternateContent"
+             tal:replace="structure context/alternateContent" />
+      </tal:block>
+
     </metal:block>
 
   </div>
