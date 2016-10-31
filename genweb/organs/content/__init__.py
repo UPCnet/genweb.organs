@@ -8,6 +8,7 @@ from genweb.organs.content.punt import IPunt
 from genweb.organs.content.acta import IActa
 from genweb.organs.content.organsfolder import IOrgansfolder
 from genweb.organs.content.file import IFile
+from genweb.organs.content.document import IDocument
 
 
 class Organgovern(Item):
@@ -32,3 +33,7 @@ class Organsfolder(Item):
 
 class File(Item):
     implements(IFile)
+
+
+class Document(Item):
+    implements(IDocument)

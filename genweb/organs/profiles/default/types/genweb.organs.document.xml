@@ -1,35 +1,32 @@
 <?xml version="1.0"?>
-<object name="genweb.organs.punt" meta_type="Dexterity FTI"
+<object name="genweb.organs.document" meta_type="Dexterity FTI"
    i18n:domain="genweb.organs"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
- <property name="title" i18n:translate="">Punt</property>
+ <property name="title" i18n:translate="">Document</property>
  <property name="description"></property>
  <property name="icon_expr"></property>
- <property name="factory">genweb.organs.punt</property>
- <property name="add_view_expr">string:${folder_url}/++add++genweb.organs.punt</property>
+ <property name="factory">genweb.organs.document</property>
+ <property name="add_view_expr">string:${folder_url}/++add++genweb.organs.document</property>
  <property name="link_target"></property>
  <property name="immediate_view">view</property>
  <property name="global_allow">False</property>
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types">
-     <element value="genweb.organs.file"/>
-     <element value="genweb.organs.document"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view_fallback">False</property>
  <property name="add_permission">cmf.AddPortalContent</property>
- <property name="klass">plone.dexterity.content.Container</property>
+ <property name="klass">genweb.organs.content.Document</property>
 
  <property name="behaviors">
-  <element value="plone.app.dexterity.behaviors.metadata.ICategorization"/>
-  <element value="plone.app.content.interfaces.INameFromTitle"/>
-  <element value="plone.app.relationfield.behavior.IRelatedItems"/>
-  <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
-  <element value="plone.app.referenceablebehavior.referenceable.IReferenceable" />
-  <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation" />
+    <element value="plone.app.content.interfaces.INameFromTitle" />
+    <element value="plone.app.dexterity.behaviors.metadata.IBasic" />
+    <element value="plone.app.dexterity.behaviors.metadata.ICategorization" />
+    <element value="plone.app.relationfield.behavior.IRelatedItems" />
+    <element value="plone.app.referenceablebehavior.referenceable.IReferenceable" />
  </property>
 
- <property name="schema">genweb.organs.content.punt.IPunt</property>
+ <property name="schema">genweb.organs.content.document.IDocument</property>
  <property
     name="model_source">&lt;model xmlns="http://namespaces.plone.org/supermodel/schema"&gt;
       &lt;schema /&gt;

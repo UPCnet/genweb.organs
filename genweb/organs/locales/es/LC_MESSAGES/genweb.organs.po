@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-31 08:25+0000\n"
+"POT-Creation-Date: 2016-10-31 10:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,6 +67,10 @@ msgstr "Estados de aprobación"
 msgid "Agreement number"
 msgstr "Número de acuerdo"
 
+#: ./genweb/organs/content/document.py:27
+msgid "Alternate description"
+msgstr "Contenido interno"
+
 #: ./genweb/organs/content/acta.py:25
 #: ./genweb/organs/content/organgovern.py:32
 #: ./genweb/organs/content/sessio.py:29
@@ -118,6 +122,10 @@ msgstr "Cancelar"
 msgid "Composicio"
 msgstr "Composición"
 
+#: ./genweb/organs/content/document.py:28
+msgid "Content used to hide protected content"
+msgstr "Contenido de uso interno."
+
 #: ./genweb/organs/content/templates/punt_view.pt:41
 msgid "Contingut"
 msgstr "contenido"
@@ -136,6 +144,10 @@ msgstr "Fecha"
 msgid "Data i hora"
 msgstr "Fecha y hora"
 
+#: ./genweb/organs/content/document.py:20
+msgid "Default content shown in the document view"
+msgstr "Contenido preparado para publicar."
+
 #: ./genweb/organs/content/templates/organgovern_view.pt:23
 msgid "Description"
 msgstr "Descripción"
@@ -147,6 +159,10 @@ msgstr "Desmarcar esta opción si, al imprimir, NO se quiere utilizar la imagen 
 #: ./genweb/organs/content/templates/sessio_view.pt:160
 msgid "Destinataris"
 msgstr "Destinatarios"
+
+#: ./genweb/organs/profiles/default/types/genweb.organs.document.xml
+msgid "Document"
+msgstr "Documento"
 
 #: ./genweb/organs/content/organgovern.py:106
 msgid "Enter labels, separated by commas."
@@ -449,6 +465,7 @@ msgstr "Presentación"
 msgid "Print Acta"
 msgstr "Imprimir acta"
 
+#: ./genweb/organs/content/document.py:19
 #: ./genweb/organs/content/punt.py:73
 msgid "Proposal description"
 msgstr "Contenido"
