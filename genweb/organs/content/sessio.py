@@ -32,7 +32,7 @@ class ISessio(form.Schema):
 
     fieldset('notificacions',
              label=_(u'Notifications'),
-             fields=['adrecaAfectatsLlista', 'bodyMail', 'signatura'],
+             fields=['adrecaLlista', 'adrecaAfectatsLlista', 'bodyMail', 'signatura'],
              )
 
     dexteritytextindexer.searchable('title')
