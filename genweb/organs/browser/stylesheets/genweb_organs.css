@@ -100,3 +100,11 @@ input#form-widgets-agreement {width: 98%;}
 .portaltype-genweb-organs-organgovern #plone-contentmenu-display,
 .portaltype-genweb-organs-punt #plone-contentmenu-display,
 .portaltype-genweb-organs-sessio #plone-contentmenu-display {display:none;}
+
+.label-danger {
+    background-color: #d9534f !important;
+}
+
+.ul_items {
+    margin-left: 5px;
+}

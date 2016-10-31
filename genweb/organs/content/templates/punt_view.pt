@@ -44,7 +44,7 @@
     <span tal:replace="structure context/defaultContent" />
   </div>
 
-  <table class="table table-bordered table-condensed table-responsive" tal:condition="item">
+  <table class="table table-bordered table-responsive" tal:condition="item">
       <thead>
         <tr>
           <th>
@@ -55,14 +55,16 @@
       <tbody>
         <tr>
           <td tal:condition="item">
-            <ul>
+            <ul class="ul_items">
               <tal:documents repeat="item view/FilesandDocumentsInside">
-                <li style="list-style: none;">
+                <li style="list-style: none; padding-bottom: 5px;">
                   <i tal:attributes=" class item/classCSS"></i>
                   <a tal:attributes="href item/absolute_url;"
-                     tal:content="item/title">
-                     Public Item Title
+                     style="font-size:15px;">&nbsp;
+                     <span tal:content="item/title"> Doc title</span>
                   </a>
+                  &nbsp;
+                  <span style="float:right;" tal:attributes="class string:${item/labelClass}" tal:content="item/content"></span>
                 </li>
               </tal:documents>
             </ul>
@@ -75,3 +77,4 @@
 
 </body>
 </html>
+

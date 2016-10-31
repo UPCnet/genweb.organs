@@ -112,13 +112,21 @@ class View(grok.View):
             if obj.portal_type == 'genweb.organs.file':
                 if obj.hiddenfile is True:
                     tipus = 'fa fa-file'
+                    document = 'Fitxer intern'
+                    labelClass = 'label label-danger'
                 else:
                     tipus = 'fa fa-file-o'
+                    document = 'Fitxer públic'
+                    labelClass = 'label label-success'
             else:
                 tipus = 'fa fa-file-text-o'
+                document = 'Document'
+                labelClass = 'label label-default'
 
             results.append(dict(title=obj.Title,
                                 absolute_url=obj.getURL(),
                                 classCSS=tipus,
-                                hidden=obj.hiddenfile))
+                                hidden=obj.hiddenfile,
+                                labelClass=labelClass,
+                                content=document))
         return results
