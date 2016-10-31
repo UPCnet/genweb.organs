@@ -96,44 +96,29 @@ class View(grok.View):
             return True
         return False
 
-    def hihaFitxers(self):
-        if self.privateFilesInside() or self.publicFilesInside():
-            return True
-        else:
-            return False
-
-    def publicFilesInside(self):
+    def FilesandDocumentsInside(self):
         """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
         """
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
-            portal_type='genweb.organs.file',
-            sort_on='getObjPositionInParent',
-            hiddenfile=False,
-            path={'query': folder_path,
-                  'depth': 1})
-
-        results = []
-        for obj in values:
-            results.append(dict(title=obj.Title,
-                                absolute_url=obj.getURL()))
-        return results
-
-    def privateFilesInside(self):
-        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
-        """
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        values = portal_catalog.searchResults(
-            portal_type='genweb.organs.file',
-            hiddenfile=True,
+            portal_type=['genweb.organs.file','genweb.organs.document'],
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
 
         results = []
         for obj in values:
+            if obj.portal_type == 'genweb.organs.file':
+                if obj.hiddenfile is True:
+                    tipus = 'fa fa-file'
+                else:
+                    tipus = 'fa fa-file-o'
+            else:
+                tipus = 'fa fa-file-text-o'
+
             results.append(dict(title=obj.Title,
-                                absolute_url=obj.getURL()))
+                                absolute_url=obj.getURL(),
+                                classCSS=tipus,
+                                hidden=obj.hiddenfile))
         return results

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-31 10:31+0000\n"
+"POT-Creation-Date: 2016-10-31 11:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,13 +57,13 @@ msgstr "Agreement and document label"
 
 #: ./genweb/organs/content/organgovern.py:105
 #: ./genweb/organs/content/punt.py:78
-#: ./genweb/organs/content/templates/punt_view.pt:27
+#: ./genweb/organs/content/templates/punt_view.pt:29
 msgid "Agreement and document labels"
 msgstr "Agreement and document labels"
 
 #: ./genweb/organs/content/punt.py:60
 #: ./genweb/organs/content/templates/organgovern_view.pt:71
-#: ./genweb/organs/content/templates/punt_view.pt:24
+#: ./genweb/organs/content/templates/punt_view.pt:26
 msgid "Agreement number"
 msgstr "Agreement number"
 
@@ -128,7 +128,7 @@ msgid "Content used to hide protected content"
 msgstr "Content used to hide protected content"
 
 #: ./genweb/organs/content/templates/document_view.pt:18
-#: ./genweb/organs/content/templates/punt_view.pt:41
+#: ./genweb/organs/content/templates/punt_view.pt:43
 msgid "Contingut"
 msgstr "Content"
 
@@ -198,7 +198,7 @@ msgstr "You're viewing a <strong> PRIVATE </ strong>file."
 msgid "Esteu visualitzant un fitxer <strong>PUBLIC</strong>."
 msgstr "You're viewing a <strong> PUBLIC </ strong>file."
 
-#: ./genweb/organs/content/templates/punt_view.pt:14
+#: ./genweb/organs/content/templates/punt_view.pt:16
 msgid "Esteu visualitzant un punt marcat com Acord."
 msgstr "You're viewing a point of the agenda marked as Agreement."
 
@@ -225,12 +225,8 @@ msgid "File contents"
 msgstr "File contents"
 
 #: ./genweb/organs/content/templates/punt_view.pt:51
-msgid "Fitxers a publicar"
-msgstr "Files published"
-
-#: ./genweb/organs/content/templates/punt_view.pt:54
-msgid "Fitxers interns"
-msgstr "Internal files"
+msgid "Fitxers i documents"
+msgstr "Files and documents"
 
 #: ./genweb/organs/content/acta.py:105
 #: ./genweb/organs/content/templates/acta_view.pt:120
@@ -474,7 +470,7 @@ msgid "Proposal description"
 msgstr "Content"
 
 #: ./genweb/organs/content/punt.py:55
-#: ./genweb/organs/content/templates/punt_view.pt:21
+#: ./genweb/organs/content/templates/punt_view.pt:23
 msgid "Proposal point number"
 msgstr "Point of the Agenda"
 

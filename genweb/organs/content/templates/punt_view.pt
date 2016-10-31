@@ -7,7 +7,9 @@
       i18n:domain="genweb.organs">
 <body>
 
-<metal:content-core fill-slot="content-core">
+<metal:content-core fill-slot="content-core" tal:define="item view/FilesandDocumentsInside">
+
+  <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
   <div tal:condition="view/isAcord">
     <br/>
@@ -42,26 +44,21 @@
     <span tal:replace="structure context/defaultContent" />
   </div>
 
-  <table class="table table-bordered table-condensed table-responsive" tal:condition="view/hihaFitxers">
-    <tal:files tal:define="itemPublic view/publicFilesInside;
-                           itemPrivate view/privateFilesInside">
+  <table class="table table-bordered table-condensed table-responsive" tal:condition="item">
       <thead>
         <tr>
-          <th tal:condition="itemPublic">
-            <tal:data i18n:translate="">Fitxers a publicar</tal:data>
+          <th>
+            <tal:data i18n:translate="">Fitxers i documents</tal:data>
           </th>
-          <th tal:condition="itemPrivate">
-             <tal:data i18n:translate="">Fitxers interns</tal:data>
-           </th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td tal:condition="itemPublic">
+          <td tal:condition="item">
             <ul>
-              <tal:documents repeat="item view/publicFilesInside">
+              <tal:documents repeat="item view/FilesandDocumentsInside">
                 <li style="list-style: none;">
-                  <i class="icon-file"></i>
+                  <i tal:attributes=" class item/classCSS"></i>
                   <a tal:attributes="href item/absolute_url;"
                      tal:content="item/title">
                      Public Item Title
@@ -70,22 +67,8 @@
               </tal:documents>
             </ul>
           </td>
-          <td tal:condition="itemPrivate">
-            <ul>
-              <tal:documents repeat="item view/privateFilesInside">
-                <li style="list-style: none;">
-                <i class="icon-file"></i>
-                  <a tal:attributes="href item/absolute_url;"
-                     tal:content="item/title">
-                     Private Item Title
-                  </a>
-                </li>
-              </tal:documents>
-            </ul>
-          </td>
         </tr>
       </tbody>
-    </tal:files>
   </table>
 
 </metal:content-core>
