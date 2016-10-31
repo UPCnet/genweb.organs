@@ -27,7 +27,7 @@ class ISessio(form.Schema):
 
     fieldset('assistents',
              label=_(u'Assistents'),
-             fields=['membresConvocats', 'membresConvidats', 'llistaExcusats']
+             fields=['membresConvocats', 'membresConvidats', 'llistaExcusats', 'noAssistents']
              )
 
     fieldset('notificacions',
@@ -101,6 +101,13 @@ class ISessio(form.Schema):
     dexteritytextindexer.searchable('llistaExcusats')
     llistaExcusats = schema.Text(
         title=_(u"Excused members"),
+        required=False,
+    )
+
+    directives.widget(noAssistents=WysiwygFieldWidget)
+    dexteritytextindexer.searchable('noAssistents')
+    noAssistents = schema.Text(
+        title=_(u"No assistents"),
         required=False,
     )
 

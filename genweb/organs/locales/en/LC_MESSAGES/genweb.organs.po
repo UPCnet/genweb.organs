@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-27 12:08+0000\n"
+"POT-Creation-Date: 2016-10-31 08:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "<strong>No s'ha afegit cap fitxer.</strong>"
 msgstr "<strong>No file added.</strong>"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:148
+#: ./genweb/organs/content/templates/sessio_view.pt:154
 msgid "Accio"
 msgstr "Action"
 
@@ -79,12 +79,12 @@ msgstr "Assistants"
 msgid "Attending members"
 msgstr "Attending members"
 
-#: ./genweb/organs/content/sessio.py:128
-#: ./genweb/organs/content/templates/sessio_view.pt:110
+#: ./genweb/organs/content/sessio.py:135
+#: ./genweb/organs/content/templates/sessio_view.pt:116
 msgid "Audio link"
 msgstr "Audio link"
 
-#: ./genweb/organs/content/sessio.py:110
+#: ./genweb/organs/content/sessio.py:117
 msgid "Body Mail"
 msgstr "Body Mail"
 
@@ -96,7 +96,7 @@ msgstr "Template message from the convoquing session"
 msgid "Body Mail convoquing description"
 msgstr "Message attached to convene a session. Adds the Footer and header."
 
-#: ./genweb/organs/content/sessio.py:111
+#: ./genweb/organs/content/sessio.py:118
 msgid "Body Mail description"
 msgstr "Message Body convening of the session"
 
@@ -132,7 +132,7 @@ msgstr "Data"
 msgid "Data"
 msgstr "Data"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:145
+#: ./genweb/organs/content/templates/sessio_view.pt:151
 msgid "Data i hora"
 msgstr "Date and Time"
 
@@ -144,7 +144,7 @@ msgstr "Description"
 msgid "Desmarcar aquesta opció si, en imprimir, no es vol fer servir la imatge de l'òrgan, sino la que s'adjunta aquí mateix."
 msgstr "Uncheck this option for use this image on printing"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:154
+#: ./genweb/organs/content/templates/sessio_view.pt:160
 msgid "Destinataris"
 msgstr "Recipients"
 
@@ -243,7 +243,7 @@ msgstr "Meetings Image"
 msgid "Imatge que es fa servir en imprimir les actes, en comptes de fer servir la de tot l'òrgan."
 msgstr "Image used on printing the meetings."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:179
+#: ./genweb/organs/content/templates/sessio_view.pt:185
 msgid "Importador de punts"
 msgstr "Import points"
 
@@ -340,7 +340,12 @@ msgstr "List of people not attending"
 msgid "New message"
 msgstr "New message"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:151
+#: ./genweb/organs/content/sessio.py:110
+#: ./genweb/organs/content/templates/sessio_view.pt:84
+msgid "No assistents"
+msgstr "People not attending"
+
+#: ./genweb/organs/content/templates/sessio_view.pt:157
 msgid "Notificador"
 msgstr "Notifier"
 
@@ -359,7 +364,7 @@ msgstr "Open"
 msgid "Operation Cancelled."
 msgstr "The operation was canceled."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:195
+#: ./genweb/organs/content/templates/sessio_view.pt:201
 msgid "Ordre del dia"
 msgstr "Agenda"
 
@@ -547,7 +552,7 @@ msgstr "Sessions list"
 msgid "Si es vol fer servir la imatge estandard o la imatge que es puja a continuació"
 msgstr "Use this image"
 
-#: ./genweb/organs/content/sessio.py:118
+#: ./genweb/organs/content/sessio.py:125
 msgid "Signatura"
 msgstr "Signature message"
 
@@ -575,8 +580,8 @@ msgstr "The following content will be attached to email."
 msgid "Title"
 msgstr "Title"
 
-#: ./genweb/organs/content/sessio.py:123
-#: ./genweb/organs/content/templates/sessio_view.pt:104
+#: ./genweb/organs/content/sessio.py:130
+#: ./genweb/organs/content/templates/sessio_view.pt:110
 msgid "Video link"
 msgstr "Link to the video session"
 

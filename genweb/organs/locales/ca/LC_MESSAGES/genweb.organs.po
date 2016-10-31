@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-27 12:08+0000\n"
+"POT-Creation-Date: 2016-10-31 08:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "<strong>No s'ha afegit cap fitxer.</strong>"
 msgstr "<strong>No s'ha afegit cap fitxer.</strong>"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:148
+#: ./genweb/organs/content/templates/sessio_view.pt:154
 msgid "Accio"
 msgstr "Acció"
 
@@ -79,12 +79,12 @@ msgstr "Assistents"
 msgid "Attending members"
 msgstr "Llista de persones assistents"
 
-#: ./genweb/organs/content/sessio.py:128
-#: ./genweb/organs/content/templates/sessio_view.pt:110
+#: ./genweb/organs/content/sessio.py:135
+#: ./genweb/organs/content/templates/sessio_view.pt:116
 msgid "Audio link"
 msgstr "Enllaç al fitxer d'àudio de la sessió"
 
-#: ./genweb/organs/content/sessio.py:110
+#: ./genweb/organs/content/sessio.py:117
 msgid "Body Mail"
 msgstr "Cos del missatge de convocatòria"
 
@@ -96,7 +96,7 @@ msgstr "Plantilla del missatge de convocatòria de la sessió"
 msgid "Body Mail convoquing description"
 msgstr "Missatge que s'adjunta en convocar una sessió. S'hi afegeix el peu del missatge i la capçalera."
 
-#: ./genweb/organs/content/sessio.py:111
+#: ./genweb/organs/content/sessio.py:118
 msgid "Body Mail description"
 msgstr "Cos del missatge de convocatòria"
 
@@ -132,7 +132,7 @@ msgstr "Dades"
 msgid "Data"
 msgstr "Data"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:145
+#: ./genweb/organs/content/templates/sessio_view.pt:151
 msgid "Data i hora"
 msgstr "Data i hora"
 
@@ -144,7 +144,7 @@ msgstr "Descripció"
 msgid "Desmarcar aquesta opció si, en imprimir, no es vol fer servir la imatge de l'òrgan, sino la que s'adjunta aquí mateix."
 msgstr "Desmarcar aquesta opció si, en imprimir, no es vol fer servir la imatge de l'òrgan, sino la que s'adjunta aquí mateix."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:154
+#: ./genweb/organs/content/templates/sessio_view.pt:160
 msgid "Destinataris"
 msgstr "Destinataris"
 
@@ -243,7 +243,7 @@ msgstr "Imatge de les actes"
 msgid "Imatge que es fa servir en imprimir les actes, en comptes de fer servir la de tot l'òrgan."
 msgstr "Imatge que es fa servir en imprimir les actes, en comptes de fer servir la de tot l'òrgan."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:179
+#: ./genweb/organs/content/templates/sessio_view.pt:185
 msgid "Importador de punts"
 msgstr "Importador de punts"
 
@@ -340,7 +340,12 @@ msgstr "Llista de persones no assistents"
 msgid "New message"
 msgstr "Nou missatge"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:151
+#: ./genweb/organs/content/sessio.py:110
+#: ./genweb/organs/content/templates/sessio_view.pt:84
+msgid "No assistents"
+msgstr "Persones no assistents"
+
+#: ./genweb/organs/content/templates/sessio_view.pt:157
 msgid "Notificador"
 msgstr "Notificador"
 
@@ -359,7 +364,7 @@ msgstr "Obert"
 msgid "Operation Cancelled."
 msgstr "S'ha cancel·lat l'operació."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:195
+#: ./genweb/organs/content/templates/sessio_view.pt:201
 msgid "Ordre del dia"
 msgstr "Ordre del dia"
 
@@ -547,7 +552,7 @@ msgstr "Llistat de sessions"
 msgid "Si es vol fer servir la imatge estandard o la imatge que es puja a continuació"
 msgstr "Si es vol fer servir la imatge per defecte o la imatge que s'indica a continuació"
 
-#: ./genweb/organs/content/sessio.py:118
+#: ./genweb/organs/content/sessio.py:125
 msgid "Signatura"
 msgstr "Signatura del missatge"
 
@@ -575,8 +580,8 @@ msgstr "El següent contingut s'adjuntarà al missatge de correu"
 msgid "Title"
 msgstr "Títol"
 
-#: ./genweb/organs/content/sessio.py:123
-#: ./genweb/organs/content/templates/sessio_view.pt:104
+#: ./genweb/organs/content/sessio.py:130
+#: ./genweb/organs/content/templates/sessio_view.pt:110
 msgid "Video link"
 msgstr "Enllaç al vídeo de la sessió"
 
