@@ -184,7 +184,7 @@ msgstr "L'opció marcada indica que es tracta d'un fitxer intern"
 
 #: ./genweb/organs/content/punt.py:65
 msgid "Es un acord?"
-msgstr "Es tracta d'un acord?"
+msgstr "Es tracta d'un acord"
 
 #: ./genweb/organs/content/organgovern.py:107
 msgid "Esborrany, Pendent d'aprovació, Aprovat, Informat, No aprovat, Derogat, Informatiu"
@@ -214,7 +214,7 @@ msgstr "Fer servir la imatge per defecte"
 
 #: ./genweb/organs/content/organsfolder.py:16
 msgid "Fer servir la imatge personalitzada?"
-msgstr "Fer servir la imatge personalitzada?"
+msgstr "Fer servir la imatge personalitzada"
 
 #: ./genweb/organs/profiles/default/types/genweb.organs.file.xml
 msgid "File"

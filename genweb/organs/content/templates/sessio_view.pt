@@ -193,7 +193,7 @@
 
   <div style="float:right">
     <br/>
-      <a class="btn btn-info" data-toggle="modal" href="manualStructureCreation" data-target="#myModal"><i class="fa fa-sticky-note" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Importador de punts</span></a>
+      <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#myModal"><i class="fa fa-sticky-note" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Importador de punts</span></a>
   </div>
 
   <div tal:define="item view/PuntsInside" tal:condition="item">
