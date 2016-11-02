@@ -9,6 +9,10 @@
 
 <metal:content-core fill-slot="content-core" tal:define="loginfo view/LogInformation">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/jqueryui-editable/css/jqueryui-editable.css" />
+<script src=https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.js></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/jqueryui-editable/js/jqueryui-editable.js"></script>
   <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
   <div style="float:right">
@@ -203,9 +207,12 @@
       <tal:documents repeat="item view/PuntsInside">
           <tr>
             <td>&nbsp;
-              <a tal:attributes="href item/absolute_url;">
-                     <span tal:content="item/proposalPoint"></span>
-                     <span tal:content="item/title">Item Title</span>
+              <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
+              <a tal:attributes="href item/absolute_url;
+                                 data-pk item/absolute_url""
+                class="editTitle"
+              data-type="text" data-url="changeTitle" class="editable editable-click editable-open">
+                     <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
               </a>
               <div class="btn-group btn-group-xs" role="group"
                    style="float: right;" aria-label="Edit actions">
@@ -222,6 +229,19 @@
       </tal:documents>
     </table>
   </div>
+
+
+  <script type="text/javascript">
+  $('.editTitle').editable({
+      inputclass: function(e, f) {
+          $("a[aria-describedby=" + $(this).closest(".ui-tooltip").prop("id") + "]").data("shared", this);
+      },
+      // validate: function(value) {
+      //   console.log("validate", $(this).data("shared"));
+      //   return 'Valor incorrecte';
+      // }
+  });
+  </script>
 
 </metal:content-core>
 

@@ -38,4 +38,13 @@
       permission="zope2.View"
     />
 
+    <!-- Used to add mail information to session log annotation -->
+    <browser:page
+      for="*"
+      name="changeTitle"
+      class=".changeTitle.changeTitle"
+      layer="..interfaces.IGenwebOrgansLayer"
+      permission="zope2.View"
+    />
+
 </configure>
