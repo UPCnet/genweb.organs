@@ -57,4 +57,5 @@ class changeTitle(BrowserView):
             container.manage_renameObject(old_id, new_id)
             newObject = api.content.find(id=new_id, path=container.absolute_url_path())[0]
             # import ipdb;ipdb.set_trace()
-            newObject.getObject().Title = newvalue
+            newObject.getObject().title = newvalue
+            newObject.getObject().reindexObject()
