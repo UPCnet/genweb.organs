@@ -189,6 +189,7 @@ class View(grok.View):
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
             portal_type='genweb.organs.punt',
+            sort_on='proposalPoint',
             path={'query': folder_path,
                   'depth': 1})
 
