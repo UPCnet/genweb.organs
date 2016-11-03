@@ -9,10 +9,24 @@
 
 <metal:content-core fill-slot="content-core" tal:define="loginfo view/LogInformation">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/jqueryui-editable/css/jqueryui-editable.css" />
-<script src=https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.js></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/jqueryui-editable/css/jqueryui-editable.css" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/jqueryui-editable/js/jqueryui-editable.js"></script>
+  <script src=//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.js></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/jqueryui-editable/js/jqueryui-editable.js"></script>
+
+  <style>
+    #sortable { list-style-type: none; margin: 0; padding: 0; width:auto; }
+    #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+    #sortable li span { position: absolute; margin-left: -1.3em; }
+  </style>
+  
+  <script type="text/javascript">
+    $( function() {
+      $( "#sortable" ).sortable();
+      $( "#sortable" ).disableSelection();
+    } );
+  </script>
+
   <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
   <div style="float:right">
@@ -204,9 +218,9 @@
   <br/>
     <h2 i18n:translate="">Ordre del dia</h2>
     <table class="table table-hover table-responsive">
-      <tal:documents repeat="item view/PuntsInside">
+        <tal:documents repeat="item view/PuntsInside">
           <tr>
-            <td>&nbsp;
+            <td>
               <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
               <a tal:attributes="href item/absolute_url;
                                  data-pk item/id""
@@ -216,7 +230,7 @@
               </a>
               <div class="btn-group btn-group-xs" role="group"
                    style="float: right;" aria-label="Edit actions">
-              <span style="margin-right: 10px;" class="label label-default"
+                <span style="margin-right: 10px;" class="label label-default"
                     tal:content="item/review_state"
                     i18n:domain="plone" i18n:translate="">Default</span>
                 <a style="margin-right: 3px;" type="button" class="edit label label-primary" data-title="Edit"
@@ -226,20 +240,23 @@
               </div>
             </td>
           </tr>
-      </tal:documents>
-    </table>
+        </tal:documents>
+      </table>
   </div>
 
-
   <script type="text/javascript">
+  $.fn.editable.defaults.mode = 'inline';
+  $.fn.editable.defaults.showbuttons = false;
+  $.fn.editable.defaults.type = 'text';
+  $.fn.editable.defaults.emptytext = 'Sense valor';
+
   $('.editTitle').editable({
       inputclass: function(e, f) {
-          $("a[aria-describedby=" + $(this).closest(".ui-tooltip").prop("id") + "]").data("shared", this);
+        $("a[aria-describedby=" + $(this).closest(".ui-tooltip").prop("id") + "]").data("shared", this);
       },
-      // validate: function(value) {
-      //   console.log("validate", $(this).data("shared"));
-      //   return 'Valor incorrecte';
-      // }
+      validate: function(value) {
+        if (!value) return 'Camp obligatori';
+      }
   });
   </script>
 
