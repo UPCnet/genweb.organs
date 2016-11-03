@@ -200,7 +200,7 @@ class View(grok.View):
                                 absolute_url=item.absolute_url(),
                                 proposalPoint=item.proposalPoint,
                                 review_state=obj.review_state,
-                                absolute_url_path=item.absolute_url_path()))
+                                id=obj.id))
         return results
 
     def ActesInside(self):

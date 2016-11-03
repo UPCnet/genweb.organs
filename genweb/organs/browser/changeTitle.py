@@ -13,7 +13,8 @@ class changeTitle(BrowserView):
         """ Adding log info when renaming content """
         annotations = IAnnotations(self.context)
         if annotations is not None:
-            origin_path = self.request.form['pk']
+            origin_path = '/'.join(self.context.getPhysicalPath()) + '/' + self.request.form['pk']
+            print origin_path
             newvalue = self.request.form['value']
 
             KEY = 'genweb.organs.logMail'
@@ -44,7 +45,6 @@ class changeTitle(BrowserView):
                 container = entry.getObject().aq_parent
                 chooser = INameChooser(container)
                 new_id = chooser.chooseName(newvalue, entry.getObject())
-
                 container.manage_renameObject(old_id, new_id)
                 newObject = api.content.find(id=new_id, path=container.absolute_url_path())[0]
                 newObject.getObject().title = newvalue

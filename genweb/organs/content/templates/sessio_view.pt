@@ -209,7 +209,7 @@
             <td>&nbsp;
               <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
               <a tal:attributes="href item/absolute_url;
-                                 data-pk item/absolute_url_path""
+                                 data-pk item/id""
                 class="editTitle"
               data-type="text" data-url="changeTitle" class="editable editable-click editable-open">
                      <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
