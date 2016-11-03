@@ -18,12 +18,26 @@
     #sortable { list-style-type: none; margin: 0; padding: 0; width:auto; }
     #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
     #sortable li span { position: absolute; margin-left: -1.3em; }
+ #sortable .ui-state-highlight { height: 1.5em; line-height: 1.2em; background: #ccc }
   </style>
   
   <script type="text/javascript">
     $( function() {
-      $( "#sortable" ).sortable();
-      $( "#sortable" ).disableSelection();
+         $('#sortable').sortable(
+          {
+            placeholder: 'ui-state-highlight',
+            opacity    : 0.8,
+            update     : function(event, ui)
+                           {
+                                      alert('Updated!');
+                          }
+          }
+          );
+    $('#sortable').disableSelection();
+    
+    $('#sortable').bind('sortstart', function(event, ui) {
+        $('.ui-state-highlight').append('<span>Arrossega aquí</span>');
+    });
     } );
   </script>
 
@@ -214,6 +228,7 @@
       <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#myModal"><i class="fa fa-sticky-note" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Importador de punts</span></a>
   </div>
 
+
   <div tal:define="item view/PuntsInside" tal:condition="item">
   <br/>
     <h2 i18n:translate="">Ordre del dia</h2>
@@ -229,12 +244,14 @@
               data-type="text" data-url="changeTitle" class="editable editable-click editable-open">
                      <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
               </a>
+          <!--       <span style="margin-right: 10px;" class="label label-default"
+                    tal:content="item/review_state"
+                    i18n:domain="plone" i18n:translate="">Default</span> -->
               <div class="btn-group btn-group-xs" role="group"
                    style="float: right;" aria-label="Edit actions">
-                <span style="margin-right: 10px;" class="label label-default"
-                    tal:content="item/review_state"
-                    i18n:domain="plone" i18n:translate="">Default</span>
-                <a style="margin-right: 3px;" type="button" class="edit label label-primary" data-title="Edit"
+
+                <a style="margin-right: 3px;" type="button"
+                   class="edit label label-primary" data-title="Edit"
                    tal:attributes="href string:${item/absolute_url}/edit"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;editar</a>
                 <a type="button" class="remove label label-important" data-title="Delete"
                    tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;esborrar</a>
