@@ -126,15 +126,10 @@ def addAnnotation(object, recipients):
     """ Add annotation after change state and send mail
     """
     KEY = 'genweb.organs.logMail'
-
     annotations = IAnnotations(object)
 
     if annotations is not None:
-
-        logData = annotations.get(KEY, None)
-
         try:
-            len(logData)
             # Get data and append values
             data = annotations.get(KEY)
         except:

@@ -152,9 +152,7 @@ class AddLogMail(BrowserView):
         annotations = IAnnotations(self.context)
 
         if annotations is not None:
-            logData = annotations.get(KEY, None)
             try:
-                len(logData)
                 # Get data and append values
                 data = annotations.get(KEY)
             except:
