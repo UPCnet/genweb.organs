@@ -195,10 +195,12 @@ class View(grok.View):
 
         results = []
         for obj in values:
+            item = obj.getObject()
             results.append(dict(title=obj.Title,
-                                absolute_url=obj.getURL(),
-                                proposalPoint=obj.getObject().proposalPoint,
-                                review_state=obj.review_state))
+                                absolute_url=item.absolute_url(),
+                                proposalPoint=item.proposalPoint,
+                                review_state=obj.review_state,
+                                absolute_url_path=item.absolute_url_path()))
         return results
 
     def ActesInside(self):
