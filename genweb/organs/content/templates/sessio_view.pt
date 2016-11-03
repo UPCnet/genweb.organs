@@ -217,10 +217,11 @@
   <div tal:define="item view/PuntsInside" tal:condition="item">
   <br/>
     <h2 i18n:translate="">Ordre del dia</h2>
-    <table class="table table-hover table-responsive">
+      <ul id="sortable">
         <tal:documents repeat="item view/PuntsInside">
-          <tr>
+          <li class="ui-state-default">
             <td>
+            <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
               <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
               <a tal:attributes="href item/absolute_url;
                                  data-pk item/id""
@@ -239,13 +240,13 @@
                    tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;esborrar</a>
               </div>
             </td>
-          </tr>
+          </li>
         </tal:documents>
-      </table>
+      </ul>
   </div>
 
   <script type="text/javascript">
-  $.fn.editable.defaults.mode = 'inline';
+  $.fn.editable.defaults.mode = 'popup';
   $.fn.editable.defaults.showbuttons = false;
   $.fn.editable.defaults.type = 'text';
   $.fn.editable.defaults.emptytext = 'Sense valor';
