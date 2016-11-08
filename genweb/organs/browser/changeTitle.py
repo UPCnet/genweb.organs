@@ -13,8 +13,12 @@ class changeTitle(BrowserView):
         """ Adding log info when renaming content """
         annotations = IAnnotations(self.context)
         if annotations is not None:
-            origin_path = '/'.join(self.context.getPhysicalPath()) + '/' + self.request.form['pk']
-            newvalue = self.request.form['value']
+            # http://localhost:8080/Plone/ca/consell-de-direccio/organ1/sess/changeTitle?pk=OLD_ID&name=&value=NEW_ID
+            try:
+                origin_path = '/'.join(self.context.getPhysicalPath()) + '/' + self.request.form['pk']
+                newvalue = self.request.form['value']
+            except:
+                return None
 
             KEY = 'genweb.organs.logMail'
             try:

@@ -113,10 +113,10 @@ class Message(form.SchemaForm):
                 value = line.split('--')
                 obj = api.content.create(
                     type='genweb.organs.punt',
-                    title=value[1],
+                    title=value[1].lstrip().strip(),
                     container=self.context)
 
-                obj.proposalPoint = value[0]
+                obj.proposalPoint = value[0].rstrip().lstrip()
 
         return self.request.response.redirect(self.context.absolute_url())
 

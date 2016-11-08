@@ -12,6 +12,8 @@ from zope.annotation.interfaces import IAnnotations
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
+from Acquisition import aq_inner
+from zope.component import getMultiAdapter
 
 
 class InvalidEmailError(schema.ValidationError):
@@ -189,7 +191,7 @@ class View(grok.View):
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
             portal_type='genweb.organs.punt',
-            sort_on='proposalPoint',
+            sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
 
@@ -272,3 +274,7 @@ class View(grok.View):
             return True
         else:
             return False
+
+    @property
+    def context_base_url(self):
+        return self.context.absolute_url()

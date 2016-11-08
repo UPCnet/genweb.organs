@@ -7,6 +7,33 @@ from Products.CMFCore.utils import getToolByName
 from plone import api
 from time import strftime
 from genweb.organs import _
+from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+from plone.folder.interfaces import IExplicitOrdering
+from zope.component import getMultiAdapter
+from AccessControl import Unauthorized
+
+
+def getOrdering(context):
+    if IPloneSiteRoot.providedBy(context):
+        return context
+    else:
+        ordering = context.getOrdering()
+        if not IExplicitOrdering.providedBy(ordering):
+            return None
+        return ordering
+
+
+class Move(BrowserView):
+
+    def __call__(self):
+        ordering = getOrdering(self.context)
+        # authenticator = getMultiAdapter((self.context, self.request),
+        #                                 name=u"authenticator")
+        # if not authenticator.verify() or \
+        #         self.request['REQUEST_METHOD'] != 'POST':
+        #     raise Unauthorized
+        itemid = self.request.form.get('itemid')
+        ordering.moveObjectsByDelta([itemid], int(self.request.form['delta']))
 
 
 def sessio_sendMail(session, recipients, body):
