@@ -43,6 +43,7 @@
    /* display-inline emulation for IE7*/
    zoom: 1;
    *display: inline;
+   left: 5px;
 }
 
 .editable-buttons .editable-cancel {
@@ -170,7 +171,7 @@
 a.editable-click,
 a.editable-click:hover {
     text-decoration: none;
-    border-bottom: dashed 1px #0088cc;
+    border-bottom: dotted 2px red;
 }
 
 .editable-click.editable-disabled,

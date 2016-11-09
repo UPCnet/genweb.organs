@@ -278,3 +278,36 @@ class View(grok.View):
     @property
     def context_base_url(self):
         return self.context.absolute_url()
+
+    def filesinsidePunt(self, item):
+        session_path = self.context.absolute_url_path() + '/' + item['id']
+        portal_catalog = getToolByName(self, 'portal_catalog')
+
+        values = portal_catalog.searchResults(
+            portal_type=['genweb.organs.file','genweb.organs.document'],
+            sort_on='getObjPositionInParent',
+            path={'query': session_path,
+                  'depth': 1})
+        results = []
+        for obj in values:
+            if obj.portal_type == 'genweb.organs.file':
+                if obj.hiddenfile is True:
+                    tipus = 'fa fa-file'
+                    document = 'Fitxer intern'
+                    labelClass = 'label label-danger'
+                else:
+                    tipus = 'fa fa-file-o'
+                    document = 'Fitxer públic'
+                    labelClass = 'label label-success'
+            else:
+                tipus = 'fa fa-file-text-o'
+                document = 'Document'
+                labelClass = 'label label-default'
+
+            results.append(dict(title=obj.Title,
+                                absolute_url=obj.getURL(),
+                                classCSS=tipus,
+                                hidden=obj.hiddenfile,
+                                labelClass=labelClass,
+                                content=document))
+        return results

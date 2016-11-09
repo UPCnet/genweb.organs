@@ -18,9 +18,9 @@
         $('#sortable').sortable({
             placeholder: 'ui-state-highlight',
             opacity: 0.8,
-          start: function(event, ui){
-            start = ui.item.index();
-          },
+            start: function(event, ui){
+              start = ui.item.index();
+            },
             update: function(event, ui){
               var params = {};
               params.itemid = ui.item.attr('id');
@@ -36,7 +36,7 @@
       $('#sortable').disableSelection();
 
       $('#sortable').bind('sortstart', function(event, ui) {
-          $('.ui-state-highlight').append('<span>  Inserir aquí</span>');
+          $('.ui-state-highlight').append('<span class="textFloating">  Moure aquí</span>');
       });
 
     });
@@ -101,6 +101,8 @@
           </li>
         </ul>
       </div>
+
+
 
       <div class="tab-pane" id="assistentsTab" tal:condition="view/hihaPersones">
         <div class="panel with-nav-tabs panel-primary">
@@ -212,12 +214,12 @@
     </div>
   </div>
 
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalMassive">
      <div class="modal-dialog" role="document">
        <div class="modal-content">
          <div class="modal-header">
            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-           <h4 class="modal-title" id="myModalLabel" i18n:translate="">Importador de punts</h4>
+           <h4 class="modal-title" id="modalMassive" i18n:translate="">Creacio massiva de punts</h4>
          </div>
          <div class="modal-body">
            ...
@@ -226,43 +228,97 @@
      </div>
    </div>
 
-  <div style="float:right">
+  <div style="float:right" class="">
     <br/>
-      <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#myModal"><i class="fa fa-sticky-note" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Importador de punts</span></a>
+          <a class="btn btn-info" style="margin-bottom: 20px;" href="++add++genweb.organs.punt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
+      <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#myModal"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Crear punts</span></a>
   </div>
 
 
   <div tal:define="item view/PuntsInside" tal:condition="item">
   <br/>
     <h2 i18n:translate="">Ordre del dia</h2>
+
+      <div style="float:right;">
+        <button id="enable" class="btn btn-default">enable / disable inline edit</button>
+      </div>
+
+      <div class="clearfix"></div>
+      <br/>
+
+
+
+
+
+
       <ul id="sortable">
         <tal:documents repeat="item view/PuntsInside">
-          <li class="ui-state-default" tal:attributes="id item/id">
+          <li class="ui-state-grey" tal:attributes="id item/id">
             <td>
-              <span style="cursor: ns-resize; ">
+              <span style="cursor: move; ">
                   ⣿
               </span>
-              <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
-              <a tal:attributes="href item/absolute_url;
-                                 data-pk item/id""
-                class="editTitle"
-              data-type="text" data-url="changeTitle" class="editable editable-click editable-open">
-                     <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+              <a style="margin-right: 3px;" type="button"
+                   data-title="Indent"
+                   tal:attributes="href string:++add++genweb.organs.punt"><i class="fa fa-chevron-right" aria-hidden="true"></i>
               </a>
-
-              <div class="btn-group btn-group-xs" role="group"
-                   style="float: right;" aria-label="Edit actions">
-                <label style="margin-right: 10px;" class="label label-default"
+              <a style="margin-right: 3px;" type="button"
+                   data-title="Afegir"
+                   tal:attributes="href string:++add++genweb.organs.punt"><i class="fa fa-plus" aria-hidden="true"></i>
+              </a>
+              <label style="margin-right: 10px;" class="label label-default"
                     tal:content="item/review_state"
                     i18n:domain="plone" i18n:translate="">Default</label>
+              <div class="btn-group" role="group"
+                   style="float: right;" aria-label="Edit actions">
+
+
                 <a style="margin-right: 3px;" type="button"
-                   class="edit label label-default" data-title="Edit"
-                   tal:attributes="href string:${item/absolute_url}/view"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;mostrar</a>
+                   class="edit label label-info" data-title="Afegir"
+                   tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.document"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;afegir document</a>
                 <a style="margin-right: 3px;" type="button"
-                   class="edit label label-primary" data-title="Edit"
-                   tal:attributes="href string:${item/absolute_url}/edit"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;editar</a>
+                   class="edit label label-info" data-title="Afegir"
+                   tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.file"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;afegir fitxer</a>
+                <a style="margin-right: 3px;" type="button"
+                   class="edit label label-success" data-title="Edit"
+                   tal:attributes="href string:${item/absolute_url}/view"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                <a style="margin-right: 3px;" type="button"
+                   class="edit label label-info" data-title="Edit"
+                   tal:attributes="href string:${item/absolute_url}/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                 <a type="button" class="remove label label-important" data-title="Delete"
-                   tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;esborrar</a>
+                   tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+              </div>
+              <div>
+                <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
+                <a tal:attributes="data-pk item/id""
+                   data-type="text" data-url="changeTitle"
+                   class="editTitle editable editable-click" >
+                  <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                </a>
+              </div>
+              <div>
+                <tal:files tal:define="files python:view.filesinsidePunt(item)">
+                  <ul style="list-style: none;">
+                    <tal:documents repeat="item files">
+                      <li class="filesinTable">
+                        <i tal:attributes=" class item/classCSS"></i>
+                        <a tal:attributes="href item/absolute_url;"
+                           style="font-size:12px;">
+                           <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                        </a>
+                        <div style="float:right; display: inline-table;">
+                          <label tal:attributes="class string:${item/labelClass}" tal:content="item/content"></label>
+                          <a type="button"
+                             class="edit label label-info" data-title="Edit"
+                             tal:attributes="href string:${item/absolute_url}/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                          <a style="margin-right:3px;" type="button" class="remove label label-important"
+                             data-title="Delete"
+                             tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        </div>
+                      </li>
+                    </tal:documents>
+                  </ul>
+                </tal:files>
               </div>
             </td>
           </li>
@@ -271,19 +327,25 @@
   </div>
 
   <script type="text/javascript">
-  $.fn.editable.defaults.mode = 'popup';
-  $.fn.editable.defaults.showbuttons = true;
-  $.fn.editable.defaults.type = 'text';
-  $.fn.editable.defaults.emptytext = 'Sense valor';
+    $.fn.editable.defaults.mode = 'inline';
+    $.fn.editable.defaults.showbuttons = false;
+    $.fn.editable.defaults.type = 'text';
+    $.fn.editable.defaults.emptytext = 'Sense valor';
+    $.fn.editable.defaults.disabled = true;
 
-  $('.editTitle').editable({
-      inputclass: function(e, f) {
-        $("a[aria-describedby=" + $(this).closest(".ui-tooltip").prop("id") + "]").data("shared", this);
-      },
-      validate: function(value) {
-        if (!value) return 'Camp obligatori';
-      }
-  });
+    //enable / disable edit text function
+    $('#enable').click(function() {
+      $('.editable').editable('toggleDisabled');
+    });    
+
+    $('.editTitle').editable({
+        inputclass: function(e, f) {
+          $("a[aria-describedby=" + $(this).closest(".ui-tooltip").prop("id") + "]").data("shared", this);
+        },
+        validate: function(value) {
+          if (!value) return 'Camp obligatori';
+        }
+    });
   </script>
 
   <div style="margin-bottom:20px;"></div>

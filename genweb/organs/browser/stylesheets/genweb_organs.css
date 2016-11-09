@@ -124,7 +124,7 @@ input#form-widgets-agreement {width: 98%;}
     padding: 0.4em;
     padding-left: 1.5em;
     font-size: 14px;
-    height: 18px;
+    /*height: 27px;*/
 }
 
 #sortable li span {
@@ -135,8 +135,31 @@ input#form-widgets-agreement {width: 98%;}
 #sortable .ui-state-highlight {
     height: 1.5em;
     line-height: 1.2em;
-    background: #ccc;
+    background: #f0f0f0;
 }
+
+.textFloating {
+    font-size:18px;
+    font-weight: bold;
+    padding-left: 20px;
+    border-color: black;
+}
+
+.ui-state-grey {
+    border: 1px solid #D4D4D4;
+    background-color: #D4D4D4;
+    font-weight: normal;
+    color: black;
+}
+
+.filesinTable{
+    margin: 3px !important;
+    background-color: white;
+    border: 1px solid white;
+    padding: 0px !important;
+}
+
+
 
 
 
