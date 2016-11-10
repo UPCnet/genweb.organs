@@ -154,13 +154,18 @@ class gwHeader(viewletBase):
             except:
                 return None
         else:
-            portal_state = self.context.restrictedTraverse('@@plone_portal_state')
+            portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
             root = getNavigationRootObject(self.context, portal_state.portal())
-            phisycal_path = aq_inner(self.context).getPhysicalPath()
-            relative = phisycal_path[len(root.getPhysicalPath()):]
+            physical_path = aq_inner(self.context).getPhysicalPath()
+            relative = physical_path[len(root.getPhysicalPath()):]
             for i in range(len(relative)):
                 now = relative[:i + 1]
-                obj = aq_inner(root.restrictedTraverse(now))
+                try:
+                    # Some objects in path are in pending state
+                    obj = aq_inner(root.restrictedTraverse(now))
+                except:
+                    # return default image
+                    return None
                 if IOrgansfolder.providedBy(obj):
                     try:
                         if self.context.customImage:
