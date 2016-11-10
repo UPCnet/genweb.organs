@@ -40,9 +40,7 @@
       });
 
     });
-
   </script>
-
 
   <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
@@ -101,8 +99,6 @@
           </li>
         </ul>
       </div>
-
-
 
       <div class="tab-pane" id="assistentsTab" tal:condition="view/hihaPersones">
         <div class="panel with-nav-tabs panel-primary">
@@ -234,44 +230,32 @@
       <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#myModal"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Crear punts</span></a>
   </div>
 
-
   <div tal:define="item view/PuntsInside" tal:condition="item">
-  <br/>
+    <br/>
     <h2 i18n:translate="">Ordre del dia</h2>
 
       <div style="float:right;">
         <button id="enable" class="btn btn-default">enable / disable inline edit</button>
       </div>
-
       <div class="clearfix"></div>
       <br/>
 
-
-
-
-
-
       <ul id="sortable">
         <tal:documents repeat="item view/PuntsInside">
-          <li class="ui-state-grey" tal:attributes="id item/id">
+          <li class="ui-state-grey" tal:attributes="id item/id; data-number item/proposalPoint; data-url item/absolute_url">
             <td>
               <span style="cursor: move; ">
                   ⣿
               </span>
-              <a style="margin-right: 3px;" type="button"
-                   data-title="Indent"
-                   tal:attributes="href string:++add++genweb.organs.punt"><i class="fa fa-chevron-right" aria-hidden="true"></i>
-              </a>
-              <a style="margin-right: 3px;" type="button"
-                   data-title="Afegir"
-                   tal:attributes="href string:++add++genweb.organs.punt"><i class="fa fa-plus" aria-hidden="true"></i>
-              </a>
+
+              <button class="indentObject btn btn-info"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+              <button class="insertPoint btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i></button>
+
               <label style="margin-right: 10px;" class="label label-default"
                     tal:content="item/review_state"
                     i18n:domain="plone" i18n:translate="">Default</label>
               <div class="btn-group" role="group"
                    style="float: right;" aria-label="Edit actions">
-
 
                 <a style="margin-right: 3px;" type="button"
                    class="edit label label-info" data-title="Afegir"
@@ -280,13 +264,13 @@
                    class="edit label label-info" data-title="Afegir"
                    tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.file"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;afegir fitxer</a>
                 <a style="margin-right: 3px;" type="button"
-                   class="edit label label-success" data-title="Edit"
-                   tal:attributes="href string:${item/absolute_url}/view"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                   class="edit label label-success" data-title="View"
+                   tal:attributes="href string:${item/absolute_url}/view"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;visualitzar</a>
                 <a style="margin-right: 3px;" type="button"
                    class="edit label label-info" data-title="Edit"
-                   tal:attributes="href string:${item/absolute_url}/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                   tal:attributes="href string:${item/absolute_url}/edit"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;editar</a>
                 <a type="button" class="remove label label-important" data-title="Delete"
-                   tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                   tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;esborrar</a>
               </div>
               <div>
                 <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
@@ -336,7 +320,7 @@
     //enable / disable edit text function
     $('#enable').click(function() {
       $('.editable').editable('toggleDisabled');
-    });    
+    });
 
     $('.editTitle').editable({
         inputclass: function(e, f) {
@@ -346,6 +330,27 @@
           if (!value) return 'Camp obligatori';
         }
     });
+
+    // indent point
+    $('.indentObject').click(function() {
+        var params = {};
+        params.itemid = $(this).parent().attr('data-number')
+        params.action = 'indent'
+        params.object = $(this).parent().attr('id')
+
+        $.ajax({
+            type: 'POST',
+            url: '@@fcmoveTable',
+            data : params
+        });
+
+    });
+
+    // insert point after thir object (another point)
+    /*$('.insertPoint').click(function() {
+      debugger;
+    });*/
+
   </script>
 
   <div style="margin-bottom:20px;"></div>

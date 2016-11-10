@@ -32,8 +32,32 @@ class Move(BrowserView):
         # if not authenticator.verify() or \
         #         self.request['REQUEST_METHOD'] != 'POST':
         #     raise Unauthorized
+
+        #  ./wildcard.foldercontents-1.2.7-py2.7.egg/wildcard/foldercontents/
+
+        action = self.request.form.get('action')
         itemid = self.request.form.get('itemid')
-        ordering.moveObjectsByDelta([itemid], int(self.request.form['delta']))
+
+        if action == 'movedelta':
+            # move contents through the table
+            ordering.moveObjectsByDelta([itemid], int(self.request.form['delta']))
+        if action == 'indent':
+            url = self.request.form.get('object')
+            item = api.content.get(path=self.context.absolute_url_path()+'/' + url)
+
+            if len(itemid.split('.')) == 1:
+                first = itemid.split('.')[0]
+                new_number = first + '.1'
+            if len(itemid.split('.')) == 2:
+                first = itemid.split('.')[0]
+                second = itemid.split('.')[1]
+                right = int(second)+1
+                new_number = first + '.' + str(right)
+                None
+
+            item.proposalPoint = new_number
+            # indent object in the table
+            return None
 
 
 def sessio_sendMail(session, recipients, body):

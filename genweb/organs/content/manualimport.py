@@ -67,14 +67,13 @@ class Message(form.SchemaForm):
         formData, errors = self.extractData()
         lang = self.context.language
         if formData['message'] is None:
-            if lang == 'ca':
-                message = "Falten camps obligatoris: "
+            message = 'Falten camps obligatoris'
             if lang == 'es':
-                message = "Faltan campos obligatorios: "
+                message = "Faltan campos obligatorios"
             if lang == 'en':
-                message = "Required fields missing: "
+                message = "Required fields missing"
             IStatusMessage(self.request).addStatusMessage(message, type="error")
-            return
+            return self.request.response.redirect(self.context.absolute_url())
 
         """ Adding message information to context in annotation format
         """

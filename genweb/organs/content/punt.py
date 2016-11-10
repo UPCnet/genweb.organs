@@ -12,6 +12,8 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.interfaces import IContextSourceBinder
 from zope.interface import directlyProvides
 import unicodedata
+from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
+
 
 grok.templatedir("templates")
 
@@ -51,6 +53,7 @@ class IPunt(form.Schema):
         required=True
     )
 
+    form.mode(proposalPoint='hidden')
     proposalPoint = schema.TextLine(
         title=_(u'Proposal point number'),
         required=False
@@ -81,10 +84,27 @@ class IPunt(form.Schema):
     )
 
 
+@form.default_value(field=IPunt['proposalPoint'])
+def proposalPointDefaultValue(data):
+    # copy membresConvidats from Session (parent object)
+    portal_catalog = getToolByName(data.context, 'portal_catalog')
+    folder_path = data.context.absolute_url_path()
+    values = portal_catalog.searchResults(
+        portal_type=['genweb.organs.punt'],
+        path={'query': folder_path,
+              'depth': 1})
+    id = int(len(values)) + 1
+    return id
+
+
 class Edit(dexterity.EditForm):
     """A standard edit form.
     """
     grok.context(IPunt)
+
+    def updateWidgets(self):
+        super(Edit, self).updateWidgets()
+        self.widgets['proposalPoint'].mode = DISPLAY_MODE
 
 
 class View(grok.View):
