@@ -201,7 +201,7 @@ class View(grok.View):
             results.append(dict(title=obj.Title,
                                 absolute_url=item.absolute_url(),
                                 proposalPoint=item.proposalPoint,
-                                review_state=obj.review_state,
+                                state=item.estatsLlista,
                                 id=obj.id))
         return results
 

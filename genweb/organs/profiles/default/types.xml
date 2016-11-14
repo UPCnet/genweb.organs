@@ -3,6 +3,7 @@
   <object meta_type="Dexterity FTI" name="genweb.organs.organgovern" />
   <object meta_type="Dexterity FTI" name="genweb.organs.sessio" />
   <object meta_type="Dexterity FTI" name="genweb.organs.punt" />
+  <object meta_type="Dexterity FTI" name="genweb.organs.subpunt" />
   <object meta_type="Dexterity FTI" name="genweb.organs.acta" />
   <object meta_type="Dexterity FTI" name="genweb.organs.organsfolder" />
   <object meta_type="Dexterity FTI" name="genweb.organs.file" />

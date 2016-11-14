@@ -42,7 +42,7 @@ def llistamails(context):
 directlyProvides(llistamails, IContextSourceBinder)
 
 
-class IPunt(form.Schema):
+class ISubpunt(form.Schema):
     """ Tipus Punt: Per a cada Òrgan de Govern es podran crear
         tots els punts que es considerin oportuns
     """
@@ -84,7 +84,7 @@ class IPunt(form.Schema):
     )
 
 
-@form.default_value(field=IPunt['proposalPoint'])
+@form.default_value(field=ISubpunt['proposalPoint'])
 def proposalPointDefaultValue(data):
     # assign default proposalPoint number
     portal_catalog = getToolByName(data.context, 'portal_catalog')
@@ -100,7 +100,7 @@ def proposalPointDefaultValue(data):
 class Edit(dexterity.EditForm):
     """A standard edit form.
     """
-    grok.context(IPunt)
+    grok.context(ISubpunt)
 
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
@@ -108,7 +108,7 @@ class Edit(dexterity.EditForm):
 
 
 class View(grok.View):
-    grok.context(IPunt)
+    grok.context(ISubpunt)
     grok.template('punt_view')
 
     def isAcord(self):
@@ -122,7 +122,7 @@ class View(grok.View):
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
-            portal_type=['genweb.organs.file','genweb.organs.document'],
+            portal_type=['genweb.organs.file', 'genweb.organs.document'],
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})

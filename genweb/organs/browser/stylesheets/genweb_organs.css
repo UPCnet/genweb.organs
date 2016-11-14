@@ -147,19 +147,25 @@ input#form-widgets-agreement {width: 98%;}
 
 .ui-state-grey {
     border: 1px solid #D4D4D4;
-    background-color: #D4D4D4;
+/*    background-color: #D4D4D4;*/
     font-weight: normal;
     color: black;
 }
 
+.ui-state-grey:hover {
+    background-color: #f0f0f0;
+}
+
 .filesinTable{
     margin: 3px !important;
-    background-color: white;
-    border: 1px solid white;
     padding: 0px !important;
 }
 
-
+.titleSize {
+    font-size:16px;
+    font-weight: bold;
+    font-color: black;
+}
 
 
 
