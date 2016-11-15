@@ -13,6 +13,7 @@ from AccessControl import Unauthorized
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope import schema
+from collections import defaultdict
 
 grok.templatedir("templates")
 
@@ -106,43 +107,20 @@ class Message(form.SchemaForm):
             annotations[KEY] = data
 
             # Creating new objects
+
             text = formData['message']
-            lines = text.splitlines()
-            last_generated_id = None
-            last_generated_subid = None
-            tab = 0
+            nodes = []
 
+            content = text.splitlines()
+            for line in content:
+                for node in line.split(','):
+                    nodes.append(node.rstrip().lstrip())
 
-
-            # llista  = []
-            # dic = {}
-            # for line in lines:
-            #     if line.startswith(' '):
-
-            #         # get previous id
-            #         if last_generated_id:
-            #             obj = api.content.create(
-            #                 type='genweb.organs.punt',
-            #                 title=line.lstrip().rstrip(),
-            #                 container=self.context)
-
-            #             if tab is '1':
-            #                 obj.proposalPoint = str(last_generated_id) + '.' + str(int(tab))
-            #                 tab = tab + 1
-            #     else:
-            #         if dic is not None:
-            #             llista.append(dic)
-            #             dic = {}
-
-            #         item_id = len(self.context.items()) + 1
-
-            #         obj = api.content.create(
-            #             type='genweb.organs.punt',
-            #             title=line.rstrip(),
-            #             container=self.context)
-
-            #         obj.proposalPoint = item_id
-            #         last_generated_id = item_id
+            bTree = defaultdict(list)
+            for father, children in zip(nodes[0::2], nodes[0::2]):
+                print 'Inserting (' + father + ', ' + children + ')'
+                bTree[father].append(children)
+            print(bTree)
 
 
     @button.buttonAndHandler(_('Cancel'))

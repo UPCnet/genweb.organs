@@ -15,9 +15,11 @@
 
   <script type="text/javascript">
     $(function() {
+        var refreshNeeded = false;
         $('#sortable').sortable({
             placeholder: 'ui-state-highlight',
             opacity: 0.8,
+            scroll: false,
             start: function(event, ui){
               start = ui.item.index();
             },
@@ -30,10 +32,21 @@
                   type: 'POST',
                   url: '@@fcmoveTable',
                   data: params,
+                  success: function(){
+                    refreshNeeded = true;
+                  },
               });
-            }
+            },
+        }).disableSelection();
+
+        $(document).ajaxStop(function(){
+          // All requests have completed, check if we need to refresh
+           if(refreshNeeded){
+              // Refresh the page (just a simple reload for now)
+              window.location.reload();
+          }
         });
-      $('#sortable').disableSelection();
+
 
       $('#sortable').bind('sortstart', function(event, ui) {
           $('.ui-state-highlight').append('<span class="textFloating">  </span>');
@@ -240,7 +253,7 @@
       <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#myModal"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Crear punts</span></a>
   </div>
 
-  <div tal:define="items view/PuntsInside" tal:condition="items">
+  <div tal:define="items view/PuntsInside" tal:condition="items" class="DADES">
   <br/>
     <h2 i18n:translate="">Ordre del dia</h2>
 
@@ -326,6 +339,13 @@
           if (!value) return 'Camp obligatori';
         }
     });
+
+/*    $('.editTitle').editable({
+      success: function(response, newValue) {
+          $( "#DADES" ).load( "../ajax/get/{{issue_obj.id}}/response/" );
+      }
+    });*/
+
   </script>
 
   <div style="margin-bottom:20px;"></div>
