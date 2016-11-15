@@ -60,10 +60,8 @@
                 <li style="list-style: none; padding-bottom: 5px;">
                   <i tal:attributes=" class item/classCSS"></i>
                   <a tal:attributes="href item/absolute_url;"
-                     style="font-size:15px;">&nbsp;
-                     <span tal:content="item/title"> Doc title</span>
-                  </a>&nbsp;
-                  <span style="float:right;" tal:attributes="class string:${item/labelClass}" tal:content="item/content"></span>
+                     style="font-size:15px;">
+                     <span tal:content="item/title"> Doc title</span></a>&nbsp;<span style="float:right;" tal:attributes="class string:${item/labelClass}" tal:content="item/content"></span>
                 </li>
               </tal:documents>
             </ul>

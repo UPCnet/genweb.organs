@@ -186,11 +186,13 @@ class View(grok.View):
         # assign custom colors on organ states
         estat = data.getObject().estatsLlista
         values = data.estatsLlista
-        color = ''
-        for value in values.splitlines():
-            if estat == value.split('#')[0].rstrip(' '):
-                color = '#' + value.split('#')[1].rstrip(' ').lstrip(' ')
-        return color
+
+        try:
+            for value in values.splitlines():
+                if estat == value.split('#')[0].rstrip(' '):
+                    return '#' + value.split('#')[1].rstrip(' ').lstrip(' ')
+        except:
+            return '#777777'
 
     def PuntsInside(self):
         """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
@@ -303,11 +305,11 @@ class View(grok.View):
                 if obj.hiddenfile is True:
                     tipus = 'fa fa-file-pdf-o'
                     document = _(u'Fitxer intern')
-                    labelClass = 'label label-danger'
+                    labelClass = 'label label-default'
                 else:
                     tipus = 'fa fa-file-pdf-o'
                     document = _(u'Fitxer públic')
-                    labelClass = 'label label-success'
+                    labelClass = 'label label-default'
             else:
                 tipus = 'fa fa-file-text-o'
                 document = _(u'Document')
