@@ -110,41 +110,40 @@ class Message(form.SchemaForm):
             lines = text.splitlines()
             last_generated_id = None
             last_generated_subid = None
-            tab = 1
-            for line in lines:
-                import ipdb;ipdb.set_trace()
-                if line.startswith(' '):
-                    # get previous id
-                    obj = api.content.create(
-                        type='genweb.organs.punt',
-                        title=line.rstrip(),
-                        container=self.context)
-                    if last_generated_subid:
-                        obj.proposalPoint = last_generated_subid + 1
-                    else:
-                        if tab is '0':
-                            obj.proposalPoint = str(last_generated_id)
-                            tab = tab + 1
-                        else:
-                            obj.proposalPoint = str(last_generated_id) + '.' + str(int(tab))
-                            tab = tab + 1
-                else:
-                    items = api.content.find(
-                        portal_type=['genweb.organs.punt'],
-                        context=self.context,
-                        depth=1)
-                    item_id = int(len(items)) + 1
+            tab = 0
 
-                    obj = api.content.create(
-                        type='genweb.organs.punt',
-                        title=line.rstrip(),
-                        container=self.context)
 
-                    obj.proposalPoint = item_id
-                    last_generated_id = item_id
-                    tab = 1
 
-        return self.request.response.redirect(self.context.absolute_url())
+            # llista  = []
+            # dic = {}
+            # for line in lines:
+            #     if line.startswith(' '):
+
+            #         # get previous id
+            #         if last_generated_id:
+            #             obj = api.content.create(
+            #                 type='genweb.organs.punt',
+            #                 title=line.lstrip().rstrip(),
+            #                 container=self.context)
+
+            #             if tab is '1':
+            #                 obj.proposalPoint = str(last_generated_id) + '.' + str(int(tab))
+            #                 tab = tab + 1
+            #     else:
+            #         if dic is not None:
+            #             llista.append(dic)
+            #             dic = {}
+
+            #         item_id = len(self.context.items()) + 1
+
+            #         obj = api.content.create(
+            #             type='genweb.organs.punt',
+            #             title=line.rstrip(),
+            #             container=self.context)
+
+            #         obj.proposalPoint = item_id
+            #         last_generated_id = item_id
+
 
     @button.buttonAndHandler(_('Cancel'))
     def handleCancel(self, action):

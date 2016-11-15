@@ -60,7 +60,7 @@
         </div>
       </div>
 
-      <div tal:condition="view/getAcords" class="tab-pane" id="acordsTab">
+      <div tal:define="acords view/getAcords" tal:condition="acords" class="tab-pane" id="acordsTab">
         <table class="table table-striped table-condensed table-hover table-responsive">
           <thead>
             <tr>
@@ -75,7 +75,7 @@
               </th>
             </tr>
           </thead>
-          <tal:documents repeat="item view/getAcords">
+          <tal:documents repeat="item acords">
             <tr>
               <td>&nbsp;
                 <a href="#"
@@ -103,7 +103,7 @@
     </div>
   </div>
 
-  <tal:Sessions tal:define="item view/SessionsInside" tal:condition="item">
+  <tal:Sessions tal:define="sessions view/SessionsInside" tal:condition="sessions">
     <h3 i18n:translate="">Sessions list</h3>
     <table class="table table-striped">
       <thead>
@@ -125,7 +125,7 @@
           </th>
         </tr>
       </thead>
-      <tal:objects repeat="item view/SessionsInside">
+      <tal:objects repeat="item sessions">
         <tr>
           <td>&nbsp;
             <a tal:attributes="href item/absolute_url;"
@@ -150,8 +150,9 @@
           </td>
           <td>&nbsp;
             <span tal:content="item/review_state"
+                  style="text-transform: capitalize;"
                   i18n:translate=""
-                  i18n:domain="genweb"
+                  i18n:domain="genweb.organs"
                   tal:attributes="class item/review_state">
                   Review State
             </span>

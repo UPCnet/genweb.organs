@@ -22,15 +22,17 @@ class InvalidEmailError(schema.ValidationError):
     __doc__ = u'Please enter a valid e-mail address.'
 
 
-def llistamails(context):
+def llistaEstats(context):
     """ Create zope.schema vocabulary from Python logging levels. """
-
     terms = []
 
-    values = context.aq_parent.estatsLlista
-    mails = values.split(',')
+    values = context.aq_parent.estatsLlista.splitlines()
+    literals = []
+    for value in values:
+        # color = '#' + value.split('#')[1].rstrip(' ')   # not used here
+        literals.append(value.split('#')[0].rstrip(' '))
 
-    for item in mails:
+    for item in literals:
         if isinstance(item, str):
             flattened = unicodedata.normalize('NFKD', item.decode('utf-8')).encode('ascii', errors='ignore')
         else:
@@ -39,7 +41,7 @@ def llistamails(context):
         terms.append(SimpleVocabulary.createTerm(item, flattened, item))
 
     return SimpleVocabulary(terms)
-directlyProvides(llistamails, IContextSourceBinder)
+directlyProvides(llistaEstats, IContextSourceBinder)
 
 
 class IPunt(form.Schema):
@@ -79,7 +81,7 @@ class IPunt(form.Schema):
 
     estatsLlista = schema.Choice(
         title=_(u"Agreement and document labels"),
-        source=llistamails,
+        source=llistaEstats,
         required=True,
     )
 
@@ -107,6 +109,17 @@ class Edit(dexterity.EditForm):
         self.widgets['proposalPoint'].mode = DISPLAY_MODE
 
 
+# class Add(dexterity.AddForm):
+#     """A standard edit form.
+#     """
+#     grok.name('genweb.organs.punt')
+#     grok.context(IPunt)
+#     grok.require('cmf.AddPortalContent')
+
+#     def add(self, object):
+#         pass
+
+
 class View(grok.View):
     grok.context(IPunt)
     grok.template('punt_view')
@@ -122,25 +135,24 @@ class View(grok.View):
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
-            portal_type=['genweb.organs.file','genweb.organs.document'],
+            portal_type=['genweb.organs.file', 'genweb.organs.document'],
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
-
         results = []
         for obj in values:
             if obj.portal_type == 'genweb.organs.file':
                 if obj.hiddenfile is True:
-                    tipus = 'fa fa-file'
-                    document = 'Fitxer intern'
+                    tipus = 'fa fa-file-pdf-o'
+                    document = _(u'Fitxer intern')
                     labelClass = 'label label-danger'
                 else:
-                    tipus = 'fa fa-file-o'
-                    document = 'Fitxer públic'
+                    tipus = 'fa fa-file-pdf-o'
+                    document = _(u'Fitxer públic')
                     labelClass = 'label label-success'
             else:
                 tipus = 'fa fa-file-text-o'
-                document = 'Document'
+                document = _(u'Document')
                 labelClass = 'label label-default'
 
             results.append(dict(title=obj.Title,

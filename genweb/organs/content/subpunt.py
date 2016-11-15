@@ -22,15 +22,17 @@ class InvalidEmailError(schema.ValidationError):
     __doc__ = u'Please enter a valid e-mail address.'
 
 
-def llistamails(context):
-    """ Create zope.schema vocabulary from Python logging levels. """
-
+def llistaEstats(context):
+    """ Create zope.schema vocabulary from default states. """
     terms = []
 
-    values = context.aq_parent.estatsLlista
-    mails = values.split(',')
+    values = context.aq_parent.estatsLlista.splitlines()
+    literals = []
+    for value in values:
+        # color = '#' + value.split('#')[1].rstrip(' ')   # not used here
+        literals.append(value.split('#')[0].rstrip(' '))
 
-    for item in mails:
+    for item in literals:
         if isinstance(item, str):
             flattened = unicodedata.normalize('NFKD', item.decode('utf-8')).encode('ascii', errors='ignore')
         else:
@@ -39,7 +41,7 @@ def llistamails(context):
         terms.append(SimpleVocabulary.createTerm(item, flattened, item))
 
     return SimpleVocabulary(terms)
-directlyProvides(llistamails, IContextSourceBinder)
+directlyProvides(llistaEstats, IContextSourceBinder)
 
 
 class ISubpunt(form.Schema):
@@ -79,14 +81,14 @@ class ISubpunt(form.Schema):
 
     estatsLlista = schema.Choice(
         title=_(u"Agreement and document labels"),
-        source=llistamails,
+        source=llistaEstats,
         required=True,
     )
 
 
 @form.default_value(field=ISubpunt['proposalPoint'])
 def proposalPointDefaultValue(data):
-    # assign default proposalPoint number
+    # assigning default proposalPoint number
     portal_catalog = getToolByName(data.context, 'portal_catalog')
     folder_path = data.context.absolute_url_path()
     values = portal_catalog.searchResults(
@@ -98,7 +100,7 @@ def proposalPointDefaultValue(data):
 
 
 class Edit(dexterity.EditForm):
-    """A standard edit form.
+    """The standard edit form.
     """
     grok.context(ISubpunt)
 
@@ -108,6 +110,8 @@ class Edit(dexterity.EditForm):
 
 
 class View(grok.View):
+    """The standard view form.
+    """
     grok.context(ISubpunt)
     grok.template('punt_view')
 
@@ -117,7 +121,7 @@ class View(grok.View):
         return False
 
     def FilesandDocumentsInside(self):
-        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """ Retorna files and docs d'aquí dintre (sense tenir compte estat)
         """
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())

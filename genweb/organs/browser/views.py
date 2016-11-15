@@ -59,6 +59,7 @@ class Move(BrowserView):
                 i = i+1
 
 
+
 def sessio_sendMail(session, recipients, body):
     """ Si enviem mail des de la sessio.
         Mateix codi que /browser/events/change.py

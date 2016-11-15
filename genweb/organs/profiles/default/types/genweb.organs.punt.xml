@@ -28,6 +28,7 @@
   <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
   <element value="plone.app.referenceablebehavior.referenceable.IReferenceable" />
   <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation" />
+  <element value="Products.CMFPlone.interfaces.constrains.ISelectableConstrainTypes" />
  </property>
 
  <property name="schema">genweb.organs.content.punt.IPunt</property>

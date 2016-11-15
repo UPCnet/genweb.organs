@@ -36,10 +36,20 @@
       $('#sortable').disableSelection();
 
       $('#sortable').bind('sortstart', function(event, ui) {
-          $('.ui-state-highlight').append('<span class="textFloating">  Moure aquí</span>');
+          $('.ui-state-highlight').append('<span class="textFloating">  </span>');
       });
 
     });
+
+    function injectPosition(event, ui) {
+        //do your actions here
+        var params = {};
+        params.itemid = ui.item.attr('id');
+        params.action = 'movedelta';
+        params.delta = ui.item.index() - start
+        debugger;
+    }
+
   </script>
 
   <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
@@ -152,10 +162,10 @@
           </li>
         </ul>
         <div class="clearfix"></div>
-        <div tal:condition="view/ActesInside">
+        <div tal:define="actes view/ActesInside" tal:condition="actes">
           <table>
             <tbody>
-              <tal:documents repeat="item view/ActesInside">
+              <tal:documents repeat="item actes">
                 <tr>
                   <td>
                     <a href="#"
@@ -230,55 +240,36 @@
       <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#myModal"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Crear punts</span></a>
   </div>
 
-
-  <div tal:define="item view/PuntsInside" tal:condition="item">
+  <div tal:define="items view/PuntsInside" tal:condition="items">
   <br/>
     <h2 i18n:translate="">Ordre del dia</h2>
-
-      <div style="float:right;">
-        <button id="enable" class="btn btn-default">enable / disable inline edit</button>
-      </div>
 
       <div class="clearfix"></div>
       <br/>
 
       <ul id="sortable">
-        <tal:documents repeat="item view/PuntsInside">
+        <tal:documents repeat="item items">
           <li class="ui-state-grey" tal:attributes="id item/id">
             <td>
-              <span style="cursor: move; ">
-                  ⣿
-              </span>
-
-
               <div class="btn-group" role="group"
                    style="float: right;" aria-label="Edit actions">
-
-
-<!--                 <a style="margin-right: 3px;" type="button"
-                   class="edit label label-info" data-title="Afegir"
-                   tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.document"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;afegir document</a>
-                <a style="margin-right: 3px;" type="button"
-                   class="edit label label-info" data-title="Afegir"
-                   tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.file"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;afegir fitxer</a> -->
-                <a style="margin-right: 3px;" type="button"
-                   class="edit label label-success" data-title="Edit"
-                   tal:attributes="href string:${item/absolute_url}/view"><i class="fa fa-eye" aria-hidden="true"></i></a>
                 <a style="margin-right: 3px;" type="button"
                    class="edit label label-info" data-title="Edit"
-                   tal:attributes="href string:${item/absolute_url}/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                   tal:attributes="href string:${item/absolute_url}/view"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
                 <a type="button" class="remove label label-important" data-title="Delete"
                    tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
               </div>
               <div>
                 <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
-                <a tal:attributes="data-pk item/id""
+                <a tal:attributes="data-pk item/id"
                    data-type="text" data-url="changeTitle"
                    class="editTitle editable editable-click titleSize">
                   <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                 </a>
-                <span class="label label-default" style="margin-left: 10px; font-size:10px;" tal:content="item/state"
-                    i18n:domain="genweb.organs" i18n:translate=""></span>
+                <span tal:condition="item/state" class="label nomarginLeft"
+                      tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
+                      i18n:domain="genweb.organs" i18n:translate=""></span>
 
                 <tal:files tal:define="files python:view.filesinsidePunt(item)">
                   <ul style="list-style: none; padding-top:10px;">
@@ -291,9 +282,6 @@
                         </a>
                         <div style="float:right; display: inline-table;">
                           <label tal:attributes="class string:${item/labelClass}" tal:content="item/content"></label>
-                          <a type="button"
-                             class="edit label label-info" data-title="Edit"
-                             tal:attributes="href string:${item/absolute_url}/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                           <a style="margin-right:3px;" type="button" class="remove label label-important"
                              data-title="Delete"
                              tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
@@ -303,24 +291,20 @@
                   </ul>
                 </tal:files>
               </div>
-              <div style="border-top: 1px solid #777777; margin-top:10px;
-                    color: #333;
-                    font-family: Arial,Helvetica,sans-serif;
-                    font-size: 11px;
-                    line-height: 18px;
-                    text-align:right">
+              <div class="llistaAfegir">
                 <a style="margin-right: 3px;"
                      data-title="Afegir nou punt"
-                     tal:attributes="href string:++add++genweb.organs.punt"><i class="fa fa-plus" aria-hidden="true">&nbsp;Afegir nou punt</i></a>&nbsp;
+                     tal:attributes="data-pk item/id"
+                     href="javascript:injectPosition();"><i class="fa fa-plus" aria-hidden="true">&nbsp;Punt</i></a>&nbsp;
                 <a style="margin-right: 3px;"
                      data-title="Afegir subpunt"
-                     tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.subpunt""><i class="fa fa-plus" aria-hidden="true">&nbsp;Afegir subpunt</i></a>
+                     tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.subpunt""><i class="fa fa-plus" aria-hidden="true">&nbsp;Subpunt</i></a>
                 <a style="margin-right: 3px;"
                      data-title="Afegir document"
-                     tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.document""><i class="fa fa-plus" aria-hidden="true">&nbsp;Afegir document</i></a>
+                     tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.document""><i class="fa fa-plus" aria-hidden="true">&nbsp;Document</i></a>
                 <a style="margin-right: 3px;"
                      data-title="Afegir subpunt"
-                     tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.file"><i class="fa fa-plus" aria-hidden="true">&nbsp;Afegir fitxer</i></a>
+                     tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.file"><i class="fa fa-plus" aria-hidden="true">&nbsp;Fitxer</i></a>
               </div>
             </td>
           </li>
@@ -333,12 +317,6 @@
     $.fn.editable.defaults.showbuttons = false;
     $.fn.editable.defaults.type = 'text';
     $.fn.editable.defaults.emptytext = 'Sense valor';
-    $.fn.editable.defaults.disabled = true;
-
-    //enable / disable edit text function
-    $('#enable').click(function() {
-      $('.editable').editable('toggleDisabled');
-    });
 
     $('.editTitle').editable({
         inputclass: function(e, f) {

@@ -7,7 +7,7 @@
       i18n:domain="genweb.organs">
 <body>
 
-<metal:content-core fill-slot="content-core" tal:define="item view/FilesandDocumentsInside">
+<metal:content-core fill-slot="content-core" tal:define="filesanddocs view/FilesandDocumentsInside">
 
   <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
@@ -44,7 +44,7 @@
     <span tal:replace="structure context/defaultContent" />
   </div>
 
-  <table class="table table-bordered table-responsive" tal:condition="item">
+  <table class="table table-bordered table-responsive" tal:condition="filesanddocs">
       <thead>
         <tr>
           <th>
@@ -54,16 +54,15 @@
       </thead>
       <tbody>
         <tr>
-          <td tal:condition="item">
+          <td tal:condition="filesanddocs">
             <ul class="ul_items">
-              <tal:documents repeat="item view/FilesandDocumentsInside">
+              <tal:documents repeat="item filesanddocs">
                 <li style="list-style: none; padding-bottom: 5px;">
                   <i tal:attributes=" class item/classCSS"></i>
                   <a tal:attributes="href item/absolute_url;"
                      style="font-size:15px;">&nbsp;
                      <span tal:content="item/title"> Doc title</span>
-                  </a>
-                  &nbsp;
+                  </a>&nbsp;
                   <span style="float:right;" tal:attributes="class string:${item/labelClass}" tal:content="item/content"></span>
                 </li>
               </tal:documents>

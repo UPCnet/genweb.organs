@@ -5,7 +5,6 @@ from plone.directives import form
 from plone.directives import dexterity
 from genweb.organs import _
 from plone.app.dexterity import PloneMessageFactory as _PMF
-from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from collective import dexteritytextindexer
 from genweb.organs import utils
 from plone.autoform import directives
@@ -13,6 +12,7 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from plone.namedfile.field import NamedBlobImage
 from Products.CMFCore.utils import getToolByName
+from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 
 grok.templatedir("templates")
 
@@ -215,8 +215,4 @@ class Edit(dexterity.EditForm):
 
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
-        # Desactivem el hidden dels camps, sembla que no sigui necessari
-        # self.widgets['dataSessio'].mode = HIDDEN_MODE
-        # self.widgets['llocConvocatoria'].mode = HIDDEN_MODE
-        # self.widgets['horaInici'].mode = HIDDEN_MODE
-        # self.widgets['horaFi'].mode = HIDDEN_MODE
+        # self.widgets['field_name'].mode = HIDDEN_MODE

@@ -12,8 +12,6 @@ from zope.annotation.interfaces import IAnnotations
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
-from Acquisition import aq_inner
-from zope.component import getMultiAdapter
 
 
 class InvalidEmailError(schema.ValidationError):
@@ -184,6 +182,16 @@ class View(grok.View):
     grok.context(ISessio)
     grok.template('sessio_view')
 
+    def getColor(self, data):
+        # assign custom colors on organ states
+        estat = data.getObject().estatsLlista
+        values = data.estatsLlista
+        color = ''
+        for value in values.splitlines():
+            if estat == value.split('#')[0].rstrip(' '):
+                color = '#' + value.split('#')[1].rstrip(' ').lstrip(' ')
+        return color
+
     def PuntsInside(self):
         """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
         """
@@ -202,6 +210,7 @@ class View(grok.View):
                                 absolute_url=item.absolute_url(),
                                 proposalPoint=item.proposalPoint,
                                 state=item.estatsLlista,
+                                css=self.getColor(obj),
                                 id=obj.id))
         return results
 
@@ -224,7 +233,7 @@ class View(grok.View):
         return results
 
     def LogInformation(self):
-        """ Obtain send mail annotations
+        """ Get send mail annotations
         """
 
         if api.user.is_anonymous():
@@ -284,7 +293,7 @@ class View(grok.View):
         portal_catalog = getToolByName(self, 'portal_catalog')
 
         values = portal_catalog.searchResults(
-            portal_type=['genweb.organs.file','genweb.organs.document'],
+            portal_type=['genweb.organs.file', 'genweb.organs.document'],
             sort_on='getObjPositionInParent',
             path={'query': session_path,
                   'depth': 1})
@@ -292,16 +301,16 @@ class View(grok.View):
         for obj in values:
             if obj.portal_type == 'genweb.organs.file':
                 if obj.hiddenfile is True:
-                    tipus = 'fa fa-file'
-                    document = 'Fitxer intern'
+                    tipus = 'fa fa-file-pdf-o'
+                    document = _(u'Fitxer intern')
                     labelClass = 'label label-danger'
                 else:
-                    tipus = 'fa fa-file-o'
-                    document = 'Fitxer públic'
+                    tipus = 'fa fa-file-pdf-o'
+                    document = _(u'Fitxer públic')
                     labelClass = 'label label-success'
             else:
                 tipus = 'fa fa-file-text-o'
-                document = 'Document'
+                document = _(u'Document')
                 labelClass = 'label label-default'
 
             results.append(dict(title=obj.Title,
