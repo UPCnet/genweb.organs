@@ -273,7 +273,7 @@
                 <a type="button" class="remove label label-important" data-title="Delete"
                    tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
               </div>
-              <div>
+              <div class="puntTitle">
                 <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
                 <a tal:attributes="data-pk item/id"
                    data-type="text" data-url="changeTitle"
@@ -330,7 +330,7 @@
                         <a type="button" class="remove label label-important" data-title="Delete"
                            tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                       </div>
-                      <div>
+                      <div class="subpuntTitle">
                         <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
                         <a tal:attributes="data-pk item/id"
                            data-type="text" data-url="changeTitle"

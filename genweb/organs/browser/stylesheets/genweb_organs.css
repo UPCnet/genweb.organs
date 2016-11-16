@@ -201,3 +201,17 @@ span.label.nomarginLeft  {
     float: right;
     font-size:10px;
 }
+
+.puntTitle {
+    color: black;
+    font-size:16px;
+    font-weight: bold;
+    font-color: black;
+}
+
+.subpuntTitle {
+    color: black;
+    font-size:16px;
+    font-weight: bold;
+    font-color: black;
+}
