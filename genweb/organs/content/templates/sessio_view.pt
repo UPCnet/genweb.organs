@@ -283,7 +283,6 @@
                 <span tal:condition="item/state" class="label nomarginLeft"
                       tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
                       i18n:domain="genweb.organs" i18n:translate=""></span>
-
                 <tal:files tal:define="files python:view.filesinsidePunt(item)">
                   <ul style="list-style: none; padding-top:10px;">
                     <tal:documents repeat="item files">
@@ -318,6 +317,65 @@
                 <a style="margin-right: 3px;"
                      data-title="Afegir subpunt"
                      tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.file"><i class="fa fa-plus" aria-hidden="true">&nbsp;Fitxer</i></a>
+              </div>
+              <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts">
+                <tal:subpunts repeat="item subpunts">
+                  <ol class="li_subgrups" tal:attributes="id item/id">
+                    <td>
+                      <div class="btn-group" role="group"
+                           style="float: right;" aria-label="Edit actions">
+                        <a style="margin-right: 3px;" type="button"
+                           class="edit label label-info" data-title="Edit"
+                           tal:attributes="href string:${item/absolute_url}/view"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a type="button" class="remove label label-important" data-title="Delete"
+                           tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                      </div>
+                      <div>
+                        <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
+                        <a tal:attributes="data-pk item/id"
+                           data-type="text" data-url="changeTitle"
+                           class="editTitle editable editable-click titleSize">
+                          <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                        </a>
+                        <span tal:condition="item/state" class="label nomarginLeft"
+                              tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
+                              i18n:domain="genweb.organs" i18n:translate=""></span>
+                <tal:files tal:define="files python:view.filesinsideSubPunt(item)">
+                  <ul style="list-style: none; padding-top:10px;">
+                    <tal:documents repeat="item files">
+                      <li class="filesinTable">
+                        <i tal:attributes=" class item/classCSS"></i>
+                        <a tal:attributes="href item/absolute_url;"
+                           style="font-size:14px;">
+                           <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                        </a>
+                        <div style="float:right; display: inline-table;">
+                          <label tal:attributes="class string:${item/labelClass}" tal:content="item/content"></label>
+                          <a style="margin-right:3px;" type="button" class="remove label label-important"
+                             data-title="Delete"
+                             tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        </div>
+                      </li>
+                    </tal:documents>
+                  </ul>
+                </tal:files>
+                      </div>
+                      <div class="llistaAfegir">
+                        <a style="margin-right: 3px;"
+                             data-title="Afegir subpunt"
+                             tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.subpunt""><i class="fa fa-plus" aria-hidden="true">&nbsp;Subpunt</i></a>
+                        <a style="margin-right: 3px;"
+                             data-title="Afegir document"
+                             tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.document""><i class="fa fa-plus" aria-hidden="true">&nbsp;Document</i></a>
+                        <a style="margin-right: 3px;"
+                             data-title="Afegir subpunt"
+                             tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.file"><i class="fa fa-plus" aria-hidden="true">&nbsp;Fitxer</i></a>
+                      </div>
+
+                    </td>
+
+                  </ol>
+                </tal:subpunts>
               </div>
             </td>
           </li>

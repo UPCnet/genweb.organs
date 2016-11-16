@@ -14,6 +14,7 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope import schema
 from collections import defaultdict
+import re
 
 grok.templatedir("templates")
 
@@ -109,19 +110,47 @@ class Message(form.SchemaForm):
             # Creating new objects
 
             text = formData['message']
-            nodes = []
+            # nodes = []
 
             content = text.splitlines()
-            for line in content:
-                for node in line.split(','):
-                    nodes.append(node.rstrip().lstrip())
+            # for line in content:
+            #     for node in line.split(','):
+            #         nodes.append(node.rstrip().lstrip())
 
-            bTree = defaultdict(list)
-            for father, children in zip(nodes[0::2], nodes[0::2]):
-                print 'Inserting (' + father + ', ' + children + ')'
-                bTree[father].append(children)
-            print(bTree)
+            # bTree = defaultdict(list)
+            # for father, children in zip(nodes[0::2], nodes[0::2]):
+            #     print 'Inserting (' + father + ', ' + children + ')'
+            #     bTree[father].append(children)
+            # print(bTree)
 
+            # depth = 0
+            # root = {"punt": "root", "subpunt": []}
+            # parents = []
+            # node = root
+            # for line in content:
+            #     line = line.rstrip()
+            #     # import ipdb;ipdb.set_trace()
+            #     newDepth = re.search('\S', line).start() +1
+
+            #     print newDepth, line
+            #     # if the new depth is shallower than previous, we need to remove items from the list
+            #     if newDepth < depth:
+            #         parents = parents[:newDepth]
+            #     # if the new depth is deeper, we need to add our previous node
+            #     elif newDepth == depth + 1:
+            #         parents.append(node)
+            #     # levels skipped, not possible
+            #     # elif newDepth > depth + 1:
+            #     #     raise Exception("Invalid file")
+            #     depth = newDepth
+
+            #     # create the new node
+            #     node = {"punt": line.strip(), "subpunt":[]}
+            #     # add the new node into its parent's children
+            #     parents[-1]["subpunt"].append(node)
+
+            # json_list = root["subpunt"]
+            # print json_list
 
     @button.buttonAndHandler(_('Cancel'))
     def handleCancel(self, action):

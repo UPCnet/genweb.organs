@@ -216,6 +216,31 @@ class View(grok.View):
                                 id=obj.id))
         return results
 
+    def SubpuntsInside(self, data):
+        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        value = data['absolute_url']
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        folder_path = '/'+'/'.join(value.split('/')[3:])
+        values = portal_catalog.searchResults(
+            portal_type='genweb.organs.subpunt',
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 2})
+        # import ipdb;ipdb.set_trace()
+
+        results = []
+        for obj in values:
+            item = obj.getObject()
+            results.append(dict(title=obj.Title,
+                                absolute_url=item.absolute_url(),
+                                proposalPoint=item.proposalPoint,
+                                state=item.estatsLlista,
+                                css=self.getColor(obj),
+                                id='/'.join(item.absolute_url_path().split('/')[-2:])))
+        return results
+
     def ActesInside(self):
         """ Retorna les actes creades aquí dintre (sense tenir compte estat)
         """
@@ -299,6 +324,40 @@ class View(grok.View):
             sort_on='getObjPositionInParent',
             path={'query': session_path,
                   'depth': 1})
+        results = []
+        for obj in values:
+            if obj.portal_type == 'genweb.organs.file':
+                if obj.hiddenfile is True:
+                    tipus = 'fa fa-file-pdf-o'
+                    document = _(u'Fitxer intern')
+                    labelClass = 'label label-default'
+                else:
+                    tipus = 'fa fa-file-pdf-o'
+                    document = _(u'Fitxer públic')
+                    labelClass = 'label label-default'
+            else:
+                tipus = 'fa fa-file-text-o'
+                document = _(u'Document')
+                labelClass = 'label label-default'
+
+            results.append(dict(title=obj.Title,
+                                absolute_url=obj.getURL(),
+                                classCSS=tipus,
+                                hidden=obj.hiddenfile,
+                                labelClass=labelClass,
+                                content=document))
+        return results
+
+    def filesinsideSubPunt(self, item):
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        value = item['absolute_url']
+        folder_path = '/'+'/'.join(value.split('/')[3:])
+
+        values = portal_catalog.searchResults(
+            portal_type=['genweb.organs.file', 'genweb.organs.document'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 2})
         results = []
         for obj in values:
             if obj.portal_type == 'genweb.organs.file':
