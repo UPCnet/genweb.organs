@@ -56,18 +56,14 @@ class Move(BrowserView):
                 value[0].getObject().proposalPoint = i
                 print str(value[0].getObject()) + ' -- ' + str(i)
                 if len(value[0].getObject().items()) > 0:
-                    print 'has subpunts'
-
-                    for a, j in enumerate(self.context.items()):
-                        if j[0] == itemid:
-                            rootvalue = a + 1  # remove 0 value
                     subpunts = portal_catalog.searchResults(
                         portal_type=['genweb.organs.subpunt'],
-                        path={'query': self.context.absolute_url_path() + '/' + itemid ,'depth': 1})
+                        path={'query': value[0].getObject().absolute_url_path(), 'depth': 1})
 
                     subvalue = 1
+                    rootnumber = value[0].getObject().proposalPoint
                     for value in subpunts:
-                        value.getObject().proposalPoint = str(rootvalue) + str('.') + str(subvalue)
+                        value.getObject().proposalPoint = str(rootnumber) + str('.') + str(subvalue)
                         subvalue = subvalue+1
                 i = i+1
 
