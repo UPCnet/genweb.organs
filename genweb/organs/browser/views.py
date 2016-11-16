@@ -35,10 +35,8 @@ class Move(BrowserView):
 
         #  ./wildcard.foldercontents-1.2.7-py2.7.egg/wildcard/foldercontents/
         portal_catalog = getToolByName(self, 'portal_catalog')
-
         action = self.request.form.get('action')
         itemid = self.request.form.get('itemid')
-
         if action == 'movedelta':
             # move contents through the table
             delta = int(self.request.form['delta'])
@@ -46,9 +44,9 @@ class Move(BrowserView):
             i = 1
             items = self.context.items()
             for item in items:
-                objid = item[0]
+                objid = item[0]  # el primer de tots, tenim [('title'), <container...]
 
-                folder_path = '/'.join(self.context.getPhysicalPath())
+                folder_path = self.context.absolute_url_path()
                 value = portal_catalog.searchResults(
                     portal_type=['genweb.organs.punt'],
                     id=objid,
@@ -56,6 +54,21 @@ class Move(BrowserView):
                           'depth': 1})
 
                 value[0].getObject().proposalPoint = i
+                print str(value[0].getObject()) + ' -- ' + str(i)
+                if len(value[0].getObject().items()) > 0:
+                    print 'has subpunts'
+
+                    for a, j in enumerate(self.context.items()):
+                        if j[0] == itemid:
+                            rootvalue = a + 1  # remove 0 value
+                    subpunts = portal_catalog.searchResults(
+                        portal_type=['genweb.organs.subpunt'],
+                        path={'query': self.context.absolute_url_path() + '/' + itemid ,'depth': 1})
+
+                    subvalue = 1
+                    for value in subpunts:
+                        value.getObject().proposalPoint = str(rootvalue) + str('.') + str(subvalue)
+                        subvalue = subvalue+1
                 i = i+1
 
 

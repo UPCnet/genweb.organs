@@ -225,10 +225,8 @@ class View(grok.View):
         folder_path = '/'+'/'.join(value.split('/')[3:])
         values = portal_catalog.searchResults(
             portal_type='genweb.organs.subpunt',
-            sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 2})
-        # import ipdb;ipdb.set_trace()
 
         results = []
         for obj in values:

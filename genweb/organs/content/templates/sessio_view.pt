@@ -340,30 +340,27 @@
                         <span tal:condition="item/state" class="label nomarginLeft"
                               tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
                               i18n:domain="genweb.organs" i18n:translate=""></span>
-                <tal:files tal:define="files python:view.filesinsideSubPunt(item)">
-                  <ul style="list-style: none; padding-top:10px;">
-                    <tal:documents repeat="item files">
-                      <li class="filesinTable">
-                        <i tal:attributes=" class item/classCSS"></i>
-                        <a tal:attributes="href item/absolute_url;"
-                           style="font-size:14px;">
-                           <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
-                        </a>
-                        <div style="float:right; display: inline-table;">
-                          <label tal:attributes="class string:${item/labelClass}" tal:content="item/content"></label>
-                          <a style="margin-right:3px;" type="button" class="remove label label-important"
-                             data-title="Delete"
-                             tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                        </div>
-                      </li>
-                    </tal:documents>
-                  </ul>
-                </tal:files>
+                        <tal:files tal:define="files python:view.filesinsideSubPunt(item)">
+                          <ul style="list-style: none; padding-top:10px;">
+                            <tal:documents repeat="item files">
+                              <li class="filesinTable">
+                                <i tal:attributes=" class item/classCSS"></i>
+                                <a tal:attributes="href item/absolute_url;"
+                                   style="font-size:14px;">
+                                   <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                </a>
+                                <div style="float:right; display: inline-table;">
+                                  <label tal:attributes="class string:${item/labelClass}" tal:content="item/content"></label>
+                                  <a style="margin-right:3px;" type="button" class="remove label label-important"
+                                     data-title="Delete"
+                                     tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                </div>
+                              </li>
+                            </tal:documents>
+                          </ul>
+                        </tal:files>
                       </div>
                       <div class="llistaAfegir">
-                        <a style="margin-right: 3px;"
-                             data-title="Afegir subpunt"
-                             tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.subpunt""><i class="fa fa-plus" aria-hidden="true">&nbsp;Subpunt</i></a>
                         <a style="margin-right: 3px;"
                              data-title="Afegir document"
                              tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.document""><i class="fa fa-plus" aria-hidden="true">&nbsp;Document</i></a>
@@ -371,9 +368,7 @@
                              data-title="Afegir subpunt"
                              tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.file"><i class="fa fa-plus" aria-hidden="true">&nbsp;Fitxer</i></a>
                       </div>
-
                     </td>
-
                   </ol>
                 </tal:subpunts>
               </div>
@@ -384,26 +379,34 @@
   </div>
 
   <script type="text/javascript">
-    $.fn.editable.defaults.mode = 'inline';
-    $.fn.editable.defaults.showbuttons = false;
-    $.fn.editable.defaults.type = 'text';
-    $.fn.editable.defaults.emptytext = 'Sense valor';
+    $(function() {
+        var reloadEdit = false;
+        $.fn.editable.defaults.mode = 'inline';
+        $.fn.editable.defaults.showbuttons = false;
+        $.fn.editable.defaults.type = 'text';
+        $.fn.editable.defaults.emptytext = 'Sense valor';
 
-    $('.editTitle').editable({
-        inputclass: function(e, f) {
-          $("a[aria-describedby=" + $(this).closest(".ui-tooltip").prop("id") + "]").data("shared", this);
-        },
-        validate: function(value) {
-          if (!value) return 'Camp obligatori';
-        }
+        $('.editTitle').editable({
+            inputclass: function(e, f) {
+              $("a[aria-describedby=" + $(this).closest(".ui-tooltip").prop("id") + "]").data("shared", this);
+            },
+            validate: function(value) {
+              if (!value) return 'Camp obligatori';
+            },
+            success: function(){
+                  reloadEdit = true;
+            },
+        });
+
+        $(document).ajaxStop(function(){
+          // All requests have completed, check if we need to refresh
+           if(reloadEdit){
+              // Refresh the page (just a simple reload for now)
+              window.location.reload();
+          }
+        });
+
     });
-
-/*    $('.editTitle').editable({
-      success: function(response, newValue) {
-          $( "#DADES" ).load( "../ajax/get/{{issue_obj.id}}/response/" );
-      }
-    });*/
-
   </script>
 
   <div style="margin-bottom:20px;"></div>
