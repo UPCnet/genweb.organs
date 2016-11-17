@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
   <script src=++resource++genweb.organs.stylesheets/jquery-ui.min.js></script>
   <script src="++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script>
+  <script src="++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script>
 
   <script type="text/javascript">
     $(function() {
