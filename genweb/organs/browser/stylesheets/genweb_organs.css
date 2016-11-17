@@ -138,6 +138,12 @@ input#form-widgets-agreement {width: 98%;}
     background: #f0f0f0;
 }
 
+#sortable .ui-state-highlight2 {
+    height: 1.5em;
+    line-height: 1.2em;
+    background: red;
+}
+
 .textFloating {
     font-size:18px;
     font-weight: bold;

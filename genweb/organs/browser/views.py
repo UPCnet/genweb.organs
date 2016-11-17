@@ -37,24 +37,39 @@ class Move(BrowserView):
         portal_catalog = getToolByName(self, 'portal_catalog')
         action = self.request.form.get('action')
         itemid = self.request.form.get('itemid')
+        inside = len(itemid.split('/'))
+        if inside == 1:
+            # Moving Punt (1st leve)
+            ordering = getOrdering(self.context)
+            items = self.context.items()
+            folder_path = self.context.absolute_url_path()
+        else:
+            # Moving Subpunt (2nd level)
+            # position = self.context.absolute_url_path() + '/' + str(itemid.split('/')[0])
+            moveSubpunt = portal_catalog.searchResults(
+                id=str(itemid.split('/')[0]),
+                portal_type='genweb.organs.punt',
+                )[0].getObject()
+            ordering = getOrdering(moveSubpunt)
+            itemid = str(itemid.split('/')[1])
+            items = moveSubpunt.items()
+            folder_path = moveSubpunt.absolute_url_path()
+
         if action == 'movedelta':
             # move contents through the table
             delta = int(self.request.form['delta'])
-            ordering.moveObjectsByDelta([itemid], delta)
+            ordering.moveObjectsByDelta(itemid, delta)
             i = 1
-            items = self.context.items()
             for item in items:
                 objid = item[0]  # el primer de tots, tenim [('title'), <container...]
-
-                folder_path = self.context.absolute_url_path()
                 value = portal_catalog.searchResults(
                     portal_type=['genweb.organs.punt'],
                     id=objid,
                     path={'query': folder_path,
                           'depth': 1})
-
+                import ipdb;ipdb.set_trace()
                 value[0].getObject().proposalPoint = i
-                print str(value[0].getObject()) + ' -- ' + str(i)
+
                 if len(value[0].getObject().items()) > 0:
                     subpunts = portal_catalog.searchResults(
                         portal_type=['genweb.organs.subpunt'],

@@ -19,7 +19,32 @@
         var refreshNeeded = false;
         $('#sortable').sortable({
             placeholder: 'ui-state-highlight',
-            opacity: 0.8,
+            opacity: 0.5,
+            scroll: false,
+            delay: 300,
+            distance: 15,
+            start: function(event, ui){
+              start = ui.item.index();
+            },
+            update: function(event, ui){
+              var params = {};
+              params.itemid = ui.item.attr('id');
+              params.action = 'movedelta';
+              params.delta = ui.item.index() - start
+              $.ajax({
+                  type: 'POST',
+                  url: '@@fcmoveTable',
+                  data: params,
+                  success: function(){
+                    refreshNeeded = true;
+                  },
+              });
+            },
+        }).disableSelection();
+
+        $('#sortable2').sortable({
+            placeholder: 'ui-state-highlight2',
+            opacity: 0.5,
             scroll: false,
             start: function(event, ui){
               start = ui.item.index();
@@ -40,6 +65,7 @@
             },
         }).disableSelection();
 
+
         $(document).ajaxStop(function(){
           // All requests have completed, check if we need to refresh
            if(refreshNeeded){
@@ -51,6 +77,10 @@
 
       $('#sortable').bind('sortstart', function(event, ui) {
           $('.ui-state-highlight').append('<span class="textFloating">  </span>');
+      });
+
+      $('#sortable2').bind('sortstart', function(event, ui) {
+          $('.ui-state-highlight2').append('<span class="textFloating">  </span>');
       });
 
     });
@@ -237,13 +267,13 @@
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalMassive">
      <div class="modal-dialog" role="document">
        <div class="modal-content">
-         <div class="modal-header">
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-           <h4 class="modal-title" id="modalMassive" i18n:translate="">Creacio massiva de punts</h4>
-         </div>
-         <div class="modal-body">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="modalMassive" i18n:translate="">Creacio massiva de punts</h4>
+          </div>
+          <div class="modal-body">
            ...
-         </div>
+          </div>
        </div>
      </div>
    </div>
@@ -259,7 +289,6 @@
     <h2 i18n:translate="">Ordre del dia</h2>
 
       <div class="clearfix"></div>
-      <br/>
 
       <ul id="sortable">
         <tal:documents repeat="item items">
@@ -319,7 +348,7 @@
                      data-title="Afegir subpunt"
                      tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.file"><i class="fa fa-plus" aria-hidden="true">&nbsp;Fitxer</i></a>
               </div>
-              <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts">
+              <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" id="sortable2">
                 <tal:subpunts repeat="item subpunts">
                   <ol class="li_subgrups" tal:attributes="id item/id">
                     <td>
