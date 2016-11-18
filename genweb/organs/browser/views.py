@@ -61,26 +61,27 @@ class Move(BrowserView):
             ordering.moveObjectsByDelta(itemid, delta)
             i = 1
             for item in items:
-                objid = item[0]  # el primer de tots, tenim [('title'), <container...]
-                value = portal_catalog.searchResults(
-                    portal_type=['genweb.organs.punt'],
-                    id=objid,
-                    path={'query': folder_path,
-                          'depth': 1})
-                import ipdb;ipdb.set_trace()
-                value[0].getObject().proposalPoint = i
+                if item[1].portal_type == 'genweb.organs.punt':
+                    objid = item[0]  # el primer de tots, tenim [('title'), <container...]
 
-                if len(value[0].getObject().items()) > 0:
-                    subpunts = portal_catalog.searchResults(
-                        portal_type=['genweb.organs.subpunt'],
-                        path={'query': value[0].getObject().absolute_url_path(), 'depth': 1})
+                    folder_path = self.context.absolute_url_path()
+                    value = portal_catalog.searchResults(
+                        portal_type=['genweb.organs.punt'],
+                        id=objid,
+                        path={'query': folder_path,
+                              'depth': 1})
+                    value[0].getObject().proposalPoint = i
+                    if len(value[0].getObject().items()) > 0:
+                        subpunts = portal_catalog.searchResults(
+                            portal_type=['genweb.organs.subpunt'],
+                            path={'query': value[0].getObject().absolute_url_path(), 'depth': 1})
 
-                    subvalue = 1
-                    rootnumber = value[0].getObject().proposalPoint
-                    for value in subpunts:
-                        value.getObject().proposalPoint = str(rootnumber) + str('.') + str(subvalue)
-                        subvalue = subvalue+1
-                i = i+1
+                        subvalue = 1
+                        rootnumber = value[0].getObject().proposalPoint
+                        for value in subpunts:
+                            value.getObject().proposalPoint = str(rootnumber) + str('.') + str(subvalue)
+                            subvalue = subvalue+1
+                    i = i+1
 
 
 def sessio_sendMail(session, recipients, body):

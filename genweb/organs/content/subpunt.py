@@ -92,11 +92,16 @@ def proposalPointDefaultValue(data):
     portal_catalog = getToolByName(data.context, 'portal_catalog')
     folder_path = data.context.absolute_url_path()
     values = portal_catalog.searchResults(
-        portal_type=['genweb.organs.punt'],
+        portal_type=['genweb.organs.subpunt'],
         path={'query': folder_path,
               'depth': 1})
-    id = int(len(values)) + 1
-    return id
+    subpunt_id = int(len(values)) + 1
+    if data.context.proposalPoint is None:
+        data.context.proposalPoint = 1
+        punt_id = 1
+    else:
+        punt_id = data.context.proposalPoint
+    return str(punt_id) + '.' + str(subpunt_id)
 
 
 class Edit(dexterity.EditForm):
