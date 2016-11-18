@@ -9,8 +9,7 @@ from time import strftime
 from genweb.organs import _
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from plone.folder.interfaces import IExplicitOrdering
-from zope.component import getMultiAdapter
-from AccessControl import Unauthorized
+from genweb.organs.content.sessio import View as view
 
 
 def getOrdering(context):
@@ -39,7 +38,7 @@ class Move(BrowserView):
         itemid = self.request.form.get('itemid')
         inside = len(itemid.split('/'))
         if inside == 1:
-            # Moving Punt (1st leve)
+            # Moving Punt (1st level)
             ordering = getOrdering(self.context)
             items = self.context.items()
             folder_path = self.context.absolute_url_path()
@@ -70,16 +69,16 @@ class Move(BrowserView):
                         id=objid,
                         path={'query': folder_path,
                               'depth': 1})
-                    value[0].getObject().proposalPoint = i
+                    value[0].proposalPoint = i
                     if len(value[0].getObject().items()) > 0:
                         subpunts = portal_catalog.searchResults(
                             portal_type=['genweb.organs.subpunt'],
                             path={'query': value[0].getObject().absolute_url_path(), 'depth': 1})
 
                         subvalue = 1
-                        rootnumber = value[0].getObject().proposalPoint
+                        rootnumber = value[0].proposalPoint
                         for value in subpunts:
-                            value.getObject().proposalPoint = str(rootnumber) + str('.') + str(subvalue)
+                            value.proposalPoint = str(rootnumber) + str('.') + str(subvalue)
                             subvalue = subvalue+1
                     i = i+1
 
@@ -265,3 +264,20 @@ class AddLogMail(BrowserView):
 
 
 # Notificar canvi -> Enviar missatge
+
+
+class SessionAjax(BrowserView):
+
+    __call__ = ViewPageTemplateFile('session_ajax.pt')
+
+    def PuntsInside(self):
+        pass
+
+    # def SubpuntsInside(self, data):
+    #     pass
+
+    # def filesinsidePunt(self, item):
+    #     pass
+
+    # def filesinsideSubPunt(self, item):
+    #     pass

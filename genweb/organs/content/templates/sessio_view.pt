@@ -21,8 +21,6 @@
             placeholder: 'ui-state-highlight',
             opacity: 0.5,
             scroll: false,
-            delay: 300,
-            distance: 15,
             start: function(event, ui){
               start = ui.item.index();
             },
@@ -98,13 +96,24 @@
 
   <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
+  <div class="modal fade" id="modalSession" tabindex="-1" role="dialog" aria-labelledby="modalSession">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>Presentation
+        </div>
+        <div class="modal-body"></div>
+      </div>
+    </div>
+  </div>
+
   <div style="float:right">
     <div style="display:flex">
       <div class="containerIcons">
         <a href="send_message" i18n:attributes="title Enviar; alt Enviar"><i class="fa fa-envelope fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Enviar</span></a>
       </div>
       <div class="containerIcons">
-        <span href="" i18n:attributes="title Presentacio; alt Presentacio"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></span>
+        <a i18n:attributes="title Presentacio; alt Presentacio" href="sessionAjax" data-toggle="modal" data-target="#modalSession"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
       </div>
       <div class="containerIcons">
         <a href="informar_sessio" i18n:attributes="title Informar; alt Informar"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informar</span></a>
@@ -264,24 +273,24 @@
     </div>
   </div>
 
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalMassive">
-     <div class="modal-dialog" role="document">
-       <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="modalMassive" i18n:translate="">Creacio massiva de punts</h4>
-          </div>
-          <div class="modal-body">
-           ...
-          </div>
-       </div>
-     </div>
-   </div>
+  <div class="modal fade" id="modalPunts" tabindex="-1" role="dialog" aria-labelledby="modalMassive">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="modalMassive" i18n:translate="">Creacio massiva de punts</h4>
+        </div>
+        <div class="modal-body"></div>
+      </div>
+    </div>
+  </div>
+
+
 
   <div style="float:right" class="">
     <br/>
-          <a class="btn btn-info" style="margin-bottom: 20px;" href="++add++genweb.organs.punt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
-      <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#myModal"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Crear punts</span></a>
+      <a class="btn btn-info" style="margin-bottom: 20px;" href="++add++genweb.organs.punt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
+      <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Crear punts</span></a>
   </div>
 
   <div tal:define="items view/PuntsInside" tal:condition="items" class="DADES">

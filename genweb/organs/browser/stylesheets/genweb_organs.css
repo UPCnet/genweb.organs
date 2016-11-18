@@ -221,3 +221,7 @@ span.label.nomarginLeft  {
     font-weight: bold;
     font-color: black;
 }
+
+.subpuntTitle:hover {
+    background-color: blue;
+}

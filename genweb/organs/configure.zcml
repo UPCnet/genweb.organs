@@ -36,6 +36,18 @@
       handler=".browser.events.change.sessio_changed"
     />
 
+    <subscriber
+        for=".content.subpunt.ISubpunt
+              zope.lifecycleevent.IObjectRemovedEvent"
+        handler=".browser.events.removeObject.redirect_to_trial"
+    />
+
+    <subscriber
+        for=".content.punt.IPunt
+              zope.lifecycleevent.IObjectRemovedEvent"
+        handler=".browser.events.removeObject.redirect_to_trial"
+    />
+
     <i18n:registerTranslations directory="locales" />
 
     <include package="z3c.jbot" file="meta.zcml" />
