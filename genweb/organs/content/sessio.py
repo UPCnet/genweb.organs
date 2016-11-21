@@ -200,20 +200,28 @@ class View(grok.View):
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
-            portal_type='genweb.organs.punt',
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
 
         results = []
         for obj in values:
-            item = obj.getObject()
-            results.append(dict(title=obj.Title,
-                                absolute_url=item.absolute_url(),
-                                proposalPoint=item.proposalPoint,
-                                state=item.estatsLlista,
-                                css=self.getColor(obj),
-                                id=obj.id))
+            if obj.portal_type == 'genweb.organs.acta':
+                # add actas to template for oredering but doesnt show
+                item = obj.getObject()
+                results.append(dict(id=obj.id,
+                                    classe='hidden',
+                                    show=False))
+            else:
+                item = obj.getObject()
+                results.append(dict(title=obj.Title,
+                                    absolute_url=item.absolute_url(),
+                                    proposalPoint=item.proposalPoint,
+                                    state=item.estatsLlista,
+                                    css=self.getColor(obj),
+                                    id=obj.id,
+                                    show=True,
+                                    classe="ui-state-grey"))
         return results
 
     def SubpuntsInside(self, data):
@@ -221,10 +229,10 @@ class View(grok.View):
         """
         portal_catalog = getToolByName(self, 'portal_catalog')
         value = data['absolute_url']
-        folder_path = '/'.join(self.context.getPhysicalPath())
         folder_path = '/'+'/'.join(value.split('/')[3:])
         values = portal_catalog.searchResults(
             portal_type='genweb.organs.subpunt',
+            sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 2})
 

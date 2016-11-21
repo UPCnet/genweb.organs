@@ -10,6 +10,7 @@ from genweb.organs import _
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from plone.folder.interfaces import IExplicitOrdering
 from genweb.organs.content.sessio import View as view
+import transaction
 
 
 def getOrdering(context):
@@ -36,51 +37,95 @@ class Move(BrowserView):
         portal_catalog = getToolByName(self, 'portal_catalog')
         action = self.request.form.get('action')
         itemid = self.request.form.get('itemid')
-        inside = len(itemid.split('/'))
-        if inside == 1:
-            # Moving Punt (1st level)
+
+        if action == 'movepunt':
+            # move contents through the table
             ordering = getOrdering(self.context)
+
             items = self.context.items()
             folder_path = self.context.absolute_url_path()
-        else:
-            # Moving Subpunt (2nd level)
-            # position = self.context.absolute_url_path() + '/' + str(itemid.split('/')[0])
-            moveSubpunt = portal_catalog.searchResults(
-                id=str(itemid.split('/')[0]),
-                portal_type='genweb.organs.punt',
-                )[0].getObject()
-            ordering = getOrdering(moveSubpunt)
-            itemid = str(itemid.split('/')[1])
-            items = moveSubpunt.items()
-            folder_path = moveSubpunt.absolute_url_path()
-
-        if action == 'movedelta':
-            # move contents through the table
             delta = int(self.request.form['delta'])
             ordering.moveObjectsByDelta(itemid, delta)
-            i = 1
+            # Els ids es troben ordenats, cal canviar el proposalPoint
+            index = 1
+
             for item in items:
                 if item[1].portal_type == 'genweb.organs.punt':
                     objid = item[0]  # el primer de tots, tenim [('title'), <container...]
-
-                    folder_path = self.context.absolute_url_path()
-                    value = portal_catalog.searchResults(
+                    punt = portal_catalog.searchResults(
                         portal_type=['genweb.organs.punt'],
                         id=objid,
                         path={'query': folder_path,
-                              'depth': 1})
-                    value[0].proposalPoint = i
-                    if len(value[0].getObject().items()) > 0:
+                              'depth': 1})[0].getObject()
+
+                    punt.proposalPoint = unicode(index)
+                    # import ipdb;ipdb.set_trace()
+                    if len(punt.items()) > 0:
                         subpunts = portal_catalog.searchResults(
                             portal_type=['genweb.organs.subpunt'],
-                            path={'query': value[0].getObject().absolute_url_path(), 'depth': 1})
+                            sort_on='getObjPositionInParent',
+                            path={'query': punt.absolute_url_path(), 'depth': 1})
 
                         subvalue = 1
-                        rootnumber = value[0].proposalPoint
+                        rootnumber = punt.proposalPoint
                         for value in subpunts:
-                            value.proposalPoint = str(rootnumber) + str('.') + str(subvalue)
+                            objecte = value.getObject()
+                            objecte.proposalPoint = unicode(str(rootnumber) + str('.') + str(subvalue))
                             subvalue = subvalue+1
-                    i = i+1
+                    index = index + 1
+                # import ipdb;ipdb.set_trace()
+                # if item[1].portal_type == 'genweb.organs.subpunt':
+                #     print "es un subpunt: " + item[0]
+                #     objid = item[0]  # el primer de tots, tenim [('title'), <container...]
+
+                #     # folder_path = self.context.absolute_url_path()
+                #     subpunts = portal_catalog.searchResults(
+                #         portal_type=['genweb.organs.subpunt'],
+                #         sort_on='getObjPositionInParent',
+                #         id=objid,
+                #         path={'query': folder_path,
+                #               'depth': 1})
+                #     subvalue = 1
+                #     rootnumber = subpunts[0].proposalPoint
+                #     for value in subpunts:
+                #         print "found subpunt: " + value.Title
+                #         print "subpunt proposalPoint before change: " + value.proposalPoint
+                #         value.proposalPoint = str(float(str(value.proposalPoint)) + 0.1)
+                #         print "subpunt proposalPoint after change: " + value.proposalPoint
+                #         subvalue = subvalue+1
+                #     i = i+1
+
+        # Volem moure un subpunt
+        if action == 'movesubpunt':
+            # move subpunts contents through the table
+            # Esbrino id del pare (punt)
+            punt = portal_catalog.searchResults(
+                id=str(itemid.split('/')[0]),
+                portal_type='genweb.organs.punt',
+                )[0].getObject()
+            ordering = getOrdering(punt)
+            itemid = str(itemid.split('/')[1])
+            items = punt.items()
+            folder_path = punt.absolute_url_path()
+
+            delta = int(self.request.form['delta'])
+            ordering.moveObjectsByDelta(itemid, delta)
+            # Els ids ja s'han mogut, cal afegir el proposalpoint pertinent.
+
+            subpuntsOrdered = portal_catalog.searchResults(
+                portal_type=['genweb.organs.subpunt'],
+                sort_on='getObjPositionInParent',
+                path={'query': folder_path,
+                      'depth': 1})
+
+            subvalue = 1
+            puntnumber = punt.proposalPoint
+            # Change proposaoints dels subpunts ordenats
+            for item in subpuntsOrdered:
+                if item.portal_type == 'genweb.organs.subpunt':
+                    objecte = item.getObject()
+                    objecte.proposalPoint = unicode(str(puntnumber) + '.' + str(subvalue))
+                    subvalue = subvalue+1
 
 
 def sessio_sendMail(session, recipients, body):

@@ -27,7 +27,7 @@
             update: function(event, ui){
               var params = {};
               params.itemid = ui.item.attr('id');
-              params.action = 'movedelta';
+              params.action = 'movepunt';
               params.delta = ui.item.index() - start
               $.ajax({
                   type: 'POST',
@@ -50,7 +50,7 @@
             update: function(event, ui){
               var params = {};
               params.itemid = ui.item.attr('id');
-              params.action = 'movedelta';
+              params.action = 'movesubpunt';
               params.delta = ui.item.index() - start
               $.ajax({
                   type: 'POST',
@@ -301,8 +301,8 @@
 
       <ul id="sortable">
         <tal:documents repeat="item items">
-          <li class="ui-state-grey" tal:attributes="id item/id">
-            <td>
+          <li class="ui-state-grey" tal:attributes="id item/id; class item/classe" >
+            <td tal:condition="item/show">
               <div class="btn-group" role="group"
                    style="float: right;" aria-label="Edit actions">
                 <a style="margin-right: 3px;" type="button"
@@ -361,14 +361,14 @@
                 <tal:subpunts repeat="item subpunts">
                   <ol class="li_subgrups" tal:attributes="id item/id">
                     <td>
-                      <div class="btn-group" role="group"
+<!--                       <div class="btn-group" role="group"
                            style="float: right;" aria-label="Edit actions">
                         <a style="margin-right: 3px;" type="button"
                            class="edit label label-info" data-title="Edit"
                            tal:attributes="href string:${item/absolute_url}/view"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                         <a type="button" class="remove label label-important" data-title="Delete"
                            tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                      </div>
+                      </div> -->
                       <div class="subpuntTitle">
                         <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
                         <a tal:attributes="data-pk item/id"
@@ -399,14 +399,14 @@
                           </ul>
                         </tal:files>
                       </div>
-                      <div class="llistaAfegir">
+<!--                       <div class="llistaAfegir">
                         <a style="margin-right: 3px;"
                              data-title="Afegir document"
                              tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.document""><i class="fa fa-plus" aria-hidden="true">&nbsp;Document</i></a>
                         <a style="margin-right: 3px;"
                              data-title="Afegir subpunt"
                              tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.file"><i class="fa fa-plus" aria-hidden="true">&nbsp;Fitxer</i></a>
-                      </div>
+                      </div> -->
                     </td>
                   </ol>
                 </tal:subpunts>
@@ -437,13 +437,13 @@
             },
         });
 
-        $(document).ajaxStop(function(){
+/*        $(document).ajaxStop(function(){
           // All requests have completed, check if we need to refresh
            if(reloadEdit){
               // Refresh the page (just a simple reload for now)
               window.location.reload();
           }
-        });
+        });*/
 
     });
   </script>
