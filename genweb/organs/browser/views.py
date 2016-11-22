@@ -42,58 +42,36 @@ class Move(BrowserView):
             # move contents through the table
             ordering = getOrdering(self.context)
 
-            items = self.context.items()
             folder_path = self.context.absolute_url_path()
             delta = int(self.request.form['delta'])
             ordering.moveObjectsByDelta(itemid, delta)
             # Els ids es troben ordenats, cal canviar el proposalPoint
+
+            # agafo items ordenats!
+            puntsOrdered = portal_catalog.searchResults(
+                portal_type=['genweb.organs.punt'],
+                sort_on='getObjPositionInParent',
+                path={'query': folder_path,
+                      'depth': 1})
             index = 1
+            for item in puntsOrdered:
+                objecte = item.getObject()
+                objecte.proposalPoint = unicode(str(index))
 
-            for item in items:
-                if item[1].portal_type == 'genweb.organs.punt':
-                    objid = item[0]  # el primer de tots, tenim [('title'), <container...]
-                    punt = portal_catalog.searchResults(
-                        portal_type=['genweb.organs.punt'],
-                        id=objid,
-                        path={'query': folder_path,
-                              'depth': 1})[0].getObject()
+                if len(objecte.items()) > 0:
+                    subpunts = portal_catalog.searchResults(
+                        portal_type=['genweb.organs.subpunt'],
+                        sort_on='getObjPositionInParent',
+                        path={'query': objecte.absolute_url_path(), 'depth': 1})
 
-                    punt.proposalPoint = unicode(index)
-                    # import ipdb;ipdb.set_trace()
-                    if len(punt.items()) > 0:
-                        subpunts = portal_catalog.searchResults(
-                            portal_type=['genweb.organs.subpunt'],
-                            sort_on='getObjPositionInParent',
-                            path={'query': punt.absolute_url_path(), 'depth': 1})
+                    subvalue = 1
+                    rootnumber = objecte.proposalPoint
+                    for value in subpunts:
+                        objecte = value.getObject()
+                        objecte.proposalPoint = unicode(str(rootnumber) + str('.') + str(subvalue))
+                        subvalue = subvalue+1
 
-                        subvalue = 1
-                        rootnumber = punt.proposalPoint
-                        for value in subpunts:
-                            objecte = value.getObject()
-                            objecte.proposalPoint = unicode(str(rootnumber) + str('.') + str(subvalue))
-                            subvalue = subvalue+1
-                    index = index + 1
-                # import ipdb;ipdb.set_trace()
-                # if item[1].portal_type == 'genweb.organs.subpunt':
-                #     print "es un subpunt: " + item[0]
-                #     objid = item[0]  # el primer de tots, tenim [('title'), <container...]
-
-                #     # folder_path = self.context.absolute_url_path()
-                #     subpunts = portal_catalog.searchResults(
-                #         portal_type=['genweb.organs.subpunt'],
-                #         sort_on='getObjPositionInParent',
-                #         id=objid,
-                #         path={'query': folder_path,
-                #               'depth': 1})
-                #     subvalue = 1
-                #     rootnumber = subpunts[0].proposalPoint
-                #     for value in subpunts:
-                #         print "found subpunt: " + value.Title
-                #         print "subpunt proposalPoint before change: " + value.proposalPoint
-                #         value.proposalPoint = str(float(str(value.proposalPoint)) + 0.1)
-                #         print "subpunt proposalPoint after change: " + value.proposalPoint
-                #         subvalue = subvalue+1
-                #     i = i+1
+                index = index + 1
 
         # Volem moure un subpunt
         if action == 'movesubpunt':
@@ -105,7 +83,6 @@ class Move(BrowserView):
                 )[0].getObject()
             ordering = getOrdering(punt)
             itemid = str(itemid.split('/')[1])
-            items = punt.items()
             folder_path = punt.absolute_url_path()
 
             delta = int(self.request.form['delta'])
