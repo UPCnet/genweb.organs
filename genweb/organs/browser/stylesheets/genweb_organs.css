@@ -231,3 +231,15 @@ span.label.nomarginLeft  {
 }
 
 
+#modalSessionView {
+    list-style-type: none;
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1.5em;
+    width:auto;
+    border: 1px solid #D4D4D4;
+    font-weight: normal;
+    color: black;
+}
+
+
