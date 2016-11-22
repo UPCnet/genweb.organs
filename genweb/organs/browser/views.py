@@ -9,8 +9,6 @@ from time import strftime
 from genweb.organs import _
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from plone.folder.interfaces import IExplicitOrdering
-from genweb.organs.content.sessio import View as view
-import transaction
 
 
 def getOrdering(context):
@@ -293,7 +291,25 @@ class SessionAjax(BrowserView):
     __call__ = ViewPageTemplateFile('session_ajax.pt')
 
     def PuntsInside(self):
-        pass
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        values = portal_catalog.searchResults(
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+        for obj in values:
+            if obj.portal_type == 'genweb.organs.punt':
+                item = obj.getObject()
+                results.append(dict(title=obj.Title,
+                                    absolute_url=item.absolute_url(),
+                                    proposalPoint=item.proposalPoint,
+                                    state=item.estatsLlista,
+                                    id=obj.id,
+                                    show=True,
+                                    classe="ui-state-grey"))
+        return results
 
     # def SubpuntsInside(self, data):
     #     pass

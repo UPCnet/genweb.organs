@@ -30,39 +30,34 @@
 <metal:content-core>
 
   <div tal:define="items view/PuntsInside" tal:condition="items" class="DADES">
-  <br/>
     <h2 i18n:translate="">Ordre del dia</h2>
-
-      <div class="clearfix"></div>
 
       <ul id="sortable">
         <tal:documents repeat="item items">
-          <li class="ui-state-grey" tal:attributes="id item/id">
+          <li >
             <td>
               <div class="btn-group" role="group"
                    style="float: right;" aria-label="Edit actions">
                 <a style="margin-right: 3px;" type="button"
                    class="edit label label-info" data-title="Edit"
-                   tal:attributes="href string:${item/absolute_url}/view"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                   tal:attributes="href string:${item/absolute_url}/view"><i class="fa fa-eye" aria-hidden="true"></i></a><!--
 
                 <a type="button" class="remove label label-important" data-title="Delete"
-                   tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                   tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a> -->
               </div>
               <div class="puntTitle">
                 <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
-                <a tal:attributes="data-pk item/id"
-                   data-type="text" data-url="changeTitle"
-                   class="editTitle editable editable-click titleSize">
+                <a tal:attributes="href string:${item/absolute_url}/view"
+                   class="titleSize">
                   <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                 </a>
-                <span tal:condition="item/state" class="label nomarginLeft"
-                      tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
-                      i18n:domain="genweb.organs" i18n:translate=""></span>
-                <tal:files tal:define="files python:view.filesinsidePunt(item)">
+                <!-- <span tal:condition="item/state" class="label nomarginLeft"
+                      tal:content="item/"
+                      i18n:domain="genweb.organs" i18n:translate=""></span> -->
+<!--                 <tal:files tal:define="files python:view.filesinsidePunt(item)">
                   <ul style="list-style: none; padding-top:10px;">
                     <tal:documents repeat="item files">
                       <li class="filesinTable">
-                        <i tal:attributes=" class item/classCSS"></i>
                         <a tal:attributes="href item/absolute_url;"
                            style="font-size:14px;">
                            <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
@@ -76,9 +71,9 @@
                       </li>
                     </tal:documents>
                   </ul>
-                </tal:files>
+                </tal:files> -->
               </div>
-              <div class="llistaAfegir">
+<!--               <div class="llistaAfegir">
                 <a style="margin-right: 3px;"
                      data-title="Afegir nou punt"
                      tal:attributes="data-pk item/id"
@@ -92,8 +87,8 @@
                 <a style="margin-right: 3px;"
                      data-title="Afegir subpunt"
                      tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.file"><i class="fa fa-plus" aria-hidden="true">&nbsp;Fitxer</i></a>
-              </div>
-              <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" id="sortable2">
+              </div> -->
+             <!--  <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" id="sortable2">
                 <tal:subpunts repeat="item subpunts">
                   <ol class="li_subgrups" tal:attributes="id item/id">
                     <td>
@@ -113,7 +108,7 @@
                           <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                         </a>
                         <span tal:condition="item/state" class="label nomarginLeft"
-                              tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
+                              tal:content="item/state"
                               i18n:domain="genweb.organs" i18n:translate=""></span>
                         <tal:files tal:define="files python:view.filesinsideSubPunt(item)">
                           <ul style="list-style: none; padding-top:10px;">
@@ -146,7 +141,7 @@
                     </td>
                   </ol>
                 </tal:subpunts>
-              </div>
+              </div> -->
             </td>
           </li>
         </tal:documents>
