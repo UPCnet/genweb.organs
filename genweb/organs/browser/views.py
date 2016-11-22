@@ -311,11 +311,108 @@ class SessionAjax(BrowserView):
                                     classe="ui-state-grey"))
         return results
 
-    # def SubpuntsInside(self, data):
-    #     pass
+    def SubpuntsInside(self, data):
+        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        value = data['absolute_url']
+        folder_path = '/'+'/'.join(value.split('/')[3:])
+        values = portal_catalog.searchResults(
+            portal_type='genweb.organs.subpunt',
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 2})
 
-    # def filesinsidePunt(self, item):
-    #     pass
+        results = []
+        for obj in values:
+            item = obj.getObject()
+            results.append(dict(title=obj.Title,
+                                absolute_url=item.absolute_url(),
+                                proposalPoint=item.proposalPoint,
+                                state=item.estatsLlista,
+                                css=self.getColor(obj),
+                                id='/'.join(item.absolute_url_path().split('/')[-2:])))
+        return results
 
-    # def filesinsideSubPunt(self, item):
-    #     pass
+    def filesinsidePunt(self, item):
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        value = item['absolute_url']
+        folder_path = '/'+'/'.join(value.split('/')[3:])
+
+        values = portal_catalog.searchResults(
+            portal_type=['genweb.organs.file', 'genweb.organs.document'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 2})
+        results = []
+        for obj in values:
+            if obj.portal_type == 'genweb.organs.file':
+                if obj.hiddenfile is True:
+                    tipus = 'fa fa-file-pdf-o'
+                    document = _(u'Fitxer intern')
+                    labelClass = 'label label-default'
+                else:
+                    tipus = 'fa fa-file-pdf-o'
+                    document = _(u'Fitxer públic')
+                    labelClass = 'label label-default'
+            else:
+                tipus = 'fa fa-file-text-o'
+                document = _(u'Document')
+                labelClass = 'label label-default'
+
+            results.append(dict(title=obj.Title,
+                                absolute_url=obj.getURL(),
+                                classCSS=tipus,
+                                hidden=obj.hiddenfile,
+                                labelClass=labelClass,
+                                content=document))
+        return results
+
+    def filesinsideSubPunt(self, item):
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        value = item['absolute_url']
+        folder_path = '/'+'/'.join(value.split('/')[3:])
+
+        values = portal_catalog.searchResults(
+            portal_type=['genweb.organs.file', 'genweb.organs.document'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 2})
+        results = []
+        for obj in values:
+            if obj.portal_type == 'genweb.organs.file':
+                if obj.hiddenfile is True:
+                    tipus = 'fa fa-file-pdf-o'
+                    document = _(u'Fitxer intern')
+                    labelClass = 'label label-default'
+                else:
+                    tipus = 'fa fa-file-pdf-o'
+                    document = _(u'Fitxer públic')
+                    labelClass = 'label label-default'
+            else:
+                tipus = 'fa fa-file-text-o'
+                document = _(u'Document')
+                labelClass = 'label label-default'
+
+            results.append(dict(title=obj.Title,
+                                absolute_url=obj.getURL(),
+                                classCSS=tipus,
+                                hidden=obj.hiddenfile,
+                                labelClass=labelClass,
+                                content=document))
+        return results
+
+    def getSessionTitle(self):
+        return self.context.Title()
+
+    def getColor(self, data):
+        # assign custom colors on organ states
+        estat = data.getObject().estatsLlista
+        values = data.estatsLlista
+
+        try:
+            for value in values.splitlines():
+                if estat == value.split('#')[0].rstrip(' '):
+                    return '#' + value.split('#')[1].rstrip(' ').lstrip(' ')
+        except:
+            return '#777777'

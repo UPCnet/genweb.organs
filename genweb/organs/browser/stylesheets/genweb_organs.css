@@ -225,3 +225,9 @@ span.label.nomarginLeft  {
 .subpuntTitle:hover {
     background-color: blue;
 }
+
+#modalSession {
+    width: 800px;
+}
+
+
