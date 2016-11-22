@@ -228,15 +228,15 @@ class View(grok.View):
         """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
         """
         portal_catalog = getToolByName(self, 'portal_catalog')
-        value = data['absolute_url']
-        folder_path = '/'+'/'.join(value.split('/')[3:])
+        folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + data['id']
         values = portal_catalog.searchResults(
             portal_type='genweb.organs.subpunt',
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
-                  'depth': 2})
+                  'depth': 1})
 
         results = []
+        # import ipdb;ipdb.set_trace()
         for obj in values:
             item = obj.getObject()
             results.append(dict(title=obj.Title,
@@ -268,7 +268,6 @@ class View(grok.View):
     def LogInformation(self):
         """ Get send mail annotations
         """
-
         if api.user.is_anonymous():
             return False
         else:
@@ -322,7 +321,7 @@ class View(grok.View):
         return self.context.absolute_url()
 
     def filesinsidePunt(self, item):
-        session_path = self.context.absolute_url_path() + '/' + item['id']
+        session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
         portal_catalog = getToolByName(self, 'portal_catalog')
 
         values = portal_catalog.searchResults(
@@ -356,8 +355,7 @@ class View(grok.View):
 
     def filesinsideSubPunt(self, item):
         portal_catalog = getToolByName(self, 'portal_catalog')
-        value = item['absolute_url']
-        folder_path = '/'+'/'.join(value.split('/')[3:])
+        folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
 
         values = portal_catalog.searchResults(
             portal_type=['genweb.organs.file', 'genweb.organs.document'],

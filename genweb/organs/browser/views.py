@@ -39,8 +39,7 @@ class Move(BrowserView):
         if action == 'movepunt':
             # move contents through the table
             ordering = getOrdering(self.context)
-
-            folder_path = self.context.absolute_url_path()
+            folder_path = '/'.join(self.context.getPhysicalPath())
             delta = int(self.request.form['delta'])
             ordering.moveObjectsByDelta(itemid, delta)
             # Els ids es troben ordenats, cal canviar el proposalPoint
@@ -57,10 +56,11 @@ class Move(BrowserView):
                 objecte.proposalPoint = unicode(str(index))
 
                 if len(objecte.items()) > 0:
+                    search_path = '/'.join(objecte.getPhysicalPath())
                     subpunts = portal_catalog.searchResults(
                         portal_type=['genweb.organs.subpunt'],
                         sort_on='getObjPositionInParent',
-                        path={'query': objecte.absolute_url_path(), 'depth': 1})
+                        path={'query': search_path, 'depth': 1})
 
                     subvalue = 1
                     rootnumber = objecte.proposalPoint
@@ -81,7 +81,7 @@ class Move(BrowserView):
                 )[0].getObject()
             ordering = getOrdering(punt)
             itemid = str(itemid.split('/')[1])
-            folder_path = punt.absolute_url_path()
+            folder_path = '/'.join(punt.getPhysicalPath())
 
             delta = int(self.request.form['delta'])
             ordering.moveObjectsByDelta(itemid, delta)
