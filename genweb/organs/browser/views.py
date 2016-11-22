@@ -315,13 +315,12 @@ class SessionAjax(BrowserView):
         """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
         """
         portal_catalog = getToolByName(self, 'portal_catalog')
-        value = data['absolute_url']
-        folder_path = '/'+'/'.join(value.split('/')[3:])
+        folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + data['id']
         values = portal_catalog.searchResults(
             portal_type='genweb.organs.subpunt',
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
-                  'depth': 2})
+                  'depth': 1})
 
         results = []
         for obj in values:
@@ -336,14 +335,13 @@ class SessionAjax(BrowserView):
 
     def filesinsidePunt(self, item):
         portal_catalog = getToolByName(self, 'portal_catalog')
-        value = item['absolute_url']
-        folder_path = '/'+'/'.join(value.split('/')[3:])
+        session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
 
         values = portal_catalog.searchResults(
             portal_type=['genweb.organs.file', 'genweb.organs.document'],
             sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 2})
+            path={'query': session_path,
+                  'depth': 1})
         results = []
         for obj in values:
             if obj.portal_type == 'genweb.organs.file':
@@ -370,8 +368,7 @@ class SessionAjax(BrowserView):
 
     def filesinsideSubPunt(self, item):
         portal_catalog = getToolByName(self, 'portal_catalog')
-        value = item['absolute_url']
-        folder_path = '/'+'/'.join(value.split('/')[3:])
+        folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
 
         values = portal_catalog.searchResults(
             portal_type=['genweb.organs.file', 'genweb.organs.document'],

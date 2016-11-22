@@ -236,7 +236,7 @@ class View(grok.View):
                   'depth': 1})
 
         results = []
-        # import ipdb;ipdb.set_trace()
+
         for obj in values:
             item = obj.getObject()
             results.append(dict(title=obj.Title,
