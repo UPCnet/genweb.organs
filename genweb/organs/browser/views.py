@@ -306,9 +306,7 @@ class SessionAjax(BrowserView):
                                     absolute_url=item.absolute_url(),
                                     proposalPoint=item.proposalPoint,
                                     state=item.estatsLlista,
-                                    id=obj.id,
-                                    show=True,
-                                    classe="ui-state-grey"))
+                                    id=obj.id))
         return results
 
     def SubpuntsInside(self, data):
@@ -333,7 +331,7 @@ class SessionAjax(BrowserView):
                                 id='/'.join(item.absolute_url_path().split('/')[-2:])))
         return results
 
-    def filesinsidePunt(self, item):
+    def filesinside(self, item):
         portal_catalog = getToolByName(self, 'portal_catalog')
         session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
 
@@ -345,58 +343,13 @@ class SessionAjax(BrowserView):
         results = []
         for obj in values:
             if obj.portal_type == 'genweb.organs.file':
-                if obj.hiddenfile is True:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer intern')
-                    labelClass = 'label label-default'
-                else:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer públic')
-                    labelClass = 'label label-default'
+                tipus = 'fa fa-file-pdf-o'
             else:
                 tipus = 'fa fa-file-text-o'
-                document = _(u'Document')
-                labelClass = 'label label-default'
 
             results.append(dict(title=obj.Title,
                                 absolute_url=obj.getURL(),
-                                classCSS=tipus,
-                                hidden=obj.hiddenfile,
-                                labelClass=labelClass,
-                                content=document))
-        return results
-
-    def filesinsideSubPunt(self, item):
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
-
-        values = portal_catalog.searchResults(
-            portal_type=['genweb.organs.file', 'genweb.organs.document'],
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 2})
-        results = []
-        for obj in values:
-            if obj.portal_type == 'genweb.organs.file':
-                if obj.hiddenfile is True:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer intern')
-                    labelClass = 'label label-default'
-                else:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer públic')
-                    labelClass = 'label label-default'
-            else:
-                tipus = 'fa fa-file-text-o'
-                document = _(u'Document')
-                labelClass = 'label label-default'
-
-            results.append(dict(title=obj.Title,
-                                absolute_url=obj.getURL(),
-                                classCSS=tipus,
-                                hidden=obj.hiddenfile,
-                                labelClass=labelClass,
-                                content=document))
+                                classCSS=tipus))
         return results
 
     def getSessionTitle(self):
@@ -412,4 +365,4 @@ class SessionAjax(BrowserView):
                 if estat == value.split('#')[0].rstrip(' '):
                     return '#' + value.split('#')[1].rstrip(' ').lstrip(' ')
         except:
-            return '#777777'
+            return '#777777'  # Grey color

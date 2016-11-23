@@ -16,7 +16,7 @@
               <span tal:condition="item/state" class="label nomarginLeft"
                     tal:content="item/state"
                     i18n:domain="genweb.organs" i18n:translate=""></span>
-              <tal:files tal:define="files python:view.filesinsidePunt(item)" tal:condition="files">
+              <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                 <ul style="list-style: none;">
                   <tal:documents repeat="item files">
                     <li class="filesinTable">
@@ -42,7 +42,7 @@
                       <span tal:condition="item/state" class="label nomarginLeft"
                             tal:content="item/state"
                             i18n:domain="genweb.organs" i18n:translate=""></span>
-                      <tal:files tal:define="files python:view.filesinsideSubPunt(item)" tal:condition="files">
+                      <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                         <ul style="list-style: none;">
                           <tal:documents repeat="item files">
                             <li class="filesinTable">

@@ -81,6 +81,19 @@
           $('.ui-state-highlight2').append('<span class="textFloating">  </span>');
       });
 
+      $('.addPunt').click(function(data){
+        $('#newPunt').html('<div class="input-group"><input type="text" class="form-control" placeholder="Títol del punt" aria-describedby="basic-addon1" style="margin-bottom:1px; margin-right:10px;"><button type="button" class="btn btn-success" id="proceed" style="margin-right:5px;">Crear Punt</button><button type="button" class="btn btn-danger" id="hideBox">Cancel·lar</button></div>');
+      });
+
+      $('#newPunt').on('click','#hideBox', function(){
+        $('#newPunt').html('');
+      });
+
+      $('#newPunt').on('click','#proceed', function(){
+        $('#newPunt').html('GOOO');
+      });
+
+
     });
 
     function injectPosition(event, ui) {
@@ -343,10 +356,10 @@
                 </tal:files>
               </div>
               <div class="llistaAfegir">
-                <a style="margin-right: 3px;"
+                <a style="margin-right: 3px;" class="addPunt"
                      data-title="Afegir nou punt"
                      tal:attributes="data-pk item/id"
-                     href="javascript:injectPosition();"><i class="fa fa-plus" aria-hidden="true">&nbsp;Punt</i></a>&nbsp;
+                     ><i class="fa fa-plus" aria-hidden="true">&nbsp;Punt</i></a>&nbsp;
                 <a style="margin-right: 3px;"
                      data-title="Afegir subpunt"
                      tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.subpunt""><i class="fa fa-plus" aria-hidden="true">&nbsp;Subpunt</i></a>
@@ -412,6 +425,7 @@
                 </tal:subpunts>
               </div>
             </td>
+            <div id="newPunt"></div>
           </li>
         </tal:documents>
       </ul>
