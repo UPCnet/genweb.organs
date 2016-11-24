@@ -283,9 +283,6 @@ class AddLogMail(BrowserView):
         self.request.response.redirect(self.context.absolute_url())
 
 
-# Notificar canvi -> Enviar missatge
-
-
 class SessionAjax(BrowserView):
 
     __call__ = ViewPageTemplateFile('session_ajax.pt')
