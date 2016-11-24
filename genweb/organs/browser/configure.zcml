@@ -43,7 +43,7 @@
       name="changeTitle"
       class=".changeTitle.changeTitle"
       layer="..interfaces.IGenwebOrgansLayer"
-      permission="zope2.View"
+      permission="cmf.ModifyPortalContent"
     />
 
     <browser:page
@@ -60,5 +60,14 @@
     name="fcmoveTable"
     layer="..interfaces.IGenwebOrgansLayer"
     permission="cmf.ModifyPortalContent" />
+
+
+  <browser:page
+    name="updateProposalPoints"
+    for="genweb.organs.content.sessio.ISessio"
+    layer="..interfaces.IGenwebOrgansLayer"
+    class=".views.Reload"
+    permission="cmf.ModifyPortalContent"
+    />
 
 </configure>

@@ -21,6 +21,34 @@ def getOrdering(context):
         return ordering
 
 
+def addEntryLog(context, message, toMail):
+    KEY = 'genweb.organs.logMail'
+    annotations = IAnnotations(context)
+    if annotations is not None:
+        try:
+            # Get data and append values
+            data = annotations.get(KEY)
+        except:
+            # If it's empty, initialize data
+            data = []
+
+        dateMail = datetime.now()
+
+        anon = api.user.is_anonymous()
+        if not anon:
+            username = api.user.get_current().id
+        else:
+            username = 'Anonymous user'
+
+        values = dict(dateMail=dateMail.strftime('%d/%m/%Y %H:%M:%S'),
+                      message=message,
+                      fromMail=username,
+                      toMail=toMail)
+
+        data.append(values)
+        annotations[KEY] = data
+
+
 class Move(BrowserView):
 
     def __call__(self):
@@ -269,7 +297,7 @@ class AddLogMail(BrowserView):
             except:
                 return
 
-            values = dict(dateMail=dateMail,
+            values = dict(dateMail=dateMail.strftime('%d/%m/%Y %H:%M:%S'),
                           message=_("Send mail"),
                           fromMail=username,
                           toMail=toMail)
@@ -363,3 +391,40 @@ class SessionAjax(BrowserView):
                     return '#' + value.split('#')[1].rstrip(' ').lstrip(' ')
         except:
             return '#777777'  # Grey color
+
+
+class Reload(BrowserView):
+
+    def __call__(self):
+        """ This call reassign the correct proposalPoints to the contents in this folder
+        """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        addEntryLog(self.context, 'Reload proposalPoints manually', '')  # add log
+        # agafo items ordenats!
+        puntsOrdered = portal_catalog.searchResults(
+            portal_type=['genweb.organs.punt'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+        index = 1
+        for item in puntsOrdered:
+            objecte = item.getObject()
+            objecte.proposalPoint = unicode(str(index))
+
+            if len(objecte.items()) > 0:
+                search_path = '/'.join(objecte.getPhysicalPath())
+                subpunts = portal_catalog.searchResults(
+                    portal_type=['genweb.organs.subpunt'],
+                    sort_on='getObjPositionInParent',
+                    path={'query': search_path, 'depth': 1})
+
+                subvalue = 1
+                rootnumber = objecte.proposalPoint
+                for value in subpunts:
+                    objecte = value.getObject()
+                    objecte.proposalPoint = unicode(str(rootnumber) + str('.') + str(subvalue))
+                    subvalue = subvalue+1
+
+            index = index + 1
+        self.request.response.redirect(self.context.absolute_url())
