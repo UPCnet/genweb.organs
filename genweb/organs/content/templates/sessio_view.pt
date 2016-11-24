@@ -90,19 +90,20 @@
       });
 
       $('#newPunt').on('click','#proceed', function(){
-        $('#newPunt').html('GOOO');
+        $('#newPunt').html('Adding element...');
       });
-
 
     });
 
-    function injectPosition(event, ui) {
-        //do your actions here
-        var params = {};
-        params.itemid = ui.item.attr('id');
-        params.action = 'movedelta';
-        params.delta = ui.item.index() - start
-        debugger;
+    function deleteElement(item){
+      var params = {};
+      params.item = item
+      params.action = 'delete';
+      $.ajax({
+          type: 'POST',
+          url: '@@removeElement',
+          data: params,
+      });
     }
 
   </script>
@@ -298,8 +299,6 @@
     </div>
   </div>
 
-
-
   <div style="float:right" class="">
     <br/>
       <a class="btn btn-info" style="margin-bottom: 20px;" href="++add++genweb.organs.punt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
@@ -318,12 +317,22 @@
             <td tal:condition="item/show">
               <div class="btn-group" role="group"
                    style="float: right;" aria-label="Edit actions">
-                <a style="margin-right: 3px;" type="button"
-                   class="edit label label-info" data-title="Edit"
-                   tal:attributes="href string:${item/absolute_url}/view"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 
-                <a type="button" class="remove label label-important" data-title="Delete"
-                   tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                <button type="button" class="label label-success" title="Edit">
+                   <a tal:attributes="href string:${item/absolute_url}/view">
+                   <i class="fa fa-pencil" aria-hidden="true"></i></a></button>
+                   
+                <button type="button" class="label label-important"
+                  data-title="Delete"  
+                  data-container="body"
+                  data-toggle="popover"
+                  data-placement="left" 
+                  data-html="true"
+                  tal:attributes="data-item item/id"
+                  data-trigger="focus"
+                  >
+                  <i class="fa fa-trash-o" aria-hidden="true"></i></button>
+
               </div>
               <div class="puntTitle">
                 <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
@@ -457,6 +466,17 @@
               // Refresh the page (just a simple reload for now)
               window.location.reload();
           }
+        });
+
+
+        $(function (event,ui){
+          debugger
+            var itemid = $(this).closest('.ui-state-grey').attr('id');
+
+            $("[data-toggle = 'popover']").popover({
+                content:'<a class="btn btn-default"> No </a>&nbsp;<a class="btn btn-danger" onclick=deleteElement('+ itemid +')> Si </a>'
+
+              }).data("popover").tip().addClass("");
         });
 
     });

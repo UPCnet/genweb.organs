@@ -49,6 +49,15 @@ def addEntryLog(context, message, toMail):
         annotations[KEY] = data
 
 
+class Delete(BrowserView):
+
+    def __call__(self):
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        action = self.request.form.get('action')
+        itemid = self.request.form.get('itemid')
+        import ipdb;ipdb.set_trace()
+
+
 class Move(BrowserView):
 
     def __call__(self):

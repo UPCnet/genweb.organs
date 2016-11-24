@@ -61,6 +61,12 @@
     layer="..interfaces.IGenwebOrgansLayer"
     permission="cmf.ModifyPortalContent" />
 
+  <browser:page
+    for="*"
+    class=".views.Delete"
+    name="removeElement"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="cmf.ModifyPortalContent" />
 
   <browser:page
     name="updateProposalPoints"
