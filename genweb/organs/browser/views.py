@@ -55,6 +55,7 @@ class Delete(BrowserView):
         portal_catalog = getToolByName(self, 'portal_catalog')
         action = self.request.form.get('action')
         itemid = self.request.form.get('item')
+        import ipdb;ipdb.set_trace()
         if action == 'delete':
             folder_path = '/'.join(self.context.getPhysicalPath())
             deleteItem = portal_catalog.searchResults(
@@ -62,9 +63,7 @@ class Delete(BrowserView):
                 path={'query': folder_path, 'depth': 1},
                 id=itemid)[0].getObject()
             api.content.delete(deleteItem)
-
             self.request.response.redirect(self.context.absolute_url() + '/updateProposalPoints')
-            self.request.response.redirect(self.context.absolute_url())
 
 
 class Move(BrowserView):

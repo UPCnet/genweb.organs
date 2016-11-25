@@ -324,14 +324,13 @@
                    <i class="fa fa-pencil" aria-hidden="true"></i></a></button>
 
                 <button type="button" class="label label-important"
-                  data-title="Delete"
                   data-container="body"
                   data-toggle="popover"
                   data-placement="left"
                   data-html="true"
-                  tal:attributes="data-item item/id"
                   data-trigger="focus"
-                  >
+                  data-original-title="Delete"
+                  tal:attributes="data-item item/id">
                   <i class="fa fa-trash-o" aria-hidden="true"></i></button>
 
               </div>
@@ -470,14 +469,35 @@
         });
 
 
-        $("button.label.label-important").on("click", function(e) {
-            e.preventDefault();
-            var itemid = $(this).data()['item'];
-            var message =  '<a class="btn btn-default"> No </a>&nbsp;<a class="btn btn-danger" onclick=deleteElement('+ itemid +')> Si </a>'
-            $("[data-toggle = 'popover']").popover({
-                content: message
-              }).data("popover").tip().addClass("");
-        });
+
+$('[data-toggle="popover"]').popover({
+});
+
+$('button.label.label-important').on('click', function (e) {
+    $('[data-toggle="popover"]').each(function () {
+        //the 'is' for buttons that trigger popups
+        //the 'has' for icons within a button that triggers a popup
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            $(this).popover('hide');
+        } else {
+          var name=$(this).data()['item'];
+          var message='<a class="btn btn-default"> No </a>&nbsp;<a class="btn btn-danger" onclick=deleteElement('+ name +')> Si </a>'
+          console.log(message)
+          // debugger
+          $("[data-toggle='popover']").popover().data("popover").tip().find('.popover-content').html(message);
+        }
+    });
+});
+
+        // $("button.label.label-important").each(function(){
+        //    // $("[data-toggle='popover']").not(this).popover('hide');
+        //     var name = $(this).data()['item'];
+        //     console.log(name)
+        //     var message =  '<a class="btn btn-default"> No </a>&nbsp;<a class="btn btn-danger" onclick=deleteElement('+ name +')> Si </a>'
+        //     $("[data-toggle='popover']").popover({
+        //         content: message
+        //       }).data("popover");
+        // });
 
     });
   </script>
