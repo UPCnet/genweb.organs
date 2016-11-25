@@ -55,7 +55,7 @@ class Delete(BrowserView):
         portal_catalog = getToolByName(self, 'portal_catalog')
         action = self.request.form.get('action')
         itemid = self.request.form.get('itemid')
-        import ipdb;ipdb.set_trace()
+        print self.request.form
 
 
 class Move(BrowserView):
