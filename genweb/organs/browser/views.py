@@ -55,15 +55,47 @@ class Delete(BrowserView):
         portal_catalog = getToolByName(self, 'portal_catalog')
         action = self.request.form.get('action')
         itemid = self.request.form.get('item')
-        import ipdb;ipdb.set_trace()
-        if action == 'delete':
-            folder_path = '/'.join(self.context.getPhysicalPath())
-            deleteItem = portal_catalog.searchResults(
-                portal_type=['genweb.organs.punt'],
-                path={'query': folder_path, 'depth': 1},
-                id=itemid)[0].getObject()
-            api.content.delete(deleteItem)
-            self.request.response.redirect(self.context.absolute_url() + '/updateProposalPoints')
+        try:
+            if action == 'delete':
+                folder_path = '/'.join(self.context.getPhysicalPath())
+                deleteItem = portal_catalog.searchResults(
+                    portal_type=['genweb.organs.punt'],
+                    path={'query': folder_path, 'depth': 1},
+                    id=itemid)[0].getObject()
+                api.content.delete(deleteItem)
+
+                portal_catalog = getToolByName(self, 'portal_catalog')
+                folder_path = '/'.join(self.context.getPhysicalPath())
+                addEntryLog(self.context, 'Reload proposalPoints manually', '')  # add log
+                # agafo items ordenats!
+
+                puntsOrdered = portal_catalog.searchResults(
+                    portal_type=['genweb.organs.punt'],
+                    sort_on='getObjPositionInParent',
+                    path={'query': folder_path,
+                          'depth': 1})
+                index = 1
+                for item in puntsOrdered:
+                    objecte = item.getObject()
+                    objecte.proposalPoint = unicode(str(index))
+
+                    if len(objecte.items()) > 0:
+                        search_path = '/'.join(objecte.getPhysicalPath())
+                        subpunts = portal_catalog.searchResults(
+                            portal_type=['genweb.organs.subpunt'],
+                            sort_on='getObjPositionInParent',
+                            path={'query': search_path, 'depth': 1})
+
+                        subvalue = 1
+                        rootnumber = objecte.proposalPoint
+                        for value in subpunts:
+                            objecte = value.getObject()
+                            objecte.proposalPoint = unicode(str(rootnumber) + str('.') + str(subvalue))
+                            subvalue = subvalue+1
+
+                    index = index + 1
+        except:
+            self.request.response.redirect(self.context.absolute_url())
 
 
 class Move(BrowserView):
@@ -419,6 +451,7 @@ class Reload(BrowserView):
         folder_path = '/'.join(self.context.getPhysicalPath())
         addEntryLog(self.context, 'Reload proposalPoints manually', '')  # add log
         # agafo items ordenats!
+
         puntsOrdered = portal_catalog.searchResults(
             portal_type=['genweb.organs.punt'],
             sort_on='getObjPositionInParent',
