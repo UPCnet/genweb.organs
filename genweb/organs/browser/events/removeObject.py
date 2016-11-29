@@ -13,65 +13,79 @@ from zope.interface import implements
 from transaction.interfaces import ISavepointDataManager
 from transaction._transaction import AbortSavepoint
 import transaction
+from zope.globalrequest import getRequest
 
 
-class RedirectDataManager(object):
+def deletion_confirmed():
+    """Check if we are in the context of a delete confirmation event.
+    We need to be sure we're in the righ event to process it, as
+    `IObjectRemovedEvent` is raised up to three times: the first one
+    when the delete confirmation window is shown; the second when we
+    select the 'Delete' button; and the last, as part of the
+    redirection request to the parent container. Why? I have absolutely
+    no idea. If we select 'Cancel' after the first event, then no more
+    events are fired.
+    """
+    request = getRequest()
+    is_delete_confirmation = 'delete_confirmation' in request.URL
+    is_post = request.REQUEST_METHOD == 'POST'
+    form_being_submitted = 'form.submitted' in request.form
+    form_cancelled = 'form.button.Cancel' in request.form
+    form_delete = 'form.button.Delete' in request.form
 
-    implements(ISavepointDataManager)
+    return is_delete_confirmation and is_post and form_being_submitted and not form_cancelled or form_delete
 
-    def __init__(self, request, url):
-        self.request = request
-        self.url = url
-        # Use the default thread transaction manager.
-        self.transaction_manager = transaction.manager
 
-    def tpc_begin(self, transaction):
-        print 'tcp_begin'
-        pass
+@grok.subscribe(IPunt, IObjectRemovedEvent)
+def removePunt(alias, event):
+    """When the alias is created,
+    """
+    if deletion_confirmed():
+        print "------ Deleting..."
+        print alias.__parent__.objectIds()
 
-    def tpc_finish(self, transaction):
-        print 'tcp_finish ' + self.url
-        self.request.response.redirect(self.url)
+        portal_catalog = getToolByName(alias, 'portal_catalog')
+        folder_path = '/'.join(alias.__parent__.getPhysicalPath())
+        # addEntryLog(alias, 'Reload proposalPoints manually', '')  # add log
+        # agafo items ordenats!
 
-    def tpc_abort(self, transaction):
-        print 'tcp_abort ' + self.url
-        self.request.response.redirect(self.url)
+        puntsOrdered = portal_catalog.searchResults(
+            portal_type=['genweb.organs.punt'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+        index = 1
+        for item in puntsOrdered:
+            objecte = item.getObject()
+            objecte.proposalPoint = unicode(str(index))
+            print "title: " +str(item.Title) + ' -- point:  ' + str(objecte.proposalPoint)
+            objecte.reindexObject()
 
-    def commit(self, transaction):
-        # On success after delete_confirmation!
-        # la buena
+            if len(objecte.items()) > 0:
+                search_path = '/'.join(objecte.getPhysicalPath())
+                subpunts = portal_catalog.searchResults(
+                    portal_type=['genweb.organs.subpunt'],
+                    sort_on='getObjPositionInParent',
+                    path={'query': search_path, 'depth': 1})
+
+                subvalue = 1
+                rootnumber = objecte.proposalPoint
+                for value in subpunts:
+                    newobjecte = value.getObject()
+                    newobjecte.proposalPoint = unicode(str(rootnumber) + str('.') + str(subvalue))
+                    subvalue = subvalue+1
+
+            index = index + 1
+
+        print alias.__parent__.objectIds()
+        for a in puntsOrdered:
+            print (a.getObject().proposalPoint)
         # import ipdb;ipdb.set_trace()
-        print 'DELETED....'
-        pass
-
-    def abort(self, transaction):
-        print 'abort'
-        pass
-
-    def tpc_vote(self, transaction):
-        print 'tcp_vote'
-        pass
-
-    def sortKey(self):
-        return id(self)
-
-    def savepoint(self):
-        """
-        This is just here to make it possible to enter a savepoint with this manager active.
-        """
-        print 'savepoint'
-        return AbortSavepoint(self, transaction.get())
 
 
-def redirect_to_trial(obj, event):
-    request = getattr(obj, 'REQUEST', None)
-    if request:
-        print 'request'
-        if obj.portal_type == 'genweb.organs.punt':
-            trial_url = obj.__parent__.absolute_url()
-        if obj.portal_type == 'genweb.organs.subpunt':
-            trial_url = obj.__parent__.__parent__.absolute_url()
-        print trial_url
-        transaction.get().join(RedirectDataManager(request, trial_url))
-    else:
-        print 'not request'
+@grok.subscribe(ISubpunt, IObjectRemovedEvent)
+def removeSubpunt(alias, event):
+    """When the alias is created,
+    """
+    if deletion_confirmed():
+        print "XXXXX Deleting..."

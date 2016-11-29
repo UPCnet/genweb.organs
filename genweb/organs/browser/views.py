@@ -7,8 +7,17 @@ from Products.CMFCore.utils import getToolByName
 from plone import api
 from time import strftime
 from genweb.organs import _
+import pkg_resources
+from zope.interface import alsoProvides
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from plone.folder.interfaces import IExplicitOrdering
+try:
+    pkg_resources.get_distribution('plone4.csrffixes')
+except pkg_resources.DistributionNotFound:
+    CSRF = False
+else:
+    from plone.protect.interfaces import IDisableCSRFProtection
+    CSRF = True
 
 
 def getOrdering(context):
@@ -447,11 +456,12 @@ class Reload(BrowserView):
     def __call__(self):
         """ This call reassign the correct proposalPoints to the contents in this folder
         """
+        if CSRF:
+            alsoProvides(self.request, IDisableCSRFProtection)
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         addEntryLog(self.context, 'Reload proposalPoints manually', '')  # add log
         # agafo items ordenats!
-
         puntsOrdered = portal_catalog.searchResults(
             portal_type=['genweb.organs.punt'],
             sort_on='getObjPositionInParent',
