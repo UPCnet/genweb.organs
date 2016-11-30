@@ -236,7 +236,6 @@ class View(grok.View):
                   'depth': 1})
 
         results = []
-
         for obj in values:
             item = obj.getObject()
             results.append(dict(title=obj.Title,

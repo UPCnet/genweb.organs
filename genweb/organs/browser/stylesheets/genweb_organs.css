@@ -120,16 +120,31 @@ input#form-widgets-agreement {width: 98%;}
 }
 
 #sortable li {
-    margin: 0 3px 3px 3px;
-    padding: 0.4em;
+    margin: 0 3px 9px 3px;
+    padding: 1em;
     padding-left: 1.5em;
     font-size: 14px;
+    border-radius: 5px;
     /*height: 27px;*/
 }
 
 #sortable li span {
-    position: absolute;
-    margin-left: -1.3em;
+   /* position: absolute;
+    margin-left: -1.3em;*/
+}
+
+span.proposalNumber {
+    background-color: #007BC0;
+    padding: 4px 8px;
+    border-radius: 50%;
+    color: white;
+    margin-left: -10px;
+}
+
+span.proposalNumberSubpunt{
+    color: #007BC0;
+    margin-left: -10px;
+    
 }
 
 #sortable .ui-state-highlight {
@@ -159,7 +174,8 @@ input#form-widgets-agreement {width: 98%;}
 }
 
 .ui-state-grey:hover {
-    background-color: #f0f0f0;
+    border: 1px dotted #97E3FA;
+    background-color: #effbff;
     cursor: move;
 }
 
@@ -176,7 +192,7 @@ input#form-widgets-agreement {width: 98%;}
 
 
 .llistaAfegir {
-    border-top: 1px solid #777777;
+    /*border-top: 1px solid #777777;*/
     margin-top:10px;
     color: #333;
     font-family: Arial,Helvetica,sans-serif;
@@ -243,3 +259,41 @@ span.label.nomarginLeft  {
 }
 
 
+.fa {
+    font-family: Arial, Helvetica, sans-serif!important;
+}
+
+
+.fa:before {
+    content: "\f067";
+    font-family: FontAwesome;
+}
+
+.editable-click, a.editable-click, a.editable-click:hover {
+    text-decoration: none;
+    border-bottom: dotted 1px #A6C7FD!important;
+    padding: 2px 4px;
+}
+
+a.editable-click:hover:after {
+    content: "\f040";
+    color: #007BC0;
+    font-size: 12px;
+    font-family: Fontawesome;
+
+}
+
+.subpuntTitle:hover {
+    background-color: white;
+    border-color: #007BC0;
+}
+
+label.label.label-default {
+    color: #777777;
+    font-weight: 500;
+    background-color: #eee;
+    margin-right: 3px;
+    text-shadow:none!important;
+}
+
+label.label.label-default{padding: 2px 4px!important;}

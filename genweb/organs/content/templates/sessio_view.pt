@@ -313,7 +313,7 @@
                    tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
               </div>
               <div class="puntTitle">
-                <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
+                <span class="proposalNumber" tal:content="item/proposalPoint"></span>
                 <a tal:attributes="data-pk item/id"
                    data-type="text" data-url="changeTitle"
                    class="editTitle editable editable-click titleSize">
@@ -370,7 +370,7 @@
                            tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                       </div>
                       <div class="subpuntTitle">
-                        <tal:omit-tag tal:content="item/proposalPoint"></tal:omit-tag>
+	                <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
                         <a tal:attributes="data-pk item/id"
                            data-type="text" data-url="changeTitle"
                            class="editTitle editable editable-click titleSize">
