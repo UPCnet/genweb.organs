@@ -7,8 +7,17 @@ from Products.CMFCore.utils import getToolByName
 from plone import api
 from time import strftime
 from genweb.organs import _
+import pkg_resources
+from zope.interface import alsoProvides
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from plone.folder.interfaces import IExplicitOrdering
+try:
+    pkg_resources.get_distribution('plone4.csrffixes')
+except pkg_resources.DistributionNotFound:
+    CSRF = False
+else:
+    from plone.protect.interfaces import IDisableCSRFProtection
+    CSRF = True
 
 
 def getOrdering(context):
@@ -19,6 +28,83 @@ def getOrdering(context):
         if not IExplicitOrdering.providedBy(ordering):
             return None
         return ordering
+
+
+def addEntryLog(context, message, toMail):
+    KEY = 'genweb.organs.logMail'
+    annotations = IAnnotations(context)
+    if annotations is not None:
+        try:
+            # Get data and append values
+            data = annotations.get(KEY)
+        except:
+            # If it's empty, initialize data
+            data = []
+
+        dateMail = datetime.now()
+
+        anon = api.user.is_anonymous()
+        if not anon:
+            username = api.user.get_current().id
+        else:
+            username = 'Anonymous user'
+
+        values = dict(dateMail=dateMail.strftime('%d/%m/%Y %H:%M:%S'),
+                      message=message,
+                      fromMail=username,
+                      toMail=toMail)
+
+        data.append(values)
+        annotations[KEY] = data
+
+
+class Delete(BrowserView):
+
+    def __call__(self):
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        action = self.request.form.get('action')
+        itemid = self.request.form.get('item')
+        try:
+            if action == 'delete':
+                folder_path = '/'.join(self.context.getPhysicalPath())
+                deleteItem = portal_catalog.searchResults(
+                    portal_type=['genweb.organs.punt'],
+                    path={'query': folder_path, 'depth': 1},
+                    id=itemid)[0].getObject()
+                api.content.delete(deleteItem)
+
+                portal_catalog = getToolByName(self, 'portal_catalog')
+                folder_path = '/'.join(self.context.getPhysicalPath())
+                addEntryLog(self.context, 'Reload proposalPoints manually', '')  # add log
+                # agafo items ordenats!
+
+                puntsOrdered = portal_catalog.searchResults(
+                    portal_type=['genweb.organs.punt'],
+                    sort_on='getObjPositionInParent',
+                    path={'query': folder_path,
+                          'depth': 1})
+                index = 1
+                for item in puntsOrdered:
+                    objecte = item.getObject()
+                    objecte.proposalPoint = unicode(str(index))
+
+                    if len(objecte.items()) > 0:
+                        search_path = '/'.join(objecte.getPhysicalPath())
+                        subpunts = portal_catalog.searchResults(
+                            portal_type=['genweb.organs.subpunt'],
+                            sort_on='getObjPositionInParent',
+                            path={'query': search_path, 'depth': 1})
+
+                        subvalue = 1
+                        rootnumber = objecte.proposalPoint
+                        for value in subpunts:
+                            objecte = value.getObject()
+                            objecte.proposalPoint = unicode(str(rootnumber) + str('.') + str(subvalue))
+                            subvalue = subvalue+1
+
+                    index = index + 1
+        except:
+            self.request.response.redirect(self.context.absolute_url())
 
 
 class Move(BrowserView):
@@ -269,7 +355,7 @@ class AddLogMail(BrowserView):
             except:
                 return
 
-            values = dict(dateMail=dateMail,
+            values = dict(dateMail=dateMail.strftime('%d/%m/%Y %H:%M:%S'),
                           message=_("Send mail"),
                           fromMail=username,
                           toMail=toMail)
@@ -281,9 +367,6 @@ class AddLogMail(BrowserView):
         # session, sender, recipients, body
 
         self.request.response.redirect(self.context.absolute_url())
-
-
-# Notificar canvi -> Enviar missatge
 
 
 class SessionAjax(BrowserView):
@@ -306,9 +389,7 @@ class SessionAjax(BrowserView):
                                     absolute_url=item.absolute_url(),
                                     proposalPoint=item.proposalPoint,
                                     state=item.estatsLlista,
-                                    id=obj.id,
-                                    show=True,
-                                    classe="ui-state-grey"))
+                                    id=obj.id))
         return results
 
     def SubpuntsInside(self, data):
@@ -333,7 +414,7 @@ class SessionAjax(BrowserView):
                                 id='/'.join(item.absolute_url_path().split('/')[-2:])))
         return results
 
-    def filesinsidePunt(self, item):
+    def filesinside(self, item):
         portal_catalog = getToolByName(self, 'portal_catalog')
         session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
 
@@ -345,58 +426,13 @@ class SessionAjax(BrowserView):
         results = []
         for obj in values:
             if obj.portal_type == 'genweb.organs.file':
-                if obj.hiddenfile is True:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer intern')
-                    labelClass = 'label label-default'
-                else:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer públic')
-                    labelClass = 'label label-default'
+                tipus = 'fa fa-file-pdf-o'
             else:
                 tipus = 'fa fa-file-text-o'
-                document = _(u'Document')
-                labelClass = 'label label-default'
 
             results.append(dict(title=obj.Title,
                                 absolute_url=obj.getURL(),
-                                classCSS=tipus,
-                                hidden=obj.hiddenfile,
-                                labelClass=labelClass,
-                                content=document))
-        return results
-
-    def filesinsideSubPunt(self, item):
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
-
-        values = portal_catalog.searchResults(
-            portal_type=['genweb.organs.file', 'genweb.organs.document'],
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 2})
-        results = []
-        for obj in values:
-            if obj.portal_type == 'genweb.organs.file':
-                if obj.hiddenfile is True:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer intern')
-                    labelClass = 'label label-default'
-                else:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer públic')
-                    labelClass = 'label label-default'
-            else:
-                tipus = 'fa fa-file-text-o'
-                document = _(u'Document')
-                labelClass = 'label label-default'
-
-            results.append(dict(title=obj.Title,
-                                absolute_url=obj.getURL(),
-                                classCSS=tipus,
-                                hidden=obj.hiddenfile,
-                                labelClass=labelClass,
-                                content=document))
+                                classCSS=tipus))
         return results
 
     def getSessionTitle(self):
@@ -412,4 +448,43 @@ class SessionAjax(BrowserView):
                 if estat == value.split('#')[0].rstrip(' '):
                     return '#' + value.split('#')[1].rstrip(' ').lstrip(' ')
         except:
-            return '#777777'
+            return '#777777'  # Grey color
+
+
+class Reload(BrowserView):
+
+    def __call__(self):
+        """ This call reassign the correct proposalPoints to the contents in this folder
+        """
+        if CSRF:
+            alsoProvides(self.request, IDisableCSRFProtection)
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        addEntryLog(self.context, 'Reload proposalPoints manually', '')  # add log
+        # agafo items ordenats!
+        puntsOrdered = portal_catalog.searchResults(
+            portal_type=['genweb.organs.punt'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+        index = 1
+        for item in puntsOrdered:
+            objecte = item.getObject()
+            objecte.proposalPoint = unicode(str(index))
+
+            if len(objecte.items()) > 0:
+                search_path = '/'.join(objecte.getPhysicalPath())
+                subpunts = portal_catalog.searchResults(
+                    portal_type=['genweb.organs.subpunt'],
+                    sort_on='getObjPositionInParent',
+                    path={'query': search_path, 'depth': 1})
+
+                subvalue = 1
+                rootnumber = objecte.proposalPoint
+                for value in subpunts:
+                    objecte = value.getObject()
+                    objecte.proposalPoint = unicode(str(rootnumber) + str('.') + str(subvalue))
+                    subvalue = subvalue+1
+
+            index = index + 1
+        self.request.response.redirect(self.context.absolute_url())

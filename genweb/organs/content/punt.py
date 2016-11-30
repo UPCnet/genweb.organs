@@ -14,7 +14,6 @@ from zope.interface import directlyProvides
 import unicodedata
 from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 
-
 grok.templatedir("templates")
 
 
@@ -107,17 +106,6 @@ class Edit(dexterity.EditForm):
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
         self.widgets['proposalPoint'].mode = DISPLAY_MODE
-
-
-# class Add(dexterity.AddForm):
-#     """A standard edit form.
-#     """
-#     grok.name('genweb.organs.punt')
-#     grok.context(IPunt)
-#     grok.require('cmf.AddPortalContent')
-
-#     def add(self, object):
-#         pass
 
 
 class View(grok.View):

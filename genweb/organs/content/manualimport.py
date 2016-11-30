@@ -15,6 +15,9 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope import schema
 from collections import defaultdict
 import re
+from Products.CMFCore.utils import getToolByName
+import transaction
+
 
 grok.templatedir("templates")
 
@@ -69,11 +72,11 @@ class Message(form.SchemaForm):
         formData, errors = self.extractData()
         lang = self.context.language
         if formData['message'] is None:
-            message = 'Falten camps obligatoris'
+            message = 'Falten els valors dels punts. Cap canvi realitzat.'
             if lang == 'es':
-                message = "Faltan campos obligatorios"
+                message = "Faltan los valores de los puntos. No se ha realizado ningún cambio."
             if lang == 'en':
-                message = "Required fields missing"
+                message = "Required values missing. No changes made."
             IStatusMessage(self.request).addStatusMessage(message, type="error")
             return self.request.response.redirect(self.context.absolute_url())
 
@@ -110,47 +113,50 @@ class Message(form.SchemaForm):
             # Creating new objects
 
             text = formData['message']
-            # nodes = []
+            portal_catalog = getToolByName(self, 'portal_catalog')
+            folder_path = '/'.join(self.context.getPhysicalPath())
+            puntsInFolder = portal_catalog.searchResults(
+                portal_type=['genweb.organs.punt'],
+                sort_on='getObjPositionInParent',
+                path={'query': folder_path,
+                      'depth': 1})
+            index = len(puntsInFolder) + 1
 
             content = text.splitlines()
-            # for line in content:
-            #     for node in line.split(','):
-            #         nodes.append(node.rstrip().lstrip())
+            subindex = 0
+            previousPuntContainer = None
+            for line in content:
+                if line.startswith((' ', '\t')) is False:
+                    # No hi ha blanks, es un punt
+                    line = line.lstrip().rstrip()  # esborrem tots els blanks
+                    obj = api.content.create(
+                        type='genweb.organs.punt',
+                        title=line,
+                        container=self.context)
+                    obj.proposalPoint = unicode(str(index))
+                    index = index + 1
+                    subindex = 1
+                    previousPuntContainer = obj
+                    transaction.commit()
+                else:
+                    # starts with blanks, es un subpunt
+                    line = line.lstrip().rstrip()  # esborrem tots els blanks
+                    obj = api.content.create(
+                        type='genweb.organs.subpunt',
+                        title=line,
+                        container=previousPuntContainer)
+                    # TODO: Optimize previous line! runs slower!
 
-            # bTree = defaultdict(list)
-            # for father, children in zip(nodes[0::2], nodes[0::2]):
-            #     print 'Inserting (' + father + ', ' + children + ')'
-            #     bTree[father].append(children)
-            # print(bTree)
+                    obj.proposalPoint = unicode(str(index-1) + str('.') + str(subindex))
+                    subindex = subindex + 1
 
-            # depth = 0
-            # root = {"punt": "root", "subpunt": []}
-            # parents = []
-            # node = root
-            # for line in content:
-            #     line = line.rstrip()
-            #     # import ipdb;ipdb.set_trace()
-            #     newDepth = re.search('\S', line).start() +1
-
-            #     print newDepth, line
-            #     # if the new depth is shallower than previous, we need to remove items from the list
-            #     if newDepth < depth:
-            #         parents = parents[:newDepth]
-            #     # if the new depth is deeper, we need to add our previous node
-            #     elif newDepth == depth + 1:
-            #         parents.append(node)
-            #     # levels skipped, not possible
-            #     # elif newDepth > depth + 1:
-            #     #     raise Exception("Invalid file")
-            #     depth = newDepth
-
-            #     # create the new node
-            #     node = {"punt": line.strip(), "subpunt":[]}
-            #     # add the new node into its parent's children
-            #     parents[-1]["subpunt"].append(node)
-
-            # json_list = root["subpunt"]
-            # print json_list
+            message = "S'han creats els punts indicats."
+            if lang == 'es':
+                message = "Se han creado los puntos indicados."
+            if lang == 'en':
+                message = "Indicated fields have been created."
+            IStatusMessage(self.request).addStatusMessage(message, type="success")
+            return self.request.response.redirect(self.context.absolute_url())
 
     @button.buttonAndHandler(_('Cancel'))
     def handleCancel(self, action):
