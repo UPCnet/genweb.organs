@@ -81,19 +81,35 @@
           $('.ui-state-highlight2').append('<span class="textFloating">  </span>');
       });
 
-      $('.addPunt').click(function(data){
-        $('#newPunt').html('<div class="input-group"><input type="text" class="form-control" placeholder="Títol del punt" aria-describedby="basic-addon1" style="margin-bottom:1px; margin-right:10px;"><button type="button" class="btn btn-success" id="proceed" style="margin-right:5px;">Crear Punt</button><button type="button" class="btn btn-danger" id="hideBox">Cancel·lar</button></div>');
+      $('.addPunt').click(function(e){
+        $('div#newPunt').html('<div class="input-group"><input type="text" class="form-control" placeholder="Títol del punt" aria-describedby="basic-addon1" style="margin-bottom:1px; margin-right:10px;"><button type="button" class="btn btn-success" id="proceed" style="margin-right:5px;">Afegir Punt</button><button type="button" class="btn btn-danger" id="hideBox">Cancel·lar</button></div>');
       });
 
-      $('#newPunt').on('click','#hideBox', function(){
-        $('#newPunt').html('');
+      $('div#newPunt').on('click','#hideBox', function(){
+        $('div#newPunt').html('');
       });
 
-      $('#newPunt').on('click','#proceed', function(){
-        $('#newPunt').html('Adding element...');
+      $('div#newPunt').on('click','#proceed', function(){
+        $('div#newPunt').html('Adding element...');
       });
+
+        // $('div#newPunt').html('<div class="input-group"><input type="text" class="form-control" placeholder="Títol del punt" aria-describedby="basic-addon1" style="margin-bottom:1px; margin-right:10px;"><button type="button" class="btn btn-success" id="proceed" style="margin-right:5px;">Crear Punt</button><button type="button" class="btn btn-danger" id="hideBox">Cancel·lar</button></div>');
+
+
+        // $('button.addPunt').on('click', function (e) {
+        //     $('[data-toggle="popover"]').each(function () {
+        //         if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+        //             $(this).popover('hide');
+        //         } else {
+        //          $('div#newPunt').html('<div class="input-group"><input type="text" class="form-control" placeholder="Títol del punt" aria-describedby="basic-addon1" style="margin-bottom:1px; margin-right:10px;"><button type="button" class="btn btn-success" id="proceed" style="margin-right:5px;">Crear Punt</button><button type="button" class="btn btn-danger" id="hideBox">Cancel·lar</button></div>');
+        //         }
+        //     });
+        // });
 
     });
+
+
+
 
     function deleteElement(item){
       var params = {};
@@ -322,17 +338,26 @@
       <ul id="sortable">
         <tal:documents repeat="item items">
           <li class="ui-state-grey" tal:attributes="id item/id; class item/classe" >
+
             <td tal:condition="item/show">
               <div class="btn-group" role="group"
                    style="float: right;" aria-label="Edit actions">
+                <button type="button" title="Afegir nou punt" class="addPunt label label-default">
+                    <i class="fa fa-plus" aria-hidden="true">&nbsp;Punt</i></button>
 
-                <button type="button" class="remove label label-success" title="Edit">
+                <button type="button" class="edit label label-success" title="Edit">
                    <a tal:attributes="href string:${item/absolute_url}/view">
                    <i class="fa fa-pencil" aria-hidden="true"></i></a></button>
 
-                <button type="button" class="label label-success" title="Add">
-                   <a tal:attributes="href string:${item/absolute_url}">
-                   <i class="fa fa-plus" aria-hidden="true"></i></a></button>
+                         <button type="button" class="addinpunt label label-success"
+                                        data-container="body"
+                                        data-toggle="popover"
+                                        data-placement="bottom"
+                                        data-html="true"
+                                        data-trigger="focus"
+                                        tal:attributes="data-item string:${item/id}/"
+                                        data-original-title="Afegir element al punt">
+                              <i class="fa fa-plus" aria-hidden="true"></i></button>
                 
                 <button type="button" class="remove label label-important"
                   data-container="body"
@@ -383,21 +408,8 @@
                   </ul>
                 </tal:files>
               </div>
-              <!--<div class="llistaAfegir">
-                <a style="margin-right: 3px;" class="addPunt"
-                     data-title="Afegir nou punt"
-                     tal:attributes="data-pk item/id"
-                     ><i class="fa fa-plus" aria-hidden="true">&nbsp;Punt</i></a>&nbsp;
-                <a style="margin-right: 3px;"
-                     data-title="Afegir subpunt"
-                     tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.subpunt""><i class="fa fa-plus" aria-hidden="true">&nbsp;Subpunt</i></a>
-                <a style="margin-right: 3px;"
-                     data-title="Afegir document"
-                     tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.document""><i class="fa fa-plus" aria-hidden="true">&nbsp;Document</i></a>
-                <a style="margin-right: 3px;"
-                     data-title="Afegir subpunt"
-                     tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.file"><i class="fa fa-plus" aria-hidden="true">&nbsp;Fitxer</i></a>
-              </div>-->
+                
+
               <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" class="sortable2">
                 <tal:subpunts repeat="item subpunts">
                   <ol class="li_subgrups" tal:attributes="id item/id">
@@ -428,20 +440,7 @@
                                         <i class="fa fa-trash-o" aria-hidden="true"></i></button>
                       </div>
 
-                      <div>
-                         <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                         <span class="caret"></span>
-                         <span class="sr-only">Toggle Dropdown</span>
-                         </button>
-                         <ul class="dropdown-menu">
-                           <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li>
-                           <li><a href="#">Something else here</a></li>
-                           <li><a href="#">Separated link</a></li>
-                         </ul>
-                      </div>
-
-
-                      <div class="subpuntTitle">
+                  <div class="subpuntTitle">
 	                <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
                         <a tal:attributes="data-pk item/id"
                            data-type="text" data-url="changeTitle"
@@ -477,21 +476,13 @@
                           </ul>
                         </tal:files>
                       </div>
-                      <!--<div class="llistaAfegir">
-                        <a style="margin-right: 3px;"
-                             data-title="Afegir document"
-                             tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.document"><i class="fa fa-plus" aria-hidden="true">&nbsp;Document</i></a>
-                        <a style="margin-right: 3px;"
-                             data-title="Afegir subpunt"
-                             tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.file"><i class="fa fa-plus" aria-hidden="true">&nbsp;Fitxer</i></a>
-                      </div>-->
                     </td>
                   </ol>
                 </tal:subpunts>
               </div>
             </td>
-            <div id="newPunt"></div>
           </li>
+            <div id="newPunt"></div>
         </tal:documents>
       </ul>
   </div>
@@ -545,6 +536,20 @@
                 } else {
                   var name=$(this).data()['item'];
                   var message='<li><a class="btn btn-success" href="'+ name +'++add++genweb.organs.file"><i class="fa fa-file-pdf-o"></i>&nbsp;Fitxer </a></li><li><a class="btn btn-info" href="'+ name +'++add++genweb.organs.document"><i class="fa fa-file-text-o"></i>&nbsp;Document </a></li>'
+                  console.log(message)
+                  $(this).attr('data-content',message);
+                  $(this).popover('show');
+                }
+            });
+        });
+
+        $('button.addinpunt').on('click', function (e) {
+            $('[data-toggle="popover"]').each(function () {
+                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                    $(this).popover('hide');
+                } else {
+                  var name=$(this).data()['item'];
+                  var message='<li><a class="btn btn-success" href="'+ name +'++add++genweb.organs.subpunt"><i class="fa fa-file-pdf-o"></i>&nbsp;Subpunt </a></li><li><a class="btn btn-success" href="'+ name +'++add++genweb.organs.file"><i class="fa fa-file-pdf-o"></i>&nbsp;Fitxer </a></li><li><a class="btn btn-info" href="'+ name +'++add++genweb.organs.document"><i class="fa fa-file-text-o"></i>&nbsp;Document </a></li>'
                   console.log(message)
                   $(this).attr('data-content',message);
                   $(this).popover('show');

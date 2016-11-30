@@ -1,2 +1,2 @@
 # genweb.organs
-Paquet Organs de Govern amb Angular2 i que s'integra a Genweb
+Paquet Organs de Govern amb JQuery i que s'integra a Genweb

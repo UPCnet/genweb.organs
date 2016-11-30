@@ -2,7 +2,7 @@
 genweb.organs
 ====================
 
-Paquet Organs de Govern amb Angular2 i que s'integra a Genweb.
+Paquet Organs de Govern amb vista jQuery per organitzar Sessions i que s'integra a Genweb.
 
 How it works
 ============
