@@ -63,11 +63,8 @@
             },
         }).disableSelection();
 
-
         $(document).ajaxStop(function(){
-          // All requests have completed, check if we need to refresh
            if(refreshNeeded){
-              // Refresh the page (just a simple reload for now)
               window.location.reload();
           }
         });
@@ -107,9 +104,6 @@
         // });
 
     });
-
-
-
 
     function deleteElement(item){
       var params = {};
@@ -416,30 +410,28 @@
                     <td>
                       <div class="btn-group" role="group"
                            style="float: right;" aria-label="Subpunt actions">
-                        <button type="button"
-                              class="edit label label-info" data-title="Edit"
-                              tal:attributes="href string:${item/absolute_url}/view">
-                              <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                        <button type="button" class="edit label label-success" title="Edit">
+                              <a tal:attributes="href string:${item/absolute_url}/view">
+                              <i class="fa fa-pencil" aria-hidden="true"></i></a></button>
                         <button type="button" class="addinsubpunt label label-success"
-                                        data-container="body"
-                                        data-toggle="popover"
-                                        data-placement="bottom"
-                                        data-html="true"
-                                        data-trigger="focus"
-                                        tal:attributes="data-item string:${item/id}/"
-                                        data-original-title="Afegir element a subpunt">
+                              data-container="body"
+                              data-toggle="popover"
+                              data-placement="bottom"
+                              data-html="true"
+                              data-trigger="focus"
+                              tal:attributes="data-item string:${item/id}/"
+                              data-original-title="Afegir element a subpunt">
                               <i class="fa fa-plus" aria-hidden="true"></i></button>
                         <button type="button" class="remove label label-important"
-                                        data-container="body"
-                                        data-toggle="popover"
-                                        data-placement="left"
-                                        data-html="true"
-                                        data-trigger="focus"
-                                        data-original-title="Delete"
-                                        tal:attributes="data-item item/id">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                              data-container="body"
+                              data-toggle="popover"
+                              data-placement="left"
+                              data-html="true"
+                              data-trigger="focus"
+                              data-original-title="Delete"
+                              tal:attributes="data-item item/id">
+                              <i class="fa fa-trash-o" aria-hidden="true"></i></button>
                       </div>
-
                   <div class="subpuntTitle">
 	                <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
                         <a tal:attributes="data-pk item/id"
@@ -556,7 +548,6 @@
                 }
             });
         });
-
 
     });
   </script>
