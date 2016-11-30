@@ -187,7 +187,19 @@ span.proposalNumberSubpunt {
     border: 1px dotted #97E3FA;
     background-color: #effbff;
     cursor: move;
+    position: relative;}
+
+.ui-state-grey:hover:before {
+    content: "\f07d";
+    font-family: FontAwesome;
+    color: #007BC0; 
+   position: absolute;
+   font-size: 15px;
+   bottom: 10px;
+   left:10px;
 }
+
+
 
 .filesinTable{
     margin: 3px !important;
@@ -249,10 +261,6 @@ span.label.nomarginLeft  {
     font-color: black;
 }
 
-.subpuntTitle:hover {
-    background-color: blue;
-}
-
 #modalSession {
     width: 800px;
 }
@@ -294,11 +302,6 @@ a.editable-click:hover:after {
 
 }
 
-.subpuntTitle:hover {
-    background-color: white;
-    border-color: #007BC0;
-}
-
 label.label.label-default {
     color: #777777;
     font-weight: 500;
@@ -314,4 +317,59 @@ label.label.label-default{padding: 2px 4px!important;}
     margin-right: 5px;
 }
 
-.subpuntTitle ul li, .subpuntTitle ol li{ margin-left:20px;  }  
+.subpuntTitle ul li {
+    margin-left: 50px!important;
+}
+
+.btn-group a {
+    margin: 1px;
+}
+
+ul:empty {
+   padding: 0px!important;
+}
+
+a.addinsubpunt {
+    background-color: orange!important;
+}
+a.remove{background-color: #e8003d!important}
+
+li.filesinTable {
+    border-bottom: 0px solid #eee;
+    padding-bottom: 5px!important;
+    padding-left: 20px!important;
+}
+
+.subpuntTitle:hover {
+    background-color: white;
+    border:1px dotted #007BC0;
+    border-radius: 5px;}
+   
+.subpuntTitle:hover:before {
+     content: "\f07d";
+    font-family: FontAwesome;
+    color: #007BC0; 
+   font-size: 13px;
+   font-weight: 300;
+ 
+}
+
+.ui-state-grey:hover:before {
+    content: "\f07d";
+    font-family: FontAwesome;
+    color: #007BC0; 
+   position: absolute;
+   font-size: 14px;
+   bottom: 5px;
+   left:5px;
+}
+
+
+#sortable .ui-state-highlight2 {
+   height: 2em;
+   line-height: 1.2em;
+   background-color: transparent!important;
+   border:2px dotted red!important;
+   border-radius: 5px;
+}
+ 
