@@ -334,6 +334,10 @@
                    <a tal:attributes="href string:${item/absolute_url}/view">
                    <i class="fa fa-pencil" aria-hidden="true"></i></a></button>
 
+                <button type="button" class="label label-success" title="Add">
+                   <a tal:attributes="href string:${item/absolute_url}">
+                   <i class="fa fa-plus" aria-hidden="true"></i></a></button>
+                
                 <button type="button" class="label label-important"
                   data-container="body"
                   data-toggle="popover"
@@ -375,7 +379,7 @@
                   </ul>
                 </tal:files>
               </div>
-              <div class="llistaAfegir">
+              <!--<div class="llistaAfegir">
                 <a style="margin-right: 3px;" class="addPunt"
                      data-title="Afegir nou punt"
                      tal:attributes="data-pk item/id"
@@ -389,16 +393,18 @@
                 <a style="margin-right: 3px;"
                      data-title="Afegir subpunt"
                      tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.file"><i class="fa fa-plus" aria-hidden="true">&nbsp;Fitxer</i></a>
-              </div>
+              </div>-->
               <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" class="sortable2">
                 <tal:subpunts repeat="item subpunts">
                   <ol class="li_subgrups" tal:attributes="id item/id">
                     <td>
                       <div class="btn-group" role="group"
-                           style="float: right;" aria-label="Edit actions">
-                        <a style="margin-right: 3px;" type="button"
+                           style="float: right;" aria-label="Subpunt actions">
+                        <a type="button"
                            class="edit label label-info" data-title="Edit"
                            tal:attributes="href string:${item/absolute_url}/view"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a type="button" class="addinsubpunt label label-success" data-title="Add"
+                           tal:attributes="href string:${item/absolute_url}/" data-target="#addinsubpunt"><i class="fa fa-plus" aria-hidden="true"></i></a>
                         <a type="button" class="remove label label-important" data-title="Delete"
                            tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                       </div>
@@ -432,14 +438,14 @@
                           </ul>
                         </tal:files>
                       </div>
-                      <div class="llistaAfegir">
+                      <!--<div class="llistaAfegir">
                         <a style="margin-right: 3px;"
                              data-title="Afegir document"
-                             tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.document""><i class="fa fa-plus" aria-hidden="true">&nbsp;Document</i></a>
+                             tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.document"><i class="fa fa-plus" aria-hidden="true">&nbsp;Document</i></a>
                         <a style="margin-right: 3px;"
                              data-title="Afegir subpunt"
                              tal:attributes="href string:${item/absolute_url}/++add++genweb.organs.file"><i class="fa fa-plus" aria-hidden="true">&nbsp;Fitxer</i></a>
-                      </div>
+                      </div>-->
                     </td>
                   </ol>
                 </tal:subpunts>
