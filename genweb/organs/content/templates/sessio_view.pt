@@ -333,9 +333,29 @@
         <tal:documents repeat="item items">
           <li class="ui-state-grey" tal:attributes="id item/id; class item/classe" >
 
+
             <td tal:condition="item/show">
               <div class="btn-group" role="group"
                    style="float: right;" aria-label="Edit actions">
+                  <tal:block tal:condition="item/state">
+<!--                     <button class="label nomarginLeft"
+                          tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
+                          i18n:domain="genweb.organs" i18n:translate=""></button> -->
+
+                    <button class="label dropdown-toggle"
+                        id="menu1" type="button" data-toggle="dropdown">
+                        Estat:
+                      <a tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
+                         i18n:domain="genweb.organs" i18n:translate=""></a>
+                      <span class="caret"></span></button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                        <tal:block repeat="estat item/estats"> 
+                          <li><a tabindex="-1" href="#"><span tal:content="estat"></span></a></li>
+                        </tal:block>
+                      </ul>
+                  </tal:block>
+
+
                 <button type="button" title="Afegir nou punt" class="addPunt label label-default">
                     <i class="fa fa-plus" aria-hidden="true">&nbsp;Punt</i></button>
 
@@ -364,6 +384,7 @@
                   <i class="fa fa-trash-o" aria-hidden="true"></i></button>
 
               </div>
+
               <div class="puntTitle">
                 <span class="proposalNumber" tal:content="item/proposalPoint"></span>
                 <a tal:attributes="data-pk item/id"
@@ -371,9 +392,7 @@
                    class="editTitle editable editable-click titleSize">
                   <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                 </a>
-                <span tal:condition="item/state" class="label nomarginLeft"
-                      tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
-                      i18n:domain="genweb.organs" i18n:translate=""></span>
+
                 <tal:files tal:define="files python:view.filesinsidePunt(item)">
                   <ul style="list-style: none; padding-top:10px;">
                     <tal:documents repeat="item files">
@@ -402,7 +421,6 @@
                   </ul>
                 </tal:files>
               </div>
-                
 
               <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" class="sortable2">
                 <tal:subpunts repeat="item subpunts">
@@ -410,6 +428,22 @@
                     <td>
                       <div class="btn-group" role="group"
                            style="float: right;" aria-label="Subpunt actions">
+
+                  <tal:block tal:condition="item/state">
+
+                    <button class="label dropdown-toggle"
+                        id="menu1" type="button" data-toggle="dropdown">
+                        Estat:
+                      <a tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
+                         i18n:domain="genweb.organs" i18n:translate=""></a>
+                      <span class="caret"></span></button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                        <tal:block repeat="estat item/estats"> 
+                          <li><a tabindex="-1" href="#"><span tal:content="estat"></span></a></li>
+                        </tal:block>
+                      </ul>
+                  </tal:block>
+                           
                         <button type="button" class="edit label label-success" title="Edit">
                               <a tal:attributes="href string:${item/absolute_url}/view">
                               <i class="fa fa-pencil" aria-hidden="true"></i></a></button>
@@ -439,9 +473,12 @@
                            class="editTitle editable editable-click titleSize">
                           <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                         </a>
-                        <span tal:condition="item/state" class="label nomarginLeft"
+                     <!--    <span tal:condition="item/state" class="label nomarginLeft"
                               tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
-                              i18n:domain="genweb.organs" i18n:translate=""></span>
+                              i18n:domain="genweb.organs" i18n:translate=""></span> -->
+
+
+
                         <tal:files tal:define="files python:view.filesinsideSubPunt(item)">
                           <ul style="list-style: none; padding-top:10px;">
                             <tal:documents repeat="item files">

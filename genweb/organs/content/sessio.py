@@ -186,13 +186,19 @@ class View(grok.View):
         # assign custom colors on organ states
         estat = data.getObject().estatsLlista
         values = data.estatsLlista
-
         try:
             for value in values.splitlines():
                 if estat == value.split('#')[0].rstrip(' '):
                     return '#' + value.split('#')[1].rstrip(' ').lstrip(' ')
         except:
             return '#777777'
+
+    def estatsCanvi(self, data):
+        values = data.estatsLlista
+        items = []
+        for value in values.splitlines():
+            items.append(value)
+        return items
 
     def PuntsInside(self):
         """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
@@ -219,6 +225,7 @@ class View(grok.View):
                                     proposalPoint=item.proposalPoint,
                                     state=item.estatsLlista,
                                     css=self.getColor(obj),
+                                    estats=self.estatsCanvi(obj),
                                     id=obj.id,
                                     show=True,
                                     classe="ui-state-grey"))
@@ -242,6 +249,7 @@ class View(grok.View):
                                 absolute_url=item.absolute_url(),
                                 proposalPoint=item.proposalPoint,
                                 state=item.estatsLlista,
+                                estats=self.estatsCanvi(obj),
                                 css=self.getColor(obj),
                                 id='/'.join(item.absolute_url_path().split('/')[-2:])))
         return results
