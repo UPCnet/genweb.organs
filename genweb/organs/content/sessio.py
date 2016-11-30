@@ -349,7 +349,8 @@ class View(grok.View):
                                 classCSS=tipus,
                                 hidden=obj.hiddenfile,
                                 labelClass=labelClass,
-                                content=document))
+                                content=document,
+                                id=obj.id))
         return results
 
     def filesinsideSubPunt(self, item):
@@ -382,5 +383,6 @@ class View(grok.View):
                                 classCSS=tipus,
                                 hidden=obj.hiddenfile,
                                 labelClass=labelClass,
-                                content=document))
+                                content=document,
+                                id=obj.id))
         return results

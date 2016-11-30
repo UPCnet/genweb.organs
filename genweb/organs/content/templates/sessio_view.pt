@@ -99,7 +99,6 @@
       var params = {};
       params.item = item
       params.action = 'delete';
-
       $.ajax({
           type: 'POST',
           url: '@@removeElement',
@@ -108,14 +107,11 @@
                   refreshNeeded = true;
                 },
       });
-
-        $(document).ajaxStop(function(){
-          // All requests have completed, check if we need to refresh
-           if(refreshNeeded){
-              // Refresh the page (just a simple reload for now)
-              window.location.reload();
-          }
-        });
+      $(document).ajaxStop(function(){
+         if(refreshNeeded){
+            window.location.reload();
+        }
+      });
     }
 
   </script>
@@ -330,7 +326,7 @@
               <div class="btn-group" role="group"
                    style="float: right;" aria-label="Edit actions">
 
-                <button type="button" class="label label-success" title="Edit">
+                <button type="button" class="remove label label-success" title="Edit">
                    <a tal:attributes="href string:${item/absolute_url}/view">
                    <i class="fa fa-pencil" aria-hidden="true"></i></a></button>
 
@@ -338,7 +334,7 @@
                    <a tal:attributes="href string:${item/absolute_url}">
                    <i class="fa fa-plus" aria-hidden="true"></i></a></button>
                 
-                <button type="button" class="label label-important"
+                <button type="button" class="remove label label-important"
                   data-container="body"
                   data-toggle="popover"
                   data-placement="left"
@@ -370,9 +366,17 @@
                         </a>
                         <div style="float:right; display: inline-table;">
                           <label tal:attributes="class string:${item/labelClass}" tal:content="item/content"></label>
-                          <a style="margin-right:3px;" type="button" class="remove label label-important"
-                             data-title="Delete"
-                             tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                           <button type="button" class="remove label label-important"
+                              data-container="body"
+                              data-toggle="popover"
+                              data-placement="left"
+                              data-html="true"
+                              data-trigger="focus"
+                              data-original-title="Delete"
+                              tal:attributes="data-item item/id">
+                              <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </button>
+                          
                         </div>
                       </li>
                     </tal:documents>
@@ -400,14 +404,43 @@
                     <td>
                       <div class="btn-group" role="group"
                            style="float: right;" aria-label="Subpunt actions">
-                        <a type="button"
-                           class="edit label label-info" data-title="Edit"
-                           tal:attributes="href string:${item/absolute_url}/view"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                        <a type="button" class="addinsubpunt label label-success" data-title="Add"
-                           tal:attributes="href string:${item/absolute_url}/" data-target="#addinsubpunt"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                        <a type="button" class="remove label label-important" data-title="Delete"
-                           tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        <button type="button"
+                              class="edit label label-info" data-title="Edit"
+                              tal:attributes="href string:${item/absolute_url}/view">
+                              <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                        <button type="button" class="addinsubpunt label label-success"
+                                        data-container="body"
+                                        data-toggle="popover"
+                                        data-placement="bottom"
+                                        data-html="true"
+                                        data-trigger="focus"
+                                        tal:attributes="data-item string:${item/id}/"
+                                        data-original-title="Afegir element a subpunt">
+                              <i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <button type="button" class="remove label label-important"
+                                        data-container="body"
+                                        data-toggle="popover"
+                                        data-placement="left"
+                                        data-html="true"
+                                        data-trigger="focus"
+                                        data-original-title="Delete"
+                                        tal:attributes="data-item item/id">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i></button>
                       </div>
+
+                      <div>
+                         <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                         <span class="caret"></span>
+                         <span class="sr-only">Toggle Dropdown</span>
+                         </button>
+                         <ul class="dropdown-menu">
+                           <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li>
+                           <li><a href="#">Something else here</a></li>
+                           <li><a href="#">Separated link</a></li>
+                         </ul>
+                      </div>
+
+
                       <div class="subpuntTitle">
 	                <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
                         <a tal:attributes="data-pk item/id"
@@ -429,9 +462,15 @@
                                 </a>
                                 <div style="float:right; display: inline-table;">
                                   <label tal:attributes="class string:${item/labelClass}" tal:content="item/content"></label>
-                                  <a style="margin-right:3px;" type="button" class="remove label label-important"
-                                     data-title="Delete"
-                                     tal:attributes="href string:${item/absolute_url}/delete_confirmation" data-target="#delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                  <button type="button" class="remove label label-important"
+                                        data-container="body"
+                                        data-toggle="popover"
+                                        data-placement="left"
+                                        data-html="true"
+                                        data-trigger="focus"
+                                        data-original-title="Delete"
+                                        tal:attributes="data-item item/id">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                 </div>
                               </li>
                             </tal:documents>
@@ -485,7 +524,7 @@
           }
         });
 
-        $('button.label.label-important').on('click', function (e) {
+        $('button.remove').on('click', function (e) {
             $('[data-toggle="popover"]').each(function () {
                 if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
                     $(this).popover('hide');
@@ -498,6 +537,21 @@
                 }
             });
         });
+
+        $('button.addinsubpunt').on('click', function (e) {
+            $('[data-toggle="popover"]').each(function () {
+                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                    $(this).popover('hide');
+                } else {
+                  var name=$(this).data()['item'];
+                  var message='<li><a class="btn btn-success" href="'+ name +'++add++genweb.organs.file"><i class="fa fa-file-pdf-o"></i>&nbsp;Fitxer </a></li><li><a class="btn btn-info" href="'+ name +'++add++genweb.organs.document"><i class="fa fa-file-text-o"></i>&nbsp;Document </a></li>'
+                  console.log(message)
+                  $(this).attr('data-content',message);
+                  $(this).popover('show');
+                }
+            });
+        });
+
 
     });
   </script>
