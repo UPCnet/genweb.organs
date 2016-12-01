@@ -79,7 +79,7 @@ class IPunt(form.Schema):
     )
 
     estatsLlista = schema.Choice(
-        title=_(u"Agreement and document labels"),
+        title=_(u"Agreement and document label"),
         source=llistaEstats,
         required=True,
     )

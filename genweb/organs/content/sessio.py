@@ -197,7 +197,8 @@ class View(grok.View):
         values = data.estatsLlista
         items = []
         for value in values.splitlines():
-            items.append(value)
+            estat = value.split('#')[0].lstrip(' ').rstrip(' ')
+            items.append(estat)
         return items
 
     def PuntsInside(self):

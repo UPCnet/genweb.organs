@@ -69,7 +69,6 @@
           }
         });
 
-
       $('#sortable').bind('sortstart', function(event, ui) {
           $('.ui-state-highlight').append('<span class="textFloating">  </span>');
       });
@@ -328,14 +327,14 @@
               <div class="btn-group" role="group" style="float: right;" aria-label="Edit actions">
                   <button class="label dropdown-toggle"
                       id="types" type="button" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
+                      aria-haspopup="true" aria-expanded="false" i18n:translate="">
                       Afegir
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                    <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.subpunt"><span>Subpunt</span></a></li>
-                    <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.file"><span>Fitxer</span></a></li>
-                    <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.document"><span>Document</span></a></li>
+                    <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.subpunt"><span i18n:translate="">Subpunt</span></a></li>
+                    <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.file"><span i18n:translate="">File</span></a></li>
+                    <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.document"><span i18n:translate="">Document</span></a></li>
                   </ul>
               </div>
 
@@ -418,8 +417,8 @@
                             <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                            <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.file"><span>Fitxer</span></a></li>
-                            <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.document"><span>Document</span></a></li>
+                            <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.file"><span i18n:translate="">File</span></a></li>
+                            <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.document"><span i18n:translate="">Document</span></a></li>
                           </ul>
                       </div>
 
@@ -499,7 +498,6 @@
                 }
             });
         });
-
     });
   </script>
 
