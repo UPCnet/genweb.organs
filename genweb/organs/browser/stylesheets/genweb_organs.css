@@ -313,7 +313,7 @@ label.label.label-default {
 label.label.label-default{padding: 2px 4px!important;}
 
 .btn-group {
-    margin-top: 5px;
+    margin-top: 0px;
     margin-right: 5px;
 }
 
@@ -373,3 +373,17 @@ li.filesinTable {
    border-radius: 5px;
 }
  
+.DADES button {
+    border: none!important;
+    margin: 1px!important;
+}
+
+.label.dropdown-toggle{color: #aaa!important; background-color: #ddd!important; text-shadow: none!important;}
+
+.DADES .caret {
+
+    vertical-align: middle;
+}
+
+.DADES .edit.label{ background-color: #007bc0; color: }
+.DADES .edit.label a{ color:white!important; }
