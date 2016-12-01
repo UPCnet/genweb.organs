@@ -1,18 +1,9 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
-from plone import api
-from time import strftime
-from zope.annotation.interfaces import IAnnotations
-from datetime import datetime
-from genweb.organs import _
 from zope.lifecycleevent.interfaces import IObjectRemovedEvent
 from genweb.organs.content.punt import IPunt
 from genweb.organs.content.subpunt import ISubpunt
 from five import grok
-from zope.interface import implements
-from transaction.interfaces import ISavepointDataManager
-from transaction._transaction import AbortSavepoint
-import transaction
 from zope.globalrequest import getRequest
 
 
@@ -38,7 +29,8 @@ def deletion_confirmed():
 
 @grok.subscribe(IPunt, IObjectRemovedEvent)
 def removePunt(alias, event):
-    """When the alias is created,
+    """ When the alias is created,
+        TODO make reorder obects fully functional!
     """
     if deletion_confirmed():
         print "------ Deleting..."
@@ -88,4 +80,4 @@ def removeSubpunt(alias, event):
     """When the alias is created,
     """
     if deletion_confirmed():
-        print "XXXXX Deleting..."
+        print "XXXXX Deleting... TODO: copy functional PUNT code!"

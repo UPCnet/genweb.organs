@@ -499,3 +499,24 @@ class Reload(BrowserView):
 
             index = index + 1
         self.request.response.redirect(self.context.absolute_url())
+
+
+class modifyPointState(BrowserView):
+
+    def __call__(self):
+        # TODO : Pending accents!
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        estat = self.request.form.get('estat')
+        itemid = self.request.form.get('id')
+        try:
+            object_path = '/'+'/'.join(itemid.split('/')[3:-1])
+            item = str(itemid.split('/')[-1:][0])
+            currentitem = portal_catalog.searchResults(
+                    portal_type=['genweb.organs.punt', 'genweb.organs.subpunt'],
+                    id=item,
+                    path={'query': object_path,
+                          'depth': 1})[0].getObject()
+            currentitem.estatsLlista = unicode(estat.decode('iso-8859-1'))
+            self.request.response.redirect(self.context.absolute_url())
+        except:
+            pass

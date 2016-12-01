@@ -350,7 +350,7 @@
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
                     <tal:block repeat="estat item/estats">
-                      <li><a tabindex="-1" href="#"><span tal:content="estat"></span></a></li>
+                      <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/absolute_url}"><span tal:content="estat"></span></a></li>
                     </tal:block>
                   </ul>
                 </tal:block>
@@ -432,7 +432,7 @@
                             <span class="caret"></span></button>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                               <tal:block repeat="estat item/estats">
-                                <li><a tabindex="-1" href="#"><span tal:content="estat"></span></a></li>
+                                <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/absolute_url}"><span tal:content="estat"></span></a></li>
                               </tal:block>
                             </ul>
                         </tal:block>
@@ -492,7 +492,6 @@
                   var name=$(this).data()['item'];
                   var portal_type=$(this).data()['type'];
                   var message='<a class="btn btn-default"> No </a>&nbsp;<a class="btn btn-danger" onclick=deleteElement("'+ name +','+ portal_type+'")> Si </a>'
-                  console.log(message)
                   $(this).attr('data-content',message);
                   $(this).popover('show');
                 }
