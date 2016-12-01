@@ -333,9 +333,9 @@
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                    <li><a tabindex="-1" href="#"><span>Subpunt</span></a></li>
-                    <li><a tabindex="-1" href="#"><span>Fitxer</span></a></li>
-                    <li><a tabindex="-1" href="#"><span>Document</span></a></li>
+                    <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.subpunt"><span>Subpunt</span></a></li>
+                    <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.file"><span>Fitxer</span></a></li>
+                    <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.document"><span>Document</span></a></li>
                   </ul>
               </div>
 
@@ -361,7 +361,7 @@
                 <span class="proposalNumber" tal:content="item/proposalPoint"></span>
                 <a tal:attributes="data-pk item/id; href item/absolute_url"
                    data-url="changeTitle"
-                   class="editTitle editable editable-click titleSize">
+                   class="titleSize">
                   <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                 </a>
 
@@ -418,8 +418,8 @@
                             <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                            <li><a tabindex="-1" href="#"><span>Fitxer</span></a></li>
-                            <li><a tabindex="-1" href="#"><span>Document</span></a></li>
+                            <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.file"><span>Fitxer</span></a></li>
+                            <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.document"><span>Document</span></a></li>
                           </ul>
                       </div>
 
@@ -443,7 +443,7 @@
     	                 <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
                         <a tal:attributes="data-pk item/id; href item/absolute_url"
                            data-type="text" data-url="changeTitle"
-                           class="editTitle editable editable-click titleSize">
+                           class="titleSize">
                           <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                         </a>
                         <tal:files tal:define="files python:view.filesinsideSubPunt(item)">
