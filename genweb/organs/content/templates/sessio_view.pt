@@ -9,9 +9,9 @@
 
 <metal:content-core fill-slot="content-core" tal:define="loginfo view/LogInformation">
 
-  <link rel="stylesheet" href="++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
+  <!-- <link rel="stylesheet" href="++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
   <script src=++resource++genweb.organs.stylesheets/jquery-ui.min.js></script>
-  <script src="++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script>
+  <script src="++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script> -->
   <script src="++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script>
 
   <script type="text/javascript">
@@ -78,36 +78,13 @@
           $('.ui-state-highlight2').append('<span class="textFloating">  </span>');
       });
 
-      $('.addPunt').click(function(e){
-        $('div#newPunt').html('<div class="input-group"><input type="text" class="form-control" placeholder="Títol del punt" aria-describedby="basic-addon1" style="margin-bottom:1px; margin-right:10px;"><button type="button" class="btn btn-success" id="proceed" style="margin-right:5px;">Afegir Punt</button><button type="button" class="btn btn-danger" id="hideBox">Cancel·lar</button></div>');
-      });
-
-      $('div#newPunt').on('click','#hideBox', function(){
-        $('div#newPunt').html('');
-      });
-
-      $('div#newPunt').on('click','#proceed', function(){
-        $('div#newPunt').html('Adding element...');
-      });
-
-        // $('div#newPunt').html('<div class="input-group"><input type="text" class="form-control" placeholder="Títol del punt" aria-describedby="basic-addon1" style="margin-bottom:1px; margin-right:10px;"><button type="button" class="btn btn-success" id="proceed" style="margin-right:5px;">Crear Punt</button><button type="button" class="btn btn-danger" id="hideBox">Cancel·lar</button></div>');
-
-
-        // $('button.addPunt').on('click', function (e) {
-        //     $('[data-toggle="popover"]').each(function () {
-        //         if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-        //             $(this).popover('hide');
-        //         } else {
-        //          $('div#newPunt').html('<div class="input-group"><input type="text" class="form-control" placeholder="Títol del punt" aria-describedby="basic-addon1" style="margin-bottom:1px; margin-right:10px;"><button type="button" class="btn btn-success" id="proceed" style="margin-right:5px;">Crear Punt</button><button type="button" class="btn btn-danger" id="hideBox">Cancel·lar</button></div>');
-        //         }
-        //     });
-        // });
-
     });
 
     function deleteElement(item){
       var params = {};
-      params.item = item
+      values = item.split(',')
+      params.item = values[0]
+      params.portal_type = values[1]
       params.action = 'delete';
       $.ajax({
           type: 'POST',
@@ -321,58 +298,21 @@
     <br/>
       <a class="btn btn-info" style="margin-bottom: 20px;" href="++add++genweb.organs.punt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
       <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Crear punts</span></a>
+      <a class="btn btn-info" style="margin-bottom: 20px;" href="updateProposalPoints" data-target="#modalPunts"><i class="fa fa-refresh" aria-hidden="true"></i></a>
   </div>
 
   <div tal:define="items view/PuntsInside" tal:condition="items" class="DADES">
-  <br/>
-    <h2 i18n:translate="">Ordre del dia</h2>
+      <br/>
+      <h2 i18n:translate="">Ordre del dia</h2>
 
       <div class="clearfix"></div>
 
       <ul id="sortable">
         <tal:documents repeat="item items">
           <li class="ui-state-grey" tal:attributes="id item/id; class item/classe" >
-
-
             <td tal:condition="item/show">
-              <div class="btn-group" role="group"
-                   style="float: right;" aria-label="Edit actions">
-                  <tal:block tal:condition="item/state">
-<!--                     <button class="label nomarginLeft"
-                          tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
-                          i18n:domain="genweb.organs" i18n:translate=""></button> -->
 
-                    <button class="label dropdown-toggle"
-                        id="menu1" type="button" data-toggle="dropdown">
-                        Estat:
-                      <a tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
-                         i18n:domain="genweb.organs" i18n:translate=""></a>
-                      <span class="caret"></span></button>
-                      <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                        <tal:block repeat="estat item/estats"> 
-                          <li><a tabindex="-1" href="#"><span tal:content="estat"></span></a></li>
-                        </tal:block>
-                      </ul>
-                  </tal:block>
-
-
-                <button type="button" title="Afegir nou punt" class="addPunt label label-default">
-                    <i class="fa fa-plus" aria-hidden="true">&nbsp;Punt</i></button>
-
-                <button type="button" class="edit label label-success" title="Edit">
-                   <a tal:attributes="href string:${item/absolute_url}/view">
-                   <i class="fa fa-pencil" aria-hidden="true"></i></a></button>
-
-                         <button type="button" class="addinpunt label label-success"
-                                        data-container="body"
-                                        data-toggle="popover"
-                                        data-placement="bottom"
-                                        data-html="true"
-                                        data-trigger="focus"
-                                        tal:attributes="data-item string:${item/id}/"
-                                        data-original-title="Afegir element al punt">
-                              <i class="fa fa-plus" aria-hidden="true"></i></button>
-                
+              <div style="float: right;" aria-label="Edit actions">
                 <button type="button" class="remove label label-important"
                   data-container="body"
                   data-toggle="popover"
@@ -380,15 +320,47 @@
                   data-html="true"
                   data-trigger="focus"
                   data-original-title="Delete"
-                  tal:attributes="data-item item/id">
-                  <i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                  tal:attributes="data-item item/id; data-type item/portal_type">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+              </div>
 
+              <div class="btn-group" role="group" style="float: right;" aria-label="Edit actions">
+                  <button class="label dropdown-toggle"
+                      id="types" type="button" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                      Afegir
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                    <li><a tabindex="-1" href="#"><span>Subpunt</span></a></li>
+                    <li><a tabindex="-1" href="#"><span>Fitxer</span></a></li>
+                    <li><a tabindex="-1" href="#"><span>Document</span></a></li>
+                  </ul>
+              </div>
+
+              <div class="btn-group" role="group"
+                   style="float: right;" aria-label="Edit actions">
+                <tal:block tal:condition="item/state">
+                  <button class="label dropdown-toggle"
+                      id="estats" type="button" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                    <a tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
+                       i18n:domain="genweb.organs" i18n:translate=""></a>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
+                    <tal:block repeat="estat item/estats">
+                      <li><a tabindex="-1" href="#"><span tal:content="estat"></span></a></li>
+                    </tal:block>
+                  </ul>
+                </tal:block>
               </div>
 
               <div class="puntTitle">
                 <span class="proposalNumber" tal:content="item/proposalPoint"></span>
-                <a tal:attributes="data-pk item/id"
-                   data-type="text" data-url="changeTitle"
+                <a tal:attributes="data-pk item/id; href item/absolute_url"
+                   data-url="changeTitle"
                    class="editTitle editable editable-click titleSize">
                   <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                 </a>
@@ -411,10 +383,9 @@
                               data-html="true"
                               data-trigger="focus"
                               data-original-title="Delete"
-                              tal:attributes="data-item item/id">
+                              tal:attributes="data-item item/id; data-type item/portal_type">
                               <i class="fa fa-trash-o" aria-hidden="true"></i>
                             </button>
-                          
                         </div>
                       </li>
                     </tal:documents>
@@ -426,36 +397,7 @@
                 <tal:subpunts repeat="item subpunts">
                   <ol class="li_subgrups" tal:attributes="id item/id">
                     <td>
-                      <div class="btn-group" role="group"
-                           style="float: right;" aria-label="Subpunt actions">
-
-                  <tal:block tal:condition="item/state">
-
-                    <button class="label dropdown-toggle"
-                        id="menu1" type="button" data-toggle="dropdown">
-                        Estat:
-                      <a tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
-                         i18n:domain="genweb.organs" i18n:translate=""></a>
-                      <span class="caret"></span></button>
-                      <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                        <tal:block repeat="estat item/estats"> 
-                          <li><a tabindex="-1" href="#"><span tal:content="estat"></span></a></li>
-                        </tal:block>
-                      </ul>
-                  </tal:block>
-                           
-                        <button type="button" class="edit label label-success" title="Edit">
-                              <a tal:attributes="href string:${item/absolute_url}/view">
-                              <i class="fa fa-pencil" aria-hidden="true"></i></a></button>
-                        <button type="button" class="addinsubpunt label label-success"
-                              data-container="body"
-                              data-toggle="popover"
-                              data-placement="bottom"
-                              data-html="true"
-                              data-trigger="focus"
-                              tal:attributes="data-item string:${item/id}/"
-                              data-original-title="Afegir element a subpunt">
-                              <i class="fa fa-plus" aria-hidden="true"></i></button>
+                      <div style="float: right;" aria-label="Subpunt actions">
                         <button type="button" class="remove label label-important"
                               data-container="body"
                               data-toggle="popover"
@@ -463,22 +405,47 @@
                               data-html="true"
                               data-trigger="focus"
                               data-original-title="Delete"
-                              tal:attributes="data-item item/id">
-                              <i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                              tal:attributes="data-item item/id; data-type item/portal_type">
+                              <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
                       </div>
-                  <div class="subpuntTitle">
-	                <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
-                        <a tal:attributes="data-pk item/id"
+
+                      <div class="btn-group" role="group" style="float: right;" aria-label="Edit actions">
+                          <button class="label dropdown-toggle"
+                              id="types" type="button" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="false">
+                              Afegir
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                            <li><a tabindex="-1" href="#"><span>Fitxer</span></a></li>
+                            <li><a tabindex="-1" href="#"><span>Document</span></a></li>
+                          </ul>
+                      </div>
+
+                      <div class="btn-group" role="group"
+                           style="float: right;" aria-label="Subpunt actions">
+                        <tal:block tal:condition="item/state">
+                          <button class="label dropdown-toggle"
+                              id="menu1" type="button" data-toggle="dropdown">
+                            <a tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
+                               i18n:domain="genweb.organs" i18n:translate=""></a>
+                            <span class="caret"></span></button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                              <tal:block repeat="estat item/estats">
+                                <li><a tabindex="-1" href="#"><span tal:content="estat"></span></a></li>
+                              </tal:block>
+                            </ul>
+                        </tal:block>
+                      </div>
+
+                      <div class="subpuntTitle">
+    	                 <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
+                        <a tal:attributes="data-pk item/id; href item/absolute_url"
                            data-type="text" data-url="changeTitle"
                            class="editTitle editable editable-click titleSize">
                           <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                         </a>
-                     <!--    <span tal:condition="item/state" class="label nomarginLeft"
-                              tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
-                              i18n:domain="genweb.organs" i18n:translate=""></span> -->
-
-
-
                         <tal:files tal:define="files python:view.filesinsideSubPunt(item)">
                           <ul style="list-style: none; padding-top:10px;">
                             <tal:documents repeat="item files">
@@ -497,7 +464,7 @@
                                         data-html="true"
                                         data-trigger="focus"
                                         data-original-title="Delete"
-                                        tal:attributes="data-item item/id">
+                                        tal:attributes="data-item item/id; data-type item/portal_type">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                 </div>
                               </li>
@@ -505,80 +472,27 @@
                           </ul>
                         </tal:files>
                       </div>
+
                     </td>
                   </ol>
                 </tal:subpunts>
               </div>
             </td>
           </li>
-            <div id="newPunt"></div>
         </tal:documents>
       </ul>
   </div>
 
   <script type="text/javascript">
     $(function() {
-        var reloadEdit = false;
-        $.fn.editable.defaults.mode = 'inline';
-        $.fn.editable.defaults.showbuttons = false;
-        $.fn.editable.defaults.type = 'text';
-        $.fn.editable.defaults.emptytext = 'Sense valor';
-
-        $('.editTitle').editable({
-            inputclass: function(e, f) {
-              $("a[aria-describedby=" + $(this).closest(".ui-tooltip").prop("id") + "]").data("shared", this);
-            },
-            validate: function(value) {
-              if (!value) return 'Camp obligatori';
-            },
-            success: function(){
-                  reloadEdit = true;
-            },
-        });
-
-        $(document).ajaxStop(function(){
-          // All requests have completed, check if we need to refresh
-           if(reloadEdit){
-              // Refresh the page (just a simple reload for now)
-              window.location.reload();
-          }
-        });
-
         $('button.remove').on('click', function (e) {
             $('[data-toggle="popover"]').each(function () {
                 if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
                     $(this).popover('hide');
                 } else {
                   var name=$(this).data()['item'];
-                  var message='<a class="btn btn-default"> No </a>&nbsp;<a class="btn btn-danger" onclick=deleteElement("'+ name +'")> Si </a>'
-                  console.log(message)
-                  $(this).attr('data-content',message);
-                  $(this).popover('show');
-                }
-            });
-        });
-
-        $('button.addinsubpunt').on('click', function (e) {
-            $('[data-toggle="popover"]').each(function () {
-                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-                    $(this).popover('hide');
-                } else {
-                  var name=$(this).data()['item'];
-                  var message='<li><a class="btn btn-success" href="'+ name +'++add++genweb.organs.file"><i class="fa fa-file-pdf-o"></i>&nbsp;Fitxer </a></li><li><a class="btn btn-info" href="'+ name +'++add++genweb.organs.document"><i class="fa fa-file-text-o"></i>&nbsp;Document </a></li>'
-                  console.log(message)
-                  $(this).attr('data-content',message);
-                  $(this).popover('show');
-                }
-            });
-        });
-
-        $('button.addinpunt').on('click', function (e) {
-            $('[data-toggle="popover"]').each(function () {
-                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-                    $(this).popover('hide');
-                } else {
-                  var name=$(this).data()['item'];
-                  var message='<li><a class="btn btn-success" href="'+ name +'++add++genweb.organs.subpunt"><i class="fa fa-file-pdf-o"></i>&nbsp;Subpunt </a></li><li><a class="btn btn-success" href="'+ name +'++add++genweb.organs.file"><i class="fa fa-file-pdf-o"></i>&nbsp;Fitxer </a></li><li><a class="btn btn-info" href="'+ name +'++add++genweb.organs.document"><i class="fa fa-file-text-o"></i>&nbsp;Document </a></li>'
+                  var portal_type=$(this).data()['type'];
+                  var message='<a class="btn btn-default"> No </a>&nbsp;<a class="btn btn-danger" onclick=deleteElement("'+ name +','+ portal_type+'")> Si </a>'
                   console.log(message)
                   $(this).attr('data-content',message);
                   $(this).popover('show');
@@ -590,7 +504,6 @@
   </script>
 
   <div style="margin-bottom:20px;"></div>
-
 
 </metal:content-core>
 

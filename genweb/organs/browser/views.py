@@ -64,14 +64,25 @@ class Delete(BrowserView):
         portal_catalog = getToolByName(self, 'portal_catalog')
         action = self.request.form.get('action')
         itemid = self.request.form.get('item')
+        portal_type = self.request.form.get('portal_type')
         try:
             if action == 'delete':
-                folder_path = '/'.join(self.context.getPhysicalPath())
-                deleteItem = portal_catalog.searchResults(
-                    portal_type=['genweb.organs.punt'],
-                    path={'query': folder_path, 'depth': 1},
-                    id=itemid)[0].getObject()
-                api.content.delete(deleteItem)
+                if '/' in itemid:
+                    # Es tracta de subpunt i inclou punt/subpunt a itemid
+                    folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + str('/'.join(itemid.split('/')[:-1]))
+                    itemid = str(''.join(itemid.split('/')[-1:]))
+                    deleteItem = portal_catalog.searchResults(
+                        portal_type=portal_type,
+                        path={'query': folder_path, 'depth': 1},
+                        id=itemid)[0].getObject()
+                    api.content.delete(deleteItem)
+                else:
+                    folder_path = '/'.join(self.context.getPhysicalPath())
+                    deleteItem = portal_catalog.searchResults(
+                        portal_type=['genweb.organs.punt'],
+                        path={'query': folder_path, 'depth': 1},
+                        id=itemid)[0].getObject()
+                    api.content.delete(deleteItem)
 
                 portal_catalog = getToolByName(self, 'portal_catalog')
                 folder_path = '/'.join(self.context.getPhysicalPath())

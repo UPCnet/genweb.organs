@@ -221,6 +221,7 @@ class View(grok.View):
             else:
                 item = obj.getObject()
                 results.append(dict(title=obj.Title,
+                                    portal_type=obj.portal_type,
                                     absolute_url=item.absolute_url(),
                                     proposalPoint=item.proposalPoint,
                                     state=item.estatsLlista,
@@ -246,6 +247,7 @@ class View(grok.View):
         for obj in values:
             item = obj.getObject()
             results.append(dict(title=obj.Title,
+                                portal_type=obj.portal_type,
                                 absolute_url=item.absolute_url(),
                                 proposalPoint=item.proposalPoint,
                                 state=item.estatsLlista,
@@ -351,14 +353,14 @@ class View(grok.View):
                 tipus = 'fa fa-file-text-o'
                 document = _(u'Document')
                 labelClass = 'label label-default'
-
             results.append(dict(title=obj.Title,
+                                portal_type=obj.portal_type,
                                 absolute_url=obj.getURL(),
                                 classCSS=tipus,
                                 hidden=obj.hiddenfile,
                                 labelClass=labelClass,
                                 content=document,
-                                id=obj.id))
+                                id=str(item['id']) + '/' + obj.id))
         return results
 
     def filesinsideSubPunt(self, item):
@@ -387,10 +389,11 @@ class View(grok.View):
                 labelClass = 'label label-default'
 
             results.append(dict(title=obj.Title,
+                                portal_type=obj.portal_type,
                                 absolute_url=obj.getURL(),
                                 classCSS=tipus,
                                 hidden=obj.hiddenfile,
                                 labelClass=labelClass,
                                 content=document,
-                                id=obj.id))
+                                id=str(item['id']) + '/' + obj.id))
         return results

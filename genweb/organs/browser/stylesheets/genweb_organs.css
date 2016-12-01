@@ -149,7 +149,7 @@ span.proposalNumber {
 /*span.proposalNumberSubpunt{
     color: #007BC0;
     margin-left: -10px;
-    
+
 }*/
 
 span.proposalNumberSubpunt {
@@ -192,13 +192,12 @@ span.proposalNumberSubpunt {
 .ui-state-grey:hover:before {
     content: "\f07d";
     font-family: FontAwesome;
-    color: #007BC0; 
+    color: #007BC0;
    position: absolute;
    font-size: 15px;
    bottom: 10px;
    left:10px;
 }
-
 
 
 .filesinTable{
@@ -234,9 +233,9 @@ span.proposalNumberSubpunt {
 }
 
 
-.editTitle:hover {
+/*.editTitle:hover {
     cursor: text;
-}
+}*/
 
 span.label.nomarginLeft  {
     margin-left: 10px !important;
@@ -290,17 +289,17 @@ span.label.nomarginLeft  {
 
 .editable-click, a.editable-click, a.editable-click:hover {
     text-decoration: none;
-    border-bottom: dotted 1px #A6C7FD!important;
+    border-bottom: dotted 1px white!important;
     padding: 2px 4px;
 }
 
-a.editable-click:hover:after {
+/*a.editable-click:hover:after {
     content: "\f040";
     color: #007BC0;
     font-size: 12px;
     font-family: Fontawesome;
 
-}
+}*/
 
 label.label.label-default {
     color: #777777;
@@ -344,20 +343,20 @@ li.filesinTable {
     background-color: white;
     border:1px dotted #007BC0;
     border-radius: 5px;}
-   
+
 .subpuntTitle:hover:before {
      content: "\f07d";
     font-family: FontAwesome;
-    color: #007BC0; 
+    color: #007BC0;
    font-size: 13px;
    font-weight: 300;
- 
+
 }
 
 .ui-state-grey:hover:before {
     content: "\f07d";
     font-family: FontAwesome;
-    color: #007BC0; 
+    color: #007BC0;
    position: absolute;
    font-size: 14px;
    bottom: 5px;
@@ -372,7 +371,7 @@ li.filesinTable {
    border:2px dotted red!important;
    border-radius: 5px;
 }
- 
+
 .DADES button {
     border: none!important;
     margin: 1px!important;
