@@ -7,63 +7,55 @@
       i18n:domain="genweb.organs">
 <body>
 
-<metal:content-core fill-slot="content-core" tal:define="filesanddocs view/FilesandDocumentsInside">
+<metal:content-core fill-slot="content-core"
+    tal:define="filesanddocs view/FilesandDocumentsInside;
+                agreement context/agreement;
+                estatsLlista context/estatsLlista;
+                isAcord view/isAcord;
+                defaultContent context/defaultContent">
 
   <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
-  <div tal:condition="view/isAcord">
-    <br/>
-    <div class="alert alert-alert" role="alert" i18n:translate="">Esteu visualitzant un punt marcat com Acord.</div>
+  <div class="caixaPunts">
+    <li i18n:translate="" tal:condition="isAcord"><b>Esteu visualitzant un Acord</b></li>
+    <li tal:condition="agreement"><tal:omit-tag i18n:translate="">Agreement number: </tal:omit-tag>
+      <span tal:content="context/agreement"></span>
+    </li>
+    <li tal:condition="estatsLlista"><tal:omit-tag i18n:translate="">Agreement and document label: </tal:omit-tag>
+      <span tal:content="context/estatsLlista"></span></li>
   </div>
 
-  <table class="table table-bordered table-condensed table-responsive" >
+  <div class="clearfix"></div>
+
+  <div tal:condition="defaultContent">
+    <h2 i18n:translate="">Contingut</h2>
+    <span tal:replace="structure defaultContent" />
+  </div>
+
+  <table class="table table-bordered table-responsive" tal:condition="filesanddocs">
     <thead>
       <tr>
         <th>
-          <tal:data i18n:translate="">Agreement number</tal:data>
-        </th>
-        <th>
-           <tal:data i18n:translate="">Agreement and document labels</tal:data>
+          <tal:data i18n:translate="">Fitxers i documents</tal:data>
         </th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td tal:content="context/agreement"></td>
-        <td tal:content="context/estatsLlista"></td>
+        <td>
+          <ul class="ul_items">
+            <tal:documents repeat="item filesanddocs">
+              <li style="list-style: none; padding-bottom: 5px;">
+                <i tal:attributes="class item/classCSS"></i>
+                <a tal:attributes="href item/absolute_url;"
+                   style="font-size:15px;">
+                   <span tal:content="item/title">Doc title</span></a>&nbsp;<span style="float:right;" tal:attributes="class string:${item/labelClass}" tal:content="item/content"></span>
+              </li>
+            </tal:documents>
+          </ul>
+        </td>
       </tr>
     </tbody>
-  </table>
-
-  <div tal:condition="context/defaultContent">
-    <h2 i18n:translate="">Contingut</h2>
-    <span tal:replace="structure context/defaultContent" />
-  </div>
-
-  <table class="table table-bordered table-responsive" tal:condition="filesanddocs">
-      <thead>
-        <tr>
-          <th>
-            <tal:data i18n:translate="">Fitxers i documents</tal:data>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td tal:condition="filesanddocs">
-            <ul class="ul_items">
-              <tal:documents repeat="item filesanddocs">
-                <li style="list-style: none; padding-bottom: 5px;">
-                  <i tal:attributes=" class item/classCSS"></i>
-                  <a tal:attributes="href item/absolute_url;"
-                     style="font-size:15px;">
-                     <span tal:content="item/title"> Doc title</span></a>&nbsp;<span style="float:right;" tal:attributes="class string:${item/labelClass}" tal:content="item/content"></span>
-                </li>
-              </tal:documents>
-            </ul>
-          </td>
-        </tr>
-      </tbody>
   </table>
 
 </metal:content-core>

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-12-01 20:04+0000\n"
+"POT-Creation-Date: 2016-12-02 12:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,6 +14,10 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
+#: ./genweb/organs/content/templates/punt_view.pt:20
+msgid "<b>Esteu visualitzant un Acord</b>"
+msgstr "<b>Esteu visualitzant un Acord</b>"
+
 #: ./genweb/organs/content/templates/file_view.pt:57
 msgid "<strong>No s'ha afegit cap fitxer.</strong>"
 msgstr "<strong>No s'ha afegit cap fitxer.</strong>"
@@ -22,7 +26,7 @@ msgstr "<strong>No s'ha afegit cap fitxer.</strong>"
 msgid "Accio"
 msgstr "Acció"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:29
+#: ./genweb/organs/content/templates/organgovern_view.pt:34
 msgid "Acord"
 msgstr "Acord"
 
@@ -56,21 +60,28 @@ msgid "Afegir <span class=\"caret\"></span>"
 msgstr "Afegir <span class=\"caret\"></span>"
 
 #: ./genweb/organs/content/punt.py:82
-#: ./genweb/organs/content/templates/organgovern_view.pt:74
+#: ./genweb/organs/content/templates/organgovern_view.pt:79
 msgid "Agreement and document label"
 msgstr "Estat"
 
+#: ./genweb/organs/content/templates/punt_view.pt:24
+msgid "Agreement and document label:"
+msgstr "Estat:"
+
 #: ./genweb/organs/content/organgovern.py:105
 #: ./genweb/organs/content/subpunt.py:83
-#: ./genweb/organs/content/templates/punt_view.pt:29
 msgid "Agreement and document labels"
 msgstr "Estats d'aprovació"
 
 #: ./genweb/organs/content/punt.py:64
 #: ./genweb/organs/content/subpunt.py:65
-#: ./genweb/organs/content/templates/organgovern_view.pt:71
+#: ./genweb/organs/content/templates/organgovern_view.pt:76
 msgid "Agreement number"
 msgstr "Número d'acord"
+
+#: ./genweb/organs/content/templates/punt_view.pt:21
+msgid "Agreement number:"
+msgstr "Número d'acord:"
 
 #: ./genweb/organs/content/document.py:28
 #: ./genweb/organs/content/templates/document_view.pt:23
@@ -124,7 +135,7 @@ msgstr "Missatge que s'adjunta al clicar el botó d'enviar missatge. S'hi afegei
 msgid "Cancel"
 msgstr "Cancel·lar"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:26
+#: ./genweb/organs/content/templates/organgovern_view.pt:31
 msgid "Composicio"
 msgstr "Composició"
 
@@ -133,7 +144,7 @@ msgid "Content used to hide protected content"
 msgstr "Contingut d'ús intern."
 
 #: ./genweb/organs/content/templates/document_view.pt:18
-#: ./genweb/organs/content/templates/punt_view.pt:43
+#: ./genweb/organs/content/templates/punt_view.pt:31
 msgid "Contingut"
 msgstr "Contingut"
 
@@ -163,7 +174,7 @@ msgstr "Data i hora"
 msgid "Default content shown in the document view"
 msgstr "Contingut preparat per publicar."
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:23
+#: ./genweb/organs/content/templates/organgovern_view.pt:28
 msgid "Description"
 msgstr "Descripció"
 
@@ -214,10 +225,6 @@ msgstr "Esteu visualitzant un fitxer <strong>INTERN</strong>."
 msgid "Esteu visualitzant un fitxer <strong>PUBLIC</strong>."
 msgstr "Esteu visualitzant un fitxer <strong>PÚBLIC</strong>."
 
-#: ./genweb/organs/content/templates/punt_view.pt:16
-msgid "Esteu visualitzant un punt marcat com Acord."
-msgstr "Esteu visualitzant un punt marcat com Acord."
-
 #: ./genweb/organs/browser/views/acta_print.pt:90
 #: ./genweb/organs/content/acta.py:77
 #: ./genweb/organs/content/sessio.py:103
@@ -251,7 +258,7 @@ msgstr "PDF intern"
 msgid "Fitxer públic"
 msgstr "PDF públic"
 
-#: ./genweb/organs/content/templates/punt_view.pt:51
+#: ./genweb/organs/content/templates/punt_view.pt:39
 msgid "Fitxers i documents"
 msgstr "Fitxers i documents"
 
@@ -465,11 +472,11 @@ msgstr "Per defecte els fitxers són privats. Si vol fer públic el fitxer, cal 
 msgid "Persones Convocades"
 msgstr "Persones Convocades"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:43
+#: ./genweb/organs/content/templates/organgovern_view.pt:48
 msgid "Persones assistents"
 msgstr "Persones assistents"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:46
+#: ./genweb/organs/content/templates/organgovern_view.pt:51
 #: ./genweb/organs/content/templates/sessio_view.pt:182
 msgid "Persones convidades"
 msgstr "Persones convidades"
@@ -498,7 +505,6 @@ msgstr "Contingut"
 
 #: ./genweb/organs/content/punt.py:59
 #: ./genweb/organs/content/subpunt.py:60
-#: ./genweb/organs/content/templates/punt_view.pt:23
 msgid "Proposal point number"
 msgstr "Punt de l'ordre del dia"
 
@@ -556,7 +562,7 @@ msgstr "Títol de la sessió"
 
 #: ./genweb/organs/content/acta.py:41
 #: ./genweb/organs/content/sessio.py:55
-#: ./genweb/organs/content/templates/organgovern_view.pt:115
+#: ./genweb/organs/content/templates/organgovern_view.pt:120
 msgid "Session date"
 msgstr "Data de la sessió"
 
@@ -568,7 +574,7 @@ msgstr "Hora de finalització de la sessió"
 
 #: ./genweb/organs/content/acta.py:46
 #: ./genweb/organs/content/sessio.py:60
-#: ./genweb/organs/content/templates/organgovern_view.pt:118
+#: ./genweb/organs/content/templates/organgovern_view.pt:123
 msgid "Session location"
 msgstr "Lloc de la convocatòria"
 
@@ -583,7 +589,7 @@ msgid "Session order"
 msgstr "Ordre del dia"
 
 #: ./genweb/organs/browser/views/acta_print.pt:65
-#: ./genweb/organs/content/templates/organgovern_view.pt:121
+#: ./genweb/organs/content/templates/organgovern_view.pt:126
 msgid "Session start"
 msgstr "Hora d'inici"
 
@@ -593,7 +599,7 @@ msgstr "Hora d'inici"
 msgid "Session start time"
 msgstr "Hora d'inici de la sessió"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:107
+#: ./genweb/organs/content/templates/organgovern_view.pt:112
 msgid "Sessions list"
 msgstr "Llistat de sessions"
 
@@ -614,7 +620,7 @@ msgstr "Adreces dels afectats"
 msgid "Stakeholders mail address help."
 msgstr "Llista d'adreces de les persones afectades a les quals es notificarà."
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:124
+#: ./genweb/organs/content/templates/organgovern_view.pt:129
 #: ./genweb/organs/content/templates/organsfolder_view.pt:43
 msgid "State"
 msgstr "Estat"
@@ -629,7 +635,7 @@ msgstr "Subpunt"
 msgid "This content will be used as message content"
 msgstr "El següent contingut s'adjuntarà al missatge de correu"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:68
+#: ./genweb/organs/content/templates/organgovern_view.pt:73
 #: ./genweb/organs/content/templates/organsfolder_view.pt:34
 msgid "Title"
 msgstr "Títol"

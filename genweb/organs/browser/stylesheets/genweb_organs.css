@@ -386,3 +386,16 @@ li.filesinTable {
 
 .DADES .edit.label{ background-color: #007bc0; color: }
 .DADES .edit.label a{ color:white!important; }
+
+.caixaPunts {
+    float: right;
+    background-color: #eee;
+    list-style: none;
+    padding: 12px;
+
+}
+
+.caixaPunts > li > span {
+    float: right;
+    font-weight: bold;
+ }
