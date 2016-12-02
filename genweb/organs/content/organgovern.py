@@ -176,14 +176,12 @@ class View(grok.View):
         # If acords in site, publish the tab and the contents...
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
-
         values = portal_catalog.searchResults(
-            portal_type='genweb.organs.punt',
+            portal_type=['genweb.organs.punt', 'genweb.organs.subpunt'],
             sort_on='getObjPositionInParent',
             acordOrgan=True,
             path={'query': folder_path,
-                  'depth': 2})
-
+                  'depth': 3})
         results = []
         for obj in values:
             value = obj.getObject()
