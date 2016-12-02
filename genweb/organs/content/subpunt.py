@@ -25,8 +25,10 @@ class InvalidEmailError(schema.ValidationError):
 def llistaEstats(context):
     """ Create zope.schema vocabulary from default states. """
     terms = []
-
-    values = context.aq_parent.estatsLlista.splitlines()
+    try:
+        values = context.aq_parent.aq_parent.estatsLlista.splitlines()
+    except:
+        values = []
     literals = []
     for value in values:
         # color = '#' + value.split('#')[1].rstrip(' ')   # not used here

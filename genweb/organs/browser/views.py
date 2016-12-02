@@ -11,6 +11,7 @@ import pkg_resources
 from zope.interface import alsoProvides
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from plone.folder.interfaces import IExplicitOrdering
+
 try:
     pkg_resources.get_distribution('plone4.csrffixes')
 except pkg_resources.DistributionNotFound:
@@ -516,7 +517,7 @@ class modifyPointState(BrowserView):
                     id=item,
                     path={'query': object_path,
                           'depth': 1})[0].getObject()
-            currentitem.estatsLlista = unicode(estat.decode('iso-8859-1'))
+            currentitem.estatsLlista = estat
             self.request.response.redirect(self.context.absolute_url())
         except:
             pass

@@ -13,8 +13,6 @@ from AccessControl import Unauthorized
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope import schema
-from collections import defaultdict
-import re
 from Products.CMFCore.utils import getToolByName
 import transaction
 
@@ -113,6 +111,8 @@ class Message(form.SchemaForm):
             # Creating new objects
 
             text = formData['message']
+            estats = self.aq_parent.aq_parent.estatsLlista.splitlines()
+            defaultEstat = str(estats[0])
             portal_catalog = getToolByName(self, 'portal_catalog')
             folder_path = '/'.join(self.context.getPhysicalPath())
             puntsInFolder = portal_catalog.searchResults(
@@ -134,6 +134,7 @@ class Message(form.SchemaForm):
                         title=line,
                         container=self.context)
                     obj.proposalPoint = unicode(str(index))
+                    obj.estatsLlista = defaultEstat
                     index = index + 1
                     subindex = 1
                     previousPuntContainer = obj
@@ -148,6 +149,7 @@ class Message(form.SchemaForm):
                     # TODO: Optimize previous line! runs slower!
 
                     obj.proposalPoint = unicode(str(index-1) + str('.') + str(subindex))
+                    obj.estatsLlista = defaultEstat
                     subindex = subindex + 1
 
             message = "S'han creats els punts indicats."
