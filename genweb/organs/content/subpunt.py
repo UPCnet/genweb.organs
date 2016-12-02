@@ -111,7 +111,7 @@ class Edit(dexterity.EditForm):
 
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
-        self.widgets['proposalPoint'].mode = DISPLAY_MODE
+        self.widgets['proposalPoint'].mode = HIDDEN_MODE
 
 
 class View(grok.View):
