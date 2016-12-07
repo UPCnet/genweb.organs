@@ -221,6 +221,10 @@ class View(grok.View):
                                     show=False))
             else:
                 item = obj.getObject()
+                if len(item.objectIds()) > 0:
+                    inside = True
+                else:
+                    inside = False
                 results.append(dict(title=obj.Title,
                                     portal_type=obj.portal_type,
                                     absolute_url=item.absolute_url(),
@@ -230,7 +234,8 @@ class View(grok.View):
                                     estats=self.estatsCanvi(obj),
                                     id=obj.id,
                                     show=True,
-                                    classe="ui-state-grey"))
+                                    classe="ui-state-grey",
+                                    items_inside=inside))
         return results
 
     def SubpuntsInside(self, data):
