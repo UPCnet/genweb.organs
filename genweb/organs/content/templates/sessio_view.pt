@@ -344,11 +344,10 @@
               <div class="btn-group" role="group"
                    style="float: right;" aria-label="Edit actions">
                 <tal:block tal:condition="item/state">
-                  <button class="label dropdown-toggle"
+                  <button class="label dropdown-toggle" tal:attributes="style string:background-color: ${item/css}"
                       id="estats" type="button" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
-                    <a tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
-                       i18n:domain="genweb.organs" i18n:translate=""></a>
+                    <a tal:content="item/state"></a>
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
@@ -432,10 +431,9 @@
                       <div class="btn-group" role="group"
                            style="float: right;" aria-label="Subpunt actions">
                         <tal:block tal:condition="item/state">
-                          <button class="label dropdown-toggle"
+                          <button class="label dropdown-toggle" tal:attributes="style string:background-color: ${item/css}"
                               id="menu1" type="button" data-toggle="dropdown">
-                            <a tal:content="item/state" tal:attributes="style string:background-color: ${item/css}"
-                               i18n:domain="genweb.organs" i18n:translate=""></a>
+                            <a tal:content="item/state"></a>
                             <span class="caret"></span></button>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                               <tal:block repeat="estat item/estats">
