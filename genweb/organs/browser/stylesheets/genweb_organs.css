@@ -15,11 +15,15 @@ ul#tabs.nav.nav-tabs {
 #contentOrgan #tabs li a,
 #contentSessio #tabs li a,
 #contentActa #tabs li a {
+    background-color: #d4d4d4;
     background-image: none;
-    background-color: #D4D4D4;
-    padding: 10px 20px 10px 20px;
-    border: none;
+    border: medium none;
+    color: #555;
     margin-right: 5px;
+    min-width: 85px;
+    padding: 8px 20px;
+    text-align: center;
+    outline: medium none;    
 }
 
 #contentOrgan #tabs li.active a,
@@ -71,7 +75,13 @@ table th {
     position:relative;
     top: calc(50% - 10px); /* 50% - 3/4 of icon height */
 }
-
+.containerIcons .fa {
+    color: #557c95;
+    font-size: 25px;
+}
+.containerIcons span {
+    color: #557c95;
+}
 
 /* CSS  modal afegir punts massivament */
 #form-widgets-message {
@@ -118,14 +128,15 @@ input#form-widgets-agreement {width: 98%;}
     padding: 0;
     width:auto;
 }
-
+#sortable li:nth-child(2n) {
+    background: #f9f9f9 none repeat scroll 0 0;
+}
 #sortable li {
-    margin: 0 3px 9px 3px;
-    padding: 1em;
-    padding-left: 1.5em;
+    border: 1px solid #ececec;
+    border-radius: 0;
     font-size: 14px;
-    border-radius: 5px;
-    /*height: 27px;*/
+    margin: 0 0 20px;
+    padding: 1em 1em 1em 1.8em;
 }
 
 #sortable li span {
@@ -134,27 +145,27 @@ input#form-widgets-agreement {width: 98%;}
 }
 
 span.proposalNumber {
-    background-color: #007BC0;
-    padding: 4px 8px;
-    border-radius: 50%;
-    color: white;
+    color: #007bc0;
+    font-size: 20px;
     margin-left: -10px;
+    margin-right: 8px;
+    padding: 0;
 }
 
 .DADES ul, .DADES ol {
-    margin: 8px 0;
+    margin: 5px 0;
     /* margin: 0 0 9px 25px; */
 }
 
 /*span.proposalNumberSubpunt{
-    color: #007BC0;
-    margin-left: -10px;
+    color: #007bc0;
+    margin-left: 0;
 
 }*/
 
 span.proposalNumberSubpunt {
     color: #007BC0;
-    margin-left: 20px;
+    margin-left: 0;
 }
 
 #sortable .ui-state-highlight {
@@ -184,10 +195,10 @@ span.proposalNumberSubpunt {
 }
 
 .ui-state-grey:hover {
-    border: 1px dotted #97E3FA;
-    background-color: #effbff;
+    border: 1px solid #666 !important;
     cursor: move;
-    position: relative;}
+    position: relative;
+}    
 
 .ui-state-grey:hover:before {
     content: "\f07d";
@@ -206,9 +217,9 @@ span.proposalNumberSubpunt {
 }
 
 .titleSize {
-    font-size:16px;
-    font-weight: bold;
-    font-color: black;
+    color: #555 !important;
+    font-size: 16px;
+    font-weight: normal;
 }
 
 
@@ -251,13 +262,24 @@ span.label.nomarginLeft  {
     font-weight: bold;
     font-color: black;
 }
+.filesinTable {
+    background: transparent none repeat scroll 0 0 !important;
+    border: 0!important;
+    border-bottom: 1px solid #ececec!important;
+}
+.filesinTable:last-child {
+    border-bottom: 0px solid #ececec!important;
+}
+
 
 .subpuntTitle {
     color: black;
-    font-size:16px;
+    font-size: 16px;
     font-weight: bold;
-    padding: 5px!important;
-    font-color: black;
+    padding-bottom: 5px !important;
+    padding-left: 25px;
+    padding-right: 5px !important;
+    padding-top: 5px !important;
 }
 
 #modalSession {
@@ -317,7 +339,7 @@ label.label.label-default{padding: 2px 4px!important;}
 }
 
 .subpuntTitle ul li {
-    margin-left: 50px!important;
+
 }
 
 .btn-group a {
@@ -334,15 +356,21 @@ a.addinsubpunt {
 a.remove{background-color: #e8003d!important}
 
 li.filesinTable {
-    border-bottom: 0px solid #eee;
-    padding-bottom: 5px!important;
-    padding-left: 20px!important;
+    border-bottom: 0 solid #eee;
+    padding-bottom: 5px !important;
+    padding-left: 22px !important;
 }
-
+.filesinTable .fa {
+    margin-right: 4px;
+}
+.filesinTable .fa-trash-o {
+    margin-right: 0;
+}
 .subpuntTitle:hover {
-    background-color: white;
-    border:1px dotted #007BC0;
-    border-radius: 5px;}
+    background-color: transparent;
+    border: 1px dotted #ccc;
+    border-radius: 5px;
+}    
 
 .subpuntTitle:hover:before {
      content: "\f07d";
@@ -373,29 +401,52 @@ li.filesinTable {
 }
 
 .DADES button {
-    border: none!important;
-    margin: 1px!important;
+    background: #ccc none repeat scroll 0 0;
+    border: medium none !important;
+    margin: 1px !important;
+    padding: 2px 6px 3px;
+    text-shadow: none;
+}
+.DADES button:hover {
+    background: #d14836 none repeat scroll 0 0;
 }
 
-.label.dropdown-toggle{color: #aaa!important; background-color: #ddd!important; text-shadow: none!important;}
-
+.label.dropdown-toggle {
+    background-color: #ccc !important;
+    color: white !important;
+    text-shadow: none !important;
+}
+.label.dropdown-toggle:hover {
+    background: #007bc0 none repeat scroll 0 0 !important;
+}
 .DADES .caret {
-
+    border-top: 4px solid #fff;
     vertical-align: middle;
 }
 
 .DADES .edit.label{ background-color: #007bc0; color: }
 .DADES .edit.label a{ color:white!important; }
-
-.caixaPunts {
-    float: right;
-    background-color: #eee;
-    list-style: none;
-    padding: 12px;
-
+#estats > a, #menu1 a {
+    background: transparent none repeat scroll 0 0 !important;
+    color: white;
 }
-
-.caixaPunts > li > span {
-    float: right;
-    font-weight: bold;
- }
+.btn-info, .link-parent {
+    background-image: linear-gradient(to bottom, #007bc0, #007bc0)!important;
+    background-repeat: repeat-x;
+    border-color: transparent;
+    border-radius: 3px!important;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.btn-info:hover, .link-parent:hover, .btn-info:active, .link-parent:active, .btn-info.active, .btn-info.selected, .selected.link-parent, .contentViews .btn-info.selected:hover, .contentViews .selected.link-parent:hover, .active.link-parent, .btn-info.disabled, .disabled.link-parent, .btn-info[disabled], .link-parent[disabled] {
+    background-color: #0273b3!important;
+    border-color: transparent;
+    color: #fff;
+}
+#sortable .dropdown-menu li{
+     border: 0 none;
+    border-radius: 0;
+    font-size: 13px;
+    margin: 0;
+    padding: 5px 1em 5px 1.8em;
+}
