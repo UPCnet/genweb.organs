@@ -9,9 +9,9 @@
 
 <metal:content-core fill-slot="content-core" tal:define="loginfo view/LogInformation">
 
-  <!-- <link rel="stylesheet" href="++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
+  <link rel="stylesheet" href="++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
   <script src=++resource++genweb.organs.stylesheets/jquery-ui.min.js></script>
-  <script src="++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script> -->
+  <script src="++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script>
   <script src="++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script>
 
   <script type="text/javascript">
@@ -312,6 +312,9 @@
             <td tal:condition="item/show">
 
               <div style="float: right;" aria-label="Edit actions">
+                <button type="button" class="edit label label-info"
+                  data-original-title="Edit">
+                  <i class="fa fa-pencil" aria-hidden="true"></i></button>
                 <button type="button" class="remove label label-important"
                   data-container="body"
                   data-toggle="popover"
@@ -360,7 +363,7 @@
                 <span class="proposalNumber" tal:content="item/proposalPoint"></span>
                 <a tal:attributes="data-pk item/id; href item/absolute_url"
                    data-url="changeTitle"
-                   class="titleSize">
+                   class="editTitle editable titleSize">
                   <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                 </a>
 
@@ -375,6 +378,7 @@
                         </a>
                         <div style="float:right; display: inline-table;">
                           <label tal:attributes="class string:${item/labelClass}" tal:content="item/content"></label>
+
                            <button type="button" class="remove label label-important"
                               data-container="body"
                               data-toggle="popover"
@@ -397,6 +401,9 @@
                   <ol class="li_subgrups" tal:attributes="id item/id">
                     <td>
                       <div style="float: right;" aria-label="Subpunt actions">
+                                      <button type="button" class="edit2 label label-info"
+                  data-original-title="Edit">
+                  <i class="fa fa-pencil" aria-hidden="true"></i></button>
                         <button type="button" class="remove label label-important"
                               data-container="body"
                               data-toggle="popover"
@@ -442,7 +449,7 @@
     	                 <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
                         <a tal:attributes="data-pk item/id; href item/absolute_url"
                            data-type="text" data-url="changeTitle"
-                           class="titleSize">
+                           class="editTitle editable subtitleSize">
                           <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                         </a>
                         <tal:files tal:define="files python:view.filesinsideSubPunt(item)">
@@ -484,6 +491,41 @@
 
   <script type="text/javascript">
     $(function() {
+        var reloadEdit = false;    
+         $.fn.editable.defaults.mode = 'inline';   
+         $.fn.editable.defaults.showbuttons = false;   
+         $.fn.editable.defaults.type = 'text';   
+         $.fn.editable.defaults.toggle = 'manual';   
+         $.fn.editable.defaults.emptytext = 'Sense valor';   
+     
+         $('.editTitle').editable({    
+             inputclass: function(e, f) {    
+               $("a[aria-describedby=" + $(this).closest(".ui-tooltip").prop("id") + "]").data("shared", this);    
+             },    
+             validate: function(value) {   
+               if (!value) return 'Camp obligatori';   
+             },    
+             success: function(){    
+                   reloadEdit = true;    
+             },    
+         });   
+     
+         $(document).ajaxStop(function(){    
+            if(reloadEdit){    
+               window.location.reload();   
+           }   
+         });
+
+        $('.edit').click(function(e){    
+               e.stopPropagation();
+               $(this).parent().parent('li:first').find('a.titleSize').editable('toggle')
+        });
+
+        $('.edit2').click(function(e){    
+               e.stopPropagation();
+               $(this).parent().parent('ol:first').find('a.subtitleSize').editable('toggle')
+        });
+
         $('button.remove').on('click', function (e) {
             $('[data-toggle="popover"]').each(function () {
                 if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
