@@ -243,7 +243,10 @@ span.proposalNumberSubpunt {
     padding: 1px 4px 2px;
 }
 
-
+.editTitle.editable.subtitleSize {
+    color: #555;
+    font-weight: normal;
+}
 /*.editTitle:hover {
     cursor: text;
 }*/
