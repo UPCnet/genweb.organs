@@ -1,22 +1,36 @@
 <sharing xmlns:i18n="http://xml.zope.org/namespaces/i18n"
          i18n:domain="plone">
   <role
-      id="Responsable"
-      title="Responsable"
+      id="OG1-Responsable"
+      title="OG1-Responsable"
       permission="Manage portal"
       i18n:attributes="title"
       />
 
   <role
-      id="Affectat"
-      title="Affectat"
+      id="OG2-Editor"
+      title="OG2-Editor"
       permission="Manage portal"
       i18n:attributes="title"
       />
 
   <role
-      id="Anonim"
-      title="Anonim"
+      id="OG3-Membre"
+      title="OG3-Membre"
+      permission="Manage portal"
+      i18n:attributes="title"
+      />
+
+  <role
+      id="OG4-Afectat"
+      title="OG4-Afectat"
+      permission="Manage portal"
+      i18n:attributes="title"
+      />
+
+  <role
+      id="OG5-Anonim"
+      title="OG5-Anonim"
       permission="Manage portal"
       i18n:attributes="title"
       />

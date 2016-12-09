@@ -53,7 +53,7 @@ msgstr "Cos de l'acta"
 
 #: ./genweb/organs/content/manualimport.py:31
 msgid "Add content separated by -- and they will by added as Agreements."
-msgstr "Es crearan els punts i subpunts sense necessitat d'afegir el número de punt.<br/>Cal escriure només un punt o subpunt per linia. Si hi ha espais al principi de linia es crea com a subpunt. Per exemple: <br/>Informe del rector<br/>  Informació dels nomenaments<br/>  Aprovació d’una declaració<br/>Discutir tema central<br/>Conclusions"
+msgstr "Es crearan els punts i subpunts sense necessitat d'afegir el número de punt. Només un punt o subpunt per linia. Si la linia comença amb espais es crea com a subpunt. Per exemple:<br/>Informe del rector<br/>&nbsp;&nbsp;Informació dels nomenaments<br/>&nbsp;&nbsp;Aprovació d’una declaració<br/>Discutir tema central<br/>Conclusions"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:328
 msgid "Afegir <span class=\"caret\"></span>"

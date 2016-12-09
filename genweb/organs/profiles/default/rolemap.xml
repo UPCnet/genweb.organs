@@ -1,9 +1,12 @@
 <?xml version="1.0"?>
 <rolemap>
   <roles>
-    <role name="Responsable"/>
-    <role name="Affectat"/>
-    <role name="Anonim"/>
+    <role name="OG1-Responsable"/>
+    <role name="OG2-Editor"/>
+    <role name="OG3-Membre"/>
+    <role name="OG4-Afectat"/>
+    <role name="OG5-Anonim"/>
+
   </roles>
   <permissions>
   </permissions>
