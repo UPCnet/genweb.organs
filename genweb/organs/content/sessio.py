@@ -191,7 +191,29 @@ class View(grok.View):
         return utils.isReader(self)
 
     def isAffectat(self):
-        return utils.isAffectat(self)        
+        return utils.isAffectat(self)
+
+    def showEnviarButton(self):
+
+        review_state = api.content.get_state(self.context)
+        value = False
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio']:
+            value = True
+        return value
+
+    def showPresentacionButton(self):
+        review_state = api.content.get_state(self.context)
+        value = False
+        if review_state in ['convocada', 'realitzada', 'en_correccio']:
+            value = True
+        return value
+
+    def showPublicarButton(self):
+        review_state = api.content.get_state(self.context)
+        value = False
+        if review_state in ['realitzada', 'en_correccio']:
+            value = True
+        return value
 
     def getColor(self, data):
         # assign custom colors on organ states

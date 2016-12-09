@@ -13,7 +13,7 @@
  <permission>Reply to item</permission>
  <permission>View</permission>
 
- <state state_id="closed" title="Tancada">
+ <state state_id="tancada" title="Tancada">
   <exit-transition transition_id="corregir"/>
   <permission-map name="Access contents information" acquired="True">
   </permission-map>
@@ -24,7 +24,7 @@
   <permission-map name="View" acquired="True">
   </permission-map>
  </state>
- <state state_id="convocat" title="Convocada">
+ <state state_id="convocada" title="Convocada">
   <exit-transition transition_id="realitzar"/>
   <permission-map name="Access contents information" acquired="True">
   </permission-map>
@@ -36,7 +36,7 @@
   </permission-map>
  </state>
  <state state_id="planificada" title="Planificada">
-  <exit-transition transition_id="convoquing"/>
+  <exit-transition transition_id="convocar"/>
   <permission-map name="Access contents information" acquired="True">
   </permission-map>
   <permission-map name="Modify portal content" acquired="True">
@@ -46,8 +46,8 @@
   <permission-map name="View" acquired="True">
   </permission-map>
  </state>
- <state state_id="preparing" title="En correcció">
-  <exit-transition transition_id="closed"/>
+ <state state_id="en_correccio" title="En correcció">
+  <exit-transition transition_id="tancar"/>
   <permission-map name="Access contents information" acquired="True">
   </permission-map>
   <permission-map name="Modify portal content" acquired="True">
@@ -58,7 +58,7 @@
   </permission-map>
  </state>
  <state state_id="realitzada" title="Realitzada">
-  <exit-transition transition_id="closed"/>
+  <exit-transition transition_id="tancar"/>
   <permission-map name="Access contents information" acquired="True">
   </permission-map>
   <permission-map name="Modify portal content" acquired="True">
@@ -68,23 +68,23 @@
   <permission-map name="View" acquired="True">
   </permission-map>
  </state>
- <transition transition_id="closed" title="Tancar" new_state="closed" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=closed" category="workflow" icon="">Tancar</action>
+ <transition transition_id="tancar" title="Tancar" new_state="tancada" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=tancar" category="workflow" icon="">Tancar</action>
   <guard>
   </guard>
  </transition>
- <transition transition_id="convoquing" title="Convocar" new_state="convocat" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=convoquing" category="workflow" icon="">Convocar</action>
+ <transition transition_id="convocar" title="Convocar" new_state="convocada" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=convocar" category="workflow" icon="">Convocar</action>
   <guard>
   </guard>
  </transition>
- <transition transition_id="corregir" title="Corregir" new_state="preparing" trigger="USER" before_script="" after_script="">
+ <transition transition_id="corregir" title="Corregir" new_state="en_correccio" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=corregir" category="workflow" icon="">Corregir</action>
   <guard>
   </guard>
  </transition>
- <transition transition_id="preparing" title="Planificar" new_state="planificada" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=preparing" category="workflow" icon="">Planificar</action>
+ <transition transition_id="planificar" title="Planificar" new_state="planificada" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=planificar" category="workflow" icon="">Planificar</action>
   <guard>
   </guard>
  </transition>

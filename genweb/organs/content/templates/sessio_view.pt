@@ -117,13 +117,13 @@
 
   <div style="float:right">
     <div style="display:flex">
-      <div class="containerIcons">
+      <div class="containerIcons" tal:condition="view/showEnviarButton">
         <a href="send_message" i18n:attributes="title Enviar; alt Enviar"><i class="fa fa-envelope fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Enviar</span></a>
       </div>
-      <div class="containerIcons">
+      <div class="containerIcons" tal:condition="view/showPresentacionButton">
         <a i18n:attributes="title Presentacio; alt Presentacio" href="sessionAjax" data-toggle="modal" data-target="#modalSession"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
       </div>
-      <div class="containerIcons">
+      <div class="containerIcons" tal:condition="view/showPublicarButton">
         <a href="informar_sessio" i18n:attributes="title Informar; alt Informar"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informar</span></a>
       </div>
     </div>
@@ -170,7 +170,6 @@
           </li>
         </ul>
       </div>
-      <span tal:condition="view/isAffectat"></span>
 
       <div class="tab-pane" id="assistentsTab" tal:condition="view/hihaPersones">
         <div class="panel with-nav-tabs panel-primary">
