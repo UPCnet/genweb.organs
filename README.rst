@@ -4,22 +4,10 @@ genweb.organs
 
 Paquet Organs de Govern amb vista jQuery per organitzar Sessions i que s'integra a Genweb.
 
-How it works
+Instal·lació
 ============
 
-...
+Primer cal instal·lar i configurar el paquet Genweb UPC i posteriorment s'instal·la aquest paquet.
 
 
-Installation
-============
-
-To install `genweb.organs` you simply add ``genweb.organs``
-to the list of eggs in your buildout, run buildout and restart Plone.
-Then, install `genweb.organs` using the Add-ons control panel.
-
-
-Configuration
-=============
-
-...
 
