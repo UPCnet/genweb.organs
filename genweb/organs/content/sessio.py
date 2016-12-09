@@ -12,6 +12,7 @@ from zope.annotation.interfaces import IAnnotations
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
+from genweb.organs import utils
 
 
 class InvalidEmailError(schema.ValidationError):
@@ -181,6 +182,16 @@ class Edit(dexterity.EditForm):
 class View(grok.View):
     grok.context(ISessio)
     grok.template('sessio_view')
+
+    def isEditor(self):
+        """ Show send message button if user is editor """
+        return utils.isEditor(self)
+
+    def isReader(self):
+        return utils.isReader(self)
+
+    def isAffectat(self):
+        return utils.isAffectat(self)        
 
     def getColor(self, data):
         # assign custom colors on organ states

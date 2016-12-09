@@ -1,0 +1,24 @@
+<sharing xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+         i18n:domain="plone">
+  <role
+      id="Responsable"
+      title="Responsable"
+      permission="Manage portal"
+      i18n:attributes="title"
+      />
+
+  <role
+      id="Affectat"
+      title="Affectat"
+      permission="Manage portal"
+      i18n:attributes="title"
+      />
+
+  <role
+      id="Anonim"
+      title="Anonim"
+      permission="Manage portal"
+      i18n:attributes="title"
+      />
+
+</sharing>

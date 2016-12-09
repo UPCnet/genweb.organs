@@ -29,3 +29,16 @@ def isEditor(self):
             return False
     except:
         return False
+
+
+def isAffectat(self):
+    """ Return true if user is Affectat or Manager """
+    try:
+        username = api.user.get_current().getProperty('id')
+        roles = api.user.get_roles(username=username, obj=self.context)
+        if 'Affectat' in roles or 'Manager' in roles:
+            return True
+        else:
+            return False
+    except:
+        return False

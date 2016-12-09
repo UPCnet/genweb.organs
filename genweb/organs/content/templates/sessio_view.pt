@@ -170,6 +170,7 @@
           </li>
         </ul>
       </div>
+      <span tal:condition="view/isAffectat"></span>
 
       <div class="tab-pane" id="assistentsTab" tal:condition="view/hihaPersones">
         <div class="panel with-nav-tabs panel-primary">
