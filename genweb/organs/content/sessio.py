@@ -219,18 +219,17 @@ class View(grok.View):
         # assign custom colors on organ states
         estat = data.getObject().estatsLlista
         values = data.estatsLlista
-        try:
-            for value in values.splitlines():
-                if estat == value.split('#')[0].rstrip(' '):
-                    return '#' + value.split('#')[1].rstrip(' ').lstrip(' ')
-        except:
-            return '#777777'
+        color = '#777777'
+        for value in values.split('<br />'):
+            if estat == value.split('#')[0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' '):
+                return '#' + value.split('#')[1].replace('<p>', '').replace('</p>', '').rstrip(' ').lstrip(' ')
+        return color
 
     def estatsCanvi(self, data):
         values = data.estatsLlista
         items = []
-        for value in values.splitlines():
-            estat = value.split('#')[0].lstrip(' ').rstrip(' ')
+        for value in values.split('<br />'):
+            estat = value.split('#')[0].lstrip(' ').rstrip(' ').replace('<p>', '').replace('</p>', '')
             items.append(estat)
         return items
 

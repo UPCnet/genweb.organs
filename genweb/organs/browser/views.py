@@ -510,7 +510,9 @@ class modifyPointState(BrowserView):
         estat = self.request.form.get('estat')
         itemid = self.request.form.get('id')
         try:
+            # TODO IN PRODUCTION CHANGE PATH
             object_path = '/organs' +'/'+'/'.join(itemid.split('/')[3:-1])
+            object_path = '/'+'/'.join(itemid.split('/')[3:-1])
             item = str(itemid.split('/')[-1:][0])
             currentitem = portal_catalog.searchResults(
                     portal_type=['genweb.organs.punt', 'genweb.organs.subpunt'],

@@ -72,6 +72,13 @@ class Message(form.SchemaForm):
         super(Message, self).updateWidgets()
         self.widgets["recipients"].value = self.context.adrecaLlista
 
+        cosmissatge = self.context.bodyMail + '<br/>'
+        peumissatge = self.context.signatura + '<br/>'
+        bodyMailOrgan = self.context.aq_parent.bodyMailSend + '<br/>'
+        footerOrgan = self.context.aq_parent.footerMail + '<br/>'
+
+        self.widgets["message"].value = cosmissatge + peumissatge + bodyMailOrgan + footerOrgan
+
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):
         """ Send the email to the configured mail address

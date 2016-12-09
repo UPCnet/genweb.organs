@@ -286,7 +286,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="modalMassive" i18n:translate="">Creacio massiva de punts</h4>
+          <h4 class="modal-title" id="modalMassive" i18n:translate="">Importar llista de punts i subpunts</h4>
         </div>
         <div class="modal-body"></div>
       </div>
@@ -296,7 +296,7 @@
   <div style="float:right" class="">
     <br/>
       <a class="btn btn-info" style="margin-bottom: 20px;" href="++add++genweb.organs.punt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
-      <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Crear punts</span></a>
+      <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
       <a class="btn btn-info" style="margin-bottom: 20px;" href="updateProposalPoints" data-target="#modalPunts"><i class="fa fa-refresh" aria-hidden="true"></i></a>
   </div>
 

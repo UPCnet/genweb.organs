@@ -23,6 +23,8 @@ organType = SimpleVocabulary(
 
 grok.templatedir("templates")
 
+defaultEstats = _(u"Esborrany #999999 <br/>Pendent d'aprovació #ecad16 <br/>Aprovat #a0c94d <br/>Informat #007bc0 <br/>No aprovat #ec1914 <br/>Derogat #e0e22d <br/>Informatiu #557C95")
+
 
 class IOrgangovern(form.Schema):
     """ Tipus Organ de Govern
@@ -101,10 +103,11 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
+    directives.widget(estatsLlista=WysiwygFieldWidget)
     estatsLlista = schema.Text(
         title=_(u"Agreement and document labels"),
         description=_(u"Enter labels, separated by commas."),
-        default=_(u"Esborrany, Pendent d'aprovació, Aprovat, Informat, No aprovat, Derogat, Informatiu"),
+        default=defaultEstats,
         required=False,
     )
 

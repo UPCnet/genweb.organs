@@ -111,8 +111,7 @@ class Message(form.SchemaForm):
             # Creating new objects
 
             text = formData['message']
-            estats = self.aq_parent.aq_parent.estatsLlista.splitlines()
-            defaultEstat = str(estats[0])
+            defaultEstat = str(self.aq_parent.aq_parent.estatsLlista.split('<br />')[0].replace('<p>','').replace('</p>','').split('#')[0].rsplit(' ')[0])
             portal_catalog = getToolByName(self, 'portal_catalog')
             folder_path = '/'.join(self.context.getPhysicalPath())
             puntsInFolder = portal_catalog.searchResults(
