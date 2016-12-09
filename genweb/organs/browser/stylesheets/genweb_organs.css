@@ -15,7 +15,7 @@ ul#tabs.nav.nav-tabs {
 #contentOrgan #tabs li a,
 #contentSessio #tabs li a,
 #contentActa #tabs li a {
-    background-color: #d4d4d4;
+    background-color: #ddd;
     background-image: none;
     border: medium none;
     color: #555;
@@ -128,12 +128,10 @@ input#form-widgets-agreement {width: 98%;}
     padding: 0;
     width:auto;
 }
-#sortable li:nth-child(2n) {
-    background: #f9f9f9 none repeat scroll 0 0;
-}
 #sortable li {
-    border: 1px solid #ececec;
+    border: 1px solid #eee;
     border-radius: 0;
+    box-shadow: 2px 3px 2px #eee;
     font-size: 14px;
     margin: 0 0 20px;
     padding: 1em 1em 1em 1.8em;
@@ -150,6 +148,10 @@ span.proposalNumber {
     font-size: 20px;
     margin-left: -10px;
     margin-right: 8px;
+}
+.DADES > h2 {
+    margin-bottom: 15px;
+    margin-top: 40px;
 }
 
 .DADES ul, .DADES ol {
@@ -189,14 +191,14 @@ span.proposalNumberSubpunt {
 
 .ui-state-grey {
     border: 1px solid #D4D4D4;
-/*    background-color: #D4D4D4;*/
+    position: relative;
     font-weight: normal;
     color: black;
 }
 
 .ui-state-grey:hover {
-    border: 1px solid #666 !important;
-    cursor: move;
+    background: #f9f9f9 none repeat scroll 0 0;
+    cursor: grabbing;
     position: relative;
 }    
 
@@ -210,11 +212,6 @@ span.proposalNumberSubpunt {
    left:10px;
 }
 
-
-.filesinTable{
-    margin: 3px !important;
-    padding: 0px !important;
-}
 
 .titleSize {
     color: #555 !important;
@@ -264,21 +261,11 @@ span.label.nomarginLeft  {
     font-size:16px;
     font-weight: bold;
     font-color: black;
+    margin-bottom: 15px;    
 }
-.filesinTable {
-    background: transparent none repeat scroll 0 0 !important;
-    border: 0!important;
-    border-bottom: 1px solid #ececec!important;
-}
-.filesinTable:last-child {
-    border-bottom: 0px solid #ececec!important;
-}
-
-
 .subpuntTitle {
-    color: black;
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: 5px;
     padding-left: 25px;
 }
 
@@ -355,37 +342,34 @@ a.addinsubpunt {
 }
 a.remove{background-color: #e8003d!important}
 
-li.filesinTable {
-    border-bottom: 0 solid #eee;
-    padding-bottom: 5px !important;
-    padding-left: 22px !important;
-}
 .filesinTable .fa {
     margin-right: 4px;
 }
 .filesinTable .fa-trash-o {
+    color: white;
     margin-right: 0;
 }
-.subpuntTitle:hover {
-    background-color: transparent;
-    border: 1px dotted #ccc;
-    border-radius: 5px;
-    padding-left: 14px;
-}    
+.filesinTable > a {
+    color: #555;
+    font-weight: normal;
+}
+
 
 .subpuntTitle:hover:before {
      content: "\f07d";
     font-family: FontAwesome;
-    color: #007BC0;
+    color: #ccc;
    font-size: 13px;
    font-weight: 300;
+       left: 15px;
+    position: absolute;
 
 }
 
 .ui-state-grey:hover:before {
     content: "\f07d";
     font-family: FontAwesome;
-    color: #007BC0;
+    color: #ccc;
    position: absolute;
    font-size: 14px;
    bottom: 5px;
@@ -407,10 +391,12 @@ li.filesinTable {
     margin: 1px !important;
     padding: 2px 6px 3px;
     text-shadow: none;
+    vertical-align: top;    
 }
-.DADES button:hover {
+.DADES .remove:hover {
     background: #d14836 none repeat scroll 0 0;
 }
+
 
 .label.dropdown-toggle {
 
@@ -442,12 +428,24 @@ li.filesinTable {
     border-color: transparent;
     color: #fff;
 }
+#sortable .dropdown-menu {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
 #sortable .dropdown-menu li{
-     border: 0 none;
+    border:0;
+    border-bottom: 1px solid #ddd;
     border-radius: 0;
     font-size: 13px;
     margin: 0;
     padding: 0;
+    box-shadow: none;
+}
+#sortable .dropdown-menu li:last-child {
+    border-bottom: 0;
+}
+#sortable .dropdown-menu li:hover {
+    background: #f5f5f5;
 }
 #sortable .dropdown-menu li a:hover {
 background-color: transparent;
@@ -458,5 +456,22 @@ background-color: transparent;
 }
 .listFiles {
     list-style: none;
-    padding-top:10px;
+    padding-left: 25px;
+    padding-top: 10px;
 }
+.DADES .expand, .DADES .notexpand, .DADES .expand:hover, .DADES .notexpand:hover {
+    background: transparent none repeat scroll 0 0;
+    color: #007bc0;
+}
+#sortable .filesinTable {
+    background: transparent none repeat scroll 0 0;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    box-shadow: none;
+    margin-bottom: 5px;
+    padding: 0 0 10px;
+}
+#sortable .filesinTable:last-child {
+    border-bottom: 0px solid #ececec;
+}
+
