@@ -71,6 +71,16 @@ class Message(form.SchemaForm):
     def updateWidgets(self):
         super(Message, self).updateWidgets()
         self.widgets["recipients"].value = self.context.adrecaLlista
+        lang = self.context.language
+        if lang == 'ca':
+            text = 'Enllaç a la sessió: '
+        if lang == 'es':
+            text = 'Enlace a la sessión: '
+        if lang == 'en':
+            text = 'Link to this session: '
+        else:
+            text = 'Enllaç a la sessió: '
+        self.widgets["message"].value = text + '<a href="' + self.context.absolute_url() + '"> ' + self.context.Title() + ' </a>'
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):

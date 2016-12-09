@@ -197,6 +197,21 @@ def Punts2Acta(self):
         else:
             number = ''
         results.append(number + str(obj.Title))
+        if len(value.objectIds())>0:
+            # Tiene elementos dentro
+            valuesInside = portal_catalog.searchResults(
+                portal_type='genweb.organs.subpunt',
+                sort_on='getObjPositionInParent',
+                path={'query': obj.getPath(),
+                      'depth': 1})
+            for item in valuesInside:
+                subpunt = item.getObject()
+                if item.proposalPoint:
+                    numberSubpunt = str(subpunt.proposalPoint) + '.- '
+                else:
+                    numberSubpunt = ''
+                results.append('&nbsp;&nbsp;' + numberSubpunt + str(item.Title))
+
     return '<br/>'.join(results)
 
 
