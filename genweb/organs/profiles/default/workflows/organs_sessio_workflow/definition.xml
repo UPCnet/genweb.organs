@@ -3,7 +3,7 @@
              workflow_id="organs_sessio_workflow"
              i18n:domain="genweb"
              title="organs_sessio_workflow"
-             description="Organs Sessio: Planificada / Convocada / Realitzada / Tancada / En correccio / Publicada"
+             description="Organs Sessio: Planificada / Convocada / Realitzada / Tancada / En correccio"
              state_variable="review_state"
              initial_state="planificada"
              manager_bypass="False">
@@ -14,7 +14,6 @@
  <permission>View</permission>
 
  <state state_id="closed" title="Tancada">
-  <exit-transition transition_id="preparing"/>
   <exit-transition transition_id="corregir"/>
   <permission-map name="Access contents information" acquired="True">
   </permission-map>
@@ -26,7 +25,6 @@
   </permission-map>
  </state>
  <state state_id="convocat" title="Convocada">
-  <exit-transition transition_id="closed"/>
   <exit-transition transition_id="realitzar"/>
   <permission-map name="Access contents information" acquired="True">
   </permission-map>
@@ -49,17 +47,6 @@
   </permission-map>
  </state>
  <state state_id="preparing" title="En correcció">
-  <exit-transition transition_id="closed"/>
-  <permission-map name="Access contents information" acquired="True">
-  </permission-map>
-  <permission-map name="Modify portal content" acquired="True">
-  </permission-map>
-  <permission-map name="Reply to item" acquired="True">
-  </permission-map>
-  <permission-map name="View" acquired="True">
-  </permission-map>
- </state>
- <state state_id="publicada" title="Publicada">
   <exit-transition transition_id="closed"/>
   <permission-map name="Access contents information" acquired="True">
   </permission-map>
