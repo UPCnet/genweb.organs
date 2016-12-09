@@ -102,7 +102,7 @@
 
   </script>
 
-  <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="//fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
   <div class="modal fade" id="modalSession" tabindex="-1" role="dialog" aria-labelledby="modalSession">
     <div class="modal-dialog" role="document">
@@ -497,45 +497,45 @@
 
   <script type="text/javascript">
     $(function() {
-        var reloadEdit = false;    
-         $.fn.editable.defaults.mode = 'inline';   
-         $.fn.editable.defaults.showbuttons = false;   
-         $.fn.editable.defaults.type = 'text';   
-         $.fn.editable.defaults.toggle = 'manual';   
-         $.fn.editable.defaults.emptytext = 'Sense valor';  
+        var reloadEdit = false;
+         $.fn.editable.defaults.mode = 'inline';
+         $.fn.editable.defaults.showbuttons = false;
+         $.fn.editable.defaults.type = 'text';
+         $.fn.editable.defaults.toggle = 'manual';
+         $.fn.editable.defaults.emptytext = 'Sense valor';
          $(this).find('.sortable2').hide()
-         $(this).find('.listFiles').hide() 
-         $(this).find('.notexpand').hide() 
-     
-         $('.editTitle').editable({    
-             inputclass: function(e, f) {    
-               $("a[aria-describedby=" + $(this).closest(".ui-tooltip").prop("id") + "]").data("shared", this);    
-             },    
-             validate: function(value) {   
-               if (!value) return 'Camp obligatori';   
-             },    
-             success: function(){    
-                   reloadEdit = true;    
-             },    
-         });   
-     
-         $(document).ajaxStop(function(){    
-            if(reloadEdit){    
-               window.location.reload();   
-           }   
+         $(this).find('.listFiles').hide()
+         $(this).find('.notexpand').hide()
+
+         $('.editTitle').editable({
+             inputclass: function(e, f) {
+               $("a[aria-describedby=" + $(this).closest(".ui-tooltip").prop("id") + "]").data("shared", this);
+             },
+             validate: function(value) {
+               if (!value) return 'Camp obligatori';
+             },
+             success: function(){
+                   reloadEdit = true;
+             },
          });
 
-        $('.edit').click(function(e){    
+         $(document).ajaxStop(function(){
+            if(reloadEdit){
+               window.location.reload();
+           }
+         });
+
+        $('.edit').click(function(e){
                e.stopPropagation();
                $(this).parent().parent('li:first').find('a.titleSize').editable('toggle')
         });
 
-        $('.edit2').click(function(e){    
+        $('.edit2').click(function(e){
                e.stopPropagation();
                $(this).parent().parent('ol:first').find('a.subtitleSize').editable('toggle')
         });
 
-        $('.expand').click(function(e){    
+        $('.expand').click(function(e){
                e.stopPropagation();
                $(this).parent().parent().find('.expand').slideUp()
                $(this).parent().parent().find('.notexpand').slideDown()
@@ -543,7 +543,7 @@
                $(this).parent().parent().find('.listFiles').slideDown()
         });
 
-        $('.notexpand').click(function(e){    
+        $('.notexpand').click(function(e){
                e.stopPropagation();
                $(this).parent().parent().find('.notexpand').slideUp()
                $(this).parent().parent().find('.expand').slideDown()
