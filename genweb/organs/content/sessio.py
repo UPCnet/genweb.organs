@@ -161,6 +161,12 @@ def membresConvocatsDefaultValue(data):
     return data.context.membresOrgan
 
 
+@form.default_value(field=ISessio['membresConvidats'])
+def membresConvidatsDefaultValue(data):
+    # copy members from Organ de Govern (parent object)
+    return data.context.convidatsPermanentsOrgan
+
+
 @form.default_value(field=ISessio['adrecaLlista'])
 def adrecaLlistaDefaultValue(data):
     # copy adrecaLlista from Organ de Govern (parent object)
