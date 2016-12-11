@@ -4,18 +4,30 @@
 
   <div tal:define="items view/PuntsInside" tal:condition="items" class="DADES">
     <h2 tal:content="view/getSessionTitle">Ordre del dia</h2>
-    <ul id="modalSessionView">
+    <ul id="sortable" class="ui-sortable">
       <tal:documents repeat="item items">
         <li >
-          <td>
-            <div class="puntSession">
-              <span class="puntID" tal:content="item/proposalPoint"></span>
+            <div class="puntTitle">
+              <span class="proposalNumber" tal:content="item/proposalPoint"></span>
               <a tal:attributes="href string:${item/absolute_url}/view">
                 <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
               </a>
-              <span tal:condition="item/state" class="label nomarginLeft"
-                    tal:content="item/state"
-                    i18n:domain="genweb.organs" i18n:translate=""></span>
+                <div class="btn-group" role="group"
+                   style="float: right;">
+                <tal:block tal:condition="item/state">
+                  <button class="label dropdown-toggle" tal:attributes="style string:background-color: ${item/css}"
+                      id="estats" type="button" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                    <a tal:content="item/state"></a>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
+                    <tal:block repeat="estat item/estats">
+                      <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/absolute_url}"><span tal:content="estat"></span></a></li>
+                    </tal:block>
+                  </ul>
+                </tal:block>
+              </div>
               <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                 <ul style="list-style: none;">
                   <tal:documents repeat="item files">
@@ -34,14 +46,28 @@
                 <ol class="li_subgrups">
                   <td>
                     <div class="subpuntSession">
-                      <span class="subpuntID" tal:content="item/proposalPoint"></span>
+                      <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
                       <a tal:attributes="href string:${item/absolute_url}"
                          class="">
                         <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                       </a>
-                      <span tal:condition="item/state" class="label nomarginLeft"
-                            tal:content="item/state"
-                            i18n:domain="genweb.organs" i18n:translate=""></span>
+
+                      <div class="btn-group" role="group"
+                           style="float: right;" aria-label="Subpunt actions">
+                        <tal:block tal:condition="item/state">
+                          <button class="label dropdown-toggle" tal:attributes="style string:background-color: ${item/css}"
+                              id="menu1" type="button" data-toggle="dropdown">
+                            <a tal:content="item/state"></a>
+                            <span class="caret"></span></button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                              <tal:block repeat="estat item/estats">
+                                <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/absolute_url}"><span tal:content="estat"></span></a></li>
+                              </tal:block>
+                            </ul>
+                        </tal:block>
+                      </div>
+                      
+
                       <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                         <ul style="list-style: none;">
                           <tal:documents repeat="item files">
@@ -59,7 +85,6 @@
                 </ol>
               </tal:subpunts>
             </div>
-          </td>
         </li>
       </tal:documents>
     </ul>
