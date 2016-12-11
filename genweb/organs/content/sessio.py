@@ -179,6 +179,18 @@ def adrecaAfectatsLlistaDefaultValue(data):
     return data.context.adrecaAfectatsLlista
 
 
+@form.default_value(field=ISessio['bodyMail'])
+def bodyMailDefaultValue(data):
+    # copy bodyMail from Organ de Govern (parent object)
+    return data.context.bodyMailconvoquing
+
+
+@form.default_value(field=ISessio['signatura'])
+def signaturaDefaultValue(data):
+    # copy signatura from Organ de Govern (parent object)
+    return data.context.footerMail
+
+
 class Edit(dexterity.EditForm):
     """A standard edit form.
     """
