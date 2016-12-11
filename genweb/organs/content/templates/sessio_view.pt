@@ -383,8 +383,6 @@
                            <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                         </a>
                         <div style="float:right; display: inline-table;">
-                          <label tal:attributes="class string:${item/labelClass}" tal:content="item/content"></label>
-
                            <button type="button" class="remove label label-important"
                               data-container="body"
                               data-toggle="popover"
@@ -467,7 +465,6 @@
                                    <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                                 </a>
                                 <div style="float:right; display: inline-table;">
-                                  <label tal:attributes="class string:${item/labelClass}" tal:content="item/content"></label>
                                   <button type="button" class="remove label label-important"
                                         data-container="body"
                                         data-toggle="popover"
@@ -536,16 +533,17 @@
 
         $('.expand').click(function(e){
                e.stopPropagation();
+               $(this).parent().parent().find('.expand').hide()
                $(this).parent().parent().find('.expand').slideUp()
-               $(this).parent().parent().find('.notexpand').slideDown()
+               $(this).parent().parent().find('.notexpand').show()
                $(this).parent().parent().find('.sortable2').slideDown()
                $(this).parent().parent().find('.listFiles').slideDown()
         });
 
         $('.notexpand').click(function(e){
                e.stopPropagation();
-               $(this).parent().parent().find('.notexpand').slideUp()
-               $(this).parent().parent().find('.expand').slideDown()
+               $(this).parent().parent().find('.notexpand').hide()
+               $(this).parent().parent().find('.expand').show()
                $(this).parent().parent().find('.sortable2').slideUp()
                $(this).parent().parent().find('.listFiles').slideUp()
         });
