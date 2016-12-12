@@ -502,3 +502,11 @@ Full screen Modal
      width: 1170px;
   }
 }
+
+
+.caixaPunts {
+    float: right;
+    background-color: #eeeeee;
+    padding: 15px 15px;
+    list-style: none;
+}

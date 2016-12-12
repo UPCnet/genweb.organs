@@ -7,7 +7,7 @@
       i18n:domain="genweb.organs">
 <body>
 
-<metal:content-core fill-slot="content-core" tal:define="loginfo view/LogInformation">
+<metal:content-core fill-slot="content-core" tal:define="loginfo view/LogInformation; isEditor view/isEditor">
 
   <link rel="stylesheet" href="++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
   <script src=++resource++genweb.organs.stylesheets/jquery-ui.min.js></script>
@@ -136,7 +136,7 @@
       <li class="active"><a href="#dadesTab" data-toggle="tab" i18n:translate="">Dades</a></li>
       <li tal:condition="view/hihaPersones"><a href="#assistentsTab" data-toggle="tab" i18n:translate="">Assistents</a></li>
       <li tal:condition="view/showActaTab"><a href="#actaTab" data-toggle="tab" i18n:translate="">Acta</a></li>
-      <li tal:condition="loginfo"><a href="#notificationsTab" data-toggle="tab" i18n:translate="">Historial</a></li>
+      <li tal:condition="python:loginfo and isEditor"><a href="#notificationsTab" data-toggle="tab" i18n:translate="">Historial</a></li>
     </ul>
 
     <div id="sessionTabs" class="tab-content">
@@ -247,7 +247,7 @@
         </div>
       </div>
 
-      <div class="tab-pane" id="notificationsTab" tal:condition="loginfo">
+      <div class="tab-pane" id="notificationsTab" tal:condition="python:loginfo and isEditor">
         <table class="table table-condensed table-responsive" >
           <thead>
             <tr>
@@ -293,7 +293,7 @@
     </div>
   </div>
 
-  <div style="float:right" class="">
+  <div style="float:right" class="" tal:condition="isEditor">
     <br/>
       <a class="btn btn-info" style="margin-bottom: 20px;" href="++add++genweb.organs.punt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
       <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
@@ -312,11 +312,11 @@
             <td tal:condition="item/show">
 
               <div style="float: right;" aria-label="Edit actions">
-                <button type="button" class="edit label label-info"
+                <button type="button" class="edit label label-info" tal:condition="isEditor"
                   data-original-title="Edit">
                   <i class="fa fa-pencil" aria-hidden="true"></i></button>
 
-                <button type="button" class="remove label label-important"
+                <button type="button" class="remove label label-important" tal:condition="isEditor"
                   data-container="body"
                   data-toggle="popover"
                   data-placement="left"
@@ -334,7 +334,7 @@
                     <i class="fa fa-chevron-up" aria-hidden="true"></i></button>
               </div>
 
-              <div class="btn-group" role="group" style="float: right;" aria-label="Edit actions">
+              <div class="btn-group" role="group" style="float: right;" aria-label="Edit actions" tal:condition="isEditor">
                   <button class="label dropdown-toggle"
                       id="types" type="button" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false" i18n:translate="">
@@ -348,7 +348,7 @@
                   </ul>
               </div>
 
-              <div class="btn-group" role="group"
+              <div class="btn-group" role="group" tal:condition="isEditor"
                    style="float: right;" aria-label="Edit actions">
                 <tal:block tal:condition="item/state">
                   <button class="label dropdown-toggle" tal:attributes="style string:background-color: ${item/css}"
@@ -382,7 +382,7 @@
                            style="font-size:14px;">
                            <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                         </a>
-                        <div style="float:right; display: inline-table;">
+                        <div style="float:right; display: inline-table;" tal:condition="isEditor">
                            <button type="button" class="remove label label-important"
                               data-container="body"
                               data-toggle="popover"
@@ -404,7 +404,7 @@
                 <tal:subpunts repeat="item subpunts">
                   <ol class="li_subgrups" tal:attributes="id item/id">
                     <td>
-                      <div style="float: right;" aria-label="Subpunt actions">
+                      <div style="float: right;" aria-label="Subpunt actions" tal:condition="isEditor">
                         <button type="button" class="edit2 label label-info"
                           data-original-title="Edit">
                           <i class="fa fa-pencil" aria-hidden="true"></i></button>
@@ -420,7 +420,7 @@
                         </button>
                       </div>
 
-                      <div class="btn-group" role="group" style="float: right;" aria-label="Edit actions">
+                      <div class="btn-group" role="group" style="float: right;" aria-label="Edit actions" tal:condition="isEditor">
                           <button class="label dropdown-toggle"
                               id="types" type="button" data-toggle="dropdown"
                               aria-haspopup="true" aria-expanded="false">
@@ -433,7 +433,7 @@
                           </ul>
                       </div>
 
-                      <div class="btn-group" role="group"
+                      <div class="btn-group" role="group" tal:condition="isEditor"
                            style="float: right;" aria-label="Subpunt actions">
                         <tal:block tal:condition="item/state">
                           <button class="label dropdown-toggle" tal:attributes="style string:background-color: ${item/css}"
@@ -464,7 +464,7 @@
                                    style="font-size:14px;">
                                    <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                                 </a>
-                                <div style="float:right; display: inline-table;">
+                                <div style="float:right; display: inline-table;" tal:condition="isEditor">
                                   <button type="button" class="remove label label-important"
                                         data-container="body"
                                         data-toggle="popover"
