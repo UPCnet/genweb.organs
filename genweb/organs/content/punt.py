@@ -24,12 +24,11 @@ class InvalidEmailError(schema.ValidationError):
 def llistaEstats(context):
     """ Create zope.schema vocabulary from Python logging levels. """
     terms = []
-
-    values = context.aq_parent.estatsLlista.splitlines()
+    values = context.aq_parent.estatsLlista
     literals = []
-    for value in values:
-        # color = '#' + value.split('#')[1].rstrip(' ')   # not used here
-        literals.append(value.split('#')[0].rstrip(' '))
+    for value in values.split('<br />'):
+        estat = value.split('#')[0].lstrip(' ').rstrip(' ').replace('<p>', '').replace('</p>', '')
+        literals.append(estat)
 
     for item in literals:
         if isinstance(item, str):
