@@ -81,7 +81,7 @@ class IActa(form.Schema):
     directives.widget(llistaNoAssistens=WysiwygFieldWidget)
     dexteritytextindexer.searchable('llistaNoAssistens')
     llistaNoAssistens = schema.Text(
-        title=_(u"Missing members"),
+        title=_(u"No assistents"),
         required=False,
     )
 
@@ -143,6 +143,12 @@ def llistaExcusatsDefaultValue(data):
     return data.context.llistaExcusats
 
 
+@form.default_value(field=IActa['llistaNoAssistens'])
+def llistaNoAssistensDefaultValue(data):
+    # copy noAssistents from Session (parent object)
+    return data.context.noAssistents
+
+
 # Hidden field used only to render and generate the PDF
 @form.default_value(field=IActa['dataSessio'])
 def dataSessioDefaultValue(data):
@@ -197,7 +203,7 @@ def Punts2Acta(self):
         else:
             number = ''
         results.append(number + str(obj.Title))
-        if len(value.objectIds())>0:
+        if len(value.objectIds()) > 0:
             # Tiene elementos dentro
             valuesInside = portal_catalog.searchResults(
                 portal_type='genweb.organs.subpunt',
@@ -206,7 +212,7 @@ def Punts2Acta(self):
                       'depth': 1})
             for item in valuesInside:
                 subpunt = item.getObject()
-                if item.proposalPoint:
+                if subpunt.proposalPoint:
                     numberSubpunt = str(subpunt.proposalPoint) + '.- '
                 else:
                     numberSubpunt = ''
