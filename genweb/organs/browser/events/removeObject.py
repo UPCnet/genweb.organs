@@ -72,7 +72,6 @@ def removePunt(alias, event):
         print alias.__parent__.objectIds()
         for a in puntsOrdered:
             print (a.getObject().proposalPoint)
-        # import ipdb;ipdb.set_trace()
 
 
 @grok.subscribe(ISubpunt, IObjectRemovedEvent)
