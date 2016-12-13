@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="//fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
-<metal:content-core>
+<metal:content-core tal:define="items view/PuntsInside">
 
-  <div tal:define="items view/PuntsInside" tal:condition="items" class="DADES">
+  <div tal:condition="items" class="DADES">
     <h2 tal:content="view/getSessionTitle">Ordre del dia</h2>
     <ul id="sortable" class="ui-sortable">
       <tal:documents repeat="item items">
@@ -21,7 +21,7 @@
                     <a tal:content="item/state"></a>
                     <span class="caret"></span>
                   </button>
-                  <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
+                  <ul class="dropdown-menu" style="left:-70px;" role="menu" aria-labelledby="estats">
                     <tal:block repeat="estat item/estats">
                       <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/absolute_url}"><span tal:content="estat"></span></a></li>
                     </tal:block>
@@ -59,14 +59,13 @@
                               id="menu1" type="button" data-toggle="dropdown">
                             <a tal:content="item/state"></a>
                             <span class="caret"></span></button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                            <ul class="dropdown-menu" style="left:-70px;" role="menu" aria-labelledby="menu1">
                               <tal:block repeat="estat item/estats">
                                 <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/absolute_url}"><span tal:content="estat"></span></a></li>
                               </tal:block>
                             </ul>
                         </tal:block>
                       </div>
-                      
 
                       <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                         <ul style="list-style: none;">

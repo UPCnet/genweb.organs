@@ -104,13 +104,13 @@
 
   <link rel="stylesheet" href="//fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
-  <div class="modal fade" id="modalSession" tabindex="-1" role="dialog" aria-labelledby="modalSession">
+  <div class="modal fade modalSession" id="modalSession" tabindex="-1" role="dialog" aria-labelledby="modalSession">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header presentation">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><tal:omit-tag i18n:translate="">Ordre del dia</tal:omit-tag>
         </div>
-        <div class="modal-body"></div>
+        <div class="modal-body presentation"></div>
       </div>
     </div>
   </div>
