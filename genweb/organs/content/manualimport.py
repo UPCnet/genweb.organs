@@ -137,19 +137,21 @@ class Message(form.SchemaForm):
                     index = index + 1
                     subindex = 1
                     previousPuntContainer = obj
-                    transaction.commit()
+                    obj.reindexObject()
                 else:
                     # starts with blanks, es un subpunt
                     line = line.lstrip().rstrip()  # esborrem tots els blanks
-                    obj = api.content.create(
+                    newobj = api.content.create(
                         type='genweb.organs.subpunt',
                         title=line,
                         container=previousPuntContainer)
                     # TODO: Optimize previous line! runs slower!
 
-                    obj.proposalPoint = unicode(str(index-1) + str('.') + str(subindex))
-                    obj.estatsLlista = defaultEstat
+                    newobj.proposalPoint = unicode(str(index-1) + str('.') + str(subindex))
+                    newobj.estatsLlista = defaultEstat
+                    newobj.reindexObject()
                     subindex = subindex + 1
+            transaction.commit()
 
             message = "S'han creats els punts indicats."
             if lang == 'es':

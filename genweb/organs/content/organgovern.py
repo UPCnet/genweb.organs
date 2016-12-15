@@ -37,7 +37,7 @@ class IOrgangovern(form.Schema):
 
     fieldset('notificacions',
              label=_(u'Notifications'),
-             fields=['adrecaLlista', 'adrecaAfectatsLlista', 'bodyMailconvoquing', 'bodyMailSend', 'footerMail'],
+             fields=['adrecaAfectatsLlista', 'bodyMailconvoquing', 'bodyMailSend', 'footerMail'],
              )
 
     dexteritytextindexer.searchable('title')
@@ -53,6 +53,7 @@ class IOrgangovern(form.Schema):
         required=False
     )
 
+    dexteritytextindexer.searchable('descripcioOrgan')
     directives.widget(descripcioOrgan=WysiwygFieldWidget)
     descripcioOrgan = schema.Text(
         title=_(u"Organ Govern description"),
@@ -78,23 +79,23 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
+    fromMail = schema.TextLine(
+        title=_(u'From mail'),
+        description=_(u'Enter the from used in the mail form'),
+        required=True,
+        constraint=checkEmailAddress
+    )
+
     adrecaLlista = schema.Text(
         title=_(u"mail address"),
         description=_(u"Mail address help"),
-        required=False,
+        required=True,
     )
 
     adrecaAfectatsLlista = schema.Text(
         title=_(u"Stakeholders mail address"),
         description=_(u"Stakeholders mail address help."),
         required=False,
-    )
-
-    fromMail = schema.TextLine(
-        title=_(u'From mail'),
-        description=_(u'Enter the from used in the mail form'),
-        required=True,
-        constraint=checkEmailAddress
     )
 
     logoOrgan = NamedBlobImage(

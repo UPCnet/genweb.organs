@@ -13,7 +13,7 @@ from zope.schema.interfaces import IContextSourceBinder
 from zope.interface import directlyProvides
 import unicodedata
 from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
-
+from plone.indexer import indexer
 
 grok.templatedir("templates")
 
@@ -57,7 +57,7 @@ class ISubpunt(form.Schema):
         required=True
     )
 
-    form.mode(proposalPoint='hidden')
+    # form.mode(proposalPoint='hidden')
     proposalPoint = schema.TextLine(
         title=_(u'Proposal point number'),
         required=False
@@ -90,7 +90,7 @@ class ISubpunt(form.Schema):
 
 @form.default_value(field=ISubpunt['proposalPoint'])
 def proposalPointDefaultValue(data):
-    # assigning default proposalPoint number
+    # assigning default proposalPoint value
     portal_catalog = getToolByName(data.context, 'portal_catalog')
     folder_path = data.context.absolute_url_path()
     values = portal_catalog.searchResults(
@@ -106,6 +106,12 @@ def proposalPointDefaultValue(data):
     return str(punt_id) + '.' + str(subpunt_id)
 
 
+@indexer(ISubpunt)
+def proposalPoint(obj):
+    return obj.proposalPoint
+grok.global_adapter(proposalPoint, name="index_proposalPoint")
+
+
 class Edit(dexterity.EditForm):
     """The standard edit form.
     """
@@ -113,7 +119,7 @@ class Edit(dexterity.EditForm):
 
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
-        self.widgets['proposalPoint'].mode = HIDDEN_MODE
+        # self.widgets['proposalPoint'].mode = DISPLAY_MODE
 
 
 class View(grok.View):
@@ -160,4 +166,20 @@ class View(grok.View):
                                 hidden=obj.hiddenfile,
                                 labelClass=labelClass,
                                 content=document))
+        return results
+
+    def SubPuntsInside(self):
+        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        values = portal_catalog.searchResults(
+            portal_type=['genweb.organs.subpunt'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+        results = []
+        for obj in values:
+            results.append(dict(title=obj.Title,
+                                absolute_url=obj.getURL()))
         return results

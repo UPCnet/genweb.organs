@@ -7,6 +7,8 @@ from Products.CMFCore.utils import getToolByName
 from plone import api
 from time import strftime
 from genweb.organs import _
+import transaction
+
 import pkg_resources
 from zope.interface import alsoProvides
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
@@ -98,7 +100,8 @@ class Delete(BrowserView):
                 index = 1
                 for item in puntsOrdered:
                     objecte = item.getObject()
-                    objecte.proposalPoint = unicode(str(index))
+                    objecte.proposalPoint = index
+                    objecte.reindexObject()
 
                     if len(objecte.items()) > 0:
                         search_path = '/'.join(objecte.getPhysicalPath())
@@ -108,13 +111,14 @@ class Delete(BrowserView):
                             path={'query': search_path, 'depth': 1})
 
                         subvalue = 1
-                        rootnumber = objecte.proposalPoint
                         for value in subpunts:
-                            objecte = value.getObject()
-                            objecte.proposalPoint = unicode(str(rootnumber) + str('.') + str(subvalue))
+                            newobjecte = value.getObject()
+                            newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
+                            newobjecte.reindexObject()
                             subvalue = subvalue+1
 
                     index = index + 1
+
         except:
             self.request.response.redirect(self.context.absolute_url())
 
@@ -152,6 +156,7 @@ class Move(BrowserView):
             for item in puntsOrdered:
                 objecte = item.getObject()
                 objecte.proposalPoint = unicode(str(index))
+                objecte.reindexObject()
 
                 if len(objecte.items()) > 0:
                     search_path = '/'.join(objecte.getPhysicalPath())
@@ -161,10 +166,10 @@ class Move(BrowserView):
                         path={'query': search_path, 'depth': 1})
 
                     subvalue = 1
-                    rootnumber = objecte.proposalPoint
                     for value in subpunts:
-                        objecte = value.getObject()
-                        objecte.proposalPoint = unicode(str(rootnumber) + str('.') + str(subvalue))
+                        newobjecte = value.getObject()
+                        newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
+                        newobjecte.reindexObject()
                         subvalue = subvalue+1
 
                 index = index + 1
@@ -183,7 +188,7 @@ class Move(BrowserView):
 
             delta = int(self.request.form['delta'])
             ordering.moveObjectsByDelta(itemid, delta)
-            # Els ids ja s'han mogut, cal afegir el proposalpoint pertinent.
+            # Els ids ja s'han mogut, cal afegir el proposalPoint pertinent.
 
             subpuntsOrdered = portal_catalog.searchResults(
                 portal_type=['genweb.organs.subpunt'],
@@ -196,8 +201,9 @@ class Move(BrowserView):
             # Change proposaoints dels subpunts ordenats
             for item in subpuntsOrdered:
                 if item.portal_type == 'genweb.organs.subpunt':
-                    objecte = item.getObject()
-                    objecte.proposalPoint = unicode(str(puntnumber) + '.' + str(subvalue))
+                    objecteSubPunt = item.getObject()
+                    objecteSubPunt.proposalPoint = unicode(str(puntnumber) + '.' + str(subvalue))
+                    objecteSubPunt.reindexObject()
                     subvalue = subvalue+1
 
 
@@ -492,6 +498,7 @@ class Reload(BrowserView):
         for item in puntsOrdered:
             objecte = item.getObject()
             objecte.proposalPoint = unicode(str(index))
+            objecte.reindexObject()
 
             if len(objecte.items()) > 0:
                 search_path = '/'.join(objecte.getPhysicalPath())
@@ -501,10 +508,10 @@ class Reload(BrowserView):
                     path={'query': search_path, 'depth': 1})
 
                 subvalue = 1
-                rootnumber = objecte.proposalPoint
                 for value in subpunts:
-                    objecte = value.getObject()
-                    objecte.proposalPoint = unicode(str(rootnumber) + str('.') + str(subvalue))
+                    newobjecte = value.getObject()
+                    newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
+                    newobjecte.reindexObject()
                     subvalue = subvalue+1
 
             index = index + 1

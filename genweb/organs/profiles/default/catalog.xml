@@ -11,9 +11,9 @@
   </index>
   <column value="hiddenfile"/>
 
-  <index name="proposalPoint" meta_type="FieldIndex">
-    <indexed_attr value="proposalPoint"/>
+  <index name="index_proposalPoint" meta_type="FieldIndex">
+    <indexed_attr value="index_proposalPoint"/>
   </index>
-  <column value="proposalPoint"/>
+  <column value="index_proposalPoint"/>
 
 </object>

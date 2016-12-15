@@ -23,7 +23,7 @@
                   </button>
                   <ul class="dropdown-menu" style="left:-70px;" role="menu" aria-labelledby="estats">
                     <tal:block repeat="estat item/estats">
-                      <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/absolute_url}"><span tal:content="estat"></span></a></li>
+                      <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/item_path}"><span tal:content="estat"></span></a></li>
                     </tal:block>
                   </ul>
                 </tal:block>
@@ -61,7 +61,7 @@
                             <span class="caret"></span></button>
                             <ul class="dropdown-menu" style="left:-70px;" role="menu" aria-labelledby="menu1">
                               <tal:block repeat="estat item/estats">
-                                <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/absolute_url}"><span tal:content="estat"></span></a></li>
+                                <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/item_path}"><span tal:content="estat"></span></a></li>
                               </tal:block>
                             </ul>
                         </tal:block>

@@ -5,6 +5,9 @@ from genweb.organs.content.punt import IPunt
 from genweb.organs.content.subpunt import ISubpunt
 from five import grok
 from zope.globalrequest import getRequest
+from zope.component import queryUtility
+from Products.CMFCore.interfaces import IPropertiesTool
+import transaction
 
 
 def deletion_confirmed():
@@ -23,7 +26,8 @@ def deletion_confirmed():
     form_being_submitted = 'form.submitted' in request.form
     form_cancelled = 'form.button.Cancel' in request.form
     form_delete = 'form.button.Delete' in request.form
-
+    print request.form
+    print  is_delete_confirmation and is_post and form_being_submitted and not form_cancelled or form_delete
     return is_delete_confirmation and is_post and form_being_submitted and not form_cancelled or form_delete
 
 
@@ -33,9 +37,7 @@ def removePunt(alias, event):
         TODO make reorder obects fully functional!
     """
     if deletion_confirmed():
-        print "------ Deleting..."
-        print alias.__parent__.objectIds()
-
+        print '___________deleting punt'
         portal_catalog = getToolByName(alias, 'portal_catalog')
         folder_path = '/'.join(alias.__parent__.getPhysicalPath())
         # addEntryLog(alias, 'Reload proposalPoints manually', '')  # add log
@@ -49,10 +51,10 @@ def removePunt(alias, event):
         index = 1
         for item in puntsOrdered:
             objecte = item.getObject()
-            objecte.proposalPoint = unicode(str(index))
-            print "title: " +str(item.Title) + ' -- point:  ' + str(objecte.proposalPoint)
+            print(str(objecte.Title) + ' - ' + str(objecte.proposalPoint))
+            objecte.proposalPoint = index
             objecte.reindexObject()
-
+            print(str(objecte.Title) + ' - ' + str(objecte.proposalPoint))
             if len(objecte.items()) > 0:
                 search_path = '/'.join(objecte.getPhysicalPath())
                 subpunts = portal_catalog.searchResults(
@@ -61,17 +63,15 @@ def removePunt(alias, event):
                     path={'query': search_path, 'depth': 1})
 
                 subvalue = 1
-                rootnumber = objecte.proposalPoint
                 for value in subpunts:
                     newobjecte = value.getObject()
-                    newobjecte.proposalPoint = unicode(str(rootnumber) + str('.') + str(subvalue))
-                    subvalue = subvalue+1
-
+                    print(str(newobjecte.Title) + ' - ' + str(newobjecte.proposalPoint))
+                    newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
+                    newobjecte.reindexObject()
+                    subvalue = subvalue + 1
+                    print(str(newobjecte.Title) + ' - ' + str(newobjecte.proposalPoint))
             index = index + 1
-
-        print alias.__parent__.objectIds()
-        for a in puntsOrdered:
-            print (a.getObject().proposalPoint)
+        print "----punt"
 
 
 @grok.subscribe(ISubpunt, IObjectRemovedEvent)
@@ -79,4 +79,37 @@ def removeSubpunt(alias, event):
     """When the alias is created,
     """
     if deletion_confirmed():
-        print "XXXXX Deleting... TODO: copy functional PUNT code!"
+        print '___________deleting SUB punt'
+        portal_catalog = getToolByName(alias, 'portal_catalog')
+        folder_path = '/'.join(alias.__parent__.getPhysicalPath())
+        # addEntryLog(alias, 'Reload proposalPoints manually', '')  # add log
+        # agafo items ordenats!
+        subpuntsOrdered = portal_catalog.searchResults(
+            portal_type=['genweb.organs.subpunt'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+        index = 1
+
+        # ptool = queryUtility(IPropertiesTool)
+        # props = getattr(ptool, 'site_properties', None)
+        # old_check = props.getProperty('enable_link_integrity_checks', False)
+        # props.enable_link_integrity_checks = False
+
+        for item in subpuntsOrdered:
+            print(str(item.Title) + ' - ' + str(item.proposalPoint))
+            objecte = item.getObject()
+            print(str(item.Title) + ' - ' + str(objecte.proposalPoint))
+            objecte.proposalPoint = unicode(str(item.proposalPoint) + str('.') + str(index))
+            objecte.reindexObject()
+
+            print(str(item.Title) + ' - ' + str(objecte.proposalPoint))
+            print "-----"
+
+            index = index + 1
+
+        # transaction.commit()
+        # props.enable_link_integrity_checks = old_check
+
+
+    transaction.commit()
