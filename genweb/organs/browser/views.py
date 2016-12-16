@@ -489,7 +489,7 @@ class Reload(BrowserView):
             alsoProvides(self.request, IDisableCSRFProtection)
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
-        addEntryLog(self.context, 'Reload proposalPoints manually', '')  # add log
+        addEntryLog(self.context, _(u'Reload proposalPoints manually'), '')  # add log
         # agafo items ordenats!
         puntsOrdered = portal_catalog.searchResults(
             portal_type=['genweb.organs.punt'],

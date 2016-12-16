@@ -248,7 +248,7 @@
       </div>
 
       <div class="tab-pane" id="notificationsTab" tal:condition="python:loginfo and isEditor">
-        <table class="table table-condensed table-responsive" >
+        <table class="table table-condensed table-responsive" style="font-size:10px; font-family: 'Courier'"">
           <thead>
             <tr>
               <th>

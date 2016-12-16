@@ -101,7 +101,7 @@ class Message(form.SchemaForm):
                 username = ''
             toMail = ''
             values = dict(dateMail=dateMail.strftime('%d/%m/%Y %H:%M:%S'),
-                          message=_("Massive agreements imported"),
+                          message=_(u"Massive agreements imported"),
                           fromMail=username,
                           toMail=toMail)
 
@@ -125,32 +125,35 @@ class Message(form.SchemaForm):
             subindex = 0
             previousPuntContainer = None
             for line in content:
-                if line.startswith((' ', '\t')) is False:
-                    # No hi ha blanks, es un punt
-                    line = line.lstrip().rstrip()  # esborrem tots els blanks
-                    obj = api.content.create(
-                        type='genweb.organs.punt',
-                        title=line,
-                        container=self.context)
-                    obj.proposalPoint = unicode(str(index))
-                    obj.estatsLlista = defaultEstat
-                    index = index + 1
-                    subindex = 1
-                    previousPuntContainer = obj
-                    obj.reindexObject()
+                if len(line)==0:
+                    continue
                 else:
-                    # starts with blanks, es un subpunt
-                    line = line.lstrip().rstrip()  # esborrem tots els blanks
-                    newobj = api.content.create(
-                        type='genweb.organs.subpunt',
-                        title=line,
-                        container=previousPuntContainer)
-                    # TODO: Optimize previous line! runs slower!
+                    if line.startswith((' ', '\t')) is False:
+                        # No hi ha blanks, es un punt
+                        line = line.lstrip().rstrip()  # esborrem tots els blanks
+                        obj = api.content.create(
+                            type='genweb.organs.punt',
+                            title=line,
+                            container=self.context)
+                        obj.proposalPoint = unicode(str(index))
+                        obj.estatsLlista = defaultEstat
+                        index = index + 1
+                        subindex = 1
+                        previousPuntContainer = obj
+                        obj.reindexObject()
+                    else:
+                        # starts with blanks, es un subpunt
+                        line = line.lstrip().rstrip()  # esborrem tots els blanks
+                        newobj = api.content.create(
+                            type='genweb.organs.subpunt',
+                            title=line,
+                            container=previousPuntContainer)
+                        # TODO: Optimize previous line! runs slower!
 
-                    newobj.proposalPoint = unicode(str(index-1) + str('.') + str(subindex))
-                    newobj.estatsLlista = defaultEstat
-                    newobj.reindexObject()
-                    subindex = subindex + 1
+                        newobj.proposalPoint = unicode(str(index-1) + str('.') + str(subindex))
+                        newobj.estatsLlista = defaultEstat
+                        newobj.reindexObject()
+                        subindex = subindex + 1
             transaction.commit()
 
             message = "S'han creats els punts indicats."
