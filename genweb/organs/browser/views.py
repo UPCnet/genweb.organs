@@ -178,9 +178,11 @@ class Move(BrowserView):
         if action == 'movesubpunt':
             # move subpunts contents through the table
             # Esbrino id del pare (punt)
+            search_path = '/'.join(self.context.getPhysicalPath())
             punt = portal_catalog.searchResults(
                 id=str(itemid.split('/')[0]),
                 portal_type='genweb.organs.punt',
+                path={'query': search_path, 'depth': 1},
                 )[0].getObject()
             ordering = getOrdering(punt)
             itemid = str(itemid.split('/')[1])

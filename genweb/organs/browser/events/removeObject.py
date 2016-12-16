@@ -26,8 +26,6 @@ def deletion_confirmed():
     form_being_submitted = 'form.submitted' in request.form
     form_cancelled = 'form.button.Cancel' in request.form
     form_delete = 'form.button.Delete' in request.form
-    print request.form
-    print  is_delete_confirmation and is_post and form_being_submitted and not form_cancelled or form_delete
     return is_delete_confirmation and is_post and form_being_submitted and not form_cancelled or form_delete
 
 
@@ -91,25 +89,9 @@ def removeSubpunt(alias, event):
                   'depth': 1})
         index = 1
 
-        # ptool = queryUtility(IPropertiesTool)
-        # props = getattr(ptool, 'site_properties', None)
-        # old_check = props.getProperty('enable_link_integrity_checks', False)
-        # props.enable_link_integrity_checks = False
+        sufix = str(subpuntsOrdered[0].proposalPoint).split('.')[0]
 
         for item in subpuntsOrdered:
-            print(str(item.Title) + ' - ' + str(item.proposalPoint))
-            objecte = item.getObject()
-            print(str(item.Title) + ' - ' + str(objecte.proposalPoint))
-            objecte.proposalPoint = unicode(str(item.proposalPoint) + str('.') + str(index))
-            objecte.reindexObject()
-
-            print(str(item.Title) + ' - ' + str(objecte.proposalPoint))
-            print "-----"
-
+            item.proposalPoint = unicode(str(sufix) + str('.') + str(index))
+            item.reindexObject()
             index = index + 1
-
-        # transaction.commit()
-        # props.enable_link_integrity_checks = old_check
-
-
-    transaction.commit()
