@@ -144,7 +144,7 @@ input#form-widgets-agreement {width: 98%;}
 
 span.proposalNumber {
     color: #007bc0;
-    float: left;
+    /*float: left;*/
     font-size: 20px;
     margin-left: -10px;
     margin-right: 8px;
@@ -314,8 +314,8 @@ div#modalSession.modal.fade.modalSession.in {
 
 .editable-click, a.editable-click, a.editable-click:hover {
     text-decoration: none;
-    border-bottom: dotted 1px white!important;
-    padding: 2px 4px;
+    border-bottom: dotted 1px #2c95b4 !important;
+    /*padding: 2px 4px;*/
 }
 
 /*a.editable-click:hover:after {
@@ -370,6 +370,9 @@ a.remove{background-color: #e8003d!important}
     font-weight: normal;
 }
 
+span.editable-container.editable-inline  input[type="text"] {
+    width: 330px;
+}
 
 .subpuntTitle:hover:before {
     /* content: "\f07d";*/
@@ -500,6 +503,13 @@ background-color: transparent;
     list-style: none;
 }
 
+.editable-error-block.ui-state-error {
+    margin-left: 5px;
+}
+
+.agreement.editable-container.editable-inline  input[type="text"] {
+    width: 30px;
+}
 
 .presentationModal {
     font-size: 15px;

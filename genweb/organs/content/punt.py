@@ -170,5 +170,6 @@ class View(grok.View):
         results = []
         for obj in values:
             results.append(dict(title=obj.Title,
+                                proposalPoint=obj.proposalPoint,
                                 absolute_url=obj.getURL()))
         return results

@@ -280,6 +280,7 @@ class View(grok.View):
                                     absolute_url=item.absolute_url(),
                                     item_path=obj.getPath(),
                                     proposalPoint=item.proposalPoint,
+                                    agreement=item.agreement,
                                     state=item.estatsLlista,
                                     css=self.getColor(obj),
                                     estats=self.estatsCanvi(obj),

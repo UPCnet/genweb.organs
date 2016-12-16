@@ -48,6 +48,14 @@
 
     <browser:page
       for="*"
+      name="changeAgreement"
+      class=".changeAgreement.changeAgreement"
+      layer="..interfaces.IGenwebOrgansLayer"
+      permission="cmf.ModifyPortalContent"
+    />
+
+    <browser:page
+      for="*"
       name="sessionAjax"
       class=".views.SessionAjax"
       layer="..interfaces.IGenwebOrgansLayer"
