@@ -14,12 +14,47 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: genweb\n"
 
-msgid "restricted_members"
-msgstr "Restringit a membres"
+msgid "obert"
+msgstr "Obert"
+
+msgid "open"
+msgstr "Obrir"
 
 msgid "restricted_affected"
 msgstr "Restringit a afectats"
 
-msgid "obert"
-msgstr "Obert"
+msgid "restrict_to_affected"
+msgstr "Restringir a afectats"
 
+msgid "restricted_members"
+msgstr "Restringit a membres"
+
+msgid "restrict_to_members"
+msgstr "Restringir a membres"
+
+msgid "tancada"
+msgstr "Tancada"
+
+msgid "convocada"
+msgstr "Convocada"
+
+msgid "planificada"
+msgstr "Planificada"
+
+msgid "en_correccio"
+msgstr "En correcció"
+
+msgid "realitzada"
+msgstr "Realitzada"
+
+msgid "corregir"
+msgstr "Corregir"
+
+msgid "realitzar"
+msgstr "Realitzar"
+
+msgid "convocar"
+msgstr "Convocar"
+
+msgid "tancar"
+msgstr "Tancar"

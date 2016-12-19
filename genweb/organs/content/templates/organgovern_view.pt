@@ -153,13 +153,12 @@
                     Hora inici
             </tal:data>
           </td>
-          <td>&nbsp;
+          <td>
             <span tal:content="item/review_state"
-                  style="text-transform: capitalize;"
+                  tal:attributes="class item/review_state"
                   i18n:translate=""
-                  i18n:domain="genweb.organs"
-                  tal:attributes="class item/review_state">
-                  Review State
+                  i18n:domain="genweb">
+                     Item State
             </span>
           </td>
         </tr>
