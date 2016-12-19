@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-12-16 12:11+0000\n"
+"POT-Creation-Date: 2016-12-19 11:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,7 +130,7 @@ msgid "Body Mail send description"
 msgstr "Missatge que s'adjunta al clicar el botó d'enviar missatge. S'hi afegeix NOMÉS el peu del missatge."
 
 #: ./genweb/organs/content/informarSessio.py:162
-#: ./genweb/organs/content/manualimport.py:164
+#: ./genweb/organs/content/manualimport.py:167
 #: ./genweb/organs/content/sendMessage.py:158
 msgid "Cancel"
 msgstr "Cancel·lar"
@@ -183,7 +183,7 @@ msgid "Destinataris"
 msgstr "Destinataris"
 
 #: ./genweb/organs/content/punt.py:149
-#: ./genweb/organs/content/sessio.py:413
+#: ./genweb/organs/content/sessio.py:416
 #: ./genweb/organs/content/templates/sessio_view.pt:340
 msgid "Document"
 msgstr "Document"
@@ -245,12 +245,12 @@ msgid "File contents"
 msgstr "Contingut del fitxer"
 
 #: ./genweb/organs/content/punt.py:141
-#: ./genweb/organs/content/sessio.py:405
+#: ./genweb/organs/content/sessio.py:408
 msgid "Fitxer intern"
 msgstr "PDF intern"
 
 #: ./genweb/organs/content/punt.py:145
-#: ./genweb/organs/content/sessio.py:409
+#: ./genweb/organs/content/sessio.py:412
 msgid "Fitxer públic"
 msgstr "PDF públic"
 
@@ -302,6 +302,10 @@ msgstr "Persones convocades"
 #: ./genweb/organs/content/templates/sessio_view.pt:127
 msgid "Informar"
 msgstr "Informar"
+
+#: ./genweb/organs/content/templates/informar_view.pt:18
+msgid "Informar de la sessio"
+msgstr "Informar de la sessió"
 
 #: ./genweb/organs/configure.zcml:31
 msgid "Installs Organs de Govern package"
@@ -381,7 +385,6 @@ msgstr "Missatge no enviat. Comprovi els destinataris del missatge"
 msgid "Missing members"
 msgstr "Llista de persones no assistents"
 
-#: ./genweb/organs/content/templates/informar_view.pt:18
 #: ./genweb/organs/content/templates/message_view.pt:18
 msgid "New message"
 msgstr "Nou missatge"
@@ -410,7 +413,7 @@ msgid "Open"
 msgstr "Obert"
 
 #: ./genweb/organs/content/informarSessio.py:164
-#: ./genweb/organs/content/manualimport.py:166
+#: ./genweb/organs/content/manualimport.py:169
 #: ./genweb/organs/content/sendMessage.py:160
 msgid "Operation Cancelled."
 msgstr "S'ha cancel·lat l'operació."
@@ -525,7 +528,7 @@ msgstr "Títol del punt de l'ordre del dia"
 msgid "Recipients"
 msgstr "Destinataris"
 
-#: ./genweb/organs/browser/views.py:493
+#: ./genweb/organs/browser/views.py:494
 msgid "Reload proposalPoints manually"
 msgstr "Recalcular número de punts manualment"
 

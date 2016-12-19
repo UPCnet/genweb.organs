@@ -211,25 +211,28 @@ class View(grok.View):
     def isAffectat(self):
         return utils.isAffectat(self)
 
+    def isManager(self):
+        return utils.isManager(self)
+
     def showEnviarButton(self):
 
         review_state = api.content.get_state(self.context)
         value = False
-        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio']:
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] or self.isManager:
             value = True
         return value
 
     def showPresentacionButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        if review_state in ['convocada', 'realitzada', 'en_correccio']:
+        if review_state in ['convocada', 'realitzada', 'en_correccio'] or self.isManager:
             value = True
         return value
 
     def showPublicarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        if review_state in ['realitzada', 'en_correccio']:
+        if review_state in ['realitzada', 'en_correccio'] or self.isManager:
             value = True
         return value
 

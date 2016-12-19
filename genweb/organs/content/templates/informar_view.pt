@@ -17,7 +17,7 @@
     <div class="span12">
       <h1 class="documentFirstHeading"
         i18n:translate="">
-          New message
+          Informar de la sessio
       </h1>
       <br/>
       <metal:block use-macro="context/@@ploneform-macros/titlelessform"></metal:block>

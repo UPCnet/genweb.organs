@@ -409,6 +409,7 @@ class SessionAjax(BrowserView):
                                     absolute_url=item.absolute_url(),
                                     proposalPoint=item.proposalPoint,
                                     state=item.estatsLlista,
+                                    item_path=obj.getPath(),
                                     css=self.getColor(obj),
                                     estats=self.estatsCanvi(obj),
                                     id=obj.id))
@@ -432,6 +433,7 @@ class SessionAjax(BrowserView):
                                 absolute_url=item.absolute_url(),
                                 proposalPoint=item.proposalPoint,
                                 state=item.estatsLlista,
+                                item_path=obj.getPath(),
                                 estats=self.estatsCanvi(obj),
                                 css=self.getColor(obj),
                                 id='/'.join(item.absolute_url_path().split('/')[-2:])))

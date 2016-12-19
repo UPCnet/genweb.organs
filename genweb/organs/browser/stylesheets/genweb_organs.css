@@ -102,7 +102,8 @@ input#form-widgets-numSessio,
 input#form-widgets-enllacVideo,
 input#form-widgets-enllacAudio,
 input#form-widgets-proposalPoint,
-input#form-widgets-agreement {width: 98%;}
+input#form-widgets-agreement,
+input#form-widgets-recipients {width: 98%;}
 
 /*  Hide view action tab */
 .portaltype-genweb-organs-organsfolder #plone-contentmenu-display,

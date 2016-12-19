@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-12-16 12:11+0000\n"
+"POT-Creation-Date: 2016-12-19 11:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,7 +130,7 @@ msgid "Body Mail send description"
 msgstr "Message attached executing the Send Message Action. It adds just the foot of the post."
 
 #: ./genweb/organs/content/informarSessio.py:162
-#: ./genweb/organs/content/manualimport.py:164
+#: ./genweb/organs/content/manualimport.py:167
 #: ./genweb/organs/content/sendMessage.py:158
 msgid "Cancel"
 msgstr "Cancel"
@@ -183,7 +183,7 @@ msgid "Destinataris"
 msgstr "Recipients"
 
 #: ./genweb/organs/content/punt.py:149
-#: ./genweb/organs/content/sessio.py:413
+#: ./genweb/organs/content/sessio.py:416
 #: ./genweb/organs/content/templates/sessio_view.pt:340
 msgid "Document"
 msgstr "Document"
@@ -245,12 +245,12 @@ msgid "File contents"
 msgstr "File contents"
 
 #: ./genweb/organs/content/punt.py:141
-#: ./genweb/organs/content/sessio.py:405
+#: ./genweb/organs/content/sessio.py:408
 msgid "Fitxer intern"
 msgstr "Internal PDF"
 
 #: ./genweb/organs/content/punt.py:145
-#: ./genweb/organs/content/sessio.py:409
+#: ./genweb/organs/content/sessio.py:412
 msgid "Fitxer públic"
 msgstr "Public PDF"
 
@@ -302,6 +302,10 @@ msgstr "Incoming members list"
 #: ./genweb/organs/content/templates/sessio_view.pt:127
 msgid "Informar"
 msgstr "Inform"
+
+#: ./genweb/organs/content/templates/informar_view.pt:18
+msgid "Informar de la sessio"
+msgstr ""
 
 #: ./genweb/organs/configure.zcml:31
 msgid "Installs Organs de Govern package"
@@ -381,7 +385,6 @@ msgstr "Message not sent. Check the message recipients."
 msgid "Missing members"
 msgstr "List of people not attending"
 
-#: ./genweb/organs/content/templates/informar_view.pt:18
 #: ./genweb/organs/content/templates/message_view.pt:18
 msgid "New message"
 msgstr "New message"
@@ -410,7 +413,7 @@ msgid "Open"
 msgstr "Open"
 
 #: ./genweb/organs/content/informarSessio.py:164
-#: ./genweb/organs/content/manualimport.py:166
+#: ./genweb/organs/content/manualimport.py:169
 #: ./genweb/organs/content/sendMessage.py:160
 msgid "Operation Cancelled."
 msgstr "The operation was canceled."
@@ -525,7 +528,7 @@ msgstr "Title"
 msgid "Recipients"
 msgstr "Recipients"
 
-#: ./genweb/organs/browser/views.py:493
+#: ./genweb/organs/browser/views.py:494
 msgid "Reload proposalPoints manually"
 msgstr ""
 
