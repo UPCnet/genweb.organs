@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<dc-workflow xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+             workflow_id="organs_sessio_workflow"
+             i18n:domain="genweb"
+             title="organ_workflow"
+             description="Organ WF: Obert / Restricted to membres / Restricted to Afectats"
+             state_variable="review_state"
+             initial_state="obert"
+             manager_bypass="False">
+
+ <permission>Access contents information</permission>
+ <permission>Modify portal content</permission>
+ <permission>Reply to item</permission>
+ <permission>View</permission>
+
+ <state state_id="obert" title="Obert">
+  <exit-transition transition_id="restrict_to_affected"/>
+  <permission-map name="Access contents information" acquired="True">
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="True">
+  </permission-map>
+  <permission-map name="Reply to item" acquired="True">
+  </permission-map>
+  <permission-map name="View" acquired="True">
+  </permission-map>
+ </state>
+
+ <state state_id="restricted_affected" title="Restringit a afectats">
+  <exit-transition transition_id="restrict_to_members"/>
+  <permission-map name="Access contents information" acquired="True">
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="True">
+  </permission-map>
+  <permission-map name="Reply to item" acquired="True">
+  </permission-map>
+  <permission-map name="View" acquired="True">
+  </permission-map>
+ </state>
+
+ <state state_id="restricted_members" title="Restringit a membres">
+  <exit-transition transition_id="open"/>
+  <permission-map name="Access contents information" acquired="True">
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="True">
+  </permission-map>
+  <permission-map name="Reply to item" acquired="True">
+  </permission-map>
+  <permission-map name="View" acquired="True">
+  </permission-map>
+ </state>
+
+ <transition transition_id="open" title="Obrir" new_state="obert" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=open" category="workflow" icon="">Obrir</action>
+  <guard>
+  </guard>
+ </transition>
+
+ <transition transition_id="restrict_to_affected" title="Restringir a afectats" new_state="restricted_affected" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=restrict_to_affected" category="workflow" icon="">Restringir a afectats</action>
+  <guard>
+  </guard>
+ </transition>
+
+ <transition transition_id="restrict_to_members" title="Restringir a membres" new_state="restricted_members" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=restrict_to_members" category="workflow" icon="">Restringir a membres</action>
+  <guard>
+  </guard>
+ </transition>
+
+ <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
+  <description>Previous transition</description>
+  <default>
+
+   <expression>transition/getId|nothing</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
+  <description>The ID of the user who performed the previous transition</description>
+  <default>
+
+   <expression>user/getUserName</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
+  <description>Comment about the last transition</description>
+  <default>
+
+   <expression>python:state_change.kwargs.get('comment', '')</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
+  <description>Provides access to workflow history</description>
+  <default>
+
+   <expression>state_change/getHistory</expression>
+  </default>
+  <guard>
+   <guard-permission>Request review</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
+  </guard>
+ </variable>
+ <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
+  <description>When the previous transition was performed</description>
+  <default>
+
+   <expression>state_change/getDateTime</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+</dc-workflow>

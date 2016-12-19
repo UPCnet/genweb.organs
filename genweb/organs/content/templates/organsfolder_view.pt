@@ -24,51 +24,40 @@
                         more_url more_url|request/more_url|string:folder_contents;
                         is_a_topic python:context.portal_type=='Topic';
                         folderContents folderContents|nothing;
-                        folderContents python:context.getFolderContents(contentFilter, batch=True, b_size=limit_display or 100);">
+                        folderContents python:context.getFolderContents(contentFilter, batch=True, b_size=limit_display or 100);
+                        items view/OrgansInside">
 
-      <tal:Organs tal:define="items view/OrgansInside" tal:condition="items">
+      <tal:Organs tal:condition="items">
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>&nbsp;
+              <th>
                 <tal:title i18n:translate="">Title</tal:title>
               </th>
-              <th>&nbsp;
-                <tal:head i18n:translate="">Acronym</tal:head>
-              </th>
-              <th>&nbsp;
-                <tal:head i18n:translate="">Organ type</tal:head>
-              </th>
-              <th>&nbsp;
+              <th>
                 <tal:head i18n:translate="">State</tal:head>
               </th>
             </tr>
           </thead>
           <tal:documents repeat="item items">
               <tr>
-                <td>&nbsp;
+                <td>
                   <a tal:attributes="href item/absolute_url;"
                      tal:content="item/title">
                           Item Title
                   </a>
+                  <tal:omit-tag tal:condition="item/acronim">
+                  [<tal:omit-tag tal:content="item/acronim">
+                            Item Description
+                    </tal:omit-tag>]
+                  </tal:omit-tag>
                 </td>
-                <td>&nbsp;
-                  <span tal:content="item/acronim">
-                          Item Description
-                  </span>
-                </td>
-                <td>&nbsp;
-                  <span tal:content="item/tipus"
-                        i18n:translate="">
-                          Item Type
-                  </span>
-                </td>
-                <td>&nbsp;
+
+                <td>
                   <span tal:content="item/review_state"
-                        style="text-transform: capitalize;"
                         tal:attributes="class item/review_state"
                         i18n:translate=""
-                        i18n:domain="plone">
+                        i18n:domain="genweb">
                           Item Status
                   </span>
                 </td>

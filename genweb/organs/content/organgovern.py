@@ -13,14 +13,6 @@ from plone.supermodel.directives import fieldset
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.directives import dexterity
 
-
-organType = SimpleVocabulary(
-    [SimpleTerm(value='Open', title=_(u'Open')),
-     SimpleTerm(value='Restricted_to_Members', title=_(u'Restricted_to_Members')),
-     SimpleTerm(value='Restricted_to_Affected', title=_(u'Restricted_to_Affected')),
-     ]
-)
-
 grok.templatedir("templates")
 
 defaultEstats = _(u"Esborrany #999999 <br/>Pendent d'aprovació #ecad16 <br/>Aprovat #a0c94d <br/>Informat #007bc0 <br/>No aprovat #ec1914 <br/>Derogat #e0e22d <br/>Informatiu #557C95")
@@ -58,12 +50,6 @@ class IOrgangovern(form.Schema):
     descripcioOrgan = schema.Text(
         title=_(u"Organ Govern description"),
         required=False,
-    )
-
-    tipus = schema.Choice(
-        title=_(u"Organ Govern type"),
-        vocabulary=organType,
-        required=True,
     )
 
     directives.widget(membresOrgan=WysiwygFieldWidget)

@@ -6,4 +6,10 @@
    <bound-workflow workflow_id="organs_sessio_workflow"/>
   </type>
  </bindings>
+ <object name="organ_workflow" meta_type="Workflow"/>
+ <bindings>
+  <type type_id="genweb.organs.organgovern">
+   <bound-workflow workflow_id="organ_workflow"/>
+  </type>
+ </bindings>
 </object>
