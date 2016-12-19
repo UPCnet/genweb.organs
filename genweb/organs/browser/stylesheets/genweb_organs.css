@@ -120,7 +120,7 @@ input#form-widgets-recipients {width: 98%;}
     margin-left: 5px;
 }
 
-#contentOrgan {margin-bottom: 20px;}
+#contentOrgan {}
 
 /* editable */
 #sortable {
@@ -517,3 +517,13 @@ background-color: transparent;
     color: #557C95;
     font-weight: bold;
     }
+
+.organsfolder_view {
+    padding-top: 27px;
+}
+
+.logoOrgan {
+    max-height: 60px;
+    width: auto;
+    padding-bottom: 5px;
+}

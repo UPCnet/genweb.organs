@@ -27,7 +27,7 @@
                         folderContents python:context.getFolderContents(contentFilter, batch=True, b_size=limit_display or 100);
                         items view/OrgansInside">
 
-      <tal:Organs tal:condition="items">
+      <div tal:condition="items" class="organsfolder_view">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -64,7 +64,7 @@
               </tr>
           </tal:documents>
         </table>
-      </tal:Organs>
+      </div>
 
       <metal:empty metal:define-slot="no_items_in_listing">
         <p class="discreet"
