@@ -111,7 +111,7 @@ class Edit(dexterity.EditForm):
 
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
-        # self.widgets['proposalPoint'].mode = DISPLAY_MODE
+        self.widgets['proposalPoint'].mode = HIDDEN_MODE
 
 
 class View(grok.View):
@@ -170,6 +170,6 @@ class View(grok.View):
         results = []
         for obj in values:
             results.append(dict(title=obj.Title,
-                                proposalPoint=obj.proposalPoint,
+                                proposalPoint=obj.getObject().proposalPoint,
                                 absolute_url=obj.getURL()))
         return results

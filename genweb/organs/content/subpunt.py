@@ -25,14 +25,11 @@ class InvalidEmailError(schema.ValidationError):
 def llistaEstats(context):
     """ Create zope.schema vocabulary from default states. """
     terms = []
-    try:
-        values = context.aq_parent.aq_parent.estatsLlista.splitlines()
-    except:
-        values = []
+    values = context.aq_parent.aq_parent.estatsLlista
     literals = []
-    for value in values:
-        # color = '#' + value.split('#')[1].rstrip(' ')   # not used here
-        literals.append(value.split('#')[0].rstrip(' '))
+    for value in values.split('<br />'):
+        estat = value.split('#')[0].lstrip(' ').rstrip(' ').replace('<p>', '').replace('</p>', '')
+        literals.append(estat)
 
     for item in literals:
         if isinstance(item, str):
@@ -119,7 +116,7 @@ class Edit(dexterity.EditForm):
 
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
-        # self.widgets['proposalPoint'].mode = DISPLAY_MODE
+        self.widgets['proposalPoint'].mode = HIDDEN_MODE
 
 
 class View(grok.View):
