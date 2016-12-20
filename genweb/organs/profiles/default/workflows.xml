@@ -2,14 +2,29 @@
 <object name="portal_workflow" meta_type="Plone Workflow Tool">
  <object name="organs_sessio_workflow" meta_type="Workflow"/>
  <bindings>
-  <type type_id="genweb.organs.sessio">
-   <bound-workflow workflow_id="organs_sessio_workflow"/>
+  <type type_id="genweb.organs.acta">
+    <bound-workflow workflow_id="one_state_workflow"/>
   </type>
- </bindings>
- <object name="organ_workflow" meta_type="Workflow"/>
- <bindings>
+  <type type_id="genweb.organs.document">
+    <bound-workflow workflow_id="one_state_workflow"/>
+  </type>
+  <type type_id="genweb.organs.file">
+    <bound-workflow workflow_id="one_state_workflow"/>
+  </type>
   <type type_id="genweb.organs.organgovern">
-   <bound-workflow workflow_id="organ_workflow"/>
+    <bound-workflow workflow_id="one_state_workflow"/>
+  </type>
+  <type type_id="genweb.organs.organsfolder">
+    <bound-workflow workflow_id="one_state_workflow"/>
+  </type>
+  <type type_id="genweb.organs.punt">
+    <bound-workflow workflow_id="one_state_workflow"/>
+    </type>
+  <type type_id="genweb.organs.sessio">
+    <bound-workflow workflow_id="organs_sessio_workflow"/>
+  </type>
+  <type type_id="genweb.organs.subpunt">
+    <bound-workflow workflow_id="one_state_workflow"/>
   </type>
  </bindings>
 </object>

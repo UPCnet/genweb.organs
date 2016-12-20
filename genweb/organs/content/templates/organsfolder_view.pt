@@ -35,7 +35,7 @@
                 <tal:title i18n:translate="">Title</tal:title>
               </th>
               <th>
-                <tal:head i18n:translate="">State</tal:head>
+                <tal:head i18n:translate="">Organ type</tal:head>
               </th>
             </tr>
           </thead>
@@ -52,13 +52,10 @@
                     </tal:omit-tag>]
                   </tal:omit-tag>
                 </td>
-
                 <td>
-                  <span tal:content="item/review_state"
-                        tal:attributes="class item/review_state"
-                        i18n:translate=""
-                        i18n:domain="genweb">
-                          Item Status
+                  <span tal:content="item/tipus"
+                        i18n:translate="">
+                          Item Type
                   </span>
                 </td>
               </tr>

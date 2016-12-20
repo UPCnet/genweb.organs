@@ -6,8 +6,7 @@
  <property name="description"></property>
  <property name="icon_expr"></property>
  <property name="factory">genweb.organs.organgovern</property>
- <property
-    name="add_view_expr">string:${folder_url}/++add++genweb.organs.organgovern</property>
+ <property name="add_view_expr">string:${folder_url}/++add++genweb.organs.organgovern</property>
  <property name="link_target"></property>
  <property name="immediate_view">view</property>
  <property name="global_allow">False</property>
@@ -28,13 +27,12 @@
   <element value="plone.app.dexterity.behaviors.metadata.ICategorization"/>
   <element value="plone.app.content.interfaces.INameFromTitle"/>
   <element value="plone.app.relationfield.behavior.IRelatedItems"/>
+  <element value="plone.app.multilingual.dx.interfaces.IDexterityTranslatable"/>
   <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
   <element value="plone.app.referenceablebehavior.referenceable.IReferenceable" />
-  <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation" />
  </property>
 
- <property
-    name="schema">genweb.organs.content.organgovern.IOrgangovern</property>
+ <property name="schema">genweb.organs.content.organgovern.IOrgangovern</property>
  <property
     name="model_source">&lt;model xmlns="http://namespaces.plone.org/supermodel/schema"&gt;
       &lt;schema /&gt;

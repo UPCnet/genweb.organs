@@ -518,12 +518,28 @@ background-color: transparent;
     font-weight: bold;
     }
 
-.organsfolder_view {
-    padding-top: 27px;
-}
-
 .logoOrgan {
     max-height: 60px;
     width: auto;
-    padding-bottom: 5px;
+    display: block;
+
 }
+
+.portaltype-genweb-organs-organsfolder a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-organgovern a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-punt a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-subpunt a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-file a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-document a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-acta a#plone-contentmenu-workflow.dropdown-toggle
+ {display: none;}
+
+.portaltype-genweb-organs-organsfolder a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-organgovern a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-sessio a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-punt a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-subpunt a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-file a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-document a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-acta a#plone-contentmenu-multilingual.dropdown-toggle
+ {display: none;}

@@ -17,10 +17,14 @@
    <element value="Window"/>
    <element value="collective.polls.poll"/>
    <element value="packet"/>
-   <element value="genweb.dorgans.sessio"/>
-   <element value="genweb.dorgans.organgovern"/>
-   <element value="genweb.dorgans.document"/>
-   <element value="genweb.dorgans.acta"/>
+   <element value="genweb.organs.organsfolder"/>
+   <element value="genweb.organs.organgovern"/>
+   <element value="genweb.organs.sessio"/>
+   <element value="genweb.organs.punt" />
+   <element value="genweb.organs.subpunt" />
+   <element value="genweb.organs.document"/>
+   <element value="genweb.organs.file"/>
+   <element value="genweb.organs.acta"/>
   </linkable>
   <customplugins>
    <element value="plonebrowser"/>
@@ -40,8 +44,11 @@
    <element value="LRF"/>
    <element value="Large Plone Folder"/>
    <element value="Plone Site"/>
-   <element value="genweb.dorgans.sessio"/>
-   <element value="genweb.dorgans.organgovern"/>
+   <element value="genweb.organs.sessio"/>
+   <element value="genweb.organs.punt"/>
+   <element value="genweb.organs.subpunt"/>
+   <element value="genweb.organs.organgovern"/>
+   <element value="genweb.organs.organsfolder" />
   </containsobjects>
   <entity_encoding value="raw"/>
   <imageobjects>

@@ -15,13 +15,15 @@
                    membresOrgan context/membresOrgan;
                    convidatsPermanentsOrgan context/convidatsPermanentsOrgan">
 
+  <div class="pull-right" tal:condition="context/logoOrgan">
+  <div class="documentDescription description"></div>
+
+    <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan" />
+  </div>
+  <div class="clearfix"></div>
+  <div class="documentDescription description"></div>
+
   <div id="contentOrgan">
-
-    <div class="pull-right" tal:condition="context/logoOrgan">
-      <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan"
-           class="logoOrgan"/>
-    </div>
-
     <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
       <li class="active" tal:condition="descripcioOrgan">
         <a href="#descriptionTab" data-toggle="tab" i18n:translate="">Description</a>
