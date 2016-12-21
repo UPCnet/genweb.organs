@@ -215,7 +215,6 @@ class View(grok.View):
         return utils.isManager(self)
 
     def showEnviarButton(self):
-
         review_state = api.content.get_state(self.context)
         value = False
         if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] or self.isManager:
@@ -313,6 +312,7 @@ class View(grok.View):
                                 proposalPoint=item.proposalPoint,
                                 item_path=obj.getPath(),
                                 state=item.estatsLlista,
+                                agreement=item.agreement,
                                 estats=self.estatsCanvi(obj),
                                 css=self.getColor(obj),
                                 id='/'.join(item.absolute_url_path().split('/')[-2:])))

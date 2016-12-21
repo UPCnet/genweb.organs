@@ -77,6 +77,13 @@
     permission="cmf.ModifyPortalContent" />
 
   <browser:page
+    for="*"
+    class=".views.AssignAcord"
+    name="assignAcord"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="cmf.ModifyPortalContent" />
+
+  <browser:page
     name="updateProposalPoints"
     for="genweb.organs.content.sessio.ISessio"
     layer="..interfaces.IGenwebOrgansLayer"

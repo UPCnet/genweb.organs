@@ -61,6 +61,38 @@ def addEntryLog(context, message, toMail):
         annotations[KEY] = data
 
 
+class AssignAcord(BrowserView):
+
+    def __call__(self):
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        action = self.request.form.get('action')
+        itemid = self.request.form.get('item')
+        portal_type = self.request.form.get('portal_type')
+        inputvalue = self.request.form.get('input')
+        try:
+            if action == 'assign':
+                if '/' in itemid:
+                    # Es tracta de subpunt i inclou punt/subpunt a itemid
+                    folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + str('/'.join(itemid.split('/')[:-1]))
+                    itemid = str(''.join(itemid.split('/')[-1:]))
+                else:
+                    folder_path = '/'.join(self.context.getPhysicalPath())
+
+                addEntryLog(self.context, _(u'Modified acord number'), '')  # add log
+                # agafo items ordenats!
+
+                punt = portal_catalog.searchResults(
+                    portal_type=portal_type,
+                    id=itemid,
+                    path={'query': folder_path,
+                          'depth': 1})
+                value = punt[0].getObject()
+                value.acordOrgan = True
+                value.agreement = inputvalue
+        except:
+            self.request.response.redirect(self.context.absolute_url())
+
+
 class Delete(BrowserView):
 
     def __call__(self):

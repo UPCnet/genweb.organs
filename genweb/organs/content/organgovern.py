@@ -181,14 +181,24 @@ class View(grok.View):
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
             portal_type=['genweb.organs.punt', 'genweb.organs.subpunt'],
-            sort_on='getObjPositionInParent',
+            sort_on='modified',
+            sort_order='reverse',
             acordOrgan=True,
             path={'query': folder_path,
                   'depth': 3})
         results = []
+
         for obj in values:
             value = obj.getObject()
+            if obj.portal_type == "genweb.organs.punt":
+                organTitle = value.aq_parent.Title()
+            elif obj.portal_type == "genweb.organs.subpunt":
+                organTitle = value.aq_parent.aq_parent.Title()
+            else:
+                organTitle = ''
+
             results.append(dict(title=value.title,
+                                title_organ=organTitle,
                                 absolute_url=value.absolute_url(),
                                 proposalPoint=value.proposalPoint,
                                 agreement=value.agreement,

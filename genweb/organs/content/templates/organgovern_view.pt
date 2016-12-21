@@ -70,32 +70,40 @@
         <table class="table table-striped table-condensed table-hover table-responsive">
           <thead>
             <tr>
-              <th>&nbsp;
+              <th>
                 <tal:title i18n:translate="">Title</tal:title>
               </th>
-              <th>&nbsp;
+              <th>
+                <tal:title i18n:translate="">Organ Govern</tal:title>
+              </th>
+              <th>
                 <tal:head i18n:translate="">Agreement number</tal:head>
               </th>
-              <th>&nbsp;
+              <th>
                 <tal:head i18n:translate="">Agreement and document label</tal:head>
               </th>
             </tr>
           </thead>
           <tal:documents repeat="item acords">
             <tr>
-              <td>&nbsp;
+              <td>
                 <a href="#"
                        tal:attributes="href item/absolute_url;"
                        tal:content="item/title">
                         Item Title
                 </a>
               </td>
-              <td>&nbsp;
+              <td>
+                <span
+                       tal:content="item/title_organ">
+                </span>
+              </td>
+              <td>
                 <span tal:content="item/agreement">
                   Numero
                 </span>
               </td>
-              <td>&nbsp;
+              <td>
                 <span tal:content="item/estatsLlista"
                       i18n:translate="">
                   Status
@@ -114,42 +122,42 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>&nbsp;
+          <th>
             <tal:title i18n:translate="">Title</tal:title>
           </th>
-          <th>&nbsp;
+          <th>
             <tal:head i18n:translate="">Session date</tal:head>
           </th>
-          <th>&nbsp;
+          <th>
             <tal:head i18n:translate="">Session location</tal:head>
           </th>
-          <th>&nbsp;
+          <th>
             <tal:head i18n:translate="">Session start</tal:head>
           </th>
-          <th>&nbsp;
+          <th>
             <tal:head i18n:translate="">State</tal:head>
           </th>
         </tr>
       </thead>
       <tal:objects repeat="item sessions">
         <tr>
-          <td>&nbsp;
+          <td>
             <a tal:attributes="href item/absolute_url;"
                tal:content="item/title">
                     Item Title
             </a>
           </td>
-          <td>&nbsp;
+          <td>
             <tal:data tal:content="item/dataSessio" >
                     Data de la Sessio
             </tal:data>
           </td>
-          <td>&nbsp;
+          <td>
             <tal:data tal:content="item/llocConvocatoria">
                     Lloc Convocatoria
             </tal:data>
           </td>
-          <td>&nbsp;
+          <td>
             <tal:data tal:content="item/horaInici">
                     Hora inici
             </tal:data>

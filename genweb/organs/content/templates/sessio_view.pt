@@ -98,6 +98,29 @@
             window.location.reload();
         }
       });
+
+    }
+
+    function assignAcordNumber(item){
+      var params = {};
+      values = item.split(',')
+      params.item = values[0]
+      params.portal_type = values[1]
+      params.action = 'assign';
+      params.input = $('#acordNumber').val()
+      $.ajax({
+          type: 'POST',
+          url: '@@assignAcord',
+          data: params,
+          success: function(data){
+            refreshNeeded = true;
+          },
+      });
+      $(document).ajaxStop(function(){
+         if(refreshNeeded){
+            window.location.reload();
+        }
+      });
     }
 
   </script>
@@ -357,6 +380,19 @@
                   </ul>
                 </tal:block>
               </div>
+              <div class="btn-group" role="group" tal:condition="isEditor"
+                   style="float: right;" aria-label="Edit actions">
+                <button tal:condition="not:item/agreement" type="button" class="acord label label-important"
+                  data-container="body"
+                  data-toggle="popover"
+                  data-placement="bottom"
+                  data-html="true"
+                  data-trigger="manual"
+                  data-original-title="Convertir en acord"
+                  tal:attributes="data-item item/id; data-type item/portal_type">
+                  Fer acord
+                </button>
+              </div>
 
               <div class="puntTitle">
                 <span class="proposalNumber" tal:content="item/proposalPoint"></span>
@@ -450,8 +486,24 @@
                         </tal:block>
                       </div>
 
+                      <div class="btn-group" role="group" tal:condition="isEditor"
+                           style="float: right;" aria-label="Edit actions">
+                        <button tal:condition="not:item/agreement" type="button" class="acord label label-important"
+                          data-container="body"
+                          data-toggle="popover"
+                          data-placement="bottom"
+                          data-html="true"
+                          data-trigger="manual"
+                          data-original-title="Convertir en acord"
+                          tal:attributes="data-item item/id; data-type item/portal_type">
+                          Fer acord
+                        </button>
+                      </div>
+
                       <div class="subpuntTitle">
-    	                 <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
+    	                  <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
+                        <a class=" agreement editable editable-click" tal:content="item/agreement"
+                            tal:attributes="data-pk item/id; href item/absolute_url" data-url="changeAgreement"></a>
                         <a tal:attributes="data-pk item/id; href item/absolute_url"
                            data-type="text" data-url="changeTitle"
                            class="editTitle editable subtitleSize">
@@ -573,6 +625,21 @@
                 }
             });
         });
+
+        $('button.acord').on('click', function (e) {
+            $('[data-toggle="popover"]').each(function () {
+                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                    $(this).popover('hide');
+                } else {
+                  var name=$(this).data()['item'];
+                  var portal_type=$(this).data()['type'];
+                  var message='<form onsubmit="return false;"><label>Indicar el número</label><input id="acordNumber" placeholder="Codi acord" type="text"/></form><a class="btn btn-info" onclick=assignAcordNumber("'+ name +','+ portal_type+'")>Assignar</a>&nbsp;<a class="btn btn-danger save"> Cancel·lar </a>'
+                  $(this).attr('data-content',message);
+                  $(this).popover('show');
+                };
+            });
+        });
+
 
     });
   </script>
