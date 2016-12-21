@@ -46,6 +46,8 @@ class changeAgreement(BrowserView):
 
                 newObject = api.content.find(id=entry.id, path='/'.join(origin_path.split('/')[:-1]))[0]
                 newObject.getObject().agreement = newvalue
+                if newvalue == '':
+                    newObject.getObject().acordOrgan = False
                 newObject.getObject().reindexObject()
 
                 # ok transaction, then  -> save the process log
