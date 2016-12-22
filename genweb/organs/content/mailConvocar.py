@@ -16,7 +16,8 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope import schema
 from time import strftime
-
+from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
+from genweb.organs.browser.views import addEntryLog
 
 grok.templatedir("templates")
 
@@ -24,6 +25,10 @@ grok.templatedir("templates")
 class IMessage(form.Schema):
     """ Define the fields of this form
     """
+    sender = TextLine(
+        title=_("Sender"),
+        required=True,
+        )
 
     recipients = TextLine(
         title=_("Recipients"),
@@ -38,7 +43,7 @@ class IMessage(form.Schema):
     message = schema.Text(
         title=_(u"Message"),
         description=_("This content will be used as message content"),
-        required=True,
+        required=False,
     )
 
 
@@ -74,8 +79,9 @@ class Message(form.SchemaForm):
         session = self.context
         now = strftime("%d/%m/%Y %H:%M:%S")
         organ = self.context.aq_parent
+        # sender = organ.fromMail
         sessionLink = str(session.absolute_url())
-        senderPerson = str(organ.fromMail)
+        # senderPerson = str(organ.fromMail)
         if session.signatura is None:
             signatura = ''
         else:
@@ -91,15 +97,14 @@ class Message(form.SchemaForm):
         else:
             customBody = str(session.bodyMail.encode('utf-8'))
 
-        if session.adrecaLlista is None:
-            recipientPerson = organ.adrecaLlista.replace(' ', '').encode('utf-8').split(',')
-        else:
-            recipientPerson = session.adrecaLlista.replace(' ', '').encode('utf-8').split(',')
+        # if session.adrecaLlista is None:
+        #     recipientPerson = organ.adrecaLlista.replace(' ', '').encode('utf-8').split(',')
+        # else:
+        #     recipientPerson = session.adrecaLlista.replace(' ', '').encode('utf-8').split(',')
 
-        CSS = '"' + session.portal_url()+'/++genwebupc++stylesheets/genwebupc.css' + '"'
+        # CSS = '"' + session.portal_url()+'/++genwebupc++stylesheets/genwebupc.css' + '"'
 
         html_content = ''
-        # import ipdb;ipdb.set_trace()
         sessiontitle = str(session.Title())
         sessiondate = str(session.dataSessio.strftime("%d/%m/%Y"))
         starthour = str(session.horaInici.strftime("%H:%M"))
@@ -113,12 +118,14 @@ class Message(form.SchemaForm):
             '</strong><br/><br/>Lloc: ' + place + "<br/>Data: " + sessiondate + \
             "<br/>Hora d'inici: " + starthour + \
             "<br/>Hora de fi: " + endHour + \
-            '<br/><br/>/body>'
-        bodyMail = moreData + str(introData)
+            '<br/><br/>'
+        bodyMail = str(moreData) + str(introData)
 
+        self.widgets["sender"].mode = DISPLAY_MODE
+        self.widgets["sender"].value = str(organ.fromMail)
         self.widgets["fromTitle"].value = str(fromMessage)
-        self.widgets["recipients"].value = organ.fromMail
-        self.widgets["message"].value = 'bodyMail'
+        self.widgets["recipients"].value = str(session.fromMail)
+        self.widgets["message"].value = bodyMail
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):
@@ -126,79 +133,29 @@ class Message(form.SchemaForm):
             in properties and redirect to the
             front page, showing a status message to say
             the message was received. """
-        emptyfields = []
         formData, errors = self.extractData()
         lang = self.context.language
-
-        if formData['recipients'] is None or formData['message'] is None:
-            if formData['recipients'] is None:
-                if lang == 'ca':
-                    emptyfields.append("Destinataris")
-                elif lang == 'es':
-                    emptyfields.append("Destinatarios")
-                else:
-                    emptyfields.append("Recipients")
-
-            if formData['message'] is None:
-                if lang == 'ca':
-                    emptyfields.append("Missatge")
-                elif lang == 'es':
-                    emptyfields.append("Mensaje")
-                else:
-                    emptyfields.append("Message")
-
-            empty = ', '.join(emptyfields) + '.'
+        if 'recipients' not in formData or 'fromTitle' not in formData:
             if lang == 'ca':
                 message = "Falten camps obligatoris: "
             if lang == 'es':
                 message = "Faltan campos obligatorios: "
             if lang == 'en':
                 message = "Required fields missing: "
-            IStatusMessage(self.request).addStatusMessage(message + empty, type="error")
+            IStatusMessage(self.request).addStatusMessage(message, type="error")
             return
 
-        """ Adding send mail information to context in annotation format
-        """
-        KEY = 'genweb.organs.logMail'
-        annotations = IAnnotations(self.context)
+        addEntryLog(self.context, formData['recipients'], 'Send convocatoria mail', formData['recipients'])  # add log
 
-        if annotations is not None:
-            logData = annotations.get(KEY, None)
-            try:
-                len(logData)
-                # Get data and append values
-                data = annotations.get(KEY)
-            except:
-                # If it's empty, initialize data
-                data = []
-            dateMail = datetime.now()
+        # self.context.MailHost.send(bodyMail,
+        #                       mto=recipientPerson,
+        #                       mfrom=senderPerson,
+        #                       subject=subjectMail,
+        #                       encode=None,
+        #                       immediate=False,
+        #                       charset='utf8',
+        #                       msg_type='text/html')
+        self.context.plone_utils.addPortalMessage(
+            _("Missatge enviat correctament"), 'info')
 
-            anon = api.user.is_anonymous()
-            if not anon:
-                username = api.user.get_current().id
-            else:
-                username = ''
-
-            toMessage = formData['recipients'].encode('utf-8').decode('ascii', 'ignore')
-            noBlanks = ' '.join(toMessage.split())
-            toMail = noBlanks.replace(' ', ',')
-
-            body = formData['message'].encode('utf-8')
-
-            values = dict(dateMail=dateMail.strftime('%d/%m/%Y %H:%M:%S'),
-                          message=_("Message send"),
-                          fromMail=username,
-                          toMail=toMail)
-
-            data.append(values)
-            annotations[KEY] = data
-
-            sessio_sendMail(self.context, toMail, body)  # Send mail
-
-        return self.request.response.redirect(self.context.absolute_url())
-
-    @button.buttonAndHandler(_('Cancel'))
-    def handleCancel(self, action):
-        message = _(u"Operation Cancelled.")
-        IStatusMessage(self.request).addStatusMessage(message, type="warning")
         return self.request.response.redirect(self.context.absolute_url())

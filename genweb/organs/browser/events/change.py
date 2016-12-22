@@ -22,6 +22,7 @@ def sessio_changed(session, event):
     else:
         if event.transition.id == 'convocar':
             context = aq_inner(session)
+            session.reindexObject()
             transaction.commit()
             raise Redirect(context.absolute_url() + '/mailConvocar')
 

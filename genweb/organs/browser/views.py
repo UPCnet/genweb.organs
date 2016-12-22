@@ -33,7 +33,7 @@ def getOrdering(context):
         return ordering
 
 
-def addEntryLog(context, message, toMail):
+def addEntryLog(context, user, message, toMail):
     KEY = 'genweb.organs.logMail'
     annotations = IAnnotations(context)
     if annotations is not None:
@@ -46,8 +46,7 @@ def addEntryLog(context, message, toMail):
 
         dateMail = datetime.now()
 
-        anon = api.user.is_anonymous()
-        if not anon:
+        if not user:
             username = api.user.get_current().id
         else:
             username = 'Anonymous user'
