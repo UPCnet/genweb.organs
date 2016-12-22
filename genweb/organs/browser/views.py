@@ -354,7 +354,7 @@ class ActaPrintView(BrowserView):
     def getOrganLogo(self):
         """ Get Image to use in print """
         try:
-            if self.context.defaultImg:
+            if not self.context.defaultImg:
                 if self.context.aq_parent.aq_parent.customImage:
                     self.context.aq_parent.aq_parent.logoOrganFolder.filename
                     return self.context.aq_parent.aq_parent.aq_parent.absolute_url() + '/@@images/logoOrganFolder'

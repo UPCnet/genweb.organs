@@ -107,14 +107,14 @@ class IActa(form.Schema):
     )
 
     defaultImg = schema.Bool(
-        title=_(u'Fer servir la imatge per defecte'),
-        description=_(u"Desmarcar aquesta opció si, en imprimir, no es vol fer servir la imatge de l'òrgan, sino la que s'adjunta aquí mateix."),
-        default=True,
+        title=_(u'Fer servir la imatge personalitzada?'),
+        description=_(u"Marca aquesta opció si no es vol fer servir la imatge de l'òrgan al imprimir les actes, sino la que s'adjunta aquí mateix."),
+        default=False,
     )
 
     actaImage = NamedBlobImage(
         title=_(u"Imatge de les actes"),
-        description=_(u"Imatge que es fa servir en imprimir les actes, en comptes de fer servir la de tot l'òrgan."),
+        description=_(u"Imatge que es fa servir en imprimir les actes, en comptes de fer servir la imatge definida a l'òrgan."),
         required=False,
     )
 
