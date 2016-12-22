@@ -413,7 +413,7 @@ class View(grok.View):
                 if obj.hiddenfile is True:
                     tipus = 'fa fa-file-pdf-o'
                     document = _(u'Fitxer intern')
-                    labelClass = 'label label-default'
+                    labelClass = 'label label-danger'
                 else:
                     tipus = 'fa fa-file-pdf-o'
                     document = _(u'Fitxer públic')
@@ -447,7 +447,7 @@ class View(grok.View):
                 if obj.hiddenfile is True:
                     tipus = 'fa fa-file-pdf-o'
                     document = _(u'Fitxer intern')
-                    labelClass = 'label label-default'
+                    labelClass = 'label label-danger'
                 else:
                     tipus = 'fa fa-file-pdf-o'
                     document = _(u'Fitxer públic')

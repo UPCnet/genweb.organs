@@ -239,12 +239,12 @@ msgstr "Contingut del fitxer"
 #: ./genweb/organs/content/punt.py:141
 #: ./genweb/organs/content/sessio.py:408
 msgid "Fitxer intern"
-msgstr "PDF intern"
+msgstr "Fitxer intern"
 
 #: ./genweb/organs/content/punt.py:145
 #: ./genweb/organs/content/sessio.py:412
 msgid "Fitxer públic"
-msgstr "PDF públic"
+msgstr "Fitxer públic"
 
 #: ./genweb/organs/content/templates/punt_view.pt:49
 msgid "Fitxers i documents"

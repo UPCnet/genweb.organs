@@ -372,7 +372,7 @@ a.remove{background-color: #e8003d!important}
 }
 
 span.editable-container.editable-inline  input[type="text"] {
-    width: 330px;
+    /*width: 330px;*/
 }
 
 .subpuntTitle:hover:before {
