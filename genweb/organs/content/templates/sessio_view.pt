@@ -638,7 +638,7 @@
                 } else {
                   var name=$(this).data()['item'];
                   var portal_type=$(this).data()['type'];
-                  var message='<form onsubmit="return false;"><label>Indicar el número</label><input id="acordNumber" placeholder="Codi acord" type="text"/></form><a class="btn btn-info" onclick=assignAcordNumber("'+ name +','+ portal_type+'")>Assignar</a>&nbsp;<a class="btn btn-danger save"> Cancel·lar </a>'
+                  var message='<form onsubmit="return false;"><label>Indicar el número</label><input id="acordNumber" placeholder="Codi acord" type="text"/></form><a class="btn btn-info" onclick=assignAcordNumber("'+ name +','+ portal_type+'")>Assignar</a>&nbsp;<a class="btn btn-danger save" onclick="$(this).parent().parent().hide()"> Cancel·lar </a>'
                   $(this).attr('data-content',message);
                   $(this).popover('show');
                 };
