@@ -253,6 +253,13 @@ class View(grok.View):
             items.append(estat)
         return items
 
+    def hihaPunts(self):
+        values = api.content.find(context=self.context, depth=1, portal_type='genweb.organs.punt')
+        if values:
+            return True
+        else:
+            return False
+
     def PuntsInside(self):
         """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
         """

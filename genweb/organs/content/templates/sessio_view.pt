@@ -7,7 +7,10 @@
       i18n:domain="genweb.organs">
 <body>
 
-<metal:content-core fill-slot="content-core" tal:define="loginfo view/LogInformation; isEditor view/isEditor">
+<metal:content-core fill-slot="content-core"
+    tal:define="loginfo view/LogInformation;
+                isEditor view/isEditor;
+                items view/PuntsInside">
 
   <link rel="stylesheet" href="++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
   <script src=++resource++genweb.organs.stylesheets/jquery-ui.min.js></script>
@@ -323,7 +326,8 @@
       <a class="btn btn-info" style="margin-bottom: 20px;" href="updateProposalPoints" data-target="#modalPunts"><i class="fa fa-refresh" aria-hidden="true"></i></a>
   </div>
 
-  <div tal:define="items view/PuntsInside" tal:condition="items" class="DADES">
+<div tal:condition="view/hihaPunts">
+  <div tal:condition="items" class="DADES">
       <br/>
       <h2 i18n:translate="">Ordre del dia</h2>
 
@@ -545,6 +549,7 @@
       </ul>
   </div>
 
+
   <script type="text/javascript">
     $(function() {
         var reloadEdit = false;
@@ -643,7 +648,7 @@
 
     });
   </script>
-
+</div>
   <div style="margin-bottom:20px;"></div>
 
 </metal:content-core>

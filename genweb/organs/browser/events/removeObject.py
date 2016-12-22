@@ -47,8 +47,8 @@ def removePunt(alias, event):
         # hi ha items PUNT per esborrar
         if puntsOrdered:
             index = 1
-            for objecte in puntsOrdered:
-                # objecte = item.getObject()
+            for item in puntsOrdered:
+                objecte = item.getObject()
                 objecte.proposalPoint = unicode(str(index))
                 objecte.reindexObject()
                 if len(objecte.items()) > 0:
