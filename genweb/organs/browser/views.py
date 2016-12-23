@@ -6,13 +6,12 @@ from datetime import datetime
 from Products.CMFCore.utils import getToolByName
 from plone import api
 from time import strftime
-from genweb.organs import _
-import transaction
-
 import pkg_resources
 from zope.interface import alsoProvides
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from plone.folder.interfaces import IExplicitOrdering
+from genweb.organs.utils import addEntryLog
+from genweb.organs import _
 
 try:
     pkg_resources.get_distribution('plone4.csrffixes')
@@ -33,33 +32,6 @@ def getOrdering(context):
         return ordering
 
 
-def addEntryLog(context, user, message, toMail):
-    KEY = 'genweb.organs.logMail'
-    annotations = IAnnotations(context)
-    if annotations is not None:
-        try:
-            # Get data and append values
-            data = annotations.get(KEY)
-        except:
-            # If it's empty, initialize data
-            data = []
-
-        dateMail = datetime.now()
-
-        if not user:
-            username = api.user.get_current().id
-        else:
-            username = 'Anonymous user'
-
-        values = dict(dateMail=dateMail.strftime('%d/%m/%Y %H:%M:%S'),
-                      message=message,
-                      fromMail=username,
-                      toMail=toMail)
-
-        data.append(values)
-        annotations[KEY] = data
-
-
 class AssignAcord(BrowserView):
 
     def __call__(self):
@@ -77,7 +49,7 @@ class AssignAcord(BrowserView):
                 else:
                     folder_path = '/'.join(self.context.getPhysicalPath())
 
-                addEntryLog(self.context, _(u'Modified acord number'), '')  # add log
+                addEntryLog(self.context, None, _(u'Modified acord number'), '')
                 # agafo items ordenats!
 
                 punt = portal_catalog.searchResults(
@@ -120,7 +92,7 @@ class Delete(BrowserView):
 
                 portal_catalog = getToolByName(self, 'portal_catalog')
                 folder_path = '/'.join(self.context.getPhysicalPath())
-                addEntryLog(self.context, 'Reload proposalPoints manually', '')  # add log
+                addEntryLog(self.context, None, 'Reload proposalPoints manually', '')  # add log
                 # agafo items ordenats!
 
                 puntsOrdered = portal_catalog.searchResults(
@@ -522,7 +494,7 @@ class Reload(BrowserView):
             alsoProvides(self.request, IDisableCSRFProtection)
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
-        addEntryLog(self.context, _(u'Reload proposalPoints manually'), '')  # add log
+        addEntryLog(self.context, None, _(u'Reload proposalPoints manually'), '')  # add log
         # agafo items ordenats!
         puntsOrdered = portal_catalog.searchResults(
             portal_type=['genweb.organs.punt'],

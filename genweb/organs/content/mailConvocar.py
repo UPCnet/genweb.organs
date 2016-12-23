@@ -17,7 +17,7 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope import schema
 from time import strftime
 from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
-from genweb.organs.browser.views import addEntryLog
+from genweb.organs.utils import addEntryLog
 
 grok.templatedir("templates")
 
@@ -121,10 +121,12 @@ class Message(form.SchemaForm):
             '<br/><br/>'
         bodyMail = str(moreData) + str(introData)
 
+        # session.adrecaAfectatsLlista
+
         self.widgets["sender"].mode = DISPLAY_MODE
         self.widgets["sender"].value = str(organ.fromMail)
         self.widgets["fromTitle"].value = str(fromMessage)
-        self.widgets["recipients"].value = str(session.fromMail)
+        self.widgets["recipients"].value = str(session.adrecaLlista) + ', ' + str(session.adrecaAfectatsLlista)
         self.widgets["message"].value = bodyMail
 
     @button.buttonAndHandler(_("Send"))
@@ -144,9 +146,8 @@ class Message(form.SchemaForm):
                 message = "Required fields missing: "
             IStatusMessage(self.request).addStatusMessage(message, type="error")
             return
-
-        addEntryLog(self.context, formData['recipients'], 'Send convocatoria mail', formData['recipients'])  # add log
-
+        sender = self.context.aq_parent.fromMail
+        addEntryLog(self.context, sender, 'Send convocatoria mail', formData['recipients'])  # add log
         # self.context.MailHost.send(bodyMail,
         #                       mto=recipientPerson,
         #                       mfrom=senderPerson,

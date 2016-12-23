@@ -103,7 +103,8 @@ input#form-widgets-enllacVideo,
 input#form-widgets-enllacAudio,
 input#form-widgets-proposalPoint,
 input#form-widgets-agreement,
-input#form-widgets-recipients {width: 98%;}
+input#form-widgets-recipients,
+input#form-widgets-fromTitle {width: 98%;}
 
 /*  Hide view action tab */
 .portaltype-genweb-organs-organsfolder #plone-contentmenu-display,

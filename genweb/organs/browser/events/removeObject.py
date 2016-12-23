@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
 from zope.lifecycleevent.interfaces import IObjectRemovedEvent
-from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from genweb.organs.content.punt import IPunt
 from genweb.organs.content.subpunt import ISubpunt
 from five import grok
 from zope.globalrequest import getRequest
+from genweb.organs.utils import addEntryLog
+from genweb.organs import _
 
 
 def deletion_confirmed():
@@ -36,7 +37,7 @@ def removePunt(alias, event):
         print '___________deleting punt'
         portal_catalog = getToolByName(alias, 'portal_catalog')
         folder_path = '/'.join(alias.__parent__.getPhysicalPath())
-        # addEntryLog(alias, 'Reload proposalPoints manually', '')  # add log
+        addEntryLog(alias, None, _(u'Deleted punt'), '')  # add log
         # agafo items ordenats!
 
         puntsOrdered = portal_catalog.searchResults(
@@ -75,7 +76,7 @@ def removeSubpunt(alias, event):
         print '___________deleting SUB punt'
         portal_catalog = getToolByName(alias, 'portal_catalog')
         folder_path = '/'.join(alias.__parent__.getPhysicalPath())
-        # addEntryLog(alias, 'Reload proposalPoints manually', '')  # add log
+        addEntryLog(alias, None, _(u'Deleted subpunt'), '')  # add log
         # agafo items ordenats!
         subpuntsOrdered = portal_catalog.searchResults(
             portal_type=['genweb.organs.subpunt'],
