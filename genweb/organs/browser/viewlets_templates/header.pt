@@ -4,7 +4,13 @@
                  portal_https context/@@genweb.utils/portal_url_https;
                  custom_link viewlet/getCustomLink">
   <div class="clearfix">
-
+    <h1 class="pull-left">
+      <a href="http://www.upc.edu" target="_blank">
+        <img tal:attributes="src string:${portal_url}/++genweb++static/images/logoUPC.png"
+             i18n:attributes="alt label_alt_logo; title label_title_logo"
+             width="207px" height="46px" />
+      </a>
+    </h1>
     <a id='eines-menu' class="btn btn-navbar pull-right hidden-desktop hidden-tablet"
        data-toggle="collapse" data-target=".nav-collapse-eines">
       <i class="icon-wrench"></i>
@@ -87,6 +93,8 @@
       </ul>
     </div>
 
+
+
     <tal:comment replace="nothing">  Menu para phone y tablet </tal:comment>
     <div class="nav-collapse nav-collapse-eines hidden-desktop"
          tal:define="dades context/@@genweb.utils/getDadesUnitat">
@@ -166,10 +174,11 @@
 
   <div class="bannerOrgans">
     <div style="float:left;">
-      <a>
+
           <img tal:attributes="src viewlet/getLogo" style="height:65px; width: auto;" />
-      </a>
+
     </div>
+    <div class="bannerTitle" tal:condition="viewlet/getTitle" tal:content="viewlet/getTitle">Govern UPC - FIB</div>
     <div class="header-image l3-image"
          tal:attributes="class string:header-image ${viewlet/get_image_class}">
     </div>

@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from five import grok
-from datetime import datetime
 from z3c.form import button
 from plone.directives import form
 from Products.statusmessages.interfaces import IStatusMessage
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
-from zope.annotation.interfaces import IAnnotations
 from AccessControl import Unauthorized
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope import schema
 from Products.CMFCore.utils import getToolByName
+from genweb.organs.utils import addEntryLog
 import transaction
 
 
@@ -78,91 +77,64 @@ class Message(form.SchemaForm):
             IStatusMessage(self.request).addStatusMessage(message, type="error")
             return self.request.response.redirect(self.context.absolute_url())
 
-        """ Adding message information to context in annotation format
-        """
-        KEY = 'genweb.organs.logMail'
-        annotations = IAnnotations(self.context)
+        """ Adding message information to context in annotation format """
+        addEntryLog(self.context, None, _(u'Massive agreements imported'), '')
 
-        if annotations is not None:
-            logData = annotations.get(KEY, None)
-            try:
-                len(logData)
-                # Get data and append values
-                data = annotations.get(KEY)
-            except:
-                # If it's empty, initialize data
-                data = []
-            dateMail = datetime.now()
+        # Creating new objects
 
-            anon = api.user.is_anonymous()
-            if not anon:
-                username = api.user.get_current().id
+        text = formData['message']
+        defaultEstat = str(self.aq_parent.aq_parent.estatsLlista.split('<br />')[0].replace('<p>','').replace('</p>','').split('#')[0].rsplit(' ')[0])
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        puntsInFolder = portal_catalog.searchResults(
+            portal_type=['genweb.organs.punt'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+        index = len(puntsInFolder) + 1
+
+        content = text.splitlines()
+        subindex = 0
+        previousPuntContainer = None
+        for line in content:
+            if len(line)==0:
+                continue
             else:
-                username = ''
-            toMail = ''
-            values = dict(dateMail=dateMail.strftime('%d/%m/%Y %H:%M:%S'),
-                          message=_(u"Massive agreements imported"),
-                          fromMail=username,
-                          toMail=toMail)
-
-            data.append(values)
-            annotations[KEY] = data
-
-            # Creating new objects
-
-            text = formData['message']
-            defaultEstat = str(self.aq_parent.aq_parent.estatsLlista.split('<br />')[0].replace('<p>','').replace('</p>','').split('#')[0].rsplit(' ')[0])
-            portal_catalog = getToolByName(self, 'portal_catalog')
-            folder_path = '/'.join(self.context.getPhysicalPath())
-            puntsInFolder = portal_catalog.searchResults(
-                portal_type=['genweb.organs.punt'],
-                sort_on='getObjPositionInParent',
-                path={'query': folder_path,
-                      'depth': 1})
-            index = len(puntsInFolder) + 1
-
-            content = text.splitlines()
-            subindex = 0
-            previousPuntContainer = None
-            for line in content:
-                if len(line)==0:
-                    continue
+                if line.startswith((' ', '\t')) is False:
+                    # No hi ha blanks, es un punt
+                    line = line.lstrip().rstrip()  # esborrem tots els blanks
+                    obj = api.content.create(
+                        type='genweb.organs.punt',
+                        title=line,
+                        container=self.context)
+                    obj.proposalPoint = unicode(str(index))
+                    obj.estatsLlista = defaultEstat
+                    index = index + 1
+                    subindex = 1
+                    previousPuntContainer = obj
+                    obj.reindexObject()
                 else:
-                    if line.startswith((' ', '\t')) is False:
-                        # No hi ha blanks, es un punt
-                        line = line.lstrip().rstrip()  # esborrem tots els blanks
-                        obj = api.content.create(
-                            type='genweb.organs.punt',
-                            title=line,
-                            container=self.context)
-                        obj.proposalPoint = unicode(str(index))
-                        obj.estatsLlista = defaultEstat
-                        index = index + 1
-                        subindex = 1
-                        previousPuntContainer = obj
-                        obj.reindexObject()
-                    else:
-                        # starts with blanks, es un subpunt
-                        line = line.lstrip().rstrip()  # esborrem tots els blanks
-                        newobj = api.content.create(
-                            type='genweb.organs.subpunt',
-                            title=line,
-                            container=previousPuntContainer)
-                        # TODO: Optimize previous line! runs slower!
+                    # starts with blanks, es un subpunt
+                    line = line.lstrip().rstrip()  # esborrem tots els blanks
+                    newobj = api.content.create(
+                        type='genweb.organs.subpunt',
+                        title=line,
+                        container=previousPuntContainer)
+                    # TODO: Optimize previous line! runs slower!
 
-                        newobj.proposalPoint = unicode(str(index-1) + str('.') + str(subindex))
-                        newobj.estatsLlista = defaultEstat
-                        newobj.reindexObject()
-                        subindex = subindex + 1
-            transaction.commit()
+                    newobj.proposalPoint = unicode(str(index-1) + str('.') + str(subindex))
+                    newobj.estatsLlista = defaultEstat
+                    newobj.reindexObject()
+                    subindex = subindex + 1
+        transaction.commit()
 
-            message = "S'han creats els punts indicats."
-            if lang == 'es':
-                message = "Se han creado los puntos indicados."
-            if lang == 'en':
-                message = "Indicated fields have been created."
-            IStatusMessage(self.request).addStatusMessage(message, type="success")
-            return self.request.response.redirect(self.context.absolute_url())
+        message = "S'han creats els punts indicats."
+        if lang == 'es':
+            message = "Se han creado los puntos indicados."
+        if lang == 'en':
+            message = "Indicated fields have been created."
+        IStatusMessage(self.request).addStatusMessage(message, type="success")
+        return self.request.response.redirect(self.context.absolute_url())
 
     @button.buttonAndHandler(_('Cancel'))
     def handleCancel(self, action):

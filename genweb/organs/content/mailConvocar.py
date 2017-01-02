@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from five import grok
-from datetime import datetime
 from zope.schema import TextLine
 from z3c.form import button
 from plone.directives import form
@@ -9,8 +8,6 @@ from Products.statusmessages.interfaces import IStatusMessage
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
-from zope.annotation.interfaces import IAnnotations
-from genweb.organs.browser.views import sessio_sendMail
 from AccessControl import Unauthorized
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget

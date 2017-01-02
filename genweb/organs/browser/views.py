@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.Five.browser import BrowserView
-from zope.annotation.interfaces import IAnnotations
-from datetime import datetime
 from Products.CMFCore.utils import getToolByName
 from plone import api
 from time import strftime
@@ -49,7 +47,7 @@ class AssignAcord(BrowserView):
                 else:
                     folder_path = '/'.join(self.context.getPhysicalPath())
 
-                addEntryLog(self.context, None, _(u'Modified acord number'), '')
+                addEntryLog(self.context, None, _(u'Modified agreement number'), '')
                 # agafo items ordenats!
 
                 punt = portal_catalog.searchResults(
@@ -307,9 +305,11 @@ def sessio_sendMail(session, recipients, body):
                               immediate=False,
                               charset='utf8',
                               msg_type='text/html')
+        addEntryLog(session.context, None, _(u'Missatge enviat correctament'), '')
         session.plone_utils.addPortalMessage(
             _("Missatge enviat correctament"), 'info')
     except:
+        addEntryLog(session.context, None, _(u'Missatge no enviat'), '')
         session.plone_utils.addPortalMessage(
             _("Missatge no enviat. Comprovi els destinataris del missatge"), 'error')
 
@@ -344,52 +344,6 @@ class ActaPrintView(BrowserView):
             return self.context.aq_parent.aq_parent.absolute_url() + '/@@images/logoOrgan'
         except:
             return None
-
-
-class AddLogMail(BrowserView):
-
-    def __call__(self):
-        """ Adding send mail information to context in annotation format
-        """
-        KEY = 'genweb.organs.logMail'
-        annotations = IAnnotations(self.context)
-
-        if annotations is not None:
-            try:
-                # Get data and append values
-                data = annotations.get(KEY)
-            except:
-                # If it's empty, initialize data
-                data = []
-
-            dateMail = datetime.now()
-
-            anon = api.user.is_anonymous()
-            if not anon:
-                username = api.user.get_current().id
-            else:
-                username = 'Anonymous user'
-
-            body = ''  # Fiquem el body buit per si de cas...
-            try:
-                # If someone access directly to this view... do nothing
-                toMail = self.request.form['recipients-name']
-                body = self.request.form['message-text']
-            except:
-                return
-
-            values = dict(dateMail=dateMail.strftime('%d/%m/%Y %H:%M:%S'),
-                          message=_("Send mail"),
-                          fromMail=username,
-                          toMail=toMail)
-
-            data.append(values)
-            annotations[KEY] = data
-
-            sessio_sendMail(self.context, toMail, body)  # Enviem mail
-        # session, sender, recipients, body
-
-        self.request.response.redirect(self.context.absolute_url())
 
 
 class SessionAjax(BrowserView):

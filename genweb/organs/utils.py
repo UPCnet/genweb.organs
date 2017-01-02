@@ -3,6 +3,7 @@ from plone import api
 from zope.annotation.interfaces import IAnnotations
 from datetime import datetime
 
+
 def isReader(self):
     """ Returns true if user is Reader or Manager """
     try:

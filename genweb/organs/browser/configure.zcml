@@ -8,12 +8,6 @@
     <include package="z3c.jbot" file="meta.zcml" />
     <browser:jbot directory="overrides" layer="..interfaces.IGenwebOrgansLayer" />
 
-    <!-- Publish static files -->
-    <browser:resourceDirectory
-      name="genweb.organs"
-      directory="static"
-      />
-
     <!--   ++resource++genweb.organs.stylesheets/genweb_organs.css -->
     <browser:resourceDirectory
       name="genweb.organs.stylesheets"
@@ -25,15 +19,6 @@
       for="*"
       name="printActa"
       class=".views.ActaPrintView"
-      layer="..interfaces.IGenwebOrgansLayer"
-      permission="zope2.View"
-    />
-
-    <!-- Used to add mail information to session log annotation -->
-    <browser:page
-      for="*"
-      name="addLogMail"
-      class=".views.AddLogMail"
       layer="..interfaces.IGenwebOrgansLayer"
       permission="zope2.View"
     />

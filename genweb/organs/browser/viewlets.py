@@ -142,6 +142,32 @@ class gwHeader(viewletBase):
             }
         return custom_links[lang]
 
+    def getTitle(self):
+        from genweb.organs.content.organsfolder import IOrgansfolder
+        if IOrgansfolder.providedBy(self.context):
+            if self.context.customImage:
+                return 'Govern UPC'
+            else:
+                return None
+        else:
+            portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
+            root = getNavigationRootObject(self.context, portal_state.portal())
+            physical_path = aq_inner(self.context).getPhysicalPath()
+            relative = physical_path[len(root.getPhysicalPath()):]
+            for i in range(len(relative)):
+                now = relative[:i + 1]
+                try:
+                    # Some objects in path are in pending state
+                    obj = aq_inner(root.restrictedTraverse(now))
+                except:
+                    # return default image
+                    return None
+                if IOrgansfolder.providedBy(obj):
+                    if self.context.customImage:
+                        return 'Govern UPC'
+                    else:
+                        return None
+
     def getLogo(self):
         from genweb.organs.content.organsfolder import IOrgansfolder
         if IOrgansfolder.providedBy(self.context):

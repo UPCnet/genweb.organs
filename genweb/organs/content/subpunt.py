@@ -54,7 +54,7 @@ class ISubpunt(form.Schema):
         required=True
     )
 
-    # form.mode(proposalPoint='hidden')
+    form.mode(proposalPoint='hidden')
     proposalPoint = schema.TextLine(
         title=_(u'Proposal point number'),
         required=False
