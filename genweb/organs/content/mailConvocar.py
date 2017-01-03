@@ -144,16 +144,24 @@ class Message(form.SchemaForm):
             IStatusMessage(self.request).addStatusMessage(message, type="error")
             return
         sender = self.context.aq_parent.fromMail
-        addEntryLog(self.context, sender, 'Send convocatoria mail', formData['recipients'])  # add log
-        # self.context.MailHost.send(bodyMail,
-        #                       mto=recipientPerson,
-        #                       mfrom=senderPerson,
-        #                       subject=subjectMail,
-        #                       encode=None,
-        #                       immediate=False,
-        #                       charset='utf8',
-        #                       msg_type='text/html')
-        self.context.plone_utils.addPortalMessage(
-            _("Missatge enviat correctament"), 'info')
+        addEntryLog(self.context, sender, _(u'Sending mail convocatoria'), formData['recipients'])  # add log
+        try:
+            self.context.MailHost.send(
+                formData['message'],
+                mto=formData['recipients'],
+                mfrom=sender,
+                subject=formData['fromTitle'],
+                encode=None,
+                immediate=False,
+                charset='utf8',
+                msg_type='text/html')
+
+            addEntryLog(self.context, None, _(u'Missatge enviat correctament'), formData['recipients'])
+            self.context.plone_utils.addPortalMessage(
+                _("Missatge enviat correctament"), 'info')
+        except:
+            addEntryLog(self.context, None, _(u'Missatge no enviat'), formData['recipients'])
+            self.context.plone_utils.addPortalMessage(
+                _("Missatge no enviat. Comprovi els destinataris del missatge"), 'error')
 
         return self.request.response.redirect(self.context.absolute_url())
