@@ -97,7 +97,7 @@ msgstr "Assistents"
 #: ./genweb/organs/content/acta.py:63
 #: ./genweb/organs/content/templates/acta_view.pt:68
 msgid "Attending members"
-msgstr "Llista de persones assistents"
+msgstr "Persones assistents"
 
 #: ./genweb/organs/content/sessio.py:136
 #: ./genweb/organs/content/templates/sessio_view.pt:246
@@ -398,7 +398,7 @@ msgstr "Missatge no enviat. Comprovi els destinataris del missatge"
 
 #: ./genweb/organs/browser/views/acta_print.pt:95
 msgid "Missing members"
-msgstr "Llista de persones no assistents"
+msgstr "Persones no assistents"
 
 #: ./genweb/organs/browser/views.py:50
 msgid "Modified agreement number"
