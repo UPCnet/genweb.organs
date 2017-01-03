@@ -87,6 +87,7 @@
                 <a tal:attributes="href item/absolute_url;"
                    style="font-size:15px;">
                    <span tal:content="item/proposalPoint"></span>
+                   <span tal:content="item/agreement"></span>
                    <span tal:content="item/title">Doc title</span></a>
 
               </li>

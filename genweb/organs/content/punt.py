@@ -169,7 +169,9 @@ class View(grok.View):
                   'depth': 1})
         results = []
         for obj in values:
+            item = obj.getObject()
             results.append(dict(title=obj.Title,
-                                proposalPoint=obj.getObject().proposalPoint,
+                                proposalPoint=item.proposalPoint,
+                                agreement=item.agreement,
                                 absolute_url=obj.getURL()))
         return results

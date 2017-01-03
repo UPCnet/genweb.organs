@@ -146,9 +146,9 @@ class gwHeader(viewletBase):
         from genweb.organs.content.organsfolder import IOrgansfolder
         if IOrgansfolder.providedBy(self.context):
             if self.context.customImage:
-                return 'Govern UPC'
+                return 'Govern UPC - ' + str(self.context.title)
             else:
-                return None
+                return 'Govern UPC'
         else:
             portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
             root = getNavigationRootObject(self.context, portal_state.portal())
@@ -164,9 +164,9 @@ class gwHeader(viewletBase):
                     return None
                 if IOrgansfolder.providedBy(obj):
                     if self.context.customImage:
-                        return 'Govern UPC'
+                        return 'Govern UPC - ' + str(obj.title)
                     else:
-                        return None
+                        return 'Govern UPC'
 
     def getLogo(self):
         from genweb.organs.content.organsfolder import IOrgansfolder
