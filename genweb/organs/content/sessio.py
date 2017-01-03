@@ -241,15 +241,15 @@ class View(grok.View):
         values = data.estatsLlista
         color = '#777777'
         for value in values.split('<br />'):
-            if estat == value.split('#')[0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' '):
-                return '#' + value.split('#')[1].replace('<p>', '').replace('</p>', '').rstrip(' ').lstrip(' ')
+            if estat.decode('utf-8') == ' '.join(value.split(' ')[:-1]).rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' '):
+                return value.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
         return color
 
     def estatsCanvi(self, data):
         values = data.estatsLlista
         items = []
         for value in values.split('<br />'):
-            estat = value.split('#')[0].lstrip(' ').rstrip(' ').replace('<p>', '').replace('</p>', '')
+            estat = ' '.join(value.split(' ')[:-1]).rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
             items.append(estat)
         return items
 

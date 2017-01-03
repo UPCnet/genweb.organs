@@ -89,6 +89,6 @@ def removeSubpunt(alias, event):
             index = 1
             sufix = str(subpuntsOrdered[0].proposalPoint).split('.')[0]
             for item in subpuntsOrdered:
-                item.proposalPoint = unicode(str(sufix) + str('.') + str(index))
-                item.reindexObject()
+                item.getObject().proposalPoint = unicode(str(sufix) + str('.') + str(index))
+                #item.reindexObject()
                 index = index + 1

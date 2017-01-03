@@ -28,7 +28,7 @@ def llistaEstats(context):
     values = context.aq_parent.aq_parent.estatsLlista
     literals = []
     for value in values.split('<br />'):
-        estat = value.split('#')[0].lstrip(' ').rstrip(' ').replace('<p>', '').replace('</p>', '')
+        estat = ' '.join(value.split(' ')[:-1]).rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ').encode('utf-8')
         literals.append(estat)
 
     for item in literals:
@@ -131,8 +131,6 @@ class View(grok.View):
         return False
 
     def FilesandDocumentsInside(self):
-        """ Retorna files and docs d'aquí dintre (sense tenir compte estat)
-        """
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
@@ -166,8 +164,6 @@ class View(grok.View):
         return results
 
     def SubPuntsInside(self):
-        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
-        """
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
