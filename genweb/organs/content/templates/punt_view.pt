@@ -83,11 +83,11 @@
         <td>
           <ul class="ul_items">
             <tal:subpunts repeat="item subpunts">
-              <li style="list-style: none; padding-bottom: 5px;">
+              <li style="list-style: none; padding-bottom: 5px;" tal:define="agreement item/agreement">
                 <a tal:attributes="href item/absolute_url;"
                    style="font-size:15px;">
                    <span tal:content="item/proposalPoint"></span>
-                   <span tal:content="item/agreement"></span>
+                   <span class="agreementClass" tal:condition="agreement" tal:content="agreement"></span>
                    <span tal:content="item/title">Doc title</span></a>
 
               </li>

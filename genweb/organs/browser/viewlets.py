@@ -1,41 +1,14 @@
 # -*- coding: utf-8 -*-
-import requests
-import socket
 from five import grok
 from plone import api
-from time import time
 from Acquisition import aq_inner
-from AccessControl import getSecurityManager
 from zope.interface import Interface
 from zope.component import getMultiAdapter
-from zope.security import checkPermission
-
-from plone.memoize import ram
 from plone.memoize.view import memoize_contextless
-
-# from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile as ZopeViewPageTemplateFile
-from Products.Five.browser.metaconfigure import ViewMixinForTemplates
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-
-from plone.app.layout.viewlets.common import PersonalBarViewlet, GlobalSectionsViewlet, PathBarViewlet
-from plone.app.layout.viewlets.common import SearchBoxViewlet, ManagePortletsFallbackViewlet
-from plone.app.layout.viewlets.interfaces import IPortalTop, IPortalHeader, IBelowContent
-from plone.app.layout.viewlets.interfaces import IPortalFooter
-from plone.app.layout.navigation.interfaces import INavigationRoot
-
-from genweb.core import HAS_CAS
+from plone.app.layout.viewlets.interfaces import IPortalHeader
 from genweb.core import HAS_PAM
-from genweb.core.interfaces import IHomePage
-from genweb.theme.browser.interfaces import IHomePageView
 from genweb.core.utils import genweb_config
-from genweb.core.utils import havePermissionAtRoot
-from genweb.core.utils import pref_lang
-from genweb.theme.browser.interfaces import IGenwebTheme
-from genweb.core.browser.viewlets import gwCSSViewletManager
-from genweb.core.browser.viewlets import baseResourcesViewlet
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from plone.app.layout.navigation.root import getNavigationRootObject
 

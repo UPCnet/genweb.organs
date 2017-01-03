@@ -346,9 +346,9 @@ class ActaPrintView(BrowserView):
             return None
 
 
-class SessionAjax(BrowserView):
+class PresentationView(BrowserView):
 
-    __call__ = ViewPageTemplateFile('session_ajax.pt')
+    __call__ = ViewPageTemplateFile('views/presentation_view.pt')
 
     def PuntsInside(self):
         portal_catalog = getToolByName(self, 'portal_catalog')
@@ -366,9 +366,11 @@ class SessionAjax(BrowserView):
                                     absolute_url=item.absolute_url(),
                                     proposalPoint=item.proposalPoint,
                                     state=item.estatsLlista,
+                                    agreement=item.agreement,
                                     item_path=obj.getPath(),
                                     css=self.getColor(obj),
                                     estats=self.estatsCanvi(obj),
+                                    portal_type=obj.portal_type,
                                     id=obj.id))
         return results
 
@@ -390,6 +392,8 @@ class SessionAjax(BrowserView):
                                 absolute_url=item.absolute_url(),
                                 proposalPoint=item.proposalPoint,
                                 state=item.estatsLlista,
+                                agreement=item.agreement,
+                                portal_type=obj.portal_type,
                                 item_path=obj.getPath(),
                                 estats=self.estatsCanvi(obj),
                                 css=self.getColor(obj),

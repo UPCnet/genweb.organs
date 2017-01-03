@@ -25,7 +25,7 @@
     <browser:page
       for="*"
       name="changeTitle"
-      class=".changeTitle.changeTitle"
+      class=".changes.changeTitle"
       layer="..interfaces.IGenwebOrgansLayer"
       permission="cmf.ModifyPortalContent"
     />
@@ -33,15 +33,15 @@
     <browser:page
       for="*"
       name="changeAgreement"
-      class=".changeAgreement.changeAgreement"
+      class=".changes.changeAgreement"
       layer="..interfaces.IGenwebOrgansLayer"
       permission="cmf.ModifyPortalContent"
     />
 
     <browser:page
       for="*"
-      name="sessionAjax"
-      class=".views.SessionAjax"
+      name="presentationView"
+      class=".views.PresentationView"
       layer="..interfaces.IGenwebOrgansLayer"
       permission="zope2.View"
     />

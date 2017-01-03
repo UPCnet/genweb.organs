@@ -147,7 +147,7 @@
         <a href="send_message" i18n:attributes="title Enviar; alt Enviar"><i class="fa fa-envelope fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Enviar</span></a>
       </div>
       <div class="containerIcons" tal:condition="view/showPresentacionButton">
-        <a i18n:attributes="title Presentacio; alt Presentacio" href="sessionAjax" data-toggle="modal" data-target="#modalSession"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
+        <a i18n:attributes="title Presentacio; alt Presentacio" href="presentationView" data-toggle="modal" data-target="#modalSession"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
       </div>
       <div class="containerIcons" tal:condition="view/showPublicarButton">
         <a href="informar_sessio" i18n:attributes="title Informar; alt Informar"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informar</span></a>
@@ -354,7 +354,7 @@
                 </button>
               </div>
 
-              <div class="btn-group" role="group" style="float: right;" aria-label="Edit actions" tal:condition="isEditor">
+              <div class="btn-group" role="group" style="float: right;" aria-label="Add element" tal:condition="isEditor">
                   <button class="label dropdown-toggle"
                       id="types" type="button" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false" i18n:translate="">
@@ -369,7 +369,7 @@
               </div>
 
               <div class="btn-group" role="group" tal:condition="isEditor"
-                   style="float: right;" aria-label="Edit actions">
+                   style="float: right;" aria-label="States">
                 <tal:block tal:condition="item/state">
                   <button class="label dropdown-toggle" tal:attributes="style string:background-color: ${item/css}"
                       id="estats" type="button" data-toggle="dropdown"
@@ -384,9 +384,9 @@
                   </ul>
                 </tal:block>
               </div>
-              <div class="btn-group" role="group" tal:condition="isEditor"
-                   style="float: right;" aria-label="Edit actions">
-                <button tal:condition="not:item/agreement" type="button" class="acord label label-important"
+              <div class="btn-group" role="group" tal:condition="not:item/agreement"
+                   style="float: right;" aria-label="Fer acord">
+                <button type="button" class="acord label label-important"
                   data-container="body"
                   data-toggle="popover"
                   data-placement="bottom"
@@ -398,9 +398,9 @@
                 </button>
               </div>
 
-              <div class="puntTitle">
+              <div class="puntTitle" tal:define="agreement item/agreement">
                 <span class="proposalNumber" tal:content="item/proposalPoint"></span>
-                <a class="agreement editable editable-click" tal:content="item/agreement"
+                <a class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"
                     tal:attributes="data-pk item/id; href item/absolute_url" data-url="changeAgreement"></a>
                 <a tal:attributes="data-pk item/id; href item/absolute_url"
                    data-url="changeTitle"
@@ -462,7 +462,7 @@
                         </button>
                       </div>
 
-                      <div class="btn-group" role="group" style="float: right;" aria-label="Edit actions" tal:condition="isEditor">
+                      <div class="btn-group" role="group" style="float: right;" aria-label="Add element" tal:condition="isEditor">
                           <button class="label dropdown-toggle"
                               id="types" type="button" data-toggle="dropdown"
                               aria-haspopup="true" aria-expanded="false">
@@ -490,9 +490,9 @@
                         </tal:block>
                       </div>
 
-                      <div class="btn-group" role="group" tal:condition="isEditor"
-                           style="float: right;" aria-label="Edit actions">
-                        <button tal:condition="not:item/agreement" type="button" class="acord label label-important"
+                      <div class="btn-group" role="group" tal:condition="not:item/agreement"
+                           style="float: right;" aria-label="Fer acord">
+                        <button  type="button" class="acord label label-important"
                           data-container="body"
                           data-toggle="popover"
                           data-placement="bottom"
@@ -504,9 +504,9 @@
                         </button>
                       </div>
 
-                      <div class="subpuntTitle">
+                      <div class="subpuntTitle" tal:define="agreement item/agreement">
     	                  <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
-                        <a class=" agreement editable editable-click" tal:content="item/agreement"
+                        <a class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"
                             tal:attributes="data-pk item/id; href item/absolute_url" data-url="changeAgreement"></a>
                         <a tal:attributes="data-pk item/id; href item/absolute_url"
                            data-type="text" data-url="changeTitle"

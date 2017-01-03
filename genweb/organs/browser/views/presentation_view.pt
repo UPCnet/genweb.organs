@@ -6,9 +6,10 @@
     <h2 tal:content="view/getSessionTitle">Ordre del dia</h2>
     <ul id="sortable" class="ui-sortable">
       <tal:documents repeat="item items">
-        <li >
-            <div class="puntTitle">
+        <li>
+            <div class="puntTitle" tal:define="agreement item/agreement">
               <span class="proposalNumber" tal:content="item/proposalPoint"></span>
+              <span class="agreementClass" tal:condition="agreement" tal:content="agreement"></span>
               <a tal:attributes="href string:${item/absolute_url}/view">
                 <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
               </a>
@@ -28,6 +29,19 @@
                   </ul>
                 </tal:block>
               </div>
+              <div class="btn-group" role="group" tal:condition="not:item/agreement"
+                   style="float: right;" aria-label="Fer acord">
+                <button type="button" class="acord label label-important"
+                  data-container="body"
+                  data-toggle="popover"
+                  data-placement="bottom"
+                  data-html="true"
+                  data-trigger="manual"
+                  data-original-title="Convertir en acord"
+                  tal:attributes="data-item item/id; data-type item/portal_type">
+                  Fer acord
+                </button>
+              </div>
               <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                 <ul style="list-style: none;">
                   <tal:documents repeat="item files">
@@ -45,13 +59,13 @@
               <tal:subpunts repeat="item subpunts">
                 <ol class="li_subgrups">
                   <td>
-                    <div class="subpuntSession">
+                    <div class="subpuntSession" tal:define="agreement item/agreement">
                       <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
+                      <span class="agreementClass" tal:condition="agreement" tal:content="agreement"></span>
                       <a tal:attributes="href string:${item/absolute_url}"
                          class="">
                         <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                       </a>
-
                       <div class="btn-group" role="group"
                            style="float: right;" aria-label="Subpunt actions">
                         <tal:block tal:condition="item/state">
@@ -66,7 +80,19 @@
                             </ul>
                         </tal:block>
                       </div>
-
+                      <div class="btn-group" role="group" tal:condition="not:item/agreement"
+                           style="float: right;" aria-label="Fer acord">
+                        <button  type="button" class="acord label label-important"
+                          data-container="body"
+                          data-toggle="popover"
+                          data-placement="bottom"
+                          data-html="true"
+                          data-trigger="manual"
+                          data-original-title="Convertir en acord"
+                          tal:attributes="data-item item/id; data-type item/portal_type">
+                          Fer acord
+                        </button>
+                      </div>
                       <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                         <ul style="list-style: none;">
                           <tal:documents repeat="item files">
