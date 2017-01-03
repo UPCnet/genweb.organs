@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-03 11:19+0000\n"
+"POT-Creation-Date: 2017-01-03 12:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,7 @@ msgstr "Acta"
 
 #: ./genweb/organs/browser/views/acta_print.pt:105
 #: ./genweb/organs/content/acta.py:98
-#: ./genweb/organs/content/templates/acta_view.pt:114
+#: ./genweb/organs/content/templates/acta_view.pt:112
 msgid "Acta Body"
 msgstr "Contingut"
 
@@ -130,7 +130,7 @@ msgstr "Missatge que s'adjunta al clicar el botó d'enviar missatge. S'hi afegei
 
 #: ./genweb/organs/content/informarSessio.py:128
 #: ./genweb/organs/content/manualimport.py:139
-#: ./genweb/organs/content/sendMessage.py:157
+#: ./genweb/organs/content/sendMessage.py:125
 msgid "Cancel"
 msgstr "Cancel·lar"
 
@@ -193,9 +193,9 @@ msgstr "Descripció"
 msgid "Destinataris"
 msgstr "Destinataris"
 
-#: ./genweb/organs/content/punt.py:149
+#: ./genweb/organs/content/punt.py:147
 #: ./genweb/organs/content/sessio.py:423
-#: ./genweb/organs/content/subpunt.py:157
+#: ./genweb/organs/content/subpunt.py:155
 msgid "Document"
 msgstr "Document"
 
@@ -252,15 +252,15 @@ msgstr "Fitxer"
 msgid "File contents"
 msgstr "Contingut del fitxer"
 
-#: ./genweb/organs/content/punt.py:141
+#: ./genweb/organs/content/punt.py:139
 #: ./genweb/organs/content/sessio.py:415
-#: ./genweb/organs/content/subpunt.py:149
+#: ./genweb/organs/content/subpunt.py:147
 msgid "Fitxer intern"
 msgstr "Fitxer intern"
 
-#: ./genweb/organs/content/punt.py:145
+#: ./genweb/organs/content/punt.py:143
 #: ./genweb/organs/content/sessio.py:419
-#: ./genweb/organs/content/subpunt.py:153
+#: ./genweb/organs/content/subpunt.py:151
 msgid "Fitxer públic"
 msgstr "Fitxer públic"
 
@@ -351,15 +351,14 @@ msgstr "Imatge que es farà servir com a imatge de capçalera en aquest òrgan i
 msgid "Mail address help"
 msgstr "Adreça o adreces a les quals arribaran els missatges quan hi hagi una notificació de l'òrgan."
 
+#: ./genweb/organs/content/sendMessage.py:27
+msgid "Mail address separated by blanks."
+msgstr "Les adreces de correu han d'anar separades per espais en blanc."
+
 #: ./genweb/organs/content/informarSessio.py:28
 #: ./genweb/organs/content/mailConvocar.py:32
-#: ./genweb/organs/content/sendMessage.py:28
 msgid "Mail address separated by commas."
 msgstr "Adreces de correu separades per comes."
-
-#: ./genweb/organs/content/informarSessio.py:123
-msgid "Mail informar sessio send"
-msgstr "Missatge d'enviament de la sessió"
 
 #: ./genweb/organs/content/manualimport.py:27
 msgid "Manual Import"
@@ -375,13 +374,9 @@ msgstr "Importació manual de punts"
 
 #: ./genweb/organs/content/informarSessio.py:33
 #: ./genweb/organs/content/mailConvocar.py:41
-#: ./genweb/organs/content/sendMessage.py:33
+#: ./genweb/organs/content/sendMessage.py:32
 msgid "Message"
 msgstr "Missatge"
-
-#: ./genweb/organs/content/sendMessage.py:146
-msgid "Message send"
-msgstr "Enviar missatge"
 
 #: ./genweb/organs/browser/views.py:308
 #: ./genweb/organs/content/mailConvocar.py:157
@@ -434,7 +429,7 @@ msgstr "Obert"
 
 #: ./genweb/organs/content/informarSessio.py:130
 #: ./genweb/organs/content/manualimport.py:141
-#: ./genweb/organs/content/sendMessage.py:159
+#: ./genweb/organs/content/sendMessage.py:127
 msgid "Operation Cancelled."
 msgstr "S'ha cancel·lat l'operació."
 
@@ -546,7 +541,7 @@ msgstr "Títol del punt de l'ordre del dia"
 
 #: ./genweb/organs/content/informarSessio.py:27
 #: ./genweb/organs/content/mailConvocar.py:31
-#: ./genweb/organs/content/sendMessage.py:27
+#: ./genweb/organs/content/sendMessage.py:26
 msgid "Recipients"
 msgstr "Destinataris"
 
@@ -571,6 +566,14 @@ msgstr "Enviar"
 #: ./genweb/organs/content/mailConvocar.py:26
 msgid "Sender"
 msgstr "Informador"
+
+#: ./genweb/organs/content/informarSessio.py:123
+msgid "Sending mail informar sessio"
+msgstr "Enviant correu: Infomar sessió"
+
+#: ./genweb/organs/content/sendMessage.py:120
+msgid "Sending mail new message"
+msgstr "Enviant correu: Nou missatge"
 
 #: ./genweb/organs/browser/views/acta_print.pt:60
 msgid "Sessio del dia"
@@ -608,7 +611,7 @@ msgstr "Número de sessió"
 
 #: ./genweb/organs/browser/views/acta_print.pt:100
 #: ./genweb/organs/content/acta.py:91
-#: ./genweb/organs/content/templates/acta_view.pt:108
+#: ./genweb/organs/content/templates/acta_view.pt:107
 msgid "Session order"
 msgstr "Ordre del dia"
 
@@ -659,7 +662,7 @@ msgstr "Subpunts"
 
 #: ./genweb/organs/content/informarSessio.py:34
 #: ./genweb/organs/content/mailConvocar.py:42
-#: ./genweb/organs/content/sendMessage.py:34
+#: ./genweb/organs/content/sendMessage.py:33
 msgid "This content will be used as message content"
 msgstr "El següent contingut s'adjuntarà al missatge de correu"
 

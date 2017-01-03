@@ -120,7 +120,7 @@ class Message(form.SchemaForm):
         toMail = noBlanks.replace(' ', ',')
         body = formData['message'].encode('utf-8')
 
-        addEntryLog(self.context, toMail, _(u'Mail informar sessio send'), body)
+        addEntryLog(self.context, None, _(u'Sending mail informar sessio'), toMail)
         sessio_sendMail(self.context, toMail, body)  # Send mail
 
         return self.request.response.redirect(self.context.absolute_url())

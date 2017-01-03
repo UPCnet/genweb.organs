@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from five import grok
-from datetime import datetime
 from zope.schema import TextLine
 from z3c.form import button
 from plone.directives import form
@@ -9,12 +8,12 @@ from Products.statusmessages.interfaces import IStatusMessage
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
-from zope.annotation.interfaces import IAnnotations
 from genweb.organs.browser.views import sessio_sendMail
 from AccessControl import Unauthorized
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope import schema
+from genweb.organs.utils import addEntryLog
 
 grok.templatedir("templates")
 
@@ -25,7 +24,7 @@ class IMessage(form.Schema):
 
     recipients = TextLine(
         title=_("Recipients"),
-        description=_("Mail address separated by commas."),
+        description=_("Mail address separated by blanks."),
         required=False)
 
     directives.widget(message=WysiwygFieldWidget)
@@ -70,9 +69,7 @@ class Message(form.SchemaForm):
 
     def updateWidgets(self):
         super(Message, self).updateWidgets()
-        self.widgets["recipients"].value = self.context.adrecaLlista
-        # cosmissatge = self.context.bodyMail + '<br/>'
-        # peumissatge = self.context.signatura + '<br/>'
+        self.widgets["recipients"].value = self.context.adrecaLlista + ' ' + self.context.adrecaAfectatsLlista
         bodyMailOrgan = self.context.aq_parent.bodyMailSend + '<br/>'
         footerOrgan = self.context.signatura + '<br/>'
         self.widgets["message"].value = bodyMailOrgan + footerOrgan
@@ -114,43 +111,14 @@ class Message(form.SchemaForm):
             IStatusMessage(self.request).addStatusMessage(message + empty, type="error")
             return
 
-        """ Adding send mail information to context in annotation format
-        """
-        KEY = 'genweb.organs.logMail'
-        annotations = IAnnotations(self.context)
+        """ Adding send mail information to context in annotation format """
+        toMessage = formData['recipients'].encode('utf-8').decode('ascii', 'ignore')
+        noBlanks = ' '.join(toMessage.split())
+        toMail = noBlanks.replace(' ', ',')
+        body = formData['message'].encode('utf-8')
 
-        if annotations is not None:
-            logData = annotations.get(KEY, None)
-            try:
-                len(logData)
-                # Get data and append values
-                data = annotations.get(KEY)
-            except:
-                # If it's empty, initialize data
-                data = []
-            dateMail = datetime.now()
-
-            anon = api.user.is_anonymous()
-            if not anon:
-                username = api.user.get_current().id
-            else:
-                username = ''
-
-            toMessage = formData['recipients'].encode('utf-8').decode('ascii', 'ignore')
-            noBlanks = ' '.join(toMessage.split())
-            toMail = noBlanks.replace(' ', ',')
-
-            body = formData['message'].encode('utf-8')
-
-            values = dict(dateMail=dateMail.strftime('%d/%m/%Y %H:%M:%S'),
-                          message=_("Message send"),
-                          fromMail=username,
-                          toMail=toMail)
-
-            data.append(values)
-            annotations[KEY] = data
-
-            sessio_sendMail(self.context, toMail, body)  # Send mail
+        addEntryLog(self.context, None, _(u'Sending mail new message'), toMail)
+        sessio_sendMail(self.context, toMail, body)  # Send mail
 
         return self.request.response.redirect(self.context.absolute_url())
 

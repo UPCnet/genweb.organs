@@ -305,11 +305,11 @@ def sessio_sendMail(session, recipients, body):
                               immediate=False,
                               charset='utf8',
                               msg_type='text/html')
-        addEntryLog(session.context, None, _(u'Missatge enviat correctament'), '')
+        addEntryLog(session, None, _(u'Missatge enviat correctament'), recipientPerson)
         session.plone_utils.addPortalMessage(
             _("Missatge enviat correctament"), 'info')
     except:
-        addEntryLog(session.context, None, _(u'Missatge no enviat'), '')
+        addEntryLog(session, None, _(u'Missatge no enviat'), recipientPerson)
         session.plone_utils.addPortalMessage(
             _("Missatge no enviat. Comprovi els destinataris del missatge"), 'error')
 
