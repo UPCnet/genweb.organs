@@ -115,12 +115,12 @@
     <div tal:replace="structure context/actaBody" />
   </tal:block>
 
-  <tal:block tal:condition="context/footer">
+<!--   <tal:block tal:condition="context/footer">
     <hr/>
     <h3 i18n:translate=""> Footer </h3>
     <div tal:replace="structure context/footer" />
   </tal:block>
-    <hr/>
+    <hr/> -->
 
 
 </metal:content-core>

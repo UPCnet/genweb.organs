@@ -27,7 +27,7 @@ class IActa(form.Schema):
              )
 
     fieldset('imprimir',
-             label=_(u'Imprimir'),
+             label=_(u"Dades imprimir"),
              fields=['actaBody', 'footer'],
              )
 

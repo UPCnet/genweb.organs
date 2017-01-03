@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-12-23 12:35+0000\n"
+"POT-Creation-Date: 2017-01-03 11:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,9 +48,9 @@ msgstr "Acta"
 #: ./genweb/organs/content/acta.py:98
 #: ./genweb/organs/content/templates/acta_view.pt:114
 msgid "Acta Body"
-msgstr "Cos de l'acta"
+msgstr "Contingut"
 
-#: ./genweb/organs/content/manualimport.py:29
+#: ./genweb/organs/content/manualimport.py:28
 msgid "Add content separated by -- and they will by added as Agreements."
 msgstr "Es crearan els punts i subpunts sense necessitat d'afegir el número de punt. Només un punt o subpunt per linia. Si la linia comença amb espais es crea com a subpunt. Per exemple:<br/>Informe del rector<br/>&nbsp;&nbsp;Informació dels nomenaments<br/>&nbsp;&nbsp;Aprovació d’una declaració<br/>Discutir tema central<br/>Conclusions"
 
@@ -128,15 +128,19 @@ msgstr "Plantilla del missatge d'Enviar missatge"
 msgid "Body Mail send description"
 msgstr "Missatge que s'adjunta al clicar el botó d'enviar missatge. S'hi afegeix NOMÉS el peu del missatge."
 
-#: ./genweb/organs/content/informarSessio.py:162
-#: ./genweb/organs/content/manualimport.py:167
+#: ./genweb/organs/content/informarSessio.py:128
+#: ./genweb/organs/content/manualimport.py:139
 #: ./genweb/organs/content/sendMessage.py:157
 msgid "Cancel"
 msgstr "Cancel·lar"
 
-#: ./genweb/organs/browser/changeAgreement.py:30
-msgid "Change Agreement"
-msgstr "Canvi de número d'acord"
+#: ./genweb/organs/browser/changes.py:34
+msgid "Changed Title"
+msgstr "S'ha canviat el títol"
+
+#: ./genweb/organs/browser/changes.py:61
+msgid "Changed agreement number"
+msgstr "S'ha modificat el número d'acord"
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:32
 msgid "Composicio"
@@ -156,6 +160,10 @@ msgstr "Contingut"
 msgid "Dades"
 msgstr "Dades"
 
+#: ./genweb/organs/content/acta.py:30
+msgid "Dades imprimir"
+msgstr "Previsualització"
+
 #: ./genweb/organs/content/templates/acta_view.pt:40
 #: ./genweb/organs/content/templates/sessio_view.pt:173
 msgid "Data"
@@ -171,11 +179,11 @@ msgstr "Contingut preparat per publicar."
 
 #: ./genweb/organs/browser/events/removeObject.py:40
 msgid "Deleted punt"
-msgstr ""
+msgstr "Punt el·liminat"
 
 #: ./genweb/organs/browser/events/removeObject.py:79
 msgid "Deleted subpunt"
-msgstr ""
+msgstr "Subpunt el·liminat"
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:29
 msgid "Description"
@@ -261,13 +269,12 @@ msgid "Fitxers i documents"
 msgstr "Fitxers i documents"
 
 #: ./genweb/organs/content/acta.py:105
-#: ./genweb/organs/content/templates/acta_view.pt:120
 msgid "Footer"
-msgstr "Peu de l'acta"
+msgstr "Signatura"
 
-#: ./genweb/organs/content/mailConvocar.py:39
+#: ./genweb/organs/content/mailConvocar.py:36
 msgid "From"
-msgstr ""
+msgstr "From"
 
 #: ./genweb/organs/content/organgovern.py:82
 msgid "From mail"
@@ -296,10 +303,6 @@ msgstr "Imatge que es fa servir en imprimir les actes, en comptes de fer servir 
 #: ./genweb/organs/content/templates/sessio_view.pt:315
 msgid "Importar llista de punts i subpunts"
 msgstr "Importar llista de punts i subpunts"
-
-#: ./genweb/organs/content/acta.py:30
-msgid "Imprimir"
-msgstr "Imprimir"
 
 #: ./genweb/organs/content/sessio.py:90
 msgid "Incoming members list"
@@ -349,12 +352,16 @@ msgid "Mail address help"
 msgstr "Adreça o adreces a les quals arribaran els missatges quan hi hagi una notificació de l'òrgan."
 
 #: ./genweb/organs/content/informarSessio.py:28
-#: ./genweb/organs/content/mailConvocar.py:35
+#: ./genweb/organs/content/mailConvocar.py:32
 #: ./genweb/organs/content/sendMessage.py:28
 msgid "Mail address separated by commas."
 msgstr "Adreces de correu separades per comes."
 
-#: ./genweb/organs/content/manualimport.py:28
+#: ./genweb/organs/content/informarSessio.py:123
+msgid "Mail informar sessio send"
+msgstr "Missatge d'enviament de la sessió"
+
+#: ./genweb/organs/content/manualimport.py:27
 msgid "Manual Import"
 msgstr "Importació automàtica de punts i subpunts"
 
@@ -362,28 +369,28 @@ msgstr "Importació automàtica de punts i subpunts"
 msgid "Marca aquesta opció si no es vol fer servir la imatge de l'òrgan al imprimir les actes, sino la que s'adjunta aquí mateix."
 msgstr "Marcar aquesta opció si no es vol fer servir la imatge de l'òrgan al imprimir les actes, sino la que s'adjunta aquí mateix."
 
-#: ./genweb/organs/content/manualimport.py:104
+#: ./genweb/organs/content/manualimport.py:81
 msgid "Massive agreements imported"
 msgstr "Importació manual de punts"
 
 #: ./genweb/organs/content/informarSessio.py:33
-#: ./genweb/organs/content/mailConvocar.py:44
+#: ./genweb/organs/content/mailConvocar.py:41
 #: ./genweb/organs/content/sendMessage.py:33
 msgid "Message"
 msgstr "Missatge"
-
-#: ./genweb/organs/content/informarSessio.py:151
-msgid "Message informed"
-msgstr "Sessió informada"
 
 #: ./genweb/organs/content/sendMessage.py:146
 msgid "Message send"
 msgstr "Enviar missatge"
 
-#: ./genweb/organs/browser/views.py:311
-#: ./genweb/organs/content/mailConvocar.py:160
+#: ./genweb/organs/browser/views.py:308
+#: ./genweb/organs/content/mailConvocar.py:157
 msgid "Missatge enviat correctament"
 msgstr "Missatge enviat correctament"
+
+#: ./genweb/organs/browser/views.py:312
+msgid "Missatge no enviat"
+msgstr "Missatge no enviat"
 
 #: ./genweb/organs/browser/views.py:314
 msgid "Missatge no enviat. Comprovi els destinataris del missatge"
@@ -393,9 +400,9 @@ msgstr "Missatge no enviat. Comprovi els destinataris del missatge"
 msgid "Missing members"
 msgstr "Llista de persones no assistents"
 
-#: ./genweb/organs/browser/views.py:52
-msgid "Modified acord number"
-msgstr ""
+#: ./genweb/organs/browser/views.py:50
+msgid "Modified agreement number"
+msgstr "Modificat el número d'acord"
 
 #: ./genweb/organs/content/templates/mail_convocar.pt:18
 #: ./genweb/organs/content/templates/message_view.pt:18
@@ -425,8 +432,8 @@ msgstr "Nou punt"
 msgid "Open"
 msgstr "Obert"
 
-#: ./genweb/organs/content/informarSessio.py:164
-#: ./genweb/organs/content/manualimport.py:169
+#: ./genweb/organs/content/informarSessio.py:130
+#: ./genweb/organs/content/manualimport.py:141
 #: ./genweb/organs/content/sendMessage.py:159
 msgid "Operation Cancelled."
 msgstr "S'ha cancel·lat l'operació."
@@ -538,18 +545,14 @@ msgid "Punt Title"
 msgstr "Títol del punt de l'ordre del dia"
 
 #: ./genweb/organs/content/informarSessio.py:27
-#: ./genweb/organs/content/mailConvocar.py:34
+#: ./genweb/organs/content/mailConvocar.py:31
 #: ./genweb/organs/content/sendMessage.py:27
 msgid "Recipients"
 msgstr "Destinataris"
 
-#: ./genweb/organs/browser/views.py:497
+#: ./genweb/organs/browser/views.py:455
 msgid "Reload proposalPoints manually"
 msgstr "Recalcular número de punts manualment"
-
-#: ./genweb/organs/browser/changeTitle.py:40
-msgid "Rename Title"
-msgstr "Canviar títol"
 
 #: ./genweb/organs/content/organgovern.py:19
 msgid "Restricted_to_Affected"
@@ -559,23 +562,15 @@ msgstr "Restringit a afectats"
 msgid "Restricted_to_Members"
 msgstr "Restringit a membres"
 
-#: ./genweb/organs/content/informarSessio.py:85
-#: ./genweb/organs/content/mailConvocar.py:132
-#: ./genweb/organs/content/manualimport.py:64
+#: ./genweb/organs/content/informarSessio.py:80
+#: ./genweb/organs/content/mailConvocar.py:129
+#: ./genweb/organs/content/manualimport.py:63
 msgid "Send"
 msgstr "Enviar"
 
-#: ./genweb/organs/browser/views.py:382
-msgid "Send mail"
-msgstr "Enviar missatge"
-
-#: ./genweb/organs/content/mailConvocar.py:29
+#: ./genweb/organs/content/mailConvocar.py:26
 msgid "Sender"
-msgstr ""
-
-#: ./genweb/organs/browser/events/change.py:161
-msgid "Sessio convocada"
-msgstr "Sessió convocada"
+msgstr "Informador"
 
 #: ./genweb/organs/browser/views/acta_print.pt:60
 msgid "Sessio del dia"
@@ -663,7 +658,7 @@ msgid "Subpunts"
 msgstr "Subpunts"
 
 #: ./genweb/organs/content/informarSessio.py:34
-#: ./genweb/organs/content/mailConvocar.py:45
+#: ./genweb/organs/content/mailConvocar.py:42
 #: ./genweb/organs/content/sendMessage.py:34
 msgid "This content will be used as message content"
 msgstr "El següent contingut s'adjuntarà al missatge de correu"
