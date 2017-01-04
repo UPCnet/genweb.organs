@@ -225,9 +225,6 @@ class View(dexterity.DisplayForm):
     grok.context(IActa)
     grok.template('acta_view')
 
-    def isReader(self):
-        return utils.isReader(self)
-
 
 class Edit(dexterity.EditForm):
     """A standard edit form.

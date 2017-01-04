@@ -37,7 +37,7 @@ def removePunt(alias, event):
         print '___________deleting punt'
         portal_catalog = getToolByName(alias, 'portal_catalog')
         folder_path = '/'.join(alias.__parent__.getPhysicalPath())
-        addEntryLog(alias, None, _(u'Deleted punt'), '')  # add log
+        addEntryLog(alias.aq_parent, None, _(u'Deleted punt'), alias.absolute_url_path())  # add log
         # agafo items ordenats!
 
         puntsOrdered = portal_catalog.searchResults(

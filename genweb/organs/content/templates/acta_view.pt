@@ -18,7 +18,7 @@
 
   <iframe name="iframe" id="iframe" width="1" height="1" src="printActa"></iframe>
 
-    <tal:omit-tag condition="view/isReader">
+    <tal:omit-tag>
       <a class="btn btn-info btnActa" style="float:right"
           href="javascript:printPage(iframe);">
           <i class="icon-print icon-white"></i> <span i18n:translate=""> Print Acta </span>

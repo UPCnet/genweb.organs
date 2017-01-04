@@ -90,7 +90,7 @@ class Delete(BrowserView):
 
                 portal_catalog = getToolByName(self, 'portal_catalog')
                 folder_path = '/'.join(self.context.getPhysicalPath())
-                addEntryLog(self.context, None, 'Reload proposalPoints manually', '')  # add log
+                addEntryLog(self.context, None, 'Deleted element', folder_path + '/' + itemid)
                 # agafo items ordenats!
 
                 puntsOrdered = portal_catalog.searchResults(

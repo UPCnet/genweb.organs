@@ -201,37 +201,63 @@ class View(grok.View):
     grok.context(ISessio)
     grok.template('sessio_view')
 
+    def objectState(self):
+        return api.content.get_state(obj=self.context)
+
+    def roles(self):
+        try:
+            if api.user.is_anonymous():
+                return 'Annonymous'
+            else:
+                username = api.user.get_current().getProperty('id')
+                roles = api.user.get_roles(username=username, obj=self.context)
+                return roles
+        except:
+            return False
+
+    def isAnonim(self):
+        return utils.isAnonim(self)
+
+    def isAfectat(self):
+        return utils.isAfectat(self)
+
+    def isMembre(self):
+        return utils.isMembre(self)
+
     def isEditor(self):
-        """ Show send message button if user is editor """
         return utils.isEditor(self)
 
-    def isReader(self):
-        return utils.isReader(self)
-
-    def isAffectat(self):
-        return utils.isAffectat(self)
+    def isResponsable(self):
+        return utils.isResponsable(self)
 
     def isManager(self):
         return utils.isManager(self)
 
+    def canModify(self):
+        permissions = self.isResponsable() or self.isEditor() and self.isManager()
+        return permissions
+
     def showEnviarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] or self.isManager:
+        roles = self.isResponsable() or self.isEditor() or self.isManager()
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and roles:
             value = True
         return value
 
     def showPresentacionButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        if review_state in ['convocada', 'realitzada', 'en_correccio'] or self.isManager:
+        roles = self.isResponsable() or self.isEditor() or self.isManager()
+        if review_state in ['convocada', 'realitzada', 'en_correccio'] and roles:
             value = True
         return value
 
     def showPublicarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        if review_state in ['realitzada', 'en_correccio'] or self.isManager:
+        roles = self.isResponsable() or self.isEditor() or self.isManager()
+        if review_state in ['realitzada', 'en_correccio'] and roles:
             value = True
         return value
 
@@ -277,7 +303,8 @@ class View(grok.View):
                 item = obj.getObject()
                 results.append(dict(id=obj.id,
                                     classe='hidden',
-                                    show=False))
+                                    show=False,
+                                    agreement=None))
             else:
                 item = obj.getObject()
                 if len(item.objectIds()) > 0:
@@ -343,7 +370,7 @@ class View(grok.View):
                                 date=obj.getObject().dataSessio.strftime('%d/%m/%Y')))
         return results
 
-    def LogInformation(self):
+    def getAnnotations(self):
         """ Get send mail annotations
         """
         if api.user.is_anonymous():

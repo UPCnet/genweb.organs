@@ -4,28 +4,12 @@ from zope.annotation.interfaces import IAnnotations
 from datetime import datetime
 
 
-def isReader(self):
-    """ Returns true if user is Reader or Manager """
-    try:
-        if api.user.is_anonymous():
-            return False
-        else:
-            username = api.user.get_current().getProperty('id')
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if 'Reader' in roles or 'Manager' in roles:
-                return True
-            else:
-                return False
-    except:
-        return False
-
-
-def isEditor(self):
-    """ Return true if user is Editor or Manager """
+def isAnonim(self):
+    """ Returns true if user is Anonim or Manager """
     try:
         username = api.user.get_current().getProperty('id')
         roles = api.user.get_roles(username=username, obj=self.context)
-        if 'Editor' in roles or 'Manager' in roles:
+        if 'OG5-Anonim' in roles or 'Manager' in roles:
             return True
         else:
             return False
@@ -33,12 +17,51 @@ def isEditor(self):
         return False
 
 
-def isAffectat(self):
-    """ Return true if user is Affectat or Manager """
+def isAfectat(self):
+    """ Return true if user is Afectat or Manager """
     try:
         username = api.user.get_current().getProperty('id')
         roles = api.user.get_roles(username=username, obj=self.context)
-        if 'Affectat' in roles or 'Manager' in roles:
+        if 'OG4-Afectat' in roles or 'Manager' in roles:
+            return True
+        else:
+            return False
+    except:
+        return False
+
+
+def isMembre(self):
+    """ Return true if user is Membre or Manager """
+    try:
+        username = api.user.get_current().getProperty('id')
+        roles = api.user.get_roles(username=username, obj=self.context)
+        if 'OG3-Membre' in roles or 'Manager' in roles:
+            return True
+        else:
+            return False
+    except:
+        return False
+
+
+def isEditor(self):
+    """ Returns true if user is Editor or Manager """
+    try:
+        username = api.user.get_current().getProperty('id')
+        roles = api.user.get_roles(username=username, obj=self.context)
+        if 'OG2-Editor' in roles or 'Manager' in roles:
+            return True
+        else:
+            return False
+    except:
+        return False
+
+
+def isResponsable(self):
+    """ Return true if user is Responsable or Manager """
+    try:
+        username = api.user.get_current().getProperty('id')
+        roles = api.user.get_roles(username=username, obj=self.context)
+        if 'OG1-Responsable' in roles or 'Manager' in roles:
             return True
         else:
             return False
@@ -47,7 +70,7 @@ def isAffectat(self):
 
 
 def isManager(self):
-    """ Return true if user is Editor or Manager """
+    """ Return true if user is Manager """
     try:
         username = api.user.get_current().getProperty('id')
         roles = api.user.get_roles(username=username, obj=self.context)
@@ -68,6 +91,7 @@ def addEntryLog(context, sender, message, recipients):
     """
     KEY = 'genweb.organs.logMail'
     annotations = IAnnotations(context)
+
     if annotations is not None:
         try:
             # Get data and append values

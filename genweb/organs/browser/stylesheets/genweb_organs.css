@@ -526,7 +526,7 @@ background-color: transparent;
 
 }
 
-.portaltype-genweb-organs-organsfolder a#plone-contentmenu-workflow.dropdown-toggle,
+/*.portaltype-genweb-organs-organsfolder a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-organgovern a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-punt a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-subpunt a#plone-contentmenu-workflow.dropdown-toggle,
@@ -544,7 +544,7 @@ background-color: transparent;
 .portaltype-genweb-organs-document a#plone-contentmenu-multilingual.dropdown-toggle,
 .portaltype-genweb-organs-acta a#plone-contentmenu-multilingual.dropdown-toggle
  {display: none;}
-
+*/
 .popover {
     z-index: 2060 !important;
 
