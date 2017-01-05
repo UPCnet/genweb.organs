@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-04 12:02+0000\n"
+"POT-Creation-Date: 2017-01-05 08:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,10 @@ msgstr ""
 #: ./genweb/organs/content/templates/punt_view.pt:30
 msgid "<b>Esteu visualitzant un Acord</b>"
 msgstr "<b>Esteu visualitzant un Acord</b>"
+
+#: ./genweb/organs/content/templates/file_view.pt:57
+msgid "<strong>No s'ha afegit cap fitxer.</strong>"
+msgstr "<strong>No s'ha afegit cap fitxer.</strong>"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:293
 msgid "Accio"
@@ -50,7 +54,7 @@ msgstr "Contingut"
 msgid "Add content separated by -- and they will by added as Agreements."
 msgstr "Es crearan els punts i subpunts sense necessitat d'afegir el número de punt. Només un punt o subpunt per linia. Si la linia comença amb espais es crea com a subpunt. Per exemple:<br/>Informe del rector<br/>&nbsp;&nbsp;Informació dels nomenaments<br/>&nbsp;&nbsp;Aprovació d’una declaració<br/>Discutir tema central<br/>Conclusions"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:367
+#: ./genweb/organs/content/templates/sessio_view.pt:368
 msgid "Afegir <span class=\"caret\"></span>"
 msgstr "Afegir <span class=\"caret\"></span>"
 
@@ -190,7 +194,7 @@ msgid "Destinataris"
 msgstr "Destinataris"
 
 #: ./genweb/organs/content/punt.py:147
-#: ./genweb/organs/content/sessio.py:449
+#: ./genweb/organs/content/sessio.py:450
 #: ./genweb/organs/content/subpunt.py:155
 msgid "Document"
 msgstr "Document"
@@ -217,12 +221,16 @@ msgid "Es un acord?"
 msgstr "Es tracta d'un acord"
 
 #: ./genweb/organs/content/organgovern.py:25
-msgid "Esborrany #999999 <br/>Pendent d'aprovació #ecad16 <br/>Aprovat #a0c94d <br/>Informat #007bc0 <br/>No aprovat #ec1914 <br/>Derogat #e0e22d <br/>Informatiu #557C95"
+msgid "Esborrany green <br/>Pendent d'aprovació grey <br/>Aprovat blue <br/>Informat brown <br/>No aprovat red <br/>Derogat blueviolet <br/>Informatiu chocolate"
 msgstr ""
 
 #: ./genweb/organs/content/templates/file_view.pt:16
 msgid "Esteu visualitzant un fitxer <strong>PRIVAT</strong>."
 msgstr "Esteu visualitzant un fitxer <strong>INTERN</strong>."
+
+#: ./genweb/organs/content/templates/file_view.pt:21
+msgid "Esteu visualitzant un fitxer <strong>PUBLIC</strong>."
+msgstr "Esteu visualitzant un fitxer <strong>PÚBLIC</strong>."
 
 #: ./genweb/organs/browser/views/acta_print.pt:90
 #: ./genweb/organs/content/acta.py:77
@@ -235,19 +243,23 @@ msgstr "Persones excusades"
 msgid "Fer servir la imatge personalitzada?"
 msgstr "Fer servir la imatge personalitzada"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:375
+#: ./genweb/organs/content/templates/sessio_view.pt:376
 #: ./genweb/organs/profiles/default/types/genweb.organs.file.xml
 msgid "File"
 msgstr "Fitxer"
 
+#: ./genweb/organs/content/templates/file_view.pt:48
+msgid "File contents"
+msgstr "Contingut del fitxer"
+
 #: ./genweb/organs/content/punt.py:139
-#: ./genweb/organs/content/sessio.py:441
+#: ./genweb/organs/content/sessio.py:442
 #: ./genweb/organs/content/subpunt.py:147
 msgid "Fitxer intern"
 msgstr "Fitxer intern"
 
 #: ./genweb/organs/content/punt.py:143
-#: ./genweb/organs/content/sessio.py:445
+#: ./genweb/organs/content/sessio.py:446
 #: ./genweb/organs/content/subpunt.py:151
 msgid "Fitxer públic"
 msgstr "Fitxer públic"
@@ -559,7 +571,7 @@ msgstr "Informador"
 
 #: ./genweb/organs/content/mailConvocar.py:145
 msgid "Sending mail convocatoria"
-msgstr ""
+msgstr "Enviant missatge de convocatòria"
 
 #: ./genweb/organs/content/informarSessio.py:123
 msgid "Sending mail informar sessio"
@@ -645,7 +657,7 @@ msgstr "Llista d'adreces de les persones afectades a les quals es notificarà."
 msgid "State"
 msgstr "Estat"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:374
+#: ./genweb/organs/content/templates/sessio_view.pt:375
 #: ./genweb/organs/profiles/default/types/genweb.organs.subpunt.xml
 msgid "Subpunt"
 msgstr "Subpunt"

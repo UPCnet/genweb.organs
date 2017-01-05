@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-04 12:02+0000\n"
+"POT-Creation-Date: 2017-01-05 08:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,10 @@ msgstr ""
 #: ./genweb/organs/content/templates/punt_view.pt:30
 msgid "<b>Esteu visualitzant un Acord</b>"
 msgstr "<b>You're vieweng an Agreement</b>"
+
+#: ./genweb/organs/content/templates/file_view.pt:57
+msgid "<strong>No s'ha afegit cap fitxer.</strong>"
+msgstr ""
 
 #: ./genweb/organs/content/templates/sessio_view.pt:293
 msgid "Accio"
@@ -50,7 +54,7 @@ msgstr "Acta body"
 msgid "Add content separated by -- and they will by added as Agreements."
 msgstr "Add content separated by -- and they will by added as Agreements."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:367
+#: ./genweb/organs/content/templates/sessio_view.pt:368
 msgid "Afegir <span class=\"caret\"></span>"
 msgstr "Add <span class=\"caret\"></span>"
 
@@ -190,7 +194,7 @@ msgid "Destinataris"
 msgstr "Recipients"
 
 #: ./genweb/organs/content/punt.py:147
-#: ./genweb/organs/content/sessio.py:449
+#: ./genweb/organs/content/sessio.py:450
 #: ./genweb/organs/content/subpunt.py:155
 msgid "Document"
 msgstr "Document"
@@ -224,6 +228,10 @@ msgstr ""
 msgid "Esteu visualitzant un fitxer <strong>PRIVAT</strong>."
 msgstr "You're viewing a <strong> PRIVATE </ strong>file."
 
+#: ./genweb/organs/content/templates/file_view.pt:21
+msgid "Esteu visualitzant un fitxer <strong>PUBLIC</strong>."
+msgstr ""
+
 #: ./genweb/organs/browser/views/acta_print.pt:90
 #: ./genweb/organs/content/acta.py:77
 #: ./genweb/organs/content/sessio.py:104
@@ -235,19 +243,23 @@ msgstr "Excused members"
 msgid "Fer servir la imatge personalitzada?"
 msgstr "Use the custom image?"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:375
+#: ./genweb/organs/content/templates/sessio_view.pt:376
 #: ./genweb/organs/profiles/default/types/genweb.organs.file.xml
 msgid "File"
 msgstr "File"
 
+#: ./genweb/organs/content/templates/file_view.pt:48
+msgid "File contents"
+msgstr ""
+
 #: ./genweb/organs/content/punt.py:139
-#: ./genweb/organs/content/sessio.py:441
+#: ./genweb/organs/content/sessio.py:442
 #: ./genweb/organs/content/subpunt.py:147
 msgid "Fitxer intern"
 msgstr "Internal PDF"
 
 #: ./genweb/organs/content/punt.py:143
-#: ./genweb/organs/content/sessio.py:445
+#: ./genweb/organs/content/sessio.py:446
 #: ./genweb/organs/content/subpunt.py:151
 msgid "Fitxer públic"
 msgstr "Public PDF"
@@ -645,7 +657,7 @@ msgstr "List of addresses of the people affected, thta want to be notified."
 msgid "State"
 msgstr "State"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:374
+#: ./genweb/organs/content/templates/sessio_view.pt:375
 #: ./genweb/organs/profiles/default/types/genweb.organs.subpunt.xml
 msgid "Subpunt"
 msgstr "Subpoint"

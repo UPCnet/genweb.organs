@@ -18,7 +18,7 @@
 
     <div tal:condition="not:view/isPrivate">
       <br/>
-      <div class="alert alert-success" role="alert" i18n:translate="">Esteu visualitzant ún fitxer <strong>PUBLIC</strong>.</div>
+      <div class="alert alert-success" role="alert" i18n:translate="">Esteu visualitzant un fitxer <strong>PUBLIC</strong>.</div>
     </div>
 
     <metal:block define-macro="content-core"
