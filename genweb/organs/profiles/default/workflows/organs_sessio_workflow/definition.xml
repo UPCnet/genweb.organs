@@ -15,22 +15,34 @@
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Reply to item" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
  </state>
  <state state_id="en_correccio" title="En correcció">
@@ -39,14 +51,27 @@
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+   <permission-role>OG3-Membre</permission-role>
+   <permission-role>OG4-Afectat</permission-role>
+   <permission-role>OG5-Anonim</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Reply to item" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
@@ -55,6 +80,9 @@
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
    <permission-role>OG5-Anonim</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
  </state>
  <state state_id="planificada" title="Planificada">
@@ -63,21 +91,33 @@
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Reply to item" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
  </state>
  <state state_id="realitzada" title="Realitzada">
@@ -86,16 +126,27 @@
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
+   <permission-role>OG3-Membre</permission-role>
+   <permission-role>OG4-Afectat</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Reply to item" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
@@ -103,18 +154,35 @@
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
  </state>
  <state state_id="tancada" title="Tancada">
   <exit-transition transition_id="corregir"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+   <permission-role>OG3-Membre</permission-role>
+   <permission-role>OG4-Afectat</permission-role>
+   <permission-role>OG5-Anonim</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Reply to item" acquired="False">
    <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
@@ -123,6 +191,9 @@
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
    <permission-role>OG5-Anonim</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
  </state>
  <transition transition_id="convocar" title="Convocar" new_state="convocada" trigger="USER" before_script="" after_script="">
@@ -155,7 +226,7 @@
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
   <description>Previous transition</description>
   <default>
-
+   
    <expression>transition/getId|nothing</expression>
   </default>
   <guard>
@@ -164,7 +235,7 @@
  <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
   <description>The ID of the user who performed the previous transition</description>
   <default>
-
+   
    <expression>user/getUserName</expression>
   </default>
   <guard>
@@ -173,7 +244,7 @@
  <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
   <description>Comment about the last transition</description>
   <default>
-
+   
    <expression>python:state_change.kwargs.get('comment', '')</expression>
   </default>
   <guard>
@@ -182,7 +253,7 @@
  <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
   <description>Provides access to workflow history</description>
   <default>
-
+   
    <expression>state_change/getHistory</expression>
   </default>
   <guard>
@@ -193,7 +264,7 @@
  <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
   <description>When the previous transition was performed</description>
   <default>
-
+   
    <expression>state_change/getDateTime</expression>
   </default>
   <guard>

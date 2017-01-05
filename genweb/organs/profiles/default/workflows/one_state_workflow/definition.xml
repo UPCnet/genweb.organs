@@ -3,42 +3,60 @@
  <permission>Access contents information</permission>
  <permission>Change portal events</permission>
  <permission>Modify portal content</permission>
- <permission>View</permission>
  <permission>Reply to item</permission>
+ <permission>View</permission>
  <state state_id="published" title="Published">
   <description>Visible to everyone, editable by the owner.</description>
   <permission-map name="Access contents information" acquired="True">
    <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+   <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
+   <permission-role>OG5-Anonim</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Change portal events" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG4-Afectat</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG4-Afectat</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Reply to item" acquired="True">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="View" acquired="True">
    <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+   <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
+   <permission-role>OG5-Anonim</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
   </permission-map>
  </state>
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
   <description>Previous transition</description>
   <default>
-
+   
    <expression>transition/getId|nothing</expression>
   </default>
   <guard>
@@ -47,7 +65,7 @@
  <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
   <description>The ID of the user who performed the previous transition</description>
   <default>
-
+   
    <expression>user/getId</expression>
   </default>
   <guard>
@@ -56,7 +74,7 @@
  <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
   <description>Comment about the last transition</description>
   <default>
-
+   
    <expression>python:state_change.kwargs.get('comment', '')</expression>
   </default>
   <guard>
@@ -65,7 +83,7 @@
  <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
   <description>Provides access to workflow history</description>
   <default>
-
+   
    <expression>state_change/getHistory</expression>
   </default>
   <guard>
@@ -76,7 +94,7 @@
  <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
   <description>When the previous transition was performed</description>
   <default>
-
+   
    <expression>state_change/getDateTime</expression>
   </default>
   <guard>
