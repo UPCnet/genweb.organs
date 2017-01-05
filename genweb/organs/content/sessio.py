@@ -234,8 +234,13 @@ class View(grok.View):
         return utils.isManager(self)
 
     def canModify(self):
-        permissions = self.isResponsable() or self.isEditor() and self.isManager()
-        return permissions
+        review_state = api.content.get_state(self.context)
+        value = False
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and self.isResponsable():
+            value = True
+        if review_state in ['planificada', 'convocada', 'realitzada'] and self.isEditor():
+            value = True
+        return value or self.isManager()
 
     def showEnviarButton(self):
         review_state = api.content.get_state(self.context)
