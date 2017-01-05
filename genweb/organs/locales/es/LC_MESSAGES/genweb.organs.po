@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-05 08:05+0000\n"
+"POT-Creation-Date: 2017-01-05 08:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -221,7 +221,7 @@ msgid "Es un acord?"
 msgstr "Marcar esta opción si se trata de un acuerdo"
 
 #: ./genweb/organs/content/organgovern.py:25
-msgid "Esborrany #999999 <br/>Pendent d'aprovació #ecad16 <br/>Aprovat #a0c94d <br/>Informat #007bc0 <br/>No aprovat #ec1914 <br/>Derogat #e0e22d <br/>Informatiu #557C95"
+msgid "Esborrany green <br/>Pendent d'aprovació grey <br/>Aprovat blue <br/>Informat brown <br/>No aprovat red <br/>Derogat blueviolet <br/>Informatiu chocolate"
 msgstr ""
 
 #: ./genweb/organs/content/templates/file_view.pt:16
