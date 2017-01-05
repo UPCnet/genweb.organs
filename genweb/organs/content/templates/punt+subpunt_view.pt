@@ -7,14 +7,12 @@
       i18n:domain="genweb.organs">
 <body>
 
-
-
-   <metal:title fill-slot="content-title">
-    <h1 class="documentFirstHeading">
-      <tal:omit-tag tal:content="context/proposalPoint"></tal:omit-tag>
-      <tal:omit-tag tal:content="context/Title"></tal:omit-tag>
-    </h1>
-  </metal:title>
+<metal:title fill-slot="content-title">
+  <h1 class="documentFirstHeading">
+    <tal:omit-tag tal:content="context/proposalPoint"></tal:omit-tag>
+    <tal:omit-tag tal:content="context/Title"></tal:omit-tag>
+  </h1>
+</metal:title>
 
 <metal:content-core fill-slot="content-core"
     tal:define="filesanddocs view/FilesandDocumentsInside;
@@ -29,10 +27,10 @@
   <div class="caixaPunts">
     <li i18n:translate="" tal:condition="isAcord"><b>Esteu visualitzant un Acord</b></li>
     <li tal:condition="agreement"><tal:omit-tag i18n:translate="">Agreement number: </tal:omit-tag>
-      <span tal:content="context/agreement"></span>
+      <span tal:content="agreement"></span>
     </li>
     <li tal:condition="estatsLlista"><tal:omit-tag i18n:translate="">Agreement and document label: </tal:omit-tag>
-      <span tal:content="context/estatsLlista"></span></li>
+      <span tal:content="estatsLlista"></span></li>
   </div>
 
   <div class="clearfix"></div><br/>
@@ -83,13 +81,12 @@
         <td>
           <ul class="ul_items">
             <tal:subpunts repeat="item subpunts">
-              <li style="list-style: none; padding-bottom: 5px;" tal:define="agreement item/agreement">
+              <li style="list-style: none; padding-bottom: 5px;" tal:define="agreementSubpunt item/agreement">
                 <a tal:attributes="href item/absolute_url;"
                    style="font-size:15px;">
                    <span tal:content="item/proposalPoint"></span>
-                   <span class="agreementClass" tal:condition="agreement" tal:content="agreement"></span>
+                   <span class="agreementClass" tal:condition="agreementSubpunt" tal:content="agreementSubpunt"></span>
                    <span tal:content="item/title">Doc title</span></a>
-
               </li>
             </tal:subpunts>
           </ul>

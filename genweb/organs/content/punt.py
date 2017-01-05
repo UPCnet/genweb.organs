@@ -116,7 +116,7 @@ class Edit(dexterity.EditForm):
 
 class View(grok.View):
     grok.context(IPunt)
-    grok.template('punt_view')
+    grok.template('punt+subpunt_view')
 
     def isAcord(self):
         if self.context.acordOrgan:

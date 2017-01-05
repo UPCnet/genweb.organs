@@ -542,7 +542,7 @@
                            class="editTitle editable subtitleSize">
                           <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                         </a>
-                        <tal:files tal:define="files python:view.filesinsideSubPunt(item)">
+                        <tal:files tal:define="files python:view.filesinsidePunt(item)">
                           <ul style="list-style: none; padding-top:10px;">
                             <tal:documents repeat="item files">
                               <li style="padding-left:35px;" class="filesinTable">

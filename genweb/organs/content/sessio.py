@@ -202,9 +202,11 @@ class View(grok.View):
     grok.template('sessio_view')
 
     def objectState(self):
+        # while debugging...
         return api.content.get_state(obj=self.context)
 
     def roles(self):
+        # while debugging...
         try:
             if api.user.is_anonymous():
                 return 'Annonymous'
@@ -236,16 +238,16 @@ class View(grok.View):
     def canModify(self):
         review_state = api.content.get_state(self.context)
         value = False
-        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and self.isResponsable():
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and utils.isResponsable(self):
             value = True
-        if review_state in ['planificada', 'convocada', 'realitzada'] and self.isEditor():
+        if review_state in ['planificada', 'convocada', 'realitzada'] and utils.isEditor(self):
             value = True
         return value or self.isManager()
 
     def showEnviarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = self.isResponsable() or self.isEditor() or self.isManager()
+        roles = utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self)
         if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and roles:
             value = True
         return value
@@ -253,7 +255,7 @@ class View(grok.View):
     def showPresentacionButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = self.isResponsable() or self.isEditor() or self.isManager()
+        roles = utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self)
         if review_state in ['convocada', 'realitzada', 'en_correccio'] and roles:
             value = True
         return value
@@ -261,7 +263,7 @@ class View(grok.View):
     def showPublicarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = self.isResponsable() or self.isEditor() or self.isManager()
+        roles = utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self)
         if review_state in ['realitzada', 'en_correccio'] and roles:
             value = True
         return value
@@ -304,7 +306,7 @@ class View(grok.View):
         results = []
         for obj in values:
             if obj.portal_type == 'genweb.organs.acta':
-                # add actas to template for oredering but doesnt show
+                # add actas to template for oredering but dont show
                 item = obj.getObject()
                 results.append(dict(id=obj.id,
                                     classe='hidden',
@@ -403,8 +405,7 @@ class View(grok.View):
         return values
 
     def OrganTitle(self):
-        """ Retorna el títol de l'òrgan
-        """
+        """ Retorna el títol de l'òrgan """
         title = self.context.aq_parent.Title()
         return title
 
@@ -454,41 +455,6 @@ class View(grok.View):
                 tipus = 'fa fa-file-text-o'
                 document = _(u'Document')
                 labelClass = 'label label-default'
-            results.append(dict(title=obj.Title,
-                                portal_type=obj.portal_type,
-                                absolute_url=obj.getURL(),
-                                classCSS=tipus,
-                                hidden=obj.hiddenfile,
-                                labelClass=labelClass,
-                                content=document,
-                                id=str(item['id']) + '/' + obj.id))
-        return results
-
-    def filesinsideSubPunt(self, item):
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
-
-        values = portal_catalog.searchResults(
-            portal_type=['genweb.organs.file', 'genweb.organs.document'],
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 2})
-        results = []
-        for obj in values:
-            if obj.portal_type == 'genweb.organs.file':
-                if obj.hiddenfile is True:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer intern')
-                    labelClass = 'label label-danger'
-                else:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer públic')
-                    labelClass = 'label label-default'
-            else:
-                tipus = 'fa fa-file-text-o'
-                document = _(u'Document')
-                labelClass = 'label label-default'
-
             results.append(dict(title=obj.Title,
                                 portal_type=obj.portal_type,
                                 absolute_url=obj.getURL(),

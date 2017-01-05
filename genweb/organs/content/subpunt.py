@@ -12,8 +12,11 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.interfaces import IContextSourceBinder
 from zope.interface import directlyProvides
 import unicodedata
+from plone import api
 from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from plone.indexer import indexer
+from genweb.organs import utils
+
 
 grok.templatedir("templates")
 
@@ -123,12 +126,21 @@ class View(grok.View):
     """The standard view form.
     """
     grok.context(ISubpunt)
-    grok.template('punt_view')
+    grok.template('punt+subpunt_view')
 
     def isAcord(self):
         if self.context.acordOrgan:
             return True
         return False
+
+    def canViewFiles(self):
+        review_state = api.content.get_state(self.context)
+        value = False
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and self.isResponsable():
+            value = True
+        if review_state in ['planificada', 'convocada', 'realitzada'] and self.isEditor():
+            value = True
+        return value or self.isManager()
 
     def FilesandDocumentsInside(self):
         portal_catalog = getToolByName(self, 'portal_catalog')
