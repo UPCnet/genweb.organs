@@ -9,25 +9,42 @@
 
 <metal:content-core fill-slot="content-core">
 
-  <div>
+    <metal:block define-macro="content-core"
+        tal:define="viewPublic view/viewPublicContent;
+                    viewPrivate view/viewPrivateContent;
+                    alternate context/alternateContent;
+                    default context/defaultContent;
+                    isMembre view/showMembreContent;
+                    isManager view/isManager">
 
-    <metal:block define-macro="content-core">
-
-      <tal:block tal:condition="context/defaultContent">
-        <h3 i18n:translate="" tal:condition="view/isReader"> Proposal description </h3>
-        <h3 i18n:translate="" tal:condition="not:view/isReader"> Contingut </h3>
-          <div tal:replace="structure context/defaultContent" />
+      <tal:block tal:condition="viewPublic">
+        <h3 i18n:translate="" tal:condition="viewPrivate"> Contingut public </h3>
+          <div tal:condition="default"
+               tal:replace="structure default"> </div>
        </tal:block>
 
-      <tal:block tal:condition="view/isReader">
-        <h3 i18n:translate="" tal:condition="context/alternateContent"> Alternate description </h3>
-        <div tal:condition="context/alternateContent"
-             tal:replace="structure context/alternateContent" />
+      <tal:block tal:condition="viewPrivate">
+        <h3 i18n:translate="" tal:condition="alternate"> Contingut intern </h3>
+        <div tal:condition="alternate"
+             tal:replace="structure alternate"></div>
+      </tal:block>
+
+      <tal:block tal:condition="isMembre">
+      <h3 i18n:translate=""> Contingut </h3>
+        <div tal:replace="structure isMembre"></div>
+      </tal:block>
+
+      <tal:block tal:condition="isManager">
+        <h3 i18n:translate=""> Contingut public</h3>
+          <div tal:condition="default"
+               tal:replace="structure default"> </div>
+         <br/>
+        <h3 i18n:translate=""> Contingut intern</h3>
+        <div tal:condition="alternate"
+             tal:replace="structure alternate"></div>
       </tal:block>
 
     </metal:block>
-
-  </div>
 
 </metal:content-core>
 

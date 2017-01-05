@@ -8,6 +8,7 @@ from collective import dexteritytextindexer
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from genweb.organs import utils
+from plone import api
 
 grok.templatedir("templates")
 
@@ -40,5 +41,55 @@ class View(grok.View):
     grok.context(IDocument)
     grok.template('document_view')
 
-    def isReader(self):
-        return utils.isReader(self)
+    def viewPublicContent(self):
+        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
+        try:
+            username = api.user.get_current().getProperty('id')
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'OG1-Responsable' in roles or 'OG2-Editor' in roles or 'OG4-Afectat' in roles or 'OG5-Anonim' in roles:
+                return True
+            else:
+                return False
+        except:
+            return False
+
+    def viewPrivateContent(self):
+        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
+        try:
+            username = api.user.get_current().getProperty('id')
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'OG1-Responsable' in roles or 'OG2-Editor' in roles:
+                return True
+            else:
+                return False
+        except:
+            return False
+
+    def showMembreContent(self):
+        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
+        try:
+            username = api.user.get_current().getProperty('id')
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'OG3-Membre' in roles:
+                if self.context.alternateContent and self.context.defaultContent:
+                    return self.context.alternateContent
+                elif self.context.alternateContent and not self.context.defaultContent:
+                    return self.context.alternateContent
+                elif self.context.defaultContent and not self.context.alternateContent:
+                    return False
+            else:
+                return False
+        except:
+            return False
+
+    def isManager(self):
+        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
+        try:
+            username = api.user.get_current().getProperty('id')
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'Manager' in roles:
+                return True
+            else:
+                return False
+        except:
+            return False

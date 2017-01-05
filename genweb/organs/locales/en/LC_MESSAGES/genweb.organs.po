@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-05 11:59+0000\n"
+"POT-Creation-Date: 2017-01-05 13:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,8 +82,7 @@ msgstr "Agreement number"
 msgid "Agreement number:"
 msgstr "Agreement number:"
 
-#: ./genweb/organs/content/document.py:28
-#: ./genweb/organs/content/templates/document_view.pt:23
+#: ./genweb/organs/content/document.py:29
 msgid "Alternate description"
 msgstr "Private content"
 
@@ -146,14 +145,22 @@ msgstr ""
 msgid "Composicio"
 msgstr "Composition"
 
-#: ./genweb/organs/content/document.py:29
+#: ./genweb/organs/content/document.py:30
 msgid "Content used to hide protected content"
 msgstr "Content used to hide protected content"
 
-#: ./genweb/organs/content/templates/document_view.pt:18
+#: ./genweb/organs/content/templates/document_view.pt:33
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:39
 msgid "Contingut"
 msgstr "Content"
+
+#: ./genweb/organs/content/templates/document_view.pt:27
+msgid "Contingut intern"
+msgstr ""
+
+#: ./genweb/organs/content/templates/document_view.pt:21
+msgid "Contingut public"
+msgstr ""
 
 #: ./genweb/organs/content/templates/acta_view.pt:32
 #: ./genweb/organs/content/templates/sessio_view.pt:171
@@ -173,7 +180,7 @@ msgstr "Data"
 msgid "Data i hora"
 msgstr "Date and Time"
 
-#: ./genweb/organs/content/document.py:21
+#: ./genweb/organs/content/document.py:22
 msgid "Default content shown in the document view"
 msgstr "Default content shown in the document view"
 
@@ -519,7 +526,7 @@ msgstr "Presentation"
 msgid "Print Acta"
 msgstr "Print acta"
 
-#: ./genweb/organs/content/document.py:20
+#: ./genweb/organs/content/document.py:21
 #: ./genweb/organs/content/punt.py:73
 #: ./genweb/organs/content/subpunt.py:73
 msgid "Proposal description"
