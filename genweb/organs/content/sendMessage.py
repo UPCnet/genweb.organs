@@ -19,9 +19,6 @@ grok.templatedir("templates")
 
 
 class IMessage(form.Schema):
-    """ Define the fields of this form
-    """
-
     recipients = TextLine(
         title=_("Recipients"),
         description=_("Mail address separated by blanks."),
@@ -34,11 +31,6 @@ class IMessage(form.Schema):
         required=False,
     )
 
-    # message = RichText(
-    #     title=_('Message'),
-    #     description=_("This content will be used as message content"),
-    #     required=False)
-
 
 class Message(form.SchemaForm):
     grok.name('send_message')
@@ -48,7 +40,6 @@ class Message(form.SchemaForm):
     grok.layer(IGenwebOrgansLayer)
 
     ignoreContext = True
-
     schema = IMessage
 
     # fields = field.Fields(IMessage)

@@ -2,6 +2,8 @@
 from plone import api
 from zope.annotation.interfaces import IAnnotations
 from datetime import datetime
+from Products.CMFCore.utils import getToolByName
+from genweb.organs import _
 
 
 def isAnonim(self):
@@ -119,3 +121,64 @@ def addEntryLog(context, sender, message, recipients):
 
         data.append(values)
         annotations[KEY] = data
+
+
+def FilesandDocumentsInside(self):
+    portal_catalog = getToolByName(self, 'portal_catalog')
+    folder_path = '/'.join(self.context.getPhysicalPath())
+    values = portal_catalog.searchResults(
+        portal_type=['genweb.organs.file', 'genweb.organs.document'],
+        sort_on='getObjPositionInParent',
+        path={'query': folder_path,
+              'depth': 1})
+    results = []
+    for obj in values:
+        if obj.portal_type == 'genweb.organs.file':
+            if obj.hiddenfile is True:
+                tipus = 'fa fa-file-pdf-o'
+                document = _(u'Fitxer intern')
+                labelClass = 'label label-danger'
+            else:
+                tipus = 'fa fa-file-pdf-o'
+                document = _(u'Fitxer públic')
+                labelClass = 'label label-default'
+        else:
+            tipus = 'fa fa-file-text-o'
+            document = _(u'Document')
+            labelClass = 'label label-default'
+
+        results.append(dict(title=obj.Title,
+                            absolute_url=obj.getURL(),
+                            classCSS=tipus,
+                            hidden=obj.hiddenfile,
+                            labelClass=labelClass,
+                            content=document))
+    return results
+
+
+def SubPuntsInside(self):
+    portal_catalog = getToolByName(self, 'portal_catalog')
+    folder_path = '/'.join(self.context.getPhysicalPath())
+    values = portal_catalog.searchResults(
+        portal_type=['genweb.organs.subpunt'],
+        sort_on='getObjPositionInParent',
+        path={'query': folder_path,
+              'depth': 1})
+    results = []
+    for obj in values:
+        item = obj.getObject()
+        results.append(dict(title=obj.Title,
+                            proposalPoint=item.proposalPoint,
+                            agreement=item.agreement,
+                            absolute_url=obj.getURL()))
+    return results
+
+
+def canViewFiles(self):
+    review_state = api.content.get_state(self.context)
+    value = False
+    if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and self.isResponsable(self):
+        value = True
+    if review_state in ['planificada', 'convocada', 'realitzada'] and self.isEditor(self):
+        value = True
+    return value or self.isManager(self)

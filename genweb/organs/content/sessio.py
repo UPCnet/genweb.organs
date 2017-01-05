@@ -14,10 +14,6 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from genweb.organs import utils
 
-
-class InvalidEmailError(schema.ValidationError):
-    __doc__ = u'Please enter a valid e-mail address.'
-
 grok.templatedir("templates")
 
 

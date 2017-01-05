@@ -18,9 +18,6 @@ grok.templatedir("templates")
 
 
 class IActa(form.Schema):
-    """ Tipus ACTA: Per a cada Òrgan de Govern es podran crear
-        totes les actes que es considerin oportunes
-    """
     fieldset('assistents',
              label=_(u'Assistents'),
              fields=['membresConvocats', 'membresConvidats', 'llistaExcusats', 'llistaNoAssistens']

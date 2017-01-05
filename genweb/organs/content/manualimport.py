@@ -15,13 +15,10 @@ from Products.CMFCore.utils import getToolByName
 from genweb.organs.utils import addEntryLog
 import transaction
 
-
 grok.templatedir("templates")
 
 
 class IMessage(form.Schema):
-    """ Define the fields of this form
-    """
     directives.widget(message=WysiwygFieldWidget)
     message = schema.Text(
         title=_(u"Manual Import"),
@@ -83,7 +80,7 @@ class Message(form.SchemaForm):
         # Creating new objects
 
         text = formData['message']
-        defaultEstat = str(self.aq_parent.aq_parent.estatsLlista.split('<br />')[0].replace('<p>','').replace('</p>','').split('#')[0].rsplit(' ')[0])
+        defaultEstat = str(self.aq_parent.aq_parent.estatsLlista.split('<br />')[0].replace('<p>', '').replace('</p>', '').split('#')[0].rsplit(' ')[0])
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         puntsInFolder = portal_catalog.searchResults(
@@ -97,7 +94,7 @@ class Message(form.SchemaForm):
         subindex = 0
         previousPuntContainer = None
         for line in content:
-            if len(line)==0:
+            if len(line) == 0:
                 continue
             else:
                 if line.startswith((' ', '\t')) is False:

@@ -14,17 +14,15 @@ from zope.interface import directlyProvides
 import unicodedata
 from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from plone.indexer import indexer
+from genweb.organs import utils
 
 grok.templatedir("templates")
 
 
-class InvalidEmailError(schema.ValidationError):
-    __doc__ = u'Please enter a valid e-mail address.'
-
-
 def llistaEstats(context):
-    """ Create zope.schema vocabulary from Python logging levels. """
+    """ Create vocabulary from Estats Organ. """
     terms = []
+    # Al ser punt els agafo UN nivell per sobre
     values = context.aq_parent.estatsLlista
     literals = []
     for value in values.split('<br />'):
@@ -36,7 +34,6 @@ def llistaEstats(context):
             flattened = unicodedata.normalize('NFKD', item.decode('utf-8')).encode('ascii', errors='ignore')
         else:
             flattened = unicodedata.normalize('NFKD', item).encode('ascii', errors='ignore')
-
         terms.append(SimpleVocabulary.createTerm(item, flattened, item))
 
     return SimpleVocabulary(terms)
@@ -47,7 +44,6 @@ class IPunt(form.Schema):
     """ Tipus Punt: Per a cada Òrgan de Govern es podran crear
         tots els punts que es considerin oportuns
     """
-
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_(u'Punt Title'),
@@ -87,7 +83,7 @@ class IPunt(form.Schema):
 
 @form.default_value(field=IPunt['proposalPoint'])
 def proposalPointDefaultValue(data):
-    # assign default proposalPoint value
+    # assign default proposalPoint value to Punt
     portal_catalog = getToolByName(data.context, 'portal_catalog')
     folder_path = data.context.absolute_url_path()
     values = portal_catalog.searchResults(
@@ -105,8 +101,6 @@ grok.global_adapter(proposalPoint, name="index_proposalPoint")
 
 
 class Edit(dexterity.EditForm):
-    """A standard edit form.
-    """
     grok.context(IPunt)
 
     def updateWidgets(self):
@@ -123,51 +117,11 @@ class View(grok.View):
             return True
         return False
 
-    def FilesandDocumentsInside(self):
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        values = portal_catalog.searchResults(
-            portal_type=['genweb.organs.file', 'genweb.organs.document'],
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
-        results = []
-        for obj in values:
-            if obj.portal_type == 'genweb.organs.file':
-                if obj.hiddenfile is True:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer intern')
-                    labelClass = 'label label-danger'
-                else:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer públic')
-                    labelClass = 'label label-default'
-            else:
-                tipus = 'fa fa-file-text-o'
-                document = _(u'Document')
-                labelClass = 'label label-default'
+    def canViewFiles(self):
+        return utils.canViewFiles(self)
 
-            results.append(dict(title=obj.Title,
-                                absolute_url=obj.getURL(),
-                                classCSS=tipus,
-                                hidden=obj.hiddenfile,
-                                labelClass=labelClass,
-                                content=document))
-        return results
+    def FilesandDocumentsInside(self):
+        return utils.FilesandDocumentsInside(self)
 
     def SubPuntsInside(self):
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        values = portal_catalog.searchResults(
-            portal_type=['genweb.organs.subpunt'],
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
-        results = []
-        for obj in values:
-            item = obj.getObject()
-            results.append(dict(title=obj.Title,
-                                proposalPoint=item.proposalPoint,
-                                agreement=item.agreement,
-                                absolute_url=obj.getURL()))
-        return results
+        return utils.SubPuntsInside(self)

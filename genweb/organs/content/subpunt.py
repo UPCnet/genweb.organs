@@ -17,17 +17,13 @@ from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from plone.indexer import indexer
 from genweb.organs import utils
 
-
 grok.templatedir("templates")
 
 
-class InvalidEmailError(schema.ValidationError):
-    __doc__ = u'Please enter a valid e-mail address.'
-
-
 def llistaEstats(context):
-    """ Create zope.schema vocabulary from default states. """
+    """ Create vocabulary from Estats Organ. """
     terms = []
+    # Al ser subpunt els agafo DOS nivells per sobre
     values = context.aq_parent.aq_parent.estatsLlista
     literals = []
     for value in values.split('<br />'):
@@ -39,7 +35,6 @@ def llistaEstats(context):
             flattened = unicodedata.normalize('NFKD', item.decode('utf-8')).encode('ascii', errors='ignore')
         else:
             flattened = unicodedata.normalize('NFKD', item).encode('ascii', errors='ignore')
-
         terms.append(SimpleVocabulary.createTerm(item, flattened, item))
 
     return SimpleVocabulary(terms)
@@ -47,10 +42,8 @@ directlyProvides(llistaEstats, IContextSourceBinder)
 
 
 class ISubpunt(form.Schema):
-    """ Tipus Punt: Per a cada Òrgan de Govern es podran crear
-        tots els punts que es considerin oportuns
+    """ Tipus Subpunt: Molt similar el PUNT
     """
-
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_(u'Punt Title'),
@@ -90,7 +83,7 @@ class ISubpunt(form.Schema):
 
 @form.default_value(field=ISubpunt['proposalPoint'])
 def proposalPointDefaultValue(data):
-    # assigning default proposalPoint value
+    # assign default proposalPoint value to Subpunt
     portal_catalog = getToolByName(data.context, 'portal_catalog')
     folder_path = data.context.absolute_url_path()
     values = portal_catalog.searchResults(
@@ -113,8 +106,6 @@ grok.global_adapter(proposalPoint, name="index_proposalPoint")
 
 
 class Edit(dexterity.EditForm):
-    """The standard edit form.
-    """
     grok.context(ISubpunt)
 
     def updateWidgets(self):
@@ -123,8 +114,6 @@ class Edit(dexterity.EditForm):
 
 
 class View(grok.View):
-    """The standard view form.
-    """
     grok.context(ISubpunt)
     grok.template('punt+subpunt_view')
 
@@ -134,60 +123,10 @@ class View(grok.View):
         return False
 
     def canViewFiles(self):
-        review_state = api.content.get_state(self.context)
-        value = False
-        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and self.isResponsable():
-            value = True
-        if review_state in ['planificada', 'convocada', 'realitzada'] and self.isEditor():
-            value = True
-        return value or self.isManager()
+        return utils.canViewFiles(self)
 
     def FilesandDocumentsInside(self):
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        values = portal_catalog.searchResults(
-            portal_type=['genweb.organs.file', 'genweb.organs.document'],
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
-
-        results = []
-        for obj in values:
-            if obj.portal_type == 'genweb.organs.file':
-                if obj.hiddenfile is True:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer intern')
-                    labelClass = 'label label-danger'
-                else:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer públic')
-                    labelClass = 'label label-default'
-            else:
-                tipus = 'fa fa-file-text-o'
-                document = _(u'Document')
-                labelClass = 'label label-default'
-
-            results.append(dict(title=obj.Title,
-                                absolute_url=obj.getURL(),
-                                classCSS=tipus,
-                                hidden=obj.hiddenfile,
-                                labelClass=labelClass,
-                                content=document))
-        return results
+        return utils.FilesandDocumentsInside(self)
 
     def SubPuntsInside(self):
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        values = portal_catalog.searchResults(
-            portal_type=['genweb.organs.subpunt'],
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
-        results = []
-        for obj in values:
-            item = obj.getObject()
-            results.append(dict(title=obj.Title,
-                                proposalPoint=item.proposalPoint,
-                                agreement=item.agreement,
-                                absolute_url=obj.getURL()))
-        return results
+        return utils.SubPuntsInside(self)
