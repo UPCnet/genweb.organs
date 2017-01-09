@@ -166,7 +166,8 @@ class View(grok.View):
 
         results = []
         for obj in values:
-            value = obj.getObject()
+            # value = obj.getObject()
+            value = obj._unrestrictedGetObject()
             results.append(dict(title=value.title,
                                 absolute_url=value.absolute_url(),
                                 dataSessio=value.dataSessio.strftime('%d/%m/%Y'),
@@ -189,7 +190,8 @@ class View(grok.View):
         results = []
 
         for obj in values:
-            value = obj.getObject()
+            # value = obj.getObject()
+            value = obj._unrestrictedGetObject()
             if obj.portal_type == "genweb.organs.punt":
                 organTitle = value.aq_parent.Title()
             elif obj.portal_type == "genweb.organs.subpunt":

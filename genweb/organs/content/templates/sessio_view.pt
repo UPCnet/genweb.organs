@@ -444,7 +444,7 @@
                            style="font-size:14px;">
                            <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                         </a>
-                        <div style="float:right; display: inline-table;">
+                        <div style="float:right; display: inline-table;" tal:condition="canModify">
                            <button type="button" class="remove label label-important"
                               data-container="body"
                               data-toggle="popover"

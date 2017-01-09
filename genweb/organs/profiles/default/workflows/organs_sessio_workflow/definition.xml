@@ -4,6 +4,7 @@
  <permission>Modify portal content</permission>
  <permission>Reply to item</permission>
  <permission>View</permission>
+ <permission>List folder contents</permission>
  <state state_id="convocada" title="Convocada">
   <exit-transition transition_id="convocar"/>
   <exit-transition transition_id="corregir"/>
@@ -87,7 +88,19 @@
  </state>
  <state state_id="planificada" title="Planificada">
   <exit-transition transition_id="convocar"/>
+  <exit-transition transition_id="corregir"/>
+  <exit-transition transition_id="planificar"/>
+  <exit-transition transition_id="realitzar"/>
+  <exit-transition transition_id="tancar"/>
   <permission-map name="Access contents information" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
+  </permission-map>
+  <permission-map name="List folder contents" acquired="True">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
@@ -132,6 +145,8 @@
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
+  <permission-map name="List folder contents" acquired="True">
+  </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
@@ -171,6 +186,9 @@
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
+  </permission-map>
+  <permission-map name="List folder contents" acquired="False">
+   <permission-role>Manager</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
@@ -226,7 +244,7 @@
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
   <description>Previous transition</description>
   <default>
-   
+
    <expression>transition/getId|nothing</expression>
   </default>
   <guard>
@@ -235,7 +253,7 @@
  <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
   <description>The ID of the user who performed the previous transition</description>
   <default>
-   
+
    <expression>user/getUserName</expression>
   </default>
   <guard>
@@ -244,7 +262,7 @@
  <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
   <description>Comment about the last transition</description>
   <default>
-   
+
    <expression>python:state_change.kwargs.get('comment', '')</expression>
   </default>
   <guard>
@@ -253,7 +271,7 @@
  <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
   <description>Provides access to workflow history</description>
   <default>
-   
+
    <expression>state_change/getHistory</expression>
   </default>
   <guard>
@@ -264,7 +282,7 @@
  <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
   <description>When the previous transition was performed</description>
   <default>
-   
+
    <expression>state_change/getDateTime</expression>
   </default>
   <guard>

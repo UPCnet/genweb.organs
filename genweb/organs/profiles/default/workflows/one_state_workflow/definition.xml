@@ -5,15 +5,42 @@
  <permission>Modify portal content</permission>
  <permission>Reply to item</permission>
  <permission>View</permission>
+ <permission>Delete objects</permission>
+ <permission>Add portal content</permission>
+ <permission>List folder contents</permission>
+ <permission>Sharing page: Delegate Contributor role</permission>
+ <permission>Sharing page: Delegate Reader role</permission>
+ <permission>Sharing page: Delegate Editor role</permission>
+ <permission>Sharing page: Delegate roles</permission>
+ <permission>Sharing page: Delegate Reviewer role</permission>
+ <permission>Copy or Move</permission>
+ <permission>Add Workflow Policy</permission>
+ <permission>View History</permission>
+ <permission>Review portal content</permission>
+ <permission>Public, everyone can access</permission>
+ <permission>plone.app.multilingual: Manage Translations</permission>
+ <permission>Manage portal</permission>
  <state state_id="published" title="Published">
   <description>Visible to everyone, editable by the owner.</description>
   <permission-map name="Access contents information" acquired="True">
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
-   <permission-role>OG3-Membre</permission-role>
-   <permission-role>OG4-Afectat</permission-role>
-   <permission-role>OG5-Anonim</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
+  </permission-map>
+  <permission-map name="Add Workflow Policy" acquired="True">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Add portal content" acquired="True">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
@@ -26,7 +53,13 @@
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
-  <permission-map name="Modify portal content" acquired="False">
+  <permission-map name="Copy or Move" acquired="True">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
@@ -35,14 +68,80 @@
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
-  <permission-map name="Reply to item" acquired="True">
+  <permission-map name="List folder contents" acquired="True">
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
+  <permission-map name="Manage portal" acquired="True">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="True">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
+  </permission-map>
+  <permission-map name="Public, everyone can access" acquired="True">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Reply to item" acquired="True">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>WebMaster</permission-role>
+  </permission-map>
+  <permission-map name="Review portal content" acquired="True">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Contributor role" acquired="True">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Editor role" acquired="True">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Reader role" acquired="True">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Reviewer role" acquired="True">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate roles" acquired="True">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
   <permission-map name="View" acquired="True">
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
@@ -52,11 +151,23 @@
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
+  <permission-map name="View History" acquired="True">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="plone.app.multilingual: Manage Translations" acquired="True">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
  </state>
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
   <description>Previous transition</description>
   <default>
-   
+
    <expression>transition/getId|nothing</expression>
   </default>
   <guard>
@@ -65,7 +176,7 @@
  <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
   <description>The ID of the user who performed the previous transition</description>
   <default>
-   
+
    <expression>user/getId</expression>
   </default>
   <guard>
@@ -74,7 +185,7 @@
  <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
   <description>Comment about the last transition</description>
   <default>
-   
+
    <expression>python:state_change.kwargs.get('comment', '')</expression>
   </default>
   <guard>
@@ -83,7 +194,7 @@
  <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
   <description>Provides access to workflow history</description>
   <default>
-   
+
    <expression>state_change/getHistory</expression>
   </default>
   <guard>
@@ -94,7 +205,7 @@
  <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
   <description>When the previous transition was performed</description>
   <default>
-   
+
    <expression>state_change/getDateTime</expression>
   </default>
   <guard>

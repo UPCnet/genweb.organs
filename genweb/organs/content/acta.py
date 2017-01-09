@@ -194,7 +194,8 @@ def Punts2Acta(self):
 
     results = []
     for obj in values:
-        value = obj.getObject()
+        # value = obj.getObject()
+        value = obj._unrestrictedGetObject()
         if value.proposalPoint:
             number = str(value.proposalPoint) + '.- '
         else:
