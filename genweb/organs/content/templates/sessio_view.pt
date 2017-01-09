@@ -18,10 +18,10 @@
                 canModify view/canModify;
                 items view/PuntsInside">
 
-  <link rel="stylesheet" href="++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
-  <script src=++resource++genweb.organs.stylesheets/jquery-ui.min.js></script>
-  <script src="++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script>
-  <script src="++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script>
+  <link  tal:condition="canModify" rel="stylesheet" href="++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
+  <script tal:condition="canModify" src=++resource++genweb.organs.stylesheets/jquery-ui.min.js></script>
+  <script tal:condition="canModify" src="++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script>
+  <script tal:condition="canModify" src="++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script>
 
   <script type="text/javascript">
     $(function() {
@@ -580,8 +580,31 @@
   </div>
 
 
-
   <script type="text/javascript">
+    $(function() {
+        $(this).find('.sortable2').hide()
+        $(this).find('.listFiles').hide()
+        $(this).find('.notexpand').hide()
+        $('.expand').click(function(e){
+               e.stopPropagation();
+               $(this).parent().parent().find('.expand').hide()
+               $(this).parent().parent().find('.expand').slideUp()
+               $(this).parent().parent().find('.notexpand').show()
+               $(this).parent().parent().find('.sortable2').slideDown()
+               $(this).parent().parent().find('.listFiles').slideDown()
+        });
+
+        $('.notexpand').click(function(e){
+               e.stopPropagation();
+               $(this).parent().parent().find('.notexpand').hide()
+               $(this).parent().parent().find('.expand').show()
+               $(this).parent().parent().find('.sortable2').slideUp()
+               $(this).parent().parent().find('.listFiles').slideUp()
+        });
+    });
+  </script>
+
+  <script type="text/javascript" tal:condition="canModify">
     $(function() {
         var reloadEdit = false;
          $.fn.editable.defaults.mode = 'inline';
@@ -629,23 +652,6 @@
         $('.edit2').click(function(e){
                e.stopPropagation();
                $(this).parent().parent('ol:first').find('a.subtitleSize').editable('toggle')
-        });
-
-        $('.expand').click(function(e){
-               e.stopPropagation();
-               $(this).parent().parent().find('.expand').hide()
-               $(this).parent().parent().find('.expand').slideUp()
-               $(this).parent().parent().find('.notexpand').show()
-               $(this).parent().parent().find('.sortable2').slideDown()
-               $(this).parent().parent().find('.listFiles').slideDown()
-        });
-
-        $('.notexpand').click(function(e){
-               e.stopPropagation();
-               $(this).parent().parent().find('.notexpand').hide()
-               $(this).parent().parent().find('.expand').show()
-               $(this).parent().parent().find('.sortable2').slideUp()
-               $(this).parent().parent().find('.listFiles').slideUp()
         });
 
         $('button.remove').on('click', function (e) {
