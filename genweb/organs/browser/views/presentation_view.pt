@@ -29,19 +29,6 @@
                   </ul>
                 </tal:block>
               </div>
-              <div class="btn-group" role="group" tal:condition="not:item/agreement"
-                   style="float: right;" aria-label="Fer acord">
-                <button type="button" class="acord label label-important"
-                  data-container="body"
-                  data-toggle="popover"
-                  data-placement="bottom"
-                  data-html="true"
-                  data-trigger="manual"
-                  data-original-title="Convertir en acord"
-                  tal:attributes="data-item item/id; data-type item/portal_type">
-                  Fer acord
-                </button>
-              </div>
               <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                 <ul style="list-style: none;">
                   <tal:documents repeat="item files">
@@ -79,19 +66,6 @@
                               </tal:block>
                             </ul>
                         </tal:block>
-                      </div>
-                      <div class="btn-group" role="group" tal:condition="not:item/agreement"
-                           style="float: right;" aria-label="Fer acord">
-                        <button  type="button" class="acord label label-important"
-                          data-container="body"
-                          data-toggle="popover"
-                          data-placement="bottom"
-                          data-html="true"
-                          data-trigger="manual"
-                          data-original-title="Convertir en acord"
-                          tal:attributes="data-item item/id; data-type item/portal_type">
-                          Fer acord
-                        </button>
                       </div>
                       <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                         <ul style="list-style: none;">
