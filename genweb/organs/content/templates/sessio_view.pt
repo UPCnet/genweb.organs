@@ -136,10 +136,6 @@
 
   <link rel="stylesheet" href="//fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
-<h2 tal:content="view/objectState">state</h2>
-<h2 tal:content="view/roles">roles</h2>
-<h2 tal:content="canModify">roles</h2>
-
   <div tal:condition="canModify"
        class="modal fade modalSession" id="modalSession" tabindex="-1" role="dialog" aria-labelledby="modalSession">
     <div class="modal-dialog" role="document">
