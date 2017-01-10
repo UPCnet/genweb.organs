@@ -26,7 +26,8 @@ def llistaEstats(context):
     values = context.aq_parent.estatsLlista
     literals = []
     for value in values.split('<br />'):
-        estat = ' '.join(value.split(' ')[:-1]).rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ').encode('utf-8')
+        item_net = unicodedata.normalize("NFKD",value).rstrip(' ').replace('<p>', '').replace('</p>', '')
+        estat = ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8')
         literals.append(estat)
 
     for item in literals:

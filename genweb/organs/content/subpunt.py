@@ -12,7 +12,6 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.interfaces import IContextSourceBinder
 from zope.interface import directlyProvides
 import unicodedata
-from plone import api
 from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from plone.indexer import indexer
 from genweb.organs import utils
@@ -27,7 +26,8 @@ def llistaEstats(context):
     values = context.aq_parent.aq_parent.estatsLlista
     literals = []
     for value in values.split('<br />'):
-        estat = ' '.join(value.split(' ')[:-1]).rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ').encode('utf-8')
+        item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '')
+        estat = ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8')
         literals.append(estat)
 
     for item in literals:
