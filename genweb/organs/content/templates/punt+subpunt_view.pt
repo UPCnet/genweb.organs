@@ -20,7 +20,7 @@
                 agreement context/agreement;
                 estatsLlista context/estatsLlista;
                 isAcord view/isAcord;
-                defaultContent context/defaultContent">
+                defaultContent context/defaultContent;">
 
   <link rel="stylesheet" href="//fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
@@ -53,11 +53,10 @@
         <td>
           <ul class="ul_items">
             <tal:documents repeat="item filesanddocs">
-              <li style="list-style: none; padding-bottom: 5px;">
+              <li class="listFiles">
                 <i tal:attributes="class item/classCSS"></i>
-                <a tal:attributes="href item/absolute_url;"
-                   style="font-size:15px;">
-                   <span tal:content="item/title">Doc title</span></a>&nbsp;<span style="float:right;" tal:attributes="class string:${item/labelClass}" tal:content="item/content"></span>
+                <a tal:attributes="href item/absolute_url;">
+                   <span tal:content="item/title">Doc title</span></a>&nbsp;<span tal:attributes="class string:${item/labelClass}" tal:content="item/content"></span>
               </li>
             </tal:documents>
           </ul>
@@ -81,9 +80,8 @@
         <td>
           <ul class="ul_items">
             <tal:subpunts repeat="item subpunts">
-              <li style="list-style: none; padding-bottom: 5px;" tal:define="agreementSubpunt item/agreement">
-                <a tal:attributes="href item/absolute_url;"
-                   style="font-size:15px;">
+              <li class="listFiles" tal:define="agreementSubpunt item/agreement">
+                <a tal:attributes="href item/absolute_url;">
                    <span tal:content="item/proposalPoint"></span>
                    <span class="agreementClass" tal:condition="agreementSubpunt" tal:content="agreementSubpunt"></span>
                    <span tal:content="item/title">Doc title</span></a>

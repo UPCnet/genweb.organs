@@ -12,7 +12,7 @@ def isAnonim(self):
     try:
         username = api.user.get_current().getProperty('id')
         roles = api.user.get_roles(username=username, obj=self.context)
-        if 'OG5-Anonim' in roles or 'Manager' in roles:
+        if 'OG5-Anonim' in roles:
             return True
         else:
             return False
@@ -25,7 +25,7 @@ def isAfectat(self):
     try:
         username = api.user.get_current().getProperty('id')
         roles = api.user.get_roles(username=username, obj=self.context)
-        if 'OG4-Afectat' in roles or 'Manager' in roles:
+        if 'OG4-Afectat' in roles:
             return True
         else:
             return False
@@ -38,7 +38,7 @@ def isMembre(self):
     try:
         username = api.user.get_current().getProperty('id')
         roles = api.user.get_roles(username=username, obj=self.context)
-        if 'OG3-Membre' in roles or 'Manager' in roles:
+        if 'OG3-Membre' in roles:
             return True
         else:
             return False
@@ -51,7 +51,7 @@ def isEditor(self):
     try:
         username = api.user.get_current().getProperty('id')
         roles = api.user.get_roles(username=username, obj=self.context)
-        if 'OG2-Editor' in roles or 'Manager' in roles:
+        if 'OG2-Editor' in roles:
             return True
         else:
             return False
@@ -64,7 +64,7 @@ def isResponsable(self):
     try:
         username = api.user.get_current().getProperty('id')
         roles = api.user.get_roles(username=username, obj=self.context)
-        if 'OG1-Responsable' in roles or 'Manager' in roles:
+        if 'OG1-Responsable' in roles:
             return True
         else:
             return False
@@ -133,20 +133,31 @@ def FilesandDocumentsInside(self):
         path={'query': folder_path,
               'depth': 1})
     results = []
+
     for obj in values:
         if obj.portal_type == 'genweb.organs.file':
             if obj.hiddenfile is True:
-                tipus = 'fa fa-file-pdf-o'
-                document = _(u'Fitxer intern')
-                labelClass = 'label label-danger'
+                try:
+                    username = api.user.get_current().getProperty('id')
+                    roles = api.user.get_roles(username=username, obj=self.context)
+                    if 'OG1-Responsable' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles:
+                        tipus = 'fa fa-file-pdf-o'
+                        document = _(u'Fitxer intern')
+                        labelClass = 'label label-danger'
+                    else:
+                        continue
+                except:
+                    continue
             else:
                 tipus = 'fa fa-file-pdf-o'
                 document = _(u'Fitxer públic')
                 labelClass = 'label label-default'
+
         else:
             tipus = 'fa fa-file-text-o'
             document = _(u'Document')
             labelClass = 'label label-default'
+            obj.hiddenfile = False
 
         results.append(dict(title=obj.Title,
                             absolute_url=obj.getURL(),
@@ -173,16 +184,6 @@ def SubPuntsInside(self):
                             agreement=item.agreement,
                             absolute_url=obj.getURL()))
     return results
-
-
-def canViewFiles(self):
-    review_state = api.content.get_state(self.context)
-    value = False
-    if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and self.isResponsable(self):
-        value = True
-    if review_state in ['planificada', 'convocada', 'realitzada'] and self.isEditor(self):
-        value = True
-    return value or self.isManager(self)
 
 
 def getColor(self):

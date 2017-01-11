@@ -267,7 +267,7 @@ msgstr "Internal PDF"
 #: ./genweb/organs/content/sessio.py:438
 #: ./genweb/organs/utils.py:144
 msgid "Fitxer públic"
-msgstr "Public PDF"
+msgstr "File"
 
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:47
 msgid "Fitxers i documents"

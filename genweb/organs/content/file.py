@@ -9,6 +9,9 @@ from zope.component import getMultiAdapter
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.MimeTypeItem import guess_icon_path
+from plone import api
+from zExceptions import Unauthorized
+
 
 grok.templatedir("templates")
 
@@ -80,3 +83,19 @@ class View(grok.View):
             return True
         except:
             return False
+
+    def canViewContent(self):
+        # - Si el fitxer està marcat com a públic ho veu tothom
+        # - Si tens rols Responsable, Edito, Membre o Manager encara que
+        #   estigui marcat com a privat o veus.
+        try:
+            username = api.user.get_current().getProperty('id')
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'OG1-Responsable' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles:
+                return True
+            elif self.context.hiddenfile is False:
+                return True
+            else:
+                raise Unauthorized
+        except:
+            raise Unauthorized

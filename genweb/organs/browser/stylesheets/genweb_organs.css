@@ -596,3 +596,15 @@ div.formControls {
     padding-top: 0px;}
 
 div#formfield-form-widgets-message.field {margin-bottom: 0px;}
+
+.listFiles {
+    list-style: none;
+    padding-bottom: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.listFiles a {font-size: 15px;}
+
+span.label.label-default,
+span.label.label-danger {float: right;}

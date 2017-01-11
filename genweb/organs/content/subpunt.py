@@ -122,9 +122,6 @@ class View(grok.View):
             return True
         return False
 
-    def canViewFiles(self):
-        return utils.canViewFiles(self)
-
     def FilesandDocumentsInside(self):
         return utils.FilesandDocumentsInside(self)
 

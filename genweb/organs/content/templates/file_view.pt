@@ -9,6 +9,7 @@
 
 <metal:content-core fill-slot="content-core">
 
+<div tal:condition="view/canViewContent">
   <div tal:condition="view/hihaFile">
 
     <div tal:condition="view/isPrivate">
@@ -46,7 +47,7 @@
 
       <div tal:condition="python: content_type.startswith('text')">
         <h2 i18n:translate="">File contents</h2>
-        <pre tal:content="context/file/data|nothing" />
+        <pre tal:content="context/file/data|nothing"></pre>
       </div>
 
     </metal:block>
@@ -57,6 +58,7 @@
       <div class="alert alert-error" role="alert" i18n:translate=""><strong>No s'ha afegit cap fitxer.</strong></div>
   </div>
 
+</div>
 </metal:content-core>
 
 </body>
