@@ -145,7 +145,7 @@ input#form-widgets-fromTitle {width: 98%;}
 }
 
 span.proposalNumber {
-    color: #007bc0;
+    color: #ccc;
     /*float: left;*/
     font-size: 20px;
     margin-left: -10px;
@@ -220,6 +220,7 @@ span.proposalNumberSubpunt {
     color: #555 !important;
     font-size: 16px;
     font-weight: normal;
+    line-height: 21px;    
 }
 
 
@@ -270,6 +271,7 @@ span.label.nomarginLeft  {
     font-size: 16px;
     margin-top: 5px;
     padding-left: 25px;
+    line-height: 21px;
 }
 
 #modalSession {
@@ -499,10 +501,12 @@ background-color: transparent;
 }
 
 .caixaPunts {
-    float: right;
-    background-color: #eeeeee;
-    padding: 15px 15px;
-    list-style: none;
+    background-color: whitesmoke;
+    float: left;
+    list-style: outside none none;
+    margin-top: 10px;
+    padding: 15px;
+    width: 96%;
 }
 
 .editable-error-block.ui-state-error {
@@ -524,6 +528,24 @@ background-color: transparent;
     width: auto;
     display: block;
 
+}
+.agreement.editable.editable-click::after {
+    color: #555;
+    content: "-";
+    font-weight: normal;
+    padding-left: 5px;
+}
+.agreement.editable.editable-click {
+    border: 0 none !important;
+    font-weight: normal;
+    padding-right: 2px;
+}
+.editableform .editable-input {
+    left: 0;
+}
+.editableform .editable-input > input {
+    font-size: 16px;
+    max-width: 100px;
 }
 
 /*.portaltype-genweb-organs-organsfolder a#plone-contentmenu-workflow.dropdown-toggle,
