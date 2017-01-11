@@ -4,6 +4,7 @@ from zope.annotation.interfaces import IAnnotations
 from datetime import datetime
 from Products.CMFCore.utils import getToolByName
 from genweb.organs import _
+import unicodedata
 
 
 def isAnonim(self):
@@ -182,3 +183,27 @@ def canViewFiles(self):
     if review_state in ['planificada', 'convocada', 'realitzada'] and self.isEditor(self):
         value = True
     return value or self.isManager(self)
+
+
+def getColor(self):
+    # assign custom colors on organ states
+    estat = self.getObject().estatsLlista
+    values = self.estatsLlista
+    color = '#777777'
+    for value in values.split('</p>'):
+        if value != '':
+            item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
+            if estat.decode('utf-8') == ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8'):
+                return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
+    return color
+
+
+def estatsCanvi(self):
+    values = self.estatsLlista
+    items = []
+    for value in values.split('</p>'):
+        if value != '':
+            item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
+            estat = ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8')
+            items.append(estat)
+    return items

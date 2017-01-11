@@ -22,7 +22,7 @@ organType = SimpleVocabulary(
 
 grok.templatedir("templates")
 
-defaultEstats = _(u"Esborrany green <br/>Pendent d'aprovació grey <br/>Aprovat blue <br/>Informat brown <br/>No aprovat red <br/>Derogat blueviolet <br/>Informatiu chocolate")
+defaultEstats = _(u"<p>Pendent d'aprovació blue</p><p>Esborrany green</p><p>Aprovat yellow</p><p>Informat brown</p><p>No aprovat red</p><p>Derogat grey</p><p>Informatiu pink</p>")
 
 
 class IOrgangovern(form.Schema):

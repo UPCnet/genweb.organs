@@ -11,6 +11,8 @@ from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from plone.folder.interfaces import IExplicitOrdering
 from genweb.organs.utils import addEntryLog
 from genweb.organs import _
+from genweb.organs import utils
+
 
 try:
     pkg_resources.get_distribution('plone4.csrffixes')
@@ -427,23 +429,10 @@ class PresentationView(BrowserView):
 
     def getColor(self, data):
         # assign custom colors on organ states
-        estat = data.getObject().estatsLlista
-        values = data.estatsLlista
-        color = '#777777'
-        for value in values.split('<br />'):
-            item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '')
-            if estat.decode('utf-8') == ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8'):
-                return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
-        return color
+        return utils.getColor(data)
 
     def estatsCanvi(self, data):
-        values = data.estatsLlista
-        items = []
-        for value in values.split('<br />'):
-            item_net = unicodedata.normalize("NFKD",value).rstrip(' ').replace('<p>', '').replace('</p>', '')
-            estat = ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8')
-            items.append(estat)
-        return items
+        return utils.estatsCanvi(data)
 
 
 class Reload(BrowserView):

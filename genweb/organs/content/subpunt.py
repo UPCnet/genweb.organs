@@ -25,11 +25,11 @@ def llistaEstats(context):
     # Al ser subpunt els agafo DOS nivells per sobre
     values = context.aq_parent.aq_parent.estatsLlista
     literals = []
-    for value in values.split('<br />'):
-        item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '')
-        estat = ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8')
-        literals.append(estat)
-
+    for value in values.split('</p>'):
+        if value != '':
+            item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
+            estat = ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8')
+            literals.append(estat)
     for item in literals:
         if isinstance(item, str):
             flattened = unicodedata.normalize('NFKD', item.decode('utf-8')).encode('ascii', errors='ignore')

@@ -267,23 +267,10 @@ class View(grok.View):
 
     def getColor(self, data):
         # assign custom colors on organ states
-        estat = data.getObject().estatsLlista
-        values = data.estatsLlista
-        color = '#777777'
-        for value in values.split('<br />'):
-            item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '')
-            if estat.decode('utf-8') == ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8'):
-                return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
-        return color
+        return utils.getColor(data)
 
     def estatsCanvi(self, data):
-        values = data.estatsLlista
-        items = []
-        for value in values.split('<br />'):
-            item_net = unicodedata.normalize("NFKD",value).rstrip(' ').replace('<p>', '').replace('</p>', '')
-            estat = ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8')
-            items.append(estat)
-        return items
+        return utils.estatsCanvi(data)
 
     def hihaPunts(self):
         values = api.content.find(context=self.context, depth=1, portal_type='genweb.organs.punt')

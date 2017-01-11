@@ -14,6 +14,7 @@ from zope import schema
 from Products.CMFCore.utils import getToolByName
 from genweb.organs.utils import addEntryLog
 import transaction
+import unicodedata
 
 grok.templatedir("templates")
 
@@ -80,7 +81,12 @@ class Message(form.SchemaForm):
         # Creating new objects
 
         text = formData['message']
-        defaultEstat = str(self.aq_parent.aq_parent.estatsLlista.split('<br />')[0].replace('<p>', '').replace('</p>', '').split('#')[0].rsplit(' ')[0])
+
+        values = self.aq_parent.aq_parent.estatsLlista
+        value = values.split('</p>')[0]
+        item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
+        defaultEstat = ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8')
+
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         puntsInFolder = portal_catalog.searchResults(
