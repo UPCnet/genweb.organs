@@ -220,7 +220,7 @@ span.proposalNumberSubpunt {
     color: #555 !important;
     font-size: 16px;
     font-weight: normal;
-    line-height: 21px;    
+    line-height: 21px;
 }
 
 
@@ -588,3 +588,8 @@ background-color: transparent;
     margin-left: 0px;
     padding-left: 0px;
 }
+
+div.formControls {
+    padding-top: 0px;}
+
+div#formfield-form-widgets-message.field {margin-bottom: 0px;}
