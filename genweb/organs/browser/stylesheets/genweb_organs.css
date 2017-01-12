@@ -276,6 +276,7 @@ span.label.nomarginLeft  {
 
 #modalSession {
     width: 85%;
+    height: 700px;
     right: 30%;
     left: 30% !important;
 }
@@ -366,7 +367,7 @@ a.remove{background-color: #e8003d!important}
     margin-right: 4px;
 }
 .filesinTable .fa-trash-o {
-    
+
     margin-right: 0;
 }
 .filesinTable > a {
