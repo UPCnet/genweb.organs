@@ -377,9 +377,10 @@
               <div class="btn-group" role="group" tal:condition="canModify"
                    style="float: right;" aria-label="States">
                 <tal:block tal:condition="item/state">
-                  <button class="label dropdown-toggle" tal:attributes="style string:background-color: ${item/css}"
+                  <button class="label dropdown-toggle"
                       id="estats" type="button" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
+                      <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
                     <a tal:content="item/state"></a>
                     <span class="caret"></span>
                   </button>
@@ -391,11 +392,12 @@
                 </tal:block>
               </div>
 
-                <div tal:condition="not:canModify"
-                   style="float: right;">
+              <div tal:condition="not:canModify" style="float: right;">
                 <tal:block tal:condition="item/state">
-                  <span class="label" style="padding:3px;" tal:attributes="style string:background-color: ${item/css}" tal:content="item/state">
-                  </span>
+                  <button class="btn label disabled " style="padding:3px;">
+                  <i class="fa fa-circle" aria-hidden="true"  tal:attributes="style string:color:${item/css}"></i>
+                  <span  tal:content="item/state"></span>
+                  </button>
                 </tal:block>
               </div>
 
@@ -495,23 +497,27 @@
                       <div class="btn-group" role="group" tal:condition="canModify"
                            style="float: right;" aria-label="Subpunt actions">
                         <tal:block tal:condition="item/state">
-                          <button class="label dropdown-toggle" tal:attributes="style string:background-color: ${item/css}"
-                              id="menu1" type="button" data-toggle="dropdown">
+                          <button class="label dropdown-toggle"
+                              id="estats" type="button" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
                             <a tal:content="item/state"></a>
-                            <span class="caret"></span></button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                              <tal:block repeat="estat item/estats">
-                                <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/item_path}"><span tal:content="estat"></span></a></li>
-                              </tal:block>
-                            </ul>
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
+                            <tal:block repeat="estat item/estats">
+                              <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/item_path}"><span tal:content="estat"></span></a></li>
+                            </tal:block>
+                          </ul>
                         </tal:block>
                       </div>
 
-                      <div tal:condition="not:canModify"
-                           style="float: right;">
+                      <div tal:condition="not:canModify" style="float: right;">
                         <tal:block tal:condition="item/state">
-                          <span class="label" style="padding:3px;" tal:attributes="style string:background-color: ${item/css}" tal:content="item/state">
-                          </span>
+                          <button class="btn label disabled " style="padding:3px;">
+                          <i class="fa fa-circle" aria-hidden="true"  tal:attributes="style string:color:${item/css}"></i>
+                          <span  tal:content="item/state"></span>
+                          </button>
                         </tal:block>
                       </div>
 
