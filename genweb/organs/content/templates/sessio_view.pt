@@ -386,7 +386,7 @@
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
                     <tal:block repeat="estat item/estats">
-                      <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/item_path}"><span tal:content="estat"></span></a></li>
+                      <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/color}"></i>&nbsp;<span tal:content="estat"></span></a></li>
                     </tal:block>
                   </ul>
                 </tal:block>
@@ -506,11 +506,12 @@
                           </button>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
                             <tal:block repeat="estat item/estats">
-                              <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/item_path}"><span tal:content="estat"></span></a></li>
+                              <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/color}"></i>&nbsp;<span tal:content="estat"></span></a></li>
                             </tal:block>
                           </ul>
                         </tal:block>
                       </div>
+
 
                       <div tal:condition="not:canModify" style="float: right;">
                         <tal:block tal:condition="item/state">
