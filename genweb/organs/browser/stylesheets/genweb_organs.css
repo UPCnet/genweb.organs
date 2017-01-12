@@ -168,7 +168,7 @@ span.proposalNumber {
 }*/
 
 span.proposalNumberSubpunt {
-    color: #007BC0;
+    color: #ccc;
     margin-left: 0;
 }
 
@@ -411,15 +411,22 @@ span.editable-container.editable-inline  input[type="text"] {
 }
 
 .DADES button {
-    background: #ccc none repeat scroll 0 0;
-    border: medium none !important;
+    background: transparent none repeat scroll 0 0;
+    border: 1px solid #557c95;
+    color: #557c95;
     margin: 1px !important;
     padding: 2px 6px 3px;
     text-shadow: none;
     vertical-align: top;
 }
+.DADES button:hover {
+    background: #557c95 none repeat scroll 0 0;
+    color: white;
+}
 .DADES .remove:hover {
     background: #d14836 none repeat scroll 0 0;
+     border-color: #d14836;
+    color: white;
 }
 
 
@@ -428,17 +435,18 @@ span.editable-container.editable-inline  input[type="text"] {
 }
 .label.dropdown-toggle:hover {
     background: #007bc0 none repeat scroll 0 0 !important;
+    color: white;
 }
 .DADES .caret {
-    border-top: 4px solid #fff;
+    border-top: 4px solid #557c95;
     vertical-align: middle;
 }
 
-.DADES .edit.label:hover { background-color: #007bc0; color: }
+.DADES .edit.label:hover { background-color: #007bc0; color:white; }
 .DADES .edit.label a{ color:white!important; }
 #estats > a, #menu1 a {
     background: transparent none repeat scroll 0 0 ;
-    color: white;
+    color: #557c95;
 }
 .btn-info, .link-parent {
     background-image: linear-gradient(to bottom, #007bc0, #007bc0)!important;
@@ -487,6 +495,9 @@ background-color: transparent;
 .DADES .expand, .DADES .notexpand, .DADES .expand:hover, .DADES .notexpand:hover {
     background: transparent none repeat scroll 0 0;
     color: #007bc0;
+}
+.DADES .expand, .DADES .notexpand {
+    border: 0;
 }
 #sortable .filesinTable {
     background: transparent none repeat scroll 0 0;
