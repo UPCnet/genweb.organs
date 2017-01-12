@@ -366,7 +366,7 @@ a.remove{background-color: #e8003d!important}
     margin-right: 4px;
 }
 .filesinTable .fa-trash-o {
-    color: white;
+    
     margin-right: 0;
 }
 .filesinTable > a {
@@ -434,7 +434,7 @@ span.editable-container.editable-inline  input[type="text"] {
 
 }
 .label.dropdown-toggle:hover {
-    background: #007bc0 none repeat scroll 0 0 !important;
+    background: #557c95 none repeat scroll 0 0 !important;
     color: white;
 }
 .DADES .caret {
@@ -444,10 +444,7 @@ span.editable-container.editable-inline  input[type="text"] {
 
 .DADES .edit.label:hover { background-color: #007bc0; color:white; }
 .DADES .edit.label a{ color:white!important; }
-#estats > a, #menu1 a {
-    background: transparent none repeat scroll 0 0 ;
-    color: #557c95;
-}
+
 .btn-info, .link-parent {
     background-image: linear-gradient(to bottom, #007bc0, #007bc0)!important;
     background-repeat: repeat-x;
@@ -558,6 +555,17 @@ background-color: transparent;
     font-size: 16px;
     max-width: 100px;
 }
+.btn.label.disabled {
+    background: #ccc none repeat scroll 0 0;
+    border-color: #ccc;
+    color: #111;
+}
+.btn.label.disabled:hover {
+    background: #ccc none repeat scroll 0 0;
+    border-color: #ccc;
+    color: #111;
+}
+
 
 /*.portaltype-genweb-organs-organsfolder a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-organgovern a#plone-contentmenu-workflow.dropdown-toggle,
