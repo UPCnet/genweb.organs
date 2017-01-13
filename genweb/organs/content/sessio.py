@@ -272,16 +272,6 @@ class View(grok.View):
     def estatsCanvi(self, data):
         return utils.estatsCanvi(data)
 
-    def color(self, value):
-        values = self.context.estatsLlista
-        for line in values.split('</p>'):
-            if line != '':
-                item_net = unicodedata.normalize("NFKD", line).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
-                estat = ' '.join(item_net.split()[:-1]).lstrip()
-                if estat.encode('utf-8') == value:
-                    return ' '.join(item_net.split()[-1:]).lstrip().encode('utf-8')
-        return ''
-
     def hihaPunts(self):
         values = api.content.find(context=self.context, depth=1, portal_type='genweb.organs.punt')
         if values:
@@ -323,7 +313,6 @@ class View(grok.View):
                                     state=item.estatsLlista,
                                     css=self.getColor(obj),
                                     estats=self.estatsCanvi(obj),
-                                    color=self.color(item.estatsLlista),
                                     id=obj.id,
                                     show=True,
                                     classe="ui-state-grey",
@@ -352,7 +341,6 @@ class View(grok.View):
                                 state=item.estatsLlista,
                                 agreement=item.agreement,
                                 estats=self.estatsCanvi(obj),
-                                color=self.color(item.estatsLlista),
                                 css=self.getColor(obj),
                                 id='/'.join(item.absolute_url_path().split('/')[-2:])))
         return results

@@ -386,7 +386,7 @@
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
                     <tal:block repeat="estat item/estats">
-                      <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/color}"></i>&nbsp;<span tal:content="estat"></span></a></li>
+                      <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
                     </tal:block>
                   </ul>
                 </tal:block>
@@ -506,12 +506,11 @@
                           </button>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
                             <tal:block repeat="estat item/estats">
-                              <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/color}"></i>&nbsp;<span tal:content="estat"></span></a></li>
+                              <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
                             </tal:block>
                           </ul>
                         </tal:block>
                       </div>
-
 
                       <div tal:condition="not:canModify" style="float: right;">
                         <tal:block tal:condition="item/state">
@@ -549,7 +548,7 @@
                           <ul style="list-style: none; padding-top:10px;">
                             <tal:documents repeat="item files">
                               <li style="padding-left:35px;" class="filesinTable">
-                                <i tal:attributes=" class item/classCSS"></i>
+                                <i tal:attributes="class item/classCSS"></i>
                                 <a tal:attributes="href item/absolute_url;"
                                    style="font-size:14px;">
                                    <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>

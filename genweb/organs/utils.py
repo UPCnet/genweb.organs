@@ -206,5 +206,6 @@ def estatsCanvi(self):
         if value != '':
             item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
             estat = ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8')
-            items.append(estat)
+            color = ' '.join(item_net.split()[-1:]).lstrip().encode('utf-8')
+            items.append(dict(title=estat, color=color))
     return items
