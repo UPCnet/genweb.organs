@@ -38,14 +38,6 @@
       permission="cmf.ModifyPortalContent"
     />
 
-    <browser:page
-      for="*"
-      name="presentationView"
-      class=".views.PresentationView"
-      layer="..interfaces.IGenwebOrgansLayer"
-      permission="zope2.View"
-    />
-
   <browser:page
     for="Products.CMFCore.interfaces._content.IFolderish"
     class=".views.Move"

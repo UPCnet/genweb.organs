@@ -136,24 +136,12 @@
 
   <link rel="stylesheet" href="//fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
-  <div tal:condition="canModify"
-       class="modal fade modalSession" id="modalSession" tabindex="-1" role="dialog" aria-labelledby="modalSession">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header presentation">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><tal:omit-tag i18n:translate="">Ordre del dia</tal:omit-tag>
-        </div>
-        <div class="modal-body presentation"></div>
-      </div>
-    </div>
-  </div>
-
   <div style="float:right; display:flex">
       <div class="containerIcons" tal:condition="view/showEnviarButton">
         <a href="send_message" i18n:attributes="title Enviar; alt Enviar"><i class="fa fa-envelope fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Enviar</span></a>
       </div>
       <div class="containerIcons" tal:condition="view/showPresentacionButton">
-        <a i18n:attributes="title Presentacio; alt Presentacio" href="presentationView" data-toggle="modal" data-target="#modalSession"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
+        <a i18n:attributes="title Presentacio; alt Presentacio" href="presentation"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
       </div>
       <div class="containerIcons" tal:condition="view/showPublicarButton">
         <a href="informar_sessio" i18n:attributes="title Informar; alt Informar"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informar</span></a>
