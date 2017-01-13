@@ -1,299 +1,83 @@
+<metal:page define-macro="master"><tal:doctype tal:replace="structure string:&lt;!DOCTYPE html&gt;" />
 
-<!DOCTYPE html>
-<!--[if lt IE 7]> <html xmlns='http://www.w3.org/1999/xhtml' class='no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7' lang=ca> <![endif]--><!--[if IE 7]>    <html xmlns='http://www.w3.org/1999/xhtml' class='no-js lt-ie10 lt-ie9 lt-ie8' lang=ca> <![endif]--><!--[if IE 8]>    <html xmlns='http://www.w3.org/1999/xhtml' class='no-js lt-ie10 lt-ie9' lang=ca> <![endif]--><!--[if IE 9]>    <html xmlns='http://www.w3.org/1999/xhtml' class='no-js lt-ie10' lang=ca> <![endif]--><!--[if gt IE 9]><!--><html xmlns="http://www.w3.org/1999/xhtml" class="no-js" lang="ca">
+<tal:maindefines
+    define="portal_state context/@@plone_portal_state;
+            context_state context/@@plone_context_state;
+            plone_view context/@@plone;
+            genweb_config context/@@gwconfig;
+            lang portal_state/language;
+            view nocall:view | nocall: plone_view;
+            dummy python: plone_view.mark_view(view);
+            portal_url portal_state/portal_url;
+            checkPermission nocall: context/portal_membership/checkPermission;
+            site_properties context/portal_properties/site_properties;
+            ajax_load request/ajax_load | nothing;
+            ajax_include_head request/ajax_include_head | nothing;
+            dummy python:request.RESPONSE.setHeader('X-UA-Compatible', 'IE=EmulateIE10');
+            dummy python:request.RESPONSE.setHeader('X-UA-Compatible', 'IE=edge,chrome=1,requiresActiveX=true');"
+            >
+<tal:IElt7 tal:replace="structure string:&lt;!--[if lt IE 7]&gt; &lt;html xmlns='http://www.w3.org/1999/xhtml' class='no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7' lang=${lang}&gt; &lt;![endif]--&gt;" />
+<tal:IE7 tal:replace="structure string:&lt;!--[if IE 7]&gt;    &lt;html xmlns='http://www.w3.org/1999/xhtml' class='no-js lt-ie10 lt-ie9 lt-ie8' lang=${lang}&gt; &lt;![endif]--&gt;" />
+<tal:IE8 tal:replace="structure string:&lt;!--[if IE 8]&gt;    &lt;html xmlns='http://www.w3.org/1999/xhtml' class='no-js lt-ie10 lt-ie9' lang=${lang}&gt; &lt;![endif]--&gt;" />
+<tal:IE9 tal:replace="structure string:&lt;!--[if IE 9]&gt;    &lt;html xmlns='http://www.w3.org/1999/xhtml' class='no-js lt-ie10' lang=${lang}&gt; &lt;![endif]--&gt;" />
+<!--[if gt IE 9]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      class="no-js"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone"
+      tal:attributes="lang lang;"
+      >
 <!--<![endif]-->
 
-    
-    
-    
-    
-    
-
+    <metal:cache use-macro="context/global_cache_settings/macros/cacheheaders">
+    Get the global cache headers located in global_cache_settings.
+    </metal:cache>
 
 <head>
-    
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1,requiresActiveX=true">
-    <meta name="generator" content="Plone - http://plone.org">
-    <meta name="author" content="UPC. Universitat Polit&#232;cnica de Catalunya">
-    <link rel="shortcut icon" type="image/x-icon" href="http://localhost:8080/Plone/favicon.ico">
-
-    
-        <base href="http://localhost:8080/Plone/ca/eetac/organs-unitat-eetac/consejo-de-gobierno/sessio1/"><!--[if lt IE 7]></base><![endif]-->
-    
-
-    
-
-        <title>sessio1 &#8212; Genweb UPC &#8212; UPC. Universitat Polit&#232;cnica de Catalunya</title>
-
-
-  
-    <link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8080/Plone/portal_css/GenwebTheme/reset.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8080/Plone/portal_css/GenwebTheme/collective.js.jqueryui.custom.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8080/Plone/portal_css/GenwebTheme/++resource++plone.app.discussion.stylesheets/discussion.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8080/Plone/portal_css/GenwebTheme/++resource++tinymce.stylesheets/tinymce.css">
-    <style type="text/css" media="screen">@import url(http://localhost:8080/Plone/portal_css/GenwebTheme/++resource++plone.app.jquerytools.dateinput.css);</style>
-    <style type="text/css" media="screen">@import url(http://localhost:8080/Plone/portal_css/GenwebTheme/++resource++collective.polls/css/collective.polls.css);</style>
-    <link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8080/Plone/portal_css/GenwebTheme/++resource++plone.formwidget.datetime/styles.css">
-    <link rel="stylesheet" type="text/css" media="all" href="http://localhost:8080/Plone/portal_css/GenwebTheme/++resource++plone.formwidget.recurrence/jquery.recurrenceinput.css">
-    <link rel="stylesheet" type="text/css" media="all" href="http://localhost:8080/Plone/portal_css/GenwebTheme/++resource++plone.formwidget.recurrence/integration.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8080/Plone/portal_css/GenwebTheme/++resource++plone.formwidget.autocomplete/jquery.autocomplete.css">
-    <style type="text/css" media="screen">@import url(http://localhost:8080/Plone/portal_css/GenwebTheme/++resource++plone.formwidget.contenttree/contenttree.css);</style>
-    <link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8080/Plone/portal_css/GenwebTheme/++resource++plone.formwidget.querystring.querywidget.css">
-    <style type="text/css" media="screen">@import url(http://localhost:8080/Plone/portal_css/GenwebTheme/++resource++collective.z3cform.datagridfield/datagridfield.css);</style>
-    <link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8080/Plone/portal_css/GenwebTheme/++resource++plone.app.multilingual.stylesheet/multilingual.css">
-    <style type="text/css">@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,600);</style>
-    <style type="text/css">@import url(http://localhost:8080/Plone/portal_css/GenwebTheme/++resource++genweb.organs.stylesheets/genweb_organs.css);</style>
-    <style type="text/css" media="print">@import url(http://localhost:8080/Plone/portal_css/GenwebTheme/++resource++genweb.organs.stylesheets/print.css);</style>
-
-  
-    <script type="text/javascript" src="http://localhost:8080/Plone/portal_javascripts/GenwebTheme/++resource++plone.app.jquery.js"></script>
-    <script type="text/javascript" src="http://localhost:8080/Plone/portal_javascripts/GenwebTheme/plone_javascript_variables.js"></script>
-    <script type="text/javascript" src="http://localhost:8080/Plone/portal_javascripts/GenwebTheme/collective.js.jqueryui.custom.min.js"></script>
-
-
-
-<meta name="DC.creator" content="admin">
-<meta name="DC.format" content="text/plain">
-<meta name="DC.language" content="ca">
-<meta name="DC.date.modified" content="2017-01-13T09:35:31+01:00">
-<meta name="DC.date.created" content="2017-01-05T10:03:38+01:00">
-<meta name="DC.type" content="Session">
-<meta name="DC.distribution" content="Global">
-<meta name="robots" content="ALL">
-<meta name="distribution" content="Global">
-
-
-
-        
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/register_function.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/jquery.tools.min.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/jquery.form.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/overlayhelpers.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/jquery.tools.dateinput.min.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/jquery.tools.tooltip.min.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/nodeutilities.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/cookie_functions.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++bootstrap++js/modernizr-2.6.1.min.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/search.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/select_all.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/collapsiblesections.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/form_tabbing.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/popupforms.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/jquery.highlightsearchterms.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/first_input_focus.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/toc.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/collapsibleformfields.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/comments.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/inline_validation.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/kss-bbb.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genwebupc++js/plone.formwidget.querystring.querywidget.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/jquery.flot.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/jquery.flot.pie.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/polls.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/collective.poll.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/recaptcha_ajax.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/jquery.tmpl-beta1.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/jquery.recurrenceinput.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/event.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/portlet_calendar.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/jquery.autocomplete.min.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/formwidget-autocomplete.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/contenttree.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/jsi18n.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/table_sorter.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/calendar_formfield.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/formUnload.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/formsubmithelpers.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/unlockOnFormUnload.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/jquery.tinymce.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/tiny_mce_gzip.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/jquery.tasksplease.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++bootstrap++js/bootstrap.min.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/collage.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++mixin/datagridfield.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++static/js/fileinput.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++static/js/customInput.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++static/js/jquery.nicescroll.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++static/js/prettify.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++components++root/alertify/alertify.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++components++root/select2/select2.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++components++root/handlebars/handlebars.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++components++root/typeahead.js/dist/typeahead.jquery.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++components++root/underscore/underscore.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++static/js/ios-orientationchange-fix.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++js/main.js"></script>
-
-
-    <script src="http://localhost:8080/Plone/++genweb++js/links_icon_blank.js"></script>
-
-
-
-
-        
-        
-      
-    
-        
-        
-      <!--
-      <link href="++resource++wcfc/bootstrap/bootstrap-fixed.css"
-        tal:attributes="href string:${resources_url}/bootstrap/bootstrap-fixed.css"
-        rel="stylesheet" type="text/css"/>
-      -->
-      <!-- Bootstrap Image Gallery styles -->
-      <link rel="stylesheet" href="http://localhost:8080/Plone/++resource++wcfc/jquery-file-upload/css/bootstrap-image-gallery.min.css">
-      <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-      <link rel="stylesheet" href="http://localhost:8080/Plone/++resource++wcfc/jquery-file-upload/css/jquery.fileupload-ui.css">
-      <!-- Shim to make HTML5 elements usable in older Internet Explorer versions -->
-      <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-    
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <script src="http://localhost:8080/Plone/++genweb++static/js/ReView.js"></script>
-
-        <link rel="apple-touch-icon" href="http://localhost:8080/Plone/apple-touch-icon.png"> 
-        <link rel="apple-touch-icon" sizes="57x57" href="http://localhost:8080/Plone/apple-touch-icon-57x57-precomposed.png"> 
-        <link rel="apple-touch-icon" sizes="72x72" href="http://localhost:8080/Plone/apple-touch-icon-72x72-precomposed.png"> 
-        <link rel="apple-touch-icon" sizes="114x114" href="http://localhost:8080/Plone/apple-touch-icon-114x114-precomposed.png"> 
-        <link rel="apple-touch-icon" sizes="144x144" href="http://localhost:8080/Plone/apple-touch-icon-144x144-precomposed.png"> 
-
-        
-
-
-    <link rel="stylesheet" href="http://localhost:8080/Plone/++components++root/select2/select2.css">
-
-
-    <link rel="stylesheet" href="http://localhost:8080/Plone/++genweb++static/fontello-genweb/css/fontello.css">
-
-
-
-
-
-        
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <tal:comment replace="nothing">  <!-- EMulateIE10 sirve para corregir bug TINY crear links  --> </tal:comment>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1,requiresActiveX=true" />
+    <meta name="generator" content="Plone - http://plone.org" />
+    <meta name="author" tal:attributes="content genweb_config/meta_author | nothing" />
+    <link rel="shortcut icon" type="image/x-icon" tal:attributes="href string:${portal_url}/favicon.ico" />
+
+    <metal:baseslot define-slot="base">
+        <base tal:attributes="href plone_view/renderBase" /><!--[if lt IE 7]></base><![endif]-->
+    </metal:baseslot>
+
+    <tal:notajax tal:condition="python:not ajax_load or ajax_include_head">
+        <div tal:replace="structure provider:plone.htmlhead" />
+
+        <tal:comment replace="nothing">
+            Various slots where you can insert elements in the header from a template.
+        </tal:comment>
+        <metal:topslot define-slot="top_slot" />
+        <metal:headslot define-slot="head_slot" />
+        <metal:styleslot define-slot="style_slot" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <tal:comment replace="nothing"><!-- El seguent script ha d'anar seguit del meta del viewport --></tal:comment>
+        <script tal:attributes="src string:${portal_url}/++genweb++static/js/ReView.js"></script>
+
+        <link rel="apple-touch-icon" tal:attributes="href string:${portal_url}/apple-touch-icon.png" /> <tal:comment replace="nothing"> <!-- 60x60 --> </tal:comment>
+        <link rel="apple-touch-icon" sizes="57x57" tal:attributes="href string:${portal_url}/apple-touch-icon-57x57-precomposed.png" /> <tal:comment replace="nothing">  <!-- iPhone --> </tal:comment>
+        <link rel="apple-touch-icon" sizes="72x72" tal:attributes="href string:${portal_url}/apple-touch-icon-72x72-precomposed.png" /> <tal:comment replace="nothing">  <!-- iPad --> </tal:comment>
+        <link rel="apple-touch-icon" sizes="114x114" tal:attributes="href string:${portal_url}/apple-touch-icon-114x114-precomposed.png" /> <tal:comment replace="nothing">  <!-- iPhone 2x --> </tal:comment>
+        <link rel="apple-touch-icon" sizes="144x144" tal:attributes="href string:${portal_url}/apple-touch-icon-144x144-precomposed.png" /> <tal:comment replace="nothing"> <!-- iPad 2x --> </tal:comment>
+
+        <div tal:replace="structure provider:genweb.css" />
+
+        <tal:comment content="nothing"> <!-- Splitting CSS only for IE, the rest the common CSS --> </tal:comment>
         <!--[if !IE]><!-->
-          <link rel="stylesheet" href="http://localhost:8080/Plone/++genwebupc++stylesheets/genwebupc.css">
+          <link rel="stylesheet" tal:attributes="href string:${portal_url}/++genweb++stylesheets/genwebupc.css">
         <!--<![endif]-->
 
-        <!--[if lt IE 10]><link rel='stylesheet' href='http://localhost:8080/Plone/++genwebupc++stylesheets/genwebupc-ie.css'><![endif]-->
+        <tal:splittedCSS4IE tal:replace="structure string:&lt;!--[if lt IE 10]&gt;&lt;link rel='stylesheet' href='${portal_url}/++genweb++stylesheets/genwebupc-ie.css'&gt;&lt;![endif]--&gt;" />
 
-        <link rel="stylesheet" href="http://localhost:8080/Plone/dynamic.css">
-    
+        <link rel="stylesheet" tal:attributes="href string:${portal_url}/dynamic.css">
+
+    </tal:notajax>
 </head>
 <body style="padding-top:50px; padding-bottom: 50px; background-color: beige;" id="home">
 
@@ -419,3 +203,7 @@
 
 </body>
 </html>
+
+</tal:maindefines>
+
+</metal:page>
