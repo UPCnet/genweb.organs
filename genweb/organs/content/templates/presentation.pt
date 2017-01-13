@@ -35,7 +35,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <tal:comment replace="nothing">  <!-- EMulateIE10 sirve para corregir bug TINY crear links  --> </tal:comment>
+    <tal:comment replace="nothing">  </tal:comment>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1,requiresActiveX=true" />
     <meta name="generator" content="Plone - http://plone.org" />
@@ -57,18 +57,18 @@
         <metal:styleslot define-slot="style_slot" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <tal:comment replace="nothing"><!-- El seguent script ha d'anar seguit del meta del viewport --></tal:comment>
+        <tal:comment replace="nothing"></tal:comment>
         <script tal:attributes="src string:${portal_url}/++genweb++static/js/ReView.js"></script>
 
-        <link rel="apple-touch-icon" tal:attributes="href string:${portal_url}/apple-touch-icon.png" /> <tal:comment replace="nothing"> <!-- 60x60 --> </tal:comment>
-        <link rel="apple-touch-icon" sizes="57x57" tal:attributes="href string:${portal_url}/apple-touch-icon-57x57-precomposed.png" /> <tal:comment replace="nothing">  <!-- iPhone --> </tal:comment>
-        <link rel="apple-touch-icon" sizes="72x72" tal:attributes="href string:${portal_url}/apple-touch-icon-72x72-precomposed.png" /> <tal:comment replace="nothing">  <!-- iPad --> </tal:comment>
-        <link rel="apple-touch-icon" sizes="114x114" tal:attributes="href string:${portal_url}/apple-touch-icon-114x114-precomposed.png" /> <tal:comment replace="nothing">  <!-- iPhone 2x --> </tal:comment>
-        <link rel="apple-touch-icon" sizes="144x144" tal:attributes="href string:${portal_url}/apple-touch-icon-144x144-precomposed.png" /> <tal:comment replace="nothing"> <!-- iPad 2x --> </tal:comment>
+        <link rel="apple-touch-icon" tal:attributes="href string:${portal_url}/apple-touch-icon.png" /> <tal:comment replace="nothing">  </tal:comment>
+        <link rel="apple-touch-icon" sizes="57x57" tal:attributes="href string:${portal_url}/apple-touch-icon-57x57-precomposed.png" /> <tal:comment replace="nothing"></tal:comment>
+        <link rel="apple-touch-icon" sizes="72x72" tal:attributes="href string:${portal_url}/apple-touch-icon-72x72-precomposed.png" /> <tal:comment replace="nothing"></tal:comment>
+        <link rel="apple-touch-icon" sizes="114x114" tal:attributes="href string:${portal_url}/apple-touch-icon-114x114-precomposed.png" /> <tal:comment replace="nothing"></tal:comment>
+        <link rel="apple-touch-icon" sizes="144x144" tal:attributes="href string:${portal_url}/apple-touch-icon-144x144-precomposed.png" /> <tal:comment replace="nothing"></tal:comment>
 
         <div tal:replace="structure provider:genweb.css" />
 
-        <tal:comment content="nothing"> <!-- Splitting CSS only for IE, the rest the common CSS --> </tal:comment>
+        <tal:comment content="nothing"></tal:comment>
         <!--[if !IE]><!-->
           <link rel="stylesheet" tal:attributes="href string:${portal_url}/++genweb++stylesheets/genwebupc.css">
         <!--<![endif]-->
@@ -79,31 +79,54 @@
 
     </tal:notajax>
 </head>
-<body style="padding-top:50px; padding-bottom: 50px; background-color: beige;" id="home">
+<body class="bodyPresentation" id="home">
 
          <link rel="stylesheet" href="//fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
 
+  <script type="text/javascript">
+    function assignAcordNumber(item){
+      var params = {};
+      values = item.split(',')
+      params.item = values[0]
+      params.portal_type = values[1]
+      params.action = 'assign';
+      params.input = $('#acordNumber').val()
+      $.ajax({
+          type: 'POST',
+          url: '@@assignAcordJS',
+          data: params,
+      });
+    }
+
+  </script>
 
 
 <metal:content-core tal:define="items view/PuntsInside">
 
-<ul id="navbarEpd" class="affix nav" style="z-index=2; right:0; top 170px;">
-<li>
-                        <a href="" title="Close" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Close">
-                            <i class="fa fa-close fa-3x" aria-hidden="true"></i></a>
-                    </li><li>
-                        <a href="presentation#home" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Home">
-                            <i class="fa fa-chevron-up fa-3x" aria-hidden="true"></i></a>
-                    </li>
+  <ul class="affix nav" style="z-index=2; right:0; top 170px;">
+    <li>
+      <a href="" title="Close" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Close">
+        <i class="fa fa-close fa-3x" aria-hidden="true"></i></a>
+    </li><li>
+      <a href="presentation#home" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Home">
+        <i class="fa fa-chevron-up fa-3x" aria-hidden="true"></i></a>
+    </li>
+    <li>
+      <a href="presentation#end" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
+        <i class="fa fa-chevron-down fa-3x" aria-hidden="true"></i></a>
+    </li>
+<!--     <li>
+      <a href="presentation#end" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
+        <i class="fa fa-chevron-down fa-3x" aria-hidden="true"></i></a>
+    </li>
+    <li>
+      <a href="presentation#end" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
+        <i class="fa fa-chevron-down fa-3x" aria-hidden="true"></i></a>
+    </li> -->
+  </ul>
 
-                    <li>
-                        <a href="presentation#end" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
-                            <i class="fa fa-chevron-down fa-3x" aria-hidden="true"></i></a>
-                    </li>
-                </ul>
-
-<div tal:condition="items" class="DADES"  
+  <div tal:condition="items" class="DADES"  
      style="margin-right: auto; margin-left: auto; width: 978px; background-color: white;">
     <h1 tal:content="view/getSessionTitle" style='text-transform: uppercase'>Ordre del dia</h1>
     <hr/>
@@ -119,8 +142,8 @@
                 <div class="btn-group" role="group"
                    style="float: right;">
                 <tal:block tal:condition="item/state">
-                  <button class="label dropdown-toggle"
-                      id="estats" type="button" data-toggle="dropdown"
+                  <button class="label dropdown-toggle estatJS"
+                      type="button" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
                       <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
                     <a tal:content="item/state"></a>
@@ -128,7 +151,11 @@
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
                     <tal:block repeat="estat item/estats">
-                      <li><a tabindex="-1"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
+                      <li>
+                        <a tal:attributes="data-value string:${estat/title};
+                                           href string:changeActualState?estat=${estat/title}&id=${item/item_path}" 
+                            tabindex="-1"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a>
+                      </li>
                     </tal:block>
                   </ul>
                 </tal:block>
@@ -160,8 +187,8 @@
                       <div class="btn-group" role="group"
                            style="float: right;" aria-label="Subpunt actions">
                         <tal:block tal:condition="item/state">
-                          <button class="label dropdown-toggle"
-                              id="estats" type="button" data-toggle="dropdown"
+                          <button class="label dropdown-toggle estatJS"
+                              type="button" data-toggle="dropdown"
                               aria-haspopup="true" aria-expanded="true">
                               <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
                             <a tal:content="item/state"></a>
@@ -169,7 +196,11 @@
                           </button>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
                             <tal:block repeat="estat item/estats">
-                              <li><a tabindex="-1"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
+                              <li>
+                                <a tal:attributes="data-value string:${estat/title};
+                                                   href string:changeActualState?estat=${estat/title}&id=${item/item_path}" 
+                                    tabindex="-1"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a>
+                              </li>
                             </tal:block>
                           </ul>
                         </tal:block>
@@ -198,12 +229,20 @@
 
   <div style="margin-bottom:20px;" id="end"></div>
 
+  <script type="text/javascript">
+    $(".dropdown-menu li a").click(function(){
+      text = $(this.innerHTML)
+      text.append(' <span class="caret"></span>')
+      $(this).parents(".btn-group").find('.estatJS').html(text);
+      $(this).parents(".btn-group").find('.estatJS').val($(this).data('value'));
+    });
+  </script>
 
 </metal:content-core>
 
 
 <tal:notajax tal:condition="not:ajax_load">
-    <tal:comment replace="nothing"> <!-- A partir d'aqui, els JS comuns d'inicialització --> </tal:comment>
+    <tal:comment replace="nothing"></tal:comment>
 
     <div tal:replace="structure provider:genweb.js" />
 
@@ -215,7 +254,7 @@
       <script tal:attributes="src string:${portal_url}/++components++root/select2/select2_locale_es.js"></script>
     </tal:select2lang>
 
-    <tal:comment replace="nothing"> <!-- Finalment els que es posen a cada template especificament (per revisar) --> </tal:comment>
+    <tal:comment replace="nothing"></tal:comment>
     <metal:javascriptslot define-slot="javascript_head_slot" />
 </tal:notajax>
 

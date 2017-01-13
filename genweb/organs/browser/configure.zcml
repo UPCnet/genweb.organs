@@ -75,4 +75,12 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <browser:page
+    name="changeActualState"
+    for="*"
+    layer="..interfaces.IGenwebOrgansLayer"
+    class=".views.changeActualState"
+    permission="cmf.ModifyPortalContent"
+    />
+
 </configure>
