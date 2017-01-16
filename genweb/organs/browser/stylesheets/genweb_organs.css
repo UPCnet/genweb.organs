@@ -421,8 +421,7 @@ span.editable-container.editable-inline  input[type="text"] {
     vertical-align: top;
 }
 .DADES button:hover {
-    background: #557c95 none repeat scroll 0 0;
-    color: white;
+
 }
 .DADES .remove:hover {
     background: #d14836 none repeat scroll 0 0;
@@ -434,10 +433,7 @@ span.editable-container.editable-inline  input[type="text"] {
 .label.dropdown-toggle {
 
 }
-.label.dropdown-toggle:hover {
-    background: #557c95 none repeat scroll 0 0 !important;
-    color: white;
-}
+
 .DADES .caret {
     border-top: 4px solid #557c95;
     vertical-align: middle;
@@ -566,7 +562,30 @@ background-color: transparent;
     border-color: #ccc;
     color: #111;
 }
-
+#estats a {
+    color: #557c95;
+}
+.DADES .acord {
+    background-image: linear-gradient(to bottom, #007bc0, #007bc0) ;
+    background-repeat: repeat-x;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.DADES .acord:hover {
+background-image: linear-gradient(to bottom, #006fae, #007bc0);
+}
+.dropdown-menu.estatsToggle a {
+    padding-left: 10px;
+}
+.dropdown-menu.estatsToggle a span {
+    margin-left: 5px;
+}
+.label.dropdown-toggle > a {
+    color: #557c95;
+}
+.label.dropdown-toggle:hover {
+    border-color: #007bc0;
+}
 
 /*.portaltype-genweb-organs-organsfolder a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-organgovern a#plone-contentmenu-workflow.dropdown-toggle,
