@@ -31,14 +31,13 @@ class Presentation(form.SchemaForm):
     grok.name('presentation')
     grok.context(ISessio)
     grok.template("presentation")
-    grok.require('zope2.View')
+    grok.require('zope2.Public')
     grok.layer(IGenwebOrgansLayer)
-
 
     def PuntsInside(self):
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
-        values = portal_catalog.searchResults(
+        values = portal_catalog.unrestrictedSearchResults(
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
@@ -46,17 +45,28 @@ class Presentation(form.SchemaForm):
         results = []
         for obj in values:
             if obj.portal_type == 'genweb.organs.punt':
-                item = obj.getObject()
-                results.append(dict(title=obj.Title,
-                                    absolute_url=item.absolute_url(),
-                                    proposalPoint=item.proposalPoint,
-                                    state=item.estatsLlista,
-                                    agreement=item.agreement,
-                                    item_path=obj.getPath(),
-                                    css=self.getColor(obj),
-                                    estats=self.estatsCanvi(obj),
-                                    portal_type=obj.portal_type,
-                                    id=obj.id))
+                if self.Anonim():
+                    item = obj._unrestrictedGetObject()
+                    results.append(dict(title=obj.Title,
+                                        absolute_url=item.absolute_url(),
+                                        proposalPoint=item.proposalPoint,
+                                        state=item.estatsLlista,
+                                        agreement=item.agreement,
+                                        item_path=obj.getPath(),
+                                        portal_type=obj.portal_type,
+                                        id=obj.id))
+                else:
+                    item = obj._unrestrictedGetObject()
+                    results.append(dict(title=obj.Title,
+                                        absolute_url=item.absolute_url(),
+                                        proposalPoint=item.proposalPoint,
+                                        state=item.estatsLlista,
+                                        agreement=item.agreement,
+                                        item_path=obj.getPath(),
+                                        estats=self.estatsCanvi(obj),
+                                        css=self.getColor(obj),
+                                        portal_type=obj.portal_type,
+                                        id=obj.id))
         return results
 
     def SubpuntsInside(self, data):
@@ -64,7 +74,7 @@ class Presentation(form.SchemaForm):
         """
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + data['id']
-        values = portal_catalog.searchResults(
+        values = portal_catalog.unrestrictedSearchResults(
             portal_type='genweb.organs.subpunt',
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
@@ -72,24 +82,35 @@ class Presentation(form.SchemaForm):
 
         results = []
         for obj in values:
-            item = obj.getObject()
-            results.append(dict(title=obj.Title,
-                                absolute_url=item.absolute_url(),
-                                proposalPoint=item.proposalPoint,
-                                state=item.estatsLlista,
-                                agreement=item.agreement,
-                                portal_type=obj.portal_type,
-                                item_path=obj.getPath(),
-                                estats=self.estatsCanvi(obj),
-                                css=self.getColor(obj),
-                                id='/'.join(item.absolute_url_path().split('/')[-2:])))
+            if self.Anonim():
+                item = obj._unrestrictedGetObject()
+                results.append(dict(title=obj.Title,
+                                    absolute_url=item.absolute_url(),
+                                    proposalPoint=item.proposalPoint,
+                                    state=item.estatsLlista,
+                                    agreement=item.agreement,
+                                    portal_type=obj.portal_type,
+                                    item_path=obj.getPath(),
+                                    id='/'.join(item.absolute_url_path().split('/')[-2:])))
+            else:
+                item = obj._unrestrictedGetObject()
+                results.append(dict(title=obj.Title,
+                                    absolute_url=item.absolute_url(),
+                                    proposalPoint=item.proposalPoint,
+                                    state=item.estatsLlista,
+                                    agreement=item.agreement,
+                                    portal_type=obj.portal_type,
+                                    item_path=obj.getPath(),
+                                    estats=self.estatsCanvi(obj),
+                                    css=self.getColor(obj),
+                                    id='/'.join(item.absolute_url_path().split('/')[-2:])))
         return results
 
     def filesinside(self, item):
         portal_catalog = getToolByName(self, 'portal_catalog')
         session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
 
-        values = portal_catalog.searchResults(
+        values = portal_catalog.unrestrictedSearchResults(
             portal_type=['genweb.organs.file', 'genweb.organs.document'],
             sort_on='getObjPositionInParent',
             path={'query': session_path,
@@ -115,3 +136,14 @@ class Presentation(form.SchemaForm):
 
     def estatsCanvi(self, data):
         return utils.estatsCanvi(data)
+
+    def Anonim(self):
+        username = api.user.get_current().getProperty('id')
+        if username is None:
+            return True
+        else:
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'OG4-Afectat' in roles:
+                return 'Afectat'
+            elif 'Manager' in roles:
+                return False

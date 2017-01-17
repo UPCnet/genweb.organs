@@ -533,7 +533,7 @@
                           <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                         </a>
                         <tal:files tal:define="files python:view.filesinsidePunt(item)">
-                          <ul style="list-style: none; padding-top:10px;">
+                          <ul>
                             <tal:documents repeat="item files">
                               <li style="padding-left:35px;" class="filesinTable">
                                 <i tal:attributes="class item/classCSS"></i>

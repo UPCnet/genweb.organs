@@ -14,7 +14,8 @@
             ajax_load request/ajax_load | nothing;
             ajax_include_head request/ajax_include_head | nothing;
             dummy python:request.RESPONSE.setHeader('X-UA-Compatible', 'IE=EmulateIE10');
-            dummy python:request.RESPONSE.setHeader('X-UA-Compatible', 'IE=edge,chrome=1,requiresActiveX=true');"
+            dummy python:request.RESPONSE.setHeader('X-UA-Compatible', 'IE=edge,chrome=1,requiresActiveX=true');
+            anonim view/Anonim"
             >
 <tal:IElt7 tal:replace="structure string:&lt;!--[if lt IE 7]&gt; &lt;html xmlns='http://www.w3.org/1999/xhtml' class='no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7' lang=${lang}&gt; &lt;![endif]--&gt;" />
 <tal:IE7 tal:replace="structure string:&lt;!--[if IE 7]&gt;    &lt;html xmlns='http://www.w3.org/1999/xhtml' class='no-js lt-ie10 lt-ie9 lt-ie8' lang=${lang}&gt; &lt;![endif]--&gt;" />
@@ -58,7 +59,9 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <tal:comment replace="nothing"></tal:comment>
-        <script tal:attributes="src string:${portal_url}/++genweb++static/js/ReView.js"></script>
+
+        <link rel="stylesheet"
+            tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/genweb_organs.css">
 
         <link rel="apple-touch-icon" tal:attributes="href string:${portal_url}/apple-touch-icon.png" /> <tal:comment replace="nothing">  </tal:comment>
         <link rel="apple-touch-icon" sizes="57x57" tal:attributes="href string:${portal_url}/apple-touch-icon-57x57-precomposed.png" /> <tal:comment replace="nothing"></tal:comment>
@@ -79,12 +82,13 @@
 
     </tal:notajax>
 </head>
+
 <body class="bodyPresentation" id="home">
 
          <link rel="stylesheet" href="//fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
 
-  <script type="text/javascript">
+  <script tal:condition="not:anonim" type="text/javascript">
     function assignAcordNumber(item){
       var params = {};
       values = item.split(',')
@@ -101,33 +105,36 @@
 
   </script>
 
-
 <metal:content-core tal:define="items view/PuntsInside">
 
-  <ul class="affix nav" style="z-index=2; right:0; top 170px;">
+  <ul class="affix nav" style="z-index=2; right:0; top 170px;" tal:condition="not:anonim">
     <li>
-      <a href="" title="Close" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Close">
+      <a href="" title="Tornar a la sessió" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Close">
         <i class="fa fa-close fa-3x" aria-hidden="true"></i></a>
     </li><li>
       <a href="presentation#home" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Home">
+        <i class="fa fa-home fa-3x" aria-hidden="true"></i></a>
+    </li>
+
+    <li>
+      <a class="js-scrollUp" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
         <i class="fa fa-chevron-up fa-3x" aria-hidden="true"></i></a>
     </li>
+
     <li>
-      <a href="presentation#end" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
+      <a class="js-scrollDown" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
         <i class="fa fa-chevron-down fa-3x" aria-hidden="true"></i></a>
     </li>
-<!--     <li>
-      <a href="presentation#end" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
-        <i class="fa fa-chevron-down fa-3x" aria-hidden="true"></i></a>
-    </li>
+
     <li>
       <a href="presentation#end" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
-        <i class="fa fa-chevron-down fa-3x" aria-hidden="true"></i></a>
-    </li> -->
+        <i class="fa fa-arrow-down fa-3x" aria-hidden="true"></i></a>
+    </li>
+
+
   </ul>
 
-  <div tal:condition="items" class="DADES"  
-     style="margin-right: auto; margin-left: auto; width: 978px; background-color: white;">
+  <div tal:condition="items" class="DADES presentation_template">
     <h1 tal:content="view/getSessionTitle" style='text-transform: uppercase'>Ordre del dia</h1>
     <hr/>
     <ul id="sortable" class="ui-sortable">
@@ -136,11 +143,10 @@
             <div class="puntTitle" tal:define="agreement item/agreement">
               <span class="proposalNumber" tal:content="item/proposalPoint"></span>
               <span class="agreementClass" tal:condition="agreement" tal:content="agreement"></span>
-              <a tal:attributes="href string:${item/absolute_url}/view">
+              <a tal:attributes="href string:${item/absolute_url}/view" class="editTitle editable titleSize">
                 <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
               </a>
-                <div class="btn-group" role="group"
-                   style="float: right;">
+              <div class="btn-group" role="group" tal:condition="not:anonim" style="float: right;">
                 <tal:block tal:condition="item/state">
                   <button class="label dropdown-toggle estatJS"
                       type="button" data-toggle="dropdown"
@@ -153,7 +159,7 @@
                     <tal:block repeat="estat item/estats">
                       <li>
                         <a tal:attributes="data-value string:${estat/title};
-                                           href string:changeActualState?estat=${estat/title}&id=${item/item_path}" 
+                                           href string:changeActualState?estat=${estat/title}&id=${item/item_path}"
                             tabindex="-1"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a>
                       </li>
                     </tal:block>
@@ -161,7 +167,7 @@
                 </tal:block>
               </div>
               <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
-                <ul style="list-style: none;">
+                <ul class="listFiles" style="list-style: none;">
                   <tal:documents repeat="item files">
                     <li class="filesinTable">
                       <i tal:attributes=" class item/classCSS"></i>
@@ -177,14 +183,14 @@
               <tal:subpunts repeat="item subpunts">
                 <ol class="li_subgrups">
                   <td>
-                    <div class="subpuntSession" tal:define="agreement item/agreement">
+                    <div class="subpuntTitle" tal:define="agreement item/agreement">
                       <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
-                      <span class="agreementClass" tal:condition="agreement" tal:content="agreement"></span>
+                      <span class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"></span>
                       <a tal:attributes="href string:${item/absolute_url}"
-                         class="">
+                         class="editTitle editable subtitleSize">
                         <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                       </a>
-                      <div class="btn-group" role="group"
+                      <div class="btn-group" role="group" tal:condition="not:anonim"
                            style="float: right;" aria-label="Subpunt actions">
                         <tal:block tal:condition="item/state">
                           <button class="label dropdown-toggle estatJS"
@@ -198,7 +204,7 @@
                             <tal:block repeat="estat item/estats">
                               <li>
                                 <a tal:attributes="data-value string:${estat/title};
-                                                   href string:changeActualState?estat=${estat/title}&id=${item/item_path}" 
+                                                   href string:changeActualState?estat=${estat/title}&id=${item/item_path}"
                                     tabindex="-1"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a>
                               </li>
                             </tal:block>
@@ -229,34 +235,46 @@
 
   <div style="margin-bottom:20px;" id="end"></div>
 
-  <script type="text/javascript">
+  <script tal:condition="not:anonim" type="text/javascript">
     $(".dropdown-menu li a").click(function(){
       text = $(this.innerHTML)
       text.append(' <span class="caret"></span>')
       $(this).parents(".btn-group").find('.estatJS').html(text);
       $(this).parents(".btn-group").find('.estatJS').val($(this).data('value'));
     });
+    window.addEventListener('load', function(){
+      // scroll by
+       document.querySelector('.js-scrollUp').addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollBy(0, -300,  {"behavior": "smooth"});
+      });
+      document.querySelector('.js-scrollDown').addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollBy(0, 300,  {"behavior": "smooth"});
+      });
+    });
   </script>
 
 </metal:content-core>
 
+<div tal:condition="not:anonim">
+  <tal:notajax tal:condition="not:ajax_load">
+      <tal:comment replace="nothing"></tal:comment>
 
-<tal:notajax tal:condition="not:ajax_load">
-    <tal:comment replace="nothing"></tal:comment>
+      <div tal:replace="structure provider:genweb.js" />
 
-    <div tal:replace="structure provider:genweb.js" />
+      <tal:select2lang condition="python:lang=='ca'">
+        <script tal:attributes="src string:${portal_url}/++components++root/select2/select2_locale_ca.js"></script>
+      </tal:select2lang>
 
-    <tal:select2lang condition="python:lang=='ca'">
-      <script tal:attributes="src string:${portal_url}/++components++root/select2/select2_locale_ca.js"></script>
-    </tal:select2lang>
+      <tal:select2lang condition="python:lang=='es'">
+        <script tal:attributes="src string:${portal_url}/++components++root/select2/select2_locale_es.js"></script>
+      </tal:select2lang>
 
-    <tal:select2lang condition="python:lang=='es'">
-      <script tal:attributes="src string:${portal_url}/++components++root/select2/select2_locale_es.js"></script>
-    </tal:select2lang>
-
-    <tal:comment replace="nothing"></tal:comment>
-    <metal:javascriptslot define-slot="javascript_head_slot" />
-</tal:notajax>
+      <tal:comment replace="nothing"></tal:comment>
+      <metal:javascriptslot define-slot="javascript_head_slot" />
+  </tal:notajax>
+</div>
 
 </body>
 </html>

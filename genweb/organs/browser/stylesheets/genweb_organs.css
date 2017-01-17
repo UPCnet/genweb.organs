@@ -647,3 +647,12 @@ div#formfield-form-widgets-message.field {margin-bottom: 0px;}
 
 span.label.label-default,
 span.label.label-danger {float: right;}
+
+
+.presentation_template {
+    margin-right: auto;
+    margin-left: auto;
+    width: 768px;
+    background-color: white;
+    padding-top: 25px;
+}
