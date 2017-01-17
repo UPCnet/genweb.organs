@@ -655,4 +655,5 @@ span.label.label-danger {float: right;}
     width: 768px;
     background-color: white;
     padding-top: 25px;
+    min-height: 600px;
 }
