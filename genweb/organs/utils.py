@@ -194,7 +194,7 @@ def getColor(self):
     for value in values.split('</p>'):
         if value != '':
             item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
-            if estat.decode('utf-8') == ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8'):
+            if estat.decode('utf-8') == ' '.join(item_net.split()[:-1]).lstrip():
                 return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
     return color
 
