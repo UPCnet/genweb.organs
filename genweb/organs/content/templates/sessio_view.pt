@@ -19,9 +19,9 @@
                 items view/PuntsInside">
 
   <link tal:condition="canModify" rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
-  <script tal:condition="canModify" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jquery-ui.min.js"></script>
-  <script tal:condition="canModify" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script>
-  <script tal:condition="canModify" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script>
+  <script tal:condition="canModify" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery-ui.min.js"></script>
+  <script tal:condition="canModify" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script>
+  <script tal:condition="canModify" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script>
   <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
 
   <script type="text/javascript"  tal:condition="canModify">
@@ -337,7 +337,7 @@
           <li><a tabindex="-1" href="view_as_role?id=OG2-Editor"><span i18n:translate="">Editor</span></a></li>
           <li><a tabindex="-1" href="view_as_role?id=OG3-Membre"><span i18n:translate="">Membre</span></a></li>
           <li><a tabindex="-1" href="view_as_role?id=OG4-Afectat"><span i18n:translate="">Afectat</span></a></li>
-          <li><a tabindex="-1" href="view_as_role?id=OG5-Anonim"><span i18n:translate="">Anònim</span></a></li>
+          <li><a tabindex="-1" href="view_as_role?id=OG5-Anonim"><span i18n:translate="">Anonim</span></a></li>
         </ul>
       </div>
 
@@ -359,7 +359,7 @@
                   data-placement="left"
                   data-html="true"
                   data-trigger="focus"
-                  data-original-title="Delete"
+                  data-original-title="Esborrar"
                   tal:attributes="data-item item/id; data-type item/portal_type">
                   <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </button>
@@ -415,7 +415,7 @@
                   data-placement="bottom"
                   data-html="true"
                   data-trigger="manual"
-                  data-original-title="Convertir en acord"
+                  data-original-title="Convertir el punt en acord"
                   tal:attributes="data-item item/id; data-type item/portal_type">
                   Fer acord
                 </button>
@@ -668,7 +668,7 @@
                 } else {
                   var name=$(this).data()['item'];
                   var portal_type=$(this).data()['type'];
-                  var message='<a class="btn btn-default"> No </a>&nbsp;<a class="btn btn-danger" onclick=deleteElement("'+ name +','+ portal_type+'")> Si </a>'
+                  var message='<a class="btn btn-info"> No </a>&nbsp;<a class="btn btn-danger" onclick=deleteElement("'+ name +','+ portal_type+'")> Si </a>'
                   $(this).attr('data-content',message);
                   $(this).popover('show');
                 }
@@ -682,7 +682,7 @@
                 } else {
                   var name=$(this).data()['item'];
                   var portal_type=$(this).data()['type'];
-                  var message='<form onsubmit="return false;"><label>Indicar el número</label><input id="acordNumber" placeholder="Codi acord" type="text"/></form><a class="btn btn-info" onclick=assignAcordNumber("'+ name +','+ portal_type+'")>Assignar</a>&nbsp;<a class="btn btn-danger save" onclick="$(this).parent().parent().hide()"> Cancel·lar </a>'
+                  var message='<form onsubmit="return false;"><input id="acordNumber" placeholder="Indicar número" type="text"/></form><a class="btn btn-info" onclick=assignAcordNumber("'+ name +','+ portal_type+'")>Assignar número</a>&nbsp;<a class="btn btn-danger save" onclick="$(this).parent().parent().hide()"> Cancel·lar </a>'
                   $(this).attr('data-content',message);
                   $(this).popover('show');
                 };

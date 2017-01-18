@@ -8,7 +8,7 @@
 <body>
 
 <metal:content-core fill-slot="content-core"
-      tal:define="show view/presentation;
+      tal:define="show view/simulation;
                   isAnonim view/isAnonim;
                   isAfectat view/isAfectat;
                   isMembre view/isMembre;
@@ -16,21 +16,21 @@
                   isResponsable view/isResponsable;
                   ">
 
-  <div tal:condition="show" class="alert alert-danger">
-    Esteu visualitzant la sessió amb el rol  
+  <div tal:condition="show" class="alert alert-danger" i18n:translate="">
+    Esteu visualitzant la sessio amb el rol  
     <b><span tal:content="show"></span></b>.
-    <br/> Clicar <a href=./>aquí</a> per tornar al mode d'edició per defecte.
+    <br/> Clicar <a href="./">aqui</a> per tornar al mode de visualitzacio per defecte.
   </div>
 
-  <div tal:condition="isAnonim">anonim</div>
+  <div tal:condition="isAnonim">TODO: Insert Anonim View</div>
 
-  <div tal:condition="isAfectat">afectat</div>
+  <div tal:condition="isAfectat">TODO: Insert Afectat View</div>
 
-  <div tal:condition="isMembre">membre</div>
+  <div tal:condition="isMembre">TODO: Insert membre View</div>
 
-  <div tal:condition="isEditor">editor</div>
+  <div tal:condition="isEditor">TODO: Insert editor View</div>
 
-  <div tal:condition="isResponsable">responsable</div>
+  <div tal:condition="isResponsable">TODO: Insert Responsable View </div>
 
 
 
