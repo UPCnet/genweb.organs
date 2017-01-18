@@ -77,7 +77,8 @@
 
         <link rel="stylesheet" tal:attributes="href string:${portal_url}/dynamic.css">
         <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
-        
+        <script tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/smooth-scroll.min.js"></script>
+        <script tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.smooth-scroll.min.js"></script>
     </tal:notajax>
 </head>
 
@@ -109,22 +110,22 @@
       <a href="" title="Tornar a la sessió" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Close">
         <i class="fa fa-close fa-3x" aria-hidden="true"></i></a>
     </li><li>
-      <a href="presentation#home" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Home">
+      <a data-scroll data-options='{ "easing": "easeInOutCubic" }' href="presentation#home" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Home">
         <i class="fa fa-home fa-3x" aria-hidden="true"></i></a>
     </li>
 
     <li>
-      <a class="js-scrollUp" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
+      <a id="scrollUp" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
         <i class="fa fa-chevron-up fa-3x" aria-hidden="true"></i></a>
     </li>
 
     <li>
-      <a class="js-scrollDown" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
+      <a id="scrollDown" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
         <i class="fa fa-chevron-down fa-3x" aria-hidden="true"></i></a>
     </li>
 
     <li>
-      <a href="presentation#end" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
+      <a data-scroll data-options='{ "easing": "easeInOutCubic" }'  href="presentation#end" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
         <i class="fa fa-arrow-down fa-3x" aria-hidden="true"></i></a>
     </li>
 
@@ -233,23 +234,23 @@
   <div style="margin-bottom:20px;" id="end"></div>
 
   <script tal:condition="not:anonim" type="text/javascript">
+    smoothScroll.init();
+    
     $(".dropdown-menu li a").click(function(){
       text = $(this.innerHTML)
       text.append(' <span class="caret"></span>')
       $(this).parents(".btn-group").find('.estatJS').html(text);
       $(this).parents(".btn-group").find('.estatJS').val($(this).data('value'));
     });
-    window.addEventListener('load', function(){
-      // scroll by
-       document.querySelector('.js-scrollUp').addEventListener('click', function(e) {
-        e.preventDefault();
-        window.scrollBy(0, -300,  {"behavior": "smooth"});
-      });
-      document.querySelector('.js-scrollDown').addEventListener('click', function(e) {
-        e.preventDefault();
-        window.scrollBy(0, 300,  {"behavior": "smooth"});
-      });
+    $("#scrollUp").click(function(e){
+        var wHeight = $(window).height();
+        $.smoothScroll('-=200px');
     });
+    $("#scrollDown").click(function(e){
+        var wHeight = $(window).height();
+        $.smoothScroll('+=200px');
+    });
+
   </script>
 
 </metal:content-core>

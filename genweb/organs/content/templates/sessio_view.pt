@@ -14,15 +14,15 @@
                 isMembre view/isMembre;
                 isEditor view/isEditor;
                 isResponsable view/isResponsable;
-                ismanager view/isManager;
+                isManager view/isManager;
                 canModify view/canModify;
                 items view/PuntsInside">
 
-  <link tal:condition="canModify" rel="stylesheet" href="++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
-  <script tal:condition="canModify" src=++resource++genweb.organs.stylesheets/jquery-ui.min.js></script>
-  <script tal:condition="canModify" src="++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script>
-  <script tal:condition="canModify" src="++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script>
-  <link rel="stylesheet" href=++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css />
+  <link tal:condition="canModify" rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
+  <script tal:condition="canModify" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jquery-ui.min.js"></script>
+  <script tal:condition="canModify" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script>
+  <script tal:condition="canModify" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script>
+  <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
 
   <script type="text/javascript"  tal:condition="canModify">
     $(function() {
@@ -324,6 +324,22 @@
   <div tal:condition="items" class="DADES">
       <br/>
       <h2 i18n:translate="">Ordre del dia</h2>
+
+      <div class="btn-group" role="group" aria-label="Add element" tal:condition="canModify">
+        <button class="label dropdown-toggle"
+            type="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" i18n:translate="">
+            Veure com...
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+          <li><a tabindex="-1" href="view_as_role?id=OG1-Responsable"><span i18n:translate="">Responsable</span></a></li>
+          <li><a tabindex="-1" href="view_as_role?id=OG2-Editor"><span i18n:translate="">Editor</span></a></li>
+          <li><a tabindex="-1" href="view_as_role?id=OG3-Membre"><span i18n:translate="">Membre</span></a></li>
+          <li><a tabindex="-1" href="view_as_role?id=OG4-Afectat"><span i18n:translate="">Afectat</span></a></li>
+          <li><a tabindex="-1" href="view_as_role?id=OG5-Anonim"><span i18n:translate="">Anònim</span></a></li>
+        </ul>
+      </div>
 
       <div class="clearfix"></div>
 

@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    lang="en"
+    metal:use-macro="context/main_template/macros/master"
+    i18n:domain="genweb.organs">
+<body>
+
+<metal:content-core fill-slot="content-core"
+      tal:define="show view/presentation;
+                  isAnonim view/isAnonim;
+                  isAfectat view/isAfectat;
+                  isMembre view/isMembre;
+                  isEditor view/isEditor;
+                  isResponsable view/isResponsable;
+                  ">
+
+  <div tal:condition="show" class="alert alert-danger">
+    Esteu visualitzant la sessió amb el rol  
+    <b><span tal:content="show"></span></b>.
+    <br/> Clicar <a href=./>aquí</a> per tornar al mode d'edició per defecte.
+  </div>
+
+  <div tal:condition="isAnonim">anonim</div>
+
+  <div tal:condition="isAfectat">afectat</div>
+
+  <div tal:condition="isMembre">membre</div>
+
+  <div tal:condition="isEditor">editor</div>
+
+  <div tal:condition="isResponsable">responsable</div>
+
+
+
+</metal:content-core>
+
+</body>
+</html>
