@@ -22,8 +22,8 @@
                 isAcord view/isAcord;
                 defaultContent context/defaultContent;">
 
-  <link rel="stylesheet" href="//fontawesome.io/assets/font-awesome/css/font-awesome.css">
-
+  <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
+  
   <div class="caixaPunts">
     <li i18n:translate="" tal:condition="isAcord"><b>Esteu visualitzant un Acord</b></li>
     <li tal:condition="agreement"><tal:omit-tag i18n:translate="">Agreement number: </tal:omit-tag>

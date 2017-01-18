@@ -18,10 +18,11 @@
                 canModify view/canModify;
                 items view/PuntsInside">
 
-  <link  tal:condition="canModify" rel="stylesheet" href="++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
+  <link tal:condition="canModify" rel="stylesheet" href="++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
   <script tal:condition="canModify" src=++resource++genweb.organs.stylesheets/jquery-ui.min.js></script>
   <script tal:condition="canModify" src="++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script>
   <script tal:condition="canModify" src="++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script>
+  <link rel="stylesheet" href=++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css />
 
   <script type="text/javascript"  tal:condition="canModify">
     $(function() {
@@ -134,7 +135,7 @@
 
   </script>
 
-  <link rel="stylesheet" href="//fontawesome.io/assets/font-awesome/css/font-awesome.css">
+  <div class="documentDescription description"></div>
 
   <div style="float:right; display:flex">
       <div class="containerIcons" tal:condition="view/showEnviarButton">
@@ -533,7 +534,7 @@
                           <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                         </a>
                         <tal:files tal:define="files python:view.filesinsidePunt(item)">
-                          <ul>
+                          <ul style="list-style: none; padding-top:10px;">
                             <tal:documents repeat="item files">
                               <li style="padding-left:35px;" class="filesinTable">
                                 <i tal:attributes="class item/classCSS"></i>

@@ -28,6 +28,8 @@
                         items view/OrgansInside">
 
       <div tal:condition="items" class="organsfolder_view">
+  <div class="documentDescription description"></div>
+      
         <table class="table table-striped">
           <thead>
             <tr>

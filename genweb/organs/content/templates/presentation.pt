@@ -60,9 +60,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <tal:comment replace="nothing"></tal:comment>
 
-        <link rel="stylesheet"
-            tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/genweb_organs.css">
-
         <link rel="apple-touch-icon" tal:attributes="href string:${portal_url}/apple-touch-icon.png" /> <tal:comment replace="nothing">  </tal:comment>
         <link rel="apple-touch-icon" sizes="57x57" tal:attributes="href string:${portal_url}/apple-touch-icon-57x57-precomposed.png" /> <tal:comment replace="nothing"></tal:comment>
         <link rel="apple-touch-icon" sizes="72x72" tal:attributes="href string:${portal_url}/apple-touch-icon-72x72-precomposed.png" /> <tal:comment replace="nothing"></tal:comment>
@@ -79,13 +76,13 @@
         <tal:splittedCSS4IE tal:replace="structure string:&lt;!--[if lt IE 10]&gt;&lt;link rel='stylesheet' href='${portal_url}/++genweb++stylesheets/genwebupc-ie.css'&gt;&lt;![endif]--&gt;" />
 
         <link rel="stylesheet" tal:attributes="href string:${portal_url}/dynamic.css">
-
+        <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
+        
     </tal:notajax>
 </head>
 
 <body class="bodyPresentation" id="home">
 
-         <link rel="stylesheet" href="//fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
 
   <script tal:condition="not:anonim" type="text/javascript">
