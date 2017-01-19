@@ -72,13 +72,19 @@
         <!--[if !IE]><!-->
           <link rel="stylesheet" tal:attributes="href string:${portal_url}/++genweb++stylesheets/genwebupc.css">
         <!--<![endif]-->
+        <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/genweb_organs.css" />
+        <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/print.css" />
 
         <tal:splittedCSS4IE tal:replace="structure string:&lt;!--[if lt IE 10]&gt;&lt;link rel='stylesheet' href='${portal_url}/++genweb++stylesheets/genwebupc-ie.css'&gt;&lt;![endif]--&gt;" />
 
         <link rel="stylesheet" tal:attributes="href string:${portal_url}/dynamic.css">
         <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
-        <script tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/smooth-scroll.min.js"></script>
-        <script tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.smooth-scroll.min.js"></script>
+
+        <script tal:condition="not:anonim" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/smooth-scroll.min.js"></script>
+        <script tal:condition="not:anonim" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.smooth-scroll.min.js"></script>
+
+
+
     </tal:notajax>
 </head>
 
@@ -235,7 +241,7 @@
 
   <script tal:condition="not:anonim" type="text/javascript">
     smoothScroll.init();
-    
+
     $(".dropdown-menu li a").click(function(){
       text = $(this.innerHTML)
       text.append(' <span class="caret"></span>')
