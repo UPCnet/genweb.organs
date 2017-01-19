@@ -90,25 +90,6 @@
 
 <body class="bodyPresentation" id="home">
 
-
-
-  <script tal:condition="not:anonim" type="text/javascript">
-    function assignAcordNumber(item){
-      var params = {};
-      values = item.split(',')
-      params.item = values[0]
-      params.portal_type = values[1]
-      params.action = 'assign';
-      params.input = $('#acordNumber').val()
-      $.ajax({
-          type: 'POST',
-          url: '@@assignAcordJS',
-          data: params,
-      });
-    }
-
-  </script>
-
 <metal:content-core tal:define="items view/PuntsInside">
 
   <ul class="affix nav" style="z-index=2; right:0; top 170px;" tal:condition="not:anonim">
@@ -161,11 +142,7 @@
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
                     <tal:block repeat="estat item/estats">
-                      <li>
-                        <a tal:attributes="data-value string:${estat/title};
-                                           href string:changeActualState?estat=${estat/title}&id=${item/item_path}"
-                            tabindex="-1"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a>
-                      </li>
+                      <li><a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
                     </tal:block>
                   </ul>
                 </tal:block>
@@ -206,11 +183,7 @@
                           </button>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
                             <tal:block repeat="estat item/estats">
-                              <li>
-                                <a tal:attributes="data-value string:${estat/title};
-                                                   href string:changeActualState?estat=${estat/title}&id=${item/item_path}"
-                                    tabindex="-1"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a>
-                              </li>
+                              <li><a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
                             </tal:block>
                           </ul>
                         </tal:block>
@@ -241,13 +214,6 @@
 
   <script tal:condition="not:anonim" type="text/javascript">
     smoothScroll.init();
-
-    $(".dropdown-menu li a").click(function(){
-      text = $(this.innerHTML)
-      text.append(' <span class="caret"></span>')
-      $(this).parents(".btn-group").find('.estatJS').html(text);
-      $(this).parents(".btn-group").find('.estatJS').val($(this).data('value'));
-    });
     $("#scrollUp").click(function(e){
         var wHeight = $(window).height();
         $.smoothScroll('-=200px');

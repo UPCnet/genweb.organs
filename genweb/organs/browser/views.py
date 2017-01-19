@@ -450,5 +450,6 @@ class changeActualState(BrowserView):
             else:
                 # es un subpunt només es canvia aquest subpunt
                 currentitem.estatsLlista = estat
+            self.request.response.redirect(self.context.absolute_url() + '/presentation')
         except:
             pass

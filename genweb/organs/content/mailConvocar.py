@@ -145,7 +145,6 @@ class Message(form.SchemaForm):
             IStatusMessage(self.request).addStatusMessage(message, type="error")
             return
         sender = self.context.aq_parent.fromMail
-        addEntryLog(self.context, sender, _(u'Sending mail convocatoria'), formData['recipients'])  # add log
         try:
             self.context.MailHost.send(
                 formData['message'],
@@ -157,7 +156,7 @@ class Message(form.SchemaForm):
                 charset='utf8',
                 msg_type='text/html')
 
-            addEntryLog(self.context, None, _(u'Missatge enviat correctament'), formData['recipients'])
+            addEntryLog(self.context, None, _(u'Sending mail convocatoria'), formData['recipients'])
             self.context.plone_utils.addPortalMessage(
                 _("Missatge enviat correctament"), 'info')
         except:

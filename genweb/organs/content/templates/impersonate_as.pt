@@ -12,27 +12,278 @@
                   isAnonim view/isAnonim;
                   isAfectat view/isAfectat;
                   isMembre view/isMembre;
-                  isEditor view/isEditor;
-                  isResponsable view/isResponsable;
+                  canModify view/canModify;
+                  items view/PuntsInside;
+                  hihaPunts view/hihaPunts;
+                  ActesInside view/ActesInside;
+                  valuesTable view/valuesTable;
+                  hihaMultimedia view/hihaMultimedia;
+                  hihaPersones view/hihaPersones;
+                  showActaTab view/showActaTab;
                   ">
 
   <div tal:condition="show" class="alert alert-danger" i18n:translate="">
-    Esteu visualitzant la sessio amb el rol  
+    Esteu visualitzant la sessio amb el rol
     <b><span tal:content="show"></span></b>.
     <br/> Clicar <a href="./">aqui</a> per tornar al mode de visualitzacio per defecte.
   </div>
 
-  <div tal:condition="isAnonim">TODO: Insert Anonim View</div>
+  <div tal:condition="isAnonim">
 
-  <div tal:condition="isAfectat">TODO: Insert Afectat View</div>
+    <div class="documentDescription description"></div>
+      <div style="float:right; display:flex">
+        <div class="containerIcons" tal:condition="view/showEnviarButton">
+          <a href="send_message" i18n:attributes="title Enviar; alt Enviar"><i class="fa fa-envelope fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Enviar</span></a>
+        </div>
+        <div class="containerIcons" tal:condition="view/showPresentacionButton">
+          <a i18n:attributes="title Presentacio; alt Presentacio" href="presentation"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
+        </div>
+        <div class="containerIcons" tal:condition="view/showPublicarButton">
+          <a href="informar_sessio" i18n:attributes="title Informar; alt Informar"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informar</span></a>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div id="contentSessio">
+        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+          <li class="active"><a href="#dadesTab" data-toggle="tab" i18n:translate="">Dades</a></li>
+          <li tal:condition="hihaPersones"><a href="#assistentsTab" data-toggle="tab" i18n:translate="">Assistents</a></li>
+          <li tal:condition="showActaTab"><a href="#actaTab" data-toggle="tab" i18n:translate="">Acta</a></li>
+        </ul>
+        <div id="sessionTabs" class="tab-content">
+          <div class="tab-pane active" id="dadesTab" tal:define="item valuesTable">
+            <ul>
+              <li tal:condition="item/dataSessio">
+                <b i18n:translate="">Data</b><b>:</b>
+                <span style="float:right"
+                      tal:content="item/dataSessio"></span>
+              </li>
+              <li tal:condition="item/horaInici">
+                <b i18n:translate="">Session start time</b><b>:</b>
+                <span style="float:right"
+                      tal:content="item/horaInici"></span>
+              </li>
+              <li tal:condition="item/horaFi">
+                <b i18n:translate="">Session end time</b><b>:</b>
+                <span style="float:right"
+                      tal:content="item/horaFi"></span>
+              </li>
+              <li tal:condition="item/llocConvocatoria">
+                <b i18n:translate="">Lloc</b><b>:</b>
+                <span style="float:right"
+                      tal:content="item/llocConvocatoria"></span>
+              </li>
+              <li tal:condition="item/organTitle">
+                <b i18n:translate="">Organ de govern</b><b>:</b>
+                <span style="float:right"
+                      tal:content="item/organTitle"></span>
+              </li>
+            </ul>
+          </div>
+          <div class="tab-pane" id="assistentsTab" tal:condition="hihaPersones">
+            <div class="panel with-nav-tabs panel-primary">
+              <div class="panel-heading">
+                <ul class="nav nav-tabs">
+                  <li tal:condition="context/membresConvocats" class="active">
+                    <a href="#tab1primary" data-toggle="tab" i18n:translate="">Persones Convocades</a>
+                  </li>
+                  <li tal:condition="context/membresConvidats">
+                    <a href="#tab2primary" data-toggle="tab" i18n:translate="">Persones convidades</a>
+                  </li>
+                  <li tal:condition="context/llistaExcusats">
+                    <a href="#tab3primary" data-toggle="tab" i18n:translate="">Persones excusades</a>
+                  </li>
+                  <li tal:condition="context/noAssistents">
+                    <a href="#tab4primary" data-toggle="tab" i18n:translate="">No assistents</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="panel-body">
+                <div class="tab-content">
+                  <div tal:condition="context/membresConvocats" class="tab-pane fade in active" id="tab1primary">
+                    <span tal:replace="structure context/membresConvocats" />
+                  </div>
+                  <div tal:condition="context/membresConvidats" class="tab-pane fade" id="tab2primary">
+                    <span tal:replace="structure context/membresConvidats" />
+                  </div>
+                  <div tal:condition="context/llistaExcusats" class="tab-pane fade" id="tab3primary">
+                    <span tal:replace="structure context/llistaExcusats" />
+                  </div>
+                  <div tal:condition="context/noAssistents" class="tab-pane fade" id="tab4primary">
+                    <span tal:replace="structure context/noAssistents" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="actaTab" tal:condition="showActaTab">
+            <ul tal:condition="hihaMultimedia">
+              <li tal:condition="context/enllacVideo">
+                <b i18n:translate="">Video link</b><b>:</b>
+                <br/>
+                <a tal:attributes="href context/enllacVideo"><span tal:content="context/enllacVideo"></span></a>
+              </li>
+              <div class="clearfix"></div>
+              <li tal:condition="context/enllacAudio">
+                <b i18n:translate="">Audio link</b><b>:</b>
+                <br/>
+                <a tal:attributes="href context/enllacAudio"><span tal:content="context/enllacAudio"></span></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+            <div tal:condition="ActesInside">
+              <table>
+                <tbody>
+                  <tal:documents repeat="item ActesInside">
+                    <tr>
+                      <td>
+                        <a href="#"
+                           tal:attributes="href item/absolute_url;"
+                           tal:content="item/title">
+                            Item Title
+                        </a>
+                      </td>
+                      <td>
+                        <span tal:content="item/date">
+                            Item Data
+                        </span>
+                      </td>
+                    </tr>
+                  </tal:documents>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <div tal:condition="isMembre">TODO: Insert membre View</div>
+      <div tal:condition="hihaPunts">
+        <div tal:condition="items" class="DADES">
+          <br/>
+          <h2 i18n:translate="">Ordre del dia</h2>
+          <div class="clearfix"></div>
+          <ul id="sortable">
+            <tal:documents repeat="item items">
+              <tal:block tal:define="agreement item/agreement">
+                <li tal:attributes="id item/id; class item/classe">
+                  <td tal:condition="item/show">
+                    <div style="float: right;">
+                      <tal:block tal:condition="item/state">
+                        <span class="btn label disabled " style="padding:3px;">
+                        <i class="fa fa-circle" aria-hidden="true"  tal:attributes="style string:color:${item/css}"></i>
+                        <span  tal:content="item/state"></span>
+                        </span>
+                      </tal:block>
+                    </div>
+                    <div class="puntTitle">
+                      <span class="proposalNumber" tal:content="item/proposalPoint"></span>
+                      <a class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"></a>
+                      <a tal:attributes="href item/absolute_url"
+                         class="titleSize">
+                        <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                      </a>
+                      <button type="button" class="expand" tal:condition="item/items_inside">
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i></button>
+                      <button type="button" class="notexpand" tal:condition="item/items_inside">
+                        <i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+                        <tal:files tal:define="files python:view.filesinsidePunt(item)">
+                          <ul class="listFiles" tal:condition="files">
+                            <tal:documents repeat="item files">
+                              <li class="filesinTable">
+                                <i tal:attributes="class item/classCSS"></i>
+                                <a tal:attributes="href item/absolute_url;"
+                                   style="font-size:14px;">
+                                   <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                </a>
+                              </li>
+                            </tal:documents>
+                          </ul>
+                        </tal:files>
+                      </div>
+                      <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" class="sortable2">
+                        <tal:subpunts repeat="item subpunts">
+                          <ol class="li_subgrups" tal:attributes="id item/id">
+                            <td>
+                              <div style="float: right;">
+                                <tal:block tal:condition="item/state">
+                                  <span class="btn label disabled " style="padding:3px;">
+                                  <i class="fa fa-circle" aria-hidden="true"  tal:attributes="style string:color:${item/css}"></i>
+                                  <span  tal:content="item/state"></span>
+                                  </span>
+                                </tal:block>
+                              </div>
+                              <div class="subpuntTitle" tal:define="agreement item/agreement">
+                                <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
+                                <a class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"
+                                    tal:attributes="data-pk item/id; href item/absolute_url" data-url="changeAgreement"></a>
+                                <a tal:attributes="data-pk item/id; href item/absolute_url"
+                                   data-type="text" data-url="changeTitle"
+                                   class="editTitle editable subtitleSize">
+                                  <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                                </a>
+                                <tal:files tal:define="files python:view.filesinsidePunt(item)">
+                                  <ul style="list-style: none; padding-top:10px;" tal:condition="files">
+                                    <tal:documents repeat="item files">
+                                      <li style="padding-left:35px;" class="filesinTable">
+                                        <i tal:attributes="class item/classCSS"></i>
+                                        <a tal:attributes="href item/absolute_url;"
+                                           style="font-size:14px;">
+                                           <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                        </a>
+                                      </li>
+                                    </tal:documents>
+                                  </ul>
+                                </tal:files>
+                              </div>
+                            </td>
+                          </ol>
+                        </tal:subpunts>
+                      </div>
+                  </td>
+                </li>
+              </tal:block>
+            </tal:documents>
+          </ul>
+        </div>
+      </div>
 
-  <div tal:condition="isEditor">TODO: Insert editor View</div>
-
-  <div tal:condition="isResponsable">TODO: Insert Responsable View </div>
+  </div>
 
 
+
+  <div tal:condition="isAfectat">
+
+
+  </div>
+
+  <div tal:condition="isMembre">
+
+
+  </div>
+
+
+  <script type="text/javascript">
+    $(function() {
+        $(this).find('.sortable2').hide()
+        $(this).find('.listFiles').hide()
+        $(this).find('.notexpand').hide()
+        $('.expand').click(function(e){
+               e.stopPropagation();
+               $(this).parent().parent().find('.expand').hide()
+               $(this).parent().parent().find('.expand').slideUp()
+               $(this).parent().parent().find('.notexpand').show()
+               $(this).parent().parent().find('.sortable2').slideDown()
+               $(this).parent().parent().find('.listFiles').slideDown()
+        });
+
+        $('.notexpand').click(function(e){
+               e.stopPropagation();
+               $(this).parent().parent().find('.notexpand').hide()
+               $(this).parent().parent().find('.expand').show()
+               $(this).parent().parent().find('.sortable2').slideUp()
+               $(this).parent().parent().find('.listFiles').slideUp()
+        });
+    });
+  </script>
 
 </metal:content-core>
 

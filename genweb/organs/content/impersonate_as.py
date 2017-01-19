@@ -35,7 +35,7 @@ class ShowSessionAs(form.SchemaForm):
     grok.layer(IGenwebOrgansLayer)
 
     def getUserRole(self):
-        # Només els rols Reponsable, Editor i Manager poden veure aquesta vista 
+        # Només els rols Reponsable, Editor i Manager poden veure aquesta vista
         role = self.request.form.get('id', '')
         username = api.user.get_current().getProperty('id')
         roles = api.user.get_roles(username=username, obj=self.context)
@@ -80,14 +80,202 @@ class ShowSessionAs(form.SchemaForm):
         else:
             return False
 
-    def isEditor(self):
-        if self.simulation() is 'Editor':
+    def isManager(self):
+        return utils.isManager(self)
+
+    def canModify(self):
+        review_state = api.content.get_state(self.context)
+        value = False
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and utils.isResponsable(self):
+            value = True
+        if review_state in ['planificada', 'convocada', 'realitzada'] and utils.isEditor(self):
+            value = True
+        return value or self.isManager()
+
+    def showEnviarButton(self):
+        review_state = api.content.get_state(self.context)
+        value = False
+        roles = utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self)
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and roles:
+            value = True
+        return value
+
+    def showPresentacionButton(self):
+        review_state = api.content.get_state(self.context)
+        value = False
+        roles = utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self)
+        if review_state in ['convocada', 'realitzada', 'en_correccio'] and roles:
+            value = True
+        return value
+
+    def showPublicarButton(self):
+        review_state = api.content.get_state(self.context)
+        value = False
+        roles = utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self)
+        if review_state in ['realitzada', 'en_correccio'] and roles:
+            value = True
+        return value
+
+    def getColor(self, data):
+        # assign custom colors on organ states
+        return utils.getColor(data)
+
+    def estatsCanvi(self, data):
+        return utils.estatsCanvi(data)
+
+    def hihaPunts(self):
+        values = api.content.find(context=self.context, depth=1, portal_type='genweb.organs.punt')
+        if values:
             return True
         else:
             return False
 
-    def isResponsable(self):
-        if self.simulation() is 'Responsable':
+    def PuntsInside(self):
+        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        values = portal_catalog.searchResults(
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+        for obj in values:
+            if obj.portal_type == 'genweb.organs.acta':
+                # add actas to template for oredering but dont show
+                item = obj.getObject()
+                results.append(dict(id=obj.id,
+                                    classe='hidden',
+                                    show=False,
+                                    agreement=None))
+            else:
+                item = obj.getObject()
+                if len(item.objectIds()) > 0:
+                    inside = True
+                else:
+                    inside = False
+                results.append(dict(title=obj.Title,
+                                    portal_type=obj.portal_type,
+                                    absolute_url=item.absolute_url(),
+                                    item_path=obj.getPath(),
+                                    proposalPoint=item.proposalPoint,
+                                    agreement=item.agreement,
+                                    state=item.estatsLlista,
+                                    css=self.getColor(obj),
+                                    estats=self.estatsCanvi(obj),
+                                    id=obj.id,
+                                    show=True,
+                                    classe="ui-state-grey-impersonate",
+                                    items_inside=inside))
+        return results
+
+    def SubpuntsInside(self, data):
+        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + data['id']
+        values = portal_catalog.searchResults(
+            portal_type='genweb.organs.subpunt',
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+        for obj in values:
+            item = obj.getObject()
+            results.append(dict(title=obj.Title,
+                                portal_type=obj.portal_type,
+                                absolute_url=item.absolute_url(),
+                                proposalPoint=item.proposalPoint,
+                                item_path=obj.getPath(),
+                                state=item.estatsLlista,
+                                agreement=item.agreement,
+                                estats=self.estatsCanvi(obj),
+                                css=self.getColor(obj),
+                                id='/'.join(item.absolute_url_path().split('/')[-2:])))
+        return results
+
+    def ActesInside(self):
+        """ Retorna les actes creades aquí dintre (sense tenir compte estat)
+        """
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        values = portal_catalog.searchResults(
+            portal_type='genweb.organs.acta',
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+        for obj in values:
+            results.append(dict(title=obj.Title,
+                                absolute_url=obj.getURL(),
+                                date=obj.getObject().dataSessio.strftime('%d/%m/%Y')))
+        return results
+
+    def valuesTable(self):
+        values = dict(dataSessio=self.context.dataSessio.strftime('%d/%m/%Y'),
+                      horaInici=self.context.horaInici.strftime('%H:%M'),
+                      horaFi=self.context.horaFi.strftime('%H:%M'),
+                      llocConvocatoria=self.context.llocConvocatoria,
+                      organTitle=self.OrganTitle(),
+                      )
+        return values
+
+    def OrganTitle(self):
+        """ Retorna el títol de l'òrgan """
+        title = self.context.aq_parent.Title()
+        return title
+
+    def hihaMultimedia(self):
+        if self.context.enllacVideo or self.context.enllacAudio:
             return True
         else:
             return False
+
+    def hihaPersones(self):
+        if self.context.membresConvocats or self.context.membresConvidats or self.context.llistaExcusats:
+            return True
+        else:
+            return False
+
+    def showActaTab(self):
+        if self.hihaMultimedia() or self.ActesInside():
+            return True
+        else:
+            return False
+
+    def filesinsidePunt(self, item):
+        session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
+        portal_catalog = getToolByName(self, 'portal_catalog')
+
+        values = portal_catalog.searchResults(
+            portal_type=['genweb.organs.file', 'genweb.organs.document'],
+            sort_on='getObjPositionInParent',
+            path={'query': session_path,
+                  'depth': 1})
+        results = []
+        for obj in values:
+            if obj.portal_type == 'genweb.organs.file':
+                if obj.hiddenfile is True:
+                    tipus = 'fa fa-file-pdf-o'
+                    document = _(u'Fitxer intern')
+                    labelClass = 'label label-danger'
+                else:
+                    tipus = 'fa fa-file-pdf-o'
+                    document = _(u'Fitxer públic')
+                    labelClass = 'label label-default'
+            else:
+                tipus = 'fa fa-file-text-o'
+                document = _(u'Document')
+                labelClass = 'label label-default'
+            results.append(dict(title=obj.Title,
+                                portal_type=obj.portal_type,
+                                absolute_url=obj.getURL(),
+                                classCSS=tipus,
+                                hidden=obj.hiddenfile,
+                                labelClass=labelClass,
+                                content=document,
+                                id=str(item['id']) + '/' + obj.id))
+        return results
