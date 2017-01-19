@@ -430,17 +430,28 @@ class View(grok.View):
         for obj in values:
             if obj.portal_type == 'genweb.organs.file':
                 if obj.hiddenfile is True:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer intern')
-                    labelClass = 'label label-danger'
+                    try:
+                        username = api.user.get_current().getProperty('id')
+                        roles = api.user.get_roles(username=username, obj=self.context)
+                        if 'OG1-Responsable' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles:
+                            tipus = 'fa fa-file-pdf-o'
+                            document = _(u'Fitxer intern')
+                            labelClass = 'label label-danger'
+                        else:
+                            continue
+                    except:
+                        continue
                 else:
                     tipus = 'fa fa-file-pdf-o'
                     document = _(u'Fitxer públic')
                     labelClass = 'label label-default'
+
             else:
                 tipus = 'fa fa-file-text-o'
                 document = _(u'Document')
                 labelClass = 'label label-default'
+                obj.hiddenfile = False
+
             results.append(dict(title=obj.Title,
                                 portal_type=obj.portal_type,
                                 absolute_url=obj.getURL(),
