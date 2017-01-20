@@ -334,9 +334,9 @@
           <span class="caret"></span>
         </button>
         <ul style="text-align: left;" class="dropdown-menu" role="menu" aria-labelledby="types">
-          <li><a tabindex="-1" href="view_as_role?id=OG5-Anonim"><span i18n:translate="">Anonim</span></a></li>
-          <li><a tabindex="-1" href="view_as_role?id=OG4-Afectat"><span i18n:translate="">Afectat</span></a></li>
           <li><a tabindex="-1" href="view_as_role?id=OG3-Membre"><span i18n:translate="">Membre</span></a></li>
+          <li><a tabindex="-1" href="view_as_role?id=OG4-Afectat"><span i18n:translate="">Afectat</span></a></li>
+          <li><a tabindex="-1" href="view_as_role?id=OG5-Anonim"><span i18n:translate="">Anonim</span></a></li>
         </ul>
       </div>
       <hr style="clear: both;" />

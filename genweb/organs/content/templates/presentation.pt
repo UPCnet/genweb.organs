@@ -95,18 +95,18 @@
   <ul class="affix nav" style="z-index=2; right:0; top 170px;" tal:condition="not:anonim">
     <li>
       <a href="" title="Tornar a la sessió" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Close">
-        <i class="fa fa-close fa-3x" aria-hidden="true"></i></a>
+        <i class="fa fa-home fa-3x" aria-hidden="true"></i></a>
     </li><li>
       <a data-scroll data-options='{ "easing": "easeInOutCubic" }' href="presentation#home" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Home">
-        <i class="fa fa-home fa-3x" aria-hidden="true"></i></a>
+        <i class="fa fa-arrow-up fa-3x" aria-hidden="true"></i></a>
     </li>
 
-    <li>
+    <li style="cursor: pointer;">
       <a id="scrollUp" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
         <i class="fa fa-chevron-up fa-3x" aria-hidden="true"></i></a>
     </li>
 
-    <li>
+    <li style="cursor: pointer;">
       <a id="scrollDown" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
         <i class="fa fa-chevron-down fa-3x" aria-hidden="true"></i></a>
     </li>
