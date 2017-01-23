@@ -12,6 +12,7 @@ from genweb.organs.browser.views import sessio_sendMail
 from AccessControl import Unauthorized
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from genweb.organs.utils import addEntryLog
 
 from zope import schema
@@ -22,6 +23,11 @@ grok.templatedir("templates")
 class IMessage(form.Schema):
     """ Define the fields of this form
     """
+
+    sender = TextLine(
+        title=_("Sender"),
+        required=True,
+        )
 
     recipients = TextLine(
         title=_("Recipients"),
@@ -65,7 +71,15 @@ class Message(form.SchemaForm):
 
     def updateWidgets(self):
         super(Message, self).updateWidgets()
-        self.widgets["recipients"].value = self.context.adrecaLlista
+        organ = self.context.aq_parent
+        self.widgets["sender"].mode = DISPLAY_MODE
+        self.widgets["sender"].value = str(organ.fromMail)
+        session = self.context
+        if session.adrecaAfectatsLlista:
+            self.widgets["recipients"].value = str(session.adrecaLlista) + ' ' + str(session.adrecaAfectatsLlista)
+        else:
+            self.widgets["recipients"].value = str(session.adrecaLlista)
+
         lang = self.context.language
         if lang == 'ca':
             text = 'Enllaç a la sessió: '
@@ -87,7 +101,7 @@ class Message(form.SchemaForm):
         formData, errors = self.extractData()
         lang = self.context.language
 
-        if formData['recipients'] is None or formData['message'] is None:
+        if 'recipients' not in formData or 'message' not in formData:
             if formData['recipients'] is None:
                 if lang == 'ca':
                     emptyfields.append("Destinataris")
@@ -119,7 +133,7 @@ class Message(form.SchemaForm):
         noBlanks = ' '.join(toMessage.split())
         toMail = noBlanks.replace(' ', ',')
         body = formData['message'].encode('utf-8')
-        sender = self.context.fromMail
+        sender = self.context.aq_parent.fromMail
         addEntryLog(self.context, sender, _(u'Sending mail informar sessio'), toMail)
         sessio_sendMail(self.context, toMail, body)  # Send mail
 

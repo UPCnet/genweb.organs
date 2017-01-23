@@ -126,11 +126,13 @@ class ISessio(form.Schema):
 
     enllacVideo = schema.TextLine(
         title=_(u"Video link"),
+        description=_(u"If you want to add a video file, not a url, there is a trick, you must add an Audio Type and leave this field empty."),
         required=False,
     )
 
     enllacAudio = schema.TextLine(
         title=_(u"Audio link"),
+        description=_(u"If you want to add an audio file, nor a url, you must add an Audio Type and leave this empty. "),
         required=False,
     )
 
@@ -291,7 +293,7 @@ class View(grok.View):
 
         results = []
         for obj in values:
-            if obj.portal_type == 'genweb.organs.acta':
+            if obj.portal_type == 'genweb.organs.acta' or obj.portal_type == 'genweb.organs.audio':
                 # add actas to template for oredering but dont show
                 item = obj.getObject()
                 results.append(dict(id=obj.id,
@@ -361,6 +363,23 @@ class View(grok.View):
             results.append(dict(title=obj.Title,
                                 absolute_url=obj.getURL(),
                                 date=obj.getObject().dataSessio.strftime('%d/%m/%Y')))
+        return results
+
+    def AudioInside(self):
+        """ Retorna els fitxers d'audio creats aquí dintre (sense tenir compte estat)
+        """
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        values = portal_catalog.searchResults(
+            portal_type='genweb.organs.audio',
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+        for obj in values:
+            results.append(dict(title=obj.Title,
+                                absolute_url=obj.getURL()))
         return results
 
     def getAnnotations(self):

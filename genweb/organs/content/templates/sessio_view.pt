@@ -248,17 +248,32 @@
             <tbody>
               <tal:documents repeat="item actes">
                 <tr>
-                  <td>
+                  <td><i class="fa fa-file-text-o" aria-hidden="true"></i>
+                    <a href="#"
+                       tal:attributes="href item/absolute_url;"
+                       tal:content="item/title">
+                        Item Title
+                    </a>&nbsp;
+                    (<span tal:content="item/date">
+                        Item Data
+                    </span>)
+                  </td>
+                </tr>
+              </tal:documents>
+            </tbody>
+          </table>
+        </div>
+        <div tal:define="audio view/AudioInside" tal:condition="audio">
+          <table>
+            <tbody>
+              <tal:documents repeat="item audio">
+                <tr>
+                  <td><i class="fa fa-file-audio-o" aria-hidden="true"></i>
                     <a href="#"
                        tal:attributes="href item/absolute_url;"
                        tal:content="item/title">
                         Item Title
                     </a>
-                  </td>
-                  <td>
-                    <span tal:content="item/date">
-                        Item Data
-                    </span>
                   </td>
                 </tr>
               </tal:documents>
@@ -266,6 +281,8 @@
           </table>
         </div>
       </div>
+
+
 
       <div class="tab-pane" id="notificationsTab" tal:condition="python:loginfo and canModify">
         <table class="table table-bordered table-condensed table-hover" style="font-size:10px; font-family: 'Courier'; background-color: white; color: black;">

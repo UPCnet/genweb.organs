@@ -10,6 +10,7 @@ from genweb.organs.content.acta import IActa
 from genweb.organs.content.organsfolder import IOrgansfolder
 from genweb.organs.content.file import IFile
 from genweb.organs.content.document import IDocument
+from genweb.organs.content.audio import IAudio
 
 
 class Organgovern(Item):
@@ -42,3 +43,7 @@ class File(Item):
 
 class Document(Item):
     implements(IDocument)
+
+
+class Audio(Item):
+    implements(IAudio)

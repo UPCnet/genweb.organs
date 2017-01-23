@@ -8,4 +8,5 @@
   <object meta_type="Dexterity FTI" name="genweb.organs.organsfolder" />
   <object meta_type="Dexterity FTI" name="genweb.organs.file" />
   <object meta_type="Dexterity FTI" name="genweb.organs.document" />
+  <object meta_type="Dexterity FTI" name="genweb.organs.audio" />
 </object>
