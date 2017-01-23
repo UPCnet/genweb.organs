@@ -357,13 +357,15 @@ class View(grok.View):
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
-
-        results = []
-        for obj in values:
-            results.append(dict(title=obj.Title,
-                                absolute_url=obj.getURL(),
-                                date=obj.getObject().dataSessio.strftime('%d/%m/%Y')))
-        return results
+        if values:
+            results = []
+            for obj in values:
+                results.append(dict(title=obj.Title,
+                                    absolute_url=obj.getURL(),
+                                    date=obj.getObject().dataSessio.strftime('%d/%m/%Y')))
+            return results
+        else:
+            return False
 
     def AudioInside(self):
         """ Retorna els fitxers d'audio creats aquí dintre (sense tenir compte estat)
@@ -375,12 +377,14 @@ class View(grok.View):
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
-
-        results = []
-        for obj in values:
-            results.append(dict(title=obj.Title,
-                                absolute_url=obj.getURL()))
-        return results
+        if values:
+            results = []
+            for obj in values:
+                results.append(dict(title=obj.Title,
+                                    absolute_url=obj.getURL()))
+            return results
+        else:
+            return False
 
     def getAnnotations(self):
         """ Get send mail annotations
@@ -415,7 +419,7 @@ class View(grok.View):
         return title
 
     def hihaMultimedia(self):
-        if self.context.enllacVideo or self.context.enllacAudio:
+        if self.context.enllacVideo or self.context.enllacAudio or self.AudioInside():
             return True
         else:
             return False
