@@ -30,19 +30,8 @@
     <br/> Clicar <a href="./">aqui</a> per tornar al mode de visualitzacio per defecte.
   </div>
 
-  <div tal:condition="isAnonim">
+  <div tal:condition="python: isAnonim or isAfectat or isMembre">
 
-      <div style="float:right; display:flex">
-        <div class="containerIcons" tal:condition="view/showEnviarButton">
-          <a href="send_message" i18n:attributes="title Enviar; alt Enviar"><i class="fa fa-envelope fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Enviar</span></a>
-        </div>
-        <div class="containerIcons" tal:condition="view/showPresentacionButton">
-          <a i18n:attributes="title Presentacio; alt Presentacio" href="presentation"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
-        </div>
-        <div class="containerIcons" tal:condition="view/showPublicarButton">
-          <a href="informar_sessio" i18n:attributes="title Informar; alt Informar"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informar</span></a>
-        </div>
-      </div>
       <div class="clearfix"></div>
       <div id="contentSessio">
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
@@ -249,16 +238,10 @@
   </div>
 
 
-
-  <div tal:condition="isAfectat">
-
-
+  <div tal:condition="python: not isAnonim or not isAfectat or not isMembre">
+    <h3 i18n:translate="">Amb aquest rol, usuari no te permissos per veure el contingut.</h3>
   </div>
 
-  <div tal:condition="isMembre">
-
-
-  </div>
 
 
   <script type="text/javascript">

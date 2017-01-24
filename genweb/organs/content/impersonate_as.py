@@ -64,19 +64,32 @@ class ShowSessionAs(form.SchemaForm):
 
     def isAfectat(self):
         if self.simulation() is 'Afectat':
-            return True
+            review_state = api.content.get_state(self.context)
+            if review_state in ['planificada', 'convocada']:
+                return False
+            if review_state in ['realitzada', 'tancada', 'en_correccio']:
+                return True
         else:
             return False
 
     def isMembre(self):
         if self.simulation() is 'Membre':
-            return True
+            review_state = api.content.get_state(self.context)
+            if review_state in ['planificada']:
+                return False
+            if review_state in ['convocada', 'realitzada', 'tancada', 'en_correccio']:
+                return True
         else:
             return False
 
     def isAnonim(self):
+        # if user is anonim and
         if self.simulation() is 'Anonim':
-            return True
+            review_state = api.content.get_state(self.context)
+            if review_state in ['planificada', 'convocada', 'realitzada']:
+                return False
+            if review_state in ['tancada', 'en_correccio']:
+                return True
         else:
             return False
 
@@ -91,30 +104,6 @@ class ShowSessionAs(form.SchemaForm):
         if review_state in ['planificada', 'convocada', 'realitzada'] and utils.isEditor(self):
             value = True
         return value or self.isManager()
-
-    def showEnviarButton(self):
-        review_state = api.content.get_state(self.context)
-        value = False
-        roles = utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self)
-        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and roles:
-            value = True
-        return value
-
-    def showPresentacionButton(self):
-        review_state = api.content.get_state(self.context)
-        value = False
-        roles = utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self)
-        if review_state in ['convocada', 'realitzada', 'en_correccio'] and roles:
-            value = True
-        return value
-
-    def showPublicarButton(self):
-        review_state = api.content.get_state(self.context)
-        value = False
-        roles = utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self)
-        if review_state in ['realitzada', 'en_correccio'] and roles:
-            value = True
-        return value
 
     def getColor(self, data):
         # assign custom colors on organ states
@@ -142,7 +131,7 @@ class ShowSessionAs(form.SchemaForm):
 
         results = []
         for obj in values:
-            if obj.portal_type == 'genweb.organs.acta':
+            if obj.portal_type == 'genweb.organs.acta' or obj.portal_type == 'genweb.organs.audio':
                 # add actas to template for oredering but dont show
                 item = obj.getObject()
                 results.append(dict(id=obj.id,
@@ -182,19 +171,41 @@ class ShowSessionAs(form.SchemaForm):
                   'depth': 1})
 
         results = []
-        for obj in values:
-            item = obj.getObject()
-            results.append(dict(title=obj.Title,
-                                portal_type=obj.portal_type,
-                                absolute_url=item.absolute_url(),
-                                proposalPoint=item.proposalPoint,
-                                item_path=obj.getPath(),
-                                state=item.estatsLlista,
-                                agreement=item.agreement,
-                                estats=self.estatsCanvi(obj),
-                                css=self.getColor(obj),
-                                id='/'.join(item.absolute_url_path().split('/')[-2:])))
-        return results
+        if values:
+            for obj in values:
+                item = obj.getObject()
+                results.append(dict(title=obj.Title,
+                                    portal_type=obj.portal_type,
+                                    absolute_url=item.absolute_url(),
+                                    proposalPoint=item.proposalPoint,
+                                    item_path=obj.getPath(),
+                                    state=item.estatsLlista,
+                                    agreement=item.agreement,
+                                    estats=self.estatsCanvi(obj),
+                                    css=self.getColor(obj),
+                                    id='/'.join(item.absolute_url_path().split('/')[-2:])))
+            return results
+        else:
+            return False
+
+    def AudioInside(self):
+        """ Retorna els fitxers d'audio creats aquí dintre (sense tenir compte estat)
+        """
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        values = portal_catalog.searchResults(
+            portal_type='genweb.organs.audio',
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+        if values:
+            results = []
+            for obj in values:
+                results.append(dict(title=obj.Title,
+                                    absolute_url=obj.getURL()))
+            return results
+        else:
+            return False
 
     def ActesInside(self):
         """ Retorna les actes creades aquí dintre (sense tenir compte estat)

@@ -660,3 +660,6 @@ span.label.label-danger {float: right;}
 
 
 body, .smooth-container { scroll-behavior: smooth }
+
+#sessionTabs {padding-bottom: 20px;}
+/*div@se.tab-content**/

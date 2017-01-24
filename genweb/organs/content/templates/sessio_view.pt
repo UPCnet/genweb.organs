@@ -356,8 +356,8 @@
           <li><a tabindex="-1" href="view_as_role?id=OG5-Anonim"><span i18n:translate="">Anonim</span></a></li>
         </ul>
       </div>
-      <hr style="clear: both;" />
       <div class="clearfix"></div>
+
 
       <ul id="sortable">
         <tal:documents repeat="item items">

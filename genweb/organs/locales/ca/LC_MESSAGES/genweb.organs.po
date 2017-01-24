@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-23 12:33+0000\n"
+"POT-Creation-Date: 2017-01-24 11:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,7 +43,7 @@ msgid "Acronym Description"
 msgstr "Nom curt que donarà lloc a la URL simplificada de l'òrgan."
 
 #: ./genweb/organs/browser/views/acta_print.pt:30
-#: ./genweb/organs/content/templates/impersonate_as.pt:51
+#: ./genweb/organs/content/templates/impersonate_as.pt:40
 #: ./genweb/organs/content/templates/sessio_view.pt:158
 msgid "Acta"
 msgstr "Acta"
@@ -94,6 +94,10 @@ msgstr "Número d'acord:"
 msgid "Alternate description"
 msgstr "Contingut intern"
 
+#: ./genweb/organs/content/templates/impersonate_as.pt:242
+msgid "Amb aquest rol, usuari no te permissos per veure el contingut."
+msgstr "Amb aquest rol, l'usuari no té permissos per veure el contingut."
+
 #: ./genweb/organs/content/templates/sessio_view.pt:356
 msgid "Anonim"
 msgstr "Anònim"
@@ -115,7 +119,7 @@ msgid "Audio"
 msgstr "Àudio"
 
 #: ./genweb/organs/content/sessio.py:134
-#: ./genweb/organs/content/templates/impersonate_as.pt:128
+#: ./genweb/organs/content/templates/impersonate_as.pt:117
 #: ./genweb/organs/content/templates/sessio_view.pt:240
 msgid "Audio link"
 msgstr "Enllaç al fitxer d'àudio de la sessió"
@@ -180,7 +184,7 @@ msgid "Contingut public"
 msgstr "Contingut públic"
 
 #: ./genweb/organs/content/templates/acta_view.pt:32
-#: ./genweb/organs/content/templates/impersonate_as.pt:49
+#: ./genweb/organs/content/templates/impersonate_as.pt:38
 #: ./genweb/organs/content/templates/sessio_view.pt:156
 msgid "Dades"
 msgstr "Dades"
@@ -190,7 +194,7 @@ msgid "Dades imprimir"
 msgstr "Previsualització"
 
 #: ./genweb/organs/content/templates/acta_view.pt:40
-#: ./genweb/organs/content/templates/impersonate_as.pt:57
+#: ./genweb/organs/content/templates/impersonate_as.pt:46
 #: ./genweb/organs/content/templates/sessio_view.pt:167
 msgid "Data"
 msgstr "Data"
@@ -219,8 +223,8 @@ msgstr "Descripció"
 msgid "Destinataris"
 msgstr "Destinataris"
 
-#: ./genweb/organs/content/impersonate_as.py:271
-#: ./genweb/organs/content/sessio.py:470
+#: ./genweb/organs/content/impersonate_as.py:282
+#: ./genweb/organs/content/sessio.py:474
 #: ./genweb/organs/content/templates/sessio_view.pt:394
 msgid "Document"
 msgstr "Document"
@@ -233,7 +237,6 @@ msgstr "Literals que es faran servir com a estats d'aprovació dels Punts de l'o
 msgid "Enter the from used in the mail form"
 msgstr "Adreça de correu del remitent de les notificacions (persona o grup). Es poden ficar diverses adreces separades per comes."
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:37
 #: ./genweb/organs/content/templates/sessio_view.pt:142
 msgid "Enviar"
 msgstr "Enviar"
@@ -280,14 +283,14 @@ msgstr "Fitxer"
 msgid "File contents"
 msgstr "Contingut del fitxer"
 
-#: ./genweb/organs/content/impersonate_as.py:263
-#: ./genweb/organs/content/sessio.py:457
+#: ./genweb/organs/content/impersonate_as.py:274
+#: ./genweb/organs/content/sessio.py:461
 #: ./genweb/organs/utils.py:145
 msgid "Fitxer intern"
 msgstr "Fitxer intern"
 
-#: ./genweb/organs/content/impersonate_as.py:267
-#: ./genweb/organs/content/sessio.py:465
+#: ./genweb/organs/content/impersonate_as.py:278
+#: ./genweb/organs/content/sessio.py:469
 #: ./genweb/organs/utils.py:153
 msgid "Fitxer públic"
 msgstr "Fitxer"
@@ -344,7 +347,6 @@ msgstr "Importar llista de punts i subpunts"
 msgid "Incoming members list"
 msgstr "Persones convocades"
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:43
 #: ./genweb/organs/content/templates/sessio_view.pt:148
 msgid "Informar"
 msgstr "Informar"
@@ -368,7 +370,7 @@ msgid "Llista punts"
 msgstr "Llista de punts"
 
 #: ./genweb/organs/content/templates/acta_view.pt:55
-#: ./genweb/organs/content/templates/impersonate_as.pt:72
+#: ./genweb/organs/content/templates/impersonate_as.pt:61
 #: ./genweb/organs/content/templates/sessio_view.pt:182
 msgid "Lloc"
 msgstr "Lloc"
@@ -477,7 +479,7 @@ msgstr "Obert"
 msgid "Operation Cancelled."
 msgstr "S'ha cancel·lat l'operació."
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:162
+#: ./genweb/organs/content/templates/impersonate_as.pt:151
 #: ./genweb/organs/content/templates/sessio_view.pt:344
 msgid "Ordre del dia"
 msgstr "Ordre del dia"
@@ -503,7 +505,7 @@ msgstr "Tipus d'òrgan"
 msgid "Organ Title"
 msgstr "Títol de l'òrgan"
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:77
+#: ./genweb/organs/content/templates/impersonate_as.pt:66
 #: ./genweb/organs/content/templates/sessio_view.pt:187
 msgid "Organ de govern"
 msgstr "Òrgan de govern"
@@ -536,7 +538,7 @@ msgstr "Imatge de capçalera"
 msgid "Per defecte els fitxers són privats. Si vol fer públic el fitxer, cal desmarcar aquesta opció."
 msgstr "Per defecte els fitxers són privats. Si vol fer públic el fitxer, cal desmarcar aquesta opció."
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:88
+#: ./genweb/organs/content/templates/impersonate_as.pt:77
 #: ./genweb/organs/content/templates/sessio_view.pt:199
 msgid "Persones Convocades"
 msgstr "Persones Convocades"
@@ -545,13 +547,13 @@ msgstr "Persones Convocades"
 msgid "Persones assistents"
 msgstr "Persones assistents"
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:91
+#: ./genweb/organs/content/templates/impersonate_as.pt:80
 #: ./genweb/organs/content/templates/organgovern_view.pt:52
 #: ./genweb/organs/content/templates/sessio_view.pt:202
 msgid "Persones convidades"
 msgstr "Persones convidades"
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:94
+#: ./genweb/organs/content/templates/impersonate_as.pt:83
 #: ./genweb/organs/content/templates/sessio_view.pt:205
 msgid "Persones excusades"
 msgstr "Persones excusades"
@@ -562,9 +564,8 @@ msgstr "Si us plau, afegiu un document"
 
 #: ./genweb/organs/content/audio.py:20
 msgid "Please upload a media file"
-msgstr ""
+msgstr "Si us plau, puji un fitxer de tipus àudio"
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:40
 #: ./genweb/organs/content/templates/sessio_view.pt:145
 msgid "Presentacio"
 msgstr "Presentació"
@@ -735,7 +736,7 @@ msgid "Veure com... <span class=\"caret\"></span>"
 msgstr "Veure com... <span class=\"caret\"></span>"
 
 #: ./genweb/organs/content/sessio.py:128
-#: ./genweb/organs/content/templates/impersonate_as.pt:122
+#: ./genweb/organs/content/templates/impersonate_as.pt:111
 #: ./genweb/organs/content/templates/sessio_view.pt:234
 msgid "Video link"
 msgstr "Enllaç al vídeo de la sessió"
