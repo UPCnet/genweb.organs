@@ -16,7 +16,6 @@ from time import strftime
 from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from genweb.organs.utils import addEntryLog
 from Products.CMFCore.utils import getToolByName
-
 from genweb.organs import utils
 
 grok.templatedir("templates")
@@ -270,9 +269,12 @@ class ShowSessionAs(form.SchemaForm):
         for obj in values:
             if obj.portal_type == 'genweb.organs.file':
                 if obj.hiddenfile is True:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer intern')
-                    labelClass = 'label label-danger'
+                    if self.isAnonim() or self.isAfectat():
+                        continue
+                    else:
+                        tipus = 'fa fa-file-pdf-o'
+                        document = _(u'Fitxer públic')
+                        labelClass = 'label label-default'
                 else:
                     tipus = 'fa fa-file-pdf-o'
                     document = _(u'Fitxer públic')

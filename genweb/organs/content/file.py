@@ -11,7 +11,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.MimeTypeItem import guess_icon_path
 from plone import api
 from zExceptions import Unauthorized
-
+from genweb.organs import utils
 
 grok.templatedir("templates")
 
@@ -99,3 +99,9 @@ class View(grok.View):
                 raise Unauthorized
         except:
             raise Unauthorized
+
+    def showMessage(self):
+        if utils.isAnonim(self) or utils.isAfectat(self):
+            return False
+        else:
+            return True
