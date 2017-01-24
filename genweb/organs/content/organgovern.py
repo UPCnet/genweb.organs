@@ -12,6 +12,7 @@ from plone.autoform import directives
 from plone.supermodel.directives import fieldset
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.directives import dexterity
+from genweb.organs import utils
 
 organType = SimpleVocabulary(
     [SimpleTerm(value='Open', title=_(u'Open')),
@@ -152,6 +153,9 @@ class View(grok.View):
         if self.context.membresOrgan is None and self.context.convidatsPermanentsOrgan is None:
             return False
         return True
+
+    def checkRoles(self):
+        return utils.checkRoles(self)
 
     def SessionsInside(self):
         """ Retorna les sessions d'aquí dintre (sense tenir compte estat)

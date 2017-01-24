@@ -234,6 +234,8 @@ class View(grok.View):
     def isManager(self):
         return utils.isManager(self)
 
+
+
     def canModify(self):
         review_state = api.content.get_state(self.context)
         value = False
@@ -306,6 +308,14 @@ class View(grok.View):
                     inside = True
                 else:
                     inside = False
+                review_state = api.content.get_state(self.context)
+                # TODO !
+                #if review_state in ['realitzada', 'en_correccio']
+                if utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self):
+                    classe = "ui-state-grey"
+                else:
+                    classe = "ui-state-grey-not_move"
+
                 results.append(dict(title=obj.Title,
                                     portal_type=obj.portal_type,
                                     absolute_url=item.absolute_url(),
@@ -317,7 +327,7 @@ class View(grok.View):
                                     estats=self.estatsCanvi(obj),
                                     id=obj.id,
                                     show=True,
-                                    classe="ui-state-grey",
+                                    classe=classe,
                                     items_inside=inside))
         return results
 
@@ -484,3 +494,4 @@ class View(grok.View):
                                 content=document,
                                 id=str(item['id']) + '/' + obj.id))
         return results
+

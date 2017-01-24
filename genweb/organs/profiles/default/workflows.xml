@@ -26,5 +26,8 @@
   <type type_id="genweb.organs.subpunt">
     <bound-workflow workflow_id="one_state_workflow"/>
   </type>
+  <type type_id="genweb.organs.audio">
+    <bound-workflow workflow_id="one_state_workflow"/>
+  </type>
  </bindings>
 </object>

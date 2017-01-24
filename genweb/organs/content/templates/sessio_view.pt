@@ -230,15 +230,17 @@
 
       <div class="tab-pane" id="actaTab" tal:condition="view/showActaTab">
         <ul tal:condition="view/hihaMultimedia">
-          <li tal:condition="context/enllacVideo">
-            <b i18n:translate="">Video link</b><b>:</b>
+          <li tal:condition="context/enllacVideo" style="list-style:none;">
+            <b i18n:translate="">Video link</b>
             <br/>
+            <i class="fa fa-link" aria-hidden="true">
             <a tal:attributes="href context/enllacVideo"><span tal:content="context/enllacVideo"></span></a>
           </li>
           <div class="clearfix"></div>
-          <li tal:condition="context/enllacAudio">
-            <b i18n:translate="">Audio link</b><b>:</b>
+          <li tal:condition="context/enllacAudio" style="list-style:none;">
+            <b i18n:translate="">Audio link</b>
             <br/>
+            <i class="fa fa-link" aria-hidden="true">
             <a tal:attributes="href context/enllacAudio"><span tal:content="context/enllacAudio"></span></a>
           </li>
         </ul>
@@ -248,7 +250,7 @@
             <tbody>
               <tal:documents repeat="item actes">
                 <tr>
-                  <td><i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  <td><i class="fa fa-file-text-o" aria-hidden="true" style="padding-left: 20px;"></i>
                     <a href="#"
                        tal:attributes="href item/absolute_url;"
                        tal:content="item/title">
@@ -268,7 +270,7 @@
             <tbody>
               <tal:documents repeat="item audio">
                 <tr>
-                  <td><i class="fa fa-file-audio-o" aria-hidden="true"></i>
+                  <td><i class="fa fa-file-audio-o" aria-hidden="true" style="padding-left: 20px;"></i>
                     <a href="#"
                        tal:attributes="href item/absolute_url;"
                        tal:content="item/title">
@@ -317,6 +319,8 @@
 
     </div>
   </div>
+
+
 
   <div tal:condition="canModify" class="modal fade" id="modalPunts" tabindex="-1" role="dialog" aria-labelledby="modalMassive">
     <div class="modal-dialog" role="document">
