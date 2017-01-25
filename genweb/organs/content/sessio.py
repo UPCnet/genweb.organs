@@ -310,7 +310,7 @@ class View(grok.View):
                     inside = False
                 review_state = api.content.get_state(self.context)
                 # TODO !
-                #if review_state in ['realitzada', 'en_correccio']
+                # if review_state in ['realitzada', 'en_correccio']
                 if utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self):
                     classe = "ui-state-grey"
                 else:
@@ -319,7 +319,7 @@ class View(grok.View):
                 results.append(dict(title=obj.Title,
                                     portal_type=obj.portal_type,
                                     absolute_url=item.absolute_url(),
-                                    item_path=obj.getPath(),
+                                    item_path=item.absolute_url_path(),
                                     proposalPoint=item.proposalPoint,
                                     agreement=item.agreement,
                                     state=item.estatsLlista,
@@ -349,7 +349,7 @@ class View(grok.View):
                                 portal_type=obj.portal_type,
                                 absolute_url=item.absolute_url(),
                                 proposalPoint=item.proposalPoint,
-                                item_path=obj.getPath(),
+                                item_path=item.absolute_url_path(),
                                 state=item.estatsLlista,
                                 agreement=item.agreement,
                                 estats=self.estatsCanvi(obj),
@@ -494,4 +494,3 @@ class View(grok.View):
                                 content=document,
                                 id=str(item['id']) + '/' + obj.id))
         return results
-

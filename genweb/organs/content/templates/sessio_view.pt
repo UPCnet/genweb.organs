@@ -462,7 +462,7 @@
                   <ul class="listFiles">
                     <tal:documents repeat="item files">
                       <li class="filesinTable">
-                        <i tal:attributes=" class item/classCSS"></i>
+                        <i tal:attributes="class item/classCSS"></i>
                         <a tal:attributes="href item/absolute_url;"
                            style="font-size:14px;">
                            <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>

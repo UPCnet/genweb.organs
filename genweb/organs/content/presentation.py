@@ -1,20 +1,9 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from five import grok
-from zope.schema import TextLine
-from z3c.form import button
 from plone.directives import form
-from Products.statusmessages.interfaces import IStatusMessage
 from genweb.organs.interfaces import IGenwebOrgansLayer
-from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
-from AccessControl import Unauthorized
-from plone.autoform import directives
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from zope import schema
-from time import strftime
-from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
-from genweb.organs.utils import addEntryLog
 from Products.CMFCore.utils import getToolByName
 
 from genweb.organs import utils
@@ -52,17 +41,17 @@ class Presentation(form.SchemaForm):
                                         proposalPoint=item.proposalPoint,
                                         state=item.estatsLlista,
                                         agreement=item.agreement,
-                                        item_path=obj.getPath(),
+                                        item_path=item.absolute_url_path(),
                                         portal_type=obj.portal_type,
                                         id=obj.id))
                 else:
-                    item = obj._unrestrictedGetObject()
+                    item = obj.getObject()
                     results.append(dict(title=obj.Title,
                                         absolute_url=item.absolute_url(),
                                         proposalPoint=item.proposalPoint,
                                         state=item.estatsLlista,
                                         agreement=item.agreement,
-                                        item_path=obj.getPath(),
+                                        item_path=item.absolute_url_path(),
                                         estats=self.estatsCanvi(obj),
                                         css=self.getColor(obj),
                                         portal_type=obj.portal_type,
@@ -90,17 +79,17 @@ class Presentation(form.SchemaForm):
                                     state=item.estatsLlista,
                                     agreement=item.agreement,
                                     portal_type=obj.portal_type,
-                                    item_path=obj.getPath(),
+                                    item_path=item.absolute_url_path(),
                                     id='/'.join(item.absolute_url_path().split('/')[-2:])))
             else:
-                item = obj._unrestrictedGetObject()
+                item = obj.getObject()
                 results.append(dict(title=obj.Title,
                                     absolute_url=item.absolute_url(),
                                     proposalPoint=item.proposalPoint,
                                     state=item.estatsLlista,
                                     agreement=item.agreement,
                                     portal_type=obj.portal_type,
-                                    item_path=obj.getPath(),
+                                    item_path=item.absolute_url_path(),
                                     estats=self.estatsCanvi(obj),
                                     css=self.getColor(obj),
                                     id='/'.join(item.absolute_url_path().split('/')[-2:])))
@@ -117,14 +106,17 @@ class Presentation(form.SchemaForm):
                   'depth': 1})
         results = []
         for obj in values:
-            if obj.portal_type == 'genweb.organs.file':
-                tipus = 'fa fa-file-pdf-o'
+            if obj.hiddenfile is True:
+                continue
             else:
-                tipus = 'fa fa-file-text-o'
+                if obj.portal_type == 'genweb.organs.file':
+                    tipus = 'fa fa-file-pdf-o'
+                else:
+                    tipus = 'fa fa-file-text-o'
 
-            results.append(dict(title=obj.Title,
-                                absolute_url=obj.getURL(),
-                                classCSS=tipus))
+                results.append(dict(title=obj.Title,
+                                    absolute_url=obj.getURL(),
+                                    classCSS=tipus))
         return results
 
     def getSessionTitle(self):
@@ -143,7 +135,7 @@ class Presentation(form.SchemaForm):
             return True
         else:
             roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG4-Afectat' in roles:
-                return 'Afectat'
-            elif 'Manager' in roles:
+            if 'Manager' in roles or 'OG1-Responsable' in roles or 'OG2-Editor' in roles:
                 return False
+            else:
+                return True
