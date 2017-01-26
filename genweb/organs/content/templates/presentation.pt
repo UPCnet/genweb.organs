@@ -80,8 +80,6 @@
         <link rel="stylesheet" tal:attributes="href string:${portal_url}/dynamic.css">
         <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
 
-        <script tal:attributes="src string:${portal_url}/++bootstrap++js/bootstrap.min.js"></script>
-
         <script tal:condition="not:anonim" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/smooth-scroll.min.js"></script>
         <script tal:condition="not:anonim" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.smooth-scroll.min.js"></script>
 

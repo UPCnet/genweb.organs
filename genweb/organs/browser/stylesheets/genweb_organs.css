@@ -669,8 +669,8 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 }
 
 .bodyPresentation .titleSize {
-    line-height: 35px;
-    font-size: 32px;
+    line-height: 30px;
+    font-size: 28px;
 }
 
 .bodyPresentation #sortable li {    
@@ -689,6 +689,24 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     width: 100%;
 }
 
+.bodyPresentation .bannerOrgansPresentation.clearfix {
+    height: 91%;
+    padding-left: 10%;
+    width: auto;
+    padding-right: 10%;
+}
+
+.bodyPresentation .bannerOrgansPresentation .bannerTitle {   
+    font-size: 40px;
+    left: 0px;
+    margin-left: 0;
+    padding-left: 50%;
+    top: 72px;
+}
+
+.bodyPresentation h1{
+    font-size:215%
+}
 
 .bodyPresentation .li {
     line-height: 25px;
@@ -711,13 +729,13 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 }
 
 .bodyPresentation .subpuntTitle {
-    line-height:35px; 
+    line-height:30px; 
 }
 
 .bodyPresentation a:hover {
-    color: #232e92;
+    color: #007BC0;
     text-decoration: underline;
-    line-height: 35px;
+    line-height: 30px;
 }
 
 .bodyPresentation .fa-3x {
@@ -739,7 +757,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 .bodyPresentation .label.dropdown-toggle > a {
     color: #002237;
     font-size: 16px;
-    line-height: 35px;
+    line-height: 30px;
 }
 
 .bodyPresentation .dropdown-menu.estatsToggle a {
@@ -755,7 +773,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     font-size: 20px;
     padding-top: 2px;
     padding-bottom: 2px;
-    line-height: 35px;    
+    line-height: 30px;    
     padding-left: 20px;
     background: transparent;
 }
@@ -765,7 +783,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     padding: 2px 9px;
     clear: both;
     font-weight: normal;
-    line-height: 35px;
+    line-height: 30px;
     color: #000;
     white-space: nowrap;
     font-size: 14px;.bodyPresentation .btn-group.open .dropdown-toggle
@@ -870,7 +888,3 @@ body, .smooth-container { scroll-behavior: smooth }
 #sessionTabs {padding-bottom: 20px;}
 /*div@se.tab-content**/
 
-.bannerOrgansPresentation {
-    padding-top: 20px;
-    position: relative;
-}
