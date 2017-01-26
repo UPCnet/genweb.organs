@@ -870,3 +870,7 @@ body, .smooth-container { scroll-behavior: smooth }
 #sessionTabs {padding-bottom: 20px;}
 /*div@se.tab-content**/
 
+.bannerOrgansPresentation {
+    padding-top: 20px;
+    position: relative;
+}

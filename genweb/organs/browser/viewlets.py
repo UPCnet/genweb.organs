@@ -12,7 +12,6 @@ from genweb.core.utils import genweb_config
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from plone.app.layout.navigation.root import getNavigationRootObject
 
-
 grok.context(Interface)
 
 
@@ -41,7 +40,6 @@ class gwHeader(viewletBase):
     grok.template('header')
     grok.viewletmanager(IPortalHeader)
     grok.layer(IGenwebOrgansLayer)
-
 
     def get_image_class(self):
         if self.genweb_config().treu_menu_horitzontal:

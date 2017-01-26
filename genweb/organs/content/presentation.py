@@ -202,10 +202,3 @@ class Presentation(form.SchemaForm):
                             return None
                     except:
                         return None  # loads default image
-
-    def get_image_class(self):
-        if self.genweb_config().treu_menu_horitzontal:
-            # Is a L2 type
-            return 'l2-image'
-        else:
-            return 'l3-image'

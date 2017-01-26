@@ -80,6 +80,8 @@
         <link rel="stylesheet" tal:attributes="href string:${portal_url}/dynamic.css">
         <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
 
+        <script tal:attributes="src string:${portal_url}/++bootstrap++js/bootstrap.min.js"></script>
+
         <script tal:condition="not:anonim" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/smooth-scroll.min.js"></script>
         <script tal:condition="not:anonim" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.smooth-scroll.min.js"></script>
 
@@ -98,7 +100,7 @@
       </a>
     </h1>
   </div>
-  <div class="bannerOrgans clearfix" >
+  <div class="bannerOrgansPresentation clearfix">
         <img tal:attributes="src view/getLogo" style="height:65px; width: auto;" />
     <div class="bannerTitle" tal:condition="view/getTitle" tal:content="view/getTitle">Govern UPC - FIB</div>
   </div>
