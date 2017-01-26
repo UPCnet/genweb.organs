@@ -606,6 +606,9 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     font-weight: normal;
     margin-bottom: 15px;
     color: #557C95;
+    padding-top: 10px;
+    padding-left: 15px;
+    margin-top: 15px;
 }
 
 .bodyPresentation .editTitle.editable.subtitleSize {
@@ -615,7 +618,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 }
 
 .bodyPresentation .DADES ul, .DADES ol {
-    margin: 14px 0;
+    margin: 5px 0;
     padding-top: 10px;
     padding-right: 0px;
 }
@@ -628,8 +631,13 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 
 
 .bodyPresentation .DADES button {
-    width: 150px;
     height: 30px;
+    width: 185px;
+    line-height: 25px;
+}
+
+.bodyPresentation .DADES button:hover {
+    line-height: 25px;
 }
 
 
@@ -661,7 +669,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 }
 
 .bodyPresentation .titleSize {
-    line-height: 20px;
+    line-height: 35px;
     font-size: 32px;
 }
 
@@ -671,12 +679,14 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     padding: none;
     box-shadow: none;
     padding-right: 50px;
+    margin-top: 35px;
      }
 
 .bodyPresentation .dropdown-menu {    
     margin: none;
     padding:  none;
     box-shadow:  none;
+    width: 100%;
 }
 
 
@@ -692,10 +702,6 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     border-top: 3px solid #557c95;
 }
 
-.bodyPresentation .DADES button {
-    width: 185px;
-}
-
 .bodyPresentation .label.dropdown-toggle:hover {
     width: 185px;
 }
@@ -705,13 +711,13 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 }
 
 .bodyPresentation .subpuntTitle {
-    line-height:none; 
+    line-height:35px; 
 }
 
 .bodyPresentation a:hover {
     color: #232e92;
     text-decoration: underline;
-    line-height: 21px;
+    line-height: 35px;
 }
 
 .bodyPresentation .fa-3x {
@@ -730,19 +736,16 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     margin-right: 20px;
 }
 
-.bodyPresentation .dropdown-menu {
-    width: 100%;
-}
-
-
 .bodyPresentation .label.dropdown-toggle > a {
     color: #002237;
     font-size: 16px;
+    line-height: 35px;
 }
 
 .bodyPresentation .dropdown-menu.estatsToggle a {
     padding-left: 10px;
 }
+
 .bodyPresentation  .dropdown-menu.estatsToggle a span {
     margin-left: 5px;
 }
@@ -752,7 +755,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     font-size: 20px;
     padding-top: 2px;
     padding-bottom: 2px;
-    line-height: 25px;    
+    line-height: 35px;    
     padding-left: 20px;
     background: transparent;
 }
@@ -762,18 +765,34 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     padding: 2px 9px;
     clear: both;
     font-weight: normal;
-    line-height: 18px;
+    line-height: 35px;
     color: #000;
     white-space: nowrap;
     font-size: 14px;.bodyPresentation .btn-group.open .dropdown-toggle
     font-weight: bold;
 }
 
+/*.bodyPresentation .dropdown-menu{
+    padding-top: 35px;
+    margin-top: 35px;
+}*/
+
 .bodyPresentation #sortable .dropdown-menu{
     padding-top: 0px;
     padding-bottom: 0px;
+    margin-top: 0px;
 }
 
+.bodyPresentation #sortable .dropdown-menu li{    
+    margin-top: 0px !important; 
+}
+
+.bodyPresentation #sortable .dropdown-menu li{   
+    line-height: 25px !important;
+}
+.bodyPresentation .DADES button {
+padding: 0px 0px 32px 0px !important;
+}
 /*.portaltype-genweb-organs-organsfolder a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-organgovern a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-punt a#plone-contentmenu-workflow.dropdown-toggle,
