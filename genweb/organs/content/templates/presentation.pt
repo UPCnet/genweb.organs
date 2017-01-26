@@ -89,162 +89,184 @@
 </head>
 
 <body class="bodyPresentation" id="home">
-
-<metal:content-core tal:define="items view/PuntsInside">
-
-  <ul class="affix nav" style="z-index=2; right:0; top 170px;" tal:condition="not:anonim">
-    <li>
-      <a href="" title="Tornar a la sessió" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Close">
-        <i class="fa fa-home fa-3x" aria-hidden="true"></i></a>
-    </li><li>
-      <a data-scroll data-options='{ "easing": "easeInOutCubic" }' href="presentation#home" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Home">
-        <i class="fa fa-arrow-up fa-3x" aria-hidden="true"></i></a>
-    </li>
-
-    <li style="cursor: pointer;">
-      <a id="scrollUp" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
-        <i class="fa fa-chevron-up fa-3x" aria-hidden="true"></i></a>
-    </li>
-
-    <li style="cursor: pointer;">
-      <a id="scrollDown" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
-        <i class="fa fa-chevron-down fa-3x" aria-hidden="true"></i></a>
-    </li>
-
-    <li>
-      <a data-scroll data-options='{ "easing": "easeInOutCubic" }'  href="presentation#end" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
-        <i class="fa fa-arrow-down fa-3x" aria-hidden="true"></i></a>
-    </li>
-
-
-  </ul>
-
-  <div tal:condition="items" class="DADES presentation_template">
-    <h1 tal:content="view/getSessionTitle" style='text-transform: uppercase'>Ordre del dia</h1>
-    <hr/>
-    <ul id="sortable" class="ui-sortable">
-      <tal:documents repeat="item items">
-        <li>
-            <div class="puntTitle" tal:define="agreement item/agreement">
-              <span class="proposalNumber" tal:content="item/proposalPoint"></span>
-              <span class="agreementClass" tal:condition="agreement" tal:content="agreement"></span>
-              <a tal:attributes="href string:${item/absolute_url}/view" class="editTitle editable titleSize">
-                <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
-              </a>
-              <div class="btn-group" role="group" tal:condition="not:anonim" style="float: right;">
-                <tal:block tal:condition="item/state">
-                  <button class="label dropdown-toggle estatJS"
-                      type="button" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
-                    <a tal:content="item/state"></a>
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
-                    <tal:block repeat="estat item/estats">
-                      <li><a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
-                    </tal:block>
-                  </ul>
-                </tal:block>
-              </div>
-              <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
-                <ul class="listFiles" style="list-style: none;">
-                  <tal:documents repeat="item files">
-                    <li class="filesinTable">
-                      <i tal:attributes=" class item/classCSS"></i>
-                      <a tal:attributes="href item/absolute_url;">
-                         <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
-                      </a>
-                    </li>
-                  </tal:documents>
-                </ul>
-              </tal:files>
-            </div>
-            <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts">
-              <tal:subpunts repeat="item subpunts">
-                <ol class="li_subgrups">
-                  <td>
-                    <div class="subpuntTitle" tal:define="agreement item/agreement">
-                      <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
-                      <span class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"></span>
-                      <a tal:attributes="href string:${item/absolute_url}"
-                         class="editTitle editable subtitleSize">
-                        <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
-                      </a>
-                      <div class="btn-group" role="group" tal:condition="not:anonim"
-                           style="float: right;" aria-label="Subpunt actions">
-                        <tal:block tal:condition="item/state">
-                          <button class="label dropdown-toggle estatJS"
-                              type="button" data-toggle="dropdown"
-                              aria-haspopup="true" aria-expanded="true">
-                              <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
-                            <a tal:content="item/state"></a>
-                            <span class="caret"></span>
-                          </button>
-                          <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
-                            <tal:block repeat="estat item/estats">
-                              <li><a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
-                            </tal:block>
-                          </ul>
-                        </tal:block>
-                      </div>
-                      <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
-                        <ul style="list-style: none;">
-                          <tal:documents repeat="item files">
-                            <li class="filesinTable">
-                              <i tal:attributes=" class item/classCSS"></i>
-                              <a tal:attributes="href item/absolute_url;">
-                                 <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
-                              </a>
-                            </li>
-                          </tal:documents>
-                        </ul>
-                      </tal:files>
-                    </div>
-                  </td>
-                </ol>
-              </tal:subpunts>
-            </div>
-        </li>
-      </tal:documents>
-    </ul>
+  <div class="clearfix">
+    <h1 class="pull-left">
+      <a href="http://www.upc.edu" target="_blank">
+        <img tal:attributes="src string:${portal_url}/++genweb++static/images/logoUPC.png"
+             i18n:attributes="alt label_alt_logo; title label_title_logo"
+             width="207px" height="46px" />
+      </a>
+    </h1>
+  </div>
+  <div class="bannerOrgans clearfix" >
+        <img tal:attributes="src view/getLogo" style="height:65px; width: auto;" />
+    <div class="bannerTitle" tal:condition="view/getTitle" tal:content="view/getTitle">Govern UPC - FIB</div>
   </div>
 
-  <div style="margin-bottom:20px;" id="end"></div>
+  <metal:content-core tal:define="items view/PuntsInside">
 
-  <script tal:condition="not:anonim" type="text/javascript">
-    smoothScroll.init();
-    $("#scrollUp").click(function(e){
-        var wHeight = $(window).height();
-        $.smoothScroll('-=200px');
-    });
-    $("#scrollDown").click(function(e){
-        var wHeight = $(window).height();
-        $.smoothScroll('+=200px');
-    });
+    <ul class="affix nav" style="z-index=2; right:0; top 170px;" tal:condition="not:anonim">
+      <li>
+        <a href="" title="Tornar a la sessió" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Close">
+          <i class="fa fa-home fa-3x" aria-hidden="true"></i></a>
+      </li><li>
+        <a data-scroll data-options='{ "easing": "easeInOutCubic" }' href="presentation#home" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Home">
+          <i class="fa fa-arrow-up fa-3x" aria-hidden="true"></i></a>
+      </li>
 
-  </script>
+      <li style="cursor: pointer;">
+        <a id="scrollUp" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
+          <i class="fa fa-chevron-up fa-3x" aria-hidden="true"></i></a>
+      </li>
 
-</metal:content-core>
+      <li style="cursor: pointer;">
+        <a id="scrollDown" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
+          <i class="fa fa-chevron-down fa-3x" aria-hidden="true"></i></a>
+      </li>
 
-<div tal:condition="not:anonim">
-  <tal:notajax tal:condition="not:ajax_load">
-      <tal:comment replace="nothing"></tal:comment>
+      <li>
+        <a data-scroll data-options='{ "easing": "easeInOutCubic" }'  href="presentation#end" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
+          <i class="fa fa-arrow-down fa-3x" aria-hidden="true"></i></a>
+      </li>
 
-      <div tal:replace="structure provider:genweb.js" />
 
-      <tal:select2lang condition="python:lang=='ca'">
-        <script tal:attributes="src string:${portal_url}/++components++root/select2/select2_locale_ca.js"></script>
-      </tal:select2lang>
+    </ul>
 
-      <tal:select2lang condition="python:lang=='es'">
-        <script tal:attributes="src string:${portal_url}/++components++root/select2/select2_locale_es.js"></script>
-      </tal:select2lang>
+    <div tal:condition="items" class="DADES presentation_template">
+      <h1 tal:content="view/getSessionTitle" style='text-transform: uppercase'>Ordre del dia</h1>
+      <hr/>
+      <ul id="sortable" class="ui-sortable">
+        <tal:documents repeat="item items">
+          <li>
+              <div class="puntTitle" tal:define="agreement item/agreement">
+                <span class="proposalNumber" tal:content="item/proposalPoint"></span>
+                <span class="agreementClass" tal:condition="agreement" tal:content="agreement"></span>
+                <a tal:attributes="href string:${item/absolute_url}/view" class="editTitle editable titleSize">
+                  <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                </a>
+                <div class="btn-group" role="group" tal:condition="not:anonim" style="float: right;">
+                  <tal:block tal:condition="item/state">
+                    <button class="label dropdown-toggle estatJS"
+                        type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
+                      <a tal:content="item/state"></a>
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
+                      <tal:block repeat="estat item/estats">
+                        <li><a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
+                      </tal:block>
+                    </ul>
+                  </tal:block>
+                </div>
+                <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
+                  <ul class="listFiles" style="list-style: none;">
+                    <tal:documents repeat="item files">
+                      <li class="filesinTable">
+                        <i tal:attributes=" class item/classCSS"></i>
+                        <a tal:attributes="href item/absolute_url;">
+                           <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                        </a>
+                      </li>
+                    </tal:documents>
+                  </ul>
+                </tal:files>
+              </div>
+              <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts">
+                <tal:subpunts repeat="item subpunts">
+                  <ol class="li_subgrups">
+                    <td>
+                      <div class="subpuntTitle" tal:define="agreement item/agreement">
+                        <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
+                        <span class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"></span>
+                        <a tal:attributes="href string:${item/absolute_url}"
+                           class="editTitle editable subtitleSize">
+                          <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                        </a>
+                        <div class="btn-group" role="group" tal:condition="not:anonim"
+                             style="float: right;" aria-label="Subpunt actions">
+                          <tal:block tal:condition="item/state">
+                            <button class="label dropdown-toggle estatJS"
+                                type="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="true">
+                                <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
+                              <a tal:content="item/state"></a>
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
+                              <tal:block repeat="estat item/estats">
+                                <li><a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
+                              </tal:block>
+                            </ul>
+                          </tal:block>
+                        </div>
+                        <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
+                          <ul style="list-style: none;">
+                            <tal:documents repeat="item files">
+                              <li class="filesinTable">
+                                <i tal:attributes=" class item/classCSS"></i>
+                                <a tal:attributes="href item/absolute_url;">
+                                   <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                </a>
+                              </li>
+                            </tal:documents>
+                          </ul>
+                        </tal:files>
+                      </div>
+                    </td>
+                  </ol>
+                </tal:subpunts>
+              </div>
+          </li>
+        </tal:documents>
+      </ul>
+    </div>
 
-      <tal:comment replace="nothing"></tal:comment>
-      <metal:javascriptslot define-slot="javascript_head_slot" />
-  </tal:notajax>
-</div>
+    <div style="margin-bottom:20px;" id="end"></div>
+
+    <script tal:condition="not:anonim" type="text/javascript">
+      smoothScroll.init();
+      $("#scrollUp").click(function(e){
+          var wHeight = $(window).height();
+          $.smoothScroll('-=200px');
+      });
+      $("#scrollDown").click(function(e){
+          var wHeight = $(window).height();
+          $.smoothScroll('+=200px');
+      });
+
+    </script>
+
+  </metal:content-core>
+
+  <div tal:condition="not:anonim">
+    <tal:notajax tal:condition="not:ajax_load">
+        <div tal:replace="structure provider:genweb.js" />
+        <tal:select2lang condition="python:lang=='ca'">
+          <script tal:attributes="src string:${portal_url}/++components++root/select2/select2_locale_ca.js"></script>
+        </tal:select2lang>
+        <tal:select2lang condition="python:lang=='es'">
+          <script tal:attributes="src string:${portal_url}/++components++root/select2/select2_locale_es.js"></script>
+        </tal:select2lang>
+        <metal:javascriptslot define-slot="javascript_head_slot" />
+    </tal:notajax>
+  </div>
+
+  <footer id="peu" role="contentinfo">
+    <div class="container">
+      <div class="row-fluid">
+        <div class="span8">
+          <p>
+            <a href="http://www.upc.edu" target="_blank">
+              <abbr rel="tooltip" data-placement="top" title="" data-original-title="Universitat Politècnica de Catalunya · BarcelonaTech">UPC</abbr>
+              <img class="img_blank" width="10px" height="10px" tal:attributes="src string:${portal_url}/++genweb++static/images/blank_blau.png" alt="(obriu en una finestra nova)">
+            </a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
 
 </body>
 </html>

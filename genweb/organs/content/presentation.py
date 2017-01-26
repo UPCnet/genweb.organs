@@ -5,6 +5,9 @@ from plone.directives import form
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs.content.sessio import ISessio
 from Products.CMFCore.utils import getToolByName
+from plone.app.layout.navigation.root import getNavigationRootObject
+from Acquisition import aq_inner
+
 
 from genweb.organs import utils
 
@@ -139,3 +142,70 @@ class Presentation(form.SchemaForm):
                 return False
             else:
                 return True
+
+    def getTitle(self):
+        from genweb.organs.content.organsfolder import IOrgansfolder
+        if IOrgansfolder.providedBy(self.context):
+            if self.context.customImage:
+                return 'Govern UPC - ' + str(self.context.title)
+            else:
+                return 'Govern UPC'
+        else:
+            portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
+            root = getNavigationRootObject(self.context, portal_state.portal())
+            physical_path = aq_inner(self.context).getPhysicalPath()
+            relative = physical_path[len(root.getPhysicalPath()):]
+            for i in range(len(relative)):
+                now = relative[:i + 1]
+                try:
+                    # Some objects in path are in pending state
+                    obj = aq_inner(root.restrictedTraverse(now))
+                except:
+                    # return default image
+                    return None
+                if IOrgansfolder.providedBy(obj):
+                    if self.context.customImage:
+                        return 'Govern UPC - ' + str(obj.title)
+                    else:
+                        return 'Govern UPC'
+
+    def getLogo(self):
+        from genweb.organs.content.organsfolder import IOrgansfolder
+        if IOrgansfolder.providedBy(self.context):
+            try:
+                if self.context.customImage:
+                    self.context.logoOrganFolder.filename
+                    return self.context.absolute_url() + '/@@images/logoOrganFolder'
+                else:
+                    return None
+            except:
+                return None
+        else:
+            portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
+            root = getNavigationRootObject(self.context, portal_state.portal())
+            physical_path = aq_inner(self.context).getPhysicalPath()
+            relative = physical_path[len(root.getPhysicalPath()):]
+            for i in range(len(relative)):
+                now = relative[:i + 1]
+                try:
+                    # Some objects in path are in pending state
+                    obj = aq_inner(root.restrictedTraverse(now))
+                except:
+                    # return default image
+                    return None
+                if IOrgansfolder.providedBy(obj):
+                    try:
+                        if self.context.customImage:
+                            obj.logoOrganFolder.filename
+                            return obj.absolute_url() + '/@@images/logoOrganFolder'
+                        else:
+                            return None
+                    except:
+                        return None  # loads default image
+
+    def get_image_class(self):
+        if self.genweb_config().treu_menu_horitzontal:
+            # Is a L2 type
+            return 'l2-image'
+        else:
+            return 'l3-image'
