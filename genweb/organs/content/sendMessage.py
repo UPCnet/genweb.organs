@@ -60,9 +60,17 @@ class Message(form.SchemaForm):
 
     def updateWidgets(self):
         super(Message, self).updateWidgets()
+        #TODO SOLVE EMPTY!
+        #import ipdb;ipdb.set_trace()
         self.widgets["recipients"].value = self.context.adrecaLlista + ' ' + self.context.adrecaAfectatsLlista
-        bodyMailOrgan = self.context.aq_parent.bodyMailSend + '<br/>'
-        footerOrgan = self.context.signatura + '<br/>'
+        if self.context.aq_parent.bodyMailSend:
+            bodyMailOrgan = self.context.aq_parent.bodyMailSend + '<br/>'
+        else:
+            bodyMailOrgan = self.context.aq_parent.bodyMailSend + ''
+        if self.context.signatura:
+            footerOrgan = self.context.signatura + '<br/>'
+        else:
+            footerOrgan = ''
         self.widgets["message"].value = bodyMailOrgan + footerOrgan
 
     @button.buttonAndHandler(_("Send"))
