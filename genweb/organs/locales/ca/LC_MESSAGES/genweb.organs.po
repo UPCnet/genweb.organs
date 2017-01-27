@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-24 15:33+0000\n"
+"POT-Creation-Date: 2017-01-27 13:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -146,7 +146,7 @@ msgstr "Missatge que s'adjunta al clicar el botó d'enviar missatge. S'hi afegei
 
 #: ./genweb/organs/content/informarSessio.py:142
 #: ./genweb/organs/content/manualimport.py:142
-#: ./genweb/organs/content/sendMessage.py:116
+#: ./genweb/organs/content/sendMessage.py:134
 msgid "Cancel"
 msgstr "Cancel·lar"
 
@@ -203,11 +203,15 @@ msgstr "Data i hora"
 msgid "Default content shown in the document view"
 msgstr "Contingut preparat per publicar."
 
-#: ./genweb/organs/browser/events/removeObject.py:40
+#: ./genweb/organs/browser/views.py:96
+msgid "Deleted element"
+msgstr "Element el·liminat"
+
+#: ./genweb/organs/browser/events/removeObject.py:39
 msgid "Deleted punt"
 msgstr "Punt el·liminat"
 
-#: ./genweb/organs/browser/events/removeObject.py:79
+#: ./genweb/organs/browser/events/removeObject.py:78
 msgid "Deleted subpunt"
 msgstr "Subpunt el·liminat"
 
@@ -386,7 +390,7 @@ msgstr "Imatge que es farà servir com a imatge de capçalera en aquest òrgan i
 msgid "Mail address help"
 msgstr "Adreça o adreces a les quals arribaran els missatges quan hi hagi una notificació de l'òrgan."
 
-#: ./genweb/organs/content/sendMessage.py:24
+#: ./genweb/organs/content/sendMessage.py:31
 msgid "Mail address separated by blanks."
 msgstr "Les adreces de correu han d'anar separades per espais en blanc."
 
@@ -413,21 +417,20 @@ msgstr "Membre"
 
 #: ./genweb/organs/content/informarSessio.py:39
 #: ./genweb/organs/content/mailConvocar.py:41
-#: ./genweb/organs/content/sendMessage.py:29
+#: ./genweb/organs/content/sendMessage.py:36
 msgid "Message"
 msgstr "Missatge"
 
-#: ./genweb/organs/browser/views.py:311
+#: ./genweb/organs/browser/views.py:312
 #: ./genweb/organs/content/mailConvocar.py:161
 msgid "Missatge enviat correctament"
 msgstr "Missatge enviat correctament"
 
-#: ./genweb/organs/browser/views.py:315
 #: ./genweb/organs/content/mailConvocar.py:163
 msgid "Missatge no enviat"
 msgstr "Missatge no enviat"
 
-#: ./genweb/organs/browser/views.py:317
+#: ./genweb/organs/browser/views.py:315
 #: ./genweb/organs/content/mailConvocar.py:165
 msgid "Missatge no enviat. Comprovi els destinataris del missatge"
 msgstr "Missatge no enviat. Comprovi els destinataris del missatge"
@@ -470,7 +473,7 @@ msgstr "Obert"
 
 #: ./genweb/organs/content/informarSessio.py:144
 #: ./genweb/organs/content/manualimport.py:144
-#: ./genweb/organs/content/sendMessage.py:118
+#: ./genweb/organs/content/sendMessage.py:136
 msgid "Operation Cancelled."
 msgstr "S'ha cancel·lat l'operació."
 
@@ -591,11 +594,11 @@ msgstr "Títol del punt de l'ordre del dia"
 
 #: ./genweb/organs/content/informarSessio.py:33
 #: ./genweb/organs/content/mailConvocar.py:31
-#: ./genweb/organs/content/sendMessage.py:23
+#: ./genweb/organs/content/sendMessage.py:30
 msgid "Recipients"
 msgstr "Destinataris"
 
-#: ./genweb/organs/browser/views.py:361
+#: ./genweb/organs/browser/views.py:359
 msgid "Reload proposalPoints manually"
 msgstr "Recalcular número de punts manualment"
 
@@ -615,6 +618,7 @@ msgstr "Enviar"
 
 #: ./genweb/organs/content/informarSessio.py:28
 #: ./genweb/organs/content/mailConvocar.py:26
+#: ./genweb/organs/content/sendMessage.py:25
 msgid "Sender"
 msgstr "Informador"
 
@@ -626,7 +630,7 @@ msgstr "Enviant missatge de convocatòria"
 msgid "Sending mail informar sessio"
 msgstr "Enviant correu: Infomar sessió"
 
-#: ./genweb/organs/content/sendMessage.py:111
+#: ./genweb/organs/content/sendMessage.py:129
 msgid "Sending mail new message"
 msgstr "Enviant correu: Nou missatge"
 
@@ -721,7 +725,7 @@ msgstr "Subpunts"
 
 #: ./genweb/organs/content/informarSessio.py:40
 #: ./genweb/organs/content/mailConvocar.py:42
-#: ./genweb/organs/content/sendMessage.py:30
+#: ./genweb/organs/content/sendMessage.py:37
 msgid "This content will be used as message content"
 msgstr "El següent contingut s'adjuntarà al missatge de correu"
 

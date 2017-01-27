@@ -93,7 +93,7 @@ class Delete(BrowserView):
 
                 portal_catalog = getToolByName(self, 'portal_catalog')
                 folder_path = '/'.join(self.context.getPhysicalPath())
-                addEntryLog(self.context, None, 'Deleted element', folder_path + '/' + itemid)
+                addEntryLog(self.context, None, _(u'Deleted element'), folder_path + '/' + itemid)
                 # agafo items ordenats!
 
                 puntsOrdered = portal_catalog.searchResults(
@@ -308,11 +308,9 @@ def sessio_sendMail(session, recipients, body):
                               immediate=False,
                               charset='utf8',
                               msg_type='text/html')
-        addEntryLog(session, None, _(u'Missatge enviat correctament'), recipientPerson)
         session.plone_utils.addPortalMessage(
             _("Missatge enviat correctament"), 'info')
     except:
-        addEntryLog(session, None, _(u'Missatge no enviat'), recipientPerson)
         session.plone_utils.addPortalMessage(
             _("Missatge no enviat. Comprovi els destinataris del missatge"), 'error')
 

@@ -34,7 +34,6 @@ def removePunt(alias, event):
         TODO make reorder obects fully functional!
     """
     if deletion_confirmed():
-        print '___________deleting punt'
         portal_catalog = getToolByName(alias, 'portal_catalog')
         folder_path = '/'.join(alias.__parent__.getPhysicalPath())
         addEntryLog(alias.aq_parent, None, _(u'Deleted punt'), alias.absolute_url_path())  # add log
@@ -71,9 +70,9 @@ def removePunt(alias, event):
 @grok.subscribe(ISubpunt, IObjectRemovedEvent)
 def removeSubpunt(alias, event):
     """When the alias is created,
+       TODO make reorder obects fully functional!
     """
     if deletion_confirmed():
-        print '___________deleting SUB punt'
         portal_catalog = getToolByName(alias, 'portal_catalog')
         folder_path = '/'.join(alias.__parent__.getPhysicalPath())
         addEntryLog(alias, None, _(u'Deleted subpunt'), '')  # add log
@@ -90,5 +89,5 @@ def removeSubpunt(alias, event):
             sufix = str(subpuntsOrdered[0].proposalPoint).split('.')[0]
             for item in subpuntsOrdered:
                 item.getObject().proposalPoint = unicode(str(sufix) + str('.') + str(index))
-                #item.reindexObject()
+                # item.reindexObject()
                 index = index + 1

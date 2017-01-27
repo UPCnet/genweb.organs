@@ -13,12 +13,19 @@ from AccessControl import Unauthorized
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope import schema
+from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from genweb.organs.utils import addEntryLog
 
 grok.templatedir("templates")
 
 
 class IMessage(form.Schema):
+
+    sender = TextLine(
+        title=_("Sender"),
+        required=False,
+        )
+
     recipients = TextLine(
         title=_("Recipients"),
         description=_("Mail address separated by blanks."),
@@ -60,17 +67,21 @@ class Message(form.SchemaForm):
 
     def updateWidgets(self):
         super(Message, self).updateWidgets()
-        #TODO SOLVE EMPTY!
-        #import ipdb;ipdb.set_trace()
-        self.widgets["recipients"].value = self.context.adrecaLlista + ' ' + self.context.adrecaAfectatsLlista
-        if self.context.aq_parent.bodyMailSend:
+        username = api.user.get_current().getId()
+        self.widgets["sender"].mode = DISPLAY_MODE
+        self.widgets["sender"].value = str(username)
+        if self.context.adrecaAfectatsLlista is None:
+            self.widgets["recipients"].value = self.context.adrecaLlista
+        else:
+            self.widgets["recipients"].value = self.context.adrecaLlista + ' ' + self.context.adrecaAfectatsLlista
+        if self.context.aq_parent.bodyMailSend is None:
+            bodyMailOrgan = '<br/>'
+        else:
             bodyMailOrgan = self.context.aq_parent.bodyMailSend + '<br/>'
+        if self.context.signatura is None:
+            footerOrgan = '<br/>'
         else:
-            bodyMailOrgan = self.context.aq_parent.bodyMailSend + ''
-        if self.context.signatura:
             footerOrgan = self.context.signatura + '<br/>'
-        else:
-            footerOrgan = ''
         self.widgets["message"].value = bodyMailOrgan + footerOrgan
 
     @button.buttonAndHandler(_("Send"))
@@ -82,7 +93,6 @@ class Message(form.SchemaForm):
         emptyfields = []
         formData, errors = self.extractData()
         lang = self.context.language
-
         if formData['recipients'] is None or formData['message'] is None:
             if formData['recipients'] is None:
                 if lang == 'ca':
@@ -115,7 +125,7 @@ class Message(form.SchemaForm):
         noBlanks = ' '.join(toMessage.split())
         toMail = noBlanks.replace(' ', ',')
         body = formData['message'].encode('utf-8')
-        sender = self.context.fromMail
+        sender = api.user.get_current().getId()
         addEntryLog(self.context, sender, _(u'Sending mail new message'), toMail)
         sessio_sendMail(self.context, toMail, body)  # Send mail
 
