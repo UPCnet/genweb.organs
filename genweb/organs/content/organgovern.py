@@ -24,7 +24,7 @@ organType = SimpleVocabulary(
 
 grok.templatedir("templates")
 
-defaultEstats = _(u"<p>Pendent d'aprovació blue</p><p>Esborrany green</p><p>Aprovat yellow</p><p>Informat brown</p><p>No aprovat red</p><p>Derogat grey</p><p>Informatiu pink</p>")
+defaultEstats = _(u"<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>")
 
 
 class IOrgangovern(form.Schema):
@@ -58,6 +58,7 @@ class IOrgangovern(form.Schema):
     directives.widget(descripcioOrgan=WysiwygFieldWidget)
     descripcioOrgan = schema.Text(
         title=_(u"Organ Govern description"),
+        description=_(u"Organ Govern description help"),
         required=False,
     )
 
@@ -72,6 +73,7 @@ class IOrgangovern(form.Schema):
     directives.widget(membresOrgan=WysiwygFieldWidget)
     membresOrgan = schema.Text(
         title=_(u"Organ Govern members"),
+        description=_(u"Organ Govern members Description"),
         required=False,
     )
 

@@ -43,6 +43,7 @@ class ISessio(form.Schema):
         required=False,
     )
 
+    directives.mode(numSessio='hidden')
     numSessio = schema.TextLine(
         title=_(u"Session number"),
         required=False,
@@ -50,7 +51,7 @@ class ISessio(form.Schema):
 
     dataSessio = schema.Date(
         title=_(u"Session date"),
-        required=True,
+        required=False,
     )
 
     llocConvocatoria = schema.TextLine(
@@ -84,6 +85,7 @@ class ISessio(form.Schema):
     dexteritytextindexer.searchable('membresConvocats')
     membresConvocats = schema.Text(
         title=_(u"Incoming members list"),
+        description=_(u"Incoming members list help"),
         required=False,
     )
 
@@ -91,6 +93,7 @@ class ISessio(form.Schema):
     dexteritytextindexer.searchable('membresConvidats')
     membresConvidats = schema.Text(
         title=_(u"Invited members"),
+        description=_(u"Invited members help"),
         required=False,
     )
 
@@ -98,6 +101,7 @@ class ISessio(form.Schema):
     dexteritytextindexer.searchable('llistaExcusats')
     llistaExcusats = schema.Text(
         title=_(u"Excused members"),
+        description=_(u"Excused members help"),
         required=False,
     )
 
@@ -105,6 +109,7 @@ class ISessio(form.Schema):
     dexteritytextindexer.searchable('noAssistents')
     noAssistents = schema.Text(
         title=_(u"No assistents"),
+        description=_(u"No assistents help"),
         required=False,
     )
 
@@ -120,6 +125,7 @@ class ISessio(form.Schema):
     dexteritytextindexer.searchable('signatura')
     signatura = schema.Text(
         title=_(u"Signatura"),
+        description=_(u"Signatura description"),
         required=False,
     )
 
@@ -136,21 +142,9 @@ class ISessio(form.Schema):
     )
 
 
-@form.default_value(field=ISessio['dataSessio'])
-def dataSessioDefaultValue(data):
-    return datetime.datetime.today()
-
-
-@form.default_value(field=ISessio['horaInici'])
-def horaIniciDefaultValue(data):
-    time = datetime.datetime.today()
-    return time
-
-
-@form.default_value(field=ISessio['horaFi'])
-def horaFiDefaultValue(data):
-    time = datetime.datetime.today() + datetime.timedelta(hours=1)
-    return time
+@form.default_value(field=ISessio['any'])
+def anyDefaultValue(data):
+    return datetime.datetime.today().year
 
 
 @form.default_value(field=ISessio['membresConvocats'])
@@ -412,10 +406,27 @@ class View(grok.View):
                 return False
 
     def valuesTable(self):
-        values = dict(dataSessio=self.context.dataSessio.strftime('%d/%m/%Y'),
-                      horaInici=self.context.horaInici.strftime('%H:%M'),
-                      horaFi=self.context.horaFi.strftime('%H:%M'),
-                      llocConvocatoria=self.context.llocConvocatoria,
+        if self.context.dataSessio is None:
+            dataSessio = ''
+        else:
+            dataSessio = self.context.dataSessio.strftime('%d/%m/%Y')
+        if self.context.horaInici is None:
+            horaInici = ''
+        else:
+            horaInici = self.context.horaInici.strftime('%H:%M')
+        if self.context.horaFi is None:
+            horaFi = ''
+        else:
+            horaFi = self.context.horaFi.strftime('%H:%M')
+        if self.context.llocConvocatoria is None:
+            llocConvocatoria = ''
+        else:
+            llocConvocatoria = self.context.llocConvocatoria
+
+        values = dict(dataSessio=dataSessio,
+                      horaInici=horaInici,
+                      horaFi=horaFi,
+                      llocConvocatoria=llocConvocatoria,
                       organTitle=self.OrganTitle(),
                       )
         return values

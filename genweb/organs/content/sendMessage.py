@@ -34,7 +34,6 @@ class IMessage(form.Schema):
     directives.widget(message=WysiwygFieldWidget)
     message = schema.Text(
         title=_(u"Message"),
-        description=_("This content will be used as message content"),
         required=False,
     )
 
