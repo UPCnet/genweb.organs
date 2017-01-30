@@ -371,7 +371,8 @@ a.remove{background-color: #e8003d!important}
 }
 
 span.editable-container.editable-inline  input[type="text"] {
-    /*width: 330px;*/
+    width: 400px !important;
+    max-width: none !important;
 }
 
 .subpuntTitle:hover:before {
@@ -886,9 +887,9 @@ span.label.label-danger {float: right;}
 body, .smooth-container { scroll-behavior: smooth }
 
 #sessionTabs {padding-bottom: 20px;}
-/*div@se.tab-content**/
-/*
+
+
 .divTitle {
     padding-top: 10px;
 }
-*/
+

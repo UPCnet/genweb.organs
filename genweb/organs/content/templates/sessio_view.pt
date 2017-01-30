@@ -619,16 +619,16 @@
                $(this).parent().parent().find('.expand').hide()
                $(this).parent().parent().find('.expand').slideUp()
                $(this).parent().parent().find('.notexpand').show()
-               $(this).parent().parent().find('.sortable2').slideDown()
-               $(this).parent().parent().find('.listFiles').slideDown()
+               $(this).parent().parent().parent().find('.sortable2').slideDown()
+               $(this).parent().parent().parent().find('.listFiles').slideDown()
         });
 
         $('.notexpand').click(function(e){
                e.stopPropagation();
                $(this).parent().parent().find('.notexpand').hide()
                $(this).parent().parent().find('.expand').show()
-               $(this).parent().parent().find('.sortable2').slideUp()
-               $(this).parent().parent().find('.listFiles').slideUp()
+               $(this).parent().parent().parent().find('.sortable2').slideUp()
+               $(this).parent().parent().parent().find('.listFiles').slideUp()
         });
     });
   </script>
@@ -662,9 +662,6 @@
              inputclass: function(e, f) {
                $("a[aria-describedby=" + $(this).closest(".ui-tooltip").prop("id") + "]").data("shared", this);
              },
-             // success: function(){
-             //       reloadEdit = true;
-             // },
          });
 
          $(document).ajaxStop(function(){
