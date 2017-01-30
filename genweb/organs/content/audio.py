@@ -9,7 +9,6 @@ from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.MimeTypeItem import guess_icon_path
 
-
 grok.templatedir("templates")
 
 

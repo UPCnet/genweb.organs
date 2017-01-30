@@ -61,10 +61,12 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
+    directives.mode(tipus='hidden')
     tipus = schema.Choice(
         title=_(u"Organ Govern type"),
         vocabulary=organType,
-        required=True,
+        default=_(u'Open'),
+        required=False,
     )
 
     directives.widget(membresOrgan=WysiwygFieldWidget)
@@ -163,7 +165,7 @@ class View(grok.View):
         return utils.checkRoles(self)
 
     def SessionsInside(self):
-        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """ Retorna les sessions internes (sense tenir compte estat)
         """
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
