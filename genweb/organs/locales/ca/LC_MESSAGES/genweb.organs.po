@@ -271,7 +271,7 @@ msgstr "Persones excusades"
 #: ./genweb/organs/content/acta.py:107
 #: ./genweb/organs/content/organsfolder.py:16
 msgid "Fer servir la imatge personalitzada?"
-msgstr "Fer servir la imatge personalitzada"
+msgstr "Fer servir a imatge personalitzada a la capçalera"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:397
 #: ./genweb/organs/profiles/default/types/genweb.organs.file.xml
@@ -384,7 +384,7 @@ msgstr "Imatge ques es farà servir com a logotip i que s'utilitzarà al moment 
 
 #: ./genweb/organs/content/organsfolder.py:24
 msgid "Logo organs folder description"
-msgstr "Imatge que es farà servir com a imatge de capçalera en aquest òrgan i al moment d'imprimir les actes."
+msgstr "Imatge que es farà servir com a imatge de capçalera en aquesta unitat i al moment d'imprimir les actes dels òrgans. Les dimensions han de ser 978x65 píxels."
 
 #: ./genweb/organs/content/organgovern.py:91
 msgid "Mail address help"
@@ -695,7 +695,7 @@ msgstr "Si creieu que heu de veure alguna sessió, contacteu amb administrador j
 
 #: ./genweb/organs/content/organsfolder.py:17
 msgid "Si es vol fer servir la imatge estandard o la imatge que es puja a continuació"
-msgstr "Marcar aquesta opció si es vol fer servir la imatge personalitzada en comptes de la imatge per defecte."
+msgstr "Marcar aquesta opció si es vol fer servir la imatge personalitzada enlloc de la del Genweb."
 
 #: ./genweb/organs/content/sessio.py:123
 msgid "Signatura"

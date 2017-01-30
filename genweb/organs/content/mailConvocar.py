@@ -55,19 +55,6 @@ class Message(form.SchemaForm):
 
     schema = IMessage
 
-    # This trick hides the editable border and tabs in Plone
-    def update(self):
-        try:
-            username = api.user.get_current().getId()
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if 'Manager' in roles:
-                self.request.set('disable_border', False)
-                super(Message, self).update()
-            else:
-                raise Unauthorized
-        except:
-            raise Unauthorized
-
     def updateWidgets(self):
         super(Message, self).updateWidgets()
         session = self.context
