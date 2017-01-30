@@ -812,13 +812,14 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 .bodyPresentation .DADES button {
 padding: 0px 0px 32px 0px !important;
 }
-/*.portaltype-genweb-organs-organsfolder a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-organsfolder a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-organgovern a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-punt a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-subpunt a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-file a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-document a#plone-contentmenu-workflow.dropdown-toggle,
-.portaltype-genweb-organs-acta a#plone-contentmenu-workflow.dropdown-toggle
+.portaltype-genweb-organs-acta a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-audio a#plone-contentmenu-workflow.dropdown-toggle
  {display: none;}
 
 .portaltype-genweb-organs-organsfolder a#plone-contentmenu-multilingual.dropdown-toggle,
@@ -828,9 +829,10 @@ padding: 0px 0px 32px 0px !important;
 .portaltype-genweb-organs-subpunt a#plone-contentmenu-multilingual.dropdown-toggle,
 .portaltype-genweb-organs-file a#plone-contentmenu-multilingual.dropdown-toggle,
 .portaltype-genweb-organs-document a#plone-contentmenu-multilingual.dropdown-toggle,
-.portaltype-genweb-organs-acta a#plone-contentmenu-multilingual.dropdown-toggle
+.portaltype-genweb-organs-acta a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-audio a#plone-contentmenu-multilingual.dropdown-toggle
  {display: none;}
-*/
+
 .popover {
     z-index: 2060 !important;
 
