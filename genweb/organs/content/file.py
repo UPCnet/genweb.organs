@@ -86,8 +86,8 @@ class View(grok.View):
 
     def canViewContent(self):
         # - Si el fitxer està marcat com a públic ho veu tothom
-        # - Si tens rols Responsable, Edito, Membre o Manager encara que
-        #   estigui marcat com a privat o veus.
+        # - Si tens rols Responsable, Editor, Membre o Manager encara que
+        #   estigui marcat com a privat el veus.
         try:
             username = api.user.get_current().getProperty('id')
             roles = api.user.get_roles(username=username, obj=self.context)

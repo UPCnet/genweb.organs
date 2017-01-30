@@ -7,7 +7,6 @@ from genweb.organs import _
 from collective import dexteritytextindexer
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from genweb.organs import utils
 from plone import api
 
 grok.templatedir("templates")

@@ -13,7 +13,6 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from genweb.organs import utils
-import unicodedata
 
 grok.templatedir("templates")
 
@@ -234,8 +233,6 @@ class View(grok.View):
     def isManager(self):
         return utils.isManager(self)
 
-
-
     def canModify(self):
         review_state = api.content.get_state(self.context)
         value = False
@@ -308,8 +305,8 @@ class View(grok.View):
                     inside = True
                 else:
                     inside = False
-                review_state = api.content.get_state(self.context)
                 # TODO !
+                # review_state = api.content.get_state(self.context)
                 # if review_state in ['realitzada', 'en_correccio']
                 if utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self):
                     classe = "ui-state-grey"
@@ -341,7 +338,6 @@ class View(grok.View):
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
-
         results = []
         for obj in values:
             item = obj.getObject()
@@ -355,6 +351,7 @@ class View(grok.View):
                                 estats=self.estatsCanvi(obj),
                                 css=self.getColor(obj),
                                 id='/'.join(item.absolute_url_path().split('/')[-2:])))
+        print results
         return results
 
     def ActesInside(self):

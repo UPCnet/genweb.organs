@@ -260,7 +260,7 @@ span.label.nomarginLeft  {
     font-size:16px;
     font-weight: bold;
     font-color: black;
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
 }
 .subpuntTitle {
     font-size: 16px;
@@ -597,7 +597,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 
 .bodyPresentation .affix {
     padding-right: 20px;
-    position: fixed;  
+    position: fixed;
     top: 30px;
 }
 
@@ -673,16 +673,16 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     font-size: 28px;
 }
 
-.bodyPresentation #sortable li {    
+.bodyPresentation #sortable li {
     background: rgba(0, 90, 141, 0.05);
-    margin: none; 
+    margin: none;
     padding: none;
     box-shadow: none;
     padding-right: 50px;
     margin-top: 35px;
      }
 
-.bodyPresentation .dropdown-menu {    
+.bodyPresentation .dropdown-menu {
     margin: none;
     padding:  none;
     box-shadow:  none;
@@ -696,7 +696,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     padding-right: 10%;
 }
 
-.bodyPresentation .bannerOrgansPresentation .bannerTitle {   
+.bodyPresentation .bannerOrgansPresentation .bannerTitle {
     font-size: 40px;
     left: 0px;
     margin-left: 0;
@@ -729,7 +729,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 }
 
 .bodyPresentation .subpuntTitle {
-    line-height:30px; 
+    line-height:30px;
 }
 
 .bodyPresentation a:hover {
@@ -744,7 +744,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 
 .bodyPresentation .fa-home:before {
     color: #DDD;
-} 
+}
 
 .bodyPresentation .listFiles a {
     font-size: 20px;
@@ -773,7 +773,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     font-size: 20px;
     padding-top: 2px;
     padding-bottom: 2px;
-    line-height: 30px;    
+    line-height: 30px;
     padding-left: 20px;
     background: transparent;
 }
@@ -801,11 +801,11 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     margin-top: 0px;
 }
 
-.bodyPresentation #sortable .dropdown-menu li{    
-    margin-top: 0px !important; 
+.bodyPresentation #sortable .dropdown-menu li{
+    margin-top: 0px !important;
 }
 
-.bodyPresentation #sortable .dropdown-menu li{   
+.bodyPresentation #sortable .dropdown-menu li{
     line-height: 25px !important;
 }
 .bodyPresentation .DADES button {
@@ -887,4 +887,8 @@ body, .smooth-container { scroll-behavior: smooth }
 
 #sessionTabs {padding-bottom: 20px;}
 /*div@se.tab-content**/
-
+/*
+.divTitle {
+    padding-top: 10px;
+}
+*/

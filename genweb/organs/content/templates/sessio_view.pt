@@ -442,21 +442,23 @@
               </div>
 
               <div class="puntTitle">
+
                 <span class="proposalNumber" tal:content="item/proposalPoint"></span>
                 <a class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"
                     tal:attributes="data-pk item/id; href item/absolute_url" data-url="changeAgreement"></a>
-                <a tal:attributes="data-pk item/id; href item/absolute_url"
-                   data-url="changeTitle"
-                   class="editTitle editable titleSize">
-                  <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
-                </a>
-
-                <button type="button" class="expand" tal:condition="item/items_inside"
-                  data-original-title="Expand">
-                  <i class="fa fa-chevron-down" aria-hidden="true"></i></button>
-                <button type="button" class="notexpand" tal:condition="item/items_inside"
-                  data-original-title="Collapse">
-                  <i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+                <div class="divTitle">
+                  <a tal:attributes="data-pk item/id; href item/absolute_url"
+                     data-url="changeTitle"
+                     class="editTitle editable titleSize">
+                    <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                  </a>
+                  <button type="button" class="expand" tal:condition="item/items_inside"
+                    data-original-title="Expand">
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i></button>
+                  <button type="button" class="notexpand" tal:condition="item/items_inside"
+                    data-original-title="Collapse">
+                    <i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+                </div>
 
                 <tal:files tal:define="files python:view.filesinsidePunt(item)">
                   <ul class="listFiles">

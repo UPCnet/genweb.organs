@@ -57,7 +57,6 @@ class Message(form.SchemaForm):
 
     # This trick hides the editable border and tabs in Plone
     def update(self):
-        """ Return true if user is Editor or Manager """
         try:
             username = api.user.get_current().getId()
             roles = api.user.get_roles(username=username, obj=self.context)
@@ -74,9 +73,7 @@ class Message(form.SchemaForm):
         session = self.context
         now = strftime("%d/%m/%Y %H:%M:%S")
         organ = self.context.aq_parent
-        # sender = organ.fromMail
         sessionLink = str(session.absolute_url())
-        # senderPerson = str(organ.fromMail)
         if session.signatura is None:
             signatura = ''
         else:
@@ -91,13 +88,6 @@ class Message(form.SchemaForm):
             customBody = ''
         else:
             customBody = str(session.bodyMail.encode('utf-8'))
-
-        # if session.adrecaLlista is None:
-        #     recipientPerson = organ.adrecaLlista.replace(' ', '').encode('utf-8').split(',')
-        # else:
-        #     recipientPerson = session.adrecaLlista.replace(' ', '').encode('utf-8').split(',')
-
-        # CSS = '"' + session.portal_url()+'/++genwebupc++stylesheets/genwebupc.css' + '"'
 
         html_content = ''
         sessiontitle = str(session.Title())
@@ -115,8 +105,6 @@ class Message(form.SchemaForm):
             "<br/>Hora de fi: " + endHour + \
             '<br/><br/>'
         bodyMail = str(moreData) + str(introData)
-
-        # session.adrecaAfectatsLlista
 
         self.widgets["sender"].mode = DISPLAY_MODE
         self.widgets["sender"].value = str(organ.fromMail)

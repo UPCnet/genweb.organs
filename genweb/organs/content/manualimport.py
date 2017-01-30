@@ -79,7 +79,6 @@ class Message(form.SchemaForm):
         addEntryLog(self.context, None, _(u'Massive agreements imported'), '')
 
         # Creating new objects
-
         text = formData['message']
 
         values = self.aq_parent.aq_parent.estatsLlista
@@ -123,7 +122,7 @@ class Message(form.SchemaForm):
                         type='genweb.organs.subpunt',
                         title=line,
                         container=previousPuntContainer)
-                    # TODO: Optimize previous line! runs slower!
+                    # TODO: Optimize previous line! runs slow!
 
                     newobj.proposalPoint = unicode(str(index-1) + str('.') + str(subindex))
                     newobj.estatsLlista = defaultEstat

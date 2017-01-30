@@ -6,13 +6,11 @@ from plone.directives import dexterity
 from genweb.organs import _
 from plone.app.dexterity import PloneMessageFactory as _PMF
 from collective import dexteritytextindexer
-from genweb.organs import utils
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from plone.namedfile.field import NamedBlobImage
 from Products.CMFCore.utils import getToolByName
-from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 
 grok.templatedir("templates")
 
@@ -202,7 +200,6 @@ def Punts2Acta(self):
             number = ''
         results.append(number + str(obj.Title))
         if len(value.objectIds()) > 0:
-            # Tiene elementos dentro
             valuesInside = portal_catalog.searchResults(
                 portal_type='genweb.organs.subpunt',
                 sort_on='getObjPositionInParent',
@@ -228,7 +225,3 @@ class Edit(dexterity.EditForm):
     """A standard edit form.
     """
     grok.context(IActa)
-
-    def updateWidgets(self):
-        super(Edit, self).updateWidgets()
-        # self.widgets['field_name'].mode = HIDDEN_MODE

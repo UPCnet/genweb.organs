@@ -29,16 +29,16 @@
 
       <div tal:condition="items" class="organsfolder_view">
   <div class="documentDescription description"></div>
-      
+
         <table class="table table-striped">
           <thead>
             <tr>
               <th>
                 <tal:title i18n:translate="">Title</tal:title>
               </th>
-              <th>
+<!--               <th>
                 <tal:head i18n:translate="">Organ type</tal:head>
-              </th>
+              </th> -->
             </tr>
           </thead>
           <tal:documents repeat="item items">
@@ -50,16 +50,16 @@
                   </a>
                   <tal:omit-tag tal:condition="item/acronim">
                   [<tal:omit-tag tal:content="item/acronim">
-                            Item Description
+                            Item Acronim
                     </tal:omit-tag>]
                   </tal:omit-tag>
                 </td>
-                <td>
+<!--                 <td>
                   <span tal:content="item/tipus"
                         i18n:translate="">
                           Item Type
                   </span>
-                </td>
+                </td> -->
               </tr>
           </tal:documents>
         </table>

@@ -12,6 +12,7 @@ from plone.autoform import directives
 from plone.supermodel.directives import fieldset
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.directives import dexterity
+from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from genweb.organs import utils
 
 organType = SimpleVocabulary(
@@ -138,6 +139,10 @@ class Edit(dexterity.EditForm):
     """A standard edit form.
     """
     grok.context(IOrgangovern)
+
+    def updateWidgets(self):
+        super(Edit, self).updateWidgets()
+        self.widgets['tipus'].mode = HIDDEN_MODE
 
 
 class View(grok.View):

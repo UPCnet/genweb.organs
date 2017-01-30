@@ -7,8 +7,6 @@ from genweb.organs.content.sessio import ISessio
 from Products.CMFCore.utils import getToolByName
 from plone.app.layout.navigation.root import getNavigationRootObject
 from Acquisition import aq_inner
-
-
 from genweb.organs import utils
 
 grok.templatedir("templates")
@@ -23,7 +21,7 @@ class Presentation(form.SchemaForm):
     grok.name('presentation')
     grok.context(ISessio)
     grok.template("presentation")
-    grok.require('zope2.Public')
+    grok.require('zope2.View')
     grok.layer(IGenwebOrgansLayer)
 
     def PuntsInside(self):

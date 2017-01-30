@@ -1,20 +1,10 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from five import grok
-from zope.schema import TextLine
-from z3c.form import button
 from plone.directives import form
-from Products.statusmessages.interfaces import IStatusMessage
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
-from AccessControl import Unauthorized
-from plone.autoform import directives
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from zope import schema
-from time import strftime
-from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
-from genweb.organs.utils import addEntryLog
 from Products.CMFCore.utils import getToolByName
 from genweb.organs import utils
 
