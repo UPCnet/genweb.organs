@@ -935,3 +935,43 @@ i.icon-genweb-organs-acta,
 {
     background-position: -24px -24px !important;
 }
+
+dt.contenttype-genweb-organs-punt:before,
+i.icon-genweb-organs-punt,
+#listing-table a.contenttype-genweb-organs-punt:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-punt:before
+{
+    background-position: -384px -168px !important;
+}
+
+dt.contenttype-genweb-organs-audio:before,
+i.icon-genweb-organs-audio,
+#listing-table a.contenttype-genweb-organs-audio:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-audio:before
+{
+    background-position: -24px -0px !important;
+}
+
+dt.contenttype-genweb-organs-file:before,
+i.icon-genweb-organs-file,
+#listing-table a.contenttype-genweb-organs-file:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-file:before
+{
+    background-position: -168px -168px !important;
+}
+
+dt.contenttype-genweb-organs-subpunt:before,
+i.icon-genweb-organs-subpunt,
+#listing-table a.contenttype-genweb-organs-subpunt:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-subpunt:before
+{
+    background-position: -384px -168px !important;
+}
+
+dt.contenttype-genweb-organs-organsfolder:before,
+i.icon-genweb-organs-organsfolder,
+#listing-table a.contenttype-genweb-organs-organsfolder:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-organsfolder:before
+{
+    background-position: -384px -120px !important;
+}
