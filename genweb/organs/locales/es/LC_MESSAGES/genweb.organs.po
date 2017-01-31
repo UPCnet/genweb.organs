@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-30 14:02+0000\n"
+"POT-Creation-Date: 2017-01-31 12:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,11 +60,11 @@ msgstr "Añadir conteido separado por dos guiones -- y entonces se añadirá aut
 
 #: ./genweb/organs/content/templates/sessio_view.pt:359
 msgid "Afectat"
-msgstr ""
+msgstr "Afectado"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:389
 msgid "Afegir <span class=\"caret\"></span>"
-msgstr ""
+msgstr "Añadir <span class=\"caret\"></span>"
 
 #: ./genweb/organs/content/punt.py:81
 #: ./genweb/organs/content/templates/organgovern_view.pt:84
@@ -96,7 +96,7 @@ msgstr "Contenido interno"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:360
 msgid "Anonim"
-msgstr ""
+msgstr "Anónimo"
 
 #: ./genweb/organs/content/acta.py:20
 #: ./genweb/organs/content/organgovern.py:35
@@ -112,7 +112,7 @@ msgstr "Lista de personas asistentes"
 
 #: ./genweb/organs/profiles/default/types/genweb.organs.audio.xml
 msgid "Audio"
-msgstr ""
+msgstr "Audio"
 
 #: ./genweb/organs/content/sessio.py:139
 #: ./genweb/organs/content/templates/impersonate_as.pt:118
@@ -205,7 +205,7 @@ msgstr "Contenido preparado para publicar."
 
 #: ./genweb/organs/browser/views.py:96
 msgid "Deleted element"
-msgstr ""
+msgstr "Elemento eliminado"
 
 #: ./genweb/organs/browser/events/removeObject.py:39
 msgid "Deleted punt"
@@ -252,7 +252,7 @@ msgstr "Marcar esta opción si se trata de un acuerdo"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:29
 msgid "Esteu visualitzant la sessio amb el rol <b><span>${DYNAMIC_CONTENT}</span></b>. <br /> Clicar <a href=\"./\">aqui</a> per tornar al mode de visualitzacio per defecte."
-msgstr ""
+msgstr "Estáis visualizando la sessión con el rol <b><span>${DYNAMIC_CONTENT}</span></b>. <br /> Clicar <a href=\"./\">aquí</a> para volver al modo de visualización por defecto."
 
 #: ./genweb/organs/content/templates/file_view.pt:17
 msgid "Esteu visualitzant un fitxer <strong>PRIVAT</strong>."
@@ -270,7 +270,7 @@ msgstr "Personas excusadas"
 
 #: ./genweb/organs/content/sessio.py:104
 msgid "Excused members help"
-msgstr ""
+msgstr "Lista de personas excusadas"
 
 #: ./genweb/organs/content/acta.py:105
 #: ./genweb/organs/content/organsfolder.py:16
@@ -308,7 +308,7 @@ msgstr "Pie del acta"
 
 #: ./genweb/organs/content/mailConvocar.py:36
 msgid "From"
-msgstr ""
+msgstr "Asunto"
 
 #: ./genweb/organs/content/organgovern.py:88
 msgid "From mail"
@@ -328,11 +328,11 @@ msgstr "Hora de finalización"
 
 #: ./genweb/organs/content/sessio.py:134
 msgid "If you want to add a video file, not a url, there is a trick, you must add an Audio Type and leave this field empty."
-msgstr ""
+msgstr "URL del video de la grabación de la sesión. Normalmente hay que utilizar herramientas de streaming como Youtube, Vimeo, UPCtv, y enlazarlo aquí. No se aconseja adjuntar el fichero de video debido a su tamaño y problemas en la distribución vía web."
 
 #: ./genweb/organs/content/sessio.py:140
 msgid "If you want to add an audio file, nor a url, you must add an Audio Type and leave this empty. "
-msgstr ""
+msgstr "URL del audio de la grabación de la sesión. En caso que se haya subido previamente un fichero de sesión en la sesión, no será necesario indicarlo aquí, ya que se mostrará automáticamente."
 
 #: ./genweb/organs/content/acta.py:111
 msgid "Imatge de les actes"
@@ -352,7 +352,11 @@ msgstr "Personas convocadas"
 
 #: ./genweb/organs/content/sessio.py:88
 msgid "Incoming members list help"
-msgstr ""
+msgstr "Lista de personas convocadas"
+
+#: ./genweb/organs/browser/viewlets_templates/header.pt:37
+msgid "Info_del_Servei"
+msgstr "Consultar la información en Serveis TIC"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:148
 msgid "Informar"
@@ -374,7 +378,7 @@ msgstr "Personas invitadas"
 
 #: ./genweb/organs/content/sessio.py:96
 msgid "Invited members help"
-msgstr ""
+msgstr "Lista de personas invitadas"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:340
 msgid "Llista punts"
@@ -425,7 +429,7 @@ msgstr "Puntos importados de forma masiva"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:358
 msgid "Membre"
-msgstr ""
+msgstr "Miembro"
 
 #: ./genweb/organs/content/informarSessio.py:39
 #: ./genweb/organs/content/mailConvocar.py:41
@@ -468,7 +472,7 @@ msgstr "Personas no asistentes"
 
 #: ./genweb/organs/content/sessio.py:112
 msgid "No assistents help"
-msgstr ""
+msgstr "Listado de personas no asistentes"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:300
 msgid "Notificador"
@@ -509,7 +513,7 @@ msgstr "Descripción"
 
 #: ./genweb/organs/content/organgovern.py:61
 msgid "Organ Govern description help"
-msgstr ""
+msgstr "Descripción"
 
 #: ./genweb/organs/content/organgovern.py:75
 msgid "Organ Govern members"
@@ -517,7 +521,7 @@ msgstr "Composición del órgano"
 
 #: ./genweb/organs/content/organgovern.py:76
 msgid "Organ Govern members Description"
-msgstr ""
+msgstr "Listado de componentes del órgano de gobierno"
 
 #: ./genweb/organs/content/organgovern.py:67
 msgid "Organ Govern type"
@@ -582,7 +586,7 @@ msgstr "Por favor, suba un documento"
 
 #: ./genweb/organs/content/audio.py:19
 msgid "Please upload a media file"
-msgstr ""
+msgstr "Por favor, suba un fichero"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:145
 msgid "Presentacio"
@@ -640,7 +644,7 @@ msgstr "Enviar"
 #: ./genweb/organs/content/mailConvocar.py:26
 #: ./genweb/organs/content/sendMessage.py:25
 msgid "Sender"
-msgstr ""
+msgstr "Remitente"
 
 #: ./genweb/organs/content/mailConvocar.py:133
 msgid "Sending mail convocatoria"
@@ -711,7 +715,7 @@ msgstr "Listado de sesiones"
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:123
 msgid "Si creieu que heu de veure alguna sessio, contacteu amb administrador ja que aquest usuari no disposa de cap dels permissos de OG en aquest OG."
-msgstr ""
+msgstr "Si debéis de ver alguna sesión y no aparece aquí, contactar con el administrador ya que parece que este usuario no tiene ninguno de los permisos de OG en este OG."
 
 #: ./genweb/organs/content/organsfolder.py:17
 msgid "Si es vol fer servir la imatge estandard o la imatge que es puja a continuació"
@@ -723,7 +727,7 @@ msgstr "Firma del mensaje"
 
 #: ./genweb/organs/content/sessio.py:128
 msgid "Signatura description"
-msgstr ""
+msgstr "Firma del mensaje"
 
 #: ./genweb/organs/content/organgovern.py:101
 #: ./genweb/organs/content/sessio.py:79
@@ -754,7 +758,7 @@ msgstr "Título"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:351
 msgid "Veure com... <span class=\"caret\"></span>"
-msgstr ""
+msgstr "Ver como... <span class=\"caret\"></span>"
 
 #: ./genweb/organs/content/sessio.py:133
 #: ./genweb/organs/content/templates/impersonate_as.pt:111

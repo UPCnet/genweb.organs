@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-30 14:02+0000\n"
+"POT-Creation-Date: 2017-01-31 12:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -352,6 +352,10 @@ msgstr "Incoming members list"
 
 #: ./genweb/organs/content/sessio.py:88
 msgid "Incoming members list help"
+msgstr ""
+
+#: ./genweb/organs/browser/viewlets_templates/header.pt:37
+msgid "Info_del_Servei"
 msgstr ""
 
 #: ./genweb/organs/content/templates/sessio_view.pt:148

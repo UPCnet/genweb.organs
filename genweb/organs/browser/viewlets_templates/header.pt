@@ -33,6 +33,14 @@
                    <tal:content content="cl_title"> CustomLink </tal:content>
                </a>
             </li>
+            <li>
+              <a href="//serveistic.upc.edu/ca/organs-de-govern"
+                 i18n:domain="genweb.organs"
+                 i18n:attributes="title Info_del_Servei;
+                                  alt Info_del_Servei">
+                 <span class="fa fa-info-circle"></span>
+              </a>
+            </li>
             <li><a accesskey="4"
                    i18n:domain="plone"
                    i18n:translate="Site Map"
@@ -113,6 +121,14 @@
                        tal:content="custom_link/cl_title">CustomLink
                     </a>
          </div>
+        </li>
+        <li>
+          <a href="//serveistic.upc.edu/ca/organs-de-govern"
+             i18n:domain="genweb.organs"
+             i18n:attributes="title Info_del_Servei;
+                              alt Info_del_Servei">
+             <span class="fa fa-info-circle"></span>
+          </a>
         </li>
         <li><a accesskey="4"
                i18n:domain="plone"
