@@ -345,7 +345,6 @@ class View(grok.View):
                                 estats=self.estatsCanvi(obj),
                                 css=self.getColor(obj),
                                 id='/'.join(item.absolute_url_path().split('/')[-2:])))
-        print results
         return results
 
     def ActesInside(self):

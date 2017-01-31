@@ -46,7 +46,7 @@ class ISubpunt(form.Schema):
     """
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
-        title=_(u'Punt Title'),
+        title=_(u'Subpunt Title'),
         required=True
     )
 
@@ -56,15 +56,16 @@ class ISubpunt(form.Schema):
         required=False
     )
 
+    acordOrgan = schema.Bool(
+        title=_(u'Es un acord?'),
+        description=_(u'Es un acord help'),
+        required=False,
+        default=False,
+    )
+
     agreement = schema.TextLine(
         title=_(u'Agreement number'),
         required=False
-    )
-
-    acordOrgan = schema.Bool(
-        title=_(u'Es un acord?'),
-        required=False,
-        default=False,
     )
 
     directives.widget(defaultContent=WysiwygFieldWidget)

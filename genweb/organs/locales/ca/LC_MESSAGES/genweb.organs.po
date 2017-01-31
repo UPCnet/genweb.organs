@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-31 12:40+0000\n"
+"POT-Creation-Date: 2017-01-31 16:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:28
 msgid "<b>Esteu visualitzant un Acord</b>"
-msgstr "<b>Esteu visualitzant un Acord</b>"
+msgstr "<b>Esteu visualitzant un acord.</b>"
 
 #: ./genweb/organs/content/organgovern.py:27
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
@@ -76,12 +76,12 @@ msgid "Agreement and document label:"
 msgstr "Estat:"
 
 #: ./genweb/organs/content/organgovern.py:114
-#: ./genweb/organs/content/subpunt.py:78
+#: ./genweb/organs/content/subpunt.py:80
 msgid "Agreement and document labels"
 msgstr "Estats d'aprovació"
 
 #: ./genweb/organs/content/punt.py:63
-#: ./genweb/organs/content/subpunt.py:60
+#: ./genweb/organs/content/subpunt.py:67
 #: ./genweb/organs/content/templates/organgovern_view.pt:81
 msgid "Agreement number"
 msgstr "Número d'acord"
@@ -92,7 +92,7 @@ msgstr "Número d'acord:"
 
 #: ./genweb/organs/content/document.py:28
 msgid "Alternate description"
-msgstr "Contingut intern"
+msgstr "Contingut reservat"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:360
 msgid "Anonim"
@@ -164,7 +164,7 @@ msgstr "Composició"
 
 #: ./genweb/organs/content/document.py:29
 msgid "Content used to hide protected content"
-msgstr "Contingut d'ús intern."
+msgstr "Contingut de caràcter reservat del document per ús intern."
 
 #: ./genweb/organs/content/templates/document_view.pt:33
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:39
@@ -201,7 +201,7 @@ msgstr "Data i hora"
 
 #: ./genweb/organs/content/document.py:21
 msgid "Default content shown in the document view"
-msgstr "Contingut preparat per publicar."
+msgstr "Contingut públic del document."
 
 #: ./genweb/organs/browser/views.py:96
 msgid "Deleted element"
@@ -243,10 +243,14 @@ msgstr "Enviar un missatge"
 
 #: ./genweb/organs/content/file.py:23
 msgid "Es tracta d'un fitxer privat?"
-msgstr "L'opció marcada indica que es tracta d'un fitxer reservat"
+msgstr "Fitxer reservat"
+
+#: ./genweb/organs/content/subpunt.py:61
+msgid "Es un acord help"
+msgstr "La opció marcada indica que aquest punt es tracta d'ún acord. Cal indicar el número al següent apartat."
 
 #: ./genweb/organs/content/punt.py:68
-#: ./genweb/organs/content/subpunt.py:65
+#: ./genweb/organs/content/subpunt.py:60
 msgid "Es un acord?"
 msgstr "Es tracta d'un acord"
 
@@ -558,7 +562,7 @@ msgstr "Imatge de capçalera"
 
 #: ./genweb/organs/content/file.py:24
 msgid "Per defecte els fitxers són privats. Si vol fer públic el fitxer, cal desmarcar aquesta opció."
-msgstr "Per defecte els fitxers són reservats. Si vol fer públic el fitxer, cal desmarcar aquesta opció."
+msgstr "L'opció marcada indica que es tracta d'ún fitxer reservat. Per defecte els fitxers són reservats. Si vol fer públic, cal desmarcar aquesta opció."
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:77
 #: ./genweb/organs/content/templates/sessio_view.pt:199
@@ -582,7 +586,7 @@ msgstr "Persones excusades"
 
 #: ./genweb/organs/content/file.py:30
 msgid "Please upload a document"
-msgstr "Si us plau, afegiu un document"
+msgstr "Seleccionar un fitxer"
 
 #: ./genweb/organs/content/audio.py:19
 msgid "Please upload a media file"
@@ -598,7 +602,7 @@ msgstr "Imprimir acta"
 
 #: ./genweb/organs/content/document.py:20
 #: ./genweb/organs/content/punt.py:76
-#: ./genweb/organs/content/subpunt.py:73
+#: ./genweb/organs/content/subpunt.py:75
 msgid "Proposal description"
 msgstr "Contingut"
 
@@ -612,7 +616,6 @@ msgid "Punt"
 msgstr "Punt"
 
 #: ./genweb/organs/content/punt.py:52
-#: ./genweb/organs/content/subpunt.py:49
 msgid "Punt Title"
 msgstr "Títol del punt de l'ordre del dia"
 
@@ -746,6 +749,10 @@ msgstr "Estat"
 #: ./genweb/organs/profiles/default/types/genweb.organs.subpunt.xml
 msgid "Subpunt"
 msgstr "Subpunt"
+
+#: ./genweb/organs/content/subpunt.py:49
+msgid "Subpunt Title"
+msgstr "Títol del subpunt del punt de l'ordre del dia"
 
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:74
 msgid "Subpunts"

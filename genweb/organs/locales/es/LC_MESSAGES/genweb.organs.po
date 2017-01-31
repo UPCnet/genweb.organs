@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-31 12:40+0000\n"
+"POT-Creation-Date: 2017-01-31 16:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,12 +76,12 @@ msgid "Agreement and document label:"
 msgstr "Estado:"
 
 #: ./genweb/organs/content/organgovern.py:114
-#: ./genweb/organs/content/subpunt.py:78
+#: ./genweb/organs/content/subpunt.py:80
 msgid "Agreement and document labels"
 msgstr "Estados de aprobación"
 
 #: ./genweb/organs/content/punt.py:63
-#: ./genweb/organs/content/subpunt.py:60
+#: ./genweb/organs/content/subpunt.py:67
 #: ./genweb/organs/content/templates/organgovern_view.pt:81
 msgid "Agreement number"
 msgstr "Número de acuerdo"
@@ -245,8 +245,12 @@ msgstr "Enviar"
 msgid "Es tracta d'un fitxer privat?"
 msgstr "La opción marcada indica que se trata de un fichero interno"
 
+#: ./genweb/organs/content/subpunt.py:61
+msgid "Es un acord help"
+msgstr ""
+
 #: ./genweb/organs/content/punt.py:68
-#: ./genweb/organs/content/subpunt.py:65
+#: ./genweb/organs/content/subpunt.py:60
 msgid "Es un acord?"
 msgstr "Marcar esta opción si se trata de un acuerdo"
 
@@ -598,7 +602,7 @@ msgstr "Imprimir acta"
 
 #: ./genweb/organs/content/document.py:20
 #: ./genweb/organs/content/punt.py:76
-#: ./genweb/organs/content/subpunt.py:73
+#: ./genweb/organs/content/subpunt.py:75
 msgid "Proposal description"
 msgstr "Contenido"
 
@@ -612,7 +616,6 @@ msgid "Punt"
 msgstr "Punto"
 
 #: ./genweb/organs/content/punt.py:52
-#: ./genweb/organs/content/subpunt.py:49
 msgid "Punt Title"
 msgstr "Título del Punto del orden del día"
 
@@ -746,6 +749,10 @@ msgstr "Estado"
 #: ./genweb/organs/profiles/default/types/genweb.organs.subpunt.xml
 msgid "Subpunt"
 msgstr "Subpunto"
+
+#: ./genweb/organs/content/subpunt.py:49
+msgid "Subpunt Title"
+msgstr ""
 
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:74
 msgid "Subpunts"
