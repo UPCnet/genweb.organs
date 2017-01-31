@@ -55,7 +55,8 @@ class IActa(form.Schema):
     directives.widget(membresConvocats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('membresConvocats')
     membresConvocats = schema.Text(
-        title=_(u"Attending members"),
+        title=_(u"Incoming members list"),
+        description=_(u"Incoming members list help"),
         required=False,
     )
 
@@ -63,6 +64,7 @@ class IActa(form.Schema):
     dexteritytextindexer.searchable('membresConvidats')
     membresConvidats = schema.Text(
         title=_(u"Invited members"),
+        description=_(u"Invited members help"),
         required=False,
     )
 
@@ -70,6 +72,7 @@ class IActa(form.Schema):
     dexteritytextindexer.searchable('llistaExcusats')
     llistaExcusats = schema.Text(
         title=_(u"Excused members"),
+        description=_(u"Excused members help"),
         required=False,
     )
 
@@ -77,6 +80,7 @@ class IActa(form.Schema):
     dexteritytextindexer.searchable('llistaNoAssistens')
     llistaNoAssistens = schema.Text(
         title=_(u"No assistents"),
+        description=_(u"No assistents help"),
         required=False,
     )
 
@@ -91,6 +95,7 @@ class IActa(form.Schema):
     dexteritytextindexer.searchable('actaBody')
     actaBody = schema.Text(
         title=_(u"Acta Body"),
+        description=_(u"Acta Body help"),
         required=False,
     )
 
@@ -98,6 +103,7 @@ class IActa(form.Schema):
     dexteritytextindexer.searchable('footer')
     footer = schema.Text(
         title=_(u"Footer"),
+        description=_(u"Footer help"),
         required=False,
     )
 
@@ -176,6 +182,12 @@ def horaFiDefaultValue(data):
 def ordreSessioDefaultValue(data):
     # Copy all Punts from Session to Acta
     return Punts2Acta(data)
+
+
+@form.default_value(field=IActa['footer'])
+def footerDefaultValue(data):
+    # Copy all Punts from Session to Acta
+    return data.context.signatura
 
 
 def Punts2Acta(self):
