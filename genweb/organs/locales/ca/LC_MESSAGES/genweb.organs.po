@@ -243,7 +243,7 @@ msgstr "Enviar un missatge"
 
 #: ./genweb/organs/content/file.py:23
 msgid "Es tracta d'un fitxer privat?"
-msgstr "L'opció marcada indica que es tracta d'un fitxer intern"
+msgstr "L'opció marcada indica que es tracta d'un fitxer reservat"
 
 #: ./genweb/organs/content/punt.py:68
 #: ./genweb/organs/content/subpunt.py:65
@@ -558,7 +558,7 @@ msgstr "Imatge de capçalera"
 
 #: ./genweb/organs/content/file.py:24
 msgid "Per defecte els fitxers són privats. Si vol fer públic el fitxer, cal desmarcar aquesta opció."
-msgstr "Per defecte els fitxers són privats. Si vol fer públic el fitxer, cal desmarcar aquesta opció."
+msgstr "Per defecte els fitxers són reservats. Si vol fer públic el fitxer, cal desmarcar aquesta opció."
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:77
 #: ./genweb/organs/content/templates/sessio_view.pt:199
