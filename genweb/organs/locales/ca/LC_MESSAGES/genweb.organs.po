@@ -509,23 +509,23 @@ msgstr "Nou punt"
 
 #: ./genweb/organs/profiles/default/sharing.xml
 msgid "OG1-Secretari"
-msgstr "OG1-Secreatari"
+msgstr "OG1-Secretari"
 
 #: ./genweb/organs/profiles/default/sharing.xml
 msgid "OG2-Editor"
-msgstr ""
+msgstr "OG2-Editor"
 
 #: ./genweb/organs/profiles/default/sharing.xml
 msgid "OG3-Membre"
-msgstr ""
+msgstr "OG3-Membre"
 
 #: ./genweb/organs/profiles/default/sharing.xml
 msgid "OG4-Afectat"
-msgstr ""
+msgstr "OG4-Afectat"
 
 #: ./genweb/organs/profiles/default/sharing.xml
 msgid "OG5-Anonim"
-msgstr ""
+msgstr "OG5-Anònim"
 
 #: ./genweb/organs/content/organgovern.py:19
 msgid "Open"

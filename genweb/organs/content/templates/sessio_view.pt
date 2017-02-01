@@ -426,8 +426,7 @@
                 </tal:block>
               </div>
 
-
-              <div class="btn-group" role="group" tal:condition="python: canModify and not agreement"
+              <div class="btn-group" role="group" tal:define="agreement item/agreement" tal:condition="python: canModify and not agreement"
                    style="float: right;" aria-label="Fer acord">
                 <button type="button" class="acord label label-important"
                   data-container="body"
@@ -489,8 +488,8 @@
               </div>
 
               <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" class="sortable2">
-                <tal:subpunts repeat="item subpunts">
-                  <ol class="li_subgrups" tal:attributes="id item/id">
+                <tal:subpunts repeat="itemSubpunt subpunts">
+                  <ol class="li_subgrups" tal:attributes="id itemSubpunt/id">
                     <td>
                       <div style="float: right;" aria-label="Subpunt actions" tal:condition="canModify">
                         <button type="button" class="edit2 label label-info"
@@ -503,7 +502,7 @@
                               data-html="true"
                               data-trigger="focus"
                               data-original-title="Delete"
-                              tal:attributes="data-item item/id; data-type item/portal_type">
+                              tal:attributes="data-item itemSubpunt/id; data-type itemSubpunt/portal_type">
                               <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </button>
                       </div>
@@ -517,39 +516,39 @@
                             <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                            <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.file"><span i18n:translate="">File</span></a></li>
-                            <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.document"><span i18n:translate="">Document</span></a></li>
+                            <li><a tabindex="-1" tal:attributes="href string:${itemSubpunt/id}/++add++genweb.organs.file"><span i18n:translate="">File</span></a></li>
+                            <li><a tabindex="-1" tal:attributes="href string:${itemSubpunt/id}/++add++genweb.organs.document"><span i18n:translate="">Document</span></a></li>
                           </ul>
                       </div>
 
                       <div class="btn-group" role="group" tal:condition="canModify"
                            style="float: right;" aria-label="Subpunt actions">
-                        <tal:block tal:condition="item/state">
+                        <tal:block tal:condition="itemSubpunt/state">
                           <button class="label dropdown-toggle"
                               id="estats" type="button" data-toggle="dropdown"
                               aria-haspopup="true" aria-expanded="false">
-                              <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
-                            <a tal:content="item/state"></a>
+                              <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${itemSubpunt/css}"></i>
+                            <a tal:content="itemSubpunt/state"></a>
                             <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu estatsToggle" role="menu" aria-labelledby="estats">
-                            <tal:block repeat="estat item/estats">
-                              <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
+                            <tal:block repeat="estat itemSubpunt/estats">
+                              <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat/title}&id=${itemSubpunt/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
                             </tal:block>
                           </ul>
                         </tal:block>
                       </div>
 
                       <div tal:condition="not:canModify" style="float: right;">
-                        <tal:block tal:condition="item/state">
+                        <tal:block tal:condition="itemSubpunt/state">
                           <button class="btn label disabled " style="padding:3px;">
-                          <i class="fa fa-circle" aria-hidden="true"  tal:attributes="style string:color:${item/css}"></i>
-                          <span  tal:content="item/state"></span>
+                          <i class="fa fa-circle" aria-hidden="true"  tal:attributes="style string:color:${itemSubpunt/css}"></i>
+                          <span  tal:content="itemSubpunt/state"></span>
                           </button>
                         </tal:block>
                       </div>
 
-                      <div class="btn-group" role="group" tal:condition="python: canModify and not agreement"
+                      <div class="btn-group" role="group" tal:define="agreementTitle itemSubpunt/agreement" tal:condition="python: canModify and not agreementTitle"
                            style="float: right;" aria-label="Fer acord">
                         <button  type="button" class="acord label label-important"
                           data-container="body"
@@ -558,19 +557,20 @@
                           data-html="true"
                           data-trigger="manual"
                           data-original-title="Convertir en acord"
-                          tal:attributes="data-item item/id; data-type item/portal_type">
+                          tal:attributes="data-item itemSubpunt/id; data-type itemSubpunt/portal_type">
                           Fer acord
                         </button>
                       </div>
 
-                      <div class="subpuntTitle" tal:define="agreement item/agreement">
-    	                  <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
-                        <a class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"
-                            tal:attributes="data-pk item/id; href item/absolute_url" data-url="changeAgreement"></a>
-                        <a tal:attributes="data-pk item/id; href item/absolute_url"
+
+                      <div class="subpuntTitle" tal:define="agreementTitle itemSubpunt/agreement">
+    	                  <span class="proposalNumberSubpunt" tal:content="itemSubpunt/proposalPoint"></span>
+                        <a class="agreement editable editable-click" tal:condition="agreementTitle" tal:content="agreementTitle"
+                            tal:attributes="data-pk itemSubpunt/id; href itemSubpunt/absolute_url" data-url="changeAgreement"></a>
+                        <a tal:attributes="data-pk itemSubpunt/id; href itemSubpunt/absolute_url"
                            data-type="text" data-url="changeTitle"
                            class="editTitle editable subtitleSize">
-                          <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                          <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
                         </a>
                         <tal:files tal:define="files python:view.filesinsidePunt(item)">
                           <ul style="list-style: none; padding-top:10px;">

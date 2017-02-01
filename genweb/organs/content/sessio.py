@@ -292,7 +292,7 @@ class View(grok.View):
                 results.append(dict(id=obj.id,
                                     classe='hidden',
                                     show=False,
-                                    agreement=None))
+                                    agreement=False))
             else:
                 item = obj.getObject()
                 if len(item.objectIds()) > 0:
