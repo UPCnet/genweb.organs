@@ -175,9 +175,9 @@ class Presentation(form.SchemaForm):
                     self.context.logoOrganFolder.filename
                     return self.context.absolute_url() + '/@@images/logoOrganFolder'
                 else:
-                    return None
+                    return self.context.absolute_url() + '/capcalera@2x.jpg'
             except:
-                return None
+                return self.context.absolute_url() + '/capcalera@2x.jpg'
         else:
             portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
             root = getNavigationRootObject(self.context, portal_state.portal())
@@ -197,6 +197,6 @@ class Presentation(form.SchemaForm):
                             obj.logoOrganFolder.filename
                             return obj.absolute_url() + '/@@images/logoOrganFolder'
                         else:
-                            return None
+                            return obj.absolute_url() + '/capcalera@2x.jpg'
                     except:
-                        return None  # loads default image
+                        return obj.absolute_url() + '/capcalera@2x.jpg'

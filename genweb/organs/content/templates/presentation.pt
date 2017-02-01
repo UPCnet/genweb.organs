@@ -99,7 +99,7 @@
     </h1>
   </div>
   <div class="bannerOrgansPresentation clearfix">
-        <img tal:attributes="src view/getLogo" style="height:65px; width: auto;" />
+        <img tal:attributes="src view/getLogo" style="height:65px; width: 100%;" />
     <div class="bannerTitle" tal:condition="view/getTitle" tal:content="view/getTitle">Govern UPC - FIB</div>
   </div>
 

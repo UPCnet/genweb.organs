@@ -190,7 +190,7 @@
 
   <div class="bannerOrgans">
     <div style="float:left;">
-          <img tal:attributes="src viewlet/getLogo" style="height:65px; width: auto;" />
+          <img tal:attributes="src viewlet/getLogo" style="height:65px; width: 100%;" />
     </div>
     <div class="bannerTitle" tal:condition="viewlet/getTitle" tal:content="viewlet/getTitle">Govern UPC - FIB</div>
     <div class="header-image l3-image"

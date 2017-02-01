@@ -35,7 +35,7 @@
     <img tal:attributes="src view/getOrganLogo" style="height:65px; width: 100%;" />
     <br/>
     <br/>
-    <img tal:attributes="src view/getSessionLogo" style="height:60px; width: auto; float:right;" />
+    <img tal:attributes="src view/getSessionLogo" style="height:60px; width: 100%; float:right;" />
     <h1 style="text-align: left" tal:content="view/organGovernTitle">CONSELL DE GOVERN</h1>
     <div class="clearfix"></div>
     <hr/>
