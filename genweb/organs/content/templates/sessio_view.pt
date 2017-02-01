@@ -322,7 +322,7 @@
 
 
 
-  <div tal:condition="canModify" class="modal fade" id="modalPunts" tabindex="-1" role="dialog" aria-labelledby="modalMassive">
+  <div tal:condition="canModify" class="modal fade massivePuntsModal" id="modalPunts" tabindex="-1" role="dialog" aria-labelledby="modalMassive">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -443,10 +443,11 @@
 
               <div class="puntTitle">
 
-                <span class="proposalNumber" tal:content="item/proposalPoint"></span>
                 <a class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"
                     tal:attributes="data-pk item/id; href item/absolute_url" data-url="changeAgreement"></a>
                 <div class="divTitle">
+                <span class="proposalNumber" tal:content="item/proposalPoint"></span>
+
                   <a tal:attributes="data-pk item/id; href item/absolute_url"
                      data-url="changeTitle"
                      class="editTitle editable titleSize">
@@ -548,7 +549,7 @@
                         </tal:block>
                       </div>
 
-                      <div class="btn-group" role="group" tal:condition="python:canModify and not agreement"
+                      <div class="btn-group" role="group" tal:condition="python: canModify and not agreement"
                            style="float: right;" aria-label="Fer acord">
                         <button  type="button" class="acord label label-important"
                           data-container="body"

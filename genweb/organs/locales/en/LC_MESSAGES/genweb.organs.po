@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-02-01 08:58+0000\n"
+"POT-Creation-Date: 2017-02-01 11:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,11 +34,11 @@ msgstr "Action"
 msgid "Acord"
 msgstr "Agreement"
 
-#: ./genweb/organs/content/organgovern.py:52
+#: ./genweb/organs/content/organgovern.py:54
 msgid "Acronym"
 msgstr "Acronym"
 
-#: ./genweb/organs/content/organgovern.py:53
+#: ./genweb/organs/content/organgovern.py:55
 msgid "Acronym Description"
 msgstr "Nickname that will lead to simplified URL organ."
 
@@ -70,7 +70,7 @@ msgstr ""
 msgid "Afegir <span class=\"caret\"></span>"
 msgstr ""
 
-#: ./genweb/organs/content/punt.py:82
+#: ./genweb/organs/content/punt.py:81
 #: ./genweb/organs/content/templates/organgovern_view.pt:84
 msgid "Agreement and document label"
 msgstr "Agreement and document label"
@@ -79,12 +79,12 @@ msgstr "Agreement and document label"
 msgid "Agreement and document label:"
 msgstr "Agreement and document label:"
 
-#: ./genweb/organs/content/organgovern.py:114
+#: ./genweb/organs/content/organgovern.py:116
 #: ./genweb/organs/content/subpunt.py:79
 msgid "Agreement and document labels"
 msgstr "Agreement and document labels"
 
-#: ./genweb/organs/content/punt.py:70
+#: ./genweb/organs/content/punt.py:69
 #: ./genweb/organs/content/subpunt.py:67
 #: ./genweb/organs/content/templates/organgovern_view.pt:81
 msgid "Agreement number"
@@ -127,11 +127,11 @@ msgstr "Audio link"
 msgid "Body Mail"
 msgstr "Body Mail"
 
-#: ./genweb/organs/content/organgovern.py:122
+#: ./genweb/organs/content/organgovern.py:124
 msgid "Body Mail convoquing"
 msgstr "Template message from the convoquing session"
 
-#: ./genweb/organs/content/organgovern.py:123
+#: ./genweb/organs/content/organgovern.py:125
 msgid "Body Mail convoquing description"
 msgstr "Message attached to convene a session. Adds the Footer and header."
 
@@ -139,17 +139,17 @@ msgstr "Message attached to convene a session. Adds the Footer and header."
 msgid "Body Mail description"
 msgstr "Message Body convening of the session"
 
-#: ./genweb/organs/content/organgovern.py:129
+#: ./genweb/organs/content/organgovern.py:131
 msgid "Body Mail send"
 msgstr "Template from message used in Send Message action"
 
-#: ./genweb/organs/content/organgovern.py:130
+#: ./genweb/organs/content/organgovern.py:132
 msgid "Body Mail send description"
 msgstr "Message attached executing the Send Message Action. It adds just the foot of the post."
 
-#: ./genweb/organs/content/informarSessio.py:125
+#: ./genweb/organs/content/informarSessio.py:126
 #: ./genweb/organs/content/manualimport.py:141
-#: ./genweb/organs/content/sendMessage.py:119
+#: ./genweb/organs/content/sendMessage.py:120
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -232,11 +232,11 @@ msgstr "Recipients"
 msgid "Document"
 msgstr "Document"
 
-#: ./genweb/organs/content/organgovern.py:115
+#: ./genweb/organs/content/organgovern.py:117
 msgid "Enter labels, separated by commas."
 msgstr "Indicate comma-delimited literals to be used as state approval of the agenda points."
 
-#: ./genweb/organs/content/organgovern.py:89
+#: ./genweb/organs/content/organgovern.py:91
 msgid "Enter the from used in the mail form"
 msgstr "This is the sender notification"
 
@@ -248,12 +248,12 @@ msgstr "Send"
 msgid "Es tracta d'un fitxer privat?"
 msgstr "This option marked, indicates that this is an external file"
 
-#: ./genweb/organs/content/punt.py:64
+#: ./genweb/organs/content/punt.py:63
 #: ./genweb/organs/content/subpunt.py:61
 msgid "Es un acord help"
 msgstr ""
 
-#: ./genweb/organs/content/punt.py:63
+#: ./genweb/organs/content/punt.py:62
 #: ./genweb/organs/content/subpunt.py:60
 msgid "Es un acord?"
 msgstr "It is an agreement?"
@@ -281,8 +281,11 @@ msgstr "Excused members"
 msgid "Excused members help"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:111
 #: ./genweb/organs/content/organsfolder.py:16
+msgid "Fer servir capcalera personalitzada?"
+msgstr ""
+
+#: ./genweb/organs/content/acta.py:111
 msgid "Fer servir la imatge personalitzada?"
 msgstr "Use the custom image?"
 
@@ -323,7 +326,7 @@ msgstr ""
 msgid "From"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:88
+#: ./genweb/organs/content/organgovern.py:90
 msgid "From mail"
 msgstr "Email who sends the messages"
 
@@ -410,7 +413,7 @@ msgstr "Place"
 msgid "Lloc de realitzacio"
 msgstr "Place"
 
-#: ./genweb/organs/content/organgovern.py:108
+#: ./genweb/organs/content/organgovern.py:110
 msgid "Logo description"
 msgstr "Logo that can be used to print in Documents and Acta."
 
@@ -418,15 +421,15 @@ msgstr "Logo that can be used to print in Documents and Acta."
 msgid "Logo organs folder description"
 msgstr "Logo que se utiliza en la parte superior de la página y a la hora de imprimir las actas."
 
-#: ./genweb/organs/content/organgovern.py:96
+#: ./genweb/organs/content/organgovern.py:98
 msgid "Mail address help"
 msgstr "Address or addresses to which messages arrive when a notification of the body is done"
 
-#: ./genweb/organs/content/sendMessage.py:31
+#: ./genweb/organs/content/sendMessage.py:32
 msgid "Mail address separated by blanks."
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:34
+#: ./genweb/organs/content/informarSessio.py:35
 #: ./genweb/organs/content/mailConvocar.py:32
 msgid "Mail address separated by commas."
 msgstr "Email addresses separated by commas."
@@ -447,23 +450,23 @@ msgstr "Massive agreements imported"
 msgid "Membre"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:39
+#: ./genweb/organs/content/informarSessio.py:40
 #: ./genweb/organs/content/mailConvocar.py:41
-#: ./genweb/organs/content/sendMessage.py:36
+#: ./genweb/organs/content/sendMessage.py:37
 msgid "Message"
 msgstr "Message"
 
 #: ./genweb/organs/browser/views.py:312
-#: ./genweb/organs/content/mailConvocar.py:135
+#: ./genweb/organs/content/mailConvocar.py:145
 msgid "Missatge enviat correctament"
 msgstr "Message sent successfully"
 
-#: ./genweb/organs/content/mailConvocar.py:137
+#: ./genweb/organs/content/mailConvocar.py:147
 msgid "Missatge no enviat"
 msgstr ""
 
 #: ./genweb/organs/browser/views.py:315
-#: ./genweb/organs/content/mailConvocar.py:139
+#: ./genweb/organs/content/mailConvocar.py:149
 msgid "Missatge no enviat. Comprovi els destinataris del missatge"
 msgstr "Message not sent. Check the message recipients."
 
@@ -504,13 +507,33 @@ msgstr "Notifications"
 msgid "Nou punt"
 msgstr "New point"
 
+#: ./genweb/organs/profiles/default/sharing.xml
+msgid "OG1-Secretari"
+msgstr ""
+
+#: ./genweb/organs/profiles/default/sharing.xml
+msgid "OG2-Editor"
+msgstr ""
+
+#: ./genweb/organs/profiles/default/sharing.xml
+msgid "OG3-Membre"
+msgstr ""
+
+#: ./genweb/organs/profiles/default/sharing.xml
+msgid "OG4-Afectat"
+msgstr ""
+
+#: ./genweb/organs/profiles/default/sharing.xml
+msgid "OG5-Anonim"
+msgstr ""
+
 #: ./genweb/organs/content/organgovern.py:19
 msgid "Open"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:127
+#: ./genweb/organs/content/informarSessio.py:128
 #: ./genweb/organs/content/manualimport.py:143
-#: ./genweb/organs/content/sendMessage.py:121
+#: ./genweb/organs/content/sendMessage.py:122
 msgid "Operation Cancelled."
 msgstr "The operation was canceled."
 
@@ -524,23 +547,23 @@ msgstr "Agenda"
 msgid "Organ Govern"
 msgstr "Organ of Government"
 
-#: ./genweb/organs/content/organgovern.py:60
+#: ./genweb/organs/content/organgovern.py:62
 msgid "Organ Govern description"
 msgstr "Organ of Government description"
 
-#: ./genweb/organs/content/organgovern.py:61
+#: ./genweb/organs/content/organgovern.py:63
 msgid "Organ Govern description help"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:75
+#: ./genweb/organs/content/organgovern.py:77
 msgid "Organ Govern members"
 msgstr "Composition of the Organ of Government"
 
-#: ./genweb/organs/content/organgovern.py:76
+#: ./genweb/organs/content/organgovern.py:78
 msgid "Organ Govern members Description"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:67
+#: ./genweb/organs/content/organgovern.py:69
 msgid "Organ Govern type"
 msgstr ""
 
@@ -553,15 +576,15 @@ msgstr "Government Organ title"
 msgid "Organ de govern"
 msgstr "Government Organ"
 
-#: ./genweb/organs/content/organgovern.py:107
+#: ./genweb/organs/content/organgovern.py:109
 msgid "Organ logo"
 msgstr "Government Organ Logo"
 
-#: ./genweb/organs/content/organgovern.py:82
+#: ./genweb/organs/content/organgovern.py:84
 msgid "Organ permanently invited people"
 msgstr "Permanents guests"
 
-#: ./genweb/organs/content/organgovern.py:83
+#: ./genweb/organs/content/organgovern.py:85
 msgid "Organ permanently invited people description."
 msgstr "List of names of people who are invited to the meetings of this body systematically despite not forming part."
 
@@ -614,12 +637,12 @@ msgid "Print Acta"
 msgstr "Print acta"
 
 #: ./genweb/organs/content/document.py:20
-#: ./genweb/organs/content/punt.py:77
+#: ./genweb/organs/content/punt.py:76
 #: ./genweb/organs/content/subpunt.py:74
 msgid "Proposal description"
 msgstr "Content"
 
-#: ./genweb/organs/content/punt.py:58
+#: ./genweb/organs/content/punt.py:57
 #: ./genweb/organs/content/subpunt.py:55
 msgid "Proposal point number"
 msgstr "Point of the Agenda"
@@ -628,13 +651,13 @@ msgstr "Point of the Agenda"
 msgid "Punt"
 msgstr "Point of the Agenda"
 
-#: ./genweb/organs/content/punt.py:52
+#: ./genweb/organs/content/punt.py:51
 msgid "Punt Title"
 msgstr "Title"
 
-#: ./genweb/organs/content/informarSessio.py:33
+#: ./genweb/organs/content/informarSessio.py:34
 #: ./genweb/organs/content/mailConvocar.py:31
-#: ./genweb/organs/content/sendMessage.py:30
+#: ./genweb/organs/content/sendMessage.py:31
 msgid "Recipients"
 msgstr "Recipients"
 
@@ -650,8 +673,8 @@ msgstr ""
 msgid "Restricted_to_Members"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:77
-#: ./genweb/organs/content/mailConvocar.py:104
+#: ./genweb/organs/content/informarSessio.py:78
+#: ./genweb/organs/content/mailConvocar.py:114
 #: ./genweb/organs/content/manualimport.py:61
 msgid "Send"
 msgstr "Send"
@@ -662,15 +685,23 @@ msgstr "Send"
 msgid "Sender"
 msgstr ""
 
-#: ./genweb/organs/content/mailConvocar.py:133
+#: ./genweb/organs/content/sendMessage.py:26
+msgid "Sender message help"
+msgstr ""
+
+#: ./genweb/organs/content/informarSessio.py:29
+msgid "Sender organ help"
+msgstr ""
+
+#: ./genweb/organs/content/mailConvocar.py:143
 msgid "Sending mail convocatoria"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:120
+#: ./genweb/organs/content/informarSessio.py:121
 msgid "Sending mail informar sessio"
 msgstr ""
 
-#: ./genweb/organs/content/sendMessage.py:114
+#: ./genweb/organs/content/sendMessage.py:115
 msgid "Sending mail new message"
 msgstr ""
 
@@ -745,12 +776,12 @@ msgstr "Signature message"
 msgid "Signatura description"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:101
+#: ./genweb/organs/content/organgovern.py:103
 #: ./genweb/organs/content/sessio.py:79
 msgid "Stakeholders mail address"
 msgstr "Addresses of the affected"
 
-#: ./genweb/organs/content/organgovern.py:102
+#: ./genweb/organs/content/organgovern.py:104
 msgid "Stakeholders mail address help."
 msgstr "List of addresses of the people affected, thta want to be notified."
 
@@ -799,15 +830,15 @@ msgstr "List of addresses of the persons concerned, that will be notified notifi
 msgid "description_no_items_in_folder"
 msgstr "No Governing Body in this folder."
 
-#: ./genweb/organs/content/organgovern.py:136
+#: ./genweb/organs/content/organgovern.py:138
 msgid "footerMail"
 msgstr "Footer of the message"
 
-#: ./genweb/organs/content/organgovern.py:137
+#: ./genweb/organs/content/organgovern.py:139
 msgid "footerMail description"
 msgstr "Footer attached to the message, when Convoquing or Sending action."
 
-#: ./genweb/organs/content/organgovern.py:95
+#: ./genweb/organs/content/organgovern.py:97
 #: ./genweb/organs/content/sessio.py:73
 msgid "mail address"
 msgstr "Notification Addresses"

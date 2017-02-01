@@ -77,9 +77,19 @@ class Message(form.SchemaForm):
 
         html_content = ''
         sessiontitle = str(session.Title())
-        sessiondate = str(session.dataSessio.strftime("%d/%m/%Y"))
-        starthour = str(session.horaInici.strftime("%H:%M"))
-        endHour = str(session.horaFi.strftime("%H:%M"))
+        if session.dataSessio:
+            sessiondate = str(session.dataSessio.strftime("%d/%m/%Y"))
+        else:
+            sessiondate = ''
+        if session.horaInici:
+            starthour = str(session.horaInici.strftime("%H:%M"))
+        else:
+            starthour = ''
+        if session.horaFi:
+            endHour = str(session.horaFi.strftime("%H:%M"))
+        else:
+            endHour = ''
+
         session.notificationDate = now
         fromMessage = "Convocatoria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
         introData = "<br/><p>Podeu consultar tota la documentació de la sessió aquí: <a href=" + \

@@ -39,16 +39,16 @@ msgid "convocada"
 msgstr "Convocada"
 
 msgid "planificada"
-msgstr "Planificada"
+msgstr "En planificació"
 
 msgid "en_correccio"
-msgstr "En correcció"
+msgstr "En modificació"
 
 msgid "realitzada"
 msgstr "Realitzada"
 
 msgid "corregir"
-msgstr "Corregir"
+msgstr "Modificar"
 
 msgid "realitzar"
 msgstr "Realitzar"

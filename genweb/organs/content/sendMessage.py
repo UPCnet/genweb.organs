@@ -9,7 +9,6 @@ from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
 from genweb.organs.browser.views import sessio_sendMail
-from AccessControl import Unauthorized
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope import schema
@@ -23,6 +22,7 @@ class IMessage(form.Schema):
 
     sender = TextLine(
         title=_("Sender"),
+        description=_("Sender message help"),
         required=False,
         )
 

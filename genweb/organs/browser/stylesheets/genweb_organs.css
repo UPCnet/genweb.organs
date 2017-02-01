@@ -85,8 +85,7 @@ table th {
 
 /* CSS  modal afegir punts massivament */
 #form-widgets-message {
-    width: 530px;
-    height: 190px;
+    height: 165px;
  }
 
 /* add 98% to width */
@@ -525,16 +524,13 @@ background-color: transparent;
     display: block;
 
 }
-.agreement.editable.editable-click::after {
-    color: #555;
-    content: "-";
-    font-weight: normal;
-    padding-left: 5px;
-}
+
 .agreement.editable.editable-click {
     border: 0 none !important;
     font-weight: normal;
-    padding-right: 2px;
+    padding-right: 10px;
+    font-style: italic;
+    font-size: 12px;
 }
 .editableform .editable-input {
     left: 0;
@@ -701,7 +697,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     font-size: 40px;
     left: 0px;
     margin-left: 0;
-    padding-left: 50%;
+    padding-left: 12%;
     top: 72px;
 }
 
@@ -976,5 +972,11 @@ i.icon-genweb-organs-organsfolder,
     background-position: -384px -120px !important;
 }
 
-
 .share_popover {display: none;}
+
+h1.logoPresentation {padding-left: 10%;}
+
+.massivePuntsModal {
+    left:40% !important;
+    width: 780px !important;
+}

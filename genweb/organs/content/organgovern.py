@@ -47,6 +47,8 @@ class IOrgangovern(form.Schema):
         required=True
     )
 
+    # TODO: When create the WS, activate this value 
+    form.mode(acronim='hidden')
     dexteritytextindexer.searchable('acronim')
     acronim = schema.TextLine(
         title=_(u'Acronym'),
@@ -181,11 +183,19 @@ class View(grok.View):
         for obj in values:
             # value = obj.getObject()
             value = obj._unrestrictedGetObject()
+            if value.dataSessio:
+                valuedataSessio = value.dataSessio.strftime('%d/%m/%Y')
+            else:
+                valuedataSessio = ''
+            if value.horaInici:
+                valueHoraInici = value.horaInici.strftime('%H:%M')
+            else:
+                valueHoraInici = ''
             results.append(dict(title=value.title,
                                 absolute_url=value.absolute_url(),
-                                dataSessio=value.dataSessio.strftime('%d/%m/%Y'),
+                                dataSessio=valuedataSessio,
                                 llocConvocatoria=value.llocConvocatoria,
-                                horaInici=value.horaInici.strftime('%H:%M'),
+                                horaInici=valueHoraInici,
                                 review_state=obj.review_state))
         return results
 

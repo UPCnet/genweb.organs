@@ -16,7 +16,6 @@ from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from plone.indexer import indexer
 from genweb.organs import utils
 
-
 grok.templatedir("templates")
 
 

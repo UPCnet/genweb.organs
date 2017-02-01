@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from plone import api
 from five import grok
 from zope.schema import TextLine
 from z3c.form import button
@@ -9,12 +8,10 @@ from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
 from genweb.organs.browser.views import sessio_sendMail
-from AccessControl import Unauthorized
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from genweb.organs.utils import addEntryLog
-
 from zope import schema
 
 grok.templatedir("templates")
@@ -26,7 +23,8 @@ class IMessage(form.Schema):
 
     sender = TextLine(
         title=_("Sender"),
-        required=True,
+        description=_("Sender organ help"),
+        required=False,
         )
 
     recipients = TextLine(

@@ -13,7 +13,7 @@ class IOrgansfolder(form.Schema):
     """
 
     customImage = schema.Bool(
-        title=_(u'Fer servir la imatge personalitzada?'),
+        title=_(u'Fer servir capcalera personalitzada?'),
         description=_(u'Si es vol fer servir la imatge estandard o la imatge que es puja a continuació'),
         required=False,
         default=False,
