@@ -28,7 +28,7 @@ class ShowSessionAs(form.SchemaForm):
         role = self.request.form.get('id', '')
         username = api.user.get_current().getProperty('id')
         roles = api.user.get_roles(username=username, obj=self.context)
-        if 'Manager' in roles or 'OG1-Responsable' in roles or 'OG2-Editor' in roles:
+        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
             return role
         else:
             return False
@@ -38,8 +38,8 @@ class ShowSessionAs(form.SchemaForm):
         role = str(self.getUserRole())
         if role is 'False':
             return self.request.response.redirect(self.context.absolute_url())
-        elif role == 'OG1-Responsable':
-            return 'Responsable'
+        elif role == 'OG1-Secretari':
+            return 'Secretari'
         elif role == 'OG2-Editor':
             return 'Editor'
         elif role == 'OG3-Membre':
@@ -88,7 +88,7 @@ class ShowSessionAs(form.SchemaForm):
     def canModify(self):
         review_state = api.content.get_state(self.context)
         value = False
-        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and utils.isResponsable(self):
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and utils.isSecretari(self):
             value = True
         if review_state in ['planificada', 'convocada', 'realitzada'] and utils.isEditor(self):
             value = True

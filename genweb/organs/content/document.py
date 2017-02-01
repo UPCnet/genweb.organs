@@ -45,7 +45,7 @@ class View(grok.View):
         try:
             username = api.user.get_current().getProperty('id')
             roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG1-Responsable' in roles or 'OG2-Editor' in roles or 'OG4-Afectat' in roles or 'OG5-Anonim' in roles:
+            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG4-Afectat' in roles or 'OG5-Anonim' in roles:
                 return True
             else:
                 return False
@@ -57,7 +57,7 @@ class View(grok.View):
         try:
             username = api.user.get_current().getProperty('id')
             roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG1-Responsable' in roles or 'OG2-Editor' in roles:
+            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
                 return True
             else:
                 return False

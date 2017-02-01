@@ -221,8 +221,8 @@ class View(grok.View):
     def isEditor(self):
         return utils.isEditor(self)
 
-    def isResponsable(self):
-        return utils.isResponsable(self)
+    def isSecretari(self):
+        return utils.isSecretari(self)
 
     def isManager(self):
         return utils.isManager(self)
@@ -230,7 +230,7 @@ class View(grok.View):
     def canModify(self):
         review_state = api.content.get_state(self.context)
         value = False
-        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and utils.isResponsable(self):
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and utils.isSecretari(self):
             value = True
         if review_state in ['planificada', 'convocada', 'realitzada'] and utils.isEditor(self):
             value = True
@@ -239,7 +239,7 @@ class View(grok.View):
     def showEnviarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self)
+        roles = utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self)
         if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and roles:
             value = True
         return value
@@ -247,7 +247,7 @@ class View(grok.View):
     def showPresentacionButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self)
+        roles = utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self)
         if review_state in ['convocada', 'realitzada', 'en_correccio'] and roles:
             value = True
         return value
@@ -255,7 +255,7 @@ class View(grok.View):
     def showPublicarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self)
+        roles = utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self)
         if review_state in ['realitzada', 'en_correccio'] and roles:
             value = True
         return value
@@ -302,7 +302,7 @@ class View(grok.View):
                 # TODO !
                 # review_state = api.content.get_state(self.context)
                 # if review_state in ['realitzada', 'en_correccio']
-                if utils.isResponsable(self) or utils.isEditor(self) or utils.isManager(self):
+                if utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self):
                     classe = "ui-state-grey"
                 else:
                     classe = "ui-state-grey-not_move"
@@ -473,7 +473,7 @@ class View(grok.View):
                     try:
                         username = api.user.get_current().getProperty('id')
                         roles = api.user.get_roles(username=username, obj=self.context)
-                        if 'OG1-Responsable' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles:
+                        if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles:
                             tipus = 'fa fa-file-pdf-o'
                             document = _(u'Fitxer intern')
                             labelClass = 'label label-danger'

@@ -1,8 +1,8 @@
 <sharing xmlns:i18n="http://xml.zope.org/namespaces/i18n"
          i18n:domain="plone">
   <role
-      id="OG1-Responsable"
-      title="OG1-Responsable"
+      id="OG1-Secretari"
+      title="OG1-Secretari"
       permission="Manage portal"
       i18n:attributes="title"
       />

@@ -13,7 +13,7 @@
   <exit-transition transition_id="tancar"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>Owner</permission-role>
@@ -22,7 +22,7 @@
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -30,7 +30,7 @@
   </permission-map>
   <permission-map name="Reply to item" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -38,7 +38,7 @@
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>Owner</permission-role>
@@ -51,7 +51,7 @@
   <exit-transition transition_id="tancar"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
@@ -62,21 +62,21 @@
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Reply to item" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
@@ -94,7 +94,7 @@
   <exit-transition transition_id="tancar"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -102,7 +102,7 @@
   </permission-map>
   <permission-map name="List folder contents" acquired="True">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -110,7 +110,7 @@
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -118,7 +118,7 @@
   </permission-map>
   <permission-map name="Reply to item" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -126,7 +126,7 @@
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -137,7 +137,7 @@
   <exit-transition transition_id="tancar"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
@@ -149,7 +149,7 @@
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -157,7 +157,7 @@
   </permission-map>
   <permission-map name="Reply to item" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -165,7 +165,7 @@
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
@@ -178,7 +178,7 @@
   <exit-transition transition_id="corregir"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
@@ -204,7 +204,7 @@
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Responsable</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
@@ -222,7 +222,7 @@
  <transition transition_id="corregir" title="Corregir" new_state="en_correccio" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=corregir" category="workflow" icon="">Corregir</action>
   <guard>
-   <guard-role>OG1-Responsable</guard-role>
+   <guard-role>OG1-Secretari</guard-role>
    <guard-role>Manager</guard-role>
   </guard>
  </transition>

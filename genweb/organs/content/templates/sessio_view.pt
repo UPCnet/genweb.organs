@@ -13,7 +13,7 @@
                 isAfectat view/isAfectat;
                 isMembre view/isMembre;
                 isEditor view/isEditor;
-                isResponsable view/isResponsable;
+                isSecretari view/isSecretari;
                 isManager view/isManager;
                 canModify view/canModify;
                 items view/PuntsInside">
