@@ -104,32 +104,27 @@
   </div>
 
   <metal:content-core tal:define="items view/PuntsInside">
-
     <ul class="affix nav" style="z-index=2; right:0; top 170px;" tal:condition="not:anonim">
       <li>
         <a href="" title="Tornar a la sessió" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Close">
           <i class="fa fa-home fa-3x" aria-hidden="true"></i></a>
-      </li><li>
+      </li>
+      <li>
         <a data-scroll data-options='{ "easing": "easeInOutCubic" }' href="presentation#home" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Home">
           <i class="fa fa-arrow-up fa-3x" aria-hidden="true"></i></a>
       </li>
-
       <li style="cursor: pointer;">
         <a id="scrollUp" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
           <i class="fa fa-chevron-up fa-3x" aria-hidden="true"></i></a>
       </li>
-
       <li style="cursor: pointer;">
         <a id="scrollDown" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
           <i class="fa fa-chevron-down fa-3x" aria-hidden="true"></i></a>
       </li>
-
       <li>
         <a data-scroll data-options='{ "easing": "easeInOutCubic" }'  href="presentation#end" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
           <i class="fa fa-arrow-down fa-3x" aria-hidden="true"></i></a>
       </li>
-
-
     </ul>
 
     <div tal:condition="items" class="DADES presentation_template">
@@ -138,86 +133,89 @@
       <ul id="sortable" class="ui-sortable">
         <tal:documents repeat="item items">
           <li>
-              <div class="puntTitle" tal:define="agreement item/agreement">
-                <span class="proposalNumber" tal:content="item/proposalPoint"></span>
-                <span class="agreementClass" tal:condition="agreement" tal:content="agreement"></span>
-                <a tal:attributes="href string:${item/absolute_url}/view" class="editTitle editable titleSize">
-                  <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
-                </a>
-                <div class="btn-group" role="group" tal:condition="not:anonim" style="float: right;">
-                  <tal:block tal:condition="item/state">
-                    <button class="label dropdown-toggle estatJS"
-                        type="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
-                      <a tal:content="item/state"></a>
-                      <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
-                      <tal:block repeat="estat item/estats">
-                        <li><a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
-                      </tal:block>
-                    </ul>
-                  </tal:block>
-                </div>
-                <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
-                  <ul class="listFiles" style="list-style: none;">
-                    <tal:documents repeat="item files">
-                      <li class="filesinTable">
-                        <i tal:attributes=" class item/classCSS"></i>
-                        <a tal:attributes="href item/absolute_url;">
-                           <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
-                        </a>
-                      </li>
-                    </tal:documents>
+            <div class="puntTitle" tal:define="agreement item/agreement">
+              <div class="btn-group" role="group" tal:condition="not:anonim" style="float: right;">
+                <tal:block tal:condition="item/state">
+                  <button class="label dropdown-toggle estatJS"
+                      type="button" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                      <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
+                    <a tal:content="item/state"></a>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
+                    <tal:block repeat="estat item/estats">
+                      <li><a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
+                    </tal:block>
                   </ul>
-                </tal:files>
+                </tal:block>
               </div>
-              <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts">
-                <tal:subpunts repeat="item subpunts">
-                  <ol class="li_subgrups">
-                    <td>
-                      <div class="subpuntTitle" tal:define="agreement item/agreement">
-                        <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
-                        <span class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"></span>
-                        <a tal:attributes="href string:${item/absolute_url}"
-                           class="editTitle editable subtitleSize">
-                          <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
-                        </a>
-                        <div class="btn-group" role="group" tal:condition="not:anonim"
-                             style="float: right;" aria-label="Subpunt actions">
-                          <tal:block tal:condition="item/state">
-                            <button class="label dropdown-toggle estatJS"
-                                type="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="true">
-                                <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
-                              <a tal:content="item/state"></a>
-                              <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
-                              <tal:block repeat="estat item/estats">
-                                <li><a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
-                              </tal:block>
-                            </ul>
-                          </tal:block>
-                        </div>
-                        <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
-                          <ul style="list-style: none;">
-                            <tal:documents repeat="item files">
-                              <li class="filesinTable">
-                                <i tal:attributes=" class item/classCSS"></i>
-                                <a tal:attributes="href item/absolute_url;">
-                                   <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
-                                </a>
-                              </li>
-                            </tal:documents>
+              <span class="agreementClass" tal:condition="agreement" tal:content="agreement"></span>
+              <div class="clearfix"></div>
+              <span class="proposalNumber" tal:content="item/proposalPoint"></span>
+              <a tal:attributes="href string:${item/absolute_url}/view" class="editTitle editable titleSize">
+                <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+              </a>
+              <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
+                <ul class="listFiles" style="list-style: none;">
+                  <tal:documents repeat="item files">
+                    <li class="filesinTable">
+                      <i tal:attributes=" class item/classCSS"></i>
+                      <a tal:attributes="href item/absolute_url;">
+                         <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                      </a>
+                    </li>
+                  </tal:documents>
+                </ul>
+              </tal:files>
+            </div>
+            <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts">
+              <tal:subpunts repeat="item subpunts">
+                <ol class="li_subgrups">
+                  <td>
+                    <div class="subpuntTitle" tal:define="agreement item/agreement">
+                      <div class="btn-group" role="group" tal:condition="not:anonim"
+                           style="float: right;" aria-label="Subpunt actions">
+                        <tal:block tal:condition="item/state">
+                          <button class="label dropdown-toggle estatJS"
+                              type="button" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="true">
+                              <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
+                            <a tal:content="item/state"></a>
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
+                            <tal:block repeat="estat item/estats">
+                              <li><a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
+                            </tal:block>
                           </ul>
-                        </tal:files>
+                        </tal:block>
                       </div>
-                    </td>
-                  </ol>
-                </tal:subpunts>
-              </div>
+                      <span class="agreement editable editable-click"
+                            style="padding-left: 40px;" tal:condition="agreement" tal:content="agreement"></span>
+                      <div class="clearfix"></div>
+                      <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
+                      <a tal:attributes="href string:${item/absolute_url}"
+                         class="editTitle editable subtitleSize">
+                        <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                      </a>
+                      <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
+                        <ul style="list-style: none;">
+                          <tal:documents repeat="item files">
+                            <li class="filesinTable">
+                              <i tal:attributes=" class item/classCSS"></i>
+                              <a tal:attributes="href item/absolute_url;">
+                                 <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                              </a>
+                            </li>
+                          </tal:documents>
+                        </ul>
+                      </tal:files>
+                    </div>
+                  </td>
+                </ol>
+              </tal:subpunts>
+            </div>
           </li>
         </tal:documents>
       </ul>

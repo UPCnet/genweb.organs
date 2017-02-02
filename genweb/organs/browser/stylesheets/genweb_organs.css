@@ -613,6 +613,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     margin: 5px 0;
     padding-top: 10px;
     padding-right: 0px;
+    padding-bottom: 10px;
 }
 
 
@@ -670,7 +671,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     margin: none;
     padding: none;
     box-shadow: none;
-    padding-right: 50px;
+    padding-right: 25px;
     margin-top: 35px;
      }
 
@@ -716,10 +717,6 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     width: 185px;
 }
 
-.bodyPresentation .btn-group {
-    margin-right: 20px;
-}
-
 .bodyPresentation .subpuntTitle {
     line-height:30px;
 }
@@ -743,7 +740,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 }
 
 .bodyPresentation .btn-group {
-    margin-right: 20px;
+    margin-right: 0px;
 }
 
 .bodyPresentation .label.dropdown-toggle > a {
@@ -983,3 +980,15 @@ h1.logoPresentation {padding-left: 10%;}
 }
 
 input#acordNumber {width: 159px;}
+
+.bodyPresentation .subpuntTitle {padding-left:50px;}
+
+.bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {padding-left: 50px;}
+
+.agreementClass  {
+    padding-left: 30px;
+    font-size: 20px;
+    color: #555;
+}
+
+li.filesinTable {color: #555;}
