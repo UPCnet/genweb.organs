@@ -441,10 +441,12 @@
               </div>
 
               <div class="puntTitle">
-
+                <div style="padding-left: 15px;">
                 <a class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"
                     tal:attributes="data-pk item/id; href item/absolute_url" data-url="changeAgreement"></a>
-                <div class="divTitle">
+                </div>
+                <div class="clearfix"></div>
+
                 <span class="proposalNumber" tal:content="item/proposalPoint"></span>
 
                   <a tal:attributes="data-pk item/id; href item/absolute_url"
@@ -458,7 +460,7 @@
                   <button type="button" class="notexpand" tal:condition="item/items_inside"
                     data-original-title="Collapse">
                     <i class="fa fa-chevron-up" aria-hidden="true"></i></button>
-                </div>
+
 
                 <tal:files tal:define="files python:view.filesinsidePunt(item)">
                   <ul class="listFiles">
@@ -562,15 +564,19 @@
                         </button>
                       </div>
 
-
                       <div class="subpuntTitle" tal:define="agreementTitle itemSubpunt/agreement">
-    	                  <span class="proposalNumberSubpunt" tal:content="itemSubpunt/proposalPoint"></span>
-                        <a class="agreement editable editable-click" tal:condition="agreementTitle" tal:content="agreementTitle"
-                            tal:attributes="data-pk itemSubpunt/id; href itemSubpunt/absolute_url" data-url="changeAgreement"></a>
+                        <div style="padding-left: 25px;">
+                          <a tal:condition="agreementTitle" class="agreement editable editable-click" tal:content="agreementTitle"
+                           tal:attributes="data-pk itemSubpunt/id; href itemSubpunt/absolute_url" data-url="changeAgreement">
+                             #
+                           </a>
+                        </div>
+                        <div class="clearfix"></div>
+                        <span class="proposalNumberSubpunt" tal:content="itemSubpunt/proposalPoint"></span>
                         <a tal:attributes="data-pk itemSubpunt/id; href itemSubpunt/absolute_url"
-                           data-type="text" data-url="changeTitle"
-                           class="editTitle editable subtitleSize">
-                          <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
+                             data-type="text" data-url="changeTitle"
+                             class="editTitle editable subtitleSize">
+                            <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
                         </a>
                         <tal:files tal:define="files python:view.filesinsidePunt(item)">
                           <ul style="list-style: none; padding-top:10px;">
@@ -702,7 +708,7 @@
                 } else {
                   var name=$(this).data()['item'];
                   var portal_type=$(this).data()['type'];
-                  var message='<form onsubmit="return false;"><input id="acordNumber" placeholder="Indicar número" type="text"/></form><a class="btn btn-info" onclick=assignAcordNumber("'+ name +','+ portal_type+'")>Assignar número</a>&nbsp;<a class="btn btn-danger save" onclick="$(this).parent().parent().hide()"> Cancel·lar </a>'
+                  var message='<form onsubmit="return false;"><input id="acordNumber" placeholder="Indicar codi" type="text"/></form><a class="btn btn-info" onclick=assignAcordNumber("'+ name +','+ portal_type+'")>Assignar</a>&nbsp;<a class="btn btn-danger save" onclick="$(this).parent().parent().hide()"> Cancel·lar </a>'
                   $(this).attr('data-content',message);
                   $(this).popover('show');
                 };

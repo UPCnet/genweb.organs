@@ -263,7 +263,6 @@ span.label.nomarginLeft  {
 }
 .subpuntTitle {
     font-size: 16px;
-    margin-top: 5px;
     padding-left: 25px;
     line-height: 21px;
 }
@@ -340,10 +339,6 @@ label.label.label-default{padding: 2px 4px!important;}
     margin-right: 5px;
 }
 
-.subpuntTitle ul li {
-
-}
-
 .btn-group a {
     margin: 1px;
 }
@@ -370,7 +365,7 @@ a.remove{background-color: #e8003d!important}
 }
 
 span.editable-container.editable-inline  input[type="text"] {
-    width: 400px !important;
+    width: 320px !important;
     max-width: none !important;
 }
 
@@ -528,11 +523,9 @@ background-color: transparent;
 .agreement.editable.editable-click {
     border: 0 none !important;
     font-weight: normal;
-    padding-right: 10px;
     font-size: 13px;
     color: #555;
-    margin-top:10px;
-    padding-left: 15px;
+    /*margin-top:10px;*/
 }
 .editableform .editable-input {
     left: 0;
@@ -890,7 +883,7 @@ body, .smooth-container { scroll-behavior: smooth }
 
 
 .divTitle {
-    padding-top: 10px;
+/*    padding-top: 10px;*/
 }
 
 
@@ -982,3 +975,11 @@ h1.logoPresentation {padding-left: 10%;}
     left:40% !important;
     width: 780px !important;
 }
+
+.codiText {
+    padding-left: 29px;
+    font-size: 13px;
+    color: #555;
+}
+
+input#acordNumber {width: 159px;}

@@ -16,7 +16,7 @@
                   public_file_download_url string:${context/absolute_url}/@@download/visiblefile/${context/visiblefile/filename}">
 
     <div tal:condition="view/viewReservedFile">
-      <h2> Fitxer reservat </h2>
+      <h3> Fitxer reservat </h3>
       <p>
         <a tal:attributes="href reserved_file_download_url">
           <img tal:attributes="src view/get_mimetype_icon_reserved;
@@ -41,7 +41,7 @@
     </div>
 
     <div tal:condition="view/viewPublicFile">
-      <h2> Fitxer públic </h2>
+      <h3> Fitxer públic </h3>
       <p>
         <a tal:attributes="href public_file_download_url">
           <img tal:attributes="src view/get_mimetype_icon;
