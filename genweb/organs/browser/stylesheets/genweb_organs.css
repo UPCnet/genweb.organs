@@ -529,8 +529,10 @@ background-color: transparent;
     border: 0 none !important;
     font-weight: normal;
     padding-right: 10px;
-    font-style: italic;
-    font-size: 12px;
+    font-size: 13px;
+    color: #555;
+    margin-top:10px;
+    padding-left: 15px;
 }
 .editableform .editable-input {
     left: 0;

@@ -9,58 +9,64 @@
 
 <metal:content-core fill-slot="content-core">
 
-<div tal:condition="view/canViewContent">
-  <div tal:condition="view/hihaFile">
+  <metal:block define-macro="content-core"
+      tal:define="reserved_content_type context/hiddenfile/contentType|nothing;
+                  visible_content_type context/visiblefile/contentType|nothing;
+                  reserved_file_download_url string:${context/absolute_url}/@@download/hiddenfile/${context/hiddenfile/filename};
+                  public_file_download_url string:${context/absolute_url}/@@download/visiblefile/${context/visiblefile/filename}">
 
-    <div tal:condition="view/isPrivate">
-      <br/>
-      <div class="alert alert-error" role="alert" i18n:translate="">Esteu visualitzant un fitxer <strong>PRIVAT</strong>.</div>
-    </div>
-
-    <div tal:condition="view/showMessage">
-      <div tal:condition="not:view/isPrivate">
-        <br/>
-        <div class="alert alert-success" role="alert" i18n:translate="">Esteu visualitzant un fitxer <strong>PUBLIC</strong>.</div>
-      </div>
-    </div>
-
-    <metal:block define-macro="content-core"
-        tal:define="content_type context/file/contentType|nothing;
-                    download_url string:${context/absolute_url}/@@download/file/${context/file/filename}">
+    <div tal:condition="view/viewReservedFile">
+      <h2> Fitxer reservat </h2>
       <p>
-        <a tal:attributes="href download_url">
-          <img tal:attributes="src view/get_mimetype_icon;
-                               alt content_type;" border="0" />
-          <tal:name tal:content="context/file/filename">Filename</tal:name>
+        <a tal:attributes="href reserved_file_download_url">
+          <img tal:attributes="src view/get_mimetype_icon_reserved;
+                               alt reserved_content_type;" border="0" />
+          <tal:name tal:content="context/hiddenfile/filename">Filename</tal:name>
         </a>
         <span class="discreet"
-            tal:define="size context/file/getSize;
+            tal:define="size context/hiddenfile/getSize;
                         kb python:size/1024">
           &mdash; <span tal:replace="kb" /> KB</span>
       </p>
-
-      <video tal:condition="view/is_videotype" controls="controls">
-        <source tal:attributes="src download_url; type content_type"></source>
+      <video tal:condition="view/is_videotype_reserved" controls="controls">
+        <source tal:attributes="src reserved_file_download_url; type reserved_content_type"></source>
       </video>
-
-      <audio tal:condition="view/is_audiotype" controls="controls">
-        <source tal:attributes="src download_url; type content_type"></source>
+      <audio tal:condition="view/is_audiotype_reserved" controls="controls">
+        <source tal:attributes="src reserved_file_download_url; type reserved_content_type"></source>
       </audio>
-
-      <div tal:condition="python: content_type.startswith('text')">
+      <div tal:condition="python: reserved_content_type.startswith('text')">
         <h2 i18n:translate="">File contents</h2>
-        <pre tal:content="context/file/data|nothing"></pre>
+        <pre tal:content="context/hiddenfile/data|nothing"></pre>
       </div>
+    </div>
 
-    </metal:block>
-  </div>
+    <div tal:condition="view/viewPublicFile">
+      <h2> Fitxer públic </h2>
+      <p>
+        <a tal:attributes="href public_file_download_url">
+          <img tal:attributes="src view/get_mimetype_icon;
+                               alt visible_content_type;" border="0" />
+          <tal:name tal:content="context/visiblefile/filename">Filename</tal:name>
+        </a>
+        <span class="discreet"
+            tal:define="size context/visiblefile/getSize;
+                        kb python:size/1024">
+          &mdash; <span tal:replace="kb" /> KB</span>
+      </p>
+      <video tal:condition="view/is_videotype_public" controls="controls">
+        <source tal:attributes="src public_file_download_url; type visible_content_type"></source>
+      </video>
+      <audio tal:condition="view/is_audiotype_public" controls="controls">
+        <source tal:attributes="src public_file_download_url; type visible_content_type"></source>
+      </audio>
+      <div tal:condition="python: visible_content_type.startswith('text')">
+        <h2 i18n:translate="">File contents</h2>
+        <pre tal:content="context/visiblefile/data|nothing"></pre>
+      </div>
+    </div>
 
-  <div tal:condition="not:view/hihaFile">
-    <br/>
-      <div class="alert alert-error" role="alert" i18n:translate=""><strong>No s'ha afegit cap fitxer.</strong></div>
-  </div>
+  </metal:block>
 
-</div>
 </metal:content-core>
 
 </body>

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-02-01 11:50+0000\n"
+"POT-Creation-Date: 2017-02-02 12:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -147,9 +147,9 @@ msgstr "Plantilla del mensaje de Enviar mensaje"
 msgid "Body Mail send description"
 msgstr "Mensaje que se adjunta al clicar el botón Enviar mensaje. Se añade sólo el pie del mensaje."
 
-#: ./genweb/organs/content/informarSessio.py:126
+#: ./genweb/organs/content/informarSessio.py:123
 #: ./genweb/organs/content/manualimport.py:141
-#: ./genweb/organs/content/sendMessage.py:120
+#: ./genweb/organs/content/sendMessage.py:119
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -243,10 +243,6 @@ msgstr "Este es el remitente de las notificaciones"
 #: ./genweb/organs/content/templates/sessio_view.pt:142
 msgid "Enviar"
 msgstr "Enviar"
-
-#: ./genweb/organs/content/file.py:23
-msgid "Es tracta d'un fitxer privat?"
-msgstr "La opción marcada indica que se trata de un fichero interno"
 
 #: ./genweb/organs/content/punt.py:63
 #: ./genweb/organs/content/subpunt.py:61
@@ -425,11 +421,11 @@ msgstr "Logo que se utiliza en este òrgano de gobierno y al imprimir las actas.
 msgid "Mail address help"
 msgstr "Dirección o direcciones de correo a las cuales llegaran los mensajes cuando haya una notificación en el órgano"
 
-#: ./genweb/organs/content/sendMessage.py:32
+#: ./genweb/organs/content/sendMessage.py:31
 msgid "Mail address separated by blanks."
 msgstr "Direcciones de correo separadas por espacios."
 
-#: ./genweb/organs/content/informarSessio.py:35
+#: ./genweb/organs/content/informarSessio.py:32
 #: ./genweb/organs/content/mailConvocar.py:32
 msgid "Mail address separated by commas."
 msgstr "Direcciones de correo separadas por comas."
@@ -450,9 +446,9 @@ msgstr "Puntos importados de forma masiva"
 msgid "Membre"
 msgstr "Miembro"
 
-#: ./genweb/organs/content/informarSessio.py:40
+#: ./genweb/organs/content/informarSessio.py:37
 #: ./genweb/organs/content/mailConvocar.py:41
-#: ./genweb/organs/content/sendMessage.py:37
+#: ./genweb/organs/content/sendMessage.py:36
 msgid "Message"
 msgstr "Mensaje"
 
@@ -531,9 +527,9 @@ msgstr ""
 msgid "Open"
 msgstr "Abierto"
 
-#: ./genweb/organs/content/informarSessio.py:128
+#: ./genweb/organs/content/informarSessio.py:125
 #: ./genweb/organs/content/manualimport.py:143
-#: ./genweb/organs/content/sendMessage.py:122
+#: ./genweb/organs/content/sendMessage.py:121
 msgid "Operation Cancelled."
 msgstr "Se ha cancelado la operación."
 
@@ -596,10 +592,6 @@ msgstr "Carpeta OG"
 msgid "Organs folder logo"
 msgstr "Logo de la carpeta de órganos de gobierno"
 
-#: ./genweb/organs/content/file.py:24
-msgid "Per defecte els fitxers són privats. Si vol fer públic el fitxer, cal desmarcar aquesta opció."
-msgstr "Por defecto los ficheros serán PRIVADOS. Si hay que pasarlos a públicos, hay que desmarcar esta opción."
-
 #: ./genweb/organs/content/templates/impersonate_as.pt:77
 #: ./genweb/organs/content/templates/sessio_view.pt:199
 msgid "Persones Convocades"
@@ -620,13 +612,17 @@ msgstr "Personas invitadas"
 msgid "Persones excusades"
 msgstr "Persones excusadas"
 
-#: ./genweb/organs/content/file.py:30
-msgid "Please upload a document"
-msgstr "Por favor, suba un documento"
-
 #: ./genweb/organs/content/audio.py:19
 msgid "Please upload a media file"
 msgstr "Por favor, suba un fichero"
+
+#: ./genweb/organs/content/file.py:29
+msgid "Please upload a public file"
+msgstr ""
+
+#: ./genweb/organs/content/file.py:23
+msgid "Please upload a reserved file"
+msgstr ""
 
 #: ./genweb/organs/content/templates/sessio_view.pt:145
 msgid "Presentacio"
@@ -647,6 +643,10 @@ msgstr "Contenido"
 msgid "Proposal point number"
 msgstr "Punto del orden del día"
 
+#: ./genweb/organs/content/file.py:30
+msgid "Published file description"
+msgstr ""
+
 #: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
 msgid "Punt"
 msgstr "Punto"
@@ -655,15 +655,19 @@ msgstr "Punto"
 msgid "Punt Title"
 msgstr "Título del Punto del orden del día"
 
-#: ./genweb/organs/content/informarSessio.py:34
+#: ./genweb/organs/content/informarSessio.py:31
 #: ./genweb/organs/content/mailConvocar.py:31
-#: ./genweb/organs/content/sendMessage.py:31
+#: ./genweb/organs/content/sendMessage.py:30
 msgid "Recipients"
 msgstr "Destinatarios"
 
 #: ./genweb/organs/browser/views.py:359
 msgid "Reload proposalPoints manually"
 msgstr "Cargados manualmente los números de punto"
+
+#: ./genweb/organs/content/file.py:24
+msgid "Reserved file description"
+msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:21
 msgid "Restricted_to_Affected"
@@ -673,23 +677,23 @@ msgstr "Restringido a afectados"
 msgid "Restricted_to_Members"
 msgstr "Restringido a miembros"
 
-#: ./genweb/organs/content/informarSessio.py:78
+#: ./genweb/organs/content/informarSessio.py:75
 #: ./genweb/organs/content/mailConvocar.py:114
 #: ./genweb/organs/content/manualimport.py:61
 msgid "Send"
 msgstr "Enviar"
 
-#: ./genweb/organs/content/informarSessio.py:28
+#: ./genweb/organs/content/informarSessio.py:25
 #: ./genweb/organs/content/mailConvocar.py:26
-#: ./genweb/organs/content/sendMessage.py:25
+#: ./genweb/organs/content/sendMessage.py:24
 msgid "Sender"
 msgstr "Remitente"
 
-#: ./genweb/organs/content/sendMessage.py:26
+#: ./genweb/organs/content/sendMessage.py:25
 msgid "Sender message help"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:29
+#: ./genweb/organs/content/informarSessio.py:26
 msgid "Sender organ help"
 msgstr ""
 
@@ -697,11 +701,11 @@ msgstr ""
 msgid "Sending mail convocatoria"
 msgstr "Enviando mensaje de convocatoria"
 
-#: ./genweb/organs/content/informarSessio.py:121
+#: ./genweb/organs/content/informarSessio.py:118
 msgid "Sending mail informar sessio"
 msgstr "Enviando mensaje de informar sesión"
 
-#: ./genweb/organs/content/sendMessage.py:115
+#: ./genweb/organs/content/sendMessage.py:114
 msgid "Sending mail new message"
 msgstr "Enviando mensaje de nueva sesión"
 
