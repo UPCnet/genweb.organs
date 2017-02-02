@@ -181,8 +181,11 @@
                       </tal:block>
                     </div>
                     <div class="puntTitle">
+                      <div style="padding-left: 15px;">
+                        <a class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"></a>
+                      </div>
+                      <div class="clearfix"></div>
                       <span class="proposalNumber" tal:content="item/proposalPoint"></span>
-                      <a class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"></a>
                       <a tal:attributes="href item/absolute_url"
                          class="titleSize">
                         <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
@@ -218,9 +221,12 @@
                                 </tal:block>
                               </div>
                               <div class="subpuntTitle" tal:define="agreement item/agreement">
-                                <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
-                                <a class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"
+                                <div style="padding-left: 25px;">
+                                  <a class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"
                                     tal:attributes="data-pk item/id; href item/absolute_url" data-url="changeAgreement"></a>
+                                </div>
+                                <div class="clearfix"></div>
+                                <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
                                 <a tal:attributes="data-pk item/id; href item/absolute_url"
                                    data-type="text" data-url="changeTitle"
                                    class="editTitle editable subtitleSize">
