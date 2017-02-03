@@ -12,6 +12,7 @@
   <metal:block define-macro="content-core">
 
 <tal:blockReserved tal:condition="view/viewReservedFile">
+  <div tal:condition="view/hihaReserved">
     <div tal:define="reserved_content_type context/hiddenfile/contentType|nothing;
                      reserved_file_download_url string:${context/absolute_url}/@@download/hiddenfile/${context/hiddenfile/filename};">
       <h3> Fitxer reservat </h3>
@@ -37,15 +38,18 @@
         <pre tal:content="context/hiddenfile/data|nothing"></pre>
       </div>
     </div>
+  </div>
 </tal:blockReserved>
 
 <tal:blockPublic tal:condition="view/viewPublicFile">
+  <div tal:condition="view/hihaPublic">
+
     <div tal:define="visible_content_type context/visiblefile/contentType|nothing;
                      public_file_download_url string:${context/absolute_url}/@@download/visiblefile/${context/visiblefile/filename}">
       <h3> Fitxer públic </h3>
       <p>
         <a tal:attributes="href public_file_download_url">
-          <img tal:attributes="src view/get_mimetype_icon;
+          <img tal:attributes="src view/get_mimetype_icon_public;
                                alt visible_content_type;" border="0" />
           <tal:name tal:content="context/visiblefile/filename">Filename</tal:name>
         </a>
@@ -64,6 +68,7 @@
         <h2 i18n:translate="">File contents</h2>
         <pre tal:content="context/visiblefile/data|nothing"></pre>
       </div>
+    </div>
     </div>
 </tal:blockPublic>
   </metal:block>

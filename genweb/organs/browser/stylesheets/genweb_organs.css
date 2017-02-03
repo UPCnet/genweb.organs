@@ -134,8 +134,8 @@ input#form-widgets-fromTitle {width: 98%;}
     border-radius: 0;
     box-shadow: 2px 3px 2px #eee;
     font-size: 14px;
-    margin: 0 0 20px;
-    padding: 1em 1em 1em 1.8em;
+    margin: 0 0 10px;
+    padding: 0.5em 1em 1em 1.8em;
 }
 
 #sortable li span {
@@ -147,7 +147,7 @@ span.proposalNumber {
     color: #ccc;
     /*float: left;*/
     font-size: 20px;
-    margin-left: -10px;
+    /*margin-left: -10px;*/
     margin-right: 8px;
 }
 .DADES > h2 {
@@ -364,10 +364,10 @@ a.remove{background-color: #e8003d!important}
     font-weight: normal;
 }
 
-span.editable-container.editable-inline  input[type="text"] {
-    width: 320px !important;
-    max-width: none !important;
-}
+/*span.editable-container.editable-inline  input[type="text"] {
+    width: 500px !important;
+    max-width: 99% !important;
+}*/
 
 .subpuntTitle:hover:before {
     /* content: "\f07d";*/
@@ -532,7 +532,8 @@ background-color: transparent;
 }
 .editableform .editable-input > input {
     font-size: 16px;
-    max-width: 100px;
+    /*max-width: 100px;*/
+    width: 37em;
 }
 .btn.label.disabled {
     background: #ccc none repeat scroll 0 0;

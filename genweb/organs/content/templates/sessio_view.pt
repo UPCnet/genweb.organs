@@ -389,7 +389,7 @@
                   <button class="label dropdown-toggle"
                       type="button" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false" i18n:translate="">
-                      Afegir
+                      +
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="types">
@@ -406,7 +406,6 @@
                       type="button" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
                       <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
-                    <a tal:content="item/state"></a>
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu estatsToggle" role="menu" aria-labelledby="estats">
@@ -426,9 +425,10 @@
                 </tal:block>
               </div>
 
+
               <div class="btn-group" role="group" tal:define="agreement item/agreement" tal:condition="python: canModify and not agreement"
-                   style="float: right;" aria-label="Fer acord">
-                <button type="button" class="acord label label-important"
+                   style="float: left;" aria-label="Fer acord">
+                <button type="button" class="label label-info"
                   data-container="body"
                   data-toggle="popover"
                   data-placement="bottom"
@@ -436,7 +436,7 @@
                   data-trigger="manual"
                   data-original-title="Convertir el punt en acord"
                   tal:attributes="data-item item/id; data-type item/portal_type">
-                  Fer acord
+                  Número d'acord
                 </button>
               </div>
 
@@ -447,6 +447,12 @@
                 </div>
                 <div class="clearfix"></div>
 
+                  <button type="button" class="expand" tal:condition="item/items_inside"
+                    data-original-title="Expand">
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i></button>
+                  <button type="button" class="notexpand" tal:condition="item/items_inside"
+                    data-original-title="Collapse">
+                    <i class="fa fa-chevron-up" aria-hidden="true"></i></button>
                 <span class="proposalNumber" tal:content="item/proposalPoint"></span>
 
                   <a tal:attributes="data-pk item/id; href item/absolute_url"
@@ -454,12 +460,7 @@
                      class="editTitle editable titleSize">
                     <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                   </a>
-                  <button type="button" class="expand" tal:condition="item/items_inside"
-                    data-original-title="Expand">
-                    <i class="fa fa-chevron-down" aria-hidden="true"></i></button>
-                  <button type="button" class="notexpand" tal:condition="item/items_inside"
-                    data-original-title="Collapse">
-                    <i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+
 
 
                 <tal:files tal:define="files python:view.filesinsidePunt(item)">
@@ -514,7 +515,7 @@
                           <button class="label dropdown-toggle"
                               type="button" data-toggle="dropdown"
                               aria-haspopup="true" aria-expanded="false">
-                              Afegir
+                              +
                             <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="types">

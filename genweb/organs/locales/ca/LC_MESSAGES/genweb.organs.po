@@ -737,7 +737,7 @@ msgstr "Hora de finalització de la sessió"
 #: ./genweb/organs/content/sessio.py:58
 #: ./genweb/organs/content/templates/organgovern_view.pt:139
 msgid "Session location"
-msgstr "Lloc de la convocatòria"
+msgstr "Lloc de la sessió"
 
 #: ./genweb/organs/content/sessio.py:48
 msgid "Session number"
@@ -783,7 +783,7 @@ msgstr "Signatura del missatge que s'adjunta tant al missatge de convocatòria c
 #: ./genweb/organs/content/organgovern.py:103
 #: ./genweb/organs/content/sessio.py:79
 msgid "Stakeholders mail address"
-msgstr "Adreces dels afectats"
+msgstr "Adreces dels afectats (Butlletí)"
 
 #: ./genweb/organs/content/organgovern.py:104
 msgid "Stakeholders mail address help."

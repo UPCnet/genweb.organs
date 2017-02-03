@@ -5,13 +5,11 @@ from Products.CMFCore.utils import getToolByName
 from plone import api
 from time import strftime
 import pkg_resources
-import unicodedata
 from zope.interface import alsoProvides
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from plone.folder.interfaces import IExplicitOrdering
 from genweb.organs.utils import addEntryLog
 from genweb.organs import _
-from genweb.organs import utils
 
 
 try:

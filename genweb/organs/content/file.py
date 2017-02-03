@@ -99,9 +99,16 @@ class View(grok.View):
         return 'audio/' in ct
 
     def hihaReserved(self):
+        if self.context.hiddenfile:
+            return True
+        else:
+            return False
 
-
-    def hihaPublic(self:):
+    def hihaPublic(self):
+        if self.context.visiblefile:
+            return True
+        else:
+            return False
 
     def viewReservedFile(self):
         # Si tens rols Secretari, Editor, Membre o Manager el veus.
