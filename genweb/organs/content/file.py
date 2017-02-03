@@ -14,7 +14,7 @@ grok.templatedir("templates")
 
 
 class IFile(form.Schema):
-    """ Tipus File: Per adjuntar els fitxers públics o privats """
+    """ Tipus File: Per adjuntar els fitxers públics i/o privats """
 
     hiddenfile = NamedBlobFile(
         title=_(u"Please upload a reserved file"),
@@ -97,6 +97,11 @@ class View(grok.View):
     def is_audiotype_public(self):
         ct = self.context.visiblefile.contentType
         return 'audio/' in ct
+
+    def hihaReserved(self):
+
+
+    def hihaPublic(self:):
 
     def viewReservedFile(self):
         # Si tens rols Secretari, Editor, Membre o Manager el veus.

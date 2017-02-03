@@ -6,11 +6,6 @@
   </index>
   <column value="acordOrgan"/>
 
-  <index name="hiddenfile" meta_type="BooleanIndex">
-    <indexed_attr value="hiddenfile"/>
-  </index>
-  <column value="hiddenfile"/>
-
   <index name="index_proposalPoint" meta_type="FieldIndex">
     <indexed_attr value="index_proposalPoint"/>
   </index>

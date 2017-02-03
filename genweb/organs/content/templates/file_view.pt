@@ -9,13 +9,11 @@
 
 <metal:content-core fill-slot="content-core">
 
-  <metal:block define-macro="content-core"
-      tal:define="reserved_content_type context/hiddenfile/contentType|nothing;
-                  visible_content_type context/visiblefile/contentType|nothing;
-                  reserved_file_download_url string:${context/absolute_url}/@@download/hiddenfile/${context/hiddenfile/filename};
-                  public_file_download_url string:${context/absolute_url}/@@download/visiblefile/${context/visiblefile/filename}">
+  <metal:block define-macro="content-core">
 
-    <div tal:condition="view/viewReservedFile">
+<tal:blockReserved tal:condition="view/viewReservedFile">
+    <div tal:define="reserved_content_type context/hiddenfile/contentType|nothing;
+                     reserved_file_download_url string:${context/absolute_url}/@@download/hiddenfile/${context/hiddenfile/filename};">
       <h3> Fitxer reservat </h3>
       <p>
         <a tal:attributes="href reserved_file_download_url">
@@ -39,8 +37,11 @@
         <pre tal:content="context/hiddenfile/data|nothing"></pre>
       </div>
     </div>
+</tal:blockReserved>
 
-    <div tal:condition="view/viewPublicFile">
+<tal:blockPublic tal:condition="view/viewPublicFile">
+    <div tal:define="visible_content_type context/visiblefile/contentType|nothing;
+                     public_file_download_url string:${context/absolute_url}/@@download/visiblefile/${context/visiblefile/filename}">
       <h3> Fitxer públic </h3>
       <p>
         <a tal:attributes="href public_file_download_url">
@@ -64,7 +65,7 @@
         <pre tal:content="context/visiblefile/data|nothing"></pre>
       </div>
     </div>
-
+</tal:blockPublic>
   </metal:block>
 
 </metal:content-core>
