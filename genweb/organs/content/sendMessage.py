@@ -55,10 +55,7 @@ class Message(form.SchemaForm):
         username = api.user.get_current().getId()
         self.widgets["sender"].mode = DISPLAY_MODE
         self.widgets["sender"].value = str(username)
-        if self.context.adrecaAfectatsLlista is None:
-            self.widgets["recipients"].value = self.context.adrecaLlista
-        else:
-            self.widgets["recipients"].value = self.context.adrecaLlista + ' ' + self.context.adrecaAfectatsLlista
+        self.widgets["recipients"].value = self.context.adrecaLlista
         if self.context.aq_parent.bodyMailSend is None:
             bodyMailOrgan = '<br/>'
         else:

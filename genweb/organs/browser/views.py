@@ -321,26 +321,11 @@ class ActaPrintView(BrowserView):
         """ Get organGovern Title used for printing the acta """
         return self.aq_parent.aq_parent.aq_parent.Title()
 
-    def getOrganLogo(self):
-        """ Get Image to use in print """
-        try:
-            if not self.context.defaultImg:
-                if self.context.aq_parent.aq_parent.customImage:
-                    self.context.aq_parent.aq_parent.logoOrganFolder.filename
-                    return self.context.aq_parent.aq_parent.aq_parent.absolute_url() + '/@@images/logoOrganFolder'
-                else:
-                    return self.context.aq_parent.aq_parent.aq_parent.absolute_url() + '/capcalera.jpg'
-            else:
-                self.context.actaImage.filename
-                return self.context.absolute_url() + '/@@images/actaImage'
-        except:
-            return self.context.aq_parent.aq_parent.aq_parent.absolute_url() + '/capcalera.jpg'
-
-    def getSessionLogo(self):
+    def getActaLogo(self):
         """ Getlogo to use in print """
         try:
-            self.context.aq_parent.aq_parent.logoOrgan.filename
-            return self.context.aq_parent.aq_parent.absolute_url() + '/@@images/logoOrgan'
+            self.context.actaLogo.filename
+            return self.context.absolute_url() + '/@@images/actaLogo'
         except:
             return None
 
@@ -449,3 +434,44 @@ class changeActualState(BrowserView):
             self.request.response.redirect(self.context.absolute_url() + '/presentation')
         except:
             pass
+
+
+class Butlleti(BrowserView):
+    __call__ = ViewPageTemplateFile('views/butlleti.pt')
+
+    def PuntsOrdreDelDia(self):
+        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        values = portal_catalog.unrestrictedSearchResults(
+            portal_type='genweb.organs.punt',
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+        for obj in values:
+            # value = obj.getObject()
+            value = obj._unrestrictedGetObject()
+            results.append(dict(Title=obj.Title,
+                                url=value.absolute_url_path(),
+                                punt=value.proposalPoint,
+                                acord=value.agreement))
+            if len(value.objectIds()) > 0:
+                # valuesInside = portal_catalog.searchResults(
+                valuesInside = portal_catalog.unrestrictedSearchResults(
+                    portal_type='genweb.organs.subpunt',
+                    sort_on='getObjPositionInParent',
+                    path={'query': obj.getPath(),
+                          'depth': 1})
+                for item in valuesInside:
+                    # subpunt = item.getObject()
+                    subpunt = item._unrestrictedGetObject()
+                    results.append(dict(Title=item.Title,
+                                        url=subpunt.absolute_url_path(),
+                                        punt=subpunt.proposalPoint,
+                                        acord=subpunt.agreement))
+
+        return results
+
+    def geTitle(self):
+        return self.context.Title()

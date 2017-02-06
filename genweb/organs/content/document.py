@@ -8,16 +8,35 @@ from collective import dexteritytextindexer
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone import api
+from plone.app.dexterity import PloneMessageFactory as _PMF
 
 grok.templatedir("templates")
 
 
 class IDocument(form.Schema):
     """ Tipus File: Per marcar si són públics o privats """
+
+    dexteritytextindexer.searchable('title')
+    title = schema.TextLine(
+        title=_PMF(u'label_title', default=u'Title'),
+        required=True
+    )
+
+    dexteritytextindexer.searchable('title')
+    description = schema.Text(
+        title=_PMF(u'label_description', default=u'Summary'),
+        description=_PMF(
+            u'help_description',
+            default=u'Used in item listings and search results.'
+        ),
+        required=False,
+        missing_value=u'',
+    )
+
     directives.widget(defaultContent=WysiwygFieldWidget)
     dexteritytextindexer.searchable('defaultContent')
     defaultContent = schema.Text(
-        title=_(u"Proposal description"),
+        title=_(u"Contingut public"),
         description=_(u"Default content shown in the document view"),
         required=False,
     )
@@ -29,6 +48,12 @@ class IDocument(form.Schema):
         description=_(u"Content used to hide protected content"),
         required=False,
     )
+
+
+@form.default_value(field=IDocument['title'])
+def titleDefaultValue(data):
+    # ficar el títol de la sessió
+    return data.context.Title()
 
 
 class Edit(dexterity.EditForm):

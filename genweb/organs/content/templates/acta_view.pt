@@ -103,25 +103,10 @@
 
   <div class="clearfix"></div>
 
-  <tal:block tal:condition="context/ordreSessio">
+  <tal:block tal:condition="context/ordenDelDia">
     <h3 i18n:translate=""> Session order </h3>
-    <div tal:content="structure context/ordreSessio" />
+    <div tal:content="structure context/ordenDelDia" />
   </tal:block>
-
-  <tal:block tal:condition="context/actaBody">
-    <h3 i18n:translate=""> Acta Body </h3>
-    <div tal:replace="structure context/actaBody" />
-    <br/>
-    <br/>
-  </tal:block>
-
-<!--   <tal:block tal:condition="context/footer">
-    <hr/>
-    <h3 i18n:translate=""> Footer </h3>
-    <div tal:replace="structure context/footer" />
-  </tal:block>
-    <hr/> -->
-
 
 </metal:content-core>
 

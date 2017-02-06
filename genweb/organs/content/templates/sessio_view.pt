@@ -147,6 +147,14 @@
       <div class="containerIcons" tal:condition="view/showPublicarButton">
         <a href="informar_sessio" i18n:attributes="title Informar; alt Informar"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informar</span></a>
       </div>
+
+      <div class="containerIcons">
+        <a href="butlleti" i18n:attributes="title Butlleti; alt Butlleti"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Butlleti</span></a>
+      </div>
+
+      <div class="containerIcons">
+        <a href="printOrdreDia" i18n:attributes="title printOrdreDia; alt printOrdreDia"><i class="fa fa-print fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Print</span></a>
+      </div>
   </div>
 
   <div class="clearfix"></div>
@@ -179,7 +187,7 @@
                   tal:content="item/horaFi"></span>
           </li>
           <li tal:condition="item/llocConvocatoria">
-            <b i18n:translate="">Lloc</b><b>:</b>
+            <b i18n:translate="">Session location</b><b>:</b>
             <span style="float:right"
                   tal:content="item/llocConvocatoria"></span>
           </li>
@@ -230,18 +238,18 @@
 
       <div class="tab-pane" id="actaTab" tal:condition="view/showActaTab">
         <ul tal:condition="view/hihaMultimedia">
-          <li tal:condition="context/enllacVideo" style="list-style:none;">
+          <li tal:condition="context/enllacVideo">
             <b i18n:translate="">Video link</b>
-            <br/>
-            <i class="fa fa-link" aria-hidden="true">
-            <a tal:attributes="href context/enllacVideo"><span tal:content="context/enllacVideo"></span></a>
+            <span style="float: right">
+              <a tal:attributes="href context/enllacVideo" target="_blank"><span i18n:translate="">Video</span></a>
+            </span>
           </li>
           <div class="clearfix"></div>
-          <li tal:condition="context/enllacAudio" style="list-style:none;">
+          <li tal:condition="context/enllacAudio">
             <b i18n:translate="">Audio link</b>
-            <br/>
-            <i class="fa fa-link" aria-hidden="true">
-            <a tal:attributes="href context/enllacAudio"><span tal:content="context/enllacAudio"></span></a>
+            <span style="float: right">
+              <a tal:attributes="href context/enllacAudio" target="_blank"><span i18n:translate="">Audio</span></a>
+            </span>
           </li>
         </ul>
         <div class="clearfix"></div>
@@ -266,6 +274,7 @@
           </table>
         </div>
         <div tal:define="audio view/AudioInside" tal:condition="audio">
+          <b i18n:translate="">Audio de la sessio:</b>
           <table>
             <tbody>
               <tal:documents repeat="item audio">
@@ -388,7 +397,7 @@
               <div class="btn-group" role="group" style="float: right;" aria-label="Add element" tal:condition="canModify">
                   <button class="label dropdown-toggle"
                       type="button" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false" i18n:translate="">
+                      aria-haspopup="true" aria-expanded="false">
                       +
                     <span class="caret"></span>
                   </button>
@@ -426,7 +435,7 @@
               </div>
 
 
-              <div class="btn-group" role="group" tal:define="agreement item/agreement" tal:condition="python: canModify and not agreement"
+<!--               <div class="btn-group" role="group" tal:define="agreement item/agreement" tal:condition="python: canModify and not agreement"
                    style="float: left;" aria-label="Fer acord">
                 <button type="button" class="label label-info"
                   data-container="body"
@@ -438,6 +447,13 @@
                   tal:attributes="data-item item/id; data-type item/portal_type">
                   Número d'acord
                 </button>
+              </div> -->
+
+              <div class="form-group" style="padding-left: 25px;" tal:condition="python: canModify and not agreement">
+                <input style="height: 8px; margin-bottom: 0px;" type="text" class="form-control" id="agreement" placeholder="Número d'acord">
+                  <a href="" tal:condition="not:agreement"><i class="fa fa-check modifyNumeroAcord add"></i></a>
+                  <a href="" tal:condition="agreement"><i class="fa fa-times modifyNumeroAcord delete"></i></a>
+
               </div>
 
               <div class="puntTitle">
@@ -702,18 +718,8 @@
             });
         });
 
-        $('button.acord').on('click', function (e) {
-            $('[data-toggle="popover"]').each(function () {
-                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-                    $(this).popover('hide');
-                } else {
-                  var name=$(this).data()['item'];
-                  var portal_type=$(this).data()['type'];
-                  var message='<form onsubmit="return false;"><input id="acordNumber" placeholder="Indicar codi" type="text"/></form><a class="btn btn-info" onclick=assignAcordNumber("'+ name +','+ portal_type+'")>Assignar</a>&nbsp;<a class="btn btn-danger save" onclick="$(this).parent().parent().hide()"> Cancel·lar </a>'
-                  $(this).attr('data-content',message);
-                  $(this).popover('show');
-                };
-            });
+        $('.modifyNumeroAcord').on('click', function (e) {
+
         });
 
 

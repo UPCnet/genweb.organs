@@ -9,42 +9,47 @@
 
 <metal:content-core fill-slot="content-core">
 
-    <metal:block define-macro="content-core"
-        tal:define="viewPublic view/viewPublicContent;
-                    viewPrivate view/viewPrivateContent;
-                    alternate context/alternateContent;
-                    default context/defaultContent;
-                    isMembre view/showMembreContent;
-                    isManager view/isManager">
+  <metal:block define-macro="content-core"
+      tal:define="viewPublic view/viewPublicContent;
+                  viewPrivate view/viewPrivateContent;
+                  alternate context/alternateContent;
+                  default context/defaultContent;
+                  isMembre view/showMembreContent;
+                  isManager view/isManager">
 
-      <tal:block tal:condition="viewPublic">
-        <h3 i18n:translate="" tal:condition="viewPrivate"> Contingut public </h3>
-          <div tal:condition="default"
-               tal:replace="structure default"> </div>
-       </tal:block>
+    <tal:block tal:condition="viewPublic">
+      <h3 i18n:translate="" tal:condition="viewPrivate"> Contingut public </h3>
+        <div tal:condition="default"
+             tal:replace="structure default"> </div>
+     </tal:block>
 
-      <tal:block tal:condition="viewPrivate">
-        <h3 i18n:translate="" tal:condition="alternate"> Contingut intern </h3>
-        <div tal:condition="alternate"
-             tal:replace="structure alternate"></div>
-      </tal:block>
+    <tal:block tal:condition="viewPrivate">
+      <span tal:condition="alternate">
+        <h3 i18n:translate=""> Contingut reservat </h3>
+        <div tal:replace="structure alternate"></div>
+      </span>
+    </tal:block>
 
-      <tal:block tal:condition="isMembre">
+    <tal:block tal:condition="isMembre">
+    <span tal:condition="default">
       <h3 i18n:translate=""> Contingut </h3>
-        <div tal:replace="structure isMembre"></div>
-      </tal:block>
+      <div tal:replace="structure default"></div>
+    </span>
+    </tal:block>
 
-      <tal:block tal:condition="isManager">
+    <tal:block tal:condition="isManager">
+      <span tal:condition="default">
         <h3 i18n:translate=""> Contingut public</h3>
-          <div tal:condition="default"
-               tal:replace="structure default"> </div>
-         <br/>
-        <h3 i18n:translate=""> Contingut intern</h3>
-        <div tal:condition="alternate"
-             tal:replace="structure alternate"></div>
-      </tal:block>
+          <div tal:replace="structure default"> </div>
+        <br/>
+      </span>
+      <span tal:condition="alternate">
+        <h3 i18n:translate=""> Contingut reservat</h3>
+        <div tal:replace="structure alternate"></div>
+      </span>
+    </tal:block>
 
-    </metal:block>
+  </metal:block>
 
 </metal:content-core>
 

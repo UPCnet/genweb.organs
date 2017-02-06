@@ -105,10 +105,7 @@ class Message(form.SchemaForm):
         self.widgets["sender"].mode = DISPLAY_MODE
         self.widgets["sender"].value = str(organ.fromMail)
         self.widgets["fromTitle"].value = str(fromMessage)
-        if session.adrecaAfectatsLlista:
-            self.widgets["recipients"].value = str(session.adrecaLlista) + ' ' + str(session.adrecaAfectatsLlista)
-        else:
-            self.widgets["recipients"].value = str(session.adrecaLlista)
+        self.widgets["recipients"].value = str(session.adrecaLlista)
         self.widgets["message"].value = bodyMail
 
     @button.buttonAndHandler(_("Send"))

@@ -13,13 +13,20 @@
       directory="stylesheets"
       />
 
-    <!-- Used to print custom ACTA -->
     <browser:page
       for="*"
       name="printActa"
       class=".views.ActaPrintView"
       layer="..interfaces.IGenwebOrgansLayer"
       permission="zope2.View"
+    />
+
+    <browser:page
+      for="*"
+      name="butlleti"
+      class=".views.Butlleti"
+      layer="..interfaces.IGenwebOrgansLayer"
+      permission="zope2.Public"
     />
 
     <browser:page
@@ -40,46 +47,46 @@
 
   <browser:page
     for="Products.CMFCore.interfaces._content.IFolderish"
-    class=".views.Move"
     name="fcmoveTable"
+    class=".views.Move"
     layer="..interfaces.IGenwebOrgansLayer"
     permission="cmf.ModifyPortalContent" />
 
   <browser:page
     for="*"
-    class=".views.Delete"
     name="removeElement"
+    class=".views.Delete"
     layer="..interfaces.IGenwebOrgansLayer"
     permission="cmf.ModifyPortalContent" />
 
   <browser:page
     for="*"
-    class=".views.AssignAcord"
     name="assignAcord"
+    class=".views.AssignAcord"
     layer="..interfaces.IGenwebOrgansLayer"
     permission="cmf.ModifyPortalContent" />
 
   <browser:page
-    name="updateProposalPoints"
     for="genweb.organs.content.sessio.ISessio"
-    layer="..interfaces.IGenwebOrgansLayer"
+    name="updateProposalPoints"
     class=".views.Reload"
+    layer="..interfaces.IGenwebOrgansLayer"
     permission="cmf.ModifyPortalContent"
     />
 
   <browser:page
+    for="*"
     name="modifyPointState"
-    for="*"
-    layer="..interfaces.IGenwebOrgansLayer"
     class=".views.modifyPointState"
+    layer="..interfaces.IGenwebOrgansLayer"
     permission="cmf.ModifyPortalContent"
     />
 
   <browser:page
-    name="changeActualState"
     for="*"
-    layer="..interfaces.IGenwebOrgansLayer"
+    name="changeActualState"
     class=".views.changeActualState"
+    layer="..interfaces.IGenwebOrgansLayer"
     permission="cmf.ModifyPortalContent"
     />
 

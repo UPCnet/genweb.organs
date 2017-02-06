@@ -21,11 +21,6 @@ class IActa(form.Schema):
              fields=['membresConvocats', 'membresConvidats', 'llistaExcusats', 'llistaNoAssistens']
              )
 
-    fieldset('imprimir',
-             label=_(u"Dades imprimir"),
-             fields=['actaBody', 'footer'],
-             )
-
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_PMF(u'label_title', default=u'Title'),
@@ -84,18 +79,11 @@ class IActa(form.Schema):
         required=False,
     )
 
-    directives.widget(ordreSessio=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('ordreSessio')
-    ordreSessio = schema.Text(
+    directives.widget(ordenDelDia=WysiwygFieldWidget)
+    dexteritytextindexer.searchable('ordenDelDia')
+    ordenDelDia = schema.Text(
         title=_(u"Session order"),
-        required=False,
-    )
-
-    directives.widget(actaBody=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('actaBody')
-    actaBody = schema.Text(
-        title=_(u"Acta Body"),
-        description=_(u"Acta Body help"),
+        description=_(u"Session order description"),
         required=False,
     )
 
@@ -107,13 +95,7 @@ class IActa(form.Schema):
         required=False,
     )
 
-    defaultImg = schema.Bool(
-        title=_(u'Fer servir la imatge personalitzada?'),
-        description=_(u"Marca aquesta opció si no es vol fer servir la imatge de l'òrgan al imprimir les actes, sino la que s'adjunta aquí mateix."),
-        default=False,
-    )
-
-    actaImage = NamedBlobImage(
+    actaLogo = NamedBlobImage(
         title=_(u"Imatge de les actes"),
         description=_(u"Imatge que es fa servir en imprimir les actes, en comptes de fer servir la imatge definida a l'òrgan."),
         required=False,
@@ -178,8 +160,8 @@ def horaFiDefaultValue(data):
     return data.context.horaFi
 
 
-@form.default_value(field=IActa['ordreSessio'])
-def ordreSessioDefaultValue(data):
+@form.default_value(field=IActa['ordenDelDia'])
+def ordenDelDiaDefaultValue(data):
     # Copy all Punts from Session to Acta
     return Punts2Acta(data)
 

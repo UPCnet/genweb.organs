@@ -9,12 +9,32 @@ from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.MimeTypeItem import guess_icon_path
 from plone import api
+from zope import schema
+from plone.app.dexterity import PloneMessageFactory as _PMF
+from collective import dexteritytextindexer
 
 grok.templatedir("templates")
 
 
 class IFile(form.Schema):
     """ Tipus File: Per adjuntar els fitxers públics i/o privats """
+
+    dexteritytextindexer.searchable('title')
+    title = schema.TextLine(
+        title=_PMF(u'label_title', default=u'Title'),
+        required=True
+    )
+
+    dexteritytextindexer.searchable('description')
+    description = schema.Text(
+        title=_PMF(u'label_description', default=u'Summary'),
+        description=_PMF(
+            u'help_description',
+            default=u'Used in item listings and search results.'
+        ),
+        required=False,
+        missing_value=u'',
+    )
 
     hiddenfile = NamedBlobFile(
         title=_(u"Please upload a reserved file"),
@@ -27,6 +47,12 @@ class IFile(form.Schema):
         description=_(u"Published file description"),
         required=False,
     )
+
+
+@form.default_value(field=IFile['title'])
+def titleDefaultValue(data):
+    # ficar el títol de la sessió
+    return data.context.Title()
 
 
 class Edit(dexterity.EditForm):

@@ -45,7 +45,8 @@ ul#tabs.nav.nav-tabs {
 }
 
 #dadesTab li,
-#multimediaTab li
+#multimediaTab li,
+#actaTab li
  {
     border-bottom: 1px solid white;
     list-style: outside none;
@@ -54,7 +55,8 @@ ul#tabs.nav.nav-tabs {
 }
 
 #dadesTab ul,
-#multimediaTab ul{
+#multimediaTab ul,
+#actaTab ul {
     margin-left:0px;
 }
 
