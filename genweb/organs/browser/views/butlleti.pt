@@ -73,14 +73,9 @@
           <link rel="stylesheet" tal:attributes="href string:${portal_url}/++genweb++stylesheets/genwebupc.css">
         <!--<![endif]-->
         <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/genweb_organs.css" />
-        <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/print.css" />
 
         <tal:splittedCSS4IE tal:replace="structure string:&lt;!--[if lt IE 10]&gt;&lt;link rel='stylesheet' href='${portal_url}/++genweb++stylesheets/genwebupc-ie.css'&gt;&lt;![endif]--&gt;" />
-
         <link rel="stylesheet" tal:attributes="href string:${portal_url}/dynamic.css">
-        <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
-
-
 
     </tal:notajax>
 </head>
@@ -104,7 +99,7 @@
       </tr>
     </tbody>
   </table>
-<h1 tal:content="view/geTitle">Newsletter Title</h1>
+<h1 tal:content="view/geTitle">Butlletin Session Title</h1>
 
   <table id="newsletterContent"
          cellpadding="0"
@@ -116,8 +111,7 @@
                align="center"
                width="100%;"
                cellpadding="0"
-               cellspacing="0"               >
-
+               cellspacing="0">
           <thead>
             <tr>
               <th style="font-size:13px; width:5%; text-align:right;" i18n:translate="">Punt</th>
@@ -129,15 +123,15 @@
             <tr vertical-align="top"
                  valign="top";
                  tal:repeat="row view/PuntsOrdreDelDia">
-                 <td style="font-size:13px; width:5%; text-align:right;">
-                 <span tal:condition="row/punt" tal:content="row/punt"></span>
-                 </td>
-                 <td style="font-size:13px; width:5%; text-align:right;">
-                 <span tal:condition="row/acord" tal:content="row/acord"></span>
-                 </td>
-                 <td style="font-size:13px; width:90%; padding-left: 10px; text-align:left;">
-                 <a tal:condition="row/Title" href="" tal:content="row/Title" tal:attributes="href row/url"></a>
-                 </td>
+                <td style="font-size:13px; width:5%; text-align:right;">
+                    <span tal:condition="row/punt" tal:content="row/punt"></span>
+                </td>
+                <td style="font-size:13px; width:5%; text-align:right;">
+                    <span tal:condition="row/acord" tal:content="row/acord"></span>
+                </td>
+                <td style="font-size:13px; width:90%; padding-left: 10px; text-align:left;">
+                    <a tal:condition="row/Title" href="" tal:content="row/Title" tal:attributes="href row/url"></a>
+                </td>
             </tr>
 
           </tbody>
@@ -145,7 +139,6 @@
       </td>
     </tr>
   </table>
-
 
 </html>
 
