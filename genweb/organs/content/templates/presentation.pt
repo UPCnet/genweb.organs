@@ -83,8 +83,6 @@
         <script tal:condition="not:anonim" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/smooth-scroll.min.js"></script>
         <script tal:condition="not:anonim" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.smooth-scroll.min.js"></script>
 
-
-
     </tal:notajax>
 </head>
 
@@ -100,7 +98,7 @@
   </div>
   <div class="bannerOrgansPresentation clearfix">
         <img tal:attributes="src view/getLogo" style="height:65px; width: 100%;" />
-    <div class="bannerTitle" tal:condition="view/getTitle" tal:content="view/getTitle">Govern UPC - FIB</div>
+    <div class="bannerTitle" tal:condition="view/getTitle" tal:content="view/getTitle">Govern UPC - Session Title</div>
   </div>
 
   <metal:content-core tal:define="items view/PuntsInside">
@@ -134,25 +132,10 @@
         <tal:documents repeat="item items">
           <li>
             <div class="puntTitle" tal:define="agreement item/agreement">
-              <div class="btn-group" role="group" tal:condition="not:anonim" style="float: right;">
-                <tal:block tal:condition="item/state">
-                  <button class="label dropdown-toggle estatJS"
-                      type="button" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
-                    <a tal:content="item/state"></a>
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
-                    <tal:block repeat="estat item/estats">
-                      <li><a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
-                    </tal:block>
-                  </ul>
-                </tal:block>
-              </div>
-              <span class="agreementClass" tal:condition="agreement" tal:content="agreement"></span>
+
               <div class="clearfix"></div>
               <span class="proposalNumber" tal:content="item/proposalPoint"></span>
+              <span class="agreementClass" tal:condition="agreement" tal:content="agreement"></span>
               <a tal:attributes="href string:${item/absolute_url}/view" class="editTitle editable titleSize">
                 <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
               </a>
@@ -174,27 +157,9 @@
                 <ol class="li_subgrups">
                   <td>
                     <div class="subpuntTitle" tal:define="agreement item/agreement">
-                      <div class="btn-group" role="group" tal:condition="not:anonim"
-                           style="float: right;" aria-label="Subpunt actions">
-                        <tal:block tal:condition="item/state">
-                          <button class="label dropdown-toggle estatJS"
-                              type="button" data-toggle="dropdown"
-                              aria-haspopup="true" aria-expanded="true">
-                              <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
-                            <a tal:content="item/state"></a>
-                            <span class="caret"></span>
-                          </button>
-                          <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
-                            <tal:block repeat="estat item/estats">
-                              <li><a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
-                            </tal:block>
-                          </ul>
-                        </tal:block>
-                      </div>
-                      <span class="agreement editable editable-click"
-                            style="padding-left: 40px;" tal:condition="agreement" tal:content="agreement"></span>
                       <div class="clearfix"></div>
                       <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
+                      <span class="agreementSubClass" tal:condition="agreement" tal:content="agreement"></span>
                       <a tal:attributes="href string:${item/absolute_url}"
                          class="editTitle editable subtitleSize">
                         <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
