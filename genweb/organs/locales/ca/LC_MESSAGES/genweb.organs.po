@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-02-07 11:05+0000\n"
+"POT-Creation-Date: 2017-02-07 11:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -294,13 +294,13 @@ msgstr "Fitxer"
 msgid "Fitxers i documents"
 msgstr "Fitxers i documents"
 
-#: ./genweb/organs/content/acta.py:93
+#: ./genweb/organs/content/organgovern.py:146
 msgid "Footer"
-msgstr "Signatura"
+msgstr "Signatura de l'acta"
 
-#: ./genweb/organs/content/acta.py:94
+#: ./genweb/organs/content/organgovern.py:147
 msgid "Footer help"
-msgstr "Signatura que es farà servir a l'imprimir l'acta"
+msgstr "Signatura que es farà servir al imprimir l'acta"
 
 #: ./genweb/organs/content/mailConvocar.py:36
 msgid "From"
@@ -330,11 +330,11 @@ msgstr "URL del vídeo de la gravació de la sessió. Normalment cal fer servir 
 msgid "If you want to add an audio file, nor a url, you must add an Audio Type and leave this empty. "
 msgstr "URL de l'àudio de la gravació de la sessió. En cas que s'adjunti un fitxer d'àudio a la sessió no caldrà informar-ho aquí ja que es mostrarà automàticament."
 
-#: ./genweb/organs/content/acta.py:99
+#: ./genweb/organs/content/acta.py:91
 msgid "Imatge de les actes"
 msgstr "Logo de les actes"
 
-#: ./genweb/organs/content/acta.py:100
+#: ./genweb/organs/content/acta.py:92
 msgid "Imatge que es fa servir en imprimir les actes, en comptes de fer servir la imatge definida a l'òrgan."
 msgstr "Logo que es fa servir en imprimir les actes, en lloc de fer servir el logo definit a l'òrgan."
 

@@ -329,6 +329,9 @@ class ActaPrintView(BrowserView):
         except:
             return None
 
+    def signatura(self):
+        return self.context.aq_parent.aq_parent.footer
+
 
 class Reload(BrowserView):
 

@@ -87,14 +87,6 @@ class IActa(form.Schema):
         required=False,
     )
 
-    directives.widget(footer=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('footer')
-    footer = schema.Text(
-        title=_(u"Footer"),
-        description=_(u"Footer help"),
-        required=False,
-    )
-
     actaLogo = NamedBlobImage(
         title=_(u"Imatge de les actes"),
         description=_(u"Imatge que es fa servir en imprimir les actes, en comptes de fer servir la imatge definida a l'òrgan."),
@@ -164,12 +156,6 @@ def horaFiDefaultValue(data):
 def ordenDelDiaDefaultValue(data):
     # Copy all Punts from Session to Acta
     return Punts2Acta(data)
-
-
-@form.default_value(field=IActa['footer'])
-def footerDefaultValue(data):
-    # Copy all Punts from Session to Acta
-    return data.context.signatura
 
 
 def Punts2Acta(self):

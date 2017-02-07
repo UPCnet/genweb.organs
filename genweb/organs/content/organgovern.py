@@ -38,7 +38,7 @@ class IOrgangovern(form.Schema):
 
     fieldset('notificacions',
              label=_(u'Notifications'),
-             fields=['adrecaAfectatsLlista', 'bodyMailconvoquing', 'bodyMailSend', 'footerMail'],
+             fields=['adrecaAfectatsLlista', 'bodyMailconvoquing', 'bodyMailSend', 'footerMail', 'footer'],
              )
 
     dexteritytextindexer.searchable('title')
@@ -47,7 +47,7 @@ class IOrgangovern(form.Schema):
         required=True
     )
 
-    # TODO: When create the WS, activate this value 
+    # TODO: When create the WS, activate this value
     form.mode(acronim='hidden')
     dexteritytextindexer.searchable('acronim')
     acronim = schema.TextLine(
@@ -137,6 +137,14 @@ class IOrgangovern(form.Schema):
     footerMail = schema.Text(
         title=_(u"footerMail"),
         description=_(u"footerMail description"),
+        required=False,
+    )
+
+    directives.widget(footer=WysiwygFieldWidget)
+    dexteritytextindexer.searchable('footer')
+    footer = schema.Text(
+        title=_(u"Footer"),
+        description=_(u"Footer help"),
         required=False,
     )
 

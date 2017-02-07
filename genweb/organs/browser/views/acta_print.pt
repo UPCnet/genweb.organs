@@ -90,9 +90,9 @@
         <span tal:replace="structure context/ordenDelDia" />
     </tal:block>
 
-    <tal:block tal:condition="context/signatura">
+    <tal:block tal:condition="view/signatura">
       <br/>
-        <span tal:replace="structure context/signatura" />
+        <span tal:replace="structure view/signatura" />
     </tal:block>
 
 
