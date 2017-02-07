@@ -19,8 +19,34 @@
         i18n:translate="">
           Informar de la sessio
       </h1>
-      <br/>
+
+      <h4 i18n:translate="">Si necessita veure la llista de punts amb el format butlleti, pot clicar el seguent boto</h4>
+
+      <tal:omit-tag>
+
+        <div class="modal fade hide myModal" id="myModal" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true" data-remote="butlleti">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel"><span i18n:translate="">Previsualitzacio dels punts</span></h3>
+          </div>
+          <div class="modal-body">
+            <p>Acta</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true"><span i18n:translate="">Tancar</span></button>
+          </div>
+        </div>
+        <button data-target="#myModal" role="button"
+           class="btn btn-default" data-toggle="modal">
+           <i class="icon icon-copy"></i>&nbsp;<span i18n:translate=""> Vista previa dels punts </span></button>
+      </tal:omit-tag>
+
+      <div class="documentDescription description"></div>
+      <div class="clearfix"></div>
+
       <metal:block use-macro="context/@@ploneform-macros/titlelessform"></metal:block>
+
     </div>
 
   </tal:main-macro>

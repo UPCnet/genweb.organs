@@ -28,12 +28,12 @@ class IMessage(form.Schema):
         )
 
     recipients = TextLine(
-        title=_("Recipients"),
-        description=_("Mail address separated by commas."),
+        title=_(u"Recipients"),
+        description=_("Mail address separated by blanks."),
         required=True)
 
     fromTitle = TextLine(
-        title=_("From"),
+        title=_(u"From"),
         required=True)
 
     directives.widget(message=WysiwygFieldWidget)

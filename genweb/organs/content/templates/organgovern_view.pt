@@ -10,112 +10,111 @@
 
 <metal:content-core fill-slot="content-core"
        tal:define="acords view/getAcords;
-                   nomembers view/nomembers;
+                   members view/members;
                    descripcioOrgan context/descripcioOrgan;
                    membresOrgan context/membresOrgan;
                    checkRoles view/checkRoles;
                    convidatsPermanentsOrgan context/convidatsPermanentsOrgan">
 
+
   <div class="pull-right" tal:condition="context/logoOrgan">
-    <div class="documentDescription description"></div>
     <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan" />
   </div>
-
   <div class="clearfix"></div>
   <div class="documentDescription description"></div>
+  <div class="documentDescription description" tal:content="structure context/descripcioOrgan"></div>
+
 
   <div id="contentOrgan">
-    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-      <li class="active" tal:condition="descripcioOrgan">
-        <a href="#descriptionTab" data-toggle="tab" i18n:translate="">Description</a>
-      </li>
-      <li tal:condition="nomembers">
-        <a href="#composicionTab" data-toggle="tab" i18n:translate="">Composicio</a>
-      </li>
-      <li tal:condition="acords">
-        <a href="#acordsTab" data-toggle="tab" i18n:translate="">Acord</a>
-      </li>
-    </ul>
-    <div id="organsTabs" class="tab-content">
-      <div class="tab-pane active" id="descriptionTab"
-           tal:condition="descripcioOrgan">
-        <div tal:replace="structure descripcioOrgan" />
-      </div>
 
-      <div class="tab-pane" id="composicionTab">
-        <div class="panel with-nav-tabs panel-primary">
-          <div class="panel-heading">
-            <ul class="nav nav-tabs">
-              <li tal:condition="membresOrgan" class="active">
-                <a href="#tab1primary" data-toggle="tab" i18n:translate="">Persones assistents</a>
-              </li>
-              <li tal:condition="convidatsPermanentsOrgan">
-                <a href="#tab2primary" data-toggle="tab" i18n:translate="">Persones convidades</a>
-              </li>
-            </ul>
-          </div>
-          <div class="panel-body">
-            <div class="tab-content">
-              <div class="tab-pane fade in active" id="tab1primary">
-                <span tal:replace="structure membresOrgan" />
-              </div>
-              <div class="tab-pane fade" id="tab2primary">
-                <span tal:replace="structure convidatsPermanentsOrgan" />
+    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#information"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Mostrar dades de l'òrgan</button>
+    <div id="information" class="collapse">
+    <div class="documentDescription description"></div>
+
+      <ul id="tabs" class="nav nav-tabs active" data-tabs="tabs">
+        <li class="active" tal:condition="members">
+          <a href="#composicionTab" data-toggle="tab" i18n:translate="">Composicio</a>
+        </li>
+        <li tal:condition="acords">
+          <a href="#acordsTab" data-toggle="tab" i18n:translate="">Acords</a>
+        </li>
+      </ul>
+
+      <div id="organsTabs" class="tab-content">
+        <div class="tab-pane active" id="composicionTab">
+          <div class="panel with-nav-tabs panel-primary">
+            <div class="panel-heading">
+              <ul class="nav nav-tabs">
+                <li tal:condition="membresOrgan" class="active">
+                  <a href="#tab1primary" data-toggle="tab" i18n:translate="">Persones assistents</a>
+                </li>
+                <li tal:condition="convidatsPermanentsOrgan">
+                  <a href="#tab2primary" data-toggle="tab" i18n:translate="">Persones convidades</a>
+                </li>
+              </ul>
+            </div>
+            <div class="panel-body">
+              <div class="tab-content">
+                <div class="tab-pane fade in active" id="tab1primary">
+                  <span tal:replace="structure membresOrgan" />
+                </div>
+                <div class="tab-pane fade" id="tab2primary">
+                  <span tal:replace="structure convidatsPermanentsOrgan" />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div tal:condition="acords" class="tab-pane" id="acordsTab">
-        <table class="table table-striped table-condensed table-hover table-responsive">
-          <thead>
-            <tr>
-              <th>
-                <tal:title i18n:translate="">Title</tal:title>
-              </th>
-              <th>
-                <tal:title i18n:translate="">Organ Govern</tal:title>
-              </th>
-              <th>
-                <tal:head i18n:translate="">Agreement number</tal:head>
-              </th>
-              <th>
-                <tal:head i18n:translate="">Agreement and document label</tal:head>
-              </th>
-            </tr>
-          </thead>
-          <tal:documents repeat="item acords">
-            <tr>
-              <td>
-                <a href="#"
-                       tal:attributes="href item/absolute_url;"
-                       tal:content="item/title">
-                        Item Title
-                </a>
-              </td>
-              <td>
-                <span
-                       tal:content="item/title_organ">
-                </span>
-              </td>
-              <td>
-                <span tal:content="item/agreement">
-                  Numero
-                </span>
-              </td>
-              <td>
-                <span tal:content="item/estatsLlista"
-                      i18n:translate="">
-                  Status
-                </span>
-              </td>
-            </tr>
-          </tal:documents>
-        </table>
+        <div tal:condition="acords" class="tab-pane" id="acordsTab">
+          <table class="table table-striped table-condensed table-hover table-responsive">
+            <thead>
+              <tr>
+                <th>
+                  <tal:title i18n:translate="">Title</tal:title>
+                </th>
+                <th>
+                  <tal:title i18n:translate="">Organ Govern</tal:title>
+                </th>
+                <th>
+                  <tal:head i18n:translate="">Agreement number</tal:head>
+                </th>
+                <th>
+                  <tal:head i18n:translate="">Agreement and document label</tal:head>
+                </th>
+              </tr>
+            </thead>
+            <tal:documents repeat="item acords">
+              <tr>
+                <td>
+                  <a href="#"
+                         tal:attributes="href item/absolute_url;"
+                         tal:content="item/title">
+                          Item Title
+                  </a>
+                </td>
+                <td>
+                  <span tal:content="item/title_organ">
+                      Title
+                  </span>
+                </td>
+                <td>
+                  <span tal:content="item/agreement">
+                      Numero
+                  </span>
+                </td>
+                <td>
+                  <span tal:content="item/estatsLlista" i18n:translate="">
+                    Status
+                  </span>
+                </td>
+              </tr>
+            </tal:documents>
+          </table>
+        </div>
       </div>
 
     </div>
+
   </div>
 
   <div tal:condition="not:checkRoles">
@@ -161,7 +160,7 @@
           </td>
           <td>
             <tal:data tal:content="item/llocConvocatoria">
-                    Lloc Convocatoria
+                    Lloc sessio
             </tal:data>
           </td>
           <td>

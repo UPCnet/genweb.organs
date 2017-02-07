@@ -12,6 +12,8 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from genweb.organs.utils import addEntryLog
+from Products.CMFCore.utils import getToolByName
+
 from zope import schema
 
 grok.templatedir("templates")
@@ -29,7 +31,7 @@ class IMessage(form.Schema):
 
     recipients = TextLine(
         title=_("Recipients"),
-        description=_("Mail address separated by commas."),
+        description=_("Mail address separated by blanks."),
         required=False)
 
     directives.widget(message=WysiwygFieldWidget)
@@ -69,7 +71,7 @@ class Message(form.SchemaForm):
         if lang == 'en':
             text = 'Link to this session: '
         else:
-            text = 'Enllaç a la sessió: '
+            text = self.Punts2Acta() + '<br/><br/>' + 'Enllaç a la sessió: '
         self.widgets["message"].value = text + '<a href="' + self.context.absolute_url() + '"> ' + self.context.Title() + ' </a>'
 
     @button.buttonAndHandler(_("Send"))
@@ -125,3 +127,75 @@ class Message(form.SchemaForm):
         message = _(u"Operation Cancelled.")
         IStatusMessage(self.request).addStatusMessage(message, type="warning")
         return self.request.response.redirect(self.context.absolute_url())
+
+    def PuntsOrdreDelDia(self):
+        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        values = portal_catalog.unrestrictedSearchResults(
+            portal_type='genweb.organs.punt',
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+        for obj in values:
+            # value = obj.getObject()
+            value = obj._unrestrictedGetObject()
+            results.append(dict(Title=obj.Title,
+                                url=value.absolute_url_path(),
+                                punt=value.proposalPoint,
+                                acord=value.agreement))
+            if len(value.objectIds()) > 0:
+                # valuesInside = portal_catalog.searchResults(
+                valuesInside = portal_catalog.unrestrictedSearchResults(
+                    portal_type='genweb.organs.subpunt',
+                    sort_on='getObjPositionInParent',
+                    path={'query': obj.getPath(),
+                          'depth': 1})
+                for item in valuesInside:
+                    # subpunt = item.getObject()
+                    subpunt = item._unrestrictedGetObject()
+                    results.append(dict(Title=item.Title,
+                                        url=subpunt.absolute_url_path(),
+                                        punt=subpunt.proposalPoint,
+                                        acord=subpunt.agreement))
+
+        return results
+
+    def Punts2Acta(self):
+        """ Retorna els punt en format text per mostrar a l'ordre
+            del dia de les actes
+        """
+        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        values = portal_catalog.searchResults(
+            portal_type='genweb.organs.punt',
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+        for obj in values:
+            # value = obj.getObject()
+            value = obj._unrestrictedGetObject()
+            if value.proposalPoint:
+                number = str(value.proposalPoint) + '.- '
+            else:
+                number = ''
+            results.append(number + str(obj.Title))
+            if len(value.objectIds()) > 0:
+                valuesInside = portal_catalog.searchResults(
+                    portal_type='genweb.organs.subpunt',
+                    sort_on='getObjPositionInParent',
+                    path={'query': obj.getPath(),
+                          'depth': 1})
+                for item in valuesInside:
+                    subpunt = item.getObject()
+                    if subpunt.proposalPoint:
+                        numberSubpunt = str(subpunt.proposalPoint) + '.- '
+                    else:
+                        numberSubpunt = ''
+                    results.append('&nbsp;&nbsp;' + numberSubpunt + str(item.Title))
+
+        return '<br/>'.join(results)
+

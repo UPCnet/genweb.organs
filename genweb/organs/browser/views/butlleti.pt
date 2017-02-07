@@ -82,24 +82,7 @@
 
 <div style="padding: 10px 20px 40px 20px; background-color:white;">
 
-  <table id="newsletter"
-         cellspacing="0"
-         cellpadding="0"
-         border="0"
-         bgcolor="#e5e5e5"
-         align="center">
-    <tbody>
-      <tr>
-        <td style="width:1%">
-            <img style="width:100%"
-               height="auto"
-               border="0"
-               tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/banner.jpg">
-        </td>
-      </tr>
-    </tbody>
-  </table>
-<h1 tal:content="view/geTitle">Butlletin Session Title</h1>
+  <h1 tal:content="view/geTitle">Butlletin Session Title</h1>
 
   <table id="newsletterContent"
          cellpadding="0"
@@ -143,5 +126,4 @@
 </html>
 
 </tal:maindefines>
-
 </metal:page>

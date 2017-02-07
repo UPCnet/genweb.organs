@@ -133,9 +133,16 @@
       });
     }
 
+    function printPage(newWindow){
+      newWindow.focus();
+      newWindow.print();
+    }
+
   </script>
 
   <div class="documentDescription description"></div>
+
+  <iframe name="iframe" id="iframe" width="1" height="1" src="butlleti"></iframe>
 
   <div style="float:right; display:flex">
       <div class="containerIcons" tal:condition="view/showEnviarButton">
@@ -149,11 +156,7 @@
       </div>
 
       <div class="containerIcons">
-        <a href="butlleti" i18n:attributes="title Butlleti; alt Butlleti"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Butlleti</span></a>
-      </div>
-
-      <div class="containerIcons">
-        <a href="printOrdreDia" i18n:attributes="title printOrdreDia; alt printOrdreDia"><i class="fa fa-print fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Print</span></a>
+        <a href="javascript:printPage(iframe);" i18n:attributes="title printOrdreDia; alt printOrdreDia"><i class="fa fa-print fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Print</span></a>
       </div>
   </div>
 
@@ -330,8 +333,6 @@
 
     </div>
   </div>
-
-
 
   <div tal:condition="canModify" class="modal fade massivePuntsModal" id="modalPunts" tabindex="-1" role="dialog" aria-labelledby="modalMassive">
     <div class="modal-dialog" role="document">
@@ -720,7 +721,7 @@
         });
 
         $('.modifyNumeroAcord').on('click', function (e) {
-
+          debugger;
         });
 
 
