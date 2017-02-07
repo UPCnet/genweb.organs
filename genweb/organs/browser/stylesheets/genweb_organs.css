@@ -276,6 +276,13 @@ span.label.nomarginLeft  {
     left: 30% !important;
 }
 
+#myModal {
+    width: 65%;
+    height: 525px;
+    right: 30%;
+    left: 40% !important;
+}
+
 div.modal-body.presentation {
     max-height: 100% !important;
 }

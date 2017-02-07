@@ -1,49 +1,17 @@
-  <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-    xmlns:tal="http://xml.zope.org/namespaces/tal"
-    xmlns:metal="http://xml.zope.org/namespaces/metal"
-    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    i18n:domain="genweb.organs">
 
-  <head>
-    <style type="text/css">
-        a:hover {
-          text-decoration:none;}
-        a {
-          text-decoration:none;}
-        .plain a {
-          color:#555555;
-          font-family: Arial, Helvetica, sans-serif;
-          font-size: 12px;}
-        body {font-family: Arial, Helvetica, sans-serif;
-              font-size: 10px;
-              color: #333333;
-              width:733px;
-              font-size:11px !important;
-              }
-        h2 {
-          margin-bottom:20px !important;
-        }
-        h3 {
-          font-family: Arial, Helvetica, sans-serif;
-          font-size: 12px;
-        }
-        h4 {
-          font-size:11px !important;
-        }
-    </style>
+<tal:block i18n:domain="genweb.organs">
 
 
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,733,600' rel='stylesheet' type='text/css'>
+
+
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,733,600' rel='stylesheet' type='text/css'>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <!-- Optional theme -->
+
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="++genwebupc++stylesheets/genwebupc.css">
-    <title i18n:translate="">Acta</title>
-  </head>
+    <link rel="stylesheet" media="print" href="++resource++genweb.organs.stylesheets/print.css">
 
-  <body>
+
 
     <img tal:condition="view/getActaLogo" tal:attributes="src view/getActaLogo" style="height:80px;" />
     <h1 style="text-align: left" tal:content="view/organGovernTitle">CONSELL DE GOVERN</h1>
@@ -127,5 +95,5 @@
         <span tal:replace="structure context/signatura" />
     </tal:block>
 
-  </body>
-  </html>
+
+</tal:block>

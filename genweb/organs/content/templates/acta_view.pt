@@ -19,10 +19,27 @@
   <iframe name="iframe" id="iframe" width="1" height="1" src="printActa"></iframe>
 
     <tal:omit-tag>
-      <a class="btn btn-info btnActa" style="float:right"
+      <div class="modal fade hide myModal" id="myModal" tabindex="-1" role="dialog"
+           aria-labelledby="myModalLabel" aria-hidden="true" data-remote="printActa">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="myModalLabel"><span i18n:translate="">Previsualització de l'acta</span></h3>
+        </div>
+        <div class="modal-body">
+          <p>One fine body…</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true"><span i18n:translate="">Tancar</span></button>
+        </div>
+      </div>
+      <a class="btn btn-info btnActa" style="float:right;"
           href="javascript:printPage(iframe);">
           <i class="icon-print icon-white"></i> <span i18n:translate=""> Print Acta </span>
       </a>
+      <button data-target="#myModal" role="button"
+         class="btn btn-info" data-toggle="modal"
+         style="float:right; margin-right:10px;">
+         <i class="fa fa-eye"></i><span i18n:translate=""> Preview Acta </span></button>
     </tal:omit-tag>
 
   <div class="clearfix"></div>
@@ -59,6 +76,8 @@
 
         </ul>
       </div>
+
+
 
       <div class="tab-pane" id="assistentsTab">
         <div class="panel with-nav-tabs panel-primary">
