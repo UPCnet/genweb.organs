@@ -1002,3 +1002,8 @@ input#acordNumber {width: 159px;}
 }
 
 li.filesinTable {color: #555;}
+
+ul.nav.nav-tabs {margin-bottom: 0px;}
+
+div.tab-pane.fade.active.in {background-color: white;
+border: 1px solid #b2b2b2;}

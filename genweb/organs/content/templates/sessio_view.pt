@@ -251,9 +251,28 @@
               <a tal:attributes="href context/enllacAudio" target="_blank"><span i18n:translate="">Audio</span></a>
             </span>
           </li>
+          <li tal:define="audio view/AudioInside" tal:condition="audio">
+            <b i18n:translate="">Audio de la sessio:</b>
+            <table>
+              <tbody>
+                <tal:documents repeat="item audio">
+                  <tr>
+                    <td><i class="fa fa-file-audio-o" aria-hidden="true" style="padding-left: 20px;"></i>
+                      <a href="#"
+                         tal:attributes="href item/absolute_url;"
+                         tal:content="item/title">
+                          Item Title
+                      </a>
+                    </td>
+                  </tr>
+                </tal:documents>
+              </tbody>
+            </table>
+          </li>
         </ul>
         <div class="clearfix"></div>
         <div tal:define="actes view/ActesInside" tal:condition="actes">
+          <b i18n:translate="">Actes de la sessio:</b>
           <table>
             <tbody>
               <tal:documents repeat="item actes">
@@ -273,24 +292,7 @@
             </tbody>
           </table>
         </div>
-        <div tal:define="audio view/AudioInside" tal:condition="audio">
-          <b i18n:translate="">Audio de la sessio:</b>
-          <table>
-            <tbody>
-              <tal:documents repeat="item audio">
-                <tr>
-                  <td><i class="fa fa-file-audio-o" aria-hidden="true" style="padding-left: 20px;"></i>
-                    <a href="#"
-                       tal:attributes="href item/absolute_url;"
-                       tal:content="item/title">
-                        Item Title
-                    </a>
-                  </td>
-                </tr>
-              </tal:documents>
-            </tbody>
-          </table>
-        </div>
+
       </div>
 
 
@@ -547,7 +549,6 @@
                               id="estats" type="button" data-toggle="dropdown"
                               aria-haspopup="true" aria-expanded="false">
                               <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${itemSubpunt/css}"></i>
-                            <a tal:content="itemSubpunt/state"></a>
                             <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu estatsToggle" role="menu" aria-labelledby="estats">
