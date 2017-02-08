@@ -36,8 +36,8 @@ class AssignAcord(BrowserView):
     def __call__(self):
         portal_catalog = getToolByName(self, 'portal_catalog')
         action = self.request.form.get('action')
-        itemid = self.request.form.get('item')
-        portal_type = self.request.form.get('portal_type')
+        itemid = self.request.form.get('name')
+        portal_type = self.request.form.get('type')
         inputvalue = self.request.form.get('input')
         try:
             if action == 'assign':
@@ -48,9 +48,7 @@ class AssignAcord(BrowserView):
                 else:
                     folder_path = '/'.join(self.context.getPhysicalPath())
 
-                addEntryLog(self.context, None, _(u'Modified agreement number'), '')
                 # agafo items ordenats!
-
                 punt = portal_catalog.searchResults(
                     portal_type=portal_type,
                     id=itemid,
@@ -59,6 +57,7 @@ class AssignAcord(BrowserView):
                 value = punt[0].getObject()
                 value.acordOrgan = True
                 value.agreement = inputvalue
+                addEntryLog(self.context, None, _(u'Modified agreement number'), '')
         except:
             self.request.response.redirect(self.context.absolute_url())
 

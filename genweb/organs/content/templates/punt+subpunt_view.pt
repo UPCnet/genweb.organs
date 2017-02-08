@@ -83,7 +83,7 @@
               <li class="listFiles" tal:define="agreementSubpunt item/agreement">
                 <a tal:attributes="href item/absolute_url;">
                    <span tal:content="item/proposalPoint"></span>
-                   <span class="agreementClass" tal:condition="agreementSubpunt" tal:content="agreementSubpunt"></span>
+                   <span class="agreementClassPunt" tal:condition="agreementSubpunt" tal:content="agreementSubpunt"></span>
                    <span tal:content="item/title">Doc title</span></a>
               </li>
             </tal:subpunts>

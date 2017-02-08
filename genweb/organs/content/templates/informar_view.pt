@@ -20,7 +20,7 @@
           Informar de la sessio
       </h1>
 
-      <h4 i18n:translate="">Si necessita veure la llista de punts amb el format butlleti, pot clicar el seguent boto</h4>
+      <p i18n:translate="">Llista de punts en el format del butlleti.</p>
 
       <tal:omit-tag>
 
@@ -54,3 +54,5 @@
 </div>
 </body>
 </html>
+
+Llista de punts en el format del butlletí per fer Control+C i Control+V i enganxar-ho a la plana del Genweb que es desitgi.

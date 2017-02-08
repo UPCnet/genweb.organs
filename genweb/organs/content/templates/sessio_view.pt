@@ -111,28 +111,6 @@
 
     }
 
-    function assignAcordNumber(item){
-      var params = {};
-      values = item.split(',')
-      params.item = values[0]
-      params.portal_type = values[1]
-      params.action = 'assign';
-      params.input = $('#acordNumber').val()
-      $.ajax({
-          type: 'POST',
-          url: '@@assignAcord',
-          data: params,
-          success: function(data){
-            refreshNeeded = true;
-          },
-      });
-      $(document).ajaxStop(function(){
-         if(refreshNeeded){
-            window.location.reload();
-        }
-      });
-    }
-
     function printPage(newWindow){
       newWindow.focus();
       newWindow.print();
@@ -452,18 +430,21 @@
                 </button>
               </div> -->
 
-              <div class="form-group" style="padding-left: 25px;" tal:condition="python: canModify and not agreement">
-                <input style="height: 8px; margin-bottom: 0px;" type="text" class="form-control" id="agreement" placeholder="Número d'acord">
-                  <a href="" tal:condition="not:agreement"><i class="fa fa-check modifyNumeroAcord add"></i></a>
-                  <a href="" tal:condition="agreement"><i class="fa fa-times modifyNumeroAcord delete"></i></a>
+              <div class="form-group" style="padding-left: 25px;" >
+                  <input style="height: 8px; margin-bottom: 0px;" type="text" class="form-control" id="agreement" placeholder="Número d'acord" name="agreement"
+                      tal:attributes="data-item item/id;
+                                      data-type item/portal_type;
+                                      placeholder item/agreement" >
+                  <a href=""><i class="fa fa-check modifyNumeroAcord"></i></a>
+                  <a href=""><i class="fa fa-times deleteNumeroAcord"></i></a>
 
               </div>
 
               <div class="puntTitle">
-                <div style="padding-left: 15px;">
+<!--                 <div style="padding-left: 15px;">
                 <a class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"
                     tal:attributes="data-pk item/id; href item/absolute_url" data-url="changeAgreement"></a>
-                </div>
+                </div> -->
                 <div class="clearfix"></div>
 
                   <button type="button" class="expand" tal:condition="item/items_inside"
@@ -634,7 +615,6 @@
       </ul>
   </div>
 
-
   <script type="text/javascript">
     $(function() {
         $(this).find('.sortable2').hide()
@@ -721,11 +701,48 @@
         });
 
         $('.modifyNumeroAcord').on('click', function (e) {
-          debugger;
+          var params = {};
+          params.name  = $(this).closest("div.form-group").find("input").data()['item'];
+          params.type  = $(this).closest("div.form-group").find("input").data()['type'];
+          params.input = $(this).closest("div.form-group").find("input[name='agreement']").val();
+          params.action = 'assign';
+          $.ajax({
+              type: 'POST',
+              url: '@@assignAcord',
+              data: params,
+              success: function(data){
+                refreshNeeded = true;
+              },
+          });
+          $(document).ajaxStop(function(){
+             if(refreshNeeded){
+                window.location.reload();
+            };
+          });
         });
 
+        $('.deleteNumeroAcord').on('click', function (e) {
+          var params = {};
+          params.name  = $(this).closest("div.form-group").find("input").data()['item'];
+          params.type  = $(this).closest("div.form-group").find("input").data()['type'];
+          params.input = '';
+          params.action = 'assign';
+          $.ajax({
+              type: 'POST',
+              url: '@@assignAcord',
+              data: params,
+              success: function(data){
+                refreshNeeded = true;
+              },
+          });
+          $(document).ajaxStop(function(){
+             if(refreshNeeded){
+                window.location.reload();
+            };
+          });
+        });
 
-    });
+  })
   </script>
 </div>
   <div style="margin-bottom:20px;"></div>
