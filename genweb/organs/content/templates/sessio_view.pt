@@ -415,36 +415,16 @@
                 </tal:block>
               </div>
 
-
-<!--               <div class="btn-group" role="group" tal:define="agreement item/agreement" tal:condition="python: canModify and not agreement"
-                   style="float: left;" aria-label="Fer acord">
-                <button type="button" class="label label-info"
-                  data-container="body"
-                  data-toggle="popover"
-                  data-placement="bottom"
-                  data-html="true"
-                  data-trigger="manual"
-                  data-original-title="Convertir el punt en acord"
-                  tal:attributes="data-item item/id; data-type item/portal_type">
-                  Número d'acord
-                </button>
-              </div> -->
-
-              <div class="form-group" style="padding-left: 25px;" >
+              <div class="form-group" style="padding-left: 25px;" tal:condition="canModify">
                   <input style="height: 8px; margin-bottom: 0px;" type="text" class="form-control" id="agreement" placeholder="Número d'acord" name="agreement"
                       tal:attributes="data-item item/id;
                                       data-type item/portal_type;
                                       placeholder item/agreement" >
                   <a href=""><i class="fa fa-check modifyNumeroAcord"></i></a>
                   <a href=""><i class="fa fa-times deleteNumeroAcord"></i></a>
-
               </div>
 
               <div class="puntTitle">
-<!--                 <div style="padding-left: 15px;">
-                <a class="agreement editable editable-click" tal:condition="agreement" tal:content="agreement"
-                    tal:attributes="data-pk item/id; href item/absolute_url" data-url="changeAgreement"></a>
-                </div> -->
                 <div class="clearfix"></div>
 
                   <button type="button" class="expand" tal:condition="item/items_inside"
@@ -460,8 +440,6 @@
                      class="editTitle editable titleSize">
                     <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                   </a>
-
-
 
                 <tal:files tal:define="files python:view.filesinsidePunt(item)">
                   <ul class="listFiles">
@@ -550,27 +528,16 @@
                         </tal:block>
                       </div>
 
-                      <div class="btn-group" role="group" tal:define="agreementTitle itemSubpunt/agreement" tal:condition="python: canModify and not agreementTitle"
-                           style="float: right;" aria-label="Fer acord">
-                        <button  type="button" class="acord label label-important"
-                          data-container="body"
-                          data-toggle="popover"
-                          data-placement="bottom"
-                          data-html="true"
-                          data-trigger="manual"
-                          data-original-title="Convertir en acord"
-                          tal:attributes="data-item itemSubpunt/id; data-type itemSubpunt/portal_type">
-                          Fer acord
-                        </button>
+                      <div class="form-group" style="padding-left: 25px;" tal:condition="canModify">
+                          <input style="height: 8px; margin-bottom: 0px;" type="text" class="form-control" id="agreement" placeholder="Número d'acord" name="agreement"
+                              tal:attributes="data-item itemSubpunt/id;
+                                              data-type itemSubpunt/portal_type;
+                                              placeholder itemSubpunt/agreement" >
+                          <a href=""><i class="fa fa-check modifyNumeroAcord"></i></a>
+                          <a href=""><i class="fa fa-times deleteNumeroAcord"></i></a>
                       </div>
 
                       <div class="subpuntTitle" tal:define="agreementTitle itemSubpunt/agreement">
-                        <div style="padding-left: 25px;">
-                          <a tal:condition="agreementTitle" class="agreement editable editable-click" tal:content="agreementTitle"
-                           tal:attributes="data-pk itemSubpunt/id; href itemSubpunt/absolute_url" data-url="changeAgreement">
-                             #
-                           </a>
-                        </div>
                         <div class="clearfix"></div>
                         <span class="proposalNumberSubpunt" tal:content="itemSubpunt/proposalPoint"></span>
                         <a tal:attributes="data-pk itemSubpunt/id; href itemSubpunt/absolute_url"
