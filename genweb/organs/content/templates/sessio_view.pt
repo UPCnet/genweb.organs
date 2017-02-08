@@ -376,7 +376,8 @@
                 </button>
               </div>
 
-              <div style="float: right;" aria-label="Add element" tal:condition="canModify">
+              <div class="btn-group" role="group"
+                   style="float: right;" aria-label="Add element" tal:condition="canModify">
                   <button class="label dropdown-toggle"
                       type="button" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
@@ -390,7 +391,7 @@
                   </ul>
               </div>
 
-              <div tal:condition="canModify"
+              <div class="btn-group" role="group" tal:condition="canModify"
                    style="float: right;" aria-label="States">
                 <tal:block tal:condition="item/state">
                   <button class="label dropdown-toggle"
