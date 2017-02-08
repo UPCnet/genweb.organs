@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-02-07 16:53+0000\n"
+"POT-Creation-Date: 2017-02-08 08:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,13 +39,12 @@ msgid "Acronym Description"
 msgstr "Nom curt que donarà lloc a la URL simplificada de l'òrgan."
 
 #: ./genweb/organs/browser/views/acta_print.pt:27
-#: ./genweb/organs/browser/views/ordre_print.pt:27
 #: ./genweb/organs/content/templates/impersonate_as.pt:40
+#: ./genweb/organs/content/templates/sessio_view.pt:169
 msgid "Acta"
 msgstr "Acta"
 
 #: ./genweb/organs/browser/views/acta_print.pt:89
-#: ./genweb/organs/browser/views/ordre_print.pt:89
 msgid "Acta Body"
 msgstr "Cos de l'acta"
 
@@ -100,7 +99,6 @@ msgid "Assistents"
 msgstr "Assistents"
 
 #: ./genweb/organs/browser/views/acta_print.pt:64
-#: ./genweb/organs/browser/views/ordre_print.pt:64
 #: ./genweb/organs/content/templates/acta_view.pt:85
 msgid "Attending members"
 msgstr "Persones assistents"
@@ -249,8 +247,8 @@ msgid "Esteu visualitzant la sessio amb el rol <b><span>${DYNAMIC_CONTENT}</span
 msgstr "Esteu visualitzant la sessió amb el rol <b><span>${DYNAMIC_CONTENT}</span></b>. <br /> Clicar <a href=\"./\">aquí</a> per tornar al mode de visualització per defecte."
 
 #: ./genweb/organs/browser/views/acta_print.pt:75
-#: ./genweb/organs/browser/views/ordre_print.pt:75
 #: ./genweb/organs/content/acta.py:69
+#: ./genweb/organs/content/sessio.py:103
 msgid "Excused members"
 msgstr "Persones excusades"
 
@@ -313,7 +311,6 @@ msgid "Historial"
 msgstr "Historial"
 
 #: ./genweb/organs/browser/views/acta_print.pt:48
-#: ./genweb/organs/browser/views/ordre_print.pt:48
 msgid "Hora de fi"
 msgstr "Hora de finalització"
 
@@ -364,8 +361,8 @@ msgid "Installs Organs de Govern package"
 msgstr "Installs Organs de Govern package"
 
 #: ./genweb/organs/browser/views/acta_print.pt:70
-#: ./genweb/organs/browser/views/ordre_print.pt:70
 #: ./genweb/organs/content/acta.py:61
+#: ./genweb/organs/content/sessio.py:95
 msgid "Invited members"
 msgstr "Persones convidades"
 
@@ -434,7 +431,6 @@ msgid "Missatge no enviat. Comprovi els destinataris del missatge"
 msgstr "Missatge no enviat. Comprovi els destinataris del missatge"
 
 #: ./genweb/organs/browser/views/acta_print.pt:80
-#: ./genweb/organs/browser/views/ordre_print.pt:80
 msgid "Missing members"
 msgstr "Persones no assistents"
 
@@ -586,11 +582,11 @@ msgstr "Seleccioni un fitxer de tipus àudio"
 
 #: ./genweb/organs/content/file.py:46
 msgid "Please upload a public file"
-msgstr "Seleccionar el fitxer públic"
+msgstr "Fitxer públic"
 
 #: ./genweb/organs/content/file.py:40
 msgid "Please upload a reserved file"
-msgstr "Seleccionar el fitxer reservat"
+msgstr "Fitxer reservat"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:152
 msgid "Presentacio"
@@ -693,7 +689,6 @@ msgid "Sending mail new message"
 msgstr "Enviant correu: Nou missatge"
 
 #: ./genweb/organs/browser/views/acta_print.pt:38
-#: ./genweb/organs/browser/views/ordre_print.pt:38
 msgid "Sessio del dia"
 msgstr "Sessió del dia"
 
@@ -718,8 +713,8 @@ msgid "Session end time"
 msgstr "Hora de finalització de la sessió"
 
 #: ./genweb/organs/browser/views/acta_print.pt:32
-#: ./genweb/organs/browser/views/ordre_print.pt:32
 #: ./genweb/organs/content/acta.py:36
+#: ./genweb/organs/content/sessio.py:58
 msgid "Session location"
 msgstr "Lloc de la sessió"
 
@@ -737,7 +732,6 @@ msgid "Session order description"
 msgstr "Apartat per indicar els punts de l'ordre del dia i el desenvolupament de la sessió."
 
 #: ./genweb/organs/browser/views/acta_print.pt:43
-#: ./genweb/organs/browser/views/ordre_print.pt:43
 #: ./genweb/organs/content/templates/organgovern_view.pt:141
 msgid "Session start"
 msgstr "Hora d'inici"
