@@ -15,7 +15,6 @@ def sessio_changed(session, event):
         pass
     else:
         if event.transition.id == 'convocar':
-            import ipdb;ipdb.set_trace()
             context = aq_inner(session)
             session.reindexObject()
             transaction.commit()

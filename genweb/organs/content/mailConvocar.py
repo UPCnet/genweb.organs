@@ -146,3 +146,9 @@ class Message(form.SchemaForm):
                 _("Missatge no enviat. Comprovi els destinataris del missatge"), 'error')
 
         return self.request.response.redirect(self.context.absolute_url())
+
+    @button.buttonAndHandler(_('Cancel'))
+    def handleCancel(self, action):
+        message = _(u"Operation Cancelled.")
+        IStatusMessage(self.request).addStatusMessage(message, type="warning")
+        return self.request.response.redirect(self.context.absolute_url())

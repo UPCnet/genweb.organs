@@ -32,7 +32,7 @@
 
     <subscriber
       for=".content.sessio.ISessio
-           Products.DCWorkflow.interfaces.IAfterTransitionEvent"
+           Products.DCWorkflow.interfaces.IBeforeTransitionEvent"
       handler=".browser.events.change.sessio_changed"
     />
 
