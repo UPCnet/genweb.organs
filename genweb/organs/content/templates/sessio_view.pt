@@ -24,7 +24,7 @@
   <script tal:condition="canModify" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script>
   <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
 
-  <script type="text/javascript"  tal:condition="canModify">
+  <script type="text/javascript" tal:condition="canModify">
     $(function() {
         var refreshNeeded = false;
         $('#sortable').sortable({
@@ -108,14 +108,15 @@
             window.location.reload();
         }
       });
-
     }
 
+  </script>
+
+  <script type="text/javascript">
     function printPage(newWindow){
       newWindow.focus();
       newWindow.print();
     }
-
   </script>
 
   <div class="documentDescription description"></div>
@@ -375,7 +376,7 @@
                 </button>
               </div>
 
-              <div class="btn-group" role="group" style="float: right;" aria-label="Add element" tal:condition="canModify">
+              <div style="float: right;" aria-label="Add element" tal:condition="canModify">
                   <button class="label dropdown-toggle"
                       type="button" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
@@ -389,7 +390,7 @@
                   </ul>
               </div>
 
-              <div class="btn-group" role="group" tal:condition="canModify"
+              <div tal:condition="canModify"
                    style="float: right;" aria-label="States">
                 <tal:block tal:condition="item/state">
                   <button class="label dropdown-toggle"
@@ -415,8 +416,8 @@
                 </tal:block>
               </div>
 
-              <div class="form-group" style="padding-left: 25px;" tal:condition="canModify">
-                  <input style="height: 8px; margin-bottom: 0px; width:70px;" type="text" class="form-control" id="agreement" placeholder="Número d'acord" name="agreement"
+              <div style="padding-left: 25px;" tal:condition="canModify">
+                  <input type="text" id="agreement" placeholder="Número d'acord" name="agreement"
                       tal:attributes="data-item item/id;
                                       data-type item/portal_type;
                                       placeholder item/agreement" > &nbsp;
@@ -529,7 +530,7 @@
                       </div>
 
                       <div class="form-group" style="padding-left: 25px;" tal:condition="canModify">
-                          <input style="height: 8px; margin-bottom: 0px; width: 70px;" type="text" class="form-control" id="agreement" placeholder="Número d'acord" name="agreement"
+                          <input  type="text" class="form-control" id="agreement" placeholder="Número d'acord" name="agreement"
                               tal:attributes="data-item itemSubpunt/id;
                                               data-type itemSubpunt/portal_type;
                                               placeholder itemSubpunt/agreement" >&nbsp;
@@ -554,7 +555,7 @@
                                    style="font-size:14px;">
                                    <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                                 </a>
-                                <div style="float:right; display: inline-table;">
+                                <div style="float:right; display: inline-table;" tal:condition="canModify">
                                   <button type="button" class="remove label label-important"
                                         data-container="body"
                                         data-toggle="popover"
