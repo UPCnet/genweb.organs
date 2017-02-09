@@ -7,7 +7,16 @@
       i18n:domain="genweb.organs">
 <body>
 
-<metal:content-core fill-slot="content-core">
+<metal:content-core fill-slot="content-core"
+       tal:define="membresConvocats context/membresConvocats;
+                   membresConvidats context/membresConvidats;
+                   llistaExcusats context/llistaExcusats;
+                   llistaNoAssistens context/llistaNoAssistens;
+                   ordenDelDia context/ordenDelDia;
+                   llocConvocatoria context/llocConvocatoria;
+                   horaFi view/horaFi;
+                   horaInici view/horaInici;
+                   dataSessio view/dataSessio">
 
   <script type="text/javascript">
     function printPage(newWindow){
@@ -20,11 +29,11 @@
   <iframe name="iframe" id="iframe" width="1" height="1" src="printActa"></iframe>
 
   <tal:omit-tag>
-    <div class="modal fade hide myModal" id="myModal" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel" aria-hidden="true" data-remote="printActa">
+    <div class="modal fade hide previewModal" id="previewModal" tabindex="-1" role="dialog"
+         aria-labelledby="previewModalLabel" aria-hidden="true" data-remote="printActa">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel"><span i18n:translate="">Previsualitzacio de l'acta</span></h3>
+        <h3 id="previewModalLabel"><span i18n:translate="">Previsualitzacio de l'acta</span></h3>
       </div>
       <div class="modal-body">
         <p>Acta</p>
@@ -37,7 +46,7 @@
         href="javascript:printPage(iframe);">
         <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
     </a>
-    <button data-target="#myModal" role="button"
+    <button data-target="#previewModal" role="button"
        class="btn btn-info" data-toggle="modal"
        style="float:right; margin-right:10px;">
        <i class="fa fa-eye"></i>&nbsp;<span i18n:translate=""> Preview Acta </span></button>
@@ -54,25 +63,25 @@
     <div id="actaTabs" class="tab-content">
       <div class="tab-pane active" id="dadesTab">
         <ul>
-          <li tal:condition="context/dataSessio">
+          <li tal:condition="dataSessio">
             <b i18n:translate="">Data</b>
             <span style="float:right"
-                  tal:content="python:context.dataSessio.strftime('%d/%m/%Y')"></span>
+                  tal:content="dataSessio"></span>
           </li>
-          <li tal:condition="context/horaInici">
+          <li tal:condition="horaInici">
             <b i18n:translate="">Session start time</b>
             <span style="float:right"
-                  tal:content="python:context.horaInici.strftime('%H:%M')"></span>
+                  tal:content="horaInici"></span>
           </li>
-          <li tal:condition="context/horaFi">
+          <li tal:condition="horaFi">
             <b i18n:translate="">Session end time</b>
             <span style="float:right"
-                  tal:content="python:context.horaFi.strftime('%H:%M')"></span>
+                  tal:content="horaFi"></span>
           </li>
-          <li tal:condition="context/llocConvocatoria">
+          <li tal:condition="llocConvocatoria">
             <b i18n:translate="">Lloc</b>
             <span style="float:right"
-                  tal:content="context/llocConvocatoria"></span>
+                  tal:content="llocConvocatoria"></span>
           </li>
 
         </ul>
@@ -82,33 +91,33 @@
         <div class="panel with-nav-tabs panel-primary">
           <div class="panel-heading">
             <ul class="nav nav-tabs">
-                <li tal:condition="context/membresConvocats" class="active">
+                <li tal:condition="membresConvocats" class="active">
                   <a href="#tab1primary" data-toggle="tab" i18n:translate="">Attending members</a>
                 </li>
-                <li tal:condition="context/membresConvidats">
+                <li tal:condition="membresConvidats">
                   <a href="#tab2primary" data-toggle="tab" i18n:translate="">Invited members</a>
                 </li>
-                <li tal:condition="context/llistaExcusats">
+                <li tal:condition="llistaExcusats">
                   <a href="#tab3primary" data-toggle="tab" i18n:translate="">Excused members</a>
                 </li>
-                <li tal:condition="context/llistaNoAssistens">
+                <li tal:condition="llistaNoAssistens">
                   <a href="#tab4primary" data-toggle="tab" i18n:translate="">No assistents</a>
                 </li>
             </ul>
           </div>
           <div class="panel-body">
             <div class="tab-content">
-              <div tal:condition="context/membresConvocats" class="tab-pane fade in active" id="tab1primary">
-                <span tal:replace="structure context/membresConvocats" />
+              <div tal:condition="membresConvocats" class="tab-pane fade in active" id="tab1primary">
+                <span tal:replace="structure membresConvocats" />
               </div>
-              <div tal:condition="context/membresConvidats" class="tab-pane fade" id="tab2primary">
-                <span tal:replace="structure context/membresConvidats" />
+              <div tal:condition="membresConvidats" class="tab-pane fade" id="tab2primary">
+                <span tal:replace="structure membresConvidats" />
               </div>
-              <div tal:condition="context/llistaExcusats" class="tab-pane fade" id="tab3primary">
-                <span tal:replace="structure context/llistaExcusats" />
+              <div tal:condition="llistaExcusats" class="tab-pane fade" id="tab3primary">
+                <span tal:replace="structure llistaExcusats" />
               </div>
-              <div tal:condition="context/llistaNoAssistens" class="tab-pane fade" id="tab4primary">
-                <span tal:replace="structure context/llistaNoAssistens" />
+              <div tal:condition="llistaNoAssistens" class="tab-pane fade" id="tab4primary">
+                <span tal:replace="structure llistaNoAssistens" />
               </div>
             </div>
           </div>
@@ -121,9 +130,9 @@
 
   <div class="clearfix"></div>
 
-  <tal:block tal:condition="context/ordenDelDia">
+  <tal:block tal:condition="ordenDelDia">
     <h3 i18n:translate=""> Session order </h3>
-    <div tal:content="structure context/ordenDelDia" />
+    <div tal:content="structure ordenDelDia" />
   </tal:block>
 
 </metal:content-core>

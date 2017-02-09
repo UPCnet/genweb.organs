@@ -37,13 +37,13 @@
               <tal:omit-tag tal:condition="context/dataSessio">
                 <th style="display: inline-block;"><strong i18n:translate="">Sessio del dia</strong><b>:</b></th>
                 <span tal:content="python:context.dataSessio.strftime('%d/%m/%Y')"></span>
-              </tal:omit-tag>
               <br/>
+              </tal:omit-tag>
               <tal:omit-tag tal:condition="context/horaInici">
                 <th style="display: inline-block;"><strong i18n:translate="">Session start</strong><b>:</b></th>
                 <span tal:content="python:context.horaInici.strftime('%H:%M')"></span>
-              </tal:omit-tag>
               <br/>
+              </tal:omit-tag>
               <tal:omit-tag tal:condition="context/horaFi">
                 <th style="display: inline-block;"><strong i18n:translate="">Hora de fi</strong><b>:</b></th>
                 <span tal:content="python:context.horaFi.strftime('%H:%M')"></span>
@@ -53,7 +53,6 @@
         </div>
       </div>
     </div>
-
 
     <div class="container-fluid" style="border-bottom: 1px solid #b2b2b2;">
       <div class="row-fluid">

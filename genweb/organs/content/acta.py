@@ -200,6 +200,24 @@ class View(dexterity.DisplayForm):
     grok.context(IActa)
     grok.template('acta_view')
 
+    def horaFi(self):
+        if self.context.horaFi:
+            return self.context.horaFi.strftime('%H:%M')
+        else:
+            return ''
+
+    def horaInici(self):
+        if self.context.horaInici:
+            return self.context.horaInici.strftime('%H:%M')
+        else:
+            return ''
+
+    def dataSessio(self):
+        if self.context.dataSessio:
+            return self.context.dataSessio.strftime('%d/%m/%Y')
+        else:
+            return ''
+
 
 class Edit(dexterity.EditForm):
     """A standard edit form.

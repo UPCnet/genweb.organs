@@ -360,9 +360,13 @@ class View(grok.View):
         if values:
             results = []
             for obj in values:
+                if obj.getObject().dataSessio is None:
+                    dataSessio = ''
+                else:
+                    dataSessio = obj.getObject().dataSessio.strftime('%d/%m/%Y')
                 results.append(dict(title=obj.Title,
                                     absolute_url=obj.getURL(),
-                                    date=obj.getObject().dataSessio.strftime('%d/%m/%Y')))
+                                    date=dataSessio))
             return results
         else:
             return False
@@ -409,14 +413,17 @@ class View(grok.View):
             dataSessio = ''
         else:
             dataSessio = self.context.dataSessio.strftime('%d/%m/%Y')
+
         if self.context.horaInici is None:
             horaInici = ''
         else:
             horaInici = self.context.horaInici.strftime('%H:%M')
+
         if self.context.horaFi is None:
             horaFi = ''
         else:
             horaFi = self.context.horaFi.strftime('%H:%M')
+
         if self.context.llocConvocatoria is None:
             llocConvocatoria = ''
         else:

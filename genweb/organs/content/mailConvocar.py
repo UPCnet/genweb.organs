@@ -60,6 +60,7 @@ class Message(form.SchemaForm):
         now = strftime("%d/%m/%Y %H:%M:%S")
         organ = self.context.aq_parent
         sessionLink = str(session.absolute_url())
+
         if session.signatura is None:
             signatura = ''
         else:
@@ -77,18 +78,21 @@ class Message(form.SchemaForm):
 
         html_content = ''
         sessiontitle = str(session.Title())
-        if session.dataSessio:
-            sessiondate = str(session.dataSessio.strftime("%d/%m/%Y"))
-        else:
+
+        if session.dataSessio is None:
             sessiondate = ''
-        if session.horaInici:
-            starthour = str(session.horaInici.strftime("%H:%M"))
         else:
+            sessiondate = str(session.dataSessio.strftime("%d/%m/%Y"))
+
+        if session.horaInici is None:
             starthour = ''
-        if session.horaFi:
-            endHour = str(session.horaFi.strftime("%H:%M"))
         else:
+            starthour = str(session.horaInici.strftime("%H:%M"))
+
+        if session.horaFi is None:
             endHour = ''
+        else:
+            endHour = str(session.horaFi.strftime("%H:%M"))
 
         session.notificationDate = now
         fromMessage = "Convocatoria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour

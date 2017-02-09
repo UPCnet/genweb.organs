@@ -209,15 +209,34 @@ class ShowSessionAs(form.SchemaForm):
 
         results = []
         for obj in values:
+            if obj.getObject().dataSessio is None:
+                dataSessio = ''
+            else:
+                dataSessio = obj.getObject().dataSessio
             results.append(dict(title=obj.Title,
                                 absolute_url=obj.getURL(),
-                                date=obj.getObject().dataSessio.strftime('%d/%m/%Y')))
+                                date=dataSessio))
         return results
 
     def valuesTable(self):
-        values = dict(dataSessio=self.context.dataSessio.strftime('%d/%m/%Y'),
-                      horaInici=self.context.horaInici.strftime('%H:%M'),
-                      horaFi=self.context.horaFi.strftime('%H:%M'),
+        if self.context.dataSessio:
+            dataSessio = self.context.dataSessio.strftime('%d/%m/%Y')
+        else:
+            dataSessio = ''
+
+        if self.context.horaInici:
+            horaInici = self.context.horaInici.strftime('%H:%M')
+        else:
+            horaInici = ''
+
+        if self.context.horaFi:
+            horaFi = self.context.horaFi.strftime('%H:%M')
+        else:
+            horaFi = ''
+
+        values = dict(dataSessio=dataSessio,
+                      horaInici=horaInici,
+                      horaFi=horaFi,
                       llocConvocatoria=self.context.llocConvocatoria,
                       organTitle=self.OrganTitle(),
                       )

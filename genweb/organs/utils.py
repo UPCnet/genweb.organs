@@ -120,7 +120,7 @@ def addEntryLog(context, sender, message, recipients):
             # If it's empty, initialize data
             data = []
 
-        dateMail = datetime.now()
+        dateMail = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
 
         if not sender:
             anon = api.user.is_anonymous()
@@ -129,7 +129,7 @@ def addEntryLog(context, sender, message, recipients):
             else:
                 sender = api.user.get_current().id
 
-        values = dict(dateMail=dateMail.strftime('%d/%m/%Y %H:%M:%S'),
+        values = dict(dateMail=dateMail,
                       message=message,
                       fromMail=sender,
                       toMail=recipients)

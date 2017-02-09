@@ -219,9 +219,18 @@ def sessio_sendMail(session, recipients, body):
 
     sessiontitle = str(session.Title())
 
-    sessiondate = session.dataSessio.strftime("%d/%m/%Y")
-    starthour = session.horaInici.strftime("%H:%M")
-    endHour = session.horaFi.strftime("%H:%M")
+    if session.dataSessio is None:
+        sessiondate = ''
+    else:
+        sessiondate = session.dataSessio.strftime("%d/%m/%Y")
+    if session.horaInici is None:
+        starthour = ''
+    else:
+        starthour = session.horaInici.strftime("%H:%M")
+    if session.horaInici is None:
+        endHour = ''
+    else:
+        endHour = session.horaFi.strftime("%H:%M")
     sessionLink = str(session.absolute_url())
     organ = session.aq_parent
 
@@ -283,7 +292,10 @@ def sessio_sendMail(session, recipients, body):
     if lang == 'en':
         now = strftime("%Y-%m-%d %H:%M")
         session.notificationDate = now
-        sessiondate = session.dataSessio.strftime("%Y-%m-%d")
+        if session.dataSessio is None:
+            sessiondate = ''
+        else:
+            sessiondate = session.dataSessio.strftime("%Y-%m-%d")
         subjectMail = "Session message: " + sessiontitle + ' - ' + sessiondate
         introData = "<br/><p>You can view the complete session information here:: <a href=" + \
                     sessionLink + ">" + sessiontitle + "</a></p><br/>" + signatura
