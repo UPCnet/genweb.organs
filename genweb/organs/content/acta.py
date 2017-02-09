@@ -93,6 +93,12 @@ class IActa(form.Schema):
         required=False,
     )
 
+    enllacVideo = schema.TextLine(
+        title=_(u"Video link"),
+        description=_(u"If you want to add a video file, not a url, there is a trick, you must add an Audio Type and leave this field empty."),
+        required=False,
+    )
+
 
 @form.default_value(field=IActa['title'])
 def titleDefaultValue(data):

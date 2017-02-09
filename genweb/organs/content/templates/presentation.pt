@@ -150,17 +150,18 @@
                 </tal:block>
               </span>
               <span class="proposalNumber" tal:content="item/proposalPoint"></span>
-              <span class="agreementClass" tal:condition="agreement" tal:content="agreement"></span>
+              <!-- <span class="agreementClass" tal:condition="agreement" tal:content="agreement"></span> -->
               <a tal:attributes="href string:${item/absolute_url}/view" class="editTitle editable titleSize">
                 <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
               </a>
+
 
               <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                 <ul class="listFiles" style="list-style: none;">
                   <tal:documents repeat="item files">
                     <li class="filesinTable">
-                      <i tal:attributes=" class item/classCSS"></i>
-                      <a tal:attributes="href item/absolute_url;">
+                      <i tal:attributes="class item/classCSS"></i>
+                      <a tal:attributes="href item/absolute_url;" target="_blank">
                          <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                       </a>
                     </li>
@@ -202,7 +203,7 @@
                           <tal:documents repeat="item files">
                             <li class="filesinTable">
                               <i tal:attributes=" class item/classCSS"></i>
-                              <a tal:attributes="href item/absolute_url;">
+                              <a tal:attributes="href item/absolute_url;" target="_blank">
                                  <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                               </a>
                             </li>

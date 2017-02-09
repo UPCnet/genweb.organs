@@ -52,6 +52,10 @@
        <i class="fa fa-eye"></i>&nbsp;<span i18n:translate=""> Preview Acta </span></button>
   </tal:omit-tag>
 
+
+
+
+          
   <div class="clearfix"></div>
 
   <div id="contentActa">
@@ -83,7 +87,12 @@
             <span style="float:right"
                   tal:content="llocConvocatoria"></span>
           </li>
-
+          <li tal:condition="context/enllacVideo">
+            <b i18n:translate="">Video link</b>
+            <span style="float: right">
+              <a tal:attributes="href context/enllacVideo" target="_blank"><span i18n:translate="">Video</span></a>
+            </span>
+          </li>
         </ul>
       </div>
 

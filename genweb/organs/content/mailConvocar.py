@@ -24,7 +24,7 @@ class IMessage(form.Schema):
     """
     sender = TextLine(
         title=_("Sender"),
-        required=True,
+        required=False,
         )
 
     recipients = TextLine(

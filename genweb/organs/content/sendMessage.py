@@ -29,12 +29,12 @@ class IMessage(form.Schema):
     recipients = TextLine(
         title=_("Recipients"),
         description=_("Mail address separated by blanks."),
-        required=False)
+        required=True)
 
     directives.widget(message=WysiwygFieldWidget)
     message = schema.Text(
         title=_(u"Message"),
-        required=False,
+        required=True,
     )
 
 
@@ -47,8 +47,6 @@ class Message(form.SchemaForm):
 
     ignoreContext = True
     schema = IMessage
-
-    # fields = field.Fields(IMessage)
 
     def updateWidgets(self):
         super(Message, self).updateWidgets()

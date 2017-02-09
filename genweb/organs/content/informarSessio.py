@@ -32,12 +32,12 @@ class IMessage(form.Schema):
     recipients = TextLine(
         title=_("Recipients"),
         description=_("Mail address separated by blanks."),
-        required=False)
+        required=True)
 
     directives.widget(message=WysiwygFieldWidget)
     message = schema.Text(
         title=_(u"Message"),
-        required=False,
+        required=True,
     )
 
 
@@ -115,7 +115,8 @@ class Message(form.SchemaForm):
         toMessage = formData['recipients'].encode('utf-8').decode('ascii', 'ignore')
         noBlanks = ' '.join(toMessage.split())
         toMail = noBlanks.replace(' ', ',')
-        body = formData['message'].encode('utf-8')
+        # replace hidden fields to maintain correct urls...
+        body = formData['message'].replace('----@@----', '').encode('utf-8')
         sender = self.context.aq_parent.fromMail
         addEntryLog(self.context, sender, _(u'Sending mail informar sessio'), toMail)
         sessio_sendMail(self.context, toMail, body)  # Send mail
@@ -175,6 +176,7 @@ class Message(form.SchemaForm):
                   'depth': 1})
 
         results = []
+        results.append('<br/><br/>')
         for obj in values:
             # value = obj.getObject()
             value = obj._unrestrictedGetObject()
@@ -182,7 +184,8 @@ class Message(form.SchemaForm):
                 number = str(value.proposalPoint) + '.- '
             else:
                 number = ''
-            results.append(number + str(obj.Title))
+            # adding hidden field to maintain good urls
+            results.append('&emsp;' + number + '<a href=----@@----' + obj.getURL() + '>' + str(obj.Title) + '</a>')
             if len(value.objectIds()) > 0:
                 valuesInside = portal_catalog.searchResults(
                     portal_type='genweb.organs.subpunt',
@@ -195,7 +198,8 @@ class Message(form.SchemaForm):
                         numberSubpunt = str(subpunt.proposalPoint) + '.- '
                     else:
                         numberSubpunt = ''
-                    results.append('&nbsp;&nbsp;' + numberSubpunt + str(item.Title))
+
+                    # adding hidden field to maintain good urls
+                    results.append('&emsp;&emsp;' + numberSubpunt + '<a href=----@@----' + item.getURL() + '>' + str(item.Title) + '</a>')
 
         return '<br/>'.join(results)
-

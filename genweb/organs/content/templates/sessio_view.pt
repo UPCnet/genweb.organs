@@ -128,7 +128,7 @@
         <a href="send_message" i18n:attributes="title Enviar; alt Enviar"><i class="fa fa-envelope fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Enviar</span></a>
       </div>
       <div class="containerIcons" tal:condition="view/showPresentacionButton">
-        <a i18n:attributes="title Presentacio; alt Presentacio" href="presentation"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
+        <a i18n:attributes="title Presentacio; alt Presentacio" href="presentation" target="_blank"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
       </div>
       <div class="containerIcons" tal:condition="view/showPublicarButton">
         <a href="informar_sessio" i18n:attributes="title Informar; alt Informar"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informar</span></a>
@@ -219,41 +219,25 @@
       </div>
 
       <div class="tab-pane" id="actaTab" tal:condition="view/showActaTab">
-        <ul tal:condition="view/hihaMultimedia">
-          <li tal:condition="context/enllacVideo">
-            <b i18n:translate="">Video link</b>
-            <span style="float: right">
-              <a tal:attributes="href context/enllacVideo" target="_blank"><span i18n:translate="">Video</span></a>
-            </span>
-          </li>
-          <div class="clearfix"></div>
-          <li tal:condition="context/enllacAudio">
-            <b i18n:translate="">Audio link</b>
-            <span style="float: right">
-              <a tal:attributes="href context/enllacAudio" target="_blank"><span i18n:translate="">Audio</span></a>
-            </span>
-          </li>
-          <li tal:define="audio view/AudioInside" tal:condition="audio">
-            <b i18n:translate="">Audio de la sessio:</b>
-            <table>
-              <tbody>
-                <tal:documents repeat="item audio">
-                  <tr>
-                    <td><i class="fa fa-file-audio-o" aria-hidden="true" style="padding-left: 20px;"></i>
-                      <a href="#"
-                         tal:attributes="href item/absolute_url;"
-                         tal:content="item/title">
-                          Item Title
-                      </a>
-                    </td>
-                  </tr>
-                </tal:documents>
-              </tbody>
-            </table>
-          </li>
-        </ul>
-        <div class="clearfix"></div>
-        <div tal:define="actes view/ActesInside" tal:condition="actes">
+        <div class="clearfix" tal:define="audio view/AudioInside" tal:condition="audio">
+          <b i18n:translate="">Audio de la sessio:</b>
+          <table>
+            <tbody>
+              <tal:documents repeat="item audio">
+                <tr>
+                  <td><i class="fa fa-file-audio-o" aria-hidden="true" style="padding-left: 20px;"></i>
+                    <a href="#"
+                       tal:attributes="href item/absolute_url;"
+                       tal:content="item/title">
+                        Item Title
+                    </a>
+                  </td>
+                </tr>
+              </tal:documents>
+            </tbody>
+          </table>
+        </div>
+        <div class="clearfix" tal:define="actes view/ActesInside" tal:condition="actes">
           <b i18n:translate="">Actes de la sessio:</b>
           <table>
             <tbody>

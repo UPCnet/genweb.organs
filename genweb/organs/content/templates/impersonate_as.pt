@@ -114,12 +114,6 @@
                 <a tal:attributes="href context/enllacVideo"><span tal:content="context/enllacVideo"></span></a>
               </li>
               <div class="clearfix"></div>
-              <li tal:condition="context/enllacAudio" style="list-style:none;">
-                <b i18n:translate="">Audio link</b>
-                <br/>
-                <i class="fa fa-link" aria-hidden="true">
-                <a tal:attributes="href context/enllacAudio"><span tal:content="context/enllacAudio"></span></a>
-              </li>
             </ul>
             <div class="clearfix"></div>
             <div tal:define="actes view/ActesInside" tal:condition="actes">

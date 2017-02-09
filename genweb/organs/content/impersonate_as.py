@@ -248,7 +248,7 @@ class ShowSessionAs(form.SchemaForm):
         return title
 
     def hihaMultimedia(self):
-        if self.context.enllacVideo or self.context.enllacAudio:
+        if self.context.enllacVideo or self.AudioInside():
             return True
         else:
             return False

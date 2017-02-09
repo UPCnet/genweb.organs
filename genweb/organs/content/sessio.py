@@ -129,18 +129,6 @@ class ISessio(form.Schema):
         required=False,
     )
 
-    enllacVideo = schema.TextLine(
-        title=_(u"Video link"),
-        description=_(u"If you want to add a video file, not a url, there is a trick, you must add an Audio Type and leave this field empty."),
-        required=False,
-    )
-
-    enllacAudio = schema.TextLine(
-        title=_(u"Audio link"),
-        description=_(u"If you want to add an audio file, nor a url, you must add an Audio Type and leave this empty. "),
-        required=False,
-    )
-
 
 @form.default_value(field=ISessio['any'])
 def anyDefaultValue(data):
@@ -442,12 +430,6 @@ class View(grok.View):
         title = self.context.aq_parent.Title()
         return title
 
-    def hihaMultimedia(self):
-        if self.context.enllacVideo or self.context.enllacAudio or self.AudioInside():
-            return True
-        else:
-            return False
-
     def hihaPersones(self):
         if self.context.membresConvocats or self.context.membresConvidats or self.context.llistaExcusats:
             return True
@@ -455,7 +437,7 @@ class View(grok.View):
             return False
 
     def showActaTab(self):
-        if self.hihaMultimedia() or self.ActesInside():
+        if self.AudioInside() or self.ActesInside():
             return True
         else:
             return False
