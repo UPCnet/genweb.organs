@@ -153,20 +153,20 @@
 
       <div class="tab-pane active" id="dadesTab" tal:define="item view/valuesTable">
         <ul>
-          <li tal:condition="item/dataSessio">
+          <li tal:condition="view/dataSessio">
             <b i18n:translate="">Data</b><b>:</b>
             <span style="float:right"
-                  tal:content="item/dataSessio"></span>
+                  tal:content="view/dataSessio"></span>
           </li>
-          <li tal:condition="item/horaInici">
+          <li tal:condition="view/horaInici">
             <b i18n:translate="">Session start time</b><b>:</b>
             <span style="float:right"
-                  tal:content="item/horaInici"></span>
+                  tal:content="view/horaInici"></span>
           </li>
-          <li tal:condition="item/horaFi">
+          <li tal:condition="view/horaFi">
             <b i18n:translate="">Session end time</b><b>:</b>
             <span style="float:right"
-                  tal:content="item/horaFi"></span>
+                  tal:content="view/horaFi"></span>
           </li>
           <li tal:condition="item/llocConvocatoria">
             <b i18n:translate="">Session location</b><b>:</b>
@@ -401,15 +401,6 @@
                 </tal:block>
               </div>
 
-              <div style="padding-left: 25px;" tal:condition="canModify">
-                  <input type="text" id="agreement" placeholder="Número d'acord" name="agreement"
-                      tal:attributes="data-item item/id;
-                                      data-type item/portal_type;
-                                      placeholder item/agreement" > &nbsp;
-                  <a style="color: #557c95" href=""><i class="fa fa-check modifyNumeroAcord"></i></a>
-                  <a style="color: #557c95" href=""><i class="fa fa-times deleteNumeroAcord"></i></a>
-              </div>
-
               <div class="puntTitle">
                 <div class="clearfix"></div>
 
@@ -512,15 +503,6 @@
                           <span  tal:content="itemSubpunt/state"></span>
                           </button>
                         </tal:block>
-                      </div>
-
-                      <div class="form-group" style="padding-left: 25px;" tal:condition="canModify">
-                          <input  type="text" class="form-control" id="agreement" placeholder="Número d'acord" name="agreement"
-                              tal:attributes="data-item itemSubpunt/id;
-                                              data-type itemSubpunt/portal_type;
-                                              placeholder itemSubpunt/agreement" >&nbsp;
-                          <a style="color: #557c95" href=""><i class="fa fa-check modifyNumeroAcord"></i></a>
-                          <a style="color: #557c95" href=""><i class="fa fa-times deleteNumeroAcord"></i></a>
                       </div>
 
                       <div class="subpuntTitle" tal:define="agreementTitle itemSubpunt/agreement">

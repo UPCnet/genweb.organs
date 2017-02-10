@@ -2,6 +2,7 @@
 import datetime
 from five import grok
 from zope import schema
+from plone.indexer import indexer
 from plone.directives import dexterity
 from plone.directives import form
 from genweb.organs import _
@@ -13,6 +14,9 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from genweb.organs import utils
+from zope.schema import Datetime
+from zope.app.form.browser import DatetimeI18nWidget
+
 
 grok.templatedir("templates")
 
@@ -38,34 +42,13 @@ class ISessio(form.Schema):
         required=True,
     )
 
-    any = schema.TextLine(
-        title=_(u"Year"),
-        required=False,
-    )
-
-    directives.mode(numSessio='hidden')
     numSessio = schema.TextLine(
         title=_(u"Session number"),
         required=False,
     )
 
-    dataSessio = schema.Date(
-        title=_(u"Session date"),
-        required=False,
-    )
-
     llocConvocatoria = schema.TextLine(
         title=_(u"Session location"),
-        required=False,
-    )
-
-    horaInici = schema.Time(
-        title=_(u"Session start time"),
-        required=False,
-    )
-
-    horaFi = schema.Time(
-        title=_(u"Session end time"),
         required=False,
     )
 
@@ -128,11 +111,6 @@ class ISessio(form.Schema):
         description=_(u"Signatura description"),
         required=False,
     )
-
-
-@form.default_value(field=ISessio['any'])
-def anyDefaultValue(data):
-    return datetime.datetime.today().year
 
 
 @form.default_value(field=ISessio['membresConvocats'])
@@ -223,6 +201,15 @@ class View(grok.View):
         if review_state in ['planificada', 'convocada', 'realitzada'] and utils.isEditor(self):
             value = True
         return value or self.isManager()
+
+    def dataSessio(self):
+        return self.context.start.strftime('%d/%m/%Y')
+
+    def horaInici(self):
+        return self.context.start.strftime('%H:%M')
+
+    def horaFi(self):
+        return self.context.end.strftime('%H:%M')
 
     def showEnviarButton(self):
         review_state = api.content.get_state(self.context)
@@ -348,10 +335,7 @@ class View(grok.View):
         if values:
             results = []
             for obj in values:
-                if obj.getObject().dataSessio is None:
-                    dataSessio = ''
-                else:
-                    dataSessio = obj.getObject().dataSessio.strftime('%d/%m/%Y')
+                dataSessio = obj.getObject().start.strftime('%d/%m/%Y')
                 results.append(dict(title=obj.Title,
                                     absolute_url=obj.getURL(),
                                     date=dataSessio))
@@ -397,20 +381,9 @@ class View(grok.View):
                 return False
 
     def valuesTable(self):
-        if self.context.dataSessio is None:
-            dataSessio = ''
-        else:
-            dataSessio = self.context.dataSessio.strftime('%d/%m/%Y')
-
-        if self.context.horaInici is None:
-            horaInici = ''
-        else:
-            horaInici = self.context.horaInici.strftime('%H:%M')
-
-        if self.context.horaFi is None:
-            horaFi = ''
-        else:
-            horaFi = self.context.horaFi.strftime('%H:%M')
+        dataSessio = self.context.start.strftime('%d/%m/%Y')
+        horaInici = self.context.start.strftime('%H:%M')
+        horaFi = self.context.end.strftime('%H:%M')
 
         if self.context.llocConvocatoria is None:
             llocConvocatoria = ''
