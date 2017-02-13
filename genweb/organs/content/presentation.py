@@ -114,10 +114,11 @@ class Presentation(form.SchemaForm):
                     tipus = 'fa fa-file-pdf-o'
                 else:
                     tipus = 'fa fa-file-text-o'
-
                 results.append(dict(title=obj.Title,
+                                    path=obj.getObject().absolute_url_path(),
                                     absolute_url=obj.getURL(),
-                                    classCSS=tipus))
+                                    classCSS=tipus,
+                                    id=obj.id))
         return results
 
     def getSessionTitle(self):

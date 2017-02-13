@@ -161,9 +161,17 @@
                   <tal:documents repeat="item files">
                     <li class="filesinTable">
                       <i tal:attributes="class item/classCSS"></i>
-                      <a tal:attributes="href item/absolute_url;" target="_blank">
+                      <a data-toggle="modal"
+                         tal:attributes="href item/absolute_url;
+                                         data-target string:#myModal-${item/id}">
                          <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                       </a>
+                      <div tal:attributes="id string:myModal-${item/id}" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            </div>
+                        </div>
+                      </div>
                     </li>
                   </tal:documents>
                 </ul>
@@ -202,10 +210,18 @@
                         <ul style="list-style: none;">
                           <tal:documents repeat="item files">
                             <li class="filesinTable">
-                              <i tal:attributes=" class item/classCSS"></i>
-                              <a tal:attributes="href item/absolute_url;" target="_blank">
+                              <i tal:attributes="class item/classCSS"></i>
+                              <a data-toggle="modal"
+                                 tal:attributes="href item/absolute_url;
+                                                 data-target string:#myModal-${item/id}">
                                  <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                               </a>
+                              <div tal:attributes="id string:myModal-${item/id}" class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    </div>
+                                </div>
+                              </div>
                             </li>
                           </tal:documents>
                         </ul>
