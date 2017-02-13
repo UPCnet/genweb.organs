@@ -418,6 +418,9 @@ class modifyPointState(BrowserView):
 
 
 class changeActualState(BrowserView):
+    """ En vista sessio cal fer reload per si també fan drag and drop 
+        dels punts, ja que sino el sistema no s'entera.
+    """
 
     def __call__(self):
         portal_catalog = getToolByName(self, 'portal_catalog')
@@ -449,6 +452,41 @@ class changeActualState(BrowserView):
         except:
             pass
 
+
+class changePresentationState(BrowserView):
+    """ En vista presentació no cal fer reload ja que no es poden moure els
+        elements i han un somple canvi ja queda tot ok.
+    """
+
+    def __call__(self):
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        estat = self.request.form.get('estat')
+        itemid = self.request.form.get('id')
+        try:
+            object_path = '/'.join(self.context.getPhysicalPath())
+            item = str(itemid.split('/')[-1:][0])
+            currentitem = portal_catalog.searchResults(
+                portal_type=['genweb.organs.punt', 'genweb.organs.subpunt'],
+                id=item,
+                path={'query': object_path,
+                      'depth': 1})[0].getObject()
+            if currentitem.portal_type == 'genweb.organs.punt':
+                # es un punt i cal mirar a tots els de dintre...
+                id = itemid.split('/')[-1:][0]
+                items_inside = portal_catalog.searchResults(
+                    portal_type='genweb.organs.subpunt',
+                    path={'query': object_path + '/' + id,
+                          'depth': 1})
+                for subpunt in items_inside:
+                    objecte = subpunt.getObject()
+                    objecte.estatsLlista = estat
+                currentitem.estatsLlista = estat
+            else:
+                # es un subpunt només es canvia aquest subpunt
+                currentitem.estatsLlista = estat
+            # self.request.response.redirect(self.context.absolute_url() + '/presentation')
+        except:
+            pass
 
 class Butlleti(BrowserView):
     __call__ = ViewPageTemplateFile('views/butlleti.pt')

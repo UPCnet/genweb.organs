@@ -191,9 +191,12 @@ class View(grok.View):
         for obj in values:
             # value = obj.getObject()
             value = obj._unrestrictedGetObject()
-            valuedataSessio = value.start_date
-
-            valueHoraInici = value.start_date
+            if value.start:
+                valuedataSessio = value.start.strftime('%d/%m/%Y')
+                valueHoraInici = value.start.strftime('%H:%M')
+            else:
+                valuedataSessio = ''
+                valueHoraInici = ''
 
             results.append(dict(title=value.title,
                                 absolute_url=value.absolute_url(),

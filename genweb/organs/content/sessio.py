@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import datetime
 from five import grok
 from zope import schema
 from plone.indexer import indexer
@@ -14,11 +13,71 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from genweb.organs import utils
-from zope.schema import Datetime
-from zope.app.form.browser import DatetimeI18nWidget
-
+from zope.interface import provider
+from zope.schema.interfaces import IContextAwareDefaultFactory
+from plone.app.event.base import default_timezone
+import datetime
+# from datetime import timedelta
+from zope.component.hooks import getSite
+from plone.event.interfaces import IEventAccessor
+from plone.app.event.dx.interfaces import IDXEvent
+from plone.app.event.base import default_end as default_end_dt
+from plone.app.event.base import default_start as default_start_dt
+from zope.interface import invariant
+from zope.interface import Invalid
+from zope.component import adapter
+from z3c.form.util import getSpecification
+from z3c.form.widget import FieldWidget
+from zope.interface import implementer
+from plone.app.z3cform.interfaces import IPloneFormLayer
+from z3c.form.interfaces import IFieldWidget
+from plone.app.z3cform.widget import DatetimeWidget
 
 grok.templatedir("templates")
+
+DEFAULT_END_DELTA = 2  # hours
+FALLBACK_TIMEZONE = 'UTC'
+
+
+def localized_now(context=None):
+    """Return the current datetime localized to the default timezone.
+    :param context: Context object.
+    :type context: Content object
+    :returns: Localized current datetime.
+    :rtype: Python datetime
+    """
+    if not context:
+        context = getSite()
+    tzinfo = default_timezone(context=context, as_tzinfo=True)
+    return datetime.datetime.now(tzinfo).replace(microsecond=0)
+
+
+@provider(IContextAwareDefaultFactory)
+def default_start(context=None):
+    """Return the default start as python datetime for prefilling forms.
+    :returns: Default start datetime.
+    :rtype: Python datetime
+    """
+    now = localized_now(context=context)
+    import ipdb;ipdb.set_trace()
+    return now.replace(minute=0, second=0, microsecond=0)
+
+
+@provider(IContextAwareDefaultFactory)
+def default_end(context):
+    """Return the default end as python datetime for prefilling forms.
+    :returns: Default end datetime.
+    :rtype: Python datetime
+    """
+    return default_start(context=context) + datetime.timedelta(hours=DEFAULT_END_DELTA)
+
+
+def startDefaultValue():
+    return datetime.datetime.today() + datetime.timedelta(7)
+
+
+def endDefaultValue():
+    return datetime.datetime.today() + datetime.timedelta(10)
 
 
 class ISessio(form.Schema):
@@ -51,6 +110,22 @@ class ISessio(form.Schema):
         title=_(u"Session location"),
         required=False,
     )
+
+    # start = schema.Datetime(
+    #     title=_(u'label_event_start'),
+    #     required=True,
+    #     defaultFactory=startDefaultValue
+    # )
+    # # from zope.schema import Datetime
+    # # DateTime('2017/02/13 13:00:00 Europe/Madrid')
+    # # datetime.datetime(2017, 3, 14, 12, 0, tzinfo=<DstTzInfo 'Europe/Vienna' CET+1:00:00 STD>)
+
+    # end = schema.Datetime(
+    #     title=_(u'label_event_end'),
+    #     required=True,
+    #     defaultFactory=endDefaultValue
+    # )
+    
 
     adrecaLlista = schema.Text(
         title=_(u"mail address"),
@@ -111,6 +186,11 @@ class ISessio(form.Schema):
         description=_(u"Signatura description"),
         required=False,
     )
+
+    # @invariant
+    # def validate_start_end(data):
+    #     if (data.start and data.end and data.start > data.end):
+    #         raise Invalid("Error, invalid date range")
 
 
 @form.default_value(field=ISessio['membresConvocats'])
@@ -203,13 +283,22 @@ class View(grok.View):
         return value or self.isManager()
 
     def dataSessio(self):
-        return self.context.start.strftime('%d/%m/%Y')
+        if self.context.start:
+            return self.context.start.strftime('%d/%m/%Y')
+        else:
+            return None
 
     def horaInici(self):
-        return self.context.start.strftime('%H:%M')
+        if self.context.start:
+            return self.context.start.strftime('%H:%M')
+        else:
+            return None
 
     def horaFi(self):
-        return self.context.end.strftime('%H:%M')
+        if self.context.end:
+            return self.context.end.strftime('%H:%M')
+        else:
+            return None
 
     def showEnviarButton(self):
         review_state = api.content.get_state(self.context)
@@ -335,7 +424,11 @@ class View(grok.View):
         if values:
             results = []
             for obj in values:
-                dataSessio = obj.getObject().start.strftime('%d/%m/%Y')
+                objecte = obj.getObject()
+                if objecte.start:
+                    dataSessio = objecte.start.strftime('%d/%m/%Y')
+                else:
+                    dataSessio = ''
                 results.append(dict(title=obj.Title,
                                     absolute_url=obj.getURL(),
                                     date=dataSessio))
@@ -381,9 +474,16 @@ class View(grok.View):
                 return False
 
     def valuesTable(self):
-        dataSessio = self.context.start.strftime('%d/%m/%Y')
-        horaInici = self.context.start.strftime('%H:%M')
-        horaFi = self.context.end.strftime('%H:%M')
+        if self.context.start:
+            dataSessio = self.context.start.strftime('%d/%m/%Y')
+            horaInici = self.context.start.strftime('%H:%M')
+        else:
+            dataSessio = ''
+            horaInici = ''
+        if self.context.end:
+            horaFi = self.context.end.strftime('%H:%M')
+        else:
+            horaFi = ''
 
         if self.context.llocConvocatoria is None:
             llocConvocatoria = ''
