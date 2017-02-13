@@ -484,9 +484,11 @@ class changePresentationState(BrowserView):
             else:
                 # es un subpunt només es canvia aquest subpunt
                 currentitem.estatsLlista = estat
+                return estat
             # self.request.response.redirect(self.context.absolute_url() + '/presentation')
         except:
             pass
+
 
 class Butlleti(BrowserView):
     __call__ = ViewPageTemplateFile('views/butlleti.pt')

@@ -15,41 +15,22 @@ from plone.supermodel.directives import fieldset
 from genweb.organs import utils
 from zope.interface import provider
 from zope.schema.interfaces import IContextAwareDefaultFactory
-from plone.app.event.base import default_timezone
+from plone.event.utils import default_timezone as fallback_default_timezone
+from plone.event.utils import validated_timezone
+from plone.registry.interfaces import IRegistry
+from zope.component import getUtility
 import datetime
-# from datetime import timedelta
-from zope.component.hooks import getSite
-from plone.event.interfaces import IEventAccessor
+from plone.app.event.base import localized_now
 from plone.app.event.dx.interfaces import IDXEvent
-from plone.app.event.base import default_end as default_end_dt
-from plone.app.event.base import default_start as default_start_dt
-from zope.interface import invariant
-from zope.interface import Invalid
-from zope.component import adapter
-from z3c.form.util import getSpecification
-from z3c.form.widget import FieldWidget
-from zope.interface import implementer
-from plone.app.z3cform.interfaces import IPloneFormLayer
-from z3c.form.interfaces import IFieldWidget
-from plone.app.z3cform.widget import DatetimeWidget
+
+from plone.event.interfaces import IEventAccessor
+
+import pytz
+from zope.component.hooks import getSite
 
 grok.templatedir("templates")
 
 DEFAULT_END_DELTA = 2  # hours
-FALLBACK_TIMEZONE = 'UTC'
-
-
-def localized_now(context=None):
-    """Return the current datetime localized to the default timezone.
-    :param context: Context object.
-    :type context: Content object
-    :returns: Localized current datetime.
-    :rtype: Python datetime
-    """
-    if not context:
-        context = getSite()
-    tzinfo = default_timezone(context=context, as_tzinfo=True)
-    return datetime.datetime.now(tzinfo).replace(microsecond=0)
 
 
 @provider(IContextAwareDefaultFactory)
@@ -59,7 +40,6 @@ def default_start(context=None):
     :rtype: Python datetime
     """
     now = localized_now(context=context)
-    import ipdb;ipdb.set_trace()
     return now.replace(minute=0, second=0, microsecond=0)
 
 
@@ -70,14 +50,6 @@ def default_end(context):
     :rtype: Python datetime
     """
     return default_start(context=context) + datetime.timedelta(hours=DEFAULT_END_DELTA)
-
-
-def startDefaultValue():
-    return datetime.datetime.today() + datetime.timedelta(7)
-
-
-def endDefaultValue():
-    return datetime.datetime.today() + datetime.timedelta(10)
 
 
 class ISessio(form.Schema):
@@ -111,21 +83,20 @@ class ISessio(form.Schema):
         required=False,
     )
 
-    # start = schema.Datetime(
-    #     title=_(u'label_event_start'),
-    #     required=True,
-    #     defaultFactory=startDefaultValue
-    # )
-    # # from zope.schema import Datetime
-    # # DateTime('2017/02/13 13:00:00 Europe/Madrid')
-    # # datetime.datetime(2017, 3, 14, 12, 0, tzinfo=<DstTzInfo 'Europe/Vienna' CET+1:00:00 STD>)
+    horaInici = schema.Datetime(
+        title=_(u'label_event_start'),
+        required=True,
+        defaultFactory=default_start
+    )
+    # from zope.schema import Datetime
+    # DateTime('2017/02/13 13:00:00 Europe/Madrid')
+    # datetime.datetime(2017, 3, 14, 12, 0, tzinfo=<DstTzInfo 'Europe/Vienna' CET+1:00:00 STD>)
 
-    # end = schema.Datetime(
-    #     title=_(u'label_event_end'),
-    #     required=True,
-    #     defaultFactory=endDefaultValue
-    # )
-    
+    horaFi = schema.Datetime(
+        title=_(u'label_event_end'),
+        required=True,
+        defaultFactory=default_end
+    )
 
     adrecaLlista = schema.Text(
         title=_(u"mail address"),
@@ -563,3 +534,38 @@ class View(grok.View):
                                 content=document,
                                 id=str(item['id']) + '/' + obj.id))
         return results
+
+
+@indexer(ISessio)
+def horaInici(context):
+    """Create a catalogue indexer, registered as an adapter, which can
+    populate the ``horaInici`` value count it and index.
+    """
+    return get_session_datetime(context)
+grok.global_adapter(horaInici, name='start')
+
+
+def get_session_datetime(session):
+    session_time = session.horaInici
+    if type(session_time) is not datetime.time:
+        session_time = datetime.time()
+    # return datetime.datetime.combine(session.horaInici, session_time)
+    # return localized_now(context=session).replace(minute=0, second=0, microsecond=0)
+    return session.horaInici.strftime('%Y/%m/%d %H:%M:%S')
+
+
+@indexer(ISessio)
+def horaFi(context):
+    """Create a catalogue indexer, registered as an adapter, which can
+    populate the ``horaFi`` value count it and index.
+    """
+    return get_session_datetime_fi(context)
+grok.global_adapter(horaFi, name='end')
+
+
+def get_session_datetime_fi(session):
+    session_time = session.horaFi
+    if type(session_time) is not datetime.time:
+        session_time = datetime.time()
+    # return datetime.datetime.combine(session.horaFi, session_time)
+    return session.horaFi.strftime('%Y/%m/%d %H:%M:%S')

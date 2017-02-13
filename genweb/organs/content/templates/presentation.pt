@@ -136,15 +136,15 @@
               <div class="clearfix"></div>
               <span class="btn-group bulletPuntPresentation" role="group" tal:condition="not:anonim">
                 <tal:block tal:condition="item/state">
-                  <button class="label dropdown-toggle estatJS"
+                  <button class="label dropdown-toggle"
                       type="button" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
-                      <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
+                      <i class="fa fa-circle" aria-hidden="true" class='selectedColor' tal:attributes="style string:color:${item/css}"></i>
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
                     <tal:block repeat="estat item/estats">
-                      <li><a tabindex="-1" tal:attributes="href string:changePresentationState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
+                      <li class="defaultValue"><a tabindex="-1" tal:attributes="href string:changePresentationState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
                     </tal:block>
                   </ul>
                 </tal:block>
@@ -185,7 +185,7 @@
                           </button>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
                             <tal:block repeat="estat item/estats">
-                              <li><a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
+                              <li class="defaultValue"><a tabindex="-1" tal:attributes="href string:changePresentationState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
                             </tal:block>
                           </ul>
                         </tal:block>
@@ -223,6 +223,7 @@
     <div style="margin-bottom:20px;" id="end"></div>
 
     <script tal:condition="not:anonim" type="text/javascript">
+
       smoothScroll.init();
       $("#scrollUp").click(function(e){
           var wHeight = $(window).height();
@@ -233,6 +234,10 @@
           $.smoothScroll('+=200px');
       });
 
+      $("li.defaultValue").on('click', function(){
+          var selectedValue = $(this).find('.fa').append('&nbsp;<span class="caret"></span>')
+          $(this).parent().parent().find('.dropdown-toggle').html(selectedValue)
+      });
     </script>
 
   </metal:content-core>
