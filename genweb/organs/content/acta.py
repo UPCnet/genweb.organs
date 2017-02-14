@@ -134,7 +134,7 @@ def llistaNoAssistensDefaultValue(data):
 @form.default_value(field=IActa['dataSessio'])
 def dataSessioDefaultValue(data):
     # copy dataSessio from Session (parent object)
-    return data.context.dataSessio
+    return data.context.start
 
 
 # Hidden field used only to render and generate the PDF
@@ -148,14 +148,14 @@ def llocConvocatoriaDefaultValue(data):
 @form.default_value(field=IActa['horaInici'])
 def horaIniciDefaultValue(data):
     # copy horaInici from Session (parent object)
-    return data.context.horaInici
+    return data.context.start
 
 
 # Hidden field used only to render and generate the PDF
 @form.default_value(field=IActa['horaFi'])
 def horaFiDefaultValue(data):
     # copy horaFi from Session (parent object)
-    return data.context.horaFi
+    return data.context.end
 
 
 @form.default_value(field=IActa['ordenDelDia'])

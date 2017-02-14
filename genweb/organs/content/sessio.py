@@ -13,43 +13,8 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from genweb.organs import utils
-from zope.interface import provider
-from zope.schema.interfaces import IContextAwareDefaultFactory
-from plone.event.utils import default_timezone as fallback_default_timezone
-from plone.event.utils import validated_timezone
-from plone.registry.interfaces import IRegistry
-from zope.component import getUtility
-import datetime
-from plone.app.event.base import localized_now
-from plone.app.event.dx.interfaces import IDXEvent
-
-from plone.event.interfaces import IEventAccessor
-
-import pytz
-from zope.component.hooks import getSite
 
 grok.templatedir("templates")
-
-DEFAULT_END_DELTA = 2  # hours
-
-
-@provider(IContextAwareDefaultFactory)
-def default_start(context=None):
-    """Return the default start as python datetime for prefilling forms.
-    :returns: Default start datetime.
-    :rtype: Python datetime
-    """
-    now = localized_now(context=context)
-    return now.replace(minute=0, second=0, microsecond=0)
-
-
-@provider(IContextAwareDefaultFactory)
-def default_end(context):
-    """Return the default end as python datetime for prefilling forms.
-    :returns: Default end datetime.
-    :rtype: Python datetime
-    """
-    return default_start(context=context) + datetime.timedelta(hours=DEFAULT_END_DELTA)
 
 
 class ISessio(form.Schema):
@@ -81,21 +46,6 @@ class ISessio(form.Schema):
     llocConvocatoria = schema.TextLine(
         title=_(u"Session location"),
         required=False,
-    )
-
-    horaInici = schema.Datetime(
-        title=_(u'label_event_start'),
-        required=True,
-        defaultFactory=default_start
-    )
-    # from zope.schema import Datetime
-    # DateTime('2017/02/13 13:00:00 Europe/Madrid')
-    # datetime.datetime(2017, 3, 14, 12, 0, tzinfo=<DstTzInfo 'Europe/Vienna' CET+1:00:00 STD>)
-
-    horaFi = schema.Datetime(
-        title=_(u'label_event_end'),
-        required=True,
-        defaultFactory=default_end
     )
 
     adrecaLlista = schema.Text(
@@ -534,38 +484,3 @@ class View(grok.View):
                                 content=document,
                                 id=str(item['id']) + '/' + obj.id))
         return results
-
-
-@indexer(ISessio)
-def horaInici(context):
-    """Create a catalogue indexer, registered as an adapter, which can
-    populate the ``horaInici`` value count it and index.
-    """
-    return get_session_datetime(context)
-grok.global_adapter(horaInici, name='start')
-
-
-def get_session_datetime(session):
-    session_time = session.horaInici
-    if type(session_time) is not datetime.time:
-        session_time = datetime.time()
-    # return datetime.datetime.combine(session.horaInici, session_time)
-    # return localized_now(context=session).replace(minute=0, second=0, microsecond=0)
-    return session.horaInici.strftime('%Y/%m/%d %H:%M:%S')
-
-
-@indexer(ISessio)
-def horaFi(context):
-    """Create a catalogue indexer, registered as an adapter, which can
-    populate the ``horaFi`` value count it and index.
-    """
-    return get_session_datetime_fi(context)
-grok.global_adapter(horaFi, name='end')
-
-
-def get_session_datetime_fi(session):
-    session_time = session.horaFi
-    if type(session_time) is not datetime.time:
-        session_time = datetime.time()
-    # return datetime.datetime.combine(session.horaFi, session_time)
-    return session.horaFi.strftime('%Y/%m/%d %H:%M:%S')
