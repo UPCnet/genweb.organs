@@ -145,7 +145,7 @@
                   <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
                     <tal:block repeat="estat item/estats">
                       <li class="defaultValue">
-                        <a tabindex="-1" tal:attributes="href string:changePuntState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a>
+                        <a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a>
                       </li>
                     </tal:block>
                   </ul>

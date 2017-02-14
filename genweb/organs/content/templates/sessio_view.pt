@@ -378,7 +378,7 @@
               <div class="btn-group" role="group" tal:condition="canModify"
                    style="float: right;" aria-label="States">
                 <tal:block tal:condition="item/state">
-                  <button class="label dropdown-toggle"
+                  <button class="label dropdown-toggle bullet-toggle"
                       type="button" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
                       <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
@@ -386,7 +386,8 @@
                   </button>
                   <ul class="dropdown-menu estatsToggle" role="menu" aria-labelledby="estats">
                     <tal:block repeat="estat item/estats">
-                      <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
+                      <li class="defaultValue">
+                      <a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
                     </tal:block>
                   </ul>
                 </tal:block>
@@ -482,7 +483,7 @@
                       <div class="btn-group" role="group" tal:condition="canModify"
                            style="float: right;" aria-label="Subpunt actions">
                         <tal:block tal:condition="itemSubpunt/state">
-                          <button class="label dropdown-toggle"
+                          <button class="label dropdown-toggle bullet-toggle"
                               id="estats" type="button" data-toggle="dropdown"
                               aria-haspopup="true" aria-expanded="false">
                               <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${itemSubpunt/css}"></i>
@@ -490,7 +491,7 @@
                           </button>
                           <ul class="dropdown-menu estatsToggle" role="menu" aria-labelledby="estats">
                             <tal:block repeat="estat itemSubpunt/estats">
-                              <li><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat/title}&id=${itemSubpunt/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
+                              <li class="defaultValue"><a tabindex="-1" tal:attributes="href string:modifyPointState?estat=${estat/title}&id=${itemSubpunt/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
                             </tal:block>
                           </ul>
                         </tal:block>
@@ -675,6 +676,13 @@
                 window.location.reload();
             };
           });
+        });
+
+        // TODO: Solve change bullet colors in sesison view
+        $("li.defaultValue").on('click', function(){
+            var selectedValue = $(this).find('.fa').append('&nbsp;<span class="caret"></span>')
+            $(this).parent().parent().find('.dropdown-toggle').html(selectedValue);
+            $(this).parent().parent().parent().find('.bullet-toggle').html(selectedValue);
         });
 
   })
