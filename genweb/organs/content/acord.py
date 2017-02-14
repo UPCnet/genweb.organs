@@ -12,6 +12,7 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.interfaces import IContextSourceBinder
 from zope.interface import directlyProvides
 import unicodedata
+from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from plone.indexer import indexer
 from genweb.organs import utils
 
@@ -21,14 +22,15 @@ grok.templatedir("templates")
 def llistaEstats(context):
     """ Create vocabulary from Estats Organ. """
     terms = []
-    # Al ser subpunt els agafo DOS nivells per sobre
-    values = context.aq_parent.aq_parent.estatsLlista
+    # Al ser punt els agafo UN nivell per sobre
+    values = context.aq_parent.estatsLlista
     literals = []
     for value in values.split('</p>'):
         if value != '':
             item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
             estat = ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8')
             literals.append(estat)
+
     for item in literals:
         if isinstance(item, str):
             flattened = unicodedata.normalize('NFKD', item.decode('utf-8')).encode('ascii', errors='ignore')
@@ -40,18 +42,24 @@ def llistaEstats(context):
 directlyProvides(llistaEstats, IContextSourceBinder)
 
 
-class ISubpunt(form.Schema):
-    """ Tipus Subpunt: Molt similar el PUNT
+class IAcord(form.Schema):
+    """ Tipus Punt: Per a cada Òrgan de Govern es podran crear
+        tots els punts que es considerin oportuns
     """
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
-        title=_(u'Subpunt Title'),
+        title=_(u'Acord Title'),
         required=True
     )
 
     form.mode(proposalPoint='hidden')
     proposalPoint = schema.TextLine(
         title=_(u'Proposal point number'),
+        required=False
+    )
+
+    agreement = schema.TextLine(
+        title=_(u'Agreement number'),
         required=False
     )
 
@@ -63,43 +71,47 @@ class ISubpunt(form.Schema):
     )
 
     estatsLlista = schema.Choice(
-        title=_(u"Agreement and document labels"),
+        title=_(u"Agreement and document label"),
         source=llistaEstats,
         required=True,
     )
 
 
-@form.default_value(field=ISubpunt['proposalPoint'])
+@form.default_value(field=IAcord['proposalPoint'])
 def proposalPointDefaultValue(data):
-    # assign default proposalPoint value to Subpunt
+    # assign default proposalPoint value to Punt
     portal_catalog = getToolByName(data.context, 'portal_catalog')
     folder_path = data.context.absolute_url_path()
     values = portal_catalog.searchResults(
-        portal_type=['genweb.organs.subpunt'],
+        portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
         path={'query': folder_path,
               'depth': 1})
-    subpunt_id = int(len(values)) + 1
-    if data.context.proposalPoint is None:
-        data.context.proposalPoint = 1
-        punt_id = 1
-    else:
-        punt_id = data.context.proposalPoint
-    return str(punt_id) + '.' + str(subpunt_id)
+    id = int(len(values)) + 1
+    return id
 
 
-@indexer(ISubpunt)
+@indexer(IAcord)
 def proposalPoint(obj):
     return obj.proposalPoint
 grok.global_adapter(proposalPoint, name="index_proposalPoint")
 
 
 class Edit(dexterity.EditForm):
-    grok.context(ISubpunt)
+    grok.context(IAcord)
+
+    def updateWidgets(self):
+        super(Edit, self).updateWidgets()
+        self.widgets['proposalPoint'].mode = HIDDEN_MODE
 
 
 class View(grok.View):
-    grok.context(ISubpunt)
-    grok.template('punt+subpunt_view')
+    grok.context(IAcord)
+    grok.template('acord_view')
+
+    def isAcord(self):
+        if self.context.acordOrgan:
+            return True
+        return False
 
     def FilesandDocumentsInside(self):
         return utils.FilesandDocumentsInside(self)

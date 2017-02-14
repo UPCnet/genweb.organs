@@ -195,7 +195,7 @@ def SubPuntsInside(self):
         item = obj.getObject()
         results.append(dict(title=obj.Title,
                             proposalPoint=item.proposalPoint,
-                            agreement=item.agreement,
+                            agreement=False,
                             absolute_url=obj.getURL()))
     return results
 

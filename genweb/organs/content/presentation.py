@@ -34,14 +34,13 @@ class Presentation(form.SchemaForm):
 
         results = []
         for obj in values:
-            if obj.portal_type == 'genweb.organs.punt':
+            if obj.portal_type == 'genweb.organs.punt' or obj.portal_type == 'genweb.organs.acord':
                 if self.Anonim():
                     item = obj._unrestrictedGetObject()
                     results.append(dict(title=obj.Title,
                                         absolute_url=item.absolute_url(),
                                         proposalPoint=item.proposalPoint,
                                         state=item.estatsLlista,
-                                        agreement=item.agreement,
                                         item_path=item.absolute_url_path(),
                                         portal_type=obj.portal_type,
                                         id=obj.id))
@@ -51,7 +50,6 @@ class Presentation(form.SchemaForm):
                                         absolute_url=item.absolute_url(),
                                         proposalPoint=item.proposalPoint,
                                         state=item.estatsLlista,
-                                        agreement=item.agreement,
                                         item_path=item.absolute_url_path(),
                                         estats=self.estatsCanvi(obj),
                                         css=self.getColor(obj),
@@ -78,7 +76,6 @@ class Presentation(form.SchemaForm):
                                     absolute_url=item.absolute_url(),
                                     proposalPoint=item.proposalPoint,
                                     state=item.estatsLlista,
-                                    agreement=item.agreement,
                                     portal_type=obj.portal_type,
                                     item_path=item.absolute_url_path(),
                                     id='/'.join(item.absolute_url_path().split('/')[-2:])))
@@ -88,7 +85,6 @@ class Presentation(form.SchemaForm):
                                     absolute_url=item.absolute_url(),
                                     proposalPoint=item.proposalPoint,
                                     state=item.estatsLlista,
-                                    agreement=item.agreement,
                                     portal_type=obj.portal_type,
                                     item_path=item.absolute_url_path(),
                                     estats=self.estatsCanvi(obj),

@@ -103,12 +103,27 @@ class Message(form.SchemaForm):
                 continue
             else:
                 if line.startswith((' ', '\t')) is False:
-                    # No hi ha blanks, es un punt
-                    line = line.lstrip().rstrip()  # esborrem tots els blanks
-                    obj = api.content.create(
-                        type='genweb.organs.punt',
-                        title=line,
-                        container=self.context)
+                    # No hi ha blanks, es un punt o un acord
+                    # Obtenim una A o un P per saber si es Acord o Punt
+                    portal_type = line.lstrip().rstrip().split(' ')[0].upper()
+                    if str(portal_type) == 'A':  # Es tracta d'un acord
+                        line = ' '.join(line.lstrip().rstrip().split(' ')[1:])
+                        obj = api.content.create(
+                            type='genweb.organs.acord',
+                            title=line,
+                            container=self.context)
+                    elif str(portal_type) == 'P':  # Es tracta d'un punt
+                        line = ' '.join(line.lstrip().rstrip().split(' ')[1:])
+                        obj = api.content.create(
+                            type='genweb.organs.punt',
+                            title=line,
+                            container=self.context)
+                    else:  # Supossem que per defecte sense espais es un Punt
+                        line = line.lstrip().rstrip()
+                        obj = api.content.create(
+                            type='genweb.organs.punt',
+                            title=line,
+                            container=self.context)
                     obj.proposalPoint = unicode(str(index))
                     obj.estatsLlista = defaultEstat
                     index = index + 1
@@ -116,14 +131,13 @@ class Message(form.SchemaForm):
                     previousPuntContainer = obj
                     obj.reindexObject()
                 else:
-                    # starts with blanks, es un subpunt
+                    # hi ha blanks, es un subpunt
                     line = line.lstrip().rstrip()  # esborrem tots els blanks
                     newobj = api.content.create(
                         type='genweb.organs.subpunt',
                         title=line,
                         container=previousPuntContainer)
                     # TODO: Optimize previous line! runs slow!
-
                     newobj.proposalPoint = unicode(str(index-1) + str('.') + str(subindex))
                     newobj.estatsLlista = defaultEstat
                     newobj.reindexObject()

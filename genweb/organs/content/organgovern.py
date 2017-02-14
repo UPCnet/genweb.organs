@@ -48,7 +48,6 @@ class IOrgangovern(form.Schema):
     )
 
     # TODO: When create the WS, activate this value
-    form.mode(acronim='hidden')
     dexteritytextindexer.searchable('acronim')
     acronim = schema.TextLine(
         title=_(u'Acronym'),

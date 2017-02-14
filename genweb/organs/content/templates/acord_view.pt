@@ -17,17 +17,22 @@
 <metal:content-core fill-slot="content-core"
     tal:define="filesanddocs view/FilesandDocumentsInside;
                 subpunts view/SubPuntsInside;
+                agreement context/agreement;
                 estatsLlista context/estatsLlista;
                 defaultContent context/defaultContent;">
 
   <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
 
   <div class="caixaPunts">
-    <li tal:condition="estatsLlista"><tal:omit-tag i18n:translate="">Agreement and document label: </tal:omit-tag>
-      <span tal:content="estatsLlista"></span></li>
+    <li tal:condition="agreement">
+      <tal:omit-tag i18n:translate="">Agreement number: </tal:omit-tag>&nbsp;<span tal:content="agreement"></span>
+    </li>
+    <li tal:condition="estatsLlista">
+      <tal:omit-tag i18n:translate="">Agreement and document label: </tal:omit-tag>&nbsp;<span tal:content="estatsLlista"></span>
+    </li>
   </div>
 
-  <div class="clearfix"></div><br/>
+  <div class="clearfix"></div>
 
   <div tal:condition="defaultContent" style="padding-bottom:20px;">
     <h2 i18n:translate="">Contingut</h2>

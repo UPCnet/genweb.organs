@@ -14,6 +14,7 @@
  <property name="allowed_content_types">
      <element value="genweb.organs.file"/>
      <element value="genweb.organs.subpunt"/>
+     <element value="genweb.organs.acord"/>
      <element value="genweb.organs.document"/>
  </property>
  <property name="allow_discussion">False</property>

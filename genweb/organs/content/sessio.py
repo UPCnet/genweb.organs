@@ -297,7 +297,7 @@ class View(grok.View):
                                     absolute_url=item.absolute_url(),
                                     item_path=item.absolute_url_path(),
                                     proposalPoint=item.proposalPoint,
-                                    agreement=item.agreement,
+                                    agreement=False,
                                     state=item.estatsLlista,
                                     css=self.getColor(obj),
                                     estats=self.estatsCanvi(obj),
@@ -326,7 +326,7 @@ class View(grok.View):
                                 proposalPoint=item.proposalPoint,
                                 item_path=item.absolute_url_path(),
                                 state=item.estatsLlista,
-                                agreement=item.agreement,
+                                agreement=False,
                                 estats=self.estatsCanvi(obj),
                                 css=self.getColor(obj),
                                 id='/'.join(item.absolute_url_path().split('/')[-2:])))

@@ -149,7 +149,7 @@ class Move(BrowserView):
 
             # agafo items ordenats!
             puntsOrdered = portal_catalog.searchResults(
-                portal_type=['genweb.organs.punt'],
+                portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
                 sort_on='getObjPositionInParent',
                 path={'query': folder_path,
                       'depth': 1})
@@ -417,43 +417,7 @@ class modifyPointState(BrowserView):
             pass
 
 
-class changeActualState(BrowserView):
-    """ En vista sessio cal fer reload per si també fan drag and drop 
-        dels punts, ja que sino el sistema no s'entera.
-    """
-
-    def __call__(self):
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        estat = self.request.form.get('estat')
-        itemid = self.request.form.get('id')
-        try:
-            object_path = '/'.join(self.context.getPhysicalPath())
-            item = str(itemid.split('/')[-1:][0])
-            currentitem = portal_catalog.searchResults(
-                portal_type=['genweb.organs.punt', 'genweb.organs.subpunt'],
-                id=item,
-                path={'query': object_path,
-                      'depth': 1})[0].getObject()
-            if currentitem.portal_type == 'genweb.organs.punt':
-                # es un punt i cal mirar a tots els de dintre...
-                id = itemid.split('/')[-1:][0]
-                items_inside = portal_catalog.searchResults(
-                    portal_type='genweb.organs.subpunt',
-                    path={'query': object_path + '/' + id,
-                          'depth': 1})
-                for subpunt in items_inside:
-                    objecte = subpunt.getObject()
-                    objecte.estatsLlista = estat
-                currentitem.estatsLlista = estat
-            else:
-                # es un subpunt només es canvia aquest subpunt
-                currentitem.estatsLlista = estat
-            self.request.response.redirect(self.context.absolute_url() + '/presentation')
-        except:
-            pass
-
-
-class changePresentationState(BrowserView):
+class changePuntState(BrowserView):
     """ En vista presentació no cal fer reload ja que no es poden moure els
         elements i han un somple canvi ja queda tot ok.
     """
@@ -466,15 +430,15 @@ class changePresentationState(BrowserView):
             object_path = '/'.join(self.context.getPhysicalPath())
             item = str(itemid.split('/')[-1:][0])
             currentitem = portal_catalog.searchResults(
-                portal_type=['genweb.organs.punt', 'genweb.organs.subpunt'],
+                portal_type=['genweb.organs.punt', 'genweb.organs.subpunt', 'genweb.organs.acord'],
                 id=item,
                 path={'query': object_path,
                       'depth': 1})[0].getObject()
-            if currentitem.portal_type == 'genweb.organs.punt':
+            if currentitem.portal_type == 'genweb.organs.punt' or currentitem.portal_type == 'genweb.organs.acord' :
                 # es un punt i cal mirar a tots els de dintre...
                 id = itemid.split('/')[-1:][0]
                 items_inside = portal_catalog.searchResults(
-                    portal_type='genweb.organs.subpunt',
+                    portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
                     path={'query': object_path + '/' + id,
                           'depth': 1})
                 for subpunt in items_inside:
@@ -486,6 +450,38 @@ class changePresentationState(BrowserView):
                 currentitem.estatsLlista = estat
                 return estat
             # self.request.response.redirect(self.context.absolute_url() + '/presentation')
+        except:
+            pass
+
+
+class changeSubpuntState(BrowserView):
+    """ En vista presentació no cal fer reload ja que no es poden moure els
+        elements i han un somple canvi ja queda tot ok.
+    """
+
+    def __call__(self):
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        estat = self.request.form.get('estat')
+        itemid = self.request.form.get('id')
+        try:
+            object_path = '/'.join(itemid.split('/')[:-1])
+            item = str(itemid.split('/')[-1:][0])
+            currentitem = portal_catalog.searchResults(
+                portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
+                id=item,
+                path={'query': object_path,
+                      'depth': 1})[0].getObject()
+
+            id = itemid.split('/')[-1:][0]
+            items_inside = portal_catalog.searchResults(
+                portal_type='genweb.organs.subpunt',
+                path={'query': object_path + '/' + id,
+                      'depth': 1})
+            for subpunt in items_inside:
+                objecte = subpunt.getObject()
+                objecte.estatsLlista = estat
+            currentitem.estatsLlista = estat
+
         except:
             pass
 
@@ -508,8 +504,7 @@ class Butlleti(BrowserView):
             value = obj._unrestrictedGetObject()
             results.append(dict(Title=obj.Title,
                                 url=value.absolute_url_path(),
-                                punt=value.proposalPoint,
-                                acord=value.agreement))
+                                punt=value.proposalPoint))
             if len(value.objectIds()) > 0:
                 # valuesInside = portal_catalog.searchResults(
                 valuesInside = portal_catalog.unrestrictedSearchResults(
@@ -522,8 +517,7 @@ class Butlleti(BrowserView):
                     subpunt = item._unrestrictedGetObject()
                     results.append(dict(Title=item.Title,
                                         url=subpunt.absolute_url_path(),
-                                        punt=subpunt.proposalPoint,
-                                        acord=subpunt.agreement))
+                                        punt=subpunt.proposalPoint))
 
         return results
 

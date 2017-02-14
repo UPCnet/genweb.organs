@@ -11,6 +11,7 @@ from genweb.organs.content.organsfolder import IOrgansfolder
 from genweb.organs.content.file import IFile
 from genweb.organs.content.document import IDocument
 from genweb.organs.content.audio import IAudio
+from genweb.organs.content.acord import IAcord
 
 
 class Organgovern(Item):
@@ -47,3 +48,7 @@ class Document(Item):
 
 class Audio(Item):
     implements(IAudio)
+
+
+class Acord(Item):
+    implements(IAcord)

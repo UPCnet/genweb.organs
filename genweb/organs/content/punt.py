@@ -12,7 +12,6 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.interfaces import IContextSourceBinder
 from zope.interface import directlyProvides
 import unicodedata
-from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from plone.indexer import indexer
 from genweb.organs import utils
 
@@ -58,18 +57,6 @@ class IPunt(form.Schema):
         required=False
     )
 
-    acordOrgan = schema.Bool(
-        title=_(u'Es un acord?'),
-        description=_(u'Es un acord help'),
-        required=False,
-        default=False,
-    )
-
-    agreement = schema.TextLine(
-        title=_(u'Agreement number'),
-        required=False
-    )
-
     directives.widget(defaultContent=WysiwygFieldWidget)
     dexteritytextindexer.searchable('defaultContent')
     defaultContent = schema.Text(
@@ -90,7 +77,7 @@ def proposalPointDefaultValue(data):
     portal_catalog = getToolByName(data.context, 'portal_catalog')
     folder_path = data.context.absolute_url_path()
     values = portal_catalog.searchResults(
-        portal_type=['genweb.organs.punt'],
+        portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
         path={'query': folder_path,
               'depth': 1})
     id = int(len(values)) + 1
@@ -106,19 +93,10 @@ grok.global_adapter(proposalPoint, name="index_proposalPoint")
 class Edit(dexterity.EditForm):
     grok.context(IPunt)
 
-    def updateWidgets(self):
-        super(Edit, self).updateWidgets()
-        self.widgets['proposalPoint'].mode = HIDDEN_MODE
-
 
 class View(grok.View):
     grok.context(IPunt)
     grok.template('punt+subpunt_view')
-
-    def isAcord(self):
-        if self.context.acordOrgan:
-            return True
-        return False
 
     def FilesandDocumentsInside(self):
         return utils.FilesandDocumentsInside(self)
