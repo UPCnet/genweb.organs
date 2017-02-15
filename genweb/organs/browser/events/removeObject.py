@@ -2,6 +2,7 @@
 from Products.CMFCore.utils import getToolByName
 from zope.lifecycleevent.interfaces import IObjectRemovedEvent
 from genweb.organs.content.punt import IPunt
+from genweb.organs.content.acord import IAcord
 from genweb.organs.content.subpunt import ISubpunt
 from five import grok
 from zope.globalrequest import getRequest
@@ -31,7 +32,7 @@ def deletion_confirmed():
 @grok.subscribe(IPunt, IObjectRemovedEvent)
 def removePunt(alias, event):
     """ When the alias is created,
-        TODO make reorder obects fully functional!
+        TODO make reorder objects fully functional!
     """
     if deletion_confirmed():
         portal_catalog = getToolByName(alias, 'portal_catalog')
@@ -70,7 +71,7 @@ def removePunt(alias, event):
 @grok.subscribe(ISubpunt, IObjectRemovedEvent)
 def removeSubpunt(alias, event):
     """When the alias is created,
-       TODO make reorder obects fully functional!
+       TODO make reorder objects fully functional!
     """
     if deletion_confirmed():
         portal_catalog = getToolByName(alias, 'portal_catalog')
@@ -90,4 +91,43 @@ def removeSubpunt(alias, event):
             for item in subpuntsOrdered:
                 item.getObject().proposalPoint = unicode(str(sufix) + str('.') + str(index))
                 # item.reindexObject()
+                index = index + 1
+
+
+@grok.subscribe(IAcord, IObjectRemovedEvent)
+def removeAcord(alias, event):
+    """ When the alias is created,
+        TODO make reorder objects fully functional!
+    """
+    if deletion_confirmed():
+        portal_catalog = getToolByName(alias, 'portal_catalog')
+        folder_path = '/'.join(alias.__parent__.getPhysicalPath())
+        addEntryLog(alias.aq_parent, None, _(u'Deleted acord'), alias.absolute_url_path())  # add log
+        # agafo items ordenats!
+
+        puntsOrdered = portal_catalog.searchResults(
+            portal_type=['genweb.organs.acord'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+        # hi ha items PUNT per esborrar
+        if puntsOrdered:
+            index = 1
+            for item in puntsOrdered:
+                objecte = item.getObject()
+                objecte.proposalPoint = unicode(str(index))
+                objecte.reindexObject()
+                if len(objecte.items()) > 0:
+                    search_path = '/'.join(objecte.getPhysicalPath())
+                    subpunts = portal_catalog.searchResults(
+                        portal_type=['genweb.organs.subpunt'],
+                        sort_on='getObjPositionInParent',
+                        path={'query': search_path, 'depth': 1})
+
+                    subvalue = 1
+                    for value in subpunts:
+                        newobjecte = value.getObject()
+                        newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
+                        newobjecte.reindexObject()
+                        subvalue = subvalue + 1
                 index = index + 1

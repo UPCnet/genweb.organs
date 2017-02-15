@@ -25,7 +25,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       class="no-js"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="plone"
+      i18n:domain="genweb.organs"
       tal:attributes="lang lang;"
       >
 <!--<![endif]-->
@@ -98,6 +98,7 @@
           <thead>
             <tr>
               <th style="font-size:13px; width:5%; text-align:right;" i18n:translate="">Punt</th>
+              <th style="font-size:13px; width:5%; text-align:right;" i18n:translate="">Agreement</th>
               <th style="font-size:13px; width:90%; padding-left: 10px; text-align:left;" i18n:translate="">Titol</th>
             </tr>
           </thead>
@@ -107,6 +108,9 @@
                  tal:repeat="row view/PuntsOrdreDelDia">
                 <td style="font-size:13px; width:5%; text-align:right;">
                     <span tal:condition="row/punt" tal:content="row/punt"></span>
+                </td>
+                <td style="font-size:13px; width:5%; text-align:right;">
+                    <span tal:condition="row/acord" tal:content="row/acord"></span>
                 </td>
                 <td style="font-size:13px; width:90%; padding-left: 10px; text-align:left;">
                     <a tal:condition="row/Title" href="" tal:content="row/Title" tal:attributes="href row/url"></a>

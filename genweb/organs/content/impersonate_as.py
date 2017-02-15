@@ -102,7 +102,10 @@ class ShowSessionAs(form.SchemaForm):
         return utils.estatsCanvi(data)
 
     def hihaPunts(self):
-        values = api.content.find(context=self.context, depth=1, portal_type='genweb.organs.punt')
+        values = api.content.find(
+            context=self.context,
+            depth=1,
+            portal_type=['genweb.organs.punt', 'genweb.organs.acord'])
         if values:
             return True
         else:

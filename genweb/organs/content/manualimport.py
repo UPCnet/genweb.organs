@@ -131,13 +131,28 @@ class Message(form.SchemaForm):
                     previousPuntContainer = obj
                     obj.reindexObject()
                 else:
-                    # hi ha blanks, es un subpunt
-                    line = line.lstrip().rstrip()  # esborrem tots els blanks
-                    newobj = api.content.create(
-                        type='genweb.organs.subpunt',
-                        title=line,
-                        container=previousPuntContainer)
-                    # TODO: Optimize previous line! runs slow!
+                    # hi ha blanks, es un subpunt o un acord
+                    import ipdb;ipdb.set_trace()
+                    portal_type = line.lstrip().rstrip().split(' ')[0].upper()
+                    if str(portal_type) == 'A':  # Es tracta d'un acord
+                        line = ' '.join(line.lstrip().rstrip().split(' ')[1:])
+                        newobj = api.content.create(
+                            type='genweb.organs.acord',
+                            title=line,
+                            container=previousPuntContainer)
+                    elif str(portal_type) == 'P':  # Es tracta d'un punt
+                        line = ' '.join(line.lstrip().rstrip().split(' ')[1:])
+                        newobj = api.content.create(
+                            type='genweb.organs.subpunt',
+                            title=line,
+                            container=previousPuntContainer)
+                    else:  # Supossem que per defecte sense espais es un Punt
+                        line = line.lstrip().rstrip()
+                        newobj = api.content.create(
+                            type='genweb.organs.subpunt',
+                            title=line,
+                            container=previousPuntContainer)
+
                     newobj.proposalPoint = unicode(str(index-1) + str('.') + str(subindex))
                     newobj.estatsLlista = defaultEstat
                     newobj.reindexObject()

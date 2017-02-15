@@ -75,23 +75,19 @@ class Delete(BrowserView):
                     # Es tracta de subpunt i inclou punt/subpunt a itemid (segon nivell)
                     folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + str('/'.join(itemid.split('/')[:-1]))
                     itemid = str(''.join(itemid.split('/')[-1:]))
-                    deleteItem = portal_catalog.searchResults(
-                        portal_type=portal_type,
-                        path={'query': folder_path, 'depth': 1},
-                        id=itemid)[0].getObject()
-                    api.content.delete(deleteItem)
                 else:
                     # L'objecte a esborrar es a primer nivell
                     folder_path = '/'.join(self.context.getPhysicalPath())
-                    deleteItem = portal_catalog.searchResults(
-                        portal_type=portal_type,
-                        path={'query': folder_path, 'depth': 1},
-                        id=itemid)[0].getObject()
-                    api.content.delete(deleteItem)
 
+                deleteItem = portal_catalog.searchResults(
+                    portal_type=portal_type,
+                    path={'query': folder_path, 'depth': 1},
+                    id=itemid)[0].getObject()
+                api.content.delete(deleteItem)
                 portal_catalog = getToolByName(self, 'portal_catalog')
                 folder_path = '/'.join(self.context.getPhysicalPath())
-                addEntryLog(self.context, None, _(u'Deleted element'), folder_path + '/' + itemid)
+
+                addEntryLog(self.context, None, _(u'Deleted element'), portal_type.split('.')[-1] + ' -> ' + folder_path + '/' + itemid)
                 # agafo items ordenats!
 
                 puntsOrdered = portal_catalog.searchResults(
@@ -357,7 +353,7 @@ class Reload(BrowserView):
         addEntryLog(self.context, None, _(u'Reload proposalPoints manually'), '')  # add log
         # agafo items ordenats!
         puntsOrdered = portal_catalog.searchResults(
-            portal_type=['genweb.organs.punt'],
+            portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
@@ -499,9 +495,14 @@ class Butlleti(BrowserView):
         for obj in values:
             # value = obj.getObject()
             value = obj._unrestrictedGetObject()
+            if value.portal_type == 'genweb.organs.acord':
+                agreement = value.agreement
+            else:
+                agreement = False
             results.append(dict(Title=obj.Title,
                                 url=value.absolute_url_path(),
-                                punt=value.proposalPoint))
+                                punt=value.proposalPoint,
+                                acord=agreement))
             if len(value.objectIds()) > 0:
                 # valuesInside = portal_catalog.searchResults(
                 valuesInside = portal_catalog.unrestrictedSearchResults(
@@ -512,10 +513,14 @@ class Butlleti(BrowserView):
                 for item in valuesInside:
                     # subpunt = item.getObject()
                     subpunt = item._unrestrictedGetObject()
+                    if subpunt.portal_type == 'genweb.organs.acord':
+                        agreement = subpunt.agreement
+                    else:
+                        agreement = False
                     results.append(dict(Title=item.Title,
                                         url=subpunt.absolute_url_path(),
-                                        punt=subpunt.proposalPoint))
-
+                                        punt=subpunt.proposalPoint,
+                                        acord=agreement))
         return results
 
     def geTitle(self):

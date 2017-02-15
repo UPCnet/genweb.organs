@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-02-15 09:57+0000\n"
+"POT-Creation-Date: 2017-02-15 15:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,11 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:274
+#: ./genweb/organs/content/templates/sessio_view.pt:253
 msgid "Accio"
 msgstr "Action"
 
+#: ./genweb/organs/content/templates/sessio_view.pt:352
 #: ./genweb/organs/profiles/default/types/genweb.organs.acord.xml
 msgid "Acord"
 msgstr ""
@@ -52,7 +53,7 @@ msgstr "Acta"
 msgid "Acta Body"
 msgstr "Acta body"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:241
+#: ./genweb/organs/content/templates/sessio_view.pt:223
 msgid "Actes de la sessio:"
 msgstr ""
 
@@ -60,8 +61,12 @@ msgstr ""
 msgid "Add content separated by -- and they will by added as Agreements."
 msgstr "Add content separated by -- and they will by added as Agreements."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:334
+#: ./genweb/organs/content/templates/sessio_view.pt:314
 msgid "Afectat"
+msgstr ""
+
+#: ./genweb/organs/browser/views/butlleti.pt:101
+msgid "Agreement"
 msgstr ""
 
 #: ./genweb/organs/content/acord.py:74
@@ -93,7 +98,7 @@ msgstr "Agreement number:"
 msgid "Alternate description"
 msgstr "Private content"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:335
+#: ./genweb/organs/content/templates/sessio_view.pt:315
 msgid "Anonim"
 msgstr ""
 
@@ -114,10 +119,6 @@ msgstr ""
 
 #: ./genweb/organs/content/templates/acta_view.pt:98
 msgid "Audio de la sessio"
-msgstr ""
-
-#: ./genweb/organs/content/templates/sessio_view.pt:223
-msgid "Audio de la sessio:"
 msgstr ""
 
 #: ./genweb/organs/content/sessio.py:98
@@ -146,7 +147,7 @@ msgstr "Message attached executing the Send Message Action. It adds just the foo
 
 #: ./genweb/organs/content/informarSessio.py:126
 #: ./genweb/organs/content/mailConvocar.py:154
-#: ./genweb/organs/content/manualimport.py:155
+#: ./genweb/organs/content/manualimport.py:170
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -193,7 +194,7 @@ msgstr "Data"
 msgid "Data"
 msgstr "Data"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:271
+#: ./genweb/organs/content/templates/sessio_view.pt:250
 msgid "Data i hora"
 msgstr "Date and Time"
 
@@ -201,25 +202,29 @@ msgstr "Date and Time"
 msgid "Default content shown in the document view"
 msgstr "Default content shown in the document view"
 
-#: ./genweb/organs/browser/views.py:94
+#: ./genweb/organs/browser/events/removeObject.py:105
+msgid "Deleted acord"
+msgstr ""
+
+#: ./genweb/organs/browser/views.py:90
 msgid "Deleted element"
 msgstr ""
 
-#: ./genweb/organs/browser/events/removeObject.py:39
+#: ./genweb/organs/browser/events/removeObject.py:40
 msgid "Deleted punt"
 msgstr ""
 
-#: ./genweb/organs/browser/events/removeObject.py:78
+#: ./genweb/organs/browser/events/removeObject.py:79
 msgid "Deleted subpunt"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:280
+#: ./genweb/organs/content/templates/sessio_view.pt:259
 msgid "Destinataris"
 msgstr "Recipients"
 
-#: ./genweb/organs/content/impersonate_as.py:293
-#: ./genweb/organs/content/sessio.py:455
-#: ./genweb/organs/content/templates/sessio_view.pt:374
+#: ./genweb/organs/content/impersonate_as.py:296
+#: ./genweb/organs/content/sessio.py:466
+#: ./genweb/organs/content/templates/sessio_view.pt:354
 msgid "Document"
 msgstr "Document"
 
@@ -254,7 +259,7 @@ msgstr ""
 msgid "Fer servir capcalera personalitzada?"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:373
+#: ./genweb/organs/content/templates/sessio_view.pt:353
 #: ./genweb/organs/profiles/default/types/genweb.organs.file.xml
 msgid "File"
 msgstr "File"
@@ -264,13 +269,13 @@ msgstr "File"
 msgid "File contents"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:442
+#: ./genweb/organs/content/sessio.py:453
 #: ./genweb/organs/utils.py:159
 msgid "Fitxer intern"
 msgstr "Internal PDF"
 
-#: ./genweb/organs/content/impersonate_as.py:285
-#: ./genweb/organs/content/sessio.py:450
+#: ./genweb/organs/content/impersonate_as.py:288
+#: ./genweb/organs/content/sessio.py:461
 #: ./genweb/organs/utils.py:167
 msgid "Fitxer públic"
 msgstr "File"
@@ -320,7 +325,7 @@ msgstr "Meetings Image"
 msgid "Imatge que es fa servir en imprimir les actes, en comptes de fer servir la imatge definida a l'òrgan."
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:305
+#: ./genweb/organs/content/templates/sessio_view.pt:284
 msgid "Importar llista de punts i subpunts"
 msgstr ""
 
@@ -365,7 +370,7 @@ msgstr ""
 msgid "Llista de punts en el format del butlleti."
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:315
+#: ./genweb/organs/content/templates/sessio_view.pt:295
 msgid "Llista punts"
 msgstr ""
 
@@ -400,7 +405,7 @@ msgstr "Manual import"
 msgid "Massive agreements imported"
 msgstr "Massive agreements imported"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:333
+#: ./genweb/organs/content/templates/sessio_view.pt:313
 msgid "Membre"
 msgstr ""
 
@@ -410,7 +415,7 @@ msgstr ""
 msgid "Message"
 msgstr "Message"
 
-#: ./genweb/organs/browser/views.py:322
+#: ./genweb/organs/browser/views.py:318
 #: ./genweb/organs/content/mailConvocar.py:146
 msgid "Missatge enviat correctament"
 msgstr "Message sent successfully"
@@ -419,7 +424,7 @@ msgstr "Message sent successfully"
 msgid "Missatge no enviat"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:325
+#: ./genweb/organs/browser/views.py:321
 #: ./genweb/organs/content/mailConvocar.py:150
 msgid "Missatge no enviat. Comprovi els destinataris del missatge"
 msgstr "Message not sent. Check the message recipients."
@@ -448,7 +453,7 @@ msgstr "People not attending"
 msgid "No assistents help"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:277
+#: ./genweb/organs/content/templates/sessio_view.pt:256
 msgid "Notificador"
 msgstr "Notifier"
 
@@ -457,7 +462,11 @@ msgstr "Notifier"
 msgid "Notifications"
 msgstr "Notifications"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:314
+#: ./genweb/organs/content/templates/sessio_view.pt:294
+msgid "Nou acord"
+msgstr ""
+
+#: ./genweb/organs/content/templates/sessio_view.pt:293
 msgid "Nou punt"
 msgstr "New point"
 
@@ -487,12 +496,12 @@ msgstr ""
 
 #: ./genweb/organs/content/informarSessio.py:128
 #: ./genweb/organs/content/mailConvocar.py:156
-#: ./genweb/organs/content/manualimport.py:157
+#: ./genweb/organs/content/manualimport.py:172
 msgid "Operation Cancelled."
 msgstr "The operation was canceled."
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:162
-#: ./genweb/organs/content/templates/sessio_view.pt:323
+#: ./genweb/organs/content/templates/sessio_view.pt:303
 msgid "Ordre del dia"
 msgstr "Agenda"
 
@@ -622,6 +631,7 @@ msgstr "Point of the Agenda"
 msgid "Published file description"
 msgstr ""
 
+#: ./genweb/organs/browser/views/butlleti.pt:100
 #: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
 msgid "Punt"
 msgstr "Point of the Agenda"
@@ -636,7 +646,7 @@ msgstr "Title"
 msgid "Recipients"
 msgstr "Recipients"
 
-#: ./genweb/organs/browser/views.py:357
+#: ./genweb/organs/browser/views.py:353
 msgid "Reload proposalPoints manually"
 msgstr ""
 
@@ -770,7 +780,7 @@ msgstr "List of addresses of the people affected, thta want to be notified."
 msgid "State"
 msgstr "State"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:372
+#: ./genweb/organs/content/templates/sessio_view.pt:351
 #: ./genweb/organs/profiles/default/types/genweb.organs.subpunt.xml
 msgid "Subpunt"
 msgstr "Subpoint"
@@ -794,7 +804,11 @@ msgstr ""
 msgid "Title"
 msgstr "Title"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:326
+#: ./genweb/organs/browser/views/butlleti.pt:102
+msgid "Titol"
+msgstr ""
+
+#: ./genweb/organs/content/templates/sessio_view.pt:306
 msgid "Veure com... <span class=\"caret\"></span>"
 msgstr ""
 

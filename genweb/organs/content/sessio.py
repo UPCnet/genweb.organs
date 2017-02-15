@@ -253,14 +253,17 @@ class View(grok.View):
         return utils.estatsCanvi(data)
 
     def hihaPunts(self):
-        values = api.content.find(context=self.context, depth=1, portal_type='genweb.organs.punt')
+        values = api.content.find(
+            context=self.context,
+            depth=1,
+            portal_type=['genweb.organs.punt', 'genweb.organs.acord'])
         if values:
             return True
         else:
             return False
 
     def PuntsInside(self):
-        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """ Retorna punts i acords d'aquí dintre (sense tenir compte estat)
         """
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
@@ -272,7 +275,7 @@ class View(grok.View):
         results = []
         for obj in values:
             if obj.portal_type == 'genweb.organs.acta' or obj.portal_type == 'genweb.organs.audio':
-                # add actas to template for oredering but dont show
+                # add actas to view_template for ordering but dont show them
                 item = obj.getObject()
                 results.append(dict(id=obj.id,
                                     classe='hidden',
@@ -291,18 +294,26 @@ class View(grok.View):
                     classe = "ui-state-grey"
                 else:
                     classe = "ui-state-grey-not_move"
+                # Els acords tenen camp agreement, la resta no
+                if obj.portal_type == 'genweb.organs.acord':
+                    agreement = str(item.agreement)
+                    isPunt = False
+                else:
+                    agreement = False
+                    isPunt = True
 
                 results.append(dict(title=obj.Title,
                                     portal_type=obj.portal_type,
                                     absolute_url=item.absolute_url(),
                                     item_path=item.absolute_url_path(),
                                     proposalPoint=item.proposalPoint,
-                                    agreement=False,
+                                    agreement=agreement,
                                     state=item.estatsLlista,
                                     css=self.getColor(obj),
                                     estats=self.estatsCanvi(obj),
                                     id=obj.id,
                                     show=True,
+                                    isPunt=isPunt,
                                     classe=classe,
                                     items_inside=inside))
         return results
@@ -412,7 +423,7 @@ class View(grok.View):
             return False
 
     def showActaTab(self):
-        if self.AudioInside() or self.ActesInside():
+        if self.ActesInside():
             return True
         else:
             return False
