@@ -357,25 +357,6 @@ class View(grok.View):
         else:
             return False
 
-    def AudioInside(self):
-        """ Retorna els fitxers d'audio creats aquí dintre (sense tenir compte estat)
-        """
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        values = portal_catalog.searchResults(
-            portal_type='genweb.organs.audio',
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
-        if values:
-            results = []
-            for obj in values:
-                results.append(dict(title=obj.Title,
-                                    absolute_url=obj.getURL()))
-            return results
-        else:
-            return False
-
     def getAnnotations(self):
         """ Get send mail annotations
         """

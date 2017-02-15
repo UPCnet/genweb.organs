@@ -16,7 +16,8 @@
                    llocConvocatoria context/llocConvocatoria;
                    horaFi view/horaFi;
                    horaInici view/horaInici;
-                   dataSessio view/dataSessio">
+                   dataSessio view/dataSessio;
+                   audio view/AudioInside">
 
   <script type="text/javascript">
     function printPage(newWindow){
@@ -55,7 +56,7 @@
 
 
 
-          
+
   <div class="clearfix"></div>
 
   <div id="contentActa">
@@ -91,6 +92,20 @@
             <b i18n:translate="">Video link</b>
             <span style="float: right">
               <a tal:attributes="href context/enllacVideo" target="_blank"><span i18n:translate="">Video</span></a>
+            </span>
+          </li>
+          <li tal:condition="audio">
+            <b i18n:translate="">Audio de la sessio</b>
+            <span style="float: right">
+              <tal:documents repeat="item audio">
+                <ol><i class="fa fa-file-audio-o" aria-hidden="true" style="padding-left: 20px;"></i>
+                  <a href="#"
+                     tal:attributes="href item/absolute_url;"
+                     tal:content="item/title">
+                      Audio file Title
+                  </a>
+                </ol>
+              </tal:documents>
             </span>
           </li>
         </ul>
@@ -132,6 +147,7 @@
           </div>
         </div>
       </div>
+
 
     </div>
 
