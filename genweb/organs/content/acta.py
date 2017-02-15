@@ -171,7 +171,7 @@ def Punts2Acta(self):
     portal_catalog = getToolByName(self.context, 'portal_catalog')
     folder_path = '/'.join(self.context.getPhysicalPath())
     values = portal_catalog.searchResults(
-        portal_type='genweb.organs.punt',
+        portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
         sort_on='getObjPositionInParent',
         path={'query': folder_path,
               'depth': 1})
