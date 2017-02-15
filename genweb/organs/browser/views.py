@@ -72,7 +72,7 @@ class Delete(BrowserView):
         try:
             if action == 'delete':
                 if '/' in itemid:
-                    # Es tracta de subpunt i inclou punt/subpunt a itemid
+                    # Es tracta de subpunt i inclou punt/subpunt a itemid (segon nivell)
                     folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + str('/'.join(itemid.split('/')[:-1]))
                     itemid = str(''.join(itemid.split('/')[-1:]))
                     deleteItem = portal_catalog.searchResults(
@@ -81,9 +81,10 @@ class Delete(BrowserView):
                         id=itemid)[0].getObject()
                     api.content.delete(deleteItem)
                 else:
+                    # L'objecte a esborrar es a primer nivell
                     folder_path = '/'.join(self.context.getPhysicalPath())
                     deleteItem = portal_catalog.searchResults(
-                        portal_type=['genweb.organs.punt'],
+                        portal_type=portal_type,
                         path={'query': folder_path, 'depth': 1},
                         id=itemid)[0].getObject()
                     api.content.delete(deleteItem)
@@ -94,7 +95,7 @@ class Delete(BrowserView):
                 # agafo items ordenats!
 
                 puntsOrdered = portal_catalog.searchResults(
-                    portal_type=['genweb.organs.punt'],
+                    portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
                     sort_on='getObjPositionInParent',
                     path={'query': folder_path,
                           'depth': 1})
