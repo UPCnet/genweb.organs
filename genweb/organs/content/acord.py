@@ -60,7 +60,8 @@ class IAcord(form.Schema):
 
     agreement = schema.TextLine(
         title=_(u'Agreement number'),
-        required=False
+        required=False,
+        readonly=True
     )
 
     directives.widget(defaultContent=WysiwygFieldWidget)
@@ -77,22 +78,22 @@ class IAcord(form.Schema):
     )
 
 
-@form.default_value(field=IAcord['agreement'])
-def agreementDefaultValue(data):
-    # Assign acord default value
-    portal_catalog = getToolByName(data.context, 'portal_catalog')
-    folder_path = data.context.absolute_url_path()
-    values = portal_catalog.searchResults(
-        portal_type=['genweb.organs.acord'],
-        path={'query': folder_path,
-              'depth': 1})
+# @form.default_value(field=IAcord['agreement'])
+# def agreementDefaultValue(data):
+#     # Assign acord default value
+#     portal_catalog = getToolByName(data.context, 'portal_catalog')
+#     folder_path = data.context.absolute_url_path()
+#     values = portal_catalog.searchResults(
+#         portal_type=['genweb.organs.acord'],
+#         path={'query': folder_path,
+#               'depth': 1})
 
-    acronim = str(data.context.aq_parent.acronim)
-    any = str(data.context.start.strftime('%Y'))
-    numsessio = str(data.context.numSessio)
-    idacord = str(int(len(values)) + 1)
+#     acronim = str(data.context.aq_parent.acronim)
+#     any = str(data.context.start.strftime('%Y'))
+#     numsessio = str(data.context.numSessio)
+#     idacord = str(int(len(values)) + 1)
 
-    return acronim + '/' + any + '/' + numsessio + '/' + idacord
+#     return acronim + '/' + any + '/' + numsessio + '/' + idacord
 
 
 @form.default_value(field=IAcord['proposalPoint'])

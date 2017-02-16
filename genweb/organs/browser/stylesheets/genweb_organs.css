@@ -98,6 +98,7 @@ input#form-widgets-horaFi,
 input#form-widgets-IBasic-title,
 input#form-widgets-acronim,
 input#form-widgets-fromMail ,
+input#form-widgets-adrecaLlista ,
 input#form-widgets-any,
 input#form-widgets-numSessio,
 input#form-widgets-enllacVideo,
@@ -1002,13 +1003,15 @@ input#acordNumber {width: 159px;}
 .bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {padding-left: 50px;}
 
 .agreementClass  {
-    font-size: 17px;
+    font-size: 13px;
     color: #555;
+    padding-left: 25px;
 }
 
 .agreementSubClass {
-    font-size: 17px;
+    font-size: 13px;
     color: #555;
+    padding-left: 25px;
 }
 
 
@@ -1044,4 +1047,8 @@ span.agreementClassPunt {
 .logFont {
     background-color: white;
     color: black;
+}
+
+#workflow-transition-convocar {
+    display: none;
 }

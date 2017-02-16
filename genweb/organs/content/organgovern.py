@@ -92,7 +92,7 @@ class IOrgangovern(form.Schema):
         constraint=checkEmailAddress
     )
 
-    adrecaLlista = schema.Text(
+    adrecaLlista = schema.TextLine(
         title=_(u"mail address"),
         description=_(u"Mail address help"),
         required=True,

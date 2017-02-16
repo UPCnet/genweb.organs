@@ -293,7 +293,7 @@
       <a class="btn btn-info" style="margin-bottom: 20px;" href="++add++genweb.organs.punt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
       <a class="btn btn-info" style="margin-bottom: 20px;" href="++add++genweb.organs.acord"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou acord</span></a>
       <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
-      <a class="btn btn-info" style="margin-bottom: 20px;" href="updateProposalPoints" data-target="#modalPunts"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+      <a class="btn btn-info" style="margin-bottom: 20px;" href="updateProposalPoints" data-target="#modalPunts"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts/acords</span></a>
   </div>
 
 <div tal:condition="view/hihaPunts">
@@ -323,7 +323,7 @@
           <tal:block tal:define="agreement item/agreement">
           <li class="ui-state-grey" tal:attributes="id item/id; class item/classe">
             <td tal:condition="item/show">
-
+              <span class="agreementClass" tal:content="agreement" tal:condition="agreement"></span>
               <div style="float: right;" aria-label="Edit actions"  tal:condition="canModify">
                 <button type="button" class="edit label label-info"
                   data-original-title="Edit">
@@ -348,7 +348,7 @@
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                    <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.subpunt"><span i18n:translate="">Subpunt</span></a></li>
+                    <li tal:condition="item/isPunt"><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.subpunt"><span i18n:translate="">Subpunt</span></a></li>
                     <li tal:condition="item/isPunt"><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.acord"><span i18n:translate="">Acord</span></a></li>
                     <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.file"><span i18n:translate="">File</span></a></li>
                     <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.document"><span i18n:translate="">Document</span></a></li>
@@ -384,6 +384,7 @@
 
               <div class="puntTitle">
                 <div class="clearfix"></div>
+
 
                   <button type="button" class="expand" tal:condition="item/items_inside"
                     data-original-title="Expand">
@@ -487,6 +488,7 @@
                       </div>
 
                       <div class="subpuntTitle" tal:define="agreementTitle itemSubpunt/agreement">
+                        <span class="agreementSubClass" tal:content="agreementTitle" tal:condition="agreementTitle"></span>
                         <div class="clearfix"></div>
                         <span class="proposalNumberSubpunt" tal:content="itemSubpunt/proposalPoint"></span>
                         <a tal:attributes="data-pk itemSubpunt/id; href itemSubpunt/absolute_url"

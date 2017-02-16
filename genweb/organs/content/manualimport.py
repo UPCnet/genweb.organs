@@ -132,7 +132,6 @@ class Message(form.SchemaForm):
                     obj.reindexObject()
                 else:
                     # hi ha blanks, es un subpunt o un acord
-                    import ipdb;ipdb.set_trace()
                     portal_type = line.lstrip().rstrip().split(' ')[0].upper()
                     if str(portal_type) == 'A':  # Es tracta d'un acord
                         line = ' '.join(line.lstrip().rstrip().split(' ')[1:])

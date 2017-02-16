@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-from Acquisition import aq_inner
 from zExceptions import Redirect
-import transaction
 
 
 def sessio_changed(session, event):
@@ -14,8 +12,5 @@ def sessio_changed(session, event):
         # Fem el bypass
         pass
     else:
-        if event.transition.id == 'convocar':
-            context = aq_inner(session)
-            session.reindexObject()
-            transaction.commit()
-            raise Redirect(context.absolute_url() + '/mailConvocar')
+        if event.transition.id == 'convocando':
+            raise Redirect(session.absolute_url() + '/mailConvocar')

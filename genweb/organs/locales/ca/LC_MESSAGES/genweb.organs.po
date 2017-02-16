@@ -234,7 +234,7 @@ msgstr "Literals i colors que es faran servir com a estats d'aprovació dels pun
 
 #: ./genweb/organs/content/organgovern.py:90
 msgid "Enter the from used in the mail form"
-msgstr "Adreça de correu del remitent de les notificacions (persona o grup) de l'òrgan. Es poden posar diverses adreces separades per comes."
+msgstr "Adreça de correu del remitent de les notificacions (persona o grup) de l'òrgan. Es poden posar diverses adreces separades per comes o espais en blanc."
 
 #: ./genweb/organs/content/templates/sessio_view.pt:128
 msgid "Enviar"
@@ -389,7 +389,7 @@ msgstr "Imatge que es farà servir com a imatge de capçalera en aquesta unitat 
 
 #: ./genweb/organs/content/organgovern.py:97
 msgid "Mail address help"
-msgstr "Adreça o adreces a les quals arribaran els missatges quan hi hagi una notificació de l'òrgan."
+msgstr "Adreça o adreces a les quals arribaran els missatges quan hi hagi una notificació de l'òrgan. Es poden posar diverses adreces separades per comes o per espais en blanc."
 
 #: ./genweb/organs/content/informarSessio.py:34
 #: ./genweb/organs/content/mailConvocar.py:32
@@ -648,7 +648,7 @@ msgstr "Destinataris"
 
 #: ./genweb/organs/browser/views.py:353
 msgid "Reload proposalPoints manually"
-msgstr "Recalcular número de punts manualment"
+msgstr "Recalcular número de punts i/o acords"
 
 #: ./genweb/organs/content/file.py:41
 msgid "Reserved file description"

@@ -131,8 +131,8 @@
       <ul id="sortable" class="ui-sortable">
         <tal:documents repeat="item items">
           <li>
+            <div class="agreementPuntPresentation" tal:content="item/agreement" tal:condition="item/agreement"></div>
             <div class="puntTitle">
-
               <div class="clearfix"></div>
               <span class="btn-group bulletPuntPresentation" role="group" tal:condition="not:anonim">
                 <tal:block tal:condition="item/state">
@@ -181,6 +181,7 @@
               <tal:subpunts repeat="item subpunts">
                 <ol class="li_subgrups">
                   <td>
+                  <div class="agreementSubPuntPresentation" tal:content="item/agreement" tal:condition="item/agreement"></div>
                     <div class="subpuntTitle">
                       <div class="clearfix"></div>
                       <span class="btn-group bulletPuntPresentation" role="group" tal:condition="not:anonim">

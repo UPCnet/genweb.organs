@@ -366,7 +366,7 @@ class Reload(BrowserView):
             if len(objecte.items()) > 0:
                 search_path = '/'.join(objecte.getPhysicalPath())
                 subpunts = portal_catalog.searchResults(
-                    portal_type=['genweb.organs.subpunt'],
+                    portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
                     sort_on='getObjPositionInParent',
                     path={'query': search_path, 'depth': 1})
 
@@ -378,6 +378,24 @@ class Reload(BrowserView):
                     subvalue = subvalue+1
 
             index = index + 1
+
+        acordsOrdered = portal_catalog.searchResults(
+            portal_type=['genweb.organs.acord'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 2})
+
+        acronim = str(self.context.aq_parent.acronim)
+        any = str(self.context.start.strftime('%Y'))
+        numsessio = str(self.context.numSessio)
+
+        idacord = 1
+        for item in acordsOrdered:
+            objecte = item.getObject()
+            printid = '{0}'.format(str(idacord).zfill(2))
+            objecte.agreement = acronim + '/' + any + '/' + numsessio + '/' + printid
+            idacord = idacord + 1
+
         self.request.response.redirect(self.context.absolute_url())
 
 

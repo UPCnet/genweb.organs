@@ -34,18 +34,28 @@ class Presentation(form.SchemaForm):
 
         results = []
         for obj in values:
+
             if obj.portal_type == 'genweb.organs.punt' or obj.portal_type == 'genweb.organs.acord':
                 if self.Anonim():
                     item = obj._unrestrictedGetObject()
+                    if obj.portal_type == 'genweb.organs.acord':
+                        agreement = str(item.agreement)
+                    else:
+                        agreement = False
                     results.append(dict(title=obj.Title,
                                         absolute_url=item.absolute_url(),
                                         proposalPoint=item.proposalPoint,
                                         state=item.estatsLlista,
                                         item_path=item.absolute_url_path(),
                                         portal_type=obj.portal_type,
+                                        agreement=agreement,
                                         id=obj.id))
                 else:
                     item = obj.getObject()
+                    if obj.portal_type == 'genweb.organs.acord':
+                        agreement = str(item.agreement)
+                    else:
+                        agreement = False
                     results.append(dict(title=obj.Title,
                                         absolute_url=item.absolute_url(),
                                         proposalPoint=item.proposalPoint,
@@ -54,6 +64,7 @@ class Presentation(form.SchemaForm):
                                         estats=self.estatsCanvi(obj),
                                         css=self.getColor(obj),
                                         portal_type=obj.portal_type,
+                                        agreement=agreement,
                                         id=obj.id))
         return results
 
@@ -63,7 +74,7 @@ class Presentation(form.SchemaForm):
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + data['id']
         values = portal_catalog.unrestrictedSearchResults(
-            portal_type='genweb.organs.subpunt',
+            portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
@@ -72,15 +83,26 @@ class Presentation(form.SchemaForm):
         for obj in values:
             if self.Anonim():
                 item = obj._unrestrictedGetObject()
+                item = obj._unrestrictedGetObject()
+                if obj.portal_type == 'genweb.organs.acord':
+                    agreement = str(item.agreement)
+                else:
+                    agreement = False
                 results.append(dict(title=obj.Title,
                                     absolute_url=item.absolute_url(),
                                     proposalPoint=item.proposalPoint,
                                     state=item.estatsLlista,
                                     portal_type=obj.portal_type,
                                     item_path=item.absolute_url_path(),
+                                    agreement=agreement,
                                     id='/'.join(item.absolute_url_path().split('/')[-2:])))
             else:
                 item = obj.getObject()
+                item = obj._unrestrictedGetObject()
+                if obj.portal_type == 'genweb.organs.acord':
+                    agreement = str(item.agreement)
+                else:
+                    agreement = False
                 results.append(dict(title=obj.Title,
                                     absolute_url=item.absolute_url(),
                                     proposalPoint=item.proposalPoint,
@@ -89,6 +111,7 @@ class Presentation(form.SchemaForm):
                                     item_path=item.absolute_url_path(),
                                     estats=self.estatsCanvi(obj),
                                     css=self.getColor(obj),
+                                    agreement=agreement,
                                     id='/'.join(item.absolute_url_path().split('/')[-2:])))
         return results
 

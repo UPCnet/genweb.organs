@@ -15,6 +15,7 @@ from zope import schema
 from time import strftime
 from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from genweb.organs.utils import addEntryLog
+from Products.CMFCore.utils import getToolByName
 
 grok.templatedir("templates")
 
@@ -79,20 +80,20 @@ class Message(form.SchemaForm):
         html_content = ''
         sessiontitle = str(session.Title())
 
-        if session.dataSessio is None:
+        if session.start is None:
             sessiondate = ''
         else:
-            sessiondate = str(session.dataSessio.strftime("%d/%m/%Y"))
+            sessiondate = str(session.start.strftime("%d/%m/%Y"))
 
-        if session.horaInici is None:
+        if session.start is None:
             starthour = ''
         else:
-            starthour = str(session.horaInici.strftime("%H:%M"))
+            starthour = str(session.start.strftime("%H:%M"))
 
-        if session.horaFi is None:
+        if session.end is None:
             endHour = ''
         else:
-            endHour = str(session.horaFi.strftime("%H:%M"))
+            endHour = str(session.end.strftime("%H:%M"))
 
         session.notificationDate = now
         fromMessage = "Convocatoria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
@@ -140,6 +141,11 @@ class Message(form.SchemaForm):
                 immediate=False,
                 charset='utf8',
                 msg_type='text/html')
+            # TODO: No fa el canvi d'estat... fa un redirect ¿?
+            api.content.transition(obj=self.context, transition='convocar')
+            # return self.context.portal_workflow.doActionFor(self.context, 'convocar')
+
+            # workflow_tool = getToolByName(self.context, 'portal_workflow')
 
             addEntryLog(self.context, None, _(u'Sending mail convocatoria'), formData['recipients'])
             self.context.plone_utils.addPortalMessage(
