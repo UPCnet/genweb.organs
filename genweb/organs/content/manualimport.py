@@ -98,6 +98,7 @@ class Message(form.SchemaForm):
         content = text.splitlines()
         subindex = 0
         previousPuntContainer = None
+        errors = None
         for line in content:
             if len(line) == 0:
                 continue
@@ -133,38 +134,48 @@ class Message(form.SchemaForm):
                 else:
                     # hi ha blanks, es un subpunt o un acord
                     portal_type = line.lstrip().rstrip().split(' ')[0].upper()
-                    if str(portal_type) == 'A':  # Es tracta d'un acord
-                        line = ' '.join(line.lstrip().rstrip().split(' ')[1:])
-                        newobj = api.content.create(
-                            type='genweb.organs.acord',
-                            title=line,
-                            container=previousPuntContainer)
-                    elif str(portal_type) == 'P':  # Es tracta d'un punt
-                        line = ' '.join(line.lstrip().rstrip().split(' ')[1:])
-                        newobj = api.content.create(
-                            type='genweb.organs.subpunt',
-                            title=line,
-                            container=previousPuntContainer)
-                    else:  # Supossem que per defecte sense espais es un Punt
-                        line = line.lstrip().rstrip()
-                        newobj = api.content.create(
-                            type='genweb.organs.subpunt',
-                            title=line,
-                            container=previousPuntContainer)
+                    if previousPuntContainer.portal_type == 'genweb.organs.punt':
+                        if str(portal_type) == 'A':  # Es tracta d'un acord
+                            line = ' '.join(line.lstrip().rstrip().split(' ')[1:])
+                            newobj = api.content.create(
+                                type='genweb.organs.acord',
+                                title=line,
+                                container=previousPuntContainer)
+                        elif str(portal_type) == 'P':  # Es tracta d'un punt
+                            line = ' '.join(line.lstrip().rstrip().split(' ')[1:])
+                            newobj = api.content.create(
+                                type='genweb.organs.subpunt',
+                                title=line,
+                                container=previousPuntContainer)
+                        else:  # Supossem que per defecte sense espais es un Punt
+                            line = line.lstrip().rstrip()
+                            newobj = api.content.create(
+                                type='genweb.organs.subpunt',
+                                title=line,
+                                container=previousPuntContainer)
 
-                    newobj.proposalPoint = unicode(str(index-1) + str('.') + str(subindex))
-                    newobj.estatsLlista = defaultEstat
-                    newobj.reindexObject()
-                    subindex = subindex + 1
+                        newobj.proposalPoint = unicode(str(index-1) + str('.') + str(subindex))
+                        newobj.estatsLlista = defaultEstat
+                        newobj.reindexObject()
+                        subindex = subindex + 1
+                    else:
+                        # dintre d'un acord no podem crear res...
+                        errors = _(u"No s'han creat tot els elements perque no segueixen la norma. Dintre d'un Acord no es pot afeigr res.")
+                        subindex = subindex - 1
+
         transaction.commit()
 
-        message = "S'han creats els punts indicats."
-        if lang == 'es':
-            message = "Se han creado los puntos indicados."
-        if lang == 'en':
-            message = "Indicated fields have been created."
-        IStatusMessage(self.request).addStatusMessage(message, type="success")
-        return self.request.response.redirect(self.context.absolute_url())
+        if errors:
+            IStatusMessage(self.request).addStatusMessage(errors, type="error")
+            return self.request.response.redirect(self.context.absolute_url())
+        else:
+            message = "S'han creats els punts indicats."
+            if lang == 'es':
+                message = "Se han creado los puntos indicados."
+            if lang == 'en':
+                message = "Indicated fields have been created."
+            IStatusMessage(self.request).addStatusMessage(message, type="success")
+            return self.request.response.redirect(self.context.absolute_url())
 
     @button.buttonAndHandler(_('Cancel'))
     def handleCancel(self, action):
