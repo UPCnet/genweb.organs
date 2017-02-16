@@ -350,6 +350,10 @@ class Reload(BrowserView):
             alsoProvides(self.request, IDisableCSRFProtection)
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
+        acronim = str(self.context.aq_parent.acronim)
+        any = str(self.context.start.strftime('%Y'))
+        numsessio = str(self.context.numSessio)
+
         addEntryLog(self.context, None, _(u'Reload proposalPoints manually'), '')  # add log
         # agafo items ordenats!
         puntsOrdered = portal_catalog.searchResults(
@@ -357,11 +361,16 @@ class Reload(BrowserView):
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
+        idacord = 1
         index = 1
         for item in puntsOrdered:
             objecte = item.getObject()
             objecte.proposalPoint = unicode(str(index))
             objecte.reindexObject()
+            if item.portal_type == 'genweb.organs.acord':
+                printid = '{0}'.format(str(idacord).zfill(2))
+                objecte.agreement = acronim + '/' + any + '/' + numsessio + '/' + printid
+                idacord = idacord + 1
 
             if len(objecte.items()) > 0:
                 search_path = '/'.join(objecte.getPhysicalPath())
@@ -376,25 +385,12 @@ class Reload(BrowserView):
                     newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
                     newobjecte.reindexObject()
                     subvalue = subvalue+1
+                    if value.portal_type == 'genweb.organs.acord':
+                        printid = '{0}'.format(str(idacord).zfill(2))
+                        newobjecte.agreement = acronim + '/' + any + '/' + numsessio + '/' + printid
+                        idacord = idacord + 1
 
             index = index + 1
-
-        acordsOrdered = portal_catalog.searchResults(
-            portal_type=['genweb.organs.acord'],
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 2})
-
-        acronim = str(self.context.aq_parent.acronim)
-        any = str(self.context.start.strftime('%Y'))
-        numsessio = str(self.context.numSessio)
-
-        idacord = 1
-        for item in acordsOrdered:
-            objecte = item.getObject()
-            printid = '{0}'.format(str(idacord).zfill(2))
-            objecte.agreement = acronim + '/' + any + '/' + numsessio + '/' + printid
-            idacord = idacord + 1
 
         self.request.response.redirect(self.context.absolute_url())
 
