@@ -113,7 +113,9 @@ input#form-widgets-fromTitle {width: 98%;}
 .portaltype-genweb-organs-acta #plone-contentmenu-display,
 .portaltype-genweb-organs-organgovern #plone-contentmenu-display,
 .portaltype-genweb-organs-punt #plone-contentmenu-display,
-.portaltype-genweb-organs-sessio #plone-contentmenu-display {display:none;}
+.portaltype-genweb-organs-sessio #plone-contentmenu-display,
+.portaltype-genweb-organs-acord #plone-contentmenu-display
+ {display:none;}
 
 .label-danger {
     background-color: #d9534f !important;
@@ -824,7 +826,8 @@ padding: 0px 0px 32px 0px !important;
 .portaltype-genweb-organs-file a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-document a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-acta a#plone-contentmenu-workflow.dropdown-toggle,
-.portaltype-genweb-organs-audio a#plone-contentmenu-workflow.dropdown-toggle
+.portaltype-genweb-organs-audio a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-acord a#plone-contentmenu-workflow.dropdown-toggle
  {display: none;}
 
 .portaltype-genweb-organs-organsfolder a#plone-contentmenu-multilingual.dropdown-toggle,
@@ -835,7 +838,8 @@ padding: 0px 0px 32px 0px !important;
 .portaltype-genweb-organs-file a#plone-contentmenu-multilingual.dropdown-toggle,
 .portaltype-genweb-organs-document a#plone-contentmenu-multilingual.dropdown-toggle,
 .portaltype-genweb-organs-acta a#plone-contentmenu-multilingual.dropdown-toggle,
-.portaltype-genweb-organs-audio a#plone-contentmenu-multilingual.dropdown-toggle
+.portaltype-genweb-organs-audio a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-acord a#plone-contentmenu-multilingual.dropdown-toggle
  {display: none;}
 
 .popover {
@@ -1052,3 +1056,5 @@ span.agreementClassPunt {
 #workflow-transition-convocar {
     display: none;
 }
+
+#contentActionMenus li ul li.actionSeparator {display: none;}

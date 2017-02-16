@@ -329,6 +329,10 @@ class ActaPrintView(BrowserView):
         """ Get organGovern Title used for printing the acta """
         return self.aq_parent.aq_parent.aq_parent.Title()
 
+    def sessionTitle(self):
+        """ Get organGovern Title used for printing the acta """
+        return self.aq_parent.aq_parent.Title()
+
     def getActaLogo(self):
         """ Getlogo to use in print """
         try:
@@ -520,7 +524,7 @@ class Butlleti(BrowserView):
             if len(value.objectIds()) > 0:
                 # valuesInside = portal_catalog.searchResults(
                 valuesInside = portal_catalog.unrestrictedSearchResults(
-                    portal_type='genweb.organs.subpunt',
+                    portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
                     sort_on='getObjPositionInParent',
                     path={'query': obj.getPath(),
                           'depth': 1})

@@ -53,10 +53,6 @@
        <i class="fa fa-eye"></i>&nbsp;<span i18n:translate=""> Preview Acta </span></button>
   </tal:omit-tag>
 
-
-
-
-
   <div class="clearfix"></div>
 
   <div id="contentActa">
@@ -68,11 +64,6 @@
     <div id="actaTabs" class="tab-content">
       <div class="tab-pane active" id="dadesTab">
         <ul>
-          <li tal:condition="dataSessio">
-            <b i18n:translate="">Data</b>
-            <span style="float:right"
-                  tal:content="dataSessio"></span>
-          </li>
           <li tal:condition="horaInici">
             <b i18n:translate="">Session start time</b>
             <span style="float:right"
@@ -148,7 +139,6 @@
         </div>
       </div>
 
-
     </div>
 
   </div>
@@ -160,6 +150,7 @@
     <div tal:content="structure ordenDelDia" />
   </tal:block>
 
+<br/>
 </metal:content-core>
 
 </body>

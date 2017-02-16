@@ -27,23 +27,18 @@ class IActa(form.Schema):
         required=True
     )
 
-    dataSessio = schema.Date(
-        title=_(u"Session date"),
-        required=True,
-    )
-
-    llocConvocatoria = schema.TextLine(
-        title=_(u"Session location"),
-        required=False,
-    )
-
-    horaInici = schema.Time(
+    horaInici = schema.Datetime(
         title=_(u"Session start time"),
         required=False,
     )
 
-    horaFi = schema.Time(
+    horaFi = schema.Datetime(
         title=_(u"Session end time"),
+        required=False,
+    )
+
+    llocConvocatoria = schema.TextLine(
+        title=_(u"Session location"),
         required=False,
     )
 
@@ -131,13 +126,6 @@ def llistaNoAssistensDefaultValue(data):
 
 
 # Hidden field used only to render and generate the PDF
-@form.default_value(field=IActa['dataSessio'])
-def dataSessioDefaultValue(data):
-    # copy dataSessio from Session (parent object)
-    return data.context.start
-
-
-# Hidden field used only to render and generate the PDF
 @form.default_value(field=IActa['llocConvocatoria'])
 def llocConvocatoriaDefaultValue(data):
     # copy llocConvocatoria from Session (parent object)
@@ -184,10 +172,15 @@ def Punts2Acta(self):
             number = str(value.proposalPoint) + '.- '
         else:
             number = ''
-        results.append(number + str(obj.Title))
+        if value.portal_type == 'genweb.organs.acord':
+            agreement = value.agreement + ' - '
+        else:
+            agreement = ''
+
+        results.append(number + agreement + str(obj.Title))
         if len(value.objectIds()) > 0:
             valuesInside = portal_catalog.searchResults(
-                portal_type='genweb.organs.subpunt',
+                portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
                 sort_on='getObjPositionInParent',
                 path={'query': obj.getPath(),
                       'depth': 1})
@@ -197,7 +190,11 @@ def Punts2Acta(self):
                     numberSubpunt = str(subpunt.proposalPoint) + '.- '
                 else:
                     numberSubpunt = ''
-                results.append('&nbsp;&nbsp;' + numberSubpunt + str(item.Title))
+                if subpunt.portal_type == 'genweb.organs.acord':
+                    agreement = subpunt.agreement + ' - '
+                else:
+                    agreement = ''
+                results.append('&nbsp;&nbsp;' + numberSubpunt + agreement + str(item.Title))
 
     return '<br/>'.join(results)
 
@@ -208,19 +205,13 @@ class View(dexterity.DisplayForm):
 
     def horaFi(self):
         if self.context.horaFi:
-            return self.context.horaFi.strftime('%H:%M')
+            return self.context.horaFi.strftime('%d/%m/%Y %H:%M')
         else:
             return ''
 
     def horaInici(self):
         if self.context.horaInici:
-            return self.context.horaInici.strftime('%H:%M')
-        else:
-            return ''
-
-    def dataSessio(self):
-        if self.context.dataSessio:
-            return self.context.dataSessio.strftime('%d/%m/%Y')
+            return self.context.horaInici.strftime('%d/%m/%Y %H:%M')
         else:
             return ''
 
