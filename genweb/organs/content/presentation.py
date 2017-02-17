@@ -39,7 +39,7 @@ class Presentation(form.SchemaForm):
                 if self.Anonim():
                     item = obj._unrestrictedGetObject()
                     if obj.portal_type == 'genweb.organs.acord':
-                        agreement = str(item.agreement)
+                        agreement = item.agreement
                     else:
                         agreement = False
                     results.append(dict(title=obj.Title,
@@ -53,7 +53,7 @@ class Presentation(form.SchemaForm):
                 else:
                     item = obj.getObject()
                     if obj.portal_type == 'genweb.organs.acord':
-                        agreement = str(item.agreement)
+                        agreement = item.agreement
                     else:
                         agreement = False
                     results.append(dict(title=obj.Title,
@@ -85,7 +85,7 @@ class Presentation(form.SchemaForm):
                 item = obj._unrestrictedGetObject()
                 item = obj._unrestrictedGetObject()
                 if obj.portal_type == 'genweb.organs.acord':
-                    agreement = str(item.agreement)
+                    agreement = item.agreement
                 else:
                     agreement = False
                 results.append(dict(title=obj.Title,
@@ -100,7 +100,7 @@ class Presentation(form.SchemaForm):
                 item = obj.getObject()
                 item = obj._unrestrictedGetObject()
                 if obj.portal_type == 'genweb.organs.acord':
-                    agreement = str(item.agreement)
+                    agreement = item.agreement
                 else:
                     agreement = False
                 results.append(dict(title=obj.Title,
