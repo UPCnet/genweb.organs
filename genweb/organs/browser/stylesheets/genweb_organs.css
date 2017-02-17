@@ -986,6 +986,14 @@ i.icon-genweb-organs-organsfolder,
     background-position: -384px -120px !important;
 }
 
+dt.contenttype-genweb-organs-acord:before,
+i.icon-genweb-organs-acord,
+#listing-table a.contenttype-genweb-organs-acord:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-acord:before
+{
+    background-position: -72px -144px !important;
+}
+
 .share_popover {display: none;}
 
 h1.logoPresentation {padding-left: 10%;}
