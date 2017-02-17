@@ -216,18 +216,18 @@ def sessio_sendMail(session, recipients, body):
 
     sessiontitle = str(session.Title())
 
-    if session.dataSessio is None:
+    if session.start is None:
         sessiondate = ''
     else:
-        sessiondate = session.dataSessio.strftime("%d/%m/%Y")
-    if session.horaInici is None:
+        sessiondate = session.start.strftime("%d/%m/%Y")
+    if session.start is None:
         starthour = ''
     else:
-        starthour = session.horaInici.strftime("%H:%M")
-    if session.horaInici is None:
+        starthour = session.start.strftime("%H:%M")
+    if session.end is None:
         endHour = ''
     else:
-        endHour = session.horaFi.strftime("%H:%M")
+        endHour = session.end.strftime("%H:%M")
     sessionLink = str(session.absolute_url())
     organ = session.aq_parent
 
@@ -251,10 +251,10 @@ def sessio_sendMail(session, recipients, body):
 
     html_content = """
      <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
       <title>Mail content</title>
-          <link rel="stylesheet" href=""" + CSS + """></link>
-          <style type="text/css">
+          <link rel='stylesheet' href=""" + CSS + """></link>
+          <style type='text/css'>
             body {padding:25px;}
           </style>
     </head>
@@ -289,10 +289,10 @@ def sessio_sendMail(session, recipients, body):
     if lang == 'en':
         now = strftime("%Y-%m-%d %H:%M")
         session.notificationDate = now
-        if session.dataSessio is None:
+        if session.start is None:
             sessiondate = ''
         else:
-            sessiondate = session.dataSessio.strftime("%Y-%m-%d")
+            sessiondate = session.start.strftime("%Y-%m-%d")
         subjectMail = "Session message: " + sessiontitle + ' - ' + sessiondate
         introData = "<br/><p>You can view the complete session information here:: <a href=" + \
                     sessionLink + ">" + sessiontitle + "</a></p><br/>" + signatura

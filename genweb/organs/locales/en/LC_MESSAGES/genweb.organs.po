@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-02-16 16:25+0000\n"
+"POT-Creation-Date: 2017-02-17 10:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgid "Acronym Description"
 msgstr "Nickname that will lead to simplified URL organ."
 
 #: ./genweb/organs/browser/views/acta_print.pt:27
-#: ./genweb/organs/content/templates/impersonate_as.pt:40
+#: ./genweb/organs/content/templates/impersonate_as.pt:39
 #: ./genweb/organs/content/templates/sessio_view.pt:148
 msgid "Acta"
 msgstr "Acta"
@@ -147,7 +147,7 @@ msgstr "Message attached executing the Send Message Action. It adds just the foo
 
 #: ./genweb/organs/content/informarSessio.py:126
 #: ./genweb/organs/content/mailConvocar.py:160
-#: ./genweb/organs/content/manualimport.py:181
+#: ./genweb/organs/content/manualimport.py:180
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -183,12 +183,12 @@ msgid "Contingut reservat"
 msgstr ""
 
 #: ./genweb/organs/content/templates/acta_view.pt:60
-#: ./genweb/organs/content/templates/impersonate_as.pt:38
+#: ./genweb/organs/content/templates/impersonate_as.pt:37
 #: ./genweb/organs/content/templates/sessio_view.pt:146
 msgid "Dades"
 msgstr "Data"
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:46
+#: ./genweb/organs/content/templates/impersonate_as.pt:45
 #: ./genweb/organs/content/templates/sessio_view.pt:157
 msgid "Data"
 msgstr "Data"
@@ -221,7 +221,7 @@ msgstr ""
 msgid "Destinataris"
 msgstr "Recipients"
 
-#: ./genweb/organs/content/impersonate_as.py:296
+#: ./genweb/organs/content/impersonate_as.py:294
 #: ./genweb/organs/content/sessio.py:470
 #: ./genweb/organs/content/templates/sessio_view.pt:354
 msgid "Document"
@@ -239,7 +239,7 @@ msgstr "This is the sender notification"
 msgid "Enviar"
 msgstr "Send"
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:29
+#: ./genweb/organs/content/templates/impersonate_as.pt:28
 msgid "Esteu visualitzant la sessio amb el rol <b><span>${DYNAMIC_CONTENT}</span></b>. <br /> Clicar <a href=\"./\">aqui</a> per tornar al mode de visualitzacio per defecte."
 msgstr ""
 
@@ -273,7 +273,7 @@ msgstr ""
 msgid "Fitxer intern"
 msgstr "Internal PDF"
 
-#: ./genweb/organs/content/impersonate_as.py:288
+#: ./genweb/organs/content/impersonate_as.py:286
 #: ./genweb/organs/content/sessio.py:465
 #: ./genweb/organs/utils.py:167
 msgid "Fitxer públic"
@@ -370,7 +370,7 @@ msgid "Llista punts"
 msgstr ""
 
 #: ./genweb/organs/content/templates/acta_view.pt:78
-#: ./genweb/organs/content/templates/impersonate_as.pt:61
+#: ./genweb/organs/content/templates/impersonate_as.pt:60
 msgid "Lloc"
 msgstr "Place"
 
@@ -448,7 +448,7 @@ msgstr "People not attending"
 msgid "No assistents help"
 msgstr ""
 
-#: ./genweb/organs/content/manualimport.py:164
+#: ./genweb/organs/content/manualimport.py:163
 msgid "No s'han creat tot els elements perque no segueixen la norma. Dintre d'un Acord no es pot afeigr res."
 msgstr ""
 
@@ -495,11 +495,11 @@ msgstr ""
 
 #: ./genweb/organs/content/informarSessio.py:128
 #: ./genweb/organs/content/mailConvocar.py:162
-#: ./genweb/organs/content/manualimport.py:183
+#: ./genweb/organs/content/manualimport.py:182
 msgid "Operation Cancelled."
 msgstr "The operation was canceled."
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:162
+#: ./genweb/organs/content/templates/impersonate_as.pt:135
 #: ./genweb/organs/content/templates/sessio_view.pt:303
 msgid "Ordre del dia"
 msgstr "Agenda"
@@ -533,7 +533,7 @@ msgstr ""
 msgid "Organ Title"
 msgstr "Government Organ title"
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:66
+#: ./genweb/organs/content/templates/impersonate_as.pt:65
 #: ./genweb/organs/content/templates/sessio_view.pt:177
 msgid "Organ de govern"
 msgstr "Government Organ"
@@ -558,7 +558,7 @@ msgstr "Organ of Government Folder"
 msgid "Organs folder logo"
 msgstr "Logo de la carpeta de órganos"
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:77
+#: ./genweb/organs/content/templates/impersonate_as.pt:76
 #: ./genweb/organs/content/templates/sessio_view.pt:189
 msgid "Persones Convocades"
 msgstr "Convoqued Members"
@@ -567,13 +567,13 @@ msgstr "Convoqued Members"
 msgid "Persones assistents"
 msgstr "Attendees"
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:80
+#: ./genweb/organs/content/templates/impersonate_as.pt:79
 #: ./genweb/organs/content/templates/organgovern_view.pt:53
 #: ./genweb/organs/content/templates/sessio_view.pt:192
 msgid "Persones convidades"
 msgstr "Invited members"
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:83
+#: ./genweb/organs/content/templates/impersonate_as.pt:82
 #: ./genweb/organs/content/templates/sessio_view.pt:195
 msgid "Persones excusades"
 msgstr "Missing members"
@@ -815,7 +815,6 @@ msgstr ""
 
 #: ./genweb/organs/content/acta.py:92
 #: ./genweb/organs/content/templates/acta_view.pt:83
-#: ./genweb/organs/content/templates/impersonate_as.pt:111
 msgid "Video link"
 msgstr "Link to the video session"
 

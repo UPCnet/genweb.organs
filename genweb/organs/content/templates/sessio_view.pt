@@ -292,7 +292,7 @@
     <br/>
       <a class="btn btn-info" style="margin-bottom: 20px;" href="++add++genweb.organs.punt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
       <a class="btn btn-info" style="margin-bottom: 20px;" href="++add++genweb.organs.acord"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou acord</span></a>
-      <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
+      <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
       <a class="btn btn-info" style="margin-bottom: 20px;" href="updateProposalPoints" data-target="#modalPunts"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts/acords</span></a>
   </div>
 

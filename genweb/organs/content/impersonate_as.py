@@ -136,12 +136,16 @@ class ShowSessionAs(form.SchemaForm):
                     inside = True
                 else:
                     inside = False
+                if item.portal_type == 'genweb.organs.acord':
+                    agreement = str(item.agreement) + ' - '
+                else:
+                    agreement = ''
                 results.append(dict(title=obj.Title,
                                     portal_type=obj.portal_type,
                                     absolute_url=item.absolute_url(),
                                     item_path=item.absolute_url_path(),
                                     proposalPoint=item.proposalPoint,
-                                    agreement=item.agreement,
+                                    agreement=agreement,
                                     state=item.estatsLlista,
                                     css=self.getColor(obj),
                                     estats=self.estatsCanvi(obj),
@@ -157,7 +161,7 @@ class ShowSessionAs(form.SchemaForm):
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + data['id']
         values = portal_catalog.searchResults(
-            portal_type='genweb.organs.subpunt',
+            portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
@@ -166,13 +170,17 @@ class ShowSessionAs(form.SchemaForm):
         if values:
             for obj in values:
                 item = obj.getObject()
+                if item.portal_type == 'genweb.organs.acord':
+                    agreement = str(item.agreement) + ' - '
+                else:
+                    agreement = ''
                 results.append(dict(title=obj.Title,
                                     portal_type=obj.portal_type,
                                     absolute_url=item.absolute_url(),
                                     proposalPoint=item.proposalPoint,
                                     item_path=item.absolute_url_path(),
                                     state=item.estatsLlista,
-                                    agreement=item.agreement,
+                                    agreement=agreement,
                                     estats=self.estatsCanvi(obj),
                                     css=self.getColor(obj),
                                     id='/'.join(item.absolute_url_path().split('/')[-2:])))
@@ -212,28 +220,24 @@ class ShowSessionAs(form.SchemaForm):
 
         results = []
         for obj in values:
-            if obj.getObject().dataSessio is None:
-                dataSessio = ''
-            else:
-                dataSessio = obj.getObject().dataSessio
             results.append(dict(title=obj.Title,
                                 absolute_url=obj.getURL(),
-                                date=dataSessio))
+                                date=obj.start))
         return results
 
     def valuesTable(self):
-        if self.context.dataSessio:
-            dataSessio = self.context.dataSessio.strftime('%d/%m/%Y')
+        if self.context.start:
+            dataSessio = self.context.start.strftime('%d/%m/%Y')
         else:
             dataSessio = ''
 
-        if self.context.horaInici:
-            horaInici = self.context.horaInici.strftime('%H:%M')
+        if self.context.start:
+            horaInici = self.context.start.strftime('%H:%M')
         else:
             horaInici = ''
 
-        if self.context.horaFi:
-            horaFi = self.context.horaFi.strftime('%H:%M')
+        if self.context.end:
+            horaFi = self.context.end.strftime('%H:%M')
         else:
             horaFi = ''
 
@@ -250,12 +254,6 @@ class ShowSessionAs(form.SchemaForm):
         title = self.context.aq_parent.Title()
         return title
 
-    def hihaMultimedia(self):
-        if self.context.enllacVideo or self.AudioInside():
-            return True
-        else:
-            return False
-
     def hihaPersones(self):
         if self.context.membresConvocats or self.context.membresConvidats or self.context.llistaExcusats:
             return True
@@ -263,7 +261,7 @@ class ShowSessionAs(form.SchemaForm):
             return False
 
     def showActaTab(self):
-        if self.hihaMultimedia() or self.ActesInside():
+        if self.ActesInside():
             return True
         else:
             return False

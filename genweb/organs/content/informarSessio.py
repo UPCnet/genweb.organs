@@ -170,7 +170,7 @@ class Message(form.SchemaForm):
         portal_catalog = getToolByName(self.context, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
-            portal_type='genweb.organs.punt',
+            portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
@@ -184,11 +184,15 @@ class Message(form.SchemaForm):
                 number = str(value.proposalPoint) + '.- '
             else:
                 number = ''
+            if value.portal_type == 'genweb.organs.acord':
+                agreement = str(value.agreement) + ' - '
+            else:
+                agreement = ''
             # adding hidden field to maintain good urls
-            results.append('&emsp;' + number + '<a href=----@@----' + obj.getURL() + '>' + str(obj.Title) + '</a>')
+            results.append('&emsp;' + number + agreement + '<a href=----@@----' + obj.getURL() + '>' + str(obj.Title) + '</a>')
             if len(value.objectIds()) > 0:
                 valuesInside = portal_catalog.searchResults(
-                    portal_type='genweb.organs.subpunt',
+                    portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
                     sort_on='getObjPositionInParent',
                     path={'query': obj.getPath(),
                           'depth': 1})
@@ -198,8 +202,11 @@ class Message(form.SchemaForm):
                         numberSubpunt = str(subpunt.proposalPoint) + '.- '
                     else:
                         numberSubpunt = ''
-
+                    if subpunt.portal_type == 'genweb.organs.acord':
+                        agreement = str(subpunt.agreement) + ' - '
+                    else:
+                        agreement = ''
                     # adding hidden field to maintain good urls
-                    results.append('&emsp;&emsp;' + numberSubpunt + '<a href=----@@----' + item.getURL() + '>' + str(item.Title) + '</a>')
+                    results.append('&emsp;&emsp;' + numberSubpunt + agreement + '<a href=----@@----' + item.getURL() + '>' + str(item.Title) + '</a>')
 
         return '<br/>'.join(results)
