@@ -52,10 +52,10 @@ class IAcord(form.Schema):
         required=True
     )
 
-    form.mode(proposalPoint='hidden')
     proposalPoint = schema.TextLine(
         title=_(u'Proposal point number'),
-        required=False
+        required=False,
+        readonly=True
     )
 
     agreement = schema.TextLine(
@@ -76,24 +76,6 @@ class IAcord(form.Schema):
         source=llistaEstats,
         required=True,
     )
-
-
-# @form.default_value(field=IAcord['agreement'])
-# def agreementDefaultValue(data):
-#     # Assign acord default value
-#     portal_catalog = getToolByName(data.context, 'portal_catalog')
-#     folder_path = data.context.absolute_url_path()
-#     values = portal_catalog.searchResults(
-#         portal_type=['genweb.organs.acord'],
-#         path={'query': folder_path,
-#               'depth': 1})
-
-#     acronim = str(data.context.aq_parent.acronim)
-#     any = str(data.context.start.strftime('%Y'))
-#     numsessio = str(data.context.numSessio)
-#     idacord = str(int(len(values)) + 1)
-
-#     return acronim + '/' + any + '/' + numsessio + '/' + idacord
 
 
 @form.default_value(field=IAcord['proposalPoint'])
@@ -120,20 +102,11 @@ class Edit(dexterity.EditForm):
 
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
-        self.widgets['proposalPoint'].mode = HIDDEN_MODE
 
 
 class View(grok.View):
     grok.context(IAcord)
     grok.template('acord_view')
 
-    def isAcord(self):
-        if self.context.acordOrgan:
-            return True
-        return False
-
     def FilesandDocumentsInside(self):
         return utils.FilesandDocumentsInside(self)
-
-    def SubPuntsInside(self):
-        return utils.SubPuntsInside(self)

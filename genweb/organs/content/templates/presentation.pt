@@ -161,17 +161,9 @@
                   <tal:documents repeat="item files">
                     <li class="filesinTable">
                       <i tal:attributes="class item/classCSS"></i>
-                      <a data-toggle="modal"
-                         tal:attributes="href item/absolute_url;
-                                         data-target string:#myModal-${item/id}">
+                      <a tal:attributes="href item/absolute_url;" target="_blank">
                          <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                       </a>
-                      <div tal:attributes="id string:myModal-${item/id}" class="modal fade">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            </div>
-                        </div>
-                      </div>
                     </li>
                   </tal:documents>
                 </ul>
@@ -208,22 +200,15 @@
                         <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                       </a>
                       </span>
+
                       <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                         <ul style="list-style: none;">
                           <tal:documents repeat="item files">
                             <li class="filesinTable">
                               <i tal:attributes="class item/classCSS"></i>
-                              <a data-toggle="modal"
-                                 tal:attributes="href item/absolute_url;
-                                                 data-target string:#myModal-${item/id}">
+                              <a tal:attributes="href item/absolute_url;" target="_blank">
                                  <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                               </a>
-                              <div tal:attributes="id string:myModal-${item/id}" class="modal fade">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                    </div>
-                                </div>
-                              </div>
                             </li>
                           </tal:documents>
                         </ul>

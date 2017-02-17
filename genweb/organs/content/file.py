@@ -88,7 +88,7 @@ class View(grok.View):
 
     def get_mimetype_icon_public(self):
         # return mimetype from the file object
-        content_file = self.context.hiddenfile
+        content_file = self.context.visiblefile
         context = aq_inner(self.context)
         pstate = getMultiAdapter(
             (context, self.request),

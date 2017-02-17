@@ -448,34 +448,50 @@ class View(grok.View):
         results = []
         for obj in values:
             if obj.portal_type == 'genweb.organs.file':
-                if obj.hiddenfile is True:
-                    try:
-                        username = api.user.get_current().getProperty('id')
-                        roles = api.user.get_roles(username=username, obj=self.context)
-                        if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles:
-                            tipus = 'fa fa-file-pdf-o'
-                            document = _(u'Fitxer intern')
-                            labelClass = 'label label-danger'
-                        else:
-                            continue
-                    except:
-                        continue
-                else:
+                # És un File
+                fitxer = obj.getObject()
+                if fitxer.visiblefile:
+                    # té part publica
                     tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer públic')
+                    document = _(u'Fitxer public')
                     labelClass = 'label label-default'
+                    if fitxer.hiddenfile:
+                        document = _(u'Conte fitxer public i reservat')
+                elif fitxer.hiddenfile:
+                    # te part reservada
+                    tipus = 'fa fa-file-pdf-o'
+                    document = _(u'Fitxer intern')
+                    labelClass = 'label label-danger'
+                else:
+                    tipus = 'fa fa-exclamation'
+                    document = _(u'Falten els fitxers')
+                    labelClass = 'label label-danger'
+                # if obj.hiddenfile is True:
+                #     try:
+                #         username = api.user.get_current().getProperty('id')
+                #         roles = api.user.get_roles(username=username, obj=self.context)
+                #         if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles:
+                #             tipus = 'fa fa-file-pdf-o'
+                #             document = _(u'Fitxer intern')
+                #             labelClass = 'label label-danger'
+                #         else:
+                #             continue
+                #     except:
+                #         continue
+                # else:
+                #     tipus = 'fa fa-file-pdf-o'
+                #     document = _(u'Fitxer públic')
+                #     labelClass = 'label label-default'
 
             else:
                 tipus = 'fa fa-file-text-o'
                 document = _(u'Document')
                 labelClass = 'label label-default'
-                obj.hiddenfile = False
 
             results.append(dict(title=obj.Title,
                                 portal_type=obj.portal_type,
                                 absolute_url=obj.getURL(),
                                 classCSS=tipus,
-                                hidden=obj.hiddenfile,
                                 labelClass=labelClass,
                                 content=document,
                                 id=str(item['id']) + '/' + obj.id))

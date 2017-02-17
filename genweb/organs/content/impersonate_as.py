@@ -278,7 +278,7 @@ class ShowSessionAs(form.SchemaForm):
         results = []
         for obj in values:
             if obj.portal_type == 'genweb.organs.file':
-                if obj.hiddenfile is True:
+                if obj.getObject().hiddenfile:
                     if self.isAnonim() or self.isAfectat():
                         continue
                     else:
@@ -297,7 +297,6 @@ class ShowSessionAs(form.SchemaForm):
                                 portal_type=obj.portal_type,
                                 absolute_url=obj.getURL(),
                                 classCSS=tipus,
-                                hidden=obj.hiddenfile,
                                 labelClass=labelClass,
                                 content=document,
                                 id=str(item['id']) + '/' + obj.id))

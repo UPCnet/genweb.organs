@@ -126,18 +126,15 @@ class Presentation(form.SchemaForm):
                   'depth': 1})
         results = []
         for obj in values:
-            if obj.hiddenfile is True:
-                continue
+            if obj.portal_type == 'genweb.organs.file':
+                tipus = 'fa fa-file-pdf-o'
             else:
-                if obj.portal_type == 'genweb.organs.file':
-                    tipus = 'fa fa-file-pdf-o'
-                else:
-                    tipus = 'fa fa-file-text-o'
-                results.append(dict(title=obj.Title,
-                                    path=obj.getObject().absolute_url_path(),
-                                    absolute_url=obj.getURL(),
-                                    classCSS=tipus,
-                                    id=obj.id))
+                tipus = 'fa fa-file-text-o'
+            results.append(dict(title=obj.Title,
+                                path=obj.getObject().absolute_url_path(),
+                                absolute_url=obj.getURL(),
+                                classCSS=tipus,
+                                id=obj.id))
         return results
 
     def getSessionTitle(self):
