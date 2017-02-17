@@ -16,7 +16,6 @@
                    llocConvocatoria context/llocConvocatoria;
                    horaFi view/horaFi;
                    horaInici view/horaInici;
-                   dataSessio view/dataSessio;
                    audio view/AudioInside">
 
   <script type="text/javascript">
