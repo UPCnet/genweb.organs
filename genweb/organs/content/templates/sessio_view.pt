@@ -662,9 +662,8 @@
 
         // TODO: Solve change bullet colors in sesison view
         $("li.defaultValue").on('click', function(){
-            var selectedValue = $(this).find('.fa').append('&nbsp;<span class="caret"></span>')
-            $(this).parent().parent().find('.dropdown-toggle').html(selectedValue);
-            $(this).parent().parent().parent().find('.bullet-toggle').html(selectedValue);
+            var colorSelected = $(this).find('.fa').css('color');
+            $(this).parent().parent().parent().find('.bullet-toggle > i').css({'color': colorSelected});
         });
 
   })
