@@ -204,16 +204,20 @@ def SubPuntsInside(self):
     portal_catalog = getToolByName(self, 'portal_catalog')
     folder_path = '/'.join(self.context.getPhysicalPath())
     values = portal_catalog.searchResults(
-        portal_type=['genweb.organs.subpunt'],
+        portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
         sort_on='getObjPositionInParent',
         path={'query': folder_path,
               'depth': 1})
     results = []
     for obj in values:
         item = obj.getObject()
+        if obj.portal_type == 'genweb.organs.acord':
+            agreement = item.agreement
+        else:
+            agreement = False
         results.append(dict(title=obj.Title,
                             proposalPoint=item.proposalPoint,
-                            agreement=False,
+                            agreement=agreement,
                             absolute_url=obj.getURL()))
     return results
 

@@ -65,7 +65,7 @@
     <thead>
       <tr>
         <th>
-          <tal:data i18n:translate="">Subpunts</tal:data>
+          <tal:data i18n:translate="">Subpunts informatius / acords</tal:data>
         </th>
       </tr>
     </thead>
