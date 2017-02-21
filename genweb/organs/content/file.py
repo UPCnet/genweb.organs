@@ -3,6 +3,7 @@ from five import grok
 from plone.directives import dexterity
 from plone.directives import form
 from genweb.organs import _
+from plone.namedfile.interfaces import INamedBlobFile, INamedBlobImage
 from plone.namedfile.field import NamedBlobFile
 from zope.component import getMultiAdapter
 from Acquisition import aq_inner
@@ -11,6 +12,8 @@ from Products.MimetypesRegistry.MimeTypeItem import guess_icon_path
 from plone import api
 from zope import schema
 from plone.app.dexterity import PloneMessageFactory as _PMF
+from plone.autoform import directives
+from plone.directives import dexterity
 from collective import dexteritytextindexer
 
 grok.templatedir("templates")
@@ -36,6 +39,8 @@ class IFile(form.Schema):
         missing_value=u'',
     )
 
+    dexterity.read_permission(hiddenfile='cmf.ReviewPortalContent')
+    dexterity.write_permission(hiddenfile='cmf.ReviewPortalContent')
     hiddenfile = NamedBlobFile(
         title=_(u"Please upload a reserved file"),
         description=_(u"Reserved file description"),

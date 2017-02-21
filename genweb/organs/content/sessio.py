@@ -108,10 +108,15 @@ class ISessio(form.Schema):
         required=False,
     )
 
-    # @invariant
-    # def validate_start_end(data):
-    #     if (data.start and data.end and data.start > data.end):
-    #         raise Invalid("Error, invalid date range")
+
+@form.default_value(field=ISessio['numSessio'])
+def numSessioDefaultValue(data):
+    # agafo sessions ordenats!
+    sessions = api.content.find(
+        portal_type='genweb.organs.sessio',
+        context=data.context)
+    total = len(sessions)
+    return '{0}'.format(str(total+1).zfill(2))
 
 
 @form.default_value(field=ISessio['membresConvocats'])

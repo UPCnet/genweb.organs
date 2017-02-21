@@ -140,7 +140,9 @@ input#form-widgets-fromTitle {width: 98%;}
     box-shadow: 2px 3px 2px #eee;
     font-size: 14px;
     margin: 0 0 10px;
-    padding: 0.5em 1em 0.5em 1.5em;
+    padding: 0.8em 1em 0.5em 0.1em;
+    float: left;
+    width: 97%;
 }
 
 #sortable li span {
@@ -153,7 +155,7 @@ span.proposalNumber {
     /*float: left;*/
     font-size: 20px;
     /*margin-left: -10px;*/
-    margin-right: 8px;
+ /*   margin-right: 8px;*/
 }
 .DADES > h2 {
     margin-bottom: 15px;
@@ -264,6 +266,7 @@ span.label.nomarginLeft  {
     font-size:16px;
     font-weight: bold;
     font-color: black;
+    padding-top: 5px;
     /*margin-bottom: 15px;*/
 }
 .subpuntTitle {
@@ -1067,3 +1070,13 @@ span.agreementClassPunt {
 }
 
 #contentActionMenus li ul li.actionSeparator {display: none;}
+
+.expand {
+    padding-left: 0px;
+}
+
+.puntTitle .span1, .puntTitle .span11 {
+   margin: 10px 0 0;
+}
+
+div.containerIcons a img.link_blank { display: none }

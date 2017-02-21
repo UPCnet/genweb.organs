@@ -383,25 +383,31 @@
               </div>
 
               <div class="puntTitle">
-                <div class="clearfix"></div>
-
-
-                  <button type="button" class="expand" tal:condition="item/items_inside"
-                    data-original-title="Expand">
-                    <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i></button>
-                  <button type="button" class="notexpand" tal:condition="item/items_inside"
-                    data-original-title="Collapse">
-                    <i  style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i></button>
-                <span class="proposalNumber" tal:content="item/proposalPoint"></span>
-
-                  <a tal:attributes="data-pk item/id; href item/absolute_url"
-                     data-url="changeTitle"
-                     class="editTitle editable titleSize">
-                    <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
-                  </a>
+                  <div class="span1" tal:condition="item/items_inside">
+                    <button type="button" class="expand"
+                      data-original-title="Expand" style="font-size:20px;"">
+                      <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
+                      <span class="proposalNumber" style="text-align: right; float:right;" tal:content="item/proposalPoint"></span>
+                      </button>
+                    <button type="button" class="notexpand"
+                      data-original-title="Collapse" style="font-size:20px;">
+                      <i  style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
+                      <span class="proposalNumber" tal:content="item/proposalPoint"></span>
+                      </button>
+                  </div>
+                  <div class="span1" tal:condition="not:item/items_inside">
+                      <span class="proposalNumber" style="text-align: right; float:right;" tal:content="item/proposalPoint"></span>
+                  </div>
+                  <div class="span11">
+                    <a tal:attributes="data-pk item/id; href item/absolute_url"
+                       data-url="changeTitle"
+                       class="editTitle editable titleSize">
+                      <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                    </a>
+                  </div>
 
                 <tal:files tal:define="files python:view.filesinsidePunt(item)">
-                  <ul class="listFiles">
+                  <ul class="listFiles" tal:condition="files">
                     <tal:documents repeat="item files">
                       <li class="filesinTable">
                         <i tal:attributes="class item/classCSS"></i>
@@ -497,7 +503,7 @@
                             <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
                         </a>
                         <tal:files tal:define="files python:view.filesinsidePunt(item)">
-                          <ul style="list-style: none; padding-top:10px;">
+                          <ul style="list-style: none; padding-top:10px;" tal:condition="files">
                             <tal:documents repeat="item files">
                               <li style="padding-left:35px;" class="filesinTable">
                                 <i tal:attributes="class item/classCSS"></i>
@@ -543,16 +549,16 @@
                $(this).parent().parent().find('.expand').hide()
                $(this).parent().parent().find('.expand').slideUp()
                $(this).parent().parent().find('.notexpand').show()
-               $(this).parent().parent().find('.sortable2').slideDown()
-               $(this).parent().parent().find('.listFiles').slideDown()
+               $(this).parent().parent().parent().find('.sortable2').slideDown()
+               $(this).parent().parent().parent().find('.listFiles').slideDown()
         });
 
         $('.notexpand').click(function(e){
                e.stopPropagation();
                $(this).parent().parent().find('.notexpand').hide()
                $(this).parent().parent().find('.expand').show()
-               $(this).parent().parent().find('.sortable2').slideUp()
-               $(this).parent().parent().find('.listFiles').slideUp()
+               $(this).parent().parent().parent().find('.sortable2').slideUp()
+               $(this).parent().parent().parent().find('.listFiles').slideUp()
         });
     });
   </script>

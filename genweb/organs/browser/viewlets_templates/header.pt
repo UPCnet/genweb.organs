@@ -15,7 +15,6 @@
        data-toggle="collapse" data-target=".nav-collapse-eines">
       <i class="icon-wrench"></i>
     </a>
-
     <tal:comment replace="nothing">  Menu para tamaño escritorio </tal:comment>
     <div class="nav-collapse nav-collapse-eines hidden-phone hidden-tablet"
          tal:define="dades context/@@genweb.utils/getDadesUnitat">
@@ -212,3 +211,6 @@
     <button class="btn" data-dismiss="modal" aria-hidden="true">Tanca</button>
   </div>
 </div>
+
+
+<!-- <h2>Current role!</h2> <span tal:content="viewlet/role"></span> -->

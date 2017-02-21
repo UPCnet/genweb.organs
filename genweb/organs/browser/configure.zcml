@@ -14,7 +14,7 @@
       />
 
     <browser:page
-      for="*"
+      for="genweb.organs.content.acta.IActa"
       name="printActa"
       class=".views.ActaPrintView"
       layer="..interfaces.IGenwebOrgansLayer"
