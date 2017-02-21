@@ -223,15 +223,18 @@ class View(grok.View):
             value = obj._unrestrictedGetObject()
             if obj.portal_type == "genweb.organs.punt":
                 organTitle = value.aq_parent.Title()
+                agreement = value.agreement
             elif obj.portal_type == "genweb.organs.subpunt":
                 organTitle = value.aq_parent.aq_parent.Title()
+                agreement = None
             else:
                 organTitle = ''
-
+                agreement = None
+           
             results.append(dict(title=value.title,
                                 title_organ=organTitle,
                                 absolute_url=value.absolute_url(),
                                 proposalPoint=value.proposalPoint,
-                                agreement=value.agreement,
+                                agreement=agreement,
                                 estatsLlista=value.estatsLlista))
         return results
