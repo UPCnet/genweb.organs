@@ -209,19 +209,22 @@ class View(grok.View):
         return value or self.isManager()
 
     def dataSessio(self):
-        if self.context.start:
+        start = getattr(self.context, 'start', None)
+        if start:
             return self.context.start.strftime('%d/%m/%Y')
         else:
             return None
 
     def horaInici(self):
-        if self.context.start:
+        start = getattr(self.context, 'start', None)
+        if start:
             return self.context.start.strftime('%H:%M')
         else:
             return None
 
     def horaFi(self):
-        if self.context.end:
+        end = getattr(self.context, 'end', None)
+        if end:
             return self.context.end.strftime('%H:%M')
         else:
             return None
@@ -396,8 +399,8 @@ class View(grok.View):
                 return False
 
     def valuesTable(self):
-        start = getattr(self.context, 'start', None):
-        end = getattr(self.context, 'end', None):
+        start = getattr(self.context, 'start', None)
+        end = getattr(self.context, 'end', None)
 
         if start:
             dataSessio = self.context.start.strftime('%d/%m/%Y')
