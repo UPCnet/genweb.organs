@@ -467,7 +467,7 @@ msgstr "Nou acord"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:293
 msgid "Nou punt"
-msgstr "Nou punt"
+msgstr "Nou punt informatiu"
 
 #: ./genweb/organs/profiles/default/sharing.xml
 msgid "OG1-Secretari"

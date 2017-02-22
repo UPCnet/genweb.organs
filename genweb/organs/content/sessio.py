@@ -396,13 +396,17 @@ class View(grok.View):
                 return False
 
     def valuesTable(self):
-        if self.context.start:
+        start = getattr(self.context, 'start', None):
+        end = getattr(self.context, 'end', None):
+
+        if start:
             dataSessio = self.context.start.strftime('%d/%m/%Y')
             horaInici = self.context.start.strftime('%H:%M')
         else:
             dataSessio = ''
             horaInici = ''
-        if self.context.end:
+
+        if end:
             horaFi = self.context.end.strftime('%H:%M')
         else:
             horaFi = ''

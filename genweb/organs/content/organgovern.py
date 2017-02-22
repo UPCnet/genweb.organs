@@ -190,7 +190,8 @@ class View(grok.View):
         for obj in values:
             # value = obj.getObject()
             value = obj._unrestrictedGetObject()
-            if value.start:
+            start = getattr(self.context, 'start', None)
+            if start:
                 valuedataSessio = value.start.strftime('%d/%m/%Y')
                 valueHoraInici = value.start.strftime('%H:%M')
             else:
@@ -223,7 +224,7 @@ class View(grok.View):
             value = obj._unrestrictedGetObject()
             if obj.portal_type == "genweb.organs.punt":
                 organTitle = value.aq_parent.Title()
-                agreement = value.agreement
+                agreement = None
             elif obj.portal_type == "genweb.organs.subpunt":
                 organTitle = value.aq_parent.aq_parent.Title()
                 agreement = None
