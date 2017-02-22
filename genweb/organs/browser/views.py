@@ -406,7 +406,7 @@ class modifyPointState(BrowserView):
         estat = self.request.form.get('estat')
         itemid = self.request.form.get('id')
         try:
-            object_path = str('/'.join(itemid.split('/')[:-1]))
+            object_path = '/'.join(self.context.getPhysicalPath())
             item = str(itemid.split('/')[-1:][0])
             currentitem = portal_catalog.searchResults(
                 portal_type=['genweb.organs.punt', 'genweb.organs.subpunt', 'genweb.organs.acord'],
@@ -475,7 +475,7 @@ class changeSubpuntState(BrowserView):
         estat = self.request.form.get('estat')
         itemid = self.request.form.get('id')
         try:
-            object_path = '/'.join(itemid.split('/')[:-1])
+            object_path = '/'.join(self.context.getPhysicalPath()[:-1])
             item = str(itemid.split('/')[-1:][0])
             currentitem = portal_catalog.searchResults(
                 portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
