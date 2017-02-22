@@ -450,7 +450,7 @@ class changeActualState(BrowserView):
                 # es un punt i cal mirar a tots els de dintre...
                 id = itemid.split('/')[-1:][0]
                 items_inside = portal_catalog.searchResults(
-                    portal_type='genweb.organs.subpunt',
+                    portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
                     path={'query': object_path + '/' + id,
                           'depth': 1})
                 for subpunt in items_inside:
@@ -474,27 +474,15 @@ class changeSubpuntState(BrowserView):
         portal_catalog = getToolByName(self, 'portal_catalog')
         estat = self.request.form.get('estat')
         itemid = self.request.form.get('id')
-        try:
-            object_path = '/'.join(self.context.getPhysicalPath()[:-1])
-            item = str(itemid.split('/')[-1:][0])
-            currentitem = portal_catalog.searchResults(
-                portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
-                id=item,
-                path={'query': object_path,
-                      'depth': 1})[0].getObject()
-
-            id = itemid.split('/')[-1:][0]
-            items_inside = portal_catalog.searchResults(
-                portal_type='genweb.organs.subpunt',
-                path={'query': object_path + '/' + id,
-                      'depth': 1})
-            for subpunt in items_inside:
-                objecte = subpunt.getObject()
-                objecte.estatsLlista = estat
-            currentitem.estatsLlista = estat
-
-        except:
-            pass
+        object_path = '/'.join(self.context.getPhysicalPath()) + '/' + str(itemid.split('/')[0])
+        item = str(itemid.split('/')[-1:][0])
+        currentitem = portal_catalog.searchResults(
+            portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
+            id=item,
+            path={'query': object_path,
+                  'depth': 1})
+        if currentitem:
+            currentitem[0].getObject().estatsLlista = estat
 
 
 class Butlleti(BrowserView):
