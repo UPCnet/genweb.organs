@@ -45,12 +45,13 @@ class createElement(BrowserView):
             try:
                 value = ' '.join(self.context.estatsLlista.split('</p>')[0].rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '').split(' ')[:-1])
                 estat = unicodedata.normalize("NFKD", value).encode('utf-8')
+                path = '/'.join(self.context.getPhysicalPath())
             except:
                 estat = ''
             if action == 'createPunt':
                 items = portal_catalog.searchResults(
                         portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
-                        path={'query': self.context.absolute_url_path(),
+                        path={'query': path,
                               'depth': 1})
                 index = len(items)
                 obj = api.content.create(
@@ -63,7 +64,7 @@ class createElement(BrowserView):
             elif action == 'createAcord':
                 items = portal_catalog.searchResults(
                         portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
-                        path={'query': self.context.absolute_url_path(),
+                        path={'query': path,
                               'depth': 1})
                 index = len(items)
                 obj = api.content.create(
