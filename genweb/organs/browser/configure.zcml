@@ -61,8 +61,8 @@
 
   <browser:page
     for="*"
-    name="assignAcord"
-    class=".views.AssignAcord"
+    name="createElement"
+    class=".views.createElement"
     layer="..interfaces.IGenwebOrgansLayer"
     permission="cmf.ModifyPortalContent" />
 

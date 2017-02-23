@@ -288,10 +288,56 @@
     </div>
   </div>
 
+  <div tal:condition="canModify" class="modal fade modalPuntModal" id="modalPunt" tabindex="-1" role="dialog" aria-labelledby="modalAddPunt">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="modalAddPunt" i18n:translate="">Afegir un punt informatiu</h4>
+        </div>
+        <div class="modal-body">
+          <form name="addPunt">
+            <div class="form-group">
+              <label for="message-text" class="control-label">Titol del punt</label>
+              <textarea class="form-control" id="message-text"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary createPunt">Envia</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div tal:condition="canModify" class="modal fade modalPuntAcord" id="modalAcord" tabindex="-1" role="dialog" aria-labelledby="modalAddAcord">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="modalAddAcord" i18n:translate="">Afegir un acord</h4>
+        </div>
+        <div class="modal-body">
+          <form name="addAcord">
+            <div class="form-group">
+              <label for="message-text" class="control-label">Titol del punt</label>
+              <textarea class="form-control" id="message-text"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary createAcord">Envia</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div style="float:right" tal:condition="canModify">
     <br/>
-      <a class="btn btn-info" style="margin-bottom: 20px;" href="++add++genweb.organs.punt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
-      <a class="btn btn-info" style="margin-bottom: 20px;" href="++add++genweb.organs.acord"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou acord</span></a>
+      <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" data-target="#modalPunt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
+      <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" data-target="#modalAcord"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou acord</span></a>
       <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
       <a class="btn btn-info" style="margin-bottom: 20px;" href="updateProposalPoints" data-target="#modalPunts"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts/acords</span></a>
   </div>
@@ -629,10 +675,50 @@
             $(this).parent().parent().parent().find('.bullet-toggle > i').css({'color': colorSelected});
         });
 
+
+
   })
   </script>
 </div>
   <div style="margin-bottom:20px;"></div>
+
+<script type="text/javascript">
+  $(".createPunt").on('click', function(){
+    var value = $("#modalPunt #message-text").val()
+    var params = {};
+    params.action = 'createPunt';
+    params.name = value;
+    $.ajax({
+            type: 'POST',
+            url: '@@createElement',
+            data: params,
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+  $(".createAcord").on('click', function(){
+    var value = $("#modalAcord #message-text").val()
+    var params = {};
+    params.action = 'createAcord';
+    params.name = value;
+    $.ajax({
+            type: 'POST',
+            url: '@@createElement',
+            data: params,
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+  $(document).ajaxStop(function(){
+     if(refreshNeeded){
+        window.location.reload();
+    }
+  });
+</script>
 
 </metal:content-core>
 

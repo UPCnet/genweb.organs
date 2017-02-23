@@ -31,35 +31,48 @@ def getOrdering(context):
         return ordering
 
 
-class AssignAcord(BrowserView):
+class createElement(BrowserView):
 
     def __call__(self):
+        # TODO: Al anadir el estado con espacio y acento lo pone mal
         portal_catalog = getToolByName(self, 'portal_catalog')
         action = self.request.form.get('action')
         itemid = self.request.form.get('name')
-        portal_type = self.request.form.get('type')
-        inputvalue = self.request.form.get('input')
-        try:
-            if action == 'assign':
-                if '/' in itemid:
-                    # Es tracta de subpunt i inclou punt/subpunt a itemid
-                    folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + str('/'.join(itemid.split('/')[:-1]))
-                    itemid = str(''.join(itemid.split('/')[-1:]))
-                else:
-                    folder_path = '/'.join(self.context.getPhysicalPath())
-
-                # agafo items ordenats!
-                punt = portal_catalog.searchResults(
-                    portal_type=portal_type,
-                    id=itemid,
-                    path={'query': folder_path,
-                          'depth': 1})
-                value = punt[0].getObject()
-                value.acordOrgan = True
-                value.agreement = inputvalue
-                addEntryLog(self.context, None, _(u'Modified agreement number'), '')
-        except:
-            self.request.response.redirect(self.context.absolute_url())
+        if itemid == '':
+            pass
+        else:
+            try:
+                estat = ' '.join(self.context.estatsLlista.split('</p>')[0].rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '').split(' ')[:-1])
+            except:
+                estat = ''
+            if action == 'createPunt':
+                items = portal_catalog.searchResults(
+                        portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
+                        path={'query': self.context.absolute_url_path(),
+                              'depth': 1})
+                index = len(items)
+                obj = api.content.create(
+                    title=itemid,
+                    type='genweb.organs.punt',
+                    container=self.context)
+                obj.estatsLlista = estat.encode('utf-8')
+                obj.proposalPoint = index + 1
+                addEntryLog(self.context, None, _(u'Created punt'), _(u'Title: ') + str(obj.Title()))
+            elif action == 'createAcord':
+                items = portal_catalog.searchResults(
+                        portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
+                        path={'query': self.context.absolute_url_path(),
+                              'depth': 1})
+                index = len(items)
+                obj = api.content.create(
+                    title=itemid,
+                    type='genweb.organs.acord',
+                    container=self.context)
+                obj.estatsLlista = estat.encode('utf-8')
+                obj.proposalPoint = index + 1
+                addEntryLog(self.context, None, _(u'Created acord'), _(u'Title: ') + str(obj.Title()))
+            else:
+                pass
 
 
 class Delete(BrowserView):
