@@ -354,9 +354,24 @@ class Reload(BrowserView):
             alsoProvides(self.request, IDisableCSRFProtection)
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
-        acronim = str(self.context.aq_parent.acronim)
-        any = str(self.context.start.strftime('%Y'))
-        numsessio = str(self.context.numSessio)
+        acro_parent = getattr(self.context.aq_parent, 'acronim', None)
+
+        if acro_parent:
+            acronim = str(self.context.aq_parent.acronim) + '/'
+        else:
+            acronim = ''
+
+        start = getattr(self.context, 'start', None)
+        if start:
+            any = str(self.context.start.strftime('%Y')) + '/'
+        else:
+            any = ''
+
+        numero = getattr(self.context, 'numSessio', None)
+        if numero:
+            numsessio = str(self.context.numSessio) + '/'
+        else:
+            numsessio = ''
 
         addEntryLog(self.context, None, _(u'Reload proposalPoints manually'), '')  # add log
         # agafo items ordenats!
@@ -373,7 +388,7 @@ class Reload(BrowserView):
             objecte.reindexObject()
             if item.portal_type == 'genweb.organs.acord':
                 printid = '{0}'.format(str(idacord).zfill(2))
-                objecte.agreement = acronim + '/' + any + '/' + numsessio + '/' + printid
+                objecte.agreement = acronim + any + numsessio + printid
                 idacord = idacord + 1
 
             if len(objecte.items()) > 0:

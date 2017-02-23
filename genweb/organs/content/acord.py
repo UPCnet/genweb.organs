@@ -51,17 +51,16 @@ class IAcord(form.Schema):
         title=_(u'Acord Title'),
         required=True
     )
-
+    form.mode(proposalPoint='hidden')
     proposalPoint = schema.TextLine(
         title=_(u'Proposal point number'),
         required=False,
-        readonly=True
     )
 
+    form.mode(agreement='hidden')
     agreement = schema.TextLine(
         title=_(u'Agreement number'),
         required=False,
-        readonly=True
     )
 
     directives.widget(defaultContent=WysiwygFieldWidget)
