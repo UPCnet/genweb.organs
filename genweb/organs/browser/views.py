@@ -10,6 +10,7 @@ from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from plone.folder.interfaces import IExplicitOrdering
 from genweb.organs.utils import addEntryLog
 from genweb.organs import _
+import unicodedata
 
 
 try:
@@ -42,7 +43,8 @@ class createElement(BrowserView):
             pass
         else:
             try:
-                estat = ' '.join(self.context.estatsLlista.split('</p>')[0].rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '').split(' ')[:-1])
+                value = ' '.join(self.context.estatsLlista.split('</p>')[0].rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '').split(' ')[:-1])
+                estat = unicodedata.normalize("NFKD", value).encode('utf-8')
             except:
                 estat = ''
             if action == 'createPunt':
@@ -55,7 +57,7 @@ class createElement(BrowserView):
                     title=itemid,
                     type='genweb.organs.punt',
                     container=self.context)
-                obj.estatsLlista = estat.encode('utf-8')
+                obj.estatsLlista = estat
                 obj.proposalPoint = index + 1
                 addEntryLog(self.context, None, _(u'Created punt'), _(u'Title: ') + str(obj.Title()))
             elif action == 'createAcord':
@@ -68,7 +70,7 @@ class createElement(BrowserView):
                     title=itemid,
                     type='genweb.organs.acord',
                     container=self.context)
-                obj.estatsLlista = estat.encode('utf-8')
+                obj.estatsLlista = estat
                 obj.proposalPoint = index + 1
                 addEntryLog(self.context, None, _(u'Created acord'), _(u'Title: ') + str(obj.Title()))
             else:
