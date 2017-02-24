@@ -369,7 +369,10 @@
           <tal:block tal:define="agreement item/agreement">
           <li class="ui-state-grey" tal:attributes="id item/id; class item/classe">
             <td tal:condition="item/show">
+            <div class="span6">
               <span class="agreementClass" tal:content="agreement" tal:condition="agreement"></span>
+            </div>
+            <div class="span6">
               <div style="float: right;" aria-label="Edit actions"  tal:condition="canModify">
                 <button type="button" class="edit label label-info"
                   data-original-title="Edit">
@@ -427,24 +430,22 @@
                   </button>
                 </tal:block>
               </div>
-
-              <div class="puntTitle">
-                  <div class="span1" tal:condition="item/items_inside">
-                    <button type="button" class="expand"
+            </div>
+            <div class="puntTitle span12">
+                  <div class="span1">
+                    <button type="button" class="expand" tal:condition="item/items_inside"
                       data-original-title="Expand" style="font-size:20px;"">
                       <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
-                      <span class="proposalNumber" style="text-align: right; float:right;" tal:content="item/proposalPoint"></span>
                       </button>
-                    <button type="button" class="notexpand"
+                    <button type="button" class="notexpand" tal:condition="item/items_inside"
                       data-original-title="Collapse" style="font-size:20px;">
                       <i  style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
-                      <span class="proposalNumber" tal:content="item/proposalPoint"></span>
                       </button>
                   </div>
-                  <div class="span1" tal:condition="not:item/items_inside">
+                  <div class="span1">
                       <span class="proposalNumber" style="text-align: right; float:right;" tal:content="item/proposalPoint"></span>
                   </div>
-                  <div class="span11">
+                  <div class="span10">
                     <a tal:attributes="data-pk item/id; href item/absolute_url"
                        data-url="changeTitle"
                        class="editTitle editable titleSize">
