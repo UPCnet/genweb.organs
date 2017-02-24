@@ -369,10 +369,10 @@
           <tal:block tal:define="agreement item/agreement">
           <li class="ui-state-grey" tal:attributes="id item/id; class item/classe">
             <td tal:condition="item/show">
-            <div class="span6">
+            <div class="span6 agreementSpan">
               <span class="agreementClass" tal:content="agreement" tal:condition="agreement"></span>
             </div>
-            <div class="span6">
+            <div class="span6 einesSpan">
               <div style="float: right;" aria-label="Edit actions"  tal:condition="canModify">
                 <button type="button" class="edit label label-info"
                   data-original-title="Edit">
@@ -432,7 +432,7 @@
               </div>
             </div>
             <div class="puntTitle span12">
-                  <div class="span1">
+                  <div class="span1 fletxaSpan">
                     <button type="button" class="expand" tal:condition="item/items_inside"
                       data-original-title="Expand" style="font-size:20px;"">
                       <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
@@ -442,10 +442,10 @@
                       <i  style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
                       </button>
                   </div>
-                  <div class="span1">
+                  <div class="span1 numberSpan">
                       <span class="proposalNumber" style="text-align: right; float:right;" tal:content="item/proposalPoint"></span>
                   </div>
-                  <div class="span10">
+                  <div class="span10 titleSpan">
                     <a tal:attributes="data-pk item/id; href item/absolute_url"
                        data-url="changeTitle"
                        class="editTitle editable titleSize">
