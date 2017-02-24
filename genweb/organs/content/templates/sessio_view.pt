@@ -483,11 +483,15 @@
               <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" class="sortable2">
                 <tal:subpunts repeat="itemSubpunt subpunts">
                   <ol class="li_subgrups" tal:attributes="id itemSubpunt/id">
-                    <td>
+                    <div class="span6">
+                      <span class="agreementSubClass" tal:content="itemSubpunt/agreement" tal:condition="itemSubpunt/agreement"></span>
+                    </div>
+                    <div class="span6">
                       <div style="float: right;" aria-label="Subpunt actions" tal:condition="canModify">
                         <button type="button" class="edit2 label label-info"
                           data-original-title="Edit">
-                          <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                          <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
                         <button type="button" class="remove label label-important"
                               data-container="body"
                               data-toggle="popover"
@@ -500,8 +504,8 @@
                         </button>
                       </div>
 
-                      <div class="btn-group" role="group" style="float: right;" aria-label="Add element"
-                      tal:condition="canModify">
+                      <div class="btn-group" role="group" style="float: right;"
+                           aria-label="Add element" tal:condition="canModify">
                           <button class="label dropdown-toggle"
                               type="button" data-toggle="dropdown"
                               aria-haspopup="true" aria-expanded="false">
@@ -535,47 +539,49 @@
                         <tal:block tal:condition="itemSubpunt/state">
                           <button class="btn label disabled " style="padding:3px;">
                           <i class="fa fa-circle" aria-hidden="true"  tal:attributes="style string:color:${itemSubpunt/css}"></i>
-                          <span  tal:content="itemSubpunt/state"></span>
+                          <span tal:content="itemSubpunt/state"></span>
                           </button>
                         </tal:block>
                       </div>
+                    </div>
 
-                      <div class="subpuntTitle" tal:define="agreementTitle itemSubpunt/agreement">
-                        <span class="agreementSubClass" tal:content="agreementTitle" tal:condition="agreementTitle"></span>
-                        <div class="clearfix"></div>
+                    <div class="subpuntTitle span12">
+                      <div class="span1">
                         <span class="proposalNumberSubpunt" tal:content="itemSubpunt/proposalPoint"></span>
+                      </div>
+                      <div class="span11">
                         <a tal:attributes="data-pk itemSubpunt/id; href itemSubpunt/absolute_url"
                              data-type="text" data-url="changeTitle"
                              class="editTitle editable subtitleSize">
                             <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
                         </a>
-                        <tal:files tal:define="files python:view.filesinsidePunt(item)">
-                          <ul style="list-style: none; padding-top:10px;" tal:condition="files">
-                            <tal:documents repeat="item files">
-                              <li style="padding-left:35px;" class="filesinTable">
-                                <i tal:attributes="class item/classCSS"></i>
-                                <a tal:attributes="href item/absolute_url;"
-                                   style="font-size:14px;">
-                                   <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
-                                </a>
-                                <div style="float:right; display: inline-table;" tal:condition="canModify">
-                                  <button type="button" class="remove label label-important"
-                                        data-container="body"
-                                        data-toggle="popover"
-                                        data-placement="left"
-                                        data-html="true"
-                                        data-trigger="focus"
-                                        data-original-title="Delete"
-                                        tal:attributes="data-item item/id; data-type item/portal_type">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                </div>
-                              </li>
-                            </tal:documents>
-                          </ul>
-                        </tal:files>
                       </div>
+                      <tal:files tal:define="files python:view.filesinsidePunt(item)">
+                        <ul style="list-style: none;" tal:condition="files">
+                          <tal:documents repeat="item files">
+                            <li style="padding-left:35px;" class="filesinTable">
+                              <i tal:attributes="class item/classCSS"></i>
+                              <a tal:attributes="href item/absolute_url;"
+                                 style="font-size:14px;">
+                                 <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                              </a>
+                              <div style="float:right; display: inline-table;" tal:condition="canModify">
+                                <button type="button" class="remove label label-important"
+                                      data-container="body"
+                                      data-toggle="popover"
+                                      data-placement="left"
+                                      data-html="true"
+                                      data-trigger="focus"
+                                      data-original-title="Delete"
+                                      tal:attributes="data-item item/id; data-type item/portal_type">
+                                      <i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                              </div>
+                            </li>
+                          </tal:documents>
+                        </ul>
+                      </tal:files>
+                    </div>
 
-                    </td>
                   </ol>
                 </tal:subpunts>
               </div>
