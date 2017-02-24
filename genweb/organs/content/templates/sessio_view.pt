@@ -684,6 +684,7 @@
   <div style="margin-bottom:20px;"></div>
 
 <script type="text/javascript">
+  var refreshNeeded = false;
   $(".createPunt").on('click', function(){
     var value = $("#modalPunt #message-text").val()
     var params = {};
