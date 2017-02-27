@@ -46,8 +46,6 @@ class ShowSessionAs(form.SchemaForm):
             return 'Membre'
         elif role == 'OG4-Afectat':
             return 'Afectat'
-        elif role == 'OG5-Anonim':
-            return 'Anonim'
         else:
             return self.request.response.redirect(self.context.absolute_url())
 
@@ -67,17 +65,6 @@ class ShowSessionAs(form.SchemaForm):
             if review_state in ['planificada']:
                 return False
             if review_state in ['convocada', 'realitzada', 'tancada', 'en_correccio']:
-                return True
-        else:
-            return False
-
-    def isAnonim(self):
-        # if user is anonim and
-        if self.simulation() is 'Anonim':
-            review_state = api.content.get_state(self.context)
-            if review_state in ['planificada', 'convocada', 'realitzada']:
-                return False
-            if review_state in ['tancada', 'en_correccio']:
                 return True
         else:
             return False

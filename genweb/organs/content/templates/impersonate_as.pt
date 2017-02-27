@@ -9,7 +9,6 @@
 
 <metal:content-core fill-slot="content-core"
       tal:define="show view/simulation;
-                  isAnonim view/isAnonim;
                   isAfectat view/isAfectat;
                   isMembre view/isMembre;
                   canModify view/canModify;
@@ -29,7 +28,7 @@
     <br/> Clicar <a href="./">aqui</a> per tornar al mode de visualitzacio per defecte.
   </div>
 
-  <div tal:condition="python: isAnonim or isAfectat or isMembre">
+  <div tal:condition="python: isAfectat or isMembre">
 
       <div class="clearfix"></div>
       <div id="contentSessio">

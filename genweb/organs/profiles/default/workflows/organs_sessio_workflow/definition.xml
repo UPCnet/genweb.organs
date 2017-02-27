@@ -53,7 +53,6 @@
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
-   <permission-role>OG5-Anonim</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
@@ -80,7 +79,6 @@
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
-   <permission-role>OG5-Anonim</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
@@ -182,7 +180,6 @@
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
-   <permission-role>OG5-Anonim</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
@@ -208,7 +205,6 @@
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
-   <permission-role>OG5-Anonim</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>

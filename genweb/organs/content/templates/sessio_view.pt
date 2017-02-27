@@ -9,7 +9,6 @@
 
 <metal:content-core fill-slot="content-core"
     tal:define="loginfo view/getAnnotations;
-                isAnonim view/isAnonim;
                 isAfectat view/isAfectat;
                 isMembre view/isMembre;
                 isEditor view/isEditor;
@@ -298,14 +297,14 @@
         <div class="modal-body">
           <form name="addPunt">
             <div class="form-group">
-              <label for="message-text" class="control-label">Titol del punt</label>
+              <label for="message-text" class="control-label" i18n:translate="">Title</label>
               <textarea class="form-control" id="message-text"></textarea>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary createPunt">Envia</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" i18n:translate="">Cancel</button>
+          <button type="button" class="btn btn-primary createPunt" i18n:translate="">Envia</button>
         </div>
       </div>
     </div>
@@ -321,14 +320,14 @@
         <div class="modal-body">
           <form name="addAcord">
             <div class="form-group">
-              <label for="message-text" class="control-label">Titol del punt</label>
+              <label for="message-text" class="control-label" i18n:translate="">Titol del punt</label>
               <textarea class="form-control" id="message-text"></textarea>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary createAcord">Envia</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" i18n:translate="">Cancel</button>
+          <button type="button" class="btn btn-primary createAcord" i18n:translate="">Envia</button>
         </div>
       </div>
     </div>
@@ -358,7 +357,7 @@
         <ul style="text-align: left;" class="dropdown-menu" role="menu" aria-labelledby="types">
           <li><a tabindex="-1" href="view_as_role?id=OG3-Membre"><span i18n:translate="">Membre</span></a></li>
           <li><a tabindex="-1" href="view_as_role?id=OG4-Afectat"><span i18n:translate="">Afectat</span></a></li>
-          <li><a tabindex="-1" href="view_as_role?id=OG5-Anonim"><span i18n:translate="">Anonim</span></a></li>
+          <li><a tabindex="-1" href="view_as_role?id=Public"><span i18n:translate="">Public</span></a></li>
         </ul>
       </div>
       <div class="clearfix"></div>

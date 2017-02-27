@@ -2,12 +2,12 @@
 <dc-workflow xmlns:i18n="http://xml.zope.org/namespaces/i18n"
              i18n:domain="genweb"
              workflow_id="organs_one_state_workflow"
-             title="Single State Workflow" 
+             title="Single State Workflow"
              description="- Essentially a workflow with no transitions, but has a Published state, so portlets and applications that expect that state will continue to work."
              state_variable="review_state"
              initial_state="published"
              manager_bypass="False">
-             
+
  <permission>Access contents information</permission>
  <permission>Change portal events</permission>
  <permission>Modify portal content</permission>
@@ -155,7 +155,6 @@
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
-   <permission-role>OG5-Anonim</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>

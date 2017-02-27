@@ -7,19 +7,6 @@ from genweb.organs import _
 import unicodedata
 
 
-def isAnonim(self):
-    """ Returns true if user is Anonim or Manager """
-    try:
-        username = api.user.get_current().getProperty('id')
-        roles = api.user.get_roles(username=username, obj=self.context)
-        if 'OG5-Anonim' in roles:
-            return True
-        else:
-            return False
-    except:
-        return False
-
-
 def isAfectat(self):
     """ Return true if user is Afectat or Manager """
     try:
@@ -93,7 +80,7 @@ def checkRoles(self):
 
     if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or \
        'OG3-Membre' in roles or 'OG4-Afectat' in roles or \
-       'OG5-Anonim' in roles or 'Manager' in roles:
+       'Manager' in roles:
         return True
     else:
         return False

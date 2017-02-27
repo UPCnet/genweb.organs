@@ -28,11 +28,4 @@
       i18n:attributes="title"
       />
 
-  <role
-      id="OG5-Anonim"
-      title="OG5-Anonim"
-      permission="Manage portal"
-      i18n:attributes="title"
-      />
-
 </sharing>

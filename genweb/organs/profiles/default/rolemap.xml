@@ -11,7 +11,6 @@
     <role name="OG2-Editor"/>
     <role name="OG3-Membre"/>
     <role name="OG4-Afectat"/>
-    <role name="OG5-Anonim"/>
     <role name="Owner"/>
     <role name="Reader"/>
     <role name="Reviewer"/>
@@ -104,7 +103,6 @@
     <permission name="Access contents information" acquire="True">
       <role name="Contributor"/>
       <role name="Editor"/>
-      <role name="OG5-Anonim"/>
       <role name="Reader"/>
     </permission>
     <permission name="Access inactive portal content" acquire="True">
@@ -314,7 +312,6 @@
     <permission name="Portlets: Manage own portlets" acquire="False">
       <role name="Editor"/>
       <role name="Manager"/>
-      <role name="OG5-Anonim"/>
       <role name="Reader"/>
       <role name="WebMaster"/>
     </permission>
@@ -391,7 +388,6 @@
     <permission name="View" acquire="True">
       <role name="Contributor"/>
       <role name="Editor"/>
-      <role name="OG5-Anonim"/>
       <role name="Reader"/>
     </permission>
     <permission name="View Groups" acquire="True">
