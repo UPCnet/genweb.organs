@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-02-23 12:32+0000\n"
+"POT-Creation-Date: 2017-02-27 10:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,14 +22,14 @@ msgstr "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Gree
 msgid "Accio"
 msgstr "Acció"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:398
+#: ./genweb/organs/content/templates/sessio_view.pt:401
 #: ./genweb/organs/profiles/default/types/genweb.organs.acord.xml
 msgid "Acord"
 msgstr "Acord"
 
 #: ./genweb/organs/content/acord.py:51
 msgid "Acord Title"
-msgstr "Títol de l'acord"
+msgstr "Títol"
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:40
 msgid "Acords"
@@ -195,11 +195,11 @@ msgstr "Contingut públic"
 msgid "Contingut reservat"
 msgstr "Contingut reservat"
 
-#: ./genweb/organs/browser/views.py:73
+#: ./genweb/organs/browser/views.py:76
 msgid "Created acord"
 msgstr "S'ha creat un acord"
 
-#: ./genweb/organs/browser/views.py:60
+#: ./genweb/organs/browser/views.py:63
 msgid "Created punt"
 msgstr "S'ha creat un punt informatiu"
 
@@ -226,17 +226,17 @@ msgstr "Contingut públic del document."
 msgid "Deleted acord"
 msgstr "El·liminat Acord"
 
-#: ./genweb/organs/browser/views.py:103
+#: ./genweb/organs/browser/views.py:106
 msgid "Deleted element"
 msgstr "Element el·liminat"
 
 #: ./genweb/organs/browser/events/removeObject.py:40
 msgid "Deleted punt"
-msgstr "Punt el·liminat"
+msgstr "Punt informatiu el·liminat"
 
 #: ./genweb/organs/browser/events/removeObject.py:79
 msgid "Deleted subpunt"
-msgstr "Subpunt el·liminat"
+msgstr "Punt informatiu el·liminat"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:259
 msgid "Destinataris"
@@ -244,7 +244,7 @@ msgstr "Destinataris"
 
 #: ./genweb/organs/content/impersonate_as.py:292
 #: ./genweb/organs/content/sessio.py:500
-#: ./genweb/organs/content/templates/sessio_view.pt:400
+#: ./genweb/organs/content/templates/sessio_view.pt:403
 msgid "Document"
 msgstr "Document"
 
@@ -284,7 +284,7 @@ msgstr "Falta adjuntar els fitxers"
 msgid "Fer servir capcalera personalitzada?"
 msgstr "Fer servir la capçalera personalitzada"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:399
+#: ./genweb/organs/content/templates/sessio_view.pt:402
 #: ./genweb/organs/profiles/default/types/genweb.organs.file.xml
 msgid "File"
 msgstr "Fitxer"
@@ -351,7 +351,7 @@ msgstr "Logo que es fa servir en imprimir les actes, en lloc de fer servir el lo
 
 #: ./genweb/organs/content/templates/sessio_view.pt:284
 msgid "Importar llista de punts i subpunts"
-msgstr "Crea llista de punts, subpunts i acords"
+msgstr "Crea llista de punts informatius i acords."
 
 #: ./genweb/organs/content/acta.py:48
 #: ./genweb/organs/content/sessio.py:66
@@ -423,11 +423,11 @@ msgstr "Les adreces de correu han d'anar separades per espais en blanc o per com
 
 #: ./genweb/organs/content/manualimport.py:25
 msgid "Manual Import"
-msgstr "Creació de punts/subpunts/acords a partir d'una llista."
+msgstr "Creació de punts/acords a partir d'una llista."
 
 #: ./genweb/organs/content/manualimport.py:79
 msgid "Massive agreements imported"
-msgstr "Importació manual de punts"
+msgstr "Importació manual de punts informatius"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:359
 msgid "Membre"
@@ -439,7 +439,7 @@ msgstr "Membre"
 msgid "Message"
 msgstr "Missatge"
 
-#: ./genweb/organs/browser/views.py:331
+#: ./genweb/organs/browser/views.py:334
 #: ./genweb/organs/content/mailConvocar.py:152
 msgid "Missatge enviat correctament"
 msgstr "Missatge enviat correctament"
@@ -448,7 +448,7 @@ msgstr "Missatge enviat correctament"
 msgid "Missatge no enviat"
 msgstr "Missatge no enviat"
 
-#: ./genweb/organs/browser/views.py:334
+#: ./genweb/organs/browser/views.py:337
 #: ./genweb/organs/content/mailConvocar.py:156
 msgid "Missatge no enviat. Comprovi els destinataris del missatge"
 msgstr "Missatge no enviat. Comprovi els destinataris del missatge"
@@ -629,7 +629,7 @@ msgstr "Previsualització de l'acta"
 
 #: ./genweb/organs/content/templates/informar_view.pt:31
 msgid "Previsualitzacio dels punts"
-msgstr "Previsualització dels punts"
+msgstr "Previsualització dels punts informatius"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:138
 msgid "Print"
@@ -649,7 +649,7 @@ msgstr "Contingut"
 #: ./genweb/organs/content/punt.py:56
 #: ./genweb/organs/content/subpunt.py:54
 msgid "Proposal point number"
-msgstr "Punt de l'ordre del dia"
+msgstr "Punt informatiu de l'ordre del dia"
 
 #: ./genweb/organs/content/file.py:52
 msgid "Published file description"
@@ -662,7 +662,7 @@ msgstr "Punt informatiu"
 
 #: ./genweb/organs/content/punt.py:50
 msgid "Punt Title"
-msgstr "Títol del punt de l'ordre del dia"
+msgstr "Títol"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:342
 msgid "Recalcula punts/acords"
@@ -674,9 +674,9 @@ msgstr "Recalcula acords"
 msgid "Recipients"
 msgstr "Destinataris"
 
-#: ./genweb/organs/browser/views.py:389
+#: ./genweb/organs/browser/views.py:392
 msgid "Reload proposalPoints manually"
-msgstr "Recalcular número de punts i/o acords"
+msgstr "Recalcular número de punt i/o acords"
 
 #: ./genweb/organs/content/file.py:46
 msgid "Reserved file description"
@@ -757,7 +757,7 @@ msgstr "Ordre del dia"
 
 #: ./genweb/organs/content/acta.py:81
 msgid "Session order description"
-msgstr "Apartat per indicar els punts de l'ordre del dia i el desenvolupament de la sessió."
+msgstr "Apartat per indicar els punts informatius de l'ordre del dia i el desenvolupament de la sessió."
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:142
 msgid "Session start"
@@ -802,18 +802,18 @@ msgstr "Llista d'adreces de les persones afectades a les quals s'adreçaran les 
 msgid "State"
 msgstr "Estat"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:397
+#: ./genweb/organs/content/templates/sessio_view.pt:400
 #: ./genweb/organs/profiles/default/types/genweb.organs.subpunt.xml
 msgid "Subpunt"
-msgstr "Subpunt informatiu"
+msgstr "Punt informatiu"
 
 #: ./genweb/organs/content/subpunt.py:48
 msgid "Subpunt Title"
-msgstr "Títol del subpunt del punt de l'ordre del dia"
+msgstr "Títol del punt informatiu de l'ordre del dia"
 
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:68
 msgid "Subpunts informatius / acords"
-msgstr "Subpunts informatius/acords"
+msgstr "Punts informatius/acords"
 
 #: ./genweb/organs/content/templates/acta_view.pt:42
 #: ./genweb/organs/content/templates/informar_view.pt:37
@@ -825,7 +825,7 @@ msgstr "Tancar"
 msgid "Title"
 msgstr "Títol"
 
-#: ./genweb/organs/browser/views.py:60
+#: ./genweb/organs/browser/views.py:63
 msgid "Title: "
 msgstr "Títol: "
 
@@ -848,7 +848,7 @@ msgstr "Enllaç al vídeo de la sessió"
 
 #: ./genweb/organs/content/templates/informar_view.pt:42
 msgid "Vista previa dels punts"
-msgstr "Vista prèvia dels punts"
+msgstr "Vista prèvia dels punts informatius"
 
 #: ./genweb/organs/content/sessio.py:59
 msgid "affected_mail_help"

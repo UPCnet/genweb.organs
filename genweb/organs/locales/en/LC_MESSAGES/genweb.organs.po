@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-02-23 12:32+0000\n"
+"POT-Creation-Date: 2017-02-27 10:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Accio"
 msgstr "Action"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:398
+#: ./genweb/organs/content/templates/sessio_view.pt:401
 #: ./genweb/organs/profiles/default/types/genweb.organs.acord.xml
 msgid "Acord"
 msgstr ""
@@ -195,11 +195,11 @@ msgstr ""
 msgid "Contingut reservat"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:73
+#: ./genweb/organs/browser/views.py:76
 msgid "Created acord"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:60
+#: ./genweb/organs/browser/views.py:63
 msgid "Created punt"
 msgstr ""
 
@@ -226,7 +226,7 @@ msgstr "Default content shown in the document view"
 msgid "Deleted acord"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:103
+#: ./genweb/organs/browser/views.py:106
 msgid "Deleted element"
 msgstr ""
 
@@ -244,7 +244,7 @@ msgstr "Recipients"
 
 #: ./genweb/organs/content/impersonate_as.py:292
 #: ./genweb/organs/content/sessio.py:500
-#: ./genweb/organs/content/templates/sessio_view.pt:400
+#: ./genweb/organs/content/templates/sessio_view.pt:403
 msgid "Document"
 msgstr "Document"
 
@@ -284,7 +284,7 @@ msgstr ""
 msgid "Fer servir capcalera personalitzada?"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:399
+#: ./genweb/organs/content/templates/sessio_view.pt:402
 #: ./genweb/organs/profiles/default/types/genweb.organs.file.xml
 msgid "File"
 msgstr "File"
@@ -439,7 +439,7 @@ msgstr ""
 msgid "Message"
 msgstr "Message"
 
-#: ./genweb/organs/browser/views.py:331
+#: ./genweb/organs/browser/views.py:334
 #: ./genweb/organs/content/mailConvocar.py:152
 msgid "Missatge enviat correctament"
 msgstr "Message sent successfully"
@@ -448,7 +448,7 @@ msgstr "Message sent successfully"
 msgid "Missatge no enviat"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:334
+#: ./genweb/organs/browser/views.py:337
 #: ./genweb/organs/content/mailConvocar.py:156
 msgid "Missatge no enviat. Comprovi els destinataris del missatge"
 msgstr "Message not sent. Check the message recipients."
@@ -674,7 +674,7 @@ msgstr ""
 msgid "Recipients"
 msgstr "Recipients"
 
-#: ./genweb/organs/browser/views.py:389
+#: ./genweb/organs/browser/views.py:392
 msgid "Reload proposalPoints manually"
 msgstr ""
 
@@ -802,7 +802,7 @@ msgstr "List of addresses of the people affected, thta want to be notified."
 msgid "State"
 msgstr "State"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:397
+#: ./genweb/organs/content/templates/sessio_view.pt:400
 #: ./genweb/organs/profiles/default/types/genweb.organs.subpunt.xml
 msgid "Subpunt"
 msgstr "Subpoint"
@@ -825,7 +825,7 @@ msgstr ""
 msgid "Title"
 msgstr "Title"
 
-#: ./genweb/organs/browser/views.py:60
+#: ./genweb/organs/browser/views.py:63
 msgid "Title: "
 msgstr ""
 
