@@ -15,7 +15,7 @@
   <div tal:condition="view/hihaReserved">
     <div tal:define="reserved_content_type context/hiddenfile/contentType|nothing;
                      reserved_file_download_url string:${context/absolute_url}/@@download/hiddenfile/${context/hiddenfile/filename};">
-      <h3> Fitxer reservat </h3>
+      <h3 i18n:translate=""> Fitxer reservat </h3>
       <p>
         <a tal:attributes="href reserved_file_download_url">
           <img tal:attributes="src view/get_mimetype_icon_reserved;
@@ -41,12 +41,12 @@
   </div>
 </tal:blockReserved>
 
-<tal:blockPublic tal:condition="view/viewPublicFile">
+
   <div tal:condition="view/hihaPublic">
 
     <div tal:define="visible_content_type context/visiblefile/contentType|nothing;
                      public_file_download_url string:${context/absolute_url}/@@download/visiblefile/${context/visiblefile/filename}">
-      <h3> Fitxer públic </h3>
+      <h3 i18n:translate="">Fitxer</h3>
       <p>
         <a tal:attributes="href public_file_download_url">
           <img tal:attributes="src view/get_mimetype_icon_public;
@@ -70,7 +70,7 @@
       </div>
     </div>
     </div>
-</tal:blockPublic>
+
   </metal:block>
 
 </metal:content-core>

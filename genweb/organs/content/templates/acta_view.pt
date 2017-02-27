@@ -16,7 +16,10 @@
                    llocConvocatoria context/llocConvocatoria;
                    horaFi view/horaFi;
                    horaInici view/horaInici;
-                   audio view/AudioInside">
+                   audio view/AudioInside;
+                   canView view/canView">
+
+<tal:block tal:condition="canView">
 
   <script type="text/javascript">
     function printPage(newWindow){
@@ -146,10 +149,11 @@
 
   <tal:block tal:condition="ordenDelDia">
     <h3 i18n:translate=""> Session order </h3>
-    <div tal:content="structure ordenDelDia" />
+    <div tal:content="structure ordenDelDia"></div>
   </tal:block>
 
 <br/>
+</tal:block>
 </metal:content-core>
 
 </body>

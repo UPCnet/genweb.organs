@@ -144,21 +144,9 @@ class View(grok.View):
     def viewReservedFile(self):
         # Si tens rols Secretari, Editor, Membre o Manager el veus.
             username = api.user.get_current().getProperty('id')
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if roles:
+            if username:
+                roles = api.user.get_roles(username=username, obj=self.context)
                 if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles:
-                    return True
-                else:
-                    return False
-            else:
-                return False
-
-    def viewPublicFile(self):
-        # - Si tens rols Afectat, Anonim o Manager el veus.
-            username = api.user.get_current().getProperty('id')
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if roles:
-                if 'OG4-Afectat' in roles or 'Manager' in roles:
                     return True
                 else:
                     return False

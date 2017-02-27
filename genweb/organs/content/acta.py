@@ -3,6 +3,7 @@ from five import grok
 from zope import schema
 from plone.directives import form
 from plone.directives import dexterity
+from AccessControl import Unauthorized
 from genweb.organs import _
 from plone.app.dexterity import PloneMessageFactory as _PMF
 from collective import dexteritytextindexer
@@ -11,6 +12,7 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from plone.namedfile.field import NamedBlobImage
 from Products.CMFCore.utils import getToolByName
+from plone import api
 
 grok.templatedir("templates")
 
@@ -202,6 +204,18 @@ def Punts2Acta(self):
 class View(dexterity.DisplayForm):
     grok.context(IActa)
     grok.template('acta_view')
+
+    def canView(self):
+        """ Return true if user is Editor or Manager """
+        username = api.user.get_current().getId()
+        if username:
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'Editor' in roles or 'Manager' in roles:
+                return True
+            else:
+                raise Unauthorized
+        else:
+            raise Unauthorized
 
     def horaFi(self):
         if self.context.horaFi:

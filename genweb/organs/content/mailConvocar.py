@@ -52,8 +52,21 @@ class Message(form.SchemaForm):
     grok.layer(IGenwebOrgansLayer)
 
     ignoreContext = True
-
     schema = IMessage
+
+    # Disable the view if no roles in username
+    def update(self):
+        """ Return true if user is Editor or Manager """
+        username = api.user.get_current().getId()
+        if username:
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'Editor' in roles or 'Manager' in roles:
+                self.request.set('disable_border', True)
+                super(Message, self).update()
+            else:
+                raise Unauthorized
+        else:
+            raise Unauthorized
 
     def updateWidgets(self):
         super(Message, self).updateWidgets()

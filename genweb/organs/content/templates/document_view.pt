@@ -10,18 +10,16 @@
 <metal:content-core fill-slot="content-core">
 
   <metal:block define-macro="content-core"
-      tal:define="viewPublic view/viewPublicContent;
-                  viewPrivate view/viewPrivateContent;
+      tal:define="viewPrivate view/viewPrivateContent;
                   alternate context/alternateContent;
                   default context/defaultContent;
                   isMembre view/showMembreContent;
                   isManager view/isManager">
 
-    <tal:block tal:condition="viewPublic">
-      <h3 i18n:translate="" tal:condition="viewPrivate"> Contingut public </h3>
-        <div tal:condition="default"
-             tal:replace="structure default"> </div>
-     </tal:block>
+    <h3 i18n:translate="" tal:condition="viewPrivate"> Contingut public </h3>
+    <div tal:condition="default"
+         tal:replace="structure default">
+    </div>
 
     <tal:block tal:condition="viewPrivate">
       <span tal:condition="alternate">

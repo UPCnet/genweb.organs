@@ -111,7 +111,7 @@
 
   </script>
 
-  <script type="text/javascript">
+  <script type="text/javascript" tal:condition="canModify">
     function printPage(newWindow){
       newWindow.focus();
       newWindow.print();
@@ -133,7 +133,7 @@
         <a href="informar_sessio" i18n:attributes="title Informar; alt Informar"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informar</span></a>
       </div>
 
-      <div class="containerIcons">
+      <div class="containerIcons" tal:condition="canModify">
         <a href="javascript:printPage(iframe);" i18n:attributes="title printOrdreDia; alt printOrdreDia"><i class="fa fa-print fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Print</span></a>
       </div>
   </div>

@@ -261,10 +261,12 @@ class View(grok.View):
         return utils.estatsCanvi(data)
 
     def hihaPunts(self):
-        values = api.content.find(
-            context=self.context,
-            depth=1,
-            portal_type=['genweb.organs.punt', 'genweb.organs.acord'])
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        values = portal_catalog.unrestrictedSearchResults(
+            portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
+            path={'query': folder_path,
+                  'depth': 1})
         if values:
             return True
         else:
@@ -275,22 +277,23 @@ class View(grok.View):
         """
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
-        values = portal_catalog.searchResults(
+        values = portal_catalog.unrestrictedSearchResults(
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
 
         results = []
+
         for obj in values:
             if obj.portal_type == 'genweb.organs.acta' or obj.portal_type == 'genweb.organs.audio':
                 # add actas to view_template for ordering but dont show them
-                item = obj.getObject()
+                item = obj._unrestrictedGetObject()
                 results.append(dict(id=obj.id,
                                     classe='hidden',
                                     show=False,
                                     agreement=False))
             else:
-                item = obj.getObject()
+                item = obj._unrestrictedGetObject()
                 if len(item.objectIds()) > 0:
                     inside = True
                 else:
@@ -331,14 +334,14 @@ class View(grok.View):
         """
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + data['id']
-        values = portal_catalog.searchResults(
+        values = portal_catalog.unrestrictedSearchResults(
             portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
         results = []
         for obj in values:
-            item = obj.getObject()
+            item = obj._unrestrictedGetObject()
             if obj.portal_type == 'genweb.organs.acord':
                 agreement = item.agreement
             else:
@@ -357,26 +360,33 @@ class View(grok.View):
 
     def ActesInside(self):
         """ Retorna les actes creades aquí dintre (sense tenir compte estat)
+            Nomes ho veuen els Managers / Editor / Secretari
         """
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        values = portal_catalog.searchResults(
-            portal_type='genweb.organs.acta',
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
-        if values:
-            results = []
-            for obj in values:
-                objecte = obj.getObject()
-                if objecte.start:
-                    dataSessio = objecte.start.strftime('%d/%m/%Y')
+        username = api.user.get_current().getProperty('id')
+        if username:
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
+                folder_path = '/'.join(self.context.getPhysicalPath())
+                portal_catalog = getToolByName(self, 'portal_catalog')
+                values = portal_catalog.searchResults(
+                    portal_type='genweb.organs.acta',
+                    sort_on='getObjPositionInParent',
+                    path={'query': folder_path,
+                          'depth': 1})
+                if values:
+                    results = []
+                    for obj in values:
+                        objecte = obj.getObject()
+                        if objecte.start:
+                            dataSessio = objecte.start.strftime('%d/%m/%Y')
+                        else:
+                            dataSessio = ''
+                        results.append(dict(title=obj.Title,
+                                            absolute_url=obj.getURL(),
+                                            date=dataSessio))
+                    return results
                 else:
-                    dataSessio = ''
-                results.append(dict(title=obj.Title,
-                                    absolute_url=obj.getURL(),
-                                    date=dataSessio))
-            return results
+                    return False
         else:
             return False
 

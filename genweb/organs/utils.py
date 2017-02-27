@@ -128,7 +128,7 @@ def addEntryLog(context, sender, message, recipients):
 def FilesandDocumentsInside(self):
     portal_catalog = getToolByName(self, 'portal_catalog')
     folder_path = '/'.join(self.context.getPhysicalPath())
-    values = portal_catalog.searchResults(
+    values = portal_catalog.unrestrictedSearchResults(
         portal_type=['genweb.organs.file', 'genweb.organs.document'],
         sort_on='getObjPositionInParent',
         path={'query': folder_path,
@@ -138,14 +138,21 @@ def FilesandDocumentsInside(self):
     for obj in values:
         if obj.portal_type == 'genweb.organs.file':
             # És un File
-            item = obj.getObject()
+            item = obj._unrestrictedGetObject()
             if item.visiblefile:
                 # té part publica
                 tipus = 'fa fa-file-pdf-o'
                 document = _(u'Fitxer public')
                 labelClass = 'label label-default'
                 if item.hiddenfile:
-                    document = _(u'Conte fitxer public i reservat')
+                    username = api.user.get_current().getProperty('id')
+                    if username:
+                        roles = api.user.get_roles(username=username, obj=self.context)
+                        if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
+                            document = _(u'Conte fitxer public i reservat')
+                    else:
+                        labelClass = ''
+                        document = ''
             elif item.hiddenfile:
                 # te part reservada
                 tipus = 'fa fa-file-pdf-o'
@@ -155,29 +162,22 @@ def FilesandDocumentsInside(self):
                 tipus = 'fa fa-exclamation'
                 document = _(u'Falten els fitxers')
                 labelClass = 'label label-danger'
-            # username = api.user.get_current().getProperty('id')
-            # if username:
-            #     roles = api.user.get_roles(username=username, obj=self.context)
-            #     if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles:
-            #         tipus = 'fa fa-file-pdf-o'
-            #         document = _(u'Fitxer intern')
-            #         labelClass = 'label label-danger'
-            #     else:
-            #         continue
-            # else:
-            #     continue
-
-            # else:
-            #     tipus = 'fa fa-file-pdf-o'
-            #     document = _(u'Fitxer públic')
-            #     labelClass = 'label label-default'
 
         else:
             # És un document
             tipus = 'fa fa-file-text-o'
-            document = _(u'Document')
-            labelClass = 'label label-default'
-
+            username = api.user.get_current().getProperty('id')
+            if username:
+                roles = api.user.get_roles(username=username, obj=self.context)
+                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
+                    document = _(u'Document')
+                    labelClass = 'label label-default'
+                else:
+                    labelClass = ''
+                    document = ''
+            else:
+                labelClass = ''
+                document = ''
         results.append(dict(title=obj.Title,
                             absolute_url=obj.getURL(),
                             classCSS=tipus,
@@ -190,14 +190,14 @@ def FilesandDocumentsInside(self):
 def SubPuntsInside(self):
     portal_catalog = getToolByName(self, 'portal_catalog')
     folder_path = '/'.join(self.context.getPhysicalPath())
-    values = portal_catalog.searchResults(
+    values = portal_catalog.unrestrictedSearchResults(
         portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
         sort_on='getObjPositionInParent',
         path={'query': folder_path,
               'depth': 1})
     results = []
     for obj in values:
-        item = obj.getObject()
+        item = obj._unrestrictedGetObject()
         if obj.portal_type == 'genweb.organs.acord':
             agreement = item.agreement
         else:
@@ -211,7 +211,7 @@ def SubPuntsInside(self):
 
 def getColor(self):
     # assign custom colors on organ states
-    estat = self.getObject().estatsLlista
+    estat = self._unrestrictedGetObject().estatsLlista
     values = self.estatsLlista
     color = '#777777'
     for value in values.split('</p>'):
