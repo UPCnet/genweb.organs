@@ -307,7 +307,10 @@ class View(grok.View):
                     classe = "ui-state-grey-not_move"
                 # Els acords tenen camp agreement, la resta no
                 if obj.portal_type == 'genweb.organs.acord':
-                    agreement = item.agreement
+                    if item.agreement:
+                        agreement = item.agreement
+                    else:
+                        agreement = 'ACORD'
                     isPunt = False
                 else:
                     agreement = False
@@ -343,7 +346,10 @@ class View(grok.View):
         for obj in values:
             item = obj._unrestrictedGetObject()
             if obj.portal_type == 'genweb.organs.acord':
-                agreement = item.agreement
+                if item.agreement:
+                    agreement = item.agreement
+                else:
+                    agreement = 'ACORD'
             else:
                 agreement = False
             results.append(dict(title=obj.Title,
