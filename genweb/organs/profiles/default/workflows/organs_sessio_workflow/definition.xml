@@ -199,7 +199,7 @@
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
-  <permission-map name="View" acquired="False">
+  <permission-map name="View" acquired="True">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
