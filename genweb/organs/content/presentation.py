@@ -126,14 +126,35 @@ class Presentation(form.SchemaForm):
                   'depth': 1})
         results = []
         for obj in values:
+            visibleTitle = False
+            visibleUrl = False
+            hiddenTitle = False
+            hiddenUrl = False
+            isFile = False
             if obj.portal_type == 'genweb.organs.file':
+                isFile = True
                 tipus = 'fa fa-file-pdf-o'
+                file = obj.getObject()
+                if file.visiblefile:
+                    visibleTitle = file.visiblefile.filename
+                    visibleUrl = 'TODO1'
+                if file.hiddenfile:
+                    # TODO : If user is anon no returns hidden file
+                    #string:${context/absolute_url}/@@download/visiblefile/${context/visiblefile/filename}
+                    hiddenTitle = file.hiddenfile.filename
+                    hiddenUrl = 'TODO1'
             else:
                 tipus = 'fa fa-file-text-o'
+
             results.append(dict(title=obj.Title,
-                                path=obj.getObject().absolute_url_path(),
+                                path=file.absolute_url_path(),
                                 absolute_url=obj.getURL(),
+                                isFile=isFile,
                                 classCSS=tipus,
+                                publicURL=visibleUrl,
+                                publicTITLE=visibleTitle,
+                                reservedURL=hiddenUrl,
+                                reservedTITLE=hiddenTitle,
                                 id=obj.id))
         return results
 
