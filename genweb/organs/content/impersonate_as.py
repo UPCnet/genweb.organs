@@ -27,9 +27,12 @@ class ShowSessionAs(form.SchemaForm):
         # Només els rols Reponsable, Editor i Manager poden veure aquesta vista
         role = self.request.form.get('id', '')
         username = api.user.get_current().getProperty('id')
-        roles = api.user.get_roles(username=username, obj=self.context)
-        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
-            return role
+        if username:
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
+                return role
+            else:
+                return False
         else:
             return False
 
@@ -264,7 +267,7 @@ class ShowSessionAs(form.SchemaForm):
         for obj in values:
             if obj.portal_type == 'genweb.organs.file':
                 if obj.getObject().hiddenfile:
-                    if self.isAnonim() or self.isAfectat():
+                    if self.isAfectat():
                         continue
                     else:
                         tipus = 'fa fa-file-pdf-o'

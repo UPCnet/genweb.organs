@@ -181,9 +181,6 @@ class View(grok.View):
         except:
             return False
 
-    def isAnonim(self):
-        return utils.isAnonim(self)
-
     def isAfectat(self):
         return utils.isAfectat(self)
 
