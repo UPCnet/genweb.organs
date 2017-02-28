@@ -9,6 +9,8 @@
 
 <metal:content-core fill-slot="content-core">
 
+<tal:block tal:condition="view/canView">
+
     <metal:block define-macro="content-core"
         tal:define="content_type context/file/contentType|nothing;
                     download_url string:${context/absolute_url}/@@download/file/${context/file/filename}">
@@ -38,6 +40,8 @@
       </div>
 
     </metal:block>
+
+</tal:block>
 
 </metal:content-core>
 

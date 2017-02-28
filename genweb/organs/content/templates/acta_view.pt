@@ -16,10 +16,9 @@
                    llocConvocatoria context/llocConvocatoria;
                    horaFi view/horaFi;
                    horaInici view/horaInici;
-                   audio view/AudioInside;
-                   canView view/canView">
+                   audio view/AudioInside">
 
-<tal:block tal:condition="canView">
+<tal:block tal:condition="view/canView">
 
   <script type="text/javascript">
     function printPage(newWindow){

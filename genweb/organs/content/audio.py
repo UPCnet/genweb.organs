@@ -8,6 +8,8 @@ from zope.component import getMultiAdapter
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.MimeTypeItem import guess_icon_path
+from AccessControl import Unauthorized
+from plone import api
 
 grok.templatedir("templates")
 
@@ -29,6 +31,18 @@ class Edit(dexterity.EditForm):
 class View(grok.View):
     grok.context(IAudio)
     grok.template('audio_view')
+
+    def canView(self):
+        """ Return true if user is Editor or Manager """
+        username = api.user.get_current().getId()
+        if username:
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'Editor' in roles or 'Manager' in roles:
+                return True
+            else:
+                raise Unauthorized
+        else:
+            raise Unauthorized
 
     def get_mimetype_icon(self):
         # return mimetype from the file object
