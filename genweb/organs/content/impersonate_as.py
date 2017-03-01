@@ -126,9 +126,9 @@ class ShowSessionAs(form.SchemaForm):
                     inside = False
                 if item.portal_type == 'genweb.organs.acord':
                     if item.agreement:
-                        agreement = str(item.agreement) + ' - '
+                        agreement = item.agreement
                     else:
-                        agreement = 'ACORD'
+                        agreement = _(u"ACORD")
                 else:
                     agreement = ''
                 results.append(dict(title=obj.Title,
@@ -163,9 +163,9 @@ class ShowSessionAs(form.SchemaForm):
                 item = obj.getObject()
                 if item.portal_type == 'genweb.organs.acord':
                     if item.agreement:
-                        agreement = str(item.agreement) + ' - '
+                        agreement = item.agreement
                     else:
-                        agreement = 'ACORD'
+                        agreement = _(u"ACORD")
                 else:
                     agreement = ''
                 results.append(dict(title=obj.Title,
