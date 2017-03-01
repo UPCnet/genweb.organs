@@ -20,6 +20,7 @@
                   showActaTab view/showActaTab;
                   ">
 
+<div tal:attributes="class show" id="template-impersonate">
   <div class="documentDescription description"></div>
   <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
   <div tal:condition="show" class="alert alert-danger" i18n:translate="">
@@ -250,7 +251,7 @@
         });
     });
   </script>
-
+</div>
 </metal:content-core>
 
 </body>

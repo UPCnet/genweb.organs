@@ -41,10 +41,8 @@ class ShowSessionAs(form.SchemaForm):
         role = str(self.getUserRole())
         if role is 'False':
             return self.request.response.redirect(self.context.absolute_url())
-        elif role == 'OG1-Secretari':
-            return 'Secretari'
-        elif role == 'OG2-Editor':
-            return 'Editor'
+        elif role == 'Public':
+            return 'Public'
         elif role == 'OG3-Membre':
             return 'Membre'
         elif role == 'OG4-Afectat':

@@ -28,10 +28,12 @@
 
   <div id="contentOrgan">
 
-    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#information"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Mostrar dades de l'òrgan</button>
-    <div id="information" class="collapse">
+    <button type="button" tal:condition="members" class="btn btn-info" data-toggle="collapse" data-target="#information">
+      <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
+      <span i18n:translate="">Mostrar dades de organ</span>
+    </button>
     <div class="documentDescription description"></div>
-
+    <div id="information" class="collapse" tal:condition="members">
       <ul id="tabs" class="nav nav-tabs active" data-tabs="tabs">
         <li class="active" tal:condition="members">
           <a href="#composicionTab" data-toggle="tab" i18n:translate="">Composicio</a>

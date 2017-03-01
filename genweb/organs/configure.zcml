@@ -26,7 +26,7 @@
         name="default"
         title="Genweb Organs de Govern (genweb.organs)"
         directory="profiles/default"
-        description="Installs Organs de Govern package"
+        description="Organs de Govern package"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 

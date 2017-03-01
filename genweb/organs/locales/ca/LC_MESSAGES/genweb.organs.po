@@ -377,7 +377,7 @@ msgstr "Informa de la sessió"
 
 #: ./genweb/organs/configure.zcml:31
 msgid "Installs Organs de Govern package"
-msgstr "Installs Organs de Govern package"
+msgstr "Organs de Govern structure package"
 
 #: ./genweb/organs/browser/views/acta_print.pt:64
 #: ./genweb/organs/content/acta.py:56
