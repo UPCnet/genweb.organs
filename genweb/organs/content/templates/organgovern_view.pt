@@ -133,16 +133,16 @@
           <th>
             <tal:title i18n:translate="">Title</tal:title>
           </th>
-          <th>
+          <th style="text-align: center;">
             <tal:head i18n:translate="">Session date</tal:head>
           </th>
-          <th>
+          <th style="text-align: center;">
             <tal:head i18n:translate="">Session location</tal:head>
           </th>
-          <th>
+          <th style="text-align: center;">
             <tal:head i18n:translate="">Session start</tal:head>
           </th>
-          <th>
+          <th style="text-align: center;">
             <tal:head i18n:translate="">State</tal:head>
           </th>
         </tr>
@@ -155,22 +155,22 @@
                     Item Title
             </a>
           </td>
-          <td>
-            <tal:data tal:content="item/dataSessio" >
+          <td style="text-align: center;">
+            <span tal:content="item/dataSessio" >
                     Data de la Sessio
-            </tal:data>
+            </span>
           </td>
-          <td>
-            <tal:data tal:content="item/llocConvocatoria">
+          <td style="text-align: center;">
+            <span tal:content="item/llocConvocatoria">
                     Lloc sessio
-            </tal:data>
+            </span>
           </td>
-          <td>
-            <tal:data tal:content="item/horaInici">
+          <td style="text-align: center;">
+            <span tal:content="item/horaInici">
                     Hora inici
-            </tal:data>
+            </span>
           </td>
-          <td>
+          <td style="text-align: center;">
             <span tal:content="item/review_state"
                   tal:attributes="class item/review_state"
                   i18n:translate=""

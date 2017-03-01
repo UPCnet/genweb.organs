@@ -12,5 +12,8 @@ def sessio_changed(session, event):
         # Fem el bypass
         pass
     else:
-        if event.transition.id == 'convocando':
+        """ Previ a l'enviament del missatge et troves en un estat intermig,
+            creat només per això, que es diu Convocant (no es veu enlloc)
+        """
+        if event.transition.id == 'convocant':
             raise Redirect(session.absolute_url() + '/mailConvocar')

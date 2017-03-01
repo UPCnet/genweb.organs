@@ -85,7 +85,7 @@
   </permission-map>
  </state>
  <state state_id="planificada" title="En planificació">
-  <exit-transition transition_id="convocando"/>
+  <exit-transition transition_id="convocant"/>
   <exit-transition transition_id="convocar"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
@@ -128,7 +128,7 @@
    <permission-role>WebMaster</permission-role>
   </permission-map>
  </state>
- <state state_id="pre_convoque" title="Convocando">
+ <state state_id="pre_convoque" title="Convocant">
   <exit-transition transition_id="convocar"/>
  </state>
  <state state_id="realitzada" title="Realitzada">
@@ -210,7 +210,7 @@
    <permission-role>WebMaster</permission-role>
   </permission-map>
  </state>
- <transition transition_id="convocando" title="Convocando" new_state="convocada" trigger="USER" before_script="" after_script="">
+ <transition transition_id="convocant" title="Convocant" new_state="convocada" trigger="USER" before_script="" after_script="">
   <action url="" category="workflow" icon="">Convocar</action>
   <guard>
   </guard>

@@ -207,7 +207,7 @@ class View(grok.View):
         for obj in values:
             # value = obj.getObject()
             value = obj._unrestrictedGetObject()
-            start = getattr(self.context, 'start', None)
+            start = getattr(value, 'start', None)
             if start:
                 valuedataSessio = value.start.strftime('%d/%m/%Y')
                 valueHoraInici = value.start.strftime('%H:%M')
