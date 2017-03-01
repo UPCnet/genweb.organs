@@ -17,7 +17,7 @@
                   isManager view/isManager">
 
     <h3 i18n:translate="" tal:condition="viewPrivate"> Contingut public </h3>
-    <div tal:condition="default"
+    <div tal:condition="python:default and not isManager"
          tal:replace="structure default">
     </div>
 

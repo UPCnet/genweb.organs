@@ -83,7 +83,6 @@ class Presentation(form.SchemaForm):
         for obj in values:
             if self.Anonim():
                 item = obj._unrestrictedGetObject()
-                item = obj._unrestrictedGetObject()
                 if obj.portal_type == 'genweb.organs.acord':
                     agreement = item.agreement
                 else:
@@ -137,12 +136,11 @@ class Presentation(form.SchemaForm):
                 file = obj.getObject()
                 if file.visiblefile:
                     visibleTitle = file.visiblefile.filename
-                    visibleUrl = 'TODO1'
+                    visibleUrl = file.absolute_url() + '/@@download/visiblefile/'
                 if file.hiddenfile:
                     # TODO : If user is anon no returns hidden file
-                    #string:${context/absolute_url}/@@download/visiblefile/${context/visiblefile/filename}
                     hiddenTitle = file.hiddenfile.filename
-                    hiddenUrl = 'TODO1'
+                    hiddenUrl = file.absolute_url() + '/@@download/hiddenfile/'
             else:
                 tipus = 'fa fa-file-text-o'
 

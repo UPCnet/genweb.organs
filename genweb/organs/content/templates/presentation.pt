@@ -161,8 +161,7 @@
                   <tal:documents repeat="item files">
                     <li class="filesinTable">
                       <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
-                      <br/>
-                      <div style="float:right;" tal:condition="item/isFile">
+                      <div class="filesRight" tal:condition="item/isFile">
                         <span i18n:translate="">Public:</span>&nbsp;
                         <a tal:attributes="href item/publicURL;">
                           <i tal:attributes="class item/classCSS"></i>
@@ -175,7 +174,6 @@
                           <span tal:content="item/reservedTITLE"></span>
                         </a>
                       </div>
-
                     </li>
                   </tal:documents>
                 </ul>
@@ -217,10 +215,20 @@
                         <ul style="list-style: none;">
                           <tal:documents repeat="item files">
                             <li class="filesinTable">
-                              <i tal:attributes="class item/classCSS"></i>
-                              <a tal:attributes="href item/absolute_url;" target="_blank">
-                                 <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
-                              </a>
+                              <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                              <div class="filesRight=" tal:condition="item/isFile">
+                                <span i18n:translate="">Public:</span>&nbsp;
+                                <a tal:attributes="href item/publicURL;">
+                                  <i tal:attributes="class item/classCSS"></i>
+                                  <span tal:content="item/publicTITLE"></span>
+                                </a>
+                                <br/>
+                                <span i18n:translate="">Reservat:</span>&nbsp;
+                                <a tal:attributes="href item/reservedURL;">
+                                  <i tal:attributes="class item/classCSS"></i>
+                                  <span tal:content="item/reservedTITLE"></span>
+                                </a>
+                              </div>
                             </li>
                           </tal:documents>
                         </ul>
