@@ -125,7 +125,10 @@ class ShowSessionAs(form.SchemaForm):
                 else:
                     inside = False
                 if item.portal_type == 'genweb.organs.acord':
-                    agreement = str(item.agreement) + ' - '
+                    if item.agreement:
+                        agreement = str(item.agreement) + ' - '
+                    else:
+                        agreement = 'ACORD'
                 else:
                     agreement = ''
                 results.append(dict(title=obj.Title,
@@ -159,7 +162,10 @@ class ShowSessionAs(form.SchemaForm):
             for obj in values:
                 item = obj.getObject()
                 if item.portal_type == 'genweb.organs.acord':
-                    agreement = str(item.agreement) + ' - '
+                    if item.agreement:
+                        agreement = str(item.agreement) + ' - '
+                    else:
+                        agreement = 'ACORD'
                 else:
                     agreement = ''
                 results.append(dict(title=obj.Title,
@@ -237,8 +243,7 @@ class ShowSessionAs(form.SchemaForm):
 
     def OrganTitle(self):
         """ Retorna el títol de l'òrgan """
-        title = self.context.aq_parent.Title()
-        return title
+        return self.context.aq_parent.Title()
 
     def hihaPersones(self):
         if self.context.membresConvocats or self.context.membresConvidats or self.context.llistaExcusats:
