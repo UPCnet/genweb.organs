@@ -25,14 +25,15 @@
   <div class="documentDescription description"></div>
   <div class="documentDescription description" tal:content="structure context/descripcioOrgan"></div>
 
-
   <div id="contentOrgan">
 
-    <button type="button" tal:condition="members" class="btn btn-info" data-toggle="collapse" data-target="#information">
+    <button tal:condition="members" type="button" class="btn btn-info" data-toggle="collapse" data-target="#information">
       <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
       <span i18n:translate="">Mostrar dades de organ</span>
     </button>
+
     <div class="documentDescription description"></div>
+
     <div id="information" class="collapse" tal:condition="members">
       <ul id="tabs" class="nav nav-tabs active" data-tabs="tabs">
         <li class="active" tal:condition="members">
@@ -48,20 +49,20 @@
           <div class="panel with-nav-tabs panel-primary">
             <div class="panel-heading">
               <ul class="nav nav-tabs">
-                <li tal:condition="membresOrgan" class="active">
+                <li tal:condition="membresOrgan" tal:attributes="class string:${view/activeClassMembres}">
                   <a href="#tab1primary" data-toggle="tab" i18n:translate="">Persones assistents</a>
                 </li>
-                <li tal:condition="convidatsPermanentsOrgan">
+                <li tal:condition="convidatsPermanentsOrgan" tal:attributes="class string:${view/activeClassConvidats}">
                   <a href="#tab2primary" data-toggle="tab" i18n:translate="">Persones convidades</a>
                 </li>
               </ul>
             </div>
             <div class="panel-body">
               <div class="tab-content">
-                <div class="tab-pane fade in active" id="tab1primary">
+                <div tal:attributes="class string:tab-pane fade ${view/activeClassMembres}" id="tab1primary">
                   <span tal:replace="structure membresOrgan" />
                 </div>
-                <div class="tab-pane fade" id="tab2primary">
+                <div tal:attributes="class string:tab-pane fade ${view/activeClassConvidats}" id="tab2primary">
                   <span tal:replace="structure convidatsPermanentsOrgan" />
                 </div>
               </div>

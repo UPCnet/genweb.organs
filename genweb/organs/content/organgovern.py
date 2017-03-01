@@ -63,6 +63,7 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
+    # TODO: Quan es facin la resta d'organs (restricted, etc...)
     directives.mode(tipus='hidden')
     tipus = schema.Choice(
         title=_(u"Organ Govern type"),
@@ -155,6 +156,7 @@ class Edit(dexterity.EditForm):
 
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
+        # TODO: Actualment només hi ha un tipus - Obert
         self.widgets['tipus'].mode = HIDDEN_MODE
 
 
@@ -163,18 +165,7 @@ class View(grok.View):
     grok.template('organgovern_view')
 
     def selectedOrganType(self):
-        value = self.context.estatsLlista
-        return value
-
-    def ifmembresOrgan(self):
-        if self.context.membresOrgan is None:
-            return False
-        return True
-
-    def ifconvidatsPermanentsOrgan(self):
-        if self.context.convidatsPermanentsOrgan is None:
-            return False
-        return True
+        return self.context.estatsLlista
 
     def members(self):
         # If no members, hide the tab
@@ -184,6 +175,22 @@ class View(grok.View):
 
     def checkRoles(self):
         return utils.checkRoles(self)
+
+    def activeClassMembres(self):
+        if self.context.membresOrgan and self.context.convidatsPermanentsOrgan is None:
+            return 'in active'
+        elif self.context.membresOrgan and self.context.convidatsPermanentsOrgan:
+            return 'in active'
+        else:
+            return ''
+
+    def activeClassConvidats(self):
+        if self.context.membresOrgan is None and self.context.convidatsPermanentsOrgan:
+            return 'in active'
+        elif self.context.membresOrgan and self.context.convidatsPermanentsOrgan:
+            return ''
+        else:
+            return ''
 
     def SessionsInside(self):
         """ Retorna les sessions internes (sense tenir compte estat)
@@ -241,7 +248,7 @@ class View(grok.View):
             else:
                 organTitle = ''
                 agreement = None
-           
+
             results.append(dict(title=value.title,
                                 title_organ=organTitle,
                                 absolute_url=value.absolute_url(),

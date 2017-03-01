@@ -17,8 +17,7 @@
                   ActesInside view/ActesInside;
                   valuesTable view/valuesTable;
                   hihaPersones view/hihaPersones;
-                  showActaTab view/showActaTab;
-                  ">
+                  showActaTab view/showActaTab;">
 
 <div tal:attributes="class show" id="template-impersonate">
   <div class="documentDescription description"></div>
