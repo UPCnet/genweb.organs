@@ -125,10 +125,10 @@ class Presentation(form.SchemaForm):
                   'depth': 1})
         results = []
         for obj in values:
-            visibleTitle = False
-            visibleUrl = False
-            hiddenTitle = False
-            hiddenUrl = False
+            visibleTitle = ''
+            visibleUrl = ''
+            hiddenTitle = ''
+            hiddenUrl = ''
             isFile = False
             if obj.portal_type == 'genweb.organs.file':
                 isFile = True
