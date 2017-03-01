@@ -422,7 +422,7 @@ class Reload(BrowserView):
                     subvalue = subvalue+1
                     if value.portal_type == 'genweb.organs.acord':
                         printid = '{0}'.format(str(idacord).zfill(2))
-                        newobjecte.agreement = acronim + '/' + any + '/' + numsessio + '/' + printid
+                        newobjecte.agreement = acronim + any + numsessio + printid
                         idacord = idacord + 1
 
             index = index + 1

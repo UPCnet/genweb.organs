@@ -175,7 +175,10 @@ def Punts2Acta(self):
         else:
             number = ''
         if value.portal_type == 'genweb.organs.acord':
-            agreement = value.agreement + ' - '
+            if value.agreement:
+                agreement = str(value.agreement) + ' - '
+            else:
+                agreement = ''
         else:
             agreement = ''
 
@@ -189,11 +192,17 @@ def Punts2Acta(self):
             for item in valuesInside:
                 subpunt = item.getObject()
                 if subpunt.proposalPoint:
-                    numberSubpunt = str(subpunt.proposalPoint) + '.- '
+                    if subpunt.proposalPoint:
+                        numberSubpunt = str(subpunt.proposalPoint) + '.- '
+                    else:
+                        numberSubpunt = ''
                 else:
                     numberSubpunt = ''
                 if subpunt.portal_type == 'genweb.organs.acord':
-                    agreement = subpunt.agreement + ' - '
+                    if subpunt.agreement:
+                        agreement = str(subpunt.agreement) + ' - '
+                    else:
+                        agreement = ''
                 else:
                     agreement = ''
                 results.append('&nbsp;&nbsp;' + numberSubpunt + agreement + str(item.Title))
