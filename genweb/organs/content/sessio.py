@@ -442,8 +442,7 @@ class View(grok.View):
 
     def OrganTitle(self):
         """ Retorna el títol de l'òrgan """
-        title = self.context.aq_parent.Title()
-        return title
+        return self.context.aq_parent.Title()
 
     def hihaPersones(self):
         if self.context.membresConvocats or self.context.membresConvidats or self.context.llistaExcusats:
@@ -491,23 +490,6 @@ class View(grok.View):
                     tipus = 'fa fa-exclamation'
                     document = _(u'Falten els fitxers')
                     labelClass = 'label label-danger'
-                # if obj.hiddenfile is True:
-                #     try:
-                #         username = api.user.get_current().getProperty('id')
-                #         roles = api.user.get_roles(username=username, obj=self.context)
-                #         if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles:
-                #             tipus = 'fa fa-file-pdf-o'
-                #             document = _(u'Fitxer intern')
-                #             labelClass = 'label label-danger'
-                #         else:
-                #             continue
-                #     except:
-                #         continue
-                # else:
-                #     tipus = 'fa fa-file-pdf-o'
-                #     document = _(u'Fitxer públic')
-                #     labelClass = 'label label-default'
-
             else:
                 tipus = 'fa fa-file-text-o'
                 document = _(u'Document')

@@ -132,29 +132,34 @@
         <tal:documents repeat="item items">
           <li>
             <div class="agreementPuntPresentation" tal:content="item/agreement" tal:condition="item/agreement"></div>
-            <div class="puntTitle">
-              <div class="clearfix"></div>
-              <span class="btn-group bulletPuntPresentation" role="group" tal:condition="not:anonim">
-                <tal:block tal:condition="item/state">
-                  <button class="label dropdown-toggle bullet-toggle"
-                      type="button" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      <i class="fa fa-circle" aria-hidden="true" class='selectedColor' tal:attributes="style string:color:${item/css}"></i>
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
-                    <tal:block repeat="estat item/estats">
-                      <li class="defaultValue">
-                        <a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a>
-                      </li>
-                    </tal:block>
-                  </ul>
-                </tal:block>
-              </span>
-              <span class="proposalNumber" tal:content="item/proposalPoint"></span>
-              <a tal:attributes="href string:${item/absolute_url}/view" class="editTitle editable titleSize">
-                <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
-              </a>
+            <div class="puntTitle span12">
+              <div class="span1">
+                <span class="btn-group bulletPuntPresentation" role="group" tal:condition="not:anonim">
+                  <tal:block tal:condition="item/state">
+                    <button class="label dropdown-toggle bullet-toggle"
+                        type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-circle" aria-hidden="true" class='selectedColor' tal:attributes="style string:color:${item/css}"></i>
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
+                      <tal:block repeat="estat item/estats">
+                        <li class="defaultValue">
+                          <a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a>
+                        </li>
+                      </tal:block>
+                    </ul>
+                  </tal:block>
+                </span>
+              </div>
+              <div class="span1 numberSpan">
+                <span class="proposalNumber" tal:content="item/proposalPoint"></span>
+              </div>
+              <div class="span10 titleSpan">
+                <a tal:attributes="href string:${item/absolute_url}/view" class="editTitle editable titleSize">
+                  <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                </a>
+              </div>
 
               <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                 <ul class="listFiles" style="list-style: none;">
@@ -187,8 +192,8 @@
                 <ol class="li_subgrups">
                   <td>
                   <div class="agreementSubPuntPresentation" tal:content="item/agreement" tal:condition="item/agreement"></div>
-                    <div class="subpuntTitle">
-                      <div class="clearfix"></div>
+                    <div class="subpuntTitle span12">
+                      <div class="span1">
                       <span class="btn-group bulletPuntPresentation" role="group" tal:condition="not:anonim">
                         <tal:block tal:condition="item/state">
                           <button class="label dropdown-toggle estatJS"
@@ -206,13 +211,18 @@
                           </ul>
                         </tal:block>
                       </span>
-                      <span class="proposalNumberSubpunt" style="margin-right: 12px;" tal:content="item/proposalPoint"></span>
-                      <span class="titlePresentation">
-                      <a tal:attributes="href string:${item/absolute_url}"
-                         class="editTitle editable subtitleSize">
-                        <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
-                      </a>
-                      </span>
+                      </div>
+                      <div class="span1">
+                        <span class="proposalNumberSubpunt" style="margin-right: 12px;" tal:content="item/proposalPoint"></span>
+                      </div>
+                      <div class="span10">
+                        <span class="titlePresentation">
+                          <a tal:attributes="href string:${item/absolute_url}"
+                             class="editTitle editable subtitleSize">
+                            <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                          </a>
+                        </span>
+                      </div>
                       <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                         <ul style="list-style: none;">
                           <tal:documents repeat="item files">
