@@ -654,12 +654,12 @@
 
         $('.edit').click(function(e){
                e.stopPropagation();
-               $(this).parent().parent('li:first').find('a.titleSize').editable('toggle')
+               $(this).parent().parent().parent('li:first').find('a.titleSize').editable('toggle')
         });
 
         $('.edit2').click(function(e){
                e.stopPropagation();
-               $(this).parent().parent('ol:first').find('a.subtitleSize').editable('toggle')
+               $(this).parent().parent().parent('ol:first').find('a.subtitleSize').editable('toggle')
         });
 
         $('button.remove').on('click', function (e) {
