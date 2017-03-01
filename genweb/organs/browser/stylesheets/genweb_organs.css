@@ -140,7 +140,8 @@ input#form-widgets-fromTitle {width: 98%;}
     box-shadow: 2px 3px 2px #eee;
     font-size: 14px;
     margin: 0 0 10px;
-    padding: 0.8em 1em 0.5em 0.1em;
+    /*padding: 0.8em 1em 0.5em 0.1em;*/
+    padding-right: 0px!important;
     float: left;
     width: 97%;
 }
@@ -499,7 +500,7 @@ background-color: transparent;
     border-bottom: 1px solid #ddd;
     box-shadow: none;
     margin-bottom: 5px;
-    padding: 0 0 10px;
+    padding: 0 0 2px;
 }
 #sortable .filesinTable:last-child {
     border-bottom: 0px solid #ececec;
@@ -611,18 +612,18 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 }
 
 .bodyPresentation .puntTitle {
-    font-size: 25px;
+    font-size: 24px;
     font-weight: normal;
-    margin-bottom: 15px;
+    margin-bottom: 0px!important;
     color: #557C95;
     padding-top: 10px;
     padding-left: 15px;
-    margin-top: 15px;
+    margin-top: 0px!important;
 }
 
 .bodyPresentation .editTitle.editable.subtitleSize {
     color: #555;
-    font-weight: regular;
+    font-weight: 300!important;
     font-size: 23px;
 }
 
@@ -691,12 +692,12 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 }
 
 .bodyPresentation #sortable li {
-    background: rgba(0, 90, 141, 0.05);
+    /*background: rgba(0, 90, 141, 0.05);*/
     margin: none;
     padding: none;
     box-shadow: none;
     padding-right: 25px;
-    margin-top: 35px;
+    margin-top: 0px;
      }
 
 .bodyPresentation .dropdown-menu {
@@ -1017,18 +1018,12 @@ input#acordNumber {width: 159px;}
 
 .bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {padding-left: 50px;}
 
-.agreementClass  {
-    font-size: 13px;
-    color: #555;
-    padding-left: 25px;
+.agreementClass , .agreementSubClass  {
+    font-size: 11px;
+    color: #777;
+    letter-spacing: 0.025em;
+    font-weight: 600!important;
 }
-
-.agreementSubClass {
-    font-size: 13px;
-    color: #555;
-    padding-left: 25px;
-}
-
 
 li.filesinTable {color: #555;}
 
@@ -1079,3 +1074,113 @@ span.agreementClassPunt {
 }
 
 div.containerIcons a img.link_blank { display: none }
+
+
+/* albert*/
+
+.puntTitle.span12 {
+    margin-left: 5px!important;
+}
+
+.span1.numberSpan {
+    margin-left: 0px!important;
+    margin-top: 0px;
+    width: 40px!important;
+}
+
+.span6.agreementSpan{margin-bottom:0px!important;}
+
+.span6.einesSpan{margin-bottom:0px!important;}
+
+.DADES button {
+   border: 1px solid #ddd;
+   }
+
+#sortable li {
+    border: 1px solid #eee!important;
+    border-radius: 0;
+    box-shadow: 2px 3px 2px #eee;
+    font-size: 14px;
+    margin: 0 0 10px;
+    padding: 0.3em 0.3em 0.5em 0.1em;
+    float: left;
+    width: 98%;
+}
+
+.span10.titleSpan {
+    margin-left: 10px!important;
+}
+
+.span1.fletxaSpan{
+	margin-top:0px!important;
+	width: 20px!important;
+}
+
+.span1.fletxaSpan .expand {
+    margin-top: 0px!important;
+    padding-top: 0px!important;
+}
+
+.agreementClass {
+    padding-left: 5px!important;
+}
+
+.subpuntTitle .span11 {
+    padding-left: 0px!important;
+    margin-left: 0px!important;
+}
+
+.li_subgrups .span6 {
+    margin-bottom: 0px!important;
+    padding-bottom: 0px!important;
+}
+
+[class^="span"] {
+    margin-bottom: 15px!important;
+}
+
+.span1.fletxaSpan button{font-size: 14px!important;}
+
+.bodyPresentation .DADES ul, .DADES ol {
+    padding-top: 5px!important;
+    padding-bottom: 5px!important;
+}
+
+.bodyPresentation #peu{ background:#fff!important; display: none!important; }
+
+.bodyPresentation footer{ display: none!important }
+
+.bodyPresentation #sortable li {
+     width: 100%!important;
+}
+
+.bodyPresentation .agreementPuntPresentation {
+    margin-left: 5px;
+}
+
+html {
+    background: #fff!important;
+}
+
+.bodyPresentation #sortable li {
+    width: 100%!important;
+    border-top: none!important;
+    border-left: none!important;
+    border-right: none!important;
+    padding-bottom: 20px!important;
+}
+
+
+
+.Afectat #sortable li , .Membre #sortable li {
+    width: 100%!important;
+     padding: 0.4em 0.3em 0.8em 1em !important;
+} 
+
+.Afectat span.proposalNumber , .Membre #sortable li {
+    margin-right: 8px!important;
+}
+
+.span6.einesSpan{
+    padding-right: 4px!important;
+}
