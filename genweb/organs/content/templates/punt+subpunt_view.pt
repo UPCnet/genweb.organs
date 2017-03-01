@@ -20,8 +20,6 @@
                 estatsLlista context/estatsLlista;
                 defaultContent context/defaultContent;">
 
-  <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
-
   <div class="caixaPunts">
     <li tal:condition="estatsLlista"><tal:omit-tag i18n:translate="">Agreement and document label: </tal:omit-tag>
       <span tal:content="estatsLlista"></span></li>

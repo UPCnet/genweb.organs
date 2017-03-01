@@ -1,8 +1,12 @@
-<div class="container"
-     i18n:domain="genweb"
-     tal:define="portal_url context/@@plone_portal_state/portal_url;
+<tal:block tal:define="portal_url context/@@plone_portal_state/portal_url;
                  portal_https context/@@genweb.utils/portal_url_https;
-                 custom_link viewlet/getCustomLink">
+                 custom_link viewlet/getCustomLink"
+                 i18n:domain="genweb">
+ 
+<link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
+
+<div class="container">
+  
   <div class="clearfix">
     <h1 class="pull-left">
       <a href="http://www.upc.edu" target="_blank">
@@ -213,4 +217,5 @@
 </div>
 
 
+</tal:block>
 <!-- <h2>Current role!</h2> <span tal:content="viewlet/role"></span> -->

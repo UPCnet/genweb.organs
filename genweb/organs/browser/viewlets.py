@@ -174,10 +174,10 @@ class gwHeader(viewletBase):
                         return None  # loads default image
 
     def role(self):
+        # TODO: In testing scenarios, to view current role
         username = api.user.get_current().getProperty('id')
         if username:
             roles = api.user.get_roles(username=username, obj=self.context)
         else:
             roles = 'Not authenticated'
         return roles
-

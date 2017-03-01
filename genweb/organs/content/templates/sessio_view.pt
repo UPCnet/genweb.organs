@@ -21,7 +21,7 @@
   <script tal:condition="canModify" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery-ui.min.js"></script>
   <script tal:condition="canModify" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script>
   <script tal:condition="canModify" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script>
-  <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
+
 
   <script type="text/javascript" tal:condition="canModify">
     $(function() {

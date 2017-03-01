@@ -16,8 +16,6 @@
                    checkRoles view/checkRoles;
                    convidatsPermanentsOrgan context/convidatsPermanentsOrgan">
 
-  <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
-  
   <div class="pull-right" tal:condition="context/logoOrgan">
     <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan" />
   </div>

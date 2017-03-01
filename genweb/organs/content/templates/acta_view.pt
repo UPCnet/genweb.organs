@@ -27,7 +27,6 @@
     }
   </script>
 
-  <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
   <iframe name="iframe" id="iframe" width="1" height="1" src="printActa"></iframe>
 
   <tal:omit-tag>
