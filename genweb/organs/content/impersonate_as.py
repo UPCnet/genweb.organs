@@ -262,7 +262,7 @@ class ShowSessionAs(form.SchemaForm):
             return False
 
     def showActaTab(self):
-        if self.ActesInside():
+        if self.ActesInside() and self.isMembre():
             return True
         else:
             return False
