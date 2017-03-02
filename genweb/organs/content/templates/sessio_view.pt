@@ -559,7 +559,7 @@
                       <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
                         <ul style="list-style: none;" tal:condition="files">
                           <tal:documents repeat="item files">
-                            <li style="padding-left:35px;" class="filesinTable">
+                            <li class="filesinTable">
                               <i tal:attributes="class item/classCSS"></i>
                               <a tal:attributes="href item/absolute_url;"
                                  style="font-size:14px;">
