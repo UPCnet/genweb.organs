@@ -5,6 +5,15 @@
  <permission>Modify portal content</permission>
  <permission>Reply to item</permission>
  <permission>View</permission>
+ <permission>Add portal content</permission>
+ <permission>Copy or Move</permission>
+ <permission>Delete objects</permission>
+ <permission>Change local roles</permission>
+ <permission>Sharing page: Delegate Contributor role</permission>
+ <permission>Sharing page: Delegate Editor role</permission>
+ <permission>Sharing page: Delegate Reader role</permission>
+ <permission>Sharing page: Delegate Reviewer role</permission>
+ <permission>Sharing page: Delegate roles</permission>
  <state state_id="convocada" title="Convocada">
   <exit-transition transition_id="realitzar"/>
   <permission-map name="Access contents information" acquired="False">
@@ -16,7 +25,7 @@
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
-  <permission-map name="List folder contents" acquired="True">
+  <permission-map name="List folder contents" acquired="False">
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
@@ -57,7 +66,7 @@
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
-  <permission-map name="List folder contents" acquired="True">
+  <permission-map name="List folder contents" acquired="False">
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
@@ -73,7 +82,7 @@
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
-  <permission-map name="View" acquired="False">
+  <permission-map name="View" acquired="True">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
@@ -95,7 +104,7 @@
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
-  <permission-map name="List folder contents" acquired="True">
+  <permission-map name="List folder contents" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
@@ -143,7 +152,7 @@
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
-  <permission-map name="List folder contents" acquired="True">
+  <permission-map name="List folder contents" acquired="False">
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
@@ -184,6 +193,17 @@
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
+  <permission-map name="Add portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+  </permission-map>
+  <permission-map name="Change local roles" acquired="False">
+  </permission-map>
+  <permission-map name="Copy or Move" acquired="False">
+   <permission-role>Manager</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects" acquired="False">
+   <permission-role>Manager</permission-role>
+  </permission-map>
   <permission-map name="List folder contents" acquired="False">
    <permission-role>Manager</permission-role>
   </permission-map>
@@ -198,6 +218,21 @@
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Contributor role" acquired="False">
+   <permission-role>OG1-Secretari</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Editor role" acquired="False">
+   <permission-role>OG1-Secretari</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Reader role" acquired="False">
+   <permission-role>OG1-Secretari</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Reviewer role" acquired="False">
+   <permission-role>OG1-Secretari</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate roles" acquired="False">
+   <permission-role>OG1-Secretari</permission-role>
   </permission-map>
   <permission-map name="View" acquired="True">
    <permission-role>Manager</permission-role>
