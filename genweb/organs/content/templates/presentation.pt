@@ -120,11 +120,13 @@
           <i class="fa fa-chevron-down fa-3x" aria-hidden="true"></i></a>
       </li>
       <li>
-        <a data-scroll data-options='{ "easing": "easeInOutCubic" }'  href="presentation#endbox" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
+        <a data-scroll data-options='{ "easing": "easeInOutCubic" }'  href="presentation#end" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
           <i class="fa fa-arrow-down fa-3x" aria-hidden="true"></i></a>
       </li>
     </ul>
 
+<div class="container">
+      <div class="row-fluid">
     <div tal:condition="items" class="DADES presentation_template">
       <h1 tal:content="view/getSessionTitle" style='text-transform: uppercase'>Ordre del dia</h1>
       <hr/>
@@ -175,9 +177,7 @@
                             <span class="barra">|</span>
                             <span class="fitxerReservat">
                                 <a tal:attributes="href item/reservedURL;">
-                                  <i tal:attributes="class item/classCSS"></i>
-                                </a>
-                                <span i18n:translate="">Fitxer reservat</span>&nbsp;
+                                  <i tal:attributes="class item/classCSS"></i></a>&nbsp;<span i18n:translate="">Fitxer reservat</span>&nbsp;
                             </span>
                           </tal:block>
                         </div>
@@ -238,9 +238,7 @@
                                     <span class="barra">|</span>
                                     <span class="fitxerReservat">
                                         <a tal:attributes="href item/reservedURL;">
-                                          <i tal:attributes="class item/classCSS"></i>
-                                        </a>
-                                        <span i18n:translate="">Fitxer reservat</span>&nbsp;
+                                          <i tal:attributes="class item/classCSS"></i></a>&nbsp;<span i18n:translate="">Fitxer reservat</span>&nbsp;
                                     </span>
                                   </tal:block>
                                 </div>
@@ -258,8 +256,25 @@
         </tal:documents>
       </ul>
     </div>
+    </div>
+    </div>
 
-    <div style="margin-bottom:20px;" id="end"></div>
+      <div id="end"></div>
+
+  <footer id="peu" role="contentinfo">
+    <div class="container">
+      <div class="row-fluid">
+        <div class="span8">
+          <p>
+            <a href="http://www.upc.edu" target="_blank">
+              <abbr rel="tooltip" data-placement="top" title="" data-original-title="Universitat Politècnica de Catalunya · BarcelonaTech">UPC</abbr>
+              <img class="img_blank" width="10px" height="10px" tal:attributes="src string:${portal_url}/++genweb++static/images/blank_blau.png" alt="(obriu en una finestra nova)">
+            </a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
 
     <script tal:condition="not:anonim" type="text/javascript">
 
@@ -295,21 +310,7 @@
     </tal:notajax>
   </div>
 
-<div style="margin-bottom:20px;" id="endbox"></div>
-  <footer2 id="peu2" role="contentinfo2">
-    <div class="container">
-      <div class="row-fluid">
-        <div class="span8">
-          <p>
-            <a href="http://www.upc.edu" target="_blank">
-              <abbr rel="tooltip" data-placement="top" title="" data-original-title="Universitat Politècnica de Catalunya · BarcelonaTech">UPC</abbr>
-              <img class="img_blank" width="10px" height="10px" tal:attributes="src string:${portal_url}/++genweb++static/images/blank_blau.png" alt="(obriu en una finestra nova)">
-            </a>.
-          </p>
-        </div>
-      </div>
-    </div>
-  </footer2>
+
 
 </body>
 </html>
