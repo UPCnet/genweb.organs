@@ -450,7 +450,7 @@
                        class="editTitle editable titleSize">
                       <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                     </a>
-                  </div>
+
 
                 <tal:files tal:define="files python:view.filesinsidePunt(item)">
                   <ul class="listFiles" tal:condition="files">
@@ -477,6 +477,7 @@
                     </tal:documents>
                   </ul>
                 </tal:files>
+                  </div>
               </div>
 
               <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" class="sortable2">
@@ -554,7 +555,7 @@
                              class="editTitle editable subtitleSize">
                             <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
                         </a>
-                      </div>
+
                       <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
                         <ul style="list-style: none;" tal:condition="files">
                           <tal:documents repeat="item files">
@@ -579,6 +580,7 @@
                           </tal:documents>
                         </ul>
                       </tal:files>
+                      </div>
                     </div>
 
                   </ol>
