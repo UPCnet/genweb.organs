@@ -120,7 +120,7 @@
           <i class="fa fa-chevron-down fa-3x" aria-hidden="true"></i></a>
       </li>
       <li>
-        <a data-scroll data-options='{ "easing": "easeInOutCubic" }'  href="presentation#end" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
+        <a data-scroll data-options='{ "easing": "easeInOutCubic" }'  href="presentation#endbox" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
           <i class="fa fa-arrow-down fa-3x" aria-hidden="true"></i></a>
       </li>
     </ul>
@@ -172,7 +172,7 @@
                               Doc title </span></a>
                           </span>
                           <tal:block tal:condition="item/reservedURL">
-                            |
+                            <span class="barra">|</span>
                             <span class="fitxerReservat">
                                 <a tal:attributes="href item/reservedURL;">
                                   <i tal:attributes="class item/classCSS"></i>
@@ -235,7 +235,7 @@
                                       Doc title </span></a>
                                   </span>
                                   <tal:block tal:condition="item/reservedURL">
-                                    |
+                                    <span class="barra">|</span>
                                     <span class="fitxerReservat">
                                         <a tal:attributes="href item/reservedURL;">
                                           <i tal:attributes="class item/classCSS"></i>
@@ -295,7 +295,8 @@
     </tal:notajax>
   </div>
 
-  <footer id="peu" role="contentinfo">
+<div style="margin-bottom:20px;" id="endbox"></div>
+  <footer2 id="peu2" role="contentinfo2">
     <div class="container">
       <div class="row-fluid">
         <div class="span8">
@@ -308,7 +309,7 @@
         </div>
       </div>
     </div>
-  </footer>
+  </footer2>
 
 </body>
 </html>
