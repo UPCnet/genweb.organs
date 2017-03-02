@@ -731,7 +731,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 }
 
 .bodyPresentation .presentation_template {
-    width: 80%;
+    width: 100%!important;
 }
 
 .bodyPresentation hr {
@@ -1146,16 +1146,16 @@ div.containerIcons a img.link_blank { display: none }
     padding-bottom: 5px!important;
 }
 
-.bodyPresentation #peu{ background:#fff!important; display: none!important; }
+/*.bodyPresentation #peu{ background:#fff!important; display: none!important; }*/
 
-.bodyPresentation footer{ display: none!important }
+/*.bodyPresentation footer{ display: none!important }*/
 
 .bodyPresentation #sortable li {
      width: 100%!important;
 }
 
 .bodyPresentation .agreementPuntPresentation {
-    margin-left: 5px;
+    margin-left: 20px!important;
 }
 
 html {
@@ -1169,6 +1169,8 @@ html {
     border-right: none!important;
     padding-bottom: 15px!important;
 }
+
+
 
 
 
@@ -1213,13 +1215,13 @@ ol.li_subgrups {
 .bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {
     padding-left: 0px!important;
     list-style-type: disc!important;
-    font-size:95%!important;
+    font-size:98%!important;
 }
 
 .bodyPresentation #sortable .filesinTable {
 	padding: 0px!important;
     list-style-type: disc!important;
-    font-size:85%!important;
+    font-size:80%!important;
     margin-left: 20px;
 }
 
@@ -1232,8 +1234,7 @@ ol.li_subgrups {
 .bodyPresentation span.fitxerReservat {
     display: inline-block;
     color: red;
-    margin-left: 10px;
-        font-weight: 300!important;
+    font-weight: 300!important;
 }
 
 .bodyPresentation #sortable .filesinTable {
@@ -1258,9 +1259,10 @@ ol.li_subgrups {
     border-top: none!important;
     border-left: none!important;
     border-right: none!important;
-    background-color: #f4f4f4;
-    padding-top: 20px;
+    background-color: #f6f6f6;
+    padding-top: 25px;
     padding-bottom: 20px!important;
+        border-radius: 4px!important;
 }
 
 .bodyPresentation #sortable ul.dropdown-menu li{
@@ -1271,5 +1273,24 @@ ol.li_subgrups {
 
 .bodyPresentation span.proposalNumber, .bodyPresentation span.proposalNumberSubpunt {
 
-	color: #aaa!important;
+	color: #0087C9!important;
+}
+
+.bodyPresentation .container {
+height: 91%;
+    padding-left: 10%;
+    width: auto;
+    padding-right: 10%;}
+
+
+.bodyPresentation .nav > li > a:hover i:before, .bodyPresentation .nav > li > a:hover {
+    text-decoration: none;
+    background-color: transparent!important;
+    color: #0087C9!important;
+}
+
+span.barra {
+    margin: 0px 5px;
+    color: #aaa;
+    font-weight: 300!important;
 }
