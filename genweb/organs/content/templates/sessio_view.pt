@@ -680,10 +680,8 @@
 
         $("li.defaultValue").on('click', function(){
             var colorSelected = $(this).find('.fa').css('color');
-            $(this).parent().parent().parent().find('.bullet-toggle > i').css({'color': colorSelected});
+            $(this).parent().parent().parent().parent().find('.bullet-toggle > i').css({'color': colorSelected});
         });
-
-
 
   })
   </script>

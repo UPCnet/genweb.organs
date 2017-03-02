@@ -297,7 +297,7 @@
 
       $("li.defaultValue").on('click', function(){
           var colorSelected = $(this).find('.fa').css('color');
-          $(this).parent().parent().parent().parent().find('.dropdown-toggle > i').css({'color': colorSelected});
+          $(this).parent().parent().parent().parent().parent().find('.dropdown-toggle > i').css({'color': colorSelected});
       });
 
       // Mouse Handler
