@@ -207,7 +207,7 @@ class Move(BrowserView):
             # Els ids ja s'han mogut, cal afegir el proposalPoint pertinent.
 
             subpuntsOrdered = portal_catalog.searchResults(
-                portal_type=['genweb.organs.subpunt'],
+                portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
                 sort_on='getObjPositionInParent',
                 path={'query': folder_path,
                       'depth': 1})
@@ -216,7 +216,7 @@ class Move(BrowserView):
             puntnumber = punt.proposalPoint
             # Change proposaoints dels subpunts ordenats
             for item in subpuntsOrdered:
-                if item.portal_type == 'genweb.organs.subpunt':
+                if item.portal_type == 'genweb.organs.subpunt' or item.portal_type == 'genweb.organs.acord':
                     objecteSubPunt = item.getObject()
                     objecteSubPunt.proposalPoint = unicode(str(puntnumber) + '.' + str(subvalue))
                     objecteSubPunt.reindexObject()
