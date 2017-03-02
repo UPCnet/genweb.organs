@@ -246,3 +246,22 @@ class Presentation(form.SchemaForm):
             else:
                 return False
         return False
+
+    def wf_state(self):
+        state = api.content.get_state(self.context)
+        return state
+
+    def changeEstat(self):
+        username = api.user.get_current().getProperty('id')
+        if username is None:
+            return False
+        else:
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
+                if self.wf_state() in ['planificada', 'convocada', 'realitzada']:
+                    return True
+            if 'OG1-Secretari' in roles or 'Manager' in roles:
+                if self.wf_state() == 'en_correccio':
+                    return True
+            else:
+                return False

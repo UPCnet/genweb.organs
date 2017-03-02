@@ -15,7 +15,6 @@ from zope import schema
 from time import strftime
 from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from genweb.organs.utils import addEntryLog
-from Products.CMFCore.utils import getToolByName
 
 grok.templatedir("templates")
 
@@ -154,12 +153,8 @@ class Message(form.SchemaForm):
                 immediate=False,
                 charset='utf8',
                 msg_type='text/html')
-            # TODO: No fa el canvi d'estat... fa un redirect ¿?
+
             api.content.transition(obj=self.context, transition='convocar')
-            # return self.context.portal_workflow.doActionFor(self.context, 'convocar')
-
-            # workflow_tool = getToolByName(self.context, 'portal_workflow')
-
             addEntryLog(self.context, None, _(u'Sending mail convocatoria'), formData['recipients'])
             self.context.plone_utils.addPortalMessage(
                 _("Missatge enviat correctament"), 'info')
