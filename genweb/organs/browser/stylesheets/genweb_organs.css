@@ -591,14 +591,14 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 
 .bodyPresentation span.proposalNumber {
     color: #CCC;
-    margin-left: -7px;
-    margin-right: 12px;
+    /*margin-left: -7px;*/
+    /*margin-right: 12px;*/
     font-size: 30px;
 }
 
 .bodyPresentation span.proposalNumberSubpunt {
     color: #CCC;
-    font-size: 25px;
+    font-size: 23px;
 }
 
 .bodyPresentation .agreement.editable.editable-click{
@@ -798,7 +798,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     line-height: 30px;
     color: #000;
     white-space: nowrap;
-    font-size: 14px;.bodyPresentation .btn-group.open .dropdown-toggle
+    font-size: 14px;
     font-weight: bold;
 }
 
@@ -811,6 +811,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     padding-top: 0px;
     padding-bottom: 0px;
     margin-top: 0px;
+    min-width: 175px;
 }
 
 .bodyPresentation #sortable .dropdown-menu li{
@@ -1113,7 +1114,7 @@ div.containerIcons a img.link_blank { display: none }
 
 .span1.fletxaSpan{
 	margin-top:0px!important;
-	width: 20px!important;
+	width: 2.52147%!important;
 }
 
 .span1.fletxaSpan .expand {
@@ -1187,7 +1188,7 @@ html {
     padding-right: 4px!important;
 }
 
- .bodyPresentation .span1 {width: 3.982905982905983%!important;}
+ .bodyPresentation .span1 {width: 3.982905982905983%!important; }
  .bodyPresentation .span10{width:82.34188034188033%!important;}
  .bodyPresentation .span12{width:100%!important;}
  .bodyPresentation  .listFiles {
@@ -1263,6 +1264,7 @@ ol.li_subgrups {
     padding-top: 25px;
     padding-bottom: 20px!important;
         border-radius: 4px!important;
+        margin-bottom: 15px!important;
 }
 
 .bodyPresentation #sortable ul.dropdown-menu li{
@@ -1293,4 +1295,20 @@ span.barra {
     margin: 0px 5px;
     color: #aaa;
     font-weight: 300!important;
+}
+
+.bodyPresentation #sortable li.defaultValue {
+    margin-bottom: 0px!important;
+    padding-bottom: 0px!important;
+}
+
+.Afectat #sortable li {
+    width: 97%!important}
+
+
+.presentation_template ul#sortable.ui-sortable li:hover{ background-color:#f2f2f2;}
+/*.picked:hover{background:#e5f7ff !important; }*/
+.presentation_template li.punt.picked{ background:#e5f7ff !important; }
+.bodyPresentation .picked .filesinTable:hover {
+    background:#e5f7ff !important;
 }
