@@ -11,6 +11,7 @@
       tal:define="show view/simulation;
                   isAfectat view/isAfectat;
                   isMembre view/isMembre;
+                  isPublic view/isPublic;
                   canModify view/canModify;
                   items view/PuntsInside;
                   hihaPunts view/hihaPunts;
@@ -27,7 +28,7 @@
     <br/> Clicar <a href="./">aqui</a> per tornar al mode de visualitzacio per defecte.
   </div>
 
-  <div tal:condition="python: isAfectat or isMembre">
+  <div tal:condition="python: isAfectat or isMembre or isPublic">
 
       <div class="clearfix"></div>
       <div id="contentSessio">
@@ -170,7 +171,7 @@
                           <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                         </a>
                       </div>
-    
+
                         <tal:files tal:define="files python:view.filesinsidePunt(item)">
                           <ul class="listFiles" tal:condition="files">
                             <tal:documents repeat="item files">

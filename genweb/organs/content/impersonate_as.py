@@ -70,6 +70,16 @@ class ShowSessionAs(form.SchemaForm):
         else:
             return False
 
+    def isPublic(self):
+        if self.simulation() is 'Public':
+            review_state = api.content.get_state(self.context)
+            if review_state in ['planificada', 'convocada', 'realitzada']:
+                return False
+            if review_state in ['tancada', 'en_correccio']:
+                return True
+        else:
+            return False
+
     def isManager(self):
         return utils.isManager(self)
 
