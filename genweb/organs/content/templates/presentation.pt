@@ -162,28 +162,30 @@
                   <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                 </a>
                 <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
-                  <ul>
-                    <tal:documents repeat="item files">
-                      <li class="filesinTable">
-                        <div tal:condition="not:item/hasPublic">
-                            <a tal:content="item/title" tal:attributes="href item/publicURL"> Doc title </a>
-                        </div>
-                        <div class="filelist">
-                          <span tal:condition="item/hasPublic">
-                              <a tal:attributes="href item/publicURL"><tal:bck tal:condition="item/isFile"><i tal:attributes="class item/classCSS"></i></tal:bck>&nbsp;<span tal:content="item/title" tal:attributes="href item/publicURL">
-                              Doc title </span></a>
-                          </span>
-                          <tal:block tal:condition="item/reservedURL">
-                            <span class="barra">|</span>
-                            <span class="fitxerReservat">
-                                <a tal:attributes="href item/reservedURL;">
-                                  <i tal:attributes="class item/classCSS"></i></a>&nbsp;<span i18n:translate="">Fitxer reservat</span>&nbsp;
-                            </span>
-                          </tal:block>
-                        </div>
-                      </li>
-                    </tal:documents>
-                  </ul>
+                          <ul>
+                            <tal:documents repeat="item files">
+                              <li class="filesinTable">
+                                <div tal:condition="not:item/hasPublic">
+                                    <a tal:content="item/title" tal:attributes="href item/publicURL"> Doc title </a>
+                                </div>
+                                <div class="filelist">
+                                  <span tal:condition="item/hasPublic">
+                                      <a tal:attributes="href item/publicURL"><tal:bck tal:condition="item/isFile"><i tal:attributes="class item/classCSS"></i></tal:bck>&nbsp;<span tal:content="item/title" tal:attributes="href item/publicURL">
+                                      Doc title </span></a>
+                                  </span>
+                                  <tal:block tal:condition="view/hasPermission">
+                                    <tal:block tal:condition="item/reservedURL">
+                                      <span class="barra">|</span>
+                                      <span class="fitxerReservat">
+                                          <a tal:attributes="href item/reservedURL;">
+                                            <i tal:attributes="class item/classCSS"></i></a>&nbsp;<span i18n:translate="">Fitxer reservat</span>&nbsp;
+                                      </span>
+                                    </tal:block>
+                                  </tal:block>
+                                </div>
+                              </li>
+                            </tal:documents>
+                          </ul>
                 </tal:files>
               </div>
             </div>
@@ -234,12 +236,14 @@
                                       <a tal:attributes="href item/publicURL"><tal:bck tal:condition="item/isFile"><i tal:attributes="class item/classCSS"></i></tal:bck>&nbsp;<span tal:content="item/title" tal:attributes="href item/publicURL">
                                       Doc title </span></a>
                                   </span>
-                                  <tal:block tal:condition="item/reservedURL">
-                                    <span class="barra">|</span>
-                                    <span class="fitxerReservat">
-                                        <a tal:attributes="href item/reservedURL;">
-                                          <i tal:attributes="class item/classCSS"></i></a>&nbsp;<span i18n:translate="">Fitxer reservat</span>&nbsp;
-                                    </span>
+                                  <tal:block tal:condition="view/hasPermission">
+                                    <tal:block tal:condition="item/reservedURL">
+                                      <span class="barra">|</span>
+                                      <span class="fitxerReservat">
+                                          <a tal:attributes="href item/reservedURL;">
+                                            <i tal:attributes="class item/classCSS"></i></a>&nbsp;<span i18n:translate="">Fitxer reservat</span>&nbsp;
+                                      </span>
+                                    </tal:block>
                                   </tal:block>
                                 </div>
                               </li>

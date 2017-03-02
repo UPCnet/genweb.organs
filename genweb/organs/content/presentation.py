@@ -234,3 +234,15 @@ class Presentation(form.SchemaForm):
                             return obj.absolute_url() + '/capcalera@2x.jpg'
                     except:
                         return obj.absolute_url() + '/capcalera@2x.jpg'
+
+    def hasPermission(self):
+        username = api.user.get_current().getProperty('id')
+        if username is None:
+            return False
+        else:
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG2-Membre' in roles:
+                return True
+            else:
+                return False
+        return False
