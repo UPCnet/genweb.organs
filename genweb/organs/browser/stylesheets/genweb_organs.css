@@ -272,7 +272,7 @@ span.label.nomarginLeft  {
 }
 .subpuntTitle {
     font-size: 16px;
-    padding-left: 25px;
+    padding-left: 50px!important;
     line-height: 21px;
 }
 
@@ -484,7 +484,7 @@ background-color: transparent;
 }
 .listFiles {
     list-style: none;
-    padding-left: 25px;
+    padding-left: 0px!important;
     padding-top: 10px;
 }
 .DADES .expand, .DADES .notexpand, .DADES .expand:hover, .DADES .notexpand:hover {
@@ -623,7 +623,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 
 .bodyPresentation .editTitle.editable.subtitleSize {
     color: #555;
-    font-weight: 300!important;
+   /* font-weight: 300!important;*/
     font-size: 23px;
 }
 
@@ -782,7 +782,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 
 .bodyPresentation #sortable .filesinTable {
     margin-top: 10px;
-    font-size: 20px;
+    /*font-size: 20px;*/
     padding-top: 2px;
     padding-bottom: 2px;
     line-height: 30px;
@@ -1016,7 +1016,7 @@ input#acordNumber {width: 159px;}
 
 .bodyPresentation .subpuntTitle {padding-left:50px;}
 
-.bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {padding-left: 50px;}
+.bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {    padding: 0px!important;}
 
 .agreementClass , .agreementSubClass  {
     font-size: 11px;
@@ -1085,7 +1085,7 @@ div.containerIcons a img.link_blank { display: none }
 .span1.numberSpan {
     margin-left: 0px!important;
     margin-top: 0px;
-    width: 40px!important;
+    /*width: 40px!important;*/
 }
 
 .span6.agreementSpan{margin-bottom:0px!important;}
@@ -1097,7 +1097,7 @@ div.containerIcons a img.link_blank { display: none }
    }
 
 #sortable li {
-    border: 1px solid #eee!important;
+    /*border: 1px solid #eee!important;*/
     border-radius: 0;
     box-shadow: 2px 3px 2px #eee;
     font-size: 14px;
@@ -1167,7 +1167,7 @@ html {
     border-top: none!important;
     border-left: none!important;
     border-right: none!important;
-    padding-bottom: 20px!important;
+    padding-bottom: 15px!important;
 }
 
 
@@ -1183,4 +1183,93 @@ html {
 
 .span6.einesSpan{
     padding-right: 4px!important;
+}
+
+ .bodyPresentation .span1 {width: 3.982905982905983%!important;}
+ .bodyPresentation .span10{width:82.34188034188033%!important;}
+ .bodyPresentation .span12{width:100%!important;}
+ .bodyPresentation  .listFiles {
+    list-style: none;
+    padding-left: 95px!important;
+    padding-top: 10px;
+}
+ .bodyPresentation .puntTitle .span1, .bodyPresentation .puntTitle .span11 {
+    margin: 0px 0 0;
+}
+
+ol.li_subgrups {
+    display: inline-block!important;
+    clear: both!important;
+    width: 100%!important;
+}
+
+ .bodyPresentation .span1.numberSpan {
+    margin-top: 5px!important;
+    text-align: right!important;
+}
+
+
+
+.bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {
+    padding-left: 0px!important;
+    list-style-type: disc!important;
+    font-size:95%!important;
+}
+
+.bodyPresentation #sortable .filesinTable {
+	padding: 0px!important;
+    list-style-type: disc!important;
+    font-size:85%!important;
+    margin-left: 20px;
+}
+
+.bodyPresentation #sortable .filesinTable {border-bottom: none!important}
+
+.bodyPresentation .filesinTable.span12 .span9{margin: 0px!important;}
+
+.bodyPresentation .subpuntTitle.span12 .span10{margin-left:20px!important;}
+
+.bodyPresentation span.fitxerReservat {
+    display: inline-block;
+    color: red;
+    margin-left: 10px;
+        font-weight: 300!important;
+}
+
+.bodyPresentation #sortable .filesinTable {
+    line-height: 20px!important;
+    }
+
+.bodyPresentation #sortable .filesinTable a{
+	color:#555!important;
+	    font-weight: 300!important;
+}
+
+.bodyPresentation #sortable .filesinTable a:hover {
+    line-height: 20px!important;
+        font-weight: 300!important;
+    color: #007BC0!important;
+    }
+
+
+
+    .bodyPresentation #sortable li {
+    width: 100%!important;
+    border-top: none!important;
+    border-left: none!important;
+    border-right: none!important;
+    background-color: #f4f4f4;
+    padding-top: 20px;
+    padding-bottom: 20px!important;
+}
+
+.bodyPresentation #sortable ul.dropdown-menu li{
+	background-color: #fff;
+	padding-top: 5px;
+    padding-bottom: 5px!important;
+}
+
+.bodyPresentation span.proposalNumber, .bodyPresentation span.proposalNumberSubpunt {
+
+	color: #aaa!important;
 }
