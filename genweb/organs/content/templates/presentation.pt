@@ -86,6 +86,8 @@
     </tal:notajax>
 </head>
 
+
+
 <body class="bodyPresentation" id="home">
   <div class="clearfix">
     <h1 class="logoPresentation">
@@ -125,6 +127,7 @@
       </li>
     </ul>
 
+
 <div class="container">
       <div class="row-fluid">
     <div tal:condition="items" class="DADES presentation_template">
@@ -132,7 +135,7 @@
       <hr/>
       <ul id="sortable" class="ui-sortable">
         <tal:documents repeat="item items">
-          <li>
+          <li class="punt">
             <div class="agreementPuntPresentation" tal:content="item/agreement" tal:condition="item/agreement"></div>
             <div class="puntTitle span12">
               <div class="span1">
@@ -296,6 +299,24 @@
           var colorSelected = $(this).find('.fa').css('color');
           $(this).parent().parent().parent().parent().find('.dropdown-toggle > i').css({'color': colorSelected});
       });
+
+      // Mouse Handler
+      function mouseHandler(e){
+        // Add Picked Class
+        if ($(this).hasClass('picked')) {
+          $(this).removeClass('picked');
+        } else {
+          $(".picked").removeClass('picked');
+          $(this).addClass('picked');
+        }
+      }
+
+      function init_li_selected(){
+        // Bind all li
+        $('.ui-sortable li').bind('click', mouseHandler);
+      }
+
+      $(document).ready(init_li_selected);
 
     </script>
 
