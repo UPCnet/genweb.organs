@@ -483,10 +483,10 @@
               <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" class="sortable2">
                 <tal:subpunts repeat="itemSubpunt subpunts">
                   <ol class="li_subgrups" tal:attributes="id itemSubpunt/id">
-                    <div class="span6">
+                    <div class="span6 agreementSpan">
                       <span class="agreementSubClass" tal:content="itemSubpunt/agreement" tal:condition="itemSubpunt/agreement"></span>
                     </div>
-                    <div class="span6">
+                    <div class="span6 einesSpan">
                       <div style="float: right;" aria-label="Subpunt actions" tal:condition="canModify">
                         <button type="button" class="edit2 label label-info"
                           data-original-title="Edit">

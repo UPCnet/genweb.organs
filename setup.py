@@ -9,7 +9,7 @@ HISTORY = open(os.path.join("docs", "HISTORY.rst")).read()
 
 setup(name='genweb.organs',
       version=version,
-      description="Paquet Organs de Govern amb Angular2 i que s'integra a Genweb.",
+      description="Paquet Organs de Govern amb jQuery i que s'integra a Genweb.",
       long_description=README + "\n" + HISTORY,
       classifiers=[
           "Environment :: Web Environment",
@@ -20,7 +20,7 @@ setup(name='genweb.organs',
           "Programming Language :: Python :: 2.7",
           "Topic :: Software Development :: Libraries :: Python Modules",
       ],
-      keywords='organs govern genweb angular2 js',
+      keywords='organs govern genweb jquery',
       author='roberto.diaz',
       author_email='plone.team@upcnet.es',
       url='https://github.com/UPCnet/genweb.organs',

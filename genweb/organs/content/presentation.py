@@ -125,21 +125,20 @@ class Presentation(form.SchemaForm):
                   'depth': 1})
         results = []
         for obj in values:
-            visibleTitle = ''
             visibleUrl = ''
-            hiddenTitle = ''
             hiddenUrl = ''
             isFile = False
+            hasPublic = False
+            visibleUrl = obj.getObject().absolute_url()
             if obj.portal_type == 'genweb.organs.file':
                 isFile = True
                 tipus = 'fa fa-file-pdf-o'
                 file = obj.getObject()
                 if file.visiblefile:
-                    visibleTitle = file.visiblefile.filename
+                    hasPublic = True
                     visibleUrl = file.absolute_url() + '/@@download/visiblefile/'
                 if file.hiddenfile:
                     # TODO : If user is anon no returns hidden file
-                    hiddenTitle = file.hiddenfile.filename
                     hiddenUrl = file.absolute_url() + '/@@download/hiddenfile/'
             else:
                 tipus = 'fa fa-file-text-o'
@@ -148,11 +147,10 @@ class Presentation(form.SchemaForm):
                                 path=file.absolute_url_path(),
                                 absolute_url=obj.getURL(),
                                 isFile=isFile,
+                                hasPublic=hasPublic,
                                 classCSS=tipus,
                                 publicURL=visibleUrl,
-                                publicTITLE=visibleTitle,
                                 reservedURL=hiddenUrl,
-                                reservedTITLE=hiddenTitle,
                                 id=obj.id))
         return results
 
