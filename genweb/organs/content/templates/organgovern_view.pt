@@ -13,7 +13,6 @@
                    members view/members;
                    descripcioOrgan context/descripcioOrgan;
                    membresOrgan context/membresOrgan;
-                   checkRoles view/checkRoles;
                    convidatsPermanentsOrgan context/convidatsPermanentsOrgan">
 
   <div class="pull-right" tal:condition="context/logoOrgan">
@@ -117,12 +116,6 @@
 
     </div>
 
-  </div>
-
-  <div tal:condition="not:checkRoles">
-    <hr/>
-    <h4 style="padding-left: 15px; padding-right: 15px;" i18n:translate=""> Si creieu que heu de veure alguna sessio, contacteu amb administrador ja que aquest usuari no disposa de cap dels permissos de OG en aquest OG.</h4>
-    <hr/>
   </div>
 
   <tal:Sessions tal:define="sessions view/SessionsInside" tal:condition="sessions">

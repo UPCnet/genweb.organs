@@ -72,6 +72,20 @@ def isManager(self):
         return False
 
 
+def checkRoles(self):
+    username = api.user.get_current().getProperty('id')
+    if username is None:
+        return 'Anonymous'
+    roles = api.user.get_roles(username=username, obj=self.context)
+
+    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or \
+       'OG3-Membre' in roles or 'OG4-Afectat' in roles or \
+       'Manager' in roles:
+        return True
+    else:
+        return False
+
+
 def addEntryLog(context, sender, message, recipients):
     """ Adds entry log with the values:
             context: where the actions is executed
