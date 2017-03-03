@@ -220,7 +220,7 @@
                       </span>
                       </div>
                       <div class="span1">
-                        <span class="proposalNumberSubpunt" style="margin-right: 12px;" tal:content="item/proposalPoint"></span>
+                        <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>
                       </div>
                       <div class="span10">
                         <span class="titlePresentation">
