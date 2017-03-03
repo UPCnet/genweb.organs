@@ -177,7 +177,7 @@ span.proposalNumber {
 span.proposalNumberSubpunt {
     color: #ccc;
     margin-left: 0;
-}
+ }
 
 #sortable .ui-state-highlight {
     height: 1.5em;
@@ -1155,9 +1155,11 @@ div.containerIcons a img.link_blank { display: none }
      width: 100%!important;
 }
 
-.bodyPresentation .agreementPuntPresentation {
+/*.bodyPresentation .agreementPuntPresentation , .bodyPresentation .agreementSubPuntPresentation {
     margin-left: 20px!important;
-}
+}*/
+
+
 
 html {
     background: #fff!important;
@@ -1188,7 +1190,7 @@ html {
     padding-right: 4px!important;
 }
 
- .bodyPresentation .span1 {width: 3.982905982905983%!important; }
+ .bodyPresentation .span1 {width: 3.982905982905983%!important; text-align: right; }
  .bodyPresentation .span10{width:82.34188034188033%!important;}
  .bodyPresentation .span12{width:100%!important;}
  .bodyPresentation  .listFiles {
@@ -1312,3 +1314,26 @@ span.barra {
 .bodyPresentation .picked .filesinTable:hover {
     background:#e5f7ff !important;
 }
+
+
+.bodyPresentation .agreementPuntPresentation, .bodyPresentation .agreementSubPuntPresentation {
+    margin-right: 20px!important;
+    float: right;
+    background-color: #0083C7;
+    color: white!important;
+    border-radius: 5px;
+    padding: 0 5px;
+}
+
+.bodyPresentation .subpuntTitle.span12{margin-left:0px!important }
+
+.bodyPresentation .subpuntTitle {
+    padding-left: 100px!important;
+   
+}
+
+.bodyPresentation span.proposalNumberSubpunt {
+    color: #ccc;
+    margin-left: 0;
+    margin-right: 0!important;
+ }
