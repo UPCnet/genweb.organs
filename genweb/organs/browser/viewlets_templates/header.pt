@@ -218,4 +218,4 @@
 
 
 </tal:block>
-<!-- <h2>Current role!</h2> <span tal:content="viewlet/role"></span> -->
+ <!-- <h2>Current role!</h2> <span tal:content="viewlet/role"></span>  -->

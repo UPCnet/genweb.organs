@@ -1083,6 +1083,9 @@ div.containerIcons a img.link_blank { display: none }
     margin-left: 5px!important;
 }
 
+.bodyPresentation .puntTitle.span12{margin-left: 0px!important;}
+
+
 .span1.numberSpan {
     margin-left: 0px!important;
     margin-top: 0px;
@@ -1337,3 +1340,11 @@ span.barra {
     margin-left: 0;
     margin-right: 0!important;
  }
+
+.bodyPresentation ul.dropdown-menu {
+    text-align: left;
+}
+
+.bodyPresentation .puntTitle.span12 > .span1 {
+    text-align: left;
+}

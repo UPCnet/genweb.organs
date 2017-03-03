@@ -17,15 +17,7 @@
 
   <metal:content-core fill-slot="content-core">
     <metal:listingmacro define-macro="listing"
-      tal:define="contentFilter contentFilter|request/contentFilter|nothing;
-                        contentFilter python:contentFilter and dict(contentFilter) or {};
-                        limit_display limit_display|request/limit_display|nothing;
-                        limit_display python:limit_display and int(limit_display) or None;
-                        more_url more_url|request/more_url|string:folder_contents;
-                        is_a_topic python:context.portal_type=='Topic';
-                        folderContents folderContents|nothing;
-                        folderContents python:context.getFolderContents(contentFilter, batch=True, b_size=limit_display or 100);
-                        items view/OrgansInside">
+      tal:define="items view/OrgansInside">
 
       <div tal:condition="items" class="organsfolder_view">
   <div class="documentDescription description"></div>
@@ -67,7 +59,7 @@
 
       <metal:empty metal:define-slot="no_items_in_listing">
         <p class="discreet"
-           tal:condition="not: folderContents"
+           tal:condition="not: view/OrgansInside"
            i18n:translate="description_no_items_in_folder">
             There are currently no Organs in this folder.
         </p>

@@ -173,9 +173,6 @@ class View(grok.View):
             return False
         return True
 
-    def checkRoles(self):
-        return utils.checkRoles(self)
-
     def activeClassMembres(self):
         if self.context.membresOrgan and self.context.convidatsPermanentsOrgan is None:
             return 'in active'
