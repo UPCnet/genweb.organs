@@ -196,7 +196,9 @@
               <tal:subpunts repeat="item subpunts">
                 <ol class="li_subgrups">
                   <td>
-                  <div class="agreementSubPuntPresentation" tal:content="item/agreement" tal:condition="item/agreement"></div>
+                  <div class="agreementSubPuntPresentation">
+                    <tal:block  tal:content="item/agreement" tal:condition="item/agreement"></tal:block>
+                  </div>
                     <div class="subpuntTitle span12">
                       <div class="span1">
                       <span class="btn-group bulletPuntPresentation" role="group" tal:condition="view/changeEstat">
