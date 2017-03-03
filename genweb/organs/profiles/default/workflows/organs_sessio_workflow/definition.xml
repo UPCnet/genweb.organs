@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <dc-workflow workflow_id="organs_sessio_workflow" title="Genweb Organs: Session Workflow" description="Organs Sessio: Planificada / Convocada / Realitzada / Tancada / En correccio" state_variable="review_state" initial_state="planificada" manager_bypass="False">
  <permission>Access contents information</permission>
+ <permission>Add portal content</permission>
+ <permission>Change local roles</permission>
+ <permission>Copy or Move</permission>
+ <permission>Delete objects</permission>
  <permission>List folder contents</permission>
  <permission>Modify portal content</permission>
  <permission>Reply to item</permission>
- <permission>View</permission>
- <permission>Add portal content</permission>
- <permission>Copy or Move</permission>
- <permission>Delete objects</permission>
- <permission>Change local roles</permission>
  <permission>Sharing page: Delegate Contributor role</permission>
  <permission>Sharing page: Delegate Editor role</permission>
  <permission>Sharing page: Delegate Reader role</permission>
  <permission>Sharing page: Delegate Reviewer role</permission>
  <permission>Sharing page: Delegate roles</permission>
+ <permission>View</permission>
  <state state_id="convocada" title="Convocada">
   <exit-transition transition_id="realitzar"/>
   <permission-map name="Access contents information" acquired="False">
@@ -21,76 +21,142 @@
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
+  </permission-map>
+  <permission-map name="Add portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Change local roles" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Copy or Move" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="List folder contents" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Reply to item" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Contributor role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Editor role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Reader role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Reviewer role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate roles" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
   </permission-map>
  </state>
  <state state_id="en_correccio" title="En modificació">
   <exit-transition transition_id="planificar"/>
   <exit-transition transition_id="tancar"/>
   <permission-map name="Access contents information" acquired="False">
+   <permission-role>Anonymous</permission-role>
+   <permission-role>Authenticated</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
+  </permission-map>
+  <permission-map name="Add portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+  </permission-map>
+  <permission-map name="Change local roles" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+  </permission-map>
+  <permission-map name="Copy or Move" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
   </permission-map>
   <permission-map name="List folder contents" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Reply to item" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
   </permission-map>
-  <permission-map name="View" acquired="True">
+  <permission-map name="Sharing page: Delegate Contributor role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Editor role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Reader role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Reviewer role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate roles" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Anonymous</permission-role>
+   <permission-role>Authenticated</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
   </permission-map>
  </state>
  <state state_id="planificada" title="En planificació">
@@ -100,45 +166,103 @@
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
+  </permission-map>
+  <permission-map name="Add portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Change local roles" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Copy or Move" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="List folder contents" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Reply to item" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Contributor role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Editor role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Reader role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Reviewer role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate roles" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
   </permission-map>
  </state>
  <state state_id="pre_convoque" title="Convocant">
   <exit-transition transition_id="convocar"/>
+  <permission-map name="Access contents information" acquired="True">
+  </permission-map>
+  <permission-map name="Add portal content" acquired="True">
+  </permission-map>
+  <permission-map name="Change local roles" acquired="True">
+  </permission-map>
+  <permission-map name="Copy or Move" acquired="True">
+  </permission-map>
+  <permission-map name="Delete objects" acquired="True">
+  </permission-map>
+  <permission-map name="List folder contents" acquired="True">
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="True">
+  </permission-map>
+  <permission-map name="Reply to item" acquired="True">
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Contributor role" acquired="True">
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Editor role" acquired="True">
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Reader role" acquired="True">
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Reviewer role" acquired="True">
+  </permission-map>
+  <permission-map name="Sharing page: Delegate roles" acquired="True">
+  </permission-map>
+  <permission-map name="View" acquired="True">
+  </permission-map>
  </state>
  <state state_id="realitzada" title="Realitzada">
   <exit-transition transition_id="tancar"/>
@@ -148,27 +272,66 @@
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
+  </permission-map>
+  <permission-map name="Add portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Change local roles" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Copy or Move" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="List folder contents" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Reply to item" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Contributor role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Editor role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Reader role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate Reviewer role" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate roles" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
@@ -176,27 +339,24 @@
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
   </permission-map>
  </state>
  <state state_id="tancada" title="Tancada">
   <exit-transition transition_id="corregir"/>
   <permission-map name="Access contents information" acquired="False">
+   <permission-role>Anonymous</permission-role>
+   <permission-role>Authenticated</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Add portal content" acquired="False">
    <permission-role>Manager</permission-role>
   </permission-map>
   <permission-map name="Change local roles" acquired="False">
+   <permission-role>Manager</permission-role>
   </permission-map>
   <permission-map name="Copy or Move" acquired="False">
    <permission-role>Manager</permission-role>
@@ -209,40 +369,43 @@
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Reply to item" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Contributor role" acquired="False">
+   <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Editor role" acquired="False">
+   <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Reader role" acquired="False">
+   <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Reviewer role" acquired="False">
+   <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate roles" acquired="False">
+   <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG2-Editor</permission-role>
   </permission-map>
-  <permission-map name="View" acquired="True">
+  <permission-map name="View" acquired="False">
+   <permission-role>Anonymous</permission-role>
+   <permission-role>Authenticated</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>WebMaster</permission-role>
   </permission-map>
  </state>
  <transition transition_id="convocant" title="Convocant" new_state="convocada" trigger="USER" before_script="" after_script="">

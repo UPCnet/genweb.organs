@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<dc-workflow workflow_id="organs_one_state_workflow" title="Single State Workflow" description="- Essentially a workflow with no transitions, but has a Published state, so portlets and applications that expect that state will continue to work." state_variable="review_state" initial_state="published" manager_bypass="False">
+<dc-workflow workflow_id="one_state_workflow" title="Single State Workflow" description="- Essentially a workflow with no transitions, but has a Published state, so portlets and applications that expect that state will continue to work." state_variable="review_state" initial_state="published" manager_bypass="True">
  <permission>Access contents information</permission>
  <permission>Add Workflow Policy</permission>
  <permission>Add portal content</permission>
@@ -25,7 +25,7 @@
   <permission-map name="Access contents information" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
@@ -33,13 +33,13 @@
   <permission-map name="Add Workflow Policy" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Add portal content" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
@@ -47,7 +47,7 @@
   <permission-map name="Change portal events" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -56,13 +56,13 @@
   <permission-map name="Copy or Move" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Delete objects" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -71,20 +71,20 @@
   <permission-map name="List folder contents" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="Manage portal" acquired="True">
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -93,13 +93,13 @@
   <permission-map name="Public, everyone can access" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Reply to item" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
@@ -107,59 +107,60 @@
   <permission-map name="Review portal content" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Contributor role" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Editor role" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Reader role" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Reviewer role" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate roles" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="View" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
    <permission-role>OG4-Afectat</permission-role>
+   <permission-role>OG5-Anonim</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
   <permission-map name="View History" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="plone.app.multilingual: Manage Translations" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>OG1-Secretari</permission-role>
+   <permission-role>OG1-Responsable</permission-role>
    <permission-role>OG2-Editor</permission-role>
   </permission-map>
  </state>
