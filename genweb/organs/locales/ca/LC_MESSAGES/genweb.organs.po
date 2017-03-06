@@ -176,7 +176,7 @@ msgstr "Composició"
 #: ./genweb/organs/content/sessio.py:483
 #: ./genweb/organs/utils.py:152
 msgid "Conte fitxer public i reservat"
-msgstr "Conté el fitxer públic i el fitxer reservat"
+msgstr "Conté fitxer públic i fitxer reservat"
 
 #: ./genweb/organs/content/document.py:48
 msgid "Content used to hide protected content"

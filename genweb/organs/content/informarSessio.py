@@ -65,14 +65,14 @@ class Message(form.SchemaForm):
 
         lang = self.context.language
         if lang == 'ca':
-            text = 'Enllaç a la sessió: '
+            default_text = 'Enllaç a la sessió: '
         if lang == 'es':
-            text = 'Enlace a la sessión: '
+            default_text = 'Enlace a la sessión: '
         if lang == 'en':
-            text = 'Link to this session: '
+            default_text = 'Link to this session: '
         else:
-            text = self.Punts2Acta() + '<br/><br/>' + 'Enllaç a la sessió: '
-        self.widgets["message"].value = text + '<a href="' + self.context.absolute_url() + '"> ' + self.context.Title() + ' </a>'
+            default_text = 'Enllaç a la sessió: '
+        self.widgets["message"].value = default_text + '<a href="' + self.context.absolute_url() + '"> ' + self.context.Title() + ' </a>' + self.Punts2Acta()
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):
@@ -192,7 +192,7 @@ class Message(form.SchemaForm):
             else:
                 agreement = ''
             # adding hidden field to maintain good urls
-            results.append('&emsp;' + number + agreement + '<a href=----@@----' + obj.getURL() + '>' + str(obj.Title) + '</a>')
+            results.append(str('&emsp;') + str(number) + str(agreement) + str('<a href=----@@----') + str(obj.getURL()) + str('>') + str(obj.Title) + str('</a>'))
             if len(value.objectIds()) > 0:
                 valuesInside = portal_catalog.searchResults(
                     portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
@@ -206,10 +206,11 @@ class Message(form.SchemaForm):
                     else:
                         numberSubpunt = ''
                     if subpunt.portal_type == 'genweb.organs.acord':
-                        agreement = str(subpunt.agreement) + ' - '
+                        if subpunt.agreement:
+                            agreement = str(subpunt.agreement) + ' - '
                     else:
-                        agreement = ''
+                        agreement = _(u'ACORD') + ' - '
                     # adding hidden field to maintain good urls
-                    results.append('&emsp;&emsp;' + numberSubpunt + agreement + '<a href=----@@----' + item.getURL() + '>' + str(item.Title) + '</a>')
+                    results.append(str('&emsp;&emsp;') + str(numberSubpunt) + str(agreement) + str('<a href=----@@----') + str(item.getURL()) + str('>') + str(item.Title) + str('</a>'))
 
         return '<br/>'.join(results)

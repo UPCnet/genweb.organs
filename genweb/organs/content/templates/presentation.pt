@@ -161,7 +161,7 @@
                 <span class="proposalNumber" tal:content="item/proposalPoint"></span>
               </div>
               <div class="span10 titleSpan">
-                <a tal:attributes="href string:${item/absolute_url}/view" class="editTitle editable titleSize">
+                <a tal:attributes="href string:${item/absolute_url}/view" class="editTitle editable titleSize" target="_blank">
                   <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                 </a>
                 <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
@@ -169,22 +169,21 @@
                     <tal:documents repeat="item files">
                       <li class="filesinTable">
                         <div class="filelist">
-                          <span tal:condition="not:item/hasPublic">
-                              <a tal:content="item/title" tal:attributes="href item/publicURL"> Doc title </a>
-                          </span>
-                          <span tal:condition="item/hasPublic">
-                              <a tal:attributes="href item/publicURL"><tal:bck tal:condition="item/isFile"><i tal:attributes="class item/classCSS"></i></tal:bck>&nbsp;<span tal:content="item/title" tal:attributes="href item/publicURL">
-                              Doc title </span></a>
-                          </span>
                           <tal:block tal:condition="view/hasPermission">
                             <tal:block tal:condition="item/reservedURL">
-                              <span class="barra">|</span>
                               <span class="fitxerReservat">
                                 <a tal:attributes="href item/reservedURL;">
-                                  <i tal:attributes="class item/classCSS"></i></a>&nbsp;<span i18n:translate="">Fitxer reservat</span>&nbsp;
+                                  <i tal:attributes="class item/classCSS"></i>&nbsp;<span i18n:translate="">Fitxer reservat</span>&nbsp;
+                                </a>
                               </span>
                             </tal:block>
                           </tal:block>
+                          <span tal:condition="item/hasPublic">
+                            <span class="barra">|</span>
+                              <a tal:attributes="href item/publicURL"><tal:bck tal:condition="item/isFile"><i tal:attributes="class item/classCSS"></i></tal:bck>&nbsp;<span tal:content="item/title" tal:attributes="href item/publicURL">
+                              Doc title </span></a>
+                          </span>
+
                         </div>
                       </li>
                     </tal:documents>
@@ -225,7 +224,7 @@
                       <div class="span10">
                         <span class="titlePresentation">
                           <a tal:attributes="href string:${item/absolute_url}"
-                             class="editTitle editable subtitleSize">
+                             class="editTitle editable subtitleSize" target="_blank">
                             <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                           </a>
                         </span>

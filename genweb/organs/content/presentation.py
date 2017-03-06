@@ -8,6 +8,8 @@ from Products.CMFCore.utils import getToolByName
 from plone.app.layout.navigation.root import getNavigationRootObject
 from Acquisition import aq_inner
 from genweb.organs import utils
+from genweb.organs import _
+
 
 grok.templatedir("templates")
 
@@ -39,7 +41,10 @@ class Presentation(form.SchemaForm):
                 if self.Anonim():
                     item = obj._unrestrictedGetObject()
                     if obj.portal_type == 'genweb.organs.acord':
-                        agreement = item.agreement
+                        if item.agreement:
+                            agreement = item.agreement
+                        else:
+                            agreement = _(u'ACORD')
                     else:
                         agreement = False
                     results.append(dict(title=obj.Title,
@@ -53,7 +58,10 @@ class Presentation(form.SchemaForm):
                 else:
                     item = obj.getObject()
                     if obj.portal_type == 'genweb.organs.acord':
-                        agreement = item.agreement
+                        if item.agreement:
+                            agreement = item.agreement
+                        else:
+                            agreement = _(u'ACORD')
                     else:
                         agreement = False
                     results.append(dict(title=obj.Title,
@@ -84,7 +92,10 @@ class Presentation(form.SchemaForm):
             if self.Anonim():
                 item = obj._unrestrictedGetObject()
                 if obj.portal_type == 'genweb.organs.acord':
-                    agreement = item.agreement
+                    if item.agreement:
+                        agreement = item.agreement
+                    else:
+                        agreement = _(u'ACORD')
                 else:
                     agreement = False
                 results.append(dict(title=obj.Title,
@@ -99,7 +110,10 @@ class Presentation(form.SchemaForm):
                 item = obj.getObject()
                 item = obj._unrestrictedGetObject()
                 if obj.portal_type == 'genweb.organs.acord':
-                    agreement = item.agreement
+                    if item.agreement:
+                        agreement = item.agreement
+                    else:
+                        agreement = _(u'ACORD')
                 else:
                     agreement = False
                 results.append(dict(title=obj.Title,

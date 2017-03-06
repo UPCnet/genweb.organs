@@ -279,15 +279,15 @@ def sessio_sendMail(session, recipients, body):
     if lang == 'ca':
         session.notificationDate = now
         subjectMail = "Missatge de la sessió: " + sessiontitle + ' - ' + sessiondate
-        introData = "<br/><p>Podeu consultar tota la documentació de la sessió aquí: <a href=" + \
-                    sessionLink + ">" + sessiontitle + "</a></p><br/>" + signatura
-        moreData = html_content + \
+        introData = html_content + "<br/><p>Podeu consultar tota la documentació de la sessió aquí: <a href=" + \
+                    sessionLink + ">" + sessiontitle + "</a></p><br/><br/>"
+        moreData =  + \
             '<br/>' + customBody + '<strong>' + sessiontitle + \
             '</strong><br/><br/>Lloc: ' + place + "<br/>Data: " + sessiondate + \
             "<br/>Hora d'inici: " + starthour + \
             "<br/>Hora de fi: " + endHour + \
-            '<br/><br/><strong> Ordre del dia </strong></body>'
-        bodyMail = moreData + str(introData)
+            '<br/><br/><strong> Ordre del dia </strong>'
+        bodyMail = str(introData) + str(moreData) + '<br/>' + str(signatura) + '</body>'
 
     if lang == 'es':
         session.notificationDate = now
