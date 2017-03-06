@@ -185,7 +185,10 @@ class Message(form.SchemaForm):
             else:
                 number = ''
             if value.portal_type == 'genweb.organs.acord':
-                agreement = str(value.agreement) + ' - '
+                if value.agreement:
+                    agreement = str(value.agreement) + ' - '
+                else:
+                    agreement = _(u'ACORD') + ' - '
             else:
                 agreement = ''
             # adding hidden field to maintain good urls

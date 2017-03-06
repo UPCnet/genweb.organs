@@ -533,7 +533,10 @@ class Butlleti(BrowserView):
             # value = obj.getObject()
             value = obj._unrestrictedGetObject()
             if value.portal_type == 'genweb.organs.acord':
-                agreement = value.agreement
+                if value.agreement:
+                    agreement = value.agreement
+                else:
+                    agreement = _(u'ACORD')
             else:
                 agreement = False
             results.append(dict(Title=obj.Title,

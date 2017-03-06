@@ -178,7 +178,7 @@ def Punts2Acta(self):
             if value.agreement:
                 agreement = str(value.agreement) + ' - '
             else:
-                agreement = ''
+                agreement = _(u"ACORD") + ' - '
         else:
             agreement = ''
 
@@ -202,7 +202,7 @@ def Punts2Acta(self):
                     if subpunt.agreement:
                         agreement = str(subpunt.agreement) + ' - '
                     else:
-                        agreement = ''
+                        agreement = _(u"ACORD") + ' - '
                 else:
                     agreement = ''
                 results.append('&nbsp;&nbsp;' + numberSubpunt + agreement + str(item.Title))

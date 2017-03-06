@@ -33,7 +33,6 @@ class View(grok.View):
     def OrgansInside(self):
         """ Retorna els organs de govern
         """
-        import ipdb;ipdb.set_trace()
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.unrestrictedSearchResults(
