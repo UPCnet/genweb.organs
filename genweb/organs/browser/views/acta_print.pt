@@ -1,9 +1,6 @@
 
 <tal:block i18n:domain="genweb.organs">
 
-
-
-
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,733,600' rel='stylesheet' type='text/css'>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 
@@ -11,11 +8,11 @@
     <link rel="stylesheet" href="++genwebupc++stylesheets/genwebupc.css">
     <link rel="stylesheet" media="print" href="++resource++genweb.organs.stylesheets/print.css">
 
-
-
-    <img tal:condition="view/getActaLogo" tal:attributes="src view/getActaLogo" style="height:80px;" />
-    <h1 style="text-align: left" tal:content="view/unitatTitle">UNITAT</h1>
-    <h1 style="text-align: left" tal:content="view/organGovernTitle">CONSELL DE GOVERN</h1>
+    <div class="clearfix">
+      <img tal:condition="view/getActaLogo" style="float:right;" tal:attributes="src view/getActaLogo" style="height:80px;" />
+    </div>
+    <h1 style="text-align: left"><span tal:content="view/unitatTitle">UNITAT</span> -
+    <span tal:content="view/organGovernTitle">CONSELL DE GOVERN</span></h1>
     <h2 style="text-align: left" tal:content="view/sessionTitle">CONSELL DE GOVERN</h2>
     <hr/>
 
@@ -57,39 +54,38 @@
             <div class="span6">
               <tal:block tal:condition="context/membresConvocats">
                   <h4 i18n:translate=""> Attending members </h4>
-                  <div tal:replace="structure context/membresConvocats"/>
+                  <div tal:replace="structure context/membresConvocats"></div>
               </tal:block>
             </div>
             <div class="span6">
               <tal:block tal:condition="context/membresConvidats">
                   <h4 i18n:translate=""> Invited members </h4>
-                  <span tal:replace="structure context/membresConvidats" />
+                  <span tal:replace="structure context/membresConvidats"></span>
               </tal:block>
 
               <tal:block tal:condition="context/llistaExcusats">
                   <h4 i18n:translate=""> Excused members </h4>
-                  <span tal:replace="structure context/llistaExcusats"/>
+                  <span tal:replace="structure context/llistaExcusats"></span>
               </tal:block>
 
               <tal:block tal:condition="context/noAssistents">
                   <h4 i18n:translate=""> Missing members </h4>
-                  <span tal:replace="structure context/noAssistents"/>
+                  <span tal:replace="structure context/noAssistents"></span>
               </tal:block>
             </div>
-            </div>
-            </div></div></div>
-
+          </div>
+        </div>
+      </div>
+    </div>
 
     <tal:block tal:condition="context/ordenDelDia">
-        <h3 i18n:translate=""> Acta Body </h3>
-        <span tal:replace="structure context/ordenDelDia" />
+      <h3 i18n:translate=""> Acta Body </h3>
+      <span tal:replace="structure context/ordenDelDia"></span>
     </tal:block>
 
     <tal:block tal:condition="view/signatura">
       <br/>
-        <span tal:replace="structure view/signatura" />
+      <span tal:replace="structure view/signatura"></span>
     </tal:block>
 
-
 </tal:block>
-
