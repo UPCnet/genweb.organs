@@ -407,6 +407,7 @@ class View(grok.View):
             # aaa.pop(0)    # remove the entry
             # annotations['genweb.organs.logMail'] = aaa
             try:
+                # TODO : Insert id index to sort annotations
                 return sorted(annotations['genweb.organs.logMail'], reverse=True)
             except:
                 return False

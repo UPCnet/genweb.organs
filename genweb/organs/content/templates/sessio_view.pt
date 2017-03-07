@@ -246,6 +246,9 @@
           <thead>
             <tr>
               <th>
+                 <tal:data>#</tal:data>
+               </th>
+              <th>
                  <tal:data i18n:translate="">Data i hora</tal:data>
                </th>
               <th>
@@ -262,6 +265,7 @@
           <tbody>
             <tal:documents repeat="data loginfo">
               <tr>
+                <td tal:content="data/index"></td>
                 <td tal:content="data/dateMail"></td>
                 <td tal:content="data/message"></td>
                 <td tal:content="data/fromMail"></td>

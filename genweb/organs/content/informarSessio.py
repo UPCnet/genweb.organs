@@ -63,16 +63,62 @@ class Message(form.SchemaForm):
         else:
             self.widgets["recipients"].value = str(session.adrecaLlista)
 
-        lang = self.context.language
-        if lang == 'ca':
-            default_text = 'Enllaç a la sessió: '
-        if lang == 'es':
-            default_text = 'Enlace a la sessión: '
-        if lang == 'en':
-            default_text = 'Link to this session: '
+        if session.start is None:
+            sessiondate = ''
         else:
-            default_text = 'Enllaç a la sessió: '
-        self.widgets["message"].value = default_text + '<a href="' + self.context.absolute_url() + '"> ' + self.context.Title() + ' </a>' + self.Punts2Acta()
+            sessiondate = session.start.strftime("%d/%m/%Y")
+        if session.start is None:
+            starthour = ''
+        else:
+            starthour = session.start.strftime("%H:%M")
+        if session.end is None:
+            endHour = ''
+        else:
+            endHour = session.end.strftime("%H:%M")
+        sessionLink = str(session.absolute_url())
+        organ = session.aq_parent
+
+        if organ.footerMail is None:
+            signatura = ''
+        else:
+            signatura = organ.footerMail.encode('utf-8')
+
+        if session.llocConvocatoria is None:
+            place = ''
+        else:
+            place = session.llocConvocatoria.encode('utf-8')
+
+        lang = self.context.language
+        sessiontitle = str(session.Title())
+
+        if lang == 'es':
+            introData = "<p>Puede consultar toda la documentación de la sesión aquí: <a href=" + \
+                sessionLink + ">" + sessiontitle + "</a></p><br/>"
+            moreData = '<p><strong>' + sessiontitle + \
+                '</strong><br/></p>Lugar: ' + place + "<br/>Data: " + sessiondate + \
+                "<br/>Hora de inicio: " + starthour + \
+                "<br/>Hora de fin: " + endHour + \
+                '<br/><br/><p><strong> Orden del día </strong></p>'
+
+        if lang == 'en':
+            introData = "<p>All the information about the session is visible here: <a href=" + \
+                sessionLink + ">" + sessiontitle + "</a></p><br/>"
+            moreData = '<p><strong>' + sessiontitle + \
+                '</strong><br/></p>Place: ' + place + "<br/>Data: " + sessiondate + \
+                "<br/>Start date: " + starthour + \
+                "<br/>End data: " + endHour + \
+                '<br/><br/><p><strong> Contents </strong></p>'
+        else:
+            # lang = ca or another...
+            introData = "<p>Podeu consultar tota la documentació de la sessió aquí: <a href=" + \
+                sessionLink + ">" + sessiontitle + "</a></p><br/>"
+            moreData = '<p><strong>' + sessiontitle + \
+                '</strong><br/></p>Lloc: ' + place + "<br/>Data: " + sessiondate + \
+                "<br/>Hora d'inici: " + starthour + \
+                "<br/>Hora de fi: " + endHour + \
+                '<br/><br/><p><strong> Ordre del dia </strong></p>'
+
+        self.widgets["message"].value = introData + moreData + self.Punts2Acta() + '<br/>' + signatura
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):
@@ -119,6 +165,7 @@ class Message(form.SchemaForm):
         body = formData['message'].replace('----@@----', '').encode('utf-8')
         sender = self.context.aq_parent.fromMail
         addEntryLog(self.context, sender, _(u'Sending mail informar sessio'), toMail)
+
         sessio_sendMail(self.context, toMail, body)  # Send mail
 
         return self.request.response.redirect(self.context.absolute_url())
@@ -176,7 +223,6 @@ class Message(form.SchemaForm):
                   'depth': 1})
 
         results = []
-        results.append('<br/><br/>')
         for obj in values:
             # value = obj.getObject()
             value = obj._unrestrictedGetObject()

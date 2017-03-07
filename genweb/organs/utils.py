@@ -115,8 +115,10 @@ def addEntryLog(context, sender, message, recipients):
                 sender = 'Anonymous user'
             else:
                 sender = api.user.get_current().id
+        index = len(annotations.get(KEY))
 
-        values = dict(dateMail=dateMail,
+        values = dict(index=index + 1,
+                      dateMail=dateMail,
                       message=message,
                       fromMail=sender,
                       toMail=recipients)

@@ -228,43 +228,11 @@ def sessio_sendMail(session, recipients, body):
         Mateix codi que /browser/events/change.py
     """
     lang = getToolByName(session, 'portal_languages').getPreferredLanguage()
-    now = strftime("%d/%m/%Y %H:%M:%S")
-
     sessiontitle = str(session.Title())
-
-    if session.start is None:
-        sessiondate = ''
-    else:
-        sessiondate = session.start.strftime("%d/%m/%Y")
-    if session.start is None:
-        starthour = ''
-    else:
-        starthour = session.start.strftime("%H:%M")
-    if session.end is None:
-        endHour = ''
-    else:
-        endHour = session.end.strftime("%H:%M")
-    sessionLink = str(session.absolute_url())
     organ = session.aq_parent
-
-    if session.signatura is None:
-        signatura = ''
-    else:
-        signatura = session.signatura.encode('utf-8')
-
-    if session.llocConvocatoria is None:
-        place = ''
-    else:
-        place = session.llocConvocatoria.encode('utf-8')
-
     senderPerson = str(organ.fromMail)
 
-    # Fixed from modal values
-    customBody = body + '<br/><br/>'
-    recipientPerson = recipients
-
-    CSS = '"' + session.portal_url()+'/++genwebupc++stylesheets/genwebupc.css' + '"'
-
+    CSS = '"' + session.portal_url() + '/++genwebupc++stylesheets/genwebupc.css' + '"'
     html_content = """
      <head>
       <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
@@ -276,54 +244,28 @@ def sessio_sendMail(session, recipients, body):
     </head>
     <body>
     """
-
-    if lang == 'ca':
-        session.notificationDate = now
-        subjectMail = "Missatge de la sessió: " + sessiontitle + ' - ' + sessiondate
-        introData = html_content + "<br/><p>Podeu consultar tota la documentació de la sessió aquí: <a href=" + \
-            sessionLink + ">" + sessiontitle + "</a></p><br/><br/>"
-        moreData = '<br/>' + customBody + '<strong>' + sessiontitle + \
-            '</strong><br/><br/>Lloc: ' + place + "<br/>Data: " + sessiondate + \
-            "<br/>Hora d'inici: " + starthour + \
-            "<br/>Hora de fi: " + endHour + \
-            '<br/><br/><strong> Ordre del dia </strong>'
-        bodyMail = str(introData) + str(moreData) + '<br/>' + str(signatura) + '</body>'
+    sendBody = html_content + body + '</body>'
+    if session.start is None:
+        sessiondate = ''
+    else:
+        sessiondate = session.start.strftime("%d/%m/%Y")
 
     if lang == 'es':
-        session.notificationDate = now
         subjectMail = "Mensaje de la sesión: " + sessiontitle + ' - ' + sessiondate
-        introData = "<br/><p>Puede consultar toda la documentación de la sesión aquí: <a href=" + \
-                    sessionLink + ">" + sessiontitle + "</a></p><br/>" + signatura
-        moreData = html_content + \
-            '<br/>' + customBody + '<strong>' + sessiontitle + \
-            '</strong><br/><br/>Lugar: ' + place + "<br/>Fecha: " + sessiondate + \
-            "<br/>Hora de inicio: " + starthour + \
-            "<br/>Hora de finalización: " + endHour + \
-            '<br/><br/><strong> Orden del día </strong>'
-        bodyMail = moreData + str(introData)
-
     if lang == 'en':
-        now = strftime("%Y-%m-%d %H:%M")
-        session.notificationDate = now
         if session.start is None:
             sessiondate = ''
         else:
-            sessiondate = session.start.strftime("%Y-%m-%d")
+            sessiondate = session.start.strftime("%Y/%m/%d")
         subjectMail = "Session message: " + sessiontitle + ' - ' + sessiondate
-        introData = "<br/><p>You can view the complete session information here:: <a href=" + \
-                    sessionLink + ">" + sessiontitle + "</a></p><br/>" + signatura
-        moreData = html_content + \
-            '<br/>' + customBody + '<strong>' + sessiontitle + \
-            '</strong><br/><br/>Place: ' + place + "<br/>Date: " + sessiondate + \
-            "<br/>Start time: " + starthour + \
-            "<br/>End time: " + endHour + \
-            '<br/><br/><strong> Contents </strong>'
-        bodyMail = moreData + str(introData)
+    else:
+        # catalan or other...
+        subjectMail = "Missatge de la sessió: " + sessiontitle + ' - ' + sessiondate
 
     # Sending Mail!
     try:
-        session.MailHost.send(bodyMail,
-                              mto=recipientPerson,
+        session.MailHost.send(sendBody,
+                              mto=recipients,
                               mfrom=senderPerson,
                               subject=subjectMail,
                               encode=None,
