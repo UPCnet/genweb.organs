@@ -74,9 +74,6 @@
                   <tal:title i18n:translate="">Title</tal:title>
                 </th>
                 <th>
-                  <tal:title i18n:translate="">Organ Govern</tal:title>
-                </th>
-                <th>
                   <tal:head i18n:translate="">Agreement number</tal:head>
                 </th>
                 <th>
@@ -92,15 +89,12 @@
                          tal:content="item/title">
                           Item Title
                   </a>
-                </td>
-                <td>
-                  <span tal:content="item/title_organ">
-                      Title
-                  </span>
+                  <br/>
+                  <span tal:content="item/absolute_url"></span>
                 </td>
                 <td>
                   <span tal:content="item/agreement">
-                      Numero
+                      Numero Acord
                   </span>
                 </td>
                 <td>

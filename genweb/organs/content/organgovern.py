@@ -225,10 +225,9 @@ class View(grok.View):
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
-            portal_type=['genweb.organs.punt', 'genweb.organs.subpunt'],
+            portal_type=['genweb.organs.acord'],
             sort_on='modified',
             sort_order='reverse',
-            acordOrgan=True,
             path={'query': folder_path,
                   'depth': 3})
         results = []
@@ -236,20 +235,8 @@ class View(grok.View):
         for obj in values:
             # value = obj.getObject()
             value = obj._unrestrictedGetObject()
-            if obj.portal_type == "genweb.organs.punt":
-                organTitle = value.aq_parent.Title()
-                agreement = None
-            elif obj.portal_type == "genweb.organs.subpunt":
-                organTitle = value.aq_parent.aq_parent.Title()
-                agreement = None
-            else:
-                organTitle = ''
-                agreement = None
-
             results.append(dict(title=value.title,
-                                title_organ=organTitle,
                                 absolute_url=value.absolute_url(),
-                                proposalPoint=value.proposalPoint,
-                                agreement=agreement,
+                                agreement=value.agreement,
                                 estatsLlista=value.estatsLlista))
         return results

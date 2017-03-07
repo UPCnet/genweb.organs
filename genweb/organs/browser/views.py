@@ -283,6 +283,10 @@ class ActaPrintView(BrowserView):
 
     __call__ = ViewPageTemplateFile('views/acta_print.pt')
 
+    def unitatTitle(self):
+        """ Get organGovern Title used for printing the acta """
+        return self.aq_parent.aq_parent.aq_parent.aq_parent.Title()
+
     def organGovernTitle(self):
         """ Get organGovern Title used for printing the acta """
         return self.aq_parent.aq_parent.aq_parent.Title()

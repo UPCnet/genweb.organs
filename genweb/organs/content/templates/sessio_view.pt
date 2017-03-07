@@ -265,7 +265,7 @@
           <tbody>
             <tal:documents repeat="data loginfo">
               <tr>
-                <td tal:content="data/index"></td>
+                <td tal:content="data/index|nothing"></td>
                 <td tal:content="data/dateMail"></td>
                 <td tal:content="data/message"></td>
                 <td tal:content="data/fromMail"></td>

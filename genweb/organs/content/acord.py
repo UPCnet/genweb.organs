@@ -22,8 +22,16 @@ grok.templatedir("templates")
 def llistaEstats(context):
     """ Create vocabulary from Estats Organ. """
     terms = []
-    # Al ser punt els agafo UN nivell per sobre
-    values = context.aq_parent.estatsLlista
+    # Els ACORDS van dintre de sessio o de punt
+    # Al ser acord he de mirar si està dintre d'una sessio o d'un punt
+
+    # En mode add or en mode edit
+    if context.aq_parent.portal_type == 'genweb.organs.sessio' or context.portal_type == 'genweb.organs.sessio':
+        values = context.aq_parent.estatsLlista
+    # En mode add or en mode edit
+    if context.aq_parent.portal_type == 'genweb.organs.punt' or context.portal_type == 'genweb.organs.punt':
+        values = context.aq_parent.aq_parent.estatsLlista
+
     literals = []
     for value in values.split('</p>'):
         if value != '':
