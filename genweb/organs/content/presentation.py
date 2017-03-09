@@ -141,30 +141,37 @@ class Presentation(form.SchemaForm):
         for obj in values:
             visibleUrl = ''
             hiddenUrl = ''
-            isFile = False
-            hasPublic = False
+	    isFile = hasPublic = hasPrivate = isGODocument = isGOFile = False
             visibleUrl = obj.getObject().absolute_url()
             if obj.portal_type == 'genweb.organs.file':
                 isFile = True
+                isGOFile = True
                 tipus = 'fa fa-file-pdf-o'
                 file = obj.getObject()
                 if file.visiblefile:
                     hasPublic = True
                     visibleUrl = file.absolute_url() + '/@@download/visiblefile/'
                 if file.hiddenfile:
-                    # TODO : If user is anon no returns hidden file
+                    hasPrivate = True
                     hiddenUrl = file.absolute_url() + '/@@download/hiddenfile/'
             else:
+                # Its a document
+                isGODocument = True
                 tipus = 'fa fa-file-text-o'
+                hasPublic = True
+                visibleUrl = obj.getObject().absolute_url()
 
             results.append(dict(title=obj.Title,
                                 path=file.absolute_url_path(),
                                 absolute_url=obj.getURL(),
                                 isFile=isFile,
                                 hasPublic=hasPublic,
+                                hasPrivate=hasPrivate,
                                 classCSS=tipus,
                                 publicURL=visibleUrl,
                                 reservedURL=hiddenUrl,
+                                isGOFile=isGOFile,
+                                isGODocument=isGODocument,
                                 id=obj.id))
         return results
 
@@ -264,6 +271,28 @@ class Presentation(form.SchemaForm):
     def wf_state(self):
         state = api.content.get_state(self.context)
         return state
+
+    def showFile(self, item):
+        username = api.user.get_current().getProperty('id')
+        if username is None:
+            if item['hasPublic'] is True:
+                return True
+        else:
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
+                return True
+        return False
+
+
+    def showBarra(self, item):
+        username = api.user.get_current().getProperty('id')
+        if username is None:
+            if item['hasPublic'] is True and item['hasPrivate'] is True:
+                return True
+            else:
+                return False
+        return False
+
 
     def changeEstat(self):
         username = api.user.get_current().getProperty('id')

@@ -141,14 +141,20 @@ def FilesandDocumentsInside(self):
     results = []
 
     for obj in values:
+        labelClass = ''
+        document = ''
         if obj.portal_type == 'genweb.organs.file':
             # És un File
             item = obj._unrestrictedGetObject()
             if item.visiblefile:
                 # té part publica
+                username = api.user.get_current().getProperty('id')
                 tipus = 'fa fa-file-pdf-o'
-                document = _(u'Fitxer public')
-                labelClass = 'label label-default'
+                if username:
+                    roles = api.user.get_roles(username=username, obj=self.context)
+                    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
+                        document = _(u'Fitxer public')
+                        labelClass = 'label label-default'
                 if item.hiddenfile:
                     username = api.user.get_current().getProperty('id')
                     if username:
@@ -159,18 +165,32 @@ def FilesandDocumentsInside(self):
                         labelClass = ''
                         document = ''
             elif item.hiddenfile:
-                # te part reservada
                 tipus = 'fa fa-file-pdf-o'
-                document = _(u'Fitxer intern')
-                labelClass = 'label label-danger'
+                # te part reservada
+                username = api.user.get_current().getProperty('id')
+                if username:
+                    roles = api.user.get_roles(username=username, obj=self.context)
+                    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
+                        document = _(u'Fitxer intern')
+                        labelClass = 'label label-danger'
+                    else:
+                        document = ''
+                        labelClass = ''
             else:
                 tipus = 'fa fa-exclamation'
-                document = _(u'Falten els fitxers')
-                labelClass = 'label label-danger'
-
+                labelClass = ''
+                if username:
+                    roles = api.user.get_roles(username=username, obj=self.context)
+                    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
+                        document = _(u'Falten els fitxers')
+                        labelClass = 'label label-danger'
+                    else:
+                        document = ''
+                        labelClass = ''
         else:
             # És un document
             tipus = 'fa fa-file-text-o'
+            labelClass = ''
             username = api.user.get_current().getProperty('id')
             if username:
                 roles = api.user.get_roles(username=username, obj=self.context)

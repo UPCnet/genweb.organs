@@ -37,7 +37,7 @@ class View(grok.View):
         username = api.user.get_current().getId()
         if username:
             roles = api.user.get_roles(username=username, obj=self.context)
-            if 'Editor' in roles or 'Manager' in roles:
+            if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'Manager' in roles:
                 return True
             else:
                 raise Unauthorized

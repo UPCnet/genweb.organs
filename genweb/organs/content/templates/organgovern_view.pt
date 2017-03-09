@@ -89,8 +89,6 @@
                          tal:content="item/title">
                           Item Title
                   </a>
-                  <br/>
-                  <span tal:content="item/absolute_url"></span>
                 </td>
                 <td>
                   <span tal:content="item/agreement">
