@@ -428,6 +428,8 @@
  <transition transition_id="planificar" title="Planificar" new_state="planificada" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=planificar" category="workflow" icon="">Planificar</action>
   <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>OG1-Secretari</guard-role>
   </guard>
  </transition>
  <transition transition_id="realitzar" title="Realitzar" new_state="realitzada" trigger="USER" before_script="" after_script="">
@@ -438,6 +440,8 @@
  <transition transition_id="tancar" title="Tancar" new_state="tancada" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=tancar" category="workflow" icon="">Tancar</action>
   <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>OG1-Secretari</guard-role>
   </guard>
  </transition>
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
