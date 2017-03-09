@@ -49,7 +49,7 @@
                 </table>
             </div>
             <form method="get" action="@@setup_organs">
-                <input id="create" class="context" type="submit" value="Crear contingut per defece" name="create"/>
+                <input id="create" class="context" type="submit" value="Crear contingut per defecte" name="create"/>
             </form>
         </fieldset>
     </metal:main-macro>

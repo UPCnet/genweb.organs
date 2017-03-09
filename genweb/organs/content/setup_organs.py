@@ -4,11 +4,15 @@ from five import grok
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from cgi import parse_qs
 import transaction
-import pytz
+from datetime import datetime
+from plone.app.event.dx.behaviors import data_postprocessing
+from datetime import timedelta
+from plone.app.event.dx.behaviors import IEventBasic
 
 grok.templatedir("templates")
 
-tz = pytz.timezone('Europe/Vienna')
+import pytz
+tz = pytz.timezone('Europe/Madrid')
 
 
 class setup(grok.View):
@@ -59,7 +63,9 @@ class setup(grok.View):
             title='EETAC',
             container=portal_ca)
         root_ca.description = 'Carpeta Unitat EETAC'
-
+        now = datetime.now()
+        past = now - timedelta(days=10)
+        future = now + timedelta(days=10)
         # Create Organ
         organ_ca = api.content.create(
             type='genweb.organs.organgovern',
@@ -89,6 +95,12 @@ class setup(grok.View):
         session_ca.noAssistents = '<p>Member 1 persones No assistents SESSIÓ</p><p>Member 2 persones No assistents SESSIÓ</p><p>Member 3 persones No assistents SESSIÓ</p>'
         session_ca.adrecaLlista = 'adrecanotificactio@sessio.es'
 
+        adapter_session = IEventBasic(session_ca)
+        adapter_session.start = datetime(2017, 03, 03, 10, 10, 10, 123456, tzinfo=tz)
+        adapter_session.end = datetime(2017, 04, 04, 11, 10, 10, 123456, tzinfo=tz)
+        data_postprocessing(adapter_session, None)
+
+        # obj = api.content.find(id=session_ca.id, context=organ_ca, depth=1)
+        # obj[0].start_time = datetime.datetime(2017, 03, 03, 10, 10, 10, 123456, tzinfo=tz)
+        # obj[0].end = datetime.datetime(2017, 04, 04, 11, 10, 10, 123456, tzinfo=tz)
         transaction.commit()
-        # session_ca.start = datetime.datetime(2017, 03, 03, 10, 10, 10, 123456, tzinfo=tz)
-        # session_ca.end = datetime.datetime(2017, 04, 04, 10, 10, 10, 123456, tzinfo=tz)
