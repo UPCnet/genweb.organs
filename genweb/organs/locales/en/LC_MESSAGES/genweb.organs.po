@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-03-09 15:28+0000\n"
+"POT-Creation-Date: 2017-03-09 15:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -258,7 +258,7 @@ msgstr "Indicate comma-delimited literals to be used as state approval of the ag
 msgid "Enter the from used in the mail form"
 msgstr "This is the sender notification"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:311
+#: ./genweb/organs/content/templates/sessio_view.pt:310
 msgid "Envia"
 msgstr ""
 

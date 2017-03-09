@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-03-09 15:28+0000\n"
+"POT-Creation-Date: 2017-03-09 15:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -258,9 +258,9 @@ msgstr "Indicar, separados por comas, los literales que se hacen servir como est
 msgid "Enter the from used in the mail form"
 msgstr "Este es el remitente de las notificaciones"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:311
+#: ./genweb/organs/content/templates/sessio_view.pt:310
 msgid "Envia"
-msgstr "Envía"
+msgstr ""
 
 #: ./genweb/organs/content/templates/sessio_view.pt:127
 msgid "Enviar"

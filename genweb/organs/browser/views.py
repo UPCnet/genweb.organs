@@ -509,5 +509,11 @@ class Butlleti(BrowserView):
                                         acord=agreement))
         return results
 
-    def geTitle(self):
+    def getTitle(self):
         return self.context.Title()
+
+    def getOrganTitle(self):
+        return self.context.aq_parent.Title()
+
+    def getUnitat(self):
+        return self.context.aq_parent.aq_parent.Title()

@@ -307,8 +307,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" i18n:translate="">Cancel</button>
           <button type="button" class="btn btn-primary createPunt" i18n:translate="">Envia</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" i18n:translate="">Cancel</button>
         </div>
       </div>
     </div>
@@ -330,8 +330,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" i18n:translate="">Cancel</button>
           <button type="button" class="btn btn-primary createAcord" i18n:translate="">Envia</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" i18n:translate="">Cancel</button>
         </div>
       </div>
     </div>

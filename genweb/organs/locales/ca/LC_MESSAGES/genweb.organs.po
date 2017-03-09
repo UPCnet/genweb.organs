@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-03-09 15:28+0000\n"
+"POT-Creation-Date: 2017-03-09 15:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -258,9 +258,9 @@ msgstr "Literals i colors que es faran servir com a estats d'aprovació dels pun
 msgid "Enter the from used in the mail form"
 msgstr "Adreça de correu del remitent de les notificacions (persona o grup) de l'òrgan. Es poden posar diverses adreces separades per comes o espais en blanc."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:311
+#: ./genweb/organs/content/templates/sessio_view.pt:310
 msgid "Envia"
-msgstr "Envia"
+msgstr "Enviar"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:127
 msgid "Enviar"
@@ -867,7 +867,7 @@ msgstr "Vista prèvia dels punts informatius"
 
 #: ./genweb/organs/content/templates/setup_organs.pt:23
 msgid "Warning"
-msgstr ""
+msgstr "Advertència"
 
 #: ./genweb/organs/content/sessio.py:59
 msgid "affected_mail_help"
