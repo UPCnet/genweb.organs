@@ -13,7 +13,7 @@
         <div metal:fill-slot="main">
             <metal:main-macro define-macro="main">
                 <div>
-                    <h1 class="documentFirstHeading"><img src="++resource++cpgenweb.png" style="margin-right: 10px;" />Configuració inicial</h1>
+                    <h1 class="documentFirstHeading">Configuració inicial ÒRGANS DE GOVERN</h1>
                     <p class="documentDescription">Vista per executar la creació de contingut per defecte dels Òrgans de Govern.</p>
                     <div> </div>
                     <div class="visualClear"></div>
@@ -23,8 +23,8 @@
                         <strong i18n:translate="">
                             Warning
                         </strong>
-                        <tal:msg i18n:translate="">
-                        Si es torna a executar el procés un cop creats els objectes, es sobreescriuran algunes dades dels objectes com el títol o la descripció.
+                        <tal:msg>
+                        Si es torna a executar el proces un cop creats els objectes, es sobreescriuran algunes dades dels objectes com el títol o la descripció.
                     </tal:msg>
                 </div>
             <fieldset class="formPanel">
@@ -49,7 +49,7 @@
                 </table>
             </div>
             <form method="get" action="@@setup_organs">
-                <input id="create" class="context" type="submit" value="Create default content" name="create"/>
+                <input id="create" class="context" type="submit" value="Crear contingut per defece" name="create"/>
             </form>
         </fieldset>
     </metal:main-macro>

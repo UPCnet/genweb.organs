@@ -47,7 +47,7 @@ class IOrgangovern(form.Schema):
         required=True
     )
 
-    # TODO: When create the WS, activate this value
+    # TODO: Enable this when the WS is created
     dexteritytextindexer.searchable('acronim')
     acronim = schema.TextLine(
         title=_(u'Acronym'),
@@ -63,7 +63,7 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
-    # TODO: Quan es facin la resta d'organs (restricted, etc...)
+    # TODO: Enable this quan es facin la resta d'organs (restricted, etc...)
     directives.mode(tipus='hidden')
     tipus = schema.Choice(
         title=_(u"Organ Govern type"),

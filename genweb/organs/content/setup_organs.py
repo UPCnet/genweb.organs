@@ -1,57 +1,15 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from five import grok
-from plone.directives import form
-from genweb.organs.interfaces import IGenwebOrgansLayer
-from genweb.organs import _
-from genweb.organs.content.sessio import ISessio
-from Products.CMFCore.utils import getToolByName
-from genweb.organs import utils
 from Products.CMFPlone.interfaces import IPloneSiteRoot
-from five import grok
-from plone import api
 from cgi import parse_qs
-from zope.interface import alsoProvides
-from zope.component import getMultiAdapter
-from zope.component import queryUtility
-
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import normalizeString
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
-
-from plone.app.contenttypes.behaviors.richtext import IRichText
-from plone.dexterity.utils import createContentInContainer
-from plone.portlets.interfaces import IPortletManager
-from plone.portlets.interfaces import IPortletAssignmentMapping
-from plone.portlets.constants import CONTEXT_CATEGORY
-from plone.portlets.interfaces import ILocalPortletAssignmentManager
-from plone.app.controlpanel.mail import IMailSchema
-from plone.app.multilingual.browser.setup import SetupMultilingualSite
-from plone.app.multilingual.interfaces import ITranslationManager
-
-from plone.namedfile.file import NamedBlobImage
-
-from genweb.core.interfaces import IHomePage
-from genweb.core.interfaces import INewsFolder
-from genweb.core.interfaces import IEventFolder
-from genweb.core.interfaces import IProtectedContent
-from genweb.core.browser.plantilles import get_plantilles
-from genweb.core import utils
-
-from plone.app.event.base import localized_now
-from datetime import timedelta
-import pkg_resources
-import logging
-from plone import api
-import datetime
-from DateTime import DateTime
 import transaction
 import pytz
 
 grok.templatedir("templates")
 
 tz = pytz.timezone('Europe/Vienna')
+
 
 class setup(grok.View):
     grok.name('setup_organs')

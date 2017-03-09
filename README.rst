@@ -15,4 +15,7 @@ Information
 
 organs_one_state_workflow -> Tots els elements de tipus genweb.organs són públics i només hi ha un estat.
 organs_sessio_workflow --> Workflow aplicat a la Sessió, i conté els estats:
-    Planificada / Convocada / Realitzada / Tancada / En correccio (hi ha un fake estat pre_convoque)
+    Planificada / Convocada / Realitzada / Tancada / En modificacio (hi ha un fake estat pre_convoque)
+
+    Només poden passar a l'estat en modificació, els OG1-Secretari.
+

@@ -21,7 +21,7 @@ setup(name='genweb.organs',
           "Topic :: Software Development :: Libraries :: Python Modules",
       ],
       keywords='organs govern genweb jquery',
-      author='roberto.diaz',
+      author='plone.team@upcnet.es',
       author_email='plone.team@upcnet.es',
       url='https://github.com/UPCnet/genweb.organs',
       license='GPL',
@@ -34,7 +34,7 @@ setup(name='genweb.organs',
       ],
       extras_require={'test': ['plone.app.testing',
                                'plone.app.testing[robot]>=4.2.2',
-                               'plone.app.robotframework[debug]',]},
+                               'plone.app.robotframework[debug]']},
       entry_points="""
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]
