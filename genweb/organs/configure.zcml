@@ -24,7 +24,7 @@
     <!-- Register the installation GenericSetup extension profile -->
     <genericsetup:registerProfile
         name="default"
-        title="Genweb Organs de Govern (genweb.organs)"
+        title="UPC Organs de Govern v2.0 (genweb.organs)"
         directory="profiles/default"
         description="Organs de Govern package"
         provides="Products.GenericSetup.interfaces.EXTENSION"
