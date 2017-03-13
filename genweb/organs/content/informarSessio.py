@@ -80,13 +80,13 @@ class Message(form.SchemaForm):
             endHour = ''
         else:
             endHour = session.end.strftime("%H:%M")
-        sessionLink = str(session.absolute_url())
+        sessionLink = '----@@----' + session.absolute_url()
         organ = session.aq_parent
 
         if organ.footerMail is None:
             signatura = ''
         else:
-            signatura = organ.footerMail
+            signatura = organ.footerMail.encode('utf-8')
 
         if session.llocConvocatoria is None:
             place = ''
@@ -148,8 +148,7 @@ class Message(form.SchemaForm):
             return
 
         # replace hidden fields to maintain correct urls...
-        body = formData['message'].replace('----@@----', '').encode('utf-8')
-
+        body = formData['message'].replace('----@@----http:/', 'http://').replace('----@@----https:/', 'https://').encode('utf-8')
         sender = self.context.aq_parent.fromMail
         user = api.user.get_current().getId()
         try:

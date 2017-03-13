@@ -77,6 +77,8 @@ class Message(form.SchemaForm):
         session = self.context
         sessiontitle = str(session.Title())
 
+        sessionLink = '----@@----' + session.absolute_url()
+
         if session.start is None:
             sessiondate = ''
         else:
@@ -93,7 +95,10 @@ class Message(form.SchemaForm):
             footerOrgan = '<br/>'
         else:
             footerOrgan = self.context.signatura + '<br/>'
-        self.widgets["message"].value = bodyMailOrgan + footerOrgan
+        introData = "<p>Podeu consultar tota la documentació de la sessió aquí: <a href=" + \
+            sessionLink + ">" + sessiontitle + "</a></p><br/>"
+
+        self.widgets["message"].value = bodyMailOrgan + introData + footerOrgan
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):
@@ -113,11 +118,13 @@ class Message(form.SchemaForm):
             IStatusMessage(self.request).addStatusMessage(message, type="error")
             return
 
+        # replace hidden fields to maintain correct urls...
+        body = formData['message'].replace('----@@----http:/', 'http://').replace('----@@----https:/', 'https://').encode('utf-8')
         sender = self.context.aq_parent.fromMail
         user = api.user.get_current().getId()
         try:
             self.context.MailHost.send(
-                formData['message'],
+                body,
                 mto=formData['recipients'],
                 mfrom=sender,
                 subject=formData['fromTitle'],

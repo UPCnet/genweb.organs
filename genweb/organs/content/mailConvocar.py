@@ -74,7 +74,7 @@ class Message(form.SchemaForm):
         session = self.context
         now = strftime("%d/%m/%Y %H:%M:%S")
         organ = self.context.aq_parent
-        sessionLink = str(session.absolute_url())
+        sessionLink = '----@@----' + session.absolute_url()
 
         if session.signatura is None:
             signatura = ''
@@ -145,11 +145,14 @@ class Message(form.SchemaForm):
                 message = "Required fields missing: "
             IStatusMessage(self.request).addStatusMessage(message, type="error")
             return
+        # replace hidden fields to maintain correct urls...
+        body = formData['message'].replace('----@@----http:/', 'http://').replace('----@@----https:/', 'https://').encode('utf-8')
+
         sender = self.context.aq_parent.fromMail
         user = api.user.get_current().getId()
         try:
             self.context.MailHost.send(
-                formData['message'],
+                body,
                 mto=formData['recipients'],
                 mfrom=sender,
                 subject=formData['fromTitle'],
