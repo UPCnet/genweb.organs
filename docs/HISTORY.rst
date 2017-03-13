@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.4 (unreleased)
+0.4 (2017-03-13)
 ----------------
 
-- Nothing changed yet.
-
+* added utf-8 to str [roberto.diaz]
 
 0.3 (2017-03-13)
 ----------------
