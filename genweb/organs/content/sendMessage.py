@@ -98,7 +98,7 @@ class Message(form.SchemaForm):
         introData = "<p>Podeu consultar tota la documentació de la sessió aquí: <a href=" + \
             sessionLink + ">" + sessiontitle + "</a></p><br/>"
 
-        self.widgets["message"].value = bodyMailOrgan + introData + footerOrgan
+        self.widgets["message"].value = bodyMailOrgan.encode('utf-8') +introData + footerOrgan.encode('utf-8')
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):
