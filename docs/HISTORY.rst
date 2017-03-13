@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.3 (unreleased)
+0.3 (2017-03-13)
 ----------------
 
-- Nothing changed yet.
-
+* added fake url to show correct urls in mails [roberto.diaz]
 
 0.2 (2017-03-13)
 ----------------
