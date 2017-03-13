@@ -223,62 +223,6 @@ class Move(BrowserView):
                     subvalue = subvalue+1
 
 
-def sessio_sendMail(session, recipients, body):
-    """ Si enviem mail des de la sessio.
-        Mateix codi que /browser/events/change.py
-    """
-    lang = getToolByName(session, 'portal_languages').getPreferredLanguage()
-    sessiontitle = str(session.Title())
-    organ = session.aq_parent
-    senderPerson = str(organ.fromMail)
-
-    CSS = '"' + session.portal_url() + '/++genwebupc++stylesheets/genwebupc.css' + '"'
-    html_content = """
-     <head>
-      <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
-      <title>Mail content</title>
-          <link rel='stylesheet' href=""" + CSS + """></link>
-          <style type='text/css'>
-            body {padding:25px;}
-          </style>
-    </head>
-    <body>
-    """
-    sendBody = html_content + body + '</body>'
-    if session.start is None:
-        sessiondate = ''
-    else:
-        sessiondate = session.start.strftime("%d/%m/%Y")
-
-    if lang == 'es':
-        subjectMail = "Mensaje de la sesión: " + sessiontitle + ' - ' + sessiondate
-    if lang == 'en':
-        if session.start is None:
-            sessiondate = ''
-        else:
-            sessiondate = session.start.strftime("%Y/%m/%d")
-        subjectMail = "Session message: " + sessiontitle + ' - ' + sessiondate
-    else:
-        # catalan or other...
-        subjectMail = "Missatge de la sessió: " + sessiontitle + ' - ' + sessiondate
-
-    # Sending Mail!
-    try:
-        session.MailHost.send(sendBody,
-                              mto=recipients,
-                              mfrom=senderPerson,
-                              subject=subjectMail,
-                              encode=None,
-                              immediate=False,
-                              charset='utf8',
-                              msg_type='text/html')
-        session.plone_utils.addPortalMessage(
-            _("Missatge enviat correctament"), 'info')
-    except:
-        session.plone_utils.addPortalMessage(
-            _("Missatge no enviat. Comprovi els destinataris del missatge"), 'error')
-
-
 class ActaPrintView(BrowserView):
 
     __call__ = ViewPageTemplateFile('views/acta_print.pt')

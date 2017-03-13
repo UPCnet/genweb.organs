@@ -15,6 +15,7 @@ from zope import schema
 from time import strftime
 from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from genweb.organs.utils import addEntryLog
+import unicodedata
 
 grok.templatedir("templates")
 
@@ -24,6 +25,7 @@ class IMessage(form.Schema):
     """
     sender = TextLine(
         title=_("Sender"),
+        description=_("Sender organ help"),
         required=False,
         )
 
@@ -39,12 +41,12 @@ class IMessage(form.Schema):
     directives.widget(message=WysiwygFieldWidget)
     message = schema.Text(
         title=_(u"Message"),
-        required=False,
+        required=True,
     )
 
 
 class Message(form.SchemaForm):
-    grok.name('mailConvocar')
+    grok.name('mail_convocar')
     grok.context(ISessio)
     grok.template("mail_convocar")
     grok.require('zope2.View')
@@ -108,7 +110,8 @@ class Message(form.SchemaForm):
             endHour = str(session.end.strftime("%H:%M"))
 
         session.notificationDate = now
-        fromMessage = "Convocatoria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
+        titleText = "Convocatòria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
+        fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
         introData = "<br/><p>Podeu consultar tota la documentació de la sessió aquí: <a href=" + \
                     sessionLink + ">" + sessiontitle + "</a></p><br/>" + signatura
         moreData = html_content + \
@@ -121,7 +124,7 @@ class Message(form.SchemaForm):
 
         self.widgets["sender"].mode = DISPLAY_MODE
         self.widgets["sender"].value = str(organ.fromMail)
-        self.widgets["fromTitle"].value = str(fromMessage)
+        self.widgets["fromTitle"].value = fromMessage
         self.widgets["recipients"].value = str(session.adrecaLlista)
         self.widgets["message"].value = bodyMail
 
@@ -133,7 +136,7 @@ class Message(form.SchemaForm):
             the message was received. """
         formData, errors = self.extractData()
         lang = self.context.language
-        if 'recipients' not in formData or 'fromTitle' not in formData:
+        if 'recipients' not in formData or 'fromTitle' not in formData or 'message' not in formData:
             if lang == 'ca':
                 message = "Falten camps obligatoris: "
             if lang == 'es':
@@ -143,6 +146,7 @@ class Message(form.SchemaForm):
             IStatusMessage(self.request).addStatusMessage(message, type="error")
             return
         sender = self.context.aq_parent.fromMail
+        user = api.user.get_current().getId()
         try:
             self.context.MailHost.send(
                 formData['message'],
@@ -155,11 +159,11 @@ class Message(form.SchemaForm):
                 msg_type='text/html')
 
             api.content.transition(obj=self.context, transition='convocar')
-            addEntryLog(self.context, None, _(u'Sending mail convocatoria'), formData['recipients'])
+            addEntryLog(self.context, user, _(u'Sending mail convocatoria'), formData['recipients'])
             self.context.plone_utils.addPortalMessage(
                 _("Missatge enviat correctament"), 'info')
         except:
-            addEntryLog(self.context, None, _(u'Missatge no enviat'), formData['recipients'])
+            addEntryLog(self.context, user, _(u'Missatge no enviat'), formData['recipients'])
             self.context.plone_utils.addPortalMessage(
                 _("Missatge no enviat. Comprovi els destinataris del missatge"), 'error')
 

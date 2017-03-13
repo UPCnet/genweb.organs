@@ -8,14 +8,13 @@ from Products.statusmessages.interfaces import IStatusMessage
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
-from genweb.organs.browser.views import sessio_sendMail
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope import schema
 from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from genweb.organs.utils import addEntryLog
 from AccessControl import Unauthorized
-
+import unicodedata
 
 grok.templatedir("templates")
 
@@ -24,13 +23,17 @@ class IMessage(form.Schema):
 
     sender = TextLine(
         title=_("Sender"),
-        description=_("Sender message help"),
+        description=_("Sender organ help"),
         required=False,
         )
 
     recipients = TextLine(
         title=_("Recipients"),
         description=_("Mail address separated by blanks."),
+        required=True)
+
+    fromTitle = TextLine(
+        title=_(u"From"),
         required=True)
 
     directives.widget(message=WysiwygFieldWidget)
@@ -41,7 +44,7 @@ class IMessage(form.Schema):
 
 
 class Message(form.SchemaForm):
-    grok.name('send_message')
+    grok.name('mail_message')
     grok.context(ISessio)
     grok.template("message_view")
     grok.require('zope2.View')
@@ -66,10 +69,22 @@ class Message(form.SchemaForm):
 
     def updateWidgets(self):
         super(Message, self).updateWidgets()
-        username = api.user.get_current().getId()
+        organ = self.context.aq_parent
         self.widgets["sender"].mode = DISPLAY_MODE
-        self.widgets["sender"].value = str(username)
+        self.widgets["sender"].value = str(organ.fromMail)
         self.widgets["recipients"].value = self.context.adrecaLlista
+
+        session = self.context
+        sessiontitle = str(session.Title())
+
+        if session.start is None:
+            sessiondate = ''
+        else:
+            sessiondate = str(session.start.strftime("%d/%m/%Y"))
+
+        titleText = "Missatge de la sessió: " + sessiontitle + ' (' + sessiondate + ')'
+        fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
+        self.widgets["fromTitle"].value = fromMessage
         if self.context.aq_parent.bodyMailSend is None:
             bodyMailOrgan = '<br/>'
         else:
@@ -86,44 +101,38 @@ class Message(form.SchemaForm):
             in properties and redirect to the
             front page, showing a status message to say
             the message was received. """
-        emptyfields = []
         formData, errors = self.extractData()
         lang = self.context.language
-        if formData['recipients'] is None or formData['message'] is None:
-            if formData['recipients'] is None:
-                if lang == 'ca':
-                    emptyfields.append("Destinataris")
-                elif lang == 'es':
-                    emptyfields.append("Destinatarios")
-                else:
-                    emptyfields.append("Recipients")
-
-            if formData['message'] is None:
-                if lang == 'ca':
-                    emptyfields.append("Missatge")
-                elif lang == 'es':
-                    emptyfields.append("Mensaje")
-                else:
-                    emptyfields.append("Message")
-
-            empty = ', '.join(emptyfields) + '.'
+        if 'recipients' not in formData or 'fromTitle' not in formData or 'message' not in formData:
             if lang == 'ca':
                 message = "Falten camps obligatoris: "
             if lang == 'es':
                 message = "Faltan campos obligatorios: "
             if lang == 'en':
                 message = "Required fields missing: "
-            IStatusMessage(self.request).addStatusMessage(message + empty, type="error")
+            IStatusMessage(self.request).addStatusMessage(message, type="error")
             return
 
-        """ Adding send mail information to context in annotation format """
-        toMessage = formData['recipients'].encode('utf-8').decode('ascii', 'ignore')
-        noBlanks = ' '.join(toMessage.split())
-        toMail = noBlanks.replace(' ', ',')
-        body = formData['message'].encode('utf-8')
-        sender = api.user.get_current().getId()
-        addEntryLog(self.context, sender, _(u'Sending mail new message'), toMail)
-        sessio_sendMail(self.context, toMail, body)  # Send mail
+        sender = self.context.aq_parent.fromMail
+        user = api.user.get_current().getId()
+        try:
+            self.context.MailHost.send(
+                formData['message'],
+                mto=formData['recipients'],
+                mfrom=sender,
+                subject=formData['fromTitle'],
+                encode=None,
+                immediate=False,
+                charset='utf8',
+                msg_type='text/html')
+
+            addEntryLog(self.context, user, _(u'Sending mail new message'), formData['recipients'])
+            self.context.plone_utils.addPortalMessage(
+                _("Missatge enviat correctament"), 'info')
+        except:
+            addEntryLog(self.context, user, _(u'Missatge no enviat'), formData['recipients'])
+            self.context.plone_utils.addPortalMessage(
+                _("Missatge no enviat. Comprovi els destinataris del missatge"), 'error')
 
         return self.request.response.redirect(self.context.absolute_url())
 

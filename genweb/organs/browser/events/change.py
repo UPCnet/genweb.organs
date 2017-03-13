@@ -16,4 +16,4 @@ def sessio_changed(session, event):
             creat només per això, que es diu Convocant (no es veu enlloc)
         """
         if event.transition.id == 'convocant':
-            raise Redirect(session.absolute_url() + '/mailConvocar')
+            raise Redirect(session.absolute_url() + '/mail_convocar')

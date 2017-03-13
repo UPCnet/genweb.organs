@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-03-09 15:30+0000\n"
+"POT-Creation-Date: 2017-03-13 11:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,9 +18,9 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:485
+#: ./genweb/organs/browser/views.py:429
 #: ./genweb/organs/content/impersonate_as.py:141
-#: ./genweb/organs/content/informarSessio.py:237
+#: ./genweb/organs/content/informarSessio.py:240
 msgid "ACORD"
 msgstr ""
 
@@ -79,7 +79,7 @@ msgstr ""
 msgid "Afegir un punt informatiu"
 msgstr ""
 
-#: ./genweb/organs/browser/views/butlleti.pt:101
+#: ./genweb/organs/browser/views/butlleti.pt:94
 msgid "Agreement"
 msgstr ""
 
@@ -155,8 +155,8 @@ msgstr "Template from message used in Send Message action"
 msgid "Body Mail send description"
 msgstr "Message attached executing the Send Message Action. It adds just the foot of the post."
 
-#: ./genweb/organs/content/informarSessio.py:173
-#: ./genweb/organs/content/mailConvocar.py:168
+#: ./genweb/organs/content/informarSessio.py:176
+#: ./genweb/organs/content/mailConvocar.py:172
 #: ./genweb/organs/content/manualimport.py:180
 msgid "Cancel"
 msgstr "Cancel"
@@ -332,17 +332,15 @@ msgstr "Acta footer"
 msgid "Footer help"
 msgstr ""
 
-#: ./genweb/organs/content/mailConvocar.py:36
+#: ./genweb/organs/content/informarSessio.py:39
+#: ./genweb/organs/content/mailConvocar.py:38
+#: ./genweb/organs/content/sendMessage.py:36
 msgid "From"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:90
 msgid "From mail"
 msgstr "Email who sends the messages"
-
-#: ./genweb/organs/configure.zcml:31
-msgid "Genweb Organs de Govern (genweb.organs)"
-msgstr "Genweb Organs de Govern (genweb.organs)"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:148
 msgid "Historial"
@@ -422,9 +420,9 @@ msgstr "Logo que se utiliza en la parte superior de la página y a la hora de im
 msgid "Mail address help"
 msgstr "Address or addresses to which messages arrive when a notification of the body is done"
 
-#: ./genweb/organs/content/informarSessio.py:34
-#: ./genweb/organs/content/mailConvocar.py:32
-#: ./genweb/organs/content/sendMessage.py:33
+#: ./genweb/organs/content/informarSessio.py:35
+#: ./genweb/organs/content/mailConvocar.py:34
+#: ./genweb/organs/content/sendMessage.py:32
 msgid "Mail address separated by blanks."
 msgstr ""
 
@@ -440,23 +438,27 @@ msgstr "Massive agreements imported"
 msgid "Membre"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:39
-#: ./genweb/organs/content/mailConvocar.py:41
-#: ./genweb/organs/content/sendMessage.py:38
+#: ./genweb/organs/content/informarSessio.py:44
+#: ./genweb/organs/content/mailConvocar.py:43
+#: ./genweb/organs/content/sendMessage.py:41
 msgid "Message"
 msgstr "Message"
 
-#: ./genweb/organs/browser/views.py:276
-#: ./genweb/organs/content/mailConvocar.py:160
+#: ./genweb/organs/content/informarSessio.py:168
+#: ./genweb/organs/content/mailConvocar.py:164
+#: ./genweb/organs/content/sendMessage.py:131
 msgid "Missatge enviat correctament"
 msgstr "Message sent successfully"
 
-#: ./genweb/organs/content/mailConvocar.py:162
+#: ./genweb/organs/content/informarSessio.py:170
+#: ./genweb/organs/content/mailConvocar.py:166
+#: ./genweb/organs/content/sendMessage.py:133
 msgid "Missatge no enviat"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:279
-#: ./genweb/organs/content/mailConvocar.py:164
+#: ./genweb/organs/content/informarSessio.py:172
+#: ./genweb/organs/content/mailConvocar.py:168
+#: ./genweb/organs/content/sendMessage.py:135
 msgid "Missatge no enviat. Comprovi els destinataris del missatge"
 msgstr "Message not sent. Check the message recipients."
 
@@ -525,8 +527,8 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:175
-#: ./genweb/organs/content/mailConvocar.py:170
+#: ./genweb/organs/content/informarSessio.py:178
+#: ./genweb/organs/content/mailConvocar.py:174
 #: ./genweb/organs/content/manualimport.py:182
 msgid "Operation Cancelled."
 msgstr "The operation was canceled."
@@ -669,7 +671,7 @@ msgstr ""
 msgid "Published file description"
 msgstr ""
 
-#: ./genweb/organs/browser/views/butlleti.pt:100
+#: ./genweb/organs/browser/views/butlleti.pt:93
 #: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
 msgid "Punt"
 msgstr "Point of the Agenda"
@@ -682,13 +684,13 @@ msgstr "Title"
 msgid "Recalcula punts/acords"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:33
-#: ./genweb/organs/content/mailConvocar.py:31
-#: ./genweb/organs/content/sendMessage.py:32
+#: ./genweb/organs/content/informarSessio.py:34
+#: ./genweb/organs/content/mailConvocar.py:33
+#: ./genweb/organs/content/sendMessage.py:31
 msgid "Recipients"
 msgstr "Recipients"
 
-#: ./genweb/organs/browser/views.py:338
+#: ./genweb/organs/browser/views.py:282
 msgid "Reload proposalPoints manually"
 msgstr ""
 
@@ -704,35 +706,33 @@ msgstr ""
 msgid "Restricted_to_Members"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:123
-#: ./genweb/organs/content/mailConvocar.py:128
+#: ./genweb/organs/content/informarSessio.py:132
+#: ./genweb/organs/content/mailConvocar.py:131
 #: ./genweb/organs/content/manualimport.py:61
 msgid "Send"
 msgstr "Send"
 
-#: ./genweb/organs/content/informarSessio.py:27
-#: ./genweb/organs/content/mailConvocar.py:26
-#: ./genweb/organs/content/sendMessage.py:26
+#: ./genweb/organs/content/informarSessio.py:28
+#: ./genweb/organs/content/mailConvocar.py:27
+#: ./genweb/organs/content/sendMessage.py:25
 msgid "Sender"
 msgstr ""
 
-#: ./genweb/organs/content/sendMessage.py:27
-msgid "Sender message help"
-msgstr ""
-
-#: ./genweb/organs/content/informarSessio.py:28
+#: ./genweb/organs/content/informarSessio.py:29
+#: ./genweb/organs/content/mailConvocar.py:28
+#: ./genweb/organs/content/sendMessage.py:26
 msgid "Sender organ help"
 msgstr ""
 
-#: ./genweb/organs/content/mailConvocar.py:158
+#: ./genweb/organs/content/mailConvocar.py:162
 msgid "Sending mail convocatoria"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:167
+#: ./genweb/organs/content/informarSessio.py:166
 msgid "Sending mail informar sessio"
 msgstr ""
 
-#: ./genweb/organs/content/sendMessage.py:125
+#: ./genweb/organs/content/sendMessage.py:129
 msgid "Sending mail new message"
 msgstr ""
 
@@ -840,12 +840,16 @@ msgstr "Title"
 msgid "Title: "
 msgstr ""
 
-#: ./genweb/organs/browser/views/butlleti.pt:102
+#: ./genweb/organs/browser/views/butlleti.pt:95
 msgid "Titol"
 msgstr ""
 
 #: ./genweb/organs/content/templates/sessio_view.pt:327
 msgid "Titol del punt"
+msgstr ""
+
+#: ./genweb/organs/configure.zcml:31
+msgid "UPC Organs de Govern v2.0 (genweb.organs)"
 msgstr ""
 
 #: ./genweb/organs/content/templates/sessio_view.pt:355

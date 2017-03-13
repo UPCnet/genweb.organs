@@ -124,13 +124,13 @@
 
   <div style="float:right; display:flex">
       <div class="containerIcons" tal:condition="view/showEnviarButton">
-        <a href="send_message" i18n:attributes="title Enviar; alt Enviar"><i class="fa fa-envelope fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Enviar</span></a>
+        <a href="mail_message" i18n:attributes="title Enviar; alt Enviar"><i class="fa fa-envelope fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Enviar</span></a>
       </div>
       <div class="containerIcons" tal:condition="view/showPresentacionButton">
         <a i18n:attributes="title Presentacio; alt Presentacio" href="presentation" target="_blank"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
       </div>
       <div class="containerIcons" tal:condition="view/showPublicarButton">
-        <a href="informar_sessio" i18n:attributes="title Informar; alt Informar"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informar</span></a>
+        <a href="mail_informar" i18n:attributes="title Informar; alt Informar"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informar</span></a>
       </div>
 
       <div class="containerIcons" tal:condition="canModify">
