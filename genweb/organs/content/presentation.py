@@ -141,7 +141,7 @@ class Presentation(form.SchemaForm):
         for obj in values:
             visibleUrl = ''
             hiddenUrl = ''
-	    isFile = hasPublic = hasPrivate = isGODocument = isGOFile = False
+	    isFile = hasPublic = hasPrivate = isGODocument = isGOFile = file = False
             visibleUrl = obj.getObject().absolute_url()
             if obj.portal_type == 'genweb.organs.file':
                 isFile = True
@@ -161,8 +161,12 @@ class Presentation(form.SchemaForm):
                 hasPublic = True
                 visibleUrl = obj.getObject().absolute_url()
 
+            if file:
+                abs_path = file.absolute_url_path()
+            else:
+                abs_path = None
             results.append(dict(title=obj.Title,
-                                path=file.absolute_url_path(),
+                                path=abs_path,
                                 absolute_url=obj.getURL(),
                                 isFile=isFile,
                                 hasPublic=hasPublic,

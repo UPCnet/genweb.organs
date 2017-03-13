@@ -179,6 +179,7 @@ def FilesandDocumentsInside(self):
             else:
                 tipus = 'fa fa-exclamation'
                 labelClass = ''
+                username = api.user.get_current().getProperty('id')
                 if username:
                     roles = api.user.get_roles(username=username, obj=self.context)
                     if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
