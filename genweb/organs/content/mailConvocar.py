@@ -93,21 +93,22 @@ class Message(form.SchemaForm):
 
         html_content = ''
         sessiontitle = str(session.Title())
-
-        if session.start is None:
+        start = getattr(session, 'start', None)
+        end = getattr(session, 'end', None)
+        if start is None:
             sessiondate = ''
         else:
-            sessiondate = str(session.start.strftime("%d/%m/%Y"))
+            sessiondate = str(start.strftime("%d/%m/%Y"))
 
-        if session.start is None:
+        if start is None:
             starthour = ''
         else:
-            starthour = str(session.start.strftime("%H:%M"))
+            starthour = str(start.strftime("%H:%M"))
 
-        if session.end is None:
+        if end is None:
             endHour = ''
         else:
-            endHour = str(session.end.strftime("%H:%M"))
+            endHour = str(end.strftime("%H:%M"))
 
         session.notificationDate = now
         titleText = "Convocatòria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour

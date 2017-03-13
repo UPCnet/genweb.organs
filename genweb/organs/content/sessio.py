@@ -380,8 +380,9 @@ class View(grok.View):
                     results = []
                     for obj in values:
                         objecte = obj.getObject()
-                        if objecte.start:
-                            dataSessio = objecte.start.strftime('%d/%m/%Y')
+                        start = getattr(obj, 'start', None)
+                        if start:
+                            dataSessio = start.strftime('%d/%m/%Y')
                         else:
                             dataSessio = ''
                         results.append(dict(title=obj.Title,

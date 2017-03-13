@@ -223,16 +223,16 @@
           <table>
             <tbody>
               <tal:documents repeat="item actes">
-                <tr>
+                <tr tal:define="data item/date|nothing">
                   <td><i class="fa fa-file-text-o" aria-hidden="true" style="padding-left: 20px;"></i>
                     <a href="#"
                        tal:attributes="href item/absolute_url;"
                        tal:content="item/title">
                         Item Title
                     </a>&nbsp;
-                    (<span tal:content="item/date">
+                    <span tal:condition="item/date">(<span tal:content="date">
                         Item Data
-                    </span>)
+                    </span>)</span>
                   </td>
                 </tr>
               </tal:documents>

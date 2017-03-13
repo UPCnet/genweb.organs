@@ -68,18 +68,20 @@ class Message(form.SchemaForm):
         else:
             self.widgets["recipients"].value = str(session.adrecaLlista)
 
-        if session.start is None:
+        start = getattr(session, 'start', None)
+        end = getattr(session, 'end', None)
+        if start is None:
             sessiondate = ''
         else:
-            sessiondate = session.start.strftime("%d/%m/%Y")
-        if session.start is None:
+            sessiondate = start.strftime("%d/%m/%Y")
+        if start is None:
             starthour = ''
         else:
-            starthour = session.start.strftime("%H:%M")
-        if session.end is None:
+            starthour = start.strftime("%H:%M")
+        if end is None:
             endHour = ''
         else:
-            endHour = session.end.strftime("%H:%M")
+            endHour = end.strftime("%H:%M")
         sessionLink = '----@@----' + session.absolute_url()
         organ = session.aq_parent
 

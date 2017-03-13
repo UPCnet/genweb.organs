@@ -78,11 +78,11 @@ class Message(form.SchemaForm):
         sessiontitle = str(session.Title())
 
         sessionLink = '----@@----' + session.absolute_url()
-
-        if session.start is None:
+        start = getattr(session, 'start', None)
+        if start is None:
             sessiondate = ''
         else:
-            sessiondate = str(session.start.strftime("%d/%m/%Y"))
+            sessiondate = str(start.strftime("%d/%m/%Y"))
 
         titleText = "Missatge de la sessió: " + sessiontitle + ' (' + sessiondate + ')'
         fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
