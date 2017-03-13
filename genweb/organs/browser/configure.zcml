@@ -7,7 +7,7 @@
     <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
     <include package="z3c.jbot" file="meta.zcml" />
 
-    <!--   ++resource++genweb.organs.stylesheets/genweb_organs.css -->
+    <!-- ++resource++genweb.organs.stylesheets/genweb_organs.css -->
     <browser:resourceDirectory
       name="genweb.organs.stylesheets"
       directory="stylesheets"

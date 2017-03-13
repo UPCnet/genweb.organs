@@ -10,7 +10,7 @@ class changeTitle(BrowserView):
     """ Change the title of the element """
 
     def __call__(self):
-        # http://localhost:8080/Plone/ca/consell-de-direccio/organ1/sess/changeTitle?pk=OLD_ID&name=&value=NEW_ID
+        # http://localhost:8080/Plone/ca/eetac/organ/session/changeTitle?pk=OLD_ID&name=&value=NEW_ID
         try:
             origin_path = '/'.join(self.context.getPhysicalPath()) + '/' + self.request.form['pk']
             newvalue = self.request.form['value']
@@ -29,7 +29,7 @@ class changeTitle(BrowserView):
             newObject.getObject().title = newvalue
             newObject.getObject().reindexObject()
 
-            # ok transaction, then  -> save the process log
+            # transaction ok, then write log
             recipients = origin_path + ' -> ' + newvalue
             addEntryLog(self.context, None, _(u"Changed Title"), recipients)
         except:
@@ -56,7 +56,7 @@ class changeAgreement(BrowserView):
                 item.acordOrgan = False
             item.reindexObject()
 
-            # ok transaction, then  -> save the process log
+            # transaction ok, then write log
             recipients = '[' + item.Title() + '] ' + oldvalue + ' -> ' + newvalue
             addEntryLog(self.context, None, _(u"Changed agreement number"), recipients)
         except:

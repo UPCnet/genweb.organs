@@ -13,14 +13,17 @@
                    members view/members;
                    descripcioOrgan context/descripcioOrgan;
                    membresOrgan context/membresOrgan;
-                   convidatsPermanentsOrgan context/convidatsPermanentsOrgan">
+                   convidatsPermanentsOrgan context/convidatsPermanentsOrgan;
+                   activeClassMembres view/activeClassMembres;
+                   activeClassConvidats view/activeClassConvidats;
+                   sessions view/SessionsInside">
 
   <div class="pull-right" tal:condition="context/logoOrgan">
     <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan" />
   </div>
   <div class="clearfix"></div>
   <div class="documentDescription description"></div>
-  <div class="documentDescription description" tal:content="structure context/descripcioOrgan"></div>
+  <div class="documentDescription description" tal:content="structure descripcioOrgan"></div>
 
   <div id="contentOrgan">
 
@@ -46,20 +49,20 @@
           <div class="panel with-nav-tabs panel-primary">
             <div class="panel-heading">
               <ul class="nav nav-tabs">
-                <li tal:condition="membresOrgan" tal:attributes="class string:${view/activeClassMembres}">
+                <li tal:condition="membresOrgan" tal:attributes="class string:${activeClassMembres}">
                   <a href="#tab1primary" data-toggle="tab" i18n:translate="">Persones assistents</a>
                 </li>
-                <li tal:condition="convidatsPermanentsOrgan" tal:attributes="class string:${view/activeClassConvidats}">
+                <li tal:condition="convidatsPermanentsOrgan" tal:attributes="class string:${activeClassConvidats}">
                   <a href="#tab2primary" data-toggle="tab" i18n:translate="">Persones convidades</a>
                 </li>
               </ul>
             </div>
             <div class="panel-body">
               <div class="tab-content">
-                <div tal:attributes="class string:tab-pane fade ${view/activeClassMembres}" id="tab1primary">
+                <div tal:attributes="class string:tab-pane fade ${activeClassMembres}" id="tab1primary">
                   <span tal:replace="structure membresOrgan" />
                 </div>
-                <div tal:attributes="class string:tab-pane fade ${view/activeClassConvidats}" id="tab2primary">
+                <div tal:attributes="class string:tab-pane fade ${activeClassConvidats}" id="tab2primary">
                   <span tal:replace="structure convidatsPermanentsOrgan" />
                 </div>
               </div>
@@ -110,7 +113,7 @@
 
   </div>
 
-  <tal:Sessions tal:define="sessions view/SessionsInside" tal:condition="sessions">
+  <tal:Sessions tal:condition="sessions">
     <h3 i18n:translate="">Sessions list</h3>
     <table class="table table-striped">
       <thead>

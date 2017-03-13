@@ -34,35 +34,32 @@
     <span tal:replace="structure defaultContent" />
   </div>
 
-
-    <table class="table table-bordered table-responsive filesanddocs" tal:condition="filesanddocs">
-      <thead>
-        <tr>
-          <th>
-            <tal:data i18n:translate="">Fitxers i documents</tal:data>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <ul class="ul_items">
-              <tal:documents repeat="item filesanddocs">
-                <li class="listFiles">
-                  <i tal:attributes="class item/classCSS"></i>
-                  <a tal:attributes="href item/absolute_url;">
-                     <span tal:content="item/title">Doc title</span></a>&nbsp;<span tal:attributes="class string:${item/labelClass}" tal:content="item/content"></span>
-                </li>
-              </tal:documents>
-            </ul>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
+  <table class="table table-bordered table-responsive filesanddocs" tal:condition="filesanddocs">
+    <thead>
+      <tr>
+        <th>
+          <tal:data i18n:translate="">Fitxers i documents</tal:data>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <ul class="ul_items">
+            <tal:documents repeat="item filesanddocs">
+              <li class="listFiles">
+                <i tal:attributes="class item/classCSS"></i>
+                <a tal:attributes="href item/absolute_url;">
+                   <span tal:content="item/title">Doc title</span></a>&nbsp;<span tal:attributes="class string:${item/labelClass}" tal:content="item/content"></span>
+              </li>
+            </tal:documents>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
 </metal:content-core>
 
 </body>
 </html>
-

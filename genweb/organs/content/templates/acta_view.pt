@@ -16,7 +16,8 @@
                    llocConvocatoria context/llocConvocatoria;
                    horaFi view/horaFi;
                    horaInici view/horaInici;
-                   audio view/AudioInside">
+                   audio view/AudioInside;
+                   enllacVideo context/enllacVideo">
 
 <tal:block tal:condition="view/canView">
 
@@ -79,10 +80,10 @@
             <span style="float:right"
                   tal:content="llocConvocatoria"></span>
           </li>
-          <li tal:condition="context/enllacVideo">
+          <li tal:condition="enllacVideo">
             <b i18n:translate="">Video link</b>
             <span style="float: right">
-              <a tal:attributes="href context/enllacVideo" target="_blank"><span i18n:translate="">Video</span></a>
+              <a tal:attributes="href enllacVideo" target="_blank"><span i18n:translate="">Video</span></a>
             </span>
           </li>
           <li tal:condition="audio">
@@ -156,4 +157,3 @@
 
 </body>
 </html>
-

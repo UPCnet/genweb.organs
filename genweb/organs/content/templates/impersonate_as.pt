@@ -154,7 +154,7 @@
                     <div class="puntTitle span12">
                       <div class="span1 fletxaSpan">
                         <button type="button" class="expand" tal:condition="item/items_inside"
-                          data-original-title="Expand" style="font-size:20px;"">
+                          data-original-title="Expand" style="font-size:20px;">
                           <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
                           </button>
                         <button type="button" class="notexpand" tal:condition="item/items_inside"

@@ -7,14 +7,16 @@
     i18n:domain="genweb.organs">
 <body>
 
-<metal:content-core fill-slot="content-core" tal:define="viewReserved view/viewReservedFile">
+<metal:content-core fill-slot="content-core"
+      tal:define="viewReserved view/viewReservedFile;
+                  absolute_url context/absolute_url">
 
   <metal:block define-macro="content-core">
 
 <tal:blockReserved tal:condition="viewReserved">
   <div tal:condition="view/hihaReserved">
     <div tal:define="reserved_content_type context/hiddenfile/contentType|nothing;
-                     reserved_file_download_url string:${context/absolute_url}/@@download/hiddenfile/${context/hiddenfile/filename};">
+                     reserved_file_download_url string:${absolute_url}/@@download/hiddenfile/${context/hiddenfile/filename};">
       <h3 i18n:translate=""> Fitxer reservat </h3>
       <p>
         <a tal:attributes="href reserved_file_download_url">
@@ -45,7 +47,7 @@
   <div tal:condition="view/hihaPublic">
 
     <div tal:define="visible_content_type context/visiblefile/contentType|nothing;
-                     public_file_download_url string:${context/absolute_url}/@@download/visiblefile/${context/visiblefile/filename}">
+                     public_file_download_url string:${absolute_url}/@@download/visiblefile/${context/visiblefile/filename}">
       <h3 tal:condition="viewReserved" i18n:translate="">Fitxer public</h3>
       <p>
         <a tal:attributes="href public_file_download_url">

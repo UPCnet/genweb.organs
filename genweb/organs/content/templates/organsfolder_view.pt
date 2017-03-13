@@ -8,19 +8,12 @@
 
 <body>
 
-<!--
-  <metal:title fill-slot="content-title">
-  </metal:title>
-
-  <metal:description fill-slot="content-description">
-  </metal:description> -->
-
   <metal:content-core fill-slot="content-core">
     <metal:listingmacro define-macro="listing"
-      tal:define="items view/OrgansInside">
+                        tal:define="OrgansInside view/OrgansInside">
 
-      <div tal:condition="items" class="organsfolder_view">
-  <div class="documentDescription description"></div>
+      <div tal:condition="OrgansInside" class="organsfolder_view">
+        <div class="documentDescription description"></div>
 
         <table class="table table-striped">
           <thead>
@@ -33,7 +26,7 @@
               </th> -->
             </tr>
           </thead>
-          <tal:documents repeat="item items">
+          <tal:documents repeat="item OrgansInside">
               <tr>
                 <td>
                   <a tal:attributes="href item/absolute_url;"
@@ -59,7 +52,7 @@
 
       <metal:empty metal:define-slot="no_items_in_listing">
         <p class="discreet"
-           tal:condition="not: view/OrgansInside"
+           tal:condition="not: OrgansInside"
            i18n:translate="description_no_items_in_folder">
             There are currently no Organs in this folder.
         </p>
