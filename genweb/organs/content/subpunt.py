@@ -37,6 +37,8 @@ def llistaEstats(context):
         terms.append(SimpleVocabulary.createTerm(item, flattened, item))
 
     return SimpleVocabulary(terms)
+
+
 directlyProvides(llistaEstats, IContextSourceBinder)
 
 
@@ -90,6 +92,8 @@ def proposalPointDefaultValue(data):
 @indexer(ISubpunt)
 def proposalPoint(obj):
     return obj.proposalPoint
+
+
 grok.global_adapter(proposalPoint, name="index_proposalPoint")
 
 

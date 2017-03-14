@@ -16,9 +16,6 @@
                 isManager view/isManager;
                 canModify view/canModify;
                 items view/PuntsInside;
-                dataSessio view/dataSessio;
-                horaInici view/horaInici;
-                horaFi view/horaFi;
                 hihaPersones view/hihaPersones;
                 membresConvocats context/membresConvocats;
                 membresConvidats context/membresConvidats;
@@ -159,7 +156,7 @@
     <div id="sessionTabs" class="tab-content">
       <div class="tab-pane active" id="dadesTab" tal:define="item view/valuesTable">
         <ul tal:define="llocConvocatoria item/llocConvocatoria;
-                        organTitle item/organTitle
+                        organTitle item/organTitle;
                         dataSessio item/dataSessio;
                         horaInici item/horaInici;
                         horaFi item/horaFi">

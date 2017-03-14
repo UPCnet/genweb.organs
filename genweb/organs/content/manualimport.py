@@ -154,7 +154,7 @@ class Message(form.SchemaForm):
                                 title=line,
                                 container=previousPuntContainer)
 
-                        newobj.proposalPoint = unicode(str(index-1) + str('.') + str(subindex))
+                        newobj.proposalPoint = unicode(str(index - 1) + str('.') + str(subindex))
                         newobj.estatsLlista = defaultEstat
                         newobj.reindexObject()
                         subindex = subindex + 1

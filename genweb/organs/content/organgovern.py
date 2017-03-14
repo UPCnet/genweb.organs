@@ -12,8 +12,7 @@ from plone.autoform import directives
 from plone.supermodel.directives import fieldset
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.directives import dexterity
-from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
-from genweb.organs import utils
+from z3c.form.interfaces import HIDDEN_MODE
 
 organType = SimpleVocabulary(
     [SimpleTerm(value='Open', title=_(u'Open')),

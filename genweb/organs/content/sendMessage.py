@@ -11,7 +11,7 @@ from genweb.organs.content.sessio import ISessio
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope import schema
-from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
+from z3c.form.interfaces import DISPLAY_MODE
 from genweb.organs.utils import addEntryLog
 from AccessControl import Unauthorized
 import unicodedata
@@ -24,8 +24,7 @@ class IMessage(form.Schema):
     sender = TextLine(
         title=_("Sender"),
         description=_("Sender organ help"),
-        required=False,
-        )
+        required=False)
 
     recipients = TextLine(
         title=_("Recipients"),
@@ -98,7 +97,7 @@ class Message(form.SchemaForm):
         introData = "<p>Podeu consultar tota la documentació de la sessió aquí: <a href=" + \
             sessionLink + ">" + sessiontitle + "</a></p><br/>"
 
-        self.widgets["message"].value = bodyMailOrgan.encode('utf-8') +introData + footerOrgan.encode('utf-8')
+        self.widgets["message"].value = bodyMailOrgan.encode('utf-8') + introData + footerOrgan.encode('utf-8')
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):

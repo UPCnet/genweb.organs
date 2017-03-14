@@ -12,7 +12,6 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.interfaces import IContextSourceBinder
 from zope.interface import directlyProvides
 import unicodedata
-from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from plone.indexer import indexer
 from genweb.organs import utils
 
@@ -47,6 +46,8 @@ def llistaEstats(context):
         terms.append(SimpleVocabulary.createTerm(item, flattened, item))
 
     return SimpleVocabulary(terms)
+
+
 directlyProvides(llistaEstats, IContextSourceBinder)
 
 
@@ -101,6 +102,8 @@ def proposalPointDefaultValue(data):
 @indexer(IAcord)
 def proposalPoint(obj):
     return obj.proposalPoint
+
+
 grok.global_adapter(proposalPoint, name="index_proposalPoint")
 
 

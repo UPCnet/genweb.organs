@@ -3,7 +3,6 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from plone import api
-from time import strftime
 import pkg_resources
 from zope.interface import alsoProvides
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
@@ -50,9 +49,9 @@ class createElement(BrowserView):
                 estat = ''
             if action == 'createPunt':
                 items = portal_catalog.searchResults(
-                        portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
-                        path={'query': path,
-                              'depth': 1})
+                    portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
+                    path={'query': path,
+                          'depth': 1})
                 index = len(items)
                 obj = api.content.create(
                     title=itemid,
@@ -63,9 +62,9 @@ class createElement(BrowserView):
                 addEntryLog(self.context, None, _(u'Created punt'), _(u'Title: ') + str(obj.Title()))
             elif action == 'createAcord':
                 items = portal_catalog.searchResults(
-                        portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
-                        path={'query': path,
-                              'depth': 1})
+                    portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
+                    path={'query': path,
+                          'depth': 1})
                 index = len(items)
                 obj = api.content.create(
                     title=itemid,
@@ -129,7 +128,7 @@ class Delete(BrowserView):
                             newobjecte = value.getObject()
                             newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
                             newobjecte.reindexObject()
-                            subvalue = subvalue+1
+                            subvalue = subvalue + 1
 
                     index = index + 1
 
@@ -184,7 +183,7 @@ class Move(BrowserView):
                         newobjecte = value.getObject()
                         newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
                         newobjecte.reindexObject()
-                        subvalue = subvalue+1
+                        subvalue = subvalue + 1
 
                 index = index + 1
 
@@ -196,8 +195,7 @@ class Move(BrowserView):
             punt = portal_catalog.searchResults(
                 id=str(itemid.split('/')[0]),
                 portal_type='genweb.organs.punt',
-                path={'query': search_path, 'depth': 1},
-                )[0].getObject()
+                path={'query': search_path, 'depth': 1})[0].getObject()
             ordering = getOrdering(punt)
             itemid = str(itemid.split('/')[1])
             folder_path = '/'.join(punt.getPhysicalPath())
@@ -220,7 +218,7 @@ class Move(BrowserView):
                     objecteSubPunt = item.getObject()
                     objecteSubPunt.proposalPoint = unicode(str(puntnumber) + '.' + str(subvalue))
                     objecteSubPunt.reindexObject()
-                    subvalue = subvalue+1
+                    subvalue = subvalue + 1
 
 
 class ActaPrintView(BrowserView):
@@ -309,7 +307,7 @@ class Reload(BrowserView):
                     newobjecte = value.getObject()
                     newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
                     newobjecte.reindexObject()
-                    subvalue = subvalue+1
+                    subvalue = subvalue + 1
                     if value.portal_type == 'genweb.organs.acord':
                         printid = '{0}'.format(str(idacord).zfill(2))
                         newobjecte.agreement = acronim + any + numsessio + printid

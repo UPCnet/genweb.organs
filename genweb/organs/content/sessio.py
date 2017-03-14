@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from five import grok
 from zope import schema
-from plone.indexer import indexer
 from plone.directives import dexterity
 from plone.directives import form
 from genweb.organs import _
@@ -116,7 +115,7 @@ def numSessioDefaultValue(data):
         portal_type='genweb.organs.sessio',
         context=data.context)
     total = len(sessions)
-    return '{0}'.format(str(total+1).zfill(2))
+    return '{0}'.format(str(total + 1).zfill(2))
 
 
 @form.default_value(field=ISessio['membresConvocats'])
@@ -204,13 +203,6 @@ class View(grok.View):
         if review_state in ['planificada', 'convocada', 'realitzada'] and utils.isEditor(self):
             value = True
         return value or self.isManager()
-
-    def dataSessio(self):
-        start = getattr(self.context, 'start', None)
-        if start:
-            return self.context.start.strftime('%d/%m/%Y')
-        else:
-            return None
 
     def showEnviarButton(self):
         review_state = api.content.get_state(self.context)
@@ -365,7 +357,6 @@ class View(grok.View):
                 if values:
                     results = []
                     for obj in values:
-                        objecte = obj.getObject()
                         start = getattr(obj, 'start', None)
                         if start:
                             dataSessio = start.strftime('%d/%m/%Y')
@@ -404,14 +395,14 @@ class View(grok.View):
         end = getattr(self.context, 'end', None)
 
         if start:
-            dataSessio = self.context.start.strftime('%d/%m/%Y')
-            horaInici = self.context.start.strftime('%H:%M')
+            dataSessio = start.strftime('%d/%m/%Y')
+            horaInici = start.strftime('%H:%M')
         else:
             dataSessio = ''
             horaInici = ''
 
         if end:
-            horaFi = self.context.end.strftime('%H:%M')
+            horaFi = end.strftime('%H:%M')
         else:
             horaFi = ''
 

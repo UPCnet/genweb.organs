@@ -141,7 +141,7 @@ class Presentation(form.SchemaForm):
         for obj in values:
             visibleUrl = ''
             hiddenUrl = ''
-	    isFile = hasPublic = hasPrivate = isGODocument = isGOFile = file = False
+            isFile = hasPublic = hasPrivate = isGODocument = isGOFile = file = False
             visibleUrl = obj.getObject().absolute_url()
             if obj.portal_type == 'genweb.organs.file':
                 isFile = True
@@ -287,7 +287,6 @@ class Presentation(form.SchemaForm):
                 return True
         return False
 
-
     def showBarra(self, item):
         username = api.user.get_current().getProperty('id')
         if username is None:
@@ -296,7 +295,6 @@ class Presentation(form.SchemaForm):
             else:
                 return False
         return False
-
 
     def changeEstat(self):
         username = api.user.get_current().getProperty('id')
