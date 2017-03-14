@@ -212,20 +212,6 @@ class View(grok.View):
         else:
             return None
 
-    def horaInici(self):
-        start = getattr(self.context, 'start', None)
-        if start:
-            return self.context.start.strftime('%H:%M')
-        else:
-            return None
-
-    def horaFi(self):
-        end = getattr(self.context, 'end', None)
-        if end:
-            return self.context.end.strftime('%H:%M')
-        else:
-            return None
-
     def showEnviarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
@@ -438,13 +424,9 @@ class View(grok.View):
                       horaInici=horaInici,
                       horaFi=horaFi,
                       llocConvocatoria=llocConvocatoria,
-                      organTitle=self.OrganTitle(),
+                      organTitle=self.context.aq_parent.Title(),
                       )
         return values
-
-    def OrganTitle(self):
-        """ Retorna el títol de l'òrgan """
-        return self.context.aq_parent.Title()
 
     def hihaPersones(self):
         if self.context.membresConvocats or self.context.membresConvidats or self.context.llistaExcusats:

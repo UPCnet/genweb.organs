@@ -15,7 +15,15 @@
                 isSecretari view/isSecretari;
                 isManager view/isManager;
                 canModify view/canModify;
-                items view/PuntsInside">
+                items view/PuntsInside;
+                dataSessio view/dataSessio;
+                horaInici view/horaInici;
+                horaFi view/horaFi;
+                hihaPersones view/hihaPersones;
+                membresConvocats context/membresConvocats;
+                membresConvidats context/membresConvidats;
+                llistaExcusats context/llistaExcusats;
+                noAssistents context/noAssistents">
 
   <link tal:condition="canModify" rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
   <script tal:condition="canModify" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery-ui.min.js"></script>
@@ -143,74 +151,76 @@
   <div id="contentSessio">
     <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
       <li class="active"><a href="#dadesTab" data-toggle="tab" i18n:translate="">Dades</a></li>
-      <li tal:condition="view/hihaPersones"><a href="#assistentsTab" data-toggle="tab" i18n:translate="">Assistents</a></li>
+      <li tal:condition="hihaPersones"><a href="#assistentsTab" data-toggle="tab" i18n:translate="">Assistents</a></li>
       <li tal:condition="view/showActaTab"><a href="#actaTab" data-toggle="tab" i18n:translate="">Acta</a></li>
       <li tal:condition="python:loginfo and canModify"><a href="#notificationsTab" data-toggle="tab" i18n:translate="">Historial</a></li>
     </ul>
 
     <div id="sessionTabs" class="tab-content">
-
       <div class="tab-pane active" id="dadesTab" tal:define="item view/valuesTable">
-        <ul>
-          <li tal:condition="view/dataSessio">
+        <ul tal:define="llocConvocatoria item/llocConvocatoria;
+                        organTitle item/organTitle
+                        dataSessio item/dataSessio;
+                        horaInici item/horaInici;
+                        horaFi item/horaFi">
+          <li tal:condition="dataSessio">
             <b i18n:translate="">Data</b><b>:</b>
             <span style="float:right"
-                  tal:content="view/dataSessio"></span>
+                  tal:content="dataSessio"></span>
           </li>
-          <li tal:condition="view/horaInici">
+          <li tal:condition="horaInici">
             <b i18n:translate="">Session start time</b><b>:</b>
             <span style="float:right"
-                  tal:content="view/horaInici"></span>
+                  tal:content="horaInici"></span>
           </li>
-          <li tal:condition="view/horaFi">
+          <li tal:condition="horaFi">
             <b i18n:translate="">Session end time</b><b>:</b>
             <span style="float:right"
-                  tal:content="view/horaFi"></span>
+                  tal:content="horaFi"></span>
           </li>
-          <li tal:condition="item/llocConvocatoria">
+          <li tal:condition="llocConvocatoria">
             <b i18n:translate="">Session location</b><b>:</b>
             <span style="float:right"
-                  tal:content="item/llocConvocatoria"></span>
+                  tal:content="llocConvocatoria"></span>
           </li>
-          <li tal:condition="item/organTitle">
+          <li tal:condition="organTitle">
             <b i18n:translate="">Organ de govern</b><b>:</b>
             <span style="float:right"
-                  tal:content="item/organTitle"></span>
+                  tal:content="organTitle"></span>
           </li>
         </ul>
       </div>
-
-      <div class="tab-pane" id="assistentsTab" tal:condition="view/hihaPersones">
+      <div class="tab-pane" id="assistentsTab" tal:condition="hihaPersones">
         <div class="panel with-nav-tabs panel-primary">
           <div class="panel-heading">
             <ul class="nav nav-tabs">
-                <li tal:condition="context/membresConvocats" class="active">
+                <li tal:condition="membresConvocats" class="active">
                   <a href="#tab1primary" data-toggle="tab" i18n:translate="">Persones Convocades</a>
                 </li>
-                <li tal:condition="context/membresConvidats">
+                <li tal:condition="membresConvidats">
                   <a href="#tab2primary" data-toggle="tab" i18n:translate="">Persones convidades</a>
                 </li>
-                <li tal:condition="context/llistaExcusats">
+                <li tal:condition="llistaExcusats">
                   <a href="#tab3primary" data-toggle="tab" i18n:translate="">Persones excusades</a>
                 </li>
-                <li tal:condition="context/noAssistents">
+                <li tal:condition="noAssistents">
                   <a href="#tab4primary" data-toggle="tab" i18n:translate="">No assistents</a>
                 </li>
             </ul>
           </div>
           <div class="panel-body">
             <div class="tab-content">
-              <div tal:condition="context/membresConvocats" class="tab-pane fade in active" id="tab1primary">
-                <span tal:replace="structure context/membresConvocats" />
+              <div tal:condition="membresConvocats" class="tab-pane fade in active" id="tab1primary">
+                <span tal:replace="structure membresConvocats" />
               </div>
-              <div tal:condition="context/membresConvidats" class="tab-pane fade" id="tab2primary">
-                <span tal:replace="structure context/membresConvidats" />
+              <div tal:condition="membresConvidats" class="tab-pane fade" id="tab2primary">
+                <span tal:replace="structure membresConvidats" />
               </div>
-              <div tal:condition="context/llistaExcusats" class="tab-pane fade" id="tab3primary">
-                <span tal:replace="structure context/llistaExcusats" />
+              <div tal:condition="llistaExcusats" class="tab-pane fade" id="tab3primary">
+                <span tal:replace="structure llistaExcusats" />
               </div>
-              <div tal:condition="context/noAssistents" class="tab-pane fade" id="tab4primary">
-                <span tal:replace="structure context/noAssistents" />
+              <div tal:condition="noAssistents" class="tab-pane fade" id="tab4primary">
+                <span tal:replace="structure noAssistents" />
               </div>
             </div>
           </div>
@@ -429,7 +439,7 @@
                 <tal:block tal:condition="item/state">
                   <button class="btn label disabled " style="padding:3px;">
                   <i class="fa fa-circle" aria-hidden="true"  tal:attributes="style string:color:${item/css}"></i>
-                  <span  tal:content="item/state"></span>
+                  <span tal:content="item/state"></span>
                   </button>
                 </tal:block>
               </div>
@@ -486,9 +496,11 @@
 
               <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" class="sortable2">
                 <tal:subpunts repeat="itemSubpunt subpunts">
-                  <ol class="li_subgrups" tal:attributes="id itemSubpunt/id">
+                  <ol class="li_subgrups" tal:attributes="id itemSubpunt/id"
+                       tal:define="agreement itemSubpunt/agreement;
+                                   itemSubpunt_id itemSubpunt/id">
                     <div class="span6 agreementSpan">
-                      <span class="agreementSubClass" tal:content="itemSubpunt/agreement" tal:condition="itemSubpunt/agreement"></span>
+                      <span class="agreementSubClass" tal:content="agreement" tal:condition="agreement"></span>
                     </div>
                     <div class="span6 einesSpan">
                       <div style="float: right;" aria-label="Subpunt actions" tal:condition="canModify">
@@ -503,7 +515,7 @@
                               data-html="true"
                               data-trigger="focus"
                               data-original-title="Delete"
-                              tal:attributes="data-item itemSubpunt/id; data-type itemSubpunt/portal_type">
+                              tal:attributes="data-item itemSubpunt_id; data-type itemSubpunt/portal_type">
                               <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </button>
                       </div>
@@ -517,8 +529,8 @@
                             <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                            <li><a tabindex="-1" tal:attributes="href string:${itemSubpunt/id}/++add++genweb.organs.file"><span i18n:translate="">File</span></a></li>
-                            <li><a tabindex="-1" tal:attributes="href string:${itemSubpunt/id}/++add++genweb.organs.document"><span i18n:translate="">Document</span></a></li>
+                            <li><a tabindex="-1" tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.file"><span i18n:translate="">File</span></a></li>
+                            <li><a tabindex="-1" tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.document"><span i18n:translate="">Document</span></a></li>
                           </ul>
                       </div>
 
@@ -533,7 +545,7 @@
                           </button>
                           <ul class="dropdown-menu estatsToggle" role="menu" aria-labelledby="estats">
                             <tal:block repeat="estat itemSubpunt/estats">
-                              <li class="defaultValue"><a tabindex="-1" tal:attributes="href string:changeSubpuntState?estat=${estat/title}&id=${itemSubpunt/id}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
+                              <li class="defaultValue"><a tabindex="-1" tal:attributes="href string:changeSubpuntState?estat=${estat/title}&id=${itemSubpunt_id}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a></li>
                             </tal:block>
                           </ul>
                         </tal:block>
@@ -554,7 +566,7 @@
                         <span class="proposalNumberSubpunt" tal:content="itemSubpunt/proposalPoint"></span>
                       </div>
                       <div class="span11">
-                        <a tal:attributes="data-pk itemSubpunt/id; href itemSubpunt/absolute_url"
+                        <a tal:attributes="data-pk itemSubpunt_id; href itemSubpunt/absolute_url"
                              data-type="text" data-url="changeTitle"
                              class="editTitle editable subtitleSize">
                             <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
@@ -690,7 +702,8 @@
   })
   </script>
 </div>
-  <div style="margin-bottom:20px;"></div>
+
+<div style="margin-bottom:20px;"></div>
 
 <script type="text/javascript">
   var refreshNeeded = false;
