@@ -147,7 +147,7 @@
   <div class="clearfix"></div>
 
   <tal:block tal:condition="ordenDelDia">
-    <h3 i18n:translate=""> Session order </h3>
+    <h3 i18n:translate=""> Acta </h3>
     <div tal:content="structure ordenDelDia"></div>
   </tal:block>
 

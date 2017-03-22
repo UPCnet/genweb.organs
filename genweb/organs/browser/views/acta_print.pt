@@ -90,7 +90,7 @@
     </div>
 
     <tal:block tal:condition="ordenDelDia">
-      <h3 i18n:translate=""> Acta Body </h3>
+      <h3 i18n:translate=""> Acta </h3>
       <span tal:replace="structure ordenDelDia"></span>
     </tal:block>
 
