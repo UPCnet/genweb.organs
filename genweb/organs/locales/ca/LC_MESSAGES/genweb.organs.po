@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-03-22 07:41+0000\n"
+"POT-Creation-Date: 2017-03-22 08:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -155,7 +155,7 @@ msgstr "Missatge que s'adjunta al clicar el botó d'enviar missatge. S'hi afegei
 #: ./genweb/organs/content/mailConvocar.py:175
 #: ./genweb/organs/content/manualimport.py:180
 msgid "Cancel"
-msgstr "Cancel·lar"
+msgstr "Cancel·la"
 
 #: ./genweb/organs/browser/changes.py:34
 msgid "Changed Title"
@@ -256,11 +256,12 @@ msgstr "Adreça de correu del remitent de les notificacions (persona o grup) de 
 
 #: ./genweb/organs/content/templates/sessio_view.pt:317
 msgid "Envia"
-msgstr "Enviar"
+msgstr "Envia"
 
+#: ./genweb/organs/content/templates/message_view.pt:18
 #: ./genweb/organs/content/templates/sessio_view.pt:132
-msgid "Enviar"
-msgstr "Envia un missatge"
+msgid "Envia missatge"
+msgstr "Notifica als membres"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:27
 msgid "Esteu visualitzant la sessio amb el rol <b><span>${DYNAMIC_CONTENT}</span></b>. <br /> Clicar <a href=\"./\">aqui</a> per tornar al mode de visualitzacio per defecte."
@@ -373,12 +374,12 @@ msgid "Info_del_Servei"
 msgstr "Consultar informació a Serveis TIC"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:138
-msgid "Informar"
-msgstr "Informa de la sessió"
+msgid "Informa sessio"
+msgstr "Informa del resultat de la sessió"
 
 #: ./genweb/organs/content/templates/informar_view.pt:18
 msgid "Informar de la sessio"
-msgstr "Informa de la sessió"
+msgstr "Informa del resultat de la sessió"
 
 #: ./genweb/organs/browser/views/acta_print.pt:73
 #: ./genweb/organs/content/acta.py:58
@@ -467,9 +468,8 @@ msgid "Mostrar dades de organ"
 msgstr "Mostrar dades de l'òrgan"
 
 #: ./genweb/organs/content/templates/mail_convocar.pt:18
-#: ./genweb/organs/content/templates/message_view.pt:18
 msgid "New message"
-msgstr "Nou missatge"
+msgstr "Nou missatge de convocatòria"
 
 #: ./genweb/organs/content/acta.py:74
 #: ./genweb/organs/content/sessio.py:89
@@ -706,7 +706,7 @@ msgstr "Restringit a membres"
 #: ./genweb/organs/content/mailConvocar.py:131
 #: ./genweb/organs/content/manualimport.py:61
 msgid "Send"
-msgstr "Enviar"
+msgstr "Envia"
 
 #: ./genweb/organs/content/informarSessio.py:28
 #: ./genweb/organs/content/mailConvocar.py:27
@@ -845,7 +845,7 @@ msgstr "Títol"
 
 #: ./genweb/organs/configure.zcml:31
 msgid "UPC Organs de Govern v2.0 (genweb.organs)"
-msgstr ""
+msgstr "UPC Organs de Govern v2.0 (genweb.organs)"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:362
 msgid "Veure com... <span class=\"caret\"></span>"
@@ -873,6 +873,10 @@ msgstr "Llista d'adreces de les persones afectades de les decisions de l'òrgan 
 msgid "description_no_items_in_folder"
 msgstr "No hi ha cap òrgan de govern en aquesta unitat."
 
+#: ./genweb/organs/content/templates/sessio_view.pt:132
+msgid "envia_missatge"
+msgstr "Notifica als membres"
+
 #: ./genweb/organs/content/organgovern.py:137
 msgid "footerMail"
 msgstr "Signatura del missatge"
@@ -880,6 +884,10 @@ msgstr "Signatura del missatge"
 #: ./genweb/organs/content/organgovern.py:138
 msgid "footerMail description"
 msgstr "Signatura del missatge que s'adjunta tant al missatge de convocatòria com al d'enviar missatge."
+
+#: ./genweb/organs/content/templates/sessio_view.pt:138
+msgid "informa_sessio"
+msgstr "Informa del resultat de la sessió"
 
 #: ./genweb/organs/content/organgovern.py:96
 #: ./genweb/organs/content/sessio.py:51

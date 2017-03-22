@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-03-22 07:41+0000\n"
+"POT-Creation-Date: 2017-03-22 08:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -258,9 +258,10 @@ msgstr "This is the sender notification"
 msgid "Envia"
 msgstr "Send"
 
+#: ./genweb/organs/content/templates/message_view.pt:18
 #: ./genweb/organs/content/templates/sessio_view.pt:132
-msgid "Enviar"
-msgstr "Send"
+msgid "Envia missatge"
+msgstr ""
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:27
 msgid "Esteu visualitzant la sessio amb el rol <b><span>${DYNAMIC_CONTENT}</span></b>. <br /> Clicar <a href=\"./\">aqui</a> per tornar al mode de visualitzacio per defecte."
@@ -373,8 +374,8 @@ msgid "Info_del_Servei"
 msgstr ""
 
 #: ./genweb/organs/content/templates/sessio_view.pt:138
-msgid "Informar"
-msgstr "Inform"
+msgid "Informa sessio"
+msgstr ""
 
 #: ./genweb/organs/content/templates/informar_view.pt:18
 msgid "Informar de la sessio"
@@ -467,7 +468,6 @@ msgid "Mostrar dades de organ"
 msgstr "Show Organ data"
 
 #: ./genweb/organs/content/templates/mail_convocar.pt:18
-#: ./genweb/organs/content/templates/message_view.pt:18
 msgid "New message"
 msgstr "New message"
 
@@ -873,6 +873,10 @@ msgstr "List of addresses of the persons concerned, that will be notified notifi
 msgid "description_no_items_in_folder"
 msgstr "No Governing Body in this folder."
 
+#: ./genweb/organs/content/templates/sessio_view.pt:132
+msgid "envia_missatge"
+msgstr ""
+
 #: ./genweb/organs/content/organgovern.py:137
 msgid "footerMail"
 msgstr "Footer of the message"
@@ -880,6 +884,10 @@ msgstr "Footer of the message"
 #: ./genweb/organs/content/organgovern.py:138
 msgid "footerMail description"
 msgstr "Footer attached to the message, when Convoquing or Sending action."
+
+#: ./genweb/organs/content/templates/sessio_view.pt:138
+msgid "informa_sessio"
+msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:96
 #: ./genweb/organs/content/sessio.py:51
