@@ -386,7 +386,7 @@
           <li class="ui-state-grey" tal:attributes="id item/id; class item/classe">
             <td tal:condition="item/show">
             <div class="span6 agreementSpan">
-              <span class="agreementClass" tal:content="agreement" tal:condition="agreement"></span>
+              <!-- <span class="agreementClass" tal:content="agreement" tal:condition="agreement"></span> -->
             </div>
             <div class="span6 einesSpan">
               <div style="float: right;" aria-label="Edit actions"  tal:condition="canModify">
@@ -448,27 +448,28 @@
               </div>
             </div>
             <div class="puntTitle span12">
-                  <div class="span1 fletxaSpan">
-                    <button type="button" class="expand" tal:condition="item/items_inside"
-                      data-original-title="Expand" style="font-size:20px;">
-                      <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
-                      </button>
-                    <button type="button" class="notexpand" tal:condition="item/items_inside"
-                      data-original-title="Collapse" style="font-size:20px;">
-                      <i  style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
-                      </button>
-                  </div>
-                  <div class="span1 numberSpan">
-                      <span class="proposalNumber" style="text-align: right; float:right;" tal:content="item/proposalPoint"></span>
-                  </div>
-                  <div class="span10 titleSpan">
-                    <a tal:attributes="data-pk item/id; href item/absolute_url"
-                       data-url="changeTitle"
-                       class="editTitle editable titleSize">
-                      <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
-                    </a>
-
-
+              <div class="span1 fletxaSpan">
+                <button type="button" class="expand" tal:condition="item/items_inside"
+                  data-original-title="Expand" style="font-size:20px;">
+                  <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
+                  </button>
+                <button type="button" class="notexpand" tal:condition="item/items_inside"
+                  data-original-title="Collapse" style="font-size:20px;">
+                  <i  style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
+                  </button>
+              </div>
+              <div class="span1 numberSpan">
+                  <span class="proposalNumber" style="text-align: right; float:right;" tal:content="item/proposalPoint"></span>
+              </div>
+              <div class="span10 titleSpan">
+                <a tal:attributes="data-pk item/id; href item/absolute_url"
+                   data-url="changeTitle"
+                   class="editTitle editable titleSize">
+                  <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                  <span tal:condition="agreement">
+                    [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
+                  </span>
+                </a>
                 <tal:files tal:define="files python:view.filesinsidePunt(item)">
                   <ul class="listFiles" tal:condition="files">
                     <tal:documents repeat="item files">
@@ -494,7 +495,7 @@
                     </tal:documents>
                   </ul>
                 </tal:files>
-                  </div>
+              </div>
               </div>
 
               <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" class="sortable2">
@@ -503,7 +504,7 @@
                        tal:define="agreement itemSubpunt/agreement;
                                    itemSubpunt_id itemSubpunt/id">
                     <div class="span6 agreementSpan">
-                      <span class="agreementSubClass" tal:content="agreement" tal:condition="agreement"></span>
+                      <!-- <span class="agreementSubClass" tal:content="agreement" tal:condition="agreement"></span> -->
                     </div>
                     <div class="span6 einesSpan">
                       <div style="float: right;" aria-label="Subpunt actions" tal:condition="canModify">
@@ -573,6 +574,9 @@
                              data-type="text" data-url="changeTitle"
                              class="editTitle editable subtitleSize">
                             <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
+                            <span tal:condition="agreement">
+                              [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
+                            </span>
                         </a>
 
                       <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
