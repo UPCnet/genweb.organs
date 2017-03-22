@@ -20,7 +20,8 @@
                 membresConvocats context/membresConvocats;
                 membresConvidats context/membresConvidats;
                 llistaExcusats context/llistaExcusats;
-                noAssistents context/noAssistents">
+                noAssistents context/noAssistents;
+                sessionNumber context/numSessio">
 
   <link tal:condition="canModify" rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
   <script tal:condition="canModify" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery-ui.min.js"></script>
@@ -184,6 +185,11 @@
             <b i18n:translate="">Organ de govern</b><b>:</b>
             <span style="float:right"
                   tal:content="organTitle"></span>
+          </li>
+          <li tal:condition="sessionNumber">
+            <b i18n:translate="">Session number</b><b>:</b>
+            <span style="float:right"
+                  tal:content="sessionNumber"></span>
           </li>
         </ul>
       </div>
