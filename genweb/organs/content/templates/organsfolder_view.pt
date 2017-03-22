@@ -15,7 +15,7 @@
       <div tal:condition="OrgansInside" class="organsfolder_view">
         <div class="documentDescription description"></div>
 
-        <table class="table table-striped">
+        <table class="table table-striped table-bordered">
           <thead>
             <tr>
               <th>
