@@ -132,7 +132,7 @@
         <a href="mail_message" i18n:attributes="title envia_missatge; alt envia_missatge"><i class="fa fa-envelope fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Envia missatge</span></a>
       </div>
       <div class="containerIcons" tal:condition="view/showPresentacionButton">
-        <a i18n:attributes="title Presentacio; alt Presentacio" href="presentation" target="_blank"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
+        <a i18n:attributes="title Presentacio; alt Presentacio" href="presentation"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
       </div>
       <div class="containerIcons" tal:condition="view/showPublicarButton">
         <a href="mail_informar" i18n:attributes="title informa_sessio; alt informa_sessio"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informa sessio</span></a>
