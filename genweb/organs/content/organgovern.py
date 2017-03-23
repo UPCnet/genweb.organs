@@ -13,6 +13,7 @@ from plone.supermodel.directives import fieldset
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.directives import dexterity
 from z3c.form.interfaces import HIDDEN_MODE
+from plone.z3cform.fieldsets.utils import remove
 
 organType = SimpleVocabulary(
     [SimpleTerm(value='Open', title=_(u'Open')),
@@ -30,14 +31,24 @@ class IOrgangovern(form.Schema):
     """ Tipus Organ de Govern
     """
 
+    fieldset('organ',
+             label=_(u'Tab organ'),
+             fields=['title', 'acronim', 'descripcioOrgan', 'fromMail', 'tipus', 'logoOrgan', 'estatsLlista']
+             )
+
     fieldset('assistents',
              label=_(u'Assistents'),
-             fields=['membresOrgan', 'convidatsPermanentsOrgan']
+             fields=['membresOrgan', 'convidatsPermanentsOrgan', 'adrecaLlista']
              )
 
     fieldset('notificacions',
-             label=_(u'Notifications'),
-             fields=['adrecaAfectatsLlista', 'bodyMailconvoquing', 'bodyMailSend', 'footerMail', 'footer'],
+             label=_(u'Afectats'),
+             fields=['adrecaAfectatsLlista'],
+             )
+
+    fieldset('plantilles',
+             label=_(u'Plantilles'),
+             fields=['bodyMailconvoquing', 'bodyMailSend', 'footerMail', 'footer'],
              )
 
     dexteritytextindexer.searchable('title')
@@ -63,7 +74,7 @@ class IOrgangovern(form.Schema):
     )
 
     # TODO: Enable this quan es facin la resta d'organs (restricted, etc...)
-    directives.mode(tipus='hidden')
+    directives.omitted('tipus')
     tipus = schema.Choice(
         title=_(u"Organ Govern type"),
         vocabulary=organType,
@@ -92,7 +103,7 @@ class IOrgangovern(form.Schema):
         constraint=checkEmailAddress
     )
 
-    adrecaLlista = schema.TextLine(
+    adrecaLlista = schema.Text(
         title=_(u"mail address"),
         description=_(u"Mail address help"),
         required=True,
@@ -120,7 +131,7 @@ class IOrgangovern(form.Schema):
 
     directives.widget(bodyMailconvoquing=WysiwygFieldWidget)
     bodyMailconvoquing = schema.Text(
-        title=_(u"Body Mail convoquing"),
+        title=_(u"Body Mail"),
         description=_(u"Body Mail convoquing description"),
         required=False,
     )
@@ -156,7 +167,7 @@ class Edit(dexterity.EditForm):
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
         # TODO: Actualment només hi ha un tipus - Obert
-        self.widgets['tipus'].mode = HIDDEN_MODE
+        # self.widgets['tipus'].mode = HIDDEN_MODE
 
 
 class View(grok.View):

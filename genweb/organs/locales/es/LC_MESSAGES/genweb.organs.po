@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-03-23 16:20+0000\n"
+"POT-Creation-Date: 2017-03-23 18:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: ./genweb/organs/content/organgovern.py:26
+#: ./genweb/organs/content/organgovern.py:27
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 
@@ -41,11 +41,11 @@ msgstr "Título del acuerdo"
 msgid "Acords"
 msgstr "Acuerdos"
 
-#: ./genweb/organs/content/organgovern.py:52
+#: ./genweb/organs/content/organgovern.py:63
 msgid "Acronym"
 msgstr "Acrónimo del órgano"
 
-#: ./genweb/organs/content/organgovern.py:53
+#: ./genweb/organs/content/organgovern.py:64
 msgid "Acronym Description"
 msgstr "Nombre corto que genera la URL simplificada del órgano."
 
@@ -66,6 +66,10 @@ msgstr "Añadir conteido separado por dos guiones -- y entonces se añadirá aut
 #: ./genweb/organs/content/templates/sessio_view.pt:376
 msgid "Afectat"
 msgstr "Afectado"
+
+#: ./genweb/organs/content/organgovern.py:45
+msgid "Afectats"
+msgstr ""
 
 #: ./genweb/organs/content/templates/sessio_view.pt:335
 msgid "Afegir un acord"
@@ -90,7 +94,7 @@ msgstr "Estado de aprobación"
 msgid "Agreement and document label:"
 msgstr "Estado:"
 
-#: ./genweb/organs/content/organgovern.py:115
+#: ./genweb/organs/content/organgovern.py:126
 #: ./genweb/organs/content/subpunt.py:68
 msgid "Agreement and document labels"
 msgstr "Estados de aprobación"
@@ -109,7 +113,7 @@ msgid "Alternate description"
 msgstr "Contenido interno"
 
 #: ./genweb/organs/content/acta.py:22
-#: ./genweb/organs/content/organgovern.py:34
+#: ./genweb/organs/content/organgovern.py:40
 #: ./genweb/organs/content/sessio.py:25
 msgid "Assistents"
 msgstr "Miembros"
@@ -127,15 +131,12 @@ msgstr "Audio"
 msgid "Audio de la sessio"
 msgstr "Audio de la sesión"
 
+#: ./genweb/organs/content/organgovern.py:134
 #: ./genweb/organs/content/sessio.py:97
 msgid "Body Mail"
 msgstr "Cuerpo del mensaje de la convocatóia"
 
-#: ./genweb/organs/content/organgovern.py:123
-msgid "Body Mail convoquing"
-msgstr "Plantilla del mensaje de convocatoria de la sesión"
-
-#: ./genweb/organs/content/organgovern.py:124
+#: ./genweb/organs/content/organgovern.py:135
 msgid "Body Mail convoquing description"
 msgstr "Mensaje que se adjunta al convocar una sesión. Se añade el pie del mensaje y su cabecera."
 
@@ -143,11 +144,11 @@ msgstr "Mensaje que se adjunta al convocar una sesión. Se añade el pie del men
 msgid "Body Mail description"
 msgstr "Cuerpo del mensaje de convocatoria"
 
-#: ./genweb/organs/content/organgovern.py:130
+#: ./genweb/organs/content/organgovern.py:141
 msgid "Body Mail send"
 msgstr "Plantilla del mensaje de Enviar mensaje"
 
-#: ./genweb/organs/content/organgovern.py:131
+#: ./genweb/organs/content/organgovern.py:142
 msgid "Body Mail send description"
 msgstr "Mensaje que se adjunta al clicar el botón Enviar mensaje. Se añade sólo el pie del mensaje."
 
@@ -249,11 +250,11 @@ msgstr "Destinatarios"
 msgid "Document"
 msgstr "Documento"
 
-#: ./genweb/organs/content/organgovern.py:116
+#: ./genweb/organs/content/organgovern.py:127
 msgid "Enter labels, separated by commas."
 msgstr "Indicar, separados por comas, los literales que se hacen servir como estados de aprovación de los Puntos del orden del día."
 
-#: ./genweb/organs/content/organgovern.py:90
+#: ./genweb/organs/content/organgovern.py:101
 msgid "Enter the from used in the mail form"
 msgstr "Este es el remitente de las notificaciones"
 
@@ -324,11 +325,11 @@ msgstr "Fichero reservado"
 msgid "Fitxers i documents"
 msgstr "Ficheros y documentos"
 
-#: ./genweb/organs/content/organgovern.py:145
+#: ./genweb/organs/content/organgovern.py:156
 msgid "Footer"
 msgstr "Pie del acta"
 
-#: ./genweb/organs/content/organgovern.py:146
+#: ./genweb/organs/content/organgovern.py:157
 msgid "Footer help"
 msgstr "Pie del acta"
 
@@ -338,7 +339,7 @@ msgstr "Pie del acta"
 msgid "From"
 msgstr "Asunto"
 
-#: ./genweb/organs/content/organgovern.py:89
+#: ./genweb/organs/content/organgovern.py:100
 msgid "From mail"
 msgstr "Dirección de quien envia los mensajes"
 
@@ -408,7 +409,7 @@ msgstr "Listado de puntos"
 msgid "Lloc"
 msgstr "Lugar"
 
-#: ./genweb/organs/content/organgovern.py:109
+#: ./genweb/organs/content/organgovern.py:120
 msgid "Logo description"
 msgstr "Logo que se utilizará en la impresión de documentos y en las actas."
 
@@ -416,7 +417,7 @@ msgstr "Logo que se utilizará en la impresión de documentos y en las actas."
 msgid "Logo organs folder description"
 msgstr "Logo que se utiliza en este òrgano de gobierno y al imprimir las actas."
 
-#: ./genweb/organs/content/organgovern.py:97
+#: ./genweb/organs/content/organgovern.py:108
 msgid "Mail address help"
 msgstr "Dirección o direcciones de correo a las cuales llegaran los mensajes cuando haya una notificación en el órgano"
 
@@ -493,7 +494,6 @@ msgstr "No se han creado los elementos porque no siguen la norma: Dentro de un a
 msgid "Notificador"
 msgstr "Notificador"
 
-#: ./genweb/organs/content/organgovern.py:39
 #: ./genweb/organs/content/sessio.py:30
 msgid "Notifications"
 msgstr "Notificaciones"
@@ -522,7 +522,7 @@ msgstr "OG3-Miembro"
 msgid "OG4-Afectat"
 msgstr "OG4-Afectado"
 
-#: ./genweb/organs/content/organgovern.py:18
+#: ./genweb/organs/content/organgovern.py:19
 msgid "Open"
 msgstr "Abierto"
 
@@ -541,27 +541,27 @@ msgstr "Orden del día"
 msgid "Organ Govern"
 msgstr "Órgano de gobierno"
 
-#: ./genweb/organs/content/organgovern.py:60
+#: ./genweb/organs/content/organgovern.py:71
 msgid "Organ Govern description"
 msgstr "Descripción"
 
-#: ./genweb/organs/content/organgovern.py:61
+#: ./genweb/organs/content/organgovern.py:72
 msgid "Organ Govern description help"
 msgstr "Descripción"
 
-#: ./genweb/organs/content/organgovern.py:76
+#: ./genweb/organs/content/organgovern.py:87
 msgid "Organ Govern members"
 msgstr "Composición del órgano"
 
-#: ./genweb/organs/content/organgovern.py:77
+#: ./genweb/organs/content/organgovern.py:88
 msgid "Organ Govern members Description"
 msgstr "Listado de componentes del órgano de gobierno"
 
-#: ./genweb/organs/content/organgovern.py:68
+#: ./genweb/organs/content/organgovern.py:79
 msgid "Organ Govern type"
 msgstr "Tipo de órgano de gobierno"
 
-#: ./genweb/organs/content/organgovern.py:45
+#: ./genweb/organs/content/organgovern.py:56
 msgid "Organ Title"
 msgstr "Título del órgano"
 
@@ -570,15 +570,15 @@ msgstr "Título del órgano"
 msgid "Organ de govern"
 msgstr "Órgano de gobierno"
 
-#: ./genweb/organs/content/organgovern.py:108
+#: ./genweb/organs/content/organgovern.py:119
 msgid "Organ logo"
 msgstr "Logo del órgano de gobierno"
 
-#: ./genweb/organs/content/organgovern.py:83
+#: ./genweb/organs/content/organgovern.py:94
 msgid "Organ permanently invited people"
 msgstr "Invitados permanentes"
 
-#: ./genweb/organs/content/organgovern.py:84
+#: ./genweb/organs/content/organgovern.py:95
 msgid "Organ permanently invited people description."
 msgstr "Lista de nombres de las personas que se invitan a este órgano de forma sistemàtica, sin necesidad de formar parte de él."
 
@@ -613,6 +613,10 @@ msgstr "Personas invitadas"
 #: ./genweb/organs/content/templates/sessio_view.pt:207
 msgid "Persones excusades"
 msgstr "Persones excusadas"
+
+#: ./genweb/organs/content/organgovern.py:50
+msgid "Plantilles"
+msgstr ""
 
 #: ./genweb/organs/content/audio.py:21
 msgid "Please upload a media file"
@@ -697,11 +701,11 @@ msgstr "Cargados manualmente los números de punto"
 msgid "Reserved file description"
 msgstr " "
 
-#: ./genweb/organs/content/organgovern.py:20
+#: ./genweb/organs/content/organgovern.py:21
 msgid "Restricted_to_Affected"
 msgstr "Restringido a afectados"
 
-#: ./genweb/organs/content/organgovern.py:19
+#: ./genweb/organs/content/organgovern.py:20
 msgid "Restricted_to_Members"
 msgstr "Restringido a miembros"
 
@@ -798,12 +802,12 @@ msgstr "Firma del mensaje"
 msgid "Signatura description"
 msgstr "Firma del mensaje"
 
-#: ./genweb/organs/content/organgovern.py:102
+#: ./genweb/organs/content/organgovern.py:113
 #: ./genweb/organs/content/sessio.py:57
 msgid "Stakeholders mail address"
 msgstr "Direcciones de correo de los afectados"
 
-#: ./genweb/organs/content/organgovern.py:103
+#: ./genweb/organs/content/organgovern.py:114
 msgid "Stakeholders mail address help."
 msgstr "Listado de direcciones de las personas afectadas a las cuales se notificará."
 
@@ -823,6 +827,10 @@ msgstr "Título"
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:66
 msgid "Subpunts informatius / acords"
 msgstr "Puntos informativos y/o acuerdos"
+
+#: ./genweb/organs/content/organgovern.py:35
+msgid "Tab organ"
+msgstr ""
 
 #: ./genweb/organs/content/templates/acta_view.pt:44
 #: ./genweb/organs/content/templates/informar_view.pt:37
@@ -885,11 +893,11 @@ msgstr "No hay ningún Órgano de gobierno en esta carpeta."
 msgid "envia_missatge"
 msgstr "Notifica a los miembros"
 
-#: ./genweb/organs/content/organgovern.py:137
+#: ./genweb/organs/content/organgovern.py:148
 msgid "footerMail"
 msgstr "Pie del mensaje"
 
-#: ./genweb/organs/content/organgovern.py:138
+#: ./genweb/organs/content/organgovern.py:149
 msgid "footerMail description"
 msgstr "Pie del mensaje que se adjunta al mensaje tanto al convocar como al enviar."
 
@@ -897,7 +905,7 @@ msgstr "Pie del mensaje que se adjunta al mensaje tanto al convocar como al envi
 msgid "informa_sessio"
 msgstr "Informa del resultado de la sesión"
 
-#: ./genweb/organs/content/organgovern.py:96
+#: ./genweb/organs/content/organgovern.py:107
 #: ./genweb/organs/content/sessio.py:51
 msgid "mail address"
 msgstr "Direcciones de notificación"
