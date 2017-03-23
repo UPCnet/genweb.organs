@@ -276,24 +276,12 @@
       </ul>
     </div>
     </div>
+    <hr/>
     </div>
 
-      <div id="end"></div>
+  <div id="end"></div>
 
-  <footer id="peu" role="contentinfo">
-    <div class="container">
-      <div class="row-fluid">
-        <div class="span8">
-          <p>
-            <a href="http://www.upc.edu" target="_blank">
-              <abbr rel="tooltip" data-placement="top" title="" data-original-title="Universitat Politècnica de Catalunya · BarcelonaTech">UPC</abbr>
-              <img class="img_blank" width="10px" height="10px" tal:attributes="src string:${portal_url}/++genweb++static/images/blank_blau.png" alt="(obriu en una finestra nova)">
-            </a>.
-          </p>
-        </div>
-      </div>
-    </div>
-  </footer>
+
 
   <script tal:condition="not:anonim" type="text/javascript">
 
