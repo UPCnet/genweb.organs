@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-03-23 16:02+0000\n"
+"POT-Creation-Date: 2017-03-23 16:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,7 +112,7 @@ msgstr "Contingut reservat"
 #: ./genweb/organs/content/organgovern.py:34
 #: ./genweb/organs/content/sessio.py:25
 msgid "Assistents"
-msgstr "Assistents"
+msgstr "Membres"
 
 #: ./genweb/organs/browser/views/acta_print.pt:67
 #: ./genweb/organs/content/templates/acta_view.pt:111
