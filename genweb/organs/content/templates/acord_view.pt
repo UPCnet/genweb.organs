@@ -26,6 +26,8 @@
   tal:define="defaultContent context/defaultContent;
   filesanddocs view/FilesandDocumentsInside;">
 
+  <div class="clearfix"></div><br/>
+
   <div tal:condition="defaultContent" style="padding-bottom:20px;">
     <span tal:replace="structure defaultContent" />
   </div>

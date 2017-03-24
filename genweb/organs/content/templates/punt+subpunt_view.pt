@@ -7,8 +7,11 @@
       i18n:domain="genweb.organs">
 <body>
 
-<metal:title fill-slot="content-title">
+<metal:title fill-slot="content-title"
+  tal:define="estatsLlista context/estatsLlista;">
   <h1 class="documentFirstHeading">
+    <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${view/getColor};
+      title estatsLlista; alt estatsLlista"></i>
     <tal:omit-tag tal:content="context/proposalPoint"></tal:omit-tag>
     <tal:omit-tag tal:content="context/Title"></tal:omit-tag>
   </h1>
@@ -20,15 +23,9 @@
                 estatsLlista context/estatsLlista;
                 defaultContent context/defaultContent;">
 
-  <div class="caixaPunts">
-    <li tal:condition="estatsLlista"><tal:omit-tag i18n:translate="">Agreement and document label: </tal:omit-tag>
-      <span tal:content="estatsLlista"></span></li>
-  </div>
-
   <div class="clearfix"></div><br/>
 
   <div tal:condition="defaultContent" style="padding-bottom:20px;">
-    <h2 i18n:translate="">Contingut</h2>
     <span tal:replace="structure defaultContent" />
   </div>
   <div class="clearfix"></div>
@@ -73,10 +70,12 @@
           <ul class="ul_items">
             <tal:subpunts repeat="item subpunts">
               <li class="listFiles" tal:define="agreementSubpunt item/agreement">
+                <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css};
+                  title estatsLlista; alt estatsLlista"></i>
                 <a tal:attributes="href item/absolute_url;">
                    <span tal:content="item/proposalPoint"></span>
-                   <span class="agreementClassPunt" tal:condition="agreementSubpunt" tal:content="agreementSubpunt"></span>
-                   <span tal:content="item/title">Doc title</span></a>
+                   <span tal:content="item/title">Doc title</span>
+                   <span tal:condition="agreementSubpunt">[<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <span tal:content="agreementSubpunt"></span>] </span></a>
               </li>
             </tal:subpunts>
           </ul>
@@ -89,4 +88,3 @@
 
 </body>
 </html>
-

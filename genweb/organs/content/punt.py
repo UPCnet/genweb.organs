@@ -105,5 +105,47 @@ class View(grok.View):
     def FilesandDocumentsInside(self):
         return utils.FilesandDocumentsInside(self)
 
+    def getColor(self):
+        # assign custom colors on organ states
+        estat = self.context.estatsLlista
+        values = self.context.aq_parent.aq_parent.estatsLlista
+        color = '#777777'
+        for value in values.split('</p>'):
+            if value != '':
+                item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
+                if estat.decode('utf-8') == ' '.join(item_net.split()[:-1]).lstrip():
+                    return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
+        print color
+        return color
+
     def SubPuntsInside(self):
-        return utils.SubPuntsInside(self)
+        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        values = portal_catalog.searchResults(
+            portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+        if values:
+            for obj in values:
+                item = obj.getObject()
+                if item.portal_type == 'genweb.organs.acord':
+                    if item.agreement:
+                        agreement = item.agreement
+                    else:
+                        agreement = _(u"ACORD")
+                else:
+                    agreement = ''
+                results.append(dict(title=obj.Title,
+                                    portal_type=obj.portal_type,
+                                    absolute_url=item.absolute_url(),
+                                    proposalPoint=item.proposalPoint,
+                                    item_path=item.absolute_url_path(),
+                                    state=item.estatsLlista,
+                                    agreement=agreement,
+                                    css=utils.getColor(obj)))
+        return results
