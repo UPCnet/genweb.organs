@@ -23,12 +23,17 @@ class ISessio(form.Schema):
 
     fieldset('assistents',
              label=_(u'Assistents'),
-             fields=['membresConvocats', 'membresConvidats', 'llistaExcusats', 'noAssistents']
+             fields=['membresConvocats', 'membresConvidats', 'llistaExcusats', 'noAssistents', 'adrecaLlista']
              )
 
-    fieldset('notificacions',
-             label=_(u'Notifications'),
-             fields=['adrecaLlista', 'adrecaAfectatsLlista', 'bodyMail', 'signatura'],
+    fieldset('afectats',
+             label=_(u'Afectats'),
+             fields=['adrecaAfectatsLlista'],
+             )
+
+    fieldset('plantilles',
+             label=_(u'Plantilles'),
+             fields=['bodyMail', 'signatura'],
              )
 
     dexteritytextindexer.searchable('title')

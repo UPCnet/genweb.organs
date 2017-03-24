@@ -5,32 +5,28 @@
       lang="ca"
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="genweb.organs">
-<body>
+<body >
 
-<metal:title fill-slot="content-title">
+<metal:title fill-slot="content-title"
+  tal:define="agreement context/agreement;
+              estatsLlista context/estatsLlista;">
+
   <h1 class="documentFirstHeading">
+    <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${view/getColor};
+      title estatsLlista; alt estatsLlista"></i>
     <tal:omit-tag tal:content="context/proposalPoint"></tal:omit-tag>
     <tal:omit-tag tal:content="context/Title"></tal:omit-tag>
+
+    [<tal:omit-tag i18n:translate="">acord </tal:omit-tag> <tal:omit-tag tal:content="agreement"></tal:omit-tag>]
   </h1>
+
 </metal:title>
 
 <metal:content-core fill-slot="content-core"
-    tal:define="filesanddocs view/FilesandDocumentsInside;
-                agreement context/agreement;
-                estatsLlista context/estatsLlista;
-                defaultContent context/defaultContent;">
-
-  <div class="caixaPunts">
-    <li tal:condition="agreement">
-      <tal:omit-tag i18n:translate="">Agreement number: </tal:omit-tag>&nbsp;<span tal:content="agreement"></span>
-    </li>
-    <li tal:condition="estatsLlista">
-      <tal:omit-tag i18n:translate="">Agreement and document label: </tal:omit-tag>&nbsp;<span tal:content="estatsLlista"></span>
-    </li>
-  </div>
+  tal:define="defaultContent context/defaultContent;
+  filesanddocs view/FilesandDocumentsInside;">
 
   <div tal:condition="defaultContent" style="padding-bottom:20px;">
-    <h2 i18n:translate="">Contingut</h2>
     <span tal:replace="structure defaultContent" />
   </div>
 

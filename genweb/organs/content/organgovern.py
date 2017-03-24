@@ -12,8 +12,6 @@ from plone.autoform import directives
 from plone.supermodel.directives import fieldset
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.directives import dexterity
-from z3c.form.interfaces import HIDDEN_MODE
-from plone.z3cform.fieldsets.utils import remove
 
 organType = SimpleVocabulary(
     [SimpleTerm(value='Open', title=_(u'Open')),
@@ -41,7 +39,7 @@ class IOrgangovern(form.Schema):
              fields=['membresOrgan', 'convidatsPermanentsOrgan', 'adrecaLlista']
              )
 
-    fieldset('notificacions',
+    fieldset('afectats',
              label=_(u'Afectats'),
              fields=['adrecaAfectatsLlista'],
              )
@@ -57,7 +55,6 @@ class IOrgangovern(form.Schema):
         required=True
     )
 
-    # TODO: Enable this when the WS is created
     dexteritytextindexer.searchable('acronim')
     acronim = schema.TextLine(
         title=_(u'Acronym'),
@@ -166,8 +163,6 @@ class Edit(dexterity.EditForm):
 
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
-        # TODO: Actualment només hi ha un tipus - Obert
-        # self.widgets['tipus'].mode = HIDDEN_MODE
 
 
 class View(grok.View):

@@ -19,7 +19,7 @@
           <thead>
             <tr>
               <th>
-                <tal:title i18n:translate="">Title</tal:title>
+                <tal:title i18n:translate="">Organ Title</tal:title>
               </th>
 <!--               <th>
                 <tal:head i18n:translate="">Organ type</tal:head>
