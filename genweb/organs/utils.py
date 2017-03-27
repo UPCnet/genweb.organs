@@ -10,7 +10,7 @@ import unicodedata
 def isAfectat(self):
     """ Return true if user is Afectat or Manager """
     try:
-        username = api.user.get_current().getProperty('id')
+        username = api.user.get_current().id
         roles = api.user.get_roles(username=username, obj=self.context)
         if 'OG4-Afectat' in roles:
             return True
@@ -23,7 +23,7 @@ def isAfectat(self):
 def isMembre(self):
     """ Return true if user is Membre or Manager """
     try:
-        username = api.user.get_current().getProperty('id')
+        username = api.user.get_current().id
         roles = api.user.get_roles(username=username, obj=self.context)
         if 'OG3-Membre' in roles:
             return True
@@ -36,7 +36,7 @@ def isMembre(self):
 def isEditor(self):
     """ Returns true if user is Editor or Manager """
     try:
-        username = api.user.get_current().getProperty('id')
+        username = api.user.get_current().id
         roles = api.user.get_roles(username=username, obj=self.context)
         if 'OG2-Editor' in roles:
             return True
@@ -49,7 +49,7 @@ def isEditor(self):
 def isSecretari(self):
     """ Return true if user is Secretari or Manager """
     try:
-        username = api.user.get_current().getProperty('id')
+        username = api.user.get_current().id
         roles = api.user.get_roles(username=username, obj=self.context)
         if 'OG1-Secretari' in roles:
             return True
@@ -62,7 +62,7 @@ def isSecretari(self):
 def isManager(self):
     """ Return true if user is Manager """
     try:
-        username = api.user.get_current().getProperty('id')
+        username = api.user.get_current().id
         roles = api.user.get_roles(username=username, obj=self.context)
         if 'Manager' in roles:
             return True
@@ -73,7 +73,7 @@ def isManager(self):
 
 
 def checkRoles(self):
-    username = api.user.get_current().getProperty('id')
+    username = api.user.get_current().id
     if username is None:
         return 'Anonymous'
     roles = api.user.get_roles(username=username, obj=self.context)
@@ -148,7 +148,7 @@ def FilesandDocumentsInside(self):
             item = obj._unrestrictedGetObject()
             if item.visiblefile:
                 # té part publica
-                username = api.user.get_current().getProperty('id')
+                username = api.user.get_current().id
                 tipus = 'fa fa-file-pdf-o'
                 if username:
                     roles = api.user.get_roles(username=username, obj=self.context)
@@ -156,7 +156,7 @@ def FilesandDocumentsInside(self):
                         document = _(u'Fitxer public')
                         labelClass = 'label label-default'
                 if item.hiddenfile:
-                    username = api.user.get_current().getProperty('id')
+                    username = api.user.get_current().id
                     if username:
                         roles = api.user.get_roles(username=username, obj=self.context)
                         if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
@@ -167,7 +167,7 @@ def FilesandDocumentsInside(self):
             elif item.hiddenfile:
                 tipus = 'fa fa-file-pdf-o'
                 # te part reservada
-                username = api.user.get_current().getProperty('id')
+                username = api.user.get_current().id
                 if username:
                     roles = api.user.get_roles(username=username, obj=self.context)
                     if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
@@ -179,7 +179,7 @@ def FilesandDocumentsInside(self):
             else:
                 tipus = 'fa fa-exclamation'
                 labelClass = ''
-                username = api.user.get_current().getProperty('id')
+                username = api.user.get_current().id
                 if username:
                     roles = api.user.get_roles(username=username, obj=self.context)
                     if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
@@ -192,7 +192,7 @@ def FilesandDocumentsInside(self):
             # És un document
             tipus = 'fa fa-file-text-o'
             labelClass = ''
-            username = api.user.get_current().getProperty('id')
+            username = api.user.get_current().id
             if username:
                 roles = api.user.get_roles(username=username, obj=self.context)
                 if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:

@@ -179,7 +179,7 @@ class View(grok.View):
             if api.user.is_anonymous():
                 return 'Annonymous'
             else:
-                username = api.user.get_current().getProperty('id')
+                username = api.user.get_current().id
                 roles = api.user.get_roles(username=username, obj=self.context)
                 return roles
         except:
@@ -348,7 +348,7 @@ class View(grok.View):
         """ Retorna les actes creades aquí dintre (sense tenir compte estat)
             Nomes ho veuen els Managers / Editor / Secretari
         """
-        username = api.user.get_current().getProperty('id')
+        username = api.user.get_current().id
         if username:
             roles = api.user.get_roles(username=username, obj=self.context)
             if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
