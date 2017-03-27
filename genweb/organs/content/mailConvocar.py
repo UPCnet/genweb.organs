@@ -149,7 +149,6 @@ class Message(form.SchemaForm):
         body = formData['message'].replace('----@@----http:/', 'http://').replace('----@@----https:/', 'https://').encode('utf-8')
 
         sender = self.context.aq_parent.fromMail
-        user = api.user.get_current().fullname + ' [' + api.user.get_current().id + ']'
         try:
             self.context.MailHost.send(
                 body,
@@ -162,11 +161,11 @@ class Message(form.SchemaForm):
                 msg_type='text/html')
 
             api.content.transition(obj=self.context, transition='convocar')
-            addEntryLog(self.context, user, _(u'Sending mail convocatoria'), formData['recipients'])
+            addEntryLog(self.context, None, _(u'Sending mail convocatoria'), formData['recipients'])
             self.context.plone_utils.addPortalMessage(
                 _("Missatge enviat correctament"), 'info')
         except:
-            addEntryLog(self.context, user, _(u'Missatge no enviat'), formData['recipients'])
+            addEntryLog(self.context, None, _(u'Missatge no enviat'), formData['recipients'])
             self.context.plone_utils.addPortalMessage(
                 _("Missatge no enviat. Comprovi els destinataris del missatge"), 'error')
 
