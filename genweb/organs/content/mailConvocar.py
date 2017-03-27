@@ -57,7 +57,7 @@ class Message(form.SchemaForm):
     # Disable the view if no roles in username
     def update(self):
         """ Return true if user is Editor or Manager """
-        username = api.user.get_current().getId()
+        username = api.user.get_current().id
         if username:
             roles = api.user.get_roles(username=username, obj=self.context)
             if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'Manager' in roles:
@@ -149,7 +149,7 @@ class Message(form.SchemaForm):
         body = formData['message'].replace('----@@----http:/', 'http://').replace('----@@----https:/', 'https://').encode('utf-8')
 
         sender = self.context.aq_parent.fromMail
-        user = api.user.get_current().getId()
+        user = api.user.get_current().fullname + ' [' + api.user.get_current().id + ']'
         try:
             self.context.MailHost.send(
                 body,

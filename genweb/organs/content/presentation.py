@@ -190,7 +190,7 @@ class Presentation(form.SchemaForm):
         return utils.estatsCanvi(data)
 
     def Anonim(self):
-        username = api.user.get_current().getProperty('id')
+        username = api.user.get_current().id
         if username is None:
             return True
         else:
@@ -261,7 +261,7 @@ class Presentation(form.SchemaForm):
                         return obj.absolute_url() + '/capcalera@2x.jpg'
 
     def hasPermission(self):
-        username = api.user.get_current().getProperty('id')
+        username = api.user.get_current().id
         if username is None:
             return False
         else:
@@ -277,7 +277,7 @@ class Presentation(form.SchemaForm):
         return state
 
     def showFile(self, item):
-        username = api.user.get_current().getProperty('id')
+        username = api.user.get_current().id
         if username is None:
             if item['hasPublic'] is True:
                 return True
@@ -288,7 +288,7 @@ class Presentation(form.SchemaForm):
         return False
 
     def showBarra(self, item):
-        username = api.user.get_current().getProperty('id')
+        username = api.user.get_current().id
         if username is None:
             if item['hasPublic'] is True and item['hasPrivate'] is True:
                 return True
@@ -297,7 +297,7 @@ class Presentation(form.SchemaForm):
         return False
 
     def changeEstat(self):
-        username = api.user.get_current().getProperty('id')
+        username = api.user.get_current().id
         if username is None:
             return False
         else:

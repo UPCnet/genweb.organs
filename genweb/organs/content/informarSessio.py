@@ -151,7 +151,7 @@ class Message(form.SchemaForm):
         # replace hidden fields to maintain correct urls...
         body = formData['message'].replace('----@@----http:/', 'http://').replace('----@@----https:/', 'https://').encode('utf-8')
         sender = self.context.aq_parent.fromMail
-        user = api.user.get_current().getId()
+        user = api.user.get_current().fullname + ' [' + api.user.get_current().id + ']'
         try:
             self.context.MailHost.send(
                 body,

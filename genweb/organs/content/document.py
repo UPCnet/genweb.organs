@@ -68,7 +68,7 @@ class View(grok.View):
     def viewPublicContent(self):
         """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
         try:
-            username = api.user.get_current().getProperty('id')
+            username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
             if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG4-Afectat' in roles:
                 return True
@@ -80,7 +80,7 @@ class View(grok.View):
     def viewPrivateContent(self):
         """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
         try:
-            username = api.user.get_current().getProperty('id')
+            username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
             if 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
                 return True
@@ -92,7 +92,7 @@ class View(grok.View):
     def showMembreContent(self):
         """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
         try:
-            username = api.user.get_current().getProperty('id')
+            username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
             if 'OG3-Membre' in roles:
                 if self.context.alternateContent and self.context.defaultContent:
@@ -109,7 +109,7 @@ class View(grok.View):
     def isManager(self):
         """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
         try:
-            username = api.user.get_current().getProperty('id')
+            username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
             if 'Manager' in roles:
                 return True

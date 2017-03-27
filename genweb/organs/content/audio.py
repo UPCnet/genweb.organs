@@ -34,7 +34,7 @@ class View(grok.View):
 
     def canView(self):
         """ Return true if user is Editor or Manager """
-        username = api.user.get_current().getId()
+        username = api.user.get_current().id
         if username:
             roles = api.user.get_roles(username=username, obj=self.context)
             if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'Manager' in roles:

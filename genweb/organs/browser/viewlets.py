@@ -172,7 +172,7 @@ class gwHeader(viewletBase):
 
     def role(self):
         # TODO: This is only used in testing scenarios, to know the user role
-        username = api.user.get_current().getProperty('id')
+        username = api.user.get_current().id
         if username:
             roles = api.user.get_roles(username=username, obj=self.context)
         else:
