@@ -14,6 +14,7 @@ from zope.interface import directlyProvides
 import unicodedata
 from plone.indexer import indexer
 from genweb.organs import utils
+from plone.supermodel.directives import fieldset
 
 grok.templatedir("templates")
 
@@ -52,9 +53,14 @@ directlyProvides(llistaEstats, IContextSourceBinder)
 
 
 class IAcord(form.Schema):
-    """ Tipus Punt: Per a cada Òrgan de Govern es podran crear
-        tots els punts que es considerin oportuns
+    """ Tipus Acord: Per a cada Òrgan de Govern es podran crear
+        tots els acords que es considerin oportuns
     """
+    fieldset('acord',
+             label=_(u'Tab acord'),
+             fields=['title', 'proposalPoint', 'agreement', 'defaultContent', 'estatsLlista']
+             )
+
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_(u'Acord Title'),

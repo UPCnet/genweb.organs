@@ -12,12 +12,18 @@ from plone import api
 from zope import schema
 from plone.app.dexterity import PloneMessageFactory as _PMF
 from collective import dexteritytextindexer
+from plone.supermodel.directives import fieldset
 
 grok.templatedir("templates")
 
 
 class IFile(form.Schema):
     """ Tipus File: Per adjuntar els fitxers públics i/o privats """
+
+    fieldset('file',
+             label=_(u'Tab file'),
+             fields=['title', 'description', 'hiddenfile', 'visiblefile']
+             )
 
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(

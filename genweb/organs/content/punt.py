@@ -14,6 +14,8 @@ from zope.interface import directlyProvides
 import unicodedata
 from plone.indexer import indexer
 from genweb.organs import utils
+from plone.supermodel.directives import fieldset
+
 
 grok.templatedir("templates")
 
@@ -47,6 +49,11 @@ class IPunt(form.Schema):
     """ Tipus Punt: Per a cada Òrgan de Govern es podran crear
         tots els punts que es considerin oportuns
     """
+    fieldset('punt',
+             label=_(u'Tab punt'),
+             fields=['title', 'proposalPoint', 'defaultContent', 'estatsLlista']
+             )
+
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_(u'Punt Title'),

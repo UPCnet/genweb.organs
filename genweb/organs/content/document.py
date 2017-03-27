@@ -9,12 +9,18 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone import api
 from plone.app.dexterity import PloneMessageFactory as _PMF
+from plone.supermodel.directives import fieldset
 
 grok.templatedir("templates")
 
 
 class IDocument(form.Schema):
-    """ Tipus File: Per marcar si són públics o privats """
+    """ Tipus Document: Per marcar si són públics o privats """
+
+    fieldset('document',
+             label=_(u'Tab document'),
+             fields=['title', 'description', 'defaultContent', 'alternateContent']
+             )
 
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
@@ -52,7 +58,7 @@ class IDocument(form.Schema):
 
 @form.default_value(field=IDocument['title'])
 def titleDefaultValue(data):
-    # ficar el títol de la sessió
+    # ficar el títol de document
     return data.context.Title()
 
 

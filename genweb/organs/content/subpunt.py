@@ -14,6 +14,7 @@ from zope.interface import directlyProvides
 import unicodedata
 from plone.indexer import indexer
 from genweb.organs import utils
+from plone.supermodel.directives import fieldset
 
 grok.templatedir("templates")
 
@@ -45,6 +46,11 @@ directlyProvides(llistaEstats, IContextSourceBinder)
 class ISubpunt(form.Schema):
     """ Tipus Subpunt: Molt similar el PUNT
     """
+    fieldset('subpunt',
+             label=_(u'Tab subpunt'),
+             fields=['title', 'proposalPoint', 'defaultContent', 'estatsLlista']
+             )
+
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_(u'Subpunt Title'),
