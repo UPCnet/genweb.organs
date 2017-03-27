@@ -114,7 +114,7 @@ def addEntryLog(context, sender, message, recipients):
             if anon:
                 sender = 'Anonymous user'
             else:
-                sender = api.user.get_current().id
+                sender = api.user.get_current().fullname + ' [' + api.user.get_current().id + ']'
         try:
             index = len(annotations.get(KEY))
         except:
