@@ -12,7 +12,6 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from plone.namedfile.field import NamedBlobImage
 from Products.CMFCore.utils import getToolByName
-from plone.supermodel.directives import fieldset
 from plone import api
 
 grok.templatedir("templates")

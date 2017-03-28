@@ -150,10 +150,10 @@ class Presentation(form.SchemaForm):
                 file = obj.getObject()
                 if file.visiblefile:
                     hasPublic = True
-                    visibleUrl = file.absolute_url() + '/@@download/visiblefile/'
+                    visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/'
                 if file.hiddenfile:
                     hasPrivate = True
-                    hiddenUrl = file.absolute_url() + '/@@download/hiddenfile/'
+                    hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/'
             else:
                 # Its a document
                 isGODocument = True
