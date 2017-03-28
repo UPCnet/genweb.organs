@@ -16,7 +16,6 @@
      <element value="genweb.organs.punt"/>
      <element value="genweb.organs.acord"/>
      <element value="genweb.organs.acta"/>
-     <element value="genweb.organs.audio"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view_fallback">False</property>
