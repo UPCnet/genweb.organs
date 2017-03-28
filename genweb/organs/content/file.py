@@ -13,12 +13,20 @@ from zope import schema
 from plone.app.dexterity import PloneMessageFactory as _PMF
 from collective import dexteritytextindexer
 from plone.supermodel.directives import fieldset
+from plone.namedfile.utils import get_contenttype
+from zope.schema import ValidationError
 
 grok.templatedir("templates")
 
 
+class InvalidPDFFile(ValidationError):
+    """Exception for invalid PDF file"""
+    __doc__ = _(u"Invalid PDF file")
+
+
 class IFile(form.Schema):
-    """ Tipus File: Per adjuntar els fitxers públics i/o privats """
+    """ Tipus File: Per adjuntar els fitxers públics i/o privats
+        A la part pública només fitxers PDF """
 
     fieldset('file',
              label=_(u'Tab file'),
@@ -55,6 +63,14 @@ class IFile(form.Schema):
         description=_(u"Published file description"),
         required=False,
     )
+
+
+@form.validator(field=IFile['visiblefile'])
+def validateFileType(value):
+    if value is not None:
+        mimetype = get_contenttype(value)
+        if mimetype != 'application/pdf':
+            raise InvalidPDFFile(mimetype)
 
 
 @form.default_value(field=IFile['title'])

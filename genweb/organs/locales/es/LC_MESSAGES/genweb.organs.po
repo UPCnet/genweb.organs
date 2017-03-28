@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-03-27 14:08+0000\n"
+"POT-Creation-Date: 2017-03-28 06:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -367,6 +367,14 @@ msgstr "Informa del resultado de la sesión"
 msgid "Informar de la sessio"
 msgstr "Informar de la sessión"
 
+#: ./genweb/organs/content/file.py:24
+msgid "Invalid PDF file"
+msgstr ""
+
+#: ./genweb/organs/content/audio.py:26
+msgid "Invalid audio file"
+msgstr "El fichero seleccionado no parece en formato audio."
+
 #: ./genweb/organs/browser/views/acta_print.pt:73
 #: ./genweb/organs/content/acta.py:66
 #: ./genweb/organs/content/sessio.py:83
@@ -500,6 +508,10 @@ msgstr "OG3-Miembro"
 msgid "OG4-Afectat"
 msgstr "OG4-Afectado"
 
+#: ./genweb/organs/content/audio.py:56
+msgid "Only audio files are permitted."
+msgstr "Sólo están permitidos los ficheros de tipo audio."
+
 #: ./genweb/organs/content/organgovern.py:17
 msgid "Open"
 msgstr "Abierto"
@@ -598,15 +610,15 @@ msgstr "Persones excusadas"
 msgid "Plantilles"
 msgstr "Plantillas"
 
-#: ./genweb/organs/content/audio.py:21
+#: ./genweb/organs/content/audio.py:55
 msgid "Please upload a media file"
 msgstr "Por favor, indique un fichero"
 
-#: ./genweb/organs/content/file.py:54
+#: ./genweb/organs/content/file.py:62
 msgid "Please upload a public file"
 msgstr "Por favor, indique un fichero"
 
-#: ./genweb/organs/content/file.py:48
+#: ./genweb/organs/content/file.py:56
 msgid "Please upload a reserved file"
 msgstr "Por favor, indique un fichero"
 
@@ -650,7 +662,7 @@ msgstr "Punto del orden del día"
 msgid "Public"
 msgstr "Público"
 
-#: ./genweb/organs/content/file.py:55
+#: ./genweb/organs/content/file.py:63
 msgid "Published file description"
 msgstr " "
 
@@ -677,7 +689,7 @@ msgstr "Destinatarios"
 msgid "Reload proposalPoints manually"
 msgstr "Cargados manualmente los números de punto"
 
-#: ./genweb/organs/content/file.py:49
+#: ./genweb/organs/content/file.py:57
 msgid "Reserved file description"
 msgstr " "
 
@@ -816,11 +828,15 @@ msgstr "Acuerdo"
 msgid "Tab acta"
 msgstr "Acta"
 
+#: ./genweb/organs/content/audio.py:33
+msgid "Tab audio"
+msgstr ""
+
 #: ./genweb/organs/content/document.py:21
 msgid "Tab document"
 msgstr "Documento"
 
-#: ./genweb/organs/content/file.py:24
+#: ./genweb/organs/content/file.py:32
 msgid "Tab file"
 msgstr "Fichero"
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-03-27 14:08+0000\n"
+"POT-Creation-Date: 2017-03-28 06:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -367,6 +367,14 @@ msgstr "Informa del resultat de la sessió"
 msgid "Informar de la sessio"
 msgstr "Informa del resultat de la sessió"
 
+#: ./genweb/organs/content/file.py:24
+msgid "Invalid PDF file"
+msgstr "El fitxer seleccionat no sembla un fitxer PDF."
+
+#: ./genweb/organs/content/audio.py:26
+msgid "Invalid audio file"
+msgstr "El fitxer seleccionat no sembla en format d'àudio."
+
 #: ./genweb/organs/browser/views/acta_print.pt:73
 #: ./genweb/organs/content/acta.py:66
 #: ./genweb/organs/content/sessio.py:83
@@ -500,6 +508,10 @@ msgstr "OG3-Membre"
 msgid "OG4-Afectat"
 msgstr "OG4-Afectat"
 
+#: ./genweb/organs/content/audio.py:56
+msgid "Only audio files are permitted."
+msgstr "Només estan permessos els fitxers de tipus àudio."
+
 #: ./genweb/organs/content/organgovern.py:17
 msgid "Open"
 msgstr "Obert"
@@ -598,15 +610,15 @@ msgstr "Excusats"
 msgid "Plantilles"
 msgstr "Plantilles"
 
-#: ./genweb/organs/content/audio.py:21
+#: ./genweb/organs/content/audio.py:55
 msgid "Please upload a media file"
 msgstr "Seleccioni un fitxer de tipus àudio"
 
-#: ./genweb/organs/content/file.py:54
+#: ./genweb/organs/content/file.py:62
 msgid "Please upload a public file"
 msgstr "Fitxer públic"
 
-#: ./genweb/organs/content/file.py:48
+#: ./genweb/organs/content/file.py:56
 msgid "Please upload a reserved file"
 msgstr "Fitxer reservat"
 
@@ -650,9 +662,9 @@ msgstr "Punt informatiu de l'ordre del dia"
 msgid "Public"
 msgstr "Públic"
 
-#: ./genweb/organs/content/file.py:55
+#: ./genweb/organs/content/file.py:63
 msgid "Published file description"
-msgstr "Fitxer que conté la part pública del document."
+msgstr "Fitxer que conté la part pública del document. Ha de ser en format PDF."
 
 #: ./genweb/organs/browser/views/butlleti.pt:93
 #: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
@@ -677,7 +689,7 @@ msgstr "Destinataris"
 msgid "Reload proposalPoints manually"
 msgstr "Numera acords"
 
-#: ./genweb/organs/content/file.py:49
+#: ./genweb/organs/content/file.py:57
 msgid "Reserved file description"
 msgstr "Fitxer que conté la part reservada del document."
 
@@ -816,11 +828,15 @@ msgstr "Acord"
 msgid "Tab acta"
 msgstr "Acta"
 
+#: ./genweb/organs/content/audio.py:33
+msgid "Tab audio"
+msgstr "Àudio"
+
 #: ./genweb/organs/content/document.py:21
 msgid "Tab document"
 msgstr "Document"
 
-#: ./genweb/organs/content/file.py:24
+#: ./genweb/organs/content/file.py:32
 msgid "Tab file"
 msgstr "Fitxer"
 
