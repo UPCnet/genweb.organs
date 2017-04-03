@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-04-03 15:14+0000\n"
+"POT-Creation-Date: 2017-04-03 15:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Gree
 
 #: ./genweb/organs/browser/views.py:404
 #: ./genweb/organs/content/impersonate_as.py:141
-#: ./genweb/organs/content/presentation.py:51
+#: ./genweb/organs/content/punt.py:146
 msgid "ACORD"
 msgstr "ACUERDO"
 
@@ -328,7 +328,7 @@ msgstr "Fichero"
 
 #: ./genweb/organs/content/templates/file_view.pt:21
 msgid "Fitxer reservat"
-msgstr ""
+msgstr "Fichero reservado"
 
 #: ./genweb/organs/content/templates/acord_view.pt:39
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:36
@@ -397,7 +397,7 @@ msgstr "Informar de la sessión"
 
 #: ./genweb/organs/content/file.py:24
 msgid "Invalid PDF file"
-msgstr ""
+msgstr "Fichero PDF inválido"
 
 #: ./genweb/organs/content/audio.py:26
 msgid "Invalid audio file"
@@ -858,7 +858,7 @@ msgstr "Acta"
 
 #: ./genweb/organs/content/audio.py:33
 msgid "Tab audio"
-msgstr ""
+msgstr "Audio"
 
 #: ./genweb/organs/content/document.py:21
 msgid "Tab document"
@@ -922,6 +922,14 @@ msgstr "Enlace al video de la sesión"
 #: ./genweb/organs/content/templates/informar_view.pt:42
 msgid "Vista previa dels punts"
 msgstr "Visualización de los puntos"
+
+#: ./genweb/organs/content/presentation.py:51
+msgid "[ACORD]"
+msgstr "[ACUERDO]"
+
+#: ./genweb/organs/content/presentation.py:49
+msgid "[Acord "
+msgstr "[Acuerdo ]"
 
 #: ./genweb/organs/content/templates/acord_view.pt:20
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:78

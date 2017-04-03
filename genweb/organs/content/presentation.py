@@ -46,9 +46,9 @@ class Presentation(form.SchemaForm):
                         inside = False
                     if obj.portal_type == 'genweb.organs.acord':
                         if item.agreement:
-                            agreement = item.agreement
+                            agreement = _(u'[Acord ') + item.agreement + ']'
                         else:
-                            agreement = _(u'ACORD')
+                            agreement = _(u'[ACORD]')
                     else:
                         agreement = False
                     results.append(dict(title=obj.Title,
@@ -68,9 +68,9 @@ class Presentation(form.SchemaForm):
                         inside = False
                     if obj.portal_type == 'genweb.organs.acord':
                         if item.agreement:
-                            agreement = item.agreement
+                            agreement = _(u'[Acord ') + item.agreement + ']'
                         else:
-                            agreement = _(u'ACORD')
+                            agreement = _(u'[ACORD]')
                     else:
                         agreement = False
                     results.append(dict(title=obj.Title,
@@ -103,9 +103,9 @@ class Presentation(form.SchemaForm):
                 item = obj._unrestrictedGetObject()
                 if obj.portal_type == 'genweb.organs.acord':
                     if item.agreement:
-                        agreement = item.agreement
+                        agreement = _(u'[Acord ') + item.agreement + ']'
                     else:
-                        agreement = _(u'ACORD')
+                        agreement = _(u'[ACORD]')
                 else:
                     agreement = False
                 results.append(dict(title=obj.Title,
@@ -121,9 +121,9 @@ class Presentation(form.SchemaForm):
                 item = obj._unrestrictedGetObject()
                 if obj.portal_type == 'genweb.organs.acord':
                     if item.agreement:
-                        agreement = item.agreement
+                        agreement = _(u'[Acord ') + item.agreement + ']'
                     else:
-                        agreement = _(u'ACORD')
+                        agreement = _(u'[ACORD]')
                 else:
                     agreement = False
                 results.append(dict(title=obj.Title,
