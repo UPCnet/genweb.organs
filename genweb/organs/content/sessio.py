@@ -21,11 +21,6 @@ class ISessio(form.Schema):
         totes les sessions que es considerin oportunes
     """
 
-    fieldset('session',
-             label=_(u'Tab session'),
-             fields=['title', 'numSessio', 'llocConvocatoria',]
-             )
-
     fieldset('assistents',
              label=_(u'Assistents'),
              fields=['membresConvocats', 'membresConvidats', 'llistaExcusats', 'noAssistents', 'adrecaLlista']
