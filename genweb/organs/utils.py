@@ -118,18 +118,22 @@ def addEntryLog(context, sender, message, recipients):
                 portal = api.portal.get()
                 plugins = portal.acl_users.plugins.listPlugins(IPropertiesPlugin)
                 # We use the most preferent plugin
-                pplugin = plugins[2][1]
-                all_user_properties = pplugin.enumerateUsers(api.user.get_current().id)
-                fullname = '' 
-                for user in all_user_properties:
-                    if user['id'] == api.user.get_current().id:
-                        fullname = user['sn']
-                        pass
-                if fullname:
-                    sender = fullname + ' [' + api.user.get_current().id + ']'
-                else:
-                    sender = api.user.get_current().id
+                try:
+                    pplugin = plugins[2][1]
+                    all_user_properties = pplugin.enumerateUsers(api.user.get_current().id)
+                    fullname = ''
+                    for user in all_user_properties:
+                        if user['id'] == api.user.get_current().id:
+                            fullname = user['sn']
+                            pass
+                    if fullname:
+                        sender = fullname + ' [' + api.user.get_current().id + ']'
+                    else:
+                        sender = api.user.get_current().id
 
+                except:
+                    # Not LDAP plugin configured
+                    sender = api.user.get_current().id
         try:
             index = len(annotations.get(KEY))
         except:

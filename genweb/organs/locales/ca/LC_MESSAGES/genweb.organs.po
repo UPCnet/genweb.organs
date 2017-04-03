@@ -247,7 +247,7 @@ msgstr "Envia"
 #: ./genweb/organs/content/templates/message_view.pt:18
 #: ./genweb/organs/content/templates/sessio_view.pt:133
 msgid "Envia missatge"
-msgstr "Notifica als membres"
+msgstr "Missatge als membres"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:27
 msgid "Esteu visualitzant la sessio amb el rol <b><span>${DYNAMIC_CONTENT}</span></b>. <br /> Clicar <a href=\"./\">aqui</a> per tornar al mode de visualitzacio per defecte."
@@ -361,7 +361,7 @@ msgstr "Consultar informació a Serveis TIC"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:139
 msgid "Informa sessio"
-msgstr "Informa del resultat de la sessió"
+msgstr "Envia resum"
 
 #: ./genweb/organs/content/templates/informar_view.pt:18
 msgid "Informar de la sessio"
