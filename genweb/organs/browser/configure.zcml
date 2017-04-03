@@ -74,14 +74,6 @@
     permission="cmf.ModifyPortalContent"
     />
 
-  <browser:page
-    for="*"
-    name="modifyPointState"
-    class=".views.modifyPointState"
-    layer="..interfaces.IGenwebOrgansLayer"
-    permission="cmf.ModifyPortalContent"
-    />
-
   <!-- Change bullet colors in presentation root objects  - No reloads page-->
   <browser:page
     for="*"

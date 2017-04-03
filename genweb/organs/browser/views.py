@@ -318,41 +318,10 @@ class Reload(BrowserView):
         self.request.response.redirect(self.context.absolute_url())
 
 
-class modifyPointState(BrowserView):
-
-    def __call__(self):
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        estat = self.request.form.get('estat')
-        itemid = self.request.form.get('id')
-        try:
-            object_path = '/'.join(self.context.getPhysicalPath())
-            item = str(itemid.split('/')[-1:][0])
-            currentitem = portal_catalog.searchResults(
-                portal_type=['genweb.organs.punt', 'genweb.organs.subpunt', 'genweb.organs.acord'],
-                id=item,
-                path={'query': object_path,
-                      'depth': 1})[0].getObject()
-            if currentitem.portal_type == 'genweb.organs.punt':
-                # es un punt i cal mirar a tots els de dintre...
-                id = itemid.split('/')[-1:][0]
-                items_inside = portal_catalog.searchResults(
-                    portal_type='genweb.organs.subpunt',
-                    path={'query': object_path + '/' + id,
-                          'depth': 1})
-                for subpunt in items_inside:
-                    objecte = subpunt.getObject()
-                    objecte.estatsLlista = estat
-                currentitem.estatsLlista = estat
-            else:
-                # es un subpunt només es canvia aquest subpunt
-                currentitem.estatsLlista = estat
-            # self.request.response.redirect(self.context.absolute_url())
-        except:
-            pass
-
-
 class changeActualState(BrowserView):
-
+    """ Es fa servir a la vista sessio i presentacio. No cal fer reload perque
+        es mostra el nou valor per JS
+    """
     def __call__(self):
         portal_catalog = getToolByName(self, 'portal_catalog')
         estat = self.request.form.get('estat')
@@ -361,7 +330,7 @@ class changeActualState(BrowserView):
             object_path = '/'.join(self.context.getPhysicalPath())
             item = str(itemid.split('/')[-1:][0])
             currentitem = portal_catalog.searchResults(
-                portal_type=['genweb.organs.punt', 'genweb.organs.subpunt', 'genweb.organs.acord'],
+                portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
                 id=item,
                 path={'query': object_path,
                       'depth': 1})[0].getObject()
@@ -375,20 +344,24 @@ class changeActualState(BrowserView):
                 for subpunt in items_inside:
                     objecte = subpunt.getObject()
                     objecte.estatsLlista = estat
+                    if objecte.portal_type == 'genweb.organs.subpunt':
+                        addEntryLog(self.context, None, _(u'Changed recursive color state of subpunt inside punt'), itemid + ' -> ' + estat)  # add log
+                    else:
+                        addEntryLog(self.context, None, _(u'Changed recursive color state of acord inside punt'), itemid + ' -> ' + estat)  # add log
                 currentitem.estatsLlista = estat
+                addEntryLog(self.context, None, _(u'Changed punt color state'), itemid + ' -> ' + estat)  # add log
             else:
-                # es un subpunt només es canvia aquest subpunt
+                # És un acord. Només es canvia aquest ja que dintre no conté elements
                 currentitem.estatsLlista = estat
-            # self.request.response.redirect(self.context.absolute_url() + '/presentation')
+                addEntryLog(self.context, None, _(u'Changed acord color state'), itemid + ' -> ' + estat)  # add log
         except:
             pass
 
 
 class changeSubpuntState(BrowserView):
-    """ En vista presentació no cal fer reload ja que no es poden moure els
-        elements i han un somple canvi ja queda tot ok.
+    """ Es fa servir a la vista sessio i presentacio. No cal fer reload perque
+        es mostra el nou valor per JS. Només canvia el subpunt actual, no recursiu.
     """
-
     def __call__(self):
         portal_catalog = getToolByName(self, 'portal_catalog')
         estat = self.request.form.get('estat')
@@ -402,6 +375,10 @@ class changeSubpuntState(BrowserView):
                   'depth': 1})
         if currentitem:
             currentitem[0].getObject().estatsLlista = estat
+            if currentitem[0].portal_type == 'genweb.organs.subpunt':
+                addEntryLog(self.context, None, _(u'Changed subpunt intern state color'), itemid + ' -> ' + estat)  # add log
+            else:
+                addEntryLog(self.context, None, _(u'Changed acord intern state color'), itemid + ' -> ' + estat)  # add log
 
 
 class Butlleti(BrowserView):
