@@ -21,7 +21,7 @@
                 membresConvidats context/membresConvidats;
                 llistaExcusats context/llistaExcusats;
                 noAssistents context/noAssistents;
-                sessionNumber context/numSessio">
+                sessionNumber view/sessionNumber">
 
   <link tal:condition="canModify" rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
   <script tal:condition="canModify" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery-ui.min.js"></script>
@@ -379,7 +379,6 @@
       </div>
       <div class="clearfix"></div>
 
-
       <ul id="sortable">
         <tal:documents repeat="item items">
           <tal:block tal:define="agreement item/agreement">
@@ -388,7 +387,7 @@
             <div class="span6 agreementSpan">
               <!-- <span class="agreementClass" tal:content="agreement" tal:condition="agreement"></span> -->
             </div>
-            <div class="span6 einesSpan">
+            <div class="span6 einesSpan ">
               <div style="float: right;" aria-label="Edit actions"  tal:condition="canModify">
                 <button type="button" class="edit label label-info"
                   data-original-title="Edit">

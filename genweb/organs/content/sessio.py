@@ -483,3 +483,9 @@ class View(grok.View):
                                 content=document,
                                 id=str(item['id']) + '/' + obj.id))
         return results
+
+    def sessionNumber(self):
+        session = self.context.numSessio
+        year = self.context.start.strftime('%Y')
+        organ = self.context.aq_parent.acronim
+        return str(organ) + '/' + str(year) + '/' + str(session)

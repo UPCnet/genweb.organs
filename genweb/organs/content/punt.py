@@ -122,7 +122,6 @@ class View(grok.View):
                 item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
                 if estat.decode('utf-8') == ' '.join(item_net.split()[:-1]).lstrip():
                     return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
-        print color
         return color
 
     def SubPuntsInside(self):
