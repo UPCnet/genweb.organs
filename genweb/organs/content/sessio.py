@@ -42,6 +42,7 @@ class ISessio(form.Schema):
         required=True,
     )
 
+    form.mode(numSessio='display')
     numSessio = schema.TextLine(
         title=_(u"Session number"),
         required=False,
