@@ -137,10 +137,20 @@
         <tal:documents repeat="item items">
           <li class="punt">
             <div class="puntTitle span12">
+              <div class="span1 fletxaSpan">
+                <button type="button" class="expand" tal:condition="item/items_inside"
+                  data-original-title="Expand">
+                  <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
+                  </button>
+                <button type="button" class="notexpand" tal:condition="item/items_inside"
+                  data-original-title="Collapse">
+                  <i  style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
+                  </button>
+              </div>
               <div class="span1 numberSpan">
                 <span class="proposalNumber" tal:content="item/proposalPoint"></span>
               </div>
-              <div class="span11 titleSpan">
+              <div class="span10 titleSpan">
                 <a tal:attributes="href string:${item/absolute_url}/view" class="editTitle editable titleSize" target="_blank">
                   <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                 </a>
@@ -195,7 +205,7 @@
                 </tal:files>
               </div>
             </div>
-            <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts">
+            <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" class="sortable2">
               <tal:subpunts repeat="item subpunts">
                 <ol class="li_subgrups">
                   <td>
@@ -312,6 +322,30 @@
 
     $(document).ready(init_li_selected);
 
+  </script>
+
+  <script type="text/javascript">
+    $(function() {
+        $(this).find('.sortable2').hide()
+        $(this).find('.listFiles').hide()
+        $(this).find('.notexpand').hide()
+        $('.expand').click(function(e){
+               e.stopPropagation();
+               $(this).parent().parent().find('.expand').hide()
+               $(this).parent().parent().find('.expand').slideUp()
+               $(this).parent().parent().find('.notexpand').show()
+               $(this).parent().parent().parent().find('.sortable2').slideDown()
+               $(this).parent().parent().parent().find('.listFiles').slideDown()
+        });
+
+        $('.notexpand').click(function(e){
+               e.stopPropagation();
+               $(this).parent().parent().find('.notexpand').hide()
+               $(this).parent().parent().find('.expand').show()
+               $(this).parent().parent().parent().find('.sortable2').slideUp()
+               $(this).parent().parent().parent().find('.listFiles').slideUp()
+        });
+    });
   </script>
 
   </metal:content-core>

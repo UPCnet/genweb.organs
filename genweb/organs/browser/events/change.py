@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from zExceptions import Redirect
+from genweb.organs.utils import addEntryLog
+from genweb.organs import _
 
 
 def sessio_changed(session, event):
@@ -7,6 +9,10 @@ def sessio_changed(session, event):
         shows the info in the template
     """
     # si passem estat a convocat cal enviar mail de convocatoria...
+    old = _(str(event.status['review_state']))
+    new = _(str(event.transition.new_state_id))
+    addEntryLog(session, None, _(u'Changed workflow state'), str(old) + ' → ' + str(new))  # add log
+
     if event.transition is None:
         # Quan crees element també executa aquesta acció, i ID no existeix
         # Fem el bypass

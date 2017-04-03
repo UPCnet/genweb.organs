@@ -40,6 +40,10 @@ class Presentation(form.SchemaForm):
             if obj.portal_type == 'genweb.organs.punt' or obj.portal_type == 'genweb.organs.acord':
                 if self.Anonim():
                     item = obj._unrestrictedGetObject()
+                    if len(item.objectIds()) > 0:
+                        inside = True
+                    else:
+                        inside = False
                     if obj.portal_type == 'genweb.organs.acord':
                         if item.agreement:
                             agreement = item.agreement
@@ -54,9 +58,14 @@ class Presentation(form.SchemaForm):
                                         item_path=item.absolute_url_path(),
                                         portal_type=obj.portal_type,
                                         agreement=agreement,
-                                        id=obj.id))
+                                        id=obj.id,
+                                        items_inside=inside))
                 else:
                     item = obj.getObject()
+                    if len(item.objectIds()) > 0:
+                        inside = True
+                    else:
+                        inside = False
                     if obj.portal_type == 'genweb.organs.acord':
                         if item.agreement:
                             agreement = item.agreement
@@ -73,7 +82,8 @@ class Presentation(form.SchemaForm):
                                         css=self.getColor(obj),
                                         portal_type=obj.portal_type,
                                         agreement=agreement,
-                                        id=obj.id))
+                                        id=obj.id,
+                                        items_inside=inside))
         return results
 
     def SubpuntsInside(self, data):

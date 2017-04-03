@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-04-03 13:49+0000\n"
+"POT-Creation-Date: 2017-04-03 14:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,6 +173,10 @@ msgstr "S'ha propiciat el canvi d'estat del punt per un canvi recursiu"
 #: ./genweb/organs/browser/views.py:379
 msgid "Changed subpunt intern state color"
 msgstr "S'ha canviat l'estat del punt a segon nivell"
+
+#: ./genweb/organs/browser/events/change.py:14
+msgid "Changed workflow state"
+msgstr "S'ha canviat l'estat de la sessió"
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:40
 msgid "Composicio"
@@ -962,3 +966,7 @@ msgstr "Adreces a les quals arriben els missatges relatius a la sessió. Inicial
 #: ./genweb/organs/content/templates/sessio_view.pt:143
 msgid "printOrdreDia"
 msgstr "Imprimeix ordre del dia"
+
+#: ./genweb/organs/browser/events/change.py:12
+msgid "review_state"
+msgstr ""

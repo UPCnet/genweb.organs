@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-04-03 13:49+0000\n"
+"POT-Creation-Date: 2017-04-03 14:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -172,6 +172,10 @@ msgstr ""
 
 #: ./genweb/organs/browser/views.py:379
 msgid "Changed subpunt intern state color"
+msgstr ""
+
+#: ./genweb/organs/browser/events/change.py:14
+msgid "Changed workflow state"
 msgstr ""
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:40
@@ -962,3 +966,7 @@ msgstr "Direcciones a las que han de llegar los mensajes relativos a la sesión.
 #: ./genweb/organs/content/templates/sessio_view.pt:143
 msgid "printOrdreDia"
 msgstr "Imprimir orden del día"
+
+#: ./genweb/organs/browser/events/change.py:12
+msgid "review_state"
+msgstr ""
