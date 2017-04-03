@@ -183,13 +183,16 @@ def Punts2Acta(self):
             number = ''
         if value.portal_type == 'genweb.organs.acord':
             if value.agreement:
-                agreement = str(value.agreement) + ' - '
+                agreement = ' [Acord ' + str(value.agreement) + ']'
             else:
-                agreement = 'ACORD - '
+                agreement = ' [ACORD]'
         else:
             agreement = ''
 
-        results.append(number + agreement + str(obj.Title))
+        # testing numero de punt
+        results.append(number + str(obj.Title) + str(agreement))
+
+        # testing subpunts
         if len(value.objectIds()) > 0:
             valuesInside = portal_catalog.searchResults(
                 portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
@@ -207,12 +210,12 @@ def Punts2Acta(self):
                     numberSubpunt = ''
                 if subpunt.portal_type == 'genweb.organs.acord':
                     if subpunt.agreement:
-                        agreement = str(subpunt.agreement) + ' - '
+                        agreement = ' [Acord ' + str(subpunt.agreement) + ']'
                     else:
-                        agreement = 'ACORD - '
+                        agreement = ' [ACORD]'
                 else:
                     agreement = ''
-                results.append('&nbsp;&nbsp;' + numberSubpunt + agreement + str(item.Title))
+                results.append('&nbsp;&nbsp;' + numberSubpunt + str(item.Title) + agreement)
 
     return '<br/>' + '<br/>'.join(results)
 
