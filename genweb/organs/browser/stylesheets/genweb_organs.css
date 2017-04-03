@@ -134,16 +134,16 @@ input#form-widgets-fromTitle {width: 98%;}
     padding: 0;
     width:auto;
 }
-#sortable li {
+#sortable li {/*
     border: 1px solid #eee;
     border-radius: 0;
     box-shadow: 2px 3px 2px #eee;
     font-size: 14px;
     margin: 0 0 10px;
-    /*padding: 0.8em 1em 0.5em 0.1em;*/
     padding-right: 0px!important;
     float: left;
-    width: 97%;
+    width: 97%;*/
+
 }
 
 #sortable li span {
@@ -152,7 +152,7 @@ input#form-widgets-fromTitle {width: 98%;}
 }
 
 span.proposalNumber {
-    color: #ccc;
+    color: #007BC0;
     /*float: left;*/
     font-size: 20px;
     /*margin-left: -10px;*/
@@ -175,7 +175,7 @@ span.proposalNumber {
 }*/
 
 span.proposalNumberSubpunt {
-    color: #ccc;
+    color: #007BC0;
     margin-left: 0;
  }
 
@@ -199,7 +199,7 @@ span.proposalNumberSubpunt {
 }
 
 .ui-state-grey {
-    border: 1px solid #D4D4D4;
+    border: 1px solid #eee;
     position: relative;
     font-weight: normal;
     color: black;
@@ -264,16 +264,16 @@ span.label.nomarginLeft  {
 
 .puntTitle {
     color: black;
-    font-size:16px;
+    font-size:13px;
     font-weight: bold;
     font-color: black;
     padding-top: 5px;
     /*margin-bottom: 15px;*/
 }
 .subpuntTitle {
-    font-size: 16px;
+    font-size: 13px;
     padding-left: 50px!important;
-    line-height: 21px;
+    /*line-height: 21px;*/
 }
 
 #modalSession {
@@ -418,7 +418,7 @@ a.remove{background-color: #e8003d!important}
 }
 
 .DADES button {
-    background: transparent none repeat scroll 0 0;
+    background-color:white;
     border: 1px solid #557c95;
     color: #557c95;
     margin: 1px !important;
@@ -494,14 +494,7 @@ background-color: transparent;
 .DADES .expand, .DADES .notexpand {
     border: 0;
 }
-#sortable .filesinTable {
-    background: transparent none repeat scroll 0 0;
-    border: 0;
-    border-bottom: 1px solid #ddd;
-    box-shadow: none;
-    margin-bottom: 5px;
-    padding: 0 0 2px;
-}
+
 #sortable .filesinTable:last-child {
     border-bottom: 0px solid #ececec;
 }
@@ -599,6 +592,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 .bodyPresentation span.proposalNumberSubpunt {
     color: #CCC;
     font-size: 23px;
+    font-weight: 800!important;
 }
 
 .bodyPresentation .agreement.editable.editable-click{
@@ -884,7 +878,7 @@ div#formfield-form-widgets-message.field {margin-bottom: 0px;}
     padding-right: 25px;
 }
 
-.listFiles a {font-size: 15px;}
+.listFiles a {font-size: 13px;}
 
 span.label.label-default,
 span.label.label-danger {float: right;}
@@ -1020,10 +1014,10 @@ input#acordNumber {width: 159px;}
 .bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {    padding: 0px!important;}
 
 .agreementClass , .agreementSubClass  {
-    font-size: 11px;
-    color: #777;
-    letter-spacing: 0.025em;
-    font-weight: 600!important;
+    /* font-size: 11px; */
+    color: #999;
+    /* letter-spacing: 0.025em; */
+    /* font-weight: 600!important; */
 }
 
 li.filesinTable {color: #555;}
@@ -1089,6 +1083,7 @@ div.containerIcons a img.link_blank { display: none }
 .span1.numberSpan {
     margin-left: 0px!important;
     margin-top: 0px;
+    margin-bottom: 5px!important;
     /*width: 40px!important;*/
 }
 
@@ -1101,14 +1096,24 @@ div.containerIcons a img.link_blank { display: none }
    }
 
 #sortable li {
-    /*border: 1px solid #eee!important;*/
+    /*border: 1px solid #eee!important;
     border-radius: 0;
     box-shadow: 2px 3px 2px #eee;
     font-size: 14px;
     margin: 0 0 10px;
     padding: 0.3em 0.3em 0.5em 0.1em;
     float: left;
+    width: 98%;*/
+
+    /*border: 1px solid #eee!important; */
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 13px;
+    margin: -1px 0px 0px 0px;
+    padding: 0.3em 0.3em 0.3em 0.1em;
+    float: left;
     width: 98%;
+
 }
 
 .span10.titleSpan {
@@ -1132,6 +1137,7 @@ div.containerIcons a img.link_blank { display: none }
 .subpuntTitle .span11 {
     padding-left: 0px!important;
     margin-left: 0px!important;
+    margin-bottom: 0px!important;
 }
 
 .li_subgrups .span6 {
@@ -1347,4 +1353,58 @@ span.barra {
 
 .bodyPresentation .puntTitle.span12 > .span1 {
     text-align: left;
+}
+
+.span6.einesSpan {
+    position: absolute!important;
+    right: 0px!important;
+    /*top: 38%!important;*/
+    background: -moz-linear-gradient(left, rgba(153,153,153,0) 0%, rgba(249,249,249,1) 45%, rgba(249,249,249,1) 100%);
+background: -webkit-linear-gradient(left, rgba(153,153,153,0) 0%,rgba(249,249,249,1) 45%,rgba(249,249,249,1) 100%);
+background: linear-gradient(to right, rgba(153,153,153,0) 0%,rgba(249,249,249,1) 45%,rgba(249,249,249,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', endColorstr='#f9f9f9',GradientType=1 );
+    display: none!important;
+}
+
+.span6.agreementSpan {
+    display: none!important;
+}
+
+.span9.titleSpan {
+    margin-bottom: 0px!important;
+}
+
+.span9.titleSpan {
+    margin-top: 2px!important;
+}
+
+
+.row-fluid .puntTitle.span12 , .row-fluid  .span1.numberSpan , .row-fluid .span1.fletxaSpan {
+    min-height: 10px!important;
+}
+
+.span1.boleta{
+    margin-bottom: 0px!important;
+}
+
+.ui-state-grey:hover .span6.einesSpan {display: block!important;}
+
+.span1.fletxaSpan i {
+    color: #aaa!important;
+}
+
+#sortable .filesinTable {
+    background: transparent none repeat scroll 0 0;
+    border: 0!important;
+    border-bottom: 1px solid #ddd!important;
+    box-shadow: none;
+    margin-bottom: 5px;
+    padding: 0 0 2px;
+}
+
+.span1.boleta {
+    /*border: 1px solid;*/
+    width: 9%!important;
+    text-align: right;
+    min-height: 10px;
 }
