@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-04-03 14:24+0000\n"
+"POT-Creation-Date: 2017-04-03 15:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Gree
 
 #: ./genweb/organs/browser/views.py:404
 #: ./genweb/organs/content/impersonate_as.py:141
-#: ./genweb/organs/content/presentation.py:47
+#: ./genweb/organs/content/presentation.py:51
 msgid "ACORD"
 msgstr "ACUERDO"
 
@@ -307,7 +307,7 @@ msgid "File"
 msgstr "Fichero"
 
 #: ./genweb/organs/content/templates/audio_view.pt:38
-#: ./genweb/organs/content/templates/file_view.pt:39
+#: ./genweb/organs/content/templates/file_view.pt:43
 msgid "File contents"
 msgstr "Contenido del fichero"
 
@@ -317,7 +317,7 @@ msgid "Fitxer intern"
 msgstr "Fichero interno"
 
 #: ./genweb/organs/content/sessio.py:461
-#: ./genweb/organs/content/templates/file_view.pt:51
+#: ./genweb/organs/content/templates/file_view.pt:55
 #: ./genweb/organs/utils.py:175
 msgid "Fitxer public"
 msgstr "Fichero público"
@@ -326,9 +326,9 @@ msgstr "Fichero público"
 msgid "Fitxer públic"
 msgstr "Fichero"
 
-#: ./genweb/organs/content/templates/file_view.pt:20
+#: ./genweb/organs/content/templates/file_view.pt:21
 msgid "Fitxer reservat"
-msgstr "Fichero reservado"
+msgstr ""
 
 #: ./genweb/organs/content/templates/acord_view.pt:39
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:36

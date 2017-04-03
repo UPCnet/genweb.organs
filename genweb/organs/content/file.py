@@ -88,50 +88,6 @@ class View(grok.View):
     grok.context(IFile)
     grok.template('file_view')
 
-    def get_mimetype_icon_reserved(self):
-        # return mimetype from the file object
-        content_file = self.context.hiddenfile
-        context = aq_inner(self.context)
-        pstate = getMultiAdapter(
-            (context, self.request),
-            name=u'plone_portal_state'
-        )
-        portal_url = pstate.portal_url()
-        mtr = getToolByName(context, "mimetypes_registry")
-        mime = []
-        if content_file.contentType:
-            mime.append(mtr.lookup(content_file.contentType))
-        if content_file.filename:
-            mime.append(mtr.lookupExtension(content_file.filename))
-        mime.append(mtr.lookup("application/octet-stream")[0])
-        icon_paths = [m.icon_path for m in mime if hasattr(m, 'icon_path')]
-        if icon_paths:
-            return icon_paths[0]
-
-        return portal_url + "/" + guess_icon_path(mime[0])
-
-    def get_mimetype_icon_public(self):
-        # return mimetype from the file object
-        content_file = self.context.visiblefile
-        context = aq_inner(self.context)
-        pstate = getMultiAdapter(
-            (context, self.request),
-            name=u'plone_portal_state'
-        )
-        portal_url = pstate.portal_url()
-        mtr = getToolByName(context, "mimetypes_registry")
-        mime = []
-        if content_file.contentType:
-            mime.append(mtr.lookup(content_file.contentType))
-        if content_file.filename:
-            mime.append(mtr.lookupExtension(content_file.filename))
-        mime.append(mtr.lookup("application/octet-stream")[0])
-        icon_paths = [m.icon_path for m in mime if hasattr(m, 'icon_path')]
-        if icon_paths:
-            return icon_paths[0]
-
-        return portal_url + "/" + guess_icon_path(mime[0])
-
     def is_videotype_reserved(self):
         ct = self.context.hiddenfile.contentType
         return 'video/' in ct
