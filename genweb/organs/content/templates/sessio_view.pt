@@ -469,6 +469,9 @@
                   <span tal:condition="agreement" class="agreementClass">
                     [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
                   </span>
+                  <span style="float:right;" tal:condition="item/state">
+                    <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
+                  </span>
                 </a>
                 <tal:files tal:define="files python:view.filesinsidePunt(item)">
                   <ul class="listFiles" tal:condition="files">
