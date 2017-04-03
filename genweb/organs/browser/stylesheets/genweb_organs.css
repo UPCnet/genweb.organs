@@ -177,6 +177,7 @@ span.proposalNumber {
 span.proposalNumberSubpunt {
     color: #007BC0;
     margin-left: 0;
+    font-weight: 800!important;
  }
 
 #sortable .ui-state-highlight {
@@ -592,7 +593,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 .bodyPresentation span.proposalNumberSubpunt {
     color: #CCC;
     font-size: 23px;
-    font-weight: 800!important;
+
 }
 
 .bodyPresentation .agreement.editable.editable-click{
@@ -610,7 +611,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     font-weight: normal;
     margin-bottom: 0px!important;
     color: #557C95;
-    padding-top: 10px;
+    padding-top: 0px;
     padding-left: 15px;
     margin-top: 0px!important;
 }
@@ -690,7 +691,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     margin: none;
     padding: none;
     box-shadow: none;
-    padding-right: 25px;
+    /*padding-right: 25px;*/
     margin-top: 0px;
      }
 
@@ -1112,7 +1113,7 @@ div.containerIcons a img.link_blank { display: none }
     margin: -1px 0px 0px 0px;
     padding: 0.3em 0.3em 0.3em 0.1em;
     float: left;
-    width: 98%;
+    width: 99%;
 
 }
 
@@ -1123,6 +1124,7 @@ div.containerIcons a img.link_blank { display: none }
 .span1.fletxaSpan{
 	margin-top:0px!important;
 	width: 2.52147%!important;
+	margin-bottom: 0px!important;
 }
 
 .span1.fletxaSpan .expand {
@@ -1271,11 +1273,13 @@ ol.li_subgrups {
     border-top: none!important;
     border-left: none!important;
     border-right: none!important;
-    background-color: #f6f6f6;
-    padding-top: 25px;
-    padding-bottom: 20px!important;
+    background-color: #fff;
+    padding-top: 15px!important;
+    padding-bottom: 15px!important;
         border-radius: 4px!important;
-        margin-bottom: 15px!important;
+        margin-bottom: 0px!important;
+        margin-top: 0px!important;
+        border-bottom: 1px solid #ddd;
 }
 
 .bodyPresentation #sortable ul.dropdown-menu li{
@@ -1404,7 +1408,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', e
 
 .span1.boleta {
     /*border: 1px solid;*/
-    width: 9%!important;
+    width: 10%!important;
     text-align: right;
     min-height: 10px;
+    margin-top: 2px!important;
+}
+
+.span9.titleSpan {
+    margin-bottom: 0px!important;
+    margin-left: 2%!important;
+}
+
+.portaltype-genweb-organs-sessio .row-fluid [class*="span"] {min-height: 10px!important;}
+
+.ui-state-grey:hover .span6.einesSpan {
+    display: block!important;
+    min-height: 30px!important;
 }
