@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from plone import api
 from five import grok
 from zope.schema import TextLine
 from z3c.form import button
