@@ -1231,7 +1231,7 @@ ol.li_subgrups {
 .bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {
     padding-left: 0px!important;
     list-style-type: disc!important;
-    font-size:98%!important;
+    font-size:130%!important;
 }
 
 .bodyPresentation #sortable .filesinTable {
@@ -1239,6 +1239,10 @@ ol.li_subgrups {
     list-style-type: disc!important;
     font-size:80%!important;
     margin-left: 20px;
+}
+
+.bodyPresentation .filelist {
+    margin-bottom: 5px!important;
 }
 
 .bodyPresentation #sortable .filesinTable {border-bottom: none!important}
@@ -1276,12 +1280,12 @@ ol.li_subgrups {
     border-left: none!important;
     border-right: none!important;
     background-color: #fff;
-    padding-top: 15px!important;
-    padding-bottom: 15px!important;
-        border-radius: 4px!important;
+       padding-top: 20px!important;
+    padding-bottom: 5px!important;
+        border-radius: 0px!important;
         margin-bottom: 0px!important;
         margin-top: 0px!important;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid #e8e8e8;
 }
 
 .bodyPresentation #sortable ul.dropdown-menu li{
@@ -1291,8 +1295,16 @@ ol.li_subgrups {
 }
 
 .bodyPresentation span.proposalNumber, .bodyPresentation span.proposalNumberSubpunt {
-
+    margin-right: 15px;
 	color: #0087C9!important;
+}
+
+.bodyPresentation img.link_blank {
+    display: none; width: 0px!important; height: 0px!important; margin:0px!important; padding:0px!important;
+}
+
+.bodyPresentation .bulletPuntPresentation {
+    padding-right: 10px!important;
 }
 
 .bodyPresentation .container {
@@ -1323,7 +1335,7 @@ span.barra {
     width: 97%!important}
 
 
-.presentation_template ul#sortable.ui-sortable li:hover{ background-color:#f2f2f2;}
+/*.presentation_template ul#sortable.ui-sortable li:hover{ background-color:#f2f2f2;}*/
 /*.picked:hover{background:#e5f7ff !important; }*/
 .presentation_template li.punt.picked{ background:#e5f7ff !important; }
 .bodyPresentation .picked .filesinTable:hover {
@@ -1334,25 +1346,26 @@ span.barra {
 
 
 .bodyPresentation .agreementPuntPresentation, .bodyPresentation .agreementSubPuntPresentation {
-    margin-right: 20px!important;
-    float: right;
+    font-size: 15px;
+    color: #888;
+    /*float: right;
     background-color: #0083C7;
     color: white!important;
     border-radius: 5px;
-    padding: 0 5px;
+    padding: 0 5px;*/
 }
 
 .bodyPresentation .subpuntTitle.span12{margin-left:0px!important }
 
 .bodyPresentation .subpuntTitle {
-    padding-left: 100px!important;
-
+    padding-left: 50px!important;
 }
 
 .bodyPresentation span.proposalNumberSubpunt {
     color: #ccc;
     margin-left: 0;
     margin-right: 0!important;
+    font-weight: 500!important;
  }
 
 .bodyPresentation ul.dropdown-menu {
@@ -1444,3 +1457,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', e
 
 .portaltype-genweb-organs-sessio .show {
     background-color: }
+
+.subpuntTitle.span12 .span1 {
+    width: 5%!important;
+    margin-right: 15px;
+}
