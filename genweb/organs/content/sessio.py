@@ -487,6 +487,10 @@ class View(grok.View):
 
     def sessionNumber(self):
         session = self.context.numSessio
-        year = self.context.start.strftime('%Y')
+        startdate = getattr(self.context, 'start', None)
+        if startdate:
+            year = startdate.strftime('%Y') + '/'
+        else:
+            year = ''
         organ = self.context.aq_parent.acronim
-        return str(organ) + '/' + str(year) + '/' + str(session)
+        return str(organ) + '/' + str(year) + str(session)
