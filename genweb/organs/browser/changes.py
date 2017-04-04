@@ -57,7 +57,7 @@ class changeAgreement(BrowserView):
             item.reindexObject()
 
             # transaction ok, then write log
-            recipients = '[' + item.Title() + '] ' + oldvalue + ' -> ' + newvalue
+            recipients = '[' + item.Title() + '] ' + oldvalue + ' → ' + newvalue
             addEntryLog(self.context, None, _(u"Changed agreement number"), recipients)
         except:
             pass

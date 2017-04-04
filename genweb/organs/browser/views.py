@@ -102,7 +102,7 @@ class Delete(BrowserView):
                 portal_catalog = getToolByName(self, 'portal_catalog')
                 folder_path = '/'.join(self.context.getPhysicalPath())
 
-                addEntryLog(self.context, None, _(u'Deleted element'), portal_type.split('.')[-1] + ' -> ' + folder_path + '/' + itemid)
+                addEntryLog(self.context, None, _(u'Deleted element'), portal_type.split('.')[-1] + ' → ' + folder_path + '/' + itemid)
                 # agafo items ordenats!
 
                 puntsOrdered = portal_catalog.searchResults(
@@ -169,22 +169,22 @@ class Move(BrowserView):
             for item in puntsOrdered:
                 objecte = item.getObject()
                 objecte.proposalPoint = unicode(str(index))
+                addEntryLog(self.context, None, _(u'Changed punt number with drag&drop'), str(objecte.id) + ' → ' + str(objecte.proposalPoint))
                 objecte.reindexObject()
 
                 if len(objecte.items()) > 0:
                     search_path = '/'.join(objecte.getPhysicalPath())
                     subpunts = portal_catalog.searchResults(
-                        portal_type=['genweb.organs.subpunt'],
+                        portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
                         sort_on='getObjPositionInParent',
                         path={'query': search_path, 'depth': 1})
-
                     subvalue = 1
                     for value in subpunts:
                         newobjecte = value.getObject()
                         newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
+                        addEntryLog(self.context, None, _(u'Changed subpunt number with drag&drop'), str(newobjecte.id) + ' → ' + str(newobjecte.proposalPoint))
                         newobjecte.reindexObject()
                         subvalue = subvalue + 1
-
                 index = index + 1
 
         # Volem moure un subpunt
@@ -217,6 +217,7 @@ class Move(BrowserView):
                 if item.portal_type == 'genweb.organs.subpunt' or item.portal_type == 'genweb.organs.acord':
                     objecteSubPunt = item.getObject()
                     objecteSubPunt.proposalPoint = unicode(str(puntnumber) + '.' + str(subvalue))
+                    addEntryLog(self.context, None, _(u'Moved subpunt by drag&drop'), str(objecteSubPunt.id) + ' → ' + str(objecteSubPunt.proposalPoint))
                     objecteSubPunt.reindexObject()
                     subvalue = subvalue + 1
 
@@ -349,11 +350,11 @@ class changeActualState(BrowserView):
                     else:
                         addEntryLog(self.context, None, _(u'Changed recursive color state of acord inside punt'), itemid + ' -> ' + estat)  # add log
                 currentitem.estatsLlista = estat
-                addEntryLog(self.context, None, _(u'Changed punt color state'), itemid + ' -> ' + estat)  # add log
+                addEntryLog(self.context, None, _(u'Changed punt color state'), itemid + ' → ' + estat)  # add log
             else:
                 # És un acord. Només es canvia aquest ja que dintre no conté elements
                 currentitem.estatsLlista = estat
-                addEntryLog(self.context, None, _(u'Changed acord color state'), itemid + ' -> ' + estat)  # add log
+                addEntryLog(self.context, None, _(u'Changed acord color state'), itemid + ' → ' + estat)  # add log
         except:
             pass
 
@@ -376,9 +377,9 @@ class changeSubpuntState(BrowserView):
         if currentitem:
             currentitem[0].getObject().estatsLlista = estat
             if currentitem[0].portal_type == 'genweb.organs.subpunt':
-                addEntryLog(self.context, None, _(u'Changed subpunt intern state color'), itemid + ' -> ' + estat)  # add log
+                addEntryLog(self.context, None, _(u'Changed subpunt intern state color'), itemid + ' → ' + estat)  # add log
             else:
-                addEntryLog(self.context, None, _(u'Changed acord intern state color'), itemid + ' -> ' + estat)  # add log
+                addEntryLog(self.context, None, _(u'Changed acord intern state color'), itemid + ' → ' + estat)  # add log
 
 
 class Butlleti(BrowserView):
