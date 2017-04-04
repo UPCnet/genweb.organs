@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-04-04 10:02+0000\n"
+"POT-Creation-Date: 2017-04-04 11:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:404
+#: ./genweb/organs/browser/views.py:405
 #: ./genweb/organs/content/impersonate_as.py:141
 #: ./genweb/organs/content/punt.py:146
 msgid "ACORD"
@@ -139,7 +139,7 @@ msgstr ""
 msgid "Body Mail send description"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:174
+#: ./genweb/organs/content/informarSessio.py:168
 #: ./genweb/organs/content/mailConvocar.py:174
 #: ./genweb/organs/content/manualimport.py:180
 msgid "Cancel"
@@ -149,11 +149,11 @@ msgstr ""
 msgid "Changed Title"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:356
+#: ./genweb/organs/browser/views.py:357
 msgid "Changed acord color state"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:381
+#: ./genweb/organs/browser/views.py:382
 msgid "Changed acord intern state color"
 msgstr ""
 
@@ -161,20 +161,28 @@ msgstr ""
 msgid "Changed agreement number"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:352
+#: ./genweb/organs/browser/views.py:353
 msgid "Changed punt color state"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:350
+#: ./genweb/organs/browser/views.py:172
+msgid "Changed punt number with drag&drop"
+msgstr ""
+
+#: ./genweb/organs/browser/views.py:351
 msgid "Changed recursive color state of acord inside punt"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:348
+#: ./genweb/organs/browser/views.py:349
 msgid "Changed recursive color state of subpunt inside punt"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:379
+#: ./genweb/organs/browser/views.py:380
 msgid "Changed subpunt intern state color"
+msgstr ""
+
+#: ./genweb/organs/browser/views.py:185
+msgid "Changed subpunt number with drag&drop"
 msgstr ""
 
 #: ./genweb/organs/browser/events/change.py:14
@@ -466,19 +474,19 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:166
+#: ./genweb/organs/content/informarSessio.py:160
 #: ./genweb/organs/content/mailConvocar.py:166
 #: ./genweb/organs/content/sendMessage.py:136
 msgid "Missatge enviat correctament"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:168
+#: ./genweb/organs/content/informarSessio.py:162
 #: ./genweb/organs/content/mailConvocar.py:168
 #: ./genweb/organs/content/sendMessage.py:138
 msgid "Missatge no enviat"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:170
+#: ./genweb/organs/content/informarSessio.py:164
 #: ./genweb/organs/content/mailConvocar.py:170
 #: ./genweb/organs/content/sendMessage.py:140
 msgid "Missatge no enviat. Comprovi els destinataris del missatge"
@@ -490,6 +498,10 @@ msgstr ""
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:32
 msgid "Mostrar dades de organ"
+msgstr ""
+
+#: ./genweb/organs/browser/views.py:220
+msgid "Moved subpunt by drag&drop"
 msgstr ""
 
 #: ./genweb/organs/content/templates/mail_convocar.pt:18
@@ -547,7 +559,7 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:176
+#: ./genweb/organs/content/informarSessio.py:170
 #: ./genweb/organs/content/mailConvocar.py:176
 #: ./genweb/organs/content/manualimport.py:182
 msgid "Operation Cancelled."
@@ -716,7 +728,7 @@ msgstr ""
 msgid "Recipients"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:280
+#: ./genweb/organs/browser/views.py:281
 msgid "Reload proposalPoints manually"
 msgstr ""
 
@@ -732,7 +744,11 @@ msgstr ""
 msgid "Restricted_to_Members"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:132
+#: ./genweb/organs/content/informarSessio.py:99
+msgid "Resultat. "
+msgstr ""
+
+#: ./genweb/organs/content/informarSessio.py:126
 #: ./genweb/organs/content/mailConvocar.py:131
 #: ./genweb/organs/content/manualimport.py:61
 msgid "Send"
@@ -754,7 +770,7 @@ msgstr ""
 msgid "Sending mail convocatoria"
 msgstr ""
 
-#: ./genweb/organs/content/informarSessio.py:164
+#: ./genweb/organs/content/informarSessio.py:158
 msgid "Sending mail informar sessio"
 msgstr ""
 

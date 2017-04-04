@@ -96,38 +96,32 @@ class Message(form.SchemaForm):
         lang = self.context.language
         sessiontitle = str(session.Title())
 
-        titleText = "Missatge de la sessió: " + sessiontitle + ' (' + sessiondate + ')'
+        titleText = _(u"Resultat. ") + sessiontitle + ' (' + sessiondate + ')'
         fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
         self.widgets["fromTitle"].value = fromMessage
 
         if lang == 'es':
-            introData = "<p>Puede consultar toda la documentación de la sesión aquí: <a href=" + \
-                sessionLink + ">" + sessiontitle + "</a></p><br/>"
             moreData = '<p><strong>' + sessiontitle + \
                 '</strong><br/></p>Lugar: ' + place + "<br/>Data: " + sessiondate + \
                 "<br/>Hora de inicio: " + starthour + \
                 "<br/>Hora de fin: " + endHour + \
-                '<br/><br/><p><strong> Orden del día </strong></p>'
+                '<br/><br/><p><strong> Resumen de la sesión </strong></p>'
 
         if lang == 'en':
-            introData = "<p>All the information about the session is visible here: <a href=" + \
-                sessionLink + ">" + sessiontitle + "</a></p><br/>"
             moreData = '<p><strong>' + sessiontitle + \
                 '</strong><br/></p>Place: ' + place + "<br/>Data: " + sessiondate + \
                 "<br/>Start date: " + starthour + \
                 "<br/>End data: " + endHour + \
-                '<br/><br/><p><strong> Contents </strong></p>'
+                '<br/><br/><p><strong> Sesison summary </strong></p>'
         else:
             # lang = ca or another...
-            introData = "<p>Podeu consultar tota la documentació de la sessió aquí: <a href=" + \
-                sessionLink + ">" + sessiontitle + "</a></p><br/>"
             moreData = '<p><strong>' + sessiontitle + \
                 '</strong><br/></p>Lloc: ' + place + "<br/>Data: " + sessiondate + \
                 "<br/>Hora d'inici: " + starthour + \
                 "<br/>Hora de fi: " + endHour + \
-                '<br/><br/><p><strong> Ordre del dia </strong></p>'
+                '<br/><br/><p><strong> Resum de la sessió </strong></p>'
 
-        self.widgets["message"].value = introData + moreData + self.Punts2Acta() + '<br/>' + signatura
+        self.widgets["message"].value = moreData + self.Punts2Acta() + '<br/>' + signatura
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):
@@ -228,18 +222,18 @@ class Message(form.SchemaForm):
             # value = obj.getObject()
             value = obj._unrestrictedGetObject()
             if value.proposalPoint:
-                number = str(value.proposalPoint) + '.- '
+                number = str(value.proposalPoint) + '. '
             else:
                 number = ''
             if value.portal_type == 'genweb.organs.acord':
                 if value.agreement:
-                    agreement = ' [Acord ' + str(value.agreement) + ']'
+                    agreement = ' [Acord ' + str(value.agreement) + ' - ' + str(value.estatsLlista).upper() + ' ]'
                 else:
                     agreement = ' [ACORD]'
             else:
                 agreement = ''
             # adding hidden field to maintain good urls
-            results.append(str('&emsp;') + str(number) + str('<a href=----@@----') + str(obj.getURL()) + str('>') + str(obj.Title) + str(agreement) + str('</a>'))
+            results.append(str('&emsp;') + str('<a href=----@@----') + str(obj.getURL()) + str('>') + str(number) + str(obj.Title) + str(agreement) + str('</a>'))
             if len(value.objectIds()) > 0:
                 valuesInside = portal_catalog.searchResults(
                     portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
@@ -249,15 +243,15 @@ class Message(form.SchemaForm):
                 for item in valuesInside:
                     subpunt = item.getObject()
                     if subpunt.proposalPoint:
-                        numberSubpunt = str(subpunt.proposalPoint) + '.- '
+                        numberSubpunt = str(subpunt.proposalPoint) + '. '
                     else:
                         numberSubpunt = ''
                     if subpunt.portal_type == 'genweb.organs.acord':
                         if subpunt.agreement:
-                            agreement = ' [Acord ' + str(subpunt.agreement) + ']'
+                            agreement = ' [Acord ' + str(subpunt.agreement) + ' - ' + str(subpunt.estatsLlista).upper() + ' ]'
                     else:
                         agreement = ' [ACORD]'
                     # adding hidden field to maintain good urls
-                    results.append(str('&emsp;&emsp;') + str(numberSubpunt) + str('<a href=----@@----') + str(item.getURL()) + str('>') + str(item.Title) + str(agreement) + str('</a>'))
+                    results.append(str('&emsp;&emsp;') + str('<a href=----@@----') + str(item.getURL()) + str('>') + str(numberSubpunt) + str(item.Title) + str(agreement) + str('</a>'))
 
         return '<br/>'.join(results)
