@@ -754,6 +754,43 @@
         window.location.reload();
     }
   });
+
+
+  function mouseHandler(e){
+    if ($(this).hasClass('picked')) {
+      field = $(this)[0].getElementsByClassName('show');
+      $(field).addClass('einesSpan');
+      $(field).removeClass('show');
+      $(this).removeClass('picked');
+
+    } else {
+      $(".picked").removeClass('picked');
+      $(".show").addClass('einesSpan');
+      $(".show").addClass('show');
+      field = $(this)[0].getElementsByClassName('einesSpan');
+      $(this).addClass('picked');
+      $(field).addClass('show');
+      $(field).removeClass('einesSpan');
+    }
+  }
+  function init_li_selected(){
+    // Bind all li to make them clickable
+    $('.ui-sortable li').bind('click', mouseHandler);
+  }
+  $(document).ready(init_li_selected);
+
+  $(function(){
+    var $win = $(window);
+    var $box = $("#sortable");
+    $win.on("click.Bst", function(event){
+      if ($box.has(event.target).length == 0 && !$box.is(event.target)){
+        $(".picked").removeClass('picked');
+        $(".show").addClass('einesSpan');
+        $(".show").removeClass('show');
+     }
+     });
+  });
+
 </script>
 
 </metal:content-core>

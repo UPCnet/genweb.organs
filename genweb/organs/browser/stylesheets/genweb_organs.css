@@ -541,10 +541,12 @@ background-color: transparent;
 .editableform .editable-input {
     left: 0;
 }
+
+/* amplada camp de text d'edit del titol */
 .editableform .editable-input > input {
     font-size: 16px;
     /*max-width: 100px;*/
-    width: 37em;
+    width: 30em;
 }
 .btn.label.disabled {
     background: #ccc none repeat scroll 0 0;
@@ -1191,7 +1193,7 @@ html {
 .Afectat #sortable li , .Membre #sortable li {
     width: 100%!important;
      padding: 0.4em 0.3em 0.8em 1em !important;
-} 
+}
 
 .Afectat span.proposalNumber , .Membre #sortable li {
     margin-right: 8px!important;
@@ -1328,6 +1330,8 @@ span.barra {
     background:#e5f7ff !important;
 }
 
+.portaltype-genweb-organs-sessio li.ui-state-grey.picked{ background:#e5f7ff !important; }
+
 
 .bodyPresentation .agreementPuntPresentation, .bodyPresentation .agreementSubPuntPresentation {
     margin-right: 20px!important;
@@ -1342,7 +1346,7 @@ span.barra {
 
 .bodyPresentation .subpuntTitle {
     padding-left: 100px!important;
-   
+
 }
 
 .bodyPresentation span.proposalNumberSubpunt {
@@ -1391,7 +1395,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', e
     margin-bottom: 0px!important;
 }
 
-.ui-state-grey:hover .span6.einesSpan {display: block!important;}
+/*.ui-state-grey:hover .span6.einesSpan {display: block!important;}*/
 
 .span1.fletxaSpan i {
     color: #aaa!important;
@@ -1421,7 +1425,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', e
 
 .portaltype-genweb-organs-sessio .row-fluid [class*="span"] {min-height: 10px!important;}
 
-.ui-state-grey:hover .span6.einesSpan {
-    display: block!important;
+.picked {
+/*.ui-state-grey:hover .span6.einesSpan {
+*/    display: block!important;
     min-height: 30px!important;
 }
+
+.show {
+    position: absolute!important;
+    right: 0px!important;
+    /*top: 38%!important;*/
+    background: -moz-linear-gradient(left, rgba(153,153,153,0) 0%, rgba(249,249,249,1) 45%, rgba(249,249,249,1) 100%);
+background: -webkit-linear-gradient(left, rgba(153,153,153,0) 0%,rgba(249,249,249,1) 45%,rgba(249,249,249,1) 100%);
+background: linear-gradient(to right, rgba(153,153,153,0) 0%,rgba(249,249,249,1) 45%,rgba(249,249,249,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', endColorstr='#f9f9f9',GradientType=1 );
+    display: block!important;
+}
+
+.portaltype-genweb-organs-sessio .show {
+    background-color: }
