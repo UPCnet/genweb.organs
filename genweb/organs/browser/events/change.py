@@ -9,9 +9,13 @@ def sessio_changed(session, event):
         shows the info in the template
     """
     # si passem estat a convocat cal enviar mail de convocatoria...
-    old = _(str(event.status['review_state']))
-    new = _(str(event.transition.new_state_id))
-    addEntryLog(session, None, _(u'Changed workflow state'), str(old) + ' → ' + str(new))  # add log
+    try:
+        old = _(str(event.status['review_state']))
+        new = _(str(event.transition.new_state_id))
+        message = str(old) + ' → ' + str(new)
+        addEntryLog(session, None, _(u'Changed workflow state'), message)  # add log
+    except:
+        addEntryLog(session, None, _(u'New session created'), session.Title())  # add log
 
     if event.transition is None:
         # Quan crees element també executa aquesta acció, i ID no existeix
