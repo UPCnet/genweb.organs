@@ -130,8 +130,6 @@
 
 <div class="container">
 
-
-
       <div class="row-fluid">
     <div tal:condition="items" class="DADES presentation_template">
       <h1 tal:content="view/getSessionTitle" style='text-transform: uppercase'>Ordre del dia</h1>
@@ -298,12 +296,7 @@
 
   <div id="end"></div>
 
-
-
   <script tal:condition="not:anonim" type="text/javascript">
-
-
-
     smoothScroll.init();
     $("#scrollUp").click(function(e){
         var wHeight = $(window).height();
@@ -339,69 +332,66 @@
 
   <script type="text/javascript">
     $(function() {
-        $(this).find('.sortable2').hide()
-        $(this).find('.listFiles').hide()
-        $(this).find('.notexpand').hide()
-        $('.expand').click(function(e){
-               e.stopPropagation();
-               $(this).parent().parent().find('.expand').hide()
-               $(this).parent().parent().find('.expand').slideUp()
-               $(this).parent().parent().find('.notexpand').show()
-               $(this).parent().parent().parent().find('.sortable2').slideDown()
-               $(this).parent().parent().parent().find('.listFiles').slideDown()
-        });
-        $('.notexpand').click(function(e){
-               e.stopPropagation();
-               $(this).parent().parent().find('.notexpand').hide()
-               $(this).parent().parent().find('.expand').show()
-               $(this).parent().parent().parent().find('.sortable2').slideUp()
-               $(this).parent().parent().parent().find('.listFiles').slideUp()
-        });
-
-        var $win = $(window);
-        var $box = $("#sortable");
-        var $boxFiles = $(".showDocContent");
-        $win.on("click.Bst", function(event){
-          if ($box.has(event.target).length == 0 && !$box.is(event.target))
-          {
-            $(".picked").removeClass('picked');
-          }
-          if ($boxFiles.has(event.target).length == 0 && !$boxFiles.is(event.target))
-          {
-            $('.popover').removeClass('in')
-          }
-         });
-
+      $(this).find('.sortable2').hide()
+      $(this).find('.listFiles').hide()
+      $(this).find('.notexpand').hide()
+      $('.expand').click(function(e){
+             e.stopPropagation();
+             $(this).parent().parent().find('.expand').hide()
+             $(this).parent().parent().find('.expand').slideUp()
+             $(this).parent().parent().find('.notexpand').show()
+             $(this).parent().parent().parent().find('.sortable2').slideDown()
+             $(this).parent().parent().parent().find('.listFiles').slideDown()
+      });
+      $('.notexpand').click(function(e){
+             e.stopPropagation();
+             $(this).parent().parent().find('.notexpand').hide()
+             $(this).parent().parent().find('.expand').show()
+             $(this).parent().parent().parent().find('.sortable2').slideUp()
+             $(this).parent().parent().parent().find('.listFiles').slideUp()
+      });
+      var $win = $(window);
+      var $box = $("#sortable");
+      var $boxFiles = $(".showDocContent");
+      $win.on("click.Bst", function(event){
+        if ($box.has(event.target).length == 0 && !$box.is(event.target))
+        {
+          $(".picked").removeClass('picked');
+        }
+        if ($boxFiles.has(event.target).length == 0 && !$boxFiles.is(event.target))
+        {
+          $('.popover').removeClass('in')
+        }
+       });
     });
 
     $('a.showDocContent').on('click', function (e) {
-        $('[data-toggle="modal"]').each(function () {
-            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.modal').has(e.target).length === 0) {
-                $(this).modal('hide');
-            } else {
-              debugger;
-              var title=$(this).data()['originalTitle'];
-              var content=$(this).data()['content'];
-              $('<div class="modal fade" tabindex="-1" role="dialog">\
-  <div class="modal-dialog" role="document">\
-    <div class="modal-content">\
-      <div class="modal-header">\
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
-        <h4 class="modal-title">' + title + '</h4>\
-      </div>\
-      <div class="modal-body">\
-      ' + content + '\
-      </div>\
-      <div class="modal-footer">\
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Tancar</button>\
-      </div>\
-    </div>\
-  </div>\
-</div>').modal('show');
-            }
-        });
+      $('[data-toggle="modal"]').each(function () {
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.modal').has(e.target).length === 0) {
+            $(this).modal('hide');
+        } else {
+          debugger;
+          var title=$(this).data()['originalTitle'];
+          var content=$(this).data()['content'];
+          $('<div class="modal fade" tabindex="-1" role="dialog">\
+              <div class="modal-dialog" role="document">\
+                <div class="modal-content">\
+                  <div class="modal-header">\
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
+                    <h4 class="modal-title">' + title + '</h4>\
+                  </div>\
+                  <div class="modal-body">\
+                  ' + content + '\
+                  </div>\
+                  <div class="modal-footer">\
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Tancar</button>\
+                  </div>\
+                </div>\
+              </div>\
+            </div>').modal('show');
+        }
     });
-
+    });
 
   </script>
 
