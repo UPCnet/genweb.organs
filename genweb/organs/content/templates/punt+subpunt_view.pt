@@ -45,7 +45,8 @@
               <li class="listFiles">
                 <i tal:attributes="class item/classCSS"></i>
                 <a tal:attributes="href item/absolute_url;">
-                   <span tal:content="item/title">Doc title</span></a>&nbsp;<span tal:attributes="class string:${item/labelClass}" tal:content="item/content"></span>
+                   <span tal:content="item/title">Doc title</span>
+                </a>
               </li>
             </tal:documents>
           </ul>
