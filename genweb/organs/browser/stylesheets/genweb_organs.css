@@ -644,9 +644,9 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     line-height: 35px;
 }
 
-.bodyPresentation .DADES button:hover {
+/*.bodyPresentation .DADES button:hover {
     line-height: 35px;
-}
+}*/
 
 .bodyPresentation .label.dropdown-toggle:hover {
     width: 35px;
@@ -1404,10 +1404,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', e
     min-height: 10px!important;
 }
 
-.span1.boleta{
-    margin-bottom: 0px!important;
-}
-
 /*.ui-state-grey:hover .span6.einesSpan {display: block!important;}*/
 
 .span1.fletxaSpan i {
@@ -1424,7 +1420,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', e
 }
 
 .span1.boleta {
-    /*border: 1px solid;*/
+    margin-bottom: 0px!important;
+    width: 10%!important;
+    text-align: right;
+    min-height: 10px;
+    margin-top: 2px!important;
+}
+
+.span2.boleta {
+    margin-bottom: 0px!important;
     width: 10%!important;
     text-align: right;
     min-height: 10px;

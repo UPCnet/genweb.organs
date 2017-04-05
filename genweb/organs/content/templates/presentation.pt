@@ -175,6 +175,7 @@
                 <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                   <ul>
                     <tal:documents repeat="item files">
+
                       <li class="filesinTable" tal:condition="python: view.showFile(item)">
                         <div class="filelist" tal:condition="item/isGOFile">
                           <tal:block tal:condition="view/hasPermission">
@@ -193,11 +194,17 @@
                           </span>
                         </div>
                         <div class="filelist" tal:condition="item/isGODocument">
-                           <a tal:attributes="href item/publicURL" target="_blank">
-                              <i tal:attributes="class item/classCSS"></i>&nbsp;<span tal:content="item/title" tal:attributes="href item/publicURL">
-                                  Doc title
-                              </span>
-                           </a>
+                          <a type="button" style="cursor:pointer;" class="showDocContent"
+                            data-container="body"
+                            data-toggle="popover"
+                            data-placement="right"
+                            data-html="true"
+                            data-trigger="focus"
+                            tal:attributes="data-original-title item/title;
+                                            data-content item/privateRAW">
+                            <i tal:attributes="class item/classCSS"></i><span tal:content="item/title">Doc title</span>
+                          </a>
+
                         </div>
                       </li>
                     </tal:documents>
@@ -259,11 +266,16 @@
                                   </span>
                                 </div>
                                 <div class="filelist" tal:condition="item/isGODocument">
-                                   <a tal:attributes="href item/publicURL" target="_blank">
-                                      <i tal:attributes="class item/classCSS"></i>&nbsp;<span tal:content="item/title" tal:attributes="href item/publicURL">
-                                          Doc title
-                                      </span>
-                                   </a>
+                                  <a type="button" style="cursor:pointer;" class="showDocContent"
+                                    data-container="body"
+                                    data-toggle="popover"
+                                    data-placement="right"
+                                    data-html="true"
+                                    data-trigger="focus"
+                                    tal:attributes="data-original-title item/title;
+                                                    data-content item/privateRAW">
+                                    <i tal:attributes="class item/classCSS"></i><span tal:content="item/title">Doc title</span>
+                                  </a>
                                 </div>
                               </li>
                             </tal:documents>
@@ -288,6 +300,8 @@
 
 
   <script tal:condition="not:anonim" type="text/javascript">
+
+
 
     smoothScroll.init();
     $("#scrollUp").click(function(e){
@@ -335,7 +349,6 @@
                $(this).parent().parent().parent().find('.sortable2').slideDown()
                $(this).parent().parent().parent().find('.listFiles').slideDown()
         });
-
         $('.notexpand').click(function(e){
                e.stopPropagation();
                $(this).parent().parent().find('.notexpand').hide()
@@ -343,17 +356,33 @@
                $(this).parent().parent().parent().find('.sortable2').slideUp()
                $(this).parent().parent().parent().find('.listFiles').slideUp()
         });
+
+        var $win = $(window);
+        var $box = $("#sortable");
+        var $boxFiles = $(".showDocContent");
+        $win.on("click.Bst", function(event){
+          if ($box.has(event.target).length == 0 && !$box.is(event.target))
+          {
+            $(".picked").removeClass('picked');
+          }
+          if ($boxFiles.has(event.target).length == 0 && !$boxFiles.is(event.target))
+          {
+            $('.popover').removeClass('in')
+          }
+         });
+
     });
 
-  $(function(){
-    var $win = $(window);
-    var $box = $("#sortable");
-    $win.on("click.Bst", function(event){
-      if ($box.has(event.target).length == 0 && !$box.is(event.target)){
-        $(".picked").removeClass('picked');
-     }
-     });
-  });
+    $('a.showDocContent').on('click', function (e) {
+        $('[data-toggle="popover"]').each(function () {
+            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                $(this).popover('hide');
+            } else {
+              $(this).popover('show');
+            }
+        });
+    });
+
 
   </script>
 

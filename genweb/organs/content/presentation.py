@@ -151,13 +151,15 @@ class Presentation(form.SchemaForm):
         for obj in values:
             visibleUrl = ''
             hiddenUrl = ''
-            isFile = hasPublic = hasPrivate = isGODocument = isGOFile = file = False
+            isFile = hasPublic = hasPrivate = isGODocument = isGOFile = file = publicRAW = privateRAW = False
             visibleUrl = obj.getObject().absolute_url()
             if obj.portal_type == 'genweb.organs.file':
                 isFile = True
                 isGOFile = True
                 tipus = 'fa fa-file-pdf-o'
                 file = obj.getObject()
+                publicRAW = None
+                privateRAW = None
                 if file.visiblefile:
                     hasPublic = True
                     visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/'
@@ -169,7 +171,9 @@ class Presentation(form.SchemaForm):
                 isGODocument = True
                 tipus = 'fa fa-file-text-o'
                 hasPublic = True
-                visibleUrl = obj.getObject().absolute_url()
+                visibleUrl = obj.getObject().defaultContent
+                publicRAW = obj.getObject().defaultContent
+                privateRAW = obj.getObject().alternateContent
 
             if file:
                 abs_path = file.absolute_url_path()
@@ -186,6 +190,8 @@ class Presentation(form.SchemaForm):
                                 reservedURL=hiddenUrl,
                                 isGOFile=isGOFile,
                                 isGODocument=isGODocument,
+                                publicRAW=publicRAW,
+                                privateRAW=privateRAW,
                                 id=obj.id))
         return results
 

@@ -384,9 +384,7 @@
           <tal:block tal:define="agreement item/agreement">
           <li class="ui-state-grey" tal:attributes="id item/id; class item/classe">
             <td tal:condition="item/show">
-            <div class="span6 agreementSpan">
-              <!-- <span class="agreementClass" tal:content="agreement" tal:condition="agreement"></span> -->
-            </div>
+            <div class="span6 agreementSpan"></div>
             <div class="span6 einesSpan ">
               <div style="float: right;" aria-label="Edit actions"  tal:condition="canModify">
                 <button type="button" class="edit label label-info"
@@ -469,6 +467,13 @@
                     [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
                   </span>
                 </a>
+              </div>
+              <div class="span1 boleta">
+                <tal:block tal:condition="item/state">
+                  <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
+                </tal:block>
+              </div>
+              <div>
                 <tal:files tal:define="files python:view.filesinsidePunt(item)">
                   <ul class="listFiles" tal:condition="files">
                     <tal:documents repeat="item files">
@@ -494,13 +499,7 @@
                   </ul>
                 </tal:files>
               </div>
-              <div class="span1 boleta">
-                <tal:block tal:condition="item/state">
-                  <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
-                </tal:block>
-              </div>
             </div>
-
               <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" class="sortable2">
                 <tal:subpunts repeat="itemSubpunt subpunts">
                   <ol class="li_subgrups" tal:attributes="id itemSubpunt/id"
@@ -567,8 +566,7 @@
                         </tal:block>
                       </div>
                     </div>
-
-                    <div class="subpuntTitle span12">
+                    <div class="subpuntTitle">
                       <div class="span1">
                         <span class="proposalNumberSubpunt" tal:content="itemSubpunt/proposalPoint"></span>
                       </div>
@@ -581,6 +579,13 @@
                               [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
                             </span>
                         </a>
+                      </div>
+                      <div class="span2 boleta">
+                        <tal:block tal:condition="item/state">
+                          <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
+                        </tal:block>
+                      </div>
+                    <div>
                         <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
                           <ul style="list-style: none;" tal:condition="files">
                             <tal:documents repeat="item files">
@@ -604,11 +609,6 @@
                             </tal:documents>
                           </ul>
                         </tal:files>
-                      </div>
-                      <div class="span1 boleta">
-                        <tal:block tal:condition="item/state">
-                          <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
-                        </tal:block>
                       </div>
                     </div>
                   </ol>
@@ -757,13 +757,7 @@
 
 
   function mouseHandler(e){
-    if ($(this).hasClass('picked')) {
-      field = $(this)[0].getElementsByClassName('show');
-      $(field).addClass('einesSpan');
-      $(field).removeClass('show');
-      $(this).removeClass('picked');
-
-    } else {
+    if (!$(this).hasClass('picked')) {
       $(".picked").removeClass('picked');
       $(".show").addClass('einesSpan');
       $(".show").addClass('show');
@@ -782,6 +776,7 @@
   $(function(){
     var $win = $(window);
     var $box = $("#sortable");
+    var $boxeines = $("show");
     $win.on("click.Bst", function(event){
       if ($box.has(event.target).length == 0 && !$box.is(event.target)){
         $(".picked").removeClass('picked');
