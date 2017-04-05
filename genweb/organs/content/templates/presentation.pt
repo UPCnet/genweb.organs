@@ -129,6 +129,9 @@
 
 
 <div class="container">
+
+
+
       <div class="row-fluid">
     <div tal:condition="items" class="DADES presentation_template">
       <h1 tal:content="view/getSessionTitle" style='text-transform: uppercase'>Ordre del dia</h1>
@@ -196,8 +199,7 @@
                         <div class="filelist" tal:condition="item/isGODocument">
                           <a type="button" style="cursor:pointer;" class="showDocContent"
                             data-container="body"
-                            data-toggle="popover"
-                            data-placement="right"
+                            data-toggle="modal"
                             data-html="true"
                             data-trigger="focus"
                             tal:attributes="data-original-title item/title;
@@ -268,8 +270,7 @@
                                 <div class="filelist" tal:condition="item/isGODocument">
                                   <a type="button" style="cursor:pointer;" class="showDocContent"
                                     data-container="body"
-                                    data-toggle="popover"
-                                    data-placement="right"
+                                    data-toggle="modal"
                                     data-html="true"
                                     data-trigger="focus"
                                     tal:attributes="data-original-title item/title;
@@ -374,11 +375,31 @@
     });
 
     $('a.showDocContent').on('click', function (e) {
-        $('[data-toggle="popover"]').each(function () {
-            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-                $(this).popover('hide');
+        $('[data-toggle="modal"]').each(function () {
+            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.modal').has(e.target).length === 0) {
+                $(this).modal('hide');
             } else {
-              $(this).popover('show');
+              debugger;
+              var title=$(this).data()['originalTitle'];
+              var content=$(this).data()['content'];
+              $('<div class="modal fade" tabindex="-1" role="dialog">\
+  <div class="modal-dialog" role="document">\
+    <div class="modal-content">\
+      <div class="modal-header">\
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
+        <h4 class="modal-title">' + title + '</h4>\
+      </div>\
+      <div class="modal-body">\
+      ' + content + '\
+      </div>\
+      <div class="modal-footer">\
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
+        <button type="button" class="btn btn-primary">Save changes</button>\
+      </div>\
+    </div>\
+  </div>\
+</div>').modal('show');
+/*              $(this).modal('show');*/
             }
         });
     });
