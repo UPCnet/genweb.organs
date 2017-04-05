@@ -12,6 +12,8 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from genweb.organs import utils
+from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
+
 
 grok.templatedir("templates")
 
@@ -42,7 +44,13 @@ class ISessio(form.Schema):
         required=True,
     )
 
-    form.mode(numSessio='display')
+    directives.mode(numSessioShowOnly='display')
+    numSessioShowOnly = schema.TextLine(
+        title=_(u"Session number"),
+        required=False,
+    )
+
+    directives.mode(numSessio='hidden')
     numSessio = schema.TextLine(
         title=_(u"Session number"),
         required=False,
@@ -117,6 +125,18 @@ class ISessio(form.Schema):
 @form.default_value(field=ISessio['numSessio'])
 def numSessioDefaultValue(data):
     # agafo sessions ordenats!
+    # Saves the value in object
+    sessions = api.content.find(
+        portal_type='genweb.organs.sessio',
+        context=data.context)
+    total = len(sessions)
+    return '{0}'.format(str(total + 1).zfill(2))
+
+
+@form.default_value(field=ISessio['numSessioShowOnly'])
+def numSessioShowOnlyDefaultValue(data):
+    # agafo sessions ordenats!
+    # only shows the value in readonly
     sessions = api.content.find(
         portal_type='genweb.organs.sessio',
         context=data.context)
@@ -164,6 +184,10 @@ class Edit(dexterity.EditForm):
     """A standard edit form.
     """
     grok.context(ISessio)
+
+    def updateWidgets(self):
+        super(Edit, self).updateWidgets()
+        self.widgets["numSessioShowOnly"].mode = HIDDEN_MODE
 
 
 class View(grok.View):
