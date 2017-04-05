@@ -1,0 +1,22 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="genweb.organs">
+
+    <browser:page
+        name="sharing"
+        for="*"
+        class=".overrides.SharingView"
+        permission="plone.DelegateRoles"
+        />
+
+    <browser:page
+        name="updateSharingInfo"
+        for="*"
+        class=".overrides.SharingView"
+        attribute="updateSharingInfo"
+        permission="plone.DelegateRoles"
+        />
+
+</configure>
