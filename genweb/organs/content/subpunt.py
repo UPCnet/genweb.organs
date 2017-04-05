@@ -83,7 +83,7 @@ def proposalPointDefaultValue(data):
     portal_catalog = getToolByName(data.context, 'portal_catalog')
     folder_path = data.context.absolute_url_path()
     values = portal_catalog.searchResults(
-        portal_type=['genweb.organs.subpunt'],
+        portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
         path={'query': folder_path,
               'depth': 1})
     subpunt_id = int(len(values)) + 1
