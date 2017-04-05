@@ -373,31 +373,34 @@ class View(grok.View):
         """ Retorna les actes creades aquí dintre (sense tenir compte estat)
             Nomes ho veuen els Managers / Editor / Secretari
         """
-        username = api.user.get_current().id
-        if username:
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
-                folder_path = '/'.join(self.context.getPhysicalPath())
-                portal_catalog = getToolByName(self, 'portal_catalog')
-                values = portal_catalog.searchResults(
-                    portal_type='genweb.organs.acta',
-                    sort_on='getObjPositionInParent',
-                    path={'query': folder_path,
-                          'depth': 1})
-                if values:
-                    results = []
-                    for obj in values:
-                        start = getattr(obj, 'start', None)
-                        if start:
-                            dataSessio = start.strftime('%d/%m/%Y')
-                        else:
-                            dataSessio = ''
-                        results.append(dict(title=obj.Title,
-                                            absolute_url=obj.getURL(),
-                                            date=dataSessio))
-                    return results
-                else:
-                    return False
+        if not api.user.is_anonymous():
+            username = api.user.get_current().id
+            if username:
+                roles = api.user.get_roles(username=username, obj=self.context)
+                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
+                    folder_path = '/'.join(self.context.getPhysicalPath())
+                    portal_catalog = getToolByName(self, 'portal_catalog')
+                    values = portal_catalog.searchResults(
+                        portal_type='genweb.organs.acta',
+                        sort_on='getObjPositionInParent',
+                        path={'query': folder_path,
+                              'depth': 1})
+                    if values:
+                        results = []
+                        for obj in values:
+                            start = getattr(obj, 'start', None)
+                            if start:
+                                dataSessio = start.strftime('%d/%m/%Y')
+                            else:
+                                dataSessio = ''
+                            results.append(dict(title=obj.Title,
+                                                absolute_url=obj.getURL(),
+                                                date=dataSessio))
+                        return results
+                    else:
+                        return False
+            else:
+                return False
         else:
             return False
 
