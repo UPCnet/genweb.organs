@@ -40,7 +40,6 @@
   <permission-map name="Delete objects" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="List folder contents" acquired="False">
    <permission-role>Manager</permission-role>
@@ -179,7 +178,6 @@
   <permission-map name="Delete objects" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="List folder contents" acquired="False">
    <permission-role>Manager</permission-role>
@@ -280,7 +278,6 @@
   <permission-map name="Delete objects" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="List folder contents" acquired="False">
    <permission-role>Manager</permission-role>
