@@ -86,8 +86,6 @@
     </tal:notajax>
 </head>
 
-
-
 <body class="bodyPresentation" id="home">
   <div class="clearfix">
     <h1 class="logoPresentation">
@@ -99,7 +97,7 @@
     </h1>
   </div>
   <div class="bannerOrgansPresentation clearfix">
-        <img tal:attributes="src view/getLogo" style="height:65px; width: 100%;" />
+    <img tal:attributes="src view/getLogo" style="height:65px; width: 100%;" />
     <div class="bannerTitle" tal:condition="view/getTitle" tal:content="view/getTitle">Govern UPC - Session Title</div>
   </div>
 
@@ -130,7 +128,7 @@
 
 <div class="container">
 
-      <div class="row-fluid">
+  <div class="row-fluid">
     <div tal:condition="items" class="DADES presentation_template">
       <h1 tal:content="view/getSessionTitle" style='text-transform: uppercase'>Ordre del dia</h1>
       <hr/>
@@ -176,23 +174,22 @@
                 <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                   <ul class="listFiles">
                     <tal:documents repeat="item files">
-
                       <li class="filesinTable">
                         <div tal:condition="item/isGOFile">
-                            <tal:block tal:condition="item/reservedURL">
-                              <span class="fitxerReservat">
-                                <a tal:attributes="href item/reservedURL;">
-                                  <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span>
-                                </a>
-                              </span>
-                            </tal:block>
-                            <tal:block tal:condition="item/publicURL">
-                              <span class="fitxerPublic">
-                                <a tal:attributes="href item/publicURL;">
-                                  <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span>
-                                </a>
-                              </span>
-                            </tal:block>
+                          <tal:block tal:condition="item/reservedURL">
+                            <span class="fitxerReservat">
+                              <a tal:attributes="href item/reservedURL;">
+                                <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span>
+                              </a>
+                            </span>
+                          </tal:block>
+                          <tal:block tal:condition="item/publicURL">
+                            <span class="fitxerPublic">
+                              <a tal:attributes="href item/publicURL;">
+                                <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span>
+                              </a>
+                            </span>
+                          </tal:block>
                         </div>
                         <div class="filelist" tal:condition="item/isGODocument">
                           <a type="button" style="cursor:pointer;" class="showDocContent"
@@ -204,7 +201,6 @@
                                             data-content item/raw_content">
                             <i tal:attributes="class item/classCSS"></i><span tal:content="item/title">Doc title</span>
                           </a>
-
                         </div>
                       </li>
                     </tal:documents>
@@ -248,36 +244,35 @@
                         <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                           <ul class="listFiles">
                             <tal:documents repeat="item files">
-                      <li class="filesinTable">
-                        <div tal:condition="item/isGOFile">
-                            <tal:block tal:condition="item/reservedURL">
-                              <span class="fitxerReservat">
-                                <a tal:attributes="href item/reservedURL;">
-                                  <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span>
-                                </a>
-                              </span>
-                            </tal:block>
-                            <tal:block tal:condition="item/publicURL">
-                              <span class="fitxerPublic">
-                                <a tal:attributes="href item/publicURL;">
-                                  <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span>
-                                </a>
-                              </span>
-                            </tal:block>
-                        </div>
-                        <div class="filelist" tal:condition="item/isGODocument">
-                          <a type="button" style="cursor:pointer;" class="showDocContent"
-                            data-container="body"
-                            data-toggle="modal"
-                            data-html="true"
-                            data-trigger="focus"
-                            tal:attributes="data-original-title item/title;
-                                            data-content item/raw_content">
-                            <i tal:attributes="class item/classCSS"></i><span tal:content="item/title">Doc title</span>
-                          </a>
-                        </div>
-                      </li>
-
+                              <li class="filesinTable">
+                                <div tal:condition="item/isGOFile">
+                                  <tal:block tal:condition="item/reservedURL">
+                                    <span class="fitxerReservat">
+                                      <a tal:attributes="href item/reservedURL;">
+                                        <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span>
+                                      </a>
+                                    </span>
+                                  </tal:block>
+                                  <tal:block tal:condition="item/publicURL">
+                                    <span class="fitxerPublic">
+                                      <a tal:attributes="href item/publicURL;">
+                                        <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span>
+                                      </a>
+                                    </span>
+                                  </tal:block>
+                                </div>
+                                <div class="filelist" tal:condition="item/isGODocument">
+                                  <a type="button" style="cursor:pointer;" class="showDocContent"
+                                    data-container="body"
+                                    data-toggle="modal"
+                                    data-html="true"
+                                    data-trigger="focus"
+                                    tal:attributes="data-original-title item/title;
+                                                    data-content item/raw_content">
+                                    <i tal:attributes="class item/classCSS"></i><span tal:content="item/title">Doc title</span>
+                                  </a>
+                                </div>
+                              </li>
                             </tal:documents>
                           </ul>
                         </tal:files>
