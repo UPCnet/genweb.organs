@@ -60,27 +60,22 @@
   <permission-map name="Sharing page: Delegate Contributor role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Editor role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Reader role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Reviewer role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate roles" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
@@ -204,27 +199,22 @@
   <permission-map name="Sharing page: Delegate Contributor role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Editor role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Reader role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Reviewer role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate roles" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
@@ -310,27 +300,22 @@
   <permission-map name="Sharing page: Delegate Contributor role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Editor role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Reader role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Reviewer role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate roles" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
@@ -375,27 +360,22 @@
   <permission-map name="Sharing page: Delegate Contributor role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Editor role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Reader role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate Reviewer role" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate roles" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Anonymous</permission-role>
