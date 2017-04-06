@@ -475,7 +475,7 @@ class View(grok.View):
         return self.context.absolute_url()
 
     def status(self):
-        return api.content.get_state(obj=self.context).title()
+        return api.content.get_state(obj=self.context)
 
     def filesinsidePunt(self, item):
         session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']

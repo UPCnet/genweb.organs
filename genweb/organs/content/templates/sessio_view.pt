@@ -195,8 +195,7 @@
           </li>
           <li>
             <b i18n:translate="">Estat de la sessio</b><b>:</b>
-            <span style="float:right"
-                  tal:content="status"></span>
+            <span style="float:right" i18n:domain="genweb" i18n:translate="" tal:content="status"></span>
           </li>
         </ul>
       </div>

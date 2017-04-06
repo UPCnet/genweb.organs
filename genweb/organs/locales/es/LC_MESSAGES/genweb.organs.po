@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-04-06 09:11+0000\n"
+"POT-Creation-Date: 2017-04-06 15:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -194,29 +194,20 @@ msgstr ""
 msgid "Composicio"
 msgstr "Composición"
 
-#: ./genweb/organs/content/sessio.py:494
-#: ./genweb/organs/utils.py:182
-msgid "Conte fitxer public i reservat"
-msgstr "Contiene fichero público y reservado"
-
 #: ./genweb/organs/content/document.py:54
 msgid "Content used to hide protected content"
 msgstr "Contenido de uso interno."
 
-#: ./genweb/organs/content/templates/document_view.pt:33
-msgid "Contingut"
-msgstr "contenido"
-
 #: ./genweb/organs/content/document.py:45
-#: ./genweb/organs/content/templates/document_view.pt:19
+#: ./genweb/organs/content/templates/document_view.pt:26
 msgid "Contingut public"
 msgstr "Contenido público"
 
-#: ./genweb/organs/content/templates/document_view.pt:26
+#: ./genweb/organs/content/templates/document_view.pt:20
 msgid "Contingut reservat"
 msgstr "Contenido reservado"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:152
+#: ./genweb/organs/content/templates/sessio_view.pt:153
 msgid "Convocatoria"
 msgstr "Convocatoria"
 
@@ -234,7 +225,7 @@ msgid "Dades"
 msgstr "Datos"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:44
-#: ./genweb/organs/content/templates/sessio_view.pt:166
+#: ./genweb/organs/content/templates/sessio_view.pt:167
 msgid "Data"
 msgstr "Fecha"
 
@@ -266,9 +257,8 @@ msgstr "Subpunto eliminado"
 msgid "Destinataris"
 msgstr "Destinatarios"
 
-#: ./genweb/organs/content/impersonate_as.py:295
-#: ./genweb/organs/content/sessio.py:506
 #: ./genweb/organs/content/templates/sessio_view.pt:422
+#: ./genweb/organs/profiles/default/types/genweb.organs.document.xml
 msgid "Document"
 msgstr "Documento"
 
@@ -285,11 +275,11 @@ msgid "Envia"
 msgstr "Envía"
 
 #: ./genweb/organs/content/templates/message_view.pt:18
-#: ./genweb/organs/content/templates/sessio_view.pt:134
+#: ./genweb/organs/content/templates/sessio_view.pt:135
 msgid "Envia missatge"
 msgstr "Notifica a los miembros"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:196
+#: ./genweb/organs/content/templates/sessio_view.pt:197
 msgid "Estat de la sessio"
 msgstr ""
 
@@ -308,11 +298,6 @@ msgstr "Personas excusadas"
 msgid "Excused members help"
 msgstr "Lista de personas excusadas"
 
-#: ./genweb/organs/content/sessio.py:502
-#: ./genweb/organs/utils.py:205
-msgid "Falten els fitxers"
-msgstr "Faltan los ficheros"
-
 #: ./genweb/organs/content/organsfolder.py:16
 msgid "Fer servir capcalera personalitzada?"
 msgstr "Utilizar la cabecera personalizada?"
@@ -323,26 +308,15 @@ msgid "File"
 msgstr "Fichero"
 
 #: ./genweb/organs/content/templates/audio_view.pt:38
-#: ./genweb/organs/content/templates/file_view.pt:43
+#: ./genweb/organs/content/templates/file_view.pt:47
 msgid "File contents"
 msgstr "Contenido del fichero"
 
-#: ./genweb/organs/content/sessio.py:498
-#: ./genweb/organs/utils.py:193
-msgid "Fitxer intern"
-msgstr "Fichero interno"
-
-#: ./genweb/organs/content/sessio.py:491
-#: ./genweb/organs/content/templates/file_view.pt:55
-#: ./genweb/organs/utils.py:175
+#: ./genweb/organs/content/templates/file_view.pt:60
 msgid "Fitxer public"
 msgstr "Fichero público"
 
-#: ./genweb/organs/content/impersonate_as.py:287
-msgid "Fitxer públic"
-msgstr "Fichero"
-
-#: ./genweb/organs/content/templates/file_view.pt:21
+#: ./genweb/organs/content/templates/file_view.pt:24
 msgid "Fitxer reservat"
 msgstr "Fichero reservado"
 
@@ -369,7 +343,7 @@ msgstr "Asunto"
 msgid "From mail"
 msgstr "Dirección de quien envia los mensajes"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:155
+#: ./genweb/organs/content/templates/sessio_view.pt:156
 msgid "Historial"
 msgstr "Historial"
 
@@ -403,7 +377,7 @@ msgstr "Lista de personas convocadas"
 msgid "Info_del_Servei"
 msgstr "Consultar la información en Serveis TIC"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:140
+#: ./genweb/organs/content/templates/sessio_view.pt:141
 msgid "Informa sessio"
 msgstr "Informa del resultado de la sesión"
 
@@ -443,7 +417,7 @@ msgstr "Listado de puntos"
 msgid "Lloc"
 msgstr "Lugar"
 
-#: ./genweb/organs/overrides.py:263
+#: ./genweb/organs/overrides.py:275
 msgid "Logged-in users"
 msgstr ""
 
@@ -613,7 +587,7 @@ msgid "Organ Title"
 msgstr "Título del órgano"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:64
-#: ./genweb/organs/content/templates/sessio_view.pt:186
+#: ./genweb/organs/content/templates/sessio_view.pt:187
 msgid "Organ de govern"
 msgstr "Órgano de gobierno"
 
@@ -678,7 +652,7 @@ msgstr "Por favor, indique un fichero"
 msgid "Please upload a reserved file"
 msgstr "Por favor, indique un fichero"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:137
+#: ./genweb/organs/content/templates/sessio_view.pt:138
 msgid "Presentacio"
 msgstr "Presentación"
 
@@ -694,7 +668,7 @@ msgstr "Previsualizar el acta"
 msgid "Previsualitzacio dels punts"
 msgstr "Previsualización de los puntos informativos"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:144
+#: ./genweb/organs/content/templates/sessio_view.pt:145
 msgid "Print"
 msgstr "Imprimir"
 
@@ -761,7 +735,7 @@ msgstr "Restringido a miembros"
 msgid "Resultat. "
 msgstr ""
 
-#: ./genweb/organs/overrides.py:364
+#: ./genweb/organs/overrides.py:376
 msgid "Search for user or group"
 msgstr ""
 
@@ -820,7 +794,7 @@ msgid "Session location"
 msgstr "Lugar de la convocatoria"
 
 #: ./genweb/organs/content/sessio.py:49
-#: ./genweb/organs/content/templates/sessio_view.pt:191
+#: ./genweb/organs/content/templates/sessio_view.pt:192
 msgid "Session number"
 msgstr "Número de sesión"
 
@@ -982,7 +956,7 @@ msgstr "Lista de direcciones de correo de las personas afectadas a las que se no
 msgid "description_no_items_in_folder"
 msgstr "No hay ningún Órgano de gobierno en esta carpeta."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:134
+#: ./genweb/organs/content/templates/sessio_view.pt:135
 msgid "envia_missatge"
 msgstr "Notifica a los miembros"
 
@@ -994,7 +968,7 @@ msgstr "Pie del mensaje"
 msgid "footerMail description"
 msgstr "Pie del mensaje que se adjunta al mensaje tanto al convocar como al enviar."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:140
+#: ./genweb/organs/content/templates/sessio_view.pt:141
 msgid "informa_sessio"
 msgstr "Informa del resultado de la sesión"
 
@@ -1007,7 +981,7 @@ msgstr "Direcciones de notificación"
 msgid "notification_mail_help"
 msgstr "Direcciones a las que han de llegar los mensajes relativos a la sesión."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:144
+#: ./genweb/organs/content/templates/sessio_view.pt:145
 msgid "printOrdreDia"
 msgstr "Imprimir orden del día"
 
