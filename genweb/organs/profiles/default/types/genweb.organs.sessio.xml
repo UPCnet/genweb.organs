@@ -19,7 +19,7 @@
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view_fallback">False</property>
- <property name="add_permission">cmf.AddPortalContent</property>
+ <property name="add_permission">genweb.organs.add.sessions</property>
  <property name="klass">plone.dexterity.content.Container</property>
 
  <property name="behaviors">
