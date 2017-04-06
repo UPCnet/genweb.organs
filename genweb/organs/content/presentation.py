@@ -26,6 +26,9 @@ class Presentation(form.SchemaForm):
     grok.require('zope2.View')
     grok.layer(IGenwebOrgansLayer)
 
+    def status(self):
+        return api.content.get_state(obj=self.context)
+
     def PuntsInside(self):
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
