@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-04-06 15:34+0000\n"
+"POT-Creation-Date: 2017-04-06 16:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -933,11 +933,11 @@ msgstr "Link to the video session"
 msgid "Vista previa dels punts"
 msgstr "Preview punts"
 
-#: ./genweb/organs/content/presentation.py:51
+#: ./genweb/organs/content/presentation.py:54
 msgid "[ACORD]"
 msgstr "[Agreement ]"
 
-#: ./genweb/organs/content/presentation.py:49
+#: ./genweb/organs/content/presentation.py:52
 msgid "[Acord "
 msgstr "[Agreement]"
 

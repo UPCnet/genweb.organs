@@ -76,6 +76,12 @@
       <span tal:content="view/getOrganTitle">Butlletin Session Title</span>
     </h1>
   <h1 tal:content="view/getTitle">Butlletin Session Title</h1>
+  <span i18n:translate="">Estat de la sessio</span>:
+  <span style="float:none;" class="label label-default" i18n:domain="genweb" i18n:translate="" tal:content="view/status">
+    Session status
+  </span>
+
+    <div class="documentDescription"></div>
 
   <table id="newsletterContent"
          cellpadding="0"

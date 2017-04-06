@@ -385,6 +385,9 @@ class changeSubpuntState(BrowserView):
 class Butlleti(BrowserView):
     __call__ = ViewPageTemplateFile('views/butlleti.pt')
 
+    def status(self):
+        return api.content.get_state(obj=self.context)
+
     def PuntsOrdreDelDia(self):
         portal_catalog = getToolByName(self.context, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())

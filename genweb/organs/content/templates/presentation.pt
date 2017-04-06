@@ -380,7 +380,7 @@
                   ' + content + '\
                   </div>\
                   <div class="modal-footer">\
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Tancar</button>\
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" i18n:domain="genweb.organs" i18n:translate="">Tanca</button>\
                   </div>\
                 </div>\
               </div>\
