@@ -144,7 +144,19 @@ class SharingView(BrowserView):
                 continue
             # THE TRICK THAT HIDES PLONE ROLES
             # si son tipus OG no mostrar els de Plone #
-            if name != 'Reviewer' or name != 'Editor' or name != 'Reader' or name != 'Contributor':
+
+            if self.context.portal_type == 'genweb.organs.organgovern' \
+               or self.context.portal_type == 'genweb.organs.sessio' \
+               or self.context.portal_type == 'genweb.organs.acord' \
+               or self.context.portal_type == 'genweb.organs.acta' \
+               or self.context.portal_type == 'genweb.organs.audio' \
+               or self.context.portal_type == 'genweb.organs.document' \
+               or self.context.portal_type == 'genweb.organs.file' \
+               or self.context.portal_type == 'genweb.organs.punt' \
+               or self.context.portal_type == 'genweb.organs.subpunt':
+                if name != 'Reviewer' and name != 'Editor' and name != 'Reader' and name != 'Contributor':
+                    pairs.append(dict(id=name, title=utility.title))
+            else:
                 pairs.append(dict(id=name, title=utility.title))
 
         pairs.sort(key=lambda x: normalizeString(translate(x["title"], context=self.request)))

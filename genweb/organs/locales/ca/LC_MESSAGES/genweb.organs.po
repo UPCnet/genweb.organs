@@ -90,7 +90,7 @@ msgstr "Número d'acord"
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:136
 msgid "Agreements list"
-msgstr "Llistat d'acords"
+msgstr "Acords"
 
 #: ./genweb/organs/content/document.py:53
 msgid "Alternate description"
@@ -550,19 +550,19 @@ msgstr "Afegeix punt informatiu"
 
 #: ./genweb/organs/profiles/default/sharing.xml
 msgid "OG1-Secretari"
-msgstr "OG1-Secretari"
+msgstr "Secretari"
 
 #: ./genweb/organs/profiles/default/sharing.xml
 msgid "OG2-Editor"
-msgstr "OG2-Editor"
+msgstr "Editor"
 
 #: ./genweb/organs/profiles/default/sharing.xml
 msgid "OG3-Membre"
-msgstr "OG3-Membre"
+msgstr "Membre"
 
 #: ./genweb/organs/profiles/default/sharing.xml
 msgid "OG4-Afectat"
-msgstr "OG4-Afectat"
+msgstr "Afectat"
 
 #: ./genweb/organs/content/audio.py:56
 msgid "Only audio files are permitted."
@@ -844,7 +844,7 @@ msgstr "Hora d'inici de la sessió"
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:78
 msgid "Sessions list"
-msgstr "Llistat de sessions"
+msgstr "Sessions"
 
 #: ./genweb/organs/content/organsfolder.py:17
 msgid "Si es vol fer servir la imatge estandard o la imatge que es puja a continuació"
@@ -984,7 +984,7 @@ msgstr "No hi ha cap òrgan de govern en aquesta unitat."
 
 #: ./genweb/organs/content/templates/sessio_view.pt:134
 msgid "envia_missatge"
-msgstr "Notifica als membres"
+msgstr "Missatge als membres"
 
 #: ./genweb/organs/content/organgovern.py:145
 msgid "footerMail"
@@ -996,7 +996,7 @@ msgstr "Peu del missatge que s'adjunta tant al missatge de convocatòria com al 
 
 #: ./genweb/organs/content/templates/sessio_view.pt:140
 msgid "informa_sessio"
-msgstr "Informa del resultat de la sessió"
+msgstr "Envia resum de la sessió"
 
 #: ./genweb/organs/content/organgovern.py:104
 #: ./genweb/organs/content/sessio.py:65

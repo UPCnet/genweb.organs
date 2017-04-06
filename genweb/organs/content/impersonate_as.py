@@ -279,26 +279,12 @@ class ShowSessionAs(form.SchemaForm):
         results = []
         for obj in values:
             if obj.portal_type == 'genweb.organs.file':
-                if obj.getObject().hiddenfile:
-                    if self.isAfectat():
-                        continue
-                    else:
-                        tipus = 'fa fa-file-pdf-o'
-                        document = _(u'Fitxer públic')
-                        labelClass = 'label label-default'
-                else:
-                    tipus = 'fa fa-file-pdf-o'
-                    document = _(u'Fitxer públic')
-                    labelClass = 'label label-default'
+                tipus = 'fa fa-file-pdf-o'
             else:
                 tipus = 'fa fa-file-text-o'
-                document = _(u'Document')
-                labelClass = 'label label-default'
             results.append(dict(title=obj.Title,
                                 portal_type=obj.portal_type,
                                 absolute_url=obj.getURL(),
                                 classCSS=tipus,
-                                labelClass=labelClass,
-                                content=document,
                                 id=str(item['id']) + '/' + obj.id))
         return results

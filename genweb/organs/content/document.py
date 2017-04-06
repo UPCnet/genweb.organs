@@ -73,7 +73,7 @@ class View(grok.View):
 
     def viewDocumentPublic(self):
         if self.context.defaultContent and self.context.alternateContent:
-            if self.isSecretari() or self.isEditor() or self.isAfectat() or self.isManager():
+            if self.isSecretari() or self.isEditor() or self.isAfectat() or self.isManager() or api.user.is_anonymous():
                 return True
         elif self.context.alternateContent:
             if self.isSecretari() or self.isEditor() or self.isManager():

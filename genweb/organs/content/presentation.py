@@ -206,15 +206,18 @@ class Presentation(form.SchemaForm):
         return utils.estatsCanvi(data)
 
     def Anonim(self):
-        username = api.user.get_current().id
-        if username is None:
-            return True
-        else:
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
-                return False
-            else:
+        try:
+            username = api.user.get_current().id
+            if username is None:
                 return True
+            else:
+                roles = api.user.get_roles(username=username, obj=self.context)
+                if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
+                    return False
+                else:
+                    return True
+        except:
+            return False
 
     def getTitle(self):
         from genweb.organs.content.organsfolder import IOrgansfolder
@@ -277,31 +280,41 @@ class Presentation(form.SchemaForm):
                         return obj.absolute_url() + '/capcalera@2x.jpg'
 
     def hasPermission(self):
-        username = api.user.get_current().id
-        if username is None:
+        if api.user.is_anonymous():
             return False
         else:
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG2-Membre' in roles:
-                return True
-            else:
+            username = api.user.get_current().id
+            if username is None:
                 return False
-        return False
+            else:
+                roles = api.user.get_roles(username=username, obj=self.context)
+                if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG2-Membre' in roles:
+                    return True
+                else:
+                    return False
+            return False
 
     def wf_state(self):
         state = api.content.get_state(self.context)
         return state
 
     def showFile(self, item):
-        username = api.user.get_current().id
-        if username is None:
+        if api.user.is_anonymous():
             if item['hasPublic'] is True:
                 return True
+            else:
+                return False
         else:
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
-                return True
-        return False
+
+            username = api.user.get_current().id
+            if username is None:
+                if item['hasPublic'] is True:
+                    return True
+            else:
+                roles = api.user.get_roles(username=username, obj=self.context)
+                if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
+                    return True
+            return False
 
     def showBarra(self, item):
         username = api.user.get_current().id
@@ -313,16 +326,19 @@ class Presentation(form.SchemaForm):
         return False
 
     def changeEstat(self):
-        username = api.user.get_current().id
-        if username is None:
+        if api.user.is_anonymous():
             return False
         else:
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
-                if self.wf_state() in ['planificada', 'convocada', 'realitzada']:
-                    return True
-            if 'OG1-Secretari' in roles or 'Manager' in roles:
-                if self.wf_state() == 'en_correccio':
-                    return True
-            else:
+            username = api.user.get_current().id
+            if username is None:
                 return False
+            else:
+                roles = api.user.get_roles(username=username, obj=self.context)
+                if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
+                    if self.wf_state() in ['planificada', 'convocada', 'realitzada']:
+                        return True
+                if 'OG1-Secretari' in roles or 'Manager' in roles:
+                    if self.wf_state() == 'en_correccio':
+                        return True
+                else:
+                    return False

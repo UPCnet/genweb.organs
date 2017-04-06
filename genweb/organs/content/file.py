@@ -116,14 +116,93 @@ class View(grok.View):
         else:
             return False
 
-    def viewReservedFile(self):
-        # Si tens rols Secretari, Editor, Membre o Manager el veus.
-            username = api.user.get_current().id
-            if username:
-                roles = api.user.get_roles(username=username, obj=self.context)
-                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles:
-                    return True
-                else:
-                    return False
+    def viewPublic(self):
+        if self.context.visiblefile and self.context.hiddenfile:
+            if self.isSecretari() or self.isEditor() or self.isAfectat() or self.isManager() or api.user.is_anonymous():
+                return True
+        elif self.context.hiddenfile:
+            if self.isSecretari() or self.isEditor() or self.isManager():
+                return True
             else:
                 return False
+        elif self.context.visiblefile:
+            return True
+        else:
+            return False
+
+    def viewReserved(self):
+        if self.context.visiblefile and self.context.hiddenfile:
+            if self.isSecretari() or self.isEditor() or self.isMembre() or self.isManager():
+                return True
+        elif self.context.hiddenfile:
+            if self.isSecretari() or self.isEditor() or self.isMembre() or self.isManager():
+                return True
+            else:
+                return False
+        elif self.context.visiblefile:
+            if self.isSecretari() or self.isEditor() or self.isManager():
+                return True
+            else:
+                return False
+        else:
+            return False
+
+    def isAfectat(self):
+        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
+        try:
+            username = api.user.get_current().id
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'OG4-Afectat' in roles:
+                return True
+            else:
+                return False
+        except:
+            return False
+
+    def isMembre(self):
+        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
+        try:
+            username = api.user.get_current().id
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'OG3-Membre' in roles:
+                return True
+            else:
+                return False
+        except:
+            return False
+
+    def isEditor(self):
+        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
+        try:
+            username = api.user.get_current().id
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'OG2-Editor' in roles:
+                return True
+            else:
+                return False
+        except:
+            return False
+
+    def isSecretari(self):
+        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
+        try:
+            username = api.user.get_current().id
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'OG1-Secretari' in roles:
+                return True
+            else:
+                return False
+        except:
+            return False
+
+    def isManager(self):
+        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
+        try:
+            username = api.user.get_current().id
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'Manager' in roles:
+                return True
+            else:
+                return False
+        except:
+            return False
