@@ -492,12 +492,21 @@ class View(grok.View):
                 tipus = 'fa fa-file-pdf-o'
             else:
                 tipus = 'fa fa-file-text-o'
+            anonymous = api.user.is_anonymous()
+            if anonymous:
+                if obj.getObject().defaultContent:
+                    results.append(dict(title=obj.Title,
+                                        portal_type=obj.portal_type,
+                                        absolute_url=obj.getURL(),
+                                        classCSS=tipus,
+                                        id=str(item['id']) + '/' + obj.id))
+            else:
+                results.append(dict(title=obj.Title,
+                                    portal_type=obj.portal_type,
+                                    absolute_url=obj.getURL(),
+                                    classCSS=tipus,
+                                    id=str(item['id']) + '/' + obj.id))
 
-            results.append(dict(title=obj.Title,
-                                portal_type=obj.portal_type,
-                                absolute_url=obj.getURL(),
-                                classCSS=tipus,
-                                id=str(item['id']) + '/' + obj.id))
         return results
 
     def sessionNumber(self):

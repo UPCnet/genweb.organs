@@ -166,11 +166,18 @@ def FilesandDocumentsInside(self):
         else:
             # És un document
             classCSS = 'fa fa-file-text-o'
-
-        results.append(dict(title=obj.Title,
-                            absolute_url=obj.getURL(),
-                            classCSS=classCSS,
-                            hidden=False))
+        anonymous = api.user.is_anonymous()
+        if anonymous:
+            if obj.getObject().defaultContent:
+                results.append(dict(title=obj.Title,
+                                    absolute_url=obj.getURL(),
+                                    classCSS=classCSS,
+                                    hidden=False))
+        else:
+            results.append(dict(title=obj.Title,
+                                absolute_url=obj.getURL(),
+                                classCSS=classCSS,
+                                hidden=False))
     return results
 
 
