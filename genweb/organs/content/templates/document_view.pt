@@ -10,42 +10,25 @@
 <metal:content-core fill-slot="content-core">
 
   <metal:block define-macro="content-core"
-      tal:define="viewPrivate view/viewPrivateContent;
+      tal:define="viewDocumentPublic view/viewDocumentPublic;
+                  viewDocumentReserved view/viewDocumentReserved;
                   alternate context/alternateContent;
-                  default context/defaultContent;
-                  isMembre view/showMembreContent;
-                  isManager view/isManager">
+                  default context/defaultContent;">
 
-    <h3 i18n:translate="" tal:condition="viewPrivate"> Contingut public </h3>
-    <div tal:condition="python:default and not isManager"
-         tal:replace="structure default">
-    </div>
-
-    <tal:block tal:condition="viewPrivate">
-      <span tal:condition="alternate">
-        <h3 i18n:translate=""> Contingut reservat </h3>
-        <div tal:replace="structure alternate"></div>
-      </span>
-    </tal:block>
-
-    <tal:block tal:condition="isMembre">
-    <span tal:condition="default">
-      <h3 i18n:translate=""> Contingut </h3>
-      <div tal:replace="structure default"></div>
-    </span>
-    </tal:block>
-
-    <tal:block tal:condition="isManager">
-      <span tal:condition="default">
-        <h3 i18n:translate=""> Contingut public</h3>
-          <div tal:replace="structure default"> </div>
-        <br/>
-      </span>
+    <tal:block tal:condition="viewDocumentReserved">
       <span tal:condition="alternate">
         <h3 i18n:translate=""> Contingut reservat</h3>
         <div tal:replace="structure alternate"></div>
       </span>
     </tal:block>
+
+    <tal:block tal:condition="viewDocumentPublic">
+      <h3 i18n:translate="" tal:condition="viewDocumentReserved"> Contingut public</h3>
+      <span tal:condition="default">
+          <div tal:replace="structure default"> </div>
+      </span>
+    </tal:block>
+
 
   </metal:block>
 

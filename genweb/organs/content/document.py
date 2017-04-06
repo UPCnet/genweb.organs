@@ -71,42 +71,80 @@ class View(grok.View):
     grok.context(IDocument)
     grok.template('document_view')
 
-    def viewPublicContent(self):
+    def viewDocumentPublic(self):
+        if self.context.defaultContent and self.context.alternateContent:
+            if self.isSecretari() or self.isEditor() or self.isAfectat() or self.isManager():
+                return True
+        elif self.context.alternateContent:
+            if self.isSecretari() or self.isEditor() or self.isManager():
+                return True
+            else:
+                return False
+        elif self.context.defaultContent:
+            return True
+        else:
+            return False
+
+    def viewDocumentReserved(self):
+        if self.context.defaultContent and self.context.alternateContent:
+            if self.isSecretari() or self.isEditor() or self.isMembre() or self.isManager():
+                return True
+        elif self.context.alternateContent:
+            if self.isSecretari() or self.isEditor() or self.isMembre() or self.isManager():
+                return True
+            else:
+                return False
+        elif self.context.defaultContent:
+            if self.isSecretari() or self.isEditor() or self.isManager():
+                return True
+            else:
+                return False
+        else:
+            return False
+
+    def isAfectat(self):
         """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
         try:
             username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG4-Afectat' in roles:
+            if 'OG4-Afectat' in roles:
                 return True
             else:
                 return False
         except:
             return False
 
-    def viewPrivateContent(self):
-        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
-        try:
-            username = api.user.get_current().id
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
-                return True
-            else:
-                return False
-        except:
-            return False
-
-    def showMembreContent(self):
+    def isMembre(self):
         """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
         try:
             username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
             if 'OG3-Membre' in roles:
-                if self.context.alternateContent and self.context.defaultContent:
-                    return self.context.alternateContent
-                elif self.context.alternateContent and not self.context.defaultContent:
-                    return self.context.alternateContent
-                elif self.context.defaultContent and not self.context.alternateContent:
-                    return False
+                return True
+            else:
+                return False
+        except:
+            return False
+
+    def isEditor(self):
+        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
+        try:
+            username = api.user.get_current().id
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'OG2-Editor' in roles:
+                return True
+            else:
+                return False
+        except:
+            return False
+
+    def isSecretari(self):
+        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
+        try:
+            username = api.user.get_current().id
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'OG1-Secretari' in roles:
+                return True
             else:
                 return False
         except:
