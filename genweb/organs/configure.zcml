@@ -12,6 +12,11 @@
     <!-- Zope2 initialization -->
     <five:registerPackage package="." initialize=".initialize" />
 
+    <permission
+      id="genweb.organs.add.sessions"
+      title="Genweb Organs: Add Sessions"
+    />
+
     <!-- Include configuration for dependencies listed in setup.py -->
     <includeDependencies package="." />
 

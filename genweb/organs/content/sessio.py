@@ -225,6 +225,12 @@ class View(grok.View):
     def isManager(self):
         return utils.isManager(self)
 
+    def viewHistory(self):
+        value = False
+        if utils.isSecretari(self):
+            value = True
+        return value or self.isManager()
+
     def canModify(self):
         review_state = api.content.get_state(self.context)
         value = False
@@ -467,6 +473,9 @@ class View(grok.View):
     @property
     def context_base_url(self):
         return self.context.absolute_url()
+
+    def status(self):
+        return api.content.get_state(obj=self.context).title()
 
     def filesinsidePunt(self, item):
         session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']

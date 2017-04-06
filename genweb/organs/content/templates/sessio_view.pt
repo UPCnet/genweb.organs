@@ -21,7 +21,9 @@
                 membresConvidats context/membresConvidats;
                 llistaExcusats context/llistaExcusats;
                 noAssistents context/noAssistents;
-                sessionNumber view/sessionNumber">
+                sessionNumber view/sessionNumber;
+                status view/status;
+                viewHistory view/viewHistory">
 
   <link tal:condition="canModify" rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
   <script tal:condition="canModify" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery-ui.min.js"></script>
@@ -151,7 +153,7 @@
       <li class="active"><a href="#dadesTab" data-toggle="tab" i18n:translate="">Convocatoria</a></li>
       <li tal:condition="hihaPersones"><a href="#assistentsTab" data-toggle="tab" i18n:translate="">Assistents</a></li>
       <li tal:condition="view/showActaTab"><a href="#actaTab" data-toggle="tab" i18n:translate="">Acta</a></li>
-      <li tal:condition="python:loginfo and canModify"><a href="#notificationsTab" data-toggle="tab" i18n:translate="">Historial</a></li>
+      <li tal:condition="python:loginfo and viewHistory"><a href="#notificationsTab" data-toggle="tab" i18n:translate="">Historial</a></li>
     </ul>
 
     <div id="sessionTabs" class="tab-content">
@@ -190,6 +192,11 @@
             <b i18n:translate="">Session number</b><b>:</b>
             <span style="float:right"
                   tal:content="sessionNumber"></span>
+          </li>
+          <li>
+            <b i18n:translate="">Estat de la sessio</b><b>:</b>
+            <span style="float:right"
+                  tal:content="status"></span>
           </li>
         </ul>
       </div>
@@ -254,7 +261,7 @@
         </div>
       </div>
 
-      <div class="tab-pane" id="notificationsTab" tal:condition="python:loginfo and canModify">
+      <div class="tab-pane" id="notificationsTab" tal:condition="python:loginfo and viewHistory">
         <table class="table table-bordered table-condensed table-hover logFont">
           <thead>
             <tr>

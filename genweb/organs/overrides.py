@@ -143,7 +143,8 @@ class SharingView(BrowserView):
             if iface is not None and not iface.providedBy(context):
                 continue
             # THE TRICK THAT HIDES PLONE ROLES
-            if name != 'Reviewer' and name != 'Editor' and name != 'Reader' and name != 'Contributor':
+            # si son tipus OG no mostrar els de Plone #
+            if name != 'Reviewer' or name != 'Editor' or name != 'Reader' or name != 'Contributor':
                 pairs.append(dict(id=name, title=utility.title))
 
         pairs.sort(key=lambda x: normalizeString(translate(x["title"], context=self.request)))
