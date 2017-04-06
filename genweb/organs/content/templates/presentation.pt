@@ -201,7 +201,7 @@
                             data-html="true"
                             data-trigger="focus"
                             tal:attributes="data-original-title item/title;
-                                            data-content item/privateRAW">
+                                            data-content item/raw_content">
                             <i tal:attributes="class item/classCSS"></i><span tal:content="item/title">Doc title</span>
                           </a>
 
@@ -272,7 +272,7 @@
                                     data-html="true"
                                     data-trigger="focus"
                                     tal:attributes="data-original-title item/title;
-                                                    data-content item/privateRAW">
+                                                    data-content item/raw_content">
                                     <i tal:attributes="class item/classCSS"></i><span tal:content="item/title">Doc title</span>
                                   </a>
                                 </div>
@@ -370,7 +370,6 @@
         if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.modal').has(e.target).length === 0) {
             $(this).modal('hide');
         } else {
-          debugger;
           var title=$(this).data()['originalTitle'];
           var content=$(this).data()['content'];
           $('<div class="modal fade" tabindex="-1" role="dialog">\

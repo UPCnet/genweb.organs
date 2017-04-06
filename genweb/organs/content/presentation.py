@@ -151,18 +151,17 @@ class Presentation(form.SchemaForm):
         for obj in values:
             visibleUrl = ''
             hiddenUrl = ''
-            isFile = hasPublic = hasPrivate = isGODocument = isGOFile = file = publicRAW = privateRAW = False
+            isFile = hasPublic = hasPrivate = isGODocument = isGOFile = file = raw_content = False
             visibleUrl = obj.getObject().absolute_url()
+            anonymous = api.user.is_anonymous()
             if obj.portal_type == 'genweb.organs.file':
                 # Tractem els files...
                 isFile = True
                 isGOFile = True
                 tipus = 'fa fa-file-pdf-o'
                 file = obj.getObject()
-                publicRAW = None
-                privateRAW = None
-                anon = api.user.is_anonymous()
-                if anon:
+                raw_content = None
+                if anonymous:
                     if file.visiblefile and file.hiddenfile:
                         hasPublic = True
                         hasPrivate = False
@@ -192,7 +191,6 @@ class Presentation(form.SchemaForm):
                             hasPrivate = False
                             visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/'
                             hiddenUrl = ''
-
                     elif file.hiddenfile:
                         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                             hasPublic = False
@@ -216,13 +214,58 @@ class Presentation(form.SchemaForm):
                         visibleUrl = ''
                         hiddenUrl = ''
             else:
+                # TODO!!!!
                 # Tractem els docs...
                 isGODocument = True
                 tipus = 'fa fa-file-text-o'
-                hasPublic = True
-                visibleUrl = obj.getObject().defaultContent
-                publicRAW = obj.getObject().defaultContent
-                privateRAW = obj.getObject().alternateContent
+                file = obj.getObject()
+                if anonymous:
+                    if file.alternateContent and file.defaultContent:
+                        hasPublic = True
+                        hasPrivate = False
+                        raw_content = file.defaultContent
+                    elif file.defaultContent:
+                        hasPublic = True
+                        hasPrivate = False
+                        raw_content = file.defaultContent
+                    elif file.alternateContent:
+                        hasPublic = False
+                        hasPrivate = False
+                        raw_content = _(u'No disposa dels permisos per veure el contingut del document')
+                    else:
+                        hasPublic = False
+                        hasPrivate = False
+                        raw_content = False
+                else:
+                    username = api.user.get_current().id
+                    roles = api.user.get_roles(username=username, obj=self.context)
+                    if file.alternateContent and file.defaultContent:
+                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
+                            hasPublic = False
+                            hasPrivate = True
+                            raw_content = file.defaultContent
+                        elif 'OG4-Afectat' in roles:
+                            hasPublic = True
+                            hasPrivate = False
+                            raw_content = file.alternateContent
+                    elif file.defaultContent:
+                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
+                            hasPublic = False
+                            hasPrivate = True
+                            raw_content = file.defaultContent
+                    elif file.alternateContent:
+                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
+                            hasPublic = False
+                            hasPrivate = True
+                            raw_content = file.defaultContent
+                        elif 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
+                            hasPublic = True
+                            hasPrivate = False
+                            raw_content = file.alternateContent
+                    else:
+                        hasPublic = False
+                        hasPrivate = False
+                        raw_content = False
 
             if file:
                 abs_path = file.absolute_url_path()
@@ -239,8 +282,7 @@ class Presentation(form.SchemaForm):
                                 reservedURL=hiddenUrl,
                                 isGOFile=isGOFile,
                                 isGODocument=isGODocument,
-                                publicRAW=publicRAW,
-                                privateRAW=privateRAW,
+                                raw_content=raw_content,
                                 id=obj.id))
         return results
 
