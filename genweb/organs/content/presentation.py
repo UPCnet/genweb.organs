@@ -231,7 +231,7 @@ class Presentation(form.SchemaForm):
                     elif file.alternateContent:
                         hasPublic = False
                         hasPrivate = False
-                        raw_content = _(u'No disposa dels permisos per veure el contingut del document')
+                        raw_content = False
                     else:
                         hasPublic = False
                         hasPrivate = False
@@ -243,24 +243,20 @@ class Presentation(form.SchemaForm):
                         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                             hasPublic = False
                             hasPrivate = True
-                            raw_content = file.defaultContent
+                            raw_content = file.alternateContent
                         elif 'OG4-Afectat' in roles:
                             hasPublic = True
                             hasPrivate = False
-                            raw_content = file.alternateContent
+                            raw_content = file.defaultContent
                     elif file.defaultContent:
                         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                             hasPublic = False
                             hasPrivate = True
                             raw_content = file.defaultContent
                     elif file.alternateContent:
-                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
+                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                             hasPublic = False
                             hasPrivate = True
-                            raw_content = file.defaultContent
-                        elif 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
-                            hasPublic = True
-                            hasPrivate = False
                             raw_content = file.alternateContent
                     else:
                         hasPublic = False
@@ -271,19 +267,20 @@ class Presentation(form.SchemaForm):
                 abs_path = file.absolute_url_path()
             else:
                 abs_path = None
-            results.append(dict(title=obj.Title,
-                                path=abs_path,
-                                absolute_url=obj.getURL(),
-                                isFile=isFile,
-                                hasPublic=hasPublic,
-                                hasPrivate=hasPrivate,
-                                classCSS=tipus,
-                                publicURL=visibleUrl,
-                                reservedURL=hiddenUrl,
-                                isGOFile=isGOFile,
-                                isGODocument=isGODocument,
-                                raw_content=raw_content,
-                                id=obj.id))
+            if raw_content or obj.portal_type == 'genweb.organs.file':
+                results.append(dict(title=obj.Title,
+                                    path=abs_path,
+                                    absolute_url=obj.getURL(),
+                                    isFile=isFile,
+                                    hasPublic=hasPublic,
+                                    hasPrivate=hasPrivate,
+                                    classCSS=tipus,
+                                    publicURL=visibleUrl,
+                                    reservedURL=hiddenUrl,
+                                    isGOFile=isGOFile,
+                                    isGODocument=isGODocument,
+                                    raw_content=raw_content,
+                                    id=obj.id))
         return results
 
     def getSessionTitle(self):
