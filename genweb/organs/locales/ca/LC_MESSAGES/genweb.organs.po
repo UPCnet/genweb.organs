@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-04-06 16:05+0000\n"
+"POT-Creation-Date: 2017-04-07 07:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 
-#: ./genweb/organs/browser/views.py:405
+#: ./genweb/organs/browser/views.py:408
 #: ./genweb/organs/content/impersonate_as.py:141
 #: ./genweb/organs/content/punt.py:146
 msgid "ACORD"
@@ -68,7 +68,7 @@ msgstr "Afectat"
 msgid "Afectats"
 msgstr "Afectats"
 
-#: ./genweb/organs/browser/views/butlleti.pt:94
+#: ./genweb/organs/browser/views/butlleti.pt:100
 msgid "Agreement"
 msgstr "Número d'acord"
 
@@ -279,6 +279,7 @@ msgstr "Envia"
 msgid "Envia missatge"
 msgstr "Missatge als membres"
 
+#: ./genweb/organs/browser/views/butlleti.pt:79
 #: ./genweb/organs/content/templates/sessio_view.pt:197
 msgid "Estat de la sessio"
 msgstr "Estat de la sessió"
@@ -696,7 +697,7 @@ msgstr "Públic"
 msgid "Published file description"
 msgstr "Fitxer que conté la part pública del document. Ha de ser en format PDF."
 
-#: ./genweb/organs/browser/views/butlleti.pt:93
+#: ./genweb/organs/browser/views/butlleti.pt:99
 #: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
 msgid "Punt"
 msgstr "Punt informatiu"
@@ -893,7 +894,7 @@ msgstr "Punt informatiu"
 #: ./genweb/organs/content/templates/acta_view.pt:44
 #: ./genweb/organs/content/templates/informar_view.pt:37
 msgid "Tancar"
-msgstr "Tancar"
+msgstr "Tanca"
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:83
 #: ./genweb/organs/content/templates/sessio_view.pt:323
@@ -904,7 +905,7 @@ msgstr "Títol"
 msgid "Title: "
 msgstr "Títol: "
 
-#: ./genweb/organs/browser/views/butlleti.pt:95
+#: ./genweb/organs/browser/views/butlleti.pt:101
 msgid "Titol"
 msgstr "Títol"
 

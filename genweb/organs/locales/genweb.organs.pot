@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-04-06 16:05+0000\n"
+"POT-Creation-Date: 2017-04-07 07:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:405
+#: ./genweb/organs/browser/views.py:408
 #: ./genweb/organs/content/impersonate_as.py:141
 #: ./genweb/organs/content/punt.py:146
 msgid "ACORD"
@@ -71,7 +71,7 @@ msgstr ""
 msgid "Afectats"
 msgstr ""
 
-#: ./genweb/organs/browser/views/butlleti.pt:94
+#: ./genweb/organs/browser/views/butlleti.pt:100
 msgid "Agreement"
 msgstr ""
 
@@ -282,6 +282,7 @@ msgstr ""
 msgid "Envia missatge"
 msgstr ""
 
+#: ./genweb/organs/browser/views/butlleti.pt:79
 #: ./genweb/organs/content/templates/sessio_view.pt:197
 msgid "Estat de la sessio"
 msgstr ""
@@ -699,7 +700,7 @@ msgstr ""
 msgid "Published file description"
 msgstr ""
 
-#: ./genweb/organs/browser/views/butlleti.pt:93
+#: ./genweb/organs/browser/views/butlleti.pt:99
 #: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
 msgid "Punt"
 msgstr ""
@@ -907,7 +908,7 @@ msgstr ""
 msgid "Title: "
 msgstr ""
 
-#: ./genweb/organs/browser/views/butlleti.pt:95
+#: ./genweb/organs/browser/views/butlleti.pt:101
 msgid "Titol"
 msgstr ""
 
