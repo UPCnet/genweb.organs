@@ -469,10 +469,10 @@
                    data-url="changeTitle"
                    class="editTitle editable titleSize">
                   <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                </a>
                   <span tal:condition="agreement" class="agreementClass">
                     [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
                   </span>
-                </a>
               </div>
               <div class="span1 boleta">
                 <tal:block tal:condition="item/state">
