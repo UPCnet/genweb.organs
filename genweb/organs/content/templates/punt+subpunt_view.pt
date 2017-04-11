@@ -81,7 +81,7 @@
                  <span tal:condition="agreementSubpunt">[<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <span tal:content="agreementSubpunt"></span>] </span>
                  <span class="estatsubpunts">
                  <i class="fa fa-circle boletaPetita" aria-hidden="true" tal:attributes="style string:color:${item/css};
-                title estatsLlista; alt estatsLlista"></i>&nbsp;<span tal:content="estatsLlista"></span></span>
+                title estatsLlista; alt estatsLlista"></i></span>
               </li>
             </tal:subpunts>
           </ul>
