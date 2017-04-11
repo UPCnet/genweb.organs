@@ -654,8 +654,8 @@
   <script type="text/javascript" tal:condition="canModify">
     $(function() {
         var reloadEdit = false;
-         $.fn.editable.defaults.mode = 'inline';
-         $.fn.editable.defaults.showbuttons = false;
+         $.fn.editable.defaults.mode = 'popup';
+         $.fn.editable.defaults.showbuttons = true;
          $.fn.editable.defaults.type = 'text';
          $.fn.editable.defaults.toggle = 'manual';
          $.fn.editable.defaults.emptytext = '';
