@@ -1534,3 +1534,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', end
 .subpuntTitle .span9 {
     margin-left: 2.06748%!important;
 }
+
+span.estatpunt {
+    display: inline-block;
+    font-size: 12px;
+    float: right;
+    background: #f1f1f1;
+    padding: 0px 10px;
+    border-radius: 15px;
+}
