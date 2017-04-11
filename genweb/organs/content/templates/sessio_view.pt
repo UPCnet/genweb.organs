@@ -7,8 +7,10 @@
       i18n:domain="genweb.organs">
 <body>
 
-<metal:content-core fill-slot="content-core"
-    tal:define="loginfo view/getAnnotations;
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main"
+        tal:define="loginfo view/getAnnotations;
                 isAfectat view/isAfectat;
                 isMembre view/isMembre;
                 isEditor view/isEditor;
@@ -24,6 +26,17 @@
                 sessionNumber view/sessionNumber;
                 status view/status;
                 viewHistory view/viewHistory">
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
+        <h1 class="documentFirstHeading" tal:content="context/title" />
+        <p class="documentDescription" tal:content="context/description" />
+        <div tal:replace="structure provider:plone.abovecontentbody" />
+        <div tal:replace="structure provider:plone.belowcontentbody" />
+
+
+
+
+
+
 
   <link tal:condition="canModify" rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
   <script tal:condition="canModify" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery-ui.min.js"></script>
@@ -794,7 +807,7 @@
 
 </script>
 
-</metal:content-core>
-
+ </tal:main-macro>
+</metal:main>
 </body>
 </html>
