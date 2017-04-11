@@ -199,7 +199,7 @@ span.proposalNumberSubpunt {
     border-color: black;
 }
 
-.ui-state-grey {
+.ui-state-grey, .ui-state-grey-not_move {
     border: 1px solid #eee;
     position: relative;
     font-weight: normal;
