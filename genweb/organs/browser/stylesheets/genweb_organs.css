@@ -664,19 +664,19 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 
 
 .bodyPresentation .fa-arrow-up:before {
-    color: #DDD;
+    color: #aaa;
 }
 
 .bodyPresentation .fa-chevron-up:before {
-    color: #DDD;
+    color: #aaa;
 }
 
 .bodyPresentation .fa-chevron-down:before {
-    color: #DDD;
+    color: #aaa;
 }
 
 .bodyPresentation .fa-arrow-down:before {
-    color: #DDD;
+    color: #aaa;
 }
 
 .bodyPresentation .label.dropdown-toggle {
@@ -873,6 +873,28 @@ div.formControls {
     padding-top: 0px;}
 
 div#formfield-form-widgets-message.field {margin-bottom: 0px;}
+
+.portaltype-genweb-organs-sessio .listFiles {
+    padding-left: 50px!important;
+   }
+
+.portaltype-genweb-organs-sessio .subpuntTitle {
+    padding-left: 75px!important;
+}
+
+.portaltype-genweb-organs-sessio .span1 {
+    margin-bottom: 0px!important;
+}
+
+
+.portaltype-genweb-organs-sessio .span2.boleta {
+    margin-left: 39px!important;
+}
+
+.portaltype-genweb-organs-sessio ol li.filesinTable {
+    width: 585px!important;
+    margin-left: 35px!important;
+}
 
 .listFiles {
     list-style: none;
@@ -1254,6 +1276,8 @@ ol.li_subgrups {
     display: inline-block;
     color: red;
     font-weight: 300!important;
+    margin-bottom: 10px;
+
 }
 
 .bodyPresentation #sortable .filesinTable {
@@ -1279,7 +1303,9 @@ ol.li_subgrups {
     border-left: none!important;
     border-right: none!important;
     background-color: #fff;
-       padding-top: 20px!important;
+        padding-left: 0px!important;
+    padding-right: 0px!important;
+       padding-top: 25px!important;
     padding-bottom: 5px!important;
         border-radius: 0px!important;
         margin-bottom: 0px!important;
@@ -1354,7 +1380,8 @@ span.barra {
     padding: 0 5px;*/
 }
 
-.bodyPresentation .subpuntTitle.span12{margin-left:0px!important }
+.bodyPresentation .subpuntTitle.span12{margin-left:0px!important; padding-left: 115px!important;
+} 
 
 .bodyPresentation .subpuntTitle {
     padding-left: 50px!important;
@@ -1379,10 +1406,18 @@ span.barra {
     position: absolute!important;
     right: 0px!important;
     /*top: 38%!important;*/
-    background: -moz-linear-gradient(left, rgba(153,153,153,0) 0%, rgba(249,249,249,1) 45%, rgba(249,249,249,1) 100%);
+    /*background: -moz-linear-gradient(left, rgba(153,153,153,0) 0%, rgba(249,249,249,1) 45%, rgba(249,249,249,1) 100%);
 background: -webkit-linear-gradient(left, rgba(153,153,153,0) 0%,rgba(249,249,249,1) 45%,rgba(249,249,249,1) 100%);
 background: linear-gradient(to right, rgba(153,153,153,0) 0%,rgba(249,249,249,1) 45%,rgba(249,249,249,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', endColorstr='#f9f9f9',GradientType=1 );
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', endColorstr='#f9f9f9',GradientType=1 );*/
+background: rgba(229,247,255,0);
+background: -moz-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(229,247,255,0)), color-stop(50%, rgba(229,247,255,1)), color-stop(100%, rgba(229,247,255,1)));
+background: -webkit-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+background: -o-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+background: -ms-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+background: linear-gradient(to right, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', endColorstr='#e5f7ff', GradientType=1 );
     display: none!important;
 }
 
@@ -1447,21 +1482,55 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', e
     min-height: 30px!important;
 }
 
+/*.show {
+    position: absolute!important;
+    right: 3px!important;
+    top: 3px!important;
+background: rgba(229,247,255,0);
+background: -moz-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(229,247,255,0)), color-stop(50%, rgba(229,247,255,1)), color-stop(100%, rgba(229,247,255,1)));
+background: -webkit-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+background: -o-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+background: -ms-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+background: linear-gradient(to right, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', endColorstr='#e5f7ff', GradientType=1 );
+    display: block!important;
+}*/
+
 .show {
     position: absolute!important;
-    right: 0px!important;
+    right: 9px!important;
     /*top: 38%!important;*/
-    background: -moz-linear-gradient(left, rgba(153,153,153,0) 0%, rgba(249,249,249,1) 45%, rgba(249,249,249,1) 100%);
-background: -webkit-linear-gradient(left, rgba(153,153,153,0) 0%,rgba(249,249,249,1) 45%,rgba(249,249,249,1) 100%);
-background: linear-gradient(to right, rgba(153,153,153,0) 0%,rgba(249,249,249,1) 45%,rgba(249,249,249,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', endColorstr='#f9f9f9',GradientType=1 );
+background: rgba(229,247,255,0);
+background: -moz-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(229,247,255,0)), color-stop(50%, rgba(229,247,255,1)), color-stop(100%, rgba(229,247,255,1)));
+background: -webkit-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+background: -o-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+background: -ms-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+background: linear-gradient(to right, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', endColorstr='#e5f7ff', GradientType=1 );
     display: block!important;
 }
-
-.portaltype-genweb-organs-sessio .show {
-    background-color: }
 
 .subpuntTitle.span12 .span1 {
     width: 5%!important;
     margin-right: 15px;
+}
+
+.editable-input input{font-size: 13px!important;}
+
+
+.DADES .span12 .span12 , .DADES .span12 .span9, .DADES .span9 , .DADES .span12 .span12 .span12 , .DADES .span12{margin-bottom: 3px!important; min-height: 0px!important;}
+
+.DADES ol.li_subgrups {
+    display: inline-block!important;
+    clear: both!important;
+    width: 100%!important;
+    min-width: 0px!important;
+    margin: 0px!important;
+    padding: 0px!important;
+}
+
+.subpuntTitle .span9 {
+    margin-left: 2.06748%!important;
 }
