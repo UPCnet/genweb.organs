@@ -588,7 +588,7 @@
                              class="editTitle editable subtitleSize">
                             <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
                         </a>
-                        <span tal:condition="agreement">
+                        <span tal:condition="agreement" class="agreementClass">
                           [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
                         </span>
                       </div>
