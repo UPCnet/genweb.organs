@@ -179,14 +179,14 @@
                         <div tal:condition="item/isGOFile">
                           <tal:block tal:condition="item/reservedURL">
                             <span class="fitxerReservat">
-                              <a tal:attributes="href item/reservedURL;">
+                              <a tal:attributes="href item/reservedURL;" target="_blank">
                                 <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span>
                               </a>
                             </span>
                           </tal:block>
                           <tal:block tal:condition="item/publicURL">
                             <span class="fitxerPublic">
-                              <a tal:attributes="href item/publicURL;">
+                              <a tal:attributes="href item/publicURL;" target="_blank">
                                 <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span>
                               </a>
                             </span>
@@ -249,14 +249,14 @@
                                 <div tal:condition="item/isGOFile">
                                   <tal:block tal:condition="item/reservedURL">
                                     <span class="fitxerReservat">
-                                      <a tal:attributes="href item/reservedURL;">
+                                      <a tal:attributes="href item/reservedURL;" target="_blank">
                                         <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span>
                                       </a>
                                     </span>
                                   </tal:block>
                                   <tal:block tal:condition="item/publicURL">
                                     <span class="fitxerPublic">
-                                      <a tal:attributes="href item/publicURL;">
+                                      <a tal:attributes="href item/publicURL;" target="_blank">
                                         <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span>
                                       </a>
                                     </span>

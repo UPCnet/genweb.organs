@@ -7,7 +7,6 @@
       i18n:domain="genweb.organs">
 <body>
 
-
 <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main"
         tal:define="loginfo view/getAnnotations;
@@ -26,23 +25,17 @@
                 sessionNumber view/sessionNumber;
                 status view/status;
                 viewHistory view/viewHistory">
+
         <div tal:replace="structure provider:plone.abovecontenttitle" />
         <h1 class="documentFirstHeading" tal:content="context/title" />
         <p class="documentDescription" tal:content="context/description" />
         <div tal:replace="structure provider:plone.abovecontentbody" />
         <div tal:replace="structure provider:plone.belowcontentbody" />
 
-
-
-
-
-
-
   <link tal:condition="canModify" rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
   <script tal:condition="canModify" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery-ui.min.js"></script>
   <script tal:condition="canModify" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script>
   <script tal:condition="canModify" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script>
-
 
   <script type="text/javascript" tal:condition="canModify">
     $(function() {
@@ -415,7 +408,7 @@
                   data-placement="left"
                   data-html="true"
                   data-trigger="focus"
-                  data-original-title="Esborrar"
+                  data-original-title="Esborra"
                   tal:attributes="data-item item/id; data-type item/portal_type">
                   <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </button>
@@ -508,7 +501,7 @@
                               data-placement="left"
                               data-html="true"
                               data-trigger="focus"
-                              data-original-title="Delete"
+                              data-original-title="Esborra"
                               tal:attributes="data-item item/id; data-type item/portal_type">
                               <i class="fa fa-trash-o" aria-hidden="true"></i>
                             </button>
@@ -539,7 +532,7 @@
                               data-placement="left"
                               data-html="true"
                               data-trigger="focus"
-                              data-original-title="Delete"
+                              data-original-title="Esborra"
                               tal:attributes="data-item itemSubpunt_id; data-type itemSubpunt/portal_type">
                               <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </button>
@@ -620,7 +613,7 @@
                                         data-placement="left"
                                         data-html="true"
                                         data-trigger="focus"
-                                        data-original-title="Delete"
+                                        data-original-title="Esborra"
                                         tal:attributes="data-item item/id; data-type item/portal_type">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                 </div>
