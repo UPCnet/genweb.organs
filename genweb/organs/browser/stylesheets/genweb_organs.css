@@ -1319,6 +1319,13 @@ ol.li_subgrups {
     padding-bottom: 5px!important;
 }
 
+.bodyPresentation #sortable ul.dropdown-menu li.defaultValue{
+    background-color: #fff;
+    padding-top: 5px!important;
+    padding-bottom: 5px!important;
+}
+
+
 .bodyPresentation span.proposalNumber, .bodyPresentation span.proposalNumberSubpunt {
     margin-right: 15px;
 	color: #0087C9!important;
@@ -1542,4 +1549,8 @@ span.estatpunt {
     background: #f1f1f1;
     padding: 0px 10px;
     border-radius: 15px;
+}
+
+.template-edit.portaltype-genweb-organs-sessio li.formTab.lastFormTab {
+    display: none!important;
 }
