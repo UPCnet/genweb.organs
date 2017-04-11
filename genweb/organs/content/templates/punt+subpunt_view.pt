@@ -10,10 +10,13 @@
 <metal:title fill-slot="content-title"
   tal:define="estatsLlista context/estatsLlista;">
   <h1 class="documentFirstHeading">
-    <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${view/getColor};
-      title estatsLlista; alt estatsLlista"></i>
-    <tal:omit-tag tal:content="context/proposalPoint"></tal:omit-tag>
+
+    <tal:omit-tag tal:content="context/proposalPoint"></tal:omit-tag>.
     <tal:omit-tag tal:content="context/Title"></tal:omit-tag>
+    <span class="estatpunt">
+    <i class="fa fa-circle boletaGran" aria-hidden="true" tal:attributes="style string:color:${view/getColor};
+      title estatsLlista; alt estatsLlista"></i>&nbsp;<span tal:content="estatsLlista"></span>
+      </span>
   </h1>
 </metal:title>
 
@@ -71,12 +74,15 @@
           <ul class="ul_items">
             <tal:subpunts repeat="item subpunts">
               <li class="listFiles" tal:define="agreementSubpunt item/agreement">
-                <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css};
-                  title estatsLlista; alt estatsLlista"></i>
+
                 <a tal:attributes="href item/absolute_url;">
-                   <span tal:content="item/proposalPoint"></span>
+                   <span tal:content="item/proposalPoint"></span>.
                    <span tal:content="item/title">Doc title</span>
-                   <span tal:condition="agreementSubpunt">[<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <span tal:content="agreementSubpunt"></span>] </span></a>
+                   <span tal:condition="agreementSubpunt">[<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <span tal:content="agreementSubpunt"></span>] </span>
+                   <span class="estatsubpunts">
+                   <i class="fa fa-circle boletaPetita" aria-hidden="true" tal:attributes="style string:color:${item/css};
+                  title estatsLlista; alt estatsLlista"></i>&nbsp;<span tal:content="estatsLlista"></span></span></a>
+
               </li>
             </tal:subpunts>
           </ul>
