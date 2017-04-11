@@ -581,10 +581,10 @@
                              data-type="text" data-url="changeTitle"
                              class="editTitle editable subtitleSize">
                             <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
-                            <span tal:condition="agreement">
-                              [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
-                            </span>
                         </a>
+                        <span tal:condition="agreement">
+                          [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
+                        </span>
                       </div>
                       <div class="span2 boleta">
                         <tal:block tal:condition="item/state">
