@@ -199,7 +199,7 @@ span.proposalNumberSubpunt {
     border-color: black;
 }
 
-.ui-state-grey, .ui-state-grey-not_move {
+.ui-state-grey {
     border: 1px solid #eee;
     position: relative;
     font-weight: normal;
@@ -460,7 +460,6 @@ a.remove{background-color: #e8003d!important}
 #sortable .dropdown-menu {
     border: 1px solid #ddd;
     border-radius: 3px;
-    z-index: 10000!important;
 }
 #sortable .dropdown-menu li{
     border:0;
@@ -665,19 +664,19 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 
 
 .bodyPresentation .fa-arrow-up:before {
-    color: #aaa;
+    color: #DDD;
 }
 
 .bodyPresentation .fa-chevron-up:before {
-    color: #aaa;
+    color: #DDD;
 }
 
 .bodyPresentation .fa-chevron-down:before {
-    color: #aaa;
+    color: #DDD;
 }
 
 .bodyPresentation .fa-arrow-down:before {
-    color: #aaa;
+    color: #DDD;
 }
 
 .bodyPresentation .label.dropdown-toggle {
@@ -874,28 +873,6 @@ div.formControls {
     padding-top: 0px;}
 
 div#formfield-form-widgets-message.field {margin-bottom: 0px;}
-
-.portaltype-genweb-organs-sessio .listFiles {
-    padding-left: 50px!important;
-   }
-
-.portaltype-genweb-organs-sessio .subpuntTitle {
-    padding-left: 75px!important;
-}
-
-.portaltype-genweb-organs-sessio .span1 {
-    margin-bottom: 0px!important;
-}
-
-
-.portaltype-genweb-organs-sessio .span2.boleta {
-    margin-left: 39px!important;
-}
-
-.portaltype-genweb-organs-sessio ol li.filesinTable {
-    width: 585px!important;
-    margin-left: 35px!important;
-}
 
 .listFiles {
     list-style: none;
@@ -1159,7 +1136,6 @@ div.containerIcons a img.link_blank { display: none }
 
 .agreementClass {
     padding-left: 5px!important;
-    font-weight: 500;
 }
 
 .subpuntTitle .span11 {
@@ -1278,8 +1254,6 @@ ol.li_subgrups {
     display: inline-block;
     color: red;
     font-weight: 300!important;
-    margin-bottom: 10px;
-
 }
 
 .bodyPresentation #sortable .filesinTable {
@@ -1305,9 +1279,7 @@ ol.li_subgrups {
     border-left: none!important;
     border-right: none!important;
     background-color: #fff;
-        padding-left: 0px!important;
-    padding-right: 0px!important;
-       padding-top: 25px!important;
+       padding-top: 20px!important;
     padding-bottom: 5px!important;
         border-radius: 0px!important;
         margin-bottom: 0px!important;
@@ -1320,13 +1292,6 @@ ol.li_subgrups {
 	padding-top: 5px;
     padding-bottom: 5px!important;
 }
-
-.bodyPresentation #sortable ul.dropdown-menu li.defaultValue{
-    background-color: #fff;
-    padding-top: 5px!important;
-    padding-bottom: 5px!important;
-}
-
 
 .bodyPresentation span.proposalNumber, .bodyPresentation span.proposalNumberSubpunt {
     margin-right: 15px;
@@ -1389,8 +1354,7 @@ span.barra {
     padding: 0 5px;*/
 }
 
-.bodyPresentation .subpuntTitle.span12{margin-left:0px!important; padding-left: 115px!important;
-} 
+.bodyPresentation .subpuntTitle.span12{margin-left:0px!important }
 
 .bodyPresentation .subpuntTitle {
     padding-left: 50px!important;
@@ -1415,18 +1379,10 @@ span.barra {
     position: absolute!important;
     right: 0px!important;
     /*top: 38%!important;*/
-    /*background: -moz-linear-gradient(left, rgba(153,153,153,0) 0%, rgba(249,249,249,1) 45%, rgba(249,249,249,1) 100%);
+    background: -moz-linear-gradient(left, rgba(153,153,153,0) 0%, rgba(249,249,249,1) 45%, rgba(249,249,249,1) 100%);
 background: -webkit-linear-gradient(left, rgba(153,153,153,0) 0%,rgba(249,249,249,1) 45%,rgba(249,249,249,1) 100%);
 background: linear-gradient(to right, rgba(153,153,153,0) 0%,rgba(249,249,249,1) 45%,rgba(249,249,249,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', endColorstr='#f9f9f9',GradientType=1 );*/
-background: rgba(229,247,255,0);
-background: -moz-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -webkit-gradient(left top, right top, color-stop(0%, rgba(229,247,255,0)), color-stop(50%, rgba(229,247,255,1)), color-stop(100%, rgba(229,247,255,1)));
-background: -webkit-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -o-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -ms-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: linear-gradient(to right, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', endColorstr='#e5f7ff', GradientType=1 );
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', endColorstr='#f9f9f9',GradientType=1 );
     display: none!important;
 }
 
@@ -1468,7 +1424,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', end
     text-align: right;
     min-height: 10px;
     margin-top: 2px!important;
-    z-index: -1!important;
 }
 
 .span2.boleta {
@@ -1492,114 +1447,21 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', end
     min-height: 30px!important;
 }
 
-/*.show {
-    position: absolute!important;
-    right: 3px!important;
-    top: 3px!important;
-background: rgba(229,247,255,0);
-background: -moz-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -webkit-gradient(left top, right top, color-stop(0%, rgba(229,247,255,0)), color-stop(50%, rgba(229,247,255,1)), color-stop(100%, rgba(229,247,255,1)));
-background: -webkit-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -o-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -ms-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: linear-gradient(to right, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', endColorstr='#e5f7ff', GradientType=1 );
-    display: block!important;
-}*/
-
 .show {
     position: absolute!important;
-    right: 9px!important;
+    right: 0px!important;
     /*top: 38%!important;*/
-background: rgba(229,247,255,0);
-background: -moz-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -webkit-gradient(left top, right top, color-stop(0%, rgba(229,247,255,0)), color-stop(50%, rgba(229,247,255,1)), color-stop(100%, rgba(229,247,255,1)));
-background: -webkit-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -o-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -ms-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: linear-gradient(to right, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', endColorstr='#e5f7ff', GradientType=1 );
+    background: -moz-linear-gradient(left, rgba(153,153,153,0) 0%, rgba(249,249,249,1) 45%, rgba(249,249,249,1) 100%);
+background: -webkit-linear-gradient(left, rgba(153,153,153,0) 0%,rgba(249,249,249,1) 45%,rgba(249,249,249,1) 100%);
+background: linear-gradient(to right, rgba(153,153,153,0) 0%,rgba(249,249,249,1) 45%,rgba(249,249,249,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', endColorstr='#f9f9f9',GradientType=1 );
     display: block!important;
-  /* z-index: 999!important;*/
 }
+
+.portaltype-genweb-organs-sessio .show {
+    background-color: }
 
 .subpuntTitle.span12 .span1 {
     width: 5%!important;
     margin-right: 15px;
 }
-
-.editable-input input{font-size: 13px!important;}
-
-
-.DADES .span12 .span12 , .DADES .span12 .span9, .DADES .span9 , .DADES .span12 .span12 .span12 , .DADES .span12{margin-bottom: 3px!important; min-height: 0px!important;}
-
-.DADES ol.li_subgrups {
-    display: inline-block!important;
-    clear: both!important;
-    width: 100%!important;
-    min-width: 0px!important;
-    margin: 0px!important;
-    padding: 0px!important;
-}
-
-.subpuntTitle .span9 {
-    margin-left: 2.06748%!important;
-}
-
-span.estatpunt {
-    display: inline-table;
-    font-size: 12px;
-    /*float: right;*/
-    background: #f1f1f1;
-    padding: 0px 10px;
-    border-radius: 15px;
-    vertical-align: middle;
-}
-
-.template-edit.portaltype-genweb-organs-sessio li.formTab.lastFormTab,
-.template-genweb-organs-sessio li.formTab.lastFormTab {
-    display: none!important;
-}
-
-
-
-.bodyPresentation .modal{
-  position:absolute;
-  top:50% !important;
-  transform: translate(0, -50%) !important;
-  -ms-transform: translate(0, -50%) !important;
-  -webkit-transform: translate(0, -50%) !important;
-  margin:auto 5%!important;
-  width:90%;
-  left:0!important;
-  height:80%;
-  z-index: 99999;
-  overflow: hidden!important;
-  background-color: white!important;
-
-}
-.bodyPresentation .modal-content {
-  min-height:100%!important;
-   overflow: hidden!important;
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0; 
-}
-.bodyPresentation .modal-body {
-  position:absolute;
-  top:53px; // height of header
-  bottom:45px;  // height of footer
-  left:0;
-  right:0;
-  overflow-y: auto;
-  max-height: 82%!important;
-}
-.bodyPresentation .modal-footer {
-  position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-}
-
