@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
 <object name="portal_catalog">
 
-  <index name="acordOrgan" meta_type="BooleanIndex">
-    <indexed_attr value="acordOrgan"/>
-  </index>
-  <column value="acordOrgan"/>
-
   <index name="index_proposalPoint" meta_type="FieldIndex">
     <indexed_attr value="index_proposalPoint"/>
   </index>
