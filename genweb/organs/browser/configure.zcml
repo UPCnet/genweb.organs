@@ -37,14 +37,6 @@
       permission="cmf.ModifyPortalContent"
     />
 
-    <browser:page
-      for="*"
-      name="changeAgreement"
-      class=".changes.changeAgreement"
-      layer="..interfaces.IGenwebOrgansLayer"
-      permission="cmf.ModifyPortalContent"
-    />
-
   <browser:page
     for="Products.CMFCore.interfaces._content.IFolderish"
     name="fcmoveTable"

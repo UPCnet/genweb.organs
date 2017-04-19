@@ -34,30 +34,3 @@ class changeTitle(BrowserView):
             addEntryLog(self.context, None, _(u"Changed Title"), recipients)
         except:
             pass
-
-
-class changeAgreement(BrowserView):
-    """ Assign new agreement number to the element """
-
-    def __call__(self):
-        try:
-            origin_path = '/'.join(self.context.getPhysicalPath()) + '/' + self.request.form['pk']
-            newvalue = self.request.form['value']
-        except:
-            return None
-
-        try:
-            entry = api.content.find(path=origin_path, depth=0)[0]
-            newObject = api.content.find(id=entry.id, path='/'.join(origin_path.split('/')[:-1]))[0]
-            item = newObject.getObject()
-            oldvalue = item.agreement
-            item.agreement = newvalue
-            if newvalue == '':
-                item.acordOrgan = False
-            item.reindexObject()
-
-            # transaction ok, then write log
-            recipients = '[' + item.Title() + '] ' + oldvalue + ' → ' + newvalue
-            addEntryLog(self.context, None, _(u"Changed agreement number"), recipients)
-        except:
-            pass
