@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-04-20 14:19+0000\n"
+"POT-Creation-Date: 2017-04-20 15:26+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -21,7 +21,7 @@ msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green
 msgstr "<p>Draft Yellow</p><p>Pending aproval Orange</p><p>Approved Green</p><p>Not approved Red</p><p>Cancelled DarkRed</p><p>Informative LightSkyBlue</p><p>Informedt MediumBlue</p>"
 
 #: ./genweb/organs/browser/views.py:408
-#: ./genweb/organs/content/impersonate_as.py:141
+#: ./genweb/organs/content/impersonate_as.py:144
 #: ./genweb/organs/content/punt.py:146
 msgid "ACORD"
 msgstr "Agreement"
@@ -990,3 +990,7 @@ msgstr "Addresses where the messages related to the meeting will be arrive."
 #: ./genweb/organs/content/templates/sessio_view.pt:151
 msgid "printOrdreDia"
 msgstr "Print Agenda"
+
+#: ./genweb/organs/content/sessio.py:324
+msgid "sense numeracio"
+msgstr ""

@@ -229,7 +229,7 @@ class Message(form.SchemaForm):
                 if value.agreement:
                     agreement = ' [Acord ' + str(value.agreement) + ' - ' + str(value.estatsLlista).upper() + ' ]'
                 else:
-                    agreement = ' [ACORD]'
+                    agreement = _(u' [ACORD sense numeracio]')
             else:
                 agreement = ''
             # adding hidden field to maintain good urls

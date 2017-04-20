@@ -19,7 +19,7 @@
                    sessions view/SessionsInside">
 
   <div class="pull-right" tal:condition="context/logoOrgan">
-    <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan" />
+    <img  style="height: 100px;"  tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan" />
   </div>
   <div class="clearfix"></div>
   <div class="documentDescription description"></div>

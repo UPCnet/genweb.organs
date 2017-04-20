@@ -321,7 +321,7 @@ class View(grok.View):
                     if item.agreement:
                         agreement = item.agreement
                     else:
-                        agreement = _(u"ACORD")
+                        agreement = _(u"sense numeracio")
                     isPunt = False
                 else:
                     agreement = False
@@ -360,7 +360,7 @@ class View(grok.View):
                 if item.agreement:
                     agreement = item.agreement
                 else:
-                    agreement = _(u"ACORD")
+                    agreement = _(u"sense numeracio")
             else:
                 agreement = False
             results.append(dict(title=obj.Title,

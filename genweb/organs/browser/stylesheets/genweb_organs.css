@@ -1607,5 +1607,5 @@ span.estatpunt {
 .scrollit {
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 400px;
+    max-height: 400px;
 }

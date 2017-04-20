@@ -405,7 +405,7 @@ class Butlleti(BrowserView):
                 if value.agreement:
                     agreement = value.agreement
                 else:
-                    agreement = _(u'ACORD')
+                    agreement = _(u"sense numeracio")
             else:
                 agreement = False
             results.append(dict(Title=obj.Title,
