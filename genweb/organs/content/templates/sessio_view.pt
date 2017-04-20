@@ -267,6 +267,7 @@
       </div>
 
       <div class="tab-pane" id="notificationsTab" tal:condition="python:loginfo and viewHistory">
+      <div class="scrollit">
         <table class="table table-bordered table-condensed table-hover logFont">
           <thead>
             <tr>
@@ -299,6 +300,7 @@
             </tal:documents>
           </tbody>
         </table>
+        </div>
       </div>
 
     </div>

@@ -511,7 +511,7 @@ msgstr "No s'han creat tots els elements perque no segueixen la norma. Dintre d'
 
 #: ./genweb/organs/content/templates/sessio_view.pt:283
 msgid "Notificador"
-msgstr "Notificador"
+msgstr "Remitent"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:347
 msgid "Nou acord"
@@ -748,7 +748,7 @@ msgstr "Envia"
 #: ./genweb/organs/content/mailConvocar.py:27
 #: ./genweb/organs/content/sendMessage.py:25
 msgid "Sender"
-msgstr "Informador"
+msgstr "Remitent"
 
 #: ./genweb/organs/content/informarSessio.py:28
 #: ./genweb/organs/content/mailConvocar.py:28

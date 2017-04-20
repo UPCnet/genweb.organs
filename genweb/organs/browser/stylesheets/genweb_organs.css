@@ -1390,7 +1390,7 @@ span.barra {
 }
 
 .bodyPresentation .subpuntTitle.span12{margin-left:0px!important; padding-left: 115px!important;
-} 
+}
 
 .bodyPresentation .subpuntTitle {
     padding-left: 50px!important;
@@ -1585,7 +1585,7 @@ span.estatpunt {
   top:0;
   bottom:0;
   left:0;
-  right:0; 
+  right:0;
 }
 .bodyPresentation .modal-body {
   position:absolute;
@@ -1603,3 +1603,9 @@ span.estatpunt {
   right:0;
 }
 
+
+.scrollit {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 400px;
+}
