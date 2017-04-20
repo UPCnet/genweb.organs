@@ -22,10 +22,10 @@
 
 <div tal:attributes="class show" id="template-impersonate">
   <div class="documentDescription description"></div>
-  <div tal:condition="show" class="alert alert-danger" i18n:translate="">
-    Esteu visualitzant la sessio amb el rol
+  <div tal:condition="show" class="alert alert-danger">
+    <tal:block i18n:translate="">Esteu visualitzant la sessio amb el rol</tal:block>
     <b><span tal:content="show"></span></b>.
-    <br/> Clicar <a href="./">aqui</a> per tornar al mode de visualitzacio per defecte.
+    <br/> <tal:block i18n:translate="">Cliqueu <a href="./">aqui</a> per tornar al mode de visualitzacio per defecte.</tal:block>
   </div>
 
   <div tal:condition="python: isAfectat or isMembre or isPublic">
@@ -138,29 +138,22 @@
               <tal:block tal:define="agreement item/agreement">
                 <li tal:attributes="id item/id; class item/classe">
                   <td tal:condition="item/show">
-                    <div class="span6 agreementSpan">
-                      <span class="agreementClass" tal:content="agreement" tal:condition="agreement"></span>
-                    </div>
-                    <div class="span6 einesSpan">
-                      <div style="float: right;">
-                        <tal:block tal:condition="item/state">
-                          <span class="btn label disabled " style="padding:3px;">
-                          <i class="fa fa-circle" aria-hidden="true"  tal:attributes="style string:color:${item/css}"></i>
-                          <span  tal:content="item/state"></span>
-                          </span>
-                        </tal:block>
-                      </div>
+                    <div class="span12">
+                      <span class="btn label disabled" style="padding:3px; float: right;"">
+                        <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
+                        <span  tal:content="item/state"></span>
+                      </span>
                     </div>
                     <div class="puntTitle span12">
                       <div class="span1 fletxaSpan">
                         <button type="button" class="expand" tal:condition="item/items_inside"
                           data-original-title="Expand" style="font-size:20px;">
                           <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
-                          </button>
+                        </button>
                         <button type="button" class="notexpand" tal:condition="item/items_inside"
                           data-original-title="Collapse" style="font-size:20px;">
                           <i  style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
-                          </button>
+                        </button>
                       </div>
                       <div class="span1 numberSpan">
                         <span class="proposalNumber" style="text-align: right; float:right;" tal:content="item/proposalPoint"></span>
@@ -171,7 +164,7 @@
                           <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                         </a>
                       </div>
-
+                      <div class="span12">
                         <tal:files tal:define="files python:view.filesinsidePunt(item)">
                           <ul class="listFiles" tal:condition="files">
                             <tal:documents repeat="item files">
@@ -185,51 +178,49 @@
                             </tal:documents>
                           </ul>
                         </tal:files>
-
                       </div>
-                      <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" class="sortable2">
-                        <tal:subpunts repeat="itemSubpunt subpunts">
-                          <ol class="li_subgrups" tal:attributes="id itemSubpunt/id">
-                            <td>
-                              <div class="span6">
-                                  <a class="agreementSubClass" tal:condition="itemSubpunt/agreement" tal:content="itemSubpunt/agreement"></a>
+                    </div>
+                    <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" class="sortable2">
+                      <tal:subpunts repeat="itemSubpunt subpunts">
+                        <ol class="li_subgrups" tal:attributes="id itemSubpunt/id">
+                          <td>
+                            <div class="subpuntTitle">
+                              <div class="span1">
+                              <span class="proposalNumberSubpunt" tal:content="itemSubpunt/proposalPoint"></span>
                               </div>
-                              <div class="span6" >
-                                  <span class="btn label disabled" style="padding:3px; float: right;">
-                                  <i class="fa fa-circle" aria-hidden="true"  tal:attributes="style string:color:${itemSubpunt/css}"></i>
-                                  <span  tal:content="itemSubpunt/state"></span>
-                                  </span>
+                              <div class="span9">
+                                <a tal:attributes="data-pk itemSubpunt/id; href itemSubpunt/absolute_url"
+                                   data-type="text" data-url="changeTitle"
+                                   class="editTitle editable subtitleSize">
+                                  <tal:omit-tag tal:content="itemSubpunt/title">itemSubpunt Title</tal:omit-tag>
+                                </a>
                               </div>
-
-                              <div class="subpuntTitle span12">
-                                <div class="span1">
-                                <span class="proposalNumberSubpunt" tal:content="itemSubpunt/proposalPoint"></span>
-                                </div>
-                                <div class="span11">
-                                  <a tal:attributes="data-pk itemSubpunt/id; href itemSubpunt/absolute_url"
-                                     data-type="text" data-url="changeTitle"
-                                     class="editTitle editable subtitleSize">
-                                    <tal:omit-tag tal:content="itemSubpunt/title">itemSubpunt Title</tal:omit-tag>
-                                  </a>
-                                </div>
-                                <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
-                                  <ul style="list-style: none; padding-top:10px;" tal:condition="files">
-                                    <tal:documents repeat="item files">
-                                      <li style="padding-left:35px;" class="filesinTable">
-                                        <i tal:attributes="class item/classCSS"></i>
-                                        <a tal:attributes="href item/absolute_url;"
-                                           style="font-size:14px;">
-                                           <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
-                                        </a>
-                                      </li>
-                                    </tal:documents>
-                                  </ul>
-                                </tal:files>
-                              </div>
-                            </td>
-                          </ol>
-                        </tal:subpunts>
-                      </div>
+                            <div class="span2" >
+                                <span class="btn label disabled" style="padding:3px; float: right;">
+                                <i class="fa fa-circle" aria-hidden="true"  tal:attributes="style string:color:${itemSubpunt/css}"></i>
+                                <span  tal:content="itemSubpunt/state"></span>
+                                </span>
+                            </div>
+                            <div class="span12">
+                              <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
+                                <ul style="list-style: none;" " tal:condition="files">
+                                  <tal:documents repeat="item files">
+                                    <li class="filesinTable">
+                                      <i tal:attributes="class item/classCSS"></i>
+                                      <a tal:attributes="href item/absolute_url;"
+                                         style="font-size:14px;">
+                                         <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                      </a>
+                                    </li>
+                                  </tal:documents>
+                                </ul>
+                              </tal:files>
+                            </div>
+                            </div>
+                          </td>
+                        </ol>
+                      </tal:subpunts>
+                    </div>
                   </td>
                 </li>
               </tal:block>

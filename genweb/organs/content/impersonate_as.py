@@ -41,17 +41,18 @@ class ShowSessionAs(form.SchemaForm):
         role = str(self.getUserRole())
         if role is 'False':
             return self.request.response.redirect(self.context.absolute_url())
-        elif role == 'Public':
-            return 'Public'
-        elif role == 'OG3-Membre':
-            return 'Membre'
-        elif role == 'OG4-Afectat':
-            return 'Afectat'
+        elif role == 'Other':
+            return _(u'Altres')
+        elif role == 'Member':
+            return _(u'Membre')
+        elif role == 'Affected':
+            return _(u'Afectat')
         else:
             return self.request.response.redirect(self.context.absolute_url())
 
     def isAfectat(self):
-        if self.simulation() is 'Afectat':
+        role = _(u'Afectat')
+        if self.simulation() == role:
             review_state = api.content.get_state(self.context)
             if review_state in ['planificada', 'convocada']:
                 return False
@@ -61,7 +62,8 @@ class ShowSessionAs(form.SchemaForm):
             return False
 
     def isMembre(self):
-        if self.simulation() is 'Membre':
+        role = _(u'Membre')
+        if self.simulation() == role:
             review_state = api.content.get_state(self.context)
             if review_state in ['planificada']:
                 return False
@@ -71,7 +73,8 @@ class ShowSessionAs(form.SchemaForm):
             return False
 
     def isPublic(self):
-        if self.simulation() is 'Public':
+        role = _(u'Altres')
+        if self.simulation() == role:
             review_state = api.content.get_state(self.context)
             if review_state in ['planificada', 'convocada', 'realitzada']:
                 return False

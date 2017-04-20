@@ -386,9 +386,9 @@
           <span class="caret"></span>
         </button>
         <ul style="text-align: left;" class="dropdown-menu" role="menu" aria-labelledby="types">
-          <li><a tabindex="-1" href="view_as_role?id=OG3-Membre"><span i18n:translate="">Membre</span></a></li>
-          <li><a tabindex="-1" href="view_as_role?id=OG4-Afectat"><span i18n:translate="">Afectat</span></a></li>
-          <li><a tabindex="-1" href="view_as_role?id=Public"><span i18n:translate="">Public</span></a></li>
+          <li><a tabindex="-1" href="view_as_role?id=Member"><span i18n:translate="">Membre</span></a></li>
+          <li><a tabindex="-1" href="view_as_role?id=Affected"><span i18n:translate="">Afectat</span></a></li>
+          <li><a tabindex="-1" href="view_as_role?id=Other"><span i18n:translate="">Altres</span></a></li>
         </ul>
       </div>
       <div class="clearfix"></div>
@@ -451,7 +451,7 @@
 
               <div tal:condition="not:canModify" style="float: right;">
                 <tal:block tal:condition="item/state">
-                  <button class="btn label disabled " style="padding:3px;">
+                  <button class="btn label disabled" style="padding:3px;">
                   <i class="fa fa-circle" aria-hidden="true"  tal:attributes="style string:color:${item/css}"></i>
                   <span tal:content="item/state"></span>
                   </button>
@@ -539,7 +539,6 @@
                               <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </button>
                       </div>
-
                       <div class="btn-group" role="group" style="float: right;"
                            aria-label="Add element" tal:condition="canModify">
                           <button class="label dropdown-toggle"
@@ -553,7 +552,6 @@
                             <li><a tabindex="-1" tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.document"><span i18n:translate="">Document</span></a></li>
                           </ul>
                       </div>
-
                       <div class="btn-group" role="group" tal:condition="canModify"
                            style="float: right;" aria-label="Change current state">
                         <tal:block tal:condition="itemSubpunt/state">
