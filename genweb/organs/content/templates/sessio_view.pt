@@ -483,13 +483,18 @@
                   </span>
               </div>
               <div class="span1 boleta">
-                <tal:block tal:condition="item/state">
+                <tal:block tal:condition="canModify" tal:define="estat item/state">
                   <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
                 </tal:block>
+                <tal:block tal:condition="not:canModify" tal:define="estat item/state">
+                  <span class="btn label disabled" style="padding:3px; float: right;">
+                    <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>&nbsp;<span tal:content="estat"></span>
+                  </span>
+                </tal:block>
               </div>
-              <div class="span12">
-                <tal:files tal:define="files python:view.filesinsidePunt(item)">
-                  <ul class="listFiles" tal:condition="files">
+              <tal:files tal:define="files python:view.filesinsidePunt(item)">
+                <div class="span12" tal:condition="files">
+                  <ul class="listFiles">
                     <tal:documents repeat="item files">
                       <li class="filesinTable">
                         <i tal:attributes="class item/classCSS"></i>
@@ -511,8 +516,8 @@
                       </li>
                     </tal:documents>
                   </ul>
-                </tal:files>
-              </div>
+                </div>
+              </tal:files>
             </div>
               <div tal:define="subpunts python:view.SubpuntsInside(item)" tal:condition="subpunts" class="sortable2">
                 <tal:subpunts repeat="itemSubpunt subpunts">
@@ -568,7 +573,6 @@
                           </ul>
                         </tal:block>
                       </div>
-
                       <div tal:condition="not:canModify" style="float: right;">
                         <tal:block tal:condition="itemSubpunt/state">
                           <button class="btn label disabled " style="padding:3px;">
@@ -593,12 +597,17 @@
                         </span>
                       </div>
                       <div class="span2 boleta">
-                        <tal:block tal:condition="itemSubpunt/state">
+                        <tal:block tal:condition="canModify" tal:define="estat itemSubpunt/state">
                           <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${itemSubpunt/css}"></i>
                         </tal:block>
+                        <tal:block tal:condition="not:canModify" tal:define="estat itemSubpunt/state">
+                          <span class="btn label disabled" style="padding:3px; float: right;">
+                            <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${itemSubpunt/css}"></i>&nbsp;<span tal:content="estat"></span>
+                          </span>
+                        </tal:block>
                       </div>
-                      <div class="span12">
-                          <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
+                      <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
+                        <div class="span12" tal:condition="files">
                             <ul style="list-style: none;" tal:condition="files">
                               <tal:documents repeat="item files">
                                 <li class="filesinTable">
@@ -620,8 +629,8 @@
                                 </li>
                               </tal:documents>
                             </ul>
-                          </tal:files>
-                        </div>
+                          </div>
+                        </tal:files>
                     </div>
                   </ol>
                 </tal:subpunts>

@@ -139,7 +139,7 @@
                 <li tal:attributes="id item/id; class item/classe">
                   <td tal:condition="item/show">
                     <div class="span12">
-                      <span class="btn label disabled" style="padding:3px; float: right;"">
+                      <span class="btn label disabled" style="padding:3px; float: right;">
                         <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
                         <span  tal:content="item/state"></span>
                       </span>
