@@ -80,7 +80,6 @@ class Message(form.SchemaForm):
             endHour = ''
         else:
             endHour = end.strftime("%H:%M")
-        sessionLink = '----@@----' + session.absolute_url()
         organ = session.aq_parent
 
         if organ.footerMail is None:

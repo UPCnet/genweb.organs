@@ -189,10 +189,8 @@ def Punts2Acta(self):
         else:
             agreement = ''
 
-        # testing numero de punt
-        results.append(number + str(obj.Title) + str(agreement))
+        results.append(number + str(obj.Title) + ' ' + str(agreement))
 
-        # testing subpunts
         if len(value.objectIds()) > 0:
             valuesInside = portal_catalog.searchResults(
                 portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
@@ -215,7 +213,7 @@ def Punts2Acta(self):
                         agreement = _(u'[Acord sense numeracio]')
                 else:
                     agreement = ''
-                results.append('&nbsp;&nbsp;' + numberSubpunt + str(item.Title) + agreement)
+                results.append('&nbsp;&nbsp;' + numberSubpunt + str(item.Title) + ' ' + str(agreement))
 
     return '<br/>' + '<br/>'.join(results)
 
