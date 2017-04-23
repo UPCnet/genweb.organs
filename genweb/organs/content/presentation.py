@@ -51,7 +51,7 @@ class Presentation(form.SchemaForm):
                         if item.agreement:
                             agreement = _(u'[Acord ') + item.agreement + ']'
                         else:
-                            agreement = _(u'[ACORD]')
+                            agreement = _(u'[Acord sense numeracio]')
                     else:
                         agreement = False
                     results.append(dict(title=obj.Title,
@@ -73,7 +73,7 @@ class Presentation(form.SchemaForm):
                         if item.agreement:
                             agreement = _(u'[Acord ') + item.agreement + ']'
                         else:
-                            agreement = _(u'[ACORD]')
+                            agreement = _(u'[Acord sense numeracio]')
                     else:
                         agreement = False
                     results.append(dict(title=obj.Title,
@@ -108,7 +108,7 @@ class Presentation(form.SchemaForm):
                     if item.agreement:
                         agreement = _(u'[Acord ') + item.agreement + ']'
                     else:
-                        agreement = _(u'[ACORD]')
+                        agreement = _(u'[Acord sense numeracio]')
                 else:
                     agreement = False
                 results.append(dict(title=obj.Title,
@@ -126,7 +126,7 @@ class Presentation(form.SchemaForm):
                     if item.agreement:
                         agreement = _(u'[Acord ') + item.agreement + ']'
                     else:
-                        agreement = _(u'[ACORD]')
+                        agreement = _(u'[Acord sense numeracio]')
                 else:
                     agreement = False
                 results.append(dict(title=obj.Title,

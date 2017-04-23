@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-04-20 15:26+0000\n"
+"POT-Creation-Date: 2017-04-23 22:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,15 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: genweb.organs\n"
 
+#: ./genweb/organs/content/informarSessio.py:232
+msgid " [Acord sense numeracio]"
+msgstr ""
+
 #: ./genweb/organs/content/organgovern.py:25
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:408
-#: ./genweb/organs/content/impersonate_as.py:144
+#: ./genweb/organs/content/impersonate_as.py:181
 #: ./genweb/organs/content/punt.py:146
 msgid "ACORD"
 msgstr ""
@@ -38,6 +41,10 @@ msgstr ""
 
 #: ./genweb/organs/content/acord.py:66
 msgid "Acord Title"
+msgstr ""
+
+#: ./genweb/organs/content/impersonate_as.py:144
+msgid "Acord sense numeracio"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:60
@@ -383,7 +390,7 @@ msgstr ""
 msgid "Incoming members list help"
 msgstr ""
 
-#: ./genweb/organs/browser/viewlets_templates/header.pt:42
+#: ./genweb/organs/browser/viewlets_templates/header.pt:41
 msgid "Info_del_Servei"
 msgstr ""
 
@@ -940,12 +947,13 @@ msgstr ""
 msgid "Vista previa dels punts"
 msgstr ""
 
-#: ./genweb/organs/content/presentation.py:54
-msgid "[ACORD]"
-msgstr ""
-
 #: ./genweb/organs/content/presentation.py:52
 msgid "[Acord "
+msgstr ""
+
+#: ./genweb/organs/content/acta.py:188
+#: ./genweb/organs/content/presentation.py:54
+msgid "[Acord sense numeracio]"
 msgstr ""
 
 #: ./genweb/organs/content/templates/acord_view.pt:17
@@ -992,6 +1000,7 @@ msgstr ""
 msgid "printOrdreDia"
 msgstr ""
 
+#: ./genweb/organs/browser/views.py:408
 #: ./genweb/organs/content/sessio.py:324
 msgid "sense numeracio"
 msgstr ""

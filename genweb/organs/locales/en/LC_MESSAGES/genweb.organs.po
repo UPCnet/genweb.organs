@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-04-20 15:26+0000\n"
+"POT-Creation-Date: 2017-04-23 22:30+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,12 +16,15 @@ msgstr ""
 "Language: en\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
+#: ./genweb/organs/content/informarSessio.py:232
+msgid " [Acord sense numeracio]"
+msgstr ""
+
 #: ./genweb/organs/content/organgovern.py:25
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Draft Yellow</p><p>Pending aproval Orange</p><p>Approved Green</p><p>Not approved Red</p><p>Cancelled DarkRed</p><p>Informative LightSkyBlue</p><p>Informedt MediumBlue</p>"
 
-#: ./genweb/organs/browser/views.py:408
-#: ./genweb/organs/content/impersonate_as.py:144
+#: ./genweb/organs/content/impersonate_as.py:181
 #: ./genweb/organs/content/punt.py:146
 msgid "ACORD"
 msgstr "Agreement"
@@ -38,6 +41,10 @@ msgstr "Agreement"
 #: ./genweb/organs/content/acord.py:66
 msgid "Acord Title"
 msgstr "Agreement Title"
+
+#: ./genweb/organs/content/impersonate_as.py:144
+msgid "Acord sense numeracio"
+msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:60
 msgid "Acronym"
@@ -382,7 +389,7 @@ msgstr "Incoming members list"
 msgid "Incoming members list help"
 msgstr "Incoming members list help"
 
-#: ./genweb/organs/browser/viewlets_templates/header.pt:42
+#: ./genweb/organs/browser/viewlets_templates/header.pt:41
 msgid "Info_del_Servei"
 msgstr "Service information"
 
@@ -939,13 +946,14 @@ msgstr "Link to the video session"
 msgid "Vista previa dels punts"
 msgstr "Preview punts"
 
-#: ./genweb/organs/content/presentation.py:54
-msgid "[ACORD]"
-msgstr "[Agreement ]"
-
 #: ./genweb/organs/content/presentation.py:52
 msgid "[Acord "
 msgstr "[Agreement "
+
+#: ./genweb/organs/content/acta.py:188
+#: ./genweb/organs/content/presentation.py:54
+msgid "[Acord sense numeracio]"
+msgstr ""
 
 #: ./genweb/organs/content/templates/acord_view.pt:17
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:81
@@ -991,6 +999,7 @@ msgstr "Addresses where the messages related to the meeting will be arrive."
 msgid "printOrdreDia"
 msgstr "Print Agenda"
 
+#: ./genweb/organs/browser/views.py:408
 #: ./genweb/organs/content/sessio.py:324
 msgid "sense numeracio"
 msgstr ""

@@ -229,7 +229,7 @@ class Message(form.SchemaForm):
                 if value.agreement:
                     agreement = ' [Acord ' + str(value.agreement) + ' - ' + str(value.estatsLlista).upper() + ' ]'
                 else:
-                    agreement = _(u' [ACORD sense numeracio]')
+                    agreement = _(u' [Acord sense numeracio]')
             else:
                 agreement = ''
             # adding hidden field to maintain good urls
@@ -250,7 +250,7 @@ class Message(form.SchemaForm):
                         if subpunt.agreement:
                             agreement = ' [Acord ' + str(subpunt.agreement) + ' - ' + str(subpunt.estatsLlista).upper() + ' ]'
                     else:
-                        agreement = ' [ACORD]'
+                        agreement = _(u' [Acord sense numeracio]')
                     # adding hidden field to maintain good urls
                     results.append(str('&emsp;&emsp;') + str('<a href=----@@----') + str(item.getURL()) + str('>') + str(numberSubpunt) + str(item.Title) + str(agreement) + str('</a>'))
 
