@@ -12,6 +12,7 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from genweb.organs import utils
+from dateutil import tz
 from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 
 
@@ -432,8 +433,12 @@ class View(grok.View):
     def valuesTable(self):
         start = getattr(self.context, 'start', None)
         end = getattr(self.context, 'end', None)
+        from_zone = tz.tzutc()
+        to_zone = tz.tzlocal()
 
         if start:
+            start = start.replace(tzinfo=from_zone)
+            start = start.astimezone(to_zone)
             dataSessio = start.strftime('%d/%m/%Y')
             horaInici = start.strftime('%H:%M')
         else:
@@ -441,6 +446,8 @@ class View(grok.View):
             horaInici = ''
 
         if end:
+            end = end.replace(tzinfo=from_zone)
+            end = end.astimezone(to_zone)
             horaFi = end.strftime('%H:%M')
         else:
             horaFi = ''
