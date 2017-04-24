@@ -120,9 +120,9 @@
                            tal:content="item/title">
                             Item Title
                         </a>&nbsp;
-                        (<span tal:content="item/date">
+                        <span tal:condition="item/date">(<span tal:content="item/date">
                             Item Data
-                        </span>)
+                        </span>)</span>
                       </td>
                     </tr>
                   </tal:documents>
