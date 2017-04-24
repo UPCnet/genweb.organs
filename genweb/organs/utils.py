@@ -113,7 +113,7 @@ def addEntryLog(context, sender, message, recipients):
         if not sender:
             anon = api.user.is_anonymous()
             if anon:
-                sender = 'Anonymous user'
+                sender = _(u'Anonymous user')
             else:
                 portal = api.portal.get()
                 plugins = portal.acl_users.plugins.listPlugins(IPropertiesPlugin)

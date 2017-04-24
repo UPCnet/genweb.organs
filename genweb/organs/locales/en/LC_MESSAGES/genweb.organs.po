@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-04-23 22:30+0000\n"
+"POT-Creation-Date: 2017-04-24 13:49+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,7 +16,7 @@ msgstr ""
 "Language: en\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: ./genweb/organs/content/informarSessio.py:232
+#: ./genweb/organs/content/informarSessio.py:231
 msgid " [Acord sense numeracio]"
 msgstr ""
 
@@ -74,7 +74,7 @@ msgid "Afectat"
 msgstr "Affected"
 
 #: ./genweb/organs/content/organgovern.py:43
-#: ./genweb/organs/content/sessio.py:32
+#: ./genweb/organs/content/sessio.py:34
 msgid "Afectats"
 msgstr "Affected"
 
@@ -111,9 +111,13 @@ msgstr "Private content"
 msgid "Altres"
 msgstr "Others"
 
+#: ./genweb/organs/utils.py:116
+msgid "Anonymous user"
+msgstr ""
+
 #: ./genweb/organs/content/acta.py:29
 #: ./genweb/organs/content/organgovern.py:38
-#: ./genweb/organs/content/sessio.py:27
+#: ./genweb/organs/content/sessio.py:29
 msgid "Assistents"
 msgstr "Members"
 
@@ -131,7 +135,7 @@ msgid "Audio de la sessio"
 msgstr "Session audio file"
 
 #: ./genweb/organs/content/organgovern.py:131
-#: ./genweb/organs/content/sessio.py:111
+#: ./genweb/organs/content/sessio.py:113
 msgid "Body Mail"
 msgstr "Body Mail"
 
@@ -139,7 +143,7 @@ msgstr "Body Mail"
 msgid "Body Mail convoquing description"
 msgstr "Message attached to convene a session. Adds the Footer and header."
 
-#: ./genweb/organs/content/sessio.py:112
+#: ./genweb/organs/content/sessio.py:114
 msgid "Body Mail description"
 msgstr "Message Body convening of the session"
 
@@ -151,7 +155,7 @@ msgstr "Template from message used in Send Message action"
 msgid "Body Mail send description"
 msgstr "Message attached executing the Send Message Action. It adds just the foot of the post."
 
-#: ./genweb/organs/content/informarSessio.py:168
+#: ./genweb/organs/content/informarSessio.py:167
 #: ./genweb/organs/content/mailConvocar.py:174
 #: ./genweb/organs/content/manualimport.py:180
 msgid "Cancel"
@@ -197,7 +201,7 @@ msgstr "Changed subpunt number with drag&drop"
 msgid "Changed workflow state"
 msgstr "Changed workflow state"
 
-#: ./genweb/organs/overrides.py:112
+#: ./genweb/organs/overrides.py:113
 msgid "Changes saved."
 msgstr "Changes saved."
 
@@ -305,12 +309,12 @@ msgstr ""
 
 #: ./genweb/organs/browser/views/acta_print.pt:78
 #: ./genweb/organs/content/acta.py:73
-#: ./genweb/organs/content/sessio.py:95
+#: ./genweb/organs/content/sessio.py:97
 msgid "Excused members"
 msgstr "Excused members"
 
 #: ./genweb/organs/content/acta.py:74
-#: ./genweb/organs/content/sessio.py:96
+#: ./genweb/organs/content/sessio.py:98
 msgid "Excused members help"
 msgstr "Excused members help"
 
@@ -380,12 +384,12 @@ msgid "Importar llista de punts i subpunts"
 msgstr "Add massive punts quickly"
 
 #: ./genweb/organs/content/acta.py:57
-#: ./genweb/organs/content/sessio.py:79
+#: ./genweb/organs/content/sessio.py:81
 msgid "Incoming members list"
 msgstr "Incoming members list"
 
 #: ./genweb/organs/content/acta.py:58
-#: ./genweb/organs/content/sessio.py:80
+#: ./genweb/organs/content/sessio.py:82
 msgid "Incoming members list help"
 msgstr "Incoming members list help"
 
@@ -411,12 +415,12 @@ msgstr "Invalid audio file"
 
 #: ./genweb/organs/browser/views/acta_print.pt:73
 #: ./genweb/organs/content/acta.py:65
-#: ./genweb/organs/content/sessio.py:87
+#: ./genweb/organs/content/sessio.py:89
 msgid "Invited members"
 msgstr "Invited members"
 
 #: ./genweb/organs/content/acta.py:66
-#: ./genweb/organs/content/sessio.py:88
+#: ./genweb/organs/content/sessio.py:90
 msgid "Invited members help"
 msgstr "Invited members help"
 
@@ -433,7 +437,7 @@ msgstr "List points"
 msgid "Lloc"
 msgstr "Place"
 
-#: ./genweb/organs/overrides.py:275
+#: ./genweb/organs/overrides.py:276
 msgid "Logged-in users"
 msgstr "Logged-in users"
 
@@ -474,19 +478,19 @@ msgstr "Member"
 msgid "Message"
 msgstr "Message"
 
-#: ./genweb/organs/content/informarSessio.py:160
+#: ./genweb/organs/content/informarSessio.py:159
 #: ./genweb/organs/content/mailConvocar.py:166
 #: ./genweb/organs/content/sendMessage.py:136
 msgid "Missatge enviat correctament"
 msgstr "Message sent successfully"
 
-#: ./genweb/organs/content/informarSessio.py:162
+#: ./genweb/organs/content/informarSessio.py:161
 #: ./genweb/organs/content/mailConvocar.py:168
 #: ./genweb/organs/content/sendMessage.py:138
 msgid "Missatge no enviat"
 msgstr "Message not send"
 
-#: ./genweb/organs/content/informarSessio.py:164
+#: ./genweb/organs/content/informarSessio.py:163
 #: ./genweb/organs/content/mailConvocar.py:170
 #: ./genweb/organs/content/sendMessage.py:140
 msgid "Missatge no enviat. Comprovi els destinataris del missatge"
@@ -513,13 +517,13 @@ msgid "New session created"
 msgstr "New session created"
 
 #: ./genweb/organs/content/acta.py:81
-#: ./genweb/organs/content/sessio.py:103
+#: ./genweb/organs/content/sessio.py:105
 #: ./genweb/organs/content/templates/acta_view.pt:120
 msgid "No assistents"
 msgstr "People not attending"
 
 #: ./genweb/organs/content/acta.py:82
-#: ./genweb/organs/content/sessio.py:104
+#: ./genweb/organs/content/sessio.py:106
 msgid "No assistents help"
 msgstr "No assistents help"
 
@@ -563,7 +567,7 @@ msgstr "This file does not seem to be an audio file"
 msgid "Open"
 msgstr "Open"
 
-#: ./genweb/organs/content/informarSessio.py:170
+#: ./genweb/organs/content/informarSessio.py:169
 #: ./genweb/organs/content/mailConvocar.py:176
 #: ./genweb/organs/content/manualimport.py:182
 msgid "Operation Cancelled."
@@ -653,7 +657,7 @@ msgid "Persones excusades"
 msgstr "Missing members"
 
 #: ./genweb/organs/content/organgovern.py:48
-#: ./genweb/organs/content/sessio.py:37
+#: ./genweb/organs/content/sessio.py:39
 msgid "Plantilles"
 msgstr "Templates"
 
@@ -744,15 +748,15 @@ msgstr "Restricted to affected"
 msgid "Restricted_to_Members"
 msgstr "Restricted to members"
 
-#: ./genweb/organs/content/informarSessio.py:99
+#: ./genweb/organs/content/informarSessio.py:98
 msgid "Resultat. "
 msgstr "Results"
 
-#: ./genweb/organs/overrides.py:376
+#: ./genweb/organs/overrides.py:377
 msgid "Search for user or group"
 msgstr "Search for user or group"
 
-#: ./genweb/organs/content/informarSessio.py:126
+#: ./genweb/organs/content/informarSessio.py:125
 #: ./genweb/organs/content/mailConvocar.py:131
 #: ./genweb/organs/content/manualimport.py:61
 msgid "Send"
@@ -774,7 +778,7 @@ msgstr "Sender organ help"
 msgid "Sending mail convocatoria"
 msgstr "Sending mail convocatoria"
 
-#: ./genweb/organs/content/informarSessio.py:158
+#: ./genweb/organs/content/informarSessio.py:157
 msgid "Sending mail informar sessio"
 msgstr "Sending mail informar sessio"
 
@@ -786,7 +790,7 @@ msgstr "Sending mail new message"
 msgid "Session"
 msgstr "Session"
 
-#: ./genweb/organs/content/sessio.py:43
+#: ./genweb/organs/content/sessio.py:45
 msgid "Session Title"
 msgstr "Session Title"
 
@@ -802,11 +806,11 @@ msgstr "End Time Session"
 
 #: ./genweb/organs/browser/views/acta_print.pt:41
 #: ./genweb/organs/content/acta.py:50
-#: ./genweb/organs/content/sessio.py:60
+#: ./genweb/organs/content/sessio.py:62
 msgid "Session location"
 msgstr "Session Location"
 
-#: ./genweb/organs/content/sessio.py:49
+#: ./genweb/organs/content/sessio.py:51
 #: ./genweb/organs/content/templates/sessio_view.pt:198
 msgid "Session number"
 msgstr "Session Number"
@@ -837,16 +841,16 @@ msgstr "Sessions list"
 msgid "Si es vol fer servir la imatge estandard o la imatge que es puja a continuació"
 msgstr "Use this image"
 
-#: ./genweb/organs/content/sessio.py:119
+#: ./genweb/organs/content/sessio.py:121
 msgid "Signatura"
 msgstr "Signature message"
 
-#: ./genweb/organs/content/sessio.py:120
+#: ./genweb/organs/content/sessio.py:122
 msgid "Signatura description"
 msgstr "Signatura description"
 
 #: ./genweb/organs/content/organgovern.py:110
-#: ./genweb/organs/content/sessio.py:71
+#: ./genweb/organs/content/sessio.py:73
 msgid "Stakeholders mail address"
 msgstr "Addresses of the affected"
 
@@ -961,7 +965,7 @@ msgstr ""
 msgid "acord"
 msgstr "Agreement"
 
-#: ./genweb/organs/content/sessio.py:72
+#: ./genweb/organs/content/sessio.py:74
 msgid "affected_mail_help"
 msgstr "List of addresses of the persons concerned, that will be notified notified on sessions modifications."
 
@@ -987,11 +991,11 @@ msgid "informa_sessio"
 msgstr "Send message about the session"
 
 #: ./genweb/organs/content/organgovern.py:104
-#: ./genweb/organs/content/sessio.py:65
+#: ./genweb/organs/content/sessio.py:67
 msgid "mail address"
 msgstr "Notification Addresses"
 
-#: ./genweb/organs/content/sessio.py:66
+#: ./genweb/organs/content/sessio.py:68
 msgid "notification_mail_help"
 msgstr "Addresses where the messages related to the meeting will be arrive."
 
@@ -1000,6 +1004,6 @@ msgid "printOrdreDia"
 msgstr "Print Agenda"
 
 #: ./genweb/organs/browser/views.py:408
-#: ./genweb/organs/content/sessio.py:324
+#: ./genweb/organs/content/sessio.py:326
 msgid "sense numeracio"
 msgstr ""

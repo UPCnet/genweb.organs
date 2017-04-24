@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-04-23 22:30+0000\n"
+"POT-Creation-Date: 2017-04-24 13:49+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,7 +16,7 @@ msgstr ""
 "Language: es\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: ./genweb/organs/content/informarSessio.py:232
+#: ./genweb/organs/content/informarSessio.py:231
 msgid " [Acord sense numeracio]"
 msgstr " [Acuerdo sin numeración]"
 
@@ -74,7 +74,7 @@ msgid "Afectat"
 msgstr "Afectado"
 
 #: ./genweb/organs/content/organgovern.py:43
-#: ./genweb/organs/content/sessio.py:32
+#: ./genweb/organs/content/sessio.py:34
 msgid "Afectats"
 msgstr "Afectados"
 
@@ -111,9 +111,13 @@ msgstr "Contenido reservado"
 msgid "Altres"
 msgstr "Otros"
 
+#: ./genweb/organs/utils.py:116
+msgid "Anonymous user"
+msgstr ""
+
 #: ./genweb/organs/content/acta.py:29
 #: ./genweb/organs/content/organgovern.py:38
-#: ./genweb/organs/content/sessio.py:27
+#: ./genweb/organs/content/sessio.py:29
 msgid "Assistents"
 msgstr "Miembros"
 
@@ -131,7 +135,7 @@ msgid "Audio de la sessio"
 msgstr "Audio de la sesión"
 
 #: ./genweb/organs/content/organgovern.py:131
-#: ./genweb/organs/content/sessio.py:111
+#: ./genweb/organs/content/sessio.py:113
 msgid "Body Mail"
 msgstr "Introducción de convocatoria"
 
@@ -139,7 +143,7 @@ msgstr "Introducción de convocatoria"
 msgid "Body Mail convoquing description"
 msgstr "Propuesta del mensaje que es genera al convocar una sesión. Se añade automáticamente el pie del mensaje que se haya definido en el órgano."
 
-#: ./genweb/organs/content/sessio.py:112
+#: ./genweb/organs/content/sessio.py:114
 msgid "Body Mail description"
 msgstr "Propuesta del mensaje que es genera al convocar una sesión. Se añade automáticamente el pie del mensaje que se haya definido en el órgano."
 
@@ -151,7 +155,7 @@ msgstr "Introducción de la notificación a miembros"
 msgid "Body Mail send description"
 msgstr "Mensaje que se adjunta al clicar el botón Enviar mensaje. Se añade automáticamente el pie del mensaje que se haya definido en el órgano."
 
-#: ./genweb/organs/content/informarSessio.py:168
+#: ./genweb/organs/content/informarSessio.py:167
 #: ./genweb/organs/content/mailConvocar.py:174
 #: ./genweb/organs/content/manualimport.py:180
 msgid "Cancel"
@@ -197,7 +201,7 @@ msgstr "Se ha movido el número de punto interno al mover el elemento"
 msgid "Changed workflow state"
 msgstr "Se ha cambiado el estado de la sesión"
 
-#: ./genweb/organs/overrides.py:112
+#: ./genweb/organs/overrides.py:113
 msgid "Changes saved."
 msgstr "Se han guardado los cambios."
 
@@ -305,12 +309,12 @@ msgstr "Estáis visualizando la sesión con el rol"
 
 #: ./genweb/organs/browser/views/acta_print.pt:78
 #: ./genweb/organs/content/acta.py:73
-#: ./genweb/organs/content/sessio.py:95
+#: ./genweb/organs/content/sessio.py:97
 msgid "Excused members"
 msgstr "Excusados"
 
 #: ./genweb/organs/content/acta.py:74
-#: ./genweb/organs/content/sessio.py:96
+#: ./genweb/organs/content/sessio.py:98
 msgid "Excused members help"
 msgstr "Lista de miembros que se excusan de la asisténcia de la sesión."
 
@@ -380,12 +384,12 @@ msgid "Importar llista de punts i subpunts"
 msgstr "Creación ágil"
 
 #: ./genweb/organs/content/acta.py:57
-#: ./genweb/organs/content/sessio.py:79
+#: ./genweb/organs/content/sessio.py:81
 msgid "Incoming members list"
 msgstr "Convocados"
 
 #: ./genweb/organs/content/acta.py:58
-#: ./genweb/organs/content/sessio.py:80
+#: ./genweb/organs/content/sessio.py:82
 msgid "Incoming members list help"
 msgstr "Lista de nombres de los miembros convocados. Inicialmente son los miembros que componen el órgano."
 
@@ -411,12 +415,12 @@ msgstr "El fichero seleccionado no parece en formato de audio."
 
 #: ./genweb/organs/browser/views/acta_print.pt:73
 #: ./genweb/organs/content/acta.py:65
-#: ./genweb/organs/content/sessio.py:87
+#: ./genweb/organs/content/sessio.py:89
 msgid "Invited members"
 msgstr "Invitados"
 
 #: ./genweb/organs/content/acta.py:66
-#: ./genweb/organs/content/sessio.py:88
+#: ./genweb/organs/content/sessio.py:90
 msgid "Invited members help"
 msgstr "Lista de nombres de los miembros que habrá que añadir a la convocatoria de la sesión. Hay que informar sus direcciones de correo en el campo correspondiente de la pestaña Asistentes."
 
@@ -433,7 +437,7 @@ msgstr "Creación ágil"
 msgid "Lloc"
 msgstr "Lugar"
 
-#: ./genweb/organs/overrides.py:275
+#: ./genweb/organs/overrides.py:276
 msgid "Logged-in users"
 msgstr "Usuarios conectados"
 
@@ -474,19 +478,19 @@ msgstr "Miembro"
 msgid "Message"
 msgstr "Mensaje"
 
-#: ./genweb/organs/content/informarSessio.py:160
+#: ./genweb/organs/content/informarSessio.py:159
 #: ./genweb/organs/content/mailConvocar.py:166
 #: ./genweb/organs/content/sendMessage.py:136
 msgid "Missatge enviat correctament"
 msgstr "Mensaje enviado correctamente"
 
-#: ./genweb/organs/content/informarSessio.py:162
+#: ./genweb/organs/content/informarSessio.py:161
 #: ./genweb/organs/content/mailConvocar.py:168
 #: ./genweb/organs/content/sendMessage.py:138
 msgid "Missatge no enviat"
 msgstr "Mensaje no enviado"
 
-#: ./genweb/organs/content/informarSessio.py:164
+#: ./genweb/organs/content/informarSessio.py:163
 #: ./genweb/organs/content/mailConvocar.py:170
 #: ./genweb/organs/content/sendMessage.py:140
 msgid "Missatge no enviat. Comprovi els destinataris del missatge"
@@ -513,13 +517,13 @@ msgid "New session created"
 msgstr "Se ha creado una nueva sesión"
 
 #: ./genweb/organs/content/acta.py:81
-#: ./genweb/organs/content/sessio.py:103
+#: ./genweb/organs/content/sessio.py:105
 #: ./genweb/organs/content/templates/acta_view.pt:120
 msgid "No assistents"
 msgstr "No asistentes"
 
 #: ./genweb/organs/content/acta.py:82
-#: ./genweb/organs/content/sessio.py:104
+#: ./genweb/organs/content/sessio.py:106
 msgid "No assistents help"
 msgstr "Listado de personas que no han asistido a la sesión."
 
@@ -563,7 +567,7 @@ msgstr "Sólo están permitidos los ficheros de tipo audio."
 msgid "Open"
 msgstr "Abierto"
 
-#: ./genweb/organs/content/informarSessio.py:170
+#: ./genweb/organs/content/informarSessio.py:169
 #: ./genweb/organs/content/mailConvocar.py:176
 #: ./genweb/organs/content/manualimport.py:182
 msgid "Operation Cancelled."
@@ -653,7 +657,7 @@ msgid "Persones excusades"
 msgstr "Excusados"
 
 #: ./genweb/organs/content/organgovern.py:48
-#: ./genweb/organs/content/sessio.py:37
+#: ./genweb/organs/content/sessio.py:39
 msgid "Plantilles"
 msgstr "Plantillas"
 
@@ -744,15 +748,15 @@ msgstr "Restringido a afectados"
 msgid "Restricted_to_Members"
 msgstr "Restringido a miembros"
 
-#: ./genweb/organs/content/informarSessio.py:99
+#: ./genweb/organs/content/informarSessio.py:98
 msgid "Resultat. "
 msgstr "Resultado."
 
-#: ./genweb/organs/overrides.py:376
+#: ./genweb/organs/overrides.py:377
 msgid "Search for user or group"
 msgstr "Busca por usuario o grupo"
 
-#: ./genweb/organs/content/informarSessio.py:126
+#: ./genweb/organs/content/informarSessio.py:125
 #: ./genweb/organs/content/mailConvocar.py:131
 #: ./genweb/organs/content/manualimport.py:61
 msgid "Send"
@@ -774,7 +778,7 @@ msgstr "Dirección de correo del remitente de las notificaciones (definido en el
 msgid "Sending mail convocatoria"
 msgstr "Enviando mensaje de convocatoria"
 
-#: ./genweb/organs/content/informarSessio.py:158
+#: ./genweb/organs/content/informarSessio.py:157
 msgid "Sending mail informar sessio"
 msgstr "Informa de la sesión"
 
@@ -786,7 +790,7 @@ msgstr "Envia un mensaje"
 msgid "Session"
 msgstr "Sesión"
 
-#: ./genweb/organs/content/sessio.py:43
+#: ./genweb/organs/content/sessio.py:45
 msgid "Session Title"
 msgstr "Título de la sesión"
 
@@ -802,11 +806,11 @@ msgstr "Hora de finalización de la sesión"
 
 #: ./genweb/organs/browser/views/acta_print.pt:41
 #: ./genweb/organs/content/acta.py:50
-#: ./genweb/organs/content/sessio.py:60
+#: ./genweb/organs/content/sessio.py:62
 msgid "Session location"
 msgstr "Lugar de la sesión"
 
-#: ./genweb/organs/content/sessio.py:49
+#: ./genweb/organs/content/sessio.py:51
 #: ./genweb/organs/content/templates/sessio_view.pt:198
 msgid "Session number"
 msgstr "Número de sesión"
@@ -837,16 +841,16 @@ msgstr "Sesiones"
 msgid "Si es vol fer servir la imatge estandard o la imatge que es puja a continuació"
 msgstr "Marcar esta opción si se quiere utilizar la imagen personalizada en lugar de la del Genweb."
 
-#: ./genweb/organs/content/sessio.py:119
+#: ./genweb/organs/content/sessio.py:121
 msgid "Signatura"
 msgstr "Pie del mensaje"
 
-#: ./genweb/organs/content/sessio.py:120
+#: ./genweb/organs/content/sessio.py:122
 msgid "Signatura description"
 msgstr "Pie del mensaje que se adjunta tanto en el mensaje de convocatoria como al enviar el mensaje. Inicialmente tendrá el valor que se haya definido en el órgano."
 
 #: ./genweb/organs/content/organgovern.py:110
-#: ./genweb/organs/content/sessio.py:71
+#: ./genweb/organs/content/sessio.py:73
 msgid "Stakeholders mail address"
 msgstr "Direcciones de correo de los afectados (Para enviar información de la sesión)"
 
@@ -961,7 +965,7 @@ msgstr "[Acuerdo sin numeración]"
 msgid "acord"
 msgstr "Acuerdo"
 
-#: ./genweb/organs/content/sessio.py:72
+#: ./genweb/organs/content/sessio.py:74
 msgid "affected_mail_help"
 msgstr "Lista de direcciones de correo de las personas afectadas a las cuales se les notificará de la información de las sesiones."
 
@@ -987,11 +991,11 @@ msgid "informa_sessio"
 msgstr "Envia resumen de la sesión"
 
 #: ./genweb/organs/content/organgovern.py:104
-#: ./genweb/organs/content/sessio.py:65
+#: ./genweb/organs/content/sessio.py:67
 msgid "mail address"
 msgstr "Direcciones de correo de miembros e invitados"
 
-#: ./genweb/organs/content/sessio.py:66
+#: ./genweb/organs/content/sessio.py:68
 msgid "notification_mail_help"
 msgstr "Direcciones a las que llegan los mensajes relativos a la sesión. Inicialmenre coge el valor definido en el órgano."
 
@@ -1000,6 +1004,6 @@ msgid "printOrdreDia"
 msgstr "Imprimir orden del día"
 
 #: ./genweb/organs/browser/views.py:408
-#: ./genweb/organs/content/sessio.py:324
+#: ./genweb/organs/content/sessio.py:326
 msgid "sense numeracio"
 msgstr "sin numeración"

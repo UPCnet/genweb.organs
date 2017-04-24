@@ -14,47 +14,35 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: genweb\n"
 
-msgid "obert"
-msgstr "Opened"
+msgid "ConvocarSessio"
+msgstr "Summon session"
 
-msgid "open"
-msgstr "Open"
+msgid "ModificarSessio"
+msgstr "Modify session"
 
-msgid "restricted_affected"
-msgstr "Restricted to affected"
+msgid "PlanificarSessio"
+msgstr "Schedule session"
 
-msgid "restrict_to_affected"
-msgstr "Restrict to affected"
+msgid "RealitzarSessio"
+msgstr "It's done"
 
-msgid "restricted_members"
-msgstr "Restricted to members"
+msgid "TancarSessio"
+msgstr "Close session"
 
-msgid "restrict_to_members"
-msgstr "Restrict to members"
+msgid "ConvocantSessio"
+msgstr "Summon session"
 
-msgid "tancada"
-msgstr "Closed"
+msgid "SessioTancada"
+msgstr "Session closed"
 
-msgid "convocada"
-msgstr "Convened"
+msgid "SessioEnModificacio"
+msgstr "Modifcation Session"
 
-msgid "planificada"
-msgstr "In planning"
+msgid "SessioEnPlanificacio"
+msgstr "Planning Session"
 
-msgid "en_correccio"
-msgstr "Modifying"
+msgid "SessioConvocada"
+msgstr "Summoned Session"
 
-msgid "realitzada"
-msgstr "Realized"
-
-msgid "corregir"
-msgstr "Modify"
-
-msgid "realitzar"
-msgstr "To realize"
-
-msgid "convocar"
-msgstr "To convone"
-
-msgid "tancar"
-msgstr "Close"
+msgid "SessioRealitzada"
+msgstr "Session done"

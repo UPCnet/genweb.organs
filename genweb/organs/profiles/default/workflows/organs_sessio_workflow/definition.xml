@@ -1,5 +1,12 @@
 <?xml version="1.0"?>
-<dc-workflow workflow_id="organs_sessio_workflow" title="Genweb Organs: Session Workflow" description="Organs Sessio: Planificada / Convocada / Realitzada / Tancada / En correccio" state_variable="review_state" initial_state="planificada" manager_bypass="False">
+<dc-workflow workflow_id="organs_sessio_workflow"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="genweb"
+  title="Genweb Organs: Session Workflow"
+  description="Organs Sessio: Planificada / Convocada / Realitzada / Tancada / En correccio"
+  state_variable="review_state"
+  initial_state="planificada"
+  manager_bypass="False">
  <permission>Access contents information</permission>
  <permission>Add portal content</permission>
  <permission>Change local roles</permission>
@@ -14,7 +21,7 @@
  <permission>Sharing page: Delegate Reviewer role</permission>
  <permission>Sharing page: Delegate roles</permission>
  <permission>View</permission>
- <state state_id="convocada" title="Convocada">
+ <state state_id="convocada" title="SessioConvocada" i18n:attributes="title">
   <exit-transition transition_id="realitzar"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
@@ -83,7 +90,7 @@
    <permission-role>OG3-Membre</permission-role>
   </permission-map>
  </state>
- <state state_id="en_correccio" title="En modificació">
+ <state state_id="en_correccio" title="SessioEnModificacio" i18n:attributes="title">
   <exit-transition transition_id="tancar"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Anonymous</permission-role>
@@ -152,7 +159,7 @@
    <permission-role>OG4-Afectat</permission-role>
   </permission-map>
  </state>
- <state state_id="planificada" title="En planificació">
+ <state state_id="planificada" title="SessioEnPlanificacio" i18n:attributes="title">
   <exit-transition transition_id="convocant"/>
   <exit-transition transition_id="convocar"/>
   <permission-map name="Access contents information" acquired="False">
@@ -220,7 +227,7 @@
    <permission-role>OG2-Editor</permission-role>
   </permission-map>
  </state>
- <state state_id="pre_convoque" title="Convocant">
+ <state state_id="pre_convoque" title="SessioConvocant" i18n:attributes="title">
   <exit-transition transition_id="convocar"/>
   <permission-map name="Access contents information" acquired="True">
   </permission-map>
@@ -251,7 +258,7 @@
   <permission-map name="View" acquired="True">
   </permission-map>
  </state>
- <state state_id="realitzada" title="Realitzada">
+ <state state_id="realitzada" title="SessioRealitzada" i18n:attributes="title">
   <exit-transition transition_id="tancar"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
@@ -322,7 +329,7 @@
    <permission-role>OG4-Afectat</permission-role>
   </permission-map>
  </state>
- <state state_id="tancada" title="Tancada">
+ <state state_id="tancada" title="SessioTancada" i18n:attributes="title">
   <exit-transition transition_id="corregir"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Anonymous</permission-role>
@@ -384,37 +391,37 @@
    <permission-role>OG4-Afectat</permission-role>
   </permission-map>
  </state>
- <transition transition_id="convocant" title="Convocant" new_state="convocada" trigger="USER" before_script="" after_script="">
-  <action url="" category="workflow" icon="">Convocar</action>
+ <transition transition_id="convocant" title="ConvocantSessio" i18n:attributes="title" new_state="convocada" trigger="USER" before_script="" after_script="">
+  <action url="" category="workflow" icon="">ConvocantSessio</action>
   <guard>
   </guard>
  </transition>
- <transition transition_id="convocar" title="Convocar" new_state="convocada" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=convocar" category="workflow" icon="">Convocar</action>
+ <transition transition_id="convocar" title="ConvocarSessio" i18n:attributes="title" new_state="convocada" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=convocar" category="workflow" icon="">ConvocarSessio</action>
   <guard>
   </guard>
  </transition>
- <transition transition_id="corregir" title="Modificar" new_state="en_correccio" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=corregir" category="workflow" icon="">Modificar</action>
-  <guard>
-   <guard-role>Manager</guard-role>
-   <guard-role>OG1-Secretari</guard-role>
-  </guard>
- </transition>
- <transition transition_id="planificar" title="Planificar" new_state="planificada" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=planificar" category="workflow" icon="">Planificar</action>
+ <transition transition_id="corregir" title="ModificarSessio" i18n:attributes="title" new_state="en_correccio" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=corregir" category="workflow" icon="">ModificarSessio</action>
   <guard>
    <guard-role>Manager</guard-role>
    <guard-role>OG1-Secretari</guard-role>
   </guard>
  </transition>
- <transition transition_id="realitzar" title="Realitzar" new_state="realitzada" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=realitzar" category="workflow" icon="">Realitzar</action>
+ <transition transition_id="planificar" title="PlanificarSessio" i18n:attributes="title" new_state="planificada" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=planificar" category="workflow" icon="">PlanificarSessio</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>OG1-Secretari</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="realitzar" title="RealitzarSessio" i18n:attributes="title" new_state="realitzada" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=realitzar" category="workflow" icon="">RealitzarSessio</action>
   <guard>
   </guard>
  </transition>
- <transition transition_id="tancar" title="Tancar" new_state="tancada" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=tancar" category="workflow" icon="">Tancar</action>
+ <transition transition_id="tancar" title="TancarSessio" i18n:attributes="title" new_state="tancada" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=tancar" category="workflow" icon="">TancarSessio</action>
   <guard>
    <guard-role>Manager</guard-role>
    <guard-role>OG1-Secretari</guard-role>
