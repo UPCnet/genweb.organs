@@ -12,6 +12,8 @@ from plone.autoform import directives
 from plone.supermodel.directives import fieldset
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.directives import dexterity
+from dateutil import tz
+
 
 organType = SimpleVocabulary(
     [SimpleTerm(value='Open', title=_(u'Open')),
@@ -210,9 +212,15 @@ class View(grok.View):
             # value = obj.getObject()
             value = obj._unrestrictedGetObject()
             start = getattr(value, 'start', None)
+
+            from_zone = tz.tzutc()
+            to_zone = tz.tzlocal()
+
             if start:
-                valuedataSessio = value.start.strftime('%d/%m/%Y')
-                valueHoraInici = value.start.strftime('%H:%M')
+                start = start.replace(tzinfo=from_zone)
+                start = start.astimezone(to_zone)
+                valuedataSessio = start.strftime('%d/%m/%Y')
+                valueHoraInici = start.strftime('%H:%M')
             else:
                 valuedataSessio = ''
                 valueHoraInici = ''
