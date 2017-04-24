@@ -133,7 +133,7 @@ def addEntryLog(context, sender, message, recipients):
 
                 except:
                     # Not LDAP plugin configured
-                    sender = api.user.get_current().id
+                    sender = api.user.get_current().fullname + ' [' + api.user.get_current().id + ']'
         try:
             index = len(annotations.get(KEY))
         except:
