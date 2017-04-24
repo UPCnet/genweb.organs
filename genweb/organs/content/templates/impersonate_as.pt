@@ -40,18 +40,13 @@
         <div id="sessionTabs" class="tab-content">
           <div class="tab-pane active" id="dadesTab" tal:define="item valuesTable">
             <ul>
-              <li tal:condition="item/dataSessio">
-                <b i18n:translate="">Data</b><b>:</b>
-                <span style="float:right"
-                      tal:content="item/dataSessio"></span>
-              </li>
               <li tal:condition="item/horaInici">
-                <b i18n:translate="">Session start time</b><b>:</b>
+                <b i18n:translate="">Session start date and time</b><b>:</b>
                 <span style="float:right"
                       tal:content="item/horaInici"></span>
               </li>
               <li tal:condition="item/horaFi">
-                <b i18n:translate="">Session end time</b><b>:</b>
+                <b i18n:translate="">Session end date and time</b><b>:</b>
                 <span style="float:right"
                       tal:content="item/horaFi"></span>
               </li>
@@ -64,6 +59,15 @@
                 <b i18n:translate="">Organ de govern</b><b>:</b>
                 <span style="float:right"
                       tal:content="item/organTitle"></span>
+              </li>
+              <li tal:condition="item/sessionNumber">
+                <b i18n:translate="">Session number</b><b>:</b>
+                <span style="float:right"
+                      tal:content="item/sessionNumber"></span>
+              </li>
+              <li>
+                <b i18n:translate="">Estat de la sessio</b><b>:</b>
+                <span style="float:right" i18n:domain="genweb" i18n:translate="" tal:content="item/status"></span>
               </li>
             </ul>
           </div>

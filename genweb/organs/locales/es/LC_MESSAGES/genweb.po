@@ -1,16 +1,14 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: genweb\n"
-"POT-Creation-Date: 2016-12-19 15:30+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: GenWebUPC\n"
+"POT-Creation-Date: 2017-04-24 10:30+0000\n"
+"PO-Revision-Date: 2017-04-24 18:10+0200\n"
+"Last-Translator: Roberto Diaz <roberto.diaz@upcnet.es>\n"
+"Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: ca\n"
-"Language-Name: Catalan\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: genweb\n"
 
@@ -46,3 +44,18 @@ msgstr "Sesión convocada"
 
 msgid "SessioRealitzada"
 msgstr "Sesión realizada"
+
+msgid "convocada"
+msgstr "Convocada"
+
+msgid "realitzada"
+msgstr "Realizada"
+
+msgid "tancada"
+msgstr "Cerrada"
+
+msgid "planificada"
+msgstr "En planificación"
+
+msgid "en_correccio"
+msgstr "En modificación"

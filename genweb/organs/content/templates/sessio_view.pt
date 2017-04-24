@@ -22,8 +22,6 @@
                 membresConvidats context/membresConvidats;
                 llistaExcusats context/llistaExcusats;
                 noAssistents context/noAssistents;
-                sessionNumber view/sessionNumber;
-                status view/status;
                 viewHistory view/viewHistory">
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
@@ -166,21 +164,17 @@
       <div class="tab-pane active" id="dadesTab" tal:define="item view/valuesTable">
         <ul tal:define="llocConvocatoria item/llocConvocatoria;
                         organTitle item/organTitle;
-                        dataSessio item/dataSessio;
                         horaInici item/horaInici;
-                        horaFi item/horaFi">
-          <li tal:condition="dataSessio">
-            <b i18n:translate="">Data</b><b>:</b>
-            <span style="float:right"
-                  tal:content="dataSessio"></span>
-          </li>
+                        horaFi item/horaFi;
+                        sessionNumber item/sessionNumber;
+                        status item/status">
           <li tal:condition="horaInici">
-            <b i18n:translate="">Session start time</b><b>:</b>
+            <b i18n:translate="">Session start date and time</b><b>:</b>
             <span style="float:right"
                   tal:content="horaInici"></span>
           </li>
           <li tal:condition="horaFi">
-            <b i18n:translate="">Session end time</b><b>:</b>
+            <b i18n:translate="">Session end date and time</b><b>:</b>
             <span style="float:right"
                   tal:content="horaFi"></span>
           </li>

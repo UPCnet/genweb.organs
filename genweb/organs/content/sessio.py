@@ -13,7 +13,9 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from genweb.organs import utils
 from dateutil import tz
-from z3c.form.interfaces import INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
+from zope.i18n import translate
+from z3c.form.interfaces import HIDDEN_MODE
+# INPUT_MODE, DISPLAY_MODE
 
 
 grok.templatedir("templates")
@@ -439,16 +441,16 @@ class View(grok.View):
         if start:
             start = start.replace(tzinfo=from_zone)
             start = start.astimezone(to_zone)
-            dataSessio = start.strftime('%d/%m/%Y')
-            horaInici = start.strftime('%H:%M')
+            horaInici = start.strftime('%d/%m/%Y %H:%M')
+            year = start.strftime('%Y') + '/'
         else:
-            dataSessio = ''
             horaInici = ''
+            year = ''
 
         if end:
             end = end.replace(tzinfo=from_zone)
             end = end.astimezone(to_zone)
-            horaFi = end.strftime('%H:%M')
+            horaFi = end.strftime('%d/%m/%Y %H:%M')
         else:
             horaFi = ''
 
@@ -457,11 +459,20 @@ class View(grok.View):
         else:
             llocConvocatoria = self.context.llocConvocatoria
 
-        values = dict(dataSessio=dataSessio,
-                      horaInici=horaInici,
+        session = self.context.numSessio
+        organ = self.context.aq_parent.acronim
+        sessionNumber = str(organ) + '/' + str(year) + str(session)
+
+        value = api.content.get_state(obj=self.context)
+        lang = self.context.language
+        status = translate(msgid=value, domain='genweb', target_language=lang)
+
+        values = dict(horaInici=horaInici,
                       horaFi=horaFi,
                       llocConvocatoria=llocConvocatoria,
                       organTitle=self.context.aq_parent.Title(),
+                      sessionNumber=sessionNumber,
+                      status=status,
                       )
         return values
 
@@ -480,9 +491,6 @@ class View(grok.View):
     @property
     def context_base_url(self):
         return self.context.absolute_url()
-
-    def status(self):
-        return api.content.get_state(obj=self.context)
 
     def filesinsidePunt(self, item):
         session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
@@ -515,13 +523,3 @@ class View(grok.View):
                                     id=str(item['id']) + '/' + obj.id))
 
         return results
-
-    def sessionNumber(self):
-        session = self.context.numSessio
-        startdate = getattr(self.context, 'start', None)
-        if startdate:
-            year = startdate.strftime('%Y') + '/'
-        else:
-            year = ''
-        organ = self.context.aq_parent.acronim
-        return str(organ) + '/' + str(year) + str(session)

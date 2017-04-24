@@ -7,6 +7,8 @@ from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
 from Products.CMFCore.utils import getToolByName
 from genweb.organs import utils
+from dateutil import tz
+from zope.i18n import translate
 
 grok.templatedir("templates")
 
@@ -227,30 +229,57 @@ class ShowSessionAs(form.SchemaForm):
 
         results = []
         for obj in values:
+            start = getattr(obj, 'start', None)
+            if start:
+                dataSessio = start.strftime('%d/%m/%Y')
+            else:
+                dataSessio = ''
             results.append(dict(title=obj.Title,
                                 absolute_url=obj.getURL(),
-                                date=obj.start))
+                                date=dataSessio))
         return results
 
     def valuesTable(self):
         start = getattr(self.context, 'start', None)
         end = getattr(self.context, 'end', None)
+        from_zone = tz.tzutc()
+        to_zone = tz.tzlocal()
+
         if start:
-            dataSessio = self.context.start.strftime('%d/%m/%Y')
-            horaInici = self.context.start.strftime('%H:%M')
+            start = start.replace(tzinfo=from_zone)
+            start = start.astimezone(to_zone)
+            horaInici = start.strftime('%d/%m/%Y %H:%M')
+            year = start.strftime('%Y') + '/'
         else:
-            dataSessio = ''
             horaInici = ''
+            year = ''
+
         if end:
-            horaFi = self.context.end.strftime('%H:%M')
+            end = end.replace(tzinfo=from_zone)
+            end = end.astimezone(to_zone)
+            horaFi = end.strftime('%d/%m/%Y %H:%M')
         else:
             horaFi = ''
 
-        values = dict(dataSessio=dataSessio,
-                      horaInici=horaInici,
+        if self.context.llocConvocatoria is None:
+            llocConvocatoria = ''
+        else:
+            llocConvocatoria = self.context.llocConvocatoria
+
+        session = self.context.numSessio
+        organ = self.context.aq_parent.acronim
+        sessionNumber = str(organ) + '/' + str(year) + str(session)
+
+        value = api.content.get_state(obj=self.context)
+        lang = self.context.language
+        status = translate(msgid=value, domain='genweb', target_language=lang)
+
+        values = dict(horaInici=horaInici,
                       horaFi=horaFi,
-                      llocConvocatoria=self.context.llocConvocatoria,
+                      llocConvocatoria=llocConvocatoria,
                       organTitle=self.OrganTitle(),
+                      sessionNumber=sessionNumber,
+                      status=status,
                       )
         return values
 
