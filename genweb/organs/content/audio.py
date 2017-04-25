@@ -63,7 +63,9 @@ def validateAudioType(value):
     if value is not None:
         mimetype = get_contenttype(value)
         if mimetype.split('/')[0] != 'audio':
-            raise InvalidAudioFile(mimetype)
+            # If opus file permit it...
+            if value.filename.split('.')[-1:][0] != 'opus' and get_contenttype(value) != 'application/octet-stream':
+                raise InvalidAudioFile(mimetype)
 
 
 class Edit(dexterity.EditForm):
@@ -86,6 +88,15 @@ class View(grok.View):
                 raise Unauthorized
         else:
             raise Unauthorized
+
+    def is_opusfile(self):
+        # Check if the file is OPUS type
+        ct = self.context.file.contentType
+        ext = self.context.file.filename.split('.')[-1:][0]
+        if ct == 'application/octet-stream' and ext == 'opus':
+            return True
+        else:
+            return False
 
     def get_mimetype_icon(self):
         # return mimetype from the file object
