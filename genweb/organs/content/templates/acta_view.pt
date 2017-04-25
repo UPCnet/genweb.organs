@@ -88,17 +88,16 @@
           </li>
           <li tal:condition="audio">
             <b i18n:translate="">Audio de la sessio</b>
-            <span style="float: right">
               <tal:documents repeat="item audio">
-                <ol><i class="fa fa-file-audio-o" aria-hidden="true" style="padding-left: 20px;"></i>
+                <ol style="float:right;"><i class="fa fa-file-audio-o" aria-hidden="true" style="padding-left: 20px;"></i>
                   <a href="#"
                      tal:attributes="href item/absolute_url;"
                      tal:content="item/title">
-                      Audio file Title
+                      Audio filename
                   </a>
                 </ol>
+                <br/>
               </tal:documents>
-            </span>
           </li>
         </ul>
       </div>
