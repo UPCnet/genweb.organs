@@ -96,7 +96,7 @@
                       Audio filename
                   </a>
                 </ol>
-                <br/>
+                <div class="clearfix"></div>
               </tal:documents>
           </li>
         </ul>

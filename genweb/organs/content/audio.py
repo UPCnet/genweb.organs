@@ -31,7 +31,7 @@ class IAudio(form.Schema):
 
     fieldset('audio',
              label=_(u'Tab audio'),
-             fields=['title', 'description', 'file',]
+             fields=['title', 'description', 'file']
              )
 
     dexteritytextindexer.searchable('title')

@@ -167,6 +167,9 @@
                            class="titleSize">
                           <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                         </a>
+                        <span tal:condition="item/agreement" class="agreementClass">
+                          [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="item/agreement">Acord code </tal:omit-tag>]
+                        </span>
                       </div>
                       <div class="span12">
                         <tal:files tal:define="files python:view.filesinsidePunt(item)">
@@ -198,6 +201,9 @@
                                    class="editTitle editable subtitleSize">
                                   <tal:omit-tag tal:content="itemSubpunt/title">itemSubpunt Title</tal:omit-tag>
                                 </a>
+                                <span tal:condition="itemSubpunt/agreement" class="agreementClass">
+                                  [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="itemSubpunt/agreement">Acord code </tal:omit-tag>]
+                                </span>
                               </div>
                             <div class="span2" >
                                 <span class="btn label disabled" style="padding:3px; float: right;">

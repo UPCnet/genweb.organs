@@ -10,7 +10,6 @@ from collective import dexteritytextindexer
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
-from plone.namedfile.field import NamedBlobImage
 from Products.CMFCore.utils import getToolByName
 from plone import api
 
@@ -22,7 +21,7 @@ class IActa(form.Schema):
     fieldset('acta',
              label=_(u'Tab acta'),
              fields=['title', 'horaInici', 'horaFi', 'llocConvocatoria',
-                     'ordenDelDia', 'actaLogo', 'enllacVideo']
+                     'ordenDelDia', 'enllacVideo']
              )
 
     fieldset('assistents',
@@ -88,12 +87,6 @@ class IActa(form.Schema):
     ordenDelDia = schema.Text(
         title=_(u"Session order"),
         description=_(u"Session order description"),
-        required=False,
-    )
-
-    actaLogo = NamedBlobImage(
-        title=_(u"Imatge de les actes"),
-        description=_(u"Imatge que es fa servir en imprimir les actes, en comptes de fer servir la imatge definida a l'òrgan."),
         required=False,
     )
 

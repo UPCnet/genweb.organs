@@ -19,9 +19,10 @@
     <link rel="stylesheet" href="++genwebupc++stylesheets/genwebupc.css">
     <link rel="stylesheet" media="print" href="++resource++genweb.organs.stylesheets/print.css">
 
-    <div class="clearfix">
-      <img tal:condition="getActaLogo" style="float:right;" tal:attributes="src getActaLogo" style="height:80px;" />
+    <div class="clearfix" style="width:180px; float:right;">
+      <img tal:condition="getActaLogo" tal:attributes="src getActaLogo" />
     </div>
+    <br/>
     <h1 style="text-align: left"><span tal:content="view/unitatTitle">UNITAT</span> -
     <span tal:content="view/organGovernTitle">CONSELL DE GOVERN</span></h1>
     <h2 style="text-align: left" tal:content="view/sessionTitle">CONSELL DE GOVERN</h2>

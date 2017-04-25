@@ -11,9 +11,6 @@
 
 <tal:block tal:condition="view/canView">
 
-
-
-
     <metal:block define-macro="content-core"
         tal:define="content_type context/file/contentType|nothing;
                     download_url string:${context/absolute_url}/@@download/file/${context/file/filename}">
@@ -28,7 +25,6 @@
                         kb python:size/1024">
           &mdash; <span tal:replace="kb" /> KB</span>
       </p>
-
 
       <video tal:condition="view/is_opusfile" controls="" name="media" style="height:30px; width: 300px;">
         <source tal:attributes="src download_url;" type="audio/ogg"></source>

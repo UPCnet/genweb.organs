@@ -187,6 +187,7 @@
             <b i18n:translate="">Organ de govern</b><b>:</b>
             <span style="float:right"
                   tal:content="organTitle"></span>
+            <div class="clearfix"></div>
           </li>
           <li tal:condition="sessionNumber">
             <b i18n:translate="">Session number</b><b>:</b>
@@ -472,9 +473,9 @@
                    class="editTitle editable titleSize">
                   <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                 </a>
-                  <span tal:condition="agreement" class="agreementClass">
-                    [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
-                  </span>
+                <span tal:condition="agreement" class="agreementClass">
+                  [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
+                </span>
               </div>
               <div class="span1 boleta">
                 <tal:block tal:condition="canModify" tal:define="estat item/state">
