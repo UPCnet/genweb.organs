@@ -182,7 +182,6 @@ class Move(BrowserView):
                     for value in subpunts:
                         newobjecte = value.getObject()
                         newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
-                        addEntryLog(self.context, None, _(u'Changed subpunt number with drag&drop'), str(newobjecte.id) + ' → ' + str(newobjecte.proposalPoint))
                         newobjecte.reindexObject()
                         subvalue = subvalue + 1
                 index = index + 1
