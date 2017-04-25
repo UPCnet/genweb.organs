@@ -246,8 +246,8 @@ class View(grok.View):
         results = []
 
         for obj in values:
-            # value = obj.getObject()
-            value = obj._unrestrictedGetObject()
+            value = obj.getObject()
+            # value = obj._unrestrictedGetObject()
             results.append(dict(title=value.title,
                                 absolute_url=value.absolute_url(),
                                 agreement=value.agreement,

@@ -8,6 +8,7 @@
 <body>
 
 <metal:title fill-slot="content-title"
+  tal:condition="view/canView"
   tal:define="estatsLlista context/estatsLlista;">
   <h1 class="documentFirstHeading">
 

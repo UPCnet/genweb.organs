@@ -9,7 +9,6 @@
 <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
 
 <div class="container">
-
   <div class="clearfix">
     <h1 class="pull-left">
       <a href="http://www.upc.edu" target="_blank">
@@ -105,8 +104,6 @@
             </li>
       </ul>
     </div>
-
-
 
     <tal:comment replace="nothing">  Menu para phone y tablet </tal:comment>
     <div class="nav-collapse nav-collapse-eines hidden-desktop">
@@ -218,6 +215,8 @@
   </div>
 </div>
 
-
 </tal:block>
- <!-- <h2>Current role!</h2> <span tal:content="viewlet/role"></span>  -->
+
+<!-- <div style="background-color: #aaa;">
+  <span>Current role:</span> <span tal:content="viewlet/role"></span>
+</div> -->

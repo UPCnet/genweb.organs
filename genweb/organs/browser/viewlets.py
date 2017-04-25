@@ -11,6 +11,7 @@ from genweb.core import HAS_PAM
 from genweb.core.utils import genweb_config
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from plone.app.layout.navigation.root import getNavigationRootObject
+from genweb.organs.content.organsfolder import IOrgansfolder
 
 grok.context(Interface)
 
@@ -111,7 +112,6 @@ class gwHeader(viewletBase):
         return custom_links[lang]
 
     def getTitle(self):
-        from genweb.organs.content.organsfolder import IOrgansfolder
         if IOrgansfolder.providedBy(self.context):
             if self.context.customImage:
                 return 'Govern UPC - ' + str(self.context.title)
@@ -137,7 +137,6 @@ class gwHeader(viewletBase):
                         return 'Govern UPC'
 
     def getLogo(self):
-        from genweb.organs.content.organsfolder import IOrgansfolder
         if IOrgansfolder.providedBy(self.context):
             try:
                 if self.context.customImage:
@@ -172,12 +171,15 @@ class gwHeader(viewletBase):
 
     def role(self):
         # TODO: This is only used in testing scenarios, to know the user role
-        username = api.user.get_current().id
-        if username:
-            roles = api.user.get_roles(username=username, obj=self.context)
-        else:
-            roles = 'Not authenticated'
-        return roles
+        try:
+            username = api.user.get_current().id
+            if username:
+                roles = api.user.get_roles(username=username, obj=self.context)
+            else:
+                roles = 'Not authenticated'
+            return roles
+        except:
+            return None
 
 
 class gwFooter(viewletBase):
@@ -185,4 +187,3 @@ class gwFooter(viewletBase):
     grok.template('footer')
     grok.viewletmanager(IPortalFooter)
     grok.layer(IGenwebOrgansLayer)
-

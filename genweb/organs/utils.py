@@ -6,6 +6,9 @@ from Products.CMFCore.utils import getToolByName
 from genweb.organs import _
 from Products.PluggableAuthService.interfaces.plugins import IPropertiesPlugin
 import unicodedata
+from genweb.organs.content.sessio import ISessio
+from Acquisition import aq_inner
+from plone.app.layout.navigation.root import getNavigationRootObject
 
 
 def isAfectat(self):
@@ -226,3 +229,21 @@ def estatsCanvi(self):
             color = ' '.join(item_net.split()[-1:]).lstrip().encode('utf-8')
             items.append(dict(title=estat, color=color))
     return items
+
+
+def session_wf_state(self):
+    if ISessio.providedBy(self.context):
+        portal_state = api.content.get_state(obj=self.context)
+
+        return portal_state
+    else:
+        portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
+        root = getNavigationRootObject(self.context, portal_state.portal())
+        physical_path = aq_inner(self.context).getPhysicalPath()
+        relative = physical_path[len(root.getPhysicalPath()):]
+        for i in range(len(relative)):
+            now = relative[:i + 1]
+            obj = aq_inner(root.unrestrictedTraverse(now))
+            if ISessio.providedBy(obj):
+                session_state = api.content.get_state(obj=obj)
+                return session_state
