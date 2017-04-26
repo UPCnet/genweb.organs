@@ -6,7 +6,6 @@ from Products.CMFCore.utils import getToolByName
 from genweb.organs import _
 from Products.PluggableAuthService.interfaces.plugins import IPropertiesPlugin
 import unicodedata
-from genweb.organs.content.sessio import ISessio
 from Acquisition import aq_inner
 from plone.app.layout.navigation.root import getNavigationRootObject
 
@@ -232,6 +231,7 @@ def estatsCanvi(self):
 
 
 def session_wf_state(self):
+    from genweb.organs.content.sessio import ISessio
     if ISessio.providedBy(self.context):
         portal_state = api.content.get_state(obj=self.context)
 
