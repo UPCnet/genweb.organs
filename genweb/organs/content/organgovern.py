@@ -51,12 +51,14 @@ class IOrgangovern(form.Schema):
              fields=['bodyMailconvoquing', 'bodyMailSend', 'footerMail', 'footer'],
              )
 
+    dexterity.write_permission(title='genweb.webmaster')
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_(u'Organ Title'),
         required=True
     )
 
+    dexterity.write_permission(acronim='genweb.webmaster')
     dexteritytextindexer.searchable('acronim')
     acronim = schema.TextLine(
         title=_(u'Acronym'),
@@ -120,6 +122,7 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
+    dexterity.write_permission(estatsLlista='genweb.webmaster')
     directives.widget(estatsLlista=WysiwygFieldWidget)
     estatsLlista = schema.Text(
         title=_(u"Agreement and document labels"),
