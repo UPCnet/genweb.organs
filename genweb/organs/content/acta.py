@@ -12,6 +12,7 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from Products.CMFCore.utils import getToolByName
 from plone import api
+from genweb.organs import utils
 
 grok.templatedir("templates")
 
@@ -211,19 +212,24 @@ def Punts2Acta(self):
     return '<br/>' + '<br/>'.join(results)
 
 
+
 class View(dexterity.DisplayForm):
     grok.context(IActa)
     grok.template('acta_view')
 
     def canView(self):
-        """ Return true if user is Editor or Manager """
-        username = api.user.get_current().id
-        if username:
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'Manager' in roles:
-                return True
-            else:
-                raise Unauthorized
+        # Permissions to view acta
+        estatSessio = utils.session_wf_state(self)
+        if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            return True
+        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
         else:
             raise Unauthorized
 

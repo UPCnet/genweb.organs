@@ -16,6 +16,7 @@ from dateutil import tz
 from zope.i18n import translate
 from z3c.form.interfaces import HIDDEN_MODE
 # INPUT_MODE, DISPLAY_MODE
+from genweb.organs import utils
 
 
 grok.templatedir("templates")
@@ -378,6 +379,22 @@ class View(grok.View):
                                 id='/'.join(item.absolute_url_path().split('/')[-2:])))
         return results
 
+    def canViewTabActes(self):
+        # Permissions to view acta
+        estatSessio = utils.session_wf_state(self)
+        if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            return True
+        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        else:
+            return False
+
     def ActesInside(self):
         """ Retorna les actes creades aquí dintre (sense tenir compte estat)
             Nomes ho veuen els Managers / Editor / Secretari
@@ -386,7 +403,8 @@ class View(grok.View):
             username = api.user.get_current().id
             if username:
                 roles = api.user.get_roles(username=username, obj=self.context)
-                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
+                canViewActes = self.canViewTabActes()
+                if canViewActes:
                     folder_path = '/'.join(self.context.getPhysicalPath())
                     portal_catalog = getToolByName(self, 'portal_catalog')
                     values = portal_catalog.searchResults(
