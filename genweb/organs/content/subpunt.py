@@ -135,11 +135,11 @@ class View(grok.View):
         # Permissions to view acords based on ODT definition file
         # TODO: add if is obert /restricted to ...
         estatSessio = utils.session_wf_state(self)
-        if estatSessio == 'planificada' and utils.isSecretari(self) or utils.isEditor(self):
+        if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
             return True
-        elif estatSessio == 'convocada' and utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self):
+        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
             return True
-        elif estatSessio == 'realitzada' and utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self):
+        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
             return True
         elif estatSessio == 'tancada':
             return True
