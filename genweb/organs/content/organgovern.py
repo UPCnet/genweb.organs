@@ -238,21 +238,33 @@ class View(grok.View):
 
     def getAcords(self):
         # If acords in site, publish the tab and the contents...
+        results = []
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
-        values = portal_catalog.searchResults(
-            portal_type=['genweb.organs.acord'],
-            sort_on='modified',
-            sort_order='reverse',
-            path={'query': folder_path,
-                  'depth': 3})
-        results = []
 
-        for obj in values:
-            value = obj.getObject()
-            # value = obj._unrestrictedGetObject()
-            results.append(dict(title=value.title,
-                                absolute_url=value.absolute_url(),
-                                agreement=value.agreement,
-                                estatsLlista=value.estatsLlista))
+        sessions = portal_catalog.searchResults(
+            portal_type='genweb.organs.sessio',
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        paths = []
+        for session in sessions:
+            paths.append(session.getPath())
+
+        for path in paths:
+            values = portal_catalog.searchResults(
+                portal_type=['genweb.organs.acord'],
+                sort_on='modified',
+                sort_order='reverse',
+                path={'query': path,
+                      'depth': 3})
+
+            for obj in values:
+                value = obj.getObject()
+                # value = obj._unrestrictedGetObject()
+                results.append(dict(title=value.title,
+                                    absolute_url=value.absolute_url(),
+                                    agreement=value.agreement,
+                                    estatsLlista=value.estatsLlista))
         return results

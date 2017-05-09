@@ -132,6 +132,7 @@
     </table>
   </tal:Sessions>
 
+<tal:Sessions tal:condition="sessions">
   <div tal:condition="acords" id="acordsTab">
     <h3 i18n:translate="">Agreements list</h3>
     <table class="table table-striped table-bordered table-condensed table-hover table-responsive">
@@ -171,6 +172,7 @@
       </tal:documents>
     </table>
   </div>
+</tal:Sessions>
 
 
 </metal:content-core>
