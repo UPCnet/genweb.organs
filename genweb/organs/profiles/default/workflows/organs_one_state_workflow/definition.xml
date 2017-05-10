@@ -38,11 +38,9 @@
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
   </permission-map>
-  <permission-map name="Add portal content" acquired="True">
-   <permission-role>Editor</permission-role>
+  <permission-map name="Add portal content" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
@@ -55,17 +53,14 @@
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
-  <permission-map name="Copy or Move" acquired="True">
-   <permission-role>Editor</permission-role>
+  <permission-map name="Copy or Move" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
   </permission-map>
-  <permission-map name="Delete objects" acquired="True">
+  <permission-map name="Delete objects" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
@@ -74,7 +69,6 @@
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
-   <permission-role>OG2-Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
    <permission-role>WebMaster</permission-role>
   </permission-map>
