@@ -142,12 +142,6 @@
               <tal:block tal:define="agreement item/agreement">
                 <li tal:attributes="id item/id; class item/classe">
                   <td tal:condition="item/show">
-                    <div class="span12">
-                      <span class="btn label disabled" style="padding:3px; float: right;">
-                        <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
-                        <span  tal:content="item/state"></span>
-                      </span>
-                    </div>
                     <div class="puntTitle span12">
                       <div class="span1 fletxaSpan">
                         <button type="button" class="expand" tal:condition="item/items_inside"
@@ -162,13 +156,19 @@
                       <div class="span1 numberSpan">
                         <span class="proposalNumber" style="text-align: right; float:right;" tal:content="item/proposalPoint"></span>
                       </div>
-                      <div class="span10 titleSpan">
+                      <div class="span9 titleSpan">
                         <a tal:attributes="href item/absolute_url"
                            class="titleSize">
                           <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                         </a>
                         <span tal:condition="item/agreement" class="agreementClass">
                           [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="item/agreement">Acord code </tal:omit-tag>]
+                        </span>
+                      </div>
+                      <div class="span1 boleta">
+                        <span class="btn label disabled" style="padding:3px; float: right;">
+                          <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
+                          <span  tal:content="item/state"></span>
                         </span>
                       </div>
                       <div class="span12">
