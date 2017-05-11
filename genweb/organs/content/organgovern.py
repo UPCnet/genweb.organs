@@ -267,4 +267,6 @@ class View(grok.View):
                                     absolute_url=value.absolute_url(),
                                     agreement=value.agreement,
                                     estatsLlista=value.estatsLlista))
+
+        results.sort(key=lambda item:item['agreement'], reverse=True)
         return results
