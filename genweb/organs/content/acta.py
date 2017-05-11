@@ -259,7 +259,8 @@ class View(dexterity.DisplayForm):
             results = []
             for obj in values:
                 results.append(dict(title=obj.Title,
-                                    absolute_url=obj.getURL()))
+                                    absolute_url=obj.getURL(),
+                                    audio=obj.getObject().file))
             return results
         else:
             return False
