@@ -801,6 +801,7 @@
         $(".picked").removeClass('picked');
         $(".show").addClass('einesSpan');
         $(".show").removeClass('show');
+        $('.boleta').show();
      }
      });
   });

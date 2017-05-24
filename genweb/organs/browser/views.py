@@ -59,7 +59,7 @@ class createElement(BrowserView):
                     container=self.context)
                 obj.estatsLlista = estat
                 obj.proposalPoint = index + 1
-                addEntryLog(self.context, None, _(u'Created punt'), _(u'Title: ') + str(obj.Title()))
+                # addEntryLog(self.context, None, _(u'Created punt'), _(u'Title: ') + str(obj.Title()))
             elif action == 'createAcord':
                 items = portal_catalog.searchResults(
                     portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
@@ -72,7 +72,7 @@ class createElement(BrowserView):
                     container=self.context)
                 obj.estatsLlista = estat
                 obj.proposalPoint = index + 1
-                addEntryLog(self.context, None, _(u'Created acord'), _(u'Title: ') + str(obj.Title()))
+                # addEntryLog(self.context, None, _(u'Created acord'), _(u'Title: ') + str(obj.Title()))
             else:
                 pass
 
@@ -102,7 +102,7 @@ class Delete(BrowserView):
                 portal_catalog = getToolByName(self, 'portal_catalog')
                 folder_path = '/'.join(self.context.getPhysicalPath())
 
-                addEntryLog(self.context, None, _(u'Deleted element'), portal_type.split('.')[-1] + ' → ' + folder_path + '/' + itemid)
+                # addEntryLog(self.context, None, _(u'Deleted element'), portal_type.split('.')[-1] + ' → ' + folder_path + '/' + itemid)
                 # agafo items ordenats!
 
                 puntsOrdered = portal_catalog.searchResults(
