@@ -105,7 +105,7 @@
    <element value="Taula comprimida|table table-condensed"/>
    <element value="Taula ratllada|table table-striped"/>
   </tablestyles>
-  <content_css value="++genwebupc++stylesheets/genwebupc.css"/>
+  <content_css value="++resource++genweb.organs.stylesheets/genweb_organs.css"/>
   <editor_height value="400"/>
   <editor_width value="100%"/>
   <contextmenu value="True"/>

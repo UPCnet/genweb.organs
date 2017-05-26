@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="++genwebupc++stylesheets/genwebupc.css">
+    <link rel="stylesheet" href="++resource++genweb.organs.stylesheets/genweb_organs.css" />
     <link rel="stylesheet" media="print" href="++resource++genweb.organs.stylesheets/print.css">
 
     <div class="clearfix" style="width:180px; float:right;">

@@ -1609,3 +1609,20 @@ span.estatpunt {
     overflow-x: hidden;
     max-height: 400px;
 }
+
+.num_acta ol {
+  counter-reset: item;
+}
+
+.num_acta li {
+  display: block;
+}
+
+.num_acta ol li:before {
+  content: counters(item, ".") ".";
+  counter-increment: item;
+  padding-right:10px;
+  margin-left:-20px;
+}
+
+

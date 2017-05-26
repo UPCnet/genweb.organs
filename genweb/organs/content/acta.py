@@ -168,6 +168,7 @@ def Punts2Acta(self):
               'depth': 1})
 
     results = []
+    results.append('<div class="num_acta"> <ol>')
     for obj in values:
         # value = obj.getObject()
         value = obj._unrestrictedGetObject()
@@ -183,7 +184,7 @@ def Punts2Acta(self):
         else:
             agreement = ''
 
-        results.append(number + str(obj.Title) + ' ' + str(agreement))
+        results.append('<li>' + str(obj.Title) + ' ' + str(agreement))
 
         if len(value.objectIds()) > 0:
             valuesInside = portal_catalog.searchResults(
@@ -191,6 +192,8 @@ def Punts2Acta(self):
                 sort_on='getObjPositionInParent',
                 path={'query': obj.getPath(),
                       'depth': 1})
+
+            results.append('<ol>')
             for item in valuesInside:
                 subpunt = item.getObject()
                 if subpunt.proposalPoint:
@@ -207,9 +210,16 @@ def Punts2Acta(self):
                         agreement = _(u'[Acord sense numeracio]')
                 else:
                     agreement = ''
-                results.append('&nbsp;&nbsp;' + numberSubpunt + str(item.Title) + ' ' + str(agreement))
+                results.append('<li>' + str(item.Title) + ' ' + str(agreement)  + '</li>')
+            results.append('</ol></li>')
+        else:
+            results.append('</li>')
 
-    return '<br/>' + '<br/>'.join(results)
+
+    results.append('</ol> </div>')
+
+
+    return ''.join(results)
 
 
 
