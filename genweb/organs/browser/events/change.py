@@ -32,7 +32,7 @@ def sessio_changed(session, event):
             raise Redirect(session.absolute_url() + '/mail_convocar')
 
         if event.transition.id == 'tancar':
-            member = api.user.get(username='secretari.general')
+            member = api.user.get(username='admin')
             user = member.getUser()
             session.changeOwnership(user, recursive=False)
             owners = session.users_with_local_role("Owner")
