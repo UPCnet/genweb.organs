@@ -240,6 +240,8 @@ class View(dexterity.DisplayForm):
             return True
         elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
             return True
+        elif utils.isManager(self):
+            return True
         else:
             raise Unauthorized
 
