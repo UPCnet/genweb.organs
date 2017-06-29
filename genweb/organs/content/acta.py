@@ -11,7 +11,6 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from Products.CMFCore.utils import getToolByName
-from plone import api
 from genweb.organs import utils
 
 grok.templatedir("templates")
@@ -172,10 +171,6 @@ def Punts2Acta(self):
     for obj in values:
         # value = obj.getObject()
         value = obj._unrestrictedGetObject()
-        if value.proposalPoint:
-            number = str(value.proposalPoint) + '.- '
-        else:
-            number = ''
         if value.portal_type == 'genweb.organs.acord':
             if value.agreement:
                 agreement = ' [Acord ' + str(value.agreement) + ']'
@@ -196,13 +191,6 @@ def Punts2Acta(self):
             results.append('<ol>')
             for item in valuesInside:
                 subpunt = item.getObject()
-                if subpunt.proposalPoint:
-                    if subpunt.proposalPoint:
-                        numberSubpunt = str(subpunt.proposalPoint) + '.- '
-                    else:
-                        numberSubpunt = ''
-                else:
-                    numberSubpunt = ''
                 if subpunt.portal_type == 'genweb.organs.acord':
                     if subpunt.agreement:
                         agreement = ' [Acord ' + str(subpunt.agreement) + ']'
@@ -210,17 +198,14 @@ def Punts2Acta(self):
                         agreement = _(u'[Acord sense numeracio]')
                 else:
                     agreement = ''
-                results.append('<li>' + str(item.Title) + ' ' + str(agreement)  + '</li>')
+                results.append('<li>' + str(item.Title) + ' ' + str(agreement) + '</li>')
             results.append('</ol></li>')
         else:
             results.append('</li>')
 
-
     results.append('</ol> </div>')
 
-
     return ''.join(results)
-
 
 
 class View(dexterity.DisplayForm):
