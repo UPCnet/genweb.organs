@@ -1,11 +1,19 @@
 Changelog
 =========
 
-0.6 (unreleased)
+0.6 (2017-07-06)
 ----------------
 
-- Nothing changed yet.
-
+* sort log entries by index [Roberto Diaz]
+* sessions shown in reversed mode [Roberto Diaz]
+* Added Acta en PDF format [Roberto Diaz]
+* added manager permission to view templates [Roberto Diaz]
+* acc.start & acc.end (datetime problem with timezones) [Roberto Diaz]
+* left text previous to mp3 file [Roberto Diaz]
+* PEP8 [Roberto Diaz]
+* canvi literal qui envia missatge [Roberto Diaz]
+* removed unused number varialbe [Roberto Diaz]
+* Manager canView Actas bypassing workflow state [Roberto Diaz]
 
 0.5 (2017-06-12)
 ----------------
