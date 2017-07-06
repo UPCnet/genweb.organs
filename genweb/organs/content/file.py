@@ -4,10 +4,6 @@ from plone.directives import dexterity
 from plone.directives import form
 from genweb.organs import _
 from plone.namedfile.field import NamedBlobFile
-from zope.component import getMultiAdapter
-from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
-from Products.MimetypesRegistry.MimeTypeItem import guess_icon_path
 from plone import api
 from zope import schema
 from plone.app.dexterity import PloneMessageFactory as _PMF

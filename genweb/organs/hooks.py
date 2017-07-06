@@ -15,17 +15,20 @@ def acordAdded(content, event):
     """
     addEntryLog(content.__parent__, None, _(u'Created acord'), str(content.Title()))
 
+
 @grok.subscribe(IActa, IObjectAddedEvent)
 def actaAdded(content, event):
     """ Acta added handler
     """
     addEntryLog(content.__parent__, None, _(u'Created acta'), str(content.Title()))
 
+
 @grok.subscribe(IPunt, IObjectAddedEvent)
 def puntAdded(content, event):
     """ Punt added handler
     """
     addEntryLog(content.__parent__, None, _(u'Created punt'), str(content.Title()))
+
 
 @grok.subscribe(IAcord, IObjectRemovedEvent)
 def acordDeleted(content, event):
@@ -34,12 +37,14 @@ def acordDeleted(content, event):
     folder_path = '/'.join(content.getPhysicalPath())
     addEntryLog(content.__parent__, None, _(u'Deleted element'), 'acord → ' + folder_path)
 
+
 @grok.subscribe(IActa, IObjectRemovedEvent)
 def actaDeleted(content, event):
     """ Acta delete handler
     """
     folder_path = '/'.join(content.getPhysicalPath())
     addEntryLog(content.__parent__, None, _(u'Deleted element'), 'acta → ' + folder_path)
+
 
 @grok.subscribe(IPunt, IObjectRemovedEvent)
 def puntDeleted(content, event):
@@ -48,6 +53,7 @@ def puntDeleted(content, event):
     folder_path = '/'.join(content.getPhysicalPath())
     addEntryLog(content.__parent__, None, _(u'Deleted element'), 'punt → ' + folder_path)
 
+
 @grok.subscribe(IAcord, IObjectModifiedEvent)
 def acordModified(content, event):
     """ Acord delete handler
@@ -55,12 +61,14 @@ def acordModified(content, event):
     folder_path = '/'.join(content.getPhysicalPath())
     addEntryLog(content.__parent__, None, _(u'Modified acord'), 'acord → ' + folder_path)
 
+
 @grok.subscribe(IActa, IObjectModifiedEvent)
 def actaModified(content, event):
     """ Acta delete handler
     """
     folder_path = '/'.join(content.getPhysicalPath())
     addEntryLog(content.__parent__, None, _(u'Modified acta'), 'acta → ' + folder_path)
+
 
 @grok.subscribe(IPunt, IObjectModifiedEvent)
 def puntModified(content, event):
