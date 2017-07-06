@@ -89,19 +89,18 @@
           <li tal:condition="audio">
             <b i18n:translate="">Audio de la sessio</b>
               <tal:documents repeat="item audio">
-                <ol style="float:right;"><i class="fa fa-file-audio-o" aria-hidden="true" style="padding-left: 20px;"></i>
-                 <tal:audio tal:define="content_type item/audio/contentType|nothing;
+                <ol style="float:right;">
+                  <i class="fa fa-file-audio-o" aria-hidden="true"></i>
+                  <tal:audio tal:define="content_type item/audio/contentType|nothing;
                                         download_url string:${item/absolute_url}/@@download/file/${item/audio/filename}">
-                  <a href="#"
-                     tal:attributes="href item/absolute_url;"
-                     tal:content="item/title">
-                      Audio filename
-                  </a>
-                  <div class="clearfix"></div>
-
-                  <audio controls="controls">
-                    <source tal:attributes="src download_url; type content_type"></source>
-                  </audio>
+                    <a href="#"
+                      tal:attributes="href item/absolute_url;"
+                      tal:content="item/title">Audio filename
+                    </a>
+                    <div class="clearfix"></div>
+                    <audio controls="controls">
+                      <source tal:attributes="src download_url; type content_type"></source>
+                    </audio>
                   </tal:audio>
                 </ol>
                 <div class="clearfix"></div>
