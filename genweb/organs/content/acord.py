@@ -162,5 +162,7 @@ class View(grok.View):
             return True
         elif estatSessio == 'en_correccio':
             return True
+        elif utils.isManager(self):
+            return True
         else:
             raise Unauthorized
