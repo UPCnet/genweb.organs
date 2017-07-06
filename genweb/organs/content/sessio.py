@@ -13,9 +13,9 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from genweb.organs import utils
 from zope.i18n import translate
-from z3c.form.interfaces import HIDDEN_MODE
+from z3c.form.interfaces import HIDDEN_MODE  # INPUT_MODE, DISPLAY_MODE
 from plone.event.interfaces import IEventAccessor
-# INPUT_MODE, DISPLAY_MODE
+from operator import itemgetter
 
 
 grok.templatedir("templates")
@@ -445,8 +445,8 @@ class View(grok.View):
             # aaa.pop(0)    # remove the entry
             # annotations['genweb.organs.logMail'] = aaa
             try:
-                # TODO : Insert id index to sort annotations
-                return sorted(annotations['genweb.organs.logMail'], reverse=True)
+                items = annotations['genweb.organs.logMail']
+                return sorted(items, key=itemgetter('index'), reverse=True)
             except:
                 return False
 
