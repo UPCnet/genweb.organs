@@ -12,9 +12,17 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from Products.CMFCore.utils import getToolByName
 from plone.event.interfaces import IEventAccessor
+from plone.namedfile.field import NamedBlobFile
+from plone.namedfile.utils import get_contenttype
+from zope.schema import ValidationError
 from genweb.organs import utils
 
 grok.templatedir("templates")
+
+
+class InvalidPDFFile(ValidationError):
+    """Exception for invalid PDF file"""
+    __doc__ = _(u"Invalid PDF file")
 
 
 class IActa(form.Schema):
@@ -22,7 +30,7 @@ class IActa(form.Schema):
     fieldset('acta',
              label=_(u'Tab acta'),
              fields=['title', 'horaInici', 'horaFi', 'llocConvocatoria',
-                     'ordenDelDia', 'enllacVideo']
+                     'ordenDelDia', 'enllacVideo', 'file']
              )
 
     fieldset('assistents',
@@ -96,6 +104,20 @@ class IActa(form.Schema):
         description=_(u"If you want to add a video file, not a url, there is a trick, you must add an Audio Type and leave this field empty."),
         required=False,
     )
+
+    file = NamedBlobFile(
+        title=_(u"Acta PDF"),
+        description=_(u"Acta PDF file description"),
+        required=False,
+    )
+
+
+@form.validator(field=IActa['file'])
+def validateFileType(value):
+    if value is not None:
+        mimetype = get_contenttype(value)
+        if mimetype != 'application/pdf':
+            raise InvalidPDFFile(mimetype)
 
 
 @form.default_value(field=IActa['title'])
