@@ -13,7 +13,7 @@ from z3c.form.interfaces import DISPLAY_MODE
 from genweb.organs.utils import addEntryLog
 from Products.CMFCore.utils import getToolByName
 import unicodedata
-
+from plone.event.interfaces import IEventAccessor
 from zope import schema
 
 grok.templatedir("templates")
@@ -66,20 +66,19 @@ class Message(form.SchemaForm):
         else:
             self.widgets["recipients"].value = str(session.adrecaLlista)
 
-        start = getattr(session, 'start', None)
-        end = getattr(session, 'end', None)
-        if start is None:
+        acc = IEventAccessor(self.context)
+        if acc.start is None:
             sessiondate = ''
         else:
-            sessiondate = start.strftime("%d/%m/%Y")
-        if start is None:
+            sessiondate = acc.start.strftime("%d/%m/%Y")
+        if acc.start is None:
             starthour = ''
         else:
-            starthour = start.strftime("%H:%M")
-        if end is None:
+            starthour = acc.start.strftime("%H:%M")
+        if acc.end is None:
             endHour = ''
         else:
-            endHour = end.strftime("%H:%M")
+            endHour = acc.end.strftime("%H:%M")
         organ = session.aq_parent
 
         if organ.footerMail is None:
@@ -93,18 +92,18 @@ class Message(form.SchemaForm):
             place = session.llocConvocatoria.encode('utf-8')
 
         lang = self.context.language
-        sessiontitle = str(session.Title())
 
-        titleText = _(u"Resultat. ") + sessiontitle + ' (' + sessiondate + ')'
-        fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
+        sessiontitle = unicodedata.normalize('NFKD', session.Title().decode('utf-8'))
+        fromMessage = _(u"Resultat. ") + sessiontitle + ' (' + sessiondate + ')'
         self.widgets["fromTitle"].value = fromMessage
 
         if lang == 'es':
+            text = unicodedata.normalize('NFKD', 'Resumen de la sesión'.decode('utf-8'))
             moreData = '<p><strong>' + sessiontitle + \
                 '</strong><br/></p>Lugar: ' + place + "<br/>Data: " + sessiondate + \
                 "<br/>Hora de inicio: " + starthour + \
                 "<br/>Hora de fin: " + endHour + \
-                '<br/><br/><p><strong> Resumen de la sesión </strong></p>'
+                "<br/><br/><p><strong>" + text + "</strong></p>"
 
         if lang == 'en':
             moreData = '<p><strong>' + sessiontitle + \
@@ -114,13 +113,16 @@ class Message(form.SchemaForm):
                 '<br/><br/><p><strong> Sesison summary </strong></p>'
         else:
             # lang = ca or another...
+            text = unicodedata.normalize('NFKD', 'Resum de la sessió'.decode('utf-8'))
             moreData = '<p><strong>' + sessiontitle + \
-                '</strong><br/></p>Lloc: ' + place + "<br/>Data: " + sessiondate + \
+                "</strong><br/></p>Lloc: " + place + "<br/>Data: " + sessiondate + \
                 "<br/>Hora d'inici: " + starthour + \
                 "<br/>Hora de fi: " + endHour + \
-                '<br/><br/><p><strong> Resum de la sessió </strong></p>'
+                "<br/><br/><p><strong>" + text + "</strong></p>"
+        punts = unicodedata.normalize('NFKD', self.Punts2Acta().decode('utf-8'))
+        signatura = unicodedata.normalize('NFKD', signatura.decode('utf-8'))
 
-        self.widgets["message"].value = moreData + self.Punts2Acta() + '<br/>' + signatura
+        self.widgets["message"].value = moreData + punts + '<br/>' + signatura
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):
@@ -252,5 +254,4 @@ class Message(form.SchemaForm):
                         agreement = _(u' [Acord sense numeracio]')
                     # adding hidden field to maintain good urls
                     results.append(str('&emsp;&emsp;') + str('<a href=----@@----') + str(item.getURL()) + str('>') + str(numberSubpunt) + str(item.Title) + str(agreement) + str('</a>'))
-
         return '<br/>'.join(results)

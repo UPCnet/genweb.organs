@@ -9,6 +9,7 @@ from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from plone.folder.interfaces import IExplicitOrdering
 from genweb.organs.utils import addEntryLog
 from genweb.organs import _
+from plone.event.interfaces import IEventAccessor
 import unicodedata
 
 
@@ -264,10 +265,9 @@ class Reload(BrowserView):
             acronim = str(self.context.aq_parent.acronim) + '/'
         else:
             acronim = ''
-
-        start = getattr(self.context, 'start', None)
-        if start:
-            any = str(self.context.start.strftime('%Y')) + '/'
+        acc = IEventAccessor(self.context)
+        if acc.start:
+            any = str(acc.start.strftime('%Y')) + '/'
         else:
             any = ''
 

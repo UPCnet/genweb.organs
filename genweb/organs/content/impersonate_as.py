@@ -7,7 +7,7 @@ from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
 from Products.CMFCore.utils import getToolByName
 from genweb.organs import utils
-from dateutil import tz
+from plone.event.interfaces import IEventAccessor
 from zope.i18n import translate
 
 grok.templatedir("templates")
@@ -228,10 +228,10 @@ class ShowSessionAs(form.SchemaForm):
                   'depth': 1})
 
         results = []
+        acc = IEventAccessor(self.context)
         for obj in values:
-            start = getattr(obj, 'start', None)
-            if start:
-                dataSessio = start.strftime('%d/%m/%Y')
+            if acc. start:
+                dataSessio = acc.start.strftime('%d/%m/%Y')
             else:
                 dataSessio = ''
             results.append(dict(title=obj.Title,
@@ -240,27 +240,17 @@ class ShowSessionAs(form.SchemaForm):
         return results
 
     def valuesTable(self):
-        start = getattr(self.context, 'start', None)
-        end = getattr(self.context, 'end', None)
-        from_zone = tz.tzutc()
-        to_zone = tz.tzlocal()
-
-        if start:
-            start = start.replace(tzinfo=from_zone)
-            start = start.astimezone(to_zone)
-            horaInici = start.strftime('%d/%m/%Y %H:%M')
-            year = start.strftime('%Y') + '/'
+        acc = IEventAccessor(self.context)
+        if acc.start:
+            horaInici = acc.start.strftime('%d/%m/%Y %H:%M')
+            year = acc.start.strftime('%Y') + '/'
         else:
             horaInici = ''
             year = ''
-
-        if end:
-            end = end.replace(tzinfo=from_zone)
-            end = end.astimezone(to_zone)
-            horaFi = end.strftime('%d/%m/%Y %H:%M')
+        if acc.end:
+            horaFi = acc.end.strftime('%d/%m/%Y %H:%M')
         else:
             horaFi = ''
-
         if self.context.llocConvocatoria is None:
             llocConvocatoria = ''
         else:

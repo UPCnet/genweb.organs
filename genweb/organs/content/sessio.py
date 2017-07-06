@@ -12,11 +12,10 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from genweb.organs import utils
-from dateutil import tz
 from zope.i18n import translate
 from z3c.form.interfaces import HIDDEN_MODE
+from plone.event.interfaces import IEventAccessor
 # INPUT_MODE, DISPLAY_MODE
-from genweb.organs import utils
 
 
 grok.templatedir("templates")
@@ -404,7 +403,6 @@ class View(grok.View):
         if not api.user.is_anonymous():
             username = api.user.get_current().id
             if username:
-                roles = api.user.get_roles(username=username, obj=self.context)
                 canViewActes = self.canViewTabActes()
                 if canViewActes:
                     folder_path = '/'.join(self.context.getPhysicalPath())
@@ -417,9 +415,9 @@ class View(grok.View):
                     if values:
                         results = []
                         for obj in values:
-                            start = getattr(obj, 'start', None)
-                            if start:
-                                dataSessio = start.strftime('%d/%m/%Y')
+                            acc = IEventAccessor(self.context)
+                            if acc.start:
+                                dataSessio = acc.start.strftime('%d/%m/%Y')
                             else:
                                 dataSessio = ''
                             results.append(dict(title=obj.Title,
@@ -453,24 +451,16 @@ class View(grok.View):
                 return False
 
     def valuesTable(self):
-        start = getattr(self.context, 'start', None)
-        end = getattr(self.context, 'end', None)
-        from_zone = tz.tzutc()
-        to_zone = tz.tzlocal()
-
-        if start:
-            start = start.replace(tzinfo=from_zone)
-            start = start.astimezone(to_zone)
-            horaInici = start.strftime('%d/%m/%Y %H:%M')
-            year = start.strftime('%Y') + '/'
+        acc = IEventAccessor(self.context)
+        if acc.start:
+            horaInici = acc.start.strftime('%d/%m/%Y %H:%M')
+            year = acc.start.strftime('%Y') + '/'
         else:
             horaInici = ''
             year = ''
 
-        if end:
-            end = end.replace(tzinfo=from_zone)
-            end = end.astimezone(to_zone)
-            horaFi = end.strftime('%d/%m/%Y %H:%M')
+        if acc.end:
+            horaFi = acc.end.strftime('%d/%m/%Y %H:%M')
         else:
             horaFi = ''
 

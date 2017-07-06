@@ -15,6 +15,7 @@ from zope import schema
 from time import strftime
 from z3c.form.interfaces import DISPLAY_MODE
 from genweb.organs.utils import addEntryLog
+from plone.event.interfaces import IEventAccessor
 import unicodedata
 
 grok.templatedir("templates")
@@ -92,22 +93,22 @@ class Message(form.SchemaForm):
 
         html_content = ''
         sessiontitle = str(session.Title())
-        start = getattr(session, 'start', None)
-        end = getattr(session, 'end', None)
-        if start is None:
+
+        acc = IEventAccessor(self.context)
+        if acc.start is None:
             sessiondate = ''
         else:
-            sessiondate = str(start.strftime("%d/%m/%Y"))
+            sessiondate = str(acc.start.strftime("%d/%m/%Y"))
 
-        if start is None:
+        if acc.start is None:
             starthour = ''
         else:
-            starthour = str(start.strftime("%H:%M"))
+            starthour = str(acc.start.strftime("%H:%M"))
 
-        if end is None:
+        if acc.end is None:
             endHour = ''
         else:
-            endHour = str(end.strftime("%H:%M"))
+            endHour = str(acc.end.strftime("%H:%M"))
 
         session.notificationDate = now
         titleText = "Convocatòria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour

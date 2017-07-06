@@ -11,6 +11,7 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
 from Products.CMFCore.utils import getToolByName
+from plone.event.interfaces import IEventAccessor
 from genweb.organs import utils
 
 grok.templatedir("templates")
@@ -138,14 +139,16 @@ def llocConvocatoriaDefaultValue(data):
 @form.default_value(field=IActa['horaInici'])
 def horaIniciDefaultValue(data):
     # copy horaInici from Session (parent object)
-    return data.context.start
+    acc = IEventAccessor(data.context)
+    return acc.start
 
 
 # Hidden field used only to render and generate the PDF
 @form.default_value(field=IActa['horaFi'])
 def horaFiDefaultValue(data):
     # copy horaFi from Session (parent object)
-    return data.context.end
+    acc = IEventAccessor(data.context)
+    return acc.end
 
 
 @form.default_value(field=IActa['ordenDelDia'])

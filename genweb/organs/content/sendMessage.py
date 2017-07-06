@@ -14,6 +14,7 @@ from zope import schema
 from z3c.form.interfaces import DISPLAY_MODE
 from genweb.organs.utils import addEntryLog
 from AccessControl import Unauthorized
+from plone.event.interfaces import IEventAccessor
 import unicodedata
 
 grok.templatedir("templates")
@@ -77,11 +78,12 @@ class Message(form.SchemaForm):
         sessiontitle = str(session.Title())
 
         sessionLink = '----@@----' + session.absolute_url()
-        start = getattr(session, 'start', None)
-        if start is None:
+
+        acc = IEventAccessor(self.context)
+        if acc.start is None:
             sessiondate = ''
         else:
-            sessiondate = str(start.strftime("%d/%m/%Y"))
+            sessiondate = str(acc.start.strftime("%d/%m/%Y"))
 
         titleText = "Missatge de la sessió: " + sessiontitle + ' (' + sessiondate + ')'
         fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
