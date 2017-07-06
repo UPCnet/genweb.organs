@@ -207,6 +207,7 @@ class View(grok.View):
         values = portal_catalog.searchResults(
             portal_type='genweb.organs.sessio',
             sort_on='getObjPositionInParent',
+            sort_order='reverse',
             path={'query': folder_path,
                   'depth': 1})
 
