@@ -277,7 +277,7 @@ msgstr "Literales y colores que se utilizarán como estados de aprobación de lo
 
 #: ./genweb/organs/content/organgovern.py:102
 msgid "Enter the from used in the mail form"
-msgstr "Dirección de correu del remitente de las notificaciones (persona o grupo) del órgano. Se pueden poner varias direcciones separadas por comas o espacios en blanco."
+msgstr "Dirección de correo del remitente de las notificaciones (persona o grupo) del órgano."
 
 #: ./genweb/organs/content/templates/sessio_view.pt:332
 msgid "Envia"
