@@ -222,13 +222,16 @@ class View(grok.View):
                 valuedataSessio = ''
                 valueHoraInici = ''
 
+            num = value.numSessio.zfill(3)
+            any = value.start.strftime('%Y')
             results.append(dict(title=value.title,
                                 absolute_url=value.absolute_url(),
                                 dataSessio=valuedataSessio,
                                 llocConvocatoria=value.llocConvocatoria,
                                 horaInici=valueHoraInici,
+                                hiddenOrder=any + num,
                                 review_state=obj.review_state))
-        return results
+        return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
 
     def getAcords(self):
         # If acords in site, publish the tab and the contents...
@@ -258,7 +261,7 @@ class View(grok.View):
                 value = obj.getObject()
                 # value = obj._unrestrictedGetObject()
                 num = value.agreement.split('/')[0].zfill(3)
-                any = value.agreement.split('/')[1].zfill(3)
+                any = value.agreement.split('/')[1]
                 results.append(dict(title=value.title,
                                     absolute_url=value.absolute_url(),
                                     agreement=value.agreement,
