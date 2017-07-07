@@ -144,6 +144,9 @@
           <th>
             <tal:head i18n:translate="">Agreement number</tal:head>
           </th>
+          <th style="display:none; visibility:hidden;">
+            <tal:head i18n:translate="">internal id</tal:head>
+          </th>
           <th>
             <tal:head i18n:translate="">Agreement and document label</tal:head>
           </th>
@@ -159,7 +162,12 @@
             </a>
           </td>
           <td>
-            <span tal:content="item/agreement">
+            <span tal:content="item/agreement" style="float: right;">
+                Numero Acord
+            </span>
+          </td>
+          <td style="display:none; visibility:hidden;">
+            <span tal:content="item/hiddenOrder">
                 Numero Acord
             </span>
           </td>

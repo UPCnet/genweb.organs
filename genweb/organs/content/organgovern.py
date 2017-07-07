@@ -12,7 +12,7 @@ from plone.autoform import directives
 from plone.supermodel.directives import fieldset
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.directives import dexterity
-from plone.event.interfaces import IEventAccessor
+from operator import itemgetter
 
 
 organType = SimpleVocabulary(
@@ -257,10 +257,11 @@ class View(grok.View):
             for obj in values:
                 value = obj.getObject()
                 # value = obj._unrestrictedGetObject()
+                num = value.agreement.split('/')[0].zfill(3)
+                any = value.agreement.split('/')[1].zfill(3)
                 results.append(dict(title=value.title,
                                     absolute_url=value.absolute_url(),
                                     agreement=value.agreement,
+                                    hiddenOrder=any + num,
                                     estatsLlista=value.estatsLlista))
-
-        results.sort(key=lambda item: item['agreement'], reverse=True)
-        return results
+        return sorted(results, key=itemgetter('hiddenOrder'))
