@@ -166,3 +166,12 @@ class View(grok.View):
             return True
         else:
             raise Unauthorized
+
+    def AcordTitle(self):
+        # title = self.context.Title()
+        agreement = ''
+        if self.context.agreement:
+            agreement = self.context.agreement
+        else:
+            agreement = _(u' [Acord sense numeracio]')
+        return agreement

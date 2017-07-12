@@ -260,8 +260,12 @@ class View(grok.View):
             for obj in values:
                 value = obj.getObject()
                 # value = obj._unrestrictedGetObject()
-                num = value.agreement.split('/')[0].zfill(3)
-                any = value.agreement.split('/')[1]
+                if value.agreement:
+                    num = value.agreement.split('/')[0].zfill(3)
+                    any = value.agreement.split('/')[1]
+                else:
+                    num = any = ''
+
                 results.append(dict(title=value.title,
                                     absolute_url=value.absolute_url(),
                                     agreement=value.agreement,
