@@ -200,10 +200,9 @@ def Punts2Acta(self):
             if value.agreement:
                 agreement = ' [Acord ' + str(value.agreement) + ']'
             else:
-                agreement = _(u'[Acord sense numeracio]')
+                agreement = _(u"[Acord sense numerar]")
         else:
             agreement = ''
-
         results.append('<li>' + str(obj.Title) + ' ' + str(agreement))
 
         if len(value.objectIds()) > 0:
@@ -220,7 +219,7 @@ def Punts2Acta(self):
                     if subpunt.agreement:
                         agreement = ' [Acord ' + str(subpunt.agreement) + ']'
                     else:
-                        agreement = _(u'[Acord sense numeracio]')
+                        agreement = _("[Acord sense numerar]")
                 else:
                     agreement = ''
                 results.append('<li>' + str(item.Title) + ' ' + str(agreement) + '</li>')
