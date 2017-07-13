@@ -245,7 +245,7 @@ msgstr "S'ha creat una acta."
 
 #: ./genweb/organs/hooks.py:30
 msgid "Created punt"
-msgstr "S'ha creat un punt informatiu."
+msgstr "S'ha creat un punt."
 
 #: ./genweb/organs/content/templates/acta_view.pt:62
 #: ./genweb/organs/content/templates/impersonate_as.pt:36
@@ -270,11 +270,11 @@ msgstr "Element el·liminat"
 
 #: ./genweb/organs/browser/events/removeObject.py:40
 msgid "Deleted punt"
-msgstr "Punt informatiu el·liminat"
+msgstr "Punt el·liminat"
 
 #: ./genweb/organs/browser/events/removeObject.py:79
 msgid "Deleted subpunt"
-msgstr "Punt informatiu el·liminat"
+msgstr "Punt el·liminat"
 
 #: ./genweb/organs/content/templates/acta_view.pt:157
 msgid "Desenvolupament de la sessio"
@@ -520,7 +520,7 @@ msgstr "S'ha modificat una acta."
 
 #: ./genweb/organs/hooks.py:78
 msgid "Modified punt"
-msgstr "S'ha modificat un punt informatiu."
+msgstr "S'ha modificat un punt."
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:32
 msgid "Mostrar dades de organ"
@@ -563,7 +563,7 @@ msgstr "Afegeix acord"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:321
 msgid "Nou punt"
-msgstr "Afegeix punt informatiu"
+msgstr "Afegeix punt"
 
 #: ./genweb/organs/profiles/default/sharing.xml
 msgid "OG1-Secretari"
@@ -709,7 +709,7 @@ msgstr "Previsualització de l'acta"
 
 #: ./genweb/organs/content/templates/informar_view.pt:31
 msgid "Previsualitzacio dels punts"
-msgstr "Previsualització dels punts informatius"
+msgstr "Previsualització dels punts"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:149
 msgid "Print"
@@ -729,7 +729,7 @@ msgstr "Contingut"
 #: ./genweb/organs/content/punt.py:66
 #: ./genweb/organs/content/subpunt.py:63
 msgid "Proposal point number"
-msgstr "Punt informatiu de l'ordre del dia"
+msgstr "Punt de l'ordre del dia"
 
 #: ./genweb/organs/content/file.py:59
 msgid "Published file description"
@@ -738,7 +738,7 @@ msgstr "Fitxer que conté la part pública del document. Ha de ser en format PDF
 #: ./genweb/organs/browser/views/butlleti.pt:99
 #: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
 msgid "Punt"
-msgstr "Punt informatiu"
+msgstr "Punt"
 
 #: ./genweb/organs/content/punt.py:60
 msgid "Punt Title"
@@ -848,7 +848,7 @@ msgstr "Acta"
 
 #: ./genweb/organs/content/acta.py:98
 msgid "Session order description"
-msgstr "Apartat per indicar els punts informatius de l'ordre del dia i el desenvolupament de la sessió."
+msgstr "Apartat per indicar els punts de l'ordre del dia i el desenvolupament de la sessió."
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:92
 msgid "Session start"
@@ -896,15 +896,15 @@ msgstr "Estat"
 #: ./genweb/organs/content/templates/sessio_view.pt:422
 #: ./genweb/organs/profiles/default/types/genweb.organs.subpunt.xml
 msgid "Subpunt"
-msgstr "Punt informatiu"
+msgstr "Punt"
 
 #: ./genweb/organs/content/subpunt.py:57
 msgid "Subpunt Title"
-msgstr "Títol del punt informatiu de l'ordre del dia"
+msgstr "Títol del punt de l'ordre del dia"
 
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:67
 msgid "Subpunts informatius / acords"
-msgstr "Punts informatius/acords"
+msgstr "Punts/acords"
 
 #: ./genweb/organs/content/acord.py:61
 msgid "Tab acord"
@@ -932,11 +932,11 @@ msgstr "Òrgan"
 
 #: ./genweb/organs/content/punt.py:54
 msgid "Tab punt"
-msgstr "Punt informatiu"
+msgstr "Punt"
 
 #: ./genweb/organs/content/subpunt.py:51
 msgid "Tab subpunt"
-msgstr "Punt informatiu"
+msgstr "Punt"
 
 #: ./genweb/organs/content/templates/acta_view.pt:45
 #: ./genweb/organs/content/templates/informar_view.pt:37
@@ -975,7 +975,7 @@ msgstr "Enllaç al vídeo de la sessió"
 
 #: ./genweb/organs/content/templates/informar_view.pt:42
 msgid "Vista previa dels punts"
-msgstr "Vista prèvia dels punts informatius"
+msgstr "Vista prèvia dels punts"
 
 #: ./genweb/organs/content/presentation.py:52
 msgid "[Acord "

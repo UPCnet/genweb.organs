@@ -196,11 +196,11 @@ msgstr "Changed recursive color state of acord inside punt"
 
 #: ./genweb/organs/browser/views.py:348
 msgid "Changed recursive color state of subpunt inside punt"
-msgstr "Changed recursive color state of subpunt inside punt"
+msgstr "Changed recursive color state of point inside punt"
 
 #: ./genweb/organs/browser/views.py:379
 msgid "Changed subpunt intern state color"
-msgstr "Changed subpunt intern state color"
+msgstr "Changed point state color"
 
 #: ./genweb/organs/browser/events/change.py:19
 msgid "Changed workflow state"
@@ -274,7 +274,7 @@ msgstr "Deleted punt"
 
 #: ./genweb/organs/browser/events/removeObject.py:79
 msgid "Deleted subpunt"
-msgstr "Deleted punt"
+msgstr "Deleted point"
 
 #: ./genweb/organs/content/templates/acta_view.pt:157
 msgid "Desenvolupament de la sessio"
@@ -390,7 +390,7 @@ msgstr "If you want to add a video file, not a url, there is a trick, you must a
 
 #: ./genweb/organs/content/templates/sessio_view.pt:309
 msgid "Importar llista de punts i subpunts"
-msgstr "Add massive punts quickly"
+msgstr "Add massive points quickly"
 
 #: ./genweb/organs/content/acta.py:65
 #: ./genweb/organs/content/sessio.py:82
@@ -528,7 +528,7 @@ msgstr "Show Organ data"
 
 #: ./genweb/organs/browser/views.py:220
 msgid "Moved subpunt by drag&drop"
-msgstr "Moved subpunt by drag&drop"
+msgstr "Moved point by drag&drop"
 
 #: ./genweb/organs/content/templates/mail_convocar.pt:18
 msgid "New message"
@@ -896,15 +896,15 @@ msgstr "State"
 #: ./genweb/organs/content/templates/sessio_view.pt:422
 #: ./genweb/organs/profiles/default/types/genweb.organs.subpunt.xml
 msgid "Subpunt"
-msgstr "Subpoint"
+msgstr "Point"
 
 #: ./genweb/organs/content/subpunt.py:57
 msgid "Subpunt Title"
-msgstr "Subpunt Title"
+msgstr "Point title"
 
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:67
 msgid "Subpunts informatius / acords"
-msgstr "Subpunts informatius / acords"
+msgstr "Points/agreements"
 
 #: ./genweb/organs/content/acord.py:61
 msgid "Tab acord"
@@ -936,7 +936,7 @@ msgstr "Informative point"
 
 #: ./genweb/organs/content/subpunt.py:51
 msgid "Tab subpunt"
-msgstr "Informative point"
+msgstr "Point"
 
 #: ./genweb/organs/content/templates/acta_view.pt:45
 #: ./genweb/organs/content/templates/informar_view.pt:37
