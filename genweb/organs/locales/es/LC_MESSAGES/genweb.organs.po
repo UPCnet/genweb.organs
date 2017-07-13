@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-07-12 12:51+0000\n"
+"POT-Creation-Date: 2017-07-12 13:08+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -29,6 +29,10 @@ msgstr "<p>Borrador Yellow</p><p>Pendiente de aprobación Orange</p><p>Aprobado 
 msgid "ACORD"
 msgstr "ACUERDO"
 
+#: ./genweb/organs/browser/views/acta_print.pt:29
+msgid "ACTA <span style=\"text-align: left\">${DYNAMIC_CONTENT}</span>"
+msgstr "ACTA <span style=\"text-align: left\">${DYNAMIC_CONTENT}</span>"
+
 #: ./genweb/organs/content/templates/sessio_view.pt:276
 msgid "Accio"
 msgstr "Acción"
@@ -50,9 +54,9 @@ msgstr "Acrónimo"
 msgid "Acronym Description"
 msgstr "Nombre corto que genera la URL simplificada del órgano."
 
-#: ./genweb/organs/browser/views/acta_print.pt:38
-#: ./genweb/organs/content/templates/acta_view.pt:157
+#: ./genweb/organs/browser/views/acta_print.pt:88
 #: ./genweb/organs/content/templates/impersonate_as.pt:38
+#: ./genweb/organs/content/templates/sessio_view.pt:159
 msgid "Acta"
 msgstr "Acta"
 
@@ -126,7 +130,7 @@ msgstr "Usuario anónimo"
 msgid "Assistents"
 msgstr "Miembros"
 
-#: ./genweb/organs/browser/views/acta_print.pt:69
+#: ./genweb/organs/browser/views/acta_print.pt:62
 #: ./genweb/organs/content/templates/acta_view.pt:118
 msgid "Attending members"
 msgstr "Miembros"
@@ -272,9 +276,21 @@ msgstr "Punto informativo eliminado"
 msgid "Deleted subpunt"
 msgstr "Punto informativo eliminado"
 
+#: ./genweb/organs/content/templates/acta_view.pt:157
+msgid "Desenvolupament de la sessio"
+msgstr "Desarrollo de la sesión"
+
 #: ./genweb/organs/content/templates/sessio_view.pt:282
 msgid "Destinataris"
 msgstr "Destinatarios"
+
+#: ./genweb/organs/browser/views/acta_print.pt:47
+msgid "Dia/Hora fi"
+msgstr "Día/Hora fin"
+
+#: ./genweb/organs/browser/views/acta_print.pt:42
+msgid "Dia/Hora inici"
+msgstr "Día/Hora inicio"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:425
 #: ./genweb/organs/profiles/default/types/genweb.organs.document.xml
@@ -308,7 +324,7 @@ msgstr "Estado de la sesión"
 msgid "Esteu visualitzant la sessio amb el rol"
 msgstr "Está visualizando la sesión con el rol de"
 
-#: ./genweb/organs/browser/views/acta_print.pt:80
+#: ./genweb/organs/browser/views/acta_print.pt:73
 #: ./genweb/organs/content/acta.py:81
 #: ./genweb/organs/content/sessio.py:98
 msgid "Excused members"
@@ -407,7 +423,7 @@ msgstr "El fichero seleccionado no parece un fichero PDF."
 msgid "Invalid audio file"
 msgstr "El fichero seleccionado no parece en formato de audio."
 
-#: ./genweb/organs/browser/views/acta_print.pt:75
+#: ./genweb/organs/browser/views/acta_print.pt:68
 #: ./genweb/organs/content/acta.py:73
 #: ./genweb/organs/content/sessio.py:90
 msgid "Invited members"
@@ -490,7 +506,7 @@ msgstr "Mensaje no enviado"
 msgid "Missatge no enviat. Comprovi els destinataris del missatge"
 msgstr "Mensaje no enviado. Compruebe los destinatarios del mensaje."
 
-#: ./genweb/organs/browser/views/acta_print.pt:85
+#: ./genweb/organs/browser/views/acta_print.pt:78
 msgid "Missing members"
 msgstr "No asistentes"
 
@@ -809,13 +825,12 @@ msgstr "Fecha de la sesión"
 msgid "Session end date and time"
 msgstr "Fecha y hora de finalización de la sesión"
 
-#: ./genweb/organs/browser/views/acta_print.pt:54
 #: ./genweb/organs/content/acta.py:53
 #: ./genweb/organs/content/templates/acta_view.pt:75
 msgid "Session end time"
 msgstr "Hora de finalización de la sesión"
 
-#: ./genweb/organs/browser/views/acta_print.pt:43
+#: ./genweb/organs/browser/views/acta_print.pt:37
 #: ./genweb/organs/content/acta.py:58
 #: ./genweb/organs/content/sessio.py:63
 msgid "Session location"
@@ -844,7 +859,6 @@ msgstr "Hora de inicio"
 msgid "Session start date and time"
 msgstr "Fecha y hora de inicio de la sesión"
 
-#: ./genweb/organs/browser/views/acta_print.pt:49
 #: ./genweb/organs/content/acta.py:48
 #: ./genweb/organs/content/templates/acta_view.pt:70
 msgid "Session start time"
