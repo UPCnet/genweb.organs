@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-07-13 11:01+0000\n"
+"POT-Creation-Date: 2017-07-13 11:59+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -128,6 +128,14 @@ msgstr "Altres"
 msgid "Anonymous user"
 msgstr "Usuari anònim"
 
+#: ./genweb/organs/content/sessio.py:106
+msgid "Assistants"
+msgstr "Assistents"
+
+#: ./genweb/organs/content/sessio.py:107
+msgid "Assistants help"
+msgstr "Llista de membres que han assistit a la sessió."
+
 #: ./genweb/organs/content/acta.py:37
 #: ./genweb/organs/content/organgovern.py:40
 #: ./genweb/organs/content/sessio.py:30
@@ -148,7 +156,7 @@ msgid "Audio de la sessio"
 msgstr "Àudio de la sessió"
 
 #: ./genweb/organs/content/organgovern.py:136
-#: ./genweb/organs/content/sessio.py:114
+#: ./genweb/organs/content/sessio.py:122
 msgid "Body Mail"
 msgstr "Introducció de convocatòria"
 
@@ -156,7 +164,7 @@ msgstr "Introducció de convocatòria"
 msgid "Body Mail convoquing description"
 msgstr "Proposta de missatge que es genera en convocar una sessió. S'hi afegeix automàticament el peu del missatge que s'hagi definit per l'òrgan."
 
-#: ./genweb/organs/content/sessio.py:115
+#: ./genweb/organs/content/sessio.py:123
 msgid "Body Mail description"
 msgstr "Proposta de missatge que es genera en convocar una sessió. S'hi afegeix automàticament el peu del missatge que s'hagi definit per l'òrgan."
 
@@ -555,13 +563,13 @@ msgid "New session created"
 msgstr "S'ha creat una nova sessió"
 
 #: ./genweb/organs/content/acta.py:89
-#: ./genweb/organs/content/sessio.py:106
+#: ./genweb/organs/content/sessio.py:114
 #: ./genweb/organs/content/templates/acta_view.pt:127
 msgid "No assistents"
 msgstr "No assistents"
 
 #: ./genweb/organs/content/acta.py:90
-#: ./genweb/organs/content/sessio.py:107
+#: ./genweb/organs/content/sessio.py:115
 msgid "No assistents help"
 msgstr "Llista de membres que no han assistit a la sessió."
 
@@ -892,11 +900,11 @@ msgstr "Mostra dades de l'òrgan"
 msgid "Si es vol fer servir la imatge estandard o la imatge que es puja a continuació"
 msgstr "Marcar aquesta opció si es vol fer servir la imatge personalitzada enlloc de la del Genweb."
 
-#: ./genweb/organs/content/sessio.py:122
+#: ./genweb/organs/content/sessio.py:130
 msgid "Signatura"
 msgstr "Peu del missatge"
 
-#: ./genweb/organs/content/sessio.py:123
+#: ./genweb/organs/content/sessio.py:131
 msgid "Signatura description"
 msgstr "Peu del missatge que s'adjunta tant al missatge de convocatòria com al d'enviar missatge. Inicialment tindrà el valor que s'hagi definit en l'òrgan."
 
@@ -1055,6 +1063,6 @@ msgstr "Imprimeix ordre del dia"
 
 #: ./genweb/organs/browser/views.py:407
 #: ./genweb/organs/content/impersonate_as.py:146
-#: ./genweb/organs/content/sessio.py:327
+#: ./genweb/organs/content/sessio.py:335
 msgid "sense numeracio"
 msgstr "sense numeració"

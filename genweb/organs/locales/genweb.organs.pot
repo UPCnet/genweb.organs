@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-07-13 11:01+0000\n"
+"POT-Creation-Date: 2017-07-13 11:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,6 +129,14 @@ msgstr ""
 msgid "Anonymous user"
 msgstr ""
 
+#: ./genweb/organs/content/sessio.py:106
+msgid "Assistants"
+msgstr ""
+
+#: ./genweb/organs/content/sessio.py:107
+msgid "Assistants help"
+msgstr ""
+
 #: ./genweb/organs/content/acta.py:37
 #: ./genweb/organs/content/organgovern.py:40
 #: ./genweb/organs/content/sessio.py:30
@@ -149,7 +157,7 @@ msgid "Audio de la sessio"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:136
-#: ./genweb/organs/content/sessio.py:114
+#: ./genweb/organs/content/sessio.py:122
 msgid "Body Mail"
 msgstr ""
 
@@ -157,7 +165,7 @@ msgstr ""
 msgid "Body Mail convoquing description"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:115
+#: ./genweb/organs/content/sessio.py:123
 msgid "Body Mail description"
 msgstr ""
 
@@ -556,13 +564,13 @@ msgid "New session created"
 msgstr ""
 
 #: ./genweb/organs/content/acta.py:89
-#: ./genweb/organs/content/sessio.py:106
+#: ./genweb/organs/content/sessio.py:114
 #: ./genweb/organs/content/templates/acta_view.pt:127
 msgid "No assistents"
 msgstr ""
 
 #: ./genweb/organs/content/acta.py:90
-#: ./genweb/organs/content/sessio.py:107
+#: ./genweb/organs/content/sessio.py:115
 msgid "No assistents help"
 msgstr ""
 
@@ -893,11 +901,11 @@ msgstr ""
 msgid "Si es vol fer servir la imatge estandard o la imatge que es puja a continuació"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:122
+#: ./genweb/organs/content/sessio.py:130
 msgid "Signatura"
 msgstr ""
 
-#: ./genweb/organs/content/sessio.py:123
+#: ./genweb/organs/content/sessio.py:131
 msgid "Signatura description"
 msgstr ""
 
@@ -1056,6 +1064,6 @@ msgstr ""
 
 #: ./genweb/organs/browser/views.py:407
 #: ./genweb/organs/content/impersonate_as.py:146
-#: ./genweb/organs/content/sessio.py:327
+#: ./genweb/organs/content/sessio.py:335
 msgid "sense numeracio"
 msgstr ""

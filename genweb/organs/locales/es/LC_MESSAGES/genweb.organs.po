@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-07-13 11:01+0000\n"
+"POT-Creation-Date: 2017-07-13 11:59+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -128,6 +128,14 @@ msgstr "Otros"
 msgid "Anonymous user"
 msgstr "Usuario anónimo"
 
+#: ./genweb/organs/content/sessio.py:106
+msgid "Assistants"
+msgstr "Asistentes"
+
+#: ./genweb/organs/content/sessio.py:107
+msgid "Assistants help"
+msgstr "Listado de miembros que han asistido a la sesión."
+
 #: ./genweb/organs/content/acta.py:37
 #: ./genweb/organs/content/organgovern.py:40
 #: ./genweb/organs/content/sessio.py:30
@@ -148,7 +156,7 @@ msgid "Audio de la sessio"
 msgstr "Audio de la sesión"
 
 #: ./genweb/organs/content/organgovern.py:136
-#: ./genweb/organs/content/sessio.py:114
+#: ./genweb/organs/content/sessio.py:122
 msgid "Body Mail"
 msgstr "Introducción de convocatoria"
 
@@ -156,7 +164,7 @@ msgstr "Introducción de convocatoria"
 msgid "Body Mail convoquing description"
 msgstr "Propuesta del mensaje que es genera al convocar una sesión. Se añade automáticamente el pie del mensaje que se haya definido en el órgano."
 
-#: ./genweb/organs/content/sessio.py:115
+#: ./genweb/organs/content/sessio.py:123
 msgid "Body Mail description"
 msgstr "Propuesta del mensaje que es genera al convocar una sesión. Se añade automáticamente el pie del mensaje que se haya definido en el órgano."
 
@@ -555,13 +563,13 @@ msgid "New session created"
 msgstr "Se ha creado una nueva sesión"
 
 #: ./genweb/organs/content/acta.py:89
-#: ./genweb/organs/content/sessio.py:106
+#: ./genweb/organs/content/sessio.py:114
 #: ./genweb/organs/content/templates/acta_view.pt:127
 msgid "No assistents"
 msgstr "No asistentes"
 
 #: ./genweb/organs/content/acta.py:90
-#: ./genweb/organs/content/sessio.py:107
+#: ./genweb/organs/content/sessio.py:115
 msgid "No assistents help"
 msgstr "Listado de personas que no han asistido a la sesión."
 
@@ -892,11 +900,11 @@ msgstr "Muestra datos del órgano"
 msgid "Si es vol fer servir la imatge estandard o la imatge que es puja a continuació"
 msgstr "Marcar esta opción si se quiere utilizar la imagen personalizada en lugar de la del Genweb."
 
-#: ./genweb/organs/content/sessio.py:122
+#: ./genweb/organs/content/sessio.py:130
 msgid "Signatura"
 msgstr "Pie del mensaje"
 
-#: ./genweb/organs/content/sessio.py:123
+#: ./genweb/organs/content/sessio.py:131
 msgid "Signatura description"
 msgstr "Pie del mensaje que se adjunta tanto en el mensaje de convocatoria como al enviar el mensaje. Inicialmente tendrá el valor que se haya definido en el órgano."
 
@@ -1055,6 +1063,6 @@ msgstr "Imprimir orden del día"
 
 #: ./genweb/organs/browser/views.py:407
 #: ./genweb/organs/content/impersonate_as.py:146
-#: ./genweb/organs/content/sessio.py:327
+#: ./genweb/organs/content/sessio.py:335
 msgid "sense numeracio"
 msgstr "sin numeración"

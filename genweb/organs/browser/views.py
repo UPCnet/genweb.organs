@@ -255,6 +255,12 @@ class Reload(BrowserView):
     def __call__(self):
         """ This call reassign the correct proposalPoints to the contents in this folder
         """
+        migrated = hasattr(self.context, 'migrated')
+        if migrated is True:
+            # Don't give option to modify numbers
+            return
+        else:
+            pass
         if CSRF:
             alsoProvides(self.request, IDisableCSRFProtection)
         portal_catalog = getToolByName(self, 'portal_catalog')

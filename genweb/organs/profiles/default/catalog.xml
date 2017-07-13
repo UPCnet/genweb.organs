@@ -6,4 +6,9 @@
   </index>
   <column value="index_proposalPoint"/>
 
+  <index name="migrated" meta_type="BooleanIndex">
+    <indexed_attr value="migrated"/>
+  </index>
+  <column value="migrated"/>
+
 </object>

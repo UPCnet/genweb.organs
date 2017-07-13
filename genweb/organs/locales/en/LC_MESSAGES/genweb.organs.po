@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-07-13 11:01+0000\n"
+"POT-Creation-Date: 2017-07-13 11:59+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -128,6 +128,14 @@ msgstr "Others"
 msgid "Anonymous user"
 msgstr "Anonymous user"
 
+#: ./genweb/organs/content/sessio.py:106
+msgid "Assistants"
+msgstr "Attending members"
+
+#: ./genweb/organs/content/sessio.py:107
+msgid "Assistants help"
+msgstr "Members attending the session"
+
 #: ./genweb/organs/content/acta.py:37
 #: ./genweb/organs/content/organgovern.py:40
 #: ./genweb/organs/content/sessio.py:30
@@ -148,7 +156,7 @@ msgid "Audio de la sessio"
 msgstr "Session audio file"
 
 #: ./genweb/organs/content/organgovern.py:136
-#: ./genweb/organs/content/sessio.py:114
+#: ./genweb/organs/content/sessio.py:122
 msgid "Body Mail"
 msgstr "Body Mail"
 
@@ -156,7 +164,7 @@ msgstr "Body Mail"
 msgid "Body Mail convoquing description"
 msgstr "Message attached to convene a session. Adds the Footer and header."
 
-#: ./genweb/organs/content/sessio.py:115
+#: ./genweb/organs/content/sessio.py:123
 msgid "Body Mail description"
 msgstr "Message Body convening of the session"
 
@@ -555,13 +563,13 @@ msgid "New session created"
 msgstr "New session created"
 
 #: ./genweb/organs/content/acta.py:89
-#: ./genweb/organs/content/sessio.py:106
+#: ./genweb/organs/content/sessio.py:114
 #: ./genweb/organs/content/templates/acta_view.pt:127
 msgid "No assistents"
 msgstr "People not attending"
 
 #: ./genweb/organs/content/acta.py:90
-#: ./genweb/organs/content/sessio.py:107
+#: ./genweb/organs/content/sessio.py:115
 msgid "No assistents help"
 msgstr "No assistents help"
 
@@ -892,11 +900,11 @@ msgstr "Show organ information"
 msgid "Si es vol fer servir la imatge estandard o la imatge que es puja a continuació"
 msgstr "Use this image"
 
-#: ./genweb/organs/content/sessio.py:122
+#: ./genweb/organs/content/sessio.py:130
 msgid "Signatura"
 msgstr "Signature message"
 
-#: ./genweb/organs/content/sessio.py:123
+#: ./genweb/organs/content/sessio.py:131
 msgid "Signatura description"
 msgstr "Signatura description"
 
@@ -1055,6 +1063,6 @@ msgstr "Print Agenda"
 
 #: ./genweb/organs/browser/views.py:407
 #: ./genweb/organs/content/impersonate_as.py:146
-#: ./genweb/organs/content/sessio.py:327
+#: ./genweb/organs/content/sessio.py:335
 msgid "sense numeracio"
 msgstr "not numbered"
