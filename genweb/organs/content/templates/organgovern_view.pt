@@ -9,14 +9,15 @@
 <body>
 
 <metal:content-core fill-slot="content-core"
-       tal:define="acords view/getAcords;
-                   members view/members;
-                   descripcioOrgan context/descripcioOrgan;
+       tal:define="descripcioOrgan context/descripcioOrgan;
                    membresOrgan context/membresOrgan;
                    convidatsPermanentsOrgan context/convidatsPermanentsOrgan;
                    activeClassMembres view/activeClassMembres;
                    activeClassConvidats view/activeClassConvidats;
-                   sessions view/SessionsInside">
+                   members view/members;
+                   sessions view/SessionsInside;
+                   acords view/getAcords;
+                   actes view/getActes;">
 
   <div style="width: 180px;" class="pull-right" tal:condition="context/logoOrgan">
     <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan" />
@@ -27,9 +28,36 @@
 
   <div id="contentOrgan">
 
-    <button tal:condition="members" type="button" class="btn btn-info" data-toggle="collapse" data-target="#information">
+    <button tal:condition="members" type="button" class="btn btn-info"
+      data-toggle="collapse"
+      data-target="#information"
+      aria-expanded="false" aria-controls="information">
       <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
-      <span i18n:translate="">Mostrar dades de organ</span>
+      <span i18n:translate="">Show info organ</span>
+    </button>
+
+    <button tal:condition="sessions" type="button" class="btn btn-info"
+      data-toggle="collapse"
+      data-target="#sessionList"
+      aria-expanded="false" aria-controls="sessionList">
+      <i class="fa fa-list" aria-hidden="true"></i>&nbsp;
+      <span i18n:translate="">List sessions</span>
+    </button>
+
+    <button tal:condition="acords" type="button" class="btn btn-info"
+      data-toggle="collapse"
+      data-target="#agreementList"
+      aria-expanded="false" aria-controls="agreementList">
+      <i class="fa fa-list" aria-hidden="true"></i>&nbsp;
+      <span i18n:translate="">List acords</span>
+    </button>
+
+    <button tal:condition="actes" type="button" class="btn btn-info"
+      data-toggle="collapse"
+      data-target="#actesList"
+      aria-expanded="false" aria-controls="actesList">
+      <i class="fa fa-list" aria-hidden="true"></i>&nbsp;
+      <span i18n:translate="">List actes</span>
     </button>
 
     <div class="documentDescription description"></div>
@@ -40,7 +68,6 @@
           <a href="#composicionTab" data-toggle="tab" i18n:translate="">Composicio</a>
         </li>
       </ul>
-
       <div id="organsTabs" class="tab-content">
         <div class="tab-pane active" id="composicionTab">
           <div class="panel with-nav-tabs panel-primary">
@@ -66,116 +93,157 @@
             </div>
           </div>
         </div>
-
       </div>
+    </div>
 
+    <div tal:condition="sessions" id="sessionList" class="collapse">
+      <h3 i18n:translate="">Sessions list</h3>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>
+              <tal:title i18n:translate="">Title</tal:title>
+            </th>
+            <th style="text-align: center;">
+              <tal:head i18n:translate="">Session date</tal:head>
+            </th>
+            <th style="text-align: center;">
+              <tal:head i18n:translate="">Session location</tal:head>
+            </th>
+            <th style="text-align: center;">
+              <tal:head i18n:translate="">Session start</tal:head>
+            </th>
+            <th style="text-align: center;">
+              <tal:head i18n:translate="">State</tal:head>
+            </th>
+          </tr>
+        </thead>
+        <tal:objects repeat="item sessions">
+          <tr>
+            <td>
+              <a tal:attributes="href item/absolute_url;"
+                 tal:content="item/title">
+                      Item Title
+              </a>
+            </td>
+            <td style="text-align: center;">
+              <span tal:content="item/dataSessio" >
+                      Data de la Sessio
+              </span>
+            </td>
+            <td style="text-align: center;">
+              <span tal:content="item/llocConvocatoria">
+                      Lloc sessio
+              </span>
+            </td>
+            <td style="text-align: center;">
+              <span tal:content="item/horaInici">
+                      Hora inici
+              </span>
+            </td>
+            <td style="text-align: center;">
+              <span tal:content="item/review_state"
+                    tal:attributes="class item/review_state"
+                    i18n:translate=""
+                    i18n:domain="genweb">
+                       Item State
+              </span>
+            </td>
+            <td style="display: none;">
+              <span tal:content="item/hiddenOrder" style="float: right; visibility: hidden;">
+                Hidden
+              </span>
+            </td>
+          </tr>
+        </tal:objects>
+      </table>
+    </div>
+
+    <div tal:condition="acords" id="agreementList" class="collapse">
+      <h3 i18n:translate="">Agreements list</h3>
+      <table class="table table-striped table-bordered table-condensed table-hover table-responsive">
+        <thead>
+          <tr>
+            <th>
+              <tal:title i18n:translate="">Title</tal:title>
+            </th>
+            <th>
+              <tal:head i18n:translate="">Agreement number</tal:head>
+            </th>
+            <th>
+              <tal:head i18n:translate="">Agreement and document label</tal:head>
+            </th>
+          </tr>
+        </thead>
+        <tal:documents repeat="item acords">
+          <tr>
+            <td>
+              <a href="#"
+                     tal:attributes="href item/absolute_url;"
+                     tal:content="item/title">
+                      Item Title
+              </a>
+            </td>
+            <td>
+              <span tal:content="item/agreement" style="float: right;">
+                  Numero Acord
+              </span>
+            </td>
+            <td>
+              <span tal:content="item/estatsLlista" i18n:translate="">
+                Status
+              </span>
+            </td>
+            <td style="display: none;">
+              <span tal:content="item/hiddenOrder" style="float: right; visibility: hidden;">
+                Hidden
+              </span>
+            </td>
+          </tr>
+        </tal:documents>
+      </table>
+    </div>
+
+    <div tal:condition="actes" id="actesList" class="collapse">
+      <h3 i18n:translate="">Actes list</h3>
+      <table class="table table-striped table-bordered table-condensed table-hover table-responsive">
+        <thead>
+          <tr>
+            <th>
+              <tal:title i18n:translate="">Title</tal:title>
+            </th>
+            <th style="text-align: center;">
+              <tal:title i18n:translate="">Data</tal:title>
+            </th>
+          </tr>
+        </thead>
+        <tal:documents repeat="item actes">
+          <tr>
+            <td>
+              <a href="#"
+                     tal:attributes="href item/absolute_url;"
+                     tal:content="item/title">
+                      Item Title
+              </a>
+            </td>
+            <td style="text-align: center;">
+              <span tal:condition="item/data" tal:content="item/data">
+                      start
+              </span>
+            </td>
+          </tr>
+        </tal:documents>
+      </table>
     </div>
 
   </div>
 
+<script>
 
-  <tal:Sessions tal:condition="sessions">
-    <h3 i18n:translate="">Sessions list</h3>
-    <table class="table table-striped table-bordered">
-      <thead>
-        <tr>
-          <th>
-            <tal:title i18n:translate="">Title</tal:title>
-          </th>
-          <th style="text-align: center;">
-            <tal:head i18n:translate="">Session date</tal:head>
-          </th>
-          <th style="text-align: center;">
-            <tal:head i18n:translate="">Session location</tal:head>
-          </th>
-          <th style="text-align: center;">
-            <tal:head i18n:translate="">Session start</tal:head>
-          </th>
-          <th style="text-align: center;">
-            <tal:head i18n:translate="">State</tal:head>
-          </th>
-        </tr>
-      </thead>
-      <tal:objects repeat="item sessions">
-        <tr>
-          <td>
-            <a tal:attributes="href item/absolute_url;"
-               tal:content="item/title">
-                    Item Title
-            </a>
-          </td>
-          <td style="text-align: center;">
-            <span tal:content="item/dataSessio" >
-                    Data de la Sessio
-            </span>
-          </td>
-          <td style="text-align: center;">
-            <span tal:content="item/llocConvocatoria">
-                    Lloc sessio
-            </span>
-          </td>
-          <td style="text-align: center;">
-            <span tal:content="item/horaInici">
-                    Hora inici
-            </span>
-          </td>
-          <td style="text-align: center;">
-            <span tal:content="item/review_state"
-                  tal:attributes="class item/review_state"
-                  i18n:translate=""
-                  i18n:domain="genweb">
-                     Item State
-            </span>
-          </td>
-        </tr>
-      </tal:objects>
-    </table>
-  </tal:Sessions>
-
-<tal:Sessions tal:condition="sessions">
-  <div tal:condition="acords" id="acordsTab">
-    <h3 i18n:translate="">Agreements list</h3>
-    <table class="table table-striped table-bordered table-condensed table-hover table-responsive">
-      <thead>
-        <tr>
-          <th>
-            <tal:title i18n:translate="">Title</tal:title>
-          </th>
-          <th>
-            <tal:head i18n:translate="">Agreement number</tal:head>
-          </th>
-          <th>
-            <tal:head i18n:translate="">Agreement and document label</tal:head>
-          </th>
-        </tr>
-      </thead>
-      <tal:documents repeat="item acords">
-        <tr>
-          <td>
-            <a href="#"
-                   tal:attributes="href item/absolute_url;"
-                   tal:content="item/title">
-                    Item Title
-            </a>
-          </td>
-          <td>
-            <span tal:content="item/agreement" style="float: right;">
-                Numero Acord
-            </span>
-          </td>
-          <td>
-            <span tal:content="item/estatsLlista" i18n:translate="">
-              Status
-            </span>
-          </td>
-        </tr>
-      </tal:documents>
-    </table>
-  </div>
-</tal:Sessions>
-
+</script>
 
 </metal:content-core>
 
 </body>
 </html>
+

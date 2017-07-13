@@ -253,7 +253,6 @@ class View(grok.View):
             values = portal_catalog.searchResults(
                 portal_type=['genweb.organs.acord'],
                 sort_on='modified',
-                sort_order='reverse',
                 path={'query': path,
                       'depth': 3})
 
@@ -261,8 +260,12 @@ class View(grok.View):
                 value = obj.getObject()
                 # value = obj._unrestrictedGetObject()
                 if value.agreement:
-                    num = value.agreement.split('/')[0].zfill(3)
-                    any = value.agreement.split('/')[1]
+                    if len(value.agreement.split('/')) > 2:
+                        num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3)
+                        any = value.agreement.split('/')[0]
+                    else:
+                        num = value.agreement.split('/')[0].zfill(3)
+                        any = value.agreement.split('/')[1]
                 else:
                     num = any = ''
 
@@ -272,3 +275,35 @@ class View(grok.View):
                                     hiddenOrder=any + num,
                                     estatsLlista=value.estatsLlista))
         return sorted(results, key=itemgetter('hiddenOrder'))
+
+    def getActes(self):
+        # If acords in site, publish the tab and the contents...
+        results = []
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+
+        sessions = portal_catalog.searchResults(
+            portal_type='genweb.organs.sessio',
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        paths = []
+        for session in sessions:
+            paths.append(session.getPath())
+
+        for path in paths:
+            values = portal_catalog.searchResults(
+                portal_type=['genweb.organs.acta'],
+                sort_on='modified',
+                sort_order='reverse',
+                path={'query': path,
+                      'depth': 3})
+
+            for obj in values:
+                value = obj.getObject()
+                # value = obj._unrestrictedGetObject()
+                results.append(dict(title=value.title,
+                                    absolute_url=value.absolute_url(),
+                                    data=value.horaInici.strftime('%d/%m/%Y'),))
+        return results

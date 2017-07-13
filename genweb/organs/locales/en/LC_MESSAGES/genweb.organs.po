@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-07-12 13:08+0000\n"
+"POT-Creation-Date: 2017-07-13 11:01+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -73,6 +73,10 @@ msgstr "PDF file from the Acta. Only PDF files are accepted"
 msgid "Actes de la sessio:"
 msgstr "Session actes"
 
+#: ./genweb/organs/content/templates/organgovern_view.pt:208
+msgid "Actes list"
+msgstr "Actas"
+
 #: ./genweb/organs/content/manualimport.py:26
 msgid "Add content separated by -- and they will by added as Agreements."
 msgstr "Add content separated by -- and they will by added as Agreements."
@@ -93,7 +97,7 @@ msgstr "Agreement"
 
 #: ./genweb/organs/content/acord.py:90
 #: ./genweb/organs/content/punt.py:78
-#: ./genweb/organs/content/templates/organgovern_view.pt:148
+#: ./genweb/organs/content/templates/organgovern_view.pt:174
 msgid "Agreement and document label"
 msgstr "Agreement and document label"
 
@@ -103,11 +107,11 @@ msgid "Agreement and document labels"
 msgstr "Agreement and document labels"
 
 #: ./genweb/organs/content/acord.py:78
-#: ./genweb/organs/content/templates/organgovern_view.pt:145
+#: ./genweb/organs/content/templates/organgovern_view.pt:171
 msgid "Agreement number"
 msgstr "Agreement number"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:137
+#: ./genweb/organs/content/templates/organgovern_view.pt:163
 msgid "Agreements list"
 msgstr "Agreements"
 
@@ -214,7 +218,7 @@ msgstr "Changes saved."
 msgid "Cliqueu <a href=\"./\">aqui</a> per tornar al mode de visualitzacio per defecte."
 msgstr "Click <a href=\"./\">here</a> to show the previous view."
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:40
+#: ./genweb/organs/content/templates/organgovern_view.pt:68
 msgid "Composicio"
 msgstr "Composition"
 
@@ -229,7 +233,7 @@ msgstr "Public content"
 
 #: ./genweb/organs/content/templates/document_view.pt:20
 msgid "Contingut reservat"
-msgstr "Reserved content"
+msgstr "Restricted content"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:157
 msgid "Convocatoria"
@@ -251,6 +255,10 @@ msgstr "Created punt"
 #: ./genweb/organs/content/templates/impersonate_as.pt:36
 msgid "Dades"
 msgstr "Data"
+
+#: ./genweb/organs/content/templates/organgovern_view.pt:216
+msgid "Data"
+msgstr "Date"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:273
 msgid "Data i hora"
@@ -355,7 +363,7 @@ msgstr "Public file"
 
 #: ./genweb/organs/content/templates/file_view.pt:24
 msgid "Fitxer reservat"
-msgstr "Reserved File"
+msgstr "Restricted File"
 
 #: ./genweb/organs/content/templates/acord_view.pt:42
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:39
@@ -433,6 +441,18 @@ msgstr "Invited members"
 #: ./genweb/organs/content/sessio.py:91
 msgid "Invited members help"
 msgstr "Invited members help"
+
+#: ./genweb/organs/content/templates/organgovern_view.pt:52
+msgid "List acords"
+msgstr "List agreements"
+
+#: ./genweb/organs/content/templates/organgovern_view.pt:60
+msgid "List actes"
+msgstr "List actas"
+
+#: ./genweb/organs/content/templates/organgovern_view.pt:44
+msgid "List sessions"
+msgstr "List sessions"
 
 #: ./genweb/organs/content/templates/informar_view.pt:23
 msgid "Llista de punts en el format del butlleti."
@@ -521,10 +541,6 @@ msgstr "Modified acta"
 #: ./genweb/organs/hooks.py:78
 msgid "Modified punt"
 msgstr "Modified punt"
-
-#: ./genweb/organs/content/templates/organgovern_view.pt:32
-msgid "Mostrar dades de organ"
-msgstr "Show Organ data"
 
 #: ./genweb/organs/browser/views.py:220
 msgid "Moved subpunt by drag&drop"
@@ -663,12 +679,12 @@ msgstr "Logo de la carpeta de órganos"
 msgid "Persones Convocades"
 msgstr "Convoqued Members"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:50
+#: ./genweb/organs/content/templates/organgovern_view.pt:77
 msgid "Persones assistents"
 msgstr "Attendees"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:82
-#: ./genweb/organs/content/templates/organgovern_view.pt:53
+#: ./genweb/organs/content/templates/organgovern_view.pt:80
 #: ./genweb/organs/content/templates/sessio_view.pt:211
 msgid "Persones convidades"
 msgstr "Invited members"
@@ -693,7 +709,7 @@ msgstr "Please upload a public file"
 
 #: ./genweb/organs/content/file.py:52
 msgid "Please upload a reserved file"
-msgstr "Please upload a reserved file"
+msgstr "Please upload a restricted file"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:142
 msgid "Presentacio"
@@ -760,7 +776,7 @@ msgstr "Reload proposalPoints manually"
 
 #: ./genweb/organs/content/file.py:53
 msgid "Reserved file description"
-msgstr "Reserved file description"
+msgstr "Restricted file description"
 
 #: ./genweb/organs/content/organgovern.py:21
 msgid "Restricted_to_Affected"
@@ -816,7 +832,7 @@ msgstr "Session"
 msgid "Session Title"
 msgstr "Session Title"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:86
+#: ./genweb/organs/content/templates/organgovern_view.pt:108
 msgid "Session date"
 msgstr "Session Date"
 
@@ -850,7 +866,7 @@ msgstr "Agenda"
 msgid "Session order description"
 msgstr "Session order description"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:92
+#: ./genweb/organs/content/templates/organgovern_view.pt:114
 msgid "Session start"
 msgstr "Start time of the session"
 
@@ -864,9 +880,13 @@ msgstr "Session start date and time"
 msgid "Session start time"
 msgstr "Start time of the session"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:78
+#: ./genweb/organs/content/templates/organgovern_view.pt:100
 msgid "Sessions list"
 msgstr "Sessions list"
+
+#: ./genweb/organs/content/templates/organgovern_view.pt:36
+msgid "Show info organ"
+msgstr "Show organ information"
 
 #: ./genweb/organs/content/organsfolder.py:17
 msgid "Si es vol fer servir la imatge estandard o la imatge que es puja a continuació"
@@ -889,7 +909,7 @@ msgstr "Addresses of the affected"
 msgid "Stakeholders mail address help."
 msgstr "List of addresses of the people affected, thta want to be notified."
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:95
+#: ./genweb/organs/content/templates/organgovern_view.pt:117
 msgid "State"
 msgstr "State"
 
@@ -943,7 +963,7 @@ msgstr "Point"
 msgid "Tancar"
 msgstr "Close"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:83
+#: ./genweb/organs/content/templates/organgovern_view.pt:105
 #: ./genweb/organs/content/templates/sessio_view.pt:326
 msgid "Title"
 msgstr "Title"
