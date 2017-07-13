@@ -207,7 +207,6 @@ class View(grok.View):
         values = portal_catalog.searchResults(
             portal_type='genweb.organs.sessio',
             sort_on='getObjPositionInParent',
-            sort_order='reverse',
             path={'query': folder_path,
                   'depth': 1})
 
@@ -296,7 +295,6 @@ class View(grok.View):
             values = portal_catalog.searchResults(
                 portal_type=['genweb.organs.acta'],
                 sort_on='modified',
-                sort_order='reverse',
                 path={'query': path,
                       'depth': 3})
 
@@ -305,5 +303,6 @@ class View(grok.View):
                 # value = obj._unrestrictedGetObject()
                 results.append(dict(title=value.title,
                                     absolute_url=value.absolute_url(),
-                                    data=value.horaInici.strftime('%d/%m/%Y'),))
-        return results
+                                    data=value.horaInici.strftime('%d/%m/%Y'),
+                                    hiddenOrder=value.horaInici.strftime('%Y%m%d')))
+        return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
