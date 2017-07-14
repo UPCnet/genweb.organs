@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-07-13 11:59+0000\n"
+"POT-Creation-Date: 2017-07-14 10:50+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -33,11 +33,11 @@ msgstr "ACORD"
 msgid "ACTA <span style=\"text-align: left\">${DYNAMIC_CONTENT}</span>"
 msgstr "ACTA <span style=\"text-align: left\">${DYNAMIC_CONTENT}</span>"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:276
+#: ./genweb/organs/content/templates/sessio_view.pt:278
 msgid "Accio"
 msgstr "Acció"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:423
+#: ./genweb/organs/content/templates/sessio_view.pt:425
 #: ./genweb/organs/profiles/default/types/genweb.organs.acord.xml
 msgid "Acord"
 msgstr "Acord"
@@ -54,9 +54,9 @@ msgstr "Acrònim"
 msgid "Acronym Description"
 msgstr "Nom curt que donarà lloc a la URL simplificada de l'òrgan."
 
-#: ./genweb/organs/browser/views/acta_print.pt:88
 #: ./genweb/organs/content/templates/impersonate_as.pt:38
-#: ./genweb/organs/content/templates/sessio_view.pt:159
+#: ./genweb/organs/content/templates/sessio_view.pt:161
+#: ./genweb/organs/profiles/default/types/genweb.organs.acta.xml
 msgid "Acta"
 msgstr "Acta"
 
@@ -69,11 +69,11 @@ msgstr "Acta en format PDF"
 msgid "Acta PDF file description"
 msgstr "Fitxer en format PDF de l'acta. Només s'accepten fitxers PDF."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:242
+#: ./genweb/organs/content/templates/sessio_view.pt:244
 msgid "Actes de la sessio:"
 msgstr "Actes de la sessió:"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:208
+#: ./genweb/organs/content/templates/organgovern_view.pt:124
 msgid "Actes list"
 msgstr "Actes"
 
@@ -82,7 +82,7 @@ msgid "Add content separated by -- and they will by added as Agreements."
 msgstr "El format ha de ser un punt/subpunt/acord per linia i sense el número ja que es calcula automàticament. Davant de cada punt/subpunt ha d'anar una P. I davant de cada acord una A. Els subpunts han de començar per espais en blanc. Dintre d'un punt (P) poden haver subpunts (P) o acords (A). Dintre d'un acord no pot haver res. Per exemple:<br><samp>P Informe del rector<br>P Comissió Econòmica<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A Aprovació de l'estat de tresoreria<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P Aprovació de l'expedient 03/23<br>A Discutir tema central<br>P Conclusions<br></samp>"
 
 #: ./genweb/organs/content/impersonate_as.py:51
-#: ./genweb/organs/content/templates/sessio_view.pt:385
+#: ./genweb/organs/content/templates/sessio_view.pt:386
 msgid "Afectat"
 msgstr "Afectat"
 
@@ -97,7 +97,7 @@ msgstr "Número d'acord"
 
 #: ./genweb/organs/content/acord.py:90
 #: ./genweb/organs/content/punt.py:78
-#: ./genweb/organs/content/templates/organgovern_view.pt:174
+#: ./genweb/organs/content/templates/organgovern_view.pt:96
 msgid "Agreement and document label"
 msgstr "Estat"
 
@@ -107,11 +107,11 @@ msgid "Agreement and document labels"
 msgstr "Estats d'aprovació"
 
 #: ./genweb/organs/content/acord.py:78
-#: ./genweb/organs/content/templates/organgovern_view.pt:171
+#: ./genweb/organs/content/templates/organgovern_view.pt:93
 msgid "Agreement number"
 msgstr "Número d'acord"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:163
+#: ./genweb/organs/content/templates/organgovern_view.pt:85
 msgid "Agreements list"
 msgstr "Acords"
 
@@ -120,7 +120,7 @@ msgid "Alternate description"
 msgstr "Contingut restringit"
 
 #: ./genweb/organs/content/impersonate_as.py:47
-#: ./genweb/organs/content/templates/sessio_view.pt:386
+#: ./genweb/organs/content/templates/sessio_view.pt:387
 msgid "Altres"
 msgstr "Altres"
 
@@ -178,7 +178,7 @@ msgstr "Missatge que s'adjunta al clicar el botó d'enviar missatge. S'hi afegei
 
 #: ./genweb/organs/content/informarSessio.py:169
 #: ./genweb/organs/content/mailConvocar.py:175
-#: ./genweb/organs/content/manualimport.py:180
+#: ./genweb/organs/content/manualimport.py:186
 msgid "Cancel"
 msgstr "Cancel·la"
 
@@ -186,31 +186,31 @@ msgstr "Cancel·la"
 msgid "Changed Title"
 msgstr "S'ha canviat el títol"
 
-#: ./genweb/organs/browser/views.py:356
+#: ./genweb/organs/browser/views.py:366
 msgid "Changed acord color state"
 msgstr "S'ha canviat l'estat de l'acord"
 
-#: ./genweb/organs/browser/views.py:381
+#: ./genweb/organs/browser/views.py:391
 msgid "Changed acord intern state color"
 msgstr "S'ha canviat l'estat de l'acord a segon nivell"
 
-#: ./genweb/organs/browser/views.py:352
+#: ./genweb/organs/browser/views.py:362
 msgid "Changed punt color state"
 msgstr "S'ha canviat l'estat del punt"
 
-#: ./genweb/organs/browser/views.py:173
+#: ./genweb/organs/browser/views.py:177
 msgid "Changed punt number with drag&drop"
 msgstr "S'ha mogut el número de punt al moure l'element"
 
-#: ./genweb/organs/browser/views.py:350
+#: ./genweb/organs/browser/views.py:360
 msgid "Changed recursive color state of acord inside punt"
 msgstr "S'ha propiciat el canvi d'estat de l'acord per un canvi recursiu"
 
-#: ./genweb/organs/browser/views.py:348
+#: ./genweb/organs/browser/views.py:358
 msgid "Changed recursive color state of subpunt inside punt"
 msgstr "S'ha propiciat el canvi d'estat del punt per un canvi recursiu"
 
-#: ./genweb/organs/browser/views.py:379
+#: ./genweb/organs/browser/views.py:389
 msgid "Changed subpunt intern state color"
 msgstr "S'ha canviat l'estat del punt a segon nivell"
 
@@ -226,7 +226,7 @@ msgstr "S'han desat els canvis."
 msgid "Cliqueu <a href=\"./\">aqui</a> per tornar al mode de visualitzacio per defecte."
 msgstr "Cliqueu <a href=\"./\">aquí</a> per tornar al mode de visualització per defecte."
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:68
+#: ./genweb/organs/content/templates/organgovern_view.pt:54
 msgid "Composicio"
 msgstr "Composició"
 
@@ -243,7 +243,7 @@ msgstr "Contingut públic"
 msgid "Contingut reservat"
 msgstr "Contingut restringit"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:157
+#: ./genweb/organs/content/templates/sessio_view.pt:159
 msgid "Convocatoria"
 msgstr "Convocatòria"
 
@@ -264,11 +264,11 @@ msgstr "S'ha creat un punt."
 msgid "Dades"
 msgstr "Dades"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:216
+#: ./genweb/organs/content/templates/organgovern_view.pt:132
 msgid "Data"
 msgstr "Data"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:273
+#: ./genweb/organs/content/templates/sessio_view.pt:275
 msgid "Data i hora"
 msgstr "Data i hora"
 
@@ -292,11 +292,12 @@ msgstr "Punt el·liminat"
 msgid "Deleted subpunt"
 msgstr "Punt el·liminat"
 
+#: ./genweb/organs/browser/views/acta_print.pt:88
 #: ./genweb/organs/content/templates/acta_view.pt:157
 msgid "Desenvolupament de la sessio"
 msgstr "Desenvolupament de la sessió"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:282
+#: ./genweb/organs/content/templates/sessio_view.pt:284
 msgid "Destinataris"
 msgstr "Destinataris"
 
@@ -308,7 +309,7 @@ msgstr "Dia/Hora fi"
 msgid "Dia/Hora inici"
 msgstr "Dia/Hora inici"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:425
+#: ./genweb/organs/content/templates/sessio_view.pt:427
 #: ./genweb/organs/profiles/default/types/genweb.organs.document.xml
 msgid "Document"
 msgstr "Document"
@@ -321,18 +322,18 @@ msgstr "Literals i colors que es faran servir com a estats d'aprovació dels pun
 msgid "Enter the from used in the mail form"
 msgstr "Adreça de correu del remitent de les notificacions (persona o grup) de l'òrgan."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:332
+#: ./genweb/organs/content/templates/sessio_view.pt:334
 msgid "Envia"
 msgstr "Envia"
 
 #: ./genweb/organs/content/templates/message_view.pt:18
-#: ./genweb/organs/content/templates/sessio_view.pt:139
+#: ./genweb/organs/content/templates/sessio_view.pt:141
 msgid "Envia missatge"
 msgstr "Missatge als membres"
 
 #: ./genweb/organs/browser/views/butlleti.pt:79
 #: ./genweb/organs/content/templates/impersonate_as.pt:69
-#: ./genweb/organs/content/templates/sessio_view.pt:198
+#: ./genweb/organs/content/templates/sessio_view.pt:200
 msgid "Estat de la sessio"
 msgstr "Estat de la sessió"
 
@@ -355,7 +356,7 @@ msgstr "Llista de membres que s'excusen de l'assistència de la sessió."
 msgid "Fer servir capcalera personalitzada?"
 msgstr "Fer servir la capçalera personalitzada"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:424
+#: ./genweb/organs/content/templates/sessio_view.pt:426
 #: ./genweb/organs/profiles/default/types/genweb.organs.file.xml
 msgid "File"
 msgstr "Fitxer"
@@ -396,7 +397,7 @@ msgstr "Assumpte"
 msgid "From mail"
 msgstr "Adreça de qui envia els missatges"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:160
+#: ./genweb/organs/content/templates/sessio_view.pt:162
 msgid "Historial"
 msgstr "Historial"
 
@@ -404,7 +405,7 @@ msgstr "Historial"
 msgid "If you want to add a video file, not a url, there is a trick, you must add an Audio Type and leave this field empty."
 msgstr "URL del vídeo de la gravació de la sessió. Normalment cal fer servir eines de streaming com Youtube, Vimeo, UPCtv, i enllaçar-ho aquí. No s'aconsella adjuntar el fitxer de vídeo degut al seu tamany i problemes en la distribució via web."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:309
+#: ./genweb/organs/content/templates/sessio_view.pt:312
 msgid "Importar llista de punts i subpunts"
 msgstr "Creació àgil"
 
@@ -422,7 +423,7 @@ msgstr "Llista dels noms dels membres convocats. Inicialment són els membres qu
 msgid "Info_del_Servei"
 msgstr "Consultar informació a Serveis TIC"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:145
+#: ./genweb/organs/content/templates/sessio_view.pt:147
 msgid "Informa sessio"
 msgstr "Envia resum"
 
@@ -450,17 +451,13 @@ msgstr "Convidats"
 msgid "Invited members help"
 msgstr "Llista de noms dels membres que caldrà afegir a la convocatòria de la sessió. Les seves adreces caldrà informar-les al camp corresponent de la pestanya Assistents."
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:52
+#: ./genweb/organs/content/templates/organgovern_view.pt:41
 msgid "List acords"
 msgstr "Llista acords"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:60
+#: ./genweb/organs/content/templates/organgovern_view.pt:48
 msgid "List actes"
 msgstr "Llista actes"
-
-#: ./genweb/organs/content/templates/organgovern_view.pt:44
-msgid "List sessions"
-msgstr "Llista sessions"
 
 #: ./genweb/organs/content/templates/informar_view.pt:23
 msgid "Llista de punts en el format del butlleti."
@@ -501,12 +498,12 @@ msgstr "Les adreces de correu han d'anar separades per espais en blanc o per com
 msgid "Manual Import"
 msgstr "Creació àgil de punts i/o acords a partir d'una llista"
 
-#: ./genweb/organs/content/manualimport.py:79
+#: ./genweb/organs/content/manualimport.py:85
 msgid "Massive agreements imported"
 msgstr "Creació àgil"
 
 #: ./genweb/organs/content/impersonate_as.py:49
-#: ./genweb/organs/content/templates/sessio_view.pt:384
+#: ./genweb/organs/content/templates/sessio_view.pt:385
 msgid "Membre"
 msgstr "Membre"
 
@@ -550,7 +547,7 @@ msgstr "S'ha modificat una acta."
 msgid "Modified punt"
 msgstr "S'ha modificat un punt."
 
-#: ./genweb/organs/browser/views.py:220
+#: ./genweb/organs/browser/views.py:224
 msgid "Moved subpunt by drag&drop"
 msgstr "S'ha mogut el número de punt intern al moure'l"
 
@@ -573,19 +570,19 @@ msgstr "No assistents"
 msgid "No assistents help"
 msgstr "Llista de membres que no han assistit a la sessió."
 
-#: ./genweb/organs/content/manualimport.py:163
+#: ./genweb/organs/content/manualimport.py:169
 msgid "No s'han creat tot els elements perque no segueixen la norma. Dintre d'un Acord no es pot afeigr res."
 msgstr "No s'han creat tots els elements perque no segueixen la norma. Dintre d'un Acord no es pot afegir cap element."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:279
+#: ./genweb/organs/content/templates/sessio_view.pt:281
 msgid "Notificador"
 msgstr "Remitent"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:344
+#: ./genweb/organs/content/templates/sessio_view.pt:345
 msgid "Nou acord"
 msgstr "Afegeix acord"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:321
+#: ./genweb/organs/content/templates/sessio_view.pt:323
 msgid "Nou punt"
 msgstr "Afegeix punt"
 
@@ -615,12 +612,12 @@ msgstr "Obert"
 
 #: ./genweb/organs/content/informarSessio.py:171
 #: ./genweb/organs/content/mailConvocar.py:177
-#: ./genweb/organs/content/manualimport.py:182
+#: ./genweb/organs/content/manualimport.py:188
 msgid "Operation Cancelled."
 msgstr "S'ha cancel·lat l'operació."
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:138
-#: ./genweb/organs/content/templates/sessio_view.pt:374
+#: ./genweb/organs/content/templates/sessio_view.pt:375
 msgid "Ordre del dia"
 msgstr "Ordre del dia"
 
@@ -654,7 +651,7 @@ msgid "Organ Title"
 msgstr "Nom de l'òrgan"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
-#: ./genweb/organs/content/templates/sessio_view.pt:187
+#: ./genweb/organs/content/templates/sessio_view.pt:189
 msgid "Organ de govern"
 msgstr "Òrgan de govern"
 
@@ -683,22 +680,22 @@ msgid "Organs folder logo"
 msgstr "Imatge de capçalera personalitzada"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:79
-#: ./genweb/organs/content/templates/sessio_view.pt:208
+#: ./genweb/organs/content/templates/sessio_view.pt:210
 msgid "Persones Convocades"
 msgstr "Convocats"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:77
+#: ./genweb/organs/content/templates/organgovern_view.pt:63
 msgid "Persones assistents"
 msgstr "Membres"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:82
-#: ./genweb/organs/content/templates/organgovern_view.pt:80
-#: ./genweb/organs/content/templates/sessio_view.pt:211
+#: ./genweb/organs/content/templates/organgovern_view.pt:66
+#: ./genweb/organs/content/templates/sessio_view.pt:213
 msgid "Persones convidades"
 msgstr "Convidats"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:85
-#: ./genweb/organs/content/templates/sessio_view.pt:214
+#: ./genweb/organs/content/templates/sessio_view.pt:216
 msgid "Persones excusades"
 msgstr "Excusats"
 
@@ -719,7 +716,7 @@ msgstr "Fitxer públic"
 msgid "Please upload a reserved file"
 msgstr "Fitxer restringit"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:142
+#: ./genweb/organs/content/templates/sessio_view.pt:144
 msgid "Presentacio"
 msgstr "Mode presentació"
 
@@ -735,7 +732,7 @@ msgstr "Previsualització de l'acta"
 msgid "Previsualitzacio dels punts"
 msgstr "Previsualització dels punts"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:149
+#: ./genweb/organs/content/templates/sessio_view.pt:151
 msgid "Print"
 msgstr "Imprimeix"
 
@@ -778,7 +775,7 @@ msgstr "Numera acords"
 msgid "Recipients"
 msgstr "Destinataris"
 
-#: ./genweb/organs/browser/views.py:280
+#: ./genweb/organs/browser/views.py:290
 msgid "Reload proposalPoints manually"
 msgstr "Numera acords"
 
@@ -804,7 +801,7 @@ msgstr "Cerca per usuari o grup"
 
 #: ./genweb/organs/content/informarSessio.py:127
 #: ./genweb/organs/content/mailConvocar.py:132
-#: ./genweb/organs/content/manualimport.py:61
+#: ./genweb/organs/content/manualimport.py:67
 msgid "Send"
 msgstr "Envia"
 
@@ -840,12 +837,12 @@ msgstr "Sessió"
 msgid "Session Title"
 msgstr "Títol de la sessió"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:108
+#: ./genweb/organs/content/templates/organgovern_view.pt:163
 msgid "Session date"
 msgstr "Data de la sessió"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:49
-#: ./genweb/organs/content/templates/sessio_view.pt:177
+#: ./genweb/organs/content/templates/sessio_view.pt:179
 msgid "Session end date and time"
 msgstr "Data i hora de finalització de la sessió"
 
@@ -862,7 +859,7 @@ msgstr "Lloc de la sessió"
 
 #: ./genweb/organs/content/sessio.py:52
 #: ./genweb/organs/content/templates/impersonate_as.pt:64
-#: ./genweb/organs/content/templates/sessio_view.pt:193
+#: ./genweb/organs/content/templates/sessio_view.pt:195
 msgid "Session number"
 msgstr "Número de sessió"
 
@@ -874,12 +871,12 @@ msgstr "Acta"
 msgid "Session order description"
 msgstr "Apartat per indicar els punts de l'ordre del dia i el desenvolupament de la sessió."
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:114
+#: ./genweb/organs/content/templates/organgovern_view.pt:169
 msgid "Session start"
 msgstr "Hora d'inici"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:44
-#: ./genweb/organs/content/templates/sessio_view.pt:172
+#: ./genweb/organs/content/templates/sessio_view.pt:174
 msgid "Session start date and time"
 msgstr "Data i hora d'inici de la sessió"
 
@@ -888,11 +885,11 @@ msgstr "Data i hora d'inici de la sessió"
 msgid "Session start time"
 msgstr "Hora d'inici de la sessió"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:100
+#: ./genweb/organs/content/templates/organgovern_view.pt:155
 msgid "Sessions list"
 msgstr "Sessions"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:36
+#: ./genweb/organs/content/templates/organgovern_view.pt:34
 msgid "Show info organ"
 msgstr "Mostra dades de l'òrgan"
 
@@ -917,11 +914,11 @@ msgstr "Adreces dels afectats (Per enviar informació de la sessió)"
 msgid "Stakeholders mail address help."
 msgstr "Llista d'adreces dels afectades a les quals s'adreçaran les notificacions de l'òrgan."
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:117
+#: ./genweb/organs/content/templates/organgovern_view.pt:172
 msgid "State"
 msgstr "Estat"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:422
+#: ./genweb/organs/content/templates/sessio_view.pt:424
 #: ./genweb/organs/profiles/default/types/genweb.organs.subpunt.xml
 msgid "Subpunt"
 msgstr "Punt"
@@ -971,8 +968,8 @@ msgstr "Punt"
 msgid "Tancar"
 msgstr "Tanca"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:105
-#: ./genweb/organs/content/templates/sessio_view.pt:326
+#: ./genweb/organs/content/templates/organgovern_view.pt:90
+#: ./genweb/organs/content/templates/sessio_view.pt:328
 msgid "Title"
 msgstr "Títol"
 
@@ -980,7 +977,7 @@ msgstr "Títol"
 msgid "Titol"
 msgstr "Títol"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:349
+#: ./genweb/organs/content/templates/sessio_view.pt:350
 msgid "Titol del punt"
 msgstr "Títol"
 
@@ -988,7 +985,7 @@ msgstr "Títol"
 msgid "UPC Organs de Govern v2.0 (genweb.organs)"
 msgstr "UPC Organs de Govern v2.0 (genweb.organs)"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:377
+#: ./genweb/organs/content/templates/sessio_view.pt:378
 msgid "Veure com... <span class=\"caret\"></span>"
 msgstr "Mostra com si fos... <span class=\"caret\"></span>"
 
@@ -1019,7 +1016,7 @@ msgstr "[Acord sense numerar]"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:165
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:81
-#: ./genweb/organs/content/templates/sessio_view.pt:477
+#: ./genweb/organs/content/templates/sessio_view.pt:478
 msgid "acord"
 msgstr "Acord"
 
@@ -1032,7 +1029,7 @@ msgstr "Llista d'adreces dels afectats per les decisions de l'òrgan als quals s
 msgid "description_no_items_in_folder"
 msgstr "No hi ha cap òrgan de govern en aquesta unitat."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:139
+#: ./genweb/organs/content/templates/sessio_view.pt:141
 msgid "envia_missatge"
 msgstr "Missatge als membres"
 
@@ -1044,7 +1041,7 @@ msgstr "Peu del missatge"
 msgid "footerMail description"
 msgstr "Peu del missatge que s'adjunta tant al missatge de convocatòria com al d'enviar missatge."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:145
+#: ./genweb/organs/content/templates/sessio_view.pt:147
 msgid "informa_sessio"
 msgstr "Envia resum de la sessió"
 
@@ -1057,12 +1054,12 @@ msgstr "Adreça de correu de membres i convidats"
 msgid "notification_mail_help"
 msgstr "Adreces a les quals arriben els missatges relatius a la sessió. Inicialment pren el valor informat al òrgan."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:149
+#: ./genweb/organs/content/templates/sessio_view.pt:151
 msgid "printOrdreDia"
 msgstr "Imprimeix ordre del dia"
 
-#: ./genweb/organs/browser/views.py:407
+#: ./genweb/organs/browser/views.py:417
 #: ./genweb/organs/content/impersonate_as.py:146
-#: ./genweb/organs/content/sessio.py:335
+#: ./genweb/organs/content/sessio.py:340
 msgid "sense numeracio"
 msgstr "sense numeració"
