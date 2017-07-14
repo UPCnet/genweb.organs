@@ -140,6 +140,10 @@ class Delete(BrowserView):
 class Move(BrowserView):
 
     def __call__(self):
+        migrated = hasattr(self.context, 'migrated')
+        if migrated is True:
+            # Don't give option to modify numbers
+            return
         ordering = getOrdering(self.context)
         # authenticator = getMultiAdapter((self.context, self.request),
         #                                 name=u"authenticator")

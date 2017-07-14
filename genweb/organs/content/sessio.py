@@ -243,6 +243,11 @@ class View(grok.View):
         return value or self.isManager()
 
     def canModify(self):
+        # If item is migrated, it can't be modified
+        migrated = hasattr(self.context, 'migrated')
+        if migrated is True:
+            return False
+        # But if not migrated, check permissions...
         review_state = api.content.get_state(self.context)
         value = False
         if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and utils.isSecretari(self):

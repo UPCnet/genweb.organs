@@ -43,7 +43,13 @@ class Message(form.SchemaForm):
 
     # This trick hides the editable border and tabs in Plone
     def update(self):
-        """ Return true if user is Editor or Manager """
+        """ Return true if user is Editor or Manager, but if the session """
+        """ came from the previous version, then make impossible to """
+        """ create new elements """
+        migrated = hasattr(self.context, 'migrated')
+        if migrated is True:
+            raise Unauthorized
+
         try:
             username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
