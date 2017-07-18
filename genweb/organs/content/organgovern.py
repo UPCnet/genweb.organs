@@ -92,7 +92,7 @@ class IOrgangovern(form.Schema):
 
     directives.widget(convidatsPermanentsOrgan=WysiwygFieldWidget)
     convidatsPermanentsOrgan = schema.Text(
-        title=_(u"Organ permanently invited people"),
+        title=_(u"Invited members"),
         description=_(u"Organ permanently invited people description."),
         required=False,
     )

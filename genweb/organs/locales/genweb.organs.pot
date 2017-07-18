@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-07-18 08:54+0000\n"
+"POT-Creation-Date: 2017-07-18 09:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -412,6 +412,7 @@ msgstr ""
 
 #: ./genweb/organs/content/acta.py:65
 #: ./genweb/organs/content/sessio.py:82
+#: ./genweb/organs/content/templates/impersonate_as.pt:79
 msgid "Incoming members list"
 msgstr ""
 
@@ -443,7 +444,7 @@ msgstr ""
 
 #: ./genweb/organs/browser/views/acta_print.pt:68
 #: ./genweb/organs/content/acta.py:73
-#: ./genweb/organs/content/sessio.py:90
+#: ./genweb/organs/content/organgovern.py:95
 msgid "Invited members"
 msgstr ""
 
@@ -660,10 +661,6 @@ msgstr ""
 msgid "Organ logo"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:95
-msgid "Organ permanently invited people"
-msgstr ""
-
 #: ./genweb/organs/content/organgovern.py:96
 msgid "Organ permanently invited people description."
 msgstr ""
@@ -680,24 +677,8 @@ msgstr ""
 msgid "Organs folder logo"
 msgstr ""
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:79
-#: ./genweb/organs/content/templates/sessio_view.pt:211
-msgid "Persones Convocades"
-msgstr ""
-
 #: ./genweb/organs/content/templates/organgovern_view.pt:63
 msgid "Persones assistents"
-msgstr ""
-
-#: ./genweb/organs/content/templates/impersonate_as.pt:82
-#: ./genweb/organs/content/templates/organgovern_view.pt:66
-#: ./genweb/organs/content/templates/sessio_view.pt:214
-msgid "Persones convidades"
-msgstr ""
-
-#: ./genweb/organs/content/templates/impersonate_as.pt:85
-#: ./genweb/organs/content/templates/sessio_view.pt:217
-msgid "Persones excusades"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:50

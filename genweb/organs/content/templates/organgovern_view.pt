@@ -63,7 +63,7 @@
                   <a href="#tab1primary" data-toggle="tab" i18n:translate="">Persones assistents</a>
                 </li>
                 <li tal:condition="convidatsPermanentsOrgan" tal:attributes="class string:${activeClassConvidats}">
-                  <a href="#tab2primary" data-toggle="tab" i18n:translate="">Persones convidades</a>
+                  <a href="#tab2primary" data-toggle="tab" i18n:translate="">Invited members</a>
                 </li>
               </ul>
             </div>

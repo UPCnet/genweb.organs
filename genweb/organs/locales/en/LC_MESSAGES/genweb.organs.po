@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-07-18 08:54+0000\n"
+"POT-Creation-Date: 2017-07-18 09:06+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -411,6 +411,7 @@ msgstr "Add massive points quickly"
 
 #: ./genweb/organs/content/acta.py:65
 #: ./genweb/organs/content/sessio.py:82
+#: ./genweb/organs/content/templates/impersonate_as.pt:79
 msgid "Incoming members list"
 msgstr "Incoming members list"
 
@@ -442,7 +443,7 @@ msgstr "Invalid audio file"
 
 #: ./genweb/organs/browser/views/acta_print.pt:68
 #: ./genweb/organs/content/acta.py:73
-#: ./genweb/organs/content/sessio.py:90
+#: ./genweb/organs/content/organgovern.py:95
 msgid "Invited members"
 msgstr "Invited members"
 
@@ -659,10 +660,6 @@ msgstr "Government Organ"
 msgid "Organ logo"
 msgstr "Government Organ Logo"
 
-#: ./genweb/organs/content/organgovern.py:95
-msgid "Organ permanently invited people"
-msgstr "Permanents guests"
-
 #: ./genweb/organs/content/organgovern.py:96
 msgid "Organ permanently invited people description."
 msgstr "List of names of people who are invited to the meetings of this body systematically despite not forming part."
@@ -679,25 +676,9 @@ msgstr "Organs de Govern package"
 msgid "Organs folder logo"
 msgstr "Logo de la carpeta de órganos"
 
-#: ./genweb/organs/content/templates/impersonate_as.pt:79
-#: ./genweb/organs/content/templates/sessio_view.pt:211
-msgid "Persones Convocades"
-msgstr "Convoqued Members"
-
 #: ./genweb/organs/content/templates/organgovern_view.pt:63
 msgid "Persones assistents"
 msgstr "Attendees"
-
-#: ./genweb/organs/content/templates/impersonate_as.pt:82
-#: ./genweb/organs/content/templates/organgovern_view.pt:66
-#: ./genweb/organs/content/templates/sessio_view.pt:214
-msgid "Persones convidades"
-msgstr "Invited members"
-
-#: ./genweb/organs/content/templates/impersonate_as.pt:85
-#: ./genweb/organs/content/templates/sessio_view.pt:217
-msgid "Persones excusades"
-msgstr "Missing members"
 
 #: ./genweb/organs/content/organgovern.py:50
 #: ./genweb/organs/content/sessio.py:40

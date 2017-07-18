@@ -76,13 +76,13 @@
               <div class="panel-heading">
                 <ul class="nav nav-tabs">
                   <li tal:condition="context/membresConvocats" class="active">
-                    <a href="#tab1primary" data-toggle="tab" i18n:translate="">Persones Convocades</a>
+                    <a href="#tab1primary" data-toggle="tab" i18n:translate="">Incoming members list</a>
                   </li>
                   <li tal:condition="context/membresConvidats">
-                    <a href="#tab2primary" data-toggle="tab" i18n:translate="">Persones convidades</a>
+                    <a href="#tab2primary" data-toggle="tab" i18n:translate="">Invited members</a>
                   </li>
                   <li tal:condition="context/llistaExcusats">
-                    <a href="#tab3primary" data-toggle="tab" i18n:translate="">Persones excusades</a>
+                    <a href="#tab3primary" data-toggle="tab" i18n:translate="">Excused members</a>
                   </li>
                   <li tal:condition="context/noAssistents">
                     <a href="#tab4primary" data-toggle="tab" i18n:translate="">No assistents</a>
