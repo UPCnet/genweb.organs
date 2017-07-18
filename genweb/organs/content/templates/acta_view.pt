@@ -153,8 +153,8 @@
 
   <div class="clearfix"></div>
 
+  <div class="documentDescription description"></div>
   <tal:block tal:condition="ordenDelDia">
-    <h3 i18n:translate=""> Desenvolupament de la sessio </h3>
     <div tal:content="structure ordenDelDia"></div>
   </tal:block>
 
