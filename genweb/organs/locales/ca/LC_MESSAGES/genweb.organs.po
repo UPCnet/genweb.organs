@@ -371,7 +371,7 @@ msgstr "Fitxer públic"
 
 #: ./genweb/organs/content/templates/file_view.pt:24
 msgid "Fitxer reservat"
-msgstr "Fitxer restringit"
+msgstr "Fitxer intern"
 
 #: ./genweb/organs/content/templates/acord_view.pt:42
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:39
@@ -713,7 +713,7 @@ msgstr "Fitxer públic"
 
 #: ./genweb/organs/content/file.py:52
 msgid "Please upload a reserved file"
-msgstr "Fitxer restringit"
+msgstr "Fitxer intern"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:144
 msgid "Presentacio"

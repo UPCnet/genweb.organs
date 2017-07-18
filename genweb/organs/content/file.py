@@ -26,7 +26,7 @@ class IFile(form.Schema):
 
     fieldset('file',
              label=_(u'Tab file'),
-             fields=['title', 'description', 'hiddenfile', 'visiblefile']
+             fields=['title', 'description', 'visiblefile', 'hiddenfile']
              )
 
     dexteritytextindexer.searchable('title')
@@ -46,17 +46,17 @@ class IFile(form.Schema):
         missing_value=u'',
     )
 
+    visiblefile = NamedBlobFile(
+        title=_(u"Please upload a public file"),
+        description=_(u"Published file description"),
+        required=False,
+    )
+
     dexterity.read_permission(hiddenfile='cmf.ReviewPortalContent')
     dexterity.write_permission(hiddenfile='cmf.ReviewPortalContent')
     hiddenfile = NamedBlobFile(
         title=_(u"Please upload a reserved file"),
         description=_(u"Reserved file description"),
-        required=False,
-    )
-
-    visiblefile = NamedBlobFile(
-        title=_(u"Please upload a public file"),
-        description=_(u"Published file description"),
         required=False,
     )
 
