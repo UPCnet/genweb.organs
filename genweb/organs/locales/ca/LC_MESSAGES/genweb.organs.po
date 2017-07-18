@@ -452,11 +452,11 @@ msgstr "Llista de noms dels membres que caldrà afegir a la convocatòria de la 
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:41
 msgid "List acords"
-msgstr "Llista acords"
+msgstr "Acords"
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:48
 msgid "List actes"
-msgstr "Llista actes"
+msgstr "Actes"
 
 #: ./genweb/organs/content/templates/informar_view.pt:23
 msgid "Llista de punts en el format del butlleti."

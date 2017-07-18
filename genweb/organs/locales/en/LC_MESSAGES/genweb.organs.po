@@ -452,11 +452,11 @@ msgstr "Invited members help"
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:41
 msgid "List acords"
-msgstr "List agreements"
+msgstr "Agreements"
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:48
 msgid "List actes"
-msgstr "List actas"
+msgstr "Actas"
 
 #: ./genweb/organs/content/templates/informar_view.pt:23
 msgid "Llista de punts en el format del butlleti."
