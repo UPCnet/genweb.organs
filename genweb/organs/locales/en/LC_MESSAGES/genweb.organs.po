@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-07-18 10:32+0000\n"
+"POT-Creation-Date: 2017-07-18 12:45+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -65,13 +65,13 @@ msgstr "Acta in PDF format"
 msgid "Acta PDF file description"
 msgstr "PDF file from the Acta. Only PDF files are accepted"
 
+#: ./genweb/organs/content/templates/organgovern_view.pt:34
+msgid "Actes"
+msgstr "Actas"
+
 #: ./genweb/organs/content/templates/sessio_view.pt:253
 msgid "Actes de la sessio:"
 msgstr "Session actes"
-
-#: ./genweb/organs/content/templates/organgovern_view.pt:124
-msgid "Actes list"
-msgstr "Actas"
 
 #: ./genweb/organs/content/manualimport.py:26
 msgid "Add content separated by -- and they will by added as Agreements."
@@ -93,7 +93,6 @@ msgstr "Agreement"
 
 #: ./genweb/organs/content/acord.py:90
 #: ./genweb/organs/content/punt.py:78
-#: ./genweb/organs/content/templates/organgovern_view.pt:96
 msgid "Agreement and document label"
 msgstr "Agreement and document label"
 
@@ -103,11 +102,10 @@ msgid "Agreement and document labels"
 msgstr "Agreement and document labels"
 
 #: ./genweb/organs/content/acord.py:78
-#: ./genweb/organs/content/templates/organgovern_view.pt:93
 msgid "Agreement number"
 msgstr "Agreement number"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:85
+#: ./genweb/organs/content/templates/organgovern_view.pt:33
 #: ./genweb/organs/content/templates/sessio_view.pt:163
 msgid "Agreements list"
 msgstr "Agreements"
@@ -220,13 +218,10 @@ msgstr "Changes saved."
 msgid "Cliqueu <a href=\"./\">aqui</a> per tornar al mode de visualitzacio per defecte."
 msgstr "Click <a href=\"./\">here</a> to show the previous view."
 
+#: ./genweb/organs/content/templates/organgovern_view.pt:127
 #: ./genweb/organs/content/templates/sessio_view.pt:285
 msgid "Codi"
 msgstr "Code"
-
-#: ./genweb/organs/content/templates/organgovern_view.pt:54
-msgid "Composicio"
-msgstr "Composition"
 
 #: ./genweb/organs/content/document.py:54
 msgid "Content used to hide protected content"
@@ -262,7 +257,7 @@ msgstr "Created punt"
 msgid "Dades"
 msgstr "Data"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:132
+#: ./genweb/organs/content/templates/organgovern_view.pt:170
 msgid "Data"
 msgstr "Date"
 
@@ -449,14 +444,6 @@ msgstr "Invited members"
 msgid "Invited members help"
 msgstr "Invited members help"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:41
-msgid "List acords"
-msgstr "Agreements"
-
-#: ./genweb/organs/content/templates/organgovern_view.pt:48
-msgid "List actes"
-msgstr "Actas"
-
 #: ./genweb/organs/content/templates/informar_view.pt:23
 msgid "Llista de punts en el format del butlleti."
 msgstr "Bulletin points list"
@@ -632,6 +619,7 @@ msgid "Organ Govern description help"
 msgstr "Organ Govern description help"
 
 #: ./genweb/organs/content/organgovern.py:88
+#: ./genweb/organs/content/templates/organgovern_view.pt:32
 msgid "Organ Govern members"
 msgstr "Composition of the Organ of Government"
 
@@ -672,10 +660,6 @@ msgstr "Organs de Govern package"
 #: ./genweb/organs/content/organsfolder.py:23
 msgid "Organs folder logo"
 msgstr "Logo de la carpeta de órganos"
-
-#: ./genweb/organs/content/templates/organgovern_view.pt:63
-msgid "Persones assistents"
-msgstr "Attendees"
 
 #: ./genweb/organs/content/organgovern.py:50
 #: ./genweb/organs/content/sessio.py:40
@@ -815,9 +799,9 @@ msgstr "Session"
 msgid "Session Title"
 msgstr "Session Title"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:163
+#: ./genweb/organs/content/templates/organgovern_view.pt:45
 msgid "Session date"
-msgstr "Session Date"
+msgstr "Session date"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:49
 #: ./genweb/organs/content/templates/sessio_view.pt:181
@@ -849,9 +833,9 @@ msgstr "Agenda"
 msgid "Session order description"
 msgstr "Session order description"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:169
+#: ./genweb/organs/content/templates/organgovern_view.pt:51
 msgid "Session start"
-msgstr "Start time of the session"
+msgstr "Session start"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:44
 #: ./genweb/organs/content/templates/sessio_view.pt:176
@@ -863,13 +847,9 @@ msgstr "Session start date and time"
 msgid "Session start time"
 msgstr "Start time of the session"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:155
-msgid "Sessions list"
-msgstr "Sessions list"
-
-#: ./genweb/organs/content/templates/organgovern_view.pt:34
-msgid "Show info organ"
-msgstr "Show organ information"
+#: ./genweb/organs/content/templates/organgovern_view.pt:31
+msgid "Sessions"
+msgstr "Sessions"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:221
 msgid "Si assistents"
@@ -897,7 +877,7 @@ msgstr "Addresses of the affected"
 msgid "Stakeholders mail address help."
 msgstr "List of addresses of the people affected, thta want to be notified."
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:172
+#: ./genweb/organs/content/templates/organgovern_view.pt:54
 #: ./genweb/organs/content/templates/sessio_view.pt:288
 msgid "State"
 msgstr "State"
@@ -952,12 +932,13 @@ msgstr "Point"
 msgid "Tancar"
 msgstr "Close"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:90
+#: ./genweb/organs/content/templates/organgovern_view.pt:42
 #: ./genweb/organs/content/templates/sessio_view.pt:382
 msgid "Title"
 msgstr "Title"
 
 #: ./genweb/organs/browser/views/butlleti.pt:101
+#: ./genweb/organs/content/templates/organgovern_view.pt:124
 #: ./genweb/organs/content/templates/sessio_view.pt:282
 msgid "Titol"
 msgstr "Title"

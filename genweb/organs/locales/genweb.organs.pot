@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-07-18 10:32+0000\n"
+"POT-Creation-Date: 2017-07-18 12:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,12 +66,12 @@ msgstr ""
 msgid "Acta PDF file description"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:253
-msgid "Actes de la sessio:"
+#: ./genweb/organs/content/templates/organgovern_view.pt:34
+msgid "Actes"
 msgstr ""
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:124
-msgid "Actes list"
+#: ./genweb/organs/content/templates/sessio_view.pt:253
+msgid "Actes de la sessio:"
 msgstr ""
 
 #: ./genweb/organs/content/manualimport.py:26
@@ -94,7 +94,6 @@ msgstr ""
 
 #: ./genweb/organs/content/acord.py:90
 #: ./genweb/organs/content/punt.py:78
-#: ./genweb/organs/content/templates/organgovern_view.pt:96
 msgid "Agreement and document label"
 msgstr ""
 
@@ -104,11 +103,10 @@ msgid "Agreement and document labels"
 msgstr ""
 
 #: ./genweb/organs/content/acord.py:78
-#: ./genweb/organs/content/templates/organgovern_view.pt:93
 msgid "Agreement number"
 msgstr ""
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:85
+#: ./genweb/organs/content/templates/organgovern_view.pt:33
 #: ./genweb/organs/content/templates/sessio_view.pt:163
 msgid "Agreements list"
 msgstr ""
@@ -221,12 +219,9 @@ msgstr ""
 msgid "Cliqueu <a href=\"./\">aqui</a> per tornar al mode de visualitzacio per defecte."
 msgstr ""
 
+#: ./genweb/organs/content/templates/organgovern_view.pt:127
 #: ./genweb/organs/content/templates/sessio_view.pt:285
 msgid "Codi"
-msgstr ""
-
-#: ./genweb/organs/content/templates/organgovern_view.pt:54
-msgid "Composicio"
 msgstr ""
 
 #: ./genweb/organs/content/document.py:54
@@ -263,7 +258,7 @@ msgstr ""
 msgid "Dades"
 msgstr ""
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:132
+#: ./genweb/organs/content/templates/organgovern_view.pt:170
 msgid "Data"
 msgstr ""
 
@@ -450,14 +445,6 @@ msgstr ""
 msgid "Invited members help"
 msgstr ""
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:41
-msgid "List acords"
-msgstr ""
-
-#: ./genweb/organs/content/templates/organgovern_view.pt:48
-msgid "List actes"
-msgstr ""
-
 #: ./genweb/organs/content/templates/informar_view.pt:23
 msgid "Llista de punts en el format del butlleti."
 msgstr ""
@@ -633,6 +620,7 @@ msgid "Organ Govern description help"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:88
+#: ./genweb/organs/content/templates/organgovern_view.pt:32
 msgid "Organ Govern members"
 msgstr ""
 
@@ -672,10 +660,6 @@ msgstr ""
 
 #: ./genweb/organs/content/organsfolder.py:23
 msgid "Organs folder logo"
-msgstr ""
-
-#: ./genweb/organs/content/templates/organgovern_view.pt:63
-msgid "Persones assistents"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:50
@@ -816,7 +800,7 @@ msgstr ""
 msgid "Session Title"
 msgstr ""
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:163
+#: ./genweb/organs/content/templates/organgovern_view.pt:45
 msgid "Session date"
 msgstr ""
 
@@ -850,7 +834,7 @@ msgstr ""
 msgid "Session order description"
 msgstr ""
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:169
+#: ./genweb/organs/content/templates/organgovern_view.pt:51
 msgid "Session start"
 msgstr ""
 
@@ -864,12 +848,8 @@ msgstr ""
 msgid "Session start time"
 msgstr ""
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:155
-msgid "Sessions list"
-msgstr ""
-
-#: ./genweb/organs/content/templates/organgovern_view.pt:34
-msgid "Show info organ"
+#: ./genweb/organs/content/templates/organgovern_view.pt:31
+msgid "Sessions"
 msgstr ""
 
 #: ./genweb/organs/content/templates/sessio_view.pt:221
@@ -898,7 +878,7 @@ msgstr ""
 msgid "Stakeholders mail address help."
 msgstr ""
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:172
+#: ./genweb/organs/content/templates/organgovern_view.pt:54
 #: ./genweb/organs/content/templates/sessio_view.pt:288
 msgid "State"
 msgstr ""
@@ -953,12 +933,13 @@ msgstr ""
 msgid "Tancar"
 msgstr ""
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:90
+#: ./genweb/organs/content/templates/organgovern_view.pt:42
 #: ./genweb/organs/content/templates/sessio_view.pt:382
 msgid "Title"
 msgstr ""
 
 #: ./genweb/organs/browser/views/butlleti.pt:101
+#: ./genweb/organs/content/templates/organgovern_view.pt:124
 #: ./genweb/organs/content/templates/sessio_view.pt:282
 msgid "Titol"
 msgstr ""

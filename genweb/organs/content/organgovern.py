@@ -177,12 +177,6 @@ class View(grok.View):
     def selectedOrganType(self):
         return self.context.estatsLlista
 
-    def members(self):
-        # If no members, hide the tab
-        if self.context.membresOrgan is None and self.context.convidatsPermanentsOrgan is None:
-            return False
-        return True
-
     def activeClassMembres(self):
         if self.context.membresOrgan and self.context.convidatsPermanentsOrgan is None:
             return 'in active'
@@ -198,6 +192,12 @@ class View(grok.View):
             return ''
         else:
             return ''
+
+    def hihaPersones(self):
+        if self.context.membresOrgan or self.context.convidatsPermanentsOrgan:
+            return True
+        else:
+            return False
 
     def SessionsInside(self):
         """ Retorna les sessions internes (sense tenir compte estat)

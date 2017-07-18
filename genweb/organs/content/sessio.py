@@ -500,7 +500,7 @@ class View(grok.View):
         return values
 
     def hihaPersones(self):
-        if self.context.membresConvocats or self.context.membresConvidats or self.context.llistaExcusats:
+        if self.context.membresConvocats or self.context.membresConvidats or self.context.llistaExcusats or self.context.assistents or self.context.assistents:
             return True
         else:
             return False
