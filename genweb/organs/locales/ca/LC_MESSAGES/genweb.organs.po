@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-07-18 12:45+0000\n"
+"POT-Creation-Date: 2017-07-18 12:56+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -358,13 +358,9 @@ msgstr "Fitxer"
 msgid "File contents"
 msgstr "Contingut del fitxer"
 
-#: ./genweb/organs/content/templates/file_view.pt:24
-msgid "Fitxer public"
-msgstr "Fitxer públic"
-
-#: ./genweb/organs/content/templates/file_view.pt:57
+#: ./genweb/organs/content/templates/file_view.pt:58
 msgid "Fitxer reservat"
-msgstr "Fitxer intern"
+msgstr "Fitxer restringit"
 
 #: ./genweb/organs/content/templates/acord_view.pt:42
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:39
@@ -671,12 +667,13 @@ msgid "Please upload a media file"
 msgstr "Seleccioni un fitxer de tipus àudio"
 
 #: ./genweb/organs/content/file.py:50
+#: ./genweb/organs/content/templates/file_view.pt:24
 msgid "Please upload a public file"
 msgstr "Fitxer públic"
 
 #: ./genweb/organs/content/file.py:58
 msgid "Please upload a reserved file"
-msgstr "Fitxer intern"
+msgstr "Fitxer restringit"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:145
 msgid "Presentacio"

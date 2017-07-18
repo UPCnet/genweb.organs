@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-07-18 12:45+0000\n"
+"POT-Creation-Date: 2017-07-18 12:56+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -358,11 +358,7 @@ msgstr "File"
 msgid "File contents"
 msgstr "File contents"
 
-#: ./genweb/organs/content/templates/file_view.pt:24
-msgid "Fitxer public"
-msgstr "Public file"
-
-#: ./genweb/organs/content/templates/file_view.pt:57
+#: ./genweb/organs/content/templates/file_view.pt:58
 msgid "Fitxer reservat"
 msgstr "Restricted File"
 
@@ -671,6 +667,7 @@ msgid "Please upload a media file"
 msgstr "Please upload a media file"
 
 #: ./genweb/organs/content/file.py:50
+#: ./genweb/organs/content/templates/file_view.pt:24
 msgid "Please upload a public file"
 msgstr "Please upload a public file"
 

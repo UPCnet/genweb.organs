@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-07-18 12:45+0000\n"
+"POT-Creation-Date: 2017-07-18 12:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -359,11 +359,7 @@ msgstr ""
 msgid "File contents"
 msgstr ""
 
-#: ./genweb/organs/content/templates/file_view.pt:24
-msgid "Fitxer public"
-msgstr ""
-
-#: ./genweb/organs/content/templates/file_view.pt:57
+#: ./genweb/organs/content/templates/file_view.pt:58
 msgid "Fitxer reservat"
 msgstr ""
 
@@ -672,6 +668,7 @@ msgid "Please upload a media file"
 msgstr ""
 
 #: ./genweb/organs/content/file.py:50
+#: ./genweb/organs/content/templates/file_view.pt:24
 msgid "Please upload a public file"
 msgstr ""
 
