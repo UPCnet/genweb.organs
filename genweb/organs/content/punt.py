@@ -144,7 +144,7 @@ class View(grok.View):
                     if item.agreement:
                         agreement = item.agreement
                     else:
-                        agreement = _(u"ACORD")
+                        agreement = _(u"sense numeracio")
                 else:
                     agreement = ''
                 results.append(dict(title=obj.Title,

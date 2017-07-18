@@ -159,6 +159,7 @@
       <li class="active"><a href="#dadesTab" data-toggle="tab" i18n:translate="">Convocatoria</a></li>
       <li tal:condition="hihaPersones"><a href="#assistentsTab" data-toggle="tab" i18n:translate="">Assistents</a></li>
       <li tal:condition="view/showActaTab"><a href="#actaTab" data-toggle="tab" i18n:translate="">Acta</a></li>
+      <li tal:condition="view/showAcordsTab"><a href="#acordsTab" data-toggle="tab" i18n:translate="">Agreements list</a></li>
       <li tal:condition="python:loginfo and viewHistory"><a href="#notificationsTab" data-toggle="tab" i18n:translate="">Historial</a></li>
     </ul>
 
@@ -263,40 +264,85 @@
         </div>
       </div>
 
+      <div class="tab-pane" id="acordsTab" tal:condition="view/showAcordsTab">
+        <div class="clearfix" tal:define="acords view/AcordsInside" tal:condition="acords">
+          <div class="scrollit">
+            <table class="table table-bordered table-condensed table-hover logFont">
+              <thead>
+                <tr>
+                  <th>
+                     <tal:data i18n:translate="">Titol</tal:data>
+                   </th>
+                  <th>
+                    <tal:data i18n:translate="">Codi</tal:data>
+                  </th>
+                  <th>
+                    <tal:data i18n:translate="">State</tal:data>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tal:documents repeat="item acords">
+                  <tr>
+                    <td>
+                      <a href="#"
+                             tal:attributes="href item/absolute_url;"
+                             tal:content="item/title">
+                              Item Title
+                      </a>
+                    </td>
+                    <td>
+                      <span tal:content="item/agreement" style="float: right;">
+                          Numero Acord
+                      </span>
+                    </td>
+                    <td>
+                      <span tal:content="item/estatsLlista" i18n:translate="">
+                          Status
+                      </span>
+                    </td>
+                  </tr>
+                </tal:documents>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       <div class="tab-pane" id="notificationsTab" tal:condition="python:loginfo and viewHistory">
-      <div class="scrollit">
-        <table class="table table-bordered table-condensed table-hover logFont">
-          <thead>
-            <tr>
-              <th>
-                 <tal:data>#</tal:data>
-               </th>
-              <th>
-                 <tal:data i18n:translate="">Data i hora</tal:data>
-               </th>
-              <th>
-                <tal:data i18n:translate="">Accio</tal:data>
-              </th>
-              <th>
-                <tal:data i18n:translate="">Notificador</tal:data>
-              </th>
-              <th>
-                <tal:data i18n:translate="">Destinataris</tal:data>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tal:documents repeat="data loginfo">
+        <div class="scrollit">
+          <table class="table table-bordered table-condensed table-hover logFont">
+            <thead>
               <tr>
-                <td tal:content="data/index|nothing"></td>
-                <td tal:content="data/dateMail"></td>
-                <td tal:content="data/message"></td>
-                <td tal:content="data/fromMail"></td>
-                <td tal:content="data/toMail"></td>
+                <th>
+                   <tal:data>#</tal:data>
+                 </th>
+                <th>
+                   <tal:data i18n:translate="">Data i hora</tal:data>
+                 </th>
+                <th>
+                  <tal:data i18n:translate="">Accio</tal:data>
+                </th>
+                <th>
+                  <tal:data i18n:translate="">Notificador</tal:data>
+                </th>
+                <th>
+                  <tal:data i18n:translate="">Destinataris</tal:data>
+                </th>
               </tr>
-            </tal:documents>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <tal:documents repeat="data loginfo">
+                <tr>
+                  <td tal:content="data/index|nothing"></td>
+                  <td tal:content="data/dateMail"></td>
+                  <td tal:content="data/message"></td>
+                  <td tal:content="data/fromMail"></td>
+                  <td tal:content="data/toMail"></td>
+                </tr>
+              </tal:documents>
+            </tbody>
+          </table>
         </div>
       </div>
 

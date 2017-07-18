@@ -511,6 +511,12 @@ class View(grok.View):
         else:
             return False
 
+    def showAcordsTab(self):
+        if self.AcordsInside():
+            return True
+        else:
+            return False
+
     @property
     def context_base_url(self):
         return self.context.absolute_url()
@@ -546,3 +552,35 @@ class View(grok.View):
                                     id=str(item['id']) + '/' + obj.id))
 
         return results
+
+    def AcordsInside(self):
+        # If acords in site, publish the tab and the contents...
+        results = []
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+
+        values = portal_catalog.searchResults(
+            portal_type=['genweb.organs.acord'],
+            sort_on='modified',
+            path={'query': folder_path,
+                  'depth': 3})
+
+        for obj in values:
+            value = obj.getObject()
+            # value = obj._unrestrictedGetObject()
+            if value.agreement:
+                if len(value.agreement.split('/')) > 2:
+                    num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3)
+                    any = value.agreement.split('/')[0]
+                else:
+                    num = value.agreement.split('/')[0].zfill(3)
+                    any = value.agreement.split('/')[1]
+            else:
+                num = any = ''
+
+            results.append(dict(title=value.title,
+                                absolute_url=value.absolute_url(),
+                                agreement=value.agreement,
+                                hiddenOrder=any + num,
+                                estatsLlista=value.estatsLlista))
+        return sorted(results, key=itemgetter('hiddenOrder'))
