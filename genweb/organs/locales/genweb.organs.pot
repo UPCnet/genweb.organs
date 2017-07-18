@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-07-18 09:06+0000\n"
+"POT-Creation-Date: 2017-07-18 10:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,11 +30,11 @@ msgstr ""
 msgid "ACTA <span style=\"text-align: left\">${DYNAMIC_CONTENT}</span>"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:324
+#: ./genweb/organs/content/templates/sessio_view.pt:332
 msgid "Accio"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:471
+#: ./genweb/organs/content/templates/sessio_view.pt:479
 #: ./genweb/organs/profiles/default/types/genweb.organs.acord.xml
 msgid "Acord"
 msgstr ""
@@ -52,7 +52,7 @@ msgid "Acronym Description"
 msgstr ""
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:38
-#: ./genweb/organs/content/templates/sessio_view.pt:161
+#: ./genweb/organs/content/templates/sessio_view.pt:162
 #: ./genweb/organs/profiles/default/types/genweb.organs.acta.xml
 msgid "Acta"
 msgstr ""
@@ -66,7 +66,7 @@ msgstr ""
 msgid "Acta PDF file description"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:245
+#: ./genweb/organs/content/templates/sessio_view.pt:253
 msgid "Actes de la sessio:"
 msgstr ""
 
@@ -79,7 +79,7 @@ msgid "Add content separated by -- and they will by added as Agreements."
 msgstr ""
 
 #: ./genweb/organs/content/impersonate_as.py:51
-#: ./genweb/organs/content/templates/sessio_view.pt:432
+#: ./genweb/organs/content/templates/sessio_view.pt:440
 msgid "Afectat"
 msgstr ""
 
@@ -109,7 +109,7 @@ msgid "Agreement number"
 msgstr ""
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:85
-#: ./genweb/organs/content/templates/sessio_view.pt:162
+#: ./genweb/organs/content/templates/sessio_view.pt:163
 msgid "Agreements list"
 msgstr ""
 
@@ -118,7 +118,7 @@ msgid "Alternate description"
 msgstr ""
 
 #: ./genweb/organs/content/impersonate_as.py:47
-#: ./genweb/organs/content/templates/sessio_view.pt:433
+#: ./genweb/organs/content/templates/sessio_view.pt:441
 msgid "Altres"
 msgstr ""
 
@@ -224,7 +224,7 @@ msgstr ""
 msgid "Cliqueu <a href=\"./\">aqui</a> per tornar al mode de visualitzacio per defecte."
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:277
+#: ./genweb/organs/content/templates/sessio_view.pt:285
 msgid "Codi"
 msgstr ""
 
@@ -245,7 +245,7 @@ msgstr ""
 msgid "Contingut reservat"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:159
+#: ./genweb/organs/content/templates/sessio_view.pt:160
 msgid "Convocatoria"
 msgstr ""
 
@@ -270,7 +270,7 @@ msgstr ""
 msgid "Data"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:321
+#: ./genweb/organs/content/templates/sessio_view.pt:329
 msgid "Data i hora"
 msgstr ""
 
@@ -298,7 +298,7 @@ msgstr ""
 msgid "Desenvolupament de la sessio"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:330
+#: ./genweb/organs/content/templates/sessio_view.pt:338
 msgid "Destinataris"
 msgstr ""
 
@@ -310,7 +310,7 @@ msgstr ""
 msgid "Dia/Hora inici"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:473
+#: ./genweb/organs/content/templates/sessio_view.pt:481
 #: ./genweb/organs/profiles/default/types/genweb.organs.document.xml
 msgid "Document"
 msgstr ""
@@ -323,18 +323,18 @@ msgstr ""
 msgid "Enter the from used in the mail form"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:380
+#: ./genweb/organs/content/templates/sessio_view.pt:388
 msgid "Envia"
 msgstr ""
 
 #: ./genweb/organs/content/templates/message_view.pt:18
-#: ./genweb/organs/content/templates/sessio_view.pt:141
+#: ./genweb/organs/content/templates/sessio_view.pt:142
 msgid "Envia missatge"
 msgstr ""
 
 #: ./genweb/organs/browser/views/butlleti.pt:79
 #: ./genweb/organs/content/templates/impersonate_as.pt:69
-#: ./genweb/organs/content/templates/sessio_view.pt:201
+#: ./genweb/organs/content/templates/sessio_view.pt:202
 msgid "Estat de la sessio"
 msgstr ""
 
@@ -357,7 +357,7 @@ msgstr ""
 msgid "Fer servir capcalera personalitzada?"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:472
+#: ./genweb/organs/content/templates/sessio_view.pt:480
 #: ./genweb/organs/profiles/default/types/genweb.organs.file.xml
 msgid "File"
 msgstr ""
@@ -398,7 +398,7 @@ msgstr ""
 msgid "From mail"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:163
+#: ./genweb/organs/content/templates/sessio_view.pt:164
 msgid "Historial"
 msgstr ""
 
@@ -406,7 +406,7 @@ msgstr ""
 msgid "If you want to add a video file, not a url, there is a trick, you must add an Audio Type and leave this field empty."
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:358
+#: ./genweb/organs/content/templates/sessio_view.pt:366
 msgid "Importar llista de punts i subpunts"
 msgstr ""
 
@@ -425,7 +425,7 @@ msgstr ""
 msgid "Info_del_Servei"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:147
+#: ./genweb/organs/content/templates/sessio_view.pt:148
 msgid "Informa sessio"
 msgstr ""
 
@@ -465,7 +465,7 @@ msgstr ""
 msgid "Llista de punts en el format del butlleti."
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:412
+#: ./genweb/organs/content/templates/sessio_view.pt:420
 msgid "Llista punts"
 msgstr ""
 
@@ -505,7 +505,7 @@ msgid "Massive agreements imported"
 msgstr ""
 
 #: ./genweb/organs/content/impersonate_as.py:49
-#: ./genweb/organs/content/templates/sessio_view.pt:431
+#: ./genweb/organs/content/templates/sessio_view.pt:439
 msgid "Membre"
 msgstr ""
 
@@ -576,15 +576,15 @@ msgstr ""
 msgid "No s'han creat tot els elements perque no segueixen la norma. Dintre d'un Acord no es pot afeigr res."
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:327
+#: ./genweb/organs/content/templates/sessio_view.pt:335
 msgid "Notificador"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:391
+#: ./genweb/organs/content/templates/sessio_view.pt:399
 msgid "Nou acord"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:369
+#: ./genweb/organs/content/templates/sessio_view.pt:377
 msgid "Nou punt"
 msgstr ""
 
@@ -619,7 +619,7 @@ msgid "Operation Cancelled."
 msgstr ""
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:138
-#: ./genweb/organs/content/templates/sessio_view.pt:421
+#: ./genweb/organs/content/templates/sessio_view.pt:429
 msgid "Ordre del dia"
 msgstr ""
 
@@ -653,7 +653,7 @@ msgid "Organ Title"
 msgstr ""
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
-#: ./genweb/organs/content/templates/sessio_view.pt:190
+#: ./genweb/organs/content/templates/sessio_view.pt:191
 msgid "Organ de govern"
 msgstr ""
 
@@ -698,7 +698,7 @@ msgstr ""
 msgid "Please upload a reserved file"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:144
+#: ./genweb/organs/content/templates/sessio_view.pt:145
 msgid "Presentacio"
 msgstr ""
 
@@ -714,7 +714,7 @@ msgstr ""
 msgid "Previsualitzacio dels punts"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:151
+#: ./genweb/organs/content/templates/sessio_view.pt:152
 msgid "Print"
 msgstr ""
 
@@ -747,7 +747,7 @@ msgstr ""
 msgid "Punt Title"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:413
+#: ./genweb/organs/content/templates/sessio_view.pt:421
 msgid "Recalcula punts/acords"
 msgstr ""
 
@@ -824,7 +824,7 @@ msgid "Session date"
 msgstr ""
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:49
-#: ./genweb/organs/content/templates/sessio_view.pt:180
+#: ./genweb/organs/content/templates/sessio_view.pt:181
 msgid "Session end date and time"
 msgstr ""
 
@@ -841,7 +841,7 @@ msgstr ""
 
 #: ./genweb/organs/content/sessio.py:52
 #: ./genweb/organs/content/templates/impersonate_as.pt:64
-#: ./genweb/organs/content/templates/sessio_view.pt:196
+#: ./genweb/organs/content/templates/sessio_view.pt:197
 msgid "Session number"
 msgstr ""
 
@@ -858,7 +858,7 @@ msgid "Session start"
 msgstr ""
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:44
-#: ./genweb/organs/content/templates/sessio_view.pt:175
+#: ./genweb/organs/content/templates/sessio_view.pt:176
 msgid "Session start date and time"
 msgstr ""
 
@@ -873,6 +873,10 @@ msgstr ""
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:34
 msgid "Show info organ"
+msgstr ""
+
+#: ./genweb/organs/content/templates/sessio_view.pt:221
+msgid "Si assistents"
 msgstr ""
 
 #: ./genweb/organs/content/organsfolder.py:17
@@ -893,15 +897,16 @@ msgid "Stakeholders mail address"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:115
+#: ./genweb/organs/content/sessio.py:75
 msgid "Stakeholders mail address help."
 msgstr ""
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:172
-#: ./genweb/organs/content/templates/sessio_view.pt:280
+#: ./genweb/organs/content/templates/sessio_view.pt:288
 msgid "State"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:470
+#: ./genweb/organs/content/templates/sessio_view.pt:478
 #: ./genweb/organs/profiles/default/types/genweb.organs.subpunt.xml
 msgid "Subpunt"
 msgstr ""
@@ -952,16 +957,16 @@ msgid "Tancar"
 msgstr ""
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:90
-#: ./genweb/organs/content/templates/sessio_view.pt:374
+#: ./genweb/organs/content/templates/sessio_view.pt:382
 msgid "Title"
 msgstr ""
 
 #: ./genweb/organs/browser/views/butlleti.pt:101
-#: ./genweb/organs/content/templates/sessio_view.pt:274
+#: ./genweb/organs/content/templates/sessio_view.pt:282
 msgid "Titol"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:396
+#: ./genweb/organs/content/templates/sessio_view.pt:404
 msgid "Titol del punt"
 msgstr ""
 
@@ -969,7 +974,7 @@ msgstr ""
 msgid "UPC Organs de Govern v2.0 (genweb.organs)"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:424
+#: ./genweb/organs/content/templates/sessio_view.pt:432
 msgid "Veure com... <span class=\"caret\"></span>"
 msgstr ""
 
@@ -1000,12 +1005,8 @@ msgstr ""
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:165
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:81
-#: ./genweb/organs/content/templates/sessio_view.pt:524
+#: ./genweb/organs/content/templates/sessio_view.pt:532
 msgid "acord"
-msgstr ""
-
-#: ./genweb/organs/content/sessio.py:75
-msgid "affected_mail_help"
 msgstr ""
 
 #. Default: "There are currently no Organs in this folder."
@@ -1013,7 +1014,7 @@ msgstr ""
 msgid "description_no_items_in_folder"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:141
+#: ./genweb/organs/content/templates/sessio_view.pt:142
 msgid "envia_missatge"
 msgstr ""
 
@@ -1025,7 +1026,7 @@ msgstr ""
 msgid "footerMail description"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:147
+#: ./genweb/organs/content/templates/sessio_view.pt:148
 msgid "informa_sessio"
 msgstr ""
 
@@ -1038,7 +1039,7 @@ msgstr ""
 msgid "notification_mail_help"
 msgstr ""
 
-#: ./genweb/organs/content/templates/sessio_view.pt:151
+#: ./genweb/organs/content/templates/sessio_view.pt:152
 msgid "printOrdreDia"
 msgstr ""
 

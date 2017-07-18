@@ -72,7 +72,7 @@ class ISessio(form.Schema):
 
     adrecaAfectatsLlista = schema.Text(
         title=_(u"Stakeholders mail address"),
-        description=_(u"affected_mail_help"),
+        description=_(u"Stakeholders mail address help."),
         required=False,
     )
 
