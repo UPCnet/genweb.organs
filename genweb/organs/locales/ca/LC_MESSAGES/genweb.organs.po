@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-07-18 10:19+0000\n"
+"POT-Creation-Date: 2017-07-18 10:32+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -158,20 +158,17 @@ msgid "Body Mail"
 msgstr "Introducció de convocatòria"
 
 #: ./genweb/organs/content/organgovern.py:137
-msgid "Body Mail convoquing description"
-msgstr "Proposta de missatge que es genera en convocar una sessió. S'hi afegeix automàticament el peu del missatge que s'hagi definit per l'òrgan."
-
 #: ./genweb/organs/content/sessio.py:123
-msgid "Body Mail description"
-msgstr "Proposta de missatge que es genera en convocar una sessió. S'hi afegeix automàticament el peu del missatge que s'hagi definit per l'òrgan."
+msgid "Body Mail convoquing description"
+msgstr "Proposta de missatge que es genera en convocar una sessió. S'hi afegeix automàticament el peu del missatge que s'hagi definit al òrgan."
 
 #: ./genweb/organs/content/organgovern.py:143
 msgid "Body Mail send"
-msgstr "Introducció de la notificació a membres"
+msgstr "Introducció de la notificació a membres i afectats"
 
 #: ./genweb/organs/content/organgovern.py:144
 msgid "Body Mail send description"
-msgstr "Missatge que s'adjunta al clicar el botó d'enviar missatge. S'hi afegeix automàticament el peu del missatge que s'hagi definit per l'òrgan."
+msgstr "Proposta de missatge que en genera al clicar el botó d'enviar missatge. S'hi afegeix automàticament el peu del missatge que s'hagi definit al òrgan."
 
 #: ./genweb/organs/content/informarSessio.py:169
 #: ./genweb/organs/content/mailConvocar.py:175
@@ -385,7 +382,7 @@ msgstr "Peu de l'acta"
 
 #: ./genweb/organs/content/organgovern.py:159
 msgid "Footer help"
-msgstr "Peu que es farà servir al imprimir l'acta"
+msgstr "Proposta de missatge que es farà servir com a peu al imprimir l'acta"
 
 #: ./genweb/organs/content/informarSessio.py:37
 #: ./genweb/organs/content/mailConvocar.py:38
@@ -888,17 +885,17 @@ msgstr "Peu del missatge"
 
 #: ./genweb/organs/content/sessio.py:131
 msgid "Signatura description"
-msgstr "Peu del missatge que s'adjunta tant al missatge de convocatòria com al d'enviar missatge. Inicialment tindrà el valor que s'hagi definit en l'òrgan."
+msgstr "Peu del missatge que s'adjunta tant al missatge de convocatòria com al d'enviar missatge. Inicialment tindrà el valor que s'hagi definit a l'òrgan."
 
 #: ./genweb/organs/content/organgovern.py:114
 #: ./genweb/organs/content/sessio.py:74
 msgid "Stakeholders mail address"
-msgstr "Adreces de correu dels afectats"
+msgstr "Adreces de correu dels afectats i/o afectades"
 
 #: ./genweb/organs/content/organgovern.py:115
 #: ./genweb/organs/content/sessio.py:75
 msgid "Stakeholders mail address help."
-msgstr "Adreces de correu dels afectats/afectades als quals s'enviarà informació relativa a les sessions des del botó 'Envia resum' a la vista de la sessió). Es poden indicar les adreces de correu separades per espais en blanc o per comes."
+msgstr "Adreces de correu dels afectats/afectades als quals s'enviarà informació relativa a les sessions des del botó 'Envia resum' a la vista de la sessió. Es poden indicar les adreces de correu separades per espais en blanc o per comes."
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:172
 #: ./genweb/organs/content/templates/sessio_view.pt:288
@@ -1023,7 +1020,7 @@ msgstr "Peu del missatge"
 
 #: ./genweb/organs/content/organgovern.py:151
 msgid "footerMail description"
-msgstr "Peu del missatge que s'adjunta tant al missatge de convocatòria com al d'enviar missatge."
+msgstr "Proposta de missatge que s'adjunta com a peu tant al missatge de convocatòria com al d'enviar missatge."
 
 #: ./genweb/organs/content/templates/sessio_view.pt:148
 msgid "informa_sessio"

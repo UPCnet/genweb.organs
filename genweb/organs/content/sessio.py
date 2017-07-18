@@ -120,7 +120,7 @@ class ISessio(form.Schema):
     dexteritytextindexer.searchable('bodyMail')
     bodyMail = schema.Text(
         title=_(u"Body Mail"),
-        description=_(u"Body Mail description"),
+        description=_(u"Body Mail convoquing description"),
         required=False,
     )
 

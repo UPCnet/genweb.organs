@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-07-18 10:19+0000\n"
+"POT-Creation-Date: 2017-07-18 10:32+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -158,12 +158,9 @@ msgid "Body Mail"
 msgstr "Body Mail"
 
 #: ./genweb/organs/content/organgovern.py:137
+#: ./genweb/organs/content/sessio.py:123
 msgid "Body Mail convoquing description"
 msgstr "Message attached to convene a session. Adds the Footer and header."
-
-#: ./genweb/organs/content/sessio.py:123
-msgid "Body Mail description"
-msgstr "Message Body convening of the session"
 
 #: ./genweb/organs/content/organgovern.py:143
 msgid "Body Mail send"
