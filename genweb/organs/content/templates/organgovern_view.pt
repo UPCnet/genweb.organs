@@ -13,7 +13,6 @@
                    convidatsPermanentsOrgan context/convidatsPermanentsOrgan;
                    activeClassMembres view/activeClassMembres;
                    activeClassConvidats view/activeClassConvidats;
-                   members view/members;
                    sessions view/SessionsInside;
                    acords view/getAcords;
                    actes view/getActes;
@@ -124,7 +123,7 @@
                    <tal:data i18n:translate="">Titol</tal:data>
                  </th>
                 <th style="text-align: center;">
-                  <tal:data i18n:translate="">Codi</tal:data>
+                  <tal:data i18n:translate="">Agreement</tal:data>
                 </th>
                 <th style="text-align: center;">
                   <tal:data i18n:translate="">State</tal:data>
@@ -143,7 +142,7 @@
                     </a>
                   </td>
                   <td style="text-align: center;">
-                    <span tal:content="item/agreement" style="float: right;">
+                    <span tal:content="item/agreement">
                         Numero Acord
                     </span>
                   </td>

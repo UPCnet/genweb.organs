@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-07-18 12:56+0000\n"
+"POT-Creation-Date: 2017-07-19 07:34+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -65,7 +65,7 @@ msgstr "Acta en formato PDF"
 msgid "Acta PDF file description"
 msgstr "Fichero en formato PDF del acta. Sólo se aceptan ficheros en formato PDF."
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:34
+#: ./genweb/organs/content/templates/organgovern_view.pt:33
 msgid "Actes"
 msgstr "Actas"
 
@@ -88,6 +88,8 @@ msgid "Afectats"
 msgstr "Afectados"
 
 #: ./genweb/organs/browser/views/butlleti.pt:100
+#: ./genweb/organs/content/templates/organgovern_view.pt:126
+#: ./genweb/organs/content/templates/sessio_view.pt:285
 msgid "Agreement"
 msgstr "Número de acuerdo"
 
@@ -105,7 +107,7 @@ msgstr "Estados de aprobación"
 msgid "Agreement number"
 msgstr "Número de acuerdo"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:33
+#: ./genweb/organs/content/templates/organgovern_view.pt:32
 #: ./genweb/organs/content/templates/sessio_view.pt:163
 msgid "Agreements list"
 msgstr "Acuerdos"
@@ -218,11 +220,6 @@ msgstr "Se han guardado los cambios."
 msgid "Cliqueu <a href=\"./\">aqui</a> per tornar al mode de visualitzacio per defecte."
 msgstr "Clique <a href=\"./\">aquí</a> para volver al modo de visualización por defecto."
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:127
-#: ./genweb/organs/content/templates/sessio_view.pt:285
-msgid "Codi"
-msgstr "Código"
-
 #: ./genweb/organs/content/document.py:54
 msgid "Content used to hide protected content"
 msgstr "Contenido de carácter restringido del documento, para uso interno."
@@ -257,7 +254,7 @@ msgstr "Se ha creado un punto."
 msgid "Dades"
 msgstr "Datos"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:170
+#: ./genweb/organs/content/templates/organgovern_view.pt:169
 msgid "Data"
 msgstr "Fecha"
 
@@ -615,7 +612,7 @@ msgid "Organ Govern description help"
 msgstr "Descripción informativa de su función"
 
 #: ./genweb/organs/content/organgovern.py:88
-#: ./genweb/organs/content/templates/organgovern_view.pt:32
+#: ./genweb/organs/content/templates/organgovern_view.pt:31
 msgid "Organ Govern members"
 msgstr "Composición"
 
@@ -796,7 +793,7 @@ msgstr "Sesión"
 msgid "Session Title"
 msgstr "Título de la sesión"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:45
+#: ./genweb/organs/content/templates/organgovern_view.pt:44
 msgid "Session date"
 msgstr "Fecha de la sesión"
 
@@ -830,7 +827,7 @@ msgstr "Acta"
 msgid "Session order description"
 msgstr "Apartado para indicar los puntos del orden del día y el desarrollo de la sesión."
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:51
+#: ./genweb/organs/content/templates/organgovern_view.pt:50
 msgid "Session start"
 msgstr "Hora de inicio"
 
@@ -844,7 +841,7 @@ msgstr "Fecha y hora de inicio de la sesión"
 msgid "Session start time"
 msgstr "Hora de inicio de la sesión"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:31
+#: ./genweb/organs/content/templates/organgovern_view.pt:30
 msgid "Sessions"
 msgstr "Sesiones"
 
@@ -874,7 +871,7 @@ msgstr "Direcciones de correo de los afectados (Para enviar información de la s
 msgid "Stakeholders mail address help."
 msgstr "Listado de direcciones de las personas afectadas a las cuales se notificará."
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:54
+#: ./genweb/organs/content/templates/organgovern_view.pt:53
 #: ./genweb/organs/content/templates/sessio_view.pt:288
 msgid "State"
 msgstr "Estado"
@@ -929,13 +926,13 @@ msgstr "Punto"
 msgid "Tancar"
 msgstr "Cierra"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:42
+#: ./genweb/organs/content/templates/organgovern_view.pt:41
 #: ./genweb/organs/content/templates/sessio_view.pt:382
 msgid "Title"
 msgstr "Título"
 
 #: ./genweb/organs/browser/views/butlleti.pt:101
-#: ./genweb/organs/content/templates/organgovern_view.pt:124
+#: ./genweb/organs/content/templates/organgovern_view.pt:123
 #: ./genweb/organs/content/templates/sessio_view.pt:282
 msgid "Titol"
 msgstr "Título"

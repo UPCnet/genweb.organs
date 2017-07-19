@@ -281,10 +281,10 @@
                   <th>
                      <tal:data i18n:translate="">Titol</tal:data>
                    </th>
-                  <th>
-                    <tal:data i18n:translate="">Codi</tal:data>
+                  <th style="text-align:center;">
+                    <tal:data i18n:translate="">Agreement</tal:data>
                   </th>
-                  <th>
+                  <th style="text-align:center;">
                     <tal:data i18n:translate="">State</tal:data>
                   </th>
                 </tr>
@@ -299,12 +299,12 @@
                               Item Title
                       </a>
                     </td>
-                    <td>
-                      <span tal:content="item/agreement" style="float: right;">
+                    <td style="text-align:center;">
+                      <span tal:content="item/agreement">
                           Numero Acord
                       </span>
                     </td>
-                    <td>
+                    <td style="text-align:center;">
                       <span tal:content="item/estatsLlista" i18n:translate="">
                           Status
                       </span>
