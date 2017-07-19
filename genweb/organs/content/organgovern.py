@@ -206,7 +206,6 @@ class View(grok.View):
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
             portal_type='genweb.organs.sessio',
-            sort_on='getObjPositionInParent',
             path={'query': folder_path,
                   'depth': 1})
 
@@ -222,13 +221,13 @@ class View(grok.View):
                 valueHoraInici = ''
 
             num = value.numSessio.zfill(3)
-            any = value.start.strftime('%Y')
+            any = value.start.strftime('%Y%m%d')
             results.append(dict(title=value.title,
                                 absolute_url=value.absolute_url(),
                                 dataSessio=valuedataSessio,
                                 llocConvocatoria=value.llocConvocatoria,
                                 horaInici=valueHoraInici,
-                                hiddenOrder=any + num,
+                                hiddenOrder=int(any + num),
                                 review_state=obj.review_state))
         return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
 
