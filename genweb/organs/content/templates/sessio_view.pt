@@ -293,6 +293,7 @@
                 <tal:documents repeat="item acords">
                   <tr>
                     <td>
+                      <i class="fa fa-check" aria-hidden="true"></i>
                       <a href="#"
                              tal:attributes="href item/absolute_url;"
                              tal:content="item/title">
