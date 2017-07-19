@@ -1015,7 +1015,7 @@ i.icon-genweb-organs-acord,
 #listing-table a.contenttype-genweb-organs-acord:before,
 .template-folder_tabular_view .listing a.contenttype-genweb-organs-acord:before
 {
-    background-position: -72px -144px !important;
+    background-position: -288px 0px !important;
 }
 
 .share_popover {display: none;}
