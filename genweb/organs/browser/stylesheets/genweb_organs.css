@@ -1626,70 +1626,72 @@ span.estatpunt {
 }
 
 
-.convocada {
-    background-color: #8952ab;
-    padding: 1px 4px 2px;
-    border-radius: 3px;
-    font-weight: bold;
-    line-height: 14px;
-    color: white;
-    vertical-align: baseline;
-    white-space: nowrap;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    text-align: center;
+.convocada, .label-convocada {
+    background-color: #8952ab !important;
+    padding: 1px 4px 2px !important;
+    border-radius: 3px !important;
+    font-weight: bold !important;
+    line-height: 14px !important;
+    color: white !important;
+    vertical-align: baseline !important;
+    white-space: nowrap !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+    text-align: center !important;
 }
 
-.tancada {
-    background-color: #007bc0;
-    padding: 1px 4px 2px;
-    border-radius: 3px;
-    font-weight: bold;
-    line-height: 14px;
-    color: white;
-    vertical-align: baseline;
-    white-space: nowrap;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    text-align: center;
+.tancada, .label-tancada {
+    background-color: #007bc0 !important;
+    padding: 1px 4px 2px !important;
+    border-radius: 3px !important;
+    font-weight: bold !important;
+    line-height: 14px !important;
+    color: white !important;
+    vertical-align: baseline !important;
+    white-space: nowrap !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+    text-align: center !important;
 }
 
-.realitzada {
-    background-color: #456211;
-    padding: 1px 4px 2px;
-    border-radius: 3px;
-    font-weight: bold;
-    line-height: 14px;
-    color: white;
-    vertical-align: baseline;
-    white-space: nowrap;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    text-align: center;
+.realitzada, .label-realitzada {
+    background-color: #456211 !important;
+    padding: 1px 4px 2px !important;
+    border-radius: 3px !important;
+    font-weight: bold !important;
+    line-height: 14px !important;
+    color: white !important;
+    vertical-align: baseline !important;
+    white-space: nowrap !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+    text-align: center !important;
 }
 
-.planificada {
-    background-color: #FFA500;
-    padding: 1px 4px 2px;
-    border-radius: 3px;
-    font-weight: bold;
-    line-height: 14px;
-    color: white;
-    vertical-align: baseline;
-    white-space: nowrap;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    text-align: center;
+.planificada, .label-planificada {
+    background-color: #FFA500 !important;
+    padding: 1px 4px 2px !important;
+    border-radius: 3px !important;
+    font-weight: bold !important;
+    line-height: 14px !important;
+    color: white !important;
+    vertical-align: baseline !important;
+    white-space: nowrap !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+    text-align: center !important;
 }
 
-.en_correccio {
-    background-color:  #a62e1f;
-    padding: 1px 4px 2px;
-    border-radius: 3px;
-    font-weight: bold;
-    line-height: 14px;
-    color: white;
-    vertical-align: baseline;
-    white-space: nowrap;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    text-align: center;
+.en_correccio, .label-en_correccio {
+    background-color:  #a62e1f !important;
+    padding: 1px 4px 2px !important;
+    border-radius: 3px !important;
+    font-weight: bold !important;
+    line-height: 14px !important;
+    color: white !important;
+    vertical-align: baseline !important;
+    white-space: nowrap !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+    text-align: center !important;
 }
 
 
+/*#plone-contentmenu-workflow.dropdown-toggle { color: #007BC0;}
+#plone-contentmenu-workflow.dropdown-toggle { color: #007BC0;}*/
 
