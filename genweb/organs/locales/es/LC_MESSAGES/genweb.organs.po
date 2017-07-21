@@ -715,7 +715,7 @@ msgstr " Fichero que contiene la parte pública del documento. Ha de ser en form
 #: ./genweb/organs/browser/views/butlleti.pt:99
 #: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
 msgid "Punt"
-msgstr "Punto"
+msgstr "Punto informativo"
 
 #: ./genweb/organs/content/punt.py:60
 msgid "Punt Title"
@@ -879,7 +879,7 @@ msgstr "Estado"
 #: ./genweb/organs/content/templates/sessio_view.pt:478
 #: ./genweb/organs/profiles/default/types/genweb.organs.subpunt.xml
 msgid "Subpunt"
-msgstr "Punto"
+msgstr "Punto informativo"
 
 #: ./genweb/organs/content/subpunt.py:57
 msgid "Subpunt Title"

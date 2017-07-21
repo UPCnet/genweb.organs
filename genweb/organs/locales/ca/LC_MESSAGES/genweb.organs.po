@@ -190,11 +190,11 @@ msgstr "S'ha canviat l'estat de l'acord a segon nivell"
 
 #: ./genweb/organs/browser/views.py:362
 msgid "Changed punt color state"
-msgstr "S'ha canviat l'estat del punt"
+msgstr "S'ha canviat l'estat del punt informatiu"
 
 #: ./genweb/organs/browser/views.py:177
 msgid "Changed punt number with drag&drop"
-msgstr "S'ha mogut el número de punt al moure l'element"
+msgstr "S'ha mogut el número de punt informatiu al moure l'element"
 
 #: ./genweb/organs/browser/views.py:360
 msgid "Changed recursive color state of acord inside punt"
@@ -202,11 +202,11 @@ msgstr "S'ha propiciat el canvi d'estat de l'acord per un canvi recursiu"
 
 #: ./genweb/organs/browser/views.py:358
 msgid "Changed recursive color state of subpunt inside punt"
-msgstr "S'ha propiciat el canvi d'estat del punt per un canvi recursiu"
+msgstr "S'ha propiciat el canvi d'estat del punt informatiu per un canvi recursiu"
 
 #: ./genweb/organs/browser/views.py:389
 msgid "Changed subpunt intern state color"
-msgstr "S'ha canviat l'estat del punt a segon nivell"
+msgstr "S'ha canviat l'estat del punt informatiu a segon nivell"
 
 #: ./genweb/organs/browser/events/change.py:19
 msgid "Changed workflow state"
@@ -247,7 +247,7 @@ msgstr "S'ha creat una acta."
 
 #: ./genweb/organs/hooks.py:30
 msgid "Created punt"
-msgstr "S'ha creat un punt."
+msgstr "S'ha creat un punt informatiu."
 
 #: ./genweb/organs/content/templates/acta_view.pt:62
 #: ./genweb/organs/content/templates/impersonate_as.pt:36
@@ -276,11 +276,11 @@ msgstr "Element el·liminat"
 
 #: ./genweb/organs/browser/events/removeObject.py:40
 msgid "Deleted punt"
-msgstr "Punt el·liminat"
+msgstr "Punt informatiu el·liminat"
 
 #: ./genweb/organs/browser/events/removeObject.py:79
 msgid "Deleted subpunt"
-msgstr "Punt el·liminat"
+msgstr "Punt informatiu el·liminat"
 
 #: ./genweb/organs/browser/views/acta_print.pt:88
 msgid "Desenvolupament de la sessio"
@@ -474,7 +474,7 @@ msgstr "Les adreces de correu han d'anar separades per espais en blanc o per com
 
 #: ./genweb/organs/content/manualimport.py:25
 msgid "Manual Import"
-msgstr "Creació àgil de punts i/o acords a partir d'una llista"
+msgstr "Creació àgil de punts informatius i/o acords a partir d'una llista"
 
 #: ./genweb/organs/content/manualimport.py:85
 msgid "Massive agreements imported"
@@ -523,11 +523,11 @@ msgstr "S'ha modificat una acta."
 
 #: ./genweb/organs/hooks.py:78
 msgid "Modified punt"
-msgstr "S'ha modificat un punt."
+msgstr "S'ha modificat un punt informatiu."
 
 #: ./genweb/organs/browser/views.py:224
 msgid "Moved subpunt by drag&drop"
-msgstr "S'ha mogut el número de punt intern al moure'l"
+msgstr "S'ha canviat el número de punt informatiu al moure'l"
 
 #: ./genweb/organs/content/templates/mail_convocar.pt:18
 msgid "New message"
@@ -562,7 +562,7 @@ msgstr "Afegeix acord"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:377
 msgid "Nou punt"
-msgstr "Afegeix punt"
+msgstr "Afegeix punt informatiu"
 
 #: ./genweb/organs/profiles/default/sharing.xml
 msgid "OG1-Secretari"
@@ -686,7 +686,7 @@ msgstr "Previsualització de l'acta"
 
 #: ./genweb/organs/content/templates/informar_view.pt:31
 msgid "Previsualitzacio dels punts"
-msgstr "Previsualització dels punts"
+msgstr "Previsualització dels punts/acords"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:152
 msgid "Print"
@@ -715,7 +715,7 @@ msgstr "Fitxer que conté la part pública del document. Ha de ser en format PDF
 #: ./genweb/organs/browser/views/butlleti.pt:99
 #: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
 msgid "Punt"
-msgstr "Punt"
+msgstr "Punt informatiu"
 
 #: ./genweb/organs/content/punt.py:60
 msgid "Punt Title"
@@ -879,7 +879,7 @@ msgstr "Estat"
 #: ./genweb/organs/content/templates/sessio_view.pt:478
 #: ./genweb/organs/profiles/default/types/genweb.organs.subpunt.xml
 msgid "Subpunt"
-msgstr "Punt"
+msgstr "Punt informatiu"
 
 #: ./genweb/organs/content/subpunt.py:57
 msgid "Subpunt Title"
@@ -887,7 +887,7 @@ msgstr "Títol del punt de l'ordre del dia"
 
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:67
 msgid "Subpunts informatius / acords"
-msgstr "Punts/acords"
+msgstr "Punts informatius / acords"
 
 #: ./genweb/organs/content/acord.py:61
 msgid "Tab acord"
@@ -915,11 +915,11 @@ msgstr "Òrgan"
 
 #: ./genweb/organs/content/punt.py:54
 msgid "Tab punt"
-msgstr "Punt"
+msgstr "Punt informatiu"
 
 #: ./genweb/organs/content/subpunt.py:51
 msgid "Tab subpunt"
-msgstr "Punt"
+msgstr "Punt informatiu"
 
 #: ./genweb/organs/content/templates/acta_view.pt:45
 #: ./genweb/organs/content/templates/informar_view.pt:37
