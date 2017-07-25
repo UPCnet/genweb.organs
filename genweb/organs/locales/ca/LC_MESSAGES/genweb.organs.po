@@ -71,7 +71,7 @@ msgstr "Actes"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:253
 msgid "Actes de la sessio:"
-msgstr "Actes de la sessió:"
+msgstr "Actes de la sessió"
 
 #: ./genweb/organs/content/manualimport.py:26
 msgid "Add content separated by -- and they will by added as Agreements."
