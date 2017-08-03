@@ -96,6 +96,7 @@ def addEntryLog(context, sender, message, recipients):
             message: the message
             recipients: the recipients of the message
     """
+    return
     KEY = 'genweb.organs.logMail'
     annotations = IAnnotations(context)
 
@@ -170,12 +171,21 @@ def FilesandDocumentsInside(self):
             classCSS = 'fa fa-file-text-o'
         anonymous = api.user.is_anonymous()
         if anonymous:
-            if obj.getObject().defaultContent:
-                results.append(dict(title=obj.Title,
-                                    absolute_url=obj.getURL(),
-                                    classCSS=classCSS,
-                                    hidden=False))
+            if obj.portal_type == 'genweb.organs.document':
+                # Es un document/fitxer, mostrem part publica si la té
+                if obj.getObject().defaultContent:
+                    results.append(dict(title=obj.Title,
+                                        absolute_url=obj.getURL(),
+                                        classCSS=classCSS,
+                                        hidden=False))
+            if obj.portal_type == 'genweb.organs.file':
+                if obj.getObject().visiblefile:
+                    results.append(dict(title=obj.Title,
+                                        absolute_url=obj.getURL(),
+                                        classCSS=classCSS,
+                                        hidden=False))
         else:
+            # si està validat els mostrem tots
             results.append(dict(title=obj.Title,
                                 absolute_url=obj.getURL(),
                                 classCSS=classCSS,

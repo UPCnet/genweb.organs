@@ -144,8 +144,7 @@ class Presentation(form.SchemaForm):
     def filesinside(self, item):
         portal_catalog = getToolByName(self, 'portal_catalog')
         session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
-
-        values = portal_catalog.unrestrictedSearchResults(
+        values = portal_catalog.searchResults(
             portal_type=['genweb.organs.file', 'genweb.organs.document'],
             sort_on='getObjPositionInParent',
             path={'query': session_path,
@@ -154,34 +153,65 @@ class Presentation(form.SchemaForm):
         for obj in values:
             visibleUrl = ''
             hiddenUrl = ''
-            isFile = hasPublic = hasPrivate = isGODocument = isGOFile = file = raw_content = False
+            hasPublic = hasPrivate = isGODocument = isGOFile = file = raw_content = listFile = False
             visibleUrl = obj.getObject().absolute_url()
             anonymous = api.user.is_anonymous()
-            if obj.portal_type == 'genweb.organs.file':
-                # Tractem els files...
-                isFile = True
-                isGOFile = True
-                tipus = 'fa fa-file-pdf-o'
-                file = obj.getObject()
-                raw_content = None
-                if anonymous:
+            file = obj.getObject()
+            if anonymous:
+                if obj.portal_type == 'genweb.organs.file':
+                    classCSS = 'fa fa-file-pdf-o'
+                    abs_path = file.absolute_url_path()
+                    isGOFile = True
                     if file.visiblefile and file.hiddenfile:
                         hasPublic = True
                         hasPrivate = False
                         visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/'
                         hiddenUrl = ''
+                        listFile = True
                     elif file.visiblefile:
                         hasPublic = True
                         hasPrivate = False
                         visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/'
+                        listFile = True
                         hiddenUrl = ''
-                    else:
-                        hasPublic = False
+                if obj.portal_type == 'genweb.organs.document':
+                    classCSS = 'fa fa-file-text-o'
+                    abs_path = None
+                    isGODocument = True
+                    if file.alternateContent and file.defaultContent:
+                        hasPublic = True
                         hasPrivate = False
-                        visibleUrl = ''
-                        hiddenUrl = ''
-                else:
-                    username = api.user.get_current().id
+                        listFile = True
+                        raw_content = file.defaultContent
+                    elif file.defaultContent:
+                        hasPublic = True
+                        hasPrivate = False
+                        listFile = True
+                        raw_content = file.defaultContent
+
+                if listFile:
+                    results.append(dict(title=obj.Title,
+                                        path=abs_path,
+                                        absolute_url=obj.getURL(),
+                                        hasPublic=hasPublic,
+                                        hasPrivate=hasPrivate,
+                                        classCSS=classCSS,
+                                        publicURL=visibleUrl,
+                                        reservedURL=hiddenUrl,
+                                        isGOFile=isGOFile,
+                                        isGODocument=isGODocument,
+                                        raw_content=raw_content,
+                                        id=obj.id))
+
+            else:
+                # user is validated
+                username = api.user.get_current().id
+                if obj.portal_type == 'genweb.organs.file':
+                    # Tractem els files...
+                    isGOFile = True
+                    tipus = 'fa fa-file-pdf-o'
+                    raw_content = None
+                    abs_path = file.absolute_url_path()
                     roles = api.user.get_roles(username=username, obj=self.context)
                     if file.visiblefile and file.hiddenfile:
                         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
@@ -201,46 +231,16 @@ class Presentation(form.SchemaForm):
                             visibleUrl = ''
                             hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/'
                     elif file.visiblefile:
-                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
-                            hasPublic = False
-                            hasPrivate = True
-                            visibleUrl = ''
-                            hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/'
-                        elif 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
                             hasPublic = True
                             hasPrivate = False
                             visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/'
                             hiddenUrl = ''
-                    else:
-                        hasPublic = False
-                        hasPrivate = False
-                        visibleUrl = ''
-                        hiddenUrl = ''
-            else:
-                # TODO!!!!
-                # Tractem els docs...
-                isGODocument = True
-                tipus = 'fa fa-file-text-o'
-                file = obj.getObject()
-                if anonymous:
-                    if file.alternateContent and file.defaultContent:
-                        hasPublic = True
-                        hasPrivate = False
-                        raw_content = file.defaultContent
-                    elif file.defaultContent:
-                        hasPublic = True
-                        hasPrivate = False
-                        raw_content = file.defaultContent
-                    elif file.alternateContent:
-                        hasPublic = False
-                        hasPrivate = False
-                        raw_content = False
-                    else:
-                        hasPublic = False
-                        hasPrivate = False
-                        raw_content = False
-                else:
-                    username = api.user.get_current().id
+
+                if obj.portal_type == 'genweb.organs.document':
+                    print obj.Title
+                    isGODocument = True
+                    abs_path = None
+                    tipus = 'fa fa-file-text-o'
                     roles = api.user.get_roles(username=username, obj=self.context)
                     if file.alternateContent and file.defaultContent:
                         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
@@ -261,20 +261,10 @@ class Presentation(form.SchemaForm):
                             hasPublic = False
                             hasPrivate = True
                             raw_content = file.alternateContent
-                    else:
-                        hasPublic = False
-                        hasPrivate = False
-                        raw_content = False
 
-            if file:
-                abs_path = file.absolute_url_path()
-            else:
-                abs_path = None
-            if raw_content or obj.portal_type == 'genweb.organs.file':
                 results.append(dict(title=obj.Title,
                                     path=abs_path,
                                     absolute_url=obj.getURL(),
-                                    isFile=isFile,
                                     hasPublic=hasPublic,
                                     hasPrivate=hasPrivate,
                                     classCSS=tipus,

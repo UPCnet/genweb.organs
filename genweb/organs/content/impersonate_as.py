@@ -292,6 +292,7 @@ class ShowSessionAs(form.SchemaForm):
     def filesinsidePunt(self, item):
         session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
         portal_catalog = getToolByName(self, 'portal_catalog')
+        role = self.request.form.get('id', '')
 
         values = portal_catalog.searchResults(
             portal_type=['genweb.organs.file', 'genweb.organs.document'],
@@ -304,9 +305,28 @@ class ShowSessionAs(form.SchemaForm):
                 tipus = 'fa fa-file-pdf-o'
             else:
                 tipus = 'fa fa-file-text-o'
-            results.append(dict(title=obj.Title,
-                                portal_type=obj.portal_type,
-                                absolute_url=obj.getURL(),
-                                classCSS=tipus,
-                                id=str(item['id']) + '/' + obj.id))
+            if role == 'Other' or role == 'Affected':
+                if obj.portal_type == 'genweb.organs.document':
+                    # Es un document, mostrem part publica si la té
+                    if obj.getObject().defaultContent:
+                        results.append(dict(title=obj.Title,
+                                            portal_type=obj.portal_type,
+                                            absolute_url=obj.getURL(),
+                                            classCSS=tipus,
+                                            id=str(item['id']) + '/' + obj.id))
+                if obj.portal_type == 'genweb.organs.file':
+                    # Es un file, mostrem part publica si la té
+                    if obj.getObject().visiblefile:
+                        results.append(dict(title=obj.Title,
+                                            portal_type=obj.portal_type,
+                                            absolute_url=obj.getURL(),
+                                            classCSS=tipus,
+                                            id=str(item['id']) + '/' + obj.id))
+
+            if role == 'Member':
+                results.append(dict(title=obj.Title,
+                                    portal_type=obj.portal_type,
+                                    absolute_url=obj.getURL(),
+                                    classCSS=tipus,
+                                    id=str(item['id']) + '/' + obj.id))
         return results

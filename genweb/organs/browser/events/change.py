@@ -37,6 +37,9 @@ def sessio_changed(session, event):
             session.changeOwnership(user, recursive=False)
             owners = session.users_with_local_role("Owner")
             session.manage_delLocalRoles(owners)
-            session.manage_setLocalRoles(user._id, ["Owner"])
+            if user.getId() == 'admin':
+                session.manage_setLocalRoles(user.getId(), ["Owner"])
+            else:
+                session.manage_setLocalRoles(user._id, ["Owner"])
             session.reindexObjectSecurity()
             transaction.commit()
