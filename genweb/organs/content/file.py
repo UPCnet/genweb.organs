@@ -11,6 +11,8 @@ from collective import dexteritytextindexer
 from plone.supermodel.directives import fieldset
 from plone.namedfile.utils import get_contenttype
 from zope.schema import ValidationError
+from AccessControl import Unauthorized
+
 
 grok.templatedir("templates")
 
@@ -111,6 +113,13 @@ class View(grok.View):
             return True
         else:
             return False
+
+    def canView(self):
+        if self.context.visiblefile is not None and api.user.is_anonymous():
+            return True
+        if not api.user.is_anonymous():
+            return True
+        raise Unauthorized
 
     def viewPublic(self):
         if self.context.visiblefile and self.context.hiddenfile:

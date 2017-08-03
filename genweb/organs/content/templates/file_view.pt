@@ -7,7 +7,7 @@
     i18n:domain="genweb.organs">
 <body>
 
-<metal:content-core fill-slot="content-core"
+<metal:content-core fill-slot="content-core" tal:condition="view/canView"
       tal:define="viewPublic view/viewPublic;
                   viewReserved view/viewReserved;
                   hihaPublic view/hihaPublic;
