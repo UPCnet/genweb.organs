@@ -1,11 +1,41 @@
 Changelog
 =========
 
-0.7 (unreleased)
+0.7 (2017-08-03)
 ----------------
 
-- Nothing changed yet.
-
+* rmove two dots [Roberto Diaz]
+* Punt to Punt informatiu [Roberto Diaz]
+* added colors to session state dropdown [Roberto Diaz]
+* added colors to session states [Roberto Diaz]
+* sorted [Roberto Diaz]
+* added icon to add element [Roberto Diaz]
+* changed acord icon [Roberto Diaz]
+* removed Codi string and centered table contents [root muntanyeta]
+* tornem a restringit [Roberto Diaz]
+* revamped organ de govern view [Roberto Diaz]
+* i18n [Roberto Diaz]
+* added assistents and i18n [Roberto Diaz]
+* translate literals related to persons [Roberto Diaz]
+* added lista de acords to session template [Roberto Diaz]
+* renamed Llista Acords to Acords [Roberto Diaz]
+* changed restringit to intern, and first the public one [Roberto Diaz]
+* removed acta string [Roberto Diaz]
+* added desenvolupament de la sessio in print acta [Roberto Diaz]
+* add migrated and revamp canModify in session view template [Roberto Diaz]
+* remaves traces of nuts [Roberto Diaz]
+* added migrated property to check button and assistants field [Roberto Diaz]
+* show sessions by default in organ view [Roberto Diaz]
+* actes orderes by date and reverse [Roberto Diaz]
+* show tabs on OG view [Roberto Diaz]
+* changed punt informatiu  to punt [Roberto Diaz]
+* changed template acta [Roberto Diaz]
+* acta print strings changed [Roberto Diaz]
+* updated translations [Roberto Diaz]
+* not numbered string [Roberto Diaz]
+* added acord sense numeracio to acord view [Roberto Diaz]
+* sessions ordered by id [Roberto Diaz]
+* order acords by code [Roberto Diaz]
 
 0.6 (2017-07-06)
 ----------------
