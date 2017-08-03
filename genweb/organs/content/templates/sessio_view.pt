@@ -442,6 +442,10 @@
           <li><a tabindex="-1" href="view_as_role?id=Other"><span i18n:translate="">Altres</span></a></li>
         </ul>
       </div>
+      <div style="float:right;" class="documentDescription">
+        <span id="expandAll">Desplega tot <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i></span> &nbsp; &nbsp;
+        <span id="collapseAll">Plega tot <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i></span>
+      </div>
       <div class="clearfix"></div>
 
       <ul id="sortable">
@@ -693,6 +697,8 @@
       </ul>
   </div>
 
+
+
   <script type="text/javascript">
     $(function() {
         $(this).find('.sortable2').hide()
@@ -863,6 +869,33 @@
   });
 
 </script>
+
+
+<script type="text/javascript">
+  $("#collapseAll").hide()
+  $("#expandAll").click(function(){
+    $(".expand").parent().parent().parent().slideDown();
+    $(".expand").hide();
+    $(".notexpand").show();
+    $(".expand").parent().parent().parent().find('.sortable2').slideDown();
+    $(".expand").parent().parent().parent().find('.listFiles').slideDown();
+    $("#expandAll").hide();
+    $("#collapseAll").show();
+  })
+
+  $("#collapseAll").click(function(){
+    $(".notexpand").slideUp();
+    $(".notexpand").hide();
+    $(".expand").show();
+
+    $(".expand").parent().parent().parent().find('.sortable2').slideUp();
+    $(".expand").parent().parent().parent().find('.listFiles').slideUp();
+    $("#expandAll").show();
+    $("#collapseAll").hide();
+  })
+
+</script>
+
 
  </tal:main-macro>
 </metal:main>
