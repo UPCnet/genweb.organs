@@ -411,7 +411,8 @@ class View(grok.View):
 
     def ActesInside(self):
         """ Retorna les actes creades aquí dintre (sense tenir compte estat)
-            Nomes ho veuen els Managers / Editor / Secretari
+            Nomes ho veuen els Managers / Editors / Secretari
+            Els anonymus no les veuen
         """
         if not api.user.is_anonymous():
             username = api.user.get_current().id
@@ -532,23 +533,39 @@ class View(grok.View):
                   'depth': 1})
         results = []
         for obj in values:
-            if obj.portal_type == 'genweb.organs.file':
-                tipus = 'fa fa-file-pdf-o'
-            else:
-                tipus = 'fa fa-file-text-o'
+
             anonymous = api.user.is_anonymous()
             if anonymous:
-                if obj.getObject().defaultContent:
-                    results.append(dict(title=obj.Title,
-                                        portal_type=obj.portal_type,
-                                        absolute_url=obj.getURL(),
-                                        classCSS=tipus,
-                                        id=str(item['id']) + '/' + obj.id))
+                # Es un document, mostrem part publica si la té
+                if obj.portal_type == 'genweb.organs.document':
+                    classCSS = 'fa fa-file-text-o'
+                    if obj.getObject().defaultContent:
+                        results.append(dict(title=obj.Title,
+                                            portal_type=obj.portal_type,
+                                            absolute_url=obj.getURL(),
+                                            classCSS=classCSS,
+                                            id=str(item['id']) + '/' + obj.id))
+                # es un fitxer, mostrem part publica si la té
+                if obj.portal_type == 'genweb.organs.file':
+                    classCSS = 'fa fa-file-pdf-o'
+                    if obj.getObject().visiblefile:
+                        results.append(dict(title=obj.Title,
+                                            portal_type=obj.portal_type,
+                                            absolute_url=obj.getURL(),
+                                            classCSS=classCSS,
+                                            id=str(item['id']) + '/' + obj.id))
             else:
+                if obj.portal_type == 'genweb.organs.file':
+                    # És un File
+                    classCSS = 'fa fa-file-pdf-o'
+                else:
+                    # És un document
+                    classCSS = 'fa fa-file-text-o'
+                # si està validat els mostrem tots
                 results.append(dict(title=obj.Title,
                                     portal_type=obj.portal_type,
                                     absolute_url=obj.getURL(),
-                                    classCSS=tipus,
+                                    classCSS=classCSS,
                                     id=str(item['id']) + '/' + obj.id))
 
         return results

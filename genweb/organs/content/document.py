@@ -10,6 +10,7 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone import api
 from plone.app.dexterity import PloneMessageFactory as _PMF
 from plone.supermodel.directives import fieldset
+from AccessControl import Unauthorized
 
 grok.templatedir("templates")
 
@@ -70,6 +71,13 @@ class Edit(dexterity.EditForm):
 class View(grok.View):
     grok.context(IDocument)
     grok.template('document_view')
+
+    def canView(self):
+        if self.context.defaultContent is not None and api.user.is_anonymous():
+            return True
+        if not api.user.is_anonymous():
+            return True
+        raise Unauthorized
 
     def viewDocumentPublic(self):
         if self.context.defaultContent and self.context.alternateContent:

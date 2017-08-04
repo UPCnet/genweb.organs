@@ -5,8 +5,7 @@
       lang="ca"
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="genweb.organs">
-<body >
-
+<body>
 
 <metal:title fill-slot="content-title"
   tal:condition="view/canView"
@@ -22,12 +21,11 @@
          title estatsLlista; alt estatsLlista"></i>&nbsp;<span tal:content="estatsLlista"></span>
     </span>
   </h1>
-
 </metal:title>
 
 <metal:content-core fill-slot="content-core"
   tal:define="defaultContent context/defaultContent;
-  filesanddocs view/FilesandDocumentsInside;">
+              filesanddocs view/FilesandDocumentsInside;">
 
   <div class="clearfix"></div><br/>
 
