@@ -96,7 +96,6 @@ def addEntryLog(context, sender, message, recipients):
             message: the message
             recipients: the recipients of the message
     """
-    return
     KEY = 'genweb.organs.logMail'
     annotations = IAnnotations(context)
 
