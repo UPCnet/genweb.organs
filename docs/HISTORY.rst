@@ -1,11 +1,15 @@
 Changelog
 =========
 
-0.8 (unreleased)
+0.8 (2017-08-04)
 ----------------
 
-- Nothing changed yet.
-
+* Merge branch 'master' of https://github.com/UPCnet/genweb.organs [Roberto Diaz]
+* updated collapse/expand all [Roberto Diaz]
+* removed return to test imports without logging [Roberto Diaz]
+* first collapse/expand all version [Roberto Diaz]
+* permissions on documents template [Roberto Diaz]
+* changes in files and docs view permissions [Roberto Diaz]
 
 0.7 (2017-08-03)
 ----------------
