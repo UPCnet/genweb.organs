@@ -498,7 +498,7 @@ background-color: transparent;
 }
 
 #sortable .filesinTable:last-child {
-    border-bottom: 0px solid #ececec;
+    border-bottom: 0px solid #ececec !important;
 }
 
 .caixaPunts {
@@ -1691,6 +1691,7 @@ span.estatpunt {
     text-align: center !important;
 }
 
+#expandAll , #collapseAll {cursor:pointer;}
 
 /*#plone-contentmenu-workflow.dropdown-toggle { color: #007BC0;}
 #plone-contentmenu-workflow.dropdown-toggle { color: #007BC0;}*/

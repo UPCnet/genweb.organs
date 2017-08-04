@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-07-19 07:34+0000\n"
+"POT-Creation-Date: 2017-08-04 07:57+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -29,11 +29,11 @@ msgstr "<p>Borrador Yellow</p><p>Pendiente de aprobación Orange</p><p>Aprobado 
 msgid "ACTA <span style=\"text-align: left\">${DYNAMIC_CONTENT}</span>"
 msgstr "ACTA <span style=\"text-align: left\">${DYNAMIC_CONTENT}</span>"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:332
+#: ./genweb/organs/content/templates/sessio_view.pt:333
 msgid "Accio"
 msgstr "Acción"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:479
+#: ./genweb/organs/content/templates/sessio_view.pt:484
 #: ./genweb/organs/profiles/default/types/genweb.organs.acord.xml
 msgid "Acord"
 msgstr "Acuerdo"
@@ -78,7 +78,7 @@ msgid "Add content separated by -- and they will by added as Agreements."
 msgstr "El formato ha de ser un punto/subpunto/acuerdo por línea i sin el número ya que se calcúla automáticamente. Antes de cada punto/subpunto ha de ir una P. Y delante de cada acuerdo una A. Los subpuntos han de empezar por espacios en blanco. Dentro de un punto (P) pueden haber subpuntos (P) o acuerdos (A). Dentro de un acuerdo no puede existir nada. Por ejemplo:<br><samp>P Informe del rector<br>P Comissión Económica<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A Aprobación del estado de tesorería<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P Aprobación del expediente 03/23<br>A Discutir tema central<br>P Conclusiones<br></samp>"
 
 #: ./genweb/organs/content/impersonate_as.py:51
-#: ./genweb/organs/content/templates/sessio_view.pt:440
+#: ./genweb/organs/content/templates/sessio_view.pt:441
 msgid "Afectat"
 msgstr "Afectado"
 
@@ -112,16 +112,16 @@ msgstr "Número de acuerdo"
 msgid "Agreements list"
 msgstr "Acuerdos"
 
-#: ./genweb/organs/content/document.py:53
+#: ./genweb/organs/content/document.py:54
 msgid "Alternate description"
 msgstr "Contenido restringido"
 
 #: ./genweb/organs/content/impersonate_as.py:47
-#: ./genweb/organs/content/templates/sessio_view.pt:441
+#: ./genweb/organs/content/templates/sessio_view.pt:442
 msgid "Altres"
 msgstr "Otros"
 
-#: ./genweb/organs/utils.py:118
+#: ./genweb/organs/utils.py:119
 msgid "Anonymous user"
 msgstr "Usuario anónimo"
 
@@ -220,11 +220,11 @@ msgstr "Se han guardado los cambios."
 msgid "Cliqueu <a href=\"./\">aqui</a> per tornar al mode de visualitzacio per defecte."
 msgstr "Clique <a href=\"./\">aquí</a> para volver al modo de visualización por defecto."
 
-#: ./genweb/organs/content/document.py:54
+#: ./genweb/organs/content/document.py:55
 msgid "Content used to hide protected content"
 msgstr "Contenido de carácter restringido del documento, para uso interno."
 
-#: ./genweb/organs/content/document.py:45
+#: ./genweb/organs/content/document.py:46
 #: ./genweb/organs/content/templates/document_view.pt:26
 msgid "Contingut public"
 msgstr "Contenido público"
@@ -258,11 +258,11 @@ msgstr "Datos"
 msgid "Data"
 msgstr "Fecha"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:329
+#: ./genweb/organs/content/templates/sessio_view.pt:330
 msgid "Data i hora"
 msgstr "Fecha y hora"
 
-#: ./genweb/organs/content/document.py:46
+#: ./genweb/organs/content/document.py:47
 msgid "Default content shown in the document view"
 msgstr "Contenido público del documento."
 
@@ -286,7 +286,11 @@ msgstr "Punto eliminado"
 msgid "Desenvolupament de la sessio"
 msgstr "Desarrollo de la sesión"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:338
+#: ./genweb/organs/content/templates/sessio_view.pt:446
+msgid "Desplega tot <i style=\"color: #557c95\" class=\"fa fa-chevron-down\" aria-hidden=\"true\"></i>"
+msgstr "Desplega todo <i style=\"color: #557c95\" class=\"fa fa-chevron-down\" aria-hidden=\"true\"></i>"
+
+#: ./genweb/organs/content/templates/sessio_view.pt:339
 msgid "Destinataris"
 msgstr "Destinatarios"
 
@@ -298,7 +302,7 @@ msgstr "Día/Hora fin"
 msgid "Dia/Hora inici"
 msgstr "Día/Hora inicio"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:481
+#: ./genweb/organs/content/templates/sessio_view.pt:486
 #: ./genweb/organs/profiles/default/types/genweb.organs.document.xml
 msgid "Document"
 msgstr "Documento"
@@ -311,7 +315,7 @@ msgstr "Literales y colores que se utilizarán como estados de aprobación de lo
 msgid "Enter the from used in the mail form"
 msgstr "Dirección de correo del remitente de las notificaciones (persona o grupo) del órgano."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:388
+#: ./genweb/organs/content/templates/sessio_view.pt:389
 msgid "Envia"
 msgstr "Envía"
 
@@ -345,7 +349,7 @@ msgstr "Lista de miembros que se excusan de la asisténcia de la sesión."
 msgid "Fer servir capcalera personalitzada?"
 msgstr "Utilizar la cabecera personalizada"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:480
+#: ./genweb/organs/content/templates/sessio_view.pt:485
 #: ./genweb/organs/profiles/default/types/genweb.organs.file.xml
 msgid "File"
 msgstr "Fichero"
@@ -359,7 +363,7 @@ msgstr "Contenido del fichero"
 msgid "Fitxer reservat"
 msgstr "Fichero restringido"
 
-#: ./genweb/organs/content/templates/acord_view.pt:42
+#: ./genweb/organs/content/templates/acord_view.pt:40
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:39
 msgid "Fitxers i documents"
 msgstr "Ficheros y documentos"
@@ -390,7 +394,7 @@ msgstr "Historial"
 msgid "If you want to add a video file, not a url, there is a trick, you must add an Audio Type and leave this field empty."
 msgstr "URL del video de la grabación de la sesión. Normalmente hay que utilizar herramientas de streaming como Youtube, Vimeo, UPCtv, y enlazarlo aquí. No se aconseja adjuntar el fichero de video debido a su tamaño y problemas en la distribución vía web."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:366
+#: ./genweb/organs/content/templates/sessio_view.pt:367
 msgid "Importar llista de punts i subpunts"
 msgstr "Creación ágil"
 
@@ -418,7 +422,7 @@ msgid "Informar de la sessio"
 msgstr "Informa del resultado de la sesión"
 
 #: ./genweb/organs/content/acta.py:25
-#: ./genweb/organs/content/file.py:20
+#: ./genweb/organs/content/file.py:22
 msgid "Invalid PDF file"
 msgstr "El fichero seleccionado no parece un fichero PDF."
 
@@ -441,7 +445,7 @@ msgstr "Lista de nombres de los miembros que habrá que añadir a la convocatori
 msgid "Llista de punts en el format del butlleti."
 msgstr "Lista de puntos en el formato del boletín para hacer Control+C y Control+V y copiarlo en la página del Genweb que se desee."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:420
+#: ./genweb/organs/content/templates/sessio_view.pt:421
 msgid "Llista punts"
 msgstr "Creación ágil"
 
@@ -481,7 +485,7 @@ msgid "Massive agreements imported"
 msgstr "Creación ágil"
 
 #: ./genweb/organs/content/impersonate_as.py:49
-#: ./genweb/organs/content/templates/sessio_view.pt:439
+#: ./genweb/organs/content/templates/sessio_view.pt:440
 msgid "Membre"
 msgstr "Miembro"
 
@@ -552,15 +556,15 @@ msgstr "Listado de personas que no han asistido a la sesión."
 msgid "No s'han creat tot els elements perque no segueixen la norma. Dintre d'un Acord no es pot afeigr res."
 msgstr "No se han creado los elementos porque no siguen la norma: Dentro de un acuerdo no se puede crear nada más."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:335
+#: ./genweb/organs/content/templates/sessio_view.pt:336
 msgid "Notificador"
 msgstr "Notificador"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:399
+#: ./genweb/organs/content/templates/sessio_view.pt:400
 msgid "Nou acord"
 msgstr "Añade acuerdo"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:377
+#: ./genweb/organs/content/templates/sessio_view.pt:378
 msgid "Nou punt"
 msgstr "Añade punto"
 
@@ -595,7 +599,7 @@ msgid "Operation Cancelled."
 msgstr "Se ha cancelado la operación."
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:138
-#: ./genweb/organs/content/templates/sessio_view.pt:429
+#: ./genweb/organs/content/templates/sessio_view.pt:430
 msgid "Ordre del dia"
 msgstr "Orden del día"
 
@@ -663,14 +667,18 @@ msgstr "Plantillas"
 msgid "Please upload a media file"
 msgstr "Seleccione un fichero de áudio"
 
-#: ./genweb/organs/content/file.py:50
+#: ./genweb/organs/content/file.py:52
 #: ./genweb/organs/content/templates/file_view.pt:24
 msgid "Please upload a public file"
 msgstr "Fichero público"
 
-#: ./genweb/organs/content/file.py:58
+#: ./genweb/organs/content/file.py:60
 msgid "Please upload a reserved file"
 msgstr "Fichero restringido"
+
+#: ./genweb/organs/content/templates/sessio_view.pt:447
+msgid "Plega tot <i style=\"color: #557c95\" class=\"fa fa-chevron-up\" aria-hidden=\"true\"></i>"
+msgstr "Plega todo <i style=\"color: #557c95\" class=\"fa fa-chevron-up\" aria-hidden=\"true\"></i>"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:145
 msgid "Presentacio"
@@ -708,7 +716,7 @@ msgstr "Contenido"
 msgid "Proposal point number"
 msgstr "Punto del orden del día"
 
-#: ./genweb/organs/content/file.py:51
+#: ./genweb/organs/content/file.py:53
 msgid "Published file description"
 msgstr " Fichero que contiene la parte pública del documento. Ha de ser en formato PDF."
 
@@ -721,7 +729,7 @@ msgstr "Punto informativo"
 msgid "Punt Title"
 msgstr "Título"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:421
+#: ./genweb/organs/content/templates/sessio_view.pt:422
 msgid "Recalcula punts/acords"
 msgstr "Numera acuerdos"
 
@@ -735,7 +743,7 @@ msgstr "Destinatarios"
 msgid "Reload proposalPoints manually"
 msgstr "Numera acuerdos"
 
-#: ./genweb/organs/content/file.py:59
+#: ./genweb/organs/content/file.py:61
 msgid "Reserved file description"
 msgstr "Fichero que contiene la parte restringida del documento."
 
@@ -876,7 +884,7 @@ msgstr "Listado de direcciones de las personas afectadas a las cuales se notific
 msgid "State"
 msgstr "Estado"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:478
+#: ./genweb/organs/content/templates/sessio_view.pt:483
 #: ./genweb/organs/profiles/default/types/genweb.organs.subpunt.xml
 msgid "Subpunt"
 msgstr "Punto informativo"
@@ -901,11 +909,11 @@ msgstr "Acta"
 msgid "Tab audio"
 msgstr "Audio"
 
-#: ./genweb/organs/content/document.py:21
+#: ./genweb/organs/content/document.py:22
 msgid "Tab document"
 msgstr "Documento"
 
-#: ./genweb/organs/content/file.py:28
+#: ./genweb/organs/content/file.py:30
 msgid "Tab file"
 msgstr "Fichero"
 
@@ -927,7 +935,7 @@ msgid "Tancar"
 msgstr "Cierra"
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:41
-#: ./genweb/organs/content/templates/sessio_view.pt:382
+#: ./genweb/organs/content/templates/sessio_view.pt:383
 msgid "Title"
 msgstr "Título"
 
@@ -937,7 +945,7 @@ msgstr "Título"
 msgid "Titol"
 msgstr "Título"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:404
+#: ./genweb/organs/content/templates/sessio_view.pt:405
 msgid "Titol del punt"
 msgstr "Título"
 
@@ -945,7 +953,7 @@ msgstr "Título"
 msgid "UPC Organs de Govern v2.0 (genweb.organs)"
 msgstr "UPC Organs de Govern v2.0 (genweb.organs)"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:432
+#: ./genweb/organs/content/templates/sessio_view.pt:433
 msgid "Veure com... <span class=\"caret\"></span>"
 msgstr "Ver como... <span class=\"caret\"></span>"
 
@@ -976,7 +984,7 @@ msgstr "[Acuerdo sin numerar]"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:165
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:81
-#: ./genweb/organs/content/templates/sessio_view.pt:532
+#: ./genweb/organs/content/templates/sessio_view.pt:537
 msgid "acord"
 msgstr "Acuerdo"
 
