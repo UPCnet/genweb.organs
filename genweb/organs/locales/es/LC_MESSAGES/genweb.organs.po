@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-08-04 07:57+0000\n"
+"POT-Creation-Date: 2017-09-18 09:39+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -121,7 +121,7 @@ msgstr "Contenido restringido"
 msgid "Altres"
 msgstr "Otros"
 
-#: ./genweb/organs/utils.py:119
+#: ./genweb/organs/utils.py:118
 msgid "Anonymous user"
 msgstr "Usuario anónimo"
 
@@ -402,12 +402,12 @@ msgstr "Creación ágil"
 #: ./genweb/organs/content/sessio.py:82
 #: ./genweb/organs/content/templates/impersonate_as.pt:79
 msgid "Incoming members list"
-msgstr "Convocados/Convocadas"
+msgstr "Miembros"
 
 #: ./genweb/organs/content/acta.py:66
 #: ./genweb/organs/content/sessio.py:83
 msgid "Incoming members list help"
-msgstr "Lista de nombres de los miembros convocados. Inicialmente son los miembros que componen el órgano."
+msgstr "Listado de nombres de los miembros convocados. Inicialmente son los miembros que componen el órgano."
 
 #: ./genweb/organs/browser/viewlets_templates/header.pt:41
 msgid "Info_del_Servei"
