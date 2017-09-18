@@ -84,6 +84,7 @@
     permission="cmf.ModifyPortalContent"
     />
 
+<!--
     <browser:page
       for="genweb.organs.content.organgovern.IOrgangovern"
       name="ws"
@@ -91,5 +92,6 @@
       layer="..interfaces.IGenwebOrgansLayer"
       permission="cmf.ModifyPortalContent"
       />
+-->
 
 </configure>

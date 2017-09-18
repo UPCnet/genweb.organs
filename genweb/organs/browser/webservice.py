@@ -4,11 +4,12 @@ from Products.CMFCore.utils import getToolByName
 
 
 class webservice(BrowserView):
-
+    # TODO: Enable it and make fully functional...
     def __call__(self):
         # http://localhost:8080/organs/ca/eetac/consell-de-govern/ws?id=CDG/2017/01/01
         # CDG/2017/01/01
         # http://localhost:8080/organs/ca/eetac/consell-de-govern/session1/informe-del-rector
+        # Maybe better... http://localhost:8080/organs/api/CDG/2017/01/01
         itemid = self.request.form.get('id')
         if itemid == '':
             pass
