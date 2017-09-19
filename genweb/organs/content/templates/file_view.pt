@@ -23,10 +23,16 @@
                          public_file_view_url string:${absolute_url}/@@display-file/visiblefile/;">
           <h3 tal:condition="viewReserved" i18n:translate="">Please upload a public file</h3>
           <p>
-            <a tal:attributes="href public_file_view_url">
+            <span tal:condition="not:view/isPDFpublic">
               <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
               <tal:name tal:content="context/visiblefile/filename">Filename</tal:name>
-            </a>
+            </span>
+            <tal:block tal:condition="view/isPDFpublic">
+              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+              <a tal:attributes="href public_file_view_url">
+                <tal:name tal:content="context/visiblefile/filename">Filename</tal:name>
+              </a>
+            </tal:block>
             <span class="discreet"
                 tal:define="size context/visiblefile/getSize;
                             kb python:size/1024">
@@ -57,10 +63,16 @@
                          reserved_file_view_url string:${absolute_url}/@@display-file/hiddenfile/;">
           <h3 i18n:translate=""> Fitxer reservat </h3>
           <p>
-            <a tal:attributes="href reserved_file_view_url">
+            <span tal:condition="not:view/isPDFprivat">
               <i class="fa fa-file" aria-hidden="true"></i>
               <tal:name tal:content="context/hiddenfile/filename">Filename</tal:name>
-            </a>
+            </span>
+            <tal:block tal:condition="view/isPDFprivat">
+              <i class="fa fa-file" aria-hidden="true"></i>
+              <a tal:attributes="href reserved_file_view_url">
+                <tal:name tal:content="context/hiddenfile/filename">Filename</tal:name>
+              </a>
+            </tal:block>
             <span class="discreet"
                 tal:define="size context/hiddenfile/getSize;
                             kb python:size/1024">

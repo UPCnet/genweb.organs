@@ -114,6 +114,20 @@ class View(grok.View):
         else:
             return False
 
+    def isPDFpublic(self):
+        isPDF = False
+        if self.context.visiblefile:
+            if 'application/pdf' in self.context.visiblefile.contentType:
+                isPDF = True
+        return isPDF
+
+    def isPDFprivat(self):
+        isPDF = False
+        if self.context.hiddenfile:
+            if 'application/pdf' in self.context.hiddenfile.contentType:
+                isPDF = True
+        return isPDF
+
     def canView(self):
         if self.context.visiblefile is not None and api.user.is_anonymous():
             return True
