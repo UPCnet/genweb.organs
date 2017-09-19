@@ -3,6 +3,8 @@ from five import grok
 from plone.dexterity.interfaces import IDexterityContent
 from plone import api
 from genweb.organs.interfaces import IGenwebOrgansLayer
+import json
+import transaction
 
 
 class changeInitialProposalPoint(grok.View):
@@ -24,4 +26,72 @@ class changeInitialProposalPoint(grok.View):
                                     path=item.getURL(),
                                     proposalPoint=value.proposalPoint,
                                     estat=value.estatsLlista))
-        return results
+        return json.dumps(results)
+
+
+class changeMimeType(grok.View):
+    # After migration, there was an error...
+    # Incorrect mimetypes in some pdf files
+    # application/force-download -->
+    # application/x-download -->
+    # application/x-octet-stream -->
+
+    grok.context(IDexterityContent)
+    grok.name('change_file_mimetype_to_pdf')
+    grok.require('cmf.ModifyPortalContent')
+    grok.layer(IGenwebOrgansLayer)
+
+    def render(self):
+        files = api.content.find(path='/', portal_type='genweb.organs.file')
+        results = []
+        oldvisible = newvisible = oldhidden = newhidden = ''
+        types = ['application/force-download', 'application/x-download', 'application/x-octet-stream']
+        for file in files:
+            item = file.getObject()
+            if item.visiblefile and item.hiddenfile:
+                oldvisible = item.visiblefile.contentType
+                oldhidden = item.hiddenfile.contentType
+                if item.visiblefile.contentType in types:
+                    item.visiblefile.contentType = 'application/pdf'
+                    newvisible = item.visiblefile.contentType
+                    transaction.commit()
+
+                if item.hiddenfile.contentType in types:
+                    item.hiddenfile.contentType = 'application/pdf'
+                    newhidden = item.hiddenfile.contentType
+                    transaction.commit()
+
+                results.append(dict(path=file.getURL(),
+                                    oldvisible=oldvisible,
+                                    oldhidden=oldhidden,
+                                    newvisible=newvisible,
+                                    newhidden=newhidden,))
+            elif item.hiddenfile:
+                oldvisible = newvisible = ''
+                oldhidden = item.hiddenfile.contentType
+                if item.hiddenfile.contentType in types:
+                    item.hiddenfile.contentType = 'application/pdf'
+                    newhidden = item.hiddenfile.contentType
+                    transaction.commit()
+
+                results.append(dict(path=file.getURL(),
+                                    oldvisible=oldvisible,
+                                    oldhidden=oldhidden,
+                                    newvisible=newvisible,
+                                    newhidden=newhidden,))
+
+            elif item.visiblefile:
+                oldvisible = item.visiblefile.contentType
+                oldhidden = newhidden = ''
+                if item.visiblefile.contentType in types:
+                    item.visiblefile.contentType = 'application/pdf'
+                    newvisible = item.visiblefile.contentType
+                    transaction.commit()
+
+                results.append(dict(path=file.getURL(),
+                                    oldvisible=oldvisible,
+                                    oldhidden=oldhidden,
+                                    newvisible=newvisible,
+                                    newhidden=newhidden,))
+
+        return json.dumps(results)
