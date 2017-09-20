@@ -85,7 +85,7 @@ class View(grok.View):
             if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'Manager' in roles:
                 return True
             else:
-                raise Unathorized
+                raise Unauthorized
         except:
             raise Unauthorized
 
