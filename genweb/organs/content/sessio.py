@@ -16,6 +16,7 @@ from zope.i18n import translate
 from z3c.form.interfaces import HIDDEN_MODE  # INPUT_MODE, DISPLAY_MODE
 from plone.event.interfaces import IEventAccessor
 from operator import itemgetter
+import datetime
 
 
 grok.templatedir("templates")
@@ -140,7 +141,11 @@ def numSessioDefaultValue(data):
     sessions = api.content.find(
         portal_type='genweb.organs.sessio',
         context=data.context)
-    total = len(sessions)
+    total = 0
+    year = datetime.datetime.today().strftime('%Y')
+    for session in sessions:
+        if session.getObject().start.strftime('%Y') == year:
+            total = total + 1
     return '{0}'.format(str(total + 1).zfill(2))
 
 
@@ -151,7 +156,11 @@ def numSessioShowOnlyDefaultValue(data):
     sessions = api.content.find(
         portal_type='genweb.organs.sessio',
         context=data.context)
-    total = len(sessions)
+    total = 0
+    year = datetime.datetime.today().strftime('%Y')
+    for session in sessions:
+        if session.getObject().start.strftime('%Y') == year:
+            total = total + 1
     return '{0}'.format(str(total + 1).zfill(2))
 
 
