@@ -27,7 +27,7 @@ class InvalidAudioFile(ValidationError):
 
 
 class IAudio(form.Schema):
-    """ Tipus Audio: only audio files are permitted """
+    """ Tipus Audio: only audio files are valid """
 
     fieldset('audio',
              label=_(u'Tab audio'),
@@ -63,7 +63,7 @@ def validateAudioType(value):
     if value is not None:
         mimetype = get_contenttype(value)
         if mimetype.split('/')[0] != 'audio':
-            # If opus file permit it...
+            # If it is an opus file then is valid
             if value.filename.split('.')[-1:][0] != 'opus' and get_contenttype(value) != 'application/octet-stream':
                 raise InvalidAudioFile(mimetype)
 
@@ -78,16 +78,17 @@ class View(grok.View):
     grok.template('audio_view')
 
     def canView(self):
-        """ Return true if user is Editor or Manager """
-        username = api.user.get_current().id
-        if username:
+        """ Return true if user is Editor/Secretari/Manager """
+        if api.user.is_anonymous():
+            raise Unauthorized
+        else:
+            username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
             if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'Manager' in roles:
                 return True
             else:
                 raise Unauthorized
-        else:
-            raise Unauthorized
+        raise Unauthorized
 
     def is_opusfile(self):
         # Check if the file is OPUS type

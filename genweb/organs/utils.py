@@ -12,81 +12,72 @@ from plone.app.layout.navigation.root import getNavigationRootObject
 
 def isAfectat(self):
     """ Return true if user is Afectat or Manager """
-    try:
+    if api.user.is_anonymous():
+        return False
+    else:
         username = api.user.get_current().id
         roles = api.user.get_roles(username=username, obj=self.context)
         if 'OG4-Afectat' in roles:
             return True
         else:
             return False
-    except:
-        return False
+    return False
 
 
 def isMembre(self):
     """ Return true if user is Membre or Manager """
-    try:
+    if api.user.is_anonymous():
+        return False
+    else:
         username = api.user.get_current().id
         roles = api.user.get_roles(username=username, obj=self.context)
         if 'OG3-Membre' in roles:
             return True
         else:
             return False
-    except:
-        return False
+    return False
 
 
 def isEditor(self):
     """ Returns true if user is Editor or Manager """
-    try:
+    if api.user.is_anonymous():
+        return False
+    else:
         username = api.user.get_current().id
         roles = api.user.get_roles(username=username, obj=self.context)
         if 'OG2-Editor' in roles:
             return True
         else:
             return False
-    except:
-        return False
+    return False
 
 
 def isSecretari(self):
     """ Return true if user is Secretari or Manager """
-    try:
+    if api.user.is_anonymous():
+        return False
+    else:
         username = api.user.get_current().id
         roles = api.user.get_roles(username=username, obj=self.context)
         if 'OG1-Secretari' in roles:
             return True
         else:
             return False
-    except:
-        return False
+    return False
 
 
 def isManager(self):
     """ Return true if user is Manager """
-    try:
+    if api.user.is_anonymous():
+        return False
+    else:
         username = api.user.get_current().id
         roles = api.user.get_roles(username=username, obj=self.context)
         if 'Manager' in roles:
             return True
         else:
             return False
-    except:
-        return False
-
-
-def checkRoles(self):
-    username = api.user.get_current().id
-    if username is None:
-        return 'Anonymous'
-    roles = api.user.get_roles(username=username, obj=self.context)
-
-    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or \
-       'OG3-Membre' in roles or 'OG4-Afectat' in roles or \
-       'Manager' in roles:
-        return True
-    else:
-        return False
+    return False
 
 
 def addEntryLog(context, sender, message, recipients):
@@ -96,6 +87,7 @@ def addEntryLog(context, sender, message, recipients):
             message: the message
             recipients: the recipients of the message
     """
+    return
     KEY = 'genweb.organs.logMail'
     annotations = IAnnotations(context)
 
@@ -113,8 +105,7 @@ def addEntryLog(context, sender, message, recipients):
         dateMail = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
 
         if not sender:
-            anon = api.user.is_anonymous()
-            if anon:
+            if api.user.is_anonymous():
                 sender = _(u'Anonymous user')
             else:
                 portal = api.portal.get()
@@ -122,20 +113,21 @@ def addEntryLog(context, sender, message, recipients):
                 # We use the most preferent plugin
                 try:
                     pplugin = plugins[2][1]
-                    all_user_properties = pplugin.enumerateUsers(api.user.get_current().id)
+                    user_id = api.user.get_current().id
+                    all_user_properties = pplugin.enumerateUsers(user_id)
                     fullname = ''
                     for user in all_user_properties:
-                        if user['id'] == api.user.get_current().id:
+                        if user['id'] == user_id:
                             fullname = user['sn']
                             pass
                     if fullname:
-                        sender = fullname + ' [' + api.user.get_current().id + ']'
+                        sender = fullname + ' [' + user_id + ']'
                     else:
-                        sender = api.user.get_current().id
+                        sender = user_id
 
                 except:
                     # Not LDAP plugin configured
-                    sender = api.user.get_current().fullname + ' [' + api.user.get_current().id + ']'
+                    sender = api.user.get_current().fullname + ' [' + user_id + ']'
         try:
             index = len(annotations.get(KEY))
         except:
@@ -165,30 +157,26 @@ def FilesandDocumentsInside(self):
         if obj.portal_type == 'genweb.organs.file':
             # És un File
             classCSS = 'fa fa-file-pdf-o'
-        else:
+        if obj.portal_type == 'genweb.organs.document':
             # És un document
             classCSS = 'fa fa-file-text-o'
-        anonymous = api.user.is_anonymous()
-        if anonymous:
+        if api.user.is_anonymous():
+            # En un document/fitxer, mostrem part publica si la té
             if obj.portal_type == 'genweb.organs.document':
-                # Es un document/fitxer, mostrem part publica si la té
                 if obj.getObject().defaultContent:
                     results.append(dict(title=obj.Title,
                                         absolute_url=obj.getURL(),
-                                        classCSS=classCSS,
-                                        hidden=False))
+                                        classCSS=classCSS))
             if obj.portal_type == 'genweb.organs.file':
                 if obj.getObject().visiblefile:
                     results.append(dict(title=obj.Title,
                                         absolute_url=obj.getURL(),
-                                        classCSS=classCSS,
-                                        hidden=False))
+                                        classCSS=classCSS))
         else:
             # si està validat els mostrem tots
             results.append(dict(title=obj.Title,
                                 absolute_url=obj.getURL(),
-                                classCSS=classCSS,
-                                hidden=False))
+                                classCSS=classCSS))
     return results
 
 
@@ -243,7 +231,6 @@ def session_wf_state(self):
     from genweb.organs.content.sessio import ISessio
     if ISessio.providedBy(self.context):
         portal_state = api.content.get_state(obj=self.context)
-
         return portal_state
     else:
         portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')

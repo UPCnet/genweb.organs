@@ -56,16 +56,17 @@ class Message(form.SchemaForm):
     # Disable the view if no roles in username
     def update(self):
         """ Return true if user is Editor or Manager """
-        username = api.user.get_current().id
-        if username:
+        if api.user.is_anonymous():
+            raise Unauthorized
+        else:
+            username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
             if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'Manager' in roles:
                 self.request.set('disable_border', True)
                 super(Message, self).update()
             else:
                 raise Unauthorized
-        else:
-            raise Unauthorized
+        raise Unauthorized
 
     def updateWidgets(self):
         super(Message, self).updateWidgets()

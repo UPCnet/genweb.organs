@@ -16,6 +16,7 @@ from zope.i18n import translate
 from z3c.form.interfaces import HIDDEN_MODE  # INPUT_MODE, DISPLAY_MODE
 from plone.event.interfaces import IEventAccessor
 from operator import itemgetter
+import datetime
 
 
 grok.templatedir("templates")
@@ -140,7 +141,11 @@ def numSessioDefaultValue(data):
     sessions = api.content.find(
         portal_type='genweb.organs.sessio',
         context=data.context)
-    total = len(sessions)
+    total = 0
+    year = datetime.datetime.today().strftime('%Y')
+    for session in sessions:
+        if session.getObject().start.strftime('%Y') == year:
+            total = total + 1
     return '{0}'.format(str(total + 1).zfill(2))
 
 
@@ -151,7 +156,11 @@ def numSessioShowOnlyDefaultValue(data):
     sessions = api.content.find(
         portal_type='genweb.organs.sessio',
         context=data.context)
-    total = len(sessions)
+    total = 0
+    year = datetime.datetime.today().strftime('%Y')
+    for session in sessions:
+        if session.getObject().start.strftime('%Y') == year:
+            total = total + 1
     return '{0}'.format(str(total + 1).zfill(2))
 
 
@@ -204,22 +213,6 @@ class Edit(dexterity.EditForm):
 class View(grok.View):
     grok.context(ISessio)
     grok.template('sessio_view')
-
-    def objectState(self):
-        # while debugging...
-        return api.content.get_state(obj=self.context)
-
-    def roles(self):
-        # while debugging...
-        try:
-            if api.user.is_anonymous():
-                return 'Annonymous'
-            else:
-                username = api.user.get_current().id
-                roles = api.user.get_roles(username=username, obj=self.context)
-                return roles
-        except:
-            return False
 
     def isAfectat(self):
         return utils.isAfectat(self)
@@ -412,38 +405,35 @@ class View(grok.View):
     def ActesInside(self):
         """ Retorna les actes creades aquí dintre (sense tenir compte estat)
             Nomes ho veuen els Managers / Editors / Secretari
-            Els anonymus no les veuen
+            Els anonymous no les veuen
         """
         if not api.user.is_anonymous():
-            username = api.user.get_current().id
-            if username:
-                canViewActes = self.canViewTabActes()
-                if canViewActes:
-                    folder_path = '/'.join(self.context.getPhysicalPath())
-                    portal_catalog = getToolByName(self, 'portal_catalog')
-                    values = portal_catalog.searchResults(
-                        portal_type='genweb.organs.acta',
-                        sort_on='getObjPositionInParent',
-                        path={'query': folder_path,
-                              'depth': 1})
-                    if values:
-                        results = []
-                        for obj in values:
-                            acc = IEventAccessor(self.context)
-                            if acc.start:
-                                dataSessio = acc.start.strftime('%d/%m/%Y')
-                            else:
-                                dataSessio = ''
-                            results.append(dict(title=obj.Title,
-                                                absolute_url=obj.getURL(),
-                                                date=dataSessio))
-                        return results
-                    else:
-                        return False
-            else:
-                return False
+            canViewActes = self.canViewTabActes()
+            if canViewActes:
+                folder_path = '/'.join(self.context.getPhysicalPath())
+                portal_catalog = getToolByName(self, 'portal_catalog')
+                values = portal_catalog.searchResults(
+                    portal_type='genweb.organs.acta',
+                    sort_on='getObjPositionInParent',
+                    path={'query': folder_path,
+                          'depth': 1})
+                if values:
+                    results = []
+                    for obj in values:
+                        acc = IEventAccessor(self.context)
+                        if acc.start:
+                            dataSessio = acc.start.strftime('%d/%m/%Y')
+                        else:
+                            dataSessio = ''
+                        results.append(dict(title=obj.Title,
+                                            absolute_url=obj.getURL(),
+                                            date=dataSessio))
+                    return results
+                else:
+                    return False
         else:
             return False
+        return False
 
     def getAnnotations(self):
         """ Get send mail annotations
@@ -533,10 +523,8 @@ class View(grok.View):
                   'depth': 1})
         results = []
         for obj in values:
-
-            anonymous = api.user.is_anonymous()
-            if anonymous:
-                # Es un document, mostrem part publica si la té
+            if api.user.is_anonymous():
+                # Es un Document, mostrem part publica si la té
                 if obj.portal_type == 'genweb.organs.document':
                     classCSS = 'fa fa-file-text-o'
                     if obj.getObject().defaultContent:
@@ -545,8 +533,8 @@ class View(grok.View):
                                             absolute_url=obj.getURL(),
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
-                # es un fitxer, mostrem part publica si la té
-                if obj.portal_type == 'genweb.organs.file':
+                # És un File, mostrem part publica si la té
+                else:
                     classCSS = 'fa fa-file-pdf-o'
                     if obj.getObject().visiblefile:
                         results.append(dict(title=obj.Title,
@@ -555,12 +543,12 @@ class View(grok.View):
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
             else:
-                if obj.portal_type == 'genweb.organs.file':
+                if obj.portal_type == 'genweb.organs.document':
+                    # És un Document
+                    classCSS = 'fa fa-file-text-o'
+                else:
                     # És un File
                     classCSS = 'fa fa-file-pdf-o'
-                else:
-                    # És un document
-                    classCSS = 'fa fa-file-text-o'
                 # si està validat els mostrem tots
                 results.append(dict(title=obj.Title,
                                     portal_type=obj.portal_type,

@@ -216,7 +216,3 @@
 </div>
 
 </tal:block>
-
-<!-- <div style="background-color: #aaa;">
-  <span>Current role:</span> <span tal:content="viewlet/role"></span>
-</div> -->

@@ -50,7 +50,9 @@ class Message(form.SchemaForm):
         if migrated is True:
             raise Unauthorized
 
-        try:
+        if api.user.is_anonymous():
+            raise Unauthorized
+        else:
             username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
             if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'Manager' in roles:
@@ -58,8 +60,7 @@ class Message(form.SchemaForm):
                 super(Message, self).update()
             else:
                 raise Unauthorized
-        except:
-            raise Unauthorized
+        raise Unauthorized
 
     def updateWidgets(self):
         super(Message, self).updateWidgets()
