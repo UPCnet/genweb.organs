@@ -28,16 +28,15 @@ class ShowSessionAs(form.SchemaForm):
     def getUserRole(self):
         # Només els rols Reponsable, Editor i Manager poden veure aquesta vista
         role = self.request.form.get('id', '')
-        if api.user.is_anonymous():
-            return False
-        else:
-            username = api.user.get_current().id
+        username = api.user.get_current().id
+        if username:
             roles = api.user.get_roles(username=username, obj=self.context)
             if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
                 return role
             else:
                 return False
-        return False
+        else:
+            return False
 
     def simulation(self):
         # Obtenim rol usuari que cal veure i fer la simulació
