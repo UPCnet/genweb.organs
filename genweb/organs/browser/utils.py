@@ -46,6 +46,7 @@ class changeMimeType(grok.View):
         results = []
         oldvisible = newvisible = oldhidden = newhidden = ''
         types = ['application/force-download', 'application/x-download', 'application/x-octet-stream']
+        changed = False
         for file in files:
             item = file.getObject()
             if item.visiblefile and item.hiddenfile:
@@ -54,31 +55,36 @@ class changeMimeType(grok.View):
                 if item.visiblefile.contentType in types:
                     item.visiblefile.contentType = 'application/pdf'
                     newvisible = item.visiblefile.contentType
+                    changed = True
                     transaction.commit()
 
                 if item.hiddenfile.contentType in types:
                     item.hiddenfile.contentType = 'application/pdf'
                     newhidden = item.hiddenfile.contentType
+                    changed = True
                     transaction.commit()
 
                 results.append(dict(path=file.getURL(),
                                     oldvisible=oldvisible,
                                     oldhidden=oldhidden,
                                     newvisible=newvisible,
-                                    newhidden=newhidden,))
+                                    newhidden=newhidden,
+                                    changed=changed))
             elif item.hiddenfile:
                 oldvisible = newvisible = ''
                 oldhidden = item.hiddenfile.contentType
                 if item.hiddenfile.contentType in types:
                     item.hiddenfile.contentType = 'application/pdf'
                     newhidden = item.hiddenfile.contentType
+                    changed = True
                     transaction.commit()
 
                 results.append(dict(path=file.getURL(),
                                     oldvisible=oldvisible,
                                     oldhidden=oldhidden,
                                     newvisible=newvisible,
-                                    newhidden=newhidden,))
+                                    newhidden=newhidden,
+                                    changed=changed))
 
             elif item.visiblefile:
                 oldvisible = item.visiblefile.contentType
@@ -86,12 +92,14 @@ class changeMimeType(grok.View):
                 if item.visiblefile.contentType in types:
                     item.visiblefile.contentType = 'application/pdf'
                     newvisible = item.visiblefile.contentType
+                    changed = True
                     transaction.commit()
 
                 results.append(dict(path=file.getURL(),
                                     oldvisible=oldvisible,
                                     oldhidden=oldhidden,
                                     newvisible=newvisible,
-                                    newhidden=newhidden,))
+                                    newhidden=newhidden,
+                                    changed=changed))
 
         return json.dumps(results)
