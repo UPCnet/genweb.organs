@@ -1,11 +1,22 @@
 Changelog
 =========
 
-0.9 (unreleased)
+0.9 (2017-09-20)
 ----------------
 
-- Nothing changed yet.
-
+* added changed value to count items [Roberto Diaz]
+* added changed to code [Roberto Diaz]
+* mispelled error [Roberto Diaz]
+* BUG: Fix session number based on year, not on folder [Roberto Diaz]
+* BUG: Error in user not validated [Roberto Diaz]
+* UNDO "change check user_id code" Found errors with some raises. [Roberto Diaz]
+*       This reverts commit 4ca102bb6e44bdc448827f5da37b36ed2a8529d0. [Roberto Diaz]
+* change check user_id code [Roberto Diaz]
+* change mimetype funtion [Roberto Diaz]
+* show href in file to view in web if it is a PDF only (docs not show, only download) [Roberto Diaz]
+* added function to change Aprovat to Informat in default Punt 0 [Roberto Diaz]
+* disable WS [Roberto Diaz]
+* changed Convocats/Convocades to Membres [Roberto Diaz]
 
 0.8 (2017-08-04)
 ----------------
