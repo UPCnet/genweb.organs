@@ -46,8 +46,8 @@ class changeMimeType(grok.View):
         results = []
         oldvisible = newvisible = oldhidden = newhidden = ''
         types = ['application/force-download', 'application/x-download', 'application/x-octet-stream']
-        changed = False
         for file in files:
+            changed = False
             item = file.getObject()
             if item.visiblefile and item.hiddenfile:
                 oldvisible = item.visiblefile.contentType
