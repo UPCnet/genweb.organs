@@ -7,7 +7,7 @@
     <div class="row-fluid">
       <div class="span12">
         <p>
-          <a href="http://www.upc.edu" target="_blank">
+          <a href="https://www.upc.edu" target="_blank">
             <abbr rel="tooltip" data-placement="top" title="Universitat Politècnica de Catalunya · BarcelonaTech">UPC</abbr>
             <img class="img_blank"
                  tal:attributes="src string:${portal_url}/++genweb++static/images/blank_blau.png"
