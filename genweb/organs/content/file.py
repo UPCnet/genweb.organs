@@ -129,15 +129,13 @@ class View(grok.View):
         return isPDF
 
     def canView(self):
-        if self.context.visiblefile is not None and api.user.is_anonymous():
-            return True
         if not api.user.is_anonymous():
             return True
         raise Unauthorized
 
     def viewPublic(self):
         if self.context.visiblefile and self.context.hiddenfile:
-            if self.isSecretari() or self.isEditor() or self.isAfectat() or self.isManager() or api.user.is_anonymous():
+            if self.isSecretari() or self.isEditor() or self.isManager():
                 return True
         elif self.context.hiddenfile:
             if self.isSecretari() or self.isEditor() or self.isManager():
@@ -145,7 +143,10 @@ class View(grok.View):
             else:
                 return False
         elif self.context.visiblefile:
-            return True
+            if self.isSecretari() or self.isEditor() or self.isManager() or self.isMembre():
+                return True
+            else:
+                return False
         else:
             return False
 

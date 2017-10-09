@@ -13,6 +13,8 @@ from plone.supermodel.directives import fieldset
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.directives import dexterity
 from operator import itemgetter
+from genweb.organs import utils
+from AccessControl import Unauthorized
 
 
 organType = SimpleVocabulary(
@@ -305,3 +307,22 @@ class View(grok.View):
                                     data=value.horaInici.strftime('%d/%m/%Y'),
                                     hiddenOrder=value.horaInici.strftime('%Y%m%d')))
         return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
+
+    def canView(self):
+        # Permissions to view acords based on ODT definition file
+        # TODO: add if is obert /restricted to ...
+        estatSessio = utils.session_wf_state(self)
+        if utils.isManager(self):
+            return True
+        elif estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            return True
+        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        else:
+            raise Unauthorized

@@ -16,6 +16,7 @@ from zope.i18n import translate
 from z3c.form.interfaces import HIDDEN_MODE  # INPUT_MODE, DISPLAY_MODE
 from plone.event.interfaces import IEventAccessor
 from operator import itemgetter
+from AccessControl import Unauthorized
 import datetime
 
 
@@ -380,7 +381,7 @@ class View(grok.View):
                   'depth': 1})
         results = []
         for obj in values:
-            item = obj._unrestrictedGetObject()
+            item = obj.getObject()
             if obj.portal_type == 'genweb.organs.acord':
                 if item.agreement:
                     agreement = item.agreement
@@ -610,3 +611,22 @@ class View(grok.View):
                                 hiddenOrder=any + num,
                                 estatsLlista=value.estatsLlista))
         return sorted(results, key=itemgetter('hiddenOrder'))
+
+    def canView(self):
+        # Permissions to view acords based on ODT definition file
+        # TODO: add if is obert /restricted to ...
+        estatSessio = utils.session_wf_state(self)
+        if utils.isManager(self):
+            return True
+        elif estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            return True
+        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        else:
+            raise Unauthorized

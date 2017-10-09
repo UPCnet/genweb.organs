@@ -7,7 +7,7 @@
       i18n:domain="genweb.organs">
 <body>
 
-<metal:main fill-slot="main">
+<metal:main fill-slot="main" tal:condition="view/canView">
     <tal:main-macro metal:define-macro="main"
         tal:define="loginfo view/getAnnotations;
                 isAfectat view/isAfectat;
