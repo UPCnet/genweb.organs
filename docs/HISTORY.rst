@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.10 (unreleased)
+0.10 (2017-10-09)
 -----------------
 
-- Nothing changed yet.
-
+* temporal commit to make imposible to view to Afectat and others [Roberto Diaz]
+* Change homeupc protocol [Corina Riba]
 
 0.9 (2017-09-20)
 ----------------
