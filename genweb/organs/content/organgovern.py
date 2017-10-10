@@ -316,20 +316,25 @@ class View(grok.View):
         return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
 
     def canView(self):
-        # Permissions to view acords based on ODT definition file
-        # TODO: add if is obert /restricted to ...
-        estatSessio = utils.session_wf_state(self)
+        # Permissions to view ORGANS DE GOVERN
+        # Bypass if manager
         if utils.isManager(self):
             return True
-        elif estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+        organType = self.context.organType
+        # If Obert
+        if organType == 'open_organ':
             return True
-        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
+        # if restricted_to_members_organ
+        elif organType == 'restricted_to_members_organ':
+            if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            else:
+                raise Unauthorized
+        # if restricted_to_affected_organ
+        elif organType == 'restricted_to_affected_organ':
+            if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            else:
+                raise Unauthorized
         else:
             raise Unauthorized
