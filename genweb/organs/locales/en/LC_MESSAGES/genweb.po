@@ -59,3 +59,12 @@ msgstr "Planning"
 
 msgid "en_correccio"
 msgstr "Modification"
+
+msgid "open_organ"
+msgstr "Open"
+
+msgid "restricted_to_members_organ"
+msgstr "Restricted to members"
+
+msgid "restricted_to_affected_organ"
+msgstr "Restricted to affected"

@@ -48,6 +48,6 @@ class View(grok.View):
             results.append(dict(title=value.title,
                                 absolute_url=value.absolute_url(),
                                 acronim=value.acronim,
-                                tipus=value.tipus,
+                                organType=value.organType,
                                 review_state=obj.review_state))
         return results

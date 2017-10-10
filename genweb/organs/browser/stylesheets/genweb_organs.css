@@ -1652,7 +1652,7 @@ span.estatpunt {
     text-align: center !important;
 }
 
-.realitzada, .label-realitzada {
+.realitzada, .label-realitzada, .Obert, .label-Obert {
     background-color: #456211 !important;
     padding: 1px 4px 2px !important;
     border-radius: 3px !important;
@@ -1678,7 +1678,9 @@ span.estatpunt {
     text-align: center !important;
 }
 
-.en_correccio, .label-en_correccio {
+.en_correccio, .label-en_correccio,
+.restricted_to_members_organ, .label-restricted_to_members_organ,
+.restricted_to_affected_organ, .label-restricted_to_affected_organ {
     background-color:  #a62e1f !important;
     padding: 1px 4px 2px !important;
     border-radius: 3px !important;

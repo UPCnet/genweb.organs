@@ -59,3 +59,12 @@ msgstr "En planificació"
 
 msgid "en_correccio"
 msgstr "En modificació"
+
+msgid "open_organ"
+msgstr "Obert"
+
+msgid "restricted_to_members_organ"
+msgstr "Restringit a membres"
+
+msgid "restricted_to_affected_organ"
+msgstr "Restringit a afectats"

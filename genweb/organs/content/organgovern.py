@@ -13,14 +13,15 @@ from plone.supermodel.directives import fieldset
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.directives import dexterity
 from operator import itemgetter
+from plone.indexer import indexer
 from genweb.organs import utils
 from AccessControl import Unauthorized
 
 
-organType = SimpleVocabulary(
-    [SimpleTerm(value='Open', title=_(u'Open')),
-     SimpleTerm(value='Restricted_to_Members', title=_(u'Restricted_to_Members')),
-     SimpleTerm(value='Restricted_to_Affected', title=_(u'Restricted_to_Affected')),
+types = SimpleVocabulary(
+    [SimpleTerm(value='open_organ', title=_(u'Open')),
+     SimpleTerm(value='restricted_to_members_organ', title=_(u'Restricted_to_Members')),
+     SimpleTerm(value='restricted_to_affected_organ', title=_(u'Restricted_to_Affected')),
      ]
 )
 
@@ -30,12 +31,12 @@ defaultEstats = _(u"<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>
 
 
 class IOrgangovern(form.Schema):
-    """ Tipus Organ de Govern
+    """ Organ de Govern
     """
 
     fieldset('organ',
              label=_(u'Tab organ'),
-             fields=['title', 'acronim', 'descripcioOrgan', 'fromMail', 'tipus', 'logoOrgan', 'estatsLlista']
+             fields=['title', 'acronim', 'descripcioOrgan', 'fromMail', 'organType', 'logoOrgan', 'estatsLlista']
              )
 
     fieldset('assistents',
@@ -76,13 +77,11 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
-    # TODO: Enable this quan es facin la resta d'organs (restricted, etc...)
-    directives.omitted('tipus')
-    tipus = schema.Choice(
+    organType = schema.Choice(
         title=_(u"Organ Govern type"),
-        vocabulary=organType,
-        default=_(u'Open'),
-        required=False,
+        vocabulary=types,
+        default=_(u'open_organ'),
+        required=True,
     )
 
     directives.widget(membresOrgan=WysiwygFieldWidget)
@@ -161,6 +160,14 @@ class IOrgangovern(form.Schema):
         description=_(u"Footer help"),
         required=False,
     )
+
+
+@indexer(IOrgangovern)
+def organType(obj):
+    return obj.organType
+
+
+grok.global_adapter(organType, name="index_organType")
 
 
 class Edit(dexterity.EditForm):

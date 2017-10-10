@@ -21,9 +21,9 @@
               <th>
                 <tal:title i18n:translate="">Organ Title</tal:title>
               </th>
-<!--               <th>
+              <th style="text-align: center;">
                 <tal:head i18n:translate="">Organ type</tal:head>
-              </th> -->
+              </th>
             </tr>
           </thead>
           <tal:documents repeat="item OrgansInside">
@@ -39,12 +39,14 @@
                     </tal:omit-tag>]
                   </tal:omit-tag>
                 </td>
-<!--                 <td>
-                  <span tal:content="item/tipus"
-                        i18n:translate="">
+                <td style="text-align: center;">
+                  <span tal:content="item/organType"
+                        i18n:translate=""
+                        tal:attributes="class item/organType"
+                        i18n:domain="genweb">
                           Item Type
                   </span>
-                </td> -->
+                </td>
               </tr>
           </tal:documents>
         </table>
