@@ -615,7 +615,6 @@ class View(grok.View):
     def canView(self):
         # Permissions to view acords based on ODT definition file
         # TODO: add if is obert /restricted to ...
-        import ipdb; ipdb.set_trace()
         estatSessio = utils.session_wf_state(self)
         if utils.isManager(self):
             return True
