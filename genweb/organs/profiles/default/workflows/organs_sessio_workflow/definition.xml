@@ -390,6 +390,9 @@
  <transition transition_id="convocar" title="ConvocarSessio" i18n:attributes="title" new_state="convocada" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=convocar" category="workflow" icon="">ConvocarSessio</action>
   <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>OG1-Secretari</guard-role>
+   <guard-role>OG2-Editor</guard-role>
   </guard>
  </transition>
  <transition transition_id="corregir" title="ModificarSessio" i18n:attributes="title" new_state="en_correccio" trigger="USER" before_script="" after_script="">
@@ -409,6 +412,9 @@
  <transition transition_id="realitzar" title="RealitzarSessio" i18n:attributes="title" new_state="realitzada" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=realitzar" category="workflow" icon="">RealitzarSessio</action>
   <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>OG1-Secretari</guard-role>
+   <guard-role>OG2-Editor</guard-role>
   </guard>
  </transition>
  <transition transition_id="tancar" title="TancarSessio" i18n:attributes="title" new_state="tancada" trigger="USER" before_script="" after_script="">
