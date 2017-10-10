@@ -11,9 +11,9 @@
   </index>
   <column value="migrated"/>
 
-  <index name="organType" meta_type="FieldIndex">
-    <indexed_attr value="organType"/>
+  <index name="index_organType" meta_type="FieldIndex">
+    <indexed_attr value="index_organType"/>
   </index>
-  <column value="organType"/>
+  <column value="index_organType"/>
 
 </object>

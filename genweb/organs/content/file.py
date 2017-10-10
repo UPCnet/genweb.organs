@@ -37,10 +37,6 @@ class IFile(form.Schema):
         required=True
     )
 
-    organType = schema.Text(
-        title=_(u"Organ Govern type"),
-    )
-
     dexteritytextindexer.searchable('description')
     description = schema.Text(
         title=_PMF(u'label_description', default=u'Summary'),
