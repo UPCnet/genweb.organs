@@ -24,8 +24,8 @@
 
   <script type="text/javascript">
     function printPage(newWindow){
-      newWindow.focus();
-      newWindow.print();
+      newWindow.focus('printActa');
+      newWindow.print('printActa');
     }
   </script>
 
@@ -46,7 +46,7 @@
       </div>
     </div>
     <a class="btn btn-info btnActa" style="float:right;"
-        href="javascript:printPage(iframe);">
+    tal:attributes="href string:javascript:printPage(iframe);">
         <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
     </a>
     <button data-target="#previewModal" role="button"
