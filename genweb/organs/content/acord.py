@@ -23,13 +23,12 @@ grok.templatedir("templates")
 def llistaEstats(context):
     """ Create vocabulary from Estats Organ. """
     terms = []
-    # Els ACORDS van dintre de sessio o de punt
+    # Els ACORDS NOMES van dintre de sessio o de punt
     # Al ser acord he de mirar si està dintre d'una sessio o d'un punt
 
-    # En mode add or en mode edit
+    # En mode add or en mode edit, mirar 1nivell(SESSIO) o 2nivells(PUNT)
     if context.aq_parent.portal_type == 'genweb.organs.sessio' or context.portal_type == 'genweb.organs.sessio':
         values = context.aq_parent.estatsLlista
-    # En mode add or en mode edit
     if context.aq_parent.portal_type == 'genweb.organs.punt' or context.portal_type == 'genweb.organs.punt':
         values = context.aq_parent.aq_parent.estatsLlista
 
@@ -54,9 +53,8 @@ directlyProvides(llistaEstats, IContextSourceBinder)
 
 
 class IAcord(form.Schema):
-    """ Tipus Acord: Per a cada Òrgan de Govern es podran crear
-        tots els acords que es considerin oportuns
-    """
+    """ Acord """
+
     fieldset('acord',
              label=_(u'Tab acord'),
              fields=['title', 'proposalPoint', 'agreement', 'defaultContent', 'estatsLlista']
@@ -148,30 +146,59 @@ class View(grok.View):
                     return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
         return color
 
+    def AcordTitle(self):
+        if self.context.agreement:
+            return _(u'[Acord ') + self.context.agreement + ']'
+        else:
+            return _(u'[Acord sense numeracio]')
+
     def canView(self):
-        # Permissions to view acords based on ODT definition file
-        # TODO: add if is obert /restricted to ...
-        estatSessio = utils.session_wf_state(self)
+        # Permissions to view ACORDS. Poden estar a 1 i 2 nivells
+        # If manager Show all
         if utils.isManager(self):
             return True
-        elif estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
-            return True
-        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        else:
-            raise Unauthorized
+        estatSessio = utils.session_wf_state(self)
 
-    def AcordTitle(self):
-        # title = self.context.Title()
-        agreement = ''
-        if self.context.agreement:
-            agreement = self.context.agreement
-        else:
-            agreement = _(u' [Acord sense numeracio]')
-        return agreement
+        organ_tipus = self.context.organType  # TODO: WHY??? Funciona amb 1 i 2 level up
+
+        if organ_tipus == 'open_organ':
+            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                return True
+            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            elif estatSessio == 'tancada':
+                return True
+            elif estatSessio == 'en_correccio':
+                return True
+            else:
+                raise Unauthorized
+
+        if organ_tipus == 'restricted_to_members_organ':
+            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                return True
+            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            else:
+                raise Unauthorized
+
+        if organ_tipus == 'restricted_to_affected_organ':
+            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                return True
+            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            else:
+                raise Unauthorized

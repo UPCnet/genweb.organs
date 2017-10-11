@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from five import grok
+from plone import api
 from zope.schema import TextLine
 from z3c.form import button
 from plone.directives import form
@@ -13,6 +14,7 @@ from z3c.form.interfaces import DISPLAY_MODE
 from genweb.organs.utils import addEntryLog
 from Products.CMFCore.utils import getToolByName
 import unicodedata
+from AccessControl import Unauthorized
 from plone.event.interfaces import IEventAccessor
 from zope import schema
 
@@ -20,7 +22,7 @@ grok.templatedir("templates")
 
 
 class IMessage(form.Schema):
-    """ Define the fields of this form
+    """ Informar de la sessio: /mail_informar
     """
 
     sender = TextLine(
@@ -52,8 +54,21 @@ class Message(form.SchemaForm):
     grok.layer(IGenwebOrgansLayer)
 
     ignoreContext = True
-
     schema = IMessage
+
+    # Disable the view if no roles in username
+    def update(self):
+        """ Return true if user is Editor or Manager """
+        username = api.user.get_current().id
+        if username:
+            roles = api.user.get_roles(username=username, obj=self.context)
+            if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'Manager' in roles:
+                self.request.set('disable_border', True)
+                super(Message, self).update()
+            else:
+                raise Unauthorized
+        else:
+            raise Unauthorized
 
     def updateWidgets(self):
         super(Message, self).updateWidgets()
@@ -102,7 +117,7 @@ class Message(form.SchemaForm):
             moreData = '<p><strong>' + sessiontitle + \
                 '</strong><br/></p>Lugar: ' + place + "<br/>Data: " + sessiondate + \
                 "<br/>Hora de inicio: " + starthour + \
-                "<br/>Hora de fin: " + endHour + \
+                "<br/>Hora de finalización: " + endHour + \
                 "<br/><br/><p><strong>" + text + "</strong></p>"
 
         if lang == 'en':
@@ -228,13 +243,13 @@ class Message(form.SchemaForm):
                 number = ''
             if value.portal_type == 'genweb.organs.acord':
                 if value.agreement:
-                    agreement = ' [Acord ' + str(value.agreement) + ' - ' + str(value.estatsLlista).upper() + ' ]'
+                    agreement = _(u'[Acord ') + str(value.agreement) + ' - ' + str(value.estatsLlista).upper() + ' ]'
                 else:
-                    agreement = _(u' [Acord sense numeracio]')
+                    agreement = _(u'[Acord sense numeracio]')
             else:
                 agreement = ''
             # adding hidden field to maintain good urls
-            results.append(str('&emsp;') + str('<a href=----@@----') + str(obj.getURL()) + str('>') + str(number) + str(obj.Title) + str(agreement) + str('</a>'))
+            results.append(str('&emsp;') + str('<a href=----@@----') + str(obj.getURL()) + str('>') + str(number) + str(obj.Title) + str('</a>') + '&nbsp;' + str(agreement))
             if len(value.objectIds()) > 0:
                 valuesInside = portal_catalog.searchResults(
                     portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
@@ -249,9 +264,9 @@ class Message(form.SchemaForm):
                         numberSubpunt = ''
                     if subpunt.portal_type == 'genweb.organs.acord':
                         if subpunt.agreement:
-                            agreement = ' [Acord ' + str(subpunt.agreement) + ' - ' + str(subpunt.estatsLlista).upper() + ' ]'
+                            agreement = _(u'[Acord ') + str(subpunt.agreement) + ' - ' + str(subpunt.estatsLlista).upper() + ' ]'
                     else:
-                        agreement = _(u' [Acord sense numeracio]')
+                        agreement = _(u'[Acord sense numeracio]')
                     # adding hidden field to maintain good urls
-                    results.append(str('&emsp;&emsp;') + str('<a href=----@@----') + str(item.getURL()) + str('>') + str(numberSubpunt) + str(item.Title) + str(agreement) + str('</a>'))
+                    results.append(str('&emsp;&emsp;') + str('<a href=----@@----') + str(item.getURL()) + str('>') + str(numberSubpunt) + str(item.Title) + str('</a>') + '&nbsp;' + str(agreement))
         return '<br/>'.join(results)

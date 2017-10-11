@@ -11,6 +11,8 @@ from genweb.organs.utils import addEntryLog
 from genweb.organs import _
 from plone.event.interfaces import IEventAccessor
 import unicodedata
+from genweb.organs import utils
+from AccessControl import Unauthorized
 
 
 try:
@@ -253,6 +255,25 @@ class ActaPrintView(BrowserView):
     def signatura(self):
         return self.context.aq_parent.aq_parent.footer
 
+    def canView(self):
+        # Permissions to GENERATE PRINT acta view
+        if utils.isManager(self):
+            return True
+        estatSessio = utils.session_wf_state(self)
+
+        if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            return True
+        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        else:
+            raise Unauthorized
+
 
 class Reload(BrowserView):
 
@@ -449,3 +470,22 @@ class Butlleti(BrowserView):
 
     def getUnitat(self):
         return self.context.aq_parent.aq_parent.Title()
+
+    def canView(self):
+        # Permissions to GENERATE BUTLLETI
+        if utils.isManager(self):
+            return True
+        estatSessio = utils.session_wf_state(self)
+
+        if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            return True
+        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        else:
+            raise Unauthorized

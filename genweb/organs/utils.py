@@ -11,7 +11,7 @@ from plone.app.layout.navigation.root import getNavigationRootObject
 
 
 def isAfectat(self):
-    """ Return true if user is Afectat or Manager """
+    """ Return true if user has role OG4-Afectat """
     try:
         username = api.user.get_current().id
         roles = api.user.get_roles(username=username, obj=self.context)
@@ -24,7 +24,7 @@ def isAfectat(self):
 
 
 def isMembre(self):
-    """ Return true if user is Membre or Manager """
+    """ Return true if user has role OG3-Membre """
     try:
         username = api.user.get_current().id
         roles = api.user.get_roles(username=username, obj=self.context)
@@ -37,7 +37,7 @@ def isMembre(self):
 
 
 def isEditor(self):
-    """ Returns true if user is Editor or Manager """
+    """ Returns true if user has role OG2-Editor """
     try:
         username = api.user.get_current().id
         roles = api.user.get_roles(username=username, obj=self.context)
@@ -50,7 +50,7 @@ def isEditor(self):
 
 
 def isSecretari(self):
-    """ Return true if user is Secretari or Manager """
+    """ Return true if user has role OG1-Secretari """
     try:
         username = api.user.get_current().id
         roles = api.user.get_roles(username=username, obj=self.context)
@@ -63,7 +63,7 @@ def isSecretari(self):
 
 
 def isManager(self):
-    """ Return true if user is Manager """
+    """ Return true if user has role Manager """
     try:
         username = api.user.get_current().id
         roles = api.user.get_roles(username=username, obj=self.context)
@@ -72,20 +72,6 @@ def isManager(self):
         else:
             return False
     except:
-        return False
-
-
-def checkRoles(self):
-    username = api.user.get_current().id
-    if username is None:
-        return 'Anonymous'
-    roles = api.user.get_roles(username=username, obj=self.context)
-
-    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or \
-       'OG3-Membre' in roles or 'OG4-Afectat' in roles or \
-       'Manager' in roles:
-        return True
-    else:
         return False
 
 
@@ -152,6 +138,7 @@ def addEntryLog(context, sender, message, recipients):
 
 
 def FilesandDocumentsInside(self):
+    # Return files and docs found inside the session object
     portal_catalog = getToolByName(self, 'portal_catalog')
     folder_path = '/'.join(self.context.getPhysicalPath())
     values = portal_catalog.unrestrictedSearchResults(
@@ -193,6 +180,7 @@ def FilesandDocumentsInside(self):
 
 
 def SubPuntsInside(self):
+    # Returns punts and acords inside Punts
     portal_catalog = getToolByName(self, 'portal_catalog')
     folder_path = '/'.join(self.context.getPhysicalPath())
     values = portal_catalog.unrestrictedSearchResults(
@@ -215,7 +203,7 @@ def SubPuntsInside(self):
 
 
 def getColor(self):
-    # assign custom colors on organ states
+    # Get custom colors on passed organ states
     estat = self._unrestrictedGetObject().estatsLlista
     values = self.estatsLlista
     color = '#777777'
@@ -228,6 +216,7 @@ def getColor(self):
 
 
 def estatsCanvi(self):
+    # Returns real names from estats
     values = self.estatsLlista
     items = []
     for value in values.split('</p>'):
@@ -240,10 +229,10 @@ def estatsCanvi(self):
 
 
 def session_wf_state(self):
+    # Returns session state. Check it recurring all path...
     from genweb.organs.content.sessio import ISessio
     if ISessio.providedBy(self.context):
         portal_state = api.content.get_state(obj=self.context)
-
         return portal_state
     else:
         portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')

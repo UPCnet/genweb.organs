@@ -25,7 +25,7 @@ import json
 AUTH_GROUP = 'AuthenticatedUsers'
 STICKY = (AUTH_GROUP, )
 
-# LINE 145 CHANGED from ariginal!
+# WARNING: ONLY LINE 145 CHANGED from original
 def merge_search_results(results, key):
     """Merge member search results.
 

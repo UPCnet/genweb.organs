@@ -21,6 +21,8 @@ grok.templatedir("templates")
 
 
 class IMessage(form.Schema):
+    """ Enviar missatge als membres /mail_message
+    """
 
     sender = TextLine(
         title=_("Sender"),
@@ -53,9 +55,9 @@ class Message(form.SchemaForm):
     ignoreContext = True
     schema = IMessage
 
-    # Disable the view if no roles in username
     def update(self):
-        """ Return true if user is Editor or Manager """
+        """  Disable the view if username has no roles.
+             Send Message if user is Editor / Secretari / Manager """
         username = api.user.get_current().id
         if username:
             roles = api.user.get_roles(username=username, obj=self.context)
@@ -76,7 +78,7 @@ class Message(form.SchemaForm):
 
         session = self.context
         sessiontitle = str(session.Title())
-
+        # TRICK: si hacemos el regexp normal, nos crea mal las urls.
         sessionLink = '----@@----' + session.absolute_url()
 
         acc = IEventAccessor(self.context)
@@ -85,20 +87,51 @@ class Message(form.SchemaForm):
         else:
             sessiondate = str(acc.start.strftime("%d/%m/%Y"))
 
-        titleText = "Missatge de la sessió: " + sessiontitle + ' (' + sessiondate + ')'
-        fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
-        self.widgets["fromTitle"].value = fromMessage
-        if self.context.aq_parent.bodyMailSend is None:
-            bodyMailOrgan = '<br/>'
-        else:
-            bodyMailOrgan = self.context.aq_parent.bodyMailSend + '<br/>'
-        if self.context.signatura is None:
-            footerOrgan = '<br/>'
-        else:
-            footerOrgan = self.context.signatura + '<br/>'
-        introData = "<p>Podeu consultar tota la documentació de la sessió aquí: <a href=" + \
-            sessionLink + ">" + sessiontitle + "</a></p><br/>"
+        lang = self.context.language
+        if lang == 'ca':
+            titleText = "Missatge de la sessió: " + sessiontitle + ' (' + sessiondate + ')'
+            fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
+            self.widgets["fromTitle"].value = fromMessage
+            if self.context.aq_parent.bodyMailSend is None:
+                bodyMailOrgan = '<br/>'
+            else:
+                bodyMailOrgan = self.context.aq_parent.bodyMailSend + '<br/>'
+            if self.context.signatura is None:
+                footerOrgan = '<br/>'
+            else:
+                footerOrgan = self.context.signatura + '<br/>'
+            introData = "<p>Podeu consultar la convocatòria i la documentació de la sessió aquí: <a href=" + \
+                sessionLink + ">" + sessiontitle + "</a></p><br/>"
 
+        if lang == 'es':
+            titleText = "Mensaje de la sesión: " + sessiontitle + ' (' + sessiondate + ')'
+            fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
+            self.widgets["fromTitle"].value = fromMessage
+            if self.context.aq_parent.bodyMailSend is None:
+                bodyMailOrgan = '<br/>'
+            else:
+                bodyMailOrgan = self.context.aq_parent.bodyMailSend + '<br/>'
+            if self.context.signatura is None:
+                footerOrgan = '<br/>'
+            else:
+                footerOrgan = self.context.signatura + '<br/>'
+            introData = "<p>Puede consultar la convocatoria y la documentación de la sesión aquí: <a href=" + \
+                sessionLink + ">" + sessiontitle + "</a></p><br/>"
+
+        if lang == 'en':
+            titleText = "Message from session: " + sessiontitle + ' (' + sessiondate + ')'
+            fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
+            self.widgets["fromTitle"].value = fromMessage
+            if self.context.aq_parent.bodyMailSend is None:
+                bodyMailOrgan = '<br/>'
+            else:
+                bodyMailOrgan = self.context.aq_parent.bodyMailSend + '<br/>'
+            if self.context.signatura is None:
+                footerOrgan = '<br/>'
+            else:
+                footerOrgan = self.context.signatura + '<br/>'
+            introData = "<p>Information regarding the call and the documentation can be found here: <a href=" + \
+                sessionLink + ">" + sessiontitle + "</a></p><br/>"
         self.widgets["message"].value = bodyMailOrgan.encode('utf-8') + introData + footerOrgan.encode('utf-8')
 
     @button.buttonAndHandler(_("Send"))
@@ -119,7 +152,7 @@ class Message(form.SchemaForm):
             IStatusMessage(self.request).addStatusMessage(message, type="error")
             return
 
-        # replace hidden fields to maintain correct urls...
+        # Replace hidden fields to maintain correct urls...
         body = formData['message'].replace('----@@----http:/', 'http://').replace('----@@----https:/', 'https://').encode('utf-8')
         sender = self.context.aq_parent.fromMail
         try:

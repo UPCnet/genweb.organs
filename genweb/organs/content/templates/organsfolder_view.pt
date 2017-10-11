@@ -10,7 +10,8 @@
 
   <metal:content-core fill-slot="content-core">
     <metal:listingmacro define-macro="listing"
-                        tal:define="OrgansInside view/OrgansInside">
+                        tal:define="OrgansInside view/OrgansInside;
+                        canView view/canView">
 
       <div tal:condition="OrgansInside" class="organsfolder_view">
         <div class="documentDescription description"></div>
@@ -21,7 +22,7 @@
               <th>
                 <tal:title i18n:translate="">Organ Title</tal:title>
               </th>
-              <th style="text-align: center;">
+              <th style="text-align: center;" tal:condition="canView">
                 <tal:head i18n:translate="">Organ type</tal:head>
               </th>
             </tr>
@@ -39,7 +40,7 @@
                     </tal:omit-tag>]
                   </tal:omit-tag>
                 </td>
-                <td style="text-align: center;">
+                <td style="text-align: center;" tal:condition="canView">
                   <span tal:content="item/organType"
                         i18n:translate=""
                         tal:attributes="class item/organType"

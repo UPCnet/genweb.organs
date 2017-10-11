@@ -20,6 +20,9 @@ grok.templatedir("templates")
 
 
 class IMessage(form.Schema):
+    """ Modal used to create massive punts: /manualStructureCreation
+    """
+
     directives.widget(message=WysiwygFieldWidget)
     message = schema.Text(
         title=_(u"Manual Import"),
@@ -38,8 +41,6 @@ class Message(form.SchemaForm):
     ignoreContext = True
 
     schema = IMessage
-
-    # fields = field.Fields(IMessage)
 
     # This trick hides the editable border and tabs in Plone
     def update(self):

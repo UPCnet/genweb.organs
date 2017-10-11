@@ -14,7 +14,7 @@ grok.templatedir("templates")
 
 
 class IImpersonate(form.Schema):
-    """ Define the fields of this form
+    """ Mode veure com: /view_as_role?id=OG2-Editor
     """
 
 

@@ -16,7 +16,7 @@ grok.templatedir("templates")
 
 
 class IPresentation(form.Schema):
-    """ Define the fields of this form
+    """ Plantilla del mode presentacio: /presentation
     """
 
 
@@ -91,7 +91,7 @@ class Presentation(form.SchemaForm):
         return results
 
     def SubpuntsInside(self, data):
-        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
+        """ Retorna les sessions i el seu contingut
         """
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + data['id']
@@ -278,6 +278,7 @@ class Presentation(form.SchemaForm):
         return results
 
     def getSessionTitle(self):
+        # obtenir titlo de la session
         return self.context.Title()
 
     def getColor(self, data):

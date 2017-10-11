@@ -26,6 +26,7 @@ class InvalidPDFFile(ValidationError):
 
 
 class IActa(form.Schema):
+    """ ACTA """
 
     fieldset('acta',
              label=_(u'Tab acta'),
@@ -238,7 +239,10 @@ class View(dexterity.DisplayForm):
 
     def canView(self):
         # Permissions to view acta
+        if utils.isManager(self):
+            return True
         estatSessio = utils.session_wf_state(self)
+
         if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
             return True
         elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
@@ -248,8 +252,6 @@ class View(dexterity.DisplayForm):
         elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
             return True
         elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif utils.isManager(self):
             return True
         else:
             raise Unauthorized

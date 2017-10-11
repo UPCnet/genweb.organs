@@ -171,7 +171,7 @@ grok.global_adapter(organType, name="index_organType")
 
 
 class Edit(dexterity.EditForm):
-    """A standard edit form.
+    """ Organ de govern EDIT form
     """
     grok.context(IOrgangovern)
 
@@ -180,11 +180,10 @@ class Edit(dexterity.EditForm):
 
 
 class View(grok.View):
+    """ Organ de govern VIEW form
+    """
     grok.context(IOrgangovern)
     grok.template('organgovern_view')
-
-    def selectedOrganType(self):
-        return self.context.estatsLlista
 
     def activeClassMembres(self):
         if self.context.membresOrgan and self.context.convidatsPermanentsOrgan is None:
@@ -204,6 +203,12 @@ class View(grok.View):
 
     def hihaPersones(self):
         if self.context.membresOrgan or self.context.convidatsPermanentsOrgan:
+            return True
+        else:
+            return False
+
+    def multipleTab(self):
+        if self.context.membresOrgan and self.context.convidatsPermanentsOrgan:
             return True
         else:
             return False
@@ -241,11 +246,13 @@ class View(grok.View):
         return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
 
     def getAcords(self):
-        # If acords in site, publish the tab and the contents...
+        """ La llista d'acords i el tab el veu tothom.
+            Després s'aplica el permís per cada rol a la vista de l'acord """
         results = []
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
+        # Només veu els acords de les sessions que pot veure
         sessions = portal_catalog.searchResults(
             portal_type='genweb.organs.sessio',
             sort_on='getObjPositionInParent',
@@ -265,7 +272,6 @@ class View(grok.View):
 
             for obj in values:
                 value = obj.getObject()
-                # value = obj._unrestrictedGetObject()
                 if value.agreement:
                     if len(value.agreement.split('/')) > 2:
                         num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3)
@@ -284,36 +290,39 @@ class View(grok.View):
         return sorted(results, key=itemgetter('hiddenOrder'))
 
     def getActes(self):
-        # If acords in site, publish the tab and the contents...
-        results = []
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath())
+        """ Si es Manager/Secretari/Editor/Membre show actas
+            Affectat i altres NO veuen MAI les ACTES """
+        if utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isManager(self):
+            results = []
+            portal_catalog = getToolByName(self, 'portal_catalog')
+            folder_path = '/'.join(self.context.getPhysicalPath())
 
-        sessions = portal_catalog.searchResults(
-            portal_type='genweb.organs.sessio',
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
+            sessions = portal_catalog.searchResults(
+                portal_type='genweb.organs.sessio',
+                sort_on='getObjPositionInParent',
+                path={'query': folder_path,
+                      'depth': 1})
 
-        paths = []
-        for session in sessions:
-            paths.append(session.getPath())
+            paths = []
+            for session in sessions:
+                paths.append(session.getPath())
 
-        for path in paths:
-            values = portal_catalog.searchResults(
-                portal_type=['genweb.organs.acta'],
-                sort_on='modified',
-                path={'query': path,
-                      'depth': 3})
+            for path in paths:
+                values = portal_catalog.searchResults(
+                    portal_type=['genweb.organs.acta'],
+                    sort_on='modified',
+                    path={'query': path,
+                          'depth': 3})
 
-            for obj in values:
-                value = obj.getObject()
-                # value = obj._unrestrictedGetObject()
-                results.append(dict(title=value.title,
-                                    absolute_url=value.absolute_url(),
-                                    data=value.horaInici.strftime('%d/%m/%Y'),
-                                    hiddenOrder=value.horaInici.strftime('%Y%m%d')))
-        return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
+                for obj in values:
+                    value = obj.getObject()
+                    results.append(dict(title=value.title,
+                                        absolute_url=value.absolute_url(),
+                                        data=value.horaInici.strftime('%d/%m/%Y'),
+                                        hiddenOrder=value.horaInici.strftime('%Y%m%d')))
+            return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
+        else:
+            return None
 
     def canView(self):
         # Permissions to view ORGANS DE GOVERN
@@ -338,3 +347,9 @@ class View(grok.View):
                 raise Unauthorized
         else:
             raise Unauthorized
+
+    def canModify(self):
+        if (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        else:
+            return False

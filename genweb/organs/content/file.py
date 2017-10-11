@@ -23,7 +23,7 @@ class InvalidPDFFile(ValidationError):
 
 
 class IFile(form.Schema):
-    """ Tipus File: Per adjuntar els fitxers públics i/o privats
+    """ File: Per adjuntar els fitxers públics i/o privats
         A la part pública només fitxers PDF """
 
     fieldset('file',

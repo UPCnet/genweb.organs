@@ -16,7 +16,7 @@ grok.templatedir("templates")
 
 
 class IDocument(form.Schema):
-    """ Tipus Document: Per marcar si són públics o privats """
+    """ Document: Per marcar si són públics o privats """
 
     fieldset('document',
              label=_(u'Tab document'),
@@ -59,7 +59,7 @@ class IDocument(form.Schema):
 
 @form.default_value(field=IDocument['title'])
 def titleDefaultValue(data):
-    # ficar el títol de document
+    # fica el títol de document
     return data.context.Title()
 
 

@@ -22,8 +22,9 @@ grok.templatedir("templates")
 
 
 class IMessage(form.Schema):
-    """ Define the fields of this form
+    """ Convocar la sessió: /mail_convocar
     """
+
     sender = TextLine(
         title=_("Sender"),
         description=_("Sender organ help"),
@@ -111,17 +112,45 @@ class Message(form.SchemaForm):
             endHour = str(acc.end.strftime("%H:%M"))
 
         session.notificationDate = now
-        titleText = "Convocatòria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
-        fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
-        introData = "<br/><p>Podeu consultar tota la documentació de la sessió aquí: <a href=" + \
-                    sessionLink + ">" + sessiontitle + "</a></p><br/>" + signatura
-        moreData = html_content + \
-            '<br/>' + customBody + '<strong>' + sessiontitle + \
-            '</strong><br/><br/>Lloc: ' + place + "<br/>Data: " + sessiondate + \
-            "<br/>Hora d'inici: " + starthour + \
-            "<br/>Hora de fi: " + endHour + \
-            '<br/><br/>'
-        bodyMail = str(moreData) + str(introData)
+        lang = self.context.language
+        if lang == 'ca':
+            titleText = "Convocatòria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
+            fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
+            introData = "<br/><p>Podeu consultar la convocatòria i la documentació de la sessió aquí: <a href=" + \
+                        sessionLink + ">" + sessiontitle + "</a></p><br/>" + signatura
+            moreData = html_content + \
+                '<br/>' + customBody + '<strong>' + sessiontitle + \
+                '</strong><br/><br/>Lloc: ' + place + "<br/>Data: " + sessiondate + \
+                "<br/>Hora d'inici: " + starthour + \
+                "<br/>Hora de fi: " + endHour + \
+                '<br/><br/>'
+            bodyMail = str(moreData) + str(introData)
+
+        if lang == 'es':
+            titleText = "Convocatoria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
+            fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
+            introData = "<br/><p>Puede consultar la convocatoria y la documentación de la sesión aquí: <a href=" + \
+                        sessionLink + ">" + sessiontitle + "</a></p><br/>" + signatura
+            moreData = html_content + \
+                '<br/>' + customBody + '<strong>' + sessiontitle + \
+                '</strong><br/><br/>Lugar: ' + place + "<br/>Fecha: " + sessiondate + \
+                "<br/>Hora de inicio: " + starthour + \
+                "<br/>Hora de finalización: " + endHour + \
+                '<br/><br/>'
+            bodyMail = str(moreData) + str(introData)
+
+        if lang == 'en':
+            titleText = "Call " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
+            fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
+            introData = "<br/><p>Information regarding the call and the documentation can be found here: <a href=" + \
+                        sessionLink + ">" + sessiontitle + "</a></p><br/>" + signatura
+            moreData = html_content + \
+                '<br/>' + customBody + '<strong>' + sessiontitle + \
+                '</strong><br/><br/>Place: ' + place + "<br/>Date: " + sessiondate + \
+                "<br/>Start date: " + starthour + \
+                "<br/>End date: " + endHour + \
+                '<br/><br/>'
+            bodyMail = str(moreData) + str(introData)
 
         self.widgets["sender"].mode = DISPLAY_MODE
         self.widgets["sender"].value = str(organ.fromMail)
@@ -164,11 +193,11 @@ class Message(form.SchemaForm):
             api.content.transition(obj=self.context, transition='convocar')
             addEntryLog(self.context, None, _(u'Sending mail convocatoria'), formData['recipients'])
             self.context.plone_utils.addPortalMessage(
-                _("Missatge enviat correctament"), 'info')
+                _(u"Missatge enviat correctament"), 'info')
         except:
             addEntryLog(self.context, None, _(u'Missatge no enviat'), formData['recipients'])
             self.context.plone_utils.addPortalMessage(
-                _("Missatge no enviat. Comprovi els destinataris del missatge"), 'error')
+                _(u"Missatge no enviat. Comprovi els destinataris del missatge"), 'error')
 
         return self.request.response.redirect(self.context.absolute_url())
 

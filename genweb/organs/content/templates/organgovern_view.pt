@@ -16,7 +16,11 @@
                    sessions view/SessionsInside;
                    acords view/getAcords;
                    actes view/getActes;
-                   hihaPersones view/hihaPersones">
+                   hihaPersones view/hihaPersones;
+                   multipleTab view/multipleTab">
+
+  <span tal:condition="view/canModify" style="float: right;" tal:attributes="class context/organType"
+        i18n:domain="genweb" i18n:translate="" tal:content="context/organType"></span>
 
   <div style="width: 180px;" class="pull-right" tal:condition="context/logoOrgan">
     <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan" />
@@ -91,7 +95,7 @@
         </table>
       </div>
       <div class="tab-pane" id="membresTab">
-        <div class="panel with-nav-tabs panel-primary">
+        <div class="panel with-nav-tabs panel-primary" tal:condition="multipleTab">
           <div class="panel-heading">
             <ul class="nav nav-tabs">
               <li tal:condition="membresOrgan" tal:attributes="class string:${activeClassMembres}">
@@ -111,6 +115,14 @@
                 <span tal:replace="structure convidatsPermanentsOrgan" />
               </div>
             </div>
+          </div>
+        </div>
+        <div class="panel with-nav-tabs panel-primary" tal:condition="not:multipleTab">
+          <div tal:condition="membresOrgan" tal:attributes="class string:tab-pane fade ${activeClassMembres}" id="tab1primary">
+            <span tal:replace="structure membresOrgan" />
+          </div>
+          <div tal:condition="convidatsPermanentsOrgan" tal:attributes="class string:tab-pane fade ${activeClassConvidats}" id="tab2primary">
+            <span tal:replace="structure convidatsPermanentsOrgan" />
           </div>
         </div>
       </div>

@@ -24,8 +24,7 @@ grok.templatedir("templates")
 
 
 class ISessio(form.Schema):
-    """ Tipus Sessio: Per a cada Òrgan de Govern es podran crear
-        totes les sessions que es considerin oportunes
+    """ Sessio
     """
 
     fieldset('assistents',
@@ -137,8 +136,8 @@ class ISessio(form.Schema):
 
 @form.default_value(field=ISessio['numSessio'])
 def numSessioDefaultValue(data):
-    # agafo sessions ordenats!
-    # Saves the value in object
+    # Agafem sessions ordenades
+    # Les comptem i assignem el següent valor
     sessions = api.content.find(
         portal_type='genweb.organs.sessio',
         context=data.context)
@@ -152,8 +151,9 @@ def numSessioDefaultValue(data):
 
 @form.default_value(field=ISessio['numSessioShowOnly'])
 def numSessioShowOnlyDefaultValue(data):
-    # agafo sessions ordenats!
-    # only shows the value in readonly
+    # Agafem sessions ordenades
+    # Les comptem i assignem el següent valor.
+    # Aquest camp és només READONLY
     sessions = api.content.find(
         portal_type='genweb.organs.sessio',
         context=data.context)
@@ -167,13 +167,13 @@ def numSessioShowOnlyDefaultValue(data):
 
 @form.default_value(field=ISessio['membresConvocats'])
 def membresConvocatsDefaultValue(data):
-    # copy members from Organ de Govern (parent object)
+    # copy Convocats from Organ de Govern (parent object)
     return data.context.membresOrgan
 
 
 @form.default_value(field=ISessio['membresConvidats'])
 def membresConvidatsDefaultValue(data):
-    # copy members from Organ de Govern (parent object)
+    # copy Convidats from Organ de Govern (parent object)
     return data.context.convidatsPermanentsOrgan
 
 
@@ -185,7 +185,7 @@ def adrecaLlistaDefaultValue(data):
 
 @form.default_value(field=ISessio['adrecaAfectatsLlista'])
 def adrecaAfectatsLlistaDefaultValue(data):
-    # copy adrecaLlista from Organ de Govern (parent object)
+    # copy adrecaAfectats from Organ de Govern (parent object)
     return data.context.adrecaAfectatsLlista
 
 
@@ -202,7 +202,7 @@ def signaturaDefaultValue(data):
 
 
 class Edit(dexterity.EditForm):
-    """A standard edit form.
+    """ Session edit form
     """
     grok.context(ISessio)
 
@@ -215,42 +215,12 @@ class View(grok.View):
     grok.context(ISessio)
     grok.template('sessio_view')
 
-    def objectState(self):
-        # while debugging...
-        return api.content.get_state(obj=self.context)
-
-    def roles(self):
-        # while debugging...
-        try:
-            if api.user.is_anonymous():
-                return 'Annonymous'
-            else:
-                username = api.user.get_current().id
-                roles = api.user.get_roles(username=username, obj=self.context)
-                return roles
-        except:
-            return False
-
-    def isAfectat(self):
-        return utils.isAfectat(self)
-
-    def isMembre(self):
-        return utils.isMembre(self)
-
-    def isEditor(self):
-        return utils.isEditor(self)
-
-    def isSecretari(self):
-        return utils.isSecretari(self)
-
-    def isManager(self):
-        return utils.isManager(self)
-
     def viewHistory(self):
-        value = False
-        if utils.isSecretari(self):
-            value = True
-        return value or self.isManager()
+        # Només els Secretaris i Managers podem veure el LOG
+        if utils.isSecretari(self) or utils.isManager(self):
+            return True
+        else:
+            return False
 
     def canModify(self):
         # If item is migrated, it can't be modified
@@ -264,7 +234,7 @@ class View(grok.View):
             value = True
         if review_state in ['planificada', 'convocada', 'realitzada'] and utils.isEditor(self):
             value = True
-        return value or self.isManager()
+        return value or utils.isManager(self)
 
     def showEnviarButton(self):
         review_state = api.content.get_state(self.context)
@@ -618,7 +588,8 @@ class View(grok.View):
         if utils.isManager(self):
             return True
         estatSessio = utils.session_wf_state(self)
-        organ_tipus = self.context.aq_parent.organType
+        organ_tipus = self.context.aq_parent.organType  # 1 level up
+
         if organ_tipus == 'open_organ':
             if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
                 return True

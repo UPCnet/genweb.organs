@@ -29,11 +29,15 @@ class IOrgansfolder(form.Schema):
 
 
 class View(grok.View):
+    """ Carpeta unitat VIEW form
+    """
+
     grok.context(IOrgansfolder)
     grok.template('organsfolder_view')
 
     def OrgansInside(self):
-        """ Retorna els organs de govern
+        """ Retorna els organs de govern depenent del rol
+            i l'estat de l'Organ. Per això fa 3 cerques
         """
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
@@ -47,7 +51,7 @@ class View(grok.View):
         for obj in values:
             value = obj.getObject()
             organType = value.organType
-            # If Manager or Obert bypass and list all
+            # If Manager or open bypass and list all
             if utils.isManager(self) or (organType == 'open_organ'):
                 results.append(dict(title=value.title,
                                     absolute_url=value.absolute_url(),
@@ -72,3 +76,10 @@ class View(grok.View):
                                         review_state=obj.review_state))
 
         return results
+
+    def canView(self):
+        # Permissions per veure l'estat dels organs a la taula principal
+        if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self):
+            return True
+        else:
+            return False

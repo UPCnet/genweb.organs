@@ -17,14 +17,13 @@ from genweb.organs import utils
 from plone.supermodel.directives import fieldset
 from AccessControl import Unauthorized
 
-
 grok.templatedir("templates")
 
 
 def llistaEstats(context):
     """ Create vocabulary from Estats Organ. """
     terms = []
-    # Al ser punt els agafo UN nivell per sobre
+    # Al ser PUNT els agafo 1 nivell per damunt
     values = context.aq_parent.estatsLlista
     literals = []
     for value in values.split('</p>'):
@@ -47,8 +46,7 @@ directlyProvides(llistaEstats, IContextSourceBinder)
 
 
 class IPunt(form.Schema):
-    """ Tipus Punt: Per a cada Òrgan de Govern es podran crear
-        tots els punts que es considerin oportuns
+    """ Punt
     """
     fieldset('punt',
              label=_(u'Tab punt'),
@@ -116,6 +114,7 @@ class View(grok.View):
     def getColor(self):
         # assign custom colors on organ states
         estat = self.context.estatsLlista
+        # Only 1 level
         values = self.context.aq_parent.aq_parent.estatsLlista
         color = '#777777'
         for value in values.split('</p>'):
@@ -158,20 +157,52 @@ class View(grok.View):
         return results
 
     def canView(self):
-        # Permissions to view acords based on ODT definition file
-        # TODO: add if is obert /restricted to ...
-        estatSessio = utils.session_wf_state(self)
+        # Permissions to view PUNTS
+        # If manager Show all
         if utils.isManager(self):
             return True
-        elif estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
-            return True
-        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        else:
-            raise Unauthorized
+        estatSessio = utils.session_wf_state(self)
+
+        organ_tipus = self.context.aq_parent.organType  # 1 level up
+
+        if organ_tipus == 'open_organ':
+            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                return True
+            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            elif estatSessio == 'tancada':
+                return True
+            elif estatSessio == 'en_correccio':
+                return True
+            else:
+                raise Unauthorized
+
+        if organ_tipus == 'restricted_to_members_organ':
+            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                return True
+            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            else:
+                raise Unauthorized
+
+        if organ_tipus == 'restricted_to_affected_organ':
+            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                return True
+            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            else:
+                raise Unauthorized

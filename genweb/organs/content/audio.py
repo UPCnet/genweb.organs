@@ -27,7 +27,7 @@ class InvalidAudioFile(ValidationError):
 
 
 class IAudio(form.Schema):
-    """ Tipus Audio: only audio files are permitted """
+    """ Audio: only audio files are permitted """
 
     fieldset('audio',
              label=_(u'Tab audio'),
@@ -78,7 +78,7 @@ class View(grok.View):
     grok.template('audio_view')
 
     def canView(self):
-        """ Return true if user is Editor or Manager """
+        """ Return true if user is Editor/Secretari/Manager """
         try:
             username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)

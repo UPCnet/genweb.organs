@@ -10,11 +10,6 @@
 <metal:main fill-slot="main" tal:condition="view/canView">
     <tal:main-macro metal:define-macro="main"
         tal:define="loginfo view/getAnnotations;
-                isAfectat view/isAfectat;
-                isMembre view/isMembre;
-                isEditor view/isEditor;
-                isSecretari view/isSecretari;
-                isManager view/isManager;
                 canModify view/canModify;
                 items view/PuntsInside;
                 hihaPersones view/hihaPersones;
@@ -126,7 +121,7 @@
 
   </script>
 
-  <script type="text/javascript" tal:condition="canModify">
+  <script type="text/javascript">
     function printPage(newWindow){
       newWindow.focus();
       newWindow.print();
@@ -148,7 +143,7 @@
         <a href="mail_informar" i18n:attributes="title informa_sessio; alt informa_sessio"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informa sessio</span></a>
       </div>
 
-      <div class="containerIcons" tal:condition="canModify">
+      <div class="containerIcons">
         <a href="javascript:printPage(iframe);" i18n:attributes="title printOrdreDia; alt printOrdreDia"><i class="fa fa-print fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Print</span></a>
       </div>
   </div>

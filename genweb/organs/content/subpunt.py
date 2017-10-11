@@ -21,9 +21,9 @@ grok.templatedir("templates")
 
 
 def llistaEstats(context):
-    """ Create vocabulary from Estats Organ. """
+    """ Create vocabulary from Estats Organ """
     terms = []
-    # Al ser subpunt els agafo DOS nivells per sobre
+    # Al ser SUBPUNT els agafo 2 nivells per damunt
     values = context.aq_parent.aq_parent.estatsLlista
     literals = []
     for value in values.split('</p>'):
@@ -31,6 +31,7 @@ def llistaEstats(context):
             item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
             estat = ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8')
             literals.append(estat)
+
     for item in literals:
         if isinstance(item, str):
             flattened = unicodedata.normalize('NFKD', item.decode('utf-8')).encode('ascii', errors='ignore')
@@ -45,7 +46,7 @@ directlyProvides(llistaEstats, IContextSourceBinder)
 
 
 class ISubpunt(form.Schema):
-    """ Tipus Subpunt: Molt similar el PUNT
+    """ Subpunt: Molt similar el PUNT
     """
     fieldset('subpunt',
              label=_(u'Tab subpunt'),
@@ -80,7 +81,7 @@ class ISubpunt(form.Schema):
 
 @form.default_value(field=ISubpunt['proposalPoint'])
 def proposalPointDefaultValue(data):
-    # assign default proposalPoint value to Subpunt
+    # Assign default proposalPoint value to Subpunt
     portal_catalog = getToolByName(data.context, 'portal_catalog')
     folder_path = data.context.absolute_url_path()
     values = portal_catalog.searchResults(
@@ -116,12 +117,17 @@ class View(grok.View):
         return utils.FilesandDocumentsInside(self)
 
     def SubPuntsInside(self):
-        return None
+        # Com fa servir el mateix template que els punts
+        # No podem tenir res dinte dels subpunts, per tant
+        # comentem la línia que sí que va amb punts, i que
+        # si deixem, seria el cas de tenir punts dintre de subpunts.
         # return utils.SubPuntsInside(self)
+        return None
 
     def getColor(self):
         # assign custom colors on organ states
         estat = self.context.estatsLlista
+        # Different from punt. 2 levels up
         values = self.context.aq_parent.aq_parent.aq_parent.estatsLlista
         color = '#777777'
         for value in values.split('</p>'):
@@ -132,20 +138,51 @@ class View(grok.View):
         return color
 
     def canView(self):
-        # Permissions to view acords based on ODT definition file
-        # TODO: add if is obert /restricted to ...
-        estatSessio = utils.session_wf_state(self)
+        # Permissions to view PUNTS
+        # If manager Show all
         if utils.isManager(self):
             return True
-        elif estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
-            return True
-        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        else:
-            raise Unauthorized
+        estatSessio = utils.session_wf_state(self)
+        organ_tipus = self.context.aq_parent.aq_parent.organType  # 2 levels up
+
+        if organ_tipus == 'open_organ':
+            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                return True
+            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            elif estatSessio == 'tancada':
+                return True
+            elif estatSessio == 'en_correccio':
+                return True
+            else:
+                raise Unauthorized
+
+        if organ_tipus == 'restricted_to_members_organ':
+            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                return True
+            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            else:
+                raise Unauthorized
+
+        if organ_tipus == 'restricted_to_affected_organ':
+            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                return True
+            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            else:
+                raise Unauthorized
