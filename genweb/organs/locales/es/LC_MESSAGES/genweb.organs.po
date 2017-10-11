@@ -648,7 +648,7 @@ msgstr "Lista de nombres de las personas que se invitan a este órgano de forma 
 
 #: ./genweb/organs/content/templates/organsfolder_view.pt:25
 msgid "Organ type"
-msgstr ""
+msgstr "Tipo de órgano de gobierno"
 
 #: ./genweb/organs/profiles/default/types/genweb.organs.organsfolder.xml
 msgid "Organs Folder"
@@ -690,7 +690,7 @@ msgstr "Modo presentación"
 
 #: ./genweb/organs/content/templates/acta_view.pt:55
 msgid "Preview Acta"
-msgstr "Vista prévia"
+msgstr "Vista previa"
 
 #: ./genweb/organs/content/templates/acta_view.pt:39
 msgid "Previsualitzacio de l'acta"
@@ -1024,7 +1024,7 @@ msgstr "Direcciones a las que llegan los mensajes relativos a la sesión. Inicia
 
 #: ./genweb/organs/content/organgovern.py:82
 msgid "open_organ"
-msgstr ""
+msgstr "Abierto"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:152
 msgid "printOrdreDia"

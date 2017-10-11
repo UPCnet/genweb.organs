@@ -648,7 +648,7 @@ msgstr "Llista de noms dels membres convidats a les sessions d'aquest òrgan de 
 
 #: ./genweb/organs/content/templates/organsfolder_view.pt:25
 msgid "Organ type"
-msgstr "Tipus d'Òrgan de govern"
+msgstr "Tipus d'òrgan de govern"
 
 #: ./genweb/organs/profiles/default/types/genweb.organs.organsfolder.xml
 msgid "Organs Folder"
