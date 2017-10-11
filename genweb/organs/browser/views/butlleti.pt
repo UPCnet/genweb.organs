@@ -57,16 +57,13 @@
         <link rel="apple-touch-icon" sizes="114x114" tal:attributes="href string:${portal_url}/apple-touch-icon-114x114-precomposed.png" /> <tal:comment replace="nothing"></tal:comment>
         <link rel="apple-touch-icon" sizes="144x144" tal:attributes="href string:${portal_url}/apple-touch-icon-144x144-precomposed.png" /> <tal:comment replace="nothing"></tal:comment>
 
-        <div tal:replace="structure provider:genweb.css" />
+        <!-- <div tal:replace="structure provider:genweb.css" /> -->
 
         <tal:comment content="nothing"></tal:comment>
         <!--[if !IE]><!-->
           <link rel="stylesheet" tal:attributes="href string:${portal_url}/++genweb++stylesheets/genwebupc.css">
         <!--<![endif]-->
         <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/genweb_organs.css" />
-
-        <tal:splittedCSS4IE tal:replace="structure string:&lt;!--[if lt IE 10]&gt;&lt;link rel='stylesheet' href='${portal_url}/++genweb++stylesheets/genwebupc-ie.css'&gt;&lt;![endif]--&gt;" />
-        <link rel="stylesheet" tal:attributes="href string:${portal_url}/dynamic.css">
 
     </tal:notajax>
 </head>
@@ -75,8 +72,8 @@
 
   <h1><span tal:content="view/getUnitat"></span> -
       <span tal:content="view/getOrganTitle">Butlletin Session Title</span>
-    </h1><hr/>
-  <h1 tal:content="view/getTitle">Butlletin Session Title</h1>
+    </h1>
+  <h2 tal:content="view/getTitle">Butlletin Session Title</h2>
   <div style="float:right;"">
     <span i18n:translate="">Estat de la sessio</span>:&nbsp;
     <span class="label label-default" i18n:domain="genweb" i18n:translate="" tal:content="view/status">

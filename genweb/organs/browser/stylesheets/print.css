@@ -98,7 +98,7 @@
       font-size: 192.307692%;
       line-height: 27px;
     }
-
+    h1 > span{color: #557C95;}
     h2 {
       margin-bottom: 20px !important;
     }
