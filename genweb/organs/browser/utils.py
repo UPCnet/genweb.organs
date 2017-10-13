@@ -30,7 +30,7 @@ class changeInitialProposalPoint(grok.View):
 
 
 class searchOrgans(grok.View):
-    # Show all organs organType stored in database
+    # Put all in obert state
     grok.context(IDexterityContent)
     grok.name('show_all_organs')
     grok.require('cmf.ModifyPortalContent')
@@ -38,43 +38,12 @@ class searchOrgans(grok.View):
 
     def render(self):
         items = api.content.find(path='/', portal_type='genweb.organs.organgovern')
-        open_og = []
-        affected_og = []
-        members_og = []
-        others = []
-        obert_count = affected_count = members_count = others_count = 0
-        total = len(items)
         for item in items:
-            if item.organType == 'open_organ':
-                obert_count = obert_count + 1
-                open_og.append(dict(title=item.Title,
-                               path=item.getURL(),
-                               organType=item.organType))
-            elif item.organType == 'restricted_to_affected_organ':
-                affected_count = affected_count + 1
-                affected_og.append(dict(title=item.Title,
-                                   path=item.getURL(),
-                                   organType=item.organType))
-            elif item.organType == 'restricted_to_members_organ':
-                members_count = members_count + 1
-                members_og.append(dict(title=item.Title,
-                                  path=item.getURL(),
-                                  organType=item.organType))
-            else:
-                others_count = others_count + 1
-                others.append(dict(title=item.Title,
-                                   path=item.getURL(),
-                                   organType=item.organType))
-        results = {'total': total,
-                   'obert_count': obert_count,
-                   'members_count': members_count,
-                   'affected_count': affected_count,
-                   'others_count': others_count,
-                   'open': open_og,
-                   'affected': affected_og,
-                   'members': members_og,
-                   'others': others}
-        return json.dumps(results)
+            value = item.getObject()
+            value.organType = 'open_organ'
+            transaction.commit()
+
+        return True
 
 
 class changeMimeType(grok.View):
