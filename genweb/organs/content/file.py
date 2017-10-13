@@ -12,6 +12,7 @@ from plone.supermodel.directives import fieldset
 from plone.namedfile.utils import get_contenttype
 from zope.schema import ValidationError
 from AccessControl import Unauthorized
+from genweb.organs import utils
 
 
 grok.templatedir("templates")
@@ -128,101 +129,121 @@ class View(grok.View):
                 isPDF = True
         return isPDF
 
-    def canView(self):
-        if not api.user.is_anonymous():
-            return True
-        raise Unauthorized
-
     def viewPublic(self):
+        """ Cuando se muestra la parte pública del FICHERO
+        """
+        if utils.isManager(self):
+            return True
+        organ_tipus = self.context.aq_parent.organType  # 1 level up
         if self.context.visiblefile and self.context.hiddenfile:
-            if self.isSecretari() or self.isEditor() or self.isManager():
+            if organ_tipus == 'open_organ':
                 return True
+            elif organ_tipus == 'restricted_to_members_organ':
+                if (utils.isSecretari(self) or utils.isEditor(self)):
+                    return True
+                else:
+                    raise Unauthorized
+            elif organ_tipus == 'restricted_to_affected_organ':
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isAfectat(self)):
+                    return True
+                else:
+                    raise Unauthorized
         elif self.context.hiddenfile:
-            if self.isSecretari() or self.isEditor() or self.isManager():
-                return True
-            else:
-                return False
+            if organ_tipus == 'open_organ':
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return True
+                else:
+                    raise Unauthorized
         elif self.context.visiblefile:
-            if self.isSecretari() or self.isEditor() or self.isManager() or self.isMembre():
+            if organ_tipus == 'open_organ':
                 return True
             else:
-                return False
+                raise Unauthorized
         else:
-            return False
+            raise Unauthorized
 
     def viewReserved(self):
+        """ Cuando se muestra la parte privada del FICHERO
+        """
+        if utils.isManager(self):
+            return True
+        organ_tipus = self.context.aq_parent.organType  # 1 level up
         if self.context.visiblefile and self.context.hiddenfile:
-            if self.isSecretari() or self.isEditor() or self.isMembre() or self.isManager():
-                return True
+            if organ_tipus == 'open_organ':
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return True
+                else:
+                    raise Unauthorized
+            elif organ_tipus == 'restricted_to_members_organ':
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return True
+                else:
+                    raise Unauthorized
+            elif organ_tipus == 'restricted_to_affected_organ':
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return True
+                else:
+                    raise Unauthorized
         elif self.context.hiddenfile:
-            if self.isSecretari() or self.isEditor() or self.isMembre() or self.isManager():
-                return True
-            else:
-                return False
+            if organ_tipus == 'open_organ':
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return True
+                else:
+                    raise Unauthorized
         elif self.context.visiblefile:
-            if self.isSecretari() or self.isEditor() or self.isManager():
-                return True
-            else:
-                return False
+            if organ_tipus == 'open_organ':
+                if (utils.isSecretari(self) or utils.isEditor(self)):
+                    return True
+                else:
+                    raise Unauthorized
         else:
-            return False
+            raise Unauthorized
 
-    def isAfectat(self):
-        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
-        try:
-            username = api.user.get_current().id
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG4-Afectat' in roles:
+    def canView(self):
+        # Permissions to view FILE
+        # If manager Show all
+        if utils.isManager(self):
+            return True
+        estatSessio = utils.session_wf_state(self)
+        organ_tipus = self.context.aq_parent.organType  # 1 level up
+        if organ_tipus == 'open_organ':
+            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                return True
+            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            elif estatSessio == 'tancada':
+                return True
+            elif estatSessio == 'en_correccio':
                 return True
             else:
-                return False
-        except:
-            return False
+                raise Unauthorized
 
-    def isMembre(self):
-        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
-        try:
-            username = api.user.get_current().id
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG3-Membre' in roles:
+        if organ_tipus == 'restricted_to_members_organ':
+            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                return True
+            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                 return True
             else:
-                return False
-        except:
-            return False
+                raise Unauthorized
 
-    def isEditor(self):
-        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
-        try:
-            username = api.user.get_current().id
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG2-Editor' in roles:
+        if organ_tipus == 'restricted_to_affected_organ':
+            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                return True
+            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
                 return True
             else:
-                return False
-        except:
-            return False
-
-    def isSecretari(self):
-        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
-        try:
-            username = api.user.get_current().id
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG1-Secretari' in roles:
-                return True
-            else:
-                return False
-        except:
-            return False
-
-    def isManager(self):
-        """ No podem fer servir les funcions de l'utils perque sino al ser MANAGER el template surt 2 vegades """
-        try:
-            username = api.user.get_current().id
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if 'Manager' in roles:
-                return True
-            else:
-                return False
-        except:
-            return False
+                raise Unauthorized

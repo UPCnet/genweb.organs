@@ -253,7 +253,7 @@ class View(grok.View):
         folder_path = '/'.join(self.context.getPhysicalPath())
 
         # Només veu els acords de les sessions que pot veure
-        sessions = portal_catalog.searchResults(
+        sessions = portal_catalog.unrestrictedSearchResults(
             portal_type='genweb.organs.sessio',
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
@@ -264,7 +264,7 @@ class View(grok.View):
             paths.append(session.getPath())
 
         for path in paths:
-            values = portal_catalog.searchResults(
+            values = portal_catalog.unrestrictedSearchResults(
                 portal_type=['genweb.organs.acord'],
                 sort_on='modified',
                 path={'query': path,

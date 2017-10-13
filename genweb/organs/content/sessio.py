@@ -512,6 +512,9 @@ class View(grok.View):
             path={'query': session_path,
                   'depth': 1})
         results = []
+        # TODO: No mostrar fletxa que indica que hi ha cosses dintre
+        # Al fer la cerca els conta, cal fer que segons si el doc te public o no
+        # Surti o no...
         for obj in values:
 
             anonymous = api.user.is_anonymous()
@@ -556,15 +559,14 @@ class View(grok.View):
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
-        values = portal_catalog.searchResults(
+        values = portal_catalog.unrestrictedSearchResults(
             portal_type=['genweb.organs.acord'],
             sort_on='modified',
             path={'query': folder_path,
                   'depth': 3})
-
         for obj in values:
-            value = obj.getObject()
-            # value = obj._unrestrictedGetObject()
+            # value = obj.getObject()
+            value = obj._unrestrictedGetObject()
             if value.agreement:
                 if len(value.agreement.split('/')) > 2:
                     num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3)
