@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-10-11 13:48+0000\n"
+"POT-Creation-Date: 2017-10-13 07:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr ""
 
-#: ./genweb/organs/browser/views/acta_print.pt:29
+#: ./genweb/organs/browser/views/acta_print.pt:24
 msgid "ACTA <span style=\"text-align: left\">${DYNAMIC_CONTENT}</span>"
 msgstr ""
 
@@ -83,7 +83,7 @@ msgstr ""
 msgid "Afectats"
 msgstr ""
 
-#: ./genweb/organs/browser/views/butlleti.pt:102
+#: ./genweb/organs/browser/views/butlleti.pt:100
 #: ./genweb/organs/content/templates/organgovern_view.pt:138
 #: ./genweb/organs/content/templates/sessio_view.pt:280
 msgid "Agreement"
@@ -135,7 +135,7 @@ msgstr ""
 msgid "Assistents"
 msgstr ""
 
-#: ./genweb/organs/browser/views/acta_print.pt:62
+#: ./genweb/organs/browser/views/acta_print.pt:57
 #: ./genweb/organs/content/templates/acta_view.pt:118
 msgid "Attending members"
 msgstr ""
@@ -176,31 +176,31 @@ msgstr ""
 msgid "Changed Title"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:366
+#: ./genweb/organs/browser/views.py:387
 msgid "Changed acord color state"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:391
+#: ./genweb/organs/browser/views.py:412
 msgid "Changed acord intern state color"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:362
+#: ./genweb/organs/browser/views.py:383
 msgid "Changed punt color state"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:177
+#: ./genweb/organs/browser/views.py:179
 msgid "Changed punt number with drag&drop"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:360
+#: ./genweb/organs/browser/views.py:381
 msgid "Changed recursive color state of acord inside punt"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:358
+#: ./genweb/organs/browser/views.py:379
 msgid "Changed recursive color state of subpunt inside punt"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:389
+#: ./genweb/organs/browser/views.py:410
 msgid "Changed subpunt intern state color"
 msgstr ""
 
@@ -278,7 +278,7 @@ msgstr ""
 msgid "Deleted subpunt"
 msgstr ""
 
-#: ./genweb/organs/browser/views/acta_print.pt:88
+#: ./genweb/organs/browser/views/acta_print.pt:83
 msgid "Desenvolupament de la sessio"
 msgstr ""
 
@@ -290,11 +290,11 @@ msgstr ""
 msgid "Destinataris"
 msgstr ""
 
-#: ./genweb/organs/browser/views/acta_print.pt:47
+#: ./genweb/organs/browser/views/acta_print.pt:42
 msgid "Dia/Hora fi"
 msgstr ""
 
-#: ./genweb/organs/browser/views/acta_print.pt:42
+#: ./genweb/organs/browser/views/acta_print.pt:37
 msgid "Dia/Hora inici"
 msgstr ""
 
@@ -320,7 +320,7 @@ msgstr ""
 msgid "Envia missatge"
 msgstr ""
 
-#: ./genweb/organs/browser/views/butlleti.pt:80
+#: ./genweb/organs/browser/views/butlleti.pt:78
 #: ./genweb/organs/content/templates/impersonate_as.pt:69
 #: ./genweb/organs/content/templates/sessio_view.pt:197
 msgid "Estat de la sessio"
@@ -330,7 +330,7 @@ msgstr ""
 msgid "Esteu visualitzant la sessio amb el rol"
 msgstr ""
 
-#: ./genweb/organs/browser/views/acta_print.pt:73
+#: ./genweb/organs/browser/views/acta_print.pt:68
 #: ./genweb/organs/content/acta.py:82
 #: ./genweb/organs/content/sessio.py:99
 msgid "Excused members"
@@ -426,7 +426,7 @@ msgstr ""
 msgid "Invalid audio file"
 msgstr ""
 
-#: ./genweb/organs/browser/views/acta_print.pt:68
+#: ./genweb/organs/browser/views/acta_print.pt:63
 #: ./genweb/organs/content/acta.py:74
 #: ./genweb/organs/content/organgovern.py:96
 msgid "Invited members"
@@ -509,7 +509,7 @@ msgstr ""
 msgid "Missatge no enviat. Comprovi els destinataris del missatge"
 msgstr ""
 
-#: ./genweb/organs/browser/views/acta_print.pt:78
+#: ./genweb/organs/browser/views/acta_print.pt:73
 msgid "Missing members"
 msgstr ""
 
@@ -525,7 +525,7 @@ msgstr ""
 msgid "Modified punt"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:224
+#: ./genweb/organs/browser/views.py:226
 msgid "Moved subpunt by drag&drop"
 msgstr ""
 
@@ -584,10 +584,6 @@ msgstr ""
 msgid "Only audio files are permitted."
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:22
-msgid "Open"
-msgstr ""
-
 #: ./genweb/organs/content/informarSessio.py:186
 #: ./genweb/organs/content/mailConvocar.py:206
 #: ./genweb/organs/content/manualimport.py:189
@@ -625,7 +621,7 @@ msgid "Organ Govern type"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:60
-#: ./genweb/organs/content/templates/organsfolder_view.pt:22
+#: ./genweb/organs/content/templates/organsfolder_view.pt:23
 msgid "Organ Title"
 msgstr ""
 
@@ -642,7 +638,7 @@ msgstr ""
 msgid "Organ permanently invited people description."
 msgstr ""
 
-#: ./genweb/organs/content/templates/organsfolder_view.pt:25
+#: ./genweb/organs/content/templates/organsfolder_view.pt:26
 msgid "Organ type"
 msgstr ""
 
@@ -720,7 +716,7 @@ msgstr ""
 msgid "Published file description"
 msgstr ""
 
-#: ./genweb/organs/browser/views/butlleti.pt:101
+#: ./genweb/organs/browser/views/butlleti.pt:99
 #: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
 msgid "Punt"
 msgstr ""
@@ -739,20 +735,12 @@ msgstr ""
 msgid "Recipients"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:290
+#: ./genweb/organs/browser/views.py:311
 msgid "Reload proposalPoints manually"
 msgstr ""
 
 #: ./genweb/organs/content/file.py:61
 msgid "Reserved file description"
-msgstr ""
-
-#: ./genweb/organs/content/organgovern.py:24
-msgid "Restricted_to_Affected"
-msgstr ""
-
-#: ./genweb/organs/content/organgovern.py:23
-msgid "Restricted_to_Members"
 msgstr ""
 
 #: ./genweb/organs/content/informarSessio.py:112
@@ -815,7 +803,7 @@ msgstr ""
 msgid "Session end time"
 msgstr ""
 
-#: ./genweb/organs/browser/views/acta_print.pt:37
+#: ./genweb/organs/browser/views/acta_print.pt:32
 #: ./genweb/organs/content/acta.py:59
 #: ./genweb/organs/content/sessio.py:64
 msgid "Session location"
@@ -939,7 +927,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: ./genweb/organs/browser/views/butlleti.pt:103
+#: ./genweb/organs/browser/views/butlleti.pt:101
 #: ./genweb/organs/content/templates/organgovern_view.pt:135
 #: ./genweb/organs/content/templates/sessio_view.pt:277
 msgid "Titol"
@@ -993,7 +981,7 @@ msgid "acord"
 msgstr ""
 
 #. Default: "There are currently no Organs in this folder."
-#: ./genweb/organs/content/templates/organsfolder_view.pt:56
+#: ./genweb/organs/content/templates/organsfolder_view.pt:57
 msgid "description_no_items_in_folder"
 msgstr ""
 
@@ -1022,7 +1010,7 @@ msgstr ""
 msgid "notification_mail_help"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:83
+#: ./genweb/organs/content/organgovern.py:22
 msgid "open_organ"
 msgstr ""
 
@@ -1030,7 +1018,15 @@ msgstr ""
 msgid "printOrdreDia"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:417
+#: ./genweb/organs/content/organgovern.py:24
+msgid "restricted_to_affected_organ"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:23
+msgid "restricted_to_members_organ"
+msgstr ""
+
+#: ./genweb/organs/browser/views.py:438
 #: ./genweb/organs/content/impersonate_as.py:146
 #: ./genweb/organs/content/punt.py:146
 msgid "sense numeracio"
