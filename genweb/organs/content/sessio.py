@@ -516,28 +516,32 @@ class View(grok.View):
         # Al fer la cerca els conta, cal fer que segons si el doc te public o no
         # Surti o no...
         for obj in values:
-
+            value = obj.getObject()
             anonymous = api.user.is_anonymous()
-            if anonymous:
+            # Anonim / Afectat / Membre veuen obrir en finestra nova dels fitxers.
+            if anonymous or utils.isMembre(self) or utils.isAfectat(self):
                 # Es un document, mostrem part publica si la té
                 if obj.portal_type == 'genweb.organs.document':
                     classCSS = 'fa fa-file-text-o'
-                    if obj.getObject().defaultContent:
+                    if value.defaultContent:
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
                                             absolute_url=obj.getURL(),
+                                            new_tab=False,
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
                 # es un fitxer, mostrem part publica si la té
                 if obj.portal_type == 'genweb.organs.file':
                     classCSS = 'fa fa-file-pdf-o'
-                    if obj.getObject().visiblefile:
+                    if value.visiblefile:
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
-                                            absolute_url=obj.getURL(),
+                                            absolute_url=obj.getURL() + '/@@display-file/visiblefile/',
+                                            new_tab=True,
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
             else:
+                # Editor i Secretari veuen contingut NO obren en finestra nova
                 if obj.portal_type == 'genweb.organs.file':
                     # És un File
                     classCSS = 'fa fa-file-pdf-o'
@@ -548,9 +552,9 @@ class View(grok.View):
                 results.append(dict(title=obj.Title,
                                     portal_type=obj.portal_type,
                                     absolute_url=obj.getURL(),
+                                    new_tab=False,
                                     classCSS=classCSS,
                                     id=str(item['id']) + '/' + obj.id))
-
         return results
 
     def AcordsInside(self):

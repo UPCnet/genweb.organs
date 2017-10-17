@@ -149,32 +149,38 @@ def FilesandDocumentsInside(self):
     results = []
 
     for obj in values:
-        if obj.portal_type == 'genweb.organs.file':
-            # És un File
-            classCSS = 'fa fa-file-pdf-o'
-        else:
-            # És un document
-            classCSS = 'fa fa-file-text-o'
+        value = obj.getObject()
         anonymous = api.user.is_anonymous()
-        if anonymous:
+        if anonymous or self.isMembre(self) or self.isAfectat(self):
+            # Es un document/fitxer, mostrem part publica si la té
             if obj.portal_type == 'genweb.organs.document':
-                # Es un document/fitxer, mostrem part publica si la té
-                if obj.getObject().defaultContent:
+                classCSS = 'fa fa-file-text-o'
+                if value.defaultContent:
                     results.append(dict(title=obj.Title,
                                         absolute_url=obj.getURL(),
+                                        new_tab=False,
                                         classCSS=classCSS,
                                         hidden=False))
             if obj.portal_type == 'genweb.organs.file':
-                if obj.getObject().visiblefile:
+                classCSS = 'fa fa-file-pdf-o'
+                if value.visiblefile:
                     results.append(dict(title=obj.Title,
-                                        absolute_url=obj.getURL(),
+                                        absolute_url=obj.getURL() + '/@@display-file/visiblefile/',
+                                        new_tab=True,
                                         classCSS=classCSS,
                                         hidden=False))
         else:
+            if obj.portal_type == 'genweb.organs.file':
+                # És un File
+                classCSS = 'fa fa-file-pdf-o'
+            else:
+                # És un document
+                classCSS = 'fa fa-file-text-o'
             # si està validat els mostrem tots
             results.append(dict(title=obj.Title,
                                 absolute_url=obj.getURL(),
                                 classCSS=classCSS,
+                                new_tab=False,
                                 hidden=False))
     return results
 

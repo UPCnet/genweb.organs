@@ -548,7 +548,10 @@
                     <tal:documents repeat="item files">
                       <li class="filesinTable">
                         <i tal:attributes="class item/classCSS"></i>
-                        <a tal:attributes="href item/absolute_url;">
+                        <a tal:attributes="href item/absolute_url;"  tal:condition="item/new_tab" target="_blank">
+                           <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                        </a>
+                        <a tal:attributes="href item/absolute_url;" tal:condition="not:item/new_tab">
                            <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                         </a>
                         <div style="float:right; display: inline-table;" tal:condition="canModify">
@@ -662,7 +665,10 @@
                               <tal:documents repeat="item files">
                                 <li class="filesinTable">
                                   <i tal:attributes="class item/classCSS"></i>
-                                  <a tal:attributes="href item/absolute_url;">
+                                  <a tal:attributes="href item/absolute_url;" tal:condition="item/new_tab" target="_blank">
+                                     <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                  </a>
+                                  <a tal:attributes="href item/absolute_url;" tal:condition="not:item/new_tab">
                                      <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                                   </a>
                                   <div style="float:right; display: inline-table;" tal:condition="canModify">
