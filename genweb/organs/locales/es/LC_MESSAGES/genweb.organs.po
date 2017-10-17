@@ -54,11 +54,11 @@ msgstr "Acta"
 #: ./genweb/organs/content/acta.py:110
 #: ./genweb/organs/content/templates/acta_view.pt:165
 msgid "Acta PDF"
-msgstr "Acta en formato PDF"
+msgstr "Fichero anexo del acta"
 
 #: ./genweb/organs/content/acta.py:111
 msgid "Acta PDF file description"
-msgstr "Fichero en formato PDF del acta. Sólo se aceptan ficheros en formato PDF."
+msgstr "NOTA: Sólo se acepta ún fichero en formato PDF."
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:37
 msgid "Actes"

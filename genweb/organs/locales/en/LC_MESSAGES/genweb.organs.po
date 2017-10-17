@@ -54,11 +54,11 @@ msgstr "Meeting report"
 #: ./genweb/organs/content/acta.py:110
 #: ./genweb/organs/content/templates/acta_view.pt:165
 msgid "Acta PDF"
-msgstr "Meeting report in PDF format"
+msgstr "Annex file"
 
 #: ./genweb/organs/content/acta.py:111
 msgid "Acta PDF file description"
-msgstr "PDF file from the meeting report. Only PDF files are accepted"
+msgstr "NOTE: Only PDF files are accepted."
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:37
 msgid "Actes"
