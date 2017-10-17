@@ -54,7 +54,7 @@ msgstr "Acta"
 #: ./genweb/organs/content/acta.py:110
 #: ./genweb/organs/content/templates/acta_view.pt:165
 msgid "Acta PDF"
-msgstr "Fichero anexo del acta"
+msgstr "Fichero adjunto"
 
 #: ./genweb/organs/content/acta.py:111
 msgid "Acta PDF file description"
