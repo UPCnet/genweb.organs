@@ -134,29 +134,11 @@ input#form-widgets-fromTitle {width: 98%;}
     padding: 0;
     width:auto;
 }
-#sortable li {/*
-    border: 1px solid #eee;
-    border-radius: 0;
-    box-shadow: 2px 3px 2px #eee;
-    font-size: 14px;
-    margin: 0 0 10px;
-    padding-right: 0px!important;
-    float: left;
-    width: 97%;*/
 
-}
-
-#sortable li span {
-   /* position: absolute;
-    margin-left: -1.3em;*/
-}
 
 span.proposalNumber {
     color: #007BC0;
-    /*float: left;*/
     font-size: 20px;
-    /*margin-left: -10px;*/
- /*   margin-right: 8px;*/
 }
 .DADES > h2 {
     margin-bottom: 15px;
@@ -165,14 +147,7 @@ span.proposalNumber {
 
 .DADES ul, .DADES ol {
     margin: 5px 0;
-    /* margin: 0 0 9px 25px; */
 }
-
-/*span.proposalNumberSubpunt{
-    color: #007bc0;
-    margin-left: 0;
-
-}*/
 
 span.proposalNumberSubpunt {
     color: #007BC0;
@@ -213,7 +188,6 @@ span.proposalNumberSubpunt {
 }
 
 .ui-state-grey:hover:before {
-    /*content: "\f07d";*/
     font-family: FontAwesome;
     cursor: move;
     color: #007BC0;
@@ -224,7 +198,6 @@ span.proposalNumberSubpunt {
 }
 
 .llistaAfegir {
-    /*border-top: 1px solid #777777;*/
     margin-top:10px;
     color: #333;
     font-family: Arial,Helvetica,sans-serif;
@@ -251,9 +224,6 @@ span.proposalNumberSubpunt {
     color: #555;
     font-weight: normal;
 }
-/*.editTitle:hover {
-    cursor: text;
-}*/
 
 span.label.nomarginLeft  {
     margin-left: 10px !important;
@@ -269,7 +239,6 @@ span.label.nomarginLeft  {
     font-weight: bold;
     font-color: black;
     padding-top: 5px;
-    /*margin-bottom: 15px;*/
 }
 .subpuntTitle {
     font-size: 13px;
@@ -330,16 +299,8 @@ div#modalSession.modal.fade.modalSession.in {
 .editable-click, a.editable-click, a.editable-click:hover {
     text-decoration: none;
     border-bottom: dotted 1px #2c95b4 !important;
-    /*padding: 2px 4px;*/
 }
 
-/*a.editable-click:hover:after {
-    content: "\f040";
-    color: #007BC0;
-    font-size: 12px;
-    font-family: Fontawesome;
-
-}*/
 
 label.label.label-default {
     color: #777777;
@@ -381,13 +342,7 @@ a.remove{background-color: #e8003d!important}
     font-weight: normal;
 }
 
-/*span.editable-container.editable-inline  input[type="text"] {
-    width: 500px !important;
-    max-width: 99% !important;
-}*/
-
 .subpuntTitle:hover:before {
-    /* content: "\f07d";*/
     cursor: move;
     font-family: FontAwesome;
     color: #ccc;
@@ -399,7 +354,6 @@ a.remove{background-color: #e8003d!important}
 }
 
 .ui-state-grey:hover:before {
-    /*content: "\f07d";*/
     font-family: FontAwesome;
     cursor: move;
     color: #ccc;
@@ -537,7 +491,6 @@ background-color: transparent;
     font-weight: normal;
     font-size: 13px;
     color: #555;
-    /*margin-top:10px;*/
 }
 .editableform .editable-input {
     left: 0;
@@ -546,7 +499,6 @@ background-color: transparent;
 /* amplada camp de text d'edit del titol */
 .editableform .editable-input > input {
     font-size: 16px;
-    /*max-width: 100px;*/
     width: 30em;
 }
 .btn.label.disabled {
@@ -584,19 +536,14 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     border-color: #007bc0;
 }
 
-/* APORTACIÓN DAVID CABALLERO */
-
 .bodyPresentation span.proposalNumber {
     color: #CCC;
-    /*margin-left: -7px;*/
-    /*margin-right: 12px;*/
     font-size: 30px;
 }
 
 .bodyPresentation span.proposalNumberSubpunt {
     color: #CCC;
     font-size: 23px;
-
 }
 
 .bodyPresentation .agreement.editable.editable-click{
@@ -621,7 +568,6 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 
 .bodyPresentation .editTitle.editable.subtitleSize {
     color: #555;
-   /* font-weight: 300!important;*/
     font-size: 23px;
 }
 
@@ -632,22 +578,16 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     padding-bottom: 10px;
 }
 
-
 .bodyPresentation .btn-group.open .dropdown-toggle {
     width: 35px;
     height: 30px;
 }
-
 
 .bodyPresentation .DADES button {
     height: 30px;
     width: 35px;
     line-height: 35px;
 }
-
-/*.bodyPresentation .DADES button:hover {
-    line-height: 35px;
-}*/
 
 .bodyPresentation .label.dropdown-toggle:hover {
     width: 35px;
@@ -662,7 +602,6 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
  .bulletPuntPresentation {
     padding-right: 25px;
 }
-
 
 .bodyPresentation .fa-arrow-up:before {
     color: #aaa;
@@ -690,11 +629,9 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 }
 
 .bodyPresentation #sortable li {
-    /*background: rgba(0, 90, 141, 0.05);*/
     margin: none;
     padding: none;
     box-shadow: none;
-    /*padding-right: 25px;*/
     margin-top: 0px;
      }
 
@@ -735,7 +672,6 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 .bodyPresentation hr {
     border-top: 3px solid #557c95;
 }
-
 
 
 .bodyPresentation .subpuntTitle {
@@ -780,7 +716,6 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 
 .bodyPresentation #sortable .filesinTable {
     margin-top: 10px;
-    /*font-size: 20px;*/
     padding-top: 2px;
     padding-bottom: 2px;
     line-height: 30px;
@@ -799,11 +734,6 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     font-size: 14px;
     font-weight: bold;
 }
-
-/*.bodyPresentation .dropdown-menu{
-    padding-top: 35px;
-    margin-top: 35px;
-}*/
 
 .bodyPresentation #sortable .dropdown-menu{
     padding-top: 0px;
@@ -847,7 +777,6 @@ padding: 0px 0px 32px 0px !important;
 
 .popover {
     z-index: 2060 !important;
-
 }
 
 .bannerOrgans {padding-top: 20px;position: relative;}
@@ -887,7 +816,6 @@ div#formfield-form-widgets-message.field {margin-bottom: 0px;}
     margin-bottom: 0px!important;
 }
 
-
 .portaltype-genweb-organs-sessio .span2.boleta {
     margin-left: 39px!important;
 }
@@ -909,7 +837,6 @@ div#formfield-form-widgets-message.field {margin-bottom: 0px;}
 span.label.label-default,
 span.label.label-danger {float: right;}
 
-
 .presentation_template {
     margin-right: auto;
     margin-left: auto;
@@ -919,15 +846,9 @@ span.label.label-danger {float: right;}
     min-height: 600px;
 }
 
-
 body, .smooth-container { scroll-behavior: smooth }
 
 #sessionTabs {padding-bottom: 20px;}
-
-
-.divTitle {
-/*    padding-top: 10px;*/
-}
 
 
 dt.ontenttype-genweb-organs-historicfolder:before,
@@ -1040,10 +961,7 @@ input#acordNumber {width: 159px;}
 .bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {    padding: 0px!important;}
 
 .agreementClass , .agreementSubClass  {
-    /* font-size: 11px; */
     color: #999;
-    /* letter-spacing: 0.025em; */
-    /* font-weight: 600!important; */
 }
 
 li.filesinTable {color: #555;}
@@ -1054,7 +972,7 @@ div.tab-pane.fade.active.in {background-color: white;
 border: 1px solid #b2b2b2;}
 
 .panel-title {
-        margin-top: 0;
+    margin-top: 0;
     margin-bottom: 0;
     font-size: 16px;
     color: inherit;
@@ -1096,21 +1014,16 @@ span.agreementClassPunt {
 
 div.containerIcons a img.link_blank { display: none }
 
-
-/* albert*/
-
 .puntTitle.span12 {
     margin-left: 5px!important;
 }
 
 .bodyPresentation .puntTitle.span12{margin-left: 0px!important;}
 
-
 .span1.numberSpan {
     margin-left: 0px!important;
     margin-top: 0px;
     margin-bottom: 5px!important;
-    /*width: 40px!important;*/
 }
 
 .span6.agreementSpan{margin-bottom:0px!important;}
@@ -1122,16 +1035,6 @@ div.containerIcons a img.link_blank { display: none }
    }
 
 #sortable li {
-    /*border: 1px solid #eee!important;
-    border-radius: 0;
-    box-shadow: 2px 3px 2px #eee;
-    font-size: 14px;
-    margin: 0 0 10px;
-    padding: 0.3em 0.3em 0.5em 0.1em;
-    float: left;
-    width: 98%;*/
-
-    /*border: 1px solid #eee!important; */
     border-radius: 0;
     box-shadow: none;
     font-size: 13px;
@@ -1139,7 +1042,6 @@ div.containerIcons a img.link_blank { display: none }
     padding: 0.3em 0.3em 0.3em 0.1em;
     float: left;
     width: 99%;
-
 }
 
 .span10.titleSpan {
@@ -1184,19 +1086,9 @@ div.containerIcons a img.link_blank { display: none }
     padding-bottom: 5px!important;
 }
 
-/*.bodyPresentation #peu{ background:#fff!important; display: none!important; }*/
-
-/*.bodyPresentation footer{ display: none!important }*/
-
 .bodyPresentation #sortable li {
      width: 100%!important;
 }
-
-/*.bodyPresentation .agreementPuntPresentation , .bodyPresentation .agreementSubPuntPresentation {
-    margin-left: 20px!important;
-}*/
-
-
 
 html {
     background: #fff!important;
@@ -1210,19 +1102,6 @@ html {
     padding-bottom: 15px!important;
 }
 
-
-
-
-
-/*.Afectat #sortable li , .Membre #sortable li {
-    width: 100%!important;
-     padding: 0.4em 0.3em 0.8em 1em !important;
-}
-
-.Afectat span.proposalNumber , .Membre #sortable li {
-    margin-right: 8px!important;
-}
-*/
 .span6.einesSpan{
     padding-right: 4px!important;
 }
@@ -1248,8 +1127,6 @@ ol.li_subgrups {
     margin-top: 5px!important;
     text-align: right!important;
 }
-
-
 
 .bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {
     padding-left: 0px!important;
@@ -1279,7 +1156,6 @@ ol.li_subgrups {
     color: red;
     font-weight: 300!important;
     margin-bottom: 10px;
-
 }
 
 .bodyPresentation #sortable .filesinTable {
@@ -1293,26 +1169,24 @@ ol.li_subgrups {
 
 .bodyPresentation #sortable .filesinTable a:hover {
     line-height: 20px!important;
-        font-weight: 300!important;
+    font-weight: 300!important;
     color: #007BC0!important;
-    }
+}
 
-
-
-    .bodyPresentation #sortable li {
+.bodyPresentation #sortable li {
     width: 100%!important;
     border-top: none!important;
     border-left: none!important;
     border-right: none!important;
     background-color: #fff;
-        padding-left: 0px!important;
+    padding-left: 0px!important;
     padding-right: 0px!important;
-       padding-top: 25px!important;
+    padding-top: 25px!important;
     padding-bottom: 5px!important;
-        border-radius: 0px!important;
-        margin-bottom: 0px!important;
-        margin-top: 0px!important;
-        border-bottom: 1px solid #e8e8e8;
+    border-radius: 0px!important;
+    margin-bottom: 0px!important;
+    margin-top: 0px!important;
+    border-bottom: 1px solid #e8e8e8;
 }
 
 .bodyPresentation #sortable ul.dropdown-menu li{
@@ -1327,13 +1201,16 @@ ol.li_subgrups {
     padding-bottom: 5px!important;
 }
 
-
 .bodyPresentation span.proposalNumber, .bodyPresentation span.proposalNumberSubpunt {
     margin-right: 15px;
 	color: #0087C9!important;
 }
 
 .bodyPresentation img.link_blank {
+    display: none; width: 0px!important; height: 0px!important; margin:0px!important; padding:0px!important;
+}
+
+.portaltype-genweb-organs-sessio img.link_blank {
     display: none; width: 0px!important; height: 0px!important; margin:0px!important; padding:0px!important;
 }
 
@@ -1366,11 +1243,9 @@ span.barra {
 }
 
 .Afectat #sortable li {
-    width: 97%!important}
+    width: 97%!important
+}
 
-
-/*.presentation_template ul#sortable.ui-sortable li:hover{ background-color:#f2f2f2;}*/
-/*.picked:hover{background:#e5f7ff !important; }*/
 .presentation_template li.punt.picked{ background:#e5f7ff !important; }
 .bodyPresentation .picked .filesinTable:hover {
     background:#e5f7ff !important;
@@ -1378,19 +1253,12 @@ span.barra {
 
 .portaltype-genweb-organs-sessio li.ui-state-grey.picked{ background:#e5f7ff !important; }
 
-
 .bodyPresentation .agreementPuntPresentation, .bodyPresentation .agreementSubPuntPresentation {
     font-size: 15px;
     color: #888;
-    /*float: right;
-    background-color: #0083C7;
-    color: white!important;
-    border-radius: 5px;
-    padding: 0 5px;*/
 }
 
-.bodyPresentation .subpuntTitle.span12{margin-left:0px!important; padding-left: 115px!important;
-}
+.bodyPresentation .subpuntTitle.span12{margin-left:0px!important; padding-left: 115px!important;}
 
 .bodyPresentation .subpuntTitle {
     padding-left: 50px!important;
@@ -1414,19 +1282,14 @@ span.barra {
 .span6.einesSpan {
     position: absolute!important;
     right: 0px!important;
-    /*top: 38%!important;*/
-    /*background: -moz-linear-gradient(left, rgba(153,153,153,0) 0%, rgba(249,249,249,1) 45%, rgba(249,249,249,1) 100%);
-background: -webkit-linear-gradient(left, rgba(153,153,153,0) 0%,rgba(249,249,249,1) 45%,rgba(249,249,249,1) 100%);
-background: linear-gradient(to right, rgba(153,153,153,0) 0%,rgba(249,249,249,1) 45%,rgba(249,249,249,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', endColorstr='#f9f9f9',GradientType=1 );*/
-background: rgba(229,247,255,0);
-background: -moz-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -webkit-gradient(left top, right top, color-stop(0%, rgba(229,247,255,0)), color-stop(50%, rgba(229,247,255,1)), color-stop(100%, rgba(229,247,255,1)));
-background: -webkit-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -o-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -ms-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: linear-gradient(to right, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', endColorstr='#e5f7ff', GradientType=1 );
+    background: rgba(229,247,255,0);
+    background: -moz-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(229,247,255,0)), color-stop(50%, rgba(229,247,255,1)), color-stop(100%, rgba(229,247,255,1)));
+    background: -webkit-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+    background: -o-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+    background: -ms-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+    background: linear-gradient(to right, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', endColorstr='#e5f7ff', GradientType=1 );
     display: none!important;
 }
 
@@ -1442,12 +1305,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', end
     margin-top: 2px!important;
 }
 
-
 .row-fluid .puntTitle.span12 , .row-fluid  .span1.numberSpan , .row-fluid .span1.fletxaSpan {
     min-height: 10px!important;
 }
-
-/*.ui-state-grey:hover .span6.einesSpan {display: block!important;}*/
 
 .span1.fletxaSpan i {
     color: #aaa!important;
@@ -1487,40 +1347,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', end
 .portaltype-genweb-organs-sessio .row-fluid [class*="span"] {min-height: 10px!important;}
 
 .picked {
-/*.ui-state-grey:hover .span6.einesSpan {
-*/    display: block!important;
+    display: block!important;
     min-height: 30px!important;
 }
-
-/*.show {
-    position: absolute!important;
-    right: 3px!important;
-    top: 3px!important;
-background: rgba(229,247,255,0);
-background: -moz-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -webkit-gradient(left top, right top, color-stop(0%, rgba(229,247,255,0)), color-stop(50%, rgba(229,247,255,1)), color-stop(100%, rgba(229,247,255,1)));
-background: -webkit-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -o-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -ms-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: linear-gradient(to right, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', endColorstr='#e5f7ff', GradientType=1 );
-    display: block!important;
-}*/
 
 .show {
     position: absolute!important;
     right: 9px!important;
-    /*top: 38%!important;*/
-background: rgba(229,247,255,0);
-background: -moz-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -webkit-gradient(left top, right top, color-stop(0%, rgba(229,247,255,0)), color-stop(50%, rgba(229,247,255,1)), color-stop(100%, rgba(229,247,255,1)));
-background: -webkit-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -o-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: -ms-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-background: linear-gradient(to right, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', endColorstr='#e5f7ff', GradientType=1 );
+    background: rgba(229,247,255,0);
+    background: -moz-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(229,247,255,0)), color-stop(50%, rgba(229,247,255,1)), color-stop(100%, rgba(229,247,255,1)));
+    background: -webkit-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+    background: -o-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+    background: -ms-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+    background: linear-gradient(to right, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', endColorstr='#e5f7ff', GradientType=1 );
     display: block!important;
-  /* z-index: 999!important;*/
 }
 
 .subpuntTitle.span12 .span1 {
@@ -1529,7 +1371,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', end
 }
 
 .editable-input input{font-size: 13px!important;}
-
 
 .DADES .span12 .span12 , .DADES .span12 .span9, .DADES .span9 , .DADES .span12 .span12 .span12 , .DADES .span12{margin-bottom: 3px!important; min-height: 0px!important;}
 
@@ -1549,7 +1390,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', end
 span.estatpunt {
     display: inline-table;
     font-size: 12px;
-    /*float: right;*/
     background: #f1f1f1;
     padding: 0px 10px;
     border-radius: 15px;
@@ -1560,8 +1400,6 @@ span.estatpunt {
 .template-genweb-organs-sessio li.formTab.lastFormTab {
     display: none!important;
 }
-
-
 
 .bodyPresentation .modal{
   position:absolute;
@@ -1576,8 +1414,8 @@ span.estatpunt {
   z-index: 99999;
   overflow: hidden!important;
   background-color: white!important;
-
 }
+
 .bodyPresentation .modal-content {
   min-height:100%!important;
    overflow: hidden!important;
@@ -1587,22 +1425,23 @@ span.estatpunt {
   left:0;
   right:0;
 }
+
 .bodyPresentation .modal-body {
   position:absolute;
-  top:53px; // height of header
-  bottom:45px;  // height of footer
+  top:53px; /* height of header */
+  bottom:45px;  /* height of footer */
   left:0;
   right:0;
   overflow-y: auto;
   max-height: 82%!important;
 }
+
 .bodyPresentation .modal-footer {
   position:absolute;
   bottom:0;
   left:0;
   right:0;
 }
-
 
 .scrollit {
     overflow-y: scroll;
@@ -1624,7 +1463,6 @@ span.estatpunt {
   padding-right:10px;
   margin-left:-20px;
 }
-
 
 .convocada, .label-convocada {
     background-color: #8952ab !important;
@@ -1694,7 +1532,3 @@ span.estatpunt {
 }
 
 #expandAll , #collapseAll {cursor:pointer;}
-
-/*#plone-contentmenu-workflow.dropdown-toggle { color: #007BC0;}
-#plone-contentmenu-workflow.dropdown-toggle { color: #007BC0;}*/
-
