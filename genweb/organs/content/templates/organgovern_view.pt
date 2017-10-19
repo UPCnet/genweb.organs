@@ -19,8 +19,11 @@
                    hihaPersones view/hihaPersones;
                    multipleTab view/multipleTab">
 
-  <span tal:condition="view/canModify" style="float: right;" tal:attributes="class context/organType"
+  <span style="float: right;">
+    <tal:omit-tag i18n:translate="">Organ Govern type</tal:omit-tag>: &nbsp;
+    <span tal:condition="view/canModify" style="float: right;" tal:attributes="class context/organType"
         i18n:domain="genweb" i18n:translate="" tal:content="context/organType"></span>
+  </span>
 
   <div style="width: 180px;" class="pull-right" tal:condition="context/logoOrgan">
     <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan" />
