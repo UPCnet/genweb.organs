@@ -85,9 +85,6 @@ class ShowSessionAs(form.SchemaForm):
         else:
             return False
 
-    def isManager(self):
-        return utils.isManager(self)
-
     def canModify(self):
         review_state = api.content.get_state(self.context)
         value = False
@@ -95,7 +92,7 @@ class ShowSessionAs(form.SchemaForm):
             value = True
         if review_state in ['planificada', 'convocada', 'realitzada'] and utils.isEditor(self):
             value = True
-        return value or self.isManager()
+        return value or utils.isManager(self)
 
     def getColor(self, data):
         # assign custom colors on organ states

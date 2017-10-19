@@ -151,7 +151,7 @@ def FilesandDocumentsInside(self):
     for obj in values:
         value = obj.getObject()
         anonymous = api.user.is_anonymous()
-        if anonymous or self.isMembre(self) or self.isAfectat(self):
+        if anonymous or isMembre(self) or isAfectat(self):
             # Es un document/fitxer, mostrem part publica si la té
             if obj.portal_type == 'genweb.organs.document':
                 classCSS = 'fa fa-file-text-o'
