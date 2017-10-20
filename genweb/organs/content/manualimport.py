@@ -116,22 +116,25 @@ class Message(form.SchemaForm):
                     portal_type = line.lstrip().rstrip().split(' ')[0].upper()
                     if str(portal_type) == 'A':  # Es tracta d'un acord
                         line = ' '.join(line.lstrip().rstrip().split(' ')[1:])
-                        obj = api.content.create(
-                            type='genweb.organs.acord',
-                            title=line,
-                            container=self.context)
+                        with api.env.adopt_roles(['OG1-Secretari']):
+                            obj = api.content.create(
+                                type='genweb.organs.acord',
+                                title=line,
+                                container=self.context)
                     elif str(portal_type) == 'P':  # Es tracta d'un punt
                         line = ' '.join(line.lstrip().rstrip().split(' ')[1:])
-                        obj = api.content.create(
-                            type='genweb.organs.punt',
-                            title=line,
-                            container=self.context)
+                        with api.env.adopt_roles(['OG1-Secretari']):
+                            obj = api.content.create(
+                                type='genweb.organs.punt',
+                                title=line,
+                                container=self.context)
                     else:  # Supossem que per defecte sense espais es un Punt
                         line = line.lstrip().rstrip()
-                        obj = api.content.create(
-                            type='genweb.organs.punt',
-                            title=line,
-                            container=self.context)
+                        with api.env.adopt_roles(['OG1-Secretari']):
+                            obj = api.content.create(
+                                type='genweb.organs.punt',
+                                title=line,
+                                container=self.context)
                     obj.proposalPoint = unicode(str(index))
                     obj.estatsLlista = defaultEstat
                     index = index + 1
@@ -144,22 +147,25 @@ class Message(form.SchemaForm):
                     if previousPuntContainer.portal_type == 'genweb.organs.punt':
                         if str(portal_type) == 'A':  # Es tracta d'un acord
                             line = ' '.join(line.lstrip().rstrip().split(' ')[1:])
-                            newobj = api.content.create(
-                                type='genweb.organs.acord',
-                                title=line,
-                                container=previousPuntContainer)
+                            with api.env.adopt_roles(['OG1-Secretari']):
+                                newobj = api.content.create(
+                                    type='genweb.organs.acord',
+                                    title=line,
+                                    container=previousPuntContainer)
                         elif str(portal_type) == 'P':  # Es tracta d'un punt
                             line = ' '.join(line.lstrip().rstrip().split(' ')[1:])
-                            newobj = api.content.create(
-                                type='genweb.organs.subpunt',
-                                title=line,
-                                container=previousPuntContainer)
+                            with api.env.adopt_roles(['OG1-Secretari']):
+                                newobj = api.content.create(
+                                    type='genweb.organs.subpunt',
+                                    title=line,
+                                    container=previousPuntContainer)
                         else:  # Supossem que per defecte sense espais es un Punt
                             line = line.lstrip().rstrip()
-                            newobj = api.content.create(
-                                type='genweb.organs.subpunt',
-                                title=line,
-                                container=previousPuntContainer)
+                            with api.env.adopt_roles(['OG1-Secretari']):
+                                newobj = api.content.create(
+                                    type='genweb.organs.subpunt',
+                                    title=line,
+                                    container=previousPuntContainer)
 
                         newobj.proposalPoint = unicode(str(index - 1) + str('.') + str(subindex))
                         newobj.estatsLlista = defaultEstat
