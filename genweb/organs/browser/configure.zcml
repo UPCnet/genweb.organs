@@ -60,8 +60,16 @@
 
   <browser:page
     for="genweb.organs.content.sessio.ISessio"
-    name="updateProposalPoints"
-    class=".views.Reload"
+    name="updatePoints"
+    class=".views.ReloadPoints"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:page
+    for="genweb.organs.content.sessio.ISessio"
+    name="updateAcords"
+    class=".views.ReloadAcords"
     layer="..interfaces.IGenwebOrgansLayer"
     permission="cmf.ModifyPortalContent"
     />

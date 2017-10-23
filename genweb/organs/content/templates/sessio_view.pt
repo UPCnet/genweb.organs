@@ -414,7 +414,8 @@
       <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" data-target="#modalPunt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
       <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" data-target="#modalAcord"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou acord</span></a>
       <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
-      <a class="btn btn-info" style="margin-bottom: 20px;" href="updateProposalPoints"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts/acords</span></a>
+      <a class="btn btn-info" style="margin-bottom: 20px;" href="updatePoints"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts</span></a>      
+      <a class="btn btn-info" style="margin-bottom: 20px;" href="updateAcords"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts/acords</span></a>
   </div>
 </tal:buttons>
 

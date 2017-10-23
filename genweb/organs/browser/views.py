@@ -275,8 +275,8 @@ class ActaPrintView(BrowserView):
             raise Unauthorized
 
 
-class Reload(BrowserView):
-
+class ReloadAcords(BrowserView):
+    """ Numera acords de la vista de la sessio """
     def __call__(self):
         """ This call reassign the correct proposalPoints to the contents in this folder
         """
@@ -319,8 +319,6 @@ class Reload(BrowserView):
         index = 1
         for item in puntsOrdered:
             objecte = item.getObject()
-            objecte.proposalPoint = unicode(str(index))
-            objecte.reindexObject()
             if item.portal_type == 'genweb.organs.acord':
                 printid = '{0}'.format(str(idacord).zfill(2))
                 objecte.agreement = acronim + any + numsessio + printid
@@ -336,13 +334,57 @@ class Reload(BrowserView):
                 subvalue = 1
                 for value in subpunts:
                     newobjecte = value.getObject()
-                    newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
-                    newobjecte.reindexObject()
                     subvalue = subvalue + 1
                     if value.portal_type == 'genweb.organs.acord':
                         printid = '{0}'.format(str(idacord).zfill(2))
                         newobjecte.agreement = acronim + any + numsessio + printid
                         idacord = idacord + 1
+
+            index = index + 1
+
+        self.request.response.redirect(self.context.absolute_url())
+
+
+class ReloadPoints(BrowserView):
+    """ Renumera els punts manualment """
+    def __call__(self):
+        """ This call reassign the correct Point number to the contents in this folder
+        """
+        migrated = hasattr(self.context, 'migrated')
+        if migrated is True:
+            # Don't give option to modify numbers
+            return
+
+        if CSRF:
+            alsoProvides(self.request, IDisableCSRFProtection)
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+
+        addEntryLog(self.context, None, _(u'Reload points manually'), '')  # add log
+        # agafo items ordenats!
+        puntsOrdered = portal_catalog.searchResults(
+            portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+        index = 1
+        for item in puntsOrdered:
+            objecte = item.getObject()
+            objecte.proposalPoint = unicode(str(index))
+            objecte.reindexObject()
+
+            if len(objecte.items()) > 0:
+                search_path = '/'.join(objecte.getPhysicalPath())
+                subpunts = portal_catalog.searchResults(
+                    portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
+                    sort_on='getObjPositionInParent',
+                    path={'query': search_path, 'depth': 1})
+                subvalue = 1
+                for value in subpunts:
+                    newobjecte = value.getObject()
+                    newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
+                    newobjecte.reindexObject()
+                    subvalue = subvalue + 1
 
             index = index + 1
 

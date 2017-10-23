@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-10-13 20:34+0000\n"
+"POT-Creation-Date: 2017-10-23 07:01+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -28,7 +28,7 @@ msgstr "ACTA <span style=\"text-align: left\">${DYNAMIC_CONTENT}</span>"
 msgid "Accio"
 msgstr "Action"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:479
+#: ./genweb/organs/content/templates/sessio_view.pt:480
 #: ./genweb/organs/profiles/default/types/genweb.organs.acord.xml
 msgid "Acord"
 msgstr "Agreement"
@@ -60,7 +60,7 @@ msgstr "Annex file"
 msgid "Acta PDF file description"
 msgstr "NOTE: Only PDF files are accepted."
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:37
+#: ./genweb/organs/content/templates/organgovern_view.pt:40
 msgid "Actes"
 msgstr "Meeting reports"
 
@@ -73,7 +73,7 @@ msgid "Add content separated by -- and they will by added as Agreements."
 msgstr "Add content separated by -- and they will by added as Agreements."
 
 #: ./genweb/organs/content/impersonate_as.py:51
-#: ./genweb/organs/content/templates/sessio_view.pt:436
+#: ./genweb/organs/content/templates/sessio_view.pt:437
 msgid "Afectat"
 msgstr "Affected"
 
@@ -83,7 +83,7 @@ msgid "Afectats"
 msgstr "Affected"
 
 #: ./genweb/organs/browser/views/butlleti.pt:100
-#: ./genweb/organs/content/templates/organgovern_view.pt:138
+#: ./genweb/organs/content/templates/organgovern_view.pt:141
 #: ./genweb/organs/content/templates/sessio_view.pt:280
 msgid "Agreement"
 msgstr "Agreement"
@@ -102,7 +102,7 @@ msgstr "Agreement and document labels"
 msgid "Agreement number"
 msgstr "Agreement number"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:36
+#: ./genweb/organs/content/templates/organgovern_view.pt:39
 #: ./genweb/organs/content/templates/sessio_view.pt:158
 msgid "Agreements list"
 msgstr "Agreements"
@@ -112,7 +112,7 @@ msgid "Alternate description"
 msgstr "Private content"
 
 #: ./genweb/organs/content/impersonate_as.py:47
-#: ./genweb/organs/content/templates/sessio_view.pt:437
+#: ./genweb/organs/content/templates/sessio_view.pt:438
 msgid "Altres"
 msgstr "Others"
 
@@ -175,15 +175,15 @@ msgstr "Cancel"
 msgid "Changed Title"
 msgstr "Changed Title"
 
-#: ./genweb/organs/browser/views.py:387
+#: ./genweb/organs/browser/views.py:429
 msgid "Changed acord color state"
 msgstr "Changed agreement color state"
 
-#: ./genweb/organs/browser/views.py:412
+#: ./genweb/organs/browser/views.py:454
 msgid "Changed acord intern state color"
 msgstr "Changed agreement intern state color"
 
-#: ./genweb/organs/browser/views.py:383
+#: ./genweb/organs/browser/views.py:425
 msgid "Changed punt color state"
 msgstr "Changed point color state"
 
@@ -191,15 +191,15 @@ msgstr "Changed point color state"
 msgid "Changed punt number with drag&drop"
 msgstr "Changed point number with drag&drop"
 
-#: ./genweb/organs/browser/views.py:381
+#: ./genweb/organs/browser/views.py:423
 msgid "Changed recursive color state of acord inside punt"
 msgstr "Changed recursive color state of agreement inside punt"
 
-#: ./genweb/organs/browser/views.py:379
+#: ./genweb/organs/browser/views.py:421
 msgid "Changed recursive color state of subpunt inside punt"
 msgstr "Changed recursive color state of point inside punt"
 
-#: ./genweb/organs/browser/views.py:410
+#: ./genweb/organs/browser/views.py:452
 msgid "Changed subpunt intern state color"
 msgstr "Changed point state color"
 
@@ -249,7 +249,7 @@ msgstr "Created point"
 msgid "Dades"
 msgstr "Data"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:181
+#: ./genweb/organs/content/templates/organgovern_view.pt:184
 msgid "Data"
 msgstr "Date"
 
@@ -281,7 +281,7 @@ msgstr "Deleted point"
 msgid "Desenvolupament de la sessio"
 msgstr "Development of the session"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:441
+#: ./genweb/organs/content/templates/sessio_view.pt:442
 msgid "Desplega tot <i style=\"color: #557c95\" class=\"fa fa-chevron-down\" aria-hidden=\"true\"></i>"
 msgstr "Expand all <i style=\"color: #557c95\" class=\"fa fa-chevron-down\" aria-hidden=\"true\"></i>"
 
@@ -297,7 +297,7 @@ msgstr "Day/Hour end"
 msgid "Dia/Hora inici"
 msgstr "Day/Hour start"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:481
+#: ./genweb/organs/content/templates/sessio_view.pt:482
 #: ./genweb/organs/profiles/default/types/genweb.organs.document.xml
 msgid "Document"
 msgstr "Document"
@@ -344,7 +344,7 @@ msgstr "Excused members help"
 msgid "Fer servir capcalera personalitzada?"
 msgstr "Use custom header"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:480
+#: ./genweb/organs/content/templates/sessio_view.pt:481
 #: ./genweb/organs/profiles/default/types/genweb.organs.file.xml
 msgid "File"
 msgstr "File"
@@ -480,7 +480,7 @@ msgid "Massive agreements imported"
 msgstr "Massive agreements imported"
 
 #: ./genweb/organs/content/impersonate_as.py:49
-#: ./genweb/organs/content/templates/sessio_view.pt:435
+#: ./genweb/organs/content/templates/sessio_view.pt:436
 msgid "Membre"
 msgstr "Member"
 
@@ -547,7 +547,7 @@ msgstr "People not attending"
 msgid "No assistents help"
 msgstr "No assistents help"
 
-#: ./genweb/organs/content/manualimport.py:170
+#: ./genweb/organs/content/manualimport.py:176
 msgid "No s'han creat tot els elements perque no segueixen la norma. Dintre d'un Acord no es pot afeigr res."
 msgstr "Error, no elements created. Inside an agreement you can't create nothing."
 
@@ -590,7 +590,7 @@ msgid "Operation Cancelled."
 msgstr "The operation was canceled."
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:138
-#: ./genweb/organs/content/templates/sessio_view.pt:425
+#: ./genweb/organs/content/templates/sessio_view.pt:426
 msgid "Ordre del dia"
 msgstr "Agenda"
 
@@ -607,7 +607,7 @@ msgid "Organ Govern description help"
 msgstr "Organ of government description"
 
 #: ./genweb/organs/content/organgovern.py:89
-#: ./genweb/organs/content/templates/organgovern_view.pt:35
+#: ./genweb/organs/content/templates/organgovern_view.pt:38
 msgid "Organ Govern members"
 msgstr "Composition of the Organ of government"
 
@@ -616,6 +616,7 @@ msgid "Organ Govern members Description"
 msgstr "Organ of government members description"
 
 #: ./genweb/organs/content/organgovern.py:81
+#: ./genweb/organs/content/templates/organgovern_view.pt:23
 msgid "Organ Govern type"
 msgstr "Organ of government type"
 
@@ -671,7 +672,7 @@ msgstr "Please upload a public file"
 msgid "Please upload a reserved file"
 msgstr "Please upload a restricted file"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:442
+#: ./genweb/organs/content/templates/sessio_view.pt:443
 msgid "Plega tot <i style=\"color: #557c95\" class=\"fa fa-chevron-up\" aria-hidden=\"true\"></i>"
 msgstr "Collapse all <i style=\"color: #557c95\" class=\"fa fa-chevron-up\" aria-hidden=\"true\"></i>"
 
@@ -725,8 +726,12 @@ msgid "Punt Title"
 msgstr "Title"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:417
+msgid "Recalcula punts"
+msgstr "Number punts"
+
+#: ./genweb/organs/content/templates/sessio_view.pt:418
 msgid "Recalcula punts/acords"
-msgstr "Number points/agreements"
+msgstr "Number agreements"
 
 #: ./genweb/organs/content/mail_convocar.py:34
 #: ./genweb/organs/content/mail_informar.py:34
@@ -734,9 +739,13 @@ msgstr "Number points/agreements"
 msgid "Recipients"
 msgstr "Recipients"
 
+#: ./genweb/organs/browser/views.py:363
+msgid "Reload points manually"
+msgstr "Number punts"
+
 #: ./genweb/organs/browser/views.py:311
 msgid "Reload proposalPoints manually"
-msgstr "Reload proposalPoints manually"
+msgstr "Number points"
 
 #: ./genweb/organs/content/file.py:62
 msgid "Reserved file description"
@@ -788,7 +797,7 @@ msgstr "Session"
 msgid "Session Title"
 msgstr "Session Title"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:48
+#: ./genweb/organs/content/templates/organgovern_view.pt:51
 msgid "Session date"
 msgstr "Session date"
 
@@ -822,7 +831,7 @@ msgstr "Agenda"
 msgid "Session order description"
 msgstr "Session order description"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:54
+#: ./genweb/organs/content/templates/organgovern_view.pt:57
 msgid "Session start"
 msgstr "Session start"
 
@@ -836,7 +845,7 @@ msgstr "Session start date and time"
 msgid "Session start time"
 msgstr "Start time of the session"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:34
+#: ./genweb/organs/content/templates/organgovern_view.pt:37
 msgid "Sessions"
 msgstr "Sessions"
 
@@ -866,12 +875,12 @@ msgstr "Addresses of the affected people"
 msgid "Stakeholders mail address help."
 msgstr "List of addresses of the people affected, that want to be notified."
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:57
+#: ./genweb/organs/content/templates/organgovern_view.pt:60
 #: ./genweb/organs/content/templates/sessio_view.pt:283
 msgid "State"
 msgstr "State"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:478
+#: ./genweb/organs/content/templates/sessio_view.pt:479
 #: ./genweb/organs/profiles/default/types/genweb.organs.subpunt.xml
 msgid "Subpunt"
 msgstr "Point"
@@ -880,7 +889,7 @@ msgstr "Point"
 msgid "Subpunt Title"
 msgstr "Point title"
 
-#: ./genweb/organs/content/templates/punt+subpunt_view.pt:67
+#: ./genweb/organs/content/templates/punt+subpunt_view.pt:70
 msgid "Subpunts informatius / acords"
 msgstr "Points/agreements"
 
@@ -921,13 +930,13 @@ msgstr "Point"
 msgid "Tancar"
 msgstr "Close"
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:45
+#: ./genweb/organs/content/templates/organgovern_view.pt:48
 #: ./genweb/organs/content/templates/sessio_view.pt:378
 msgid "Title"
 msgstr "Title"
 
 #: ./genweb/organs/browser/views/butlleti.pt:101
-#: ./genweb/organs/content/templates/organgovern_view.pt:135
+#: ./genweb/organs/content/templates/organgovern_view.pt:138
 #: ./genweb/organs/content/templates/sessio_view.pt:277
 msgid "Titol"
 msgstr "Title"
@@ -940,7 +949,7 @@ msgstr "Point Title"
 msgid "UPC Organs de Govern v2.0 (genweb.organs)"
 msgstr "UPC Organs de Govern v2.0 (genweb.organs)"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:428
+#: ./genweb/organs/content/templates/sessio_view.pt:429
 msgid "Veure com... <span class=\"caret\"></span>"
 msgstr "Show as... <span class=\"caret\"></span>"
 
@@ -974,8 +983,8 @@ msgid "[Acord sense numerar]"
 msgstr "[Agreement without number]"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:165
-#: ./genweb/organs/content/templates/punt+subpunt_view.pt:81
-#: ./genweb/organs/content/templates/sessio_view.pt:532
+#: ./genweb/organs/content/templates/punt+subpunt_view.pt:84
+#: ./genweb/organs/content/templates/sessio_view.pt:533
 msgid "acord"
 msgstr "Agreement"
 
@@ -1025,8 +1034,8 @@ msgstr "Restrcited to affected"
 msgid "restricted_to_members_organ"
 msgstr "Restricted to members"
 
-#: ./genweb/organs/browser/views.py:438
-#: ./genweb/organs/content/impersonate_as.py:146
+#: ./genweb/organs/browser/views.py:480
+#: ./genweb/organs/content/impersonate_as.py:143
 #: ./genweb/organs/content/punt.py:146
 msgid "sense numeracio"
 msgstr "not numbered"
