@@ -79,17 +79,17 @@ def customBuildFolderTree(context, obj=None, query={}, strategy=NavtreeStrategyB
 
     results2 = portal_catalog.searchResults(query)
     results=[]
-
     from plone import api
 
     if api.user.is_anonymous():
+        username = None
         roles = []
     else:
         username = api.user.get_current().id
-        roles = api.user.get_roles(username=username, obj=context)
     for value in results2:
         if value.portal_type == 'genweb.organs.organgovern':
             organType = value.getObject().organType
+            roles = api.user.get_roles(obj=value.getObject(), username=username)
             if 'Manager' in roles or (organType == 'open_organ'):
                 results.append(value)
             elif organType == 'restricted_to_members_organ':
@@ -99,7 +99,7 @@ def customBuildFolderTree(context, obj=None, query={}, strategy=NavtreeStrategyB
                 if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
                     results.append(value)
             else:
-                # Remove element
+                # remove element
                 continue
         else:
             results.append(value)
