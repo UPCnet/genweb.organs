@@ -517,9 +517,23 @@ class View(grok.View):
         # Surti o no...
         for obj in values:
             value = obj.getObject()
-            anonymous = api.user.is_anonymous()
-            # Anonim / Afectat / Membre veuen obrir en finestra nova dels fitxers.
-            if anonymous or utils.isMembre(self) or utils.isAfectat(self):
+            if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self):
+               # Editor i Secretari veuen contingut NO obren en finestra nova
+                if obj.portal_type == 'genweb.organs.file':
+                    # És un File
+                    classCSS = 'fa fa-file-pdf-o'
+                else:
+                    # És un document
+                    classCSS = 'fa fa-file-text-o'
+                # si està validat els mostrem tots
+                results.append(dict(title=obj.Title,
+                                    portal_type=obj.portal_type,
+                                    absolute_url=obj.getURL(),
+                                    new_tab=False,
+                                    classCSS=classCSS,
+                                    id=str(item['id']) + '/' + obj.id))
+            else:
+                # Anonim / Afectat / Membre veuen obrir en finestra nova dels fitxers.
                 # Es un document, mostrem part publica si la té
                 if obj.portal_type == 'genweb.organs.document':
                     classCSS = 'fa fa-file-text-o'
@@ -540,21 +554,6 @@ class View(grok.View):
                                             new_tab=True,
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
-            else:
-                # Editor i Secretari veuen contingut NO obren en finestra nova
-                if obj.portal_type == 'genweb.organs.file':
-                    # És un File
-                    classCSS = 'fa fa-file-pdf-o'
-                else:
-                    # És un document
-                    classCSS = 'fa fa-file-text-o'
-                # si està validat els mostrem tots
-                results.append(dict(title=obj.Title,
-                                    portal_type=obj.portal_type,
-                                    absolute_url=obj.getURL(),
-                                    new_tab=False,
-                                    classCSS=classCSS,
-                                    id=str(item['id']) + '/' + obj.id))
         return results
 
     def AcordsInside(self):
@@ -637,3 +636,4 @@ class View(grok.View):
                 return True
             else:
                 raise Unauthorized
+

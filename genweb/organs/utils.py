@@ -150,38 +150,36 @@ def FilesandDocumentsInside(self):
 
     for obj in values:
         value = obj.getObject()
-        anonymous = api.user.is_anonymous()
-        if anonymous or isMembre(self) or isAfectat(self):
+        if isManager(self) or isSecretari(self) or isEditor(self):
+            if obj.portal_type == 'genweb.organs.file':
+                class_css = 'fa fa-file-pdf-o'
+            else:
+                class_css = 'fa fa-file-text-o'
+            # si està validat els mostrem tots
+            results.append(dict(title=obj.Title,
+                                absolute_url=obj.getURL(),
+                                classCSS=class_css,
+                                new_tab=False,
+                                hidden=False))
+        else:
             # Es un document/fitxer, mostrem part publica si la té
             if obj.portal_type == 'genweb.organs.document':
-                classCSS = 'fa fa-file-text-o'
+                class_css = 'fa fa-file-text-o'
                 if value.defaultContent:
                     results.append(dict(title=obj.Title,
                                         absolute_url=obj.getURL(),
                                         new_tab=False,
-                                        classCSS=classCSS,
+                                        classCSS=class_css,
                                         hidden=False))
             if obj.portal_type == 'genweb.organs.file':
-                classCSS = 'fa fa-file-pdf-o'
+                class_css = 'fa fa-file-pdf-o'
                 if value.visiblefile:
                     results.append(dict(title=obj.Title,
                                         absolute_url=obj.getURL() + '/@@display-file/visiblefile/',
                                         new_tab=True,
-                                        classCSS=classCSS,
+                                        classCSS=class_css,
                                         hidden=False))
-        else:
-            if obj.portal_type == 'genweb.organs.file':
-                # És un File
-                classCSS = 'fa fa-file-pdf-o'
-            else:
-                # És un document
-                classCSS = 'fa fa-file-text-o'
-            # si està validat els mostrem tots
-            results.append(dict(title=obj.Title,
-                                absolute_url=obj.getURL(),
-                                classCSS=classCSS,
-                                new_tab=False,
-                                hidden=False))
+
     return results
 
 
@@ -251,3 +249,4 @@ def session_wf_state(self):
             if ISessio.providedBy(obj):
                 session_state = api.content.get_state(obj=obj)
                 return session_state
+
