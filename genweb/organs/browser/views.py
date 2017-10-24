@@ -56,26 +56,26 @@ class createElement(BrowserView):
                     path={'query': path,
                           'depth': 1})
                 index = len(items)
-                obj = api.content.create(
-                    title=itemid,
-                    type='genweb.organs.punt',
-                    container=self.context)
+                with api.env.adopt_roles(['OG1-Secretari']):
+                    obj = api.content.create(
+                        title=itemid,
+                        type='genweb.organs.punt',
+                        container=self.context)
                 obj.estatsLlista = estat
                 obj.proposalPoint = index + 1
-                # addEntryLog(self.context, None, _(u'Created punt'), _(u'Title: ') + str(obj.Title()))
             elif action == 'createAcord':
                 items = portal_catalog.searchResults(
                     portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
                     path={'query': path,
                           'depth': 1})
                 index = len(items)
-                obj = api.content.create(
-                    title=itemid,
-                    type='genweb.organs.acord',
-                    container=self.context)
+                with api.env.adopt_roles(['OG1-Secretari']):
+                    obj = api.content.create(
+                        title=itemid,
+                        type='genweb.organs.acord',
+                        container=self.context)
                 obj.estatsLlista = estat
                 obj.proposalPoint = index + 1
-                # addEntryLog(self.context, None, _(u'Created acord'), _(u'Title: ') + str(obj.Title()))
             else:
                 pass
 
@@ -105,9 +105,7 @@ class Delete(BrowserView):
                 portal_catalog = getToolByName(self, 'portal_catalog')
                 folder_path = '/'.join(self.context.getPhysicalPath())
 
-                # addEntryLog(self.context, None, _(u'Deleted element'), portal_type.split('.')[-1] + ' → ' + folder_path + '/' + itemid)
-                # agafo items ordenats!
-
+                # agafo items ordenats
                 puntsOrdered = portal_catalog.searchResults(
                     portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
                     sort_on='getObjPositionInParent',
@@ -284,8 +282,7 @@ class ReloadAcords(BrowserView):
         if migrated is True:
             # Don't give option to modify numbers
             return
-        else:
-            pass
+
         if CSRF:
             alsoProvides(self.request, IDisableCSRFProtection)
         portal_catalog = getToolByName(self, 'portal_catalog')

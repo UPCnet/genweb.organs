@@ -1,3 +1,4 @@
+# TODO: ONLY LINE 145 CHANGED from original
 from itertools import chain
 
 from plone.memoize.instance import memoize, clearafter

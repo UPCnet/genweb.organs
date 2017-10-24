@@ -1516,9 +1516,23 @@ span.estatpunt {
     text-align: center !important;
 }
 
-.en_correccio, .label-en_correccio,
-.restricted_to_members_organ, .label-restricted_to_members_organ,
 .restricted_to_affected_organ, .label-restricted_to_affected_organ {
+    background-color: #FF5733 !important;
+    padding: 1px 4px 2px !important;
+    border-radius: 3px !important;
+    font-weight: bold !important;
+    line-height: 14px !important;
+    color: white !important;
+    vertical-align: baseline !important;
+    white-space: nowrap !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+    text-align: center !important;
+}
+
+
+.en_correccio, .label-en_correccio,
+.restricted_to_members_organ, .label-restricted_to_members_organ
+ {
     background-color:  #a62e1f !important;
     padding: 1px 4px 2px !important;
     border-radius: 3px !important;
