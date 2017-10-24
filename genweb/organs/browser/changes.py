@@ -23,7 +23,8 @@ class changeTitle(BrowserView):
             container = entry.getObject().aq_parent
             chooser = INameChooser(container)
             new_id = chooser.chooseName(newvalue, entry.getObject())
-            container.manage_renameObject(old_id, new_id)
+            with api.env.adopt_roles(['OG1-Secretari']):
+                container.manage_renameObject(old_id, new_id)
 
             newObject = api.content.find(id=new_id, path='/'.join(origin_path.split('/')[:-1]))[0]
             newObject.getObject().title = newvalue
