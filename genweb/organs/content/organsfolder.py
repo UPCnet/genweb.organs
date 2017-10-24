@@ -48,11 +48,20 @@ class View(grok.View):
                   'depth': 1})
 
         results = []
+        from plone import api
+
+        if api.user.is_anonymous():
+            username = None
+            roles = []
+        else:
+            username = api.user.get_current().id
         for obj in values:
             value = obj.getObject()
             organType = value.organType
+            roles = api.user.get_roles(obj=value, username=username)
+
             # If Manager or open bypass and list all
-            if utils.isManager(self) or (organType == 'open_organ'):
+            if 'Manager' in roles or (organType == 'open_organ'):
                 results.append(dict(title=value.title,
                                     absolute_url=value.absolute_url(),
                                     acronim=value.acronim,
@@ -60,7 +69,7 @@ class View(grok.View):
                                     review_state=obj.review_state))
             # if restricted_to_members_organ
             elif organType == 'restricted_to_members_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                     results.append(dict(title=value.title,
                                         absolute_url=value.absolute_url(),
                                         acronim=value.acronim,
@@ -68,7 +77,7 @@ class View(grok.View):
                                         review_state=obj.review_state))
             # if restricted_to_affected_organ
             elif organType == 'restricted_to_affected_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
                     results.append(dict(title=value.title,
                                         absolute_url=value.absolute_url(),
                                         acronim=value.acronim,
