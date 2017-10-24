@@ -77,6 +77,7 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
+    dexterity.write_permission(organType='genweb.webmaster')
     organType = schema.Choice(
         title=_(u"Organ Govern type"),
         vocabulary=types,

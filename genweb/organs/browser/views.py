@@ -101,7 +101,8 @@ class Delete(BrowserView):
                     portal_type=portal_type,
                     path={'query': folder_path, 'depth': 1},
                     id=itemid)[0].getObject()
-                api.content.delete(deleteItem)
+                with api.env.adopt_roles(['OG1-Secretari']):
+                    api.content.delete(deleteItem)
                 portal_catalog = getToolByName(self, 'portal_catalog')
                 folder_path = '/'.join(self.context.getPhysicalPath())
 

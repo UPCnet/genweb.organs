@@ -9,8 +9,7 @@
 
 <metal:title fill-slot="content-title"
   tal:condition="view/canView"
-  tal:define="agreement context/agreement;
-              estatsLlista context/estatsLlista;">
+  tal:define="estatsLlista context/estatsLlista;">
 
   <h1 class="documentFirstHeading">
     <tal:omit-tag tal:content="context/proposalPoint"></tal:omit-tag>.

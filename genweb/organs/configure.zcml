@@ -17,6 +17,11 @@
       title="Genweb Organs: Add Sessions"
     />
 
+    <permission
+      id="genweb.organs.add.organs"
+      title="Genweb Organs: Add Organs"
+    />    
+
     <!-- Include configuration for dependencies listed in setup.py -->
     <includeDependencies package="." />
 

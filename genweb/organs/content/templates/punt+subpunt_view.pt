@@ -79,8 +79,7 @@
               <li class="listFiles" tal:define="agreementSubpunt item/agreement">
                 <a tal:attributes="href item/absolute_url;">
                    <span tal:content="item/proposalPoint"></span>.
-                   <span tal:content="item/title">Doc title</span>
-                </a>
+                   <span tal:content="item/title">Doc title</span></a>&nbsp;
                  <span tal:condition="agreementSubpunt">[<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <span tal:content="agreementSubpunt"></span>] </span>
                  <span class="estatsubpunts">
                  <i class="fa fa-circle boletaPetita" aria-hidden="true" tal:attributes="style string:color:${item/css};

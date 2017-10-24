@@ -1546,3 +1546,7 @@ span.estatpunt {
 }
 
 #expandAll , #collapseAll {cursor:pointer;}
+
+li#contentview-view.active {display: none;}
+
+ul#contentActionMenus > li.dropdown > span.noMenuAction {display:none;}
