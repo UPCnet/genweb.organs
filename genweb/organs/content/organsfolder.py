@@ -52,13 +52,15 @@ class View(grok.View):
 
         if api.user.is_anonymous():
             username = None
-            roles = []
         else:
             username = api.user.get_current().id
-            roles = api.user.get_roles(obj=value, username=username)
         for obj in values:
             value = obj.getObject()
             organType = value.organType
+            if username:
+                roles = api.user.get_roles(obj=value, username=username)
+            else:
+                roles=[]
             # If Manager or open bypass and list all
             if 'Manager' in roles or (organType == 'open_organ'):
                 results.append(dict(title=value.title,
