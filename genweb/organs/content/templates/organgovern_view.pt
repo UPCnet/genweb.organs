@@ -24,7 +24,8 @@
     <span style="float: right;" tal:attributes="class context/organType"
         i18n:domain="genweb" i18n:translate="" tal:content="context/organType"></span>
   </span>
-<div class="clearfix"></div>
+  <div class="clearfix"></div>
+  <div class="documentDescription description"></div>
   <div style="width: 180px;" class="pull-right" tal:condition="context/logoOrgan">
     <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan" />
   </div>

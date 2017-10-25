@@ -1,3 +1,4 @@
+<link rel="stylesheet" media="print" type="text/css" href="++resource++genweb.organs.stylesheets/print.css">
 
 <tal:block i18n:domain="genweb.organs" tal:condition="view/canView"
            tal:define="getActaLogo view/getActaLogo;
@@ -12,13 +13,10 @@
                       noAssistents context/noAssistents;
                       ordenDelDia context/ordenDelDia">
 
-<!-- <link rel="stylesheet" href="++genwebupc++stylesheets/genwebupc.css"> -->
-<!-- <link rel="stylesheet" href="++resource++genweb.organs.stylesheets/genweb_organs.css" /> -->
-<link rel="stylesheet" media="print" href="++resource++genweb.organs.stylesheets/print.css">
-    <div class="clearfix" style="width:180px; float:right;">
-      <img tal:condition="getActaLogo" tal:attributes="src getActaLogo" />
+    <div class="clearfix" style="width:180px; float:right;" tal:condition="getActaLogo">
+      <img tal:attributes="src getActaLogo" />
+      <br/>
     </div>
-    <br/>
     <h1 style="text-align: left"><span tal:content="view/unitatTitle">UNITAT</span> -
     <span tal:content="view/organGovernTitle">CONSELL DE GOVERN</span></h1>
     <h2 i18n:translate=""> ACTA <span style="text-align: left" tal:content="view/sessionTitle">CONSELL DE GOVERN</span></h2>

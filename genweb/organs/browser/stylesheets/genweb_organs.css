@@ -1554,3 +1554,9 @@ span.estatpunt {
 li#contentview-view.active {display: none;}
 
 ul#contentActionMenus > li.dropdown > span.noMenuAction {display:none;}
+
+div#previewModal {
+    left: 34%;
+    width: 1000px;
+    right: 20%;
+}
