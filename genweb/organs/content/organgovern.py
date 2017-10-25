@@ -262,6 +262,11 @@ class View(grok.View):
                   'depth': 1})
 
         paths = []
+        if api.user.is_anonymous():
+            username = None
+        else:
+            username = api.user.get_current().id
+        organ_type = self.context.organType
         for session in sessions:
             paths.append(session.getPath())
 
@@ -284,11 +289,34 @@ class View(grok.View):
                 else:
                     num = any = ''
 
-                results.append(dict(title=value.title,
-                                    absolute_url=value.absolute_url(),
-                                    agreement=value.agreement,
-                                    hiddenOrder=any + num,
-                                    estatsLlista=value.estatsLlista))
+                if value.aq_parent.aq_parent.portal_type == 'genweb.organs.sessio':
+                    wf_state = api.content.get_state(obj=value.aq_parent.aq_parent)
+                    roles = api.user.get_roles(username=username, obj=value.aq_parent.aq_parent)
+                else:
+                    wf_state = api.content.get_state(obj=value.aq_parent)
+                    roles = api.user.get_roles(username=username, obj=value.aq_parent)
+                # Oculta acords from table depending on role and state
+                add_acord = False
+                if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
+                    add_acord = True
+                elif 'OG3-Membre' in roles:
+                    if 'planificada' not in wf_state:
+                        add_acord = True
+                elif 'OG4-Afectat' in roles:
+                    if organ_type == 'open_organ' or organ_type =='restricted_to_affected_organ':
+                        if 'realitzada' in wf_state or 'tancada' in wf_state or 'en_correccio' in wf_state:
+                            add_acord = True
+                else:
+                    if 'tancada' in wf_state or 'en_correccio' in wf_state:
+                        add_acord = True
+
+                if add_acord:
+                    results.append(dict(title=value.title,
+                                        absolute_url=value.absolute_url(),
+                                        agreement=value.agreement,
+                                        hiddenOrder=any + num,
+                                        estatsLlista=value.estatsLlista))
+
         return sorted(results, key=itemgetter('hiddenOrder'))
 
     def getActes(self):
