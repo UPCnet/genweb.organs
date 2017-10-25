@@ -1,11 +1,54 @@
 Changelog
 =========
 
-0.11 (unreleased)
+0.12 (unreleased)
 -----------------
 
 - Nothing changed yet.
 
+
+0.11 (2017-10-25)
+-----------------
+
+* changed editor role [Roberto Diaz]
+* acord css new_tab [Roberto Diaz]
+* hide preview button if no manager/secretari/editor [Roberto Diaz]
+* hide literal if afectat [Roberto Diaz]
+* moved import to original [Roberto Diaz]
+* removes getObjects() [Roberto Diaz]
+* control permission on og table [Roberto Diaz]
+* changed roles location [Roberto Diaz]
+* added change user [Roberto Diaz]
+* multiple changes [Roberto Diaz]
+* if user validated but none of the roles, open files directly [root muntanyeta]
+* patched navigation [Roberto Diaz]
+* added button numera punts [Roberto Diaz]
+* modal doesnt work as editor, forced as... [Roberto Diaz]
+* added literal to template [Roberto Diaz]
+* Solved error: massivecreation forgot to count acords...opss [Roberto Diaz]
+* move function [Roberto Diaz]
+* added check to files [Roberto Diaz]
+* clean CSS [Roberto Diaz]
+* new string [Roberto Diaz]
+* changed pdf attach tanslation [Roberto Diaz]
+* if public and privat, and open, return only public [Roberto Diaz]
+* new names [Roberto Diaz]
+* renamed views [Roberto Diaz]
+* added permissions to files and docs [Roberto Diaz]
+* change organ tipus [Roberto Diaz]
+* added function to show all organs and the associated organType [Roberto Diaz]
+* updated literal i18n [Roberto Diaz]
+* removing unused imported css [Roberto Diaz]
+* testing print.css [Roberto Diaz]
+* A LOT of changes... Permissions in views, i18n, PEP8, more explained code... [Roberto Diaz]
+* translations [Roberto Diaz]
+* added permissions to sessionsg [Roberto Diaz]
+* list organs in folder based on permissions [Roberto Diaz]
+* added permissions based on OrganType [Roberto Diaz]
+* remove ipdb [Roberto Diaz]
+* added index [Roberto Diaz]
+* added multiple organ types to dropdown [Roberto Diaz]
+* Added permission to Convocar transition [Roberto Diaz]
 
 0.10 (2017-10-09)
 -----------------
