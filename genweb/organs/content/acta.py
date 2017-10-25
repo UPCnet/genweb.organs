@@ -256,6 +256,14 @@ class View(dexterity.DisplayForm):
         else:
             raise Unauthorized
 
+    def viewPrintButon(self):
+        if utils.isManager(self):
+            return True
+        if (utils.isSecretari(self) or utils.isEditor(self)):
+            return True
+        else:
+            return False
+
     def horaFi(self):
         if self.context.horaFi:
             return self.context.horaFi.strftime('%d/%m/%Y %H:%M')
