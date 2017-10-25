@@ -493,7 +493,10 @@ class Butlleti(BrowserView):
                     # subpunt = item.getObject()
                     subpunt = item._unrestrictedGetObject()
                     if subpunt.portal_type == 'genweb.organs.acord':
-                        agreement = subpunt.agreement
+                        if subpunt.agreement:
+                            agreement = subpunt.agreement
+                        else:
+                            agreement = _(u"sense numeracio")
                     else:
                         agreement = False
                     results.append(dict(Title=item.Title,
