@@ -166,7 +166,7 @@
                         </span>
                       </div>
                       <div class="span1 boleta">
-                        <span class="btn label disabled" style="padding:3px; float: right;">
+                        <span class="btn label disabled" style="padding:3px; margin-right:1px; float:right;">
                           <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
                           <span  tal:content="item/state"></span>
                         </span>
@@ -206,14 +206,14 @@
                                 </span>
                               </div>
                             <div class="span2" >
-                                <span class="btn label disabled" style="padding:3px; float: right;">
+                                <span class="btn label disabled" style="padding:3px; margin-right:10px; float:right;">
                                 <i class="fa fa-circle" aria-hidden="true"  tal:attributes="style string:color:${itemSubpunt/css}"></i>
                                 <span  tal:content="itemSubpunt/state"></span>
                                 </span>
                             </div>
-                            <div class="span12">
-                              <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
-                                <ul style="list-style: none;" " tal:condition="files">
+                            <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
+                              <div class="span12" tal:condition="files">
+                                <ul style="list-style: none;" >
                                   <tal:documents repeat="item files">
                                     <li class="filesinTable">
                                       <i tal:attributes="class item/classCSS"></i>
@@ -224,8 +224,8 @@
                                     </li>
                                   </tal:documents>
                                 </ul>
-                              </tal:files>
-                            </div>
+                              </div>
+                            </tal:files>
                             </div>
                           </td>
                         </ol>
