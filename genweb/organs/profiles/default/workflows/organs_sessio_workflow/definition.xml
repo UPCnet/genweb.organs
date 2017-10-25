@@ -422,6 +422,7 @@
   <guard>
    <guard-role>Manager</guard-role>
    <guard-role>OG1-Secretari</guard-role>
+   <guard-role>OG2-Editor</guard-role>
   </guard>
  </transition>
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
