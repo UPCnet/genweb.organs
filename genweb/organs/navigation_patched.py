@@ -1,7 +1,7 @@
 # Remove organs from navigation depending on user and role
 # Modified code in line  75 (results to return)
 # On line 82 is the HARD CODE!!!
-
+from plone import api
 from plone.app.layout.navigation.navtree import buildFolderTree
 from plone.app.layout.navigation.navtree import NavtreeStrategyBase
 
@@ -79,17 +79,16 @@ def customBuildFolderTree(context, obj=None, query={}, strategy=NavtreeStrategyB
 
     results2 = portal_catalog.searchResults(query)
     results=[]
-    from plone import api
 
     if api.user.is_anonymous():
         username = None
-        roles = []
     else:
         username = api.user.get_current().id
     for value in results2:
         if value.portal_type == 'genweb.organs.organgovern':
-            organType = value.getObject().organType
-            roles = api.user.get_roles(obj=value.getObject(), username=username)
+            organ = value.getObject()
+            roles = api.user.get_roles(obj=organ, username=username)
+            organType = organ.organType
             if 'Manager' in roles or (organType == 'open_organ'):
                 results.append(value)
             elif organType == 'restricted_to_members_organ':
@@ -103,7 +102,6 @@ def customBuildFolderTree(context, obj=None, query={}, strategy=NavtreeStrategyB
                 continue
         else:
             results.append(value)
-
 
     # We keep track of a dict of item path -> node, so that we can easily
     # find parents and attach children. If a child appears before its

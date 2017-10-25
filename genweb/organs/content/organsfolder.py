@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from plone import api
 from five import grok
 from genweb.organs import _
 from genweb.organs import utils
@@ -48,11 +49,9 @@ class View(grok.View):
                   'depth': 1})
 
         results = []
-        from plone import api
 
         if api.user.is_anonymous():
             username = None
-            roles = []
         else:
             username = api.user.get_current().id
         for obj in values:
