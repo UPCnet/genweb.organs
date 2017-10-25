@@ -288,13 +288,18 @@ class View(grok.View):
                         any = value.agreement.split('/')[1]
                 else:
                     num = any = ''
-
                 if value.aq_parent.aq_parent.portal_type == 'genweb.organs.sessio':
                     wf_state = api.content.get_state(obj=value.aq_parent.aq_parent)
-                    roles = api.user.get_roles(username=username, obj=value.aq_parent.aq_parent)
+                    if username:
+                        roles = api.user.get_roles(username=username, obj=value.aq_parent.aq_parent)
+                    else:
+                        roles=[]
                 else:
                     wf_state = api.content.get_state(obj=value.aq_parent)
-                    roles = api.user.get_roles(username=username, obj=value.aq_parent)
+                    if username:
+                        roles = api.user.get_roles(username=username, obj=value.aq_parent)
+                    else:
+                        roles=[]
                 # Oculta acords from table depending on role and state
                 add_acord = False
                 if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
@@ -380,10 +385,11 @@ class View(grok.View):
 
     def canModify(self):
         if api.user.is_anonymous():
-           username = None
+            username = None
+            roles=[]
         else:
             username = api.user.get_current().id
-        roles = api.user.get_roles(username=username, obj=self.context)
+            roles = api.user.get_roles(username=username, obj=self.context)
         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
             return True
         else:
