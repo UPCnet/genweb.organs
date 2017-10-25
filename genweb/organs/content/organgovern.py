@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from plone import api
 from five import grok
 from zope import schema
 from plone.directives import form
@@ -350,7 +351,12 @@ class View(grok.View):
             raise Unauthorized
 
     def canModify(self):
-        if (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+        if api.user.is_anonymous():
+           username = None
+        else:
+            username = api.user.get_current().id
+        roles = api.user.get_roles(username=username, obj=self.context)
+        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
             return True
         else:
             return False
