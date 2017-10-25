@@ -79,7 +79,7 @@ def customBuildFolderTree(context, obj=None, query={}, strategy=NavtreeStrategyB
 
     results2 = portal_catalog.searchResults(query)
     results=[]
-
+    from plone import api
     if api.user.is_anonymous():
         username = None
     else:
