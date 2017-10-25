@@ -16,4 +16,9 @@
   </index>
   <column value="index_organType"/>
 
+  <index name="organType" meta_type="FieldIndex">
+    <indexed_attr value="organType"/>
+  </index>
+  <column value="organType"/>
+
 </object>
