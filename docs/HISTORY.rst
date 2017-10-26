@@ -1,11 +1,30 @@
 Changelog
 =========
 
-0.12 (unreleased)
+0.12 (2017-10-26)
 -----------------
 
-- Nothing changed yet.
-
+* added mountpoint to subpunt [root muntanyeta]
+* added mountpoint to add acord [Roberto Diaz]
+* added check mountpoint to path [root muntanyeta]
+* hide literal public doc [root muntanyeta]
+* recursive doc permission [Roberto Diaz]
+* permissions doc [Roberto Diaz]
+* PEP8 [Roberto Diaz]
+* remove high, causes glitch when large titles in session table [root muntanyeta]
+* permissions DOCcument [Roberto Diaz]
+* changed restringit lierals [Roberto Diaz]
+* added permissions to files in tables [Roberto Diaz]
+* changed obert to public i ordre del desplegable [Roberto Diaz]
+* permissions to view files depending on organ_type [Roberto Diaz]
+* fix roles(2) [Roberto Diaz]
+* fix user not found [root muntanyeta]
+* fixed modal and acta print css [Roberto Diaz]
+* changed css impersonate [Roberto Diaz]
+* Merge branch 'master' of github.com:UPCnet/genweb.organs [Roberto Diaz]
+* hide acords tab based on roles [Roberto Diaz]
+* added acord number to butlleti [Roberto Diaz]
+* added index [Roberto Diaz]
 
 0.11 (2017-10-25)
 -----------------
