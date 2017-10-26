@@ -217,7 +217,7 @@ msgstr "Clique <a href=\"./\">aquí</a> para volver al modo de visualización po
 
 #: ./genweb/organs/content/document.py:56
 msgid "Content used to hide protected content"
-msgstr "Contenido de carácter restringido del documento, para uso interno."
+msgstr "Contenido del documento visible sólo por Secretarios, Editores y Miembros."
 
 #: ./genweb/organs/content/document.py:47
 #: ./genweb/organs/content/templates/document_view.pt:26
@@ -259,7 +259,7 @@ msgstr "Fecha y hora"
 
 #: ./genweb/organs/content/document.py:48
 msgid "Default content shown in the document view"
-msgstr "Contenido público del documento."
+msgstr "ATENCIÓN: Contienido visible por público y afectados (dependiendo del tipo de órgano)."
 
 #: ./genweb/organs/browser/events/removeObject.py:105
 msgid "Deleted acord"
@@ -714,7 +714,7 @@ msgstr "Punto del orden del día"
 
 #: ./genweb/organs/content/file.py:54
 msgid "Published file description"
-msgstr " Fichero que contiene la parte pública del documento. Ha de ser en formato PDF."
+msgstr "ATENCIÓN: Fichero visible por público y afectados (dependiendo del tipo de órgano). Ha de ser en formato PDF."
 
 #: ./genweb/organs/browser/views/butlleti.pt:99
 #: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
@@ -749,7 +749,7 @@ msgstr "Numera acuerdos"
 
 #: ./genweb/organs/content/file.py:62
 msgid "Reserved file description"
-msgstr "Fichero que contiene la parte restringida del documento."
+msgstr "Fichero visible sólo por Secretarios, Editores y Miembros."
 
 #: ./genweb/organs/content/mail_informar.py:113
 msgid "Resultat. "

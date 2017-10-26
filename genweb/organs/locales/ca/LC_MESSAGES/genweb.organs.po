@@ -217,7 +217,7 @@ msgstr "Cliqueu <a href=\"./\">aquí</a> per tornar al mode de visualització pe
 
 #: ./genweb/organs/content/document.py:56
 msgid "Content used to hide protected content"
-msgstr "Contingut de caràcter restringit del document per ús intern."
+msgstr "Contingut del document visible només per a Secretaris, Editors i Membres"
 
 #: ./genweb/organs/content/document.py:47
 #: ./genweb/organs/content/templates/document_view.pt:26
@@ -259,7 +259,7 @@ msgstr "Data i hora"
 
 #: ./genweb/organs/content/document.py:48
 msgid "Default content shown in the document view"
-msgstr "Contingut públic del document."
+msgstr "ATENCIÓ: Contingut visible per públic i afectats (depenent del tipus d'òrgan)."
 
 #: ./genweb/organs/browser/events/removeObject.py:105
 msgid "Deleted acord"
@@ -714,7 +714,7 @@ msgstr "Punt de l'ordre del dia"
 
 #: ./genweb/organs/content/file.py:54
 msgid "Published file description"
-msgstr "Fitxer que conté la part pública del document. Ha de ser en format PDF."
+msgstr "ATENCIÓ: Fitxer visible per públic i afectats (depenent del tipus d'òrgan). Ha de ser en format PDF."
 
 #: ./genweb/organs/browser/views/butlleti.pt:99
 #: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
@@ -749,7 +749,7 @@ msgstr "Numera acords"
 
 #: ./genweb/organs/content/file.py:62
 msgid "Reserved file description"
-msgstr "Fitxer que conté la part restringida del document."
+msgstr "Fitxer visible només per a Secretaris, Editors i Membres."
 
 #: ./genweb/organs/content/mail_informar.py:113
 msgid "Resultat. "
