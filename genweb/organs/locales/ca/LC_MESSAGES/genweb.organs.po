@@ -1020,7 +1020,7 @@ msgstr "Adreces a les quals arriben els missatges relatius a la sessió. Inicial
 
 #: ./genweb/organs/content/organgovern.py:22
 msgid "open_organ"
-msgstr "Obert"
+msgstr "Públic"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:147
 msgid "printOrdreDia"

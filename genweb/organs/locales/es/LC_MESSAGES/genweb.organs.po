@@ -1020,7 +1020,7 @@ msgstr "Direcciones a las que llegan los mensajes relativos a la sesión. Inicia
 
 #: ./genweb/organs/content/organgovern.py:22
 msgid "open_organ"
-msgstr "Abierto"
+msgstr "Público"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:147
 msgid "printOrdreDia"

@@ -61,7 +61,7 @@ msgid "en_correccio"
 msgstr "En modificació"
 
 msgid "open_organ"
-msgstr "Obert"
+msgstr "Públic"
 
 msgid "restricted_to_members_organ"
 msgstr "Restringit a membres"

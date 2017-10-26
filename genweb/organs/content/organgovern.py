@@ -21,8 +21,8 @@ from AccessControl import Unauthorized
 
 types = SimpleVocabulary(
     [SimpleTerm(value='open_organ', title=_(u'open_organ')),
-     SimpleTerm(value='restricted_to_members_organ', title=_(u'restricted_to_members_organ')),
      SimpleTerm(value='restricted_to_affected_organ', title=_(u'restricted_to_affected_organ')),
+     SimpleTerm(value='restricted_to_members_organ', title=_(u'restricted_to_members_organ')),
      ]
 )
 
