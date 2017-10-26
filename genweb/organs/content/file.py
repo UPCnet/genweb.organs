@@ -137,28 +137,51 @@ class View(grok.View):
         organ_tipus = self.context.aq_parent.organType  # 1 level up
         if self.context.visiblefile and self.context.hiddenfile:
             if organ_tipus == 'open_organ':
-                return True
+                if utils.isMembre(self):
+                    return False
+                else:
+                    return True
             elif organ_tipus == 'restricted_to_members_organ':
                 if (utils.isSecretari(self) or utils.isEditor(self)):
                     return True
                 else:
-                    raise Unauthorized
+                    return False
             elif organ_tipus == 'restricted_to_affected_organ':
                 if (utils.isSecretari(self) or utils.isEditor(self) or utils.isAfectat(self)):
                     return True
                 else:
-                    raise Unauthorized
+                    return False
+
         elif self.context.hiddenfile:
             if organ_tipus == 'open_organ':
                 if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                     return True
                 else:
-                    raise Unauthorized
+                    return False
+            elif organ_tipus == 'restricted_to_members_organ':
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return True
+                else:
+                    return False
+            elif organ_tipus == 'restricted_to_affected_organ':
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return True
+                else:
+                    return False
+
         elif self.context.visiblefile:
             if organ_tipus == 'open_organ':
                 return True
-            else:
-                raise Unauthorized
+            elif organ_tipus == 'restricted_to_members_organ':
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return True
+                else:
+                    return False
+            elif organ_tipus == 'restricted_to_affected_organ':
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return True
+                else:
+                    return False
         else:
             raise Unauthorized
 
@@ -170,23 +193,36 @@ class View(grok.View):
         organ_tipus = self.context.aq_parent.organType  # 1 level up
         if self.context.visiblefile and self.context.hiddenfile:
             if organ_tipus == 'open_organ':
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return True
+                else:
                     return False
             elif organ_tipus == 'restricted_to_members_organ':
                 if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                     return True
                 else:
-                    raise Unauthorized
+                    return False
             elif organ_tipus == 'restricted_to_affected_organ':
                 if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                     return True
                 else:
-                    raise Unauthorized
+                    return False
         elif self.context.hiddenfile:
             if organ_tipus == 'open_organ':
                 if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                     return True
                 else:
-                    raise Unauthorized
+                    return False
+            elif organ_tipus == 'restricted_to_members_organ':
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return True
+                else:
+                    return False
+            elif organ_tipus == 'restricted_to_affected_organ':
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return True
+                else:
+                    return False
         elif self.context.visiblefile:
             if organ_tipus == 'open_organ':
                     return True
@@ -214,7 +250,7 @@ class View(grok.View):
             else:
                 raise Unauthorized
 
-        if organ_tipus == 'restricted_to_members_organ':
+        elif organ_tipus == 'restricted_to_members_organ':
             if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
                 return True
             elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
@@ -228,7 +264,7 @@ class View(grok.View):
             else:
                 raise Unauthorized
 
-        if organ_tipus == 'restricted_to_affected_organ':
+        elif organ_tipus == 'restricted_to_affected_organ':
             if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
                 return True
             elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
@@ -241,3 +277,6 @@ class View(grok.View):
                 return True
             else:
                 raise Unauthorized
+
+        else:
+            raise Unauthorized
