@@ -87,7 +87,7 @@ def proposalPointDefaultValue(data):
     if mountpoint_id == data.context.id:
         folder_path = data.context.absolute_url_path()
     else:
-        folder_path = '/' + mountpoint_id  + data.context.absolute_url_path()
+        folder_path = '/' + mountpoint_id + data.context.absolute_url_path()
 
     values = portal_catalog.searchResults(
         portal_type=['genweb.organs.punt', 'genweb.organs.acord'],

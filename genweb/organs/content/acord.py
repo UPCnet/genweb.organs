@@ -95,7 +95,11 @@ class IAcord(form.Schema):
 def proposalPointDefaultValue(data):
     # assign default proposalPoint value to Punt
     portal_catalog = getToolByName(data.context, 'portal_catalog')
-    folder_path = data.context.absolute_url_path()
+    mountpoint_id = data.context.getPhysicalPath()[1]
+    if mountpoint_id == data.context.id:
+        folder_path = data.context.absolute_url_path()
+    else:
+        folder_path = '/' + mountpoint_id + data.context.absolute_url_path()
     values = portal_catalog.searchResults(
         portal_type=['genweb.organs.punt', 'genweb.organs.acord', 'genweb.organs.subpunt'],
         path={'query': folder_path,
