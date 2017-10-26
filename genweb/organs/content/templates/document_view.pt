@@ -23,8 +23,8 @@
     </tal:block>
 
     <tal:block tal:condition="viewDocumentPublic">
-      <h3 i18n:translate="" tal:condition="viewDocumentReserved"> Contingut public</h3>
       <span tal:condition="default">
+	  <h3 i18n:translate="" tal:condition="viewDocumentReserved"> Contingut public</h3>
           <div tal:replace="structure default"> </div>
       </span>
     </tal:block>
