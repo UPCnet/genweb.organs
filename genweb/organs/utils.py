@@ -166,12 +166,33 @@ def FilesandDocumentsInside(self):
             # Es un document/fitxer, mostrem part publica si la té
             if obj.portal_type == 'genweb.organs.document':
                 class_css = 'fa fa-file-text-o'
-                if value.defaultContent:
+                if value.defaultContent and value.alternateContent:
+                    if isMembre(self):
+                        results.append(dict(title=obj.Title,
+                                            portal_type=obj.portal_type,
+                                            absolute_url=obj.getURL(),
+                                            new_tab=True,
+                                            classCSS=class_css))
+                    else:
+                        results.append(dict(title=obj.Title,
+                                            portal_type=obj.portal_type,
+                                            absolute_url=obj.getURL(),
+                                            new_tab=True,
+                                            classCSS=class_css))
+                elif value.defaultContent:
                     results.append(dict(title=obj.Title,
+                                        portal_type=obj.portal_type,
                                         absolute_url=obj.getURL(),
-                                        new_tab=False,
-                                        classCSS=class_css,
-                                        hidden=False))
+                                        new_tab=True,
+                                        classCSS=class_css))
+                elif value.alternateContent:
+                    if isManager(self) or isSecretari(self) or isEditor(self) or isMembre(self):
+                        results.append(dict(title=obj.Title,
+                                            portal_type=obj.portal_type,
+                                            absolute_url=obj.getURL(),
+                                            new_tab=True,
+                                            classCSS=class_css))
+
             if obj.portal_type == 'genweb.organs.file':
                 class_css = 'fa fa-file-pdf-o'
                 if value.visiblefile and value.hiddenfile:
