@@ -11,7 +11,8 @@
   <metal:content-core fill-slot="content-core">
     <metal:listingmacro define-macro="listing"
                         tal:define="OrgansInside view/OrgansInside;
-                        canView view/canView">
+                                    canView view/canView;
+                                    acronim item/acronim">
 
       <div tal:condition="OrgansInside" class="organsfolder_view">
         <div class="documentDescription description"></div>
@@ -34,8 +35,8 @@
                      tal:content="item/title">
                           Item Title
                   </a>
-                  <tal:omit-tag tal:condition="item/acronim">
-                  [<tal:omit-tag tal:content="item/acronim">
+                  <tal:omit-tag tal:condition="acronim">
+                  [<tal:omit-tag tal:content="acronim">
                             Item Acronim
                     </tal:omit-tag>]
                   </tal:omit-tag>

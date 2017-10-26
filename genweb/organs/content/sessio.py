@@ -518,7 +518,7 @@ class View(grok.View):
         for obj in values:
             value = obj.getObject()
             if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self):
-               # Editor i Secretari veuen contingut NO obren en finestra nova
+                # Editor i Secretari veuen contingut NO obren en finestra nova
                 if obj.portal_type == 'genweb.organs.file':
                     classCSS = 'fa fa-file-pdf-o'  # FILE
                 else:
@@ -535,13 +535,36 @@ class View(grok.View):
                 # Es un document, mostrem part publica si la té
                 if obj.portal_type == 'genweb.organs.document':
                     classCSS = 'fa fa-file-text-o'
-                    if value.defaultContent:
+                    if value.defaultContent and value.alternateContent:
+                        if utils.isMembre(self):
+                            results.append(dict(title=obj.Title,
+                                                portal_type=obj.portal_type,
+                                                absolute_url=obj.getURL(),
+                                                new_tab=True,
+                                                classCSS=classCSS,
+                                                id=str(item['id']) + '/' + obj.id))
+                        else:
+                            results.append(dict(title=obj.Title,
+                                                portal_type=obj.portal_type,
+                                                absolute_url=obj.getURL(),
+                                                new_tab=True,
+                                                classCSS=classCSS,
+                                                id=str(item['id']) + '/' + obj.id))
+                    elif value.defaultContent:
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
                                             absolute_url=obj.getURL(),
-                                            new_tab=False,
+                                            new_tab=True,
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
+                    elif value.alternateContent:
+                        if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self):
+                            results.append(dict(title=obj.Title,
+                                                portal_type=obj.portal_type,
+                                                absolute_url=obj.getURL(),
+                                                new_tab=True,
+                                                classCSS=classCSS,
+                                                id=str(item['id']) + '/' + obj.id))
                 # es un fitxer, mostrem part publica si la té
                 if obj.portal_type == 'genweb.organs.file':
                     classCSS = 'fa fa-file-pdf-o'
