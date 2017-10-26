@@ -152,9 +152,9 @@ def FilesandDocumentsInside(self):
         value = obj.getObject()
         if isManager(self) or isSecretari(self) or isEditor(self):
             if obj.portal_type == 'genweb.organs.file':
-                class_css = 'fa fa-file-pdf-o'
+                class_css = 'fa fa-file-pdf-o'  # FILE
             else:
-                class_css = 'fa fa-file-text-o'
+                class_css = 'fa fa-file-text-o'  # DOC
             # si està validat els mostrem tots
             results.append(dict(title=obj.Title,
                                 absolute_url=obj.getURL(),
@@ -162,6 +162,7 @@ def FilesandDocumentsInside(self):
                                 new_tab=False,
                                 hidden=False))
         else:
+            # Anonim / Afectat / Membre veuen obrir en finestra nova dels fitxers.
             # Es un document/fitxer, mostrem part publica si la té
             if obj.portal_type == 'genweb.organs.document':
                 class_css = 'fa fa-file-text-o'
@@ -173,13 +174,32 @@ def FilesandDocumentsInside(self):
                                         hidden=False))
             if obj.portal_type == 'genweb.organs.file':
                 class_css = 'fa fa-file-pdf-o'
-                if value.visiblefile:
+                if value.visiblefile and value.hiddenfile:
+                    if isMembre(self):
+                        results.append(dict(title=obj.Title,
+                                            portal_type=obj.portal_type,
+                                            absolute_url=obj.getURL() + '/@@display-file/hiddenfile/',
+                                            new_tab=True,
+                                            classCSS=class_css))
+                    else:
+                        results.append(dict(title=obj.Title,
+                                            portal_type=obj.portal_type,
+                                            absolute_url=obj.getURL() + '/@@display-file/visiblefile/',
+                                            new_tab=True,
+                                            classCSS=class_css))
+                elif value.visiblefile:
                     results.append(dict(title=obj.Title,
                                         absolute_url=obj.getURL() + '/@@display-file/visiblefile/',
                                         new_tab=True,
                                         classCSS=class_css,
                                         hidden=False))
-
+                elif value.hiddenfile:
+                    if isManager(self) or isSecretari(self) or isEditor(self) or isMembre(self):
+                        results.append(dict(title=obj.Title,
+                                            portal_type=obj.portal_type,
+                                            absolute_url=obj.getURL() + '/@@display-file/hiddenfile/',
+                                            new_tab=True,
+                                            classCSS=class_css))
     return results
 
 

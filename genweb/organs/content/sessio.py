@@ -520,11 +520,9 @@ class View(grok.View):
             if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self):
                # Editor i Secretari veuen contingut NO obren en finestra nova
                 if obj.portal_type == 'genweb.organs.file':
-                    # És un File
-                    classCSS = 'fa fa-file-pdf-o'
+                    classCSS = 'fa fa-file-pdf-o'  # FILE
                 else:
-                    # És un document
-                    classCSS = 'fa fa-file-text-o'
+                    classCSS = 'fa fa-file-text-o'  # DOC
                 # si està validat els mostrem tots
                 results.append(dict(title=obj.Title,
                                     portal_type=obj.portal_type,
@@ -547,13 +545,36 @@ class View(grok.View):
                 # es un fitxer, mostrem part publica si la té
                 if obj.portal_type == 'genweb.organs.file':
                     classCSS = 'fa fa-file-pdf-o'
-                    if value.visiblefile:
+                    if value.visiblefile and value.hiddenfile:
+                        if utils.isMembre(self):
+                            results.append(dict(title=obj.Title,
+                                                portal_type=obj.portal_type,
+                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/',
+                                                new_tab=True,
+                                                classCSS=classCSS,
+                                                id=str(item['id']) + '/' + obj.id))
+                        else:
+                            results.append(dict(title=obj.Title,
+                                                portal_type=obj.portal_type,
+                                                absolute_url=obj.getURL() + '/@@display-file/visiblefile/',
+                                                new_tab=True,
+                                                classCSS=classCSS,
+                                                id=str(item['id']) + '/' + obj.id))
+                    elif value.visiblefile:
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
                                             absolute_url=obj.getURL() + '/@@display-file/visiblefile/',
                                             new_tab=True,
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
+                    elif value.hiddenfile:
+                        if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self):
+                            results.append(dict(title=obj.Title,
+                                                portal_type=obj.portal_type,
+                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/',
+                                                new_tab=True,
+                                                classCSS=classCSS,
+                                                id=str(item['id']) + '/' + obj.id))
         return results
 
     def AcordsInside(self):
