@@ -225,7 +225,7 @@ class View(grok.View):
                     return False
         elif self.context.visiblefile:
             if organ_tipus == 'open_organ':
-                    return True
+                return True
         else:
             raise Unauthorized
 
