@@ -83,7 +83,9 @@ class ISubpunt(form.Schema):
 def proposalPointDefaultValue(data):
     # Assign default proposalPoint value to Subpunt
     portal_catalog = getToolByName(data.context, 'portal_catalog')
-    folder_path = data.context.absolute_url_path()
+    mountpoint_id = data.context.getPhysicalPath()[1]
+    site_name = data.context.getPhysicalPath()[2]
+    folder_path = '/' + mountpoint_id + '/' + site_name + data.context.absolute_url_path()
 
     values = portal_catalog.searchResults(
         portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
