@@ -7,10 +7,10 @@
                       llocConvocatoria context/llocConvocatoria;
                       horaInici context/horaInici;
                       horaFi context/horaFi;
-                      membresConvocats context/membresConvocats;
-                      membresConvidats context/membresConvidats;
-                      llistaExcusats context/llistaExcusats;
-                      noAssistents context/noAssistents;
+                      membresConvocats view/membresConvocats;
+                      membresConvidats view/membresConvidats;
+                      llistaExcusats view/llistaExcusats;
+                      llistaNoAssistens view/llistaNoAssistens;
                       ordenDelDia context/ordenDelDia">
 
     <div class="clearfix" style="width:180px; float:right;" tal:condition="getActaLogo">
@@ -22,10 +22,8 @@
     <h2 i18n:translate=""> ACTA <span style="text-align: left" tal:content="view/sessionTitle">CONSELL DE GOVERN</span></h2>
     <hr/>
 
-    <div class="container-fluid" style="border-bottom: 1px solid #b2b2b2;">
-      <div class="row-fluid">
+    <div class="container-fluid" style="border-bottom: 1px solid #b2b2b2; padding-bottom:10px;">
         <div class="span12" style="margin-bottom: 0px">
-          <div class="row-fluid">
               <tal:omit-tag tal:condition="llocConvocatoria">
                 <th style="display: inline-block;"><strong i18n:translate="">Session location</strong><b>:</b></th>
                 <span tal:content="llocConvocatoria"></span>
@@ -41,41 +39,29 @@
                 <span tal:content="python:context.horaFi.strftime('%d/%m/%Y %H:%M')"></span>
                 <br/>
               </tal:omit-tag>
-          </div>
-        </div>
       </div>
     </div>
 
-    <div class="container-fluid" style="border-bottom: 1px solid #b2b2b2;">
-      <div class="row-fluid">
         <div class="span12" style="margin-bottom: 0px">
-          <div class="row-fluid">
-            <div class="span6">
-              <tal:block tal:condition="membresConvocats">
-                  <h4 i18n:translate=""> Attending members </h4>
-                  <div tal:replace="structure membresConvocats"></div>
-              </tal:block>
-            </div>
-            <div class="span6">
-              <tal:block tal:condition="membresConvidats">
-                  <h4 i18n:translate=""> Invited members </h4>
-                  <span tal:replace="structure membresConvidats"></span>
-              </tal:block>
-
-              <tal:block tal:condition="llistaExcusats">
-                  <h4 i18n:translate=""> Excused members </h4>
-                  <span tal:replace="structure llistaExcusats"></span>
-              </tal:block>
-
-              <tal:block tal:condition="noAssistents">
-                  <h4 i18n:translate=""> Missing members </h4>
-                  <span tal:replace="structure noAssistents"></span>
-              </tal:block>
-            </div>
+          <div class="span6" tal:condition="membresConvocats">
+            <h4 i18n:translate=""> Attending members </h4>
+            <div style="font-size:11px;" tal:replace="structure membresConvocats"></div>
+          </div>
+          <div class="span6">
+            <tal:block tal:condition="membresConvidats">
+              <h4 i18n:translate=""> Invited members </h4>
+              <span style="font-size:11px;" tal:replace="structure membresConvidats"></span>
+            </tal:block>
+            <tal:block tal:condition="llistaExcusats">
+              <h4 i18n:translate=""> Excused members </h4>
+              <span style="font-size:11px;" tal:replace="structure llistaExcusats"></span>
+            </tal:block>
+            <tal:block tal:condition="llistaNoAssistens">
+              <h4 i18n:translate=""> Missing members </h4>
+              <span style="font-size:11px;" tal:replace="structure llistaNoAssistens"></span>
+            </tal:block>
           </div>
         </div>
-      </div>
-    </div>
 
     <tal:block tal:condition="ordenDelDia">
       <h3 i18n:translate=""> Desenvolupament de la sessio </h3>
