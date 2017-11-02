@@ -13,7 +13,6 @@ from plone.event.interfaces import IEventAccessor
 import unicodedata
 from genweb.organs import utils
 from AccessControl import Unauthorized
-import html2text
 
 try:
     pkg_resources.get_distribution('plone4.csrffixes')
@@ -253,34 +252,6 @@ class ActaPrintView(BrowserView):
 
     def signatura(self):
         return self.context.aq_parent.aq_parent.footer
-
-    def membresConvocats(self):
-        text_maker = html2text.HTML2Text()
-        text_maker.ignore_links = True
-        text_maker.bypass_tables = False
-        text = text_maker.handle(self.context.membresConvocats).replace('---', '').replace('\n', '<br/>')
-        return text.replace('\n', '<br/>')
-
-    def membresConvidats(self):
-        text_maker = html2text.HTML2Text()
-        text_maker.ignore_links = True
-        text_maker.bypass_tables = False
-        text = text_maker.handle(self.context.membresConvidats).replace('---', '').replace('\n', '<br/>')
-        return text.replace('\n', '<br/>')
-
-    def llistaExcusats(self):
-        text_maker = html2text.HTML2Text()
-        text_maker.ignore_links = True
-        text_maker.bypass_tables = False
-        text = text_maker.handle(self.context.llistaExcusats).replace('---', '').replace('\n', '<br/>')
-        return text.replace('\n', '<br/>')
-
-    def llistaNoAssistens(self):
-        text_maker = html2text.HTML2Text()
-        text_maker.ignore_links = True
-        text_maker.bypass_tables = False
-        text = text_maker.handle(self.context.llistaNoAssistens).replace('---', '').replace('\n', '<br/>')
-        return text.replace('\n', '<br/>')
 
     def canView(self):
         # Permissions to GENERATE PRINT acta view

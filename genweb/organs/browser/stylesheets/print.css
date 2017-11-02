@@ -1,10 +1,15 @@
-@media print {
-    @page {
-        margin: 1.5cm;
+@page {
+    margin: 15mm;
     }
 
-    body {
-        font-size: 12pt !important;
+@media print {
+
+
+    html, body {
+        width: 210mm; height: 297mm;
+        font-size: 12pt;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #000;
     }
 
     .nav-collapse-eines,
@@ -59,47 +64,57 @@
     .reply-to-comment-button {display:none !important;}
 
 
-    #content a:link:after,
+/*    #content a:link:after,
     #content a:visited:after {
        content: " [" attr() "] " !important;
-    }
+    }*/
 
     a:hover {
       text-decoration:none;}
     a {
-      text-decoration:none;}
+      text-decoration:underline;
+      color: black;
+      }
     .plain a {
       color:#555555;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 12px;}
-    body {font-family: Arial, Helvetica, sans-serif;
-          font-size: 10px;
-          color: #333333;
-          width:733px;
-          font-size:11px !important;
-          }
-    h2 {
-      margin-bottom:20px !important;
-    }
-    h3 {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 12px;
-    }
-    h4 {
-      font-size:11px !important;
-    }
 
     h1, h2, h3 {
       color: #557C95;
       margin-top: 27px;
     }
-      
     h1 {
-      font-size: 192.307692%;
-      line-height: 27px;
+      font-size: 24pt;
     }
     h1 > span{color: #557C95;}
     h2 {
       margin-bottom: 20px !important;
+      font-size: 20pt;
     }
+    h3 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 18pt;
+    }
+    h4 {
+      font-size:14pt !important;
+    }
+
+    .caixa {
+      display: inline-block;
+      width: 9cm;
+      vertical-align: top;
+    }
+
+    table {font-size: 12pt;}
+
+  .h1Print {
+    text-align: left;
+  }
+
+  .h4Print {color: #557C95; }
+
+  /*a:after{content:" [" attr(href) "] ";font-size:0.8em;font-weight:normal; text-decoration: none!important}*/
+
 }
+

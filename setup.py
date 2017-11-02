@@ -31,7 +31,6 @@ setup(name='genweb.organs',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'html2text'
       ],
       extras_require={'test': ['plone.app.testing',
                                'plone.app.testing[robot]>=4.2.2',
