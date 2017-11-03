@@ -18,18 +18,9 @@
                    horaInici view/horaInici;
                    audio view/AudioInside;
                    enllacVideo context/enllacVideo;
-                   absolute_url context/absolute_url">
+                   absolute_url context/absolute_url;">
 
 <tal:block tal:condition="view/canView">
-
-  <script type="text/javascript">
-    function printPage(newWindow){
-      newWindow.focus('printActa');
-      newWindow.print('printActa');
-    }
-  </script>
-
-  <iframe name="iframe" id="iframe" width="1" height="1" src="printActa"></iframe>
 
   <tal:omit-tag>
     <div class="modal fade hide previewModal" id="previewModal" tabindex="-1" role="dialog"
@@ -46,7 +37,7 @@
       </div>
     </div>
     <a class="btn btn-info btnActa" style="float:right;"
-    tal:attributes="href string:javascript:printPage(iframe);">
+    tal:attributes="href string:obtenir_pdf;">
         <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
     </a>
     <button data-target="#previewModal" role="button" tal:condition="view/viewPrintButon"

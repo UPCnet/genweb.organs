@@ -1,6 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master"
+      lang="en"
+      i18n:domain="genweb.organs">
+<body>
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<metal:content-core fill-slot="main">
 <tal:print tal:define="portal_state context/@@plone_portal_state; portal_url portal_state/portal_url;">
 
-<link rel="stylesheet" media="print" type="text/css" tal:Attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/print.css"/>
+<link rel="stylesheet" tal:Attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/print.css"/>
 
 <tal:block i18n:domain="genweb.organs" tal:condition="view/canView"
            tal:define="getActaLogo view/getActaLogo;
@@ -23,8 +34,7 @@
     <span tal:content="view/organGovernTitle">CONSELL DE GOVERN</span></h1>
     <h2 i18n:translate=""> ACTA <span style="text-align: left" tal:content="view/sessionTitle">CONSELL DE GOVERN</span></h2>
     <hr/>
-
-    <div class="container-fluid" style="border-bottom: 1px solid #b2b2b2; padding-bottom:10px; padding-left:0px !important;">
+    <div style="border-bottom: 1px solid #b2b2b2; padding-bottom:10px; padding-left:0px !important;">
       <div class="span12" style="margin-bottom: 0px">
         <tal:omit-tag tal:condition="llocConvocatoria">
           <th style="display: inline-block;"><strong i18n:translate="">Session location</strong><b>:</b></th>
@@ -65,7 +75,9 @@
       </div>
     </div>
 
+    <div class="documentDescription description"></div>&nbsp;
     <tal:block tal:condition="ordenDelDia">
+      <br/>
       <h3 i18n:translate=""> Desenvolupament de la sessio </h3>
       <span tal:replace="structure ordenDelDia"></span>
     </tal:block>
@@ -78,3 +90,8 @@
 </tal:block>
 
 </tal:print>
+
+</metal:content-core>
+
+</body>
+</html>

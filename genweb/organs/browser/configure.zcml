@@ -92,6 +92,12 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <browser:page
+      for="genweb.organs.content.acta.IActa"
+      name="obtenir_pdf"
+      class=".utils.PrintPDF"
+      permission="zope2.View" />
+
 <!--
     <browser:page
       for="genweb.organs.content.organgovern.IOrgangovern"

@@ -17,6 +17,7 @@ from plone.namedfile.utils import get_contenttype
 from zope.schema import ValidationError
 from genweb.organs import utils
 
+
 grok.templatedir("templates")
 
 

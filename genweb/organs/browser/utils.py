@@ -4,7 +4,23 @@ from plone.dexterity.interfaces import IDexterityContent
 from plone import api
 from genweb.organs.interfaces import IGenwebOrgansLayer
 import json
+from Products.Five import BrowserView
 import transaction
+from Acquisition import aq_inner
+from zope.component import getMultiAdapter
+import pdfkit
+import random
+import os
+
+pdf_options = {
+    'page-size': 'A4',
+    'margin-top': '0.5in',
+    'margin-right': '0.75in',
+    'margin-bottom': '0.5in',
+    'margin-left': '0.75in',
+    'footer-right': '[page] of [topage]',
+    'quiet': '',
+}
 
 
 class changeInitialProposalPoint(grok.View):
@@ -120,3 +136,38 @@ class changeMimeType(grok.View):
                                     changed=changed))
 
         return json.dumps(results)
+
+
+class PrintPDF(BrowserView):
+    """
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        """
+        """
+        pdf = self.genera_pdf()
+        fitxer_pdf = pdf['fitxer_pdf']
+
+        # indiquem a l'entorn que li enviem un pdf i retornem el fitxer
+        self.request.response.setHeader('Content-Type', 'application/pdf')
+        self.request.response.setHeader('Content-Disposition', ' attachment; filename="%s"' % (pdf['nom_pdf_temporal']))
+        return fitxer_pdf
+
+    def genera_pdf(self):
+        """ Generate PDF from printActa view """
+        context = self.context
+        vista = getMultiAdapter((aq_inner(context), self.request), name='printActa')
+        vista = vista.__of__(context)
+        text = vista()
+        num_random = "%05d" % random.randint(0, 10000)
+        nom_pdf_temporal = '/tmp/organs-pdf-acta-random-' + num_random + '.pdf'
+        pdfkit.from_string(text, nom_pdf_temporal, options=pdf_options)
+        pdf = open(nom_pdf_temporal)
+        fitxer_pdf = pdf.read()
+        pdf.close()
+        os.remove(nom_pdf_temporal)
+
+        return {'fitxer_pdf': fitxer_pdf, 'nom_pdf_temporal': nom_pdf_temporal}

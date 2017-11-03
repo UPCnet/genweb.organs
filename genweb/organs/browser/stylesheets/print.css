@@ -1,8 +1,4 @@
-@page {
-    margin: 15mm;
-    }
 
-@media print {
 
 
     html, body {
@@ -12,6 +8,7 @@
         color: #000;
     }
 
+    nav#portal-breadcrumbs,
     .nav-collapse-eines,
     #portal-personaltools-wrapper,
     #portal-globalnav,
@@ -114,7 +111,11 @@
 
   .h4Print {color: #557C95; }
 
+  .bannerOrgans {display:none !important;}
+
   /*a:after{content:" [" attr(href) "] ";font-size:0.8em;font-weight:normal; text-decoration: none!important}*/
 
-}
+  header#portal-header { border: 0px; }
+  footer#peu { border: 0px; }
+  section#content-area {margin-top: 0px;}
 
