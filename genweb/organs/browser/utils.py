@@ -146,16 +146,13 @@ class PrintPDF(BrowserView):
         self.request = request
 
     def __call__(self):
-        """
-        """
-        pdf = self.genera_pdf()
-        fitxer_pdf = pdf['fitxer_pdf']
+        """ Download pdf file with titlename """
+        fitxer = self.genera_pdf()
         filename = self.context.Title() + '.pdf'
         # indiquem a l'entorn que li enviem un pdf i retornem el fitxer
         self.request.response.setHeader('Content-Type', 'application/pdf')
         self.request.response.setHeader('Content-Disposition', ' attachment; filename="%s"' % filename)
-
-        return fitxer_pdf
+        return fitxer
 
     def genera_pdf(self):
         """ Generate PDF from printActa view """
@@ -171,4 +168,4 @@ class PrintPDF(BrowserView):
         pdf.close()
         os.remove(nom_pdf_temporal)
 
-        return {'fitxer_pdf': fitxer_pdf, 'nom_pdf_temporal': nom_pdf_temporal}
+        return fitxer_pdf
