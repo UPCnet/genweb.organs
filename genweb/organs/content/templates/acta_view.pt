@@ -24,7 +24,7 @@
 
   <tal:omit-tag>
     <div class="modal fade hide previewModal" id="previewModal" tabindex="-1" role="dialog"
-         aria-labelledby="previewModalLabel" aria-hidden="true" data-remote="printActa">
+         aria-labelledby="previewModalLabel" aria-hidden="true" data-remote="previewActa">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="previewModalLabel"><span i18n:translate="">Previsualitzacio de l'acta</span></h3>

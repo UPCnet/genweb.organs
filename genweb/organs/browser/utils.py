@@ -150,10 +150,11 @@ class PrintPDF(BrowserView):
         """
         pdf = self.genera_pdf()
         fitxer_pdf = pdf['fitxer_pdf']
-
+        filename = self.context.Title() + '.pdf'
         # indiquem a l'entorn que li enviem un pdf i retornem el fitxer
         self.request.response.setHeader('Content-Type', 'application/pdf')
-        self.request.response.setHeader('Content-Disposition', ' attachment; filename="%s"' % (pdf['nom_pdf_temporal']))
+        self.request.response.setHeader('Content-Disposition', ' attachment; filename="%s"' % filename)
+
         return fitxer_pdf
 
     def genera_pdf(self):

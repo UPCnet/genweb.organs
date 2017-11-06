@@ -14,6 +14,7 @@ import unicodedata
 from genweb.organs import utils
 from AccessControl import Unauthorized
 
+
 try:
     pkg_resources.get_distribution('plone4.csrffixes')
 except pkg_resources.DistributionNotFound:
@@ -253,6 +254,58 @@ class ActaPrintView(BrowserView):
     def signatura(self):
         return self.context.aq_parent.aq_parent.footer
 
+    def getActaContent(self):
+        """ Retorna els punt en format text per mostrar a l'ordre
+            del dia de les actes
+        """
+        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        folder_path = '/'.join(self.context.aq_parent.getPhysicalPath())
+        values = portal_catalog.searchResults(
+            portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+        results.append('<div class="num_acta"> <ol>')
+        for obj in values:
+            # value = obj.getObject()
+            value = obj._unrestrictedGetObject()
+            if value.portal_type == 'genweb.organs.acord':
+                if value.agreement:
+                    agreement = ' [Acord ' + str(value.agreement) + ']'
+                else:
+                    agreement = _(u"[Acord sense numerar]")
+            else:
+                agreement = ''
+            results.append('<li>' + str(obj.Title) + ' ' + str(agreement))
+
+            if len(value.objectIds()) > 0:
+                valuesInside = portal_catalog.searchResults(
+                    portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
+                    sort_on='getObjPositionInParent',
+                    path={'query': obj.getPath(),
+                          'depth': 1})
+
+                results.append('<ol>')
+                for item in valuesInside:
+                    subpunt = item.getObject()
+                    if subpunt.portal_type == 'genweb.organs.acord':
+                        if subpunt.agreement:
+                            agreement = ' [Acord ' + str(subpunt.agreement) + ']'
+                        else:
+                            agreement = _("[Acord sense numerar]")
+                    else:
+                        agreement = ''
+                    results.append('<li>' + str(item.Title) + ' ' + str(agreement) + '</li>')
+                results.append('</ol></li>')
+            else:
+                results.append('</li>')
+
+        results.append('</ol> </div>')
+
+        return ''.join(results)
+
     def canView(self):
         # Permissions to GENERATE PRINT acta view
         if utils.isManager(self):
@@ -271,6 +324,11 @@ class ActaPrintView(BrowserView):
             return True
         else:
             raise Unauthorized
+
+
+class ActaPreviewView(ActaPrintView):
+
+    __call__ = ViewPageTemplateFile('views/acta_preview.pt')
 
 
 class ReloadAcords(BrowserView):
