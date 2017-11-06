@@ -11,6 +11,15 @@ from zope.component import getMultiAdapter
 import pdfkit
 import random
 import os
+import datetime
+from PyPDF2 import PdfFileWriter, PdfFileReader
+import StringIO
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase import pdfmetrics
+pdfmetrics.registerFont(TTFont('VeraIt', 'VeraIt.ttf'))
+
 
 pdf_options = {
     'page-size': 'A4',
@@ -18,7 +27,6 @@ pdf_options = {
     'margin-right': '0.75in',
     'margin-bottom': '0.5in',
     'margin-left': '0.75in',
-    'footer-right': '[page] of [topage]',
     'quiet': '',
 }
 
@@ -167,5 +175,39 @@ class PrintPDF(BrowserView):
         fitxer_pdf = pdf.read()
         pdf.close()
         os.remove(nom_pdf_temporal)
+        existing_pdf = PdfFileReader(file(nom_pdf_temporal, "rb"))
+        num_pages = existing_pdf.getNumPages()
+        packet = StringIO.StringIO()
+
+        can = canvas.Canvas(packet, pagesize=A4)
+        can.setFont('VeraIt', 6)
+        can.saveState()
+        can.drawString(10, 830, self.context.absolute_url())
+        can.drawString(10, 10, 'Data impresió: ' + datetime.datetime.now().strftime('%d/%m/%Y %H:%M'))
+        for i in range(num_pages):
+            page_num = can.getPageNumber()
+            can.setFont('VeraIt', 6)
+            can.drawString(10, 830, self.context.absolute_url())
+            can.drawString(10, 10, 'Data impresió: ' + datetime.datetime.now().strftime('%d/%m/%Y %H:%M'))
+            can.drawString(535, 10, 'Pàgina ' + str(page_num) + ' de ' + str(num_pages))
+            can.showPage()
+        can.save()
+        packet.seek(1)
+        new_pdf = PdfFileReader(packet)
+        output = PdfFileWriter()
+        num_page = 0
+        while (num_page < num_pages):
+            page = existing_pdf.getPage(num_page)
+            page.mergePage(new_pdf.getPage(num_page))
+            output.addPage(page)
+            num_page = num_page + 1
+        # finally, write "output" to a real file
+        outputStream = file("/tmp/organs-pdf-acta-modified-" + num_random + ".pdf", "wb")
+        output.write(outputStream)
+        outputStream.close()
+
+        pdf_final = open("/tmp/organs-pdf-acta-modified-" + num_random + ".pdf")
+        fitxer_pdf = pdf_final.read()
+        os.remove(pdf_final)
 
         return fitxer_pdf

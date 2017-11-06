@@ -20,7 +20,7 @@
     </div>
     <h1 class="h1Print"><span tal:content="view/unitatTitle">UNITAT</span> -
     <span tal:content="view/organGovernTitle">CONSELL DE GOVERN</span></h1>
-    <h2 i18n:translate=""> ACTA <span style="text-align: left" tal:content="view/sessionTitle">CONSELL DE GOVERN</span></h2>
+    <h2> ACTA <tal:omit-tag tal:content="view/sessionTitle">CONSELL DE GOVERN</tal:omit-tag></h2>
     <hr/>
     <div>
       <div class="span12" style="margin-bottom: 0px">
@@ -69,7 +69,7 @@
     <div class="clearfix"></div>
     <hr/>
     <div tal:condition="acta">
-       <h3 style="padding-bottom: 15px;"> ACTA </h3>
+       <h3 style="padding-bottom: 15px;"" i18n:translate=""> Ordre del dia </h3>
       <span tal:replace="structure acta"></span>
     </div>
 
