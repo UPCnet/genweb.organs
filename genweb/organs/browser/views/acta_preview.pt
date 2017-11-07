@@ -10,6 +10,7 @@
                       membresConvocats context/membresConvocats;
                       membresConvidats context/membresConvidats;
                       llistaExcusats context/llistaExcusats;
+                      assistents context/assistents;
                       llistaNoAssistens context/llistaNoAssistens;
                       ordenDelDia context/ordenDelDia;
                       acta view/getActaContent">
@@ -58,6 +59,10 @@
             <h4 i18n:translate=""> Excused members </h4>
             <span tal:replace="structure llistaExcusats"></span>
           </tal:block>
+          <tal:block tal:condition="assistents">
+            <h4  i18n:translate=""> Assistants </h4>
+            <span tal:replace="structure assistents"></span>
+          </tal:block>
           <tal:block tal:condition="llistaNoAssistens">
             <h4  i18n:translate=""> Missing members </h4>
             <span tal:replace="structure llistaNoAssistens"></span>
@@ -69,7 +74,7 @@
     <div class="clearfix"></div>
     <hr/>
     <div tal:condition="acta">
-       <h3 style="padding-bottom: 15px;"" i18n:translate=""> Ordre del dia </h3>
+       <h3 style="padding-bottom: 15px;" i18n:translate=""> Ordre del dia </h3>
       <span tal:replace="structure acta"></span>
     </div>
 

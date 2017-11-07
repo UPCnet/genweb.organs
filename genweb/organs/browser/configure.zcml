@@ -102,7 +102,7 @@
 
   <browser:page
       for="genweb.organs.content.acta.IActa"
-      name="obtenir_pdf"
+      name="generaPDF"
       class=".utils.PrintPDF"
       permission="zope2.View" />
 

@@ -12,6 +12,7 @@
                    membresConvidats context/membresConvidats;
                    llistaExcusats context/llistaExcusats;
                    llistaNoAssistens context/llistaNoAssistens;
+                   assistents context/assistents;
                    ordenDelDia context/ordenDelDia;
                    llocConvocatoria context/llocConvocatoria;
                    horaFi view/horaFi;
@@ -37,8 +38,8 @@
       </div>
     </div>
     <a class="btn btn-info btnActa" style="float:right;"
-    tal:attributes="href string:obtenir_pdf;">
-        <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
+    tal:attributes="href string:generaPDF;">
+        <i class="fa fa-file-pdf-o"></i>&nbsp;<span i18n:translate=""> Download Acta </span>
     </a>
     <button data-target="#previewModal" role="button" tal:condition="view/viewPrintButon"
        class="btn btn-info" data-toggle="modal"
@@ -114,8 +115,11 @@
                 <li tal:condition="llistaExcusats">
                   <a href="#tab3primary" data-toggle="tab" i18n:translate="">Excused members</a>
                 </li>
+                <li tal:condition="assistents">
+                  <a href="#tab4primary" data-toggle="tab" i18n:translate="">Assistants</a>
+                </li>
                 <li tal:condition="llistaNoAssistens">
-                  <a href="#tab4primary" data-toggle="tab" i18n:translate="">No assistents</a>
+                  <a href="#tab5primary" data-toggle="tab" i18n:translate="">No assistents</a>
                 </li>
             </ul>
           </div>
@@ -130,7 +134,10 @@
               <div tal:condition="llistaExcusats" class="tab-pane fade" id="tab3primary">
                 <span tal:replace="structure llistaExcusats" />
               </div>
-              <div tal:condition="llistaNoAssistens" class="tab-pane fade" id="tab4primary">
+              <div tal:condition="assistents" class="tab-pane fade" id="tab4primary">
+                <span tal:replace="structure assistents" />
+              </div>
+              <div tal:condition="llistaNoAssistens" class="tab-pane fade" id="tab5primary">
                 <span tal:replace="structure llistaNoAssistens" />
               </div>
             </div>

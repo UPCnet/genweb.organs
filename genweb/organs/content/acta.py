@@ -37,7 +37,7 @@ class IActa(form.Schema):
 
     fieldset('assistents',
              label=_(u'Assistents'),
-             fields=['membresConvocats', 'membresConvidats', 'llistaExcusats', 'llistaNoAssistens']
+             fields=['membresConvocats', 'membresConvidats', 'llistaExcusats', 'assistents', 'llistaNoAssistens']
              )
 
     dexteritytextindexer.searchable('title')
@@ -84,6 +84,15 @@ class IActa(form.Schema):
         description=_(u"Excused members help"),
         required=False,
     )
+
+    directives.widget(assistents=WysiwygFieldWidget)
+    dexteritytextindexer.searchable('assistents')
+    assistents = schema.Text(
+        title=_(u"Assistants"),
+        description=_(u"Assistants help"),
+        required=False,
+    )
+
 
     directives.widget(llistaNoAssistens=WysiwygFieldWidget)
     dexteritytextindexer.searchable('llistaNoAssistens')
@@ -144,6 +153,12 @@ def membresConvocatsDefaultValue(data):
 def llistaExcusatsDefaultValue(data):
     # copy llistaExcusats from Session (parent object)
     return data.context.llistaExcusats
+
+
+@form.default_value(field=IActa['assistents'])
+def assistentsDefaultValue(data):
+    # copy noAssistents from Session (parent object)
+    return data.context.assistents
 
 
 @form.default_value(field=IActa['llistaNoAssistens'])

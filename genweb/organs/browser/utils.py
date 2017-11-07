@@ -23,9 +23,9 @@ pdfmetrics.registerFont(TTFont('VeraIt', 'VeraIt.ttf'))
 
 pdf_options = {
     'page-size': 'A4',
-    'margin-top': '0.5in',
+    'margin-top': '0.7in',
     'margin-right': '0.75in',
-    'margin-bottom': '0.5in',
+    'margin-bottom': '0.6in',
     'margin-left': '0.75in',
     'quiet': '',
 }
@@ -163,36 +163,57 @@ class PrintPDF(BrowserView):
         return fitxer
 
     def genera_pdf(self):
-        """ Generate PDF from printActa view """
+        """ Generate PDF from printActa view.
+            pdfkit generates a valid PDF but without headers & footers
+            If we try the patched QT version from wkhtmltopdf the generated
+            PDF has no the same view results. We tried another method, merge
+            the initial PDf with another containing the header&footer.
+            The results is valid but, the size is increased!
+                original_PDF 49Kb
+                final_PDF   350Kb
+            Maybe the first version is valid enough...
+        """
         context = self.context
         vista = getMultiAdapter((aq_inner(context), self.request), name='printActa')
         vista = vista.__of__(context)
         text = vista()
+        lang = self.context.language
+        if lang == 'en':
+            data_msg = "Print date: "
+            page_msg = 'Page '
+            de_msg = ' of '
+	elif lang == 'es':
+            data_msg = "Fecha y hora de impresión: "
+            page_msg = 'Página '
+            de_msg = ' de '
+        else:
+            data_msg = "Data i hora d'impressió: "
+            page_msg = 'Pàgina '
+            de_msg = ' de '
         num_random = "%05d" % random.randint(0, 10000)
         nom_pdf_temporal = '/tmp/organs-pdf-acta-random-' + num_random + '.pdf'
+        nom_pdf_modified = '/tmp/organs-pdf-acta-modified-' + num_random + '.pdf'
         pdfkit.from_string(text, nom_pdf_temporal, options=pdf_options)
         pdf = open(nom_pdf_temporal)
         fitxer_pdf = pdf.read()
         pdf.close()
-        os.remove(nom_pdf_temporal)
         existing_pdf = PdfFileReader(file(nom_pdf_temporal, "rb"))
         num_pages = existing_pdf.getNumPages()
         packet = StringIO.StringIO()
-
         can = canvas.Canvas(packet, pagesize=A4)
         can.setFont('VeraIt', 6)
         can.saveState()
         can.drawString(10, 830, self.context.absolute_url())
-        can.drawString(10, 10, 'Data impresió: ' + datetime.datetime.now().strftime('%d/%m/%Y %H:%M'))
+        can.drawString(10, 10, data_msg + datetime.datetime.now().strftime('%d/%m/%Y %H:%M'))
         for i in range(num_pages):
             page_num = can.getPageNumber()
             can.setFont('VeraIt', 6)
             can.drawString(10, 830, self.context.absolute_url())
-            can.drawString(10, 10, 'Data impresió: ' + datetime.datetime.now().strftime('%d/%m/%Y %H:%M'))
-            can.drawString(535, 10, 'Pàgina ' + str(page_num) + ' de ' + str(num_pages))
+            can.drawString(10, 10, data_msg + datetime.datetime.now().strftime('%d/%m/%Y %H:%M'))
+            can.drawString(535, 10, page_msg + str(page_num) + de_msg + str(num_pages))
             can.showPage()
         can.save()
-        packet.seek(1)
+        packet.seek(0)
         new_pdf = PdfFileReader(packet)
         output = PdfFileWriter()
         num_page = 0
@@ -202,12 +223,12 @@ class PrintPDF(BrowserView):
             output.addPage(page)
             num_page = num_page + 1
         # finally, write "output" to a real file
-        outputStream = file("/tmp/organs-pdf-acta-modified-" + num_random + ".pdf", "wb")
+        outputStream = file(nom_pdf_modified, "wb")
         output.write(outputStream)
         outputStream.close()
-
-        pdf_final = open("/tmp/organs-pdf-acta-modified-" + num_random + ".pdf")
+        pdf_final = open(nom_pdf_modified)
         fitxer_pdf = pdf_final.read()
-        os.remove(pdf_final)
+        #os.remove(nom_pdf_temporal)
+        #os.remove(nom_pdf_modified)
 
         return fitxer_pdf

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-11-06 11:36+0000\n"
+"POT-Creation-Date: 2017-11-07 07:56+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -47,12 +47,12 @@ msgstr "Nombre corto que genera la URL simplificada del órgano."
 msgid "Acta"
 msgstr "Acta"
 
-#: ./genweb/organs/content/acta.py:111
-#: ./genweb/organs/content/templates/acta_view.pt:156
+#: ./genweb/organs/content/acta.py:120
+#: ./genweb/organs/content/templates/acta_view.pt:163
 msgid "Acta PDF"
 msgstr "Fichero adjunto"
 
-#: ./genweb/organs/content/acta.py:112
+#: ./genweb/organs/content/acta.py:121
 msgid "Acta PDF file description"
 msgstr "NOTA: Sólo se acepta ún fichero en formato PDF."
 
@@ -116,10 +116,13 @@ msgstr "Otros"
 msgid "Anonymous user"
 msgstr "Usuario anónimo"
 
-#: ./genweb/organs/content/sessio.py:107
+#: ./genweb/organs/browser/views/acta_preview.pt:63
+#: ./genweb/organs/browser/views/acta_print.pt:77
+#: ./genweb/organs/content/acta.py:91
 msgid "Assistants"
 msgstr "Asistentes"
 
+#: ./genweb/organs/content/acta.py:92
 #: ./genweb/organs/content/sessio.py:108
 msgid "Assistants help"
 msgstr "Listado de miembros que han asistido a la sesión."
@@ -130,9 +133,9 @@ msgstr "Listado de miembros que han asistido a la sesión."
 msgid "Assistents"
 msgstr "Miembros"
 
-#: ./genweb/organs/browser/views/acta_preview.pt:49
-#: ./genweb/organs/browser/views/acta_print.pt:63
-#: ./genweb/organs/content/templates/acta_view.pt:109
+#: ./genweb/organs/browser/views/acta_preview.pt:50
+#: ./genweb/organs/browser/views/acta_print.pt:64
+#: ./genweb/organs/content/templates/acta_view.pt:110
 msgid "Attending members"
 msgstr "Miembros"
 
@@ -140,7 +143,7 @@ msgstr "Miembros"
 msgid "Audio"
 msgstr "Audio"
 
-#: ./genweb/organs/content/templates/acta_view.pt:82
+#: ./genweb/organs/content/templates/acta_view.pt:83
 msgid "Audio de la sessio"
 msgstr "Audio de la sesión"
 
@@ -241,7 +244,7 @@ msgstr "Se ha creado una acta."
 msgid "Created punt"
 msgstr "Se ha creado un punto."
 
-#: ./genweb/organs/content/templates/acta_view.pt:53
+#: ./genweb/organs/content/templates/acta_view.pt:54
 #: ./genweb/organs/content/templates/impersonate_as.pt:36
 msgid "Dades"
 msgstr "Datos"
@@ -274,8 +277,8 @@ msgstr "Punto eliminado"
 msgid "Deleted subpunt"
 msgstr "Punto eliminado"
 
-#: ./genweb/organs/browser/views/acta_preview.pt:79
-#: ./genweb/organs/browser/views/acta_print.pt:91
+#: ./genweb/organs/browser/views/acta_preview.pt:84
+#: ./genweb/organs/browser/views/acta_print.pt:96
 msgid "Desenvolupament de la sessio"
 msgstr "Desarrollo de la sesión"
 
@@ -287,13 +290,13 @@ msgstr "Desplega todo <i style=\"color: #557c95\" class=\"fa fa-chevron-down\" a
 msgid "Destinataris"
 msgstr "Destinatarios"
 
-#: ./genweb/organs/browser/views/acta_preview.pt:38
-#: ./genweb/organs/browser/views/acta_print.pt:52
+#: ./genweb/organs/browser/views/acta_preview.pt:39
+#: ./genweb/organs/browser/views/acta_print.pt:53
 msgid "Dia/Hora fi"
 msgstr "Día/Hora fin"
 
-#: ./genweb/organs/browser/views/acta_preview.pt:33
-#: ./genweb/organs/browser/views/acta_print.pt:47
+#: ./genweb/organs/browser/views/acta_preview.pt:34
+#: ./genweb/organs/browser/views/acta_print.pt:48
 msgid "Dia/Hora inici"
 msgstr "Día/Hora inicio"
 
@@ -301,6 +304,10 @@ msgstr "Día/Hora inicio"
 #: ./genweb/organs/profiles/default/types/genweb.organs.document.xml
 msgid "Document"
 msgstr "Documento"
+
+#: ./genweb/organs/content/templates/acta_view.pt:42
+msgid "Download Acta"
+msgstr "Descargar acta en PDF"
 
 #: ./genweb/organs/content/organgovern.py:132
 msgid "Enter labels, separated by commas."
@@ -329,8 +336,8 @@ msgstr "Estado de la sesión"
 msgid "Esteu visualitzant la sessio amb el rol"
 msgstr "Está visualizando la sesión con el rol de"
 
-#: ./genweb/organs/browser/views/acta_preview.pt:58
-#: ./genweb/organs/browser/views/acta_print.pt:72
+#: ./genweb/organs/browser/views/acta_preview.pt:59
+#: ./genweb/organs/browser/views/acta_print.pt:73
 #: ./genweb/organs/content/acta.py:83
 msgid "Excused members"
 msgstr "Excusados/Excusadas"
@@ -385,7 +392,7 @@ msgstr "Dirección de la persona que envía los mensajes"
 msgid "Historial"
 msgstr "Historial"
 
-#: ./genweb/organs/content/acta.py:106
+#: ./genweb/organs/content/acta.py:115
 msgid "If you want to add a video file, not a url, there is a trick, you must add an Audio Type and leave this field empty."
 msgstr "URL del video de la grabación de la sesión. Normalmente hay que utilizar herramientas de streaming como Youtube, Vimeo, UPCtv, y enlazarlo aquí. No se aconseja adjuntar el fichero de video debido a su tamaño y problemas en la distribución vía web."
 
@@ -425,8 +432,8 @@ msgstr "El fichero seleccionado no parece un fichero PDF."
 msgid "Invalid audio file"
 msgstr "El fichero seleccionado no parece en formato de audio."
 
-#: ./genweb/organs/browser/views/acta_preview.pt:54
-#: ./genweb/organs/browser/views/acta_print.pt:68
+#: ./genweb/organs/browser/views/acta_preview.pt:55
+#: ./genweb/organs/browser/views/acta_print.pt:69
 #: ./genweb/organs/content/acta.py:75
 msgid "Invited members"
 msgstr "Invitados/Invitadas"
@@ -444,7 +451,7 @@ msgstr "Lista de puntos en el formato del boletín para hacer Control+C y Contro
 msgid "Llista punts"
 msgstr "Creación ágil"
 
-#: ./genweb/organs/content/templates/acta_view.pt:71
+#: ./genweb/organs/content/templates/acta_view.pt:72
 #: ./genweb/organs/content/templates/impersonate_as.pt:54
 msgid "Lloc"
 msgstr "Lugar"
@@ -508,8 +515,8 @@ msgstr "Mensaje no enviado"
 msgid "Missatge no enviat. Comprovi els destinataris del missatge"
 msgstr "Mensaje no enviado. Compruebe los destinatarios del mensaje."
 
-#: ./genweb/organs/browser/views/acta_preview.pt:62
-#: ./genweb/organs/browser/views/acta_print.pt:76
+#: ./genweb/organs/browser/views/acta_preview.pt:67
+#: ./genweb/organs/browser/views/acta_print.pt:81
 msgid "Missing members"
 msgstr "No asistentes"
 
@@ -537,13 +544,13 @@ msgstr "Nuevo mensaje de convocatoria"
 msgid "New session created"
 msgstr "Se ha creado una nueva sesión"
 
-#: ./genweb/organs/content/acta.py:91
+#: ./genweb/organs/content/acta.py:100
 #: ./genweb/organs/content/sessio.py:115
-#: ./genweb/organs/content/templates/acta_view.pt:118
+#: ./genweb/organs/content/templates/acta_view.pt:122
 msgid "No assistents"
 msgstr "No asistentes"
 
-#: ./genweb/organs/content/acta.py:92
+#: ./genweb/organs/content/acta.py:101
 #: ./genweb/organs/content/sessio.py:116
 msgid "No assistents help"
 msgstr "Listado de personas que no han asistido a la sesión."
@@ -590,8 +597,8 @@ msgstr "Sólo están permitidos los ficheros de tipo audio."
 msgid "Operation Cancelled."
 msgstr "Se ha cancelado la operación."
 
-#: ./genweb/organs/browser/views/acta_preview.pt:72
-#: ./genweb/organs/browser/views/acta_print.pt:85
+#: ./genweb/organs/browser/views/acta_preview.pt:77
+#: ./genweb/organs/browser/views/acta_print.pt:90
 #: ./genweb/organs/content/templates/impersonate_as.pt:138
 msgid "Ordre del dia"
 msgstr "Orden del día"
@@ -682,11 +689,11 @@ msgstr "Plega todo <i style=\"color: #557c95\" class=\"fa fa-chevron-up\" aria-h
 msgid "Presentacio"
 msgstr "Modo presentación"
 
-#: ./genweb/organs/content/templates/acta_view.pt:46
+#: ./genweb/organs/content/templates/acta_view.pt:47
 msgid "Preview Acta"
 msgstr "Vista previa"
 
-#: ./genweb/organs/content/templates/acta_view.pt:30
+#: ./genweb/organs/content/templates/acta_view.pt:31
 msgid "Previsualitzacio de l'acta"
 msgstr "Previsualizar el acta"
 
@@ -697,10 +704,6 @@ msgstr "Previsualizar puntos"
 #: ./genweb/organs/content/templates/sessio_view.pt:147
 msgid "Print"
 msgstr "Imprime"
-
-#: ./genweb/organs/content/templates/acta_view.pt:41
-msgid "Print Acta"
-msgstr "Imprime el acta"
 
 #: ./genweb/organs/content/acord.py:83
 #: ./genweb/organs/content/punt.py:71
@@ -809,12 +812,12 @@ msgid "Session end date and time"
 msgstr "Fecha y hora de finalización de la sesión"
 
 #: ./genweb/organs/content/acta.py:55
-#: ./genweb/organs/content/templates/acta_view.pt:66
+#: ./genweb/organs/content/templates/acta_view.pt:67
 msgid "Session end time"
 msgstr "Hora de finalización de la sesión"
 
-#: ./genweb/organs/browser/views/acta_preview.pt:28
-#: ./genweb/organs/browser/views/acta_print.pt:42
+#: ./genweb/organs/browser/views/acta_preview.pt:29
+#: ./genweb/organs/browser/views/acta_print.pt:43
 #: ./genweb/organs/content/acta.py:60
 msgid "Session location"
 msgstr "Lugar de la sesión"
@@ -825,11 +828,11 @@ msgstr "Lugar de la sesión"
 msgid "Session number"
 msgstr "Número de sesión"
 
-#: ./genweb/organs/content/acta.py:99
+#: ./genweb/organs/content/acta.py:108
 msgid "Session order"
 msgstr "Acta"
 
-#: ./genweb/organs/content/acta.py:100
+#: ./genweb/organs/content/acta.py:109
 msgid "Session order description"
 msgstr "Apartado para indicar los puntos del orden del día y el desarrollo de la sesión."
 
@@ -843,7 +846,7 @@ msgid "Session start date and time"
 msgstr "Fecha y hora de inicio de la sesión"
 
 #: ./genweb/organs/content/acta.py:50
-#: ./genweb/organs/content/templates/acta_view.pt:61
+#: ./genweb/organs/content/templates/acta_view.pt:62
 msgid "Session start time"
 msgstr "Hora de inicio de la sesión"
 
@@ -927,7 +930,7 @@ msgstr "Punto"
 msgid "Tab subpunt"
 msgstr "Punto"
 
-#: ./genweb/organs/content/templates/acta_view.pt:36
+#: ./genweb/organs/content/templates/acta_view.pt:37
 #: ./genweb/organs/content/templates/informar_view.pt:37
 msgid "Tancar"
 msgstr "Cierra"
@@ -955,12 +958,12 @@ msgstr "UPC Organs de Govern v2.0 (genweb.organs)"
 msgid "Veure com... <span class=\"caret\"></span>"
 msgstr "Ver como... <span class=\"caret\"></span>"
 
-#: ./genweb/organs/content/templates/acta_view.pt:78
+#: ./genweb/organs/content/templates/acta_view.pt:79
 msgid "Video"
 msgstr "Vídeo"
 
-#: ./genweb/organs/content/acta.py:105
-#: ./genweb/organs/content/templates/acta_view.pt:76
+#: ./genweb/organs/content/acta.py:114
+#: ./genweb/organs/content/templates/acta_view.pt:77
 msgid "Video link"
 msgstr "Enlace al video de la sesión"
 
@@ -981,7 +984,7 @@ msgid "[Acord sense numeracio]"
 msgstr "[Acuerdo sin numeración]"
 
 #: ./genweb/organs/browser/views.py:278
-#: ./genweb/organs/content/acta.py:205
+#: ./genweb/organs/content/acta.py:220
 msgid "[Acord sense numerar]"
 msgstr "[Acuerdo sin numerar]"
 
