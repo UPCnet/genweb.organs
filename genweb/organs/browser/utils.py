@@ -228,7 +228,7 @@ class PrintPDF(BrowserView):
         outputStream.close()
         pdf_final = open(nom_pdf_modified)
         fitxer_pdf = pdf_final.read()
-        #os.remove(nom_pdf_temporal)
-        #os.remove(nom_pdf_modified)
+        os.remove(nom_pdf_temporal)
+        os.remove(nom_pdf_modified)
 
         return fitxer_pdf
