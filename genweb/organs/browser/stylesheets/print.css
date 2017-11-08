@@ -1,121 +1,124 @@
+@media print {
 
+  html, body {
+    width: 210mm; height: 297mm;
+    font-size: 11pt;
+    font-family: Arial, Helvetica, sans-serif;
+  }
 
+  nav#portal-breadcrumbs,
+  .nav-collapse-eines,
+  #portal-personaltools-wrapper,
+  #portal-globalnav,
+  #portal-column-one,
+  .alert,
+  #edit-bar,
+  #viewlet-below-content-title,
+  #viewlet-above-content-title,
+  .header-image,
+  #cookies,
+  .extraInfo,
+  #commenting,
+  #viewlet-below-content > a,
+  input[type="submit"],
+  #content-core > button,
+  .linkNotificacions,
+  .btnActa,
+  #peu > div > div.row-fluid,
+  .reply-to-comment-button,
+  .bannerOrgans {
+    display: none !important;
+  }
 
-    html, body {
-        width: 210mm; height: 297mm;
-        font-size: 12pt;
-        font-family: Arial, Helvetica, sans-serif;
-        color: #000;
-    }
+  #portal-column-content {
+      margin:0 !important;
+      width:100% !important;
+  }
 
-    nav#portal-breadcrumbs,
-    .nav-collapse-eines,
-    #portal-personaltools-wrapper,
-    #portal-globalnav,
-    #portal-column-one,
-    .alert,
-    #edit-bar,
-    #viewlet-below-content-title,
-    #viewlet-above-content-title,
-    .header-image,
-    #cookies,
-    .extraInfo {display: none !important;}
+  #peu .span8 {
+      width:100% !important;
+  }
 
-    #portal-column-content {
-        margin:0 !important;
-        width:100% !important;
-    }
+  div.pageBreak {
+      page-break-before: always !important;
+  }
 
-    #peu .span8 {
-        width:100% !important;
-    }
-
-    #commenting {
-        display:none !important;
-    }
-
-    #viewlet-below-content > a {
-        display:none !important;
-    }
-
-    input[type="submit"] {
-        display:none !important;
-    }
-
-    #content-core > button {display:none !important;}
-
-    .linkNotificacions { display:none !important; }
-
-    .btnActa {display:none !important; }
-
-    #peu > div > div.row-fluid {
-        display:none !important;
-    }
-
-    div.pageBreak {
-        page-break-before: always !important;
-    }
-
-    #portal-breadcrumbs {display: inline !important;}
-
-    .reply-to-comment-button {display:none !important;}
-
+  #portal-breadcrumbs {
+    display: inline !important;
+  }
 
 /*    #content a:link:after,
-    #content a:visited:after {
-       content: " [" attr() "] " !important;
-    }*/
+  #content a:visited:after {
+     content: " [" attr() "] " !important;
+  }*/
 
-    a:hover {
-      text-decoration:none;}
-    a {
-      text-decoration:underline;
-      color: black;
-      }
-    .plain a {
-      color:#555555;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 12px;}
+  a:hover {
+    text-decoration:none;
+  }
 
-    h1, h2, h3 {
-      color: #557C95;
-      margin-top: 27px;
-    }
-    h1 {
-      font-size: 24pt;
-    }
-    h1 > span{color: #557C95;}
-    h2 {
-      margin-bottom: 20px !important;
-      font-size: 20pt;
-    }
-    h3 {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 18pt;
-    }
-    h4 {
-      font-size:14pt !important;
-    }
+  a {
+    text-decoration:underline;
+    color: black;
+  }
 
-    .caixa {
-      display: inline-block;
-      width: 9cm;
-      vertical-align: top;
-    }
+  .plain a {
+    color:#555555;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+  }
 
-    table {font-size: 8pt;}
+  h1, h2, h3 {
+    color: #557C95;
+    margin-top: 27px;
+  }
 
-  .h1Print {
+  h1 {
+    font-size: 24pt;
+  }
+
+  h1 > span{
+    color: #557C95;
+  }
+
+  h2 {
+    margin-bottom: 20px !important;
+    font-size: 20pt;
+  }
+
+  h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18pt;
+  }
+
+  h4 {
+    font-size:14pt !important;
+  }
+
+  .caixa {
+    width: 9cm;
+    vertical-align: top;
+  }
+
+  table {font-size: 8pt;}
+
+  h1.h1Print {
     text-align: left;
+    font-size: 24pt;
   }
 
   .h4Print {color: #557C95; }
 
-  .bannerOrgans {display:none !important;}
+  tbody > tr {
+    height: auto!important;
+  }
 
-  /*a:after{content:" [" attr(href) "] ";font-size:0.8em;font-weight:normal; text-decoration: none!important}*/
+  header#portal-header,
+  footer#peu {
+    border: 0px;
+  }
 
-  header#portal-header { border: 0px; }
-  footer#peu { border: 0px; }
-  section#content-area {margin-top: 0px;}
+  section#content-area {
+    margin-top: 0px;
+  }
 
+}

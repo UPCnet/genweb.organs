@@ -17,7 +17,6 @@ from plone.namedfile.utils import get_contenttype
 from zope.schema import ValidationError
 from genweb.organs import utils
 
-
 grok.templatedir("templates")
 
 
@@ -93,7 +92,6 @@ class IActa(form.Schema):
         required=False,
     )
 
-
     directives.widget(llistaNoAssistens=WysiwygFieldWidget)
     dexteritytextindexer.searchable('llistaNoAssistens')
     llistaNoAssistens = schema.Text(
@@ -157,7 +155,7 @@ def llistaExcusatsDefaultValue(data):
 
 @form.default_value(field=IActa['assistents'])
 def assistentsDefaultValue(data):
-    # copy noAssistents from Session (parent object)
+    # copy Assistents from Session (parent object)
     return data.context.assistents
 
 

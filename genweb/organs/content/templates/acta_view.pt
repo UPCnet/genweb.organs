@@ -11,6 +11,7 @@
        tal:define="membresConvocats context/membresConvocats;
                    membresConvidats context/membresConvidats;
                    llistaExcusats context/llistaExcusats;
+                   assistents context/assistents;
                    llistaNoAssistens context/llistaNoAssistens;
                    assistents context/assistents;
                    ordenDelDia context/ordenDelDia;

@@ -12,7 +12,7 @@
 <metal:content-core fill-slot="main">
 
 <tal:print tal:define="portal_state context/@@plone_portal_state; portal_url portal_state/portal_url;">
-<link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/print.css" />
+<link rel="stylesheet" media="print" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/print.css" />
 
 <tal:block i18n:domain="genweb.organs" tal:condition="view/canView"
            tal:define="getActaLogo view/getActaLogo;
@@ -33,8 +33,8 @@
       <img tal:attributes="src getActaLogo" />
       <br/>
     </div>
-    <h1><span tal:content="view/unitatTitle">UNITAT</span> -
-    <span tal:content="view/organGovernTitle">CONSELL DE GOVERN</span></h1>
+    <h1 class="h1Print"><tal:omit-tag tal:content="view/unitatTitle">UNITAT</tal:omit-tag> -
+    <tal:omit-tag tal:content="view/organGovernTitle">CONSELL DE GOVERN</tal:omit-tag></h1>
     <h2> ACTA <tal:omit-tag tal:content="view/sessionTitle">CONSELL DE GOVERN</tal:omit-tag></h2>
     <hr/>
     <div>
@@ -68,18 +68,22 @@
           <tal:block tal:condition="membresConvidats">
             <h4 i18n:translate=""> Invited members </h4>
             <span tal:replace="structure membresConvidats"></span>
+            <br/>
           </tal:block>
           <tal:block tal:condition="llistaExcusats">
             <h4 i18n:translate=""> Excused members </h4>
             <span tal:replace="structure llistaExcusats"></span>
+            <br/>
           </tal:block>
           <tal:block tal:condition="assistents">
-            <h4  i18n:translate=""> Assistants </h4>
+            <h4 i18n:translate=""> Assistants </h4>
             <span tal:replace="structure assistents"></span>
+            <br/>
           </tal:block>
           <tal:block tal:condition="llistaNoAssistens">
-            <h4  i18n:translate=""> Missing members </h4>
+            <h4 i18n:translate=""> Missing members </h4>
             <span tal:replace="structure llistaNoAssistens"></span>
+            <br/>
           </tal:block>
         </div>
       </div>
