@@ -1,0 +1,95 @@
+<tal:print tal:define="portal_state context/@@plone_portal_state; portal_url portal_state/portal_url;">
+
+<tal:block i18n:domain="genweb.organs" tal:condition="view/canView"
+           tal:define="getActaLogo view/getActaLogo;
+                      signatura view/signatura;
+                      Title context/Title;
+                      llocConvocatoria context/llocConvocatoria;
+                      horaInici context/horaInici;
+                      horaFi context/horaFi;
+                      membresConvocats context/membresConvocats;
+                      membresConvidats context/membresConvidats;
+                      llistaExcusats context/llistaExcusats;
+                      assistents context/assistents;
+                      llistaNoAssistens context/llistaNoAssistens;
+                      ordenDelDia context/ordenDelDia;
+                      acta view/getActaContent">
+
+    <div class="clearfix" style="width:180px; float:right;" tal:condition="getActaLogo">
+      <img tal:attributes="src getActaLogo" />
+      <br/>
+    </div>
+    <h1 class="h1Print"><span tal:content="view/unitatTitle">UNITAT</span> -
+    <span tal:content="view/organGovernTitle">CONSELL DE GOVERN</span></h1>
+    <h2> ACTA <tal:omit-tag tal:content="view/sessionTitle">CONSELL DE GOVERN</tal:omit-tag></h2>
+    <hr/>
+    <div>
+      <div class="span12" style="margin-bottom: 0px">
+        <tal:omit-tag tal:condition="llocConvocatoria">
+          <th style="display: inline-block;"><strong i18n:translate="">Session location</strong><b>:</b></th>
+          <span tal:content="llocConvocatoria"></span>
+          <br/>
+        </tal:omit-tag>
+        <tal:omit-tag tal:condition="horaInici">
+          <th style="display: inline-block;"><strong i18n:translate="">Dia/Hora inici</strong><b>:</b></th>
+          <span tal:content="python:context.horaInici.strftime('%d/%m/%Y %H:%M')"></span>
+          <br/>
+        </tal:omit-tag>
+        <tal:omit-tag tal:condition="horaFi">
+          <th style="display: inline-block;"><strong i18n:translate="">Dia/Hora fi</strong><b>:</b></th>
+          <span tal:content="python:context.horaFi.strftime('%d/%m/%Y %H:%M')"></span>
+
+        </tal:omit-tag>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <hr/>
+    <div>
+      <div class="span12" style="margin-bottom: 0px; padding-left:0px !important; margin-left:0px !important;">
+        <div class="caixa span6" tal:condition="membresConvocats">
+          <h4 i18n:translate=""> Attending members </h4>
+          <div tal:replace="structure membresConvocats"></div>
+        </div>
+        <div class="caixa span6">
+          <tal:block tal:condition="membresConvidats">
+            <h4 i18n:translate=""> Invited members </h4>
+            <span tal:replace="structure membresConvidats"></span>
+          </tal:block>
+          <tal:block tal:condition="llistaExcusats">
+            <h4 i18n:translate=""> Excused members </h4>
+            <span tal:replace="structure llistaExcusats"></span>
+          </tal:block>
+          <tal:block tal:condition="assistents">
+            <h4  i18n:translate=""> Assistants </h4>
+            <span tal:replace="structure assistents"></span>
+          </tal:block>
+          <tal:block tal:condition="llistaNoAssistens">
+            <h4  i18n:translate=""> Missing members </h4>
+            <span tal:replace="structure llistaNoAssistens"></span>
+          </tal:block>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <hr/>
+    <div tal:condition="acta">
+       <h3 style="padding-bottom: 15px;" i18n:translate=""> Ordre del dia </h3>
+      <span tal:replace="structure acta"></span>
+    </div>
+
+    <div class="clearfix"></div>
+    <hr/>
+    <div tal:condition="ordenDelDia">
+       <h3 style="padding-bottom: 15px;" i18n:translate=""> Desenvolupament de la sessio </h3>
+      <span tal:replace="structure ordenDelDia"></span>
+    </div>
+
+    <tal:block tal:condition="signatura">
+      <br/>
+      <span tal:replace="structure signatura"></span>
+    </tal:block>
+
+</tal:block>
+
+</tal:print>
