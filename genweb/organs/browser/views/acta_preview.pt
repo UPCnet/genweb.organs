@@ -54,14 +54,17 @@
           <tal:block tal:condition="membresConvidats">
             <h4 i18n:translate=""> Invited members </h4>
             <span tal:replace="structure membresConvidats"></span>
+            <br/>
           </tal:block>
           <tal:block tal:condition="llistaExcusats">
             <h4 i18n:translate=""> Excused members </h4>
             <span tal:replace="structure llistaExcusats"></span>
+            <br/>
           </tal:block>
           <tal:block tal:condition="assistents">
             <h4  i18n:translate=""> Assistants </h4>
             <span tal:replace="structure assistents"></span>
+            <br/>
           </tal:block>
           <tal:block tal:condition="llistaNoAssistens">
             <h4  i18n:translate=""> Missing members </h4>

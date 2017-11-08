@@ -24,6 +24,15 @@
 
 <tal:block tal:condition="view/canView">
 
+    <script type="text/javascript">
+      function printPage(newWindow){
+        newWindow.focus('printActa');
+        newWindow.print('printActa');
+    }
+  </script>
+
+ <iframe name="iframe" id="iframe" width="1" height="1" src="printActa"></iframe>
+
   <tal:omit-tag>
     <div class="modal fade hide previewModal" id="previewModal" tabindex="-1" role="dialog"
          aria-labelledby="previewModalLabel" aria-hidden="true" data-remote="previewActa">
@@ -39,8 +48,8 @@
       </div>
     </div>
     <a class="btn btn-info btnActa" style="float:right;"
-    tal:attributes="href string:generaPDF;">
-        <i class="fa fa-file-pdf-o"></i>&nbsp;<span i18n:translate=""> Download Acta </span>
+    tal:attributes="href string:javascript:printPage(iframe);">
+        <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
     </a>
     <button data-target="#previewModal" role="button" tal:condition="view/viewPrintButon"
        class="btn btn-info" data-toggle="modal"

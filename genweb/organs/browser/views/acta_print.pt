@@ -83,7 +83,6 @@
           <tal:block tal:condition="llistaNoAssistens">
             <h4 i18n:translate=""> Missing members </h4>
             <span tal:replace="structure llistaNoAssistens"></span>
-            <br/>
           </tal:block>
         </div>
       </div>
