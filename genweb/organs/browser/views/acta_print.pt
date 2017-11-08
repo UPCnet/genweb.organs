@@ -1,6 +1,18 @@
-<tal:print tal:define="portal_state context/@@plone_portal_state; portal_url portal_state/portal_url;">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master"
+      lang="en"
+      i18n:domain="genweb.organs">
+<body>
 
-<link rel="stylesheet" media="print" type="text/css" tal:Attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/print.css"/>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<metal:column_one fill-slot="column_one_slot" />
+<metal:content-core fill-slot="main">
+
+<tal:print tal:define="portal_state context/@@plone_portal_state; portal_url portal_state/portal_url;">
+<link rel="stylesheet" media="print" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/print.css" />
 
 <tal:block i18n:domain="genweb.organs" tal:condition="view/canView"
            tal:define="getActaLogo view/getActaLogo;
@@ -12,20 +24,21 @@
                       membresConvocats context/membresConvocats;
                       membresConvidats context/membresConvidats;
                       llistaExcusats context/llistaExcusats;
+                      assistents context/assistents;
                       llistaNoAssistens context/llistaNoAssistens;
-                      ordenDelDia context/ordenDelDia">
+                      ordenDelDia context/ordenDelDia;
+                      acta view/getActaContent">
 
     <div class="clearfix" style="width:180px; float:right;" tal:condition="getActaLogo">
       <img tal:attributes="src getActaLogo" />
       <br/>
     </div>
-    <h1 class="h1Print"><span tal:content="view/unitatTitle">UNITAT</span> -
-    <span tal:content="view/organGovernTitle">CONSELL DE GOVERN</span></h1>
-    <h2 i18n:translate=""> ACTA <span style="text-align: left" tal:content="view/sessionTitle">CONSELL DE GOVERN</span></h2>
+    <h1 class="h1Print"><tal:omit-tag tal:content="view/unitatTitle">UNITAT</tal:omit-tag> -
+    <tal:omit-tag tal:content="view/organGovernTitle">CONSELL DE GOVERN</tal:omit-tag></h1>
+    <h2> ACTA <tal:omit-tag tal:content="view/sessionTitle">CONSELL DE GOVERN</tal:omit-tag></h2>
     <hr/>
-
-    <div class="container-fluid" style="border-bottom: 1px solid #b2b2b2; padding-bottom:10px; padding-left:0px !important;">
-      <div class="span12" style="margin-bottom: 0px">
+    <div>
+      <div class="span12" style="margin-bottom: 0px !important">
         <tal:omit-tag tal:condition="llocConvocatoria">
           <th style="display: inline-block;"><strong i18n:translate="">Session location</strong><b>:</b></th>
           <span tal:content="llocConvocatoria"></span>
@@ -39,36 +52,54 @@
         <tal:omit-tag tal:condition="horaFi">
           <th style="display: inline-block;"><strong i18n:translate="">Dia/Hora fi</strong><b>:</b></th>
           <span tal:content="python:context.horaFi.strftime('%d/%m/%Y %H:%M')"></span>
-          <br/>
+
         </tal:omit-tag>
       </div>
     </div>
-
-    <div class="span12" style="margin-bottom: 0px; padding-left:0px !important; margin-left:0px !important;">
-      <div class="caixa span6" tal:condition="membresConvocats">
-        <h4 class="h4Print" i18n:translate=""> Attending members </h4>
-        <div tal:replace="structure membresConvocats"></div>
-      </div>
-      <div class="caixa span6">
-        <tal:block tal:condition="membresConvidats">
-          <h4 class="h4Print" i18n:translate=""> Invited members </h4>
-          <span tal:replace="structure membresConvidats"></span>
-        </tal:block>
-        <tal:block tal:condition="llistaExcusats">
-          <h4 class="h4Print" i18n:translate=""> Excused members </h4>
-          <span tal:replace="structure llistaExcusats"></span>
-        </tal:block>
-        <tal:block tal:condition="llistaNoAssistens">
-          <h4 class="h4Print"  i18n:translate=""> Missing members </h4>
-          <span tal:replace="structure llistaNoAssistens"></span>
-        </tal:block>
+    <div class="clearfix"></div>
+    <hr/>
+    <div>
+      <div class="span12" style="margin-bottom: 0px !important; padding-left:0px !important; margin-left:0px !important;">
+        <div class="caixa span6" tal:condition="membresConvocats">
+          <h4 i18n:translate=""> Attending members </h4>
+          <div tal:replace="structure membresConvocats"></div>
+        </div>
+        <div class="caixa span6">
+          <tal:block tal:condition="membresConvidats">
+            <h4 i18n:translate=""> Invited members </h4>
+            <span tal:replace="structure membresConvidats"></span>
+            <br/>
+          </tal:block>
+          <tal:block tal:condition="llistaExcusats">
+            <h4 i18n:translate=""> Excused members </h4>
+            <span tal:replace="structure llistaExcusats"></span>
+            <br/>
+          </tal:block>
+          <tal:block tal:condition="assistents">
+            <h4 i18n:translate=""> Assistants </h4>
+            <span tal:replace="structure assistents"></span>
+            <br/>
+          </tal:block>
+          <tal:block tal:condition="llistaNoAssistens">
+            <h4 i18n:translate=""> Missing members </h4>
+            <span tal:replace="structure llistaNoAssistens"></span>
+            <br/>
+          </tal:block>
+        </div>
       </div>
     </div>
-
-    <tal:block tal:condition="ordenDelDia">
-      <h3 i18n:translate=""> Desenvolupament de la sessio </h3>
+    <div class="clearfix"></div>
+    <hr/>
+    <div tal:condition="acta">
+       <h3 style="padding-bottom: 15px;" i18n:translate=""> Ordre del dia </h3>
+      <span tal:replace="structure acta"></span>
+    </div>
+    <div class="clearfix"></div>
+    <hr/>
+    <div tal:condition="ordenDelDia">
+       <h3 style="padding-bottom: 15px;" i18n:translate=""> Desenvolupament de la sessio </h3>
       <span tal:replace="structure ordenDelDia"></span>
-    </tal:block>
+    </div>
 
     <tal:block tal:condition="signatura">
       <br/>
@@ -78,3 +109,8 @@
 </tal:block>
 
 </tal:print>
+
+</metal:content-core>
+
+</body>
+</html>
