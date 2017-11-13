@@ -252,6 +252,7 @@ class View(grok.View):
         """ La llista d'acords i el tab el veu tothom.
             Després s'aplica el permís per cada rol a la vista de l'acord """
         results = []
+
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
@@ -267,6 +268,7 @@ class View(grok.View):
             username = None
         else:
             username = api.user.get_current().id
+
         organ_type = self.context.organType
         for session in sessions:
             paths.append(session.getPath())
@@ -282,13 +284,17 @@ class View(grok.View):
                 value = obj.getObject()
                 if value.agreement:
                     if len(value.agreement.split('/')) > 2:
-                        num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3)
+                        try:
+                            num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3) + value.agreement.split('/')[3].zfill(3)
+                        except:
+                            num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3)
                         any = value.agreement.split('/')[0]
                     else:
                         num = value.agreement.split('/')[0].zfill(3)
                         any = value.agreement.split('/')[1]
                 else:
-                    num = any = ''
+                    num = ''
+                    any = ''
                 if value.aq_parent.aq_parent.portal_type == 'genweb.organs.sessio':
                     wf_state = api.content.get_state(obj=value.aq_parent.aq_parent)
                     if username:
@@ -323,7 +329,7 @@ class View(grok.View):
                                         hiddenOrder=any + num,
                                         estatsLlista=value.estatsLlista))
 
-        return sorted(results, key=itemgetter('hiddenOrder'))
+        return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
 
     def getActes(self):
         """ Si es Manager/Secretari/Editor/Membre show actas
