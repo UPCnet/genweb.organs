@@ -163,9 +163,10 @@
                     </span>
                   </td>
                   <td style="text-align: center;">
-                    <span tal:content="item/estatsLlista" i18n:translate="">
-                        Status
-                    </span>
+                      <span tal:attributes="style string:background:${item/color};" class="labelEstat"
+                            tal:content="item/estatsLlista" i18n:translate="">
+                          Status
+                      </span>
                   </td>
                 </tr>
               </tal:documents>

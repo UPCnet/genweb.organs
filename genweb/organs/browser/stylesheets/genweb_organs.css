@@ -1560,3 +1560,21 @@ div#previewModal {
     width: 1000px;
     right: 20%;
 }
+
+.labelEstat {
+    display: inline-table;
+    font-size: 12px;
+    padding: 0px 10px;
+    border-radius: 15px;
+    vertical-align: middle;
+    color: #fff;
+     text-shadow: 
+        -1px -1px 0px #000,
+         0px -1px 0px #000,
+         1px -1px 0px #000,
+        -1px  0px 0px #000,
+         1px  0px 0px #000,
+        -1px  1px 0px #000,
+         0px  1px 0px #000,
+         1px  1px 0px #000;
+}

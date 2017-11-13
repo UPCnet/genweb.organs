@@ -628,7 +628,8 @@ class View(grok.View):
                                 absolute_url=value.absolute_url(),
                                 agreement=value.agreement,
                                 hiddenOrder=any + num,
-                                estatsLlista=value.estatsLlista))
+                                estatsLlista=value.estatsLlista,
+                                color=self.getColor(obj)))
         return sorted(results, key=itemgetter('hiddenOrder'))
 
     def canView(self):
