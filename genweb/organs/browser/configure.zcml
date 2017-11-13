@@ -100,12 +100,6 @@
     permission="cmf.ModifyPortalContent"
     />
 
-  <browser:page
-      for="genweb.organs.content.acta.IActa"
-      name="generaPDF"
-      class=".utils.PrintPDF"
-      permission="zope2.View" />
-
 <!--
     <browser:page
       for="genweb.organs.content.organgovern.IOrgangovern"
