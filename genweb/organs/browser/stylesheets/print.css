@@ -121,4 +121,8 @@
     margin-top: 0px;
   }
 
+  tbody {
+    font-size: 11pt !important;
+    font-family: Arial, Helvetica, sans-serif !important;}
+
 }
