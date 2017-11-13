@@ -235,15 +235,16 @@ class View(grok.View):
             else:
                 valuedataSessio = ''
                 valueHoraInici = ''
-
             num = value.numSessio.zfill(3)
             any = value.start.strftime('%Y%m%d')
+            sessionNumber = value.aq_parent.acronim + '/' + value.start.strftime('%Y') + '/' + value.numSessio
             results.append(dict(title=value.title,
                                 absolute_url=value.absolute_url(),
                                 dataSessio=valuedataSessio,
                                 llocConvocatoria=value.llocConvocatoria,
                                 horaInici=valueHoraInici,
                                 hiddenOrder=int(any + num),
+                                sessionNumber=sessionNumber,
                                 review_state=obj.review_state))
         return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
 
@@ -293,13 +294,13 @@ class View(grok.View):
                     if username:
                         roles = api.user.get_roles(username=username, obj=value.aq_parent.aq_parent)
                     else:
-                        roles=[]
+                        roles = []
                 else:
                     wf_state = api.content.get_state(obj=value.aq_parent)
                     if username:
                         roles = api.user.get_roles(username=username, obj=value.aq_parent)
                     else:
-                        roles=[]
+                        roles = []
                 # Oculta acords from table depending on role and state
                 add_acord = False
                 if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
@@ -308,7 +309,7 @@ class View(grok.View):
                     if 'planificada' not in wf_state:
                         add_acord = True
                 elif 'OG4-Afectat' in roles:
-                    if organ_type == 'open_organ' or organ_type =='restricted_to_affected_organ':
+                    if organ_type == 'open_organ' or organ_type == 'restricted_to_affected_organ':
                         if 'realitzada' in wf_state or 'tancada' in wf_state or 'en_correccio' in wf_state:
                             add_acord = True
                 else:
@@ -386,7 +387,7 @@ class View(grok.View):
     def canModify(self):
         if api.user.is_anonymous():
             username = None
-            roles=[]
+            roles = []
         else:
             username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)

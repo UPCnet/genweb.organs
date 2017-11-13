@@ -46,16 +46,13 @@
           <thead>
             <tr>
               <th>
-                <tal:title i18n:translate="">Title</tal:title>
+                <tal:title i18n:translate="">Title / Code</tal:title>
               </th>
               <th style="text-align: center;">
                 <tal:head i18n:translate="">Session date</tal:head>
               </th>
               <th style="text-align: center;">
                 <tal:head i18n:translate="">Session location</tal:head>
-              </th>
-              <th style="text-align: center;">
-                <tal:head i18n:translate="">Session start</tal:head>
               </th>
               <th style="text-align: center;">
                 <tal:head i18n:translate="">State</tal:head>
@@ -66,24 +63,27 @@
             <tr>
               <td>
               <i class="icon-genweb-organs-sessio" aria-hidden="true"></i>
+
                 <a tal:attributes="href item/absolute_url;"
                    tal:content="item/title">
                         Item Title
                 </a>
+                [<tal:omit-tag tal:content="item/sessionNumber" >
+                        Session Number
+                </tal:omit-tag>]
               </td>
               <td style="text-align: center;">
                 <span tal:content="item/dataSessio" >
                         Data de la Sessio
                 </span>
+                <br/>
+                <span tal:content="item/horaInici">
+                        Hora inici
+                </span>
               </td>
               <td style="text-align: center;">
                 <span tal:content="item/llocConvocatoria">
                         Lloc sessio
-                </span>
-              </td>
-              <td style="text-align: center;">
-                <span tal:content="item/horaInici">
-                        Hora inici
                 </span>
               </td>
               <td style="text-align: center;">

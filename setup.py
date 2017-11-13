@@ -31,9 +31,6 @@ setup(name='genweb.organs',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'pdfkit',
-          'PyPDF2',
-          'reportlab' 
       ],
       extras_require={'test': ['plone.app.testing',
                                'plone.app.testing[robot]>=4.2.2',

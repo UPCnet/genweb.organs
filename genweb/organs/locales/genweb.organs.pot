@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-11-08 11:47+0000\n"
+"POT-Creation-Date: 2017-11-13 10:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,7 +80,7 @@ msgid "Afectats"
 msgstr ""
 
 #: ./genweb/organs/browser/views/butlleti.pt:125
-#: ./genweb/organs/content/templates/organgovern_view.pt:142
+#: ./genweb/organs/content/templates/organgovern_view.pt:145
 #: ./genweb/organs/content/templates/sessio_view.pt:280
 msgid "Agreement"
 msgstr ""
@@ -117,7 +117,7 @@ msgstr ""
 msgid "Anonymous user"
 msgstr ""
 
-#: ./genweb/organs/browser/views/acta_preview.pt:63
+#: ./genweb/organs/browser/views/acta_preview.pt:65
 #: ./genweb/organs/browser/views/acta_print.pt:79
 #: ./genweb/organs/content/acta.py:90
 msgid "Assistants"
@@ -250,7 +250,7 @@ msgstr ""
 msgid "Dades"
 msgstr ""
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:185
+#: ./genweb/organs/content/templates/organgovern_view.pt:188
 msgid "Data"
 msgstr ""
 
@@ -278,8 +278,8 @@ msgstr ""
 msgid "Deleted subpunt"
 msgstr ""
 
-#: ./genweb/organs/browser/views/acta_preview.pt:84
-#: ./genweb/organs/browser/views/acta_print.pt:100
+#: ./genweb/organs/browser/views/acta_preview.pt:87
+#: ./genweb/organs/browser/views/acta_print.pt:99
 msgid "Desenvolupament de la sessio"
 msgstr ""
 
@@ -333,7 +333,7 @@ msgstr ""
 msgid "Esteu visualitzant la sessio amb el rol"
 msgstr ""
 
-#: ./genweb/organs/browser/views/acta_preview.pt:59
+#: ./genweb/organs/browser/views/acta_preview.pt:60
 #: ./genweb/organs/browser/views/acta_print.pt:74
 #: ./genweb/organs/content/acta.py:82
 msgid "Excused members"
@@ -512,7 +512,7 @@ msgstr ""
 msgid "Missatge no enviat. Comprovi els destinataris del missatge"
 msgstr ""
 
-#: ./genweb/organs/browser/views/acta_preview.pt:67
+#: ./genweb/organs/browser/views/acta_preview.pt:70
 #: ./genweb/organs/browser/views/acta_print.pt:84
 msgid "Missing members"
 msgstr ""
@@ -594,8 +594,8 @@ msgstr ""
 msgid "Operation Cancelled."
 msgstr ""
 
-#: ./genweb/organs/browser/views/acta_preview.pt:77
-#: ./genweb/organs/browser/views/acta_print.pt:94
+#: ./genweb/organs/browser/views/acta_preview.pt:80
+#: ./genweb/organs/browser/views/acta_print.pt:93
 #: ./genweb/organs/content/templates/impersonate_as.pt:138
 msgid "Ordre del dia"
 msgstr ""
@@ -936,13 +936,16 @@ msgstr ""
 msgid "Tancar"
 msgstr ""
 
-#: ./genweb/organs/content/templates/organgovern_view.pt:49
 #: ./genweb/organs/content/templates/sessio_view.pt:378
 msgid "Title"
 msgstr ""
 
+#: ./genweb/organs/content/templates/organgovern_view.pt:49
+msgid "Title / Code"
+msgstr ""
+
 #: ./genweb/organs/browser/views/butlleti.pt:126
-#: ./genweb/organs/content/templates/organgovern_view.pt:139
+#: ./genweb/organs/content/templates/organgovern_view.pt:142
 #: ./genweb/organs/content/templates/sessio_view.pt:277
 msgid "Titol"
 msgstr ""
