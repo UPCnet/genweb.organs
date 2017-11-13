@@ -183,7 +183,10 @@ class View(grok.View):
                 else:
                     return False
         else:
-            raise Unauthorized
+            if not self.context.visiblefile and not self.context.hiddenfile:
+                return None
+            else:
+                raise Unauthorized
 
     def viewReserved(self):
         """ Cuando se muestra la parte privada del FICHERO
@@ -227,7 +230,10 @@ class View(grok.View):
             if organ_tipus == 'open_organ':
                 return True
         else:
-            raise Unauthorized
+            if not self.context.visiblefile and not self.context.hiddenfile:
+                return None
+            else:
+                raise Unauthorized
 
     def canView(self):
         # Permissions to view FILE
