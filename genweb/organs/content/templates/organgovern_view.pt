@@ -162,12 +162,11 @@
                         Numero Acord
                     </span>
                   </td>
-                  <td style="text-align: center;">
-                      <span tal:attributes="style string:background:${item/color};" class="labelEstat"
-                            tal:content="item/estatsLlista" i18n:translate="">
-                          Status
+                    <td style="text-align:center; min-width: 100px;">
+                      <span class="estatpunt">
+                        <i class="fa fa-circle boletaGran" aria-hidden="true" tal:attributes="style string:color:${item/color};"></i>&nbsp;<span tal:content="item/estatsLlista"></span>
                       </span>
-                  </td>
+                    </td>
                 </tr>
               </tal:documents>
             </tbody>

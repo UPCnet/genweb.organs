@@ -14,9 +14,9 @@
     <tal:omit-tag tal:content="context/proposalPoint"></tal:omit-tag>.
     <tal:omit-tag tal:content="context/Title"></tal:omit-tag>
     <span class="estatpunt">
-    <i class="fa fa-circle boletaGran" aria-hidden="true" tal:attributes="style string:color:${view/getColor};
+      <i class="fa fa-circle boletaGran" aria-hidden="true" tal:attributes="style string:color:${view/getColor};
       title estatsLlista; alt estatsLlista"></i>&nbsp;<span tal:content="estatsLlista"></span>
-      </span>
+    </span>
   </h1>
 </metal:title>
 

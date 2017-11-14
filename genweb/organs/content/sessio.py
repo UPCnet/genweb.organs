@@ -616,7 +616,10 @@ class View(grok.View):
             value = obj._unrestrictedGetObject()
             if value.agreement:
                 if len(value.agreement.split('/')) > 2:
-                    num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3)
+                    try:
+                        num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3) + value.agreement.split('/')[3].zfill(3)
+                    except:
+                        num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3)
                     any = value.agreement.split('/')[0]
                 else:
                     num = value.agreement.split('/')[0].zfill(3)
@@ -630,7 +633,7 @@ class View(grok.View):
                                 hiddenOrder=any + num,
                                 estatsLlista=value.estatsLlista,
                                 color=self.getColor(obj)))
-        return sorted(results, key=itemgetter('hiddenOrder'))
+        return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
 
     def canView(self):
         # Permissions to view SESSIONS
