@@ -14,7 +14,7 @@
                       acta view/getActaContent">
 
     <div style="float:left;" tal:condition="getActaLogo">
-      <img style="height:100px!important;" tal:attributes="src getActaLogo" />
+      <img style="height: 67px;" tal:attributes="src getActaLogo" />
     </div>
     <div class="clearfix"></div>
     <h1 class="h1Print"><span tal:content="view/unitatTitle">UNITAT</span> -
