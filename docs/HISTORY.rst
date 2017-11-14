@@ -1,11 +1,34 @@
 Changelog
 =========
 
-0.13 (unreleased)
+0.14 (2017-11-14)
 -----------------
 
-- Nothing changed yet.
-
+* changed logo size [root muntanyeta]
+* logo to the left [Roberto Diaz]
+* change assistents in acta view [Roberto Diaz]
+* added labels to status [Roberto Diaz]
+* adding label to color states [Roberto Diaz]
+* solved geting absolute_url_path with mountpoint (error assigning default proposal point number) [Roberto Diaz]
+* remove printPDF [Roberto Diaz]
+* adding fixed table size [Roberto Diaz]
+* sort acords reversed and ok [Roberto Diaz]
+* added session number to sessions list in organ view [Roberto Diaz]
+* readded print button [Roberto Diaz]
+* Merge remote-tracking branch 'origin/test' [Roberto Diaz]
+* revert to preview pdf [Roberto Diaz]
+* revert to PRINT PDF [Roberto Diaz]
+* remove pdfs from tmp [root muntanyeta]
+* updated PDF and added assistents to print view [root muntanyeta]
+* download PDF with page numbers [Roberto Diaz]
+* remove text [Roberto Diaz]
+* printing PDFs [Roberto Diaz]
+* Creating tmp PDF [Roberto Diaz]
+* CSS Print [Roberto Diaz]
+* adding css to print acta [Roberto Diaz]
+* added html2pdf, testing in acta print [Roberto Diaz]
+* addapted code to production [Roberto Diaz]
+* remove mountpoints code [Roberto Diaz]
 
 0.12 (2017-10-26)
 -----------------
