@@ -12,9 +12,10 @@
 <metal:content-core fill-slot="main">
 
 <tal:print tal:define="portal_state context/@@plone_portal_state; portal_url portal_state/portal_url;">
+
 <link rel="stylesheet" media="print" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/print.css" />
 
-<tal:block i18n:domain="genweb.organs" tal:condition="view/canView"
+  <tal:block i18n:domain="genweb.organs" tal:condition="view/canView"
            tal:define="getActaLogo view/getActaLogo;
                       signatura view/signatura;
                       Title context/Title;
@@ -29,10 +30,10 @@
                       ordenDelDia context/ordenDelDia;
                       acta view/getActaContent">
 
-    <div class="clearfix" style="width:180px; float:right;" tal:condition="getActaLogo">
-      <img tal:attributes="src getActaLogo" />
-      <br/>
+    <div style="float:left;" tal:condition="getActaLogo">
+      <img style="height:100px;" tal:attributes="src getActaLogo" />
     </div>
+    <div class="clearfix"></div>
     <h1 class="h1Print"><tal:omit-tag tal:content="view/unitatTitle">UNITAT</tal:omit-tag> -
     <tal:omit-tag tal:content="view/organGovernTitle">CONSELL DE GOVERN</tal:omit-tag></h1>
     <h2> ACTA <tal:omit-tag tal:content="view/sessionTitle">CONSELL DE GOVERN</tal:omit-tag></h2>
@@ -52,7 +53,6 @@
         <tal:omit-tag tal:condition="horaFi">
           <th style="display: inline-block;"><strong i18n:translate="">Dia/Hora fi</strong><b>:</b></th>
           <span tal:content="python:context.horaFi.strftime('%d/%m/%Y %H:%M')"></span>
-
         </tal:omit-tag>
       </div>
     </div>
@@ -94,13 +94,11 @@
        <h3 style="padding-bottom: 15px;" i18n:translate=""> Desenvolupament de la sessio </h3>
       <span tal:replace="structure ordenDelDia"></span>
     </div>
-
     <tal:block tal:condition="signatura">
       <br/>
       <span tal:replace="structure signatura"></span>
     </tal:block>
-
-</tal:block>
+  </tal:block>
 
 </tal:print>
 
