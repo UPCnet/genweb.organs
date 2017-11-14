@@ -47,7 +47,7 @@
     <div>
       <div class="span12" style="margin-bottom: 0px; padding-left:0px !important; margin-left:0px !important;">
         <div class="caixa span6" tal:condition="membresConvocats">
-          <h4 i18n:translate=""> Attending members </h4>
+          <h4 i18n:translate=""> Assistants </h4>
           <div tal:replace="structure membresConvocats"></div>
         </div>
         <div class="caixa span6">
@@ -59,11 +59,6 @@
           <tal:block tal:condition="llistaExcusats">
             <h4 i18n:translate=""> Excused members </h4>
             <span tal:replace="structure llistaExcusats"></span>
-            <br/>
-          </tal:block>
-          <tal:block tal:condition="assistents">
-            <h4  i18n:translate=""> Assistants </h4>
-            <span tal:replace="structure assistents"></span>
             <br/>
           </tal:block>
           <tal:block tal:condition="llistaNoAssistens">

@@ -11,7 +11,6 @@
        tal:define="membresConvocats context/membresConvocats;
                    membresConvidats context/membresConvidats;
                    llistaExcusats context/llistaExcusats;
-                   assistents context/assistents;
                    llistaNoAssistens context/llistaNoAssistens;
                    assistents context/assistents;
                    ordenDelDia context/ordenDelDia;
@@ -117,16 +116,13 @@
           <div class="panel-heading">
             <ul class="nav nav-tabs">
                 <li tal:condition="membresConvocats" class="active">
-                  <a href="#tab1primary" data-toggle="tab" i18n:translate="">Attending members</a>
+                  <a href="#tab1primary" data-toggle="tab" i18n:translate="">Assistants</a>
                 </li>
                 <li tal:condition="membresConvidats">
                   <a href="#tab2primary" data-toggle="tab" i18n:translate="">Invited members</a>
                 </li>
                 <li tal:condition="llistaExcusats">
                   <a href="#tab3primary" data-toggle="tab" i18n:translate="">Excused members</a>
-                </li>
-                <li tal:condition="assistents">
-                  <a href="#tab4primary" data-toggle="tab" i18n:translate="">Assistants</a>
                 </li>
                 <li tal:condition="llistaNoAssistens">
                   <a href="#tab5primary" data-toggle="tab" i18n:translate="">No assistents</a>
