@@ -9,6 +9,8 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="genweb.organs">
 
+    <include package="five.grok" />
+
     <!-- Zope2 initialization -->
     <five:registerPackage package="." initialize=".initialize" />
 
