@@ -275,7 +275,7 @@ Check if can view the private part in a document
   [Arguments]  ${CONDITION}=True
   Go To  ${DOCUMENT_URL}
   ${STATUS} =  Run Keyword And Return Status  Wait Until Page Contains Element  //*[@id="content-core"]/span[contains(h3, "Contingut restringit") and contains(p, "${RESTRICTED_CONTENT}")]
-  Log Check If  ${CONDITION}  ${STATUS}  Pot veure la part restingida en un document:
+  Log Check If  ${CONDITION}  ${STATUS}  Pot veure la part restringida en un document:
 
 Check if can view public files in the drop-down of session
   [Arguments]  ${CONDITION}=True
@@ -325,14 +325,14 @@ Check if the public-restricted file is opened in the same window
 Check if can view the public part in a file
   [Arguments]  ${CONDITION}=True
   Go To  ${FILE_URL}
-  ${STATUS} =  Run Keyword And Return Status  Wait Until Page Contains Element  //div[contains(h3, "Fitxer públic")]/p[contains(a, "${PDF_PUBLIC_NAME}")]
+  ${STATUS} =  Run Keyword And Return Status  Wait Until Page Contains Element  //p[contains(a, "${PDF_PUBLIC_NAME}")]
   Log Check If  ${CONDITION}  ${STATUS}  Pot veure la part pública en un fitxer:
 
 Check if can view the private part in a file
   [Arguments]  ${CONDITION}=True
   Go To  ${FILE_URL}
-  ${STATUS} =  Run Keyword And Return Status  Wait Until Page Contains Element  //div[contains(h3, "Fitxer restringit")]/p[contains(a, "${PDF_RESTRICTED_NAME}")]
-  Log Check If  ${CONDITION}  ${STATUS}  Pot veure la part restingida en un fitxer:
+  ${STATUS} =  Run Keyword And Return Status  Wait Until Page Contains Element  //p[contains(a, "${PDF_RESTRICTED_NAME}")]
+  Log Check If  ${CONDITION}  ${STATUS}  Pot veure la part restringida en un fitxer:
 
 Check if can view button Member message in a session
   [Arguments]  ${CONDITION}=True
@@ -367,5 +367,5 @@ Check if can view button Preview in a act
 Check if can view button Download PDF file in a act
   [Arguments]  ${CONDITION}=True
   Go To  ${ACT_URL}
-  ${STATUS} =  Run Keyword And Return Status  Wait Until Page Contains Element  //a[contains(span, "Descarrega acta en PDF")]
-  Log Check If  ${CONDITION}  ${STATUS}  Pot veure el botó <Descarrega acta en PDF> dintre d'un acta:
+  ${STATUS} =  Run Keyword And Return Status  Wait Until Page Contains Element  //a[contains(span, "Imprimeix Acta")]
+  Log Check If  ${CONDITION}  ${STATUS}  Pot veure el botó <Imprimeix Acta> dintre d'un acta:

@@ -112,6 +112,7 @@ Create a OG
   [Arguments]  ${TYPE}
   Go To  ${FOLDER_URL}/++add++genweb.organs.organgovern
   Input Text  name=form.widgets.title  ${OG_NAME}
+  Input Text  name=form.widgets.acronim  ${OG_NAME}
   Input Text  name=form.widgets.fromMail  ${MEMBER_USER_NAME}@mailinator.com
   Select From List By Value  name=form.widgets.organType:list  ${TYPE}
   Save form
@@ -200,6 +201,7 @@ Create a restricted file
   Log  \t\t\tCreat el fitxer restringit  console=True
 
 Create a different contents
+  Login as admin
   Create a session  ${OG_URL}
   Create a agreement  ${SESSION_URL}
   Create a act  ${SESSION_URL}

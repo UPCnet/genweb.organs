@@ -55,8 +55,6 @@ We make the checks for OG secretary when the session is in convened
   Check if can add Documents in a point
   Check if can view public file in a point
   Check if can view restricted file in a point
-  Check if can view public document in a point
-  Check if can view restricted file in a point
   Check if can add Points from the top menu
   Check if can add Act from the top menu
   Check if can add Agreement from the top menu
@@ -115,8 +113,6 @@ We make the checks for OG editor when the session is in convened
   Check if can add Documents in a point
   Check if can view public file in a point
   Check if can view restricted file in a point
-  Check if can view public document in a point
-  Check if can view restricted file in a point
   Check if can add Points from the top menu
   Check if can add Act from the top menu
   Check if can add Agreement from the top menu
@@ -159,10 +155,6 @@ We make the checks for OG member when the session is in convened
   Check if can view tab Agreements in a OG
   Check if can view tab Acts in a OG
   Check if can view session in a OG
-  Check if can view tab Composition in a OG
-  Check if can view tab Agreements in a OG
-  Check if can view tab Acts in a OG
-  Check if can view session in a OG
   Check if can view tab Call in a session
   Check if can view tab Members in a session
   Check if can view tab Agreements in a session
@@ -178,8 +170,6 @@ We make the checks for OG member when the session is in convened
   Check if can add Files in a point  False
   Check if can add Documents in a point  False
   Check if can view public file in a point
-  Check if can view restricted file in a point
-  Check if can view public document in a point
   Check if can view restricted file in a point
   Check if can add Points from the top menu  False
   Check if can add Act from the top menu  False

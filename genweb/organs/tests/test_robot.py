@@ -35,4 +35,12 @@ def test_suite():
             layer=GENWEB_ORGANS_ROBOT_TESTING
         ),
     ])
+    suite.addTests([
+        layered(robotsuite.RobotTestSuite(
+                './robot/tests_og_restricted_to_effecteds.robot',
+                setUp=setUP
+            ),
+            layer=GENWEB_ORGANS_ROBOT_TESTING
+        ),
+    ])
     return suite

@@ -23,7 +23,7 @@ We make the checks for OG secretary when the session is in preparation
   Login  ${SECRETARY_USER_NAME}  ${SECRETARY_USER_NAME}
   Check if can view portlet Navigation
   Check if can view list organs
-  Check if can view list organs and types  Restringit a membres
+  Check if can view list organs and types  Restringit a afectats
   Check if can view OG
   Check if can view tab Sessions in a OG
   Check if can view tab Composition in a OG
@@ -81,7 +81,7 @@ We make the checks for OG editor when the session is in preparation
   Login  ${EDITOR_USER_NAME}  ${EDITOR_USER_NAME}
   Check if can view portlet Navigation
   Check if can view list organs
-  Check if can view list organs and types  Restringit a membres
+  Check if can view list organs and types  Restringit a afectats
   Check if can view OG
   Check if can view tab Sessions in a OG
   Check if can view tab Composition in a OG
@@ -139,7 +139,7 @@ We make the checks for OG member when the session is in preparation
   Login  ${MEMBER_USER_NAME}  ${MEMBER_USER_NAME}
   Check if can view portlet Navigation
   Check if can view list organs
-  Check if can view list organs and types  Restringit a membres  False
+  Check if can view list organs and types  Restringit a afectats  False
   Check if can view OG
   Check if can view tab Sessions in a OG  False
   Check if can view tab Composition in a OG
@@ -151,16 +151,21 @@ We make the checks for OG affected when the session is in preparation
   Log  \n- Usuari (AFECTAT):  console=True
   Login  ${AFFECTED_USER_NAME}  ${AFFECTED_USER_NAME}
   Check if can view portlet Navigation
-  Check if can view list organs  False
-  Check if can view list organs and types  Restringit a membres  False
-  Check if can view OG  False
+  Check if can view list organs
+  Check if can view list organs and types  Restringit a afectats  False
+  Check if can view OG
+  Check if can view tab Sessions in a OG  False
+  Check if can view tab Composition in a OG
+  Check if can view tab Agreements in a OG  False
+  Check if can view tab Acts in a OG  False
+  Check if can view session in a OG  False
 
 We make the checks for not role user when the session is in preparation
   Log  \n- Usuari sense rol:  console=True
   Login  ${VALIDATED_USER_NAME}  ${VALIDATED_USER_NAME}
   Check if can view portlet Navigation
   Check if can view list organs  False
-  Check if can view list organs and types  Restringit a membres  False
+  Check if can view list organs and types  Restringit a afectats  False
   Check if can view OG  False
 
 We make the checks for not validated user when the session is in preparation
@@ -168,5 +173,5 @@ We make the checks for not validated user when the session is in preparation
   Logout
   Check if can view portlet Navigation
   Check if can view list organs  False
-  Check if can view list organs and types  Restringit a membres  False
+  Check if can view list organs and types  Restringit a afectats  False
   Check if can view OG  False

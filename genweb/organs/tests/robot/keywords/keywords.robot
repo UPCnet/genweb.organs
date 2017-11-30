@@ -22,7 +22,6 @@ Login
   Click Button  submit
 
 Login as admin
-  Logout
   Login  ${SITE_OWNER_NAME}  ${SITE_OWNER_PASSWORD}
 
 Logout
