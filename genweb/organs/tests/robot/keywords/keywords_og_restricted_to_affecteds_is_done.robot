@@ -19,12 +19,12 @@ Change session state to done
 We make checks when the session is done
   Change session state to done
   Log  \n*** Sessió realitzada ***  console=True
-  #We make the checks for OG secretary when the session is done
-  #We make the checks for OG editor when the session is done
-  #We make the checks for OG member when the session is done
+  We make the checks for OG secretary when the session is done
+  We make the checks for OG editor when the session is done
+  We make the checks for OG member when the session is done
   We make the checks for OG affected when the session is done
-  #We make the checks for not role user when the session is done
-  #We make the checks for not validated user when the session is done
+  We make the checks for not role user when the session is done
+  We make the checks for not validated user when the session is done
 
 We make the checks for OG secretary when the session is done
   Log  \n- Usuari (SECRETARI):  console=True

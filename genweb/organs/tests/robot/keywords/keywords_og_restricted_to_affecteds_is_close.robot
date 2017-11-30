@@ -19,12 +19,12 @@ Change session state to close
 We make checks when the session is close
   Change session state to close
   Log  \n*** Sessió tancada ***  console=True
-  #We make the checks for OG secretary when the session is close
-  #We make the checks for OG editor when the session is close
-  #We make the checks for OG member when the session is close
+  We make the checks for OG secretary when the session is close
+  We make the checks for OG editor when the session is close
+  We make the checks for OG member when the session is close
   We make the checks for OG affected when the session is close
-  #We make the checks for not role user when the session is close
-  #We make the checks for not validated user when the session is close
+  We make the checks for not role user when the session is close
+  We make the checks for not validated user when the session is close
 
 We make the checks for OG secretary when the session is close
   Log  \n- Usuari (SECRETARI):  console=True

@@ -43,9 +43,8 @@ Create a OG restricted to affecteds
   Log  Creat OG restringit a afectats  console=True
 
 We make the checks for the differents users when the session is in preparation
-  #We make checks when the session is in preparation
-  #We make checks when the session is in convened
-  Change session state to convened
+  We make checks when the session is in preparation
+  We make checks when the session is in convened
   We make checks when the session is done
   We make checks when the session is close
   We make checks when the session is in correction

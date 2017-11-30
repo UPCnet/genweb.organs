@@ -19,12 +19,12 @@ Change session state to in correction
 We make checks when the session is in correction
   Change session state to in correction
   Log  \n*** Sessió en correcció ***  console=True
-  #We make the checks for OG secretary when the session is in correction
-  #We make the checks for OG editor when the session is in correction
-  #We make the checks for OG member when the session is in correction
+  We make the checks for OG secretary when the session is in correction
+  We make the checks for OG editor when the session is in correction
+  We make the checks for OG member when the session is in correction
   We make the checks for OG affected when the session is in correction
-  #We make the checks for not role user when the session is in correction
-  #We make the checks for not validated user when the session is in correction
+  We make the checks for not role user when the session is in correction
+  We make the checks for not validated user when the session is in correction
 
 We make the checks for OG secretary when the session is in correction
   Log  \n- Usuari (SECRETARI):  console=True
