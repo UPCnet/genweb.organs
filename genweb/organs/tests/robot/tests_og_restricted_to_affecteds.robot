@@ -31,8 +31,7 @@ OG restricted to affecteds
 Everything is configured
   Log  \n===== OG restringit a afectats =====\n  console=True
   Initial configurations
-  #Create a different users
-  Create a OG affected user
+  Create a different users
   Create a organs folder
   Create a OG restricted to affecteds
   Create a different contents

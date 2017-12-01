@@ -18,26 +18,14 @@ def test_suite():
             ),
             layer=GENWEB_ORGANS_ROBOT_TESTING
         ),
-    ])
-    suite.addTests([
-        layered(robotsuite.RobotTestSuite(
-                './robot/tests_initial_checks.robot',
-                setUp=setUP
-            ),
-            layer=GENWEB_ORGANS_ROBOT_TESTING
-        ),
-    ])
-    suite.addTests([
         layered(robotsuite.RobotTestSuite(
                 './robot/tests_og_restricted_to_members.robot',
                 setUp=setUP
             ),
             layer=GENWEB_ORGANS_ROBOT_TESTING
         ),
-    ])
-    suite.addTests([
         layered(robotsuite.RobotTestSuite(
-                './robot/tests_og_restricted_to_effecteds.robot',
+                './robot/tests_og_restricted_to_affecteds.robot',
                 setUp=setUP
             ),
             layer=GENWEB_ORGANS_ROBOT_TESTING
