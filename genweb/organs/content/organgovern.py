@@ -67,7 +67,7 @@ class IOrgangovern(form.Schema):
     acronim = schema.TextLine(
         title=_(u'Acronym'),
         description=_(u"Acronym Description"),
-        required=False
+        required=True
     )
 
     dexteritytextindexer.searchable('descripcioOrgan')
