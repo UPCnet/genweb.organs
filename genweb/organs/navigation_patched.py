@@ -1,7 +1,6 @@
 # Remove organs from navigation depending on user and role
 # Modified code in line  75 (results to return)
 # On line 82 is the HARD CODE!!!
-from plone import api
 from plone.app.layout.navigation.navtree import buildFolderTree
 from plone.app.layout.navigation.navtree import NavtreeStrategyBase
 
@@ -78,20 +77,19 @@ def customBuildFolderTree(context, obj=None, query={}, strategy=NavtreeStrategyB
             query[key] = value
 
     results2 = portal_catalog.searchResults(query)
-    results=[]
+    results = []
     from plone import api
     if api.user.is_anonymous():
         username = None
-        
     else:
         username = api.user.get_current().id
     for value in results2:
         if value.portal_type == 'genweb.organs.organgovern':
             organ = value.getObject()
             if username:
-                roles = api.user.get_roles(obj=organ, username=username) 
+                roles = api.user.get_roles(obj=organ, username=username)
             else:
-                roles=[]
+                roles = []
             organType = organ.organType
             if 'Manager' in roles or (organType == 'open_organ'):
                 results.append(value)
