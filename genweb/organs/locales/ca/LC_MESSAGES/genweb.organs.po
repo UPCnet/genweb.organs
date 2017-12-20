@@ -466,13 +466,13 @@ msgstr "Imatge que es farà servir com a imatge de capçalera en aquesta unitat 
 
 #: ./genweb/organs/content/organgovern.py:112
 msgid "Mail address help"
-msgstr "Adreça o adreces a les quals arribaran els missatges quan hi hagi una notificació de l'òrgan. Es poden posar diverses adreces separades per comes o per espais en blanc."
+msgstr "Adreça o adreces a les quals arribaran els missatges quan hi hagi una notificació de l'òrgan. Es poden posar diverses adreces de correu. Han d'anar SEPARADES PER COMES."
 
 #: ./genweb/organs/content/mail_convocar.py:35
 #: ./genweb/organs/content/mail_informar.py:35
 #: ./genweb/organs/content/mail_message.py:34
 msgid "Mail address separated by blanks."
-msgstr "Les adreces de correu han d'anar separades per espais en blanc o per comes."
+msgstr "Les adreces de correu han d'anar SEPARADES PER COMES."
 
 #: ./genweb/organs/content/manualimport.py:28
 msgid "Manual Import"
@@ -878,7 +878,7 @@ msgstr "Adreces de correu dels afectats i/o afectades"
 #: ./genweb/organs/content/organgovern.py:118
 #: ./genweb/organs/content/sessio.py:76
 msgid "Stakeholders mail address help."
-msgstr "Adreces de correu dels afectats/afectades als quals s'enviarà informació relativa a les sessions des del botó 'Envia resum' a la vista de la sessió. Es poden indicar les adreces de correu separades per espais en blanc o per comes."
+msgstr "Adreces de correu dels afectats/afectades als quals s'enviarà informació relativa a les sessions des del botó 'Envia resum' a la vista de la sessió. Es poden indicar diverses adreces de correu. Han d'anar SEPARADES PER COMES."
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:61
 #: ./genweb/organs/content/templates/sessio_view.pt:283
@@ -1025,7 +1025,7 @@ msgstr "Adreça de correu de membres i convidats"
 
 #: ./genweb/organs/content/sessio.py:70
 msgid "notification_mail_help"
-msgstr "Adreces a les quals arriben els missatges relatius a la sessió. Inicialment pren el valor informat al òrgan."
+msgstr "Adreces a les quals arriben els missatges relatius a la sessió. Inicialment pren el valor informat al òrgan. Han d'anar SEPARADES PER COMES."
 
 #: ./genweb/organs/content/organgovern.py:23
 msgid "open_organ"

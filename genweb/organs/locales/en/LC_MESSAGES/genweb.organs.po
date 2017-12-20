@@ -466,13 +466,13 @@ msgstr "Logo used in the header and when printing the Meeting Reports."
 
 #: ./genweb/organs/content/organgovern.py:112
 msgid "Mail address help"
-msgstr "Address or addresses to which messages arrive when a notification of the body is done"
+msgstr "Address or addresses to which messages arrive when a notification of the body is done. Multiple address are valid if they are separated by comma value."
 
 #: ./genweb/organs/content/mail_convocar.py:35
 #: ./genweb/organs/content/mail_informar.py:35
 #: ./genweb/organs/content/mail_message.py:34
 msgid "Mail address separated by blanks."
-msgstr "Mail address separated by blanks."
+msgstr "Mail address separated by comma values."
 
 #: ./genweb/organs/content/manualimport.py:28
 msgid "Manual Import"
@@ -878,7 +878,7 @@ msgstr "Addresses of the affected people"
 #: ./genweb/organs/content/organgovern.py:118
 #: ./genweb/organs/content/sessio.py:76
 msgid "Stakeholders mail address help."
-msgstr "List of addresses of the people affected, that want to be notified."
+msgstr "List of addresses of the people affected, that want to be notified. Separated by comma values."
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:61
 #: ./genweb/organs/content/templates/sessio_view.pt:283
@@ -1025,7 +1025,7 @@ msgstr "Notification addresses"
 
 #: ./genweb/organs/content/sessio.py:70
 msgid "notification_mail_help"
-msgstr "Addresses where the messages related to the meeting will be arrive."
+msgstr "Addresses where the messages related to the meeting will be arrive. Separated by comma values."
 
 #: ./genweb/organs/content/organgovern.py:23
 msgid "open_organ"

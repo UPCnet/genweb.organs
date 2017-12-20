@@ -466,13 +466,13 @@ msgstr "Imagen que se utilizará como imagen de cabecera en esta unidad y en el 
 
 #: ./genweb/organs/content/organgovern.py:112
 msgid "Mail address help"
-msgstr "Dirección o direcciones de correo a las cuales llegaran los mensajes cuando haya una notificación en el órgano. Se pueden poner diversas direcciones separadas por comas o espacios en blanco."
+msgstr "Dirección o direcciones de correo a las cuales llegaran los mensajes cuando haya una notificación en el órgano. Se pueden poner diversas direcciones SEPARADAS POR COMAS."
 
 #: ./genweb/organs/content/mail_convocar.py:35
 #: ./genweb/organs/content/mail_informar.py:35
 #: ./genweb/organs/content/mail_message.py:34
 msgid "Mail address separated by blanks."
-msgstr "Las direcciones de correo han de ir  separadas por espacios en blanco o por comas."
+msgstr "Las direcciones de correo han de ir SEPARADAS POR COMAS."
 
 #: ./genweb/organs/content/manualimport.py:28
 msgid "Manual Import"
@@ -878,7 +878,7 @@ msgstr "Direcciones de correo de los afectados (para enviar información de la s
 #: ./genweb/organs/content/organgovern.py:118
 #: ./genweb/organs/content/sessio.py:76
 msgid "Stakeholders mail address help."
-msgstr "Listado de direcciones de las personas afectadas a las cuales se notificará."
+msgstr "Direcciones de correo de afectados/afectadas a los cuales se enviará la información relacionada con las sesiones desde el botón 'Envía resumen' en la vista de la sesión. Se pueden indicar diversas direcciones de correo. Han de ir SEPARADAS POR COMAS."
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:61
 #: ./genweb/organs/content/templates/sessio_view.pt:283
@@ -1025,7 +1025,7 @@ msgstr "Direcciones de correo de miembros e invitados"
 
 #: ./genweb/organs/content/sessio.py:70
 msgid "notification_mail_help"
-msgstr "Direcciones a las que llegan los mensajes relativos a la sesión. Inicialmente coge el valor definido en el órgano."
+msgstr "Direcciones a las que llegan los mensajes relativos a la sesión. Inicialmente coge el valor definido en el órgano. Han de ir SEPARADAS POR COMAS."
 
 #: ./genweb/organs/content/organgovern.py:23
 msgid "open_organ"
