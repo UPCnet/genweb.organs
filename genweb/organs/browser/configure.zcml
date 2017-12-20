@@ -100,14 +100,15 @@
     permission="cmf.ModifyPortalContent"
     />
 
-<!--
-    <browser:page
-      for="genweb.organs.content.organgovern.IOrgangovern"
-      name="ws"
-      class=".webservice.webservice"
-      layer="..interfaces.IGenwebOrgansLayer"
-      permission="cmf.ModifyPortalContent"
-      />
--->
+  <!-- WEBSERVICE TO ACCES SESSIONS DIRECTLY -->
+  <!--
+  <browser:page
+    for="genweb.organs.content.organsfolder.IOrgansfolder"
+    name="ws"
+    class=".webservice.webservice"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="cmf.ModifyPortalContent"
+    />
+  -->
 
 </configure>
