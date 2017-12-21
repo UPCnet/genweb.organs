@@ -133,7 +133,9 @@ class Delete(BrowserView):
                             subvalue = subvalue + 1
 
                     index = index + 1
-
+                # This line is only to bypass the CSRF WARNING
+                # WARNING plone.protect error parsing dom, failure to add csrf token to response for url ...
+                self.request.response.redirect(self.context.absolute_url())
         except:
             self.request.response.redirect(self.context.absolute_url())
 
@@ -164,7 +166,6 @@ class Move(BrowserView):
             delta = int(self.request.form['delta'])
             ordering.moveObjectsByDelta(itemid, delta)
             # Els ids es troben ordenats, cal canviar el proposalPoint
-
             # agafo items ordenats!
             puntsOrdered = portal_catalog.searchResults(
                 portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
@@ -208,7 +209,6 @@ class Move(BrowserView):
             delta = int(self.request.form['delta'])
             ordering.moveObjectsByDelta(itemid, delta)
             # Els ids ja s'han mogut, cal afegir el proposalPoint pertinent.
-
             subpuntsOrdered = portal_catalog.searchResults(
                 portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
                 sort_on='getObjPositionInParent',
@@ -217,7 +217,7 @@ class Move(BrowserView):
 
             subvalue = 1
             puntnumber = punt.proposalPoint
-            # Change proposaoints dels subpunts ordenats
+            # Change proposalpoints dels subpunts ordenats
             for item in subpuntsOrdered:
                 if item.portal_type == 'genweb.organs.subpunt' or item.portal_type == 'genweb.organs.acord':
                     objecteSubPunt = item.getObject()
@@ -225,6 +225,10 @@ class Move(BrowserView):
                     addEntryLog(self.context, None, _(u'Moved subpunt by drag&drop'), str(objecteSubPunt.id) + ' → ' + str(objecteSubPunt.proposalPoint))
                     objecteSubPunt.reindexObject()
                     subvalue = subvalue + 1
+
+        # This line is only to bypass the CSRF WARNING
+        # WARNING plone.protect error parsing dom, failure to add csrf token to response for url ...
+        return "Moved element"
 
 
 class ActaPrintView(BrowserView):

@@ -33,5 +33,8 @@ class changeTitle(BrowserView):
             # transaction ok, then write log
             recipients = origin_path + ' -> ' + newvalue
             addEntryLog(self.context, None, _(u"Changed Title"), recipients)
+            # This line is only to bypass the CSRF WARNING
+            # WARNING plone.protect error parsing dom, failure to add csrf token to response for url ...
+            return "Changed Title"
         except:
             pass
