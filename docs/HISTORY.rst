@@ -1,11 +1,24 @@
 Changelog
 =========
 
-0.15 (unreleased)
+0.15 (2017-12-21)
 -----------------
 
-- Nothing changed yet.
-
+* increased size in Print CSS [Roberto Diaz]
+* center table butlleti [Roberto Diaz]
+* changed raise to return [Roberto Diaz]
+* added return to remove WARNINGS CSRF from log [Roberto Diaz]
+* remove separated by blanks, and fixed to separated by comma values [Roberto Diaz]
+* PEP8 compliant [Roberto Diaz]
+* acronim field is required [Roberto Diaz]
+* ensure disable webservice [Roberto Diaz]
+* remove traces of travis [Roberto Diaz]
+* adding bootstrap for travis [Roberto Diaz]
+* playing with travis [Roberto Diaz]
+* Organs tests [iago.lopez]
+* Modificado tests de organs restringidos a afectados [iago.lopez]
+* Modificado pruebas y aÃ±adido tests de organs restringidos a afectados [iago.lopez]
+* Tests iniciales + Tests OG restringido a miembros [iago.lopez]
 
 0.14 (2017-11-14)
 -----------------
