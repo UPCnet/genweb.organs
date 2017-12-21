@@ -100,7 +100,7 @@
 
     <div style="float:right;">
       <span i18n:translate="">Estat de la sessio</span>:&nbsp;
-      <span class="label label-default" i18n:domain="genweb" i18n:translate="" tal:content="view/status">
+      <span i18n:domain="genweb" i18n:translate="" tal:content="view/status">
         Session status
       </span>
     </div>
@@ -121,9 +121,9 @@
                 cellspacing="0">
             <thead>
               <tr>
-                <th style="font-size:13px; width:5%; text-align:right;" i18n:translate="">Punt</th>
-                <th style="font-size:13px; width:5%; text-align:right;" i18n:translate="">Agreement</th>
-                <th style="font-size:13px; width:90%; padding-left: 10px; text-align:left;" i18n:translate="">Titol</th>
+                <th style="font-size:13px; width:5%; text-align:center;" i18n:translate="">Punt</th>
+                <th style="font-size:13px; white-space: nowrap; text-align:center; display: table-cell; vertical-align: middle;" i18n:translate="">Agreement</th>
+                <th style="font-size:13px; padding-left: 10px; text-align:left; display: table-cell; vertical-align: middle;" i18n:translate="">Titol</th>
               </tr>
             </thead>
             <tbody>
@@ -133,10 +133,10 @@
                 <td style="font-size:13px; width:5%; text-align:right;">
                     <span tal:condition="row/punt" tal:content="row/punt"></span>
                 </td>
-                <td style="font-size:13px; width:5%; text-align:right;">
+                <td style="font-size:13px; white-space: nowrap; text-align:right;">
                     <span tal:condition="row/acord" tal:content="row/acord"></span>
                 </td>
-                <td style="font-size:13px; width:90%; padding-left: 10px; text-align:left;">
+                <td style="font-size:13px; padding-left: 10px; text-align:left;">
                     <a tal:condition="row/Title" href="" tal:content="row/Title" tal:attributes="href row/url"></a>
                 </td>
               </tr>
