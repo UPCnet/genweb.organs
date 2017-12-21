@@ -120,7 +120,7 @@ class View(grok.View):
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
                     return True
                 else:
                     return False
@@ -138,23 +138,23 @@ class View(grok.View):
                 if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                     return True
                 else:
-                    raise False
+                    return False
             elif organ_tipus == 'restricted_to_members_organ':
                 if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                     return True
                 else:
-                    raise False
+                    return False
             elif organ_tipus == 'restricted_to_affected_organ':
                 if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                     return True
                 else:
-                    raise False
+                    return False
         elif self.context.alternateContent:
             if organ_tipus == 'open_organ':
                 if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                     return True
                 else:
-                    raise False
+                    return False
             elif organ_tipus == 'restricted_to_members_organ':
                 if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                     return True
