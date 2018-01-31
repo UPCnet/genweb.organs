@@ -169,9 +169,6 @@ def organType(obj):
     return obj.organType
 
 
-grok.global_adapter(organType, name="index_organType")
-
-
 class Edit(dexterity.EditForm):
     """ Organ de govern EDIT form
     """

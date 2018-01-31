@@ -11,14 +11,14 @@
   </index>
   <column value="migrated"/>
 
-  <index name="index_organType" meta_type="FieldIndex">
-    <indexed_attr value="index_organType"/>
-  </index>
-  <column value="index_organType"/>
-
   <index name="organType" meta_type="FieldIndex">
     <indexed_attr value="organType"/>
   </index>
   <column value="organType"/>
+
+  <index name="index_agreement" meta_type="FieldIndex">
+    <indexed_attr value="index_agreement"/>
+  </index>
+  <column value="index_agreement"/>
 
 </object>

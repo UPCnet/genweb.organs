@@ -121,7 +121,14 @@ def proposalPoint(obj):
     return obj.proposalPoint
 
 
+@indexer(IAcord)
+def agreement(obj):
+    return obj.agreement
+
+
 grok.global_adapter(proposalPoint, name="index_proposalPoint")
+
+grok.global_adapter(agreement, name="index_agreement")
 
 
 class Edit(dexterity.EditForm):

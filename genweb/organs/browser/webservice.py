@@ -1,48 +1,52 @@
 # -*- coding: utf-8 -*-
 from Products.Five.browser import BrowserView
-from Products.CMFCore.utils import getToolByName
+from zope.interface import implementer
+from zope.publisher.interfaces import IPublishTraverse
+from plone import api
+import json
 
 
-class webservice(BrowserView):
-    # TODO: Enable it and make fully functional...
+@implementer(IPublishTraverse)
+class Webservice(BrowserView):
+    """ Default Site webservice style """
+
+    def publishTraverse(self, request, name):
+        # Stop traversing, we have arrived
+        request['TraversalRequestNameStack'] = []
+        # return self so the publisher calls this view
+        return self
+
+    def __init__(self, context, request):
+        """Once we get to __call__, the path is lost so we
+           capture it here on initialization
+        """
+        super(Webservice, self).__init__(context, request)
+        self.acord = None
+        path_ordered = request.path[::-1]
+        if len(request.path) == 4:
+            self.acord = '/'.join(path_ordered)
+
     def __call__(self):
-        # Execute on -- Organsfolder (genweb.organs.organsfolder) --
-        # http://localhost:8080/organs/ca/eetac/consell-de-govern/ws?id=CDG/2017/01/01
-        # CG/2017/01/01
-        # http://localhost:8080/organs/ca/eetac/consell-de-govern/session1/informe-del-rector
-        # Maybe better... http://localhost:8080/organs/api/CDG/2017/01/01
-
-        return None
-
-        itemid = self.request.form.get('id')
-        if itemid == '':
-            pass
+        # And we have the full path in self.acord
+        if not self.acord:
+            return 'THIS IS THE API TO GET DIRECTLY THE ACORDS FROM ORGANS DE GOVERN'
         else:
-            item = itemid.split('/')
-            acronim = item[0]
-            # year = item[1]
-            num_session = item[2]
-            # acord = item[3]
+            # results = []
+            # [organ, year, month, acord] = self.acord.split('/')
+            # Example : CG/2017/05/01
+            items = api.content.find(portal_type='genweb.organs.acord',
+                                     index_agreement=self.acord)
 
-            portal_catalog = getToolByName(self, 'portal_catalog')
-            organs = portal_catalog.searchResults(
-                portal_type=['genweb.organs.organgovern'])
+            # for value in items:
+            #     item = value.getObject()
 
-            for org in organs:
-                if org.getObject().acronim == acronim:
-                    organPath = org.getPath()
-
-            sessions = portal_catalog.searchResults(
-                portal_type=['genweb.organs.sessio'],
-                path={'query': organPath,
-                      'depth': 1})
-            for sess in sessions:
-                if sess.getObject().numSession == num_session:
-                    sessionPath = sess.getPath()
-
-            punt = portal_catalog.searchResults(
-                portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
-                path={'query': sessionPath,
-                      'depth': 1})[0]
-
-            self.request.response.redirect(punt.getURL())
+            #     results.append(dict(title=item.Title(),
+            #                         path=value.getPath(),
+            #                         agreement=item.agreement,
+            #                         url=item.absolute_url(),
+            #                         proposalPoint=item.proposalPoint))
+            # return json.dumps(results)
+            if items:
+                return self.request.response.redirect(items[0].getObject().absolute_url())
+            else:
+                return self.request.response.redirect(api.portal.get().absolute_url())

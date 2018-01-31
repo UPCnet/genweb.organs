@@ -100,15 +100,13 @@
     permission="cmf.ModifyPortalContent"
     />
 
-  <!-- WEBSERVICE TO ACCES SESSIONS DIRECTLY -->
-  <!--
+  <!-- API ACORDS WEBSERVICE -->
   <browser:page
-    for="genweb.organs.content.organsfolder.IOrgansfolder"
-    name="ws"
-    class=".webservice.webservice"
-    layer="..interfaces.IGenwebOrgansLayer"
-    permission="cmf.ModifyPortalContent"
-    />
-  -->
+      for="*"
+      name="acord"
+      class=".webservice.Webservice"
+      permission="cmf.ManagePortal"
+      layer="..interfaces.IGenwebOrgansLayer"
+      />
 
 </configure>
