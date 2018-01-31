@@ -147,14 +147,24 @@ def FilesandDocumentsInside(self):
         path={'query': folder_path,
               'depth': 1})
     results = []
-
     for obj in values:
         value = obj.getObject()
         if isManager(self) or isSecretari(self) or isEditor(self):
             if obj.portal_type == 'genweb.organs.file':
-                class_css = 'fa fa-file-pdf-o'  # FILE
+                if value.visiblefile and value.hiddenfile:
+                    class_css = 'fa fa-2x fa-file-pdf-o text-error'
+                elif value.visiblefile:
+                    class_css = 'fa fa-2x fa-file-pdf-o text-info'
+                elif value.hiddenfile:
+                    class_css = 'fa fa-2x fa-file-pdf-o text-error'
             else:
-                class_css = 'fa fa-file-text-o'  # DOC
+                if value.defaultContent and value.alternateContent:
+                    class_css = 'fa fa-2x fa-file-text-o text-error'
+                elif value.defaultContent:
+                    class_css = 'fa fa-2x fa-file-text-o text-info'
+                elif value.alternateContent:
+                    class_css = 'fa fa-2x fa-file-text-o text-error'
+
             # si està validat els mostrem tots
             results.append(dict(title=obj.Title,
                                 absolute_url=obj.getURL(),
@@ -290,4 +300,3 @@ def session_wf_state(self):
             if ISessio.providedBy(obj):
                 session_state = api.content.get_state(obj=obj)
                 return session_state
-
