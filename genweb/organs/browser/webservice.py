@@ -3,12 +3,15 @@ from Products.Five.browser import BrowserView
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 from plone import api
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 import json
 
 
 @implementer(IPublishTraverse)
 class Webservice(BrowserView):
     """ Default Site webservice style """
+
+    index = ViewPageTemplateFile("views/webservice.pt")
 
     def publishTraverse(self, request, name):
         # Stop traversing, we have arrived
@@ -23,17 +26,18 @@ class Webservice(BrowserView):
         super(Webservice, self).__init__(context, request)
         self.acord = None
         path_ordered = request.path[::-1]
-        if len(request.path) == 4:
-            self.acord = '/'.join(path_ordered)
+        #if len(request.path) == 4:
+        self.acord = '/'.join(path_ordered)
 
     def __call__(self):
         # And we have the full path in self.acord
         if not self.acord:
-            return 'THIS IS THE API TO GET DIRECTLY THE ACORDS FROM ORGANS DE GOVERN'
+            # Empty query returns default template
+            return self.index()
         else:
             # results = []
             # [organ, year, month, acord] = self.acord.split('/')
-            # Example : CG/2017/05/01
+            # Example : /acord/CG/2017/05/01
             items = api.content.find(portal_type='genweb.organs.acord',
                                      index_agreement=self.acord)
 
@@ -50,3 +54,15 @@ class Webservice(BrowserView):
                 return self.request.response.redirect(items[0].getObject().absolute_url())
             else:
                 return self.request.response.redirect(api.portal.get().absolute_url())
+
+    def allAcords(self):
+        items = api.content.find(portal_type='genweb.organs.acord')
+        results = []
+        for value in items:
+            item = value.getObject()
+            results.append(dict(id=item.agreement,
+                                path=item.absolute_url(),
+                                state=item.estatsLlista,
+                                title=item.Title(),
+                                proposal=item.proposalPoint))
+        return results
