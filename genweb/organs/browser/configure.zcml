@@ -102,11 +102,11 @@
 
   <!-- API ACORDS WEBSERVICE -->
   <browser:page
-      for="*"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       name="acord"
       class=".webservice.Webservice"
-      permission="cmf.ManagePortal"
       layer="..interfaces.IGenwebOrgansLayer"
+      permission="zope2.View"
       />
 
 </configure>
