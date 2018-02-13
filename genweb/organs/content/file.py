@@ -87,21 +87,47 @@ class View(grok.View):
     grok.context(IFile)
     grok.template('file_view')
 
+    def is_texttype_public(self):
+        if self.context.visiblefile:
+            ct = self.context.visiblefile.contentType
+            return 'application/' in ct
+        else:
+            return None
+
+    def is_texttype_reserved(self):
+        if self.context.hiddenfile:
+            ct = self.context.hiddenfile.contentType
+            return 'application/' in ct
+        else:
+            return None
+
     def is_videotype_reserved(self):
-        ct = self.context.hiddenfile.contentType
-        return 'video/' in ct
+        if self.context.hiddenfile:
+            ct = self.context.hiddenfile.contentType
+            return 'video/' in ct
+        else:
+            return None
 
     def is_videotype_public(self):
-        ct = self.context.visiblefile.contentType
-        return 'video/' in ct
+        if self.context.visiblefile:
+            ct = self.context.visiblefile.contentType
+            return 'video/' in ct
+        else:
+            return None
 
     def is_audiotype_reserved(self):
-        ct = self.context.hiddenfile.contentType
-        return 'audio/' in ct
+        if self.context.hiddenfile:
+            ct = self.context.hiddenfile.contentType
+            return 'audio/' in ct
+        else:
+            return None
 
     def is_audiotype_public(self):
-        ct = self.context.visiblefile.contentType
-        return 'audio/' in ct
+        if self.context.visiblefile:
+            ct = self.context.visiblefile.contentType
+            return 'audio/' in ct
+        else:
+            return None
 
     def hihaReserved(self):
         if self.context.hiddenfile:

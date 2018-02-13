@@ -512,17 +512,24 @@ class View(grok.View):
             path={'query': session_path,
                   'depth': 1})
         results = []
-        # TODO: No mostrar fletxa que indica que hi ha cosses dintre
-        # Al fer la cerca els conta, cal fer que segons si el doc te public o no
-        # Surti o no...
         for obj in values:
             value = obj.getObject()
             if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self):
-                # Editor i Secretari veuen contingut NO obren en finestra nova
+                # Editor i Secretari veuen contingut. NO obren en finestra nova
                 if obj.portal_type == 'genweb.organs.file':
-                    classCSS = 'fa fa-file-pdf-o'  # FILE
-                else:
-                    classCSS = 'fa fa-file-text-o'  # DOC
+                    if value.visiblefile and value.hiddenfile:
+                        classCSS = 'fa fa-file-pdf-o text-error'
+                    elif value.hiddenfile:
+                        classCSS = 'fa fa-file-pdf-o text-error'
+                    elif value.visiblefile:
+                        classCSS = 'fa fa-file-pdf-o text-info'
+                else:   # Es un DOC
+                    if value.defaultContent and value.alternateContent:
+                        classCSS = 'fa fa-file-text-o text-error'
+                    elif value.alternateContent:
+                        classCSS = 'fa fa-file-text-o text-error'
+                    elif value.defaultContent:
+                        classCSS = 'fa fa-file-text-o text-info'
                 # si està validat els mostrem tots
                 results.append(dict(title=obj.Title,
                                     portal_type=obj.portal_type,
@@ -531,6 +538,10 @@ class View(grok.View):
                                     classCSS=classCSS,
                                     id=str(item['id']) + '/' + obj.id))
             else:
+                # TODO: No mostrar fletxa que indica que hi ha cosses dintre
+                # Al fer la cerca els conta, cal fer que segons si el doc te public o no
+                # Surti o no...
+                #
                 # Anonim / Afectat / Membre veuen obrir en finestra nova dels fitxers.
                 # Es un document, mostrem part publica si la té
                 if obj.portal_type == 'genweb.organs.document':
