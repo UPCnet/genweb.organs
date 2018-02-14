@@ -13,103 +13,81 @@
                   hihaPublic view/hihaPublic;
                   hihaReserved view/hihaReserved;
                   absolute_url context/absolute_url;
-                  audio_public view/is_audiotype_public;
-                  video_public view/is_videotype_public;
-                  text_public view/is_texttype_public;
-                  audio_reserved view/is_audiotype_reserved;
-                  video_reserved view/is_videotype_reserved;
-                  text_reserved view/is_texttype_reserved;
+                  icon view/icon_type;
+                  audio view/audio_reserved;
+                  video view/video_reserved;
                   isPDFpublic view/isPDFpublic;
                   isPDFprivat view/isPDFprivat;
                   ">
 
   <metal:block define-macro="content-core">
 
-    <tal:blockPublic tal:condition="viewPublic">
-      <div tal:condition="hihaPublic" style="padding-top:20px;">
-        <div tal:define="visible_content_type context/visiblefile/contentType|nothing;
-                         public_file_download_url string:${absolute_url}/@@download/visiblefile/${context/visiblefile/filename};
-                         public_file_view_url string:${absolute_url}/@@display-file/visiblefile/;">
-          <h3 tal:condition="viewReserved" i18n:translate="">Please upload a public file</h3>
-          <p>
-            <span tal:condition="not:isPDFpublic">
-              <i class="fa fa-2x fa-file-pdf-o text-info" aria-hidden="true"></i>
-              <tal:name tal:content="context/visiblefile/filename">Filename</tal:name>
-            </span>
-            <tal:block tal:condition="isPDFpublic">
-              <i class="fa fa-2x fa-file-pdf-o text-info" aria-hidden="true"></i>&nbsp;
-              <a tal:attributes="href public_file_view_url">
-                <tal:name tal:content="context/visiblefile/filename">Filename</tal:name>
-              </a>
-            </tal:block>
-            <span class="discreet"
-                tal:define="size context/visiblefile/getSize;
-                            kb python:size/1024">
-              &mdash; <span tal:replace="kb" /> KB</span>
-            <a tal:attributes="href public_file_download_url">
-                <i class="fa fa-download" aria-hidden="true"></i>
-            </a>
-          </p>
-          <video tal:condition="video_public" controls="controls">
-            <source tal:attributes="src public_file_download_url; type visible_content_type"></source>
-          </video>
-          <audio tal:condition="is_audiotype_public" controls="controls">
-            <source tal:attributes="src public_file_download_url; type visible_content_type"></source>
-          </audio>
-          <div tal:condition="python: visible_content_type.startswith('text')">
-            <h2 i18n:translate="">File contents</h2>
-            <pre tal:content="context/visiblefile/data|nothing"></pre>
-          </div>
-        </div>
-      </div>
-    </tal:blockPublic>
-
     <tal:blockReserved tal:condition="viewReserved">
-      <div tal:condition="hihaReserved" style="padding-top:20px;">
+      <div tal:condition="hihaReserved">
         <div tal:define="reserved_content_type context/hiddenfile/contentType|nothing;
                          reserved_file_download_url string:${absolute_url}/@@download/hiddenfile/${context/hiddenfile/filename};
                          reserved_file_view_url string:${absolute_url}/@@display-file/hiddenfile/;">
           <h3 i18n:translate=""> Fitxer reservat </h3>
+            <i tal:attributes="class string:fa fa-2x text-error ${icon}" aria-hidden="true"></i>
+            <span tal:condition="not:isPDFprivat">
+                &nbsp;&nbsp;<tal:name tal:content="context/hiddenfile/filename">Filename</tal:name>
+            </span>
+            <tal:block tal:condition="isPDFprivat">
+              <a tal:attributes="href reserved_file_view_url">
+                &nbsp;&nbsp;<tal:name tal:content="context/hiddenfile/filename">Filename</tal:name></a>&nbsp;
+            </tal:block>
+            <span class="discreet"
+                tal:define="size context/hiddenfile/getSize;
+                            kb python:size/1024"> &mdash; <span tal:replace="kb" /> KB</span>&nbsp;
+            <a tal:attributes="href reserved_file_download_url" title="Descarrega fitxer" alt="Descarrega fitxer"
+               tal:condition="not:audio">
+              <i class="fa fa-download fa-2x" aria-hidden="true"></i></a>
+        <div class="documentDescription"></div>
 
-          <video tal:condition="video_reserved" controls="controls" width="640px" height="320px">
+          <video tal:condition="video" controls="controls" width="640px" height="320px">
             <source tal:attributes="src reserved_file_download_url; type reserved_content_type"></source>
-            <br/>
           </video>
 
-        <div style="padding-left: 10px;">
-          <div class="documentDescription"></div>
-          <span tal:condition="not:isPDFprivat">
-              <i tal:condition="audio_reserved" class="fa fa-2x fa-file-audio-o text-error" aria-hidden="true"></i>&nbsp;
-              <i tal:condition="video_reserved" class="fa fa-2x fa-file-video-o text-error" aria-hidden="true"></i>&nbsp;
-              <i tal:condition="text_reserved" class="fa fa-2x fa-file-text-o text-error" aria-hidden="true"></i>&nbsp;
-              <tal:name tal:content="context/hiddenfile/filename">Filename</tal:name>
-          </span>
-          <tal:block tal:condition="isPDFprivat">
-            <a tal:attributes="href reserved_file_view_url">
-              <tal:name tal:content="context/hiddenfile/filename">Filename</tal:name></a>&nbsp;
-          </tal:block>
-          <span class="discreet"
-              tal:define="size context/hiddenfile/getSize;
-                          kb python:size/1024">
-            &mdash; <span tal:replace="kb" /> KB</span>&nbsp;
-        </div>
-
-          <div class="documentDescription"></div>
-
-          <a tal:attributes="href reserved_file_download_url" title="Descarrega" alt="Descarrega" tal:condition="not:audio_reserved">
-                <i class="fa fa-download fa-2x" aria-hidden="true"></i></a>
-
-          <audio tal:condition="audio_reserved" controls="controls">
+          <audio tal:condition="audio" controls="controls">
             <source tal:attributes="src reserved_file_download_url; type reserved_content_type"></source>
           </audio>
 
-          <div tal:condition="python: reserved_content_type.startswith('text')">
-            <h4 i18n:translate="">File contents</h4>
-            <pre tal:content="context/hiddenfile/data|nothing"></pre>
-          </div>
         </div>
+        <div class="documentDescription"></div>
+        <div class="documentDescription"></div>
       </div>
     </tal:blockReserved>
+
+    <tal:blockPublic tal:condition="viewPublic">
+      <div tal:condition="hihaPublic">
+        <div tal:define="visible_content_type context/visiblefile/contentType|nothing;
+                         public_file_download_url string:${absolute_url}/@@download/visiblefile/${context/visiblefile/filename};
+                         public_file_view_url string:${absolute_url}/@@display-file/visiblefile/;">
+          <h3 tal:condition="view/showTitle" i18n:translate="">Please upload a public file</h3>
+            <span tal:condition="not:isPDFpublic">
+              <i class="fa fa-2x fa-file-pdf-o text-info" aria-hidden="true"></i>
+              <tal:name tal:content="context/visiblefile/filename">Filename</tal:name>
+            </span>
+            <span tal:condition="isPDFpublic">
+              <i class="fa fa-2x fa-file-pdf-o text-info" aria-hidden="true"></i>&nbsp;
+              <a tal:attributes="href public_file_view_url;
+                                 download context/visiblefile/filename">
+                <tal:name tal:content="context/visiblefile/filename">Filename</tal:name>
+              </a>
+              <span class="discreet"
+                    tal:define="size context/visiblefile/getSize;
+                                kb python:size/1024"> &mdash; <span tal:replace="kb" /> KB</span>
+              <br/><br/>
+              <object type="application/pdf" width="100%" height="480"
+                      tal:attributes="data string:${absolute_url}/@@display-file/visiblefile/;
+                                      download string:context/visiblefile/filename">
+              </object>
+            </span>
+        </div>
+      </div>
+    </tal:blockPublic>
+
+
 
   </metal:block>
 

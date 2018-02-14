@@ -4,8 +4,8 @@ from plone.directives import dexterity
 from plone.directives import form
 from genweb.organs import _
 from plone.namedfile.field import NamedBlobFile
-from plone import api
 from zope import schema
+from plone import api
 from plone.app.dexterity import PloneMessageFactory as _PMF
 from collective import dexteritytextindexer
 from plone.supermodel.directives import fieldset
@@ -87,59 +87,47 @@ class View(grok.View):
     grok.context(IFile)
     grok.template('file_view')
 
-    def is_texttype_public(self):
-        if self.context.visiblefile:
-            ct = self.context.visiblefile.contentType
-            return 'application/' in ct
-        else:
-            return None
-
-    def is_texttype_reserved(self):
+    def icon_type(self):
         if self.context.hiddenfile:
             ct = self.context.hiddenfile.contentType
-            return 'application/' in ct
+            if 'application/pdf' in ct:
+                return 'fa-file-pdf-o'
+            elif 'audio/' in ct:
+                return 'fa-file-audio-o'
+            elif 'video/' in ct:
+                return 'fa-file-video-o'
+            elif 'image/' in ct:
+                return 'fa-file-image-o'
+            else:
+                return 'fa-file-text-o'
         else:
             return None
 
-    def is_videotype_reserved(self):
-        if self.context.hiddenfile:
-            ct = self.context.hiddenfile.contentType
-            return 'video/' in ct
-        else:
-            return None
-
-    def is_videotype_public(self):
-        if self.context.visiblefile:
-            ct = self.context.visiblefile.contentType
-            return 'video/' in ct
-        else:
-            return None
-
-    def is_audiotype_reserved(self):
+    def audio_reserved(self):
         if self.context.hiddenfile:
             ct = self.context.hiddenfile.contentType
             return 'audio/' in ct
         else:
             return None
 
-    def is_audiotype_public(self):
-        if self.context.visiblefile:
-            ct = self.context.visiblefile.contentType
-            return 'audio/' in ct
+    def video_reserved(self):
+        if self.context.hiddenfile:
+            ct = self.context.hiddenfile.contentType
+            return 'video/' in ct
         else:
             return None
 
     def hihaReserved(self):
-        if self.context.hiddenfile:
+        file = getattr(self.context, 'hiddenfile', None)
+        if file is not None:
             return True
-        else:
-            return False
+        return False
 
     def hihaPublic(self):
-        if self.context.visiblefile:
+        file = getattr(self.context, 'visiblefile', None)
+        if file is not None:
             return True
-        else:
-            return False
+        return False
 
     def isPDFpublic(self):
         isPDF = False
@@ -213,6 +201,11 @@ class View(grok.View):
                 return None
             else:
                 raise Unauthorized
+
+    def showTitle(self):
+        if api.user.is_anonymous():
+            return False
+        return True
 
     def viewReserved(self):
         """ Cuando se muestra la parte privada del FICHERO
