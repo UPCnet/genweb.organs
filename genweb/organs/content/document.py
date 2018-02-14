@@ -73,6 +73,11 @@ class View(grok.View):
     grok.context(IDocument)
     grok.template('document_view')
 
+    def showTitle(self):
+        if api.user.is_anonymous():
+            return False
+        return True
+
     def viewDocumentPublic(self):
         """ Cuando se muestra la parte pública del documento
         """

@@ -46,7 +46,6 @@
           <ul class="ul_items">
             <tal:documents repeat="item filesanddocs">
               <li class="listFiles">
-                <!-- <i tal:attributes="class string:fa ${item/type}" aria-hidden="true"></i>&nbsp; -->
                 <a tal:attributes="href item/absolute_url;"  tal:condition="item/new_tab" target="_blank">
                   <i tal:attributes="class item/classCSS"></i> &nbsp; <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                 </a>
