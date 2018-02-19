@@ -228,6 +228,7 @@
     <permission name="Genweb: Webmaster Users" acquire="True">
       <role name="Manager"/>
       <role name="WebMaster"/>
+      <role name="OG1-Secretari"/>
     </permission>
     <permission name="List folder contents" acquire="False">
       <role name="Contributor"/>
