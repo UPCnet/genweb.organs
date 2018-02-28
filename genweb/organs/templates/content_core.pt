@@ -1,0 +1,5 @@
+<!-- REQUIRED BY CUSTOM RSS -->
+<tal:block tal:define="view context/defaultView;"
+           tal:on-error="nothing">
+   <div metal:use-macro="here/?view/macros/content-core"/>
+</tal:block>

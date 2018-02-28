@@ -19,4 +19,9 @@
         permission="plone.DelegateRoles"
         />
 
+    <!-- modified RSS to hide organs types based on state and role -->
+    <adapter
+        factory=".rss_custom.FolderFeed"
+        for="Products.CMFCore.interfaces._content.IFolderish" />
+
 </configure>

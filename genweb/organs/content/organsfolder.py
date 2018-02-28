@@ -60,7 +60,7 @@ class View(grok.View):
             if username:
                 roles = api.user.get_roles(obj=value, username=username)
             else:
-                roles=[]
+                roles = []
             # If Manager or open bypass and list all
             if 'Manager' in roles or (organType == 'open_organ'):
                 results.append(dict(title=value.title,
