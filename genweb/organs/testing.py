@@ -1,24 +1,13 @@
 # -*- coding: utf-8 -*-
 """Base module for unittesting."""
-
-from zope.configuration import xmlconfig
-
 from plone.app.robotframework.testing import AUTOLOGIN_LIBRARY_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
-from plone.app.testing import login
-from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import TEST_USER_NAME
 from plone.testing import z2
 from plone.app.multilingual.testing import SESSIONS_FIXTURE
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
-
-
-import unittest2 as unittest
 
 
 class GenwebOrgansLayer(PloneSandboxLayer):
@@ -55,17 +44,5 @@ INTEGRATION_TESTING = IntegrationTesting(
 FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(FIXTURE,), name="GenwebOrgansLayer:Functional")
 GENWEB_ORGANS_ROBOT_TESTING = FunctionalTesting(
-   bases=(FIXTURE, AUTOLOGIN_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
-   name="GenwebOrgansLayer:Robot")
-
-
-class IntegrationTestCase(unittest.TestCase):
-    """Base class for integration tests."""
-
-    layer = INTEGRATION_TESTING
-
-
-class FunctionalTestCase(unittest.TestCase):
-    """Base class for functional tests."""
-
-    layer = FUNCTIONAL_TESTING
+    bases=(FIXTURE, AUTOLOGIN_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
+    name="GenwebOrgansLayer:Robot")
