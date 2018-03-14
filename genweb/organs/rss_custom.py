@@ -1,5 +1,5 @@
-""" RSS MODIFIED FOR GENWEB ORGANS 
-    This files is overrides from 
+""" RSS MODIFIED FOR GENWEB ORGANS
+    This files is overrides from
     Products/CMFPlone/browser/syndication/adapter.py
 
     Hides organ_type depending on user vieweng the RSS

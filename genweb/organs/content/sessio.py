@@ -518,18 +518,18 @@ class View(grok.View):
                 # Editor i Secretari veuen contingut. NO obren en finestra nova
                 if obj.portal_type == 'genweb.organs.file':
                     if value.visiblefile and value.hiddenfile:
-                        classCSS = 'fa fa-file-pdf-o text-warning'
+                        classCSS = 'fa fa-file-pdf-o fa-inverse'
                     elif value.hiddenfile:
                         classCSS = 'fa fa-file-pdf-o text-error'
                     elif value.visiblefile:
-                        classCSS = 'fa fa-file-pdf-o text-info'
+                        classCSS = 'fa fa-file-pdf-o text-success'
                 else:   # Es un DOC
                     if value.defaultContent and value.alternateContent:
-                        classCSS = 'fa fa-file-text-o text-warning'
+                        classCSS = 'fa fa-file-text-o fa-inverse'
                     elif value.alternateContent:
                         classCSS = 'fa fa-file-text-o text-error'
                     elif value.defaultContent:
-                        classCSS = 'fa fa-file-text-o text-info'
+                        classCSS = 'fa fa-file-text-o text-success'
                 # si està validat els mostrem tots
                 results.append(dict(title=obj.Title,
                                     portal_type=obj.portal_type,

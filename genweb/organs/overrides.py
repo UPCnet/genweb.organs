@@ -26,21 +26,22 @@ import json
 AUTH_GROUP = 'AuthenticatedUsers'
 STICKY = (AUTH_GROUP, )
 
+
 # WARNING: ONLY LINE 145 CHANGED from original
 def merge_search_results(results, key):
     """Merge member search results.
 
     Based on PlonePAS.browser.search.PASSearchView.merge.
     """
-    output={}
+    output = {}
     for entry in results:
-        id=entry[key]
+        id = entry[key]
         if id not in output:
-            output[id]=entry.copy()
+            output[id] = entry.copy()
         else:
-            buf=entry.copy()
+            buf = entry.copy()
             buf.update(output[id])
-            output[id]=buf
+            output[id] = buf
 
     return output.values()
 
@@ -193,8 +194,7 @@ class SharingView(BrowserView):
             knownroles = [r['id'] for r in self.roles()]
             settings = {}
             for entry in requested:
-                roles = [r for r in knownroles
-                                if entry.get('role_%s' % r, False)]
+                roles = [r for r in knownroles if entry.get('role_%s' % r, False)]
                 settings[(entry['id'], entry['type'])] = roles
 
             for entry in current_settings:
@@ -206,7 +206,7 @@ class SharingView(BrowserView):
                     if entry["roles"][role] in [True, False]:
                         entry["roles"][role] = role in desired_roles
 
-        current_settings.sort(key=lambda x: safe_unicode(x["type"])+safe_unicode(x["title"]))
+        current_settings.sort(key=lambda x: safe_unicode(x["type"]) + safe_unicode(x["title"]))
 
         return current_settings
 
@@ -630,7 +630,7 @@ class SharingView(BrowserView):
         res = self.macro_wrapper(the_macro=macro, instance=self.context,
                                  view=self)
         messages = self.context.restrictedTraverse('global_statusmessage')()
-        self.request.response.setHeader("Content-type","application/json")
+        self.request.response.setHeader("Content-type", "application/json")
         return json.dumps({
             'body': res,
             'messages': messages

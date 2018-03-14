@@ -86,7 +86,7 @@
                 <th style="font-size:13px; width: 5%; text-align:center;" i18n:translate="">Codi d'acord</th>
                 <th style="font-size:13px; width: 5%; padding-left: 10px; text-align:left; display: table-cell; vertical-align: middle;" i18n:translate="">Proposal</th>
                 <th style="font-size:13px; width: 5%; padding-left: 10px; text-align:left; display: table-cell; vertical-align: middle;" i18n:translate="">Estat</th>
-                <th style="font-size:13px; white-space: nowrap; text-align:center; display: table-cell; vertical-align: middle;" i18n:translate="">Títol</th>
+                <th style="font-size:13px; white-space: nowrap; text-align:center; display: table-cell; vertical-align: middle;" i18n:translate="">Titol</th>
               </tr>
             </thead>
             <tbody>

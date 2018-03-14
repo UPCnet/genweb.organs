@@ -154,14 +154,14 @@ def FilesandDocumentsInside(self):
                 if value.visiblefile and value.hiddenfile:
                     class_css = 'fa fa-2x fa-file-pdf-o text-warning'
                 elif value.visiblefile:
-                    class_css = 'fa fa-2x fa-file-pdf-o text-info'
+                    class_css = 'fa fa-2x fa-file-pdf-o text-success'
                 elif value.hiddenfile:
                     class_css = 'fa fa-2x fa-file-pdf-o text-error'
             else:
                 if value.defaultContent and value.alternateContent:
                     class_css = 'fa fa-2x fa-file-text-o text-warning'
                 elif value.defaultContent:
-                    class_css = 'fa fa-2x fa-file-text-o text-info'
+                    class_css = 'fa fa-2x fa-file-text-o text-success'
                 elif value.alternateContent:
                     class_css = 'fa fa-2x fa-file-text-o text-error'
 

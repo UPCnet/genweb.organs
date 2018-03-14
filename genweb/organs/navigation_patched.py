@@ -3,7 +3,7 @@
 # On line 82 is the HARD CODE!!!
 from plone.app.layout.navigation.navtree import buildFolderTree
 from plone.app.layout.navigation.navtree import NavtreeStrategyBase
-
+from Products.CMFCore.utils import getToolByName
 
 
 def customBuildFolderTree(context, obj=None, query={}, strategy=NavtreeStrategyBase()):
@@ -49,11 +49,11 @@ def customBuildFolderTree(context, obj=None, query={}, strategy=NavtreeStrategyB
                 navtreeLevel = pathQuery.get('navtree_start', 1)
                 if navtreeLevel > 1:
                     navtreeContextPath = pathQuery['query']
-                    navtreeContextPathElements = navtreeContextPath[len(portalPath)+1:].split('/')
+                    navtreeContextPathElements = navtreeContextPath[len(portalPath) + 1:].split('/')
                     # Short-circuit if we won't be able to find this path
                     if len(navtreeContextPathElements) < (navtreeLevel - 1):
                         return {'children': []}
-                    rootPath = portalPath + '/' + '/'.join(navtreeContextPathElements[:navtreeLevel-1])
+                    rootPath = portalPath + '/' + '/'.join(navtreeContextPathElements[:navtreeLevel - 1])
                 else:
                     rootPath = portalPath
             else:
@@ -227,7 +227,7 @@ def customBuildFolderTree(context, obj=None, query={}, strategy=NavtreeStrategyB
     # context. Note that we use an unrestricted query: things we don't normally
     # have permission to see will be included in the tree.
     if strategy.showAllParents and objPath is not None:
-        objSubPathElements = objPath[len(rootPath)+1:].split('/')
+        objSubPathElements = objPath[len(rootPath) + 1:].split('/')
         parentPaths = []
 
         haveNode = (itemPaths.get(rootPath, {}).get('item', None) is None)
@@ -236,7 +236,7 @@ def customBuildFolderTree(context, obj=None, query={}, strategy=NavtreeStrategyB
 
         parentPath = rootPath
         for i in range(len(objSubPathElements)):
-            nodePath = rootPath + '/' + '/'.join(objSubPathElements[:i+1])
+            nodePath = rootPath + '/' + '/'.join(objSubPathElements[:i + 1])
             node = itemPaths.get(nodePath, None)
 
             # If we don't have this node, we'll have to get it, if we have it

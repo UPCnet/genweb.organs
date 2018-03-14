@@ -7,14 +7,14 @@
     <browser:page
         name="sharing"
         for="*"
-        class=".overrides.SharingView"
+        class=".sharing.SharingView"
         permission="plone.DelegateRoles"
         />
 
     <browser:page
         name="updateSharingInfo"
         for="*"
-        class=".overrides.SharingView"
+        class=".sharing.SharingView"
         attribute="updateSharingInfo"
         permission="plone.DelegateRoles"
         />
@@ -23,5 +23,22 @@
     <adapter
         factory=".rss_custom.FolderFeed"
         for="Products.CMFCore.interfaces._content.IFolderish" />
+
+    <!-- modified RSS to hide organs types based on state and role in searches -->
+    <browser:page
+        name="search2"
+        class=".search.Search"
+        permission="zope2.View"
+        for="*"
+        template="search.pt"
+    />
+
+    <browser:page
+        name="updated_search2"
+        class=".search.Search"
+        permission="zope2.View"
+        for="Products.CMFCore.interfaces.IFolderish"
+        template="updated_search.pt"
+    />
 
 </configure>
