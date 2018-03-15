@@ -1130,19 +1130,15 @@ ol.li_subgrups {
 
 .bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {
     padding-left: 0px!important;
-    list-style-type: disc!important;
+    list-style-type: none!important;
     font-size:130%!important;
 }
 
 .bodyPresentation #sortable .filesinTable {
 	padding: 0px!important;
-    list-style-type: disc!important;
+    list-style-type: none!important;
     font-size:80%!important;
-    margin-left: 20px;
-}
-
-.bodyPresentation .filelist {
-    margin-bottom: 5px!important;
+    margin-left: 0px;
 }
 
 .bodyPresentation #sortable .filesinTable {border-bottom: none!important}
@@ -1158,8 +1154,13 @@ ol.li_subgrups {
     margin-bottom: 10px;
 }
 
+.bodyPresentation .filesinTable .fa{
+    margin-right: 10px;
+}
+
 .bodyPresentation #sortable .filesinTable {
     line-height: 20px!important;
+    margin-bottom: 8px!important;
     }
 
 .bodyPresentation #sortable .filesinTable a{
