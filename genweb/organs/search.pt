@@ -99,7 +99,7 @@
                                 tal:content="batch/sequence_length|string:0">234</strong>
                         items matching your search terms.
                     </span>.
-
+                    <br/>
                     <span id="searchResultsSort">
                       <span i18n:translate="sort_by">Sort by</span>
                           <span id="sorting-options">
@@ -119,10 +119,10 @@
                           </span>
                     </span>
 
-                    <dl class="actionMenu deactivated"
+                    <dl class="actionMenu deactivated" style="margin-top:2px;"
                         tal:attributes="class python:view.show_advanced_search() and 'actionMenu activated' or 'actionMenu deactivated'">
 
-                      <dt class="actionMenuHeader">
+                      <dt class="actionMenuHeader" style="padding-bottom: 10px;">
                           <a href="#"
                              tal:attributes="href view/advanced_search_trigger"
                              id="search-filter-toggle"
@@ -130,7 +130,7 @@
                               Filter the results.
                           </a>
                       </dt>
-                      <dd class="actionMenuContent" style="display:none">
+                      <dd class="actionMenuContent actionMenuContentColor" style="display:none">
                           <div id="search-filter" i18n:domain="plone">
                             <div class="row-fluid">
                              <div class="span3">
@@ -303,7 +303,7 @@
                          tal:define="navigation_root_url context/@@plone_portal_state/navigation_root_url;">
 
                         <metal:noresults tal:condition="not: batch">
-                          <p i18n:domain="plone"><strong i18n:translate="description_no_results_found">No results were found.</strong></p>
+                          <p i18n:domain="plone" style="padding-top:10px;"><strong i18n:translate="description_no_results_found">No results were found.</strong></p>
                         </metal:noresults>
 
                         <metal:results tal:condition="batch"

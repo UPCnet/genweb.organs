@@ -40,7 +40,6 @@ class Search(BrowserView):
         Everything in Plone that performs searches should go through this view.
         'query' should be a dictionary of catalog parameters.
         """
-        print "Inside newresults..."
         if query is None:
             query = {}
         if batch:
@@ -54,44 +53,43 @@ class Search(BrowserView):
             catalog = getToolByName(self.context, 'portal_catalog')
             try:
                 results = catalog(**query)
-                # for res in results:
-                #     item = res.getObject()
-                #     if item.portal_type == 'genweb.organs.file':
-                #         if permissions.canViewFile(self, item):
-                #             newresults.append(res)
-                #     elif item.portal_type == 'genweb.organs.organgovern':
-                #         if permissions.canViewOrgangovern(self, item):
-                #             newresults.append(res)
-                #     elif item.portal_type == 'genweb.organs.sessio':
-                #         if permissions.canViewSessio(self, item):
-                #             newresults.append(res)
-                #     elif item.portal_type == 'genweb.organs.punt':
-                #         if permissions.canViewPunt(self, item):
-                #             newresults.append(res)
-                #     elif item.portal_type == 'genweb.organs.subpunt':
-                #         if permissions.canViewSubpunt(self, item):
-                #             newresults.append(res)
-                #     elif item.portal_type == 'genweb.organs.acta':
-                #         if permissions.canViewActa(self, item):
-                #             newresults.append(res)
-                #     elif item.portal_type == 'genweb.organs.organsfolder':
-                #         if permissions.canViewOrgansfolder(self, item):
-                #             newresults.append(res)
-                #     elif item.portal_type == 'genweb.organs.document':
-                #         if permissions.canViewDocument(self, item):
-                #             newresults.append(res)
-                #     elif item.portal_type == 'genweb.organs.audio':
-                #         if permissions.canViewAudio(self, item):
-                #             newresults.append(res)
-                #     elif item.portal_type == 'genweb.organs.acord':
-                #         if permissions.canViewAcord(self, item):
-                #             newresults.append(res)
-                #     else:
-                #         newresults.append(res)
+                for res in results:
+                    item = res.getObject()
+                    if item.portal_type == 'genweb.organs.file':
+                        if permissions.canViewFile(self, item):
+                            newresults.append(res)
+                    elif item.portal_type == 'genweb.organs.organgovern':
+                        if permissions.canViewOrgangovern(self, item):
+                            newresults.append(res)
+                    elif item.portal_type == 'genweb.organs.sessio':
+                        if permissions.canViewSessio(self, item):
+                            newresults.append(res)
+                    elif item.portal_type == 'genweb.organs.punt':
+                        if permissions.canViewPunt(self, item):
+                            newresults.append(res)
+                    elif item.portal_type == 'genweb.organs.subpunt':
+                        if permissions.canViewSubpunt(self, item):
+                            newresults.append(res)
+                    elif item.portal_type == 'genweb.organs.acta':
+                        if permissions.canViewActa(self, item):
+                            newresults.append(res)
+                    elif item.portal_type == 'genweb.organs.organsfolder':
+                        if permissions.canViewOrgansfolder(self, item):
+                            newresults.append(res)
+                    elif item.portal_type == 'genweb.organs.document':
+                        if permissions.canViewDocument(self, item):
+                            newresults.append(res)
+                    elif item.portal_type == 'genweb.organs.audio':
+                        if permissions.canViewAudio(self, item):
+                            newresults.append(res)
+                    elif item.portal_type == 'genweb.organs.acord':
+                        if permissions.canViewAcord(self, item):
+                            newresults.append(res)
+                    else:
+                        newresults.append(res)
             except ParseError:
                 return []
-
-        results = IContentListing(results)
+        results = IContentListing(newresults)
         if batch:
             results = Batch(results, b_size, b_start)
         return results
@@ -235,6 +233,6 @@ class SortOption(object):
         # After the AJAX call the request is changed and thus the URL part of
         # it as well. In this case we need to tweak the URL to point to have
         # correct URLs
-        if '@@updated_search2' in base_url:
-            base_url = base_url.replace('@@updated_search2', '@@search2')
+        if '@@updated_search' in base_url:
+            base_url = base_url.replace('@@updated_search', '@@search')
         return base_url + '?' + make_query(q)
