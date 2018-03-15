@@ -1562,3 +1562,24 @@ div#previewModal {
 }
 
 input.searchPage {width: 88%;}
+
+
+.fa-file-pdf-o.double-icon:after {
+    content: "\f1c1";
+    font-family: fontawesome;
+    color: #a62e1f;
+    position: relative;
+    left: -7px;
+    top: 4px;
+    background-color: white;
+}
+
+.fa-file-text-o.double-icon:after {
+    content: "\f0f6";
+    font-family: fontawesome;
+    color: #a62e1f;
+    position: relative;
+    left: -7px;
+    top: 4px;
+    background-color: white;
+}

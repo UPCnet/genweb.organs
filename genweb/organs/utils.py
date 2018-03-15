@@ -152,14 +152,14 @@ def FilesandDocumentsInside(self):
         if isManager(self) or isSecretari(self) or isEditor(self):
             if obj.portal_type == 'genweb.organs.file':
                 if value.visiblefile and value.hiddenfile:
-                    class_css = 'fa fa-2x fa-file-pdf-o text-warning'
+                    class_css = 'fa fa-2x fa-file-pdf-o text-success double-icon'
                 elif value.visiblefile:
                     class_css = 'fa fa-2x fa-file-pdf-o text-success'
                 elif value.hiddenfile:
                     class_css = 'fa fa-2x fa-file-pdf-o text-error'
             else:
                 if value.defaultContent and value.alternateContent:
-                    class_css = 'fa fa-2x fa-file-text-o text-warning'
+                    class_css = 'fa fa-2x fa-file-text-o text-success double-icon'
                 elif value.defaultContent:
                     class_css = 'fa fa-2x fa-file-text-o text-success'
                 elif value.alternateContent:

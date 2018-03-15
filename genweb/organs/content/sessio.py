@@ -518,14 +518,14 @@ class View(grok.View):
                 # Editor i Secretari veuen contingut. NO obren en finestra nova
                 if obj.portal_type == 'genweb.organs.file':
                     if value.visiblefile and value.hiddenfile:
-                        classCSS = 'fa fa-file-pdf-o fa-inverse'
+                        classCSS = 'fa fa-file-pdf-o text-success double-icon'
                     elif value.hiddenfile:
                         classCSS = 'fa fa-file-pdf-o text-error'
                     elif value.visiblefile:
                         classCSS = 'fa fa-file-pdf-o text-success'
                 else:   # Es un DOC
                     if value.defaultContent and value.alternateContent:
-                        classCSS = 'fa fa-file-text-o fa-inverse'
+                        classCSS = 'fa fa-file-text-o text-success double-icon'
                     elif value.alternateContent:
                         classCSS = 'fa fa-file-text-o text-error'
                     elif value.defaultContent:
