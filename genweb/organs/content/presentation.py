@@ -203,72 +203,78 @@ class Presentation(form.SchemaForm):
                                         isGODocument=isGODocument,
                                         raw_content=raw_content,
                                         id=obj.id))
-
             else:
                 # user is validated
                 username = api.user.get_current().id
                 if obj.portal_type == 'genweb.organs.file':
-                    # Tractem els files...
+                    # Tractem els files i fiquem colors...
                     isGOFile = True
-                    tipus = 'fa fa-file-pdf-o'
                     raw_content = None
                     abs_path = file.absolute_url_path()
                     roles = api.user.get_roles(username=username, obj=self.context)
+
                     if file.visiblefile and file.hiddenfile:
                         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                             hasPublic = False
                             hasPrivate = True
                             visibleUrl = ''
                             hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/'
+                            classCSS = 'fa fa-file-pdf-o text-success double-icon'
                         elif 'OG4-Afectat' in roles:
                             hasPublic = True
                             hasPrivate = False
                             visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/'
                             hiddenUrl = ''
+                            classCSS = 'fa fa-file-pdf-o text-success'
                     elif file.hiddenfile:
                         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                             hasPublic = False
                             hasPrivate = True
                             visibleUrl = ''
                             hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/'
+                            classCSS = 'fa fa-file-pdf-o text-error'
                     elif file.visiblefile:
                             hasPublic = True
                             hasPrivate = False
                             visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/'
                             hiddenUrl = ''
+                            classCSS = 'fa fa-file-pdf-o text-success'
 
                 if obj.portal_type == 'genweb.organs.document':
-                    print obj.Title
                     isGODocument = True
                     abs_path = None
-                    tipus = 'fa fa-file-text-o'
                     roles = api.user.get_roles(username=username, obj=self.context)
+
                     if file.alternateContent and file.defaultContent:
                         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                             hasPublic = False
                             hasPrivate = True
                             raw_content = file.alternateContent
+                            classCSS = 'fa fa-file-text-o text-success double-icon'
                         elif 'OG4-Afectat' in roles:
                             hasPublic = True
                             hasPrivate = False
                             raw_content = file.defaultContent
+                            classCSS = 'fa fa-file-text-o text-success'
                     elif file.defaultContent:
                         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                             hasPublic = False
                             hasPrivate = True
                             raw_content = file.defaultContent
+                            classCSS = 'fa fa-file-text-o text-success'
                     elif file.alternateContent:
                         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                             hasPublic = False
                             hasPrivate = True
                             raw_content = file.alternateContent
+                            classCSS = 'fa fa-file-text-o text-error'
 
                 results.append(dict(title=obj.Title,
                                     path=abs_path,
                                     absolute_url=obj.getURL(),
                                     hasPublic=hasPublic,
                                     hasPrivate=hasPrivate,
-                                    classCSS=tipus,
+                                    classCSS=classCSS,
                                     publicURL=visibleUrl,
                                     reservedURL=hiddenUrl,
                                     isGOFile=isGOFile,
@@ -380,24 +386,6 @@ class Presentation(form.SchemaForm):
     def wf_state(self):
         state = api.content.get_state(self.context)
         return state
-
-    # def showFile(self, item):
-    #     if api.user.is_anonymous():
-    #         if item['hasPublic'] is True:
-    #             return True
-    #         else:
-    #             return False
-    #     else:
-
-    #         username = api.user.get_current().id
-    #         if username is None:
-    #             if item['hasPublic'] is True:
-    #                 return True
-    #         else:
-    #             roles = api.user.get_roles(username=username, obj=self.context)
-    #             if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
-    #                 return True
-    #         return False
 
     def showBarra(self, item):
         username = api.user.get_current().id
