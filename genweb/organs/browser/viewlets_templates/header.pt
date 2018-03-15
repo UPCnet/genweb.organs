@@ -3,7 +3,8 @@
                  custom_link viewlet/getCustomLink;
                  dades context/@@genweb.utils/getDadesUnitat;
                  lang viewlet/pref_lang;
-                 getTitle viewlet/getTitle"
+                 getTitle viewlet/getTitle;
+                 getLogo viewlet/getLogo"
            i18n:domain="genweb">
 
 <link rel="stylesheet"
@@ -99,15 +100,13 @@
     <div class="clearfix"></div>
 
     <div class="bannerOrgans">
-      <tal:block tal:condition="viewlet/getLogo">
-        <div tal:condition="viewlet/getLogo">
-            <img tal:attributes="src viewlet/getLogo" style="height:65px; width: 100%;" />
+      <tal:block tal:condition="getLogo">
+            <img tal:attributes="src getLogo" style="height:65px; width: 100%;" />
             <div tal:condition="getTitle" class="bannerTitle">
               <a href="" tal:attributes="href string:${portal_url}" tal:content="getTitle" style="color:white;">Govern UPC - FIB</a>
             </div>
-        </div>
       </tal:block>
-      <tal:block tal:condition="not:viewlet/getLogo">
+      <tal:block tal:condition="not:getLogo">
         <div class="bannerTitle" tal:condition="getTitle">
           <a tal:attributes="href string:${portal_url}" tal:content="getTitle" style="color:white;">Govern UPC - FIB</a>
         </div>
