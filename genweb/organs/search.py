@@ -35,11 +35,53 @@ class Search(BrowserView):
 
     valid_keys = ('sort_on', 'sort_order', 'sort_limit', 'fq', 'fl', 'facet')
 
-    def results(self, query=None, batch=True, b_size=10, b_start=0, newresults=False):
+    def remove_items(self, query):
+        print "Inside removeitems..."
+        catalog = getToolByName(self.context, 'portal_catalog')
+        results = catalog(query)
+        newresults = []
+        for res in results:
+            item = res.getObject()
+            if item.portal_type == 'genweb.organs.file':
+                if permissions.canViewFile(self, item):
+                    newresults.append(res)
+            elif item.portal_type == 'genweb.organs.organgovern':
+                if permissions.canViewOrgangovern(self, item):
+                    newresults.append(res)
+            elif item.portal_type == 'genweb.organs.sessio':
+                if permissions.canViewSessio(self, item):
+                    newresults.append(res)
+            elif item.portal_type == 'genweb.organs.punt':
+                if permissions.canViewPunt(self, item):
+                    newresults.append(res)
+            elif item.portal_type == 'genweb.organs.subpunt':
+                if permissions.canViewSubpunt(self, item):
+                    newresults.append(res)
+            elif item.portal_type == 'genweb.organs.acta':
+                if permissions.canViewActa(self, item):
+                    newresults.append(res)
+            elif item.portal_type == 'genweb.organs.organsfolder':
+                if permissions.canViewOrgansfolder(self, item):
+                    newresults.append(res)
+            elif item.portal_type == 'genweb.organs.document':
+                if permissions.canViewDocument(self, item):
+                    newresults.append(res)
+            elif item.portal_type == 'genweb.organs.audio':
+                if permissions.canViewAudio(self, item):
+                    newresults.append(res)
+            elif item.portal_type == 'genweb.organs.acord':
+                if permissions.canViewAcord(self, item):
+                    newresults.append(res)
+            else:
+                newresults.append(res)
+        return newresults
+
+    def results(self, query=None, batch=True, b_size=200, b_start=0):
         """ Get properly wrapped search results from the catalog.
         Everything in Plone that performs searches should go through this view.
         'query' should be a dictionary of catalog parameters.
         """
+        print "Inside results..."
         if query is None:
             query = {}
         if batch:
@@ -48,55 +90,15 @@ class Search(BrowserView):
         query = self.filter_query(query)
         if query is None:
             results = []
-
-        newresults = []
-        if newresults:
-            newresults = []
         else:
-            catalog = getToolByName(self.context, 'portal_catalog')
             try:
-                results = catalog(**query)
-                for res in results:
-                    item = res.getObject()
-                    if item.portal_type == 'genweb.organs.file':
-                        if permissions.canViewFile(self, item):
-                            newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.organgovern':
-                        if permissions.canViewOrgangovern(self, item):
-                            newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.sessio':
-                        if permissions.canViewSessio(self, item):
-                            newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.punt':
-                        if permissions.canViewPunt(self, item):
-                            newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.subpunt':
-                        if permissions.canViewSubpunt(self, item):
-                            newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.acta':
-                        if permissions.canViewActa(self, item):
-                            newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.organsfolder':
-                        if permissions.canViewOrgansfolder(self, item):
-                            newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.document':
-                        if permissions.canViewDocument(self, item):
-                            newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.audio':
-                        if permissions.canViewAudio(self, item):
-                            newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.acord':
-                        if permissions.canViewAcord(self, item):
-                            newresults.append(res)
-                    else:
-                        newresults.append(res)
+                results = self.remove_items(query)
             except ParseError:
                 return []
 
-
         results = IContentListing(results)
         if batch:
-            results = Batch(results, b_size, b_start, newresults=True)
+            results = Batch(results, b_size, b_start)
         return results
 
     def filter_query(self, query):
