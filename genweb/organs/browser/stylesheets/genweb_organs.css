@@ -851,10 +851,10 @@ body, .smooth-container { scroll-behavior: smooth }
 #sessionTabs {padding-bottom: 20px;}
 
 
-dt.ontenttype-genweb-organs-historicfolder:before,
+dt.contenttype-genweb-organs-historicfolder:before,
 i.icon-genweb-organs-historicfolder,
-#listing-table a.ontenttype-genweb-organs-historicfolder:before,
-.template-folder_tabular_view .listing a.ontenttype-genweb-organs-historicfolder:before
+#listing-table a.contenttype-genweb-organs-historicfolder:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-historicfolder:before
 {
     background-position: -242px -168px !important;
 }
