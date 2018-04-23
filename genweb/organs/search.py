@@ -35,7 +35,7 @@ class Search(BrowserView):
 
     valid_keys = ('sort_on', 'sort_order', 'sort_limit', 'fq', 'fl', 'facet')
 
-    def results(self, query=None, batch=True, b_size=10, b_start=0):
+    def results(self, query=None, batch=True, b_size=50, b_start=0):
         """ Get properly wrapped search results from the catalog.
         Everything in Plone that performs searches should go through this view.
         'query' should be a dictionary of catalog parameters.
