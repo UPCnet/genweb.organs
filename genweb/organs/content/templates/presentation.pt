@@ -102,7 +102,7 @@
   </div>
 
   <metal:content-core tal:define="items view/PuntsInside">
-    <ul class="affix nav" style="z-index=2; right:0; top 170px;" tal:condition="not:anonim">
+    <ul class="affix nav" style="z-index=2; right:0; top:170px;" tal:condition="not:anonim">
       <li>
         <a href="" title="Tornar a la sessió" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Close">
           <i class="fa fa-home fa-3x" aria-hidden="true"></i></a>
