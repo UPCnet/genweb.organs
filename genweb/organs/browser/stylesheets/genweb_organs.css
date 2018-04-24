@@ -1,3 +1,4 @@
+#formfield-form-widgets-captcha label { display: none; }
 .portaltype-genweb-organs-organgovern div.tab-pane.active,
 .portaltype-genweb-organs-sessio div.tab-pane.active,
 .portaltype-genweb-organs-acta div.tab-pane.active {
@@ -237,7 +238,7 @@ span.label.nomarginLeft  {
     color: black;
     font-size:13px;
     font-weight: bold;
-    font-color: black;
+    color: black;
     padding-top: 5px;
 }
 .subpuntTitle {
@@ -267,7 +268,7 @@ div.modal-body.presentation {
 div.modal-header.presentation {
     font-size: 16px;
     font-weight: bold;
-    font-color: black;
+    color: black;
 }
 
 div#modalSession.modal.fade.modalSession.in {
@@ -346,9 +347,9 @@ a.remove{background-color: #e8003d!important}
     cursor: move;
     font-family: FontAwesome;
     color: #ccc;
-   font-size: 13px;
-   font-weight: 300;
-       left: 15px;
+    font-size: 13px;
+    font-weight: 300;
+    left: 15px;
     position: absolute;
 
 }
@@ -357,12 +358,11 @@ a.remove{background-color: #e8003d!important}
     font-family: FontAwesome;
     cursor: move;
     color: #ccc;
-   position: absolute;
-   font-size: 14px;
-   bottom: 5px;
-   left:5px;
+    position: absolute;
+    font-size: 14px;
+    bottom: 5px;
+    left:5px;
 }
-
 
 #sortable .ui-state-highlight2 {
    height: 2em;
@@ -586,7 +586,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 .bodyPresentation .DADES button {
     height: 30px;
     width: 35px;
-    line-height: 35px;
+    line-height: 30px;
 }
 
 .bodyPresentation .label.dropdown-toggle:hover {
@@ -629,15 +629,15 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 }
 
 .bodyPresentation #sortable li {
-    margin: none;
-    padding: none;
+    margin: 0px;
+    padding: 0px;
     box-shadow: none;
     margin-top: 0px;
      }
 
 .bodyPresentation .dropdown-menu {
-    margin: none;
-    padding:  none;
+    margin: 0px;
+    padding:  0px;
     box-shadow:  none;
     width: 100%;
 }
@@ -739,7 +739,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     padding-top: 0px;
     padding-bottom: 0px;
     margin-top: 0px;
-    min-width: 175px;
+    width: auto;
 }
 
 .bodyPresentation #sortable .dropdown-menu li{
@@ -1198,8 +1198,8 @@ ol.li_subgrups {
 
 .bodyPresentation #sortable ul.dropdown-menu li.defaultValue{
     background-color: #fff;
-    padding-top: 5px!important;
-    padding-bottom: 5px!important;
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
 }
 
 .bodyPresentation span.proposalNumber, .bodyPresentation span.proposalNumberSubpunt {
@@ -1259,7 +1259,10 @@ span.barra {
     color: #888;
 }
 
-.bodyPresentation .subpuntTitle.span12{margin-left:0px!important; padding-left: 115px!important;}
+.bodyPresentation .subpuntTitle.span12{
+    margin-left:0px!important;
+    padding-left: 90px!important;
+}
 
 .bodyPresentation .subpuntTitle {
     padding-left: 50px!important;
@@ -1586,7 +1589,7 @@ input.searchPage {width: 88%;}
 }
 
 dd.actionMenuContent.actionMenuContentColor {
-     display: inline-block; 
+     display: inline-block;
     padding: 4px 14px;
     margin-bottom: 0;
     font-size: 13px;
@@ -1614,5 +1617,4 @@ dd.actionMenuContent.actionMenuContentColor {
     -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-}
 }

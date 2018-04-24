@@ -3,7 +3,6 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from plone import api
-import pkg_resources
 from zope.interface import alsoProvides
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from plone.folder.interfaces import IExplicitOrdering
@@ -14,14 +13,10 @@ import unicodedata
 from genweb.organs import utils
 from AccessControl import Unauthorized
 
+# Disable CSRF
+from plone.protect.interfaces import IDisableCSRFProtection
+from zope.interface import alsoProvides
 
-try:
-    pkg_resources.get_distribution('plone4.csrffixes')
-except pkg_resources.DistributionNotFound:
-    CSRF = False
-else:
-    from plone.protect.interfaces import IDisableCSRFProtection
-    CSRF = True
 
 
 def getOrdering(context):
@@ -345,8 +340,9 @@ class ReloadAcords(BrowserView):
             # Don't give option to modify numbers
             return
 
-        if CSRF:
-            alsoProvides(self.request, IDisableCSRFProtection)
+        # Disable CSRF
+        alsoProvides(self.request, IDisableCSRFProtection)
+
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         acro_parent = getattr(self.context.aq_parent, 'acronim', None)
@@ -414,8 +410,9 @@ class ReloadPoints(BrowserView):
             # Don't give option to modify numbers
             return
 
-        if CSRF:
-            alsoProvides(self.request, IDisableCSRFProtection)
+        # Disable CSRF
+        alsoProvides(self.request, IDisableCSRFProtection)
+
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
@@ -455,9 +452,15 @@ class changeActualState(BrowserView):
         es mostra el nou valor per JS
     """
     def __call__(self):
+        # Disable CSRF
+        from plone.protect.interfaces import IDisableCSRFProtection
+        from zope.interface import alsoProvides
+        alsoProvides(self.request, IDisableCSRFProtection)
+
         portal_catalog = getToolByName(self, 'portal_catalog')
         estat = self.request.form.get('estat')
         itemid = self.request.form.get('id')
+
         try:
             object_path = '/'.join(self.context.getPhysicalPath())
             item = str(itemid.split('/')[-1:][0])
@@ -495,6 +498,8 @@ class changeSubpuntState(BrowserView):
         es mostra el nou valor per JS. Només canvia el subpunt actual, no recursiu.
     """
     def __call__(self):
+        # Disable CSRF
+        alsoProvides(self.request, IDisableCSRFProtection)
         portal_catalog = getToolByName(self, 'portal_catalog')
         estat = self.request.form.get('estat')
         itemid = self.request.form.get('id')
