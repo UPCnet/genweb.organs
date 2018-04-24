@@ -39,6 +39,14 @@
 
     <browser:page
       for="*"
+      name="search2"
+      class=".views.searchHome"
+      layer="..interfaces.IGenwebOrgansLayer"
+      permission="zope2.Public"
+    />
+
+    <browser:page
+      for="*"
       name="changeTitle"
       class=".changes.changeTitle"
       layer="..interfaces.IGenwebOrgansLayer"

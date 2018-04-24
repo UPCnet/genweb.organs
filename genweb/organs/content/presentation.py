@@ -300,11 +300,8 @@ class Presentation(form.SchemaForm):
             if username is None:
                 return True
             else:
-                roles = api.user.get_roles(username=username, obj=self.context)
-                if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
-                    return False
-                else:
-                    return True
+                return False
+
         except:
             return False
 

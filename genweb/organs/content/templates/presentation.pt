@@ -87,6 +87,12 @@
 </head>
 
 <body class="bodyPresentation" id="home">
+
+    <div style="float:right; padding-right: 10%;" class="documentDescription">
+      <span id="expandAll" i18n:translate="">Desplega tot <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i></span>
+      <span id="collapseAll" i18n:translate="">Plega tot <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i></span>
+    </div>
+
   <div class="clearfix">
     <h1 class="logoPresentation">
       <a href="https://www.upc.edu" target="_blank">
@@ -135,6 +141,7 @@
       </h1>
       <hr/>
       <ul id="sortable" class="ui-sortable">
+
         <tal:documents repeat="item items">
           <li class="punt">
             <div class="puntTitle span12">
@@ -377,6 +384,31 @@
     });
 
   </script>
+
+<script type="text/javascript">
+  $("#collapseAll").hide()
+  $("#expandAll").click(function(){
+    $(".expand").parent().parent().parent().slideDown();
+    $(".expand").hide();
+    $(".notexpand").show();
+    $(".expand").parent().parent().parent().find('.sortable2').slideDown();
+    $(".expand").parent().parent().parent().find('.listFiles').slideDown();
+    $("#expandAll").hide();
+    $("#collapseAll").show();
+  })
+
+  $("#collapseAll").click(function(){
+    $(".notexpand").slideUp();
+    $(".notexpand").hide();
+    $(".expand").show();
+
+    $(".expand").parent().parent().parent().find('.sortable2').slideUp();
+    $(".expand").parent().parent().parent().find('.listFiles').slideUp();
+    $("#expandAll").show();
+    $("#collapseAll").hide();
+  })
+
+</script>
 
   </metal:content-core>
 

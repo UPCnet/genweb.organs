@@ -25,7 +25,7 @@
         for="Products.CMFCore.interfaces._content.IFolderish" />
 
     <!-- modified RSS to hide organs types based on state and role in searches -->
-<!--     <browser:page
+    <browser:page
         name="search"
         class=".search.Search"
         permission="zope2.View"
@@ -39,6 +39,6 @@
         permission="zope2.View"
         for="Products.CMFCore.interfaces.IFolderish"
         template="updated_search.pt"
-    /> -->
+    />
 
 </configure>

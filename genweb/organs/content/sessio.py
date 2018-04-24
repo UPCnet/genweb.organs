@@ -245,12 +245,21 @@ class View(grok.View):
         return value
 
     def showPresentacionButton(self):
-        review_state = api.content.get_state(self.context)
-        value = False
-        roles = utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self)
-        if review_state in ['convocada', 'realitzada', 'en_correccio'] and roles:
-            value = True
-        return value
+        estatSessio = utils.session_wf_state(self)
+        if utils.isManager(self):
+            return True
+        elif estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            return True
+        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        else:
+            raise False
 
     def showPublicarButton(self):
         review_state = api.content.get_state(self.context)

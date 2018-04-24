@@ -1,0 +1,151 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="ca"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="genweb.organs">
+<body>
+
+<head>
+  <metal:block fill-slot="top_slot"
+      tal:define="disable_column_one python:request.set('disable_plone.leftcolumn',1);
+                  disable_column_two python:request.set('disable_plone.rightcolumn',1);
+                  dummy python:request.set('disable_border',1);"/>
+</head>
+
+<metal:title fill-slot="content-title">
+  <h1 class="documentFirstHeading">
+    <tal:omit-tag i18n:translate="">Cercador</tal:omit-tag>
+  </h1>
+</metal:title>
+
+<metal:content-core fill-slot="main">
+
+    <div tal:content="structure view/getPage"></div>
+
+    <div>
+
+        <div class="row-fluid box-search">
+            <fieldset role="search" style="outline-style: none; width:98%; padding-left: 20px;">
+                <input style="margin-bottom: 0px; width: 85%;" id="input_cerca" type="search" name="q" placeholder="Cercar..." class="c-control" style="">
+                <button id="button-cerca" type="submit" role="button" aria-label="Cerca" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="" class="icona-upc" data-original-title="Cercar..."><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Cercar
+                </button>
+            </fieldset>
+<br/>
+            <div class="span4 span4search">
+                <fieldset class="noborder">
+                    <legend>Tipus d'element</legend>
+                    <div class="field">
+                        <div class="formHelp"></div>
+                        <div style="float: left; margin-right: 2em;">
+                            <input type="checkbox" name="portal_type:list" value="Collection" class="noborder" checked="" id="portal_type_1_1">
+                            <label for="portal_type_1_1">Col·lecció</label>
+                            <br>
+                            <input type="checkbox" name="portal_type:list" value="Document" class="noborder" checked="" id="portal_type_1_2">
+                            <label for="portal_type_1_2">Pàgina</label>
+                            <br>
+                            <input type="checkbox" name="portal_type:list" value="Folder" class="noborder" checked="" id="portal_type_1_3">
+                            <label for="portal_type_1_3">Carpeta</label>
+                            <br>
+                      </div>
+                      <div class="visualClear"><!-- --></div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="span4 span4search">
+                <fieldset class="noborder">
+                    <legend>Órgan</legend>
+                    <div class="field">
+                        <div class="formHelp"></div>
+                        <input type="radio" id="query-date-yesterday" name="created.query:record:list:date" value="2018/04/23">
+                        <label for="query-date-yesterday">Ahir</label>
+                        <br>
+                        <input type="radio" id="query-date-lastweek" name="created.query:record:list:date" value="2018/04/17">
+                        <label for="query-date-lastweek">Darrera setmana</label>
+                        <br>
+                        <input type="radio" id="query-date-lastmonth" name="created.query:record:list:date" value="2018/03/24">
+                        <label for="query-date-lastmonth">Darrer mes</label>
+                        <br>
+                        <input type="radio" id="query-date-ever" name="created.query:record:list:date" checked="" value="1970-01-02">
+                        <label for="query-date-ever">Algun cop</label>
+                        <input type="hidden" name="created.range:record" value="min">
+                    </div>
+                    <div class="formControls">
+                        <input class="searchPage searchButton allowMultiSubmit" type="submit" value="Cerca" style="display: none;">
+                    </div>
+                    <div class="visualClear"><!-- --></div>
+                </fieldset>
+            </div>
+
+            <div class="span4 span4search">
+                <fieldset class="noborder">
+                    <legend>Dates</legend>
+                    <div class="field">
+                        <div class="formHelp"></div>
+                        <input type="radio" id="query-date-yesterday" name="created.query:record:list:date" value="2018/04/23">
+                        <label for="query-date-yesterday">Ahir</label>
+                        <br>
+                        <input type="radio" id="query-date-lastweek" name="created.query:record:list:date" value="2018/04/17">
+                        <label for="query-date-lastweek">Darrera setmana</label>
+                        <br>
+                        <input type="radio" id="query-date-lastmonth" name="created.query:record:list:date" value="2018/03/24">
+                        <label for="query-date-lastmonth">Darrer mes</label>
+                        <br>
+                        <input type="radio" id="query-date-ever" name="created.query:record:list:date" checked="" value="1970-01-02">
+                        <label for="query-date-ever">Algun cop</label>
+                        <input type="hidden" name="created.range:record" value="min">
+                    </div>
+                <div class="formControls">
+                    <input class="searchPage searchButton allowMultiSubmit" type="submit" value="Cerca" style="display: none;">
+                </div>
+                <div class="visualClear"><!-- --></div>
+                </fieldset>
+            </div>
+
+           <!--  <div class="span3">
+                <fieldset class="noborder">
+                    <legend>Etiquetes</legend>
+                    <div class="field">
+                        <div class="formHelp"></div>
+                        <select name="Subject:list" id="Subject" size="7" multiple="">
+                            <option value="Acords">Acords</option>
+                            <option value="Comissió Permanent">Comissió Permanent</option>
+                            <option value="EPSEM">EPSEM</option>
+                            <option value="etsav">etsav</option>
+                            <option value="junta escola">junta escola</option>
+                            <option value="valles">valles</option>
+                        </select>
+                    </div>
+                </fieldset>
+            </div> -->
+        </div>
+    </div>
+
+    <div class="" style="float: right; padding-top:10px;">
+        <a href=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Accés a informació històrica</tal:omit-tag></a>
+    </div>
+    <div class="clearfix"></div><br/>
+
+
+    <h2>Resultats</h2>
+
+    <div class="clearfix"></div><br/>
+
+    <div class="">
+        <h2> Darrers acords </h2>
+        <!-- <span tal:content="view/getLatest"></span> -->
+        <ul>
+           <li><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<a href=""><tal:omit-tag i18n:translate="">Consell de Govern</tal:omit-tag></a><br/></li>
+           <li>
+                <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<a href=""><tal:omit-tag i18n:translate="">Consell Social</tal:omit-tag></a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="clearfix"></div><br/><br/>
+
+</metal:content-core>
+
+</body>
+</html>

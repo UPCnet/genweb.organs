@@ -18,7 +18,6 @@ from plone.protect.interfaces import IDisableCSRFProtection
 from zope.interface import alsoProvides
 
 
-
 def getOrdering(context):
     if IPloneSiteRoot.providedBy(context):
         return context
@@ -628,3 +627,28 @@ class Butlleti(BrowserView):
                 return True
             else:
                 raise Unauthorized
+
+
+class searchHome(BrowserView):
+    """ Busca elements """
+    __call__ = ViewPageTemplateFile('views/search_home.pt')
+
+    def getPage(self):
+        """ Retorna la pagina benvingut """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        item = portal_catalog.searchResults(
+            portal_type=['Document'], id='benvingut')
+        if item:
+            return item[0].getObject().text.output
+        else:
+            return None
+
+    def getLatest(self):
+        """ Retorna la pagina benvingut """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        item = portal_catalog.searchResults(
+            portal_type=['genweb.organs.sessio'])
+        if item:
+            return item[0].getObject().title
+        else:
+            return None
