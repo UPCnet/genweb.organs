@@ -56,24 +56,26 @@ class Search(BrowserView):
             catalog = getToolByName(self.context, 'portal_catalog')
             try:
                 results = catalog(**query)
+                # TODO: There is a problem, in results there are all the elements
+                # But then we pass the next code to clean...
+                # Remaining results are not the same number depending on sort_order
                 for res in results:
                     item = res.getObject()
                     if item.portal_type == 'genweb.organs.punt':
                         if permissions.canViewPunt(self, item):
                             newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.subpunt':
+                    if item.portal_type == 'genweb.organs.subpunt':
                         if permissions.canViewSubpunt(self, item):
                             newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.document':
+                    if item.portal_type == 'genweb.organs.document':
                         if permissions.canViewDocument(self, item):
                             newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.acord':
+                    if item.portal_type == 'genweb.organs.acord':
                         if permissions.canViewAcord(self, item):
                             newresults.append(res)
-                    else:
-                        pass
             except ParseError:
                 return []
+
         results = IContentListing(newresults)
         if batch:
             results = Batch(results, b_size, b_start)

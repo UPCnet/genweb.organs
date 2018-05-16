@@ -321,10 +321,10 @@
                                                    allowAnonymousViewAbout site_properties/allowAnonymousViewAbout;
                                                    show_about python:not isAnon or allowAnonymousViewAbout;">
 
-                          <h1 class="documentFirstHeading"
+                          <h2 class="documentFirstHeading"
                               i18n:translate="">
                               Search results
-                          </h1>
+                          </h2>
 
                     <span i18n:translate="batch_x_items_matching_your_criteria" i18n:domain="plone">
                         <strong i18n:name="number" id="search-results-number"
@@ -350,7 +350,6 @@
                               </metal:sorting>
                           </span>
                     </span>
-
                           <dl class="searchResults">
                               <tal:results repeat="item batch">
                                     <dt tal:attributes="class item/ContentTypeClass">
