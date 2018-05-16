@@ -179,7 +179,7 @@ msgstr "Changed Title"
 
 #: ./genweb/organs/browser/views.py:490
 msgid "Changed acord color state"
-msgstr "Changed agreement color state"
+msgstr "Changed agreement state"
 
 #: ./genweb/organs/browser/views.py:517
 msgid "Changed acord intern state color"
@@ -187,15 +187,15 @@ msgstr "Changed agreement state"
 
 #: ./genweb/organs/browser/views.py:486
 msgid "Changed punt color state"
-msgstr "Changed point color state"
+msgstr "Changed point state"
 
 #: ./genweb/organs/browser/views.py:173
 msgid "Changed punt number with drag&drop"
-msgstr "Changed point number with drag&drop"
+msgstr "Changed point number with drag&drop option"
 
 #: ./genweb/organs/browser/views.py:484
 msgid "Changed recursive color state of acord inside punt"
-msgstr "Changed recursive color state of agreement inside punt"
+msgstr "Changed agreement state"
 
 #: ./genweb/organs/browser/views.py:482
 msgid "Changed recursive color state of subpunt inside punt"
@@ -203,7 +203,7 @@ msgstr "Changed point state"
 
 #: ./genweb/organs/browser/views.py:515
 msgid "Changed subpunt intern state color"
-msgstr "Changed point state color"
+msgstr "Changed point state"
 
 #: ./genweb/organs/browser/events/change.py:19
 msgid "Changed workflow state"

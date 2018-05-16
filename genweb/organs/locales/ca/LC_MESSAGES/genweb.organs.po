@@ -191,11 +191,11 @@ msgstr "S'ha canviat l'estat del punt informatiu"
 
 #: ./genweb/organs/browser/views.py:173
 msgid "Changed punt number with drag&drop"
-msgstr "S'ha mogut el número de punt informatiu al moure l'element"
+msgstr "S'ha canviat el número de punt informatiu al moure l'element"
 
 #: ./genweb/organs/browser/views.py:484
 msgid "Changed recursive color state of acord inside punt"
-msgstr "S'ha propiciat el canvi d'estat de l'acord per un canvi recursiu"
+msgstr "S'ha canviat l'estat de l'acord"
 
 #: ./genweb/organs/browser/views.py:482
 msgid "Changed recursive color state of subpunt inside punt"
@@ -203,7 +203,7 @@ msgstr "S'ha canviat l'estat del punt informatiu"
 
 #: ./genweb/organs/browser/views.py:515
 msgid "Changed subpunt intern state color"
-msgstr "S'ha canviat l'estat del punt informatiu a segon nivell"
+msgstr "S'ha canviat l'estat del punt informatiu"
 
 #: ./genweb/organs/browser/events/change.py:19
 msgid "Changed workflow state"
