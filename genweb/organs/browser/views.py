@@ -479,9 +479,9 @@ class changeActualState(BrowserView):
                     objecte = subpunt.getObject()
                     objecte.estatsLlista = estat
                     if objecte.portal_type == 'genweb.organs.subpunt':
-                        addEntryLog(self.context, None, _(u'Changed recursive color state of subpunt inside punt'), itemid + ' -> ' + estat)  # add log
+                        addEntryLog(self.context, None, _(u'Changed recursive color state of subpunt inside punt'), objecte.absolute_url_path() + ' -> ' + estat)  # add log
                     else:
-                        addEntryLog(self.context, None, _(u'Changed recursive color state of acord inside punt'), itemid + ' -> ' + estat)  # add log
+                        addEntryLog(self.context, None, _(u'Changed recursive color state of acord inside punt'), objecte.absolute_url_path() + ' -> ' + estat)  # add log
                 currentitem.estatsLlista = estat
                 addEntryLog(self.context, None, _(u'Changed punt color state'), itemid + ' → ' + estat)  # add log
             else:
@@ -512,9 +512,9 @@ class changeSubpuntState(BrowserView):
         if currentitem:
             currentitem[0].getObject().estatsLlista = estat
             if currentitem[0].portal_type == 'genweb.organs.subpunt':
-                addEntryLog(self.context, None, _(u'Changed subpunt intern state color'), itemid + ' → ' + estat)  # add log
+                addEntryLog(self.context, None, _(u'Changed subpunt intern state color'), currentitem[0].getPath() + ' → ' + estat)  # add log
             else:
-                addEntryLog(self.context, None, _(u'Changed acord intern state color'), itemid + ' → ' + estat)  # add log
+                addEntryLog(self.context, None, _(u'Changed acord intern state color'), currentitem[0].getPath() + ' → ' + estat)  # add log
 
 
 class Butlleti(BrowserView):

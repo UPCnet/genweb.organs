@@ -22,7 +22,7 @@ msgstr "<p>Draft Yellow</p><p>Pending aproval Orange</p><p>Approved Green</p><p>
 
 #: ./genweb/organs/search.pt:294
 msgid "Acces to historic info"
-msgstr ""
+msgstr "Access to historic information"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:328
 msgid "Accio"
@@ -183,7 +183,7 @@ msgstr "Changed agreement color state"
 
 #: ./genweb/organs/browser/views.py:517
 msgid "Changed acord intern state color"
-msgstr "Changed agreement intern state color"
+msgstr "Changed agreement state"
 
 #: ./genweb/organs/browser/views.py:486
 msgid "Changed punt color state"
@@ -199,7 +199,7 @@ msgstr "Changed recursive color state of agreement inside punt"
 
 #: ./genweb/organs/browser/views.py:482
 msgid "Changed recursive color state of subpunt inside punt"
-msgstr "Changed recursive color state of point inside punt"
+msgstr "Changed point state"
 
 #: ./genweb/organs/browser/views.py:515
 msgid "Changed subpunt intern state color"
@@ -963,7 +963,7 @@ msgstr "Point Title"
 
 #: ./genweb/organs/configure.zcml:44
 msgid "UPC Organs de Govern (genweb.organs)"
-msgstr ""
+msgstr "UPC Organs de Govern (genweb.organs)"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:429
 msgid "Veure com... <span class=\"caret\"></span>"
@@ -1037,7 +1037,7 @@ msgstr "Send message about the session"
 #. Default: "Select All/None"
 #: ./genweb/organs/search.pt:154
 msgid "label_toggle"
-msgstr ""
+msgstr "Select/deselect all"
 
 #: ./genweb/organs/content/organgovern.py:111
 #: ./genweb/organs/content/sessio.py:69

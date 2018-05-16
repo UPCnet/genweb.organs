@@ -183,7 +183,7 @@ msgstr "S'ha canviat l'estat de l'acord"
 
 #: ./genweb/organs/browser/views.py:517
 msgid "Changed acord intern state color"
-msgstr "S'ha canviat l'estat de l'acord a segon nivell"
+msgstr "S'ha canviat l'estat de l'acord"
 
 #: ./genweb/organs/browser/views.py:486
 msgid "Changed punt color state"
@@ -199,7 +199,7 @@ msgstr "S'ha propiciat el canvi d'estat de l'acord per un canvi recursiu"
 
 #: ./genweb/organs/browser/views.py:482
 msgid "Changed recursive color state of subpunt inside punt"
-msgstr "S'ha propiciat el canvi d'estat del punt informatiu per un canvi recursiu"
+msgstr "S'ha canviat l'estat del punt informatiu"
 
 #: ./genweb/organs/browser/views.py:515
 msgid "Changed subpunt intern state color"
