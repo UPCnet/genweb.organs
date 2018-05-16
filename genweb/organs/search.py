@@ -47,6 +47,9 @@ class Search(BrowserView):
             query['b_size'] = b_size
         query = self.filter_query(query)
         newresults = []
+        # Make default view return 0 results
+        if 'SearchableText' not in query:
+            return None
         if query is None:
             results = []
         else:
@@ -55,38 +58,20 @@ class Search(BrowserView):
                 results = catalog(**query)
                 for res in results:
                     item = res.getObject()
-                    if item.portal_type == 'genweb.organs.file':
-                        if permissions.canViewFile(self, item):
-                            newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.organgovern':
-                        if permissions.canViewOrgangovern(self, item):
-                            newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.sessio':
-                        if permissions.canViewSessio(self, item):
-                            newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.punt':
+                    if item.portal_type == 'genweb.organs.punt':
                         if permissions.canViewPunt(self, item):
                             newresults.append(res)
                     elif item.portal_type == 'genweb.organs.subpunt':
                         if permissions.canViewSubpunt(self, item):
                             newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.acta':
-                        if permissions.canViewActa(self, item):
-                            newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.organsfolder':
-                        if permissions.canViewOrgansfolder(self, item):
-                            newresults.append(res)
                     elif item.portal_type == 'genweb.organs.document':
                         if permissions.canViewDocument(self, item):
-                            newresults.append(res)
-                    elif item.portal_type == 'genweb.organs.audio':
-                        if permissions.canViewAudio(self, item):
                             newresults.append(res)
                     elif item.portal_type == 'genweb.organs.acord':
                         if permissions.canViewAcord(self, item):
                             newresults.append(res)
                     else:
-                        newresults.append(res)
+                        pass
             except ParseError:
                 return []
         results = IContentListing(newresults)
@@ -148,9 +133,40 @@ class Search(BrowserView):
 
     def types_list(self):
         # only show those types that have any content
-        catalog = getToolByName(self.context, 'portal_catalog')
-        used_types = catalog._catalog.getIndex('portal_type').uniqueValues()
+        # catalog = getToolByName(self.context, 'portal_catalog')
+        # used_types = catalog._catalog.getIndex('portal_type').uniqueValues()
+        used_types = ('genweb.organs.acord', 'genweb.organs.document', 'genweb.organs.punt', 'genweb.organs.subpunt')
         return self.filter_types(list(used_types))
+
+    def getLatestCDG(self):
+        """ Retorna ultima sessió consell de govern """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        item = portal_catalog.searchResults(
+            portal_type=['genweb.organs.sessio'],
+            path="/998/govern/ca/consell-de-govern",
+            sort_on='modified',
+            sort_order='reverse')
+        if item:
+            title = item[0].Title
+            url = item[0].getPath()
+            return dict(title=title, url=url)
+        else:
+            return None
+
+    def getLatestCS(self):
+        """ Retorna ultima sessió consell social """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        item = portal_catalog.searchResults(
+            portal_type=['genweb.organs.sessio'],
+            path="/998/govern/ca/cs",
+            sort_on='modified',
+            sort_order='reverse')
+        if item:
+            title = item[0].Title
+            url = item[0].getPath()
+            return dict(title=title, url=url)
+        else:
+            return None
 
     def sort_options(self):
         """ Sorting options for search results view. """
@@ -204,6 +220,16 @@ class Search(BrowserView):
             state = self.context.unrestrictedTraverse('@@plone_portal_state')
             self._navroot_url = state.navigation_root_url()
         return self._navroot_url
+
+    def getPage(self):
+        """ Retorna la pagina benvingut """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        item = portal_catalog.searchResults(
+            portal_type=['Document'], id='benvingut')
+        if item:
+            return item[0].getObject().text.output
+        else:
+            return None
 
 
 class SortOption(object):

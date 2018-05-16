@@ -4,13 +4,12 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="ca"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="genweb.organs">
+      i18n:domain="genweb.organs-old">
 <body>
 
 <head>
   <metal:block fill-slot="top_slot"
-      tal:define="disable_column_one python:request.set('disable_plone.leftcolumn',1);
-                  disable_column_two python:request.set('disable_plone.rightcolumn',1);
+      tal:define="disable_column_two python:request.set('disable_plone.rightcolumn',1);
                   dummy python:request.set('disable_border',1);"/>
 </head>
 
@@ -127,7 +126,7 @@
     </div>
 
     <div class="" style="float: right; padding-top:10px;">
-        <a href=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Accés a informació històrica</tal:omit-tag></a>
+        <a href=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Acces a informacio historica</tal:omit-tag></a>
     </div>
     <div class="clearfix"></div><br/>
 

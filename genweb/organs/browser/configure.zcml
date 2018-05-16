@@ -40,7 +40,7 @@
     <browser:page
       for="*"
       name="search2"
-      class=".views.searchHome"
+      class=".search.searchHome"
       layer="..interfaces.IGenwebOrgansLayer"
       permission="zope2.Public"
     />

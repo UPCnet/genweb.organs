@@ -1565,7 +1565,7 @@ div#previewModal {
     right: 20%;
 }
 
-input.searchPage {width: 88%;}
+input.searchPage {width: 85%;}
 
 
 .fa-file-pdf-o.double-icon:after {
@@ -1622,7 +1622,7 @@ dd.actionMenuContent.actionMenuContentColor {
 .box-search {
     background-color: white;
     border: 1px solid #ccc;
-    padding-top: 18px;
+    padding: 18px 15px 0px 15px;
 }
 
 .noborder {border-bottom: 0px;}

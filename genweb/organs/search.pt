@@ -25,6 +25,8 @@
 
   <div id="content-core" metal:fill-slot="main">
 
+    <div tal:content="structure view/getPage"></div>
+
     <form name="searchform"
           action="@@search"
           class="searchPage enableAutoFocus"
@@ -34,41 +36,35 @@
                       DateTime python:modules['DateTime'].DateTime;
                       navigation_root_url view/navroot_url;
                       pref_lang context/@@genweb.utils/pref_lang">
-
+<div class="box-search">
         <input type="hidden" name="advanced_search" value="False" />
         <input type="hidden" name="sort_on" value="" />
-
         <fieldset id="search-field" i18n:domain="plone" class="noborder">
             <input class="searchPage"
+                   placeholder="Cercar..."
                    name="SearchableText"
                    type="text"
-                   size="25"
+                   size="10"
                    title="Search Site"
                    i18n:attributes="title title_search_title;"
                    tal:attributes="value st;"
                    />
-            <input class="searchPage searchButton allowMultiSubmit"
+<!--             <input class="searchPage searchButton allowMultiSubmit"
                    type="submit"
                    value="Search"
-                   i18n:attributes="value label_search;"/>
+                   i18n:attributes="value label_search;" /> -->
+
+            <!-- <button id="button-cerca" type="submit" role="button" aria-label="Cerca" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="" class="icona-upc" data-original-title="Cercar..."><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Cercar
+            </button> -->
+            <button type="submit" class="btn btn-info searchPage searchButton allowMultiSubmit" value="Search"
+                   i18n:attributes="value label_search;">
+    <i class="fa fa-search fa-lg"></i> Cerca
+</button>
         </fieldset>
 
         <div class="row-fluid">
           <div class="span12">
             <div>
-                <h1 class="documentFirstHeading"
-                    i18n:translate=""
-                    tal:condition="not:st">
-                    Search results
-                </h1>
-                <h1 class="documentFirstHeading"
-                    i18n:translate=""
-                    tal:condition="st">
-                    Search results for
-                    <strong id="search-term" tal:content="st" i18n:name="term">
-                        Search Term
-                    </strong>
-                </h1>
 
                 <p id="rss-subscription" i18n:domain="plone"
                    tal:define="syndication context/@@tools/syndication|nothing"
@@ -94,7 +90,7 @@
                              normalizeString nocall:context/@@plone/normalizeString;">
 
                 <div id="search-results-bar">
-                    <span i18n:translate="batch_x_items_matching_your_criteria" i18n:domain="plone">
+<!--                     <span i18n:translate="batch_x_items_matching_your_criteria" i18n:domain="plone">
                         <strong i18n:name="number" id="search-results-number"
                                 tal:content="batch/sequence_length|string:0">234</strong>
                         items matching your search terms.
@@ -117,23 +113,21 @@
                                   </tal:block>
                               </metal:sorting>
                           </span>
-                    </span>
+                    </span> -->
 
-                    <dl class="actionMenu deactivated" style="margin-top:2px;"
-                        tal:attributes="class python:view.show_advanced_search() and 'actionMenu activated' or 'actionMenu deactivated'">
-
-                      <dt class="actionMenuHeader" style="padding-bottom: 10px;">
+                    <dl>
+<!--                       <dt class="actionMenuHeader" style="padding-bottom: 10px;">
                           <a href="#"
                              tal:attributes="href view/advanced_search_trigger"
                              id="search-filter-toggle"
                              i18n:translate="narrow_search_options">
                               Filter the results.
                           </a>
-                      </dt>
-                      <dd class="actionMenuContent actionMenuContentColor" style="display:none">
+                      </dt> -->
+                      <dd>
                           <div id="search-filter" i18n:domain="plone">
                             <div class="row-fluid">
-                             <div class="span3">
+                             <div class="span6">
                               <fieldset class="noborder">
 
                                   <legend i18n:translate="label_item_type">Item type</legend>
@@ -158,7 +152,7 @@
                                                                  onchange string:javascript:toggleSelect(this, 'portal_type:list', ${toggle_select_state});"/>
 
                                           <label for="pt_toggle"
-                                                 i18n:translate="label_toggle"
+                                                 i18n:translate="label_toggle" i18n:domain="genweb.organs"
                                                  >Select All/None
                                           </label>
                                       </span>
@@ -184,11 +178,11 @@
                                               <br />
                                           </tal:items>
                                       </div>
-                                      <div class="visualClear"><!-- --></div>
+                                      <div class="visualClear"></div>
                                   </div>
                               </fieldset>
                              </div>
-                             <div class="span3">
+                             <div class="span6">
                               <fieldset class="noborder">
 
                                   <legend i18n:translate="label_new_items_since">New items since</legend>
@@ -239,7 +233,6 @@
 
                                       <input type="hidden" name="created.range:record" value="min" />
                                   </div>
-
                                   <div class="formControls">
                                       <input class="searchPage searchButton allowMultiSubmit"
                                              type="submit"
@@ -247,10 +240,10 @@
                                              i18n:attributes="value label_search;"/>
                                   </div>
 
-                                  <div class="visualClear"><!-- --></div>
+                                  <div class="visualClear"></div>
                               </fieldset>
                              </div>
-                             <div class="span3" >
+    <!--                          <div class="span3" >
                               <fieldset class="noborder" i18n:domain="plone">
                                   <legend i18n:translate="label_author">Author</legend>
                                   <div class="field">
@@ -264,8 +257,8 @@
                                     />
                                   </div>
                                 </fieldset>
-                              </div>
-                              <div class="span3">
+                              </div> -->
+<!--                               <div class="span3">
                                 <fieldset class="noborder">
                                   <legend i18n:translate="label_tags">Tags</legend>
                                   <div class="field"
@@ -290,21 +283,35 @@
                                   </select>
                                  </div>
                                 </fieldset>
-                              </div>
+                              </div> -->
                             </div>
                           </div>
                       </dd>
                     </dl>
                 </div>
-                <div class="visualClear"><!-- --></div>
+
+                <div class="" style="float: right;">
+                    <a href="/TODO-i_need_a_link"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="" i18n:domain="genweb.organs">Acces to historic info</tal:omit-tag></a>
+                </div>
 
                 <metal:searchresults define-macro="search_results">
                     <div id="search-results"
                          tal:define="navigation_root_url context/@@plone_portal_state/navigation_root_url;">
 
+
+
+       <!--                <div tal:condition="not:batch">
+                            <h1 class="documentFirstHeading"
+                              i18n:translate="" i18n:domain="genweb.organs">
+                              Search results
+                          </h1>
+
                         <metal:noresults tal:condition="not: batch">
                           <p i18n:domain="plone" style="padding-top:10px;"><strong i18n:translate="description_no_results_found">No results were found.</strong></p>
                         </metal:noresults>
+                        </div> -->
+
+
 
                         <metal:results tal:condition="batch"
                                        tal:define="isAnon context/@@plone_portal_state/anonymous;
@@ -313,6 +320,37 @@
                                                    use_view_action site_properties/typesUseViewActionInListings|python:();
                                                    allowAnonymousViewAbout site_properties/allowAnonymousViewAbout;
                                                    show_about python:not isAnon or allowAnonymousViewAbout;">
+
+                          <h1 class="documentFirstHeading"
+                              i18n:translate="">
+                              Search results
+                          </h1>
+
+                    <span i18n:translate="batch_x_items_matching_your_criteria" i18n:domain="plone">
+                        <strong i18n:name="number" id="search-results-number"
+                                tal:content="batch/sequence_length|string:0">234</strong>
+                        items matching your search terms.
+                    </span>.
+                    <br/>
+                    <span id="searchResultsSort">
+                      <span i18n:translate="sort_by">Sort by</span>
+                          <span id="sorting-options">
+                              <metal:sorting define-macro="sorting">
+                                  <tal:block repeat="item view/sort_options">
+                                      <tal:item define="selected item/selected">
+                                      <a data-sort=""
+                                         tal:condition="not:selected"
+                                         tal:content="item/title"
+                                         tal:attributes="href item/url;
+                                                         data-sort python:item.sortkey and item.sortkey or None"></a>
+                                      <strong tal:condition="selected" tal:content="item/title"></strong>
+                                      <span tal:condition="not:repeat/item/end">&middot;</span>
+                                      </tal:item>
+                                  </tal:block>
+                              </metal:sorting>
+                          </span>
+                    </span>
+
                           <dl class="searchResults">
                               <tal:results repeat="item batch">
                                     <dt tal:attributes="class item/ContentTypeClass">
@@ -427,7 +465,20 @@
         <div class="visualClear"><!-- --></div>
     </form>
 
+    <div tal:define="organ_govern view/getLatestCDG; consell_social view/getLatestCS">
+        <h2 i18n:translate="" i18:domain="genweb.organs"> Darreres sessions </h2>
+        <ul style="list-style-type: none;">
+           <li tal:condition="organ_govern"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<a href="" tal:attributes="href organ_govern/url">
+            CONSELL DE GOVERN  -  <tal:omit-tag tal:content="organ_govern/title">Consell de Govern</tal:omit-tag></a><br/></li>
+           <li tal:condition="consell_social"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<a href="" tal:attributes="href consell_social/url">
+            CONSELL SOCIAL  -  <tal:omit-tag tal:content="consell_social/title">Consell de Govern</tal:omit-tag></a><br/></li>
+        </ul>
+    </div>
+    <br/>
+    <br/>
   </div>
+
+
 
 </body>
 </html>

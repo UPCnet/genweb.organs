@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-03-14 11:35+0000\n"
+"POT-Creation-Date: 2018-05-16 10:50+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,6 +19,10 @@ msgstr ""
 #: ./genweb/organs/content/organgovern.py:31
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Draft Yellow</p><p>Pending aproval Orange</p><p>Approved Green</p><p>Not approved Red</p><p>Cancelled DarkRed</p><p>Informative LightSkyBlue</p><p>Informedt MediumBlue</p>"
+
+#: ./genweb/organs/search.pt:294
+msgid "Acces to historic info"
+msgstr ""
 
 #: ./genweb/organs/content/templates/sessio_view.pt:328
 msgid "Accio"
@@ -166,7 +170,6 @@ msgid "Cancel"
 msgstr "Cancel"
 
 #: ./genweb/organs/browser/viewlets_templates/header.pt:57
-#: ./genweb/organs/search.pt:28
 msgid "Cercador"
 msgstr "Search"
 
@@ -174,31 +177,31 @@ msgstr "Search"
 msgid "Changed Title"
 msgstr "Changed Title"
 
-#: ./genweb/organs/browser/views.py:488
+#: ./genweb/organs/browser/views.py:490
 msgid "Changed acord color state"
 msgstr "Changed agreement color state"
 
-#: ./genweb/organs/browser/views.py:513
+#: ./genweb/organs/browser/views.py:517
 msgid "Changed acord intern state color"
 msgstr "Changed agreement intern state color"
 
-#: ./genweb/organs/browser/views.py:484
+#: ./genweb/organs/browser/views.py:486
 msgid "Changed punt color state"
 msgstr "Changed point color state"
 
-#: ./genweb/organs/browser/views.py:179
+#: ./genweb/organs/browser/views.py:173
 msgid "Changed punt number with drag&drop"
 msgstr "Changed point number with drag&drop"
 
-#: ./genweb/organs/browser/views.py:482
+#: ./genweb/organs/browser/views.py:484
 msgid "Changed recursive color state of acord inside punt"
 msgstr "Changed recursive color state of agreement inside punt"
 
-#: ./genweb/organs/browser/views.py:480
+#: ./genweb/organs/browser/views.py:482
 msgid "Changed recursive color state of subpunt inside punt"
 msgstr "Changed recursive color state of point inside punt"
 
-#: ./genweb/organs/browser/views.py:511
+#: ./genweb/organs/browser/views.py:515
 msgid "Changed subpunt intern state color"
 msgstr "Changed point state color"
 
@@ -206,7 +209,7 @@ msgstr "Changed point state color"
 msgid "Changed workflow state"
 msgstr "Changed workflow state"
 
-#: ./genweb/organs/overrides.py:113
+#: ./genweb/organs/sharing.py:114
 msgid "Changes saved."
 msgstr "Changes saved."
 
@@ -412,7 +415,7 @@ msgstr "Members"
 msgid "Incoming members list help"
 msgstr "Members list"
 
-#: ./genweb/organs/browser/viewlets_templates/header.pt:29
+#: ./genweb/organs/browser/viewlets_templates/header.pt:30
 msgid "Info_del_Servei"
 msgstr "Service information"
 
@@ -457,7 +460,7 @@ msgstr "List points"
 msgid "Lloc"
 msgstr "Place"
 
-#: ./genweb/organs/overrides.py:276
+#: ./genweb/organs/sharing.py:276
 msgid "Logged-in users"
 msgstr "Logged-in users"
 
@@ -533,7 +536,7 @@ msgstr "Modified meeting report"
 msgid "Modified punt"
 msgstr "Modified point"
 
-#: ./genweb/organs/browser/views.py:225
+#: ./genweb/organs/browser/views.py:219
 msgid "Moved subpunt by drag&drop"
 msgstr "Moved point by drag&drop"
 
@@ -753,11 +756,11 @@ msgstr "Number agreements"
 msgid "Recipients"
 msgstr "Recipients"
 
-#: ./genweb/organs/browser/views.py:422
+#: ./genweb/organs/browser/views.py:418
 msgid "Reload points manually"
 msgstr "Number punts"
 
-#: ./genweb/organs/browser/views.py:370
+#: ./genweb/organs/browser/views.py:365
 msgid "Reload proposalPoints manually"
 msgstr "Number points"
 
@@ -769,13 +772,9 @@ msgstr "Restricted file description"
 msgid "Resultat. "
 msgstr "Results"
 
-#: ./genweb/organs/overrides.py:377
+#: ./genweb/organs/sharing.py:377
 msgid "Search for user or group"
 msgstr "Search for user or group"
-
-#: ./genweb/organs/search.pt:67
-msgid "Search results for ${term}"
-msgstr "Search results  ${term}"
 
 #: ./genweb/organs/content/mail_convocar.py:162
 #: ./genweb/organs/content/mail_informar.py:143
@@ -903,7 +902,7 @@ msgstr "Point"
 msgid "Subpunt Title"
 msgstr "Point title"
 
-#: ./genweb/organs/content/templates/punt+subpunt_view.pt:77
+#: ./genweb/organs/content/templates/punt+subpunt_view.pt:73
 msgid "Subpunts informatius / acords"
 msgstr "Points/agreements"
 
@@ -963,8 +962,8 @@ msgid "Titol del punt"
 msgstr "Point Title"
 
 #: ./genweb/organs/configure.zcml:44
-msgid "UPC Organs de Govern v2.0 (genweb.organs)"
-msgstr "UPC Organs de Govern v2.0 (genweb.organs)"
+msgid "UPC Organs de Govern (genweb.organs)"
+msgstr ""
 
 #: ./genweb/organs/content/templates/sessio_view.pt:429
 msgid "Veure com... <span class=\"caret\"></span>"
@@ -995,22 +994,22 @@ msgstr "[Agreement "
 msgid "[Acord sense numeracio]"
 msgstr "[Agreement without number]"
 
-#: ./genweb/organs/browser/views.py:282
+#: ./genweb/organs/browser/views.py:276
 #: ./genweb/organs/content/acta.py:204
 msgid "[Acord sense numerar]"
 msgstr "[Agreement without number]"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:165
-#: ./genweb/organs/content/templates/punt+subpunt_view.pt:90
+#: ./genweb/organs/content/templates/punt+subpunt_view.pt:86
 #: ./genweb/organs/content/templates/sessio_view.pt:533
 msgid "acord"
 msgstr "Agreement"
 
-#: ./genweb/organs/search.py:164
+#: ./genweb/organs/search.py:179
 msgid "alphabetically"
 msgstr "alphabetically"
 
-#: ./genweb/organs/search.py:161
+#: ./genweb/organs/search.py:176
 msgid "date (newest first)"
 msgstr "date (newest first)"
 
@@ -1035,6 +1034,11 @@ msgstr "Footer attached to the message, when Convoquing or Sending action."
 msgid "informa_sessio"
 msgstr "Send message about the session"
 
+#. Default: "Select All/None"
+#: ./genweb/organs/search.pt:154
+msgid "label_toggle"
+msgstr ""
+
 #: ./genweb/organs/content/organgovern.py:111
 #: ./genweb/organs/content/sessio.py:69
 msgid "mail address"
@@ -1052,7 +1056,7 @@ msgstr "Open"
 msgid "printOrdreDia"
 msgstr "Print Agenda"
 
-#: ./genweb/organs/search.py:159
+#: ./genweb/organs/search.py:174
 msgid "relevance"
 msgstr "relevance"
 
@@ -1064,7 +1068,7 @@ msgstr "Restrcited to affected"
 msgid "restricted_to_members_organ"
 msgstr "Restricted to members"
 
-#: ./genweb/organs/browser/views.py:539
+#: ./genweb/organs/browser/views.py:543
 #: ./genweb/organs/content/impersonate_as.py:143
 #: ./genweb/organs/content/punt.py:148
 msgid "sense numeracio"

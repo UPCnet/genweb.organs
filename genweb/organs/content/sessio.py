@@ -259,7 +259,7 @@ class View(grok.View):
         elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
             return True
         else:
-            raise False
+            return False
 
     def showPublicarButton(self):
         review_state = api.content.get_state(self.context)
