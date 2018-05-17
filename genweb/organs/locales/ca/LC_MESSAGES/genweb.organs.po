@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-05-17 15:35+0000\n"
+"POT-Creation-Date: 2018-05-17 15:55+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 
-#: ./genweb/organs/search.pt:483
+#: ./genweb/organs/search.pt:484
 msgid "Accedir als darrers acords de:"
 msgstr "Accedir als darrers acords de:"
 
@@ -172,6 +172,10 @@ msgstr "Cancel·la"
 #: ./genweb/organs/browser/viewlets_templates/header.pt:57
 msgid "Cercador"
 msgstr "Cercador"
+
+#: ./genweb/organs/search.pt:45
+msgid "Cercar..."
+msgstr "Cercar..."
 
 #: ./genweb/organs/browser/changes.py:35
 msgid "Changed Title"
@@ -532,7 +536,7 @@ msgstr "S'ha modificat un acord."
 msgid "Modified acta"
 msgstr "S'ha modificat una acta."
 
-#: ./genweb/organs/search.pt:206
+#: ./genweb/organs/search.pt:207
 msgid "Modified dates"
 msgstr "Dates"
 
@@ -644,7 +648,7 @@ msgstr "Nom de l'òrgan"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:186
-#: ./genweb/organs/search.pt:170
+#: ./genweb/organs/search.pt:171
 msgid "Organ de govern"
 msgstr "Òrgan de govern"
 
@@ -1010,11 +1014,11 @@ msgstr "[Acord sense numerar]"
 msgid "acord"
 msgstr "Acord"
 
-#: ./genweb/organs/search.py:196
+#: ./genweb/organs/search.py:205
 msgid "alphabetically"
 msgstr "alfabèticament"
 
-#: ./genweb/organs/search.py:193
+#: ./genweb/organs/search.py:202
 msgid "date (newest first)"
 msgstr "per data (primer el més nou)"
 
@@ -1039,6 +1043,11 @@ msgstr "Proposta de missatge que s'adjunta com a peu tant al missatge de convoca
 msgid "informa_sessio"
 msgstr "Envia resum de la sessió"
 
+#. Default: "Search"
+#: ./genweb/organs/search.pt:62
+msgid "label_search"
+msgstr "Cerca"
+
 #: ./genweb/organs/content/organgovern.py:111
 #: ./genweb/organs/content/sessio.py:69
 msgid "mail address"
@@ -1056,7 +1065,7 @@ msgstr "Públic"
 msgid "printOrdreDia"
 msgstr "Imprimeix ordre del dia"
 
-#: ./genweb/organs/search.py:191
+#: ./genweb/organs/search.py:200
 msgid "relevance"
 msgstr "rellevància"
 
@@ -1073,3 +1082,8 @@ msgstr "Restringit a membres"
 #: ./genweb/organs/content/punt.py:148
 msgid "sense numeracio"
 msgstr "sense numeració"
+
+#. Default: "Search Site"
+#: ./genweb/organs/search.pt:45
+msgid "title_search_title"
+msgstr "Cerca al lloc web"

@@ -48,26 +48,19 @@
                    type="text"
                    size="10"
                    title="Search Site"
-                   i18n:attributes="title title_search_title;"
+                   i18n:domain="genweb.organs"
+                   i18n:attributes="title title_search_title; placeholder"
                    tal:attributes="value st;"
                    />
-<!--             <input class="searchPage searchButton allowMultiSubmit"
-                   type="submit"
-                   value="Search"
-                   i18n:attributes="value label_search;" /> -->
-
-            <!-- <button id="button-cerca" type="submit" role="button" aria-label="Cerca" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="" class="icona-upc" data-original-title="Cercar..."><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Cercar
-            </button> -->
             <button type="submit" class="btn btn-info searchPage searchButton allowMultiSubmit" value="Search"
-                   i18n:attributes="value label_search;">
-    <i class="fa fa-search fa-lg"></i> Cerca
-</button>
+                   i18n:attributes="value label_search;" i18n:domain="genweb.organs">
+                    <i class="fa fa-search fa-lg"></i>&nbsp;<tal:omit-tag i18n:translate="label_search" i18n:domain="genweb.organs">Cerca</tal:omit-tag>
+            </button>
         </fieldset>
 
         <div class="row-fluid">
           <div class="span12">
             <div>
-
                 <p id="rss-subscription" i18n:domain="plone"
                    tal:define="syndication context/@@tools/syndication|nothing"
                    tal:condition="syndication/isSiteSyndicationAllowed|nothing">
@@ -92,40 +85,7 @@
                              normalizeString nocall:context/@@plone/normalizeString;">
 
                 <div id="search-results-bar">
-<!--                     <span i18n:translate="batch_x_items_matching_your_criteria" i18n:domain="plone">
-                        <strong i18n:name="number" id="search-results-number"
-                                tal:content="batch/sequence_length|string:0">234</strong>
-                        items matching your search terms.
-                    </span>.
-                    <br/>
-                    <span id="searchResultsSort">
-                      <span i18n:translate="sort_by">Sort by</span>
-                          <span id="sorting-options">
-                              <metal:sorting define-macro="sorting">
-                                  <tal:block repeat="item view/sort_options">
-                                      <tal:item define="selected item/selected">
-                                      <a data-sort=""
-                                         tal:condition="not:selected"
-                                         tal:content="item/title"
-                                         tal:attributes="href item/url;
-                                                         data-sort python:item.sortkey and item.sortkey or None"></a>
-                                      <strong tal:condition="selected" tal:content="item/title"></strong>
-                                      <span tal:condition="not:repeat/item/end">&middot;</span>
-                                      </tal:item>
-                                  </tal:block>
-                              </metal:sorting>
-                          </span>
-                    </span> -->
-
                     <dl>
-<!--                       <dt class="actionMenuHeader" style="padding-bottom: 10px;">
-                          <a href="#"
-                             tal:attributes="href view/advanced_search_trigger"
-                             id="search-filter-toggle"
-                             i18n:translate="narrow_search_options">
-                              Filter the results.
-                          </a>
-                      </dt> -->
                       <dd>
                           <div id="search-filter" i18n:domain="plone">
                             <div class="row-fluid">
@@ -137,10 +97,7 @@
                                                    types_list view/types_list;
                                                    all_checked python:(len(types_list) == len(request.get('portal_type', []))) or first_call;
                                                    toggle_select_state python:all_checked and 'true' or 'false';">
-
                                       <div class="formHelp"></div>
-
-
                                       <div style="float:left; margin-right: 2em;"
                                            tal:define="typeLists python:context.createMultiColumnList(types_list, numCols=1, sort_on='self');"
                                            tal:attributes="style python:isRTL and 'float: right;; margin-left: 2em;;' or 'float: left;; margin-right: 2em;;';"
@@ -173,10 +130,7 @@
                                                    types_list view/types_list;
                                                    all_checked python:(len(types_list) == len(request.get('portal_type', []))) or first_call;
                                                    toggle_select_state python:all_checked and 'true' or 'false';">
-
                                       <div class="formHelp"></div>
-
-
                                       <div style="float:left; margin-right: 2em;"
                                            tal:define="typeLists python:context.createMultiColumnList(types_list, numCols=1, sort_on='self');"
                                            tal:attributes="style python:isRTL and 'float: right;; margin-left: 2em;;' or 'float: left;; margin-right: 2em;;';"
@@ -205,9 +159,7 @@
                               <fieldset class="noborder">
                                   <h4 i18n:translate="" i18n:domain="genweb.organs">Modified dates</h4>
                                   <div class="field">
-
                                       <div class="formHelp"></div>
-
                                       <tal:datetime define="today python:DateTime().earliestTime();
                                                             yesterday python:(today-1).Date();
                                                             lastweek python:(today-7).Date();
@@ -260,47 +212,7 @@
                                   <div class="visualClear"></div>
                               </fieldset>
                              </div>
-    <!--                          <div class="span3" >
-                              <fieldset class="noborder" i18n:domain="plone">
-                                  <legend i18n:translate="label_author">Author</legend>
-                                  <div class="field">
-                                    <div class="formHelp"></div>
-                                    <input  class="searchPage"
-                                            name="Creator"
-                                            id="Creator"
-                                            type="text"
-                                            size="25"
-                                            title="Search Author"
-                                    />
-                                  </div>
-                                </fieldset>
-                              </div> -->
-<!--                               <div class="span3">
-                                <fieldset class="noborder">
-                                  <legend i18n:translate="label_tags">Tags</legend>
-                                  <div class="field"
-                    tal:define="usedSubjects python:context.portal_catalog.uniqueValuesFor('Subject');"
-                   tal:condition="usedSubjects">
-                                  <div class="formHelp"></div>
-                                  <select name="Subject:list"
-                                          id="Subject"
-                                          size="7"
-                                          multiple="multiple"
-                                          tal:define="contentSubjects context/Subject;">
 
-                                      <option value="#"
-                                              tal:repeat="subject usedSubjects"
-                                              tal:content="subject"
-                                              tal:attributes="value subject"
-                                              i18n:domain="plone-metadata"
-                                              i18n:translate=""
-                                              >dummy
-                                      </option>
-
-                                  </select>
-                                 </div>
-                                </fieldset>
-                              </div> -->
                             </div>
                           </div>
                       </dd>
@@ -310,8 +222,6 @@
                 <metal:searchresults define-macro="search_results">
                     <div id="search-results"
                          tal:define="navigation_root_url context/@@plone_portal_state/navigation_root_url;">
-
-
 
        <!--                <div tal:condition="not:batch">
                             <h1 class="documentFirstHeading"
@@ -323,8 +233,6 @@
                           <p i18n:domain="plone" style="padding-top:10px;"><strong i18n:translate="description_no_results_found">No results were found.</strong></p>
                         </metal:noresults>
                         </div> -->
-
-
 
                         <metal:results tal:condition="batch"
                                        tal:define="isAnon context/@@plone_portal_state/anonymous;
@@ -344,7 +252,7 @@
                                 tal:content="batch/sequence_length|string:0">234</strong>
                         items matching your search terms.
                     </span>.
-<!--                     <br/> -->
+                    <br/>
                     <span id="searchResultsSort">
                       <span i18n:translate="sort_by">Sort by</span>
                           <span id="sorting-options">
