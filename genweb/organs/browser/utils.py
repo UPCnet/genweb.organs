@@ -12,7 +12,7 @@ class changeInitialProposalPoint(grok.View):
     # Point 0 must be Informat, instead of Aprovat
     grok.context(IDexterityContent)
     grok.name('change_proposal_after_migration')
-    grok.require('cmf.ModifyPortalContent')
+    grok.require('cmf.ManagePortal')
     grok.layer(IGenwebOrgansLayer)
 
     def render(self):
@@ -38,7 +38,7 @@ class changeMimeType(grok.View):
 
     grok.context(IDexterityContent)
     grok.name('change_file_mimetype_to_pdf')
-    grok.require('cmf.ModifyPortalContent')
+    grok.require('cmf.ManagePortal')
     grok.layer(IGenwebOrgansLayer)
 
     def render(self):
