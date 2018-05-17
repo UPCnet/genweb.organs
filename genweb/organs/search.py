@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from plone import api
 from DateTime import DateTime
 from plone.app.contentlisting.interfaces import IContentListing
 from Products.CMFCore.utils import getToolByName
@@ -142,10 +142,13 @@ class Search(BrowserView):
 
     def getLatestCDG(self):
         """ Retorna ultima sessió consell de govern """
+        root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
+        lt = getToolByName(self, 'portal_languages')
+        lang = lt.getPreferredLanguage()
         portal_catalog = getToolByName(self, 'portal_catalog')
         item = portal_catalog.searchResults(
             portal_type=['genweb.organs.sessio'],
-            path="/998/govern/ca/consell-de-govern/consell-de-govern",
+            path=root_path + "/" + lang + "/consell-de-govern/consell-de-govern",
             sort_on='modified',
             sort_order='reverse')
         if item:
@@ -157,10 +160,13 @@ class Search(BrowserView):
 
     def getLatestCS(self):
         """ Retorna ultima sessió consell social """
+        root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
+        lt = getToolByName(self, 'portal_languages')
+        lang = lt.getPreferredLanguage()
         portal_catalog = getToolByName(self, 'portal_catalog')
         item = portal_catalog.searchResults(
             portal_type=['genweb.organs.sessio'],
-            path="/998/govern/ca/cs/ple-del-consell-social",
+            path=root_path + "/" + lang + "/cs/ple-del-consell-social",
             sort_on='modified',
             sort_order='reverse')
         if item:
@@ -172,10 +178,13 @@ class Search(BrowserView):
 
     def getLatestCU(self):
         """ Retorna ultima sessió consell social """
+        root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
+        lt = getToolByName(self, 'portal_languages')
+        lang = lt.getPreferredLanguage()
         portal_catalog = getToolByName(self, 'portal_catalog')
         item = portal_catalog.searchResults(
             portal_type=['genweb.organs.sessio'],
-            path="/998/govern/ca/claustre-universitari/claustre-universitari",
+            path=root_path + "/" + lang + "/claustre-universitari/claustre-universitari",
             sort_on='modified',
             sort_order='reverse')
         if item:
