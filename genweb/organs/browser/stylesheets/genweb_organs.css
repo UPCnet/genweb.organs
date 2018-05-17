@@ -853,6 +853,7 @@ body, .smooth-container { scroll-behavior: smooth }
 
 dt.contenttype-genweb-organs-historicfolder:before,
 i.icon-genweb-organs-historicfolder,
+span.icon-genweb-organs-historicfolder,
 #listing-table a.contenttype-genweb-organs-historicfolder:before,
 .template-folder_tabular_view .listing a.contenttype-genweb-organs-historicfolder:before
 {
@@ -861,6 +862,7 @@ i.icon-genweb-organs-historicfolder,
 
 dt.contenttype-genweb-organs-organgovern:before,
 i.icon-genweb-organs-organgovern,
+span.icon-genweb-organs-organgovern,
 #listing-table a.contenttype-genweb-organs-organgovern:before,
 .template-folder_tabular_view .listing a.contenttype-genweb-organs-organgovern:before
 {
@@ -869,6 +871,7 @@ i.icon-genweb-organs-organgovern,
 
 dt.contenttype-genweb-organs-sessio:before,
 i.icon-genweb-organs-sessio,
+span.icon-genweb-organs-sessio,
 #listing-table a.contenttype-genweb-organs-sessio:before,
 .template-folder_tabular_view .listing a.contenttype-genweb-organs-sessio:before
 {
@@ -877,6 +880,7 @@ i.icon-genweb-organs-sessio,
 
 dt.contenttype-genweb-organs-document:before,
 i.icon-genweb-organs-document,
+span.icon-genweb-organs-document,
 #listing-table a.contenttype-genweb-organs-document:before,
 .template-folder_tabular_view .listing a.contenttype-genweb-organs-document:before
 {
@@ -885,6 +889,7 @@ i.icon-genweb-organs-document,
 
 dt.contenttype-genweb-organs-acta:before,
 i.icon-genweb-organs-acta,
+span.icon-genweb-organs-acta,
 #listing-table a.contenttype-genweb-organs-acta:before,
 .template-folder_tabular_view .listing a.contenttype-genweb-organs-acta:before
 {
@@ -893,6 +898,7 @@ i.icon-genweb-organs-acta,
 
 dt.contenttype-genweb-organs-punt:before,
 i.icon-genweb-organs-punt,
+span.icon-genweb-organs-punt,
 #listing-table a.contenttype-genweb-organs-punt:before,
 .template-folder_tabular_view .listing a.contenttype-genweb-organs-punt:before
 {
@@ -901,6 +907,7 @@ i.icon-genweb-organs-punt,
 
 dt.contenttype-genweb-organs-audio:before,
 i.icon-genweb-organs-audio,
+span.icon-genweb-organs-audio,
 #listing-table a.contenttype-genweb-organs-audio:before,
 .template-folder_tabular_view .listing a.contenttype-genweb-organs-audio:before
 {
@@ -909,6 +916,7 @@ i.icon-genweb-organs-audio,
 
 dt.contenttype-genweb-organs-file:before,
 i.icon-genweb-organs-file,
+span.icon-genweb-organs-file,
 #listing-table a.contenttype-genweb-organs-file:before,
 .template-folder_tabular_view .listing a.contenttype-genweb-organs-file:before
 {
@@ -917,6 +925,7 @@ i.icon-genweb-organs-file,
 
 dt.contenttype-genweb-organs-subpunt:before,
 i.icon-genweb-organs-subpunt,
+span.icon-genweb-organs-subpunt,
 #listing-table a.contenttype-genweb-organs-subpunt:before,
 .template-folder_tabular_view .listing a.contenttype-genweb-organs-subpunt:before
 {
@@ -925,6 +934,7 @@ i.icon-genweb-organs-subpunt,
 
 dt.contenttype-genweb-organs-organsfolder:before,
 i.icon-genweb-organs-organsfolder,
+span.icon-genweb-organs-organsfolder,
 #listing-table a.contenttype-genweb-organs-organsfolder:before,
 .template-folder_tabular_view .listing a.contenttype-genweb-organs-organsfolder:before
 {
@@ -933,6 +943,7 @@ i.icon-genweb-organs-organsfolder,
 
 dt.contenttype-genweb-organs-acord:before,
 i.icon-genweb-organs-acord,
+span.icon-genweb-organs-acord,
 #listing-table a.contenttype-genweb-organs-acord:before,
 .template-folder_tabular_view .listing a.contenttype-genweb-organs-acord:before
 {
@@ -1220,9 +1231,9 @@ ol.li_subgrups {
 }
 
 .bodyPresentation .container {
-height: 91%;
+    height: 91%;
     padding-left: 10%;
-    width: auto;
+    width: auto !important;
     padding-right: 10%;}
 
 
@@ -1626,3 +1637,39 @@ dd.actionMenuContent.actionMenuContentColor {
 }
 
 .noborder {border-bottom: 0px;}
+
+#peu [class*="span"] .pull-right {float: right!important;}
+
+/* Some problems with cleantheme */
+.portaltype-genweb-organs-sessio .modal-body {overflow-y: initial !important;}
+/* End problems cleantheme */
+
+
+@media only screen and (max-width: 639px) {
+    .header-image {
+        height:40px !important;
+        display: block !important;
+    }
+    .header-image.l2-image {
+        height: auto !important;
+        margin-left: 0px !important;
+    }
+}
+
+div.header-image.nomarginleft {
+    margin-left: 0px !important;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), not all, not all, not all, only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+.header-image {
+     background-size: auto !important;
+}
+}
+
+ul.latests-acords {
+    list-style-type: none;
+}
+
+.latests-acords li {
+    padding-bottom: 10px;
+}

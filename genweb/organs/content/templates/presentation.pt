@@ -100,7 +100,7 @@
     </h1>
   </div>
   <div class="bannerOrgansPresentation clearfix">
-    <img tal:attributes="src view/getLogo" style="height:65px; width: 100%;" />
+    <img tal:attributes="src view/getLogo" style="height:78px; width: 100%;" />
     <div class="bannerTitle" tal:condition="view/getTitle" tal:content="view/getTitle">Govern UPC - Session Title</div>
   </div>
 

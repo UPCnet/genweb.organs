@@ -85,14 +85,13 @@
         </li>
         <li tal:condition="viewlet/show_login">
             <a href="" data-toggle="modal" data-target="#loginModal"
-               tal:attributes="href string:${portal_url}/popup_login_form?came_from=${context/absolute_url}"
-               i18n:domain="genweb"
-               i18n:translate="identificat">
-               Identifica't
+               tal:attributes="href string:${portal_url}/popup_login_form?came_from=${context/absolute_url}">
+              <i class="fa fa-lock">&nbsp;<tal:bk i18n:domain="genweb" i18n:translate="identificat">
+               Identifica't</tal:bk>
             </a>
         </li>
         <li>
-          <a href="search"><i class="fa fa-search">&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Search">Search</tal:bk></i></a>
+          <a tal:attributes="href string:${portal_url}/${lang}/search"><i class="fa fa-search">&nbsp;<tal:bk i18n:translate="" i18n:domain="genweb.organs">Cercador</tal:bk></i></a>
         </li>
       </ul>
     </div>
@@ -100,16 +99,16 @@
 
     <div class="bannerOrgans">
       <tal:block tal:condition="getLogo">
-            <img tal:attributes="src getLogo" style="height:65px; width: 100%;" />
+            <img tal:attributes="src getLogo" style="height:78px; width: 100%;" />
             <div tal:condition="getTitle" class="bannerTitle">
-              <a href="" tal:attributes="href string:${portal_url}" tal:content="getTitle" style="color:white;">Govern UPC - FIB</a>
+              <a tal:attributes="href string:${portal_url}" tal:content="getTitle" style="color:white;">Govern UPC - FIB</a>
             </div>
       </tal:block>
       <tal:block tal:condition="not:getLogo">
-        <div class="bannerTitle" tal:condition="getTitle">
+        <div class="bannerTitle">
           <a tal:attributes="href string:${portal_url}" tal:content="getTitle" style="color:white;">Govern UPC - FIB</a>
         </div>
-        <div tal:attributes="class string:header-image ${viewlet/get_image_class}"></div>
+        <div tal:attributes="class string:header-image nomarginleft ${viewlet/get_image_class}"></div>
       </tal:block>
 
     </div>

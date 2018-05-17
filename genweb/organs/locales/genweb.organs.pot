@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-05-16 10:50+0000\n"
+"POT-Creation-Date: 2018-05-17 15:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,8 +21,8 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr ""
 
-#: ./genweb/organs/search.pt:294
-msgid "Acces to historic info"
+#: ./genweb/organs/search.pt:483
+msgid "Accedir als darrers acords de:"
 msgstr ""
 
 #: ./genweb/organs/content/templates/sessio_view.pt:328
@@ -533,6 +533,10 @@ msgstr ""
 msgid "Modified acta"
 msgstr ""
 
+#: ./genweb/organs/search.pt:206
+msgid "Modified dates"
+msgstr ""
+
 #: ./genweb/organs/hooks.py:78
 msgid "Modified punt"
 msgstr ""
@@ -641,6 +645,7 @@ msgstr ""
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:186
+#: ./genweb/organs/search.pt:170
 msgid "Organ de govern"
 msgstr ""
 
@@ -1006,11 +1011,11 @@ msgstr ""
 msgid "acord"
 msgstr ""
 
-#: ./genweb/organs/search.py:179
+#: ./genweb/organs/search.py:196
 msgid "alphabetically"
 msgstr ""
 
-#: ./genweb/organs/search.py:176
+#: ./genweb/organs/search.py:193
 msgid "date (newest first)"
 msgstr ""
 
@@ -1035,11 +1040,6 @@ msgstr ""
 msgid "informa_sessio"
 msgstr ""
 
-#. Default: "Select All/None"
-#: ./genweb/organs/search.pt:154
-msgid "label_toggle"
-msgstr ""
-
 #: ./genweb/organs/content/organgovern.py:111
 #: ./genweb/organs/content/sessio.py:69
 msgid "mail address"
@@ -1057,7 +1057,7 @@ msgstr ""
 msgid "printOrdreDia"
 msgstr ""
 
-#: ./genweb/organs/search.py:174
+#: ./genweb/organs/search.py:191
 msgid "relevance"
 msgstr ""
 

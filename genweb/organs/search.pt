@@ -27,6 +27,8 @@
 
     <div tal:content="structure view/getPage"></div>
 
+
+
     <form name="searchform"
           action="@@search"
           class="searchPage enableAutoFocus"
@@ -127,11 +129,9 @@
                       <dd>
                           <div id="search-filter" i18n:domain="plone">
                             <div class="row-fluid">
-                             <div class="span6">
+                             <div class="span4">
                               <fieldset class="noborder">
-
-                                  <legend i18n:translate="label_item_type">Item type</legend>
-
+                                  <h4 i18n:translate="label_item_type">Item type</h4>
                                   <div class="field"
                                        tal:define="portal_types portal/portal_types;
                                                    types_list view/types_list;
@@ -140,25 +140,9 @@
 
                                       <div class="formHelp"></div>
 
-                                      <span class="optionsToggle">
-                                          <input type="checkbox"
-                                                 onchange=""
-                                                 name="pt_toggle"
-                                                 value="#"
-                                                 id="pt_toggle"
-                                                 class="noborder"
-                                                 checked="checked"
-                                                 tal:attributes="checked python:all_checked and 'checked' or '';
-                                                                 onchange string:javascript:toggleSelect(this, 'portal_type:list', ${toggle_select_state});"/>
 
-                                          <label for="pt_toggle"
-                                                 i18n:translate="label_toggle" i18n:domain="genweb.organs"
-                                                 >Select All/None
-                                          </label>
-                                      </span>
-                                      <br />
                                       <div style="float:left; margin-right: 2em;"
-                                           tal:define="typeLists python:context.createMultiColumnList(types_list, numCols=2, sort_on='self');"
+                                           tal:define="typeLists python:context.createMultiColumnList(types_list, numCols=1, sort_on='self');"
                                            tal:attributes="style python:isRTL and 'float: right;; margin-left: 2em;;' or 'float: left;; margin-right: 2em;;';"
                                            tal:repeat="sublist typeLists">
                                           <tal:items repeat="type sublist">
@@ -166,10 +150,9 @@
                                                      name="portal_type:list"
                                                      value="#"
                                                      class="noborder"
-                                                     checked="checked"
                                                      tal:attributes="value type;
                                                                      id string:portal_type_${repeat/sublist/number}_${repeat/type/number};
-                                                                     checked python:((type in request.get('portal_type', [])) or first_call) and 'checked' or ''"/>
+                                                                     checked python:((type in request.get('portal_type', ['genweb.organs.acord']))) and 'checked' or ''"/>
                                               <label for=""
                                                      i18n:translate=""
                                                      tal:attributes="for string:portal_type_${repeat/sublist/number}_${repeat/type/number}"
@@ -182,11 +165,45 @@
                                   </div>
                               </fieldset>
                              </div>
-                             <div class="span6">
+                             <div class="span4">
                               <fieldset class="noborder">
+                                  <h4 i18n:translate="" i18n:domain="genweb.organs">Organ de govern</h4>
+                                  <div class="field"
+                                       tal:define="portal_types portal/portal_types;
+                                                   types_list view/types_list;
+                                                   all_checked python:(len(types_list) == len(request.get('portal_type', []))) or first_call;
+                                                   toggle_select_state python:all_checked and 'true' or 'false';">
 
-                                  <legend i18n:translate="label_new_items_since">New items since</legend>
+                                      <div class="formHelp"></div>
 
+
+                                      <div style="float:left; margin-right: 2em;"
+                                           tal:define="typeLists python:context.createMultiColumnList(types_list, numCols=1, sort_on='self');"
+                                           tal:attributes="style python:isRTL and 'float: right;; margin-left: 2em;;' or 'float: left;; margin-right: 2em;;';"
+                                           tal:repeat="sublist typeLists">
+                                          <tal:items repeat="type sublist">
+                                              <input type="checkbox"
+                                                     name="portal_type:list"
+                                                     value="#"
+                                                     class="noborder"
+                                                     tal:attributes="value type;
+                                                                     id string:portal_type_${repeat/sublist/number}_${repeat/type/number};
+                                                                     checked python:((type in request.get('portal_type', ['genweb.organs.acord']))) and 'checked' or ''"/>
+                                              <label for=""
+                                                     i18n:translate=""
+                                                     tal:attributes="for string:portal_type_${repeat/sublist/number}_${repeat/type/number}"
+                                                     tal:content="python: portal_types.getTypeInfo(type).Title()"
+                                                     />
+                                              <br />
+                                          </tal:items>
+                                      </div>
+                                      <div class="visualClear"></div>
+                                  </div>
+                              </fieldset>
+                             </div>
+                             <div class="span4">
+                              <fieldset class="noborder">
+                                  <h4 i18n:translate="" i18n:domain="genweb.organs">Modified dates</h4>
                                   <div class="field">
 
                                       <div class="formHelp"></div>
@@ -290,10 +307,6 @@
                     </dl>
                 </div>
 
-                <div class="" style="float: right;">
-                    <a href="/TODO-i_need_a_link"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="" i18n:domain="genweb.organs">Acces to historic info</tal:omit-tag></a>
-                </div>
-
                 <metal:searchresults define-macro="search_results">
                     <div id="search-results"
                          tal:define="navigation_root_url context/@@plone_portal_state/navigation_root_url;">
@@ -331,7 +344,7 @@
                                 tal:content="batch/sequence_length|string:0">234</strong>
                         items matching your search terms.
                     </span>.
-                    <br/>
+<!--                     <br/> -->
                     <span id="searchResultsSort">
                       <span i18n:translate="sort_by">Sort by</span>
                           <span id="sorting-options">
@@ -463,16 +476,21 @@
 
         <div class="visualClear"><!-- --></div>
     </form>
-
-    <div tal:define="organ_govern view/getLatestCDG; consell_social view/getLatestCS">
-        <h2 i18n:translate="" i18:domain="genweb.organs"> Darreres sessions </h2>
-        <ul style="list-style-type: none;">
-           <li tal:condition="organ_govern"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<a href="" tal:attributes="href organ_govern/url">
-            CONSELL DE GOVERN  -  <tal:omit-tag tal:content="organ_govern/title">Consell de Govern</tal:omit-tag></a><br/></li>
-           <li tal:condition="consell_social"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<a href="" tal:attributes="href consell_social/url">
-            CONSELL SOCIAL  -  <tal:omit-tag tal:content="consell_social/title">Consell de Govern</tal:omit-tag></a><br/></li>
+    <br/>
+    <div tal:define="organ_govern view/getLatestCDG;
+                     consell_social view/getLatestCS;
+                     claustre view/getLatestCU">
+        <h3 i18n:translate="" i18n:domain="genweb.organs"> Accedir als darrers acords de: </h3>
+        <ul class="latests-acords" >
+           <li tal:condition="organ_govern">Consell de Govern <br/>&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="" tal:attributes="href organ_govern/url">
+              <tal:omit-tag tal:content="organ_govern/title">Consell de Govern</tal:omit-tag></a><br/></li>
+           <li tal:condition="consell_social">Consell Social <br/> &nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="" tal:attributes="href consell_social/url">
+            <tal:omit-tag tal:content="consell_social/title">Consell de Govern</tal:omit-tag></a><br/></li>
+           <li tal:condition="claustre">Claustre Universitari <br/> &nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="" tal:attributes="href claustre/url">
+            <tal:omit-tag tal:content="claustre/title">Claustre Universitari</tal:omit-tag></a><br/></li>
         </ul>
     </div>
+
     <br/>
     <br/>
   </div>

@@ -6,7 +6,7 @@ from zope.interface import Interface
 from zope.component import getMultiAdapter
 from plone.memoize.view import memoize_contextless
 from Products.CMFCore.utils import getToolByName
-from plone.app.layout.viewlets.interfaces import IPortalHeader, IPortalFooter
+from plone.app.layout.viewlets.interfaces import IPortalHeader
 from genweb.core import HAS_PAM
 from genweb.core.utils import genweb_config
 from genweb.organs.interfaces import IGenwebOrgansLayer
@@ -113,10 +113,7 @@ class gwHeader(viewletBase):
 
     def getTitle(self):
         if IOrgansfolder.providedBy(self.context):
-            if self.context.customImage:
-                return 'Govern UPC - ' + str(self.context.title)
-            else:
-                return 'Govern UPC'
+            return 'Govern UPC - ' + str(self.context.title)
         else:
             portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
             root = getNavigationRootObject(self.context, portal_state.portal())
@@ -127,25 +124,18 @@ class gwHeader(viewletBase):
                 try:
                     # Some objects in path are in pending state
                     obj = aq_inner(root.restrictedTraverse(now))
+                    return 'Govern UPC - ' + str(obj.title)
                 except:
-                    # return default image
-                    return None
-                if IOrgansfolder.providedBy(obj):
-                    if self.context.customImage:
-                        return 'Govern UPC - ' + str(obj.title)
-                    else:
-                        return 'Govern UPC'
+                    # return default text if problems...
+                    return 'Govern UPC'
+            # By default returns Site Title
+            return 'Govern UPC'
 
     def getLogo(self):
         if IOrgansfolder.providedBy(self.context):
-            try:
-                if self.context.customImage:
-                    self.context.logoOrganFolder.filename
+            if self.context.customImage:
+                if hasattr(self.context.logoOrganFolder, 'filename'):
                     return self.context.absolute_url() + '/@@images/logoOrganFolder'
-                else:
-                    return None
-            except:
-                return None
         else:
             portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
             root = getNavigationRootObject(self.context, portal_state.portal())
@@ -156,34 +146,12 @@ class gwHeader(viewletBase):
                 try:
                     # Some objects in path are in pending state
                     obj = aq_inner(root.restrictedTraverse(now))
+                    if IOrgansfolder.providedBy(obj):
+                        if obj.customImage:
+                            if hasattr(obj.logoOrganFolder, 'filename'):
+                                return obj.absolute_url() + '/@@images/logoOrganFolder'
                 except:
-                    # return default image
+                    # return default Logo
                     return None
-                if IOrgansfolder.providedBy(obj):
-                    try:
-                        if self.context.customImage:
-                            obj.logoOrganFolder.filename
-                            return obj.absolute_url() + '/@@images/logoOrganFolder'
-                        else:
-                            return None
-                    except:
-                        return None  # loads default image
 
-    def role(self):
-        # TODO: This is only used in testing scenarios, to know the user role
-        try:
-            username = api.user.get_current().id
-            if username:
-                roles = api.user.get_roles(username=username, obj=self.context)
-            else:
-                roles = 'Not authenticated'
-            return roles
-        except:
-            return None
-
-
-class gwFooter(viewletBase):
-    grok.name('genweb.footer')
-    grok.template('footer')
-    grok.viewletmanager(IPortalFooter)
-    grok.layer(IGenwebOrgansLayer)
+        return None

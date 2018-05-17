@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-05-16 10:50+0000\n"
+"POT-Creation-Date: 2018-05-17 15:35+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,9 +20,9 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 
-#: ./genweb/organs/search.pt:294
-msgid "Acces to historic info"
-msgstr "Accedir a la informació històrica"
+#: ./genweb/organs/search.pt:483
+msgid "Accedir als darrers acords de:"
+msgstr "Accedir als darrers acords de:"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:328
 msgid "Accio"
@@ -470,7 +470,7 @@ msgstr "Imatge que es farà servir com a logotip i que s'utilitzarà en la impre
 
 #: ./genweb/organs/content/organsfolder.py:27
 msgid "Logo organs folder description"
-msgstr "Imatge que es farà servir com a imatge de capçalera en aquesta unitat i al moment d'imprimir les actes dels òrgans. Les dimensions han de ser 978x65 píxels."
+msgstr "Imatge que es farà servir com a imatge de capçalera en aquesta unitat i al moment d'imprimir les actes dels òrgans. Les dimensions han de ser 978x78 píxels."
 
 #: ./genweb/organs/content/organgovern.py:112
 msgid "Mail address help"
@@ -531,6 +531,10 @@ msgstr "S'ha modificat un acord."
 #: ./genweb/organs/hooks.py:70
 msgid "Modified acta"
 msgstr "S'ha modificat una acta."
+
+#: ./genweb/organs/search.pt:206
+msgid "Modified dates"
+msgstr "Dates"
 
 #: ./genweb/organs/hooks.py:78
 msgid "Modified punt"
@@ -640,6 +644,7 @@ msgstr "Nom de l'òrgan"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:186
+#: ./genweb/organs/search.pt:170
 msgid "Organ de govern"
 msgstr "Òrgan de govern"
 
@@ -1005,11 +1010,11 @@ msgstr "[Acord sense numerar]"
 msgid "acord"
 msgstr "Acord"
 
-#: ./genweb/organs/search.py:179
+#: ./genweb/organs/search.py:196
 msgid "alphabetically"
 msgstr "alfabèticament"
 
-#: ./genweb/organs/search.py:176
+#: ./genweb/organs/search.py:193
 msgid "date (newest first)"
 msgstr "per data (primer el més nou)"
 
@@ -1034,11 +1039,6 @@ msgstr "Proposta de missatge que s'adjunta com a peu tant al missatge de convoca
 msgid "informa_sessio"
 msgstr "Envia resum de la sessió"
 
-#. Default: "Select All/None"
-#: ./genweb/organs/search.pt:154
-msgid "label_toggle"
-msgstr "Marca/desmarca tots"
-
 #: ./genweb/organs/content/organgovern.py:111
 #: ./genweb/organs/content/sessio.py:69
 msgid "mail address"
@@ -1056,7 +1056,7 @@ msgstr "Públic"
 msgid "printOrdreDia"
 msgstr "Imprimeix ordre del dia"
 
-#: ./genweb/organs/search.py:174
+#: ./genweb/organs/search.py:191
 msgid "relevance"
 msgstr "rellevància"
 

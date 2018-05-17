@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-05-16 10:50+0000\n"
+"POT-Creation-Date: 2018-05-17 15:35+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,9 +20,9 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Draft Yellow</p><p>Pending aproval Orange</p><p>Approved Green</p><p>Not approved Red</p><p>Cancelled DarkRed</p><p>Informative LightSkyBlue</p><p>Informedt MediumBlue</p>"
 
-#: ./genweb/organs/search.pt:294
-msgid "Acces to historic info"
-msgstr "Access to historic information"
+#: ./genweb/organs/search.pt:483
+msgid "Accedir als darrers acords de:"
+msgstr "View the latests agreements of:"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:328
 msgid "Accio"
@@ -470,7 +470,7 @@ msgstr "Logo that can be used to print in Documents and Meeting reports."
 
 #: ./genweb/organs/content/organsfolder.py:27
 msgid "Logo organs folder description"
-msgstr "Logo used in the header and when printing the Meeting Reports."
+msgstr "Logo used in the header and when printing the Meeting Reports. Used size is 978x78 pixels"
 
 #: ./genweb/organs/content/organgovern.py:112
 msgid "Mail address help"
@@ -531,6 +531,10 @@ msgstr "Modified agreement"
 #: ./genweb/organs/hooks.py:70
 msgid "Modified acta"
 msgstr "Modified meeting report"
+
+#: ./genweb/organs/search.pt:206
+msgid "Modified dates"
+msgstr "Dates"
 
 #: ./genweb/organs/hooks.py:78
 msgid "Modified punt"
@@ -640,6 +644,7 @@ msgstr "Organ of government title"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:186
+#: ./genweb/organs/search.pt:170
 msgid "Organ de govern"
 msgstr "Organ of government"
 
@@ -727,7 +732,7 @@ msgstr "Content"
 #: ./genweb/organs/content/punt.py:64
 #: ./genweb/organs/content/subpunt.py:64
 msgid "Proposal point number"
-msgstr "Point of the Agenda"
+msgstr "Point"
 
 #: ./genweb/organs/content/file.py:54
 msgid "Published file description"
@@ -736,7 +741,7 @@ msgstr "Published file description"
 #: ./genweb/organs/browser/views/butlleti.pt:124
 #: ./genweb/organs/profiles/default/types/genweb.organs.punt.xml
 msgid "Punt"
-msgstr "Point of the Agenda"
+msgstr "Point"
 
 #: ./genweb/organs/content/punt.py:58
 msgid "Punt Title"
@@ -744,11 +749,11 @@ msgstr "Title"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:417
 msgid "Recalcula punts"
-msgstr "Number punts"
+msgstr "Re-number points"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:418
 msgid "Recalcula punts/acords"
-msgstr "Number agreements"
+msgstr "Re-number agreement and points"
 
 #: ./genweb/organs/content/mail_convocar.py:34
 #: ./genweb/organs/content/mail_informar.py:34
@@ -758,7 +763,7 @@ msgstr "Recipients"
 
 #: ./genweb/organs/browser/views.py:418
 msgid "Reload points manually"
-msgstr "Number punts"
+msgstr "Number points"
 
 #: ./genweb/organs/browser/views.py:365
 msgid "Reload proposalPoints manually"
@@ -1005,11 +1010,11 @@ msgstr "[Agreement without number]"
 msgid "acord"
 msgstr "Agreement"
 
-#: ./genweb/organs/search.py:179
+#: ./genweb/organs/search.py:196
 msgid "alphabetically"
 msgstr "alphabetically"
 
-#: ./genweb/organs/search.py:176
+#: ./genweb/organs/search.py:193
 msgid "date (newest first)"
 msgstr "date (newest first)"
 
@@ -1034,11 +1039,6 @@ msgstr "Footer attached to the message, when Convoquing or Sending action."
 msgid "informa_sessio"
 msgstr "Send message about the session"
 
-#. Default: "Select All/None"
-#: ./genweb/organs/search.pt:154
-msgid "label_toggle"
-msgstr "Select/deselect all"
-
 #: ./genweb/organs/content/organgovern.py:111
 #: ./genweb/organs/content/sessio.py:69
 msgid "mail address"
@@ -1056,7 +1056,7 @@ msgstr "Open"
 msgid "printOrdreDia"
 msgstr "Print Agenda"
 
-#: ./genweb/organs/search.py:174
+#: ./genweb/organs/search.py:191
 msgid "relevance"
 msgstr "relevance"
 

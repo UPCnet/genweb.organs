@@ -29,23 +29,6 @@ class changeInitialProposalPoint(grok.View):
         return json.dumps(results)
 
 
-class searchOrgans(grok.View):
-    # Put all in obert state
-    grok.context(IDexterityContent)
-    grok.name('show_all_organs')
-    grok.require('cmf.ModifyPortalContent')
-    grok.layer(IGenwebOrgansLayer)
-
-    def render(self):
-        items = api.content.find(path='/', portal_type='genweb.organs.organgovern')
-        for item in items:
-            value = item.getObject()
-            value.organType = 'open_organ'
-            transaction.commit()
-
-        return True
-
-
 class changeMimeType(grok.View):
     # After migration, there was an error...
     # Incorrect mimetypes in some pdf files

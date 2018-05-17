@@ -145,7 +145,7 @@ class Search(BrowserView):
         portal_catalog = getToolByName(self, 'portal_catalog')
         item = portal_catalog.searchResults(
             portal_type=['genweb.organs.sessio'],
-            path="/998/govern/ca/consell-de-govern",
+            path="/998/govern/ca/consell-de-govern/consell-de-govern",
             sort_on='modified',
             sort_order='reverse')
         if item:
@@ -160,7 +160,22 @@ class Search(BrowserView):
         portal_catalog = getToolByName(self, 'portal_catalog')
         item = portal_catalog.searchResults(
             portal_type=['genweb.organs.sessio'],
-            path="/998/govern/ca/cs",
+            path="/998/govern/ca/cs/ple-del-consell-social",
+            sort_on='modified',
+            sort_order='reverse')
+        if item:
+            title = item[0].Title
+            url = item[0].getPath()
+            return dict(title=title, url=url)
+        else:
+            return None
+
+    def getLatestCU(self):
+        """ Retorna ultima sessió consell social """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        item = portal_catalog.searchResults(
+            portal_type=['genweb.organs.sessio'],
+            path="/998/govern/ca/claustre-universitari/claustre-universitari",
             sort_on='modified',
             sort_order='reverse')
         if item:
