@@ -159,13 +159,24 @@
                                   <div class="field">
                                       <div class="formHelp"></div>
                                       <tal:datetime define="today python:DateTime().earliestTime();
+                                                            lastsession string:1975-01-02;
                                                             lastmonth python:(today-31).Date();
                                                             lastyear python:(today-365).Date();
                                                             ever string:1970-01-02;
                                                             checked python:request.get('created', []);
                                                             checked python:(len(checked) == 1) and checked[0] or ever">
 
-TODO: DARRERAR SESSIO<br/>
+TODO: LAST SESSION
+<br/>
+
+                                          <input type="radio"
+                                                 id="query-date-lastsession"
+                                                 name="created.query:record:list:where"
+                                                 tal:attributes="value lastsession;
+                                                                 checked python:checked==lastsession and 'checked' or '';"
+                                                 />
+                                          <label for="query-date-lastsession" i18n:domain="genweb.organs" i18n:translate="time_last_session">Last session</label>
+                                          <br />
 
                                           <input type="radio"
                                                  id="query-date-lastmonth"

@@ -18,7 +18,7 @@ PMP = MessageFactory('genweb.organs')
 # We should accept both a simple space, unicode u'\u0020 but also a
 # multi-space, so called 'waji-kankaku', unicode u'\u3000'
 MULTISPACE = u'\u3000'.encode('utf-8')
-EVER = DateTime('1970-01-03')
+EVER = DateTime('1970/01/03')
 
 
 def quote_chars(s):
