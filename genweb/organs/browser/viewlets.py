@@ -37,7 +37,7 @@ class viewletBase(grok.Viewlet):
 
 
 class gwHeader(viewletBase):
-    grok.name('genweb.header')
+    grok.name('genweb.header.organs')
     grok.template('header')
     grok.viewletmanager(IPortalHeader)
     grok.layer(IGenwebOrgansLayer)

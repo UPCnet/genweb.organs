@@ -40,7 +40,7 @@
                       pref_lang context/@@genweb.utils/pref_lang">
 <div class="box-search">
         <input type="hidden" name="advanced_search" value="False" />
-        <input type="hidden" name="sort_on" value="" />
+        <input type="hidden" name="sort_on" value="Date" />
         <fieldset id="search-field" i18n:domain="plone" class="noborder">
             <input class="searchPage"
                    placeholder="Cercar..."
@@ -54,7 +54,7 @@
                    />
             <button type="submit" class="btn btn-info searchPage searchButton allowMultiSubmit" value="Search"
                    i18n:attributes="value label_search;" i18n:domain="genweb.organs">
-                    <i class="fa fa-search fa-lg"></i>&nbsp;<tal:omit-tag i18n:translate="label_search" i18n:domain="genweb.organs">Cerca</tal:omit-tag>
+                    <i class="fa fa-search fa-lg"></i>&nbsp;<tal:omit-tag i18n:translate="" i18n:domain="genweb.organs">Cerca</tal:omit-tag>
             </button>
         </fieldset>
 
@@ -98,7 +98,7 @@
 
                                       <div style="float:left; margin-right: 2em;"
                                            tal:define="typeLists python:context.createMultiColumnList(types_list, numCols=1, sort_on='');"
-                                           tal:attributes="style python:isRTL and 'float: right;; margin-left: 2em;;' or 'float: left;; margin-right: 2em;;';"
+
                                            tal:repeat="sublist typeLists">
                                           <tal:items repeat="type sublist">
                                               <input type="checkbox"
@@ -159,28 +159,14 @@
                                   <div class="field">
                                       <div class="formHelp"></div>
                                       <tal:datetime define="today python:DateTime().earliestTime();
-                                                            yesterday python:(today-1).Date();
-                                                            lastweek python:(today-7).Date();
                                                             lastmonth python:(today-31).Date();
+                                                            lastyear python:(today-365).Date();
                                                             ever string:1970-01-02;
                                                             checked python:request.get('created', []);
                                                             checked python:(len(checked) == 1) and checked[0] or ever">
-                                          <input type="radio"
-                                                 id="query-date-yesterday"
-                                                 name="created.query:record:list:date"
-                                                 tal:attributes="value yesterday;
-                                                                 checked python:checked==yesterday and 'checked' or '';"
-                                                 />
-                                          <label for="query-date-yesterday" i18n:translate="time_yesterday">Yesterday</label>
-                                          <br />
-                                          <input type="radio"
-                                                 id="query-date-lastweek"
-                                                 name="created.query:record:list:date"
-                                                 tal:attributes="value lastweek;
-                                                                 checked python:checked==lastweek and 'checked' or '';"
-                                                 />
-                                          <label for="query-date-lastweek" i18n:translate="time_last_week">Last week</label>
-                                          <br />
+
+TODO: DARRERAR SESSIO<br/>
+
                                           <input type="radio"
                                                  id="query-date-lastmonth"
                                                  name="created.query:record:list:date"
@@ -188,6 +174,14 @@
                                                                  checked python:checked==lastmonth and 'checked' or '';"
                                                  />
                                           <label for="query-date-lastmonth" i18n:translate="time_last_month">Last month</label>
+                                          <br />
+                                          <input type="radio"
+                                                 id="query-date-lastyear"
+                                                 name="created.query:record:list:date"
+                                                 tal:attributes="value lastyear;
+                                                                 checked python:checked==lastyear and 'checked' or '';"
+                                                 />
+                                          <label for="query-date-lastyear" i18n:domain="genweb.organs" i18n:translate="time_last_year">Last year</label>
                                           <br />
                                           <input type="radio"
                                                  id="query-date-ever"
@@ -400,8 +394,6 @@
     <br/>
     <br/>
   </div>
-
-
 
 </body>
 </html>

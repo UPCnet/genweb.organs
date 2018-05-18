@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-05-17 15:55+0000\n"
+"POT-Creation-Date: 2018-05-18 10:38+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Draft Yellow</p><p>Pending aproval Orange</p><p>Approved Green</p><p>Not approved Red</p><p>Cancelled DarkRed</p><p>Informative LightSkyBlue</p><p>Informedt MediumBlue</p>"
 
-#: ./genweb/organs/search.pt:484
+#: ./genweb/organs/search.pt:383
 msgid "Accedir als darrers acords de:"
 msgstr "View the latests agreements of:"
 
@@ -168,6 +168,10 @@ msgstr "Message attached executing the Send Message Action. It adds just the foo
 #: ./genweb/organs/content/mail_message.py:179
 msgid "Cancel"
 msgstr "Cancel"
+
+#: ./genweb/organs/search.pt:57
+msgid "Cerca"
+msgstr "Search"
 
 #: ./genweb/organs/browser/viewlets_templates/header.pt:57
 msgid "Cercador"
@@ -536,7 +540,7 @@ msgstr "Modified agreement"
 msgid "Modified acta"
 msgstr "Modified meeting report"
 
-#: ./genweb/organs/search.pt:207
+#: ./genweb/organs/search.pt:158
 msgid "Modified dates"
 msgstr "Dates"
 
@@ -648,7 +652,7 @@ msgstr "Organ of government title"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:186
-#: ./genweb/organs/search.pt:171
+#: ./genweb/organs/search.pt:125
 msgid "Organ de govern"
 msgstr "Organ of government"
 
@@ -1014,13 +1018,9 @@ msgstr "[Agreement without number]"
 msgid "acord"
 msgstr "Agreement"
 
-#: ./genweb/organs/search.py:205
+#: ./genweb/organs/search.py:207
 msgid "alphabetically"
 msgstr "alphabetically"
-
-#: ./genweb/organs/search.py:202
-msgid "date (newest first)"
-msgstr "date (newest first)"
 
 #. Default: "There are currently no Organs in this folder."
 #: ./genweb/organs/content/templates/organsfolder_view.pt:57
@@ -1044,7 +1044,7 @@ msgid "informa_sessio"
 msgstr "Send message about the session"
 
 #. Default: "Search"
-#: ./genweb/organs/search.pt:62
+#: ./genweb/organs/search.pt:55
 msgid "label_search"
 msgstr "Search"
 
@@ -1065,10 +1065,6 @@ msgstr "Open"
 msgid "printOrdreDia"
 msgstr "Print Agenda"
 
-#: ./genweb/organs/search.py:200
-msgid "relevance"
-msgstr "relevance"
-
 #: ./genweb/organs/content/organgovern.py:24
 msgid "restricted_to_affected_organ"
 msgstr "Restrcited to affected"
@@ -1082,6 +1078,11 @@ msgstr "Restricted to members"
 #: ./genweb/organs/content/punt.py:148
 msgid "sense numeracio"
 msgstr "not numbered"
+
+#. Default: "Last year"
+#: ./genweb/organs/search.pt:184
+msgid "time_last_year"
+msgstr "Last year"
 
 #. Default: "Search Site"
 #: ./genweb/organs/search.pt:45

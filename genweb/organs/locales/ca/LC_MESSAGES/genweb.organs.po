@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-05-17 15:55+0000\n"
+"POT-Creation-Date: 2018-05-18 10:38+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,9 +18,9 @@ msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:31
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
-msgstr "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
+msgstr "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBle</p>"
 
-#: ./genweb/organs/search.pt:484
+#: ./genweb/organs/search.pt:383
 msgid "Accedir als darrers acords de:"
 msgstr "Accedir als darrers acords de:"
 
@@ -168,6 +168,10 @@ msgstr "Proposta de missatge que en genera al clicar el botó d'enviar missatge.
 #: ./genweb/organs/content/mail_message.py:179
 msgid "Cancel"
 msgstr "Cancel·la"
+
+#: ./genweb/organs/search.pt:57
+msgid "Cerca"
+msgstr "Cerca"
 
 #: ./genweb/organs/browser/viewlets_templates/header.pt:57
 msgid "Cercador"
@@ -536,7 +540,7 @@ msgstr "S'ha modificat un acord."
 msgid "Modified acta"
 msgstr "S'ha modificat una acta."
 
-#: ./genweb/organs/search.pt:207
+#: ./genweb/organs/search.pt:158
 msgid "Modified dates"
 msgstr "Dates"
 
@@ -648,7 +652,7 @@ msgstr "Nom de l'òrgan"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:186
-#: ./genweb/organs/search.pt:171
+#: ./genweb/organs/search.pt:125
 msgid "Organ de govern"
 msgstr "Òrgan de govern"
 
@@ -1014,13 +1018,9 @@ msgstr "[Acord sense numerar]"
 msgid "acord"
 msgstr "Acord"
 
-#: ./genweb/organs/search.py:205
+#: ./genweb/organs/search.py:207
 msgid "alphabetically"
 msgstr "alfabèticament"
-
-#: ./genweb/organs/search.py:202
-msgid "date (newest first)"
-msgstr "per data (primer el més nou)"
 
 #. Default: "There are currently no Organs in this folder."
 #: ./genweb/organs/content/templates/organsfolder_view.pt:57
@@ -1044,7 +1044,7 @@ msgid "informa_sessio"
 msgstr "Envia resum de la sessió"
 
 #. Default: "Search"
-#: ./genweb/organs/search.pt:62
+#: ./genweb/organs/search.pt:55
 msgid "label_search"
 msgstr "Cerca"
 
@@ -1065,10 +1065,6 @@ msgstr "Públic"
 msgid "printOrdreDia"
 msgstr "Imprimeix ordre del dia"
 
-#: ./genweb/organs/search.py:200
-msgid "relevance"
-msgstr "rellevància"
-
 #: ./genweb/organs/content/organgovern.py:24
 msgid "restricted_to_affected_organ"
 msgstr "Restringit a afectats"
@@ -1082,6 +1078,11 @@ msgstr "Restringit a membres"
 #: ./genweb/organs/content/punt.py:148
 msgid "sense numeracio"
 msgstr "sense numeració"
+
+#. Default: "Last year"
+#: ./genweb/organs/search.pt:184
+msgid "time_last_year"
+msgstr "Darrer any"
 
 #. Default: "Search Site"
 #: ./genweb/organs/search.pt:45

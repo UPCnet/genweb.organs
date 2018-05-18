@@ -13,6 +13,7 @@ from ZTUtils import make_query
 from genweb.organs import permissions
 
 _ = MessageFactory('plone')
+PMP = MessageFactory('genweb.organs')
 
 # We should accept both a simple space, unicode u'\u0020 but also a
 # multi-space, so called 'waji-kankaku', unicode u'\u3000'
@@ -89,7 +90,6 @@ class Search(BrowserView):
         catalog = getToolByName(self.context, 'portal_catalog')
         valid_indexes = tuple(catalog.indexes())
         valid_keys = self.valid_keys + valid_indexes
-
         text = query.get('SearchableText', None)
         if text is None:
             text = request.form.get('SearchableText', '')
@@ -108,6 +108,7 @@ class Search(BrowserView):
 
         # don't filter on created at all if we want all results
         created = query.get('created')
+
         if created:
             try:
                 if created.get('query') and created['query'][0] <= EVER:
@@ -199,35 +200,12 @@ class Search(BrowserView):
     def sort_options(self):
         """ Sorting options for search results view. """
         return (
-            SortOption(self.request, _(u'relevance'), ''),
             SortOption(
-                self.request, _(u'date (newest first)'),
+                self.request, PMP(u'date (newest first)'),
                 'Date', reverse=True
             ),
             SortOption(self.request, _(u'alphabetically'), 'sortable_title'),
         )
-
-    def show_advanced_search(self):
-        """Whether we need to show advanced search options a.k.a. filters?"""
-        show = self.request.get('advanced_search', None)
-        if not show or show == 'False':
-            return False
-        return True
-
-    def advanced_search_trigger(self):
-        """URL builder for show/close advanced search filters."""
-        query = self.request.get('QUERY_STRING', None)
-        url = self.request.get('ACTUAL_URL', self.context.absolute_url())
-        if not query:
-            return url
-        if 'advanced_search' in query:
-            if 'advanced_search=True' in query:
-                query = query.replace('advanced_search=True', '')
-            if 'advanced_search=False' in query:
-                query = query.replace('advanced_search=False', '')
-        else:
-            query = query + '&advanced_search=True'
-        return url + '?' + query
 
     def breadcrumbs(self, item):
         obj = item.getObject()

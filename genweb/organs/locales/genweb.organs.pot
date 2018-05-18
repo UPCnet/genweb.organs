@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-05-17 15:55+0000\n"
+"POT-Creation-Date: 2018-05-18 10:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr ""
 
-#: ./genweb/organs/search.pt:484
+#: ./genweb/organs/search.pt:383
 msgid "Accedir als darrers acords de:"
 msgstr ""
 
@@ -168,6 +168,10 @@ msgstr ""
 #: ./genweb/organs/content/mail_informar.py:185
 #: ./genweb/organs/content/mail_message.py:179
 msgid "Cancel"
+msgstr ""
+
+#: ./genweb/organs/search.pt:57
+msgid "Cerca"
 msgstr ""
 
 #: ./genweb/organs/browser/viewlets_templates/header.pt:57
@@ -537,7 +541,7 @@ msgstr ""
 msgid "Modified acta"
 msgstr ""
 
-#: ./genweb/organs/search.pt:207
+#: ./genweb/organs/search.pt:158
 msgid "Modified dates"
 msgstr ""
 
@@ -649,7 +653,7 @@ msgstr ""
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:186
-#: ./genweb/organs/search.pt:171
+#: ./genweb/organs/search.pt:125
 msgid "Organ de govern"
 msgstr ""
 
@@ -1015,12 +1019,8 @@ msgstr ""
 msgid "acord"
 msgstr ""
 
-#: ./genweb/organs/search.py:205
+#: ./genweb/organs/search.py:207
 msgid "alphabetically"
-msgstr ""
-
-#: ./genweb/organs/search.py:202
-msgid "date (newest first)"
 msgstr ""
 
 #. Default: "There are currently no Organs in this folder."
@@ -1045,7 +1045,7 @@ msgid "informa_sessio"
 msgstr ""
 
 #. Default: "Search"
-#: ./genweb/organs/search.pt:62
+#: ./genweb/organs/search.pt:55
 msgid "label_search"
 msgstr ""
 
@@ -1066,10 +1066,6 @@ msgstr ""
 msgid "printOrdreDia"
 msgstr ""
 
-#: ./genweb/organs/search.py:200
-msgid "relevance"
-msgstr ""
-
 #: ./genweb/organs/content/organgovern.py:24
 msgid "restricted_to_affected_organ"
 msgstr ""
@@ -1082,6 +1078,11 @@ msgstr ""
 #: ./genweb/organs/content/impersonate_as.py:143
 #: ./genweb/organs/content/punt.py:148
 msgid "sense numeracio"
+msgstr ""
+
+#. Default: "Last year"
+#: ./genweb/organs/search.pt:184
+msgid "time_last_year"
 msgstr ""
 
 #. Default: "Search Site"
