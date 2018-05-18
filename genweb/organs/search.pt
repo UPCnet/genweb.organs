@@ -97,7 +97,7 @@
                                                    types_list view/types_list;">
 
                                       <div style="float:left; margin-right: 2em;"
-                                           tal:define="typeLists python:context.createMultiColumnList(types_list, numCols=1, sort_on='self');"
+                                           tal:define="typeLists python:context.createMultiColumnList(types_list, numCols=1, sort_on='');"
                                            tal:attributes="style python:isRTL and 'float: right;; margin-left: 2em;;' or 'float: left;; margin-right: 2em;;';"
                                            tal:repeat="sublist typeLists">
                                           <tal:items repeat="type sublist">
