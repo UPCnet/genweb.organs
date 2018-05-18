@@ -50,6 +50,8 @@ class Search(BrowserView):
         # Make default view return 0 results
         if 'SearchableText' not in query:
             return None
+        if 'genweb.organs.punt' in query['portal_type']:
+            query['portal_type'].append('genweb.organs.subpunt')
         if query is None:
             results = []
         else:
@@ -137,7 +139,7 @@ class Search(BrowserView):
         # only show those types that have any content
         # catalog = getToolByName(self.context, 'portal_catalog')
         # used_types = catalog._catalog.getIndex('portal_type').uniqueValues()
-        used_types = ('genweb.organs.acord', 'genweb.organs.document', 'genweb.organs.punt', 'genweb.organs.subpunt')
+        used_types = ('genweb.organs.acord', 'genweb.organs.document', 'genweb.organs.punt')
         return self.filter_types(list(used_types))
 
     def getLatestCDG(self):

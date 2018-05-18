@@ -94,10 +94,8 @@
                                   <h4 i18n:translate="label_item_type">Item type</h4>
                                   <div class="field"
                                        tal:define="portal_types portal/portal_types;
-                                                   types_list view/types_list;
-                                                   all_checked python:(len(types_list) == len(request.get('portal_type', []))) or first_call;
-                                                   toggle_select_state python:all_checked and 'true' or 'false';">
-                                      <div class="formHelp"></div>
+                                                   types_list view/types_list;">
+
                                       <div style="float:left; margin-right: 2em;"
                                            tal:define="typeLists python:context.createMultiColumnList(types_list, numCols=1, sort_on='self');"
                                            tal:attributes="style python:isRTL and 'float: right;; margin-left: 2em;;' or 'float: left;; margin-right: 2em;;';"
@@ -125,7 +123,7 @@
                              <div class="span4">
                               <fieldset class="noborder">
                                   <h4 i18n:translate="" i18n:domain="genweb.organs">Organ de govern</h4>
-                                  <div class="field"
+                                  <!-- <div class="field"
                                        tal:define="portal_types portal/portal_types;
                                                    types_list view/types_list;
                                                    all_checked python:(len(types_list) == len(request.get('portal_type', []))) or first_call;
@@ -141,8 +139,8 @@
                                                      value="#"
                                                      class="noborder"
                                                      tal:attributes="value type;
-                                                                     id string:portal_type_${repeat/sublist/number}_${repeat/type/number};
-                                                                     checked python:((type in request.get('portal_type', ['genweb.organs.acord']))) and 'checked' or ''"/>
+                                                                     id string:portal_type_${repeat/sublist/number}_${repeat/type/number};"
+                                                                    />
                                               <label for=""
                                                      i18n:translate=""
                                                      tal:attributes="for string:portal_type_${repeat/sublist/number}_${repeat/type/number}"
@@ -152,7 +150,7 @@
                                           </tal:items>
                                       </div>
                                       <div class="visualClear"></div>
-                                  </div>
+                                  </div> -->
                               </fieldset>
                              </div>
                              <div class="span4">
