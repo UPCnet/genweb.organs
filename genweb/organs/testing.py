@@ -7,6 +7,7 @@ from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
 from plone.testing import z2
 from plone.app.multilingual.testing import SESSIONS_FIXTURE
+from zope.component import getMultiAdapter
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
 
 
@@ -33,16 +34,29 @@ class GenwebOrgansLayer(PloneSandboxLayer):
         applyProfile(portal, 'genweb.upc:default')
         applyProfile(portal, 'genweb.organs:default')
 
+        # Create default users
+        portal.acl_users.userFolderAddUser('usuari.secretari', 'secret', ['OG1-Secretari'], [])
+        portal.acl_users.userFolderAddUser('usuari.editor', 'secret', ['OG2-Editor'], [])
+        portal.acl_users.userFolderAddUser('usuari.membre', 'secret', ['OG3-Membre'], [])
+        portal.acl_users.userFolderAddUser('usuari.afectat', 'secret', ['OG4-Afectat'], [])
+
+        # setupview = getMultiAdapter((portal, request), name='setup-view')
+        # setupview.apply_default_language_settings()
+        # setupview.setup_multilingual()
+        # setupview.createContent('n3')
+
     def tearDownZope(self, app):
         """Tear down Zope."""
         pass
 
 
-FIXTURE = GenwebOrgansLayer()
-INTEGRATION_TESTING = IntegrationTesting(
-    bases=(FIXTURE,), name="GenwebOrgansLayer:Integration")
-FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(FIXTURE,), name="GenwebOrgansLayer:Functional")
+GENWEB_ORGANS_FIXTURE = GenwebOrgansLayer()
+GENWEB_ORGANS_INTEGRATION_TESTING = IntegrationTesting(
+    bases=(GENWEB_ORGANS_FIXTURE,), name="GenwebOrgansLayer:Integration")
+
+GENWEB_ORGANS_FUNCTIONAL_TESTING = FunctionalTesting(
+    bases=(GENWEB_ORGANS_FIXTURE,), name="GenwebOrgansLayer:Functional")
+
 GENWEB_ORGANS_ROBOT_TESTING = FunctionalTesting(
-    bases=(FIXTURE, AUTOLOGIN_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
+    bases=(GENWEB_ORGANS_FIXTURE, AUTOLOGIN_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
     name="GenwebOrgansLayer:Robot")
