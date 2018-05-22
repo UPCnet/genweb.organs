@@ -48,6 +48,9 @@ class Search(BrowserView):
             query['b_size'] = b_size
         query = self.filter_query(query)
         newresults = []
+        if query['latest_session']:
+            # import ipdb; ipdb.set_trace()
+            pass
         # Make default view return 0 results
         if 'SearchableText' not in query:
             return None
@@ -108,14 +111,19 @@ class Search(BrowserView):
 
         # don't filter on created at all if we want all results
         created = query.get('created')
-
+        # Add new prperty to check if they are searching in latest session
+        query['latest_session'] = False
         if created:
-            try:
-                if created.get('query') and created['query'][0] <= EVER:
+            if created['query'][0].ISO() == '1900-11-12T00:00:00':  # Fake to simulate LAST_SESSION
+                # Search latest session bassed on params
+                query['latest_session'] = True
+            else:
+                try:
+                    if created.get('query') and created['query'][0] <= EVER:
+                        del query['created']
+                except AttributeError:
+                    # created not a mapping
                     del query['created']
-            except AttributeError:
-                # created not a mapping
-                del query['created']
 
         # respect `types_not_searched` setting
         types = query.get('portal_type', [])

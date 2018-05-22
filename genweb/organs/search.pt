@@ -123,35 +123,31 @@
                              <div class="span4">
                               <fieldset class="noborder">
                                   <h4 i18n:translate="" i18n:domain="genweb.organs">Organ de govern</h4>
-                                  <!-- <div class="field"
-                                       tal:define="portal_types portal/portal_types;
-                                                   types_list view/types_list;
-                                                   all_checked python:(len(types_list) == len(request.get('portal_type', []))) or first_call;
-                                                   toggle_select_state python:all_checked and 'true' or 'false';">
-                                      <div class="formHelp"></div>
-                                      <div style="float:left; margin-right: 2em;"
-                                           tal:define="typeLists python:context.createMultiColumnList(types_list, numCols=1, sort_on='self');"
-                                           tal:attributes="style python:isRTL and 'float: right;; margin-left: 2em;;' or 'float: left;; margin-right: 2em;;';"
-                                           tal:repeat="sublist typeLists">
-                                          <tal:items repeat="type sublist">
-                                              <input type="checkbox"
-                                                     name="portal_type:list"
-                                                     value="#"
-                                                     class="noborder"
-                                                     tal:attributes="value type;
-                                                                     id string:portal_type_${repeat/sublist/number}_${repeat/type/number};"
-                                                                    />
-                                              <label for=""
-                                                     i18n:translate=""
-                                                     tal:attributes="for string:portal_type_${repeat/sublist/number}_${repeat/type/number}"
-                                                     tal:content="python: portal_types.getTypeInfo(type).Title()"
-                                                     />
-                                              <br />
-                                          </tal:items>
-                                      </div>
-                                      <div class="visualClear"></div>
-                                  </div> -->
-                              </fieldset>
+                                  <div class="field">
+                                    <input type="checkbox"
+                                          class="noborder"
+                                           id="path-og"
+                                           name="path"
+                                           checked
+                                           value="/998/govern/ca/consell-de-govern/consell-de-govern" />
+                                    <label>Consell de Govern</label>
+                                    <br/>
+                                    <input type="checkbox"
+b                                          class="noborder"
+                                           id="path-og"
+                                           name="path"
+                                           value="/998/govern/ca/cs" />
+                                    <label>Consell Social</label>
+                                    <br/>
+                                    <input type="checkbox"
+b                                          class="noborder"
+                                           id="path-og"
+                                           name="path"
+                                           value="/998/govern/ca/claustre-universitari" />
+                                    <label>Consell Universitari</label>
+                                  <div class="visualClear"></div>
+                                  </div>
+                                 </fieldset>
                              </div>
                              <div class="span4">
                               <fieldset class="noborder">
@@ -159,19 +155,15 @@
                                   <div class="field">
                                       <div class="formHelp"></div>
                                       <tal:datetime define="today python:DateTime().earliestTime();
-                                                            lastsession string:1975-01-02;
+                                                            lastsession string:1900-11-12;
                                                             lastmonth python:(today-31).Date();
                                                             lastyear python:(today-365).Date();
                                                             ever string:1970-01-02;
                                                             checked python:request.get('created', []);
                                                             checked python:(len(checked) == 1) and checked[0] or ever">
-
-TODO: LAST SESSION
-<br/>
-
-                                          <input type="radio"
+                                          ERROR....<input type="radio"
                                                  id="query-date-lastsession"
-                                                 name="created.query:record:list:where"
+                                                 name="created.query:record:list:date"
                                                  tal:attributes="value lastsession;
                                                                  checked python:checked==lastsession and 'checked' or '';"
                                                  />
