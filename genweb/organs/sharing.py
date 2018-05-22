@@ -1,4 +1,4 @@
-# TODO: ONLY LINE 145 CHANGED from original
+# HELP: Original file seems equal, changes in line 150 aprox
 from itertools import chain
 
 from plone.memoize.instance import memoize, clearafter
@@ -145,7 +145,8 @@ class SharingView(BrowserView):
             if iface is not None and not iface.providedBy(context):
                 continue
             # THE TRICK THAT HIDES PLONE ROLES
-            # si son tipus OG no mostrar els de Plone #
+            # si son tipus OG no mostrar els de Plone, excepte a la
+            # carpeta OG (genweb.organs.organsfolder) que son els default
 
             if self.context.portal_type == 'genweb.organs.organgovern' \
                or self.context.portal_type == 'genweb.organs.sessio' \

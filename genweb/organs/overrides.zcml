@@ -9,6 +9,7 @@
         for="*"
         class=".sharing.SharingView"
         permission="plone.DelegateRoles"
+        layer=".interfaces.IGenwebOrgansLayer"
         />
 
     <browser:page
@@ -17,6 +18,7 @@
         class=".sharing.SharingView"
         attribute="updateSharingInfo"
         permission="plone.DelegateRoles"
+        layer=".interfaces.IGenwebOrgansLayer"
         />
 
     <!-- modified RSS to hide organs types based on state and role -->
@@ -24,13 +26,15 @@
         factory=".rss_custom.FolderFeed"
         for="Products.CMFCore.interfaces._content.IFolderish" />
 
-    <!-- modified RSS to hide organs types based on state and role in searches -->
+    <!-- modified search to hide organs types based on state and role in searches
+         and search only in organs types -->
     <browser:page
         name="search"
         class=".search.Search"
         permission="zope2.View"
         for="*"
         template="search.pt"
+        layer=".interfaces.IGenwebOrgansLayer"
     />
 
     <browser:page
@@ -39,6 +43,7 @@
         permission="zope2.View"
         for="Products.CMFCore.interfaces.IFolderish"
         template="updated_search.pt"
+        layer=".interfaces.IGenwebOrgansLayer"
     />
 
 </configure>
