@@ -235,6 +235,10 @@ class Search(BrowserView):
             self._navroot_url = state.navigation_root_url()
         return self._navroot_url
 
+    def root_path(self):
+        path = '/'.join(api.portal.get().getPhysicalPath())
+        return path
+
     def getPage(self):
         """ Retorna la pagina benvingut """
         portal_catalog = getToolByName(self, 'portal_catalog')

@@ -33,6 +33,7 @@
           action="@@search"
           class="searchPage enableAutoFocus"
           tal:define="portal context/@@plone_portal_state/portal;
+                      root_path view/root_path;
                       first_call not:request/advanced_search|nothing;
                       st python:request.get('SearchableText', '');
                       DateTime python:modules['DateTime'].DateTime;
@@ -129,21 +130,24 @@
                                            id="path-og"
                                            name="path"
                                            checked
-                                           value="/998/govern/ca/consell-de-govern/consell-de-govern" />
+                                           value=""
+                                           tal:attributes="value string:$root_path/ca/consell-de-govern/consell-de-govern" />
                                     <label>Consell de Govern</label>
                                     <br/>
                                     <input type="checkbox"
 b                                          class="noborder"
                                            id="path-og"
                                            name="path"
-                                           value="/998/govern/ca/cs" />
+                                           value=""
+                                           tal:attributes="value string:$root_path/ca/cs" />
                                     <label>Consell Social</label>
                                     <br/>
                                     <input type="checkbox"
 b                                          class="noborder"
                                            id="path-og"
                                            name="path"
-                                           value="/998/govern/ca/claustre-universitari" />
+                                           value=""
+                                           tal:attributes="value string:$root_path/ca/claustre-universitari" />
                                     <label>Consell Universitari</label>
                                   <div class="visualClear"></div>
                                   </div>
