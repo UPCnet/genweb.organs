@@ -7,7 +7,7 @@ from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
 from plone.testing import z2
 from plone.app.multilingual.testing import SESSIONS_FIXTURE
-from zope.component import getMultiAdapter
+# from zope.component import getMultiAdapter
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
 
 

@@ -31,6 +31,8 @@ jobs:
           name: install dependencies
           command: |
             python bootstrap.py
+            bin/buildout -N
+      #      bin/test -t genweb.organs
 
       # - save_cache:
       #     paths:

@@ -1,0 +1,45 @@
+language: python
+sudo: false
+python:
+    - 2.7
+install:
+    - pip install setuptools zc.buildout
+    - pip install coveralls coverage
+    - buildout bootstrap
+    - buildout -N
+script:
+    - coverage run bin/test -t genweb.organs
+after_success:
+    - coverage combine
+    - coveralls
+cache:
+  pip: true
+  directories:
+    - eggs/
+    - $HOME/buildout-cache
+
+# before_install:
+#     - mkdir -p $HOME/buildout-cache/{downloads,eggs,extends}
+#     - mkdir $HOME/.buildout
+#     - echo "[buildout]" > $HOME/.buildout/default.cfg
+#     - echo "download-cache = $HOME/buildout-cache/downloads" >> $HOME/.buildout/default.cfg
+#     - echo "eggs-directory = $HOME/buildout-cache/eggs" >> $HOME/.buildout/default.cfg
+#     - echo "extends-cache = $HOME/buildout-cache/extends" >> $HOME/.buildout/default.cfg
+#     - echo "abi-tag-eggs = true" >> $HOME/.buildout/default.cfg
+
+
+# before_script:
+#   - export DISPLAY=:99.0
+#   - export VERBOSE=true
+#   - sh -e /etc/init.d/xvfb start
+
+# after_script:
+#   - sh -e /etc/init.d/xvfb stop
+
+notifications:
+  email:
+    recipients:
+      - ploneteam@upcnet.es
+      - {author}
+    on_success: change
+    on_failure: change
