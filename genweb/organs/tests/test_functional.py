@@ -26,6 +26,22 @@ class IntegrationTestCase(organsTestBase):
         setupview.apply_default_language_settings()
         setupview.setup_multilingual()
         setupview.createContent('n4')
+
+        # Enable the possibility to add Organs folder
+        from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+        behavior = ISelectableConstrainTypes(self.portal['ca'])
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(['genweb.organs.organsfolder'])
+        behavior.setImmediatelyAddableTypes(['genweb.organs.organsfolder'])
+
+        # Create Base folder
+        from plone import api
+        api.content.create(
+            type='genweb.organs.organsfolder',
+            title='Carpeta Unitat OG',
+            id='folder-organs',
+            container=self.portal['ca'])
+
         logout()
 
     # def createAllOrgans(self):
@@ -47,9 +63,16 @@ class IntegrationTestCase(organsTestBase):
         login(self.portal, username)
         self.create_organ(organ_type="Closed")
 
-    def test_create_organ_as_editor(self):
+    def test_create_organ_as_manager(self):
         """ Install all kind of Organs
         """
-        username = 'usuari.editor'
+        username = 'usuari.manager'
         login(self.portal, username)
         self.create_organ(organ_type="Closed")
+
+    # def test_create_organ_as_editor(self):
+    #     """ Install all kind of Organs
+    #     """
+    #     username = 'usuari.editor'
+    #     login(self.portal, username)
+    #     self.create_organ(organ_type="Closed")

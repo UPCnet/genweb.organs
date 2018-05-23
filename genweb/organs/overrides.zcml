@@ -35,7 +35,7 @@
         for="*"
         template="search.pt"
         layer=".interfaces.IGenwebOrgansLayer"
-    />
+        />
 
     <browser:page
         name="updated_search"
@@ -44,6 +44,6 @@
         for="Products.CMFCore.interfaces.IFolderish"
         template="updated_search.pt"
         layer=".interfaces.IGenwebOrgansLayer"
-    />
+        />
 
 </configure>

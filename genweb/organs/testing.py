@@ -9,6 +9,7 @@ from plone.testing import z2
 from plone.app.multilingual.testing import SESSIONS_FIXTURE
 # from zope.component import getMultiAdapter
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
+from zope.configuration import xmlconfig
 
 
 class GenwebOrgansLayer(PloneSandboxLayer):
@@ -19,11 +20,14 @@ class GenwebOrgansLayer(PloneSandboxLayer):
         """Set up Zope."""
         # Load ZCML
         import genweb.upc
+        xmlconfig.file('configure.zcml',
+                       genweb.upc,
+                       context=configurationContext)
+
         import genweb.organs
-        self.loadZCML(package=genweb.upc)
-        self.loadZCML(package=genweb.organs)
-        z2.installProduct(app, 'genweb.upc')
-        z2.installProduct(app, 'genweb.organs')
+        xmlconfig.file('configure.zcml',
+                       genweb.organs,
+                       context=configurationContext)
 
     def setUpPloneSite(self, portal):
         """Set up Plone."""
@@ -35,15 +39,11 @@ class GenwebOrgansLayer(PloneSandboxLayer):
         applyProfile(portal, 'genweb.organs:default')
 
         # Create default users
+        portal.acl_users.userFolderAddUser('usuari.manager', 'secret', ['Manager'], [])
         portal.acl_users.userFolderAddUser('usuari.secretari', 'secret', ['OG1-Secretari'], [])
         portal.acl_users.userFolderAddUser('usuari.editor', 'secret', ['OG2-Editor'], [])
         portal.acl_users.userFolderAddUser('usuari.membre', 'secret', ['OG3-Membre'], [])
         portal.acl_users.userFolderAddUser('usuari.afectat', 'secret', ['OG4-Afectat'], [])
-
-        # setupview = getMultiAdapter((portal, request), name='setup-view')
-        # setupview.apply_default_language_settings()
-        # setupview.setup_multilingual()
-        # setupview.createContent('n3')
 
     def tearDownZope(self, app):
         """Tear down Zope."""

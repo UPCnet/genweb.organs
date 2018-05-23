@@ -165,7 +165,7 @@ b                                          class="noborder"
                                                             ever string:1970-01-02;
                                                             checked python:request.get('created', []);
                                                             checked python:(len(checked) == 1) and checked[0] or ever">
-                                          ERROR....<input type="radio"
+                                          <input type="radio"
                                                  id="query-date-lastsession"
                                                  name="created.query:record:list:date"
                                                  tal:attributes="value lastsession;
