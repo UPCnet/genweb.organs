@@ -13,7 +13,6 @@ from ZTUtils import make_query
 from genweb.organs import permissions
 
 _ = MessageFactory('plone')
-PMP = MessageFactory('genweb.organs')
 
 # We should accept both a simple space, unicode u'\u0020 but also a
 # multi-space, so called 'waji-kankaku', unicode u'\u3000'
@@ -209,7 +208,7 @@ class Search(BrowserView):
         """ Sorting options for search results view. """
         return (
             SortOption(
-                self.request, PMP(u'date (newest first)'),
+                self.request, _(u'date (newest first)'),
                 'Date', reverse=True
             ),
             SortOption(self.request, _(u'alphabetically'), 'sortable_title'),
