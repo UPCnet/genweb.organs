@@ -47,9 +47,10 @@ class Message(form.SchemaForm):
         """ Return true if user is Editor or Manager, but if the session """
         """ came from the previous version, then make impossible to """
         """ create new elements """
-        migrated = hasattr(self.context, 'migrated')
-        if migrated is True:
-            raise Unauthorized
+        migrated_property = hasattr(self.context, 'migrated')
+        if migrated_property:
+            if self.context.migrated is True:
+                raise Unauthorized
 
         try:
             username = api.user.get_current().id

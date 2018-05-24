@@ -137,10 +137,14 @@ class Delete(BrowserView):
 class Move(BrowserView):
 
     def __call__(self):
-        migrated = hasattr(self.context, 'migrated')
-        if migrated is True:
-            # Don't give option to modify numbers
-            return
+        migrated_property = hasattr(self.context, 'migrated')
+        if migrated_property:
+            if self.context.migrated is True:
+                return
+
+        # Disable CSRF
+        alsoProvides(self.request, IDisableCSRFProtection)
+
         ordering = getOrdering(self.context)
         # authenticator = getMultiAdapter((self.context, self.request),
         #                                 name=u"authenticator")
@@ -334,10 +338,10 @@ class ReloadAcords(BrowserView):
     def __call__(self):
         """ This call reassign the correct proposalPoints to the contents in this folder
         """
-        migrated = hasattr(self.context, 'migrated')
-        if migrated is True:
-            # Don't give option to modify numbers
-            return
+        migrated_property = hasattr(self.context, 'migrated')
+        if migrated_property:
+            if self.context.migrated is True:
+                return
 
         # Disable CSRF
         alsoProvides(self.request, IDisableCSRFProtection)
@@ -396,7 +400,7 @@ class ReloadAcords(BrowserView):
 
             index = index + 1
 
-        self.request.response.redirect(self.context.absolute_url())
+        return self.request.response.redirect(self.context.absolute_url())
 
 
 class ReloadPoints(BrowserView):
@@ -404,10 +408,10 @@ class ReloadPoints(BrowserView):
     def __call__(self):
         """ This call reassign the correct Point number to the contents in this folder
         """
-        migrated = hasattr(self.context, 'migrated')
-        if migrated is True:
-            # Don't give option to modify numbers
-            return
+        migrated_property = hasattr(self.context, 'migrated')
+        if migrated_property:
+            if self.context.migrated is True:
+                return
 
         # Disable CSRF
         alsoProvides(self.request, IDisableCSRFProtection)
@@ -443,7 +447,7 @@ class ReloadPoints(BrowserView):
 
             index = index + 1
 
-        self.request.response.redirect(self.context.absolute_url())
+        return self.request.response.redirect(self.context.absolute_url())
 
 
 class changeActualState(BrowserView):
@@ -490,6 +494,7 @@ class changeActualState(BrowserView):
                 addEntryLog(self.context, None, _(u'Changed acord color state'), itemid + ' → ' + estat)  # add log
         except:
             pass
+        return
 
 
 class changeSubpuntState(BrowserView):
@@ -499,6 +504,7 @@ class changeSubpuntState(BrowserView):
     def __call__(self):
         # Disable CSRF
         alsoProvides(self.request, IDisableCSRFProtection)
+
         portal_catalog = getToolByName(self, 'portal_catalog')
         estat = self.request.form.get('estat')
         itemid = self.request.form.get('id')
@@ -515,6 +521,8 @@ class changeSubpuntState(BrowserView):
                 addEntryLog(self.context, None, _(u'Changed subpunt intern state color'), currentitem[0].getPath() + ' → ' + estat)  # add log
             else:
                 addEntryLog(self.context, None, _(u'Changed acord intern state color'), currentitem[0].getPath() + ' → ' + estat)  # add log
+
+        return
 
 
 class Butlleti(BrowserView):

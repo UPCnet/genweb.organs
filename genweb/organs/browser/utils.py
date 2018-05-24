@@ -5,6 +5,42 @@ from plone import api
 from genweb.organs.interfaces import IGenwebOrgansLayer
 import json
 import transaction
+from Products.statusmessages.interfaces import IStatusMessage
+
+
+class changeMigrated(grok.View):
+    # Change migrated property of sessions.
+    # No se pueden editar sessiones de la versión antigua, pero
+    # en algunos casos, nos han pedido que se pueda...
+    # Este código cambia el valor de la propiedad para eso
+    grok.context(IDexterityContent)
+    grok.name('change_migrated_to')
+    grok.require('cmf.ManagePortal')
+    grok.layer(IGenwebOrgansLayer)
+
+    def render(self):
+        # http:/session_url/change_migrated_to?value=False
+        messages = IStatusMessage(self.request)
+        if self.context.portal_type == 'genweb.organs.sessio':
+            if self.request['value'] == 'True':
+                elements = api.content.find(path=self.context.absolute_url_path())
+                for item in elements:
+                    value = item.getObject()
+                    value.migrated = True
+                    transaction.commit()
+            elif self.request['value'] == 'False':
+                elements = api.content.find(path=self.context.absolute_url_path())
+                for item in elements:
+                    value = item.getObject()
+                    value.migrated = False
+                    transaction.commit()
+            else:
+                return
+
+            messages.add('migrated property set to: ' + str(self.request['value']), type='warning')
+            self.request.response.redirect(self.context.absolute_url())
+        else:
+            pass
 
 
 class changeInitialProposalPoint(grok.View):

@@ -224,9 +224,11 @@ class View(grok.View):
 
     def canModify(self):
         # If item is migrated, it can't be modified
-        migrated = hasattr(self.context, 'migrated')
-        if migrated is True:
-            return False
+        migrated_property = hasattr(self.context, 'migrated')
+        if migrated_property:
+            if self.context.migrated is True:
+                return False
+
         # But if not migrated, check permissions...
         review_state = api.content.get_state(self.context)
         value = False
