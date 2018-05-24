@@ -9,11 +9,12 @@
     <include package="plone.app.portlets"  />
 
     <plone:portlet
-      name="organs.portlets.calendar"
-      interface=".calendar.ICalendarOrgansPortlet"
-      assignment=".calendar.Assignment"
-      renderer=".calendar.Renderer"
-      addview=".calendar.AddForm"
-    />
+        name="organs.calendar.portlet"
+        interface=".portlet_calendar.ICalendarOrgansPortlet"
+        assignment=".portlet_calendar.Assignment"
+        renderer=".portlet_calendar.Renderer"
+        addview=".portlet_calendar.AddForm"
+        editview=".portlet_calendar.EditForm"
+        />
 
 </configure>

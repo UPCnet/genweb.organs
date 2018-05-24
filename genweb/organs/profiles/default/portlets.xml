@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <portlets>
 
-    <portlet title="Organs Calendar" addview="organs.portlets.calendar"
+    <portlet title="Organs Calendar" addview="organs.calendar.portlet"
        description="Organs Calendar portlet"/>
 
 </portlets>
