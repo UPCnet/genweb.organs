@@ -56,12 +56,12 @@ class IntegrationTestCase(organsTestBase):
     #     self.loginBrowser(browser, portalURL)
     #     browser.open(portalURL + url)
 
-    def test_create_organ_as_secretari(self):
-        """ Install all kind of Organs
-        """
-        username = 'usuari.secretari'
-        login(self.portal, username)
-        self.create_organ(organ_type="Closed")
+    # def test_create_organ_as_secretari(self):
+    #     """ Install all kind of Organs
+    #     """
+    #     username = 'usuari.secretari'
+    #     login(self.portal, username)
+    #     self.create_organ(organ_type="Closed")
 
     def test_create_organ_as_manager(self):
         """ Install all kind of Organs

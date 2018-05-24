@@ -2,6 +2,10 @@ language: python
 sudo: false
 python:
     - 2.7
+
+before_script:
+  - sudo apt-get install --yes libsasl2-dev python-dev libldap2-dev libssl-dev
+
 install:
     - pip install setuptools zc.buildout
     - pip install coveralls coverage
