@@ -11,7 +11,6 @@ from zope.i18nmessageid import MessageFactory
 from zope.publisher.browser import BrowserView
 from ZTUtils import make_query
 from genweb.organs import permissions
-import pprint
 
 _ = MessageFactory('plone')
 
@@ -50,29 +49,29 @@ class Search(BrowserView):
         newresults = []
         new_path = []
         if query['latest_session']:
-                if query['path'] == '/998/govern/ca':
-                    query['path'] = [
-                        '/998/govern/ca/consell-de-govern/consell-de-govern/',
-                        '/998/govern/ca/cs/ple-del-consell-social/',
-                        '/998/govern/ca/claustre-universitari/claustre-universitari/']
-                if isinstance(query['path'], list):
-                    for organ in query['path']:
-                        session_path = api.content.find(
-                            path=organ,
-                            portal_type='genweb.organs.sessio',
-                            sort_on='created',
-                            sort_order='reverse')
-                        if session_path:
-                            new_path.append(session_path[0].getPath())
-                if isinstance(query['path'], str):
+            if query['path'] == '/998/govern/ca':
+                query['path'] = [
+                    '/998/govern/ca/consell-de-govern/consell-de-govern/',
+                    '/998/govern/ca/cs/ple-del-consell-social/',
+                    '/998/govern/ca/claustre-universitari/claustre-universitari/']
+            if isinstance(query['path'], list):
+                for organ in query['path']:
                     session_path = api.content.find(
-                        path=query['path'],
+                        path=organ,
                         portal_type='genweb.organs.sessio',
                         sort_on='created',
                         sort_order='reverse')
                     if session_path:
                         new_path.append(session_path[0].getPath())
-                query['path'] = new_path
+            if isinstance(query['path'], str):
+                session_path = api.content.find(
+                    path=query['path'],
+                    portal_type='genweb.organs.sessio',
+                    sort_on='created',
+                    sort_order='reverse')
+                if session_path:
+                    new_path.append(session_path[0].getPath())
+            query['path'] = new_path
         # Make default view return 0 results
         if 'SearchableText' not in query:
             return None
@@ -164,7 +163,9 @@ class Search(BrowserView):
         return plone_utils.getUserFriendlyTypes(types)
 
     def types_list(self):
-        # only show those types that have any content
+        # only show the types of Organs de Govern
+        # removed subpunt because visually is the same that punt.
+        # Subpunt is added in other part of code
         # catalog = getToolByName(self.context, 'portal_catalog')
         # used_types = catalog._catalog.getIndex('portal_type').uniqueValues()
         used_types = ('genweb.organs.acord', 'genweb.organs.document', 'genweb.organs.punt')
@@ -207,7 +208,7 @@ class Search(BrowserView):
             return None
 
     def getLatestCU(self):
-        """ Retorna ultima sessió consell social """
+        """ Retorna ultima sessió claustre universitari """
         root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
         lt = getToolByName(self, 'portal_languages')
         lang = lt.getPreferredLanguage()
