@@ -131,7 +131,7 @@
                                            name="path"
                                            checked
                                            value=""
-                                           tal:attributes="value string:$root_path/ca/consell-de-govern/consell-de-govern" />
+                                           tal:attributes="value string:$root_path/ca/consell-de-govern/consell-de-govern/" />
                                     <label>Consell de Govern</label>
                                     <br/>
                                     <input type="checkbox"
@@ -139,7 +139,7 @@ b                                          class="noborder"
                                            id="path-og"
                                            name="path"
                                            value=""
-                                           tal:attributes="value string:$root_path/ca/cs" />
+                                           tal:attributes="value string:$root_path/ca/cs/ple-del-consell-social/" />
                                     <label>Consell Social</label>
                                     <br/>
                                     <input type="checkbox"
@@ -147,8 +147,8 @@ b                                          class="noborder"
                                            id="path-og"
                                            name="path"
                                            value=""
-                                           tal:attributes="value string:$root_path/ca/claustre-universitari" />
-                                    <label>Consell Universitari</label>
+                                           tal:attributes="value string:$root_path/ca/claustre-universitari/claustre-universitari/" />
+                                    <label>Claustre Universitari</label>
                                   <div class="visualClear"></div>
                                   </div>
                                  </fieldset>

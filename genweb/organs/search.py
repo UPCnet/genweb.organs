@@ -11,6 +11,7 @@ from zope.i18nmessageid import MessageFactory
 from zope.publisher.browser import BrowserView
 from ZTUtils import make_query
 from genweb.organs import permissions
+import pprint
 
 _ = MessageFactory('plone')
 
@@ -47,9 +48,31 @@ class Search(BrowserView):
             query['b_size'] = b_size
         query = self.filter_query(query)
         newresults = []
+        new_path = []
         if query['latest_session']:
-            # import ipdb; ipdb.set_trace()
-            pass
+                if query['path'] == '/998/govern/ca':
+                    query['path'] = [
+                        '/998/govern/ca/consell-de-govern/consell-de-govern/',
+                        '/998/govern/ca/cs/ple-del-consell-social/',
+                        '/998/govern/ca/claustre-universitari/claustre-universitari/']
+                if isinstance(query['path'], list):
+                    for organ in query['path']:
+                        session_path = api.content.find(
+                            path=organ,
+                            portal_type='genweb.organs.sessio',
+                            sort_on='created',
+                            sort_order='reverse')
+                        if session_path:
+                            new_path.append(session_path[0].getPath())
+                if isinstance(query['path'], str):
+                    session_path = api.content.find(
+                        path=query['path'],
+                        portal_type='genweb.organs.sessio',
+                        sort_on='created',
+                        sort_order='reverse')
+                    if session_path:
+                        new_path.append(session_path[0].getPath())
+                query['path'] = new_path
         # Make default view return 0 results
         if 'SearchableText' not in query:
             return None
@@ -61,9 +84,6 @@ class Search(BrowserView):
             catalog = getToolByName(self.context, 'portal_catalog')
             try:
                 results = catalog(**query)
-                # TODO: There is a problem, in results there are all the elements
-                # But then we pass the next code to clean...
-                # Remaining results are not the same number depending on sort_order
                 for res in results:
                     item = res.getObject()
                     if item.portal_type == 'genweb.organs.punt':
@@ -159,7 +179,7 @@ class Search(BrowserView):
         item = portal_catalog.searchResults(
             portal_type=['genweb.organs.sessio'],
             path=root_path + "/" + lang + "/consell-de-govern/consell-de-govern",
-            sort_on='modified',
+            sort_on='created',
             sort_order='reverse')
         if item:
             title = item[0].Title
@@ -177,7 +197,7 @@ class Search(BrowserView):
         item = portal_catalog.searchResults(
             portal_type=['genweb.organs.sessio'],
             path=root_path + "/" + lang + "/cs/ple-del-consell-social",
-            sort_on='modified',
+            sort_on='created',
             sort_order='reverse')
         if item:
             title = item[0].Title
@@ -195,7 +215,7 @@ class Search(BrowserView):
         item = portal_catalog.searchResults(
             portal_type=['genweb.organs.sessio'],
             path=root_path + "/" + lang + "/claustre-universitari/claustre-universitari",
-            sort_on='modified',
+            sort_on='created',
             sort_order='reverse')
         if item:
             title = item[0].Title
