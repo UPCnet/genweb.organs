@@ -5,22 +5,42 @@ python:
 
 before_script:
   - sudo apt-get install --yes libsasl2-dev python-dev libldap2-dev libssl-dev
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - firefox -v
 
 install:
     - pip install setuptools zc.buildout
     - pip install coveralls coverage
     - buildout bootstrap
     - buildout -N
+
 script:
     - coverage run bin/test -t genweb.organs
+
 after_success:
     - coverage combine
     - coveralls
+
 cache:
   pip: true
   directories:
     - eggs/
     - $HOME/buildout-cache
+
+addons:
+  # XXX: use an older Firefox ESR as we are stuck with selenium = 2.53.5
+  #      https://github.com/SeleniumHQ/selenium/issues/2739#issuecomment-249482533
+  firefox: 45.9.0esr
+
+notifications:
+  email:
+    recipients:
+      - ploneteam@upcnet.es
+      - {author}
+    on_success: change
+    on_failure: change
+
 
 # before_install:
 #     - mkdir -p $HOME/buildout-cache/{downloads,eggs,extends}
@@ -39,11 +59,3 @@ cache:
 
 # after_script:
 #   - sh -e /etc/init.d/xvfb stop
-
-notifications:
-  email:
-    recipients:
-      - ploneteam@upcnet.es
-      - {author}
-    on_success: change
-    on_failure: change

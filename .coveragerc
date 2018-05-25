@@ -1,3 +1,5 @@
-[run]
-source = .
+[report]
+include =
+    src/genweb.organs/*
 omit =
+    */test*

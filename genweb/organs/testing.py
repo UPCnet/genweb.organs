@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 """Base module for unittesting."""
-from plone.app.robotframework.testing import AUTOLOGIN_LIBRARY_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
 from plone.testing import z2
 from plone.app.multilingual.testing import SESSIONS_FIXTURE
-# from zope.component import getMultiAdapter
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
+from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from zope.configuration import xmlconfig
 
 
@@ -51,12 +50,23 @@ class GenwebOrgansLayer(PloneSandboxLayer):
 
 
 GENWEB_ORGANS_FIXTURE = GenwebOrgansLayer()
+
+
 GENWEB_ORGANS_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(GENWEB_ORGANS_FIXTURE,), name="GenwebOrgansLayer:Integration")
+    bases=(GENWEB_ORGANS_FIXTURE,),
+    name="GenwebOrgansLayer:Integration",
+)
 
 GENWEB_ORGANS_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(GENWEB_ORGANS_FIXTURE,), name="GenwebOrgansLayer:Functional")
+    bases=(GENWEB_ORGANS_FIXTURE,),
+    name="GenwebOrgansLayer:Functional",
+)
 
-GENWEB_ORGANS_ROBOT_TESTING = FunctionalTesting(
-    bases=(GENWEB_ORGANS_FIXTURE, AUTOLOGIN_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
-    name="GenwebOrgansLayer:Robot")
+GENWEB_ORGANS_ACCEPTANCE_TESTING = FunctionalTesting(
+    bases=(
+        GENWEB_ORGANS_FIXTURE,
+        REMOTE_LIBRARY_BUNDLE_FIXTURE,
+        z2.ZSERVER_FIXTURE,
+    ),
+    name="GenwebOrgansLayer:AcceptanceTesting",
+)
