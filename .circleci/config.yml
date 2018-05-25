@@ -24,7 +24,6 @@ jobs:
           name: Install system dependencies
           command: |
             sudo apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev
-            sudo pip install unittest2
 
       - run:
           name: Execute buildout
