@@ -79,8 +79,8 @@
                                 kb python:size/1024"> &mdash; <span tal:replace="kb" /> KB</span>
               <br/><br/>
               <object type="application/pdf" width="100%" height="480"
-                      tal:attributes="data string:${absolute_url}/@@display-file/visiblefile/;
-                                      download string:context/visiblefile/filename">
+                      tal:define="filename context/visiblefile/filename"
+                      tal:attributes="data string:${absolute_url}/@@display-file/visiblefile/${filename}">
               </object>
             </span>
         </div>
