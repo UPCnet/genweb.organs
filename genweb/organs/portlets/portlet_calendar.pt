@@ -64,7 +64,8 @@
                           ((today and ' today' or ''),
                           (next_month and ' cal_next_month' or ''),
                           (prev_month and ' cal_prev_month' or ''),
-                          (events and ' cal_has_events' or ''))">
+                          (events and ' cal_has_events' or ''));
+                          style string:background-color:${day/color}">
                 <a href=""
                   rel="popover" data-placement="bottom" data-html="True"
                   tal:omit-tag="not:events"

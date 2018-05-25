@@ -181,12 +181,14 @@ class Renderer(base.Renderer):
                 date_events = cal_dict[isodat]
 
             events_string = u""
+            color = '#08c'
             if date_events:
                 for occ in date_events:
                     accessor = IEventAccessor(occ)
                     location = accessor.location
                     whole_day = accessor.whole_day
                     time = accessor.start.time().strftime('%H:%M')
+                    color = occ.aq_parent.eventsColor
                     # TODO: make 24/12 hr format configurable
                     base = u'<a href="%s"><span class="title">%s</span>'\
                            u'%s%s%s</a><br/>'
@@ -202,6 +204,7 @@ class Renderer(base.Renderer):
                  'day': dat.day,
                  'prev_month': dat.month < month,
                  'next_month': dat.month > month,
+                 'color': color,
                  'today':
                     dat.year == today.year and
                     dat.month == today.month and

@@ -37,7 +37,7 @@ class IOrgangovern(form.Schema):
 
     fieldset('organ',
              label=_(u'Tab organ'),
-             fields=['title', 'acronim', 'descripcioOrgan', 'fromMail', 'organType', 'logoOrgan', 'estatsLlista']
+             fields=['title', 'acronim', 'descripcioOrgan', 'fromMail', 'organType', 'logoOrgan', 'eventsColor', 'estatsLlista']
              )
 
     fieldset('assistents',
@@ -122,6 +122,12 @@ class IOrgangovern(form.Schema):
     logoOrgan = NamedBlobImage(
         title=_(u"Organ logo"),
         description=_(u'Logo description'),
+        required=False,
+    )
+
+    eventsColor = schema.TextLine(
+        title=_(u"Color del esdeveniments"),
+        description=_(u"Events color help"),
         required=False,
     )
 
