@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-05-23 09:31+0000\n"
+"POT-Creation-Date: 2018-05-25 09:13+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -67,6 +67,10 @@ msgstr "Meeting reports"
 #: ./genweb/organs/content/templates/sessio_view.pt:248
 msgid "Actes de la sessio:"
 msgstr "Meetings reports from session"
+
+#: ./genweb/organs/portlets/portlet_calendar.py:217
+msgid "Add Organs Calendar Portlet"
+msgstr ""
 
 #: ./genweb/organs/content/manualimport.py:29
 msgid "Add content separated by -- and they will by added as Agreements."
@@ -185,31 +189,31 @@ msgstr "Search..."
 msgid "Changed Title"
 msgstr "Changed Title"
 
-#: ./genweb/organs/browser/views.py:490
+#: ./genweb/organs/browser/views.py:494
 msgid "Changed acord color state"
 msgstr "Changed agreement state"
 
-#: ./genweb/organs/browser/views.py:517
+#: ./genweb/organs/browser/views.py:523
 msgid "Changed acord intern state color"
 msgstr "Changed agreement state"
 
-#: ./genweb/organs/browser/views.py:486
+#: ./genweb/organs/browser/views.py:490
 msgid "Changed punt color state"
 msgstr "Changed point state"
 
-#: ./genweb/organs/browser/views.py:173
+#: ./genweb/organs/browser/views.py:177
 msgid "Changed punt number with drag&drop"
 msgstr "Changed point number with drag&drop option"
 
-#: ./genweb/organs/browser/views.py:484
+#: ./genweb/organs/browser/views.py:488
 msgid "Changed recursive color state of acord inside punt"
 msgstr "Changed agreement state"
 
-#: ./genweb/organs/browser/views.py:482
+#: ./genweb/organs/browser/views.py:486
 msgid "Changed recursive color state of subpunt inside punt"
 msgstr "Changed point state"
 
-#: ./genweb/organs/browser/views.py:515
+#: ./genweb/organs/browser/views.py:521
 msgid "Changed subpunt intern state color"
 msgstr "Changed point state"
 
@@ -318,6 +322,10 @@ msgstr "Day/Hour start"
 #: ./genweb/organs/profiles/default/types/genweb.organs.document.xml
 msgid "Document"
 msgstr "Document"
+
+#: ./genweb/organs/portlets/portlet_calendar.py:229
+msgid "Edit Organs  Calendar Portlet"
+msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:132
 msgid "Enter labels, separated by commas."
@@ -455,6 +463,10 @@ msgstr "Invited members"
 msgid "Invited members help"
 msgstr "Invited members help"
 
+#: ./genweb/organs/portlets/portlet_calendar.py:33
+msgid "Items in which workflow state to show."
+msgstr ""
+
 #: ./genweb/organs/content/templates/informar_view.pt:23
 msgid "Llista de punts en el format del butlleti."
 msgstr "Bulletin points list"
@@ -494,7 +506,7 @@ msgstr "Mail address separated by comma values."
 msgid "Manual Import"
 msgstr "Manual import"
 
-#: ./genweb/organs/content/manualimport.py:86
+#: ./genweb/organs/content/manualimport.py:87
 msgid "Massive agreements imported"
 msgstr "Massive agreements imported"
 
@@ -548,7 +560,7 @@ msgstr "Dates"
 msgid "Modified punt"
 msgstr "Modified point"
 
-#: ./genweb/organs/browser/views.py:219
+#: ./genweb/organs/browser/views.py:223
 msgid "Moved subpunt by drag&drop"
 msgstr "Moved point by drag&drop"
 
@@ -571,7 +583,7 @@ msgstr "People not attending"
 msgid "No assistents help"
 msgstr "No assistents help"
 
-#: ./genweb/organs/content/manualimport.py:176
+#: ./genweb/organs/content/manualimport.py:177
 msgid "No s'han creat tot els elements perque no segueixen la norma. Dintre d'un Acord no es pot afeigr res."
 msgstr "Error, no elements created. Inside an agreement you can't create nothing."
 
@@ -667,6 +679,10 @@ msgstr "List of names of people who are invited to the meetings of this body sys
 #: ./genweb/organs/content/templates/organsfolder_view.pt:26
 msgid "Organ type"
 msgstr "Organ of government type"
+
+#: ./genweb/organs/portlets/portlet_calendar.py:59
+msgid "Organs Calendar"
+msgstr ""
 
 #: ./genweb/organs/profiles/default/types/genweb.organs.organsfolder.xml
 msgid "Organs Folder"
@@ -769,11 +785,11 @@ msgstr "Re-number agreement and points"
 msgid "Recipients"
 msgstr "Recipients"
 
-#: ./genweb/organs/browser/views.py:418
+#: ./genweb/organs/browser/views.py:422
 msgid "Reload points manually"
 msgstr "Number points"
 
-#: ./genweb/organs/browser/views.py:365
+#: ./genweb/organs/browser/views.py:369
 msgid "Reload proposalPoints manually"
 msgstr "Number points"
 
@@ -956,6 +972,10 @@ msgstr "Point"
 msgid "Tancar"
 msgstr "Close"
 
+#: ./genweb/organs/portlets/portlet_calendar.py:218
+msgid "This portlet displays events in a calendar."
+msgstr ""
+
 #: ./genweb/organs/content/templates/sessio_view.pt:378
 msgid "Title"
 msgstr "Title"
@@ -995,6 +1015,10 @@ msgstr "Link to the video session"
 msgid "Vista previa dels punts"
 msgstr "Preview points"
 
+#: ./genweb/organs/portlets/portlet_calendar.py:32
+msgid "Workflow state"
+msgstr ""
+
 #: ./genweb/organs/content/acord.py:162
 #: ./genweb/organs/content/mail_informar.py:247
 #: ./genweb/organs/content/presentation.py:53
@@ -1007,7 +1031,7 @@ msgstr "[Agreement "
 msgid "[Acord sense numeracio]"
 msgstr "[Agreement without number]"
 
-#: ./genweb/organs/browser/views.py:276
+#: ./genweb/organs/browser/views.py:280
 #: ./genweb/organs/content/acta.py:204
 msgid "[Acord sense numerar]"
 msgstr "[Agreement without number]"
@@ -1018,9 +1042,13 @@ msgstr "[Agreement without number]"
 msgid "acord"
 msgstr "Agreement"
 
-#: ./genweb/organs/search.py:215
+#: ./genweb/organs/search.py:235
 msgid "alphabetically"
 msgstr "alphabetically"
+
+#: ./genweb/organs/search.py:232
+msgid "date (newest first)"
+msgstr ""
 
 #. Default: "There are currently no Organs in this folder."
 #: ./genweb/organs/content/templates/organsfolder_view.pt:57
@@ -1061,6 +1089,16 @@ msgstr "Addresses where the messages related to the meeting will be arrive. Sepa
 msgid "open_organ"
 msgstr "Open"
 
+#. Default: "Select search base folder to search for events. This folder will also be used to link to in calendar searches. If empty, the whole site will be searched and the event listing view will be called on the site root."
+#: ./genweb/organs/portlets/portlet_calendar.py:42
+msgid "portlet_help_search_base"
+msgstr ""
+
+#. Default: "Search base"
+#: ./genweb/organs/portlets/portlet_calendar.py:41
+msgid "portlet_label_search_base"
+msgstr ""
+
 #: ./genweb/organs/content/templates/sessio_view.pt:147
 msgid "printOrdreDia"
 msgstr "Print Agenda"
@@ -1073,7 +1111,7 @@ msgstr "Restrcited to affected"
 msgid "restricted_to_members_organ"
 msgstr "Restricted to members"
 
-#: ./genweb/organs/browser/views.py:543
+#: ./genweb/organs/browser/views.py:551
 #: ./genweb/organs/content/impersonate_as.py:143
 #: ./genweb/organs/content/punt.py:148
 msgid "sense numeracio"
