@@ -1,4 +1,4 @@
-# import unittest2 as unittest
+# import unittest
 from genweb.organs.testing import GENWEB_ORGANS_INTEGRATION_TESTING
 from zope.component import getMultiAdapter
 # from plone.testing.z2 import Browser
