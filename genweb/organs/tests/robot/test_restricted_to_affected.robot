@@ -15,7 +15,7 @@ Resource  keywords/keywords_og_restricted_to_affecteds_is_done.robot
 Resource  keywords/keywords_og_restricted_to_affecteds_is_close.robot
 Resource  keywords/keywords_og_restricted_to_affecteds_is_in_correction.robot
 
-Test Setup  Open browser  ${PLONE_URL}  chrome
+Test Setup  Open browser  ${PLONE_URL}
 Test Teardown  Close all browsers
 
 
