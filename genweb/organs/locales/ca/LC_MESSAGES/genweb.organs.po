@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-05-25 09:13+0000\n"
+"POT-Creation-Date: 2018-05-28 09:22+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -68,7 +68,7 @@ msgstr "Actes"
 msgid "Actes de la sessio:"
 msgstr "Actes de la sessió"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:217
+#: ./genweb/organs/portlets/portlet_calendar.py:220
 msgid "Add Organs Calendar Portlet"
 msgstr "Add Organs Calendar Portlet"
 
@@ -97,7 +97,7 @@ msgstr "Número d'acord"
 msgid "Agreement and document label"
 msgstr "Estat"
 
-#: ./genweb/organs/content/organgovern.py:131
+#: ./genweb/organs/content/organgovern.py:137
 #: ./genweb/organs/content/subpunt.py:76
 msgid "Agreement and document labels"
 msgstr "Estats d'aprovació"
@@ -149,21 +149,21 @@ msgstr "Àudio"
 msgid "Audio de la sessio"
 msgstr "Àudio de la sessió"
 
-#: ./genweb/organs/content/organgovern.py:139
+#: ./genweb/organs/content/organgovern.py:145
 #: ./genweb/organs/content/sessio.py:123
 msgid "Body Mail"
 msgstr "Introducció de convocatòria"
 
-#: ./genweb/organs/content/organgovern.py:140
+#: ./genweb/organs/content/organgovern.py:146
 #: ./genweb/organs/content/sessio.py:124
 msgid "Body Mail convoquing description"
 msgstr "Proposta de missatge que es genera en convocar una sessió. S'hi afegeix automàticament el peu del missatge que s'hagi definit al òrgan."
 
-#: ./genweb/organs/content/organgovern.py:146
+#: ./genweb/organs/content/organgovern.py:152
 msgid "Body Mail send"
 msgstr "Introducció de la notificació a membres i afectats"
 
-#: ./genweb/organs/content/organgovern.py:147
+#: ./genweb/organs/content/organgovern.py:153
 msgid "Body Mail send description"
 msgstr "Proposta de missatge que en genera al clicar el botó d'enviar missatge. S'hi afegeix automàticament el peu del missatge que s'hagi definit al òrgan."
 
@@ -232,6 +232,10 @@ msgstr "Cliqueu <a href=\"./\">aquí</a> per tornar al mode de visualització pe
 #: ./genweb/organs/browser/views/webservice.pt:86
 msgid "Codi d'acord"
 msgstr "Codi d'acord"
+
+#: ./genweb/organs/content/organgovern.py:129
+msgid "Color del esdeveniments"
+msgstr "Color de les sessions al calendari"
 
 #: ./genweb/organs/content/document.py:56
 msgid "Content used to hide protected content"
@@ -323,11 +327,11 @@ msgstr "Dia/Hora inici"
 msgid "Document"
 msgstr "Document"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:229
+#: ./genweb/organs/portlets/portlet_calendar.py:232
 msgid "Edit Organs  Calendar Portlet"
 msgstr "Edit Organs Calendar Portlet"
 
-#: ./genweb/organs/content/organgovern.py:132
+#: ./genweb/organs/content/organgovern.py:138
 msgid "Enter labels, separated by commas."
 msgstr "Literals i colors que es faran servir com a estats d'aprovació dels punts de l'ordre del dia. <br/>Cal indicar el literal i al costat el color corresponent separat per un espai. Exemple: Esborrany Yellow. <br/>Si no s'indica cap color es mostrarà en gris.<br/>Podeu trobar la llista de colors acceptats pels navegadors <a href='http://www.w3schools.com/colors/colors_names.asp' target='_blank'>aquí.</a>"
 
@@ -357,6 +361,10 @@ msgstr "Estat de la sessió"
 #: ./genweb/organs/content/templates/impersonate_as.pt:26
 msgid "Esteu visualitzant la sessio amb el rol"
 msgstr "Esteu visualitzant la sessió amb el rol"
+
+#: ./genweb/organs/content/organgovern.py:130
+msgid "Events color help"
+msgstr "Color que s'agafa per mostrar les sessions d'aquest òrgan de govern al calendari. Són vàlids tant els literals CSS (green) com els codis de colors HTML (#008000). En cas de no indicar cap color, s'utilitzarà el color per defecte del lloc web. Podeu trobar la llista de colors acceptats pels navegadors <a href='http://www.w3schools.com/colors/colors_names.asp' target='_blank'>aquí.</a>"
 
 #: ./genweb/organs/browser/views/acta_preview.pt:57
 #: ./genweb/organs/browser/views/acta_print.pt:71
@@ -391,11 +399,11 @@ msgstr "Fitxer restringit"
 msgid "Fitxers i documents"
 msgstr "Fitxers i documents"
 
-#: ./genweb/organs/content/organgovern.py:161
+#: ./genweb/organs/content/organgovern.py:167
 msgid "Footer"
 msgstr "Peu de l'acta"
 
-#: ./genweb/organs/content/organgovern.py:162
+#: ./genweb/organs/content/organgovern.py:168
 msgid "Footer help"
 msgstr "Proposta de missatge que es farà servir com a peu al imprimir l'acta"
 
@@ -972,9 +980,9 @@ msgstr "Punt informatiu"
 msgid "Tancar"
 msgstr "Tanca"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:218
+#: ./genweb/organs/portlets/portlet_calendar.py:221
 msgid "This portlet displays events in a calendar."
-msgstr "Aquest portlet mostra esdeveniments i sessions al calendari."
+msgstr "Aquest portlet mostra esdeveniments i sessions al calendari, amb el color definit a l'òrgan de govern."
 
 #: ./genweb/organs/content/templates/sessio_view.pt:378
 msgid "Title"
@@ -1037,7 +1045,7 @@ msgid "[Acord sense numerar]"
 msgstr "[Acord sense numerar]"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:165
-#: ./genweb/organs/content/templates/punt+subpunt_view.pt:86
+#: ./genweb/organs/content/templates/punt+subpunt_view.pt:90
 #: ./genweb/organs/content/templates/sessio_view.pt:533
 msgid "acord"
 msgstr "Acord"
@@ -1059,11 +1067,11 @@ msgstr "No hi ha cap òrgan de govern en aquesta unitat."
 msgid "envia_missatge"
 msgstr "Missatge als membres"
 
-#: ./genweb/organs/content/organgovern.py:153
+#: ./genweb/organs/content/organgovern.py:159
 msgid "footerMail"
 msgstr "Peu del missatge"
 
-#: ./genweb/organs/content/organgovern.py:154
+#: ./genweb/organs/content/organgovern.py:160
 msgid "footerMail description"
 msgstr "Proposta de missatge que s'adjunta com a peu tant al missatge de convocatòria com al d'enviar missatge."
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-05-25 09:13+0000\n"
+"POT-Creation-Date: 2018-05-28 09:22+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -68,9 +68,9 @@ msgstr "Meeting reports"
 msgid "Actes de la sessio:"
 msgstr "Meetings reports from session"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:217
+#: ./genweb/organs/portlets/portlet_calendar.py:220
 msgid "Add Organs Calendar Portlet"
-msgstr ""
+msgstr "Add Organs Calendar Portlet"
 
 #: ./genweb/organs/content/manualimport.py:29
 msgid "Add content separated by -- and they will by added as Agreements."
@@ -97,7 +97,7 @@ msgstr "Agreement"
 msgid "Agreement and document label"
 msgstr "Agreement and document label"
 
-#: ./genweb/organs/content/organgovern.py:131
+#: ./genweb/organs/content/organgovern.py:137
 #: ./genweb/organs/content/subpunt.py:76
 msgid "Agreement and document labels"
 msgstr "Agreement and document labels"
@@ -149,21 +149,21 @@ msgstr "Audio file"
 msgid "Audio de la sessio"
 msgstr "Audio file of the session"
 
-#: ./genweb/organs/content/organgovern.py:139
+#: ./genweb/organs/content/organgovern.py:145
 #: ./genweb/organs/content/sessio.py:123
 msgid "Body Mail"
 msgstr "Body Mail"
 
-#: ./genweb/organs/content/organgovern.py:140
+#: ./genweb/organs/content/organgovern.py:146
 #: ./genweb/organs/content/sessio.py:124
 msgid "Body Mail convoquing description"
 msgstr "Message attached to convene a session. Adds the footer and header."
 
-#: ./genweb/organs/content/organgovern.py:146
+#: ./genweb/organs/content/organgovern.py:152
 msgid "Body Mail send"
 msgstr "Template from message used in Send Message action"
 
-#: ./genweb/organs/content/organgovern.py:147
+#: ./genweb/organs/content/organgovern.py:153
 msgid "Body Mail send description"
 msgstr "Message attached executing the Send Message Action. It adds just the footer of the post."
 
@@ -232,6 +232,10 @@ msgstr "Click <a href=\"./\">here</a> to show the previous view."
 #: ./genweb/organs/browser/views/webservice.pt:86
 msgid "Codi d'acord"
 msgstr "Proposal point"
+
+#: ./genweb/organs/content/organgovern.py:129
+msgid "Color del esdeveniments"
+msgstr "Sessions color in the calendar"
 
 #: ./genweb/organs/content/document.py:56
 msgid "Content used to hide protected content"
@@ -323,13 +327,13 @@ msgstr "Day/Hour start"
 msgid "Document"
 msgstr "Document"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:229
+#: ./genweb/organs/portlets/portlet_calendar.py:232
 msgid "Edit Organs  Calendar Portlet"
-msgstr ""
+msgstr "Edit Organs Calendar Portlet"
 
-#: ./genweb/organs/content/organgovern.py:132
+#: ./genweb/organs/content/organgovern.py:138
 msgid "Enter labels, separated by commas."
-msgstr "Indicate comma-delimited literals to be used as state approval of the agenda points."
+msgstr "Literals and colors used as aproval state of the points. <br/> It's necessari to fill in the literal and at the same line, the used color separated by blank. In example: Draft Yellow. <br/>If no color is filled, the default color (grey) will be used.<br/>You can find the valid colors <a href='http://www.w3schools.com/colors/colors_names.asp' target='_blank'>here.</a>"
 
 #: ./genweb/organs/content/organgovern.py:105
 msgid "Enter the from used in the mail form"
@@ -357,6 +361,10 @@ msgstr "Session state"
 #: ./genweb/organs/content/templates/impersonate_as.pt:26
 msgid "Esteu visualitzant la sessio amb el rol"
 msgstr "You are viewing the session as"
+
+#: ./genweb/organs/content/organgovern.py:130
+msgid "Events color help"
+msgstr "Used color to show the sessions and the events, in the calendar portlet. It's correct to use the CSS name (green) or the HTML color code (#008000). If no color is provided, the default color of the Site will be used. You can find the valid colors <a href='http://www.w3schools.com/colors/colors_names.asp' target='_blank'>here.</a>"
 
 #: ./genweb/organs/browser/views/acta_preview.pt:57
 #: ./genweb/organs/browser/views/acta_print.pt:71
@@ -391,11 +399,11 @@ msgstr "Restricted File"
 msgid "Fitxers i documents"
 msgstr "Files and documents"
 
-#: ./genweb/organs/content/organgovern.py:161
+#: ./genweb/organs/content/organgovern.py:167
 msgid "Footer"
 msgstr "Meeting report footer"
 
-#: ./genweb/organs/content/organgovern.py:162
+#: ./genweb/organs/content/organgovern.py:168
 msgid "Footer help"
 msgstr "Footer help"
 
@@ -465,7 +473,7 @@ msgstr "Invited members help"
 
 #: ./genweb/organs/portlets/portlet_calendar.py:33
 msgid "Items in which workflow state to show."
-msgstr ""
+msgstr "Items in which workflow state to show."
 
 #: ./genweb/organs/content/templates/informar_view.pt:23
 msgid "Llista de punts en el format del butlleti."
@@ -682,7 +690,7 @@ msgstr "Organ of government type"
 
 #: ./genweb/organs/portlets/portlet_calendar.py:59
 msgid "Organs Calendar"
-msgstr ""
+msgstr "Organs Calendar"
 
 #: ./genweb/organs/profiles/default/types/genweb.organs.organsfolder.xml
 msgid "Organs Folder"
@@ -972,9 +980,9 @@ msgstr "Point"
 msgid "Tancar"
 msgstr "Close"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:218
+#: ./genweb/organs/portlets/portlet_calendar.py:221
 msgid "This portlet displays events in a calendar."
-msgstr ""
+msgstr "This portlet displays events and colored sessions in a calendar."
 
 #: ./genweb/organs/content/templates/sessio_view.pt:378
 msgid "Title"
@@ -1017,7 +1025,7 @@ msgstr "Preview points"
 
 #: ./genweb/organs/portlets/portlet_calendar.py:32
 msgid "Workflow state"
-msgstr ""
+msgstr "Workflow state"
 
 #: ./genweb/organs/content/acord.py:162
 #: ./genweb/organs/content/mail_informar.py:247
@@ -1037,7 +1045,7 @@ msgid "[Acord sense numerar]"
 msgstr "[Agreement without number]"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:165
-#: ./genweb/organs/content/templates/punt+subpunt_view.pt:86
+#: ./genweb/organs/content/templates/punt+subpunt_view.pt:90
 #: ./genweb/organs/content/templates/sessio_view.pt:533
 msgid "acord"
 msgstr "Agreement"
@@ -1048,7 +1056,7 @@ msgstr "alphabetically"
 
 #: ./genweb/organs/search.py:232
 msgid "date (newest first)"
-msgstr ""
+msgstr "date (newest first)"
 
 #. Default: "There are currently no Organs in this folder."
 #: ./genweb/organs/content/templates/organsfolder_view.pt:57
@@ -1059,11 +1067,11 @@ msgstr "No Organ of government in this folder."
 msgid "envia_missatge"
 msgstr "Send message"
 
-#: ./genweb/organs/content/organgovern.py:153
+#: ./genweb/organs/content/organgovern.py:159
 msgid "footerMail"
 msgstr "Footer of the message"
 
-#: ./genweb/organs/content/organgovern.py:154
+#: ./genweb/organs/content/organgovern.py:160
 msgid "footerMail description"
 msgstr "Footer attached to the message, when Convoquing or Sending action."
 
@@ -1092,12 +1100,12 @@ msgstr "Open"
 #. Default: "Select search base folder to search for events. This folder will also be used to link to in calendar searches. If empty, the whole site will be searched and the event listing view will be called on the site root."
 #: ./genweb/organs/portlets/portlet_calendar.py:42
 msgid "portlet_help_search_base"
-msgstr ""
+msgstr "Select search base folder to search for events. This folder will also be used to link to in calendar searches. If empty, the whole site will be searched and the event listing view will be called on the site root."
 
 #. Default: "Search base"
 #: ./genweb/organs/portlets/portlet_calendar.py:41
 msgid "portlet_label_search_base"
-msgstr ""
+msgstr "Search base"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:147
 msgid "printOrdreDia"

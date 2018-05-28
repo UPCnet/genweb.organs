@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-05-25 09:13+0000\n"
+"POT-Creation-Date: 2018-05-28 09:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,7 +69,7 @@ msgstr ""
 msgid "Actes de la sessio:"
 msgstr ""
 
-#: ./genweb/organs/portlets/portlet_calendar.py:217
+#: ./genweb/organs/portlets/portlet_calendar.py:220
 msgid "Add Organs Calendar Portlet"
 msgstr ""
 
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Agreement and document label"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:131
+#: ./genweb/organs/content/organgovern.py:137
 #: ./genweb/organs/content/subpunt.py:76
 msgid "Agreement and document labels"
 msgstr ""
@@ -150,21 +150,21 @@ msgstr ""
 msgid "Audio de la sessio"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:139
+#: ./genweb/organs/content/organgovern.py:145
 #: ./genweb/organs/content/sessio.py:123
 msgid "Body Mail"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:140
+#: ./genweb/organs/content/organgovern.py:146
 #: ./genweb/organs/content/sessio.py:124
 msgid "Body Mail convoquing description"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:146
+#: ./genweb/organs/content/organgovern.py:152
 msgid "Body Mail send"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:147
+#: ./genweb/organs/content/organgovern.py:153
 msgid "Body Mail send description"
 msgstr ""
 
@@ -232,6 +232,10 @@ msgstr ""
 
 #: ./genweb/organs/browser/views/webservice.pt:86
 msgid "Codi d'acord"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:129
+msgid "Color del esdeveniments"
 msgstr ""
 
 #: ./genweb/organs/content/document.py:56
@@ -324,11 +328,11 @@ msgstr ""
 msgid "Document"
 msgstr ""
 
-#: ./genweb/organs/portlets/portlet_calendar.py:229
+#: ./genweb/organs/portlets/portlet_calendar.py:232
 msgid "Edit Organs  Calendar Portlet"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:132
+#: ./genweb/organs/content/organgovern.py:138
 msgid "Enter labels, separated by commas."
 msgstr ""
 
@@ -357,6 +361,10 @@ msgstr ""
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:26
 msgid "Esteu visualitzant la sessio amb el rol"
+msgstr ""
+
+#: ./genweb/organs/content/organgovern.py:130
+msgid "Events color help"
 msgstr ""
 
 #: ./genweb/organs/browser/views/acta_preview.pt:57
@@ -392,11 +400,11 @@ msgstr ""
 msgid "Fitxers i documents"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:161
+#: ./genweb/organs/content/organgovern.py:167
 msgid "Footer"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:162
+#: ./genweb/organs/content/organgovern.py:168
 msgid "Footer help"
 msgstr ""
 
@@ -973,7 +981,7 @@ msgstr ""
 msgid "Tancar"
 msgstr ""
 
-#: ./genweb/organs/portlets/portlet_calendar.py:218
+#: ./genweb/organs/portlets/portlet_calendar.py:221
 msgid "This portlet displays events in a calendar."
 msgstr ""
 
@@ -1038,7 +1046,7 @@ msgid "[Acord sense numerar]"
 msgstr ""
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:165
-#: ./genweb/organs/content/templates/punt+subpunt_view.pt:86
+#: ./genweb/organs/content/templates/punt+subpunt_view.pt:90
 #: ./genweb/organs/content/templates/sessio_view.pt:533
 msgid "acord"
 msgstr ""
@@ -1060,11 +1068,11 @@ msgstr ""
 msgid "envia_missatge"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:153
+#: ./genweb/organs/content/organgovern.py:159
 msgid "footerMail"
 msgstr ""
 
-#: ./genweb/organs/content/organgovern.py:154
+#: ./genweb/organs/content/organgovern.py:160
 msgid "footerMail description"
 msgstr ""
 
