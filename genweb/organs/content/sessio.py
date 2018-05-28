@@ -549,10 +549,6 @@ class View(grok.View):
                                     classCSS=classCSS,
                                     id=str(item['id']) + '/' + obj.id))
             else:
-                # TODO: No mostrar fletxa que indica que hi ha cosses dintre
-                # Al fer la cerca els conta, cal fer que segons si el doc te public o no
-                # Surti o no...
-                #
                 # Anonim / Afectat / Membre veuen obrir en finestra nova dels fitxers.
                 # Es un document, mostrem part publica si la té
                 if obj.portal_type == 'genweb.organs.document':
