@@ -181,7 +181,7 @@ class Renderer(base.Renderer):
                 date_events = cal_dict[isodat]
 
             events_string = u""
-            color = '#08c'
+            color = ''
             if date_events:
                 for occ in date_events:
                     accessor = IEventAccessor(occ)
