@@ -17,6 +17,10 @@ jobs:
 
     working_directory: ~/repo
 
+    dependencies:
+        cache_directories:
+          - "*/eggs/*"
+
     steps:
       - checkout
 
