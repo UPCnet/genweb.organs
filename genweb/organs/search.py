@@ -46,6 +46,7 @@ class Search(BrowserView):
             query['b_start'] = b_start = int(b_start)
             query['b_size'] = b_size
         query = self.filter_query(query)
+
         newresults = []
         new_path = []
         if query['latest_session']:
@@ -74,7 +75,8 @@ class Search(BrowserView):
             query['path'] = new_path
         # Make default view return 0 results
         if 'SearchableText' not in query:
-            return None
+            if 'Folder' in query['portal_type']:
+                return None
         if 'genweb.organs.punt' in query['portal_type']:
             query['portal_type'].append('genweb.organs.subpunt')
         if query is None:
