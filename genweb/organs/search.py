@@ -49,12 +49,15 @@ class Search(BrowserView):
 
         newresults = []
         new_path = []
+        root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
+        lt = getToolByName(self, 'portal_languages')
+        lang = lt.getPreferredLanguage()
         if query['latest_session']:
-            if query['path'] == '/998/govern/ca':
+            if query['path'] == root_path + '/' + lang:
                 query['path'] = [
-                    '/998/govern/ca/consell-de-govern/consell-de-govern/',
-                    '/998/govern/ca/cs/ple-del-consell-social/',
-                    '/998/govern/ca/claustre-universitari/claustre-universitari/']
+                    root_path + '/' + lang + '/consell-de-govern/consell-de-govern/',
+                    root_path + '/' + lang + '/cs/ple-del-consell-social/',
+                    root_path + '/' + lang + '/claustre-universitari/claustre-universitari/']
             if isinstance(query['path'], list):
                 for organ in query['path']:
                     session_path = api.content.find(
