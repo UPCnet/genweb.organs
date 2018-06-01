@@ -34,8 +34,8 @@
         
         </div>
       </div>
-      <div class="span6">
-        <div class="box box-gradient clearfix">
+      <div class="span6 portletWrapper portlethash-testing_ajax_calendar" id="portletwrapper-testing_ajax_calendar">
+        <div class="box box-gradient clearfix portletCalendar">
           <h3 class="liniaBaix"><span class="fa fa-calendar-o"></span>&nbsp;Calendari</h3>
           <div class="portletHeader">
             <h2 class="align-center">
