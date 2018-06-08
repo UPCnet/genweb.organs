@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-05-28 09:22+0000\n"
+"POT-Creation-Date: 2018-06-08 10:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr ""
 
-#: ./genweb/organs/search.pt:390
+#: ./genweb/organs/search.pt:471
 msgid "Accedir als darrers acords de:"
 msgstr ""
 
@@ -69,7 +69,7 @@ msgstr ""
 msgid "Actes de la sessio:"
 msgstr ""
 
-#: ./genweb/organs/portlets/portlet_calendar.py:220
+#: ./genweb/organs/portlets/portlet_calendar.py:226
 msgid "Add Organs Calendar Portlet"
 msgstr ""
 
@@ -174,7 +174,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ./genweb/organs/search.pt:58
+#: ./genweb/organs/search.pt:139
 msgid "Cerca"
 msgstr ""
 
@@ -182,7 +182,7 @@ msgstr ""
 msgid "Cercador"
 msgstr ""
 
-#: ./genweb/organs/search.pt:46
+#: ./genweb/organs/search.pt:127
 msgid "Cercar..."
 msgstr ""
 
@@ -328,7 +328,7 @@ msgstr ""
 msgid "Document"
 msgstr ""
 
-#: ./genweb/organs/portlets/portlet_calendar.py:232
+#: ./genweb/organs/portlets/portlet_calendar.py:238
 msgid "Edit Organs  Calendar Portlet"
 msgstr ""
 
@@ -561,7 +561,7 @@ msgstr ""
 msgid "Modified acta"
 msgstr ""
 
-#: ./genweb/organs/search.pt:158
+#: ./genweb/organs/search.pt:239
 msgid "Modified dates"
 msgstr ""
 
@@ -673,7 +673,7 @@ msgstr ""
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:186
-#: ./genweb/organs/search.pt:126
+#: ./genweb/organs/search.pt:207
 msgid "Organ de govern"
 msgstr ""
 
@@ -792,6 +792,10 @@ msgstr ""
 #: ./genweb/organs/content/mail_informar.py:34
 #: ./genweb/organs/content/mail_message.py:33
 msgid "Recipients"
+msgstr ""
+
+#: ./genweb/organs/content/templates/acta_view.pt:64
+msgid "Relacio Assistents"
 msgstr ""
 
 #: ./genweb/organs/browser/views.py:422
@@ -981,7 +985,7 @@ msgstr ""
 msgid "Tancar"
 msgstr ""
 
-#: ./genweb/organs/portlets/portlet_calendar.py:221
+#: ./genweb/organs/portlets/portlet_calendar.py:227
 msgid "This portlet displays events in a calendar."
 msgstr ""
 
@@ -1047,15 +1051,15 @@ msgstr ""
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:165
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:90
-#: ./genweb/organs/content/templates/sessio_view.pt:533
+#: ./genweb/organs/content/templates/sessio_view.pt:535
 msgid "acord"
 msgstr ""
 
-#: ./genweb/organs/search.py:235
+#: ./genweb/organs/search.py:417
 msgid "alphabetically"
 msgstr ""
 
-#: ./genweb/organs/search.py:232
+#: ./genweb/organs/search.py:414
 msgid "date (newest first)"
 msgstr ""
 
@@ -1081,7 +1085,7 @@ msgid "informa_sessio"
 msgstr ""
 
 #. Default: "Search"
-#: ./genweb/organs/search.pt:56
+#: ./genweb/organs/search.pt:137
 msgid "label_search"
 msgstr ""
 
@@ -1127,16 +1131,16 @@ msgid "sense numeracio"
 msgstr ""
 
 #. Default: "Last session"
-#: ./genweb/organs/search.pt:174
+#: ./genweb/organs/search.pt:255
 msgid "time_last_session"
 msgstr ""
 
 #. Default: "Last year"
-#: ./genweb/organs/search.pt:191
+#: ./genweb/organs/search.pt:272
 msgid "time_last_year"
 msgstr ""
 
 #. Default: "Search Site"
-#: ./genweb/organs/search.pt:46
+#: ./genweb/organs/search.pt:127
 msgid "title_search_title"
 msgstr ""

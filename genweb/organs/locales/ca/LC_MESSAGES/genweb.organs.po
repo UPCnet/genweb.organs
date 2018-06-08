@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-05-28 09:22+0000\n"
+"POT-Creation-Date: 2018-06-08 10:50+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBle</p>"
 
-#: ./genweb/organs/search.pt:390
+#: ./genweb/organs/search.pt:471
 msgid "Accedir als darrers acords de:"
 msgstr "Accedir als darrers acords de:"
 
@@ -68,7 +68,7 @@ msgstr "Actes"
 msgid "Actes de la sessio:"
 msgstr "Actes de la sessió"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:220
+#: ./genweb/organs/portlets/portlet_calendar.py:226
 msgid "Add Organs Calendar Portlet"
 msgstr "Add Organs Calendar Portlet"
 
@@ -173,7 +173,7 @@ msgstr "Proposta de missatge que en genera al clicar el botó d'enviar missatge.
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: ./genweb/organs/search.pt:58
+#: ./genweb/organs/search.pt:139
 msgid "Cerca"
 msgstr "Cerca"
 
@@ -181,7 +181,7 @@ msgstr "Cerca"
 msgid "Cercador"
 msgstr "Cercador"
 
-#: ./genweb/organs/search.pt:46
+#: ./genweb/organs/search.pt:127
 msgid "Cercar..."
 msgstr "Cercar..."
 
@@ -327,7 +327,7 @@ msgstr "Dia/Hora inici"
 msgid "Document"
 msgstr "Document"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:232
+#: ./genweb/organs/portlets/portlet_calendar.py:238
 msgid "Edit Organs  Calendar Portlet"
 msgstr "Edit Organs Calendar Portlet"
 
@@ -560,7 +560,7 @@ msgstr "S'ha modificat un acord."
 msgid "Modified acta"
 msgstr "S'ha modificat una acta."
 
-#: ./genweb/organs/search.pt:158
+#: ./genweb/organs/search.pt:239
 msgid "Modified dates"
 msgstr "Dates"
 
@@ -672,7 +672,7 @@ msgstr "Nom de l'òrgan"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:186
-#: ./genweb/organs/search.pt:126
+#: ./genweb/organs/search.pt:207
 msgid "Organ de govern"
 msgstr "Òrgan de govern"
 
@@ -792,6 +792,10 @@ msgstr "Numera acords"
 #: ./genweb/organs/content/mail_message.py:33
 msgid "Recipients"
 msgstr "Destinataris"
+
+#: ./genweb/organs/content/templates/acta_view.pt:64
+msgid "Relacio Assistents"
+msgstr "Relació d'assistents"
 
 #: ./genweb/organs/browser/views.py:422
 msgid "Reload points manually"
@@ -980,7 +984,7 @@ msgstr "Punt informatiu"
 msgid "Tancar"
 msgstr "Tanca"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:221
+#: ./genweb/organs/portlets/portlet_calendar.py:227
 msgid "This portlet displays events in a calendar."
 msgstr "Aquest portlet mostra esdeveniments i sessions al calendari, amb el color definit a l'òrgan de govern."
 
@@ -1046,15 +1050,15 @@ msgstr "[Acord sense numerar]"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:165
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:90
-#: ./genweb/organs/content/templates/sessio_view.pt:533
+#: ./genweb/organs/content/templates/sessio_view.pt:535
 msgid "acord"
 msgstr "Acord"
 
-#: ./genweb/organs/search.py:235
+#: ./genweb/organs/search.py:417
 msgid "alphabetically"
 msgstr "alfabèticament"
 
-#: ./genweb/organs/search.py:232
+#: ./genweb/organs/search.py:414
 msgid "date (newest first)"
 msgstr "data (més recent primer)"
 
@@ -1080,7 +1084,7 @@ msgid "informa_sessio"
 msgstr "Envia resum de la sessió"
 
 #. Default: "Search"
-#: ./genweb/organs/search.pt:56
+#: ./genweb/organs/search.pt:137
 msgid "label_search"
 msgstr "Cerca"
 
@@ -1126,16 +1130,16 @@ msgid "sense numeracio"
 msgstr "sense numeració"
 
 #. Default: "Last session"
-#: ./genweb/organs/search.pt:174
+#: ./genweb/organs/search.pt:255
 msgid "time_last_session"
 msgstr "Darrera sessió"
 
 #. Default: "Last year"
-#: ./genweb/organs/search.pt:191
+#: ./genweb/organs/search.pt:272
 msgid "time_last_year"
 msgstr "Darrer any"
 
 #. Default: "Search Site"
-#: ./genweb/organs/search.pt:46
+#: ./genweb/organs/search.pt:127
 msgid "title_search_title"
 msgstr "Cerca al lloc web"

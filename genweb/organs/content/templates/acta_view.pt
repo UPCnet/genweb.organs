@@ -61,7 +61,7 @@
   <div id="contentActa">
     <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
       <li class="active"><a href="#dadesTab" data-toggle="tab" i18n:translate="">Dades</a></li>
-      <li><a href="#assistentsTab" data-toggle="tab" i18n:translate="">Assistents</a></li>
+      <li><a href="#assistentsTab" data-toggle="tab" i18n:translate="">Relacio Assistents</a></li>
     </ul>
 
     <div id="actaTabs" class="tab-content">
