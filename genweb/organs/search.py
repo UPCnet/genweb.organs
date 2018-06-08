@@ -43,6 +43,12 @@ def quote_chars(s):
 
 class Search(BrowserView):
 
+    def isAnon(self):
+        from plone import api
+        if not api.user.is_anonymous():
+            return False
+        return True
+
     def prev_month(self):
         year, month = self.year_month_display()
         year, prev_month = self.get_previous_month(year, month)
@@ -177,14 +183,16 @@ class Search(BrowserView):
                     time = accessor.start.time().strftime('%H:%M')
                     color = occ.aq_parent.eventsColor
                     # TODO: make 24/12 hr format configurable
-                    base = u'<a href="%s"><span class="title">%s</span>'\
-                           u'%s%s%s</a><br/>'
+                    base = u'<a href="%s"><span class="title">%s</span> -'u'%s%s%s</a><br/>'
                     events_string += base % (
                         accessor.url,
                         accessor.title,
                         not whole_day and u' %s' % time or u'',
                         not whole_day and location and u', ' or u'',
                         location and u' %s' % location or u'')
+                # More than one event in the same day, default color
+                if len(date_events) > 1:
+                    color = 'red'
 
             caldata[-1].append(
                 {'date': dat,

@@ -1662,6 +1662,7 @@ dd.actionMenuContent.actionMenuContentColor {
         height: auto !important;
         margin-left: 0px !important;
     }
+
 }
 
 div.header-image.nomarginleft {
@@ -1673,6 +1674,7 @@ div.header-image.nomarginleft {
      background-size: auto !important;
       background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs@2x.jpg") !important;
 }
+input.searchPage {width: 70%;}
 }
 
 ul.latests-acords {
@@ -1681,4 +1683,27 @@ ul.latests-acords {
 
 .latests-acords li {
     padding-bottom: 10px;
+}
+
+.portletCalendar .ploneCalendar td.cal_prev_month, .portletCalendar .ploneCalendar td.cal_next_month {
+    opacity: 1 !important;
+}
+
+.organevent {
+    text-align: center;
+}
+
+td.organevent.cal_has_events{
+    border: 1px solid white;
+    font-weight: bold;
+    text-shadow: 0 -1px #06a;
+}
+
+td.organevent.cal_has_events a {
+    color: white;
+}
+
+td.organevent.cal_has_events .popover-content a {
+    color: #333333;
+    text-shadow: none;
 }

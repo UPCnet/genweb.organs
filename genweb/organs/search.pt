@@ -27,18 +27,17 @@
 
     <div tal:content="structure view/getPage"></div>
 
-    <div class="row-fluid">
+<!--     <div class="row-fluid" tal:condition="not:view/isAnon">
       <div class="span6">
         <div class="box box-gradient clearfix">
         <h3 class="liniaBaix"><span class="fa fa-thumb-tack"></span>&nbsp;Organs relacionats amb mi</h3>
-        
         </div>
       </div>
-      <div class="span6 portletWrapper portlethash-testing_ajax_calendar" id="portletwrapper-testing_ajax_calendar">
-        <div class="box box-gradient clearfix portletCalendar">
+      <div class="span6">
+        <div class="box box-gradient clearfix ">
           <h3 class="liniaBaix"><span class="fa fa-calendar-o"></span>&nbsp;Calendari</h3>
           <div class="portletHeader">
-            <h2 class="align-center">
+            <h4 class="align-center">
               <a href="#" rel="nofollow"
                    class="pull-left calendarPrevious"
                    title="Previous month"
@@ -57,7 +56,6 @@
                       tal:content="view/year"
                       tal:omit-tag="">year</span>
               </span>
-
               <a href="#" rel="nofollow"
                  class="pull-right calendarNext"
                  title="Next month"
@@ -69,9 +67,8 @@
                  i18n:attributes="title title_next_month;">
               <i class="fa fa-chevron-right"></i>
               </a>
-            </h2>
+            </h4>
           </div>
-          <div class="pad">
             <table class="ploneCalendar" summary="Calendar"
                 i18n:attributes="summary summary_calendar">
               <thead>
@@ -87,7 +84,7 @@
                                   prev_month day/prev_month;
                                   events day/events;
                                   limit python:len(events) if events is not None else 0"
-                        tal:attributes="class python:u'ulearnevent%s%s%s%s' %
+                        tal:attributes="class python:u'organevent%s%s%s%s' %
                                   ((today and ' today' or ''),
                                   (next_month and ' cal_next_month' or ''),
                                   (prev_month and ' cal_prev_month' or ''),
@@ -99,18 +96,14 @@
                           tal:attributes="href python:view.date_events_url(day['date_string']);
                                           data-content day/events_string;"
                           tal:content="day/day">31</a>
-
                     </td>
                   </tal:block>
                 </tr>
               </tbody>
             </table>
-          </div>
-
         </div>
       </div>
-    </div>
-
+    </div> -->
     <form name="searchform"
           action="@@search"
           class="searchPage enableAutoFocus"
@@ -216,7 +209,7 @@
                                            tal:attributes="value string:$root_path/ca/consell-de-govern/consell-de-govern/" />
                                     <label>Consell de Govern</label>
                                     <br/>
-                                    <input type="checkbox" 
+                                    <input type="checkbox"
                                            class="noborder"
                                            id="path-og"
                                            name="path"

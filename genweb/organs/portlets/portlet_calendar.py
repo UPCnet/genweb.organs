@@ -214,6 +214,12 @@ class Renderer(base.Renderer):
                  'events': date_events})
         return caldata
 
+    def Anon(self):
+        from plone import api
+        if not api.user.is_anonymous():
+            return False
+        return True
+
 
 class AddForm(base.AddForm):
     form_fields = form.Fields(ICalendarOrgansPortlet)
