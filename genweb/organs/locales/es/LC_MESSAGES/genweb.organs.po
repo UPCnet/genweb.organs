@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-06-08 10:50+0000\n"
+"POT-Creation-Date: 2018-06-21 12:53+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,10 +19,6 @@ msgstr ""
 #: ./genweb/organs/content/organgovern.py:31
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Borrador Yellow</p><p>Pendiente de aprobación Orange</p><p>Aprobado Green</p><p>No aprobado Red</p><p>Derogado DarkRed</p><p>Informativo LightSkyBlue</p><p>Informado MediumBlue</p>"
-
-#: ./genweb/organs/search.pt:471
-msgid "Accedir als darrers acords de:"
-msgstr "Acceder a los últimos acuerdos de:"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:328
 msgid "Accio"
@@ -173,7 +169,7 @@ msgstr "Mensaje que se adjunta al clicar el botón Enviar mensaje. Se añade aut
 msgid "Cancel"
 msgstr "Cancela"
 
-#: ./genweb/organs/search.pt:139
+#: ./genweb/organs/search.pt:133
 msgid "Cerca"
 msgstr "Busca"
 
@@ -181,7 +177,7 @@ msgstr "Busca"
 msgid "Cercador"
 msgstr "Buscador"
 
-#: ./genweb/organs/search.pt:127
+#: ./genweb/organs/search.pt:121
 msgid "Cercar..."
 msgstr "Buscar..."
 
@@ -417,6 +413,10 @@ msgstr "Asunto"
 msgid "From mail"
 msgstr "Dirección de la persona que envía los mensajes"
 
+#: ./genweb/organs/search.pt:295
+msgid "Go to historic documentation"
+msgstr "Acceder a información histórica"
+
 #: ./genweb/organs/content/templates/sessio_view.pt:159
 msgid "Historial"
 msgstr "Historial"
@@ -560,7 +560,7 @@ msgstr "Se ha modificado un acuerdo."
 msgid "Modified acta"
 msgstr "Se ha modificado una acta."
 
-#: ./genweb/organs/search.pt:239
+#: ./genweb/organs/search.pt:233
 msgid "Modified dates"
 msgstr "Fechas"
 
@@ -672,7 +672,7 @@ msgstr "Nombre del órgano"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:186
-#: ./genweb/organs/search.pt:207
+#: ./genweb/organs/search.pt:201
 msgid "Organ de govern"
 msgstr "Órgano de gobierno"
 
@@ -1054,11 +1054,11 @@ msgstr "[Acuerdo sin numerar]"
 msgid "acord"
 msgstr "Acuerdo"
 
-#: ./genweb/organs/search.py:417
+#: ./genweb/organs/search.py:416
 msgid "alphabetically"
 msgstr "alfabéticamente"
 
-#: ./genweb/organs/search.py:414
+#: ./genweb/organs/search.py:413
 msgid "date (newest first)"
 msgstr "fecha (més reciente primero)"
 
@@ -1084,7 +1084,7 @@ msgid "informa_sessio"
 msgstr "Envia resumen de la sesión"
 
 #. Default: "Search"
-#: ./genweb/organs/search.pt:137
+#: ./genweb/organs/search.pt:131
 msgid "label_search"
 msgstr "Busca"
 
@@ -1130,16 +1130,16 @@ msgid "sense numeracio"
 msgstr "sin numeración"
 
 #. Default: "Last session"
-#: ./genweb/organs/search.pt:255
+#: ./genweb/organs/search.pt:249
 msgid "time_last_session"
 msgstr "Última sesión"
 
 #. Default: "Last year"
-#: ./genweb/organs/search.pt:272
+#: ./genweb/organs/search.pt:266
 msgid "time_last_year"
 msgstr "Último año"
 
 #. Default: "Search Site"
-#: ./genweb/organs/search.pt:127
+#: ./genweb/organs/search.pt:121
 msgid "title_search_title"
 msgstr "Buscar en el Sitio web"

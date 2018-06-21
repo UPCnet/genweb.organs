@@ -292,6 +292,7 @@
                       </dd>
                     </dl>
                 </div>
+                <a style="float:right" target="_blank" href="//governhistoric.upc.edu/" i18n:translate="" i18n:domain="genweb.organs">Go to historic documentation</a>
 
                 <metal:searchresults define-macro="search_results">
                     <div id="search-results"
