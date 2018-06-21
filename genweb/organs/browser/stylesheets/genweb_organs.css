@@ -1707,3 +1707,131 @@ td.organevent.cal_has_events .popover-content a {
     color: #333333;
     text-shadow: none;
 }
+
+.titling-line-container {
+    position: relative;
+}
+
+.titling-line {
+    font-size: 1.5rem;
+    color: #636363;
+    position: relative;
+    overflow: hidden;
+    padding: 6px 0;
+    margin-top: 0;
+}
+
+.titling-line::after {
+    content: "";
+    position: absolute;
+    margin-left: 12px;
+    background: #d1d1d1;
+    height: 1px;
+    box-shadow: 1000px 0 0 -1000px #d1d1d1;
+    width: 100%;
+    top: 50%;
+}
+
+.list-agenda {
+    list-style: none;
+    padding: 0;
+}
+
+.list-agenda .row {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.list-agenda .event-time {
+    opacity: 0.9;
+    background-image: linear-gradient(89deg, #00BCD4 0%, #007bc1 100%);
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    position: absolute;
+    left: 18px;
+    display: table-cell;
+    text-align: center;
+    left: calc(50% - 64px);
+    top: calc(45% - 64px - 36px);
+}
+.col-md-3 {
+    width: 33%;
+}
+
+.list-agenda a {
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+    height: 300px;
+    position: relative;
+    display: block;
+    transition: all .25s ease-out;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.list-agenda .event-title {
+    font-size: 1.125rem;
+    color: #4a4a4a;
+    height: 84px;
+    background: rgba(255,255,255,0.9);
+    position: absolute;
+    width: 90%;
+    margin: 0;
+    bottom: 0;
+    padding: 12px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.list-agenda .event-time--wrap {
+    top: 50%;
+    transform: translateY(-50%);
+    position: relative;
+    display: block;
+}
+
+.list-agenda .event-time::after {
+    opacity: 0;
+    content: "\f061";
+    font-family: FontAwesome;
+    border: 1.5px solid #007BC1;
+    position: absolute;
+    font-size: 1.125rem;
+    bottom: -18px;
+    left: calc(50% - 18px);
+    margin-top: -18px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 5px;
+    color: #007BC1;
+    background: rgba(255,255,255,0.8);
+    z-index: 0;
+    transition: all .5s ease;
+}
+
+.list-agenda .event-days {
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: #fff;
+    display: block;
+    padding-bottom: 1px;
+    margin-top: -2px;
+    line-height: 1;
+}
+
+.list-agenda a:hover {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 5px 10px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.05);
+    text-decoration: none;
+    background-color: #F6F7F7;
+    transform: perspective(1px) scale(1.00775, 1.00775) translateZ(0px);
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.list-agenda a:hover .event-time::after {
+    opacity: 1;
+    transition: all .5s ease;
+}
