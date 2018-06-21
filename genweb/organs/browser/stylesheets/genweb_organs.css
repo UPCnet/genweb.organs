@@ -1794,6 +1794,7 @@ td.organevent.cal_has_events .popover-content a {
 
 .list-agenda .event-time::after {
     opacity: 0;
+    line-height: 36px;
     content: "\f061";
     font-family: FontAwesome;
     border: 1.5px solid #007BC1;
@@ -1806,7 +1807,6 @@ td.organevent.cal_has_events .popover-content a {
     height: 36px;
     border-radius: 50%;
     text-align: center;
-    padding-top: 5px;
     color: #007BC1;
     background: rgba(255,255,255,0.8);
     z-index: 0;
