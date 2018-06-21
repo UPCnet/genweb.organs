@@ -1713,7 +1713,7 @@ td.organevent.cal_has_events .popover-content a {
 }
 
 .titling-line {
-    font-size: 1.5rem;
+    font-size: 18px;
     color: #636363;
     position: relative;
     overflow: hidden;
@@ -1770,7 +1770,7 @@ td.organevent.cal_has_events .popover-content a {
 }
 
 .list-agenda .event-title {
-    font-size: 1.125rem;
+    font-size: 16px;
     color: #4a4a4a;
     height: 84px;
     background: rgba(255,255,255,0.9);
@@ -1815,7 +1815,7 @@ td.organevent.cal_has_events .popover-content a {
 
 .list-agenda .event-days {
     font-weight: 600;
-    font-size: 1.3rem;
+    font-size: 16px;
     color: #fff;
     display: block;
     padding-bottom: 1px;
