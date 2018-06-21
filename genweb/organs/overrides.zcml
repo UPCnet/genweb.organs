@@ -28,7 +28,7 @@
 
     <!-- modified search to hide organs types based on state and role in searches
          and search only in organs types -->
-<!--     <browser:page
+    <browser:page
         name="search"
         class=".search.Search"
         permission="zope2.View"
@@ -45,5 +45,5 @@
         template="updated_search.pt"
         layer=".interfaces.IGenwebOrgansLayer"
         />
- -->
+
 </configure>
