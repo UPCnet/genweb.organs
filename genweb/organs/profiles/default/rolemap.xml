@@ -211,9 +211,9 @@
     </permission>
     <permission name="Genweb Organs: Add Organs" acquire="True">
       <role name="Manager"/>
-      <role name="WebMaster"/>
     </permission>
     <permission name="Genweb Organs: Add Sessions" acquire="True">
+      <role name="Manager"/>
       <role name="OG1-Secretari"/>
     </permission>
     <permission name="Genweb: Authenticated Users" acquire="True">
