@@ -200,7 +200,7 @@
                               <fieldset class="noborder">
                                   <h4 i18n:translate="" i18n:domain="genweb.organs">Organ de govern</h4>
                                   <div class="field">
-                                    <input type="checkbox"
+                                    <input type="radio"
                                           class="noborder"
                                            id="path-og"
                                            name="path"
@@ -209,7 +209,7 @@
                                            tal:attributes="value string:$root_path/ca/consell-de-govern/consell-de-govern/" />
                                     <label>Consell de Govern</label>
                                     <br/>
-                                    <input type="checkbox"
+                                    <input type="radio"
                                            class="noborder"
                                            id="path-og"
                                            name="path"
@@ -217,7 +217,7 @@
                                            tal:attributes="value string:$root_path/ca/cs/ple-del-consell-social/" />
                                     <label>Consell Social</label>
                                     <br/>
-                                    <input type="checkbox"
+                                    <input type="radio"
                                            class="noborder"
                                            id="path-og"
                                            name="path"

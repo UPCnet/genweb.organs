@@ -228,6 +228,7 @@ class Search(BrowserView):
         root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
         lt = getToolByName(self, 'portal_languages')
         lang = lt.getPreferredLanguage()
+
         if query['latest_session']:
             if query['path'] == root_path + '/' + lang:
                 query['path'] = [
@@ -333,8 +334,16 @@ class Search(BrowserView):
         query['show_inactive'] = False
         # respect navigation root
         if 'path' not in query:
-            query['path'] = getNavigationRoot(self.context)
-
+            # Added /Plone/ca
+            # query['path'] = getNavigationRoot(self.context)
+            # Added all defaults folders:
+            root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
+            lt = getToolByName(self, 'portal_languages')
+            lang = lt.getPreferredLanguage()
+            query['path'] = [
+                root_path + '/' + lang + '/consell-de-govern/consell-de-govern/',
+                root_path + '/' + lang + '/cs/ple-del-consell-social/',
+                root_path + '/' + lang + '/claustre-universitari/claustre-universitari/']
         return query
 
     def filter_types(self, types):
@@ -421,6 +430,8 @@ class Search(BrowserView):
         view = getMultiAdapter((obj, self.request), name='breadcrumbs_view')
         # cut off the item itself
         breadcrumbs = list(view.breadcrumbs())[:-1]
+        # Fixed to Remove Unit OG Folder Name
+        breadcrumbs = breadcrumbs[1:]
         if len(breadcrumbs) == 0:
             # don't show breadcrumbs if we only have a single element
             return None
