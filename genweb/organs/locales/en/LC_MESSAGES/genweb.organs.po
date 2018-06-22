@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-06-21 12:53+0000\n"
+"POT-Creation-Date: 2018-06-22 11:15+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,6 +19,10 @@ msgstr ""
 #: ./genweb/organs/content/organgovern.py:31
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Draft Yellow</p><p>Pending aproval Orange</p><p>Approved Green</p><p>Not approved Red</p><p>Cancelled DarkRed</p><p>Informative LightSkyBlue</p><p>Informedt MediumBlue</p>"
+
+#: ./genweb/organs/search.pt:456
+msgid "Accedir als darrers acords de"
+msgstr "Go to latests agreements of"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:328
 msgid "Accio"
@@ -1054,11 +1058,11 @@ msgstr "[Agreement without number]"
 msgid "acord"
 msgstr "Agreement"
 
-#: ./genweb/organs/search.py:416
+#: ./genweb/organs/search.py:425
 msgid "alphabetically"
 msgstr "alphabetically"
 
-#: ./genweb/organs/search.py:413
+#: ./genweb/organs/search.py:422
 msgid "date (newest first)"
 msgstr "date (newest first)"
 
