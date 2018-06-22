@@ -16,7 +16,7 @@ install:
     - buildout -N
 
 script:
-    - coverage run bin/test -t genweb.organs
+    - coverage run bin/test
 
 after_success:
     - coverage combine
