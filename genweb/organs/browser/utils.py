@@ -139,3 +139,27 @@ class changeMimeType(grok.View):
                                     changed=changed))
 
         return json.dumps(results)
+
+
+class listpermissions(grok.View):
+    # List of permissions in object, in json format
+
+    grok.context(IDexterityContent)
+    grok.name('permissions_in_og_folders')
+    grok.require('cmf.ManagePortal')
+    grok.layer(IGenwebOrgansLayer)
+
+    def render(self):
+        items = api.content.find(portal_type='genweb.organs.sessio')[:2]
+
+        results = []
+        for item in items:
+            obj = item.getObject()
+            element = {
+                'id': item.id,
+                'title': obj.Title(),
+                'path': obj.absolute_url(),
+                'access': obj.get_local_roles()
+            }
+            results.append(element)
+        return json.dumps(results)
