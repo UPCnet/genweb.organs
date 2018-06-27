@@ -150,16 +150,37 @@ class listpermissions(grok.View):
     grok.layer(IGenwebOrgansLayer)
 
     def render(self):
-        items = api.content.find(portal_type='genweb.organs.sessio')[:2]
-
+        all_brains = api.content.find(portal_type='genweb.organs.organgovern')
         results = []
-        for item in items:
-            obj = item.getObject()
+        for brain in all_brains:
+            obj = brain.getObject()
+            roles = obj.get_local_roles()
+            secretaris = []
+            editors = []
+            membres = []
+            afectats = []
+            if roles:
+                for (username, role) in roles:
+                    if 'OG1-Secretari' in role:
+                        secretaris.append(str(username))
+                    if 'OG2-Editor' in role:
+                        editors.append(str(username))
+                    if 'OG3-Membre' in role:
+                        membres.append(str(username))
+                    if 'OG4-Afectat' in role:
+                        afectats.append(str(username))
             element = {
-                'id': item.id,
                 'title': obj.Title(),
-                'path': obj.absolute_url(),
-                'access': obj.get_local_roles()
+                'path': obj.absolute_url() + '/sharing',
+                'OG1-Secretari': secretaris,
+                'OG2-Editor': editors,
+                'OG3-Membre': membres,
+                'OG4-Afectat': afectats,
+                'organType': obj.organType,
+                'fromMail': obj.fromMail,
+                'adrecaLlista': obj.adrecaLlista,
+                'acronim': obj.acronim
             }
+
             results.append(element)
-        return json.dumps(results)
+        return json.dumps(results, indent=2, sort_keys=True)
