@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.17 (unreleased)
+0.17 (2018-06-28)
 -----------------
 
-- Nothing changed yet.
-
+* change CSRF check code [Roberto Diaz]
 
 0.16 (2018-06-27)
 -----------------
