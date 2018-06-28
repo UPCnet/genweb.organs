@@ -212,7 +212,7 @@ class Presentation(form.SchemaForm):
                     raw_content = None
                     abs_path = file.absolute_url_path()
                     roles = api.user.get_roles(username=username, obj=self.context)
-
+                    classCSS = 'fa fa-file-pdf-o'
                     if file.visiblefile and file.hiddenfile:
                         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                             hasPublic = False
@@ -244,7 +244,7 @@ class Presentation(form.SchemaForm):
                     isGODocument = True
                     abs_path = None
                     roles = api.user.get_roles(username=username, obj=self.context)
-
+                    classCSS = 'fa fa-file-text-o'
                     if file.alternateContent and file.defaultContent:
                         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                             hasPublic = False
