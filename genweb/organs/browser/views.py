@@ -14,8 +14,14 @@ from genweb.organs import utils
 from AccessControl import Unauthorized
 
 # Disable CSRF
-from plone.protect.interfaces import IDisableCSRFProtection
-# from zope.interface import alsoProvides
+try:
+    import pkg_resources
+    pkg_resources.get_distribution('plone4.csrffixes')
+except pkg_resources.DistributionNotFound:
+    CSRF = False
+else:
+    from plone.protect.interfaces import IDisableCSRFProtection
+    CSRF = True
 
 
 def getOrdering(context):
@@ -143,7 +149,8 @@ class Move(BrowserView):
                 return
 
         # Disable CSRF
-        alsoProvides(self.request, IDisableCSRFProtection)
+        if CSRF:
+            alsoProvides(self.request, IDisableCSRFProtection)
 
         ordering = getOrdering(self.context)
         # authenticator = getMultiAdapter((self.context, self.request),
@@ -344,7 +351,8 @@ class ReloadAcords(BrowserView):
                 return
 
         # Disable CSRF
-        alsoProvides(self.request, IDisableCSRFProtection)
+        if CSRF:
+            alsoProvides(self.request, IDisableCSRFProtection)
 
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
@@ -414,7 +422,8 @@ class ReloadPoints(BrowserView):
                 return
 
         # Disable CSRF
-        alsoProvides(self.request, IDisableCSRFProtection)
+        if CSRF:
+            alsoProvides(self.request, IDisableCSRFProtection)
 
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
@@ -456,9 +465,8 @@ class changeActualState(BrowserView):
     """
     def __call__(self):
         # Disable CSRF
-        from plone.protect.interfaces import IDisableCSRFProtection
-        from zope.interface import alsoProvides
-        alsoProvides(self.request, IDisableCSRFProtection)
+        if CSRF:
+            alsoProvides(self.request, IDisableCSRFProtection)
 
         portal_catalog = getToolByName(self, 'portal_catalog')
         estat = self.request.form.get('estat')
@@ -503,7 +511,8 @@ class changeSubpuntState(BrowserView):
     """
     def __call__(self):
         # Disable CSRF
-        alsoProvides(self.request, IDisableCSRFProtection)
+        if CSRF:
+            alsoProvides(self.request, IDisableCSRFProtection)
 
         portal_catalog = getToolByName(self, 'portal_catalog')
         estat = self.request.form.get('estat')
