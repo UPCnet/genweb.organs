@@ -1,5 +1,6 @@
 [report]
 include =
-    src/genweb.organs/*
+    genweb/organs/*
+
 omit =
     */test*

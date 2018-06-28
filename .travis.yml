@@ -7,8 +7,11 @@ before_install:
   - sudo apt-get install --yes libsasl2-dev python-dev libldap2-dev libssl-dev
 
 before_script:
+  - export ROBOT_SELENIUM2LIBRARY_RUN_ON_FAILURE="Capture Page Screenshot"
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  - firefox -v
+
 
 install:
     - pip install setuptools zc.buildout
@@ -17,7 +20,7 @@ install:
     - buildout -N
 
 script:
-    - coverage run bin/test
+    - coverage run bin/test -t genweb.organs  --layer=\!Robot
 
 after_success:
     - coverage combine
@@ -32,7 +35,7 @@ cache:
 addons:
   # XXX: use an older Firefox ESR as we are stuck with selenium = 2.53.5
   #      https://github.com/SeleniumHQ/selenium/issues/2739#issuecomment-249482533
-  firefox: 45.9.0esr
+  firefox: 45.8.0esr
 
 notifications:
   email:
