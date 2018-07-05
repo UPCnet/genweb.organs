@@ -13,6 +13,18 @@ ul#tabs.nav.nav-tabs {
     margin: 0px;
 }
 
+.sessionCustomActions {
+    margin-bottom: 20px;
+    float: right;
+}
+
+.sessionOrdreDia{
+    margin-top: 0px;
+    text-align: left;
+    float: left;
+    margin-right: 20px;
+}
+
 #contentOrgan #tabs li a,
 #contentSessio #tabs li a,
 #contentActa #tabs li a {
@@ -144,7 +156,6 @@ span.proposalNumber {
 }
 .DADES > h2 {
     margin-bottom: 15px;
-    margin-top: 40px;
 }
 
 .DADES ul, .DADES ol {
@@ -255,12 +266,12 @@ span.label.nomarginLeft  {
     left: 30% !important;
 }
 
-#myModal {
+/*#myModal {
     width: 65%;
     height: 525px;
     right: 30%;
     left: 40% !important;
-}
+}*/
 
 div.modal-body.presentation {
     max-height: 100% !important;
@@ -800,6 +811,16 @@ padding: 0px 0px 32px 0px !important;
     z-index: 10;
 }
 
+.ul-session span {float: right;}
+
+.Mobile {
+    padding-top: 4px;
+}
+.bannerTitle > a {color: white;}
+.bannerTitle > a:hover {color: white;}
+.bannerTitle .Mobile > a {color: white;}
+.bannerTitle .Mobile > a:hover {color: white;}
+
 div.formControls {
     padding-top: 0px;}
 
@@ -954,11 +975,6 @@ span.icon-genweb-organs-acord,
 .share_popover {display: none;}
 
 h1.logoPresentation {padding-left: 10%;}
-
-.massivePuntsModal {
-    left:45% !important;
-    width: 780px !important;
-}
 
 .codiText {
     padding-left: 29px;
@@ -1338,9 +1354,16 @@ span.barra {
     padding: 0 0 2px;
 }
 
+.labelString {
+    padding: 3px 2px 3px 3px;
+    float: right;
+}
+
 .span1.boleta {
     margin-bottom: 0px!important;
-    width: 10%!important;
+    float: right!important;
+    margin-right: 11px;
+    /*width: 10%!important;*/
     text-align: right;
     min-height: 10px;
     margin-top: 2px!important;
@@ -1353,6 +1376,8 @@ span.barra {
     text-align: right;
     min-height: 10px;
     margin-top: 2px!important;
+    margin-right: 6px !important;
+    float: right !important;
 }
 
 .span9.titleSpan {

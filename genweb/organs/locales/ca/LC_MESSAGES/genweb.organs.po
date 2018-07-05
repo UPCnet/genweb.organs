@@ -1127,7 +1127,7 @@ msgstr "Restringit a membres"
 #: ./genweb/organs/content/impersonate_as.py:143
 #: ./genweb/organs/content/punt.py:148
 msgid "sense numeracio"
-msgstr "sense numeració"
+msgstr "Sense numerar"
 
 #. Default: "Last session"
 #: ./genweb/organs/search.pt:255

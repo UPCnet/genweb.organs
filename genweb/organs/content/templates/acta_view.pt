@@ -51,17 +51,19 @@
         <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
     </a>
     <button data-target="#previewModal" role="button" tal:condition="view/viewPrintButon"
-       class="btn btn-info" data-toggle="modal"
+       class="btn btn-info visible-tablet hidden-phone visible-desktop" data-toggle="modal"
        style="float:right; margin-right:10px;">
        <i class="fa fa-eye"></i>&nbsp;<span i18n:translate=""> Preview Acta </span></button>
   </tal:omit-tag>
 
-  <div class="clearfix"></div>
+  <div class="clearfix documentDescription"></div>
 
   <div id="contentActa">
     <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-      <li class="active"><a href="#dadesTab" data-toggle="tab" i18n:translate="">Dades</a></li>
-      <li><a href="#assistentsTab" data-toggle="tab" i18n:translate="">Relacio Assistents</a></li>
+      <li class="active"><a href="#dadesTab" data-toggle="tab">
+        <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Dades</tal:omit-tag></i></a></li>
+      <li><a href="#assistentsTab" data-toggle="tab">
+        <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Relacio Assistents</tal:omit-tag></i></a></li>
     </ul>
 
     <div id="actaTabs" class="tab-content">
@@ -180,7 +182,6 @@
           <i class="fa fa-download" aria-hidden="true"></i>
         </a>
     </p>
-
 
   </div>
 </ta:block>
