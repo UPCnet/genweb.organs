@@ -34,12 +34,24 @@
   <div class="documentDescription description" tal:content="structure descripcioOrgan"></div>
 
   <div id="contentOrgan">
-    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-      <li tal:condition="sessions" class="active"><a href="#sessionsTab" data-toggle="tab" i18n:translate="">Sessions</a></li>
-      <li tal:condition="hihaPersones"><a href="#membresTab" data-toggle="tab" i18n:translate="">Organ Govern members</a></li>
-      <li tal:condition="acords"><a href="#acordsTab" data-toggle="tab" i18n:translate="">Agreements list</a></li>
-      <li tal:condition="actes"><a href="#actasTab" data-toggle="tab" i18n:translate="">Actes</a></li>
+
+    <ul id="tabs" class="nav nav-tabs visible-tablet hidden-phone visible-desktop" data-tabs="tabs">
+        <li tal:condition="sessions" class="active"><a href="#sessionsTab" data-toggle="tab"><i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Sessions</tal:omit-tag></i></a></li>
+        <li tal:condition="hihaPersones"><a href="#membresTab" data-toggle="tab"><i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Organ Govern members</tal:omit-tag></i></a></li>
+        <li tal:condition="acords"><a href="#acordsTab" data-toggle="tab"><i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
+        <li tal:condition="actes"><a href="#actasTab" data-toggle="tab"><i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Actes</tal:omit-tag></i></a></li>
     </ul>
+    <ul id="tabs" class="nav nav-tabs nav-stacked hidden-tablet visible-phone hidden-desktop" data-tabs="tabs">
+        <li tal:condition="sessions" class="active"><a href="#sessionsTab" data-toggle="tab">
+          <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Sessions</tal:omit-tag></i></a></li>
+        <li tal:condition="hihaPersones"><a href="#membresTab" data-toggle="tab">
+          <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Organ Govern members</tal:omit-tag></i></a></li>
+        <li tal:condition="acords"><a href="#acordsTab" data-toggle="tab">
+          <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
+        <li tal:condition="actes"><a href="#actasTab" data-toggle="tab">
+          <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Actes</tal:omit-tag></i></a></li>
+    </ul>
+    
     <div id="organTabs" class="tab-content" >
       <div class="tab-pane active" id="sessionsTab" tal:condition="sessions">
         <table class="table table-striped table-bordered">
@@ -62,8 +74,7 @@
           <tal:objects repeat="item sessions">
             <tr>
               <td>
-              <i class="icon-genweb-organs-sessio" aria-hidden="true"></i>
-
+                <i class="fa fa-list" aria-hidden="True">&nbsp;
                 <a tal:attributes="href item/absolute_url;"
                    tal:content="item/title">
                         Item Title
@@ -150,7 +161,7 @@
               <tal:documents repeat="item acords">
                 <tr>
                   <td>
-                  <i class="fa fa-check" aria-hidden="true"></i>
+                    <i class="fa fa-check" aria-hidden="True">&nbsp;
                     <a href="#"
                            tal:attributes="href item/absolute_url;"
                            tal:content="item/title">
@@ -189,7 +200,8 @@
             <tbody>
               <tal:documents repeat="item actes">
                 <tr tal:define="data item/data|nothing">
-                  <td><i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  <td>
+                    <i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;
                     <a href="#"
                        tal:attributes="href item/absolute_url;"
                        tal:content="item/title">
