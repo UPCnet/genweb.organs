@@ -862,7 +862,7 @@ msgstr "Fecha de la sesión"
 #: ./genweb/organs/content/templates/impersonate_as.pt:49
 #: ./genweb/organs/content/templates/sessio_view.pt:176
 msgid "Session end date and time"
-msgstr "Fecha y hora de finalización de la sesión"
+msgstr "Fecha de finalización de la sesión"
 
 #: ./genweb/organs/content/acta.py:54
 #: ./genweb/organs/content/templates/acta_view.pt:76
@@ -892,7 +892,7 @@ msgstr "Apartado para indicar los puntos del orden del día y el desarrollo de l
 #: ./genweb/organs/content/templates/impersonate_as.pt:44
 #: ./genweb/organs/content/templates/sessio_view.pt:171
 msgid "Session start date and time"
-msgstr "Fecha y hora de inicio de la sesión"
+msgstr "Fecha de inicio de la sesión"
 
 #: ./genweb/organs/content/acta.py:49
 #: ./genweb/organs/content/templates/acta_view.pt:71
