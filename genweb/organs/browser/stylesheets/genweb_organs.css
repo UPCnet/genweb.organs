@@ -810,12 +810,19 @@ padding: 0px 0px 32px 0px !important;
     top: 30px;
     z-index: 10;
 }
+.clickable-row:hover { 
+    cursor: pointer;
+    ;
+ }
 
-.ul-session span {float: right;}
+.ul-session span {
+    float: right;
+}
 
 .Mobile {
     padding-top: 4px;
 }
+
 .bannerTitle > a {color: white;}
 .bannerTitle > a:hover {color: white;}
 .bannerTitle .Mobile > a {color: white;}

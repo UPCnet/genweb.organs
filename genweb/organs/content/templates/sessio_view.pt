@@ -187,29 +187,24 @@
                         status item/status" class="ul-session">
           <li tal:condition="horaInici">
             <b i18n:translate="">Session start date and time</b>:
-            <span
-                  tal:content="horaInici"></span>
+            <span tal:content="horaInici"></span>
           </li>
           <li tal:condition="horaFi">
             <b i18n:translate="">Session end date and time</b>:
-            <span
-                  tal:content="horaFi"></span>
+            <span tal:content="horaFi"></span>
           </li>
           <li tal:condition="llocConvocatoria">
             <b i18n:translate="">Session location</b>:
-            <span
-                  tal:content="llocConvocatoria"></span>
+            <span tal:content="llocConvocatoria"></span>
           </li>
           <li tal:condition="organTitle">
             <b i18n:translate="">Organ de govern</b>:
-            <span
-                  tal:content="organTitle"></span>
+            <span tal:content="organTitle"></span>
             <div class="clearfix"></div>
           </li>
           <li tal:condition="sessionNumber">
             <b i18n:translate="">Session number</b>:
-            <span
-                  tal:content="sessionNumber"></span>
+            <span tal:content="sessionNumber"></span>
           </li>
           <li>
             <b i18n:translate="">Estat de la sessio</b>:
