@@ -82,8 +82,17 @@ def addEntryLog(context, sender, message, recipients):
             message: the message
             recipients: the recipients of the message
     """
+
     KEY = 'genweb.organs.logMail'
     annotations = IAnnotations(context)
+
+    # This is used to remove all the log entries:
+    # import ipdb;ipdb.set_trace()
+    # annotations[KEY] = []
+    # To remove some entry:
+    # aaa = annotations[KEY]
+    # pp(aaa)       # Search the desired entry position
+    # aaa.pop(0)    # remove the entry
 
     if annotations is not None:
         try:

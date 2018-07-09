@@ -1,3 +1,6 @@
+
+.template-folder_contents li#contentview-view.active {display: inline;}
+
 #formfield-form-widgets-captcha label { display: none; }
 .portaltype-genweb-organs-organgovern div.tab-pane.active,
 .portaltype-genweb-organs-sessio div.tab-pane.active,
@@ -810,7 +813,7 @@ padding: 0px 0px 32px 0px !important;
     top: 30px;
     z-index: 10;
 }
-.clickable-row:hover { 
+.clickable-row:hover {
     cursor: pointer;
     ;
  }

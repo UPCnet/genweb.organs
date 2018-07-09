@@ -8,6 +8,74 @@ from five import grok
 from zope.globalrequest import getRequest
 from genweb.organs.utils import addEntryLog
 from genweb.organs import _
+import transaction
+
+
+def remove_punt_acord(trans, obj=None, parent=None):
+    """ Removing punt i subpunt is the same """
+    portal_catalog = getToolByName(obj, 'portal_catalog')
+    items = portal_catalog.searchResults(
+        portal_type=['genweb.organs.punt', 'genweb.organs.acord', 'genweb.organs.subpunt'],
+        sort_on='getObjPositionInParent',
+        path={'query': parent.absolute_url_path(),
+              'depth': 1})
+    index = 1
+    sufix = None
+    # check if second level to assign index value
+    if obj.aq_parent.portal_type == 'genweb.organs.punt' or obj.aq_parent.portal_type == 'genweb.organs.acord':
+        sufix = obj.aq_parent.proposalPoint
+
+    for item in items:
+        objecte = item.getObject()
+        if sufix:
+            objecte.proposalPoint = str(sufix) + str('.') + str(index)
+        else:
+            objecte.proposalPoint = index
+
+        if len(objecte.items()) > 0:
+            search_path = '/'.join(objecte.getPhysicalPath())
+            values = portal_catalog.searchResults(
+                portal_type=['genweb.organs.punt', 'genweb.organs.subpunt', 'genweb.organs.acord'],
+                sort_on='getObjPositionInParent',
+                path={'query': search_path, 'depth': 1})
+            subvalue = 1
+            for value in values:
+                newobjecte = value.getObject()
+                if sufix:
+                    newobjecte.proposalPoint = str(sufix) + str('.') + str(subvalue)
+                else:
+                    newobjecte.proposalPoint = str(index) + str('.') + str(subvalue)
+                subvalue = subvalue + 1
+        index = index + 1
+
+    if obj.aq_parent.portal_type == 'genweb.organs.punt':
+        if obj.portal_type == 'genweb.organs.acord':
+            addEntryLog(obj.aq_parent.aq_parent, None, _(u'Deleted acord1'), str(obj.Title()))
+    else:
+        if obj.portal_type == 'genweb.organs.acord':
+            addEntryLog(obj.aq_parent, None, _(u'Deleted acord2'), str(obj.Title()))
+        else:
+            addEntryLog(obj.aq_parent, None, _(u'Deleted punt3'), str(obj.Title()))
+    transaction.commit()
+
+
+def remove_subpunt(trans, obj=None, parent=None):
+    portal_catalog = getToolByName(obj, 'portal_catalog')
+    items = portal_catalog.searchResults(
+        portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
+        sort_on='getObjPositionInParent',
+        path={'query': parent.absolute_url_path(),
+              'depth': 1})
+    index = 1
+    # Assign proposalPoints to acord and subpunts
+    if items:
+        sufix = str(items[0].proposalPoint).split('.')[0]
+        for item in items:
+            newobjecte = item.getObject()
+            newobjecte.proposalPoint = str(sufix) + str('.') + str(index)
+            index = index + 1
+        addEntryLog(obj.aq_parent.aq_parent, None, _(u'Deleted subpunt4'), str(obj.Title()))
+        transaction.commit()
 
 
 def deletion_confirmed():
@@ -30,104 +98,24 @@ def deletion_confirmed():
 
 
 @grok.subscribe(IPunt, IObjectRemovedEvent)
-def removePunt(alias, event):
-    """ When the alias is created,
-        TODO make reorder objects fully functional!
-    """
+def removePunt(obj, event):
+    """ When the Punt is deleted, reorder proposalPoint field """
     if deletion_confirmed():
-        portal_catalog = getToolByName(alias, 'portal_catalog')
-        folder_path = '/'.join(alias.__parent__.getPhysicalPath())
-        addEntryLog(alias.aq_parent, None, _(u'Deleted punt'), alias.absolute_url_path())  # add log
-        # agafo items ordenats!
-
-        puntsOrdered = portal_catalog.searchResults(
-            portal_type=['genweb.organs.punt'],
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
-        # hi ha items PUNT per esborrar
-        if puntsOrdered:
-            index = 1
-            for item in puntsOrdered:
-                objecte = item.getObject()
-                objecte.proposalPoint = unicode(str(index))
-                objecte.reindexObject()
-                if len(objecte.items()) > 0:
-                    search_path = '/'.join(objecte.getPhysicalPath())
-                    subpunts = portal_catalog.searchResults(
-                        portal_type=['genweb.organs.subpunt'],
-                        sort_on='getObjPositionInParent',
-                        path={'query': search_path, 'depth': 1})
-
-                    subvalue = 1
-                    for value in subpunts:
-                        newobjecte = value.getObject()
-                        newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
-                        newobjecte.reindexObject()
-                        subvalue = subvalue + 1
-                index = index + 1
+        kwargs = dict(obj=obj, parent=event.oldParent)
+        transaction.get().addAfterCommitHook(remove_punt_acord, kws=kwargs)
 
 
 @grok.subscribe(ISubpunt, IObjectRemovedEvent)
-def removeSubpunt(alias, event):
-    """When the alias is created,
-       TODO make reorder objects fully functional!
-    """
+def removeSubpunt(obj, event):
+    """ When the Subpunt is deleted, reorder proposalPoint field """
     if deletion_confirmed():
-        portal_catalog = getToolByName(alias, 'portal_catalog')
-        folder_path = '/'.join(alias.__parent__.getPhysicalPath())
-        addEntryLog(alias, None, _(u'Deleted subpunt'), '')  # add log
-        # agafo items ordenats!
-        subpuntsOrdered = portal_catalog.searchResults(
-            portal_type=['genweb.organs.subpunt'],
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
-
-        # hi ha items SUBPUNT per esborrar
-        if subpuntsOrdered:
-            index = 1
-            sufix = str(subpuntsOrdered[0].proposalPoint).split('.')[0]
-            for item in subpuntsOrdered:
-                item.getObject().proposalPoint = unicode(str(sufix) + str('.') + str(index))
-                # item.reindexObject()
-                index = index + 1
+        kwargs = dict(obj=obj, parent=event.oldParent)
+        transaction.get().addAfterCommitHook(remove_subpunt, kws=kwargs)
 
 
 @grok.subscribe(IAcord, IObjectRemovedEvent)
-def removeAcord(alias, event):
-    """ When the alias is created,
-        TODO make reorder objects fully functional!
-    """
+def removeAcord(obj, event):
+    """ When the Acord is deleted, reorder proposalPoint field """
     if deletion_confirmed():
-        portal_catalog = getToolByName(alias, 'portal_catalog')
-        folder_path = '/'.join(alias.__parent__.getPhysicalPath())
-        addEntryLog(alias.aq_parent, None, _(u'Deleted acord'), alias.absolute_url_path())  # add log
-        # agafo items ordenats!
-
-        puntsOrdered = portal_catalog.searchResults(
-            portal_type=['genweb.organs.acord'],
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
-        # hi ha items PUNT per esborrar
-        if puntsOrdered:
-            index = 1
-            for item in puntsOrdered:
-                objecte = item.getObject()
-                objecte.proposalPoint = unicode(str(index))
-                objecte.reindexObject()
-                if len(objecte.items()) > 0:
-                    search_path = '/'.join(objecte.getPhysicalPath())
-                    subpunts = portal_catalog.searchResults(
-                        portal_type=['genweb.organs.subpunt'],
-                        sort_on='getObjPositionInParent',
-                        path={'query': search_path, 'depth': 1})
-
-                    subvalue = 1
-                    for value in subpunts:
-                        newobjecte = value.getObject()
-                        newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
-                        newobjecte.reindexObject()
-                        subvalue = subvalue + 1
-                index = index + 1
+        kwargs = dict(obj=obj, parent=event.oldParent)
+        transaction.get().addAfterCommitHook(remove_punt_acord, kws=kwargs)
