@@ -260,11 +260,11 @@ msgstr "S'ha creat una acta"
 
 #: ./genweb/organs/hooks.py:37
 msgid "Created punt"
-msgstr "S'ha creat punt informatiu"
+msgstr "S'ha creat un punt informatiu"
 
 #: ./genweb/organs/hooks.py:44
 msgid "Created subpunt"
-msgstr "s'ha creat punt informatiu"
+msgstr "S'ha creat un punt informatiu"
 
 #: ./genweb/organs/content/templates/acta_view.pt:64
 #: ./genweb/organs/content/templates/impersonate_as.pt:36
@@ -1049,7 +1049,7 @@ msgstr "[Acord sense numeració]"
 #: ./genweb/organs/browser/views.py:287
 #: ./genweb/organs/content/acta.py:204
 msgid "[Acord sense numerar]"
-msgstr "[Acord sense numerar]"
+msgstr "[Acord sense numeració]"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:165
 #: ./genweb/organs/content/templates/punt+subpunt_view.pt:90
@@ -1130,7 +1130,7 @@ msgstr "Restringit a membres"
 #: ./genweb/organs/content/impersonate_as.py:143
 #: ./genweb/organs/content/punt.py:148
 msgid "sense numeracio"
-msgstr "sense numerar"
+msgstr "sense numeració"
 
 #. Default: "Last session"
 #: ./genweb/organs/search.pt:249

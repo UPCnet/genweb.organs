@@ -35,9 +35,12 @@ def getOrdering(context):
 
 
 class createElement(BrowserView):
-
+    """ This code is executed when pressing the two buttons in session view,
+        to create an acord or a point at first level of the session """
     def __call__(self):
         # TODO: Al anadir el estado con espacio y acento lo pone mal
+        # En crear el objeto no hace falta poner el log, porque
+        # ya salta el HOOK y lo hace
         portal_catalog = getToolByName(self, 'portal_catalog')
         action = self.request.form.get('action')
         itemid = self.request.form.get('name')
@@ -105,6 +108,7 @@ class Delete(BrowserView):
                     api.content.delete(deleteItem)
                 portal_catalog = getToolByName(self, 'portal_catalog')
                 folder_path = '/'.join(self.context.getPhysicalPath())
+                addEntryLog(self.context, None, _(u'Deleted via javascript'), self.request.form.get('item'))
 
                 # agafo items ordenats
                 puntsOrdered = portal_catalog.searchResults(
