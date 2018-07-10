@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.20 (unreleased)
+0.20 (2018-07-10)
 -----------------
 
-- Nothing changed yet.
-
+* added filename to anon users file [Roberto Diaz]
 
 0.19 (2018-07-10)
 -----------------
