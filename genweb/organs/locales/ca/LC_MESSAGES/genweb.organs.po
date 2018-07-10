@@ -277,7 +277,7 @@ msgstr "Data"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:338
 msgid "Data i hora"
-msgstr "Data i hora"
+msgstr "Data"
 
 #: ./genweb/organs/content/document.py:48
 msgid "Default content shown in the document view"
