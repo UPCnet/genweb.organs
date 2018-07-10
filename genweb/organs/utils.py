@@ -219,18 +219,18 @@ def FilesandDocumentsInside(self):
                     if isMembre(self):
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
-                                            absolute_url=obj.getURL() + '/@@display-file/hiddenfile/',
+                                            absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
                                             new_tab=True,
                                             classCSS=class_css))
                     else:
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
-                                            absolute_url=obj.getURL() + '/@@display-file/visiblefile/',
+                                            absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
                                             new_tab=True,
                                             classCSS=class_css))
                 elif value.visiblefile:
                     results.append(dict(title=obj.Title,
-                                        absolute_url=obj.getURL() + '/@@display-file/visiblefile/',
+                                        absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
                                         new_tab=True,
                                         classCSS=class_css,
                                         hidden=False))
@@ -238,7 +238,7 @@ def FilesandDocumentsInside(self):
                     if isManager(self) or isSecretari(self) or isEditor(self) or isMembre(self):
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
-                                            absolute_url=obj.getURL() + '/@@display-file/hiddenfile/',
+                                            absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
                                             new_tab=True,
                                             classCSS=class_css))
     return results
