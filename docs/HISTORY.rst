@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.19 (unreleased)
+0.19 (2018-07-10)
 -----------------
 
-- Nothing changed yet.
-
+* removed bin dir with gitignore [Roberto Diaz]
+* change translation error [Roberto Diaz]
 
 0.18 (2018-07-10)
 -----------------
