@@ -86,10 +86,12 @@ def actaModified(content, event):
 @grok.subscribe(IPunt, IObjectModifiedEvent)
 def puntModified(content, event):
     """ Punt modify handler """
-    addEntryLog(content.__parent__, None, _(u'Modified punt'), content.absolute_url())
+    if event.descriptions != ():
+        addEntryLog(content.__parent__, None, _(u'Modified punt'), content.absolute_url())
 
 
 @grok.subscribe(ISubpunt, IObjectModifiedEvent)
 def subpuntModified(content, event):
     """ Subpunt modify handler """
-    addEntryLog(content.aq_parent.aq_parent, None, _(u'Modified subpunt'), content.absolute_url())
+    if event.descriptions != ():
+        addEntryLog(content.aq_parent.aq_parent, None, _(u'Modified subpunt'), content.absolute_url())

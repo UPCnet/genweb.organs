@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-07-09 09:36+0000\n"
+"POT-Creation-Date: 2018-07-10 10:50+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -120,7 +120,7 @@ msgstr "Contingut restringit"
 msgid "Altres"
 msgstr "Altres"
 
-#: ./genweb/organs/utils.py:104
+#: ./genweb/organs/utils.py:113
 msgid "Anonymous user"
 msgstr "Usuari anònim"
 
@@ -181,35 +181,35 @@ msgstr "Cerca"
 msgid "Cercar..."
 msgstr "Cercar..."
 
-#: ./genweb/organs/browser/changes.py:35
+#: ./genweb/organs/browser/changes.py:37
 msgid "Changed Title"
 msgstr "S'ha canviat el títol"
 
-#: ./genweb/organs/browser/views.py:502
+#: ./genweb/organs/browser/views.py:500
 msgid "Changed acord color state"
 msgstr "S'ha canviat l'estat de l'acord"
 
-#: ./genweb/organs/browser/views.py:532
+#: ./genweb/organs/browser/views.py:530
 msgid "Changed acord intern state color"
 msgstr "S'ha canviat l'estat de l'acord"
 
-#: ./genweb/organs/browser/views.py:498
+#: ./genweb/organs/browser/views.py:496
 msgid "Changed punt color state"
 msgstr "S'ha canviat l'estat del punt informatiu"
 
-#: ./genweb/organs/browser/views.py:184
+#: ./genweb/organs/browser/views.py:182
 msgid "Changed punt number with drag&drop"
 msgstr "S'ha canviat el número de punt informatiu al moure l'element"
 
-#: ./genweb/organs/browser/views.py:496
+#: ./genweb/organs/browser/views.py:494
 msgid "Changed recursive color state of acord inside punt"
 msgstr "S'ha canviat l'estat de l'acord"
 
-#: ./genweb/organs/browser/views.py:494
+#: ./genweb/organs/browser/views.py:492
 msgid "Changed recursive color state of subpunt inside punt"
 msgstr "S'ha canviat l'estat del punt informatiu"
 
-#: ./genweb/organs/browser/views.py:530
+#: ./genweb/organs/browser/views.py:528
 msgid "Changed subpunt intern state color"
 msgstr "S'ha canviat l'estat del punt informatiu"
 
@@ -250,19 +250,19 @@ msgstr "Contingut restringit"
 msgid "Convocatoria"
 msgstr "Convocatòria"
 
-#: ./genweb/organs/hooks.py:23
+#: ./genweb/organs/hooks.py:22
 msgid "Created acord"
 msgstr "S'ha creat un acord"
 
-#: ./genweb/organs/hooks.py:30
+#: ./genweb/organs/hooks.py:28
 msgid "Created acta"
 msgstr "S'ha creat una acta"
 
-#: ./genweb/organs/hooks.py:37
+#: ./genweb/organs/hooks.py:34
 msgid "Created punt"
 msgstr "S'ha creat un punt informatiu"
 
-#: ./genweb/organs/hooks.py:44
+#: ./genweb/organs/hooks.py:40
 msgid "Created subpunt"
 msgstr "S'ha creat un punt informatiu"
 
@@ -285,19 +285,23 @@ msgstr "ATENCIÓ: Contingut visible per públic i afectats (depenent del tipus d
 
 #: ./genweb/organs/browser/events/removeObject.py:53
 msgid "Deleted acord"
-msgstr "El·liminat acord"
+msgstr "Acord el·liminat "
 
-#: ./genweb/organs/hooks.py:60
+#: ./genweb/organs/hooks.py:55
 msgid "Deleted acta"
 msgstr "S'ha el·liminat un acta"
 
-#: ./genweb/organs/browser/events/removeObject.py:55
+#: ./genweb/organs/browser/events/removeObject.py:58
 msgid "Deleted punt"
-msgstr "El·liminat punt informatiu"
+msgstr "Punt el·liminat"
 
-#: ./genweb/organs/browser/events/removeObject.py:79
+#: ./genweb/organs/browser/events/removeObject.py:77
 msgid "Deleted subpunt"
-msgstr "El·liminat punt informatiu"
+msgstr "Punt el·liminat"
+
+#: ./genweb/organs/browser/views.py:113
+msgid "Deleted via javascript"
+msgstr "Esborrat via javascript"
 
 #: ./genweb/organs/browser/views/acta_preview.pt:77
 #: ./genweb/organs/browser/views/acta_print.pt:90
@@ -552,11 +556,11 @@ msgstr "Missatge no enviat. Comprovi els destinataris del missatge"
 msgid "Missing members"
 msgstr "No assistents"
 
-#: ./genweb/organs/hooks.py:84
+#: ./genweb/organs/hooks.py:77
 msgid "Modified acord"
 msgstr "S'ha modificat un acord."
 
-#: ./genweb/organs/hooks.py:92
+#: ./genweb/organs/hooks.py:83
 msgid "Modified acta"
 msgstr "S'ha modificat una acta."
 
@@ -564,15 +568,15 @@ msgstr "S'ha modificat una acta."
 msgid "Modified dates"
 msgstr "Dates"
 
-#: ./genweb/organs/hooks.py:100
+#: ./genweb/organs/hooks.py:90
 msgid "Modified punt"
 msgstr "S'ha modificat un punt informatiu"
 
-#: ./genweb/organs/hooks.py:108
+#: ./genweb/organs/hooks.py:97
 msgid "Modified subpunt"
 msgstr "S'ha modificat un punt informatiu"
 
-#: ./genweb/organs/browser/views.py:230
+#: ./genweb/organs/browser/views.py:228
 msgid "Moved subpunt by drag&drop"
 msgstr "S'ha canviat el número de punt informatiu al moure'l"
 
@@ -785,7 +789,7 @@ msgstr "Títol"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:429
 msgid "Recalcula punts"
-msgstr "Numera punts"
+msgstr "S'ha executat l'acció de numerar punts"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:430
 msgid "Recalcula punts/acords"
@@ -801,13 +805,13 @@ msgstr "Destinataris"
 msgid "Relacio Assistents"
 msgstr "Relació d'assistents"
 
-#: ./genweb/organs/browser/views.py:431
+#: ./genweb/organs/browser/views.py:429
 msgid "Reload points manually"
 msgstr "Numera punts"
 
-#: ./genweb/organs/browser/views.py:377
+#: ./genweb/organs/browser/views.py:375
 msgid "Reload proposalPoints manually"
-msgstr "Numera acords"
+msgstr "S'ha executat l'acció de Numerar acords"
 
 #: ./genweb/organs/content/file.py:62
 msgid "Reserved file description"
@@ -1046,7 +1050,7 @@ msgstr "[Acord "
 msgid "[Acord sense numeracio]"
 msgstr "[Acord sense numeració]"
 
-#: ./genweb/organs/browser/views.py:287
+#: ./genweb/organs/browser/views.py:285
 #: ./genweb/organs/content/acta.py:204
 msgid "[Acord sense numerar]"
 msgstr "[Acord sense numeració]"
@@ -1126,7 +1130,7 @@ msgstr "Restringit a afectats"
 msgid "restricted_to_members_organ"
 msgstr "Restringit a membres"
 
-#: ./genweb/organs/browser/views.py:560
+#: ./genweb/organs/browser/views.py:558
 #: ./genweb/organs/content/impersonate_as.py:143
 #: ./genweb/organs/content/punt.py:148
 msgid "sense numeracio"

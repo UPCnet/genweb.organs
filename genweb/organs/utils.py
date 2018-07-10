@@ -159,6 +159,7 @@ def FilesandDocumentsInside(self):
     for obj in values:
         value = obj.getObject()
         if isManager(self) or isSecretari(self) or isEditor(self):
+            class_css = 'fa fa-2x fa-file-pdf-o'
             if obj.portal_type == 'genweb.organs.file':
                 if value.visiblefile and value.hiddenfile:
                     class_css = 'fa fa-2x fa-file-pdf-o text-success double-icon'

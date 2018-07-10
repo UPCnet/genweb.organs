@@ -24,7 +24,7 @@ class changeTitle(BrowserView):
             container = entryobj.aq_parent
             chooser = INameChooser(container)
             new_id = chooser.chooseName(newvalue, entryobj)
-            change_str = entryobj.absolute_url() + ':  [' + entry.Title + ' -> ' + newvalue + ']'
+            change_str = entryobj.absolute_url() + ' - [' + entry.Title + ' → ' + newvalue + ']'
             with api.env.adopt_roles(['OG1-Secretari']):
                 container.manage_renameObject(old_id, new_id)
 

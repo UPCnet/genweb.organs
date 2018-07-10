@@ -496,10 +496,10 @@
                           <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                          <li tal:condition="item/isPunt"><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.subpunt"><span i18n:translate="">Subpunt</span></a></li>
-                          <li tal:condition="item/isPunt"><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.acord"><span i18n:translate="">Acord</span></a></li>
-                          <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.file"><span i18n:translate="">File</span></a></li>
-                          <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.document"><span i18n:translate="">Document</span></a></li>
+                          <li tal:condition="item/isPunt"><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.subpunt"><span><i class="fa fa-list"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Subpunt</tal:omit-tag></span></a></li>
+                          <li tal:condition="item/isPunt"><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.acord"><span><i class="fa fa-check"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Acord</tal:omit-tag></span></a></li>
+                          <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.file"><span><i class="fa fa-file-pdf-o"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">File</tal:omit-tag></span></a></li>
+                          <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.document"><span><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Document</tal:omit-tag></span></a></li>
                         </ul>
                     </div>
                     <div class="btn-group" role="group"
@@ -640,8 +640,8 @@
                                 <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                                <li><a tabindex="-1" tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.file"><span i18n:translate="">File</span></a></li>
-                                <li><a tabindex="-1" tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.document"><span i18n:translate="">Document</span></a></li>
+                                <li><a tabindex="-1" tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.file"><span><i class="fa fa-file-pdf-o"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">File</tal:omit-tag></span></a></li>
+                                <li><a tabindex="-1" tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.document"><span><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Document</tal:omit-tag></span></a></li>
                               </ul>
                           </div>
                           <div class="btn-group" role="group"

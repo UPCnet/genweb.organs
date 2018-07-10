@@ -50,12 +50,12 @@ def remove_punt_acord(trans, obj=None, parent=None):
 
     if obj.aq_parent.portal_type == 'genweb.organs.punt':
         if obj.portal_type == 'genweb.organs.acord':
-            addEntryLog(obj.aq_parent.aq_parent, None, _(u'Deleted acord1'), str(obj.Title()))
+            addEntryLog(obj.aq_parent.aq_parent, None, _(u'Deleted acord'), str(obj.Title()))
     else:
         if obj.portal_type == 'genweb.organs.acord':
-            addEntryLog(obj.aq_parent, None, _(u'Deleted acord2'), str(obj.Title()))
+            addEntryLog(obj.aq_parent, None, _(u'Deleted acord'), str(obj.Title()))
         else:
-            addEntryLog(obj.aq_parent, None, _(u'Deleted punt3'), str(obj.Title()))
+            addEntryLog(obj.aq_parent, None, _(u'Deleted punt'), str(obj.Title()))
     transaction.commit()
 
 
@@ -74,7 +74,7 @@ def remove_subpunt(trans, obj=None, parent=None):
             newobjecte = item.getObject()
             newobjecte.proposalPoint = str(sufix) + str('.') + str(index)
             index = index + 1
-        addEntryLog(obj.aq_parent.aq_parent, None, _(u'Deleted subpunt4'), str(obj.Title()))
+        addEntryLog(obj.aq_parent.aq_parent, None, _(u'Deleted subpunt'), str(obj.Title()))
         transaction.commit()
 
 

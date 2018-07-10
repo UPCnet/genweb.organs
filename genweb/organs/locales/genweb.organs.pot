@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-07-09 09:36+0000\n"
+"POT-Creation-Date: 2018-07-10 10:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,7 +121,7 @@ msgstr ""
 msgid "Altres"
 msgstr ""
 
-#: ./genweb/organs/utils.py:104
+#: ./genweb/organs/utils.py:113
 msgid "Anonymous user"
 msgstr ""
 
@@ -182,35 +182,35 @@ msgstr ""
 msgid "Cercar..."
 msgstr ""
 
-#: ./genweb/organs/browser/changes.py:35
+#: ./genweb/organs/browser/changes.py:37
 msgid "Changed Title"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:502
+#: ./genweb/organs/browser/views.py:500
 msgid "Changed acord color state"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:532
+#: ./genweb/organs/browser/views.py:530
 msgid "Changed acord intern state color"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:498
+#: ./genweb/organs/browser/views.py:496
 msgid "Changed punt color state"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:184
+#: ./genweb/organs/browser/views.py:182
 msgid "Changed punt number with drag&drop"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:496
+#: ./genweb/organs/browser/views.py:494
 msgid "Changed recursive color state of acord inside punt"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:494
+#: ./genweb/organs/browser/views.py:492
 msgid "Changed recursive color state of subpunt inside punt"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:530
+#: ./genweb/organs/browser/views.py:528
 msgid "Changed subpunt intern state color"
 msgstr ""
 
@@ -251,19 +251,19 @@ msgstr ""
 msgid "Convocatoria"
 msgstr ""
 
-#: ./genweb/organs/hooks.py:23
+#: ./genweb/organs/hooks.py:22
 msgid "Created acord"
 msgstr ""
 
-#: ./genweb/organs/hooks.py:30
+#: ./genweb/organs/hooks.py:28
 msgid "Created acta"
 msgstr ""
 
-#: ./genweb/organs/hooks.py:37
+#: ./genweb/organs/hooks.py:34
 msgid "Created punt"
 msgstr ""
 
-#: ./genweb/organs/hooks.py:44
+#: ./genweb/organs/hooks.py:40
 msgid "Created subpunt"
 msgstr ""
 
@@ -288,16 +288,20 @@ msgstr ""
 msgid "Deleted acord"
 msgstr ""
 
-#: ./genweb/organs/hooks.py:60
+#: ./genweb/organs/hooks.py:55
 msgid "Deleted acta"
 msgstr ""
 
-#: ./genweb/organs/browser/events/removeObject.py:55
+#: ./genweb/organs/browser/events/removeObject.py:58
 msgid "Deleted punt"
 msgstr ""
 
-#: ./genweb/organs/browser/events/removeObject.py:79
+#: ./genweb/organs/browser/events/removeObject.py:77
 msgid "Deleted subpunt"
+msgstr ""
+
+#: ./genweb/organs/browser/views.py:113
+msgid "Deleted via javascript"
 msgstr ""
 
 #: ./genweb/organs/browser/views/acta_preview.pt:77
@@ -553,11 +557,11 @@ msgstr ""
 msgid "Missing members"
 msgstr ""
 
-#: ./genweb/organs/hooks.py:84
+#: ./genweb/organs/hooks.py:77
 msgid "Modified acord"
 msgstr ""
 
-#: ./genweb/organs/hooks.py:92
+#: ./genweb/organs/hooks.py:83
 msgid "Modified acta"
 msgstr ""
 
@@ -565,15 +569,15 @@ msgstr ""
 msgid "Modified dates"
 msgstr ""
 
-#: ./genweb/organs/hooks.py:100
+#: ./genweb/organs/hooks.py:90
 msgid "Modified punt"
 msgstr ""
 
-#: ./genweb/organs/hooks.py:108
+#: ./genweb/organs/hooks.py:97
 msgid "Modified subpunt"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:230
+#: ./genweb/organs/browser/views.py:228
 msgid "Moved subpunt by drag&drop"
 msgstr ""
 
@@ -802,11 +806,11 @@ msgstr ""
 msgid "Relacio Assistents"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:431
+#: ./genweb/organs/browser/views.py:429
 msgid "Reload points manually"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:377
+#: ./genweb/organs/browser/views.py:375
 msgid "Reload proposalPoints manually"
 msgstr ""
 
@@ -1047,7 +1051,7 @@ msgstr ""
 msgid "[Acord sense numeracio]"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:287
+#: ./genweb/organs/browser/views.py:285
 #: ./genweb/organs/content/acta.py:204
 msgid "[Acord sense numerar]"
 msgstr ""
@@ -1127,7 +1131,7 @@ msgstr ""
 msgid "restricted_to_members_organ"
 msgstr ""
 
-#: ./genweb/organs/browser/views.py:560
+#: ./genweb/organs/browser/views.py:558
 #: ./genweb/organs/content/impersonate_as.py:143
 #: ./genweb/organs/content/punt.py:148
 msgid "sense numeracio"
