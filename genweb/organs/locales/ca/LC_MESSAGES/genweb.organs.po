@@ -789,7 +789,7 @@ msgstr "Títol"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:429
 msgid "Recalcula punts"
-msgstr "S'ha executat l'acció de numerar punts"
+msgstr "Numera punts"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:430
 msgid "Recalcula punts/acords"
@@ -811,7 +811,7 @@ msgstr "Numera punts"
 
 #: ./genweb/organs/browser/views.py:375
 msgid "Reload proposalPoints manually"
-msgstr "S'ha executat l'acció de Numerar acords"
+msgstr "Numera acords"
 
 #: ./genweb/organs/content/file.py:62
 msgid "Reserved file description"

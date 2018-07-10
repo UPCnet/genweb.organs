@@ -1,0 +1,13 @@
+#!/var/plone/python2.7/bin/python
+
+import sys
+sys.path[0:0] = [
+  '/var/plone/genweb.organs/src/genweb.organs/eggs/mr.developer-1.38-py2.7.egg',
+  '/var/plone/genweb.organs/src/genweb.organs/eggs/zc.buildout-2.11.3-py2.7.egg',
+  '/var/plone/genweb.organs/src/genweb.organs/eggs/setuptools-36.6.0-py2.7.egg',
+  ]
+
+import mr.developer.develop
+
+if __name__ == '__main__':
+    sys.exit(mr.developer.develop.develop())
