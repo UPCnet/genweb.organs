@@ -1,11 +1,21 @@
 Changelog
 =========
 
-0.18 (unreleased)
+0.18 (2018-07-10)
 -----------------
 
-- Nothing changed yet.
-
+* changed literal to show better in mobiles [Roberto Diaz]
+* changed log messages [Roberto Diaz]
+* added logs [Roberto Diaz]
+* problems with log hooks [Roberto Diaz]
+* added clickable rows [Roberto Diaz]
+* addapt code to mobile views [Roberto Diaz]
+* cambio literales caja sesion, fecha y hora por fecha, porque en modo movil es muy largo y se muestra mal [Roberto Diaz]
+* add responsive view to organgovern template [Roberto Diaz]
+* added filename when download private files [Roberto Diaz]
+* disable drag and drop in tablets and mobiles [Roberto Diaz]
+* added missing classCSS in presentation view [Roberto Diaz]
+* added defautl classCSS [Roberto Diaz]
 
 0.17 (2018-06-28)
 -----------------
