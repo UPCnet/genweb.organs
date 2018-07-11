@@ -558,11 +558,11 @@ msgstr "No assistents"
 
 #: ./genweb/organs/hooks.py:77
 msgid "Modified acord"
-msgstr "S'ha modificat un acord."
+msgstr "S'ha modificat un acord"
 
 #: ./genweb/organs/hooks.py:83
 msgid "Modified acta"
-msgstr "S'ha modificat una acta."
+msgstr "S'ha modificat una acta"
 
 #: ./genweb/organs/search.pt:233
 msgid "Modified dates"
