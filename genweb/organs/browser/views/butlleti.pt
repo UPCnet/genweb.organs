@@ -100,7 +100,8 @@
 
     <div style="float:right;">
       <span i18n:translate="">Estat de la sessio</span>:&nbsp;
-      <span i18n:domain="genweb" i18n:translate="" tal:content="view/status">
+      <span i18n:domain="genweb" i18n:translate="" tal:content="view/status"
+      tal:attributes="class string:label label-${view/status}">
         Session status
       </span>
     </div>

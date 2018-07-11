@@ -16,31 +16,29 @@
 
     <div class="span12">
       <h1 class="documentFirstHeading"
-        i18n:translate="">
+         i18n:translate="">
           Informar de la sessio
       </h1>
 
       <p i18n:translate="">Llista de punts en el format del butlleti.</p>
 
-      <tal:omit-tag>
-
-        <div class="modal fade hide myModal" id="myModal" tabindex="-1" role="dialog"
-             aria-labelledby="myModalLabel" aria-hidden="true" data-remote="butlleti">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel"><span i18n:translate="">Previsualitzacio dels punts</span></h3>
-          </div>
-          <div class="modal-body">
-            <p>Acta</p>
-          </div>
-          <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true"><span i18n:translate="">Tancar</span></button>
+      <div class="modal fade hide myModal" id="myModal" tabindex="-1" role="dialog"
+           aria-labelledby="myModalLabel" aria-hidden="true" data-remote="butlleti">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h3 id="myModalLabel"><span i18n:translate="">Previsualitzacio dels punts</span></h3>
+            </div>
+            <div class="modal-body"></div>
           </div>
         </div>
-        <button data-target="#myModal" role="button"
-           class="btn btn-primary" data-toggle="modal">
-           <i class="icon icon-copy icon-white"></i>&nbsp;<span i18n:translate=""> Vista previa dels punts </span></button>
-      </tal:omit-tag>
+      </div>
+
+      <button data-target="#myModal" role="button"
+         class="btn btn-primary" data-toggle="modal">
+         <i class="icon icon-copy icon-white"></i>&nbsp;<span i18n:translate=""> Vista previa dels punts </span>
+       </button>
 
       <div class="documentDescription description"></div>
       <div class="clearfix"></div>

@@ -14,8 +14,14 @@ from genweb.organs import utils
 from AccessControl import Unauthorized
 
 # Disable CSRF
-from plone.protect.interfaces import IDisableCSRFProtection
-# from zope.interface import alsoProvides
+try:
+    import pkg_resources
+    pkg_resources.get_distribution('plone4.csrffixes')
+except pkg_resources.DistributionNotFound:
+    CSRF = False
+else:
+    from plone.protect.interfaces import IDisableCSRFProtection
+    CSRF = True
 
 
 def getOrdering(context):
@@ -29,9 +35,12 @@ def getOrdering(context):
 
 
 class createElement(BrowserView):
-
+    """ This code is executed when pressing the two buttons in session view,
+        to create an acord or a point at first level of the session """
     def __call__(self):
         # TODO: Al anadir el estado con espacio y acento lo pone mal
+        # En crear el objeto no hace falta poner el log, porque
+        # ya salta el HOOK y lo hace
         portal_catalog = getToolByName(self, 'portal_catalog')
         action = self.request.form.get('action')
         itemid = self.request.form.get('name')
@@ -81,26 +90,28 @@ class Delete(BrowserView):
         action = self.request.form.get('action')
         itemid = self.request.form.get('item')
         portal_type = self.request.form.get('portal_type')
-        try:
-            if action == 'delete':
-                if '/' in itemid:
-                    # Es tracta de subpunt i inclou punt/subpunt a itemid (segon nivell)
-                    folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + str('/'.join(itemid.split('/')[:-1]))
-                    itemid = str(''.join(itemid.split('/')[-1:]))
-                else:
-                    # L'objecte a esborrar es a primer nivell
-                    folder_path = '/'.join(self.context.getPhysicalPath())
+        if action == 'delete':
 
-                deleteItem = portal_catalog.searchResults(
-                    portal_type=portal_type,
-                    path={'query': folder_path, 'depth': 1},
-                    id=itemid)[0].getObject()
+            if '/' in itemid:
+                # Es tracta de subpunt i inclou punt/subpunt a itemid (segon nivell)
+                folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + str('/'.join(itemid.split('/')[:-1]))
+                itemid = str(''.join(itemid.split('/')[-1:]))
+            else:
+                # L'objecte a esborrar es a primer nivell
+                folder_path = '/'.join(self.context.getPhysicalPath())
+
+            element = portal_catalog.searchResults(
+                portal_type=portal_type,
+                path={'query': folder_path, 'depth': 1},
+                id=itemid)
+
+            if element:
+                deleteItem = element[0].getObject()
                 with api.env.adopt_roles(['OG1-Secretari']):
                     api.content.delete(deleteItem)
                 portal_catalog = getToolByName(self, 'portal_catalog')
+                addEntryLog(self.context, None, _(u'Deleted via javascript'), deleteItem.Title() + ' - (' + self.request.form.get('item') + ')')
                 folder_path = '/'.join(self.context.getPhysicalPath())
-
-                # agafo items ordenats
                 puntsOrdered = portal_catalog.searchResults(
                     portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
                     sort_on='getObjPositionInParent',
@@ -115,23 +126,16 @@ class Delete(BrowserView):
                     if len(objecte.items()) > 0:
                         search_path = '/'.join(objecte.getPhysicalPath())
                         subpunts = portal_catalog.searchResults(
-                            portal_type=['genweb.organs.subpunt'],
+                            portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
                             sort_on='getObjPositionInParent',
                             path={'query': search_path, 'depth': 1})
-
                         subvalue = 1
                         for value in subpunts:
                             newobjecte = value.getObject()
-                            newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
+                            newobjecte.proposalPoint = str(index) + str('.') + str(subvalue)
                             newobjecte.reindexObject()
                             subvalue = subvalue + 1
-
                     index = index + 1
-                # This line is only to bypass the CSRF WARNING
-                # WARNING plone.protect error parsing dom, failure to add csrf token to response for url ...
-                self.request.response.redirect(self.context.absolute_url())
-        except:
-            self.request.response.redirect(self.context.absolute_url())
 
 
 class Move(BrowserView):
@@ -143,7 +147,8 @@ class Move(BrowserView):
                 return
 
         # Disable CSRF
-        alsoProvides(self.request, IDisableCSRFProtection)
+        if CSRF:
+            alsoProvides(self.request, IDisableCSRFProtection)
 
         ordering = getOrdering(self.context)
         # authenticator = getMultiAdapter((self.context, self.request),
@@ -344,7 +349,8 @@ class ReloadAcords(BrowserView):
                 return
 
         # Disable CSRF
-        alsoProvides(self.request, IDisableCSRFProtection)
+        if CSRF:
+            alsoProvides(self.request, IDisableCSRFProtection)
 
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
@@ -414,7 +420,8 @@ class ReloadPoints(BrowserView):
                 return
 
         # Disable CSRF
-        alsoProvides(self.request, IDisableCSRFProtection)
+        if CSRF:
+            alsoProvides(self.request, IDisableCSRFProtection)
 
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
@@ -456,9 +463,8 @@ class changeActualState(BrowserView):
     """
     def __call__(self):
         # Disable CSRF
-        from plone.protect.interfaces import IDisableCSRFProtection
-        from zope.interface import alsoProvides
-        alsoProvides(self.request, IDisableCSRFProtection)
+        if CSRF:
+            alsoProvides(self.request, IDisableCSRFProtection)
 
         portal_catalog = getToolByName(self, 'portal_catalog')
         estat = self.request.form.get('estat')
@@ -503,7 +509,8 @@ class changeSubpuntState(BrowserView):
     """
     def __call__(self):
         # Disable CSRF
-        alsoProvides(self.request, IDisableCSRFProtection)
+        if CSRF:
+            alsoProvides(self.request, IDisableCSRFProtection)
 
         portal_catalog = getToolByName(self, 'portal_catalog')
         estat = self.request.form.get('estat')

@@ -82,8 +82,17 @@ def addEntryLog(context, sender, message, recipients):
             message: the message
             recipients: the recipients of the message
     """
+
     KEY = 'genweb.organs.logMail'
     annotations = IAnnotations(context)
+
+    # This is used to remove all the log entries:
+    # import ipdb;ipdb.set_trace()
+    # annotations[KEY] = []
+    # To remove some entry:
+    # aaa = annotations[KEY]
+    # pp(aaa)       # Search the desired entry position
+    # aaa.pop(0)    # remove the entry
 
     if annotations is not None:
         try:
@@ -150,6 +159,7 @@ def FilesandDocumentsInside(self):
     for obj in values:
         value = obj.getObject()
         if isManager(self) or isSecretari(self) or isEditor(self):
+            class_css = 'fa fa-2x fa-file-pdf-o'
             if obj.portal_type == 'genweb.organs.file':
                 if value.visiblefile and value.hiddenfile:
                     class_css = 'fa fa-2x fa-file-pdf-o text-success double-icon'
@@ -209,18 +219,18 @@ def FilesandDocumentsInside(self):
                     if isMembre(self):
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
-                                            absolute_url=obj.getURL() + '/@@display-file/hiddenfile/',
+                                            absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
                                             new_tab=True,
                                             classCSS=class_css))
                     else:
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
-                                            absolute_url=obj.getURL() + '/@@display-file/visiblefile/',
+                                            absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
                                             new_tab=True,
                                             classCSS=class_css))
                 elif value.visiblefile:
                     results.append(dict(title=obj.Title,
-                                        absolute_url=obj.getURL() + '/@@display-file/visiblefile/',
+                                        absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
                                         new_tab=True,
                                         classCSS=class_css,
                                         hidden=False))
@@ -228,7 +238,7 @@ def FilesandDocumentsInside(self):
                     if isManager(self) or isSecretari(self) or isEditor(self) or isMembre(self):
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
-                                            absolute_url=obj.getURL() + '/@@display-file/hiddenfile/',
+                                            absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
                                             new_tab=True,
                                             classCSS=class_css))
     return results

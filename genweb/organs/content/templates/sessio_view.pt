@@ -30,7 +30,7 @@
   <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
   <script tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery-ui.min.js"></script>
   <script tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script>
-  <script tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script>
+  <!-- <script tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script> -->
 </tal:scripts>
 
   <script type="text/javascript" tal:condition="canModify">
@@ -151,12 +151,30 @@
   <div class="clearfix"></div>
 
   <div id="contentSessio">
-    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-      <li class="active"><a href="#dadesTab" data-toggle="tab" i18n:translate="">Convocatoria</a></li>
-      <li tal:condition="hihaPersones"><a href="#assistentsTab" data-toggle="tab" i18n:translate="">Assistents</a></li>
-      <li tal:condition="view/showActaTab"><a href="#actaTab" data-toggle="tab" i18n:translate="">Acta</a></li>
-      <li tal:condition="view/showAcordsTab"><a href="#acordsTab" data-toggle="tab" i18n:translate="">Agreements list</a></li>
-      <li tal:condition="python:loginfo and viewHistory"><a href="#notificationsTab" data-toggle="tab" i18n:translate="">Historial</a></li>
+
+    <ul id="tabs" class="nav nav-tabs visible-tablet hidden-phone visible-desktop" data-tabs="tabs">
+      <li class="active"><a href="#dadesTab" data-toggle="tab">
+        <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Convocatoria</tal:omit-tag></i></a></li>
+      <li tal:condition="hihaPersones"><a href="#assistentsTab" data-toggle="tab">
+        <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Assistents</tal:omit-tag></i></a></li>
+      <li tal:condition="view/showActaTab"><a href="#actaTab" data-toggle="tab" >
+        <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Acta</tal:omit-tag></i></a></li>
+      <li tal:condition="view/showAcordsTab"><a href="#acordsTab" data-toggle="tab">
+        <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
+      <li tal:condition="python:loginfo and viewHistory"><a href="#notificationsTab" data-toggle="tab">
+        <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Historial</tal:omit-tag></i></a></li>
+    </ul>
+    <ul id="tabs" class="nav nav-tabs nav-stacked hidden-tablet visible-phone hidden-desktop" data-tabs="tabs">
+      <li class="active"><a href="#dadesTab" data-toggle="tab">
+        <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Convocatoria</tal:omit-tag></i></a></li>
+      <li tal:condition="hihaPersones"><a href="#assistentsTab" data-toggle="tab">
+        <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Assistents</tal:omit-tag></i></a></li>
+      <li tal:condition="view/showActaTab"><a href="#actaTab" data-toggle="tab" >
+        <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Acta</tal:omit-tag></i></a></li>
+      <li tal:condition="view/showAcordsTab"><a href="#acordsTab" data-toggle="tab">
+        <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
+      <li tal:condition="python:loginfo and viewHistory"><a href="#notificationsTab" data-toggle="tab">
+        <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Historial</tal:omit-tag></i></a></li>
     </ul>
 
     <div id="sessionTabs" class="tab-content">
@@ -166,36 +184,31 @@
                         horaInici item/horaInici;
                         horaFi item/horaFi;
                         sessionNumber item/sessionNumber;
-                        status item/status">
+                        status item/status" class="ul-session">
           <li tal:condition="horaInici">
-            <b i18n:translate="">Session start date and time</b><b>:</b>
-            <span style="float:right"
-                  tal:content="horaInici"></span>
+            <b i18n:translate="">Session start date and time</b>:
+            <span tal:content="horaInici"></span>
           </li>
           <li tal:condition="horaFi">
-            <b i18n:translate="">Session end date and time</b><b>:</b>
-            <span style="float:right"
-                  tal:content="horaFi"></span>
+            <b i18n:translate="">Session end date and time</b>:
+            <span tal:content="horaFi"></span>
           </li>
           <li tal:condition="llocConvocatoria">
-            <b i18n:translate="">Session location</b><b>:</b>
-            <span style="float:right"
-                  tal:content="llocConvocatoria"></span>
+            <b i18n:translate="">Session location</b>:
+            <span tal:content="llocConvocatoria"></span>
           </li>
           <li tal:condition="organTitle">
-            <b i18n:translate="">Organ de govern</b><b>:</b>
-            <span style="float:right"
-                  tal:content="organTitle"></span>
+            <b i18n:translate="">Organ de govern</b>:
+            <span tal:content="organTitle"></span>
             <div class="clearfix"></div>
           </li>
           <li tal:condition="sessionNumber">
-            <b i18n:translate="">Session number</b><b>:</b>
-            <span style="float:right"
-                  tal:content="sessionNumber"></span>
+            <b i18n:translate="">Session number</b>:
+            <span tal:content="sessionNumber"></span>
           </li>
           <li>
-            <b i18n:translate="">Estat de la sessio</b><b>:</b>
-            <span style="float:right" i18n:domain="genweb" i18n:translate="" tal:content="status"></span>
+            <b i18n:translate="">Estat de la sessio</b>:
+            <span i18n:domain="genweb" i18n:translate="" tal:content="status"></span>
           </li>
         </ul>
       </div>
@@ -354,7 +367,7 @@
   </div>
 
 <tal:buttons tal:condition="canModify">
-  <div class="modal fade massivePuntsModal" id="modalPunts" tabindex="-1" role="dialog" aria-labelledby="modalMassive">
+  <div class="modal fade" id="modalPunts" tabindex="-1" role="dialog" aria-labelledby="modalMassive">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -365,7 +378,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade modalPuntModal" id="modalPunt" tabindex="-1" role="dialog" aria-labelledby="modalAddPunt">
+  <div class="modal fade" id="modalPunt" tabindex="-1" role="dialog" aria-labelledby="modalAddPunt">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -387,7 +400,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade modalPuntAcord" id="modalAcord" tabindex="-1" role="dialog" aria-labelledby="modalAddAcord">
+  <div class="modal fade" id="modalAcord" tabindex="-1" role="dialog" aria-labelledby="modalAddAcord">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -409,47 +422,54 @@
       </div>
     </div>
   </div>
-  <div style="float:right">
-    <br/>
-      <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" data-target="#modalPunt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
-      <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" data-target="#modalAcord"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou acord</span></a>
-      <a class="btn btn-info" style="margin-bottom: 20px;" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
-      <a class="btn btn-info" style="margin-bottom: 20px;" href="updatePoints"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts</span></a>
-      <a class="btn btn-info" style="margin-bottom: 20px;" href="updateAcords"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts/acords</span></a>
+  <div class="sessionCustomActions visible-tablet hidden-phone visible-desktop">
+      <a class="btn btn-info" data-toggle="modal" data-target="#modalPunt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
+      <a class="btn btn-info" data-toggle="modal" data-target="#modalAcord"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou acord</span></a>
+      <a class="btn btn-info" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
+      <a class="btn btn-info" href="updatePoints"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts</span></a>
+      <a class="btn btn-info" href="updateAcords"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts/acords</span></a>
   </div>
+
+  <div style="margin-right: 30px;" class="hidden-tablet visible-phone hidden-desktop btn-group btn-group-vertical">
+      <a class="btn btn-info" data-toggle="modal" data-target="#modalPunt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
+      <a class="btn btn-info" data-toggle="modal" data-target="#modalAcord"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou acord</span></a>
+      <a class="btn btn-info" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
+      <a class="btn btn-info" href="updatePoints"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts</span></a>
+      <a class="btn btn-info" href="updateAcords"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts/acords</span></a>
+      <br/>
+  </div>
+  <div class="clearfix"></div>
 </tal:buttons>
+
+<div class="clearfix"></div>
 
 <div tal:condition="view/hihaPunts">
   <div tal:condition="items" class="DADES">
-      <div class="clearfix"></div>
-
-      <h2 style="margin-top:0px; text-align: left; float: left;" i18n:translate="">Ordre del dia</h2>
-
-      <div style="text-align: right; float: left; display: inline; margin-top:0px; margin-bottom:15px; margin-left: 20px;" class="btn-group" role="group" aria-label="Show as" tal:condition="canModify">
+      <h2 class="sessionOrdreDia" i18n:translate="">Ordre del dia</h2>
+      <div style="float:left; padding-top: 10px;" class="btn-group visible-tablet hidden-phone visible-desktop" role="group" aria-label="Show as" tal:condition="canModify">
         <button class="label dropdown-toggle"
             type="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false" i18n:translate="">
             Veure com...
           <span class="caret"></span>
         </button>
-        <ul style="text-align: left;" class="dropdown-menu" role="menu" aria-labelledby="types">
+        <ul class="dropdown-menu" role="menu" aria-labelledby="types">
           <li><a tabindex="-1" href="view_as_role?id=Member"><span i18n:translate="">Membre</span></a></li>
           <li><a tabindex="-1" href="view_as_role?id=Affected"><span i18n:translate="">Afectat</span></a></li>
           <li><a tabindex="-1" href="view_as_role?id=Other"><span i18n:translate="">Altres</span></a></li>
         </ul>
       </div>
-      <div style="float:right;" class="documentDescription">
+
+      <div style="float:right; padding-top: 10px;" class="documentDescription">
         <span id="expandAll" i18n:translate="">Desplega tot <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i></span>
         <span id="collapseAll" i18n:translate="">Plega tot <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i></span>
       </div>
       <div class="clearfix"></div>
-
       <ul id="sortable">
         <tal:documents repeat="item items">
           <tal:block tal:define="agreement item/agreement">
             <li class="ui-state-grey" tal:attributes="id item/id; class item/classe">
               <td tal:condition="item/show">
-                <div class="span6 agreementSpan"></div>
                 <div class="span6 einesSpan">
                   <tal:editActions tal:condition="canModify">
                     <div style="float: right;" aria-label="Edit actions">
@@ -476,10 +496,10 @@
                           <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                          <li tal:condition="item/isPunt"><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.subpunt"><span i18n:translate="">Subpunt</span></a></li>
-                          <li tal:condition="item/isPunt"><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.acord"><span i18n:translate="">Acord</span></a></li>
-                          <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.file"><span i18n:translate="">File</span></a></li>
-                          <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.document"><span i18n:translate="">Document</span></a></li>
+                          <li tal:condition="item/isPunt"><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.subpunt"><span><i class="fa fa-list"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Subpunt</tal:omit-tag></span></a></li>
+                          <li tal:condition="item/isPunt"><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.acord"><span><i class="fa fa-check"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Acord</tal:omit-tag></span></a></li>
+                          <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.file"><span><i class="fa fa-file-pdf-o"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">File</tal:omit-tag></span></a></li>
+                          <li><a tabindex="-1" tal:attributes="href string:${item/id}/++add++genweb.organs.document"><span><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Document</tal:omit-tag></span></a></li>
                         </ul>
                     </div>
                     <div class="btn-group" role="group"
@@ -512,7 +532,7 @@
                 <tal:block-contenidos tal:define="files python:view.filesinsidePunt(item);
                                                   subpunts python:view.SubpuntsInside(item)">
                 <div class="puntTitle span12" tal:define="contenidos python:files or subpunts">
-                  <div class="span1 fletxaSpan">
+                  <div class="span1 fletxaSpan visible-tablet hidden-phone visible-desktop">
                     <button type="button" class="expand" tal:condition="contenidos"
                       data-original-title="Expand">
                       <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
@@ -522,9 +542,23 @@
                       <i  style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
                       </button>
                   </div>
-                  <div class="span1 numberSpan">
-                      <span class="proposalNumber" style="text-align: right; float:right;" tal:content="item/proposalPoint"></span>
+                  <div class="span1 numberSpan visible-tablet hidden-phone visible-desktop">
+                    <span class="proposalNumber " style="text-align: right; float:right;" tal:content="item/proposalPoint"></span>
                   </div>
+
+                  <div class="hidden-tablet visible-phone hidden-desktop">
+                    <span class="proposalNumber" style="text-align: right; float:left; padding-left:10px;" tal:content="item/proposalPoint"></span>
+                    <button type="button" class="expand" tal:condition="contenidos"
+                    data-original-title="Expand">
+                      <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="notexpand" tal:condition="contenidos"
+                      data-original-title="Collapse">
+                      <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
+                    </button>
+                    <br/>
+                  </div>
+
                   <div class="span9 titleSpan">
                     <a tal:attributes="data-pk item/id; href item/absolute_url"
                        data-url="changeTitle"
@@ -535,15 +569,13 @@
                       [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
                     </span>
                   </div>
-                  <div class="span1 boleta">
-                    <tal:block tal:condition="canModify" tal:define="estat item/state">
+                  <div class="span1 boleta" tal:define="estat item/state">
+<!--                     <tal:block tal:condition="canModify">
                       <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
-                    </tal:block>
-                    <tal:block tal:condition="not:canModify" tal:define="estat item/state">
-                      <span class="btn label disabled" style="padding:3px; float: right;">
-                        <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>&nbsp;<span tal:content="estat"></span>
-                      </span>
-                    </tal:block>
+                    </tal:block> -->
+                    <span class="btn label disabled labelString">
+                      <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>&nbsp;<span tal:content="estat"></span>
+                    </span>
                   </div>
                   <tal:files>
                     <div class="span12" tal:condition="files">
@@ -608,8 +640,8 @@
                                 <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                                <li><a tabindex="-1" tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.file"><span i18n:translate="">File</span></a></li>
-                                <li><a tabindex="-1" tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.document"><span i18n:translate="">Document</span></a></li>
+                                <li><a tabindex="-1" tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.file"><span><i class="fa fa-file-pdf-o"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">File</tal:omit-tag></span></a></li>
+                                <li><a tabindex="-1" tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.document"><span><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Document</tal:omit-tag></span></a></li>
                               </ul>
                           </div>
                           <div class="btn-group" role="group"
@@ -652,15 +684,13 @@
                             [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
                           </span>
                         </div>
-                        <div class="span2 boleta">
-                          <tal:block tal:condition="canModify" tal:define="estat itemSubpunt/state">
+                        <div class="span2 boleta" tal:define="estat itemSubpunt/state">
+<!--                           <tal:block tal:condition="canModify" tal:define="estat itemSubpunt/state">
                             <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${itemSubpunt/css}"></i>
-                          </tal:block>
-                          <tal:block tal:condition="not:canModify" tal:define="estat itemSubpunt/state">
-                            <span class="btn label disabled" style="padding:3px; float: right;">
+                          </tal:block> -->
+                            <span class="btn label disabled" style="float: right;">
                               <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${itemSubpunt/css}"></i>&nbsp;<span tal:content="estat"></span>
                             </span>
-                          </tal:block>
                         </div>
                         <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
                           <div class="span12" tal:condition="files">

@@ -166,13 +166,13 @@ class Presentation(form.SchemaForm):
                     if file.visiblefile and file.hiddenfile:
                         hasPublic = True
                         hasPrivate = False
-                        visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/'
+                        visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/' + file.visiblefile.filename
                         hiddenUrl = ''
                         listFile = True
                     elif file.visiblefile:
                         hasPublic = True
                         hasPrivate = False
-                        visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/'
+                        visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/' + file.visiblefile.filename
                         listFile = True
                         hiddenUrl = ''
                 if obj.portal_type == 'genweb.organs.document':
@@ -212,18 +212,18 @@ class Presentation(form.SchemaForm):
                     raw_content = None
                     abs_path = file.absolute_url_path()
                     roles = api.user.get_roles(username=username, obj=self.context)
-
+                    classCSS = 'fa fa-file-pdf-o'
                     if file.visiblefile and file.hiddenfile:
                         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                             hasPublic = False
                             hasPrivate = True
                             visibleUrl = ''
-                            hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/'
+                            hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/' + file.hiddenfile.filename
                             classCSS = 'fa fa-file-pdf-o text-success double-icon'
                         elif 'OG4-Afectat' in roles:
                             hasPublic = True
                             hasPrivate = False
-                            visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/'
+                            visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/' + file.visiblefile.filename
                             hiddenUrl = ''
                             classCSS = 'fa fa-file-pdf-o text-success'
                     elif file.hiddenfile:
@@ -231,12 +231,12 @@ class Presentation(form.SchemaForm):
                             hasPublic = False
                             hasPrivate = True
                             visibleUrl = ''
-                            hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/'
+                            hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/' + file.hiddenfile.filename
                             classCSS = 'fa fa-file-pdf-o text-error'
                     elif file.visiblefile:
                             hasPublic = True
                             hasPrivate = False
-                            visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/'
+                            visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/' + file.visiblefile.filename
                             hiddenUrl = ''
                             classCSS = 'fa fa-file-pdf-o text-success'
 
@@ -244,7 +244,7 @@ class Presentation(form.SchemaForm):
                     isGODocument = True
                     abs_path = None
                     roles = api.user.get_roles(username=username, obj=self.context)
-
+                    classCSS = 'fa fa-file-text-o'
                     if file.alternateContent and file.defaultContent:
                         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                             hasPublic = False

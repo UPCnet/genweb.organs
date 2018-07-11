@@ -6,6 +6,8 @@ from genweb.organs.interfaces import IGenwebOrgansLayer
 import json
 import transaction
 from Products.statusmessages.interfaces import IStatusMessage
+from genweb.organs.content.sessio import ISessio
+from plone.namedfile.file import NamedBlobFile
 
 
 class changeMigrated(grok.View):
@@ -139,3 +141,174 @@ class changeMimeType(grok.View):
                                     changed=changed))
 
         return json.dumps(results)
+
+
+class listpermissions(grok.View):
+    # List of permissions in object, in json format
+
+    grok.context(IDexterityContent)
+    grok.name('permissions_in_og_folders')
+    grok.require('cmf.ManagePortal')
+    grok.layer(IGenwebOrgansLayer)
+
+    def render(self):
+        all_brains = api.content.find(portal_type='genweb.organs.organgovern')
+        results = []
+        for brain in all_brains:
+            obj = brain.getObject()
+            roles = obj.get_local_roles()
+            secretaris = []
+            editors = []
+            membres = []
+            afectats = []
+            if roles:
+                for (username, role) in roles:
+                    if 'OG1-Secretari' in role:
+                        secretaris.append(str(username))
+                    if 'OG2-Editor' in role:
+                        editors.append(str(username))
+                    if 'OG3-Membre' in role:
+                        membres.append(str(username))
+                    if 'OG4-Afectat' in role:
+                        afectats.append(str(username))
+            element = {
+                'title': obj.Title(),
+                'path': obj.absolute_url() + '/sharing',
+                'OG1-Secretari': secretaris,
+                'OG2-Editor': editors,
+                'OG3-Membre': membres,
+                'OG4-Afectat': afectats,
+                'organType': obj.organType,
+                'fromMail': obj.fromMail,
+                'adrecaLlista': obj.adrecaLlista,
+                'acronim': obj.acronim
+            }
+
+            results.append(element)
+        return json.dumps(results, indent=2, sort_keys=True)
+
+
+class MovePublicfilestoPrivate(grok.View):
+    # After migrating data, some files came with an error.
+    # They were located as public files, but must be Private.
+    # This view change all files from public to private and viceversa
+    # in a given session
+
+    grok.context(ISessio)
+    grok.name('movefilestoprivateorpublic')
+    grok.require('cmf.ManagePortal')
+    grok.layer(IGenwebOrgansLayer)
+
+    def showfiles(self):
+        all_brains = api.content.find(portal_type='genweb.organs.file', path=self.context.absolute_url_path())
+        results = []
+        for brain in all_brains:
+            obj = brain.getObject()
+            if obj.visiblefile:
+                visible = obj.visiblefile.filename
+            else:
+                visible = 'Empty'
+            if obj.hiddenfile:
+                hidden = obj.hiddenfile.filename
+            else:
+                hidden = 'Empty'
+            element = {
+                'visiblefile': visible,
+                'hiddenfile': hidden,
+                'path': obj.absolute_url()
+            }
+
+            results.append(element)
+        return json.dumps(results, indent=2, sort_keys=True)
+
+    def movetoPrivate(self):
+        all_brains = api.content.find(portal_type='genweb.organs.file', path=self.context.absolute_url_path())
+        results = []
+        for brain in all_brains:
+            obj = brain.getObject()
+            # Show initial values
+            if getattr(obj, 'visiblefile', False):
+                initial_visible = obj.visiblefile.filename
+            else:
+                initial_visible = 'Empty'
+            if getattr(obj, 'hiddenfile', False):
+                initial_hidden = obj.hiddenfile.filename
+            else:
+                initial_hidden = 'Empty'
+            final_visible = 'Not modified'
+            final_hidden = 'Not modified'
+            if not obj.hiddenfile and obj.visiblefile:
+                initial_visible = obj.visiblefile.filename
+                initial_hidden = 'Empty'
+                # Move public to private
+                obj.hiddenfile = NamedBlobFile(
+                    data=obj.visiblefile.data,
+                    contentType=obj.visiblefile.contentType,
+                    filename=obj.visiblefile.filename
+                )
+                transaction.commit()
+                del obj.visiblefile
+                final_visible = 'Empty (Deleted)'
+                final_hidden = obj.hiddenfile.filename
+            element = {
+                'original-visiblefile': initial_visible,
+                'original-hiddenfile': initial_hidden,
+                'path': obj.absolute_url(),
+                'final-visiblefile': final_visible,
+                'final-hiddenfile': final_hidden,
+            }
+            results.append(element)
+        return json.dumps(results, indent=2, sort_keys=True)
+
+    def movetoPublic(self):
+        all_brains = api.content.find(portal_type='genweb.organs.file', path=self.context.absolute_url_path())
+        results = []
+        for brain in all_brains:
+            obj = brain.getObject()
+            # Show initial values
+            if getattr(obj, 'visiblefile', False):
+                initial_visible = obj.visiblefile.filename
+            else:
+                initial_visible = 'Empty'
+            if getattr(obj, 'hiddenfile', False):
+                initial_hidden = obj.hiddenfile.filename
+            else:
+                initial_hidden = 'Empty'
+            final_visible = 'Not modified'
+            final_hidden = 'Not modified'
+            if obj.hiddenfile and not obj.visiblefile:
+                initial_visible = 'Empty'
+                initial_hidden = obj.hiddenfile.filename
+                # Move private to public
+                obj.visiblefile = NamedBlobFile(
+                    data=obj.hiddenfile.data,
+                    contentType=obj.hiddenfile.contentType,
+                    filename=obj.hiddenfile.filename
+                )
+                transaction.commit()
+                del obj.hiddenfile
+                final_visible = obj.visiblefile.filename
+                final_hidden = 'Empty (Deleted)'
+            element = {
+                'original-visiblefile': initial_visible,
+                'original-hiddenfile': initial_hidden,
+                'path': obj.absolute_url(),
+                'final-visiblefile': final_visible,
+                'final-hiddenfile': final_hidden,
+            }
+            results.append(element)
+        return json.dumps(results, indent=2, sort_keys=True)
+
+    def render(self):
+        """ Execute /movefilestoprivateorpublic """
+        if 'showfiles' in self.request.form:
+            return self.showfiles()
+        if 'move2Private' in self.request.form:
+            return self.movetoPrivate()
+        if 'move2Public' in self.request.form:
+            return self.movetoPublic()
+
+        return 'DANGER: This code moves files from public to private and viceversa. <br/>\
+        <br/>usage: /movefilestoprivateorpublic?  <b><a href="?showfiles">showfiles</a></b>\
+         | <b><a href="?move2Private">move2Private</a></b> \
+         | <b><a href="?move2Public">move2Public</a></b>'

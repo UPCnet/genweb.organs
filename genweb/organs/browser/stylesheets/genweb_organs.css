@@ -1,3 +1,6 @@
+
+.template-folder_contents li#contentview-view.active {display: inline;}
+
 #formfield-form-widgets-captcha label { display: none; }
 .portaltype-genweb-organs-organgovern div.tab-pane.active,
 .portaltype-genweb-organs-sessio div.tab-pane.active,
@@ -11,6 +14,18 @@
 
 ul#tabs.nav.nav-tabs {
     margin: 0px;
+}
+
+.sessionCustomActions {
+    margin-bottom: 20px;
+    float: right;
+}
+
+.sessionOrdreDia{
+    margin-top: 0px;
+    text-align: left;
+    float: left;
+    margin-right: 20px;
 }
 
 #contentOrgan #tabs li a,
@@ -144,7 +159,6 @@ span.proposalNumber {
 }
 .DADES > h2 {
     margin-bottom: 15px;
-    margin-top: 40px;
 }
 
 .DADES ul, .DADES ol {
@@ -255,12 +269,12 @@ span.label.nomarginLeft  {
     left: 30% !important;
 }
 
-#myModal {
+/*#myModal {
     width: 65%;
     height: 525px;
     right: 30%;
     left: 40% !important;
-}
+}*/
 
 div.modal-body.presentation {
     max-height: 100% !important;
@@ -799,6 +813,23 @@ padding: 0px 0px 32px 0px !important;
     top: 30px;
     z-index: 10;
 }
+.clickable-row:hover {
+    cursor: pointer;
+    ;
+ }
+
+.ul-session span {
+    float: right;
+}
+
+.Mobile {
+    padding-top: 4px;
+}
+
+.bannerTitle > a {color: white;}
+.bannerTitle > a:hover {color: white;}
+.bannerTitle .Mobile > a {color: white;}
+.bannerTitle .Mobile > a:hover {color: white;}
 
 div.formControls {
     padding-top: 0px;}
@@ -856,7 +887,11 @@ dt.contenttype-genweb-organs-historicfolder:before,
 i.icon-genweb-organs-historicfolder,
 span.icon-genweb-organs-historicfolder,
 #listing-table a.contenttype-genweb-organs-historicfolder:before,
-.template-folder_tabular_view .listing a.contenttype-genweb-organs-historicfolder:before
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-historicfolder:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-historicfolder"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-historicfolder"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-historicfolder"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-historicfolder"] span:after
 {
     background-position: -242px -168px !important;
 }
@@ -865,7 +900,11 @@ dt.contenttype-genweb-organs-organgovern:before,
 i.icon-genweb-organs-organgovern,
 span.icon-genweb-organs-organgovern,
 #listing-table a.contenttype-genweb-organs-organgovern:before,
-.template-folder_tabular_view .listing a.contenttype-genweb-organs-organgovern:before
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-organgovern:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-organgovern"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-organgovern"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-organgovern"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-organgovern"] span:after
 {
     background-position: -48px -48px !important;
 }
@@ -874,7 +913,11 @@ dt.contenttype-genweb-organs-sessio:before,
 i.icon-genweb-organs-sessio,
 span.icon-genweb-organs-sessio,
 #listing-table a.contenttype-genweb-organs-sessio:before,
-.template-folder_tabular_view .listing a.contenttype-genweb-organs-sessio:before
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-sessio:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-sessio"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-sessio"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-sessio"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-sessio"] span:after
 {
     background-position: -312px -168px !important;
 }
@@ -883,7 +926,11 @@ dt.contenttype-genweb-organs-document:before,
 i.icon-genweb-organs-document,
 span.icon-genweb-organs-document,
 #listing-table a.contenttype-genweb-organs-document:before,
-.template-folder_tabular_view .listing a.contenttype-genweb-organs-document:before
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-document:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-document"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-document"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-document"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-document"] span:after
 {
     background-position: -24px -24px !important;
 }
@@ -892,7 +939,11 @@ dt.contenttype-genweb-organs-acta:before,
 i.icon-genweb-organs-acta,
 span.icon-genweb-organs-acta,
 #listing-table a.contenttype-genweb-organs-acta:before,
-.template-folder_tabular_view .listing a.contenttype-genweb-organs-acta:before
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-acta:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-acta"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-acta"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-acta"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-acta"] span:after
 {
     background-position: -24px -24px !important;
 }
@@ -901,7 +952,11 @@ dt.contenttype-genweb-organs-punt:before,
 i.icon-genweb-organs-punt,
 span.icon-genweb-organs-punt,
 #listing-table a.contenttype-genweb-organs-punt:before,
-.template-folder_tabular_view .listing a.contenttype-genweb-organs-punt:before
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-punt:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-punt"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-punt"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-punt"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-punt"] span:after
 {
     background-position: -384px -168px !important;
 }
@@ -910,7 +965,11 @@ dt.contenttype-genweb-organs-audio:before,
 i.icon-genweb-organs-audio,
 span.icon-genweb-organs-audio,
 #listing-table a.contenttype-genweb-organs-audio:before,
-.template-folder_tabular_view .listing a.contenttype-genweb-organs-audio:before
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-audio:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-audio"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-audio"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-audio"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-audio"] span:after
 {
     background-position: -24px -0px !important;
 }
@@ -919,7 +978,11 @@ dt.contenttype-genweb-organs-file:before,
 i.icon-genweb-organs-file,
 span.icon-genweb-organs-file,
 #listing-table a.contenttype-genweb-organs-file:before,
-.template-folder_tabular_view .listing a.contenttype-genweb-organs-file:before
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-file:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-file"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-file"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-file"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-file"] span:after
 {
     background-position: -168px -168px !important;
 }
@@ -928,7 +991,11 @@ dt.contenttype-genweb-organs-subpunt:before,
 i.icon-genweb-organs-subpunt,
 span.icon-genweb-organs-subpunt,
 #listing-table a.contenttype-genweb-organs-subpunt:before,
-.template-folder_tabular_view .listing a.contenttype-genweb-organs-subpunt:before
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-subpunt:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-subpunt"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-subpunt"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-subpunt"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-subpunt"] span:after
 {
     background-position: -384px -168px !important;
 }
@@ -937,7 +1004,11 @@ dt.contenttype-genweb-organs-organsfolder:before,
 i.icon-genweb-organs-organsfolder,
 span.icon-genweb-organs-organsfolder,
 #listing-table a.contenttype-genweb-organs-organsfolder:before,
-.template-folder_tabular_view .listing a.contenttype-genweb-organs-organsfolder:before
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-organsfolder:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-organsfolder"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-organsfolder"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-organsfolder"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-organsfolder"] span:after
 {
     background-position: -384px -120px !important;
 }
@@ -946,7 +1017,11 @@ dt.contenttype-genweb-organs-acord:before,
 i.icon-genweb-organs-acord,
 span.icon-genweb-organs-acord,
 #listing-table a.contenttype-genweb-organs-acord:before,
-.template-folder_tabular_view .listing a.contenttype-genweb-organs-acord:before
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-acord:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-acord"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-acord"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-acord"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-acord"] span:after
 {
     background-position: -288px 0px !important;
 }
@@ -954,11 +1029,6 @@ span.icon-genweb-organs-acord,
 .share_popover {display: none;}
 
 h1.logoPresentation {padding-left: 10%;}
-
-.massivePuntsModal {
-    left:45% !important;
-    width: 780px !important;
-}
 
 .codiText {
     padding-left: 29px;
@@ -1338,9 +1408,16 @@ span.barra {
     padding: 0 0 2px;
 }
 
+.labelString {
+    padding: 3px 2px 3px 3px;
+    float: right;
+}
+
 .span1.boleta {
     margin-bottom: 0px!important;
-    width: 10%!important;
+    float: right!important;
+    margin-right: 11px;
+    /*width: 10%!important;*/
     text-align: right;
     min-height: 10px;
     margin-top: 2px!important;
@@ -1353,6 +1430,8 @@ span.barra {
     text-align: right;
     min-height: 10px;
     margin-top: 2px!important;
+    margin-right: 6px !important;
+    float: right !important;
 }
 
 .span9.titleSpan {

@@ -100,17 +100,22 @@
     <div class="bannerOrgans">
       <tal:block tal:condition="getLogo">
             <img tal:attributes="src getLogo" style="height:78px; width: 100%;" />
-            <div tal:condition="getTitle" class="bannerTitle">
-              <a tal:attributes="href string:${portal_url}" tal:content="getTitle" style="color:white;">Govern UPC - FIB</a>
+            <div tal:condition="getTitle" class="bannerTitle visible-tablet hidden-phone visible-desktop">
+              <a tal:attributes="href string:${portal_url}" tal:content="getTitle">Govern UPC - FIB</a>
+            </div>
+            <div tal:condition="getTitle" class="bannerTitle Mobile hidden-tablet visible-phone hidden-desktop">
+              <a tal:attributes="href string:${portal_url}" tal:content="getTitle">Govern UPC - FIB</a>
             </div>
       </tal:block>
       <tal:block tal:condition="not:getLogo">
-        <div class="bannerTitle">
-          <a tal:attributes="href string:${portal_url}" tal:content="getTitle" style="color:white;">Govern UPC - FIB</a>
+        <div class="bannerTitle visible-tablet hidden-phone visible-desktop">
+          <a tal:attributes="href string:${portal_url}" tal:content="getTitle">Govern UPC - FIB</a>
+        </div>
+        <div class="bannerTitle Mobile hidden-tablet visible-phone hidden-desktop">
+          <a tal:attributes="href string:${portal_url}" tal:content="getTitle">Govern UPC - FIB</a>
         </div>
         <div tal:attributes="class string:header-image nomarginleft ${viewlet/get_image_class}"></div>
       </tal:block>
-
     </div>
   </div>
 </div>

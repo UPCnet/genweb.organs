@@ -528,13 +528,15 @@ class View(grok.View):
             if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self):
                 # Editor i Secretari veuen contingut. NO obren en finestra nova
                 if obj.portal_type == 'genweb.organs.file':
+                    classCSS = 'fa fa-file-pdf-o'  # Es un file
                     if value.visiblefile and value.hiddenfile:
                         classCSS = 'fa fa-file-pdf-o text-success double-icon'
                     elif value.hiddenfile:
                         classCSS = 'fa fa-file-pdf-o text-error'
                     elif value.visiblefile:
                         classCSS = 'fa fa-file-pdf-o text-success'
-                else:   # Es un DOC
+                else:
+                    classCSS = 'fa fa-file-text-o'  # Es un DOC
                     if value.defaultContent and value.alternateContent:
                         classCSS = 'fa fa-file-text-o text-success double-icon'
                     elif value.alternateContent:
@@ -590,21 +592,21 @@ class View(grok.View):
                         if utils.isMembre(self):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/',
+                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
                                                 new_tab=True,
                                                 classCSS=classCSS,
                                                 id=str(item['id']) + '/' + obj.id))
                         else:
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/visiblefile/',
+                                                absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
                                                 new_tab=True,
                                                 classCSS=classCSS,
                                                 id=str(item['id']) + '/' + obj.id))
                     elif value.visiblefile:
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
-                                            absolute_url=obj.getURL() + '/@@display-file/visiblefile/',
+                                            absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
                                             new_tab=True,
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
@@ -612,7 +614,7 @@ class View(grok.View):
                         if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/',
+                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
                                                 new_tab=True,
                                                 classCSS=classCSS,
                                                 id=str(item['id']) + '/' + obj.id))
