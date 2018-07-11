@@ -56,7 +56,8 @@ class Webservice(BrowserView):
                 return self.request.response.redirect(api.portal.get().absolute_url())
 
     def allAcords(self):
-        results = api.content.find(portal_type='genweb.organs.acord')
+        results = api.content.find(
+            portal_type='genweb.organs.acord')
         results2 = []
         results3 = []
         if api.user.is_anonymous():
@@ -65,42 +66,36 @@ class Webservice(BrowserView):
             username = api.user.get_current().id
         for value in results:
             element = value.getObject()
-            if element.aq_parent.portal_type == 'genweb.organs.organgovern':
-                if username:
-                    roles = api.user.get_roles(obj=element.aq_parent, username=username)
-                else:
-                    roles = []
-                organType = element.aq_parent.organType
-                if 'Manager' in roles or (organType == 'open_organ'):
-                    print "1"
-                    results2.append(value)
-                elif organType == 'restricted_to_members_organ':
-                    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
-                        print "2"
-                        results2.append(value)
-                elif organType == 'restricted_to_affected_organ':
-                    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
-                        print "3"
-                        results2.append(value)
-                else:
-                    # remove element
-                    continue
-            elif element.aq_parent.aq_parent.portal_type == 'genweb.organs.organgovern':
+            if element.aq_parent.aq_parent.portal_type == 'genweb.organs.organgovern':
                 if username:
                     roles = api.user.get_roles(obj=element.aq_parent.aq_parent, username=username)
                 else:
                     roles = []
                 organType = element.aq_parent.aq_parent.organType
                 if 'Manager' in roles or (organType == 'open_organ'):
-                    print "4"
                     results2.append(value)
                 elif organType == 'restricted_to_members_organ':
                     if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
-                        print "5"
                         results2.append(value)
                 elif organType == 'restricted_to_affected_organ':
                     if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
-                        print "6"
+                        results2.append(value)
+                else:
+                    # remove element
+                    continue
+            elif element.aq_parent.aq_parent.aq_parent.portal_type == 'genweb.organs.organgovern':
+                if username:
+                    roles = api.user.get_roles(obj=element.aq_parent.aq_parent.aq_parent, username=username)
+                else:
+                    roles = []
+                organType = element.aq_parent.aq_parent.aq_parent.organType
+                if 'Manager' in roles or (organType == 'open_organ'):
+                    results2.append(value)
+                elif organType == 'restricted_to_members_organ':
+                    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
+                        results2.append(value)
+                elif organType == 'restricted_to_affected_organ':
+                    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
                         results2.append(value)
                 else:
                     # remove element
@@ -113,5 +108,8 @@ class Webservice(BrowserView):
                                  path=item.absolute_url(),
                                  state=item.estatsLlista,
                                  title=item.Title(),
-                                 proposal=item.proposalPoint))
-        return results3
+                                 proposal=item.proposalPoint,
+                                 ))
+        return dict(results=results3,
+                    all=len(results),
+                    new=len(results3))

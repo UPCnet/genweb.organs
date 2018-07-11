@@ -69,7 +69,6 @@
   <div style="padding: 10px 20px 40px 20px; background-color:white;">
 
     <div class="clearfix"></div>
-
     <table
           cellpadding="0"
           cellspacing="0"
@@ -83,15 +82,18 @@
                 cellspacing="0">
             <thead>
               <tr>
-                <th style="font-size:13px; text-align:center;" i18n:translate="">Codi d'acord</th>
-                <th style="font-size:13px; width: 7%; padding-left: 10px; text-align:left; display: table-cell; vertical-align: middle;" i18n:translate="">Proposal</th>
+                <th style="font-size:13px; text-align:center;" i18n:translate="">Agreement</th>
+                <th style="font-size:13px; width: 7%; padding-left: 10px; text-align:left; display: table-cell; vertical-align: middle;" i18n:translate="">Num de punt</th>
                 <th style="font-size:13px; width: 6%; padding-left: 10px; text-align:left; display: table-cell; vertical-align: middle;" i18n:translate="">Estat</th>
                 <th style="font-size:13px; white-space: nowrap; text-align:center; display: table-cell; vertical-align: middle;" i18n:translate="">Titol</th>
               </tr>
             </thead>
-            <tbody>
-                <tr vertical-align="top"
-                    tal:repeat="acord view/allAcords">
+            <tbody vertical-align="top"
+                    tal:define="acords view/allAcords">
+                    Acords totals: &nbsp;<span tal:content="acords/all"></span><br/>
+                    Acors visibles: &nbsp;<span tal:content="acords/new"></span>
+                <tr tal:repeat="acord acords/results">
+
                 <td style="font-size:13px; text-align:right;">
                     <a tal:condition="acord/id" href="" tal:content="acord/id" tal:attributes="href string:${context/absolute_url}/acord/${acord/id}"></a>
                     <span style="color:red;" tal:condition="not:acord/id"> [Acord sense numeració] </span>
