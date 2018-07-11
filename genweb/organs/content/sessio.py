@@ -592,21 +592,21 @@ class View(grok.View):
                         if utils.isMembre(self):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/',
+                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
                                                 new_tab=True,
                                                 classCSS=classCSS,
                                                 id=str(item['id']) + '/' + obj.id))
                         else:
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/visiblefile/',
+                                                absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
                                                 new_tab=True,
                                                 classCSS=classCSS,
                                                 id=str(item['id']) + '/' + obj.id))
                     elif value.visiblefile:
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
-                                            absolute_url=obj.getURL() + '/@@display-file/visiblefile/',
+                                            absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
                                             new_tab=True,
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
@@ -614,7 +614,7 @@ class View(grok.View):
                         if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/',
+                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
                                                 new_tab=True,
                                                 classCSS=classCSS,
                                                 id=str(item['id']) + '/' + obj.id))
