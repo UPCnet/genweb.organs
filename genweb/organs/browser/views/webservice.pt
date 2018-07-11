@@ -83,23 +83,23 @@
                 cellspacing="0">
             <thead>
               <tr>
-                <th style="font-size:13px; width: 5%; text-align:center;" i18n:translate="">Codi d'acord</th>
-                <th style="font-size:13px; width: 5%; padding-left: 10px; text-align:left; display: table-cell; vertical-align: middle;" i18n:translate="">Proposal</th>
-                <th style="font-size:13px; width: 5%; padding-left: 10px; text-align:left; display: table-cell; vertical-align: middle;" i18n:translate="">Estat</th>
+                <th style="font-size:13px; text-align:center;" i18n:translate="">Codi d'acord</th>
+                <th style="font-size:13px; width: 7%; padding-left: 10px; text-align:left; display: table-cell; vertical-align: middle;" i18n:translate="">Proposal</th>
+                <th style="font-size:13px; width: 6%; padding-left: 10px; text-align:left; display: table-cell; vertical-align: middle;" i18n:translate="">Estat</th>
                 <th style="font-size:13px; white-space: nowrap; text-align:center; display: table-cell; vertical-align: middle;" i18n:translate="">Titol</th>
               </tr>
             </thead>
             <tbody>
                 <tr vertical-align="top"
                     tal:repeat="acord view/allAcords">
-                <td style="font-size:13px; width: 5%; text-align:right;">
+                <td style="font-size:13px; text-align:right;">
                     <a tal:condition="acord/id" href="" tal:content="acord/id" tal:attributes="href string:${context/absolute_url}/acord/${acord/id}"></a>
                     <span style="color:red;" tal:condition="not:acord/id"> [Acord sense numeració] </span>
                 </td>
-                <td style="font-size:13px; width: 5%; padding-left: 10px; text-align:right;">
+                <td style="font-size:13px; width: 7%; padding-left: 10px; text-align:right;">
                     <span tal:condition="acord/proposal" tal:content="acord/proposal"></span>
                 </td>
-                <td style="font-size:13px; width: 5%; padding-left: 10px; text-align:right;">
+                <td style="font-size:13px; width: 6%; padding-left: 10px; text-align:right;">
                     <span tal:condition="acord/state" tal:content="acord/state"></span>
                 </td>
                 <td style="font-size:13px; text-align:left;">
