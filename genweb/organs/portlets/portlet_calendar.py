@@ -144,6 +144,16 @@ class Renderer(base.Renderer):
     def date_events_url(self, date):
         return '%s?mode=day&date=%s' % (self.calendar_url, date)
 
+    def getclasstag_event(self, day):
+        # Returns class color to show in the calendar
+        classtag = ''
+
+        if day['events']:
+            # if len(day['events']) > 1:
+            if len(day['events']) > 1:
+                classtag += ' event-multiple '
+        return classtag
+
     @property
     def cal_data(self):
         """Calendar iterator over weeks and days of the month to display.

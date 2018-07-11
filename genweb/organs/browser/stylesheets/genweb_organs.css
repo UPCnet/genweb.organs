@@ -1731,7 +1731,6 @@ dd.actionMenuContent.actionMenuContentColor {
 }
 
 
-
 @media only screen and (max-width: 639px) {
     .header-image {
         height:40px !important;
@@ -1744,16 +1743,16 @@ dd.actionMenuContent.actionMenuContentColor {
 
 }
 
-div.header-image.nomarginleft {
-    margin-left: 0px !important;
-}
-
 @media only screen and (-webkit-min-device-pixel-ratio: 2), not all, not all, not all, only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
 .header-image {
      background-size: auto !important;
-      background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs@2x.jpg") !important;
+      background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs@2x.jpg") !important;}
 }
-input.searchPage {width: 70%;}
+
+
+
+div.header-image.nomarginleft {
+    margin-left: 0px !important;
 }
 
 ul.latests-acords {
@@ -1914,3 +1913,18 @@ td.organevent.cal_has_events .popover-content a {
     opacity: 1;
     transition: all .5s ease;
 }
+
+.event-multiple {
+    position: relative;
+}
+
+.event-multiple:before {
+    content: "+";
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    position: absolute;
+    bottom: -3px;
+    right: 3px;
+}
+
