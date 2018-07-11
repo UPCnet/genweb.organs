@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-07-10 10:50+0000\n"
+"POT-Creation-Date: 2018-07-11 13:13+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,9 +20,9 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Draft Yellow</p><p>Pending aproval Orange</p><p>Approved Green</p><p>Not approved Red</p><p>Cancelled DarkRed</p><p>Informative LightSkyBlue</p><p>Informedt MediumBlue</p>"
 
-#: ./genweb/organs/search.pt:465
-msgid "Accedir als darrers acords de:"
-msgstr "View the latests agreements of:"
+#: ./genweb/organs/search.pt:456
+msgid "Accedir als darrers acords de"
+msgstr "Go to latests agreements of"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:341
 msgid "Accio"
@@ -177,6 +177,10 @@ msgstr "Cancel"
 msgid "Cerca"
 msgstr "Search"
 
+#: ./genweb/organs/browser/viewlets_templates/header.pt:57
+msgid "Cercador"
+msgstr "Search"
+
 #: ./genweb/organs/search.pt:121
 msgid "Cercar..."
 msgstr "Search..."
@@ -264,7 +268,7 @@ msgstr "Created point"
 
 #: ./genweb/organs/hooks.py:40
 msgid "Created subpunt"
-msgstr ""
+msgstr "Created point"
 
 #: ./genweb/organs/content/templates/acta_view.pt:64
 #: ./genweb/organs/content/templates/impersonate_as.pt:36
@@ -285,23 +289,23 @@ msgstr "Default content shown in the document view"
 
 #: ./genweb/organs/browser/events/removeObject.py:53
 msgid "Deleted acord"
-msgstr ""
+msgstr "Deleted acord"
 
 #: ./genweb/organs/hooks.py:55
 msgid "Deleted acta"
-msgstr ""
+msgstr "Deleted acta"
 
 #: ./genweb/organs/browser/events/removeObject.py:58
 msgid "Deleted punt"
-msgstr ""
+msgstr "Delete point"
 
 #: ./genweb/organs/browser/events/removeObject.py:77
 msgid "Deleted subpunt"
-msgstr ""
+msgstr "Deleted point"
 
 #: ./genweb/organs/browser/views.py:113
 msgid "Deleted via javascript"
-msgstr ""
+msgstr "Deleted via javascript"
 
 #: ./genweb/organs/browser/views/acta_preview.pt:77
 #: ./genweb/organs/browser/views/acta_print.pt:90
@@ -420,6 +424,10 @@ msgstr "From"
 #: ./genweb/organs/content/organgovern.py:104
 msgid "From mail"
 msgstr "Email who sends the messages"
+
+#: ./genweb/organs/search.pt:295
+msgid "Go to historic documentation"
+msgstr "Access to previous documentation"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:165
 msgid "Historial"
@@ -574,7 +582,7 @@ msgstr "Modified point"
 
 #: ./genweb/organs/hooks.py:97
 msgid "Modified subpunt"
-msgstr ""
+msgstr "Modified point"
 
 #: ./genweb/organs/browser/views.py:228
 msgid "Moved subpunt by drag&drop"
@@ -1061,11 +1069,11 @@ msgstr "[Agreement without number]"
 msgid "acord"
 msgstr "Agreement"
 
-#: ./genweb/organs/search.py:416
+#: ./genweb/organs/search.py:425
 msgid "alphabetically"
 msgstr "alphabetically"
 
-#: ./genweb/organs/search.py:413
+#: ./genweb/organs/search.py:422
 msgid "date (newest first)"
 msgstr "date (newest first)"
 

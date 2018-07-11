@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-07-10 10:50+0000\n"
+"POT-Creation-Date: 2018-07-11 13:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,8 +21,8 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr ""
 
-#: ./genweb/organs/search.pt:465
-msgid "Accedir als darrers acords de:"
+#: ./genweb/organs/search.pt:456
+msgid "Accedir als darrers acords de"
 msgstr ""
 
 #: ./genweb/organs/content/templates/sessio_view.pt:341
@@ -176,6 +176,10 @@ msgstr ""
 
 #: ./genweb/organs/search.pt:133
 msgid "Cerca"
+msgstr ""
+
+#: ./genweb/organs/browser/viewlets_templates/header.pt:57
+msgid "Cercador"
 msgstr ""
 
 #: ./genweb/organs/search.pt:121
@@ -420,6 +424,10 @@ msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:104
 msgid "From mail"
+msgstr ""
+
+#: ./genweb/organs/search.pt:295
+msgid "Go to historic documentation"
 msgstr ""
 
 #: ./genweb/organs/content/templates/sessio_view.pt:165
@@ -1062,11 +1070,11 @@ msgstr ""
 msgid "acord"
 msgstr ""
 
-#: ./genweb/organs/search.py:416
+#: ./genweb/organs/search.py:425
 msgid "alphabetically"
 msgstr ""
 
-#: ./genweb/organs/search.py:413
+#: ./genweb/organs/search.py:422
 msgid "date (newest first)"
 msgstr ""
 
