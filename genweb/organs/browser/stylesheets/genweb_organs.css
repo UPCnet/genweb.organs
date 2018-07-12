@@ -1,3 +1,8 @@
+.sessionActions {
+    float:right;
+    display:flex;
+}
+
 td.centerMiddle,
 th.centerMiddle {
     font-size:13px;

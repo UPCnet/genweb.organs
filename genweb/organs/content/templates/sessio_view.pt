@@ -132,7 +132,7 @@
 
   <iframe name="iframe" id="iframe" width="1" height="1" src="butlleti"></iframe>
 
-  <div style="float:right; display:flex">
+  <div class="sessionActions">
       <div class="containerIcons" tal:condition="view/showEnviarButton">
         <a href="mail_message" i18n:attributes="title envia_missatge; alt envia_missatge"><i class="fa fa-envelope fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Envia missatge</span></a>
       </div>

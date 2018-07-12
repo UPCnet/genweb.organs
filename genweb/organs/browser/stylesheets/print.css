@@ -15,6 +15,21 @@ li {
     line-height: 130% !important;
   }
 
+  #portal-header {
+    padding-bottom:50px;
+  }
+
+  .template-printacta header#portal-header {
+    display: none;
+  }
+
+div.sessionCustomActions {display: none !important;}
+.sessionActions,
+#expandAll,
+#collapseAll,
+button.label.dropdown-toggle,
+button.remove.label.label-important {display: none !important;}
+
   nav#portal-breadcrumbs,
   .nav-collapse-eines,
   #portal-personaltools-wrapper,
