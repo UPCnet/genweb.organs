@@ -1,3 +1,9 @@
+td.centerMiddle,
+th.centerMiddle {
+    font-size:13px;
+    text-align:center;
+    vertical-align: middle;
+}
 
 .template-folder_contents li#contentview-view.active {display: inline;}
 

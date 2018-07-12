@@ -65,8 +65,10 @@
 
     </tal:notajax>
 </head>
+    <link rel="stylesheet"
+        tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
 
-  <div style="padding: 10px 20px 40px 20px; background-color:white;">
+  <div style="padding: 15px 20px 40px 20px; background-color:white;">
 
     <div class="clearfix"></div>
     <table
@@ -74,7 +76,7 @@
           cellspacing="0"
           align="center">
       <tr>
-        <td style="width:1%;">
+        <td>
           <table class="table table-bordered table-condensed table-striped"
                 align="center"
                 width="100%;"
@@ -82,29 +84,24 @@
                 cellspacing="0">
             <thead>
               <tr>
-                <th style="font-size:13px; text-align:center;" i18n:translate="">Agreement</th>
-                <th style="font-size:13px; width: 7%; padding-left: 10px; text-align:left; display: table-cell; vertical-align: middle;" i18n:translate="">Num de punt</th>
-                <th style="font-size:13px; width: 6%; padding-left: 10px; text-align:left; display: table-cell; vertical-align: middle;" i18n:translate="">Estat</th>
-                <th style="font-size:13px; white-space: nowrap; text-align:center; display: table-cell; vertical-align: middle;" i18n:translate="">Titol</th>
+                <th class="centerMiddle" style="min-width: 160px;" i18n:translate="">Agreement</th>
+                <th class="centerMiddle" style="min-width: 150px;" i18n:translate="">Estat</th>
+                <th class="centerMiddle" i18n:translate="">Titol</th>
               </tr>
             </thead>
-            <tbody vertical-align="top"
-                    tal:define="acords view/allAcords">
-                    Acords totals: &nbsp;<span tal:content="acords/all"></span><br/>
-                    Acors visibles: &nbsp;<span tal:content="acords/new"></span>
-                <tr tal:repeat="acord acords/results">
-
-                <td style="font-size:13px; text-align:right;">
-                    <a tal:condition="acord/id" href="" tal:content="acord/id" tal:attributes="href string:${context/absolute_url}/acord/${acord/id}"></a>
-                    <span style="color:red;" tal:condition="not:acord/id"> [Acord sense numeració] </span>
+            <tbody>
+              <tr tal:repeat="acord view/allAcords">
+                <td class="centerMiddle">
+                  <a tal:condition="acord/id" href="" tal:content="acord/id"
+                     tal:attributes="href string:${context/absolute_url}/acord/${acord/id}"></a>
                 </td>
-                <td style="font-size:13px; width: 7%; padding-left: 10px; text-align:right;">
-                    <span tal:condition="acord/proposal" tal:content="acord/proposal"></span>
+                <td class="centerMiddle">
+                    <span class="estatpunt" tal:condition="acord/estatsLlista">
+                      <i class="fa fa-circle boletaGran" aria-hidden="true" tal:attributes="style string:color:${acord/color};"></i>&nbsp;<span tal:content="acord/estatsLlista"></span>
+                    </span>
                 </td>
-                <td style="font-size:13px; width: 6%; padding-left: 10px; text-align:right;">
-                    <span tal:condition="acord/state" tal:content="acord/state"></span>
-                </td>
-                <td style="font-size:13px; text-align:left;">
+                <td class="centerMiddle" style="text-align:left;">
+                  <i class="fa fa-check" aria-hidden="True"></i>&nbsp;
                     <a tal:condition="acord/title" href="" tal:content="acord/title" tal:attributes="href acord/path"></a>
                 </td>
               </tr>

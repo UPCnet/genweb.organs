@@ -4,6 +4,8 @@ from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 from plone import api
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+import unicodedata
+from operator import itemgetter
 import json
 
 
@@ -26,7 +28,6 @@ class Webservice(BrowserView):
         super(Webservice, self).__init__(context, request)
         self.acord = None
         path_ordered = request.path[::-1]
-        #if len(request.path) == 4:
         self.acord = '/'.join(path_ordered)
 
     def __call__(self):
@@ -35,31 +36,45 @@ class Webservice(BrowserView):
             # Empty query returns default template
             return self.index()
         else:
-            # results = []
+            results = []
             # [organ, year, month, acord] = self.acord.split('/')
             # Example : /acord/CG/2017/05/01
-            items = api.content.find(portal_type='genweb.organs.acord',
-                                     index_agreement=self.acord)
+            results = api.content.find(portal_type='genweb.organs.acord',
+                                       index_agreement=self.acord)
 
-            # for value in items:
+            # Uncomment this to show item properties in Json format
+            # items = []
+            # for value in results:
             #     item = value.getObject()
+            #     items.append(dict(title=item.Title(),
+            #                       path=value.getPath(),
+            #                       agreement=item.agreement,
+            #                       url=item.absolute_url(),
+            #                       proposalPoint=item.proposalPoint))
+            # return json.dumps(items)
 
-            #     results.append(dict(title=item.Title(),
-            #                         path=value.getPath(),
-            #                         agreement=item.agreement,
-            #                         url=item.absolute_url(),
-            #                         proposalPoint=item.proposalPoint))
-            # return json.dumps(results)
-            if items:
-                return self.request.response.redirect(items[0].getObject().absolute_url())
+            if results:
+                return self.request.response.redirect(results[0].getObject().absolute_url())
             else:
                 return self.request.response.redirect(api.portal.get().absolute_url())
 
+    def getColor(self, value):
+        # Get custom colors on passed organ states
+        estat = value.estatsLlista
+        values = value.aq_parent.aq_parent.estatsLlista
+        color = '#777777'
+        for value in values.split('</p>'):
+            if value != '':
+                item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
+                if estat.decode('utf-8') == ' '.join(item_net.split()[:-1]).lstrip():
+                    return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
+        return color
+
     def allAcords(self):
-        results = api.content.find(
-            portal_type='genweb.organs.acord')
+        results = api.content.find(portal_type='genweb.organs.acord', path="/998/govern/ca/c/esab/j")
         results2 = []
         results3 = []
+
         if api.user.is_anonymous():
             username = None
         else:
@@ -71,15 +86,47 @@ class Webservice(BrowserView):
                     roles = api.user.get_roles(obj=element.aq_parent.aq_parent, username=username)
                 else:
                     roles = []
-                organType = element.aq_parent.aq_parent.organType
-                if 'Manager' in roles or (organType == 'open_organ'):
-                    results2.append(value)
-                elif organType == 'restricted_to_members_organ':
-                    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
+                organ_tipus = element.aq_parent.aq_parent.organType
+                estatSessio = api.content.get_state(obj=element.aq_parent)
+                if organ_tipus == 'open_organ':
+                    if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
                         results2.append(value)
-                elif organType == 'restricted_to_affected_organ':
-                    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
+                    elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                         results2.append(value)
+                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'tancada':
+                        results2.append(value)
+                    elif estatSessio == 'en_correccio':
+                        results2.append(value)
+                    else:
+                        continue
+                if organ_tipus == 'restricted_to_members_organ':
+                    if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                        results2.append(value)
+                    else:
+                        continue
+                if organ_tipus == 'restricted_to_affected_organ':
+                    if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                        results2.append(value)
+                    else:
+                        continue
                 else:
                     # remove element
                     continue
@@ -88,15 +135,47 @@ class Webservice(BrowserView):
                     roles = api.user.get_roles(obj=element.aq_parent.aq_parent.aq_parent, username=username)
                 else:
                     roles = []
-                organType = element.aq_parent.aq_parent.aq_parent.organType
-                if 'Manager' in roles or (organType == 'open_organ'):
-                    results2.append(value)
-                elif organType == 'restricted_to_members_organ':
-                    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
+                organ_tipus = element.aq_parent.aq_parent.aq_parent.organType
+                estatSessio = api.content.get_state(obj=element.aq_parent.aq_parent)
+                if organ_tipus == 'open_organ':
+                    if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
                         results2.append(value)
-                elif organType == 'restricted_to_affected_organ':
-                    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
+                    elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                         results2.append(value)
+                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'tancada':
+                        results2.append(value)
+                    elif estatSessio == 'en_correccio':
+                        results2.append(value)
+                    else:
+                        continue
+                if organ_tipus == 'restricted_to_members_organ':
+                    if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                        results2.append(value)
+                    else:
+                        continue
+                if organ_tipus == 'restricted_to_affected_organ':
+                    if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                        results2.append(value)
+                    elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                        results2.append(value)
+                    else:
+                        continue
                 else:
                     # remove element
                     continue
@@ -104,12 +183,11 @@ class Webservice(BrowserView):
                 continue
         for value in results2:
             item = value.getObject()
+
             results3.append(dict(id=item.agreement,
                                  path=item.absolute_url(),
-                                 state=item.estatsLlista,
+                                 estatsLlista=item.estatsLlista,
+                                 color=self.getColor(item),
                                  title=item.Title(),
-                                 proposal=item.proposalPoint,
                                  ))
-        return dict(results=results3,
-                    all=len(results),
-                    new=len(results3))
+        return sorted(results3, key=itemgetter('id'), reverse=True)
