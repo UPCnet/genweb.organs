@@ -1,11 +1,23 @@
 Changelog
 =========
 
-0.21 (unreleased)
+0.21 (2018-07-12)
 -----------------
 
-- Nothing changed yet.
-
+* hide search feature [Roberto Diaz]
+* addapted CSS to make print more reliable. In acta now logo is shown in th right header [Roberto Diaz]
+* return results in reverse mode [Roberto Diaz]
+* move files public to private [Roberto Diaz]
+* removed path used in testing [Roberto Diaz]
+* updated webservice view [Roberto Diaz]
+* updated webservice [Roberto Diaz]
+* filter acords results [Roberto Diaz]
+* added multiple events icon to calendar, and reorder CSS afer merge [Roberto Diaz]
+* translations [Roberto Diaz]
+* added files from master [Roberto Diaz]
+* added new code to move visible to hide files and viceversa [Roberto Diaz]
+* added icons to navigation [Roberto Diaz]
+* aded filename to download options [Roberto Diaz]
 
 0.20 (2018-07-10)
 -----------------
