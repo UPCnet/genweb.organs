@@ -42,7 +42,7 @@ class Webservice(BrowserView):
             results = api.content.find(portal_type='genweb.organs.acord',
                                        index_agreement=self.acord)
 
-            # Uncomment this to show item properties in Json format
+            # Uncomment this to show item properties in json format
             # items = []
             # for value in results:
             #     item = value.getObject()
@@ -71,7 +71,7 @@ class Webservice(BrowserView):
         return color
 
     def allAcords(self):
-        results = api.content.find(portal_type='genweb.organs.acord', path="/998/govern/ca/c/esab/j")
+        results = api.content.find(portal_type='genweb.organs.acord')
         results2 = []
         results3 = []
 
