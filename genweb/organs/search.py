@@ -222,7 +222,7 @@ class Search(BrowserView):
             query['b_start'] = b_start = int(b_start)
             query['b_size'] = b_size
         query = self.filter_query(query)
-
+        query['sort_order'] = 'reverse'
         newresults = []
         new_path = []
         root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
