@@ -200,7 +200,8 @@ class MovePublicfilestoPrivate(grok.View):
     grok.layer(IGenwebOrgansLayer)
 
     def showfiles(self):
-        all_brains = api.content.find(portal_type='genweb.organs.file', path=self.context.absolute_url_path())
+        path = '/'.join(self.context.getPhysicalPath())
+        all_brains = api.content.find(portal_type='genweb.organs.file', path=path)
         results = []
         for brain in all_brains:
             obj = brain.getObject()
@@ -222,7 +223,8 @@ class MovePublicfilestoPrivate(grok.View):
         return json.dumps(results, indent=2, sort_keys=True)
 
     def movetoPrivate(self):
-        all_brains = api.content.find(portal_type='genweb.organs.file', path=self.context.absolute_url_path())
+        path = '/'.join(self.context.getPhysicalPath())
+        all_brains = api.content.find(portal_type='genweb.organs.file', path=path)
         results = []
         for brain in all_brains:
             obj = brain.getObject()
@@ -261,7 +263,8 @@ class MovePublicfilestoPrivate(grok.View):
         return json.dumps(results, indent=2, sort_keys=True)
 
     def movetoPublic(self):
-        all_brains = api.content.find(portal_type='genweb.organs.file', path=self.context.absolute_url_path())
+        path = '/'.join(self.context.getPhysicalPath())
+        all_brains = api.content.find(portal_type='genweb.organs.file', path=path)
         results = []
         for brain in all_brains:
             obj = brain.getObject()
