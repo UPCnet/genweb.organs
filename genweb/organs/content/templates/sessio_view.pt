@@ -300,20 +300,20 @@
               <tbody>
                 <tal:documents repeat="item acords">
                   <tr>
-                    <td>
+                    <td style="vertical-align: middle;">
                       <i class="fa fa-check" aria-hidden="true"></i>
                       <a href="#"
-                             tal:attributes="href item/absolute_url;"
-                             tal:content="item/title">
+                         tal:attributes="href item/absolute_url;"
+                         tal:content="item/title">
                               Item Title
                       </a>
                     </td>
-                    <td style="text-align:center;">
+                    <td style="text-align:center; vertical-align: middle;">
                       <span tal:content="item/agreement">
                           Numero Acord
                       </span>
                     </td>
-                    <td style="text-align:center; min-width: 100px;">
+                    <td style="text-align:center; min-width: 100px; vertical-align: middle;">
                       <span class="estatpunt">
                         <i class="fa fa-circle boletaGran" aria-hidden="true" tal:attributes="style string:color:${item/color};"></i>&nbsp;<span tal:content="item/estatsLlista"></span>
                       </span>

@@ -315,3 +315,25 @@ class MovePublicfilestoPrivate(grok.View):
         <br/>usage: /movefilestoprivateorpublic?  <b><a href="?showfiles">showfiles</a></b>\
          | <b><a href="?move2Private">move2Private</a></b> \
          | <b><a href="?move2Public">move2Public</a></b>'
+
+
+class showColorOrgans(grok.View):
+
+    grok.context(IDexterityContent)
+    grok.name('showColorOrgans')
+    grok.require('cmf.ManagePortal')
+    grok.layer(IGenwebOrgansLayer)
+
+    def render(self):
+        path = '/'.join(self.context.getPhysicalPath())
+        all_brains = api.content.find(portal_type='genweb.organs.organgovern', path=path)
+        results = []
+        for brain in all_brains:
+            obj = brain.getObject()
+            element = {
+                'color': obj.eventsColor,
+                'path': obj.absolute_url() + '/edit'
+            }
+
+            results.append(element)
+        return json.dumps(results, indent=2, sort_keys=True)

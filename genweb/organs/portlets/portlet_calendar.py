@@ -17,8 +17,14 @@ from zope import schema
 from zope.formlib import form
 from zope.i18nmessageid import MessageFactory
 from zope.interface import implements
+from datetime import datetime
+from plone.app.event.base import localized_now
+from plone.event.interfaces import IEvent
+from datetime import timedelta
+
 
 import calendar
+import itertools
 
 
 PLMF = MessageFactory('plonelocales')
@@ -154,6 +160,122 @@ class Renderer(base.Renderer):
                 classtag += ' event-multiple '
         return classtag
 
+    def getDateEvents(self):
+        formatDate = "%Y-%m-%d"
+        if 'day' in self.request.form:
+            date = '{}-{}-{}'.format(self.request.form['year'], self.request.form['month'], self.request.form['day'])
+        else:
+            date = datetime.today().strftime(formatDate)
+        dateEvent = datetime.strptime(date, formatDate)
+        return dateEvent
+
+    def getNextThreeEvents(self):
+        context = aq_inner(self.context)
+        query_kw = {}
+        # if self.search_base:
+        #     portal = getToolByName(context, 'portal_url').getPortalObject()
+        #     query_kw['path'] = {'query': '%s%s' % (
+        #         '/'.join(portal.getPhysicalPath()), self.search_base)}
+
+        # if self.state:
+        #     query_kw['review_state'] = self.state
+
+        events = get_events(context, ret_mode=RET_MODE_OBJECTS, expand=True, **query_kw)
+        events = self.filterNextEvents(events)
+        events = self.filterOccurrenceEvents(events)
+
+        list_events = []
+        for event in events[:3]:
+            list_events.append(self.getEventCalendarDict(event))
+
+        return list_events
+
+    def getEventCalendarDict(self, event):
+        start = event.start.strftime('%d/%m')
+        searchStart = event.start.strftime('%m/%s')
+        end = event.end.strftime('%d/%m')
+        end = None if end == start else end
+        return dict(Title=event.title,
+                    getURL=event.absolute_url(),
+                    start=start,
+                    searchStart=searchStart,
+                    end=end,
+                    community_type='event.community_type',
+                    community_name=event.aq_parent.aq_parent.title,
+                    community_url=event.aq_parent.aq_parent.absolute_url())
+
+    def filterOccurrenceEvents(self, events):
+        filter_events = []
+        for event in events:
+            if not IEvent.providedBy(event):
+                ocurrence = event
+                event = event.aq_parent
+                if event not in filter_events:
+                    event.ocstart = ocurrence.start
+                    event.ocend = ocurrence.end
+                    filter_events.append(event)
+            else:
+                filter_events.append(event)
+
+        return filter_events
+
+    def filterNextEvents(self, events):
+        filter_events = []
+        for event in events:
+            if event.end > localized_now():
+                filter_events.append(event)
+        return filter_events
+
+    def getDayEventsGroup(self):
+        group_events = []
+        if 'day' not in self.request.form and 'month' in self.request.form:
+            return None
+
+        if 'day' not in self.request.form and 'month' not in self.request.form:
+            list_events = self.getNextThreeEvents()
+        else:
+            list_events = self.getDayEvents(self.getDateEvents())
+
+        if len(list_events):
+            list_events = sorted(list_events, key=lambda x: x['community_name'])
+            for key, group in itertools.groupby(list_events, key=lambda x: x['community_name']):
+                events = [event for event in group]
+                events = sorted(events, key=lambda x: (x['searchStart'], x['Title']))
+                group_events.append(dict(Title=key,
+                                         getURL=events[0]['getURL'],
+                                         community_url=events[0]['community_url'],
+                                         community_type=events[0]['community_type'],
+                                         community_name=events[0]['community_name'],
+                                         num_events=len(events),
+                                         events=events))
+            return group_events
+        else:
+            return None
+
+    def getDayEvents(self, date):
+        events = self.getCalendarDict()
+        list_events = []
+        if date.strftime('%Y-%m-%d') in events:
+            events = self.filterOccurrenceEvents(events[date.strftime('%Y-%m-%d')])
+            for event in events:
+                list_events.append(self.getEventCalendarDict(event))
+        return list_events
+
+    def getCalendarDict(self):
+        context = aq_inner(self.context)
+        year, month = self.year_month_display()
+        monthdates = [dat for dat in self.cal.itermonthdates(year, month)]
+
+        query_kw = {}
+        start = monthdates[0]
+        end = monthdates[-1]
+        events = get_events(context,
+                            start=start - timedelta(days=30),
+                            end=end,
+                            ret_mode=RET_MODE_OBJECTS,
+                            expand=True, **query_kw)
+        return construct_calendar(events, start=start, end=end)
+
     @property
     def cal_data(self):
         """Calendar iterator over weeks and days of the month to display.
@@ -212,6 +334,8 @@ class Renderer(base.Renderer):
             caldata[-1].append(
                 {'date': dat,
                  'day': dat.day,
+                 'month': dat.month,
+                 'year': dat.year,
                  'prev_month': dat.month < month,
                  'next_month': dat.month > month,
                  'color': color,

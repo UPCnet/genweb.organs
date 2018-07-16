@@ -16,11 +16,8 @@ th.centerMiddle {
 .portaltype-genweb-organs-organgovern div.tab-pane.active,
 .portaltype-genweb-organs-sessio div.tab-pane.active,
 .portaltype-genweb-organs-acta div.tab-pane.active {
-    padding-top: 20px;
+    padding: 20px;
     background-color: #f0f0f0;
-    padding-left: 20px;
-    padding-bottom: 20px;
-    padding-right: 20px;
 }
 
 ul#tabs.nav.nav-tabs {
@@ -91,9 +88,7 @@ a.collapsed .icon-chevron-down{
     background-position: -456px -72px;
 }
 
-table th {
-    background-color: #F7F7F7!important;
-}
+
 
 .containerIcons {
     text-align: center;
@@ -824,10 +819,6 @@ padding: 0px 0px 32px 0px !important;
     top: 30px;
     z-index: 10;
 }
-.clickable-row:hover {
-    cursor: pointer;
-    ;
- }
 
 .ul-session span {
     float: right;
@@ -1939,3 +1930,115 @@ td.organevent.cal_has_events .popover-content a {
     right: 3px;
 }
 
+.calendari {
+    width: 100%;
+    text-align: center;
+    color: #4a4a4a;
+}
+
+.calendari th {
+    background-color: white;
+}
+
+.calendari th, .calendari td {
+    text-align: center;
+    height: 30px;
+    width: calc(100% / 7);
+}
+
+.portlet-calendari .cal_has_events {
+    border: 1px solid white;
+}
+
+.portlet-calendari .cal_has_events a {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.cal_has_events {
+    background-color: #384e65;
+    text-shadow: none;
+    cursor: pointer;
+}
+
+.cal_has_events:hover {
+    filter: brightness(80%);
+}
+
+.icons-ul {
+    list-style: none;
+    margin: 15px 0 0 0;
+    font-size: 14px;
+    margin-top: 0px;
+
+}
+
+.icons-ul li p {
+    font-weight: bold;
+}
+
+.icons-ul li {
+    border-bottom: 1px solid #eee;
+    line-height: 15px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    padding-left: 8px;
+    font-size: 14px;
+    border-left: 5px solid #007bc0;
+}
+
+.icons-ul .text2 {
+    font-size:13px;
+}
+
+.text2 a {
+    color: black;
+}
+
+.btn:hover {
+    filter: brightness(90%);
+}
+
+
+#calendari header {
+        border-bottom: 5px solid #007bc0;
+        display: flex;
+}
+
+.portlet-calendari .portlet-header {
+    display: flex;
+    min-height: 40px;
+}
+
+
+.portlet-calendari .calendari-anterior::before, .portlet-calendari .calendari-seguent::before {
+    content: "\f060";
+    font-size: 1.125rem;
+    font-family: "FontAwesome";
+    border-radius: 50%;
+    padding: 5px;
+    border: 1px solid transparent;
+}
+
+.portlet-calendari .calendari-anterior:hover::before, .portlet-calendari .calendari-seguent:hover::before {
+    border: 1px solid #01559B;
+    transition: .25s all ease;
+}
+
+.portlet-calendari h3 {
+    font-weight: 700;
+    font-size: 1.125rem;
+    text-align: center;
+    width: 100%;
+    margin: 2px;
+}
+
+a.calendari-anterior:hover,
+a.calendari-seguent:hover  {
+    text-decoration: none;
+}
+
+.portlet-calendari .calendari-seguent::before {
+    content: "\f061";
+}

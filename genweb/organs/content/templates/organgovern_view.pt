@@ -55,7 +55,7 @@
       <li tal:condition="actes"><a href="#actasTab" data-toggle="tab">
         <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Actes</tal:omit-tag></i></a></li>
     </ul>
-    
+
     <div id="organTabs" class="tab-content" >
       <div class="tab-pane active" id="sessionsTab" tal:condition="sessions">
         <table class="table table-bordered table-condensed table-hover logFont">
@@ -76,11 +76,11 @@
             </tr>
           </thead>
           <tal:objects repeat="item sessions">
-            <tr class="clickable-row" tal:attributes="data-href item/absolute_url;">
+            <tr>
               <td style="vertical-align: middle;">
                   <i class="fa fa-list" aria-hidden="True">&nbsp;
-                  <span tal:content="item/title" style="color:#007BC0; font-size: 13px;"> Item Title </span>
-                  [<span tal:content="item/sessionNumber" style="font-size: 11px;">
+                  <a tal:attributes="href item/absolute_url;" tal:content="item/title" style="color:#007BC0; font-size: 14px;"> Item Title </a>
+                  [<span tal:content="item/sessionNumber" style="font-size: 13px;">
                           Session Number
                   </span>]
               </td>
@@ -160,19 +160,19 @@
             </thead>
             <tbody>
               <tal:documents repeat="item acords">
-                <tr class="clickable-row" tal:attributes="data-href item/absolute_url;">
-                  <td>
+                <tr>
+                  <td style="vertical-align: middle;">
                     <i class="fa fa-check" aria-hidden="True">&nbsp;
-                    <span tal:content="item/title" style="color: #007BC0; font-size: 13px;">
+                    <a tal:attributes="href item/absolute_url;" tal:content="item/title" style="color: #007BC0; font-size: 14px;">
                             Item Title
-                    </span>
+                    </a>
                   </td>
-                  <td style="text-align: center;">
+                  <td style="text-align: center; vertical-align: middle;">
                     <span tal:content="item/agreement">
                         Numero Acord
                     </span>
                   </td>
-                    <td style="text-align:center; min-width: 100px;">
+                    <td style="text-align:center; min-width: 100px; vertical-align: middle;">
                       <span class="estatpunt">
                         <i class="fa fa-circle boletaGran" aria-hidden="true" tal:attributes="style string:color:${item/color};"></i>&nbsp;<span tal:content="item/estatsLlista"></span>
                       </span>
@@ -188,23 +188,22 @@
           <table class="table table-bordered table-condensed table-hover logFont">
             <thead>
               <tr>
-                <th style="text-align: center;">
+                <th style="text-align: center; vertical-align: middle;">
                    <tal:data i18n:translate="">Titol</tal:data>
                  </th>
-                <th style="text-align: center;">
+                <th style="text-align: center; vertical-align: middle;">
                   <tal:data i18n:translate="">Data</tal:data>
                 </th>
               </tr>
             </thead>
             <tbody>
               <tal:documents repeat="item actes">
-                <tr tal:define="data item/data|nothing" class="clickable-row"
-                    tal:attributes="data-href item/absolute_url;">
+                <tr tal:define="data item/data|nothing">
                   <td>
                     <i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;
-                    <span tal:content="item/title" style="color: #007BC0; font-size: 13px;">
+                    <a tal:Attributes="href item/absolute_url;" tal:content="item/title" style="color: #007BC0; font-size: 14px;">
                         Item Title
-                    </span>
+                    </a>
                   </td>
                   <td style="text-align: center;">
                     <tal:block tal:condition="data">
@@ -221,12 +220,6 @@
       </div>
     </div>
   </div>
-
-<script type="text/javascript">
-    $(".clickable-row").click(function() {
-        window.location = $(this).data("href");
-    });
-</script>
 
 </metal:content-core>
 
