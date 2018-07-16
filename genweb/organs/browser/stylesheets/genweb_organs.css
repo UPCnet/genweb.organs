@@ -2019,11 +2019,13 @@ td.organevent.cal_has_events .popover-content a {
     border-radius: 50%;
     padding: 5px;
     border: 1px solid transparent;
+    -webkit-text-stroke: 2px white;
 }
 
 .portlet-calendari .calendari-anterior:hover::before, .portlet-calendari .calendari-seguent:hover::before {
     border: 1px solid #01559B;
     transition: .25s all ease;
+    -webkit-text-stroke: 0.5px white;
 }
 
 .portlet-calendari h3 {
