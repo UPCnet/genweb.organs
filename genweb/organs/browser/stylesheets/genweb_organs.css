@@ -2083,5 +2083,18 @@ a.calendari-seguent:hover  {
     margin-bottom: 10px;
 }
 
+.link-banner {
+    font-size: 1.125rem;
+    font-weight: 500;
+    background: #F2F5F6;
+    display: block;
+    padding: 30px 24px;
+    color: #636363;
+    position: relative;
+    transition: all .25s ease-out;
+    border-radius: 2px;
+    padding-right: 72px;
+    margin-top: 0px;
+}
 
 /* END DEFAULT CSS NO MEDIA QUERY */

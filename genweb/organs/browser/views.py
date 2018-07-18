@@ -14,6 +14,10 @@ from genweb.organs import utils
 from AccessControl import Unauthorized
 from operator import itemgetter
 import datetime
+from genweb.organs.interfaces import IGenwebOrgansLayer
+from genweb.organs.content.sessio import ISessio
+# from five import grok
+
 
 # Disable CSRF
 try:
@@ -680,3 +684,18 @@ class allSessions(BrowserView):
                         dateiso=event.start.strftime('%Y%m%d'),
                         url=obj.absolute_url()))
         return sorted(results, key=itemgetter('dateiso'), reverse=False)
+
+
+class showMembersOrgan(BrowserView):
+    """ View that list all members of the organ de govern"""
+    __call__ = ViewPageTemplateFile('views/members.pt')
+
+    def getMembers(self):
+        if self.context.portal_type == 'genweb.organs.organgovern':
+            return self.context.membresOrgan
+
+    def getTitle(self):
+        if self.context.portal_type == 'genweb.organs.organgovern':
+            return self.context.Title()
+        else:
+            return self.request.response.redirect(api.portal.get().absolute_url())

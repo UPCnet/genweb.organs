@@ -47,6 +47,14 @@
 
     <browser:page
       for="*"
+      name="membres"
+      class=".views.showMembersOrgan"
+      layer="..interfaces.IGenwebOrgansLayer"
+      permission="zope2.Public"
+    />
+
+    <browser:page
+      for="*"
       name="changeTitle"
       class=".changes.changeTitle"
       layer="..interfaces.IGenwebOrgansLayer"

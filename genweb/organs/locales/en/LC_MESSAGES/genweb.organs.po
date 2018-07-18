@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-07-11 13:13+0000\n"
+"POT-Creation-Date: 2018-07-18 14:50+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Draft Yellow</p><p>Pending aproval Orange</p><p>Approved Green</p><p>Not approved Red</p><p>Cancelled DarkRed</p><p>Informative LightSkyBlue</p><p>Informedt MediumBlue</p>"
 
-#: ./genweb/organs/search.pt:456
+#: ./genweb/organs/search.pt:386
 msgid "Accedir als darrers acords de"
 msgstr "Go to latests agreements of"
 
@@ -68,10 +68,6 @@ msgstr "Meeting reports"
 msgid "Actes de la sessio:"
 msgstr "Meetings reports from session"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:226
-msgid "Add Organs Calendar Portlet"
-msgstr "Add Organs Calendar Portlet"
-
 #: ./genweb/organs/content/manualimport.py:29
 msgid "Add content separated by -- and they will by added as Agreements."
 msgstr "Add content separated by -- and they will by added as Agreements."
@@ -87,8 +83,8 @@ msgid "Afectats"
 msgstr "Affected"
 
 #: ./genweb/organs/browser/views/butlleti.pt:126
+#: ./genweb/organs/browser/views/webservice.pt:87
 #: ./genweb/organs/content/templates/organgovern_view.pt:154
-#: ./genweb/organs/content/templates/sessio_view.pt:293
 msgid "Agreement"
 msgstr "Agreement"
 
@@ -125,7 +121,7 @@ msgid "Anonymous user"
 msgstr "Anonymous user"
 
 #: ./genweb/organs/browser/views/acta_preview.pt:47
-#: ./genweb/organs/browser/views/acta_print.pt:61
+#: ./genweb/organs/browser/views/acta_print.pt:64
 #: ./genweb/organs/content/acta.py:66
 msgid "Assistants"
 msgstr "Attending members"
@@ -173,15 +169,15 @@ msgstr "Message attached executing the Send Message Action. It adds just the foo
 msgid "Cancel"
 msgstr "Cancel"
 
-#: ./genweb/organs/search.pt:133
+#: ./genweb/organs/search.pt:63
 msgid "Cerca"
 msgstr "Search"
 
-#: ./genweb/organs/browser/viewlets_templates/header.pt:57
+#: ./genweb/organs/browser/viewlets_templates/header.pt:60
 msgid "Cercador"
 msgstr "Search"
 
-#: ./genweb/organs/search.pt:121
+#: ./genweb/organs/search.pt:51
 msgid "Cercar..."
 msgstr "Search..."
 
@@ -189,31 +185,31 @@ msgstr "Search..."
 msgid "Changed Title"
 msgstr "Changed Title"
 
-#: ./genweb/organs/browser/views.py:500
+#: ./genweb/organs/browser/views.py:506
 msgid "Changed acord color state"
 msgstr "Changed agreement state"
 
-#: ./genweb/organs/browser/views.py:530
+#: ./genweb/organs/browser/views.py:536
 msgid "Changed acord intern state color"
 msgstr "Changed agreement state"
 
-#: ./genweb/organs/browser/views.py:496
+#: ./genweb/organs/browser/views.py:502
 msgid "Changed punt color state"
 msgstr "Changed point state"
 
-#: ./genweb/organs/browser/views.py:182
+#: ./genweb/organs/browser/views.py:188
 msgid "Changed punt number with drag&drop"
 msgstr "Changed point number with drag&drop option"
 
-#: ./genweb/organs/browser/views.py:494
+#: ./genweb/organs/browser/views.py:500
 msgid "Changed recursive color state of acord inside punt"
 msgstr "Changed agreement state"
 
-#: ./genweb/organs/browser/views.py:492
+#: ./genweb/organs/browser/views.py:498
 msgid "Changed recursive color state of subpunt inside punt"
 msgstr "Changed point state"
 
-#: ./genweb/organs/browser/views.py:528
+#: ./genweb/organs/browser/views.py:534
 msgid "Changed subpunt intern state color"
 msgstr "Changed point state"
 
@@ -229,13 +225,13 @@ msgstr "Changes saved."
 msgid "Cliqueu <a href=\"./\">aqui</a> per tornar al mode de visualitzacio per defecte."
 msgstr "Click <a href=\"./\">here</a> to show the previous view."
 
-#: ./genweb/organs/browser/views/webservice.pt:86
-msgid "Codi d'acord"
-msgstr "Proposal point"
-
 #: ./genweb/organs/content/organgovern.py:129
 msgid "Color del esdeveniments"
 msgstr "Sessions color in the calendar"
+
+#: ./genweb/organs/browser/views/members.pt:13
+msgid "Composicio"
+msgstr ""
 
 #: ./genweb/organs/content/document.py:56
 msgid "Content used to hide protected content"
@@ -283,6 +279,14 @@ msgstr "Date"
 msgid "Data i hora"
 msgstr "Date and Time"
 
+#: ./genweb/organs/browser/views/allsessions.pt:31
+msgid "Data i hora fi"
+msgstr ""
+
+#: ./genweb/organs/browser/views/allsessions.pt:28
+msgid "Data i hora inici"
+msgstr ""
+
 #: ./genweb/organs/content/document.py:48
 msgid "Default content shown in the document view"
 msgstr "Default content shown in the document view"
@@ -303,12 +307,12 @@ msgstr "Delete point"
 msgid "Deleted subpunt"
 msgstr "Deleted point"
 
-#: ./genweb/organs/browser/views.py:113
+#: ./genweb/organs/browser/views.py:119
 msgid "Deleted via javascript"
 msgstr "Deleted via javascript"
 
 #: ./genweb/organs/browser/views/acta_preview.pt:77
-#: ./genweb/organs/browser/views/acta_print.pt:90
+#: ./genweb/organs/browser/views/acta_print.pt:93
 msgid "Desenvolupament de la sessio"
 msgstr "Development of the session"
 
@@ -321,12 +325,12 @@ msgid "Destinataris"
 msgstr "Recipients"
 
 #: ./genweb/organs/browser/views/acta_preview.pt:37
-#: ./genweb/organs/browser/views/acta_print.pt:53
+#: ./genweb/organs/browser/views/acta_print.pt:56
 msgid "Dia/Hora fi"
 msgstr "Day/Hour end"
 
 #: ./genweb/organs/browser/views/acta_preview.pt:32
-#: ./genweb/organs/browser/views/acta_print.pt:48
+#: ./genweb/organs/browser/views/acta_print.pt:51
 msgid "Dia/Hora inici"
 msgstr "Day/Hour start"
 
@@ -334,10 +338,6 @@ msgstr "Day/Hour start"
 #: ./genweb/organs/profiles/default/types/genweb.organs.document.xml
 msgid "Document"
 msgstr "Document"
-
-#: ./genweb/organs/portlets/portlet_calendar.py:238
-msgid "Edit Organs  Calendar Portlet"
-msgstr "Edit Organs Calendar Portlet"
 
 #: ./genweb/organs/content/organgovern.py:138
 msgid "Enter labels, separated by commas."
@@ -375,7 +375,7 @@ msgid "Events color help"
 msgstr "Used color to show the sessions and the events, in the calendar portlet. It's correct to use the CSS name (green) or the HTML color code (#008000). If no color is provided, the default color of the Site will be used. You can find the valid colors <a href='http://www.w3schools.com/colors/colors_names.asp' target='_blank'>here.</a>"
 
 #: ./genweb/organs/browser/views/acta_preview.pt:57
-#: ./genweb/organs/browser/views/acta_print.pt:71
+#: ./genweb/organs/browser/views/acta_print.pt:74
 #: ./genweb/organs/content/acta.py:82
 msgid "Excused members"
 msgstr "Excused members"
@@ -425,7 +425,7 @@ msgstr "From"
 msgid "From mail"
 msgstr "Email who sends the messages"
 
-#: ./genweb/organs/search.pt:295
+#: ./genweb/organs/search.pt:225
 msgid "Go to historic documentation"
 msgstr "Access to previous documentation"
 
@@ -473,7 +473,7 @@ msgid "Invalid audio file"
 msgstr "Invalid audio file"
 
 #: ./genweb/organs/browser/views/acta_preview.pt:52
-#: ./genweb/organs/browser/views/acta_print.pt:66
+#: ./genweb/organs/browser/views/acta_print.pt:69
 #: ./genweb/organs/content/acta.py:74
 msgid "Invited members"
 msgstr "Invited members"
@@ -482,10 +482,6 @@ msgstr "Invited members"
 #: ./genweb/organs/content/sessio.py:92
 msgid "Invited members help"
 msgstr "Invited members help"
-
-#: ./genweb/organs/portlets/portlet_calendar.py:33
-msgid "Items in which workflow state to show."
-msgstr "Items in which workflow state to show."
 
 #: ./genweb/organs/content/templates/informar_view.pt:23
 msgid "Llista de punts en el format del butlleti."
@@ -521,6 +517,10 @@ msgstr "Address or addresses to which messages arrive when a notification of the
 #: ./genweb/organs/content/mail_message.py:34
 msgid "Mail address separated by blanks."
 msgstr "Mail address separated by comma values."
+
+#: ./genweb/organs/content/organgovern.py:174
+msgid "Make the sessions and composition members fields visibles to everyone, omitting the security systems."
+msgstr ""
 
 #: ./genweb/organs/content/manualimport.py:28
 msgid "Manual Import"
@@ -560,7 +560,7 @@ msgid "Missatge no enviat. Comprovi els destinataris del missatge"
 msgstr "Message not sent. Check the message recipients."
 
 #: ./genweb/organs/browser/views/acta_preview.pt:62
-#: ./genweb/organs/browser/views/acta_print.pt:76
+#: ./genweb/organs/browser/views/acta_print.pt:79
 msgid "Missing members"
 msgstr "List of people not attending"
 
@@ -572,7 +572,7 @@ msgstr "Modified agreement"
 msgid "Modified acta"
 msgstr "Modified meeting report"
 
-#: ./genweb/organs/search.pt:233
+#: ./genweb/organs/search.pt:163
 msgid "Modified dates"
 msgstr "Dates"
 
@@ -584,7 +584,7 @@ msgstr "Modified point"
 msgid "Modified subpunt"
 msgstr "Modified point"
 
-#: ./genweb/organs/browser/views.py:228
+#: ./genweb/organs/browser/views.py:234
 msgid "Moved subpunt by drag&drop"
 msgstr "Moved point by drag&drop"
 
@@ -650,10 +650,14 @@ msgid "Operation Cancelled."
 msgstr "The operation was canceled."
 
 #: ./genweb/organs/browser/views/acta_preview.pt:71
-#: ./genweb/organs/browser/views/acta_print.pt:84
+#: ./genweb/organs/browser/views/acta_print.pt:87
 #: ./genweb/organs/content/templates/impersonate_as.pt:138
 msgid "Ordre del dia"
 msgstr "Agenda"
+
+#: ./genweb/organs/browser/views/allsessions.pt:25
+msgid "Organ"
+msgstr ""
 
 #: ./genweb/organs/profiles/default/types/genweb.organs.organgovern.xml
 msgid "Organ Govern"
@@ -688,7 +692,7 @@ msgstr "Organ of government title"
 
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:201
-#: ./genweb/organs/search.pt:201
+#: ./genweb/organs/search.pt:131
 msgid "Organ de govern"
 msgstr "Organ of government"
 
@@ -704,7 +708,7 @@ msgstr "List of names of people who are invited to the meetings of this body sys
 msgid "Organ type"
 msgstr "Organ of government type"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:59
+#: ./genweb/organs/portlets/portlet_calendar.py:36
 msgid "Organs Calendar"
 msgstr "Organs Calendar"
 
@@ -766,10 +770,6 @@ msgstr "Print"
 msgid "Print Acta"
 msgstr "Print Acta"
 
-#: ./genweb/organs/browser/views/webservice.pt:87
-msgid "Proposal"
-msgstr "Proposal point"
-
 #: ./genweb/organs/content/acord.py:83
 #: ./genweb/organs/content/punt.py:71
 #: ./genweb/organs/content/subpunt.py:71
@@ -813,11 +813,11 @@ msgstr "Recipients"
 msgid "Relacio Assistents"
 msgstr "List of assistants"
 
-#: ./genweb/organs/browser/views.py:429
+#: ./genweb/organs/browser/views.py:435
 msgid "Reload points manually"
 msgstr "Number points"
 
-#: ./genweb/organs/browser/views.py:375
+#: ./genweb/organs/browser/views.py:381
 msgid "Reload proposalPoints manually"
 msgstr "Number points"
 
@@ -886,7 +886,7 @@ msgid "Session end time"
 msgstr "End Time Session"
 
 #: ./genweb/organs/browser/views/acta_preview.pt:27
-#: ./genweb/organs/browser/views/acta_print.pt:43
+#: ./genweb/organs/browser/views/acta_print.pt:46
 #: ./genweb/organs/content/acta.py:59
 msgid "Session location"
 msgstr "Session Location"
@@ -999,10 +999,6 @@ msgstr "Point"
 msgid "Tancar"
 msgstr "Close"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:227
-msgid "This portlet displays events in a calendar."
-msgstr "This portlet displays events and colored sessions in a calendar."
-
 #: ./genweb/organs/content/templates/sessio_view.pt:391
 msgid "Title"
 msgstr "Title"
@@ -1038,13 +1034,13 @@ msgstr "Media"
 msgid "Video link"
 msgstr "Link to the video session"
 
+#: ./genweb/organs/content/organgovern.py:173
+msgid "Visible fields"
+msgstr ""
+
 #: ./genweb/organs/content/templates/informar_view.pt:40
 msgid "Vista previa dels punts"
 msgstr "Preview points"
-
-#: ./genweb/organs/portlets/portlet_calendar.py:32
-msgid "Workflow state"
-msgstr "Workflow state"
 
 #: ./genweb/organs/content/acord.py:162
 #: ./genweb/organs/content/mail_informar.py:247
@@ -1058,7 +1054,7 @@ msgstr "[Agreement "
 msgid "[Acord sense numeracio]"
 msgstr "[Agreement without number]"
 
-#: ./genweb/organs/browser/views.py:285
+#: ./genweb/organs/browser/views.py:291
 #: ./genweb/organs/content/acta.py:204
 msgid "[Acord sense numerar]"
 msgstr "[Agreement without number]"
@@ -1069,11 +1065,11 @@ msgstr "[Agreement without number]"
 msgid "acord"
 msgstr "Agreement"
 
-#: ./genweb/organs/search.py:425
+#: ./genweb/organs/search.py:254
 msgid "alphabetically"
 msgstr "alphabetically"
 
-#: ./genweb/organs/search.py:422
+#: ./genweb/organs/search.py:251
 msgid "date (newest first)"
 msgstr "date (newest first)"
 
@@ -1099,7 +1095,7 @@ msgid "informa_sessio"
 msgstr "Send message about the session"
 
 #. Default: "Search"
-#: ./genweb/organs/search.pt:131
+#: ./genweb/organs/search.pt:61
 msgid "label_search"
 msgstr "Search"
 
@@ -1116,16 +1112,6 @@ msgstr "Addresses where the messages related to the meeting will be arrive. Sepa
 msgid "open_organ"
 msgstr "Open"
 
-#. Default: "Select search base folder to search for events. This folder will also be used to link to in calendar searches. If empty, the whole site will be searched and the event listing view will be called on the site root."
-#: ./genweb/organs/portlets/portlet_calendar.py:42
-msgid "portlet_help_search_base"
-msgstr "Select search base folder to search for events. This folder will also be used to link to in calendar searches. If empty, the whole site will be searched and the event listing view will be called on the site root."
-
-#. Default: "Search base"
-#: ./genweb/organs/portlets/portlet_calendar.py:41
-msgid "portlet_label_search_base"
-msgstr "Search base"
-
 #: ./genweb/organs/content/templates/sessio_view.pt:147
 msgid "printOrdreDia"
 msgstr "Print Agenda"
@@ -1138,23 +1124,23 @@ msgstr "Restrcited to affected"
 msgid "restricted_to_members_organ"
 msgstr "Restricted to members"
 
-#: ./genweb/organs/browser/views.py:558
+#: ./genweb/organs/browser/views.py:564
 #: ./genweb/organs/content/impersonate_as.py:143
 #: ./genweb/organs/content/punt.py:148
 msgid "sense numeracio"
 msgstr "Not numbered"
 
 #. Default: "Last session"
-#: ./genweb/organs/search.pt:249
+#: ./genweb/organs/search.pt:179
 msgid "time_last_session"
 msgstr "Last session"
 
 #. Default: "Last year"
-#: ./genweb/organs/search.pt:266
+#: ./genweb/organs/search.pt:196
 msgid "time_last_year"
 msgstr "Last year"
 
 #. Default: "Search Site"
-#: ./genweb/organs/search.pt:121
+#: ./genweb/organs/search.pt:51
 msgid "title_search_title"
 msgstr "Search on the Site"
