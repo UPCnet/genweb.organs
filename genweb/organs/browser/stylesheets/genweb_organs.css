@@ -2027,7 +2027,7 @@ td.organevent.cal_has_events .popover-content a {
 
 .portlet-calendari .portlet-header {
     display: flex;
-    min-height: 40px;
+    padding: 10px 15px;
 }
 
 
@@ -2049,7 +2049,7 @@ td.organevent.cal_has_events .popover-content a {
 
 .portlet-calendari h3 {
     font-weight: 700;
-    font-size: 1.125rem;
+    font-size: 16px;
     text-align: center;
     width: 100%;
     margin: 2px;
@@ -2066,6 +2066,21 @@ a.calendari-seguent:hover  {
 
 .globeBox {
     border: 3px solid #f6f7f7 !important;
+}
+
+.cal_prev_month, .cal_next_month { opacity: .2; }
+.today {
+    border-width: 5px !important;
+    border-style: double !important;
+    border-color: #bdc8cf !important}
+
+.allSessions {
+    border-top: 1px solid #EEEEEE;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: right;
+    padding-top: 5px;
+    margin-bottom: 10px;
 }
 
 

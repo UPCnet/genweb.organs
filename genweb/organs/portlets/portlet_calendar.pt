@@ -1,4 +1,8 @@
-<div id="calendari" class="portlet portlet-calendari portletCalendar"  tal:define="year view/year;" i18n:domain="plone">
+<div id="calendari" class="portlet portlet-calendari" 
+    tal:define="year view/year;
+                portal_state context/@@plone_portal_state;
+                portal_url portal_state/portal_url;" 
+    i18n:domain="plone">
 
   <div>
     <header class="portlet-header">
@@ -45,7 +49,6 @@
                               (prev_month and ' cal_prev_month' or ''),
                               (events and ' cal_has_events' or ''),
                               (classtag or ''));
-                              style string:background-color:${day/color};
                               data-year day/year; data-month day/month; data-day day/day;">
                     <a tal:omit-tag="not:events" tal:content="day/day">31</a>
                   </td>
@@ -55,10 +58,14 @@
         </table>
       </div>
     </article>
+    <div class="allSessions">
+      <a href="" tal:Attributes="href string:${portal_url}/allsessions"><i class="fa fa-plus"></i>&nbsp;veure totes les sessions</a>
+    </div>
     <ul class="icons-ul">
       <tal:block tal:repeat="events view/getDayEventsGroup">
         <li tal:attributes="class string:${events/community_type} text">
           <p tal:repeat="event events/events">
+            <i class="fa fa-calendar"></i>&nbsp;
             <a tal:attributes="href event/getURL">
               <tal:event content="event/start"> 07/12 </tal:event>
               <span tal:condition="event/end">
@@ -96,14 +103,10 @@ $(document).ready(function () {
         var portlethash = pw.attr('id');
         portlethash = portlethash.substring(15, portlethash.length);
         url = portal_url + '/@@render-portlet?portlethash=' + portlethash +
-                '&community=' + elem_data.community +
                 '&year=' + elem_data.year +
                 '&month=' + elem_data.month;
         if(elem_data.day){
           url += '&day=' + elem_data.day;
-        }
-        if(elem_data.community_path){
-          url += '&community_path=' + elem_data.community_path;
         }
         $.ajax({
             url: url,
@@ -116,21 +119,14 @@ $(document).ready(function () {
 
     function rebind_portlet_calendar() {
         // ajaxify each portletCalendar
-        $('.portletCalendar a.calendari-seguent').click(function (event) {
+        $('a.calendari-seguent').click(function (event) {
             load_portlet_calendar(event, $(this));
         });
-        $('.portletCalendar a.calendari-anterior').click(function (event) {
+        $('a.calendari-anterior').click(function (event) {
             load_portlet_calendar(event, $(this));
         });
-        $('.portletCalendar .cal_has_events').click(function (event) {
+        $('.cal_has_events').click(function (event) {
             load_portlet_calendar(event, $(this));
-        });
-        $('#box_agenda #day').click(function (event) {
-            load_portlet_calendar(event, $(this));
-        });
-        $('.portletCalendar dd a[title]').tooltip({
-            offset: [-10, 0],
-            tipClass: 'pae_calendar_tooltip'
         });
     }
 

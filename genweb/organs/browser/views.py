@@ -12,6 +12,8 @@ from plone.event.interfaces import IEventAccessor
 import unicodedata
 from genweb.organs import utils
 from AccessControl import Unauthorized
+from operator import itemgetter
+import datetime
 
 # Disable CSRF
 try:
@@ -642,3 +644,39 @@ class Butlleti(BrowserView):
                 return True
             else:
                 raise Unauthorized
+
+
+class allSessions(BrowserView):
+    __call__ = ViewPageTemplateFile('views/allsessions.pt')
+
+    def year(self):
+        year = datetime.datetime.now().strftime('%Y')
+        return year
+
+    def sessions(self):
+        """ Returns sessions from organs marked as public fields,
+            bypassing security permissions """
+        values = api.content.find(
+            portal_type=['genweb.organs.organgovern'],
+            visiblefields=True,)
+
+        results = []
+        for item in values:
+            path = item.getPath()
+            sessions = api.content.find(
+                portal_type=['genweb.organs.sessio'],
+                path=path,
+                sort_on='start',
+                sort_order='reverse',)
+            current_year = datetime.datetime.now().strftime('%Y')
+            for session in sessions:
+                obj = session.getObject()
+                event = IEventAccessor(obj)
+                if obj.start.strftime('%Y') == current_year:
+                    results.append(dict(
+                        title=obj.aq_parent.title,
+                        start=event.start.strftime('%d/%m/%Y %H:%M'),
+                        end=event.end.strftime('%d/%m/%Y %H:%M'),
+                        dateiso=event.start.strftime('%Y%m%d'),
+                        url=obj.absolute_url()))
+        return sorted(results, key=itemgetter('dateiso'), reverse=False)

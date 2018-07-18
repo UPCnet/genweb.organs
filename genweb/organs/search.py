@@ -3,7 +3,6 @@ from plone import api
 from DateTime import DateTime
 from plone.app.contentlisting.interfaces import IContentListing
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.browser.navtree import getNavigationRoot
 from Products.CMFPlone.PloneBatch import Batch
 from Products.ZCTextIndex.ParseTree import ParseError
 from zope.component import getMultiAdapter
@@ -11,15 +10,6 @@ from zope.i18nmessageid import MessageFactory
 from zope.publisher.browser import BrowserView
 from ZTUtils import make_query
 from genweb.organs import permissions
-from Acquisition import aq_inner
-from plone.app.event.base import localized_today
-from plone.app.event.base import get_events, construct_calendar
-from plone.app.event.base import RET_MODE_OBJECTS
-from plone.event.interfaces import IEventAccessor
-from plone.app.event.portlets import get_calendar_url
-from plone.app.event.base import first_weekday
-import calendar
-from plone.app.event.base import wkday_to_mon1
 
 PLMF = MessageFactory('plonelocales')
 _ = MessageFactory('plone')
@@ -44,170 +34,9 @@ def quote_chars(s):
 class Search(BrowserView):
 
     def isAnon(self):
-        from plone import api
         if not api.user.is_anonymous():
             return False
         return True
-
-    def prev_month(self):
-        year, month = self.year_month_display()
-        year, prev_month = self.get_previous_month(year, month)
-        return prev_month
-
-    def prev_year(self):
-        year, month = self.year_month_display()
-        prev_year, month = self.get_previous_month(year, month)
-        return prev_year
-
-    def prev_query(self):
-        return '?month=%s&year=%s' % (self.prev_month(), self.prev_year())
-
-    def month_name(self):
-        year, month = self.year_month_display()
-        _ts = getToolByName(self.context, 'translation_service')
-        return PLMF(_ts.month_msgid(month), default=_ts.month_english(month))
-
-    def year(self):
-        year, month = self.year_month_display()
-        return year
-
-    def next_month(self):
-        year, month = self.year_month_display()
-        year, next_month = self.get_next_month(year, month)
-        return next_month
-
-    def next_year(self):
-        year, month = self.year_month_display()
-        next_year, month = self.get_next_month(year, month)
-        return next_year
-
-    def next_query(self):
-        return '?month=%s&year=%s' % (self.next_month(), self.next_year())
-
-    def weekdays(self):
-        # strftime %w interprets 0 as Sunday unlike the calendar.
-        _ts = getToolByName(self.context, 'translation_service')
-        cal = calendar.Calendar(first_weekday())
-        strftime_wkdays = [
-            wkday_to_mon1(day) for day in cal.iterweekdays()
-        ]
-        return [PLMF(_ts.day_msgid(day, format='s'), default=_ts.weekday_english(day, format='a')) for day in strftime_wkdays]
-
-    def year_month_display(self):
-        """ Return the year and month to display in the calendar.
-        """
-        context = aq_inner(self.context)
-        request = self.request
-
-        # Try to get year and month from request
-        year = request.get('year', None)
-        month = request.get('month', None)
-
-        # Or use current date
-        today = localized_today(context)
-        if not year:
-            year = today.year
-        if not month:
-            month = today.month
-
-        # try to transform to number but fall back to current
-        # date if this is ambiguous
-        try:
-            year, month = int(year), int(month)
-        except (TypeError, ValueError):
-            year, month = today.year, today.month
-
-        return year, month
-
-    def get_previous_month(self, year, month):
-        if month == 0 or month == 1:
-            month, year = 12, year - 1
-        else:
-            month -= 1
-        return (year, month)
-
-    def get_next_month(self, year, month):
-        if month == 12:
-            month, year = 1, year + 1
-        else:
-            month += 1
-        return (year, month)
-
-    def date_events_url(self, date):
-        return '%s?mode=day&date=%s' % (get_calendar_url(self.context, None), date)
-
-    def cal_data(self):
-        """Calendar iterator over weeks and days of the month to display.
-        """
-        context = aq_inner(self.context)
-        today = localized_today(context)
-        year, month = self.year_month_display()
-        self.cal = calendar.Calendar(first_weekday())
-        monthdates = [dat for dat in self.cal.itermonthdates(year, month)]
-        # import ipdb; ipdb.set_trace()
-
-        # data = self.data
-        query_kw = {}
-        # if data.search_base:
-        #     portal = getToolByName(context, 'portal_url').getPortalObject()
-        #     query_kw['path'] = {'query': '%s%s' % (
-        #         '/'.join(portal.getPhysicalPath()), data.search_base)}
-
-        # if data.state:
-        #     query_kw['review_state'] = data.state
-
-        start = monthdates[0]
-        end = monthdates[-1]
-        events = get_events(context, start=start, end=end,
-                            ret_mode=RET_MODE_OBJECTS,
-                            expand=True, **query_kw)
-        cal_dict = construct_calendar(events, start=start, end=end)
-
-        # [[day1week1, day2week1, ... day7week1], [day1week2, ...]]
-        caldata = [[]]
-        for dat in monthdates:
-            if len(caldata[-1]) == 7:
-                caldata.append([])
-            date_events = None
-            isodat = dat.isoformat()
-            if isodat in cal_dict:
-                date_events = cal_dict[isodat]
-
-            events_string = u""
-            color = ''
-            if date_events:
-                for occ in date_events:
-                    accessor = IEventAccessor(occ)
-                    location = accessor.location
-                    whole_day = accessor.whole_day
-                    time = accessor.start.time().strftime('%H:%M')
-                    color = occ.aq_parent.eventsColor
-                    # TODO: make 24/12 hr format configurable
-                    base = u'<a href="%s"><span class="title">%s</span> -'u'%s%s%s</a><br/>'
-                    events_string += base % (
-                        accessor.url,
-                        accessor.title,
-                        not whole_day and u' %s' % time or u'',
-                        not whole_day and location and u', ' or u'',
-                        location and u' %s' % location or u'')
-                # More than one event in the same day, default color
-                if len(date_events) > 1:
-                    color = 'red'
-
-            caldata[-1].append(
-                {'date': dat,
-                 'day': dat.day,
-                 'prev_month': dat.month < month,
-                 'next_month': dat.month > month,
-                 'color': color,
-                 'today':
-                    dat.year == today.year and
-                    dat.month == today.month and
-                    dat.day == today.day,
-                 'date_string': u"%s-%s-%s" % (dat.year, dat.month, dat.day),
-                 'events_string': events_string,
-                 'events': date_events})
-        return caldata
 
     valid_keys = ('sort_on', 'sort_order', 'sort_limit', 'fq', 'fl', 'facet')
 
