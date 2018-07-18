@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="ca"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="genweb.organs">
+<body>
+
+<metal:content-core fill-slot="content">
+
+  <h1 class="documentFirstHeading">
+    Previsió calendaris de reunions d'òrgans de govern, representació i consulta <tal:year tal:content="view/year"></tal:year>
+  </h1>
+
+  <div class="documentDescription">
+    La data i hora definitives de les reunions dels òrgans venen fixades per la convocatòria corresponent.
+  </div>
+
+
+  <table class="table table-bordered table-condensed table-hover logFont">
+    <thead>
+      <tr>
+        <th style="vertical-align: middle;">
+          <span i18n:translate="">Organ de govern</span>
+        </th>
+        <th style="text-align: center; vertical-align: middle;">
+          <tal:head i18n:translate="">Data i hora inici</tal:head>
+        </th>
+        <th style="text-align: center; vertical-align: middle;">
+          <tal:head i18n:translate="">Data i hora fi</tal:head>
+        </th>
+      </tr>
+    </thead>
+    <tal:objects repeat="item view/sessions">
+      <tr>
+        <td style="vertical-align: middle;">
+          <i class="fa fa-list"></i>&nbsp;
+            <a tal:attributes="href item/url;" tal:content="item/title" style="color:#007BC0; font-size: 14px;"> Item Title </a>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+          <span tal:content="item/start"> Start </span>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+          <span tal:content="item/end"> End </span>
+        </td>
+      </tr>
+    </tal:objects>
+  </table>
+
+
+</metal:content-core>
+
+</body>
+</html>
