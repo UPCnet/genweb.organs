@@ -110,23 +110,17 @@ class Renderer(base.Renderer):
             month += 1
         return (year, month)
 
-    def date_events_url(self, date):
-        return '%s?mode=day&date=%s' % (self.calendar_url, date)
-
     def get_public_organs_fields(self):
         visibleItems = api.content.find(portal_type='genweb.organs.organgovern', visiblefields=True)
         items_path = []
         for obj in visibleItems:
             items_path.append(obj.getPath())
-        # print items_path
         return items_path
 
     def getclasstag_event(self, day):
-        # Returns class color to show in the calendar
+        # Returns class color to render in the calendar
         classtag = ''
-
         if day['events']:
-            # if len(day['events']) > 1:
             if len(day['events']) > 1:
                 classtag += ' event-multiple '
         return classtag
@@ -134,7 +128,10 @@ class Renderer(base.Renderer):
     def getDateEvents(self):
         formatDate = "%Y-%m-%d"
         if 'day' in self.request.form:
-            date = '{}-{}-{}'.format(self.request.form['year'], self.request.form['month'], self.request.form['day'])
+            date = '{}-{}-{}'.format(
+                self.request.form['year'],
+                self.request.form['month'],
+                self.request.form['day'])
         else:
             date = datetime.today().strftime(formatDate)
         dateEvent = datetime.strptime(date, formatDate)
@@ -169,7 +166,6 @@ class Renderer(base.Renderer):
                     start=start,
                     searchStart=searchStart,
                     end=end,
-                    community_type='event.community_type',
                     community_name=event.aq_parent.aq_parent.title,
                     community_url=event.aq_parent.aq_parent.absolute_url())
 
@@ -213,7 +209,6 @@ class Renderer(base.Renderer):
                 group_events.append(dict(Title=key,
                                          getURL=events[0]['getURL'],
                                          community_url=events[0]['community_url'],
-                                         community_type=events[0]['community_type'],
                                          community_name=events[0]['community_name'],
                                          num_events=len(events),
                                          events=events))
@@ -281,24 +276,10 @@ class Renderer(base.Renderer):
             if isodat in cal_dict:
                 date_events = cal_dict[isodat]
 
-            events_string = u""
             color = ''
             if date_events:
                 for occ in date_events:
-                    accessor = IEventAccessor(occ)
-                    location = accessor.location
-                    whole_day = accessor.whole_day
-                    time = accessor.start.time().strftime('%H:%M')
                     color = occ.aq_parent.eventsColor
-                    # TODO: make 24/12 hr format configurable
-                    base = u'<a href="%s"><span class="title">%s</span>'\
-                           u'%s%s%s</a><br/>'
-                    events_string += base % (
-                        accessor.url,
-                        accessor.title,
-                        not whole_day and u' %s' % time or u'',
-                        not whole_day and location and u', ' or u'',
-                        location and u' %s' % location or u'')
 
             caldata[-1].append(
                 {'date': dat,
@@ -312,15 +293,8 @@ class Renderer(base.Renderer):
                     dat.year == today.year and
                     dat.month == today.month and
                     dat.day == today.day,
-                 'date_string': u"%s-%s-%s" % (dat.year, dat.month, dat.day),
-                 'events_string': events_string,
                  'events': date_events})
         return caldata
-
-    def Anon(self):
-        if not api.user.is_anonymous():
-            return False
-        return True
 
 
 class AddForm(base.NullAddForm):
