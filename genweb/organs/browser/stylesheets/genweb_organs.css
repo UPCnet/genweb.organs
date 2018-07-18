@@ -1937,6 +1937,7 @@ td.organevent.cal_has_events .popover-content a {
 
 .event-multiple {
     position: relative;
+    background-color: #007bc0 !important;
 }
 
 .event-multiple:before {

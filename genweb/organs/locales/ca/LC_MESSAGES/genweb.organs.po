@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-07-18 14:50+0000\n"
+"POT-Creation-Date: 2018-07-18 14:54+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -372,7 +372,7 @@ msgstr "Esteu visualitzant la sessió amb el rol"
 
 #: ./genweb/organs/content/organgovern.py:130
 msgid "Events color help"
-msgstr "Color que s'agafa per mostrar les sessions d'aquest òrgan de govern al calendari. Són vàlids tant els literals CSS (green) com els codis de colors HTML (#008000). En cas de no indicar cap color, s'utilitzarà el color per defecte del lloc web. Podeu trobar la llista de colors acceptats pels navegadors <a href='http://www.w3schools.com/colors/colors_names.asp' target='_blank'>aquí.</a>"
+msgstr "Si està marcada la opció anterior, color amb el que es mostren les sessions d'aquest òrgan al calendari. Són vàlids tant els literals CSS (green) com els codis de colors HTML (#008000). En cas de no indicar cap color, s'utilitzarà el color per defecte del lloc web. Podeu trobar la llista de colors acceptats pels navegadors <a href='http://www.w3schools.com/colors/colors_names.asp' target='_blank'>aquí.</a>"
 
 #: ./genweb/organs/browser/views/acta_preview.pt:57
 #: ./genweb/organs/browser/views/acta_print.pt:74
@@ -520,7 +520,7 @@ msgstr "Les adreces de correu han d'anar SEPARADES PER COMES."
 
 #: ./genweb/organs/content/organgovern.py:174
 msgid "Make the sessions and composition members fields visibles to everyone, omitting the security systems."
-msgstr ""
+msgstr "Les sessions es mostraran al calendari encara que es tracti d'un òrgan restringit. Si són protegides, en clicar demanarà autenticar-se."
 
 #: ./genweb/organs/content/manualimport.py:28
 msgid "Manual Import"
@@ -655,10 +655,6 @@ msgstr "S'ha cancel·lat l'operació."
 msgid "Ordre del dia"
 msgstr "Ordre del dia"
 
-#: ./genweb/organs/browser/views/allsessions.pt:25
-msgid "Organ"
-msgstr ""
-
 #: ./genweb/organs/profiles/default/types/genweb.organs.organgovern.xml
 msgid "Organ Govern"
 msgstr "Òrgan de govern"
@@ -690,9 +686,9 @@ msgstr "Tipus d'òrgan"
 msgid "Organ Title"
 msgstr "Nom de l'òrgan"
 
+#: ./genweb/organs/browser/views/allsessions.pt:25
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:201
-#: ./genweb/organs/search.pt:131
 msgid "Organ de govern"
 msgstr "Òrgan de govern"
 
@@ -1036,7 +1032,7 @@ msgstr "Enllaç al vídeo de la sessió"
 
 #: ./genweb/organs/content/organgovern.py:173
 msgid "Visible fields"
-msgstr ""
+msgstr "Sessions visibles al calendari"
 
 #: ./genweb/organs/content/templates/informar_view.pt:40
 msgid "Vista previa dels punts"

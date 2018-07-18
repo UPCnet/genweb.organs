@@ -37,7 +37,7 @@ class IOrgangovern(form.Schema):
 
     fieldset('organ',
              label=_(u'Tab organ'),
-             fields=['title', 'acronim', 'descripcioOrgan', 'fromMail', 'organType', 'logoOrgan', 'eventsColor', 'visiblefields', 'estatsLlista']
+             fields=['title', 'acronim', 'descripcioOrgan', 'fromMail', 'organType', 'logoOrgan', 'visiblefields', 'eventsColor', 'estatsLlista']
              )
 
     fieldset('assistents',

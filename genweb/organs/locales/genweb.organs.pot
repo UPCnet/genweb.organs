@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-07-18 14:50+0000\n"
+"POT-Creation-Date: 2018-07-18 14:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -656,10 +656,6 @@ msgstr ""
 msgid "Ordre del dia"
 msgstr ""
 
-#: ./genweb/organs/browser/views/allsessions.pt:25
-msgid "Organ"
-msgstr ""
-
 #: ./genweb/organs/profiles/default/types/genweb.organs.organgovern.xml
 msgid "Organ Govern"
 msgstr ""
@@ -691,9 +687,9 @@ msgstr ""
 msgid "Organ Title"
 msgstr ""
 
+#: ./genweb/organs/browser/views/allsessions.pt:25
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:201
-#: ./genweb/organs/search.pt:131
 msgid "Organ de govern"
 msgstr ""
 

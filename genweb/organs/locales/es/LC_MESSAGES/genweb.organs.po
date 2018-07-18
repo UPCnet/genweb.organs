@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-07-18 14:50+0000\n"
+"POT-Creation-Date: 2018-07-18 14:54+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -655,10 +655,6 @@ msgstr "Se ha cancelado la operación."
 msgid "Ordre del dia"
 msgstr "Orden del día"
 
-#: ./genweb/organs/browser/views/allsessions.pt:25
-msgid "Organ"
-msgstr ""
-
 #: ./genweb/organs/profiles/default/types/genweb.organs.organgovern.xml
 msgid "Organ Govern"
 msgstr "Órgano de gobierno"
@@ -690,9 +686,9 @@ msgstr "Tipo de órgano"
 msgid "Organ Title"
 msgstr "Nombre del órgano"
 
+#: ./genweb/organs/browser/views/allsessions.pt:25
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:201
-#: ./genweb/organs/search.pt:131
 msgid "Organ de govern"
 msgstr "Órgano de gobierno"
 

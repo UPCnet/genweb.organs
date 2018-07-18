@@ -118,7 +118,7 @@ class Renderer(base.Renderer):
         items_path = []
         for obj in visibleItems:
             items_path.append(obj.getPath())
-        print items_path
+        # print items_path
         return items_path
 
     def getclasstag_event(self, day):
