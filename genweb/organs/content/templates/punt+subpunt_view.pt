@@ -48,13 +48,13 @@
               <li class="listFiles">
                 <tal:block tal:condition="item/new_tab">
                   <a tal:attributes="href item/absolute_url; title item/title; alt item/title" target="_blank">
-                    <i tal:attributes="class item/classCSS"></i>&nbsp;&nbsp;<tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
-                  </a>
+                    <i tal:attributes="class item/classCSS"></i>&nbsp;
+                    <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag></a>
                 </tal:block>
                 <tal:block tal:condition="not:item/new_tab">
                   <a tal:attributes="href item/absolute_url; title item/title; alt item/title">
-                    <i tal:attributes="class item/classCSS"></i>&nbsp;&nbsp;<tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
-                  </a>
+                    <i tal:attributes="class item/classCSS"></i>&nbsp;
+                    <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag></a>
                 </tal:block>
               </li>
             </tal:documents>

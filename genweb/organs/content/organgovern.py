@@ -37,7 +37,7 @@ class IOrgangovern(form.Schema):
 
     fieldset('organ',
              label=_(u'Tab organ'),
-             fields=['title', 'acronim', 'descripcioOrgan', 'fromMail', 'organType', 'logoOrgan', 'eventsColor', 'estatsLlista']
+             fields=['title', 'acronim', 'descripcioOrgan', 'fromMail', 'organType', 'logoOrgan', 'eventsColor', 'visiblefields', 'estatsLlista']
              )
 
     fieldset('assistents',
@@ -166,6 +166,12 @@ class IOrgangovern(form.Schema):
     footer = schema.Text(
         title=_(u"Footer"),
         description=_(u"Footer help"),
+        required=False,
+    )
+
+    visiblefields = schema.Bool(
+        title=_(u"Visible fields"),
+        description=_(u"Make the sessions and composition members fields visibles to everyone, omitting the security systems."),
         required=False,
     )
 

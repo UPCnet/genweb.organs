@@ -21,4 +21,9 @@
   </index>
   <column value="index_agreement"/>
 
+  <index name="visiblefields" meta_type="BooleanIndex">
+    <indexed_attr value="visiblefields"/>
+  </index>
+  <column value="visiblefields"/>
+
 </object>

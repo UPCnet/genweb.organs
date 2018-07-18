@@ -1,3 +1,40 @@
+/* START MEDIA QUERY CSS */
+@media only screen and (max-width: 639px) {
+    .header-image {
+        height:40px !important;
+        display: block !important;
+    }
+    .header-image.l2-image {
+        height: auto !important;
+        margin-left: 0px !important;
+    }
+    #viewlet-above-content-title,
+    .documentFirstHeading,
+    #viewlet-below-content-title,
+    #viewlet-above-content-body {
+        display: block !important;
+    }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), not all, not all, not all, only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+    .header-image {
+        background-size: auto !important;
+        background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs@2x.jpg") !important;
+    }
+    #viewlet-above-content-title,
+    .documentFirstHeading,
+    #viewlet-below-content-title,
+    #viewlet-above-content-body {
+        display: block !important;
+    }
+}
+/* END MEDIA QUERY CSS */
+
+
+
+/* START DEFAULT CSS NO MEDIA QUERY */
+
+
 .sessionActions {
     float:right;
     display:flex;
@@ -1733,24 +1770,6 @@ dd.actionMenuContent.actionMenuContentColor {
 }
 
 
-@media only screen and (max-width: 639px) {
-    .header-image {
-        height:40px !important;
-        display: block !important;
-    }
-    .header-image.l2-image {
-        height: auto !important;
-        margin-left: 0px !important;
-    }
-
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 2), not all, not all, not all, only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
-.header-image {
-     background-size: auto !important;
-      background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs@2x.jpg") !important;}
-}
-
 
 
 div.header-image.nomarginleft {
@@ -1827,7 +1846,7 @@ td.organevent.cal_has_events .popover-content a {
     background-image: linear-gradient(89deg, #00BCD4 0%, #007bc1 100%);
     width: 128px;
     height: 128px;
-    border-radius: 50%;
+    border-radius: 50% !important;
     position: absolute;
     left: 18px;
     display: table-cell;
@@ -1855,8 +1874,8 @@ td.organevent.cal_has_events .popover-content a {
     height: 84px;
     background: rgba(255,255,255,0.9);
     position: absolute;
-    width: 90%;
-    margin: 0;
+    width: 91%;
+    margin: 0px;
     bottom: 0;
     padding: 12px;
     text-align: center;
@@ -1885,7 +1904,7 @@ td.organevent.cal_has_events .popover-content a {
     margin-top: -18px;
     width: 36px;
     height: 36px;
-    border-radius: 50%;
+    border-radius: 50% !important;
     text-align: center;
     color: #007BC1;
     background: rgba(255,255,255,0.8);
@@ -2044,3 +2063,10 @@ a.calendari-seguent:hover  {
 .portlet-calendari .calendari-seguent::before {
     content: "\f061";
 }
+
+.globeBox {
+    border: 3px solid #f6f7f7 !important;
+}
+
+
+/* END DEFAULT CSS NO MEDIA QUERY */

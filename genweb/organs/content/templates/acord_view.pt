@@ -46,14 +46,20 @@
           <ul class="ul_items">
             <tal:documents repeat="item filesanddocs">
               <li class="listFiles">
-                <a tal:attributes="href item/absolute_url;
-                                   titls item/title;
-                                   alt item/title" tal:condition="item/new_tab" target="_blank">
-                  <i tal:attributes="class item/classCSS"></i>&nbsp;&nbsp;<tal:omit-tag tal:content="item/title"> Document title </tal:omit-tag></a>
-                <a tal:attributes="href item/absolute_url;
-                                   title item/title;
-                                   alt item/title" tal:condition="not:item/new_tab">
-                  <i tal:attributes="class item/classCSS"></i>&nbsp;&nbsp;<tal:omit-tag tal:content="item/title"> Document title </tal:omit-tag></a>
+                <tal:omit-tag tal:condition="item/new_tab">
+                  <a tal:attributes="href item/absolute_url;
+                                     title item/title;
+                                     alt item/title"  target="_blank">
+                    <i tal:attributes="class item/classCSS"></i>&nbsp;
+                    <tal:omit-tag tal:content="item/title"> Document title </tal:omit-tag></a>
+                </tal:omit-tag>
+                <tal:omit-tag tal:condition="not:item/new_tab">
+                  <a tal:attributes="href item/absolute_url;
+                                     title item/title;
+                                     alt item/title">
+                    <i tal:attributes="class item/classCSS"></i>&nbsp;
+                    <tal:omit-tag tal:content="item/title"> Document title </tal:omit-tag></a>
+                </tal:omit-tag>
               </li>
             </tal:documents>
           </ul>

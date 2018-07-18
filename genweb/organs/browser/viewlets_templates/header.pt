@@ -53,12 +53,12 @@
                Identifica't</tal:bk>
             </a>
         </li>
-        <li>
-          <tal:block replace="structure provider:genweb.search_manager" />
-        </li>
 <!--         <li>
-          <a tal:attributes="href string:${portal_url}/${lang}/search"><i class="fa fa-search">&nbsp;<tal:bk i18n:translate="" i18n:domain="genweb.organs">Cercador</tal:bk></i></a>
+          <tal:block replace="structure provider:genweb.search_manager" />
         </li> -->
+        <li>
+          <a tal:attributes="href string:${portal_url}/${lang}/search"><i class="fa fa-search">&nbsp;<tal:bk i18n:translate="" i18n:domain="genweb.organs">Cercador</tal:bk></i></a>
+        </li>
       </ul>
 
     </div>
@@ -104,18 +104,18 @@
       <tal:block tal:condition="getLogo">
             <img tal:attributes="src getLogo" style="height:78px; width: 100%;" />
             <div tal:condition="getTitle" class="bannerTitle visible-tablet hidden-phone visible-desktop">
-              <a tal:attributes="href string:${portal_url}" tal:content="getTitle">Govern UPC - FIB</a>
+              <a tal:attributes="href string:${getTitle/url}" tal:content="getTitle/title">Govern UPC - FIB</a>
             </div>
             <div tal:condition="getTitle" class="bannerTitle Mobile hidden-tablet visible-phone hidden-desktop">
-              <a tal:attributes="href string:${portal_url}" tal:content="getTitle">Govern UPC - FIB</a>
+              <a tal:attributes="href string:${getTitle/url}" tal:content="getTitle/title">Govern UPC - FIB</a>
             </div>
       </tal:block>
       <tal:block tal:condition="not:getLogo">
         <div class="bannerTitle visible-tablet hidden-phone visible-desktop">
-          <a tal:attributes="href string:${portal_url}" tal:content="getTitle">Govern UPC - FIB</a>
+          <a tal:attributes="href string:${getTitle/url}" tal:content="getTitle/title">Govern UPC - FIB</a>
         </div>
         <div class="bannerTitle Mobile hidden-tablet visible-phone hidden-desktop">
-          <a tal:attributes="href string:${portal_url}" tal:content="getTitle">Govern UPC - FIB</a>
+          <a tal:attributes="href string:${getTitle/url}" tal:content="getTitle/title">Govern UPC - FIB</a>
         </div>
         <div tal:attributes="class string:header-image nomarginleft ${viewlet/get_image_class}"></div>
       </tal:block>

@@ -7,21 +7,17 @@ from plone.app.event.base import get_events, construct_calendar
 from plone.app.event.base import localized_today
 from plone.app.event.base import wkday_to_mon1
 from plone.app.event.portlets import get_calendar_url
-from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 from plone.app.portlets import PloneMessageFactory as _
 from plone.app.portlets.portlets import base
-from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.event.interfaces import IEventAccessor
 from plone.portlets.interfaces import IPortletDataProvider
-from zope import schema
-from zope.formlib import form
 from zope.i18nmessageid import MessageFactory
 from zope.interface import implements
 from datetime import datetime
 from plone.app.event.base import localized_now
 from plone.event.interfaces import IEvent
 from datetime import timedelta
-
+from plone import api
 
 import calendar
 import itertools
@@ -34,43 +30,10 @@ class ICalendarOrgansPortlet(IPortletDataProvider):
     """A portlet displaying a calendar
     """
 
-    state = schema.Tuple(
-        title=_(u"Workflow state"),
-        description=_(u"Items in which workflow state to show."),
-        default=None,
-        required=False,
-        value_type=schema.Choice(
-            vocabulary="plone.app.vocabularies.WorkflowStates")
-    )
-
-    search_base = schema.Choice(
-        title=_(u'portlet_label_search_base', default=u'Search base'),
-        description=_(
-            u'portlet_help_search_base',
-            default=u'Select search base folder to search for events. This '
-                    u'folder will also be used to link to in calendar '
-                    u'searches. If empty, the whole site will be searched and '
-                    u'the event listing view will be called on the site root.'
-        ),
-        required=False,
-        source=SearchableTextSourceBinder(
-            {'is_folderish': True},
-            default_query='path:'
-        ),
-    )
-
 
 class Assignment(base.Assignment):
     implements(ICalendarOrgansPortlet)
     title = _(u'Organs Calendar')
-
-    # reduce upgrade pain
-    state = None
-    search_base = None
-
-    def __init__(self, state=None, search_base=None):
-        self.state = state
-        self.search_base = search_base
 
 
 class Renderer(base.Renderer):
@@ -79,7 +42,7 @@ class Renderer(base.Renderer):
     def update(self):
         context = aq_inner(self.context)
 
-        self.calendar_url = get_calendar_url(context, self.data.search_base)
+        self.calendar_url = get_calendar_url(context, None)
 
         self.year, self.month = year, month = self.year_month_display()
         self.prev_year, self.prev_month = prev_year, prev_month = (
@@ -150,6 +113,14 @@ class Renderer(base.Renderer):
     def date_events_url(self, date):
         return '%s?mode=day&date=%s' % (self.calendar_url, date)
 
+    def get_public_organs_fields(self):
+        visibleItems = api.content.find(portal_type='genweb.organs.organgovern', visiblefields=True)
+        items_path = []
+        for obj in visibleItems:
+            items_path.append(obj.getPath())
+        print items_path
+        return items_path
+
     def getclasstag_event(self, day):
         # Returns class color to show in the calendar
         classtag = ''
@@ -172,15 +143,13 @@ class Renderer(base.Renderer):
     def getNextThreeEvents(self):
         context = aq_inner(self.context)
         query_kw = {}
-        # if self.search_base:
-        #     portal = getToolByName(context, 'portal_url').getPortalObject()
-        #     query_kw['path'] = {'query': '%s%s' % (
-        #         '/'.join(portal.getPhysicalPath()), self.search_base)}
 
-        # if self.state:
-        #     query_kw['review_state'] = self.state
-
-        events = get_events(context, ret_mode=RET_MODE_OBJECTS, expand=True, **query_kw)
+        events = get_events(
+            context,
+            ret_mode=RET_MODE_OBJECTS,
+            expand=True,
+            path=self.get_public_organs_fields(),
+            **query_kw)
         events = self.filterNextEvents(events)
         events = self.filterOccurrenceEvents(events)
 
@@ -273,6 +242,7 @@ class Renderer(base.Renderer):
                             start=start - timedelta(days=30),
                             end=end,
                             ret_mode=RET_MODE_OBJECTS,
+                            path=self.get_public_organs_fields(),
                             expand=True, **query_kw)
         return construct_calendar(events, start=start, end=end)
 
@@ -285,21 +255,20 @@ class Renderer(base.Renderer):
         year, month = self.year_month_display()
         monthdates = [dat for dat in self.cal.itermonthdates(year, month)]
 
-        data = self.data
         query_kw = {}
-        if data.search_base:
-            portal = getToolByName(context, 'portal_url').getPortalObject()
-            query_kw['path'] = {'query': '%s%s' % (
-                '/'.join(portal.getPhysicalPath()), data.search_base)}
-
-        if data.state:
-            query_kw['review_state'] = data.state
 
         start = monthdates[0]
         end = monthdates[-1]
-        events = get_events(context, start=start, end=end,
-                            ret_mode=RET_MODE_OBJECTS,
-                            expand=True, **query_kw)
+
+        events = get_events(
+            context,
+            start=start,
+            end=end,
+            ret_mode=RET_MODE_OBJECTS,
+            expand=True,
+            path=self.get_public_organs_fields(),
+            **query_kw)
+
         cal_dict = construct_calendar(events, start=start, end=end)
 
         # [[day1week1, day2week1, ... day7week1], [day1week2, ...]]
@@ -349,27 +318,12 @@ class Renderer(base.Renderer):
         return caldata
 
     def Anon(self):
-        from plone import api
         if not api.user.is_anonymous():
             return False
         return True
 
 
-class AddForm(base.AddForm):
-    form_fields = form.Fields(ICalendarOrgansPortlet)
-    label = _(u"Add Organs Calendar Portlet")
-    description = _(u"This portlet displays events in a calendar.")
-    form_fields = form.Fields(ICalendarOrgansPortlet)
-    form_fields['search_base'].custom_widget = UberSelectionWidget
+class AddForm(base.NullAddForm):
 
-    def create(self, data):
-        return Assignment(state=data.get('state', None),
-                          search_base=data.get('search_base', None))
-
-
-class EditForm(base.EditForm):
-    form_fields = form.Fields(ICalendarOrgansPortlet)
-    label = _(u"Edit Organs  Calendar Portlet")
-    description = _(u"This portlet displays events in a calendar.")
-    form_fields = form.Fields(ICalendarOrgansPortlet)
-    form_fields['search_base'].custom_widget = UberSelectionWidget
+    def create(self):
+        return Assignment()

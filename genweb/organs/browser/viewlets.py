@@ -113,7 +113,8 @@ class gwHeader(viewletBase):
 
     def getTitle(self):
         if IOrgansfolder.providedBy(self.context):
-            return 'Govern UPC - ' + str(self.context.title)
+            return dict(title='Govern UPC - ' + str(self.context.title),
+                        url=self.context.absolute_url())
         else:
             portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
             root = getNavigationRootObject(self.context, portal_state.portal())
@@ -124,12 +125,15 @@ class gwHeader(viewletBase):
                 try:
                     # Some objects in path are in pending state
                     obj = aq_inner(root.restrictedTraverse(now))
-                    return 'Govern UPC - ' + str(obj.title)
+                    return dict(title='Govern UPC - ' + str(obj.title),
+                                url=obj.absolute_url())
                 except:
                     # return default text if problems...
-                    return 'Govern UPC'
+                    return dict(title='Govern UPC',
+                                url=self.context.absolute_url())
             # By default returns Site Title
-            return 'Govern UPC'
+            return dict(title='Govern UPC',
+                        url=self.context.absolute_url())
 
     def getLogo(self):
         if IOrgansfolder.providedBy(self.context):
