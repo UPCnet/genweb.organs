@@ -1,15 +1,13 @@
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.app.event.base import RET_MODE_OBJECTS
 from plone.app.event.base import first_weekday
-from plone.app.event.base import get_events, construct_calendar
+from plone.app.event.base import construct_calendar
 from plone.app.event.base import localized_today
 from plone.app.event.base import wkday_to_mon1
 from plone.app.event.portlets import get_calendar_url
 from plone.app.portlets import PloneMessageFactory as _
 from plone.app.portlets.portlets import base
-from plone.event.interfaces import IEventAccessor
 from plone.portlets.interfaces import IPortletDataProvider
 from zope.i18nmessageid import MessageFactory
 from zope.interface import implements
@@ -138,15 +136,13 @@ class Renderer(base.Renderer):
         return dateEvent
 
     def getNextThreeEvents(self):
-        context = aq_inner(self.context)
-        query_kw = {}
-
-        events = get_events(
-            context,
-            ret_mode=RET_MODE_OBJECTS,
-            expand=True,
-            path=self.get_public_organs_fields(),
-            **query_kw)
+        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        items = portal_catalog.unrestrictedSearchResults(
+            portal_type='genweb.organs.sessio',
+            path=self.get_public_organs_fields())
+        events = []
+        for event in items:
+            events.append(event._unrestrictedGetObject())
         events = self.filterNextEvents(events)
         events = self.filterOccurrenceEvents(events)
 
@@ -166,6 +162,7 @@ class Renderer(base.Renderer):
                     start=start,
                     searchStart=searchStart,
                     end=end,
+                    color=event.aq_parent.eventsColor,
                     community_name=event.aq_parent.aq_parent.title,
                     community_url=event.aq_parent.aq_parent.absolute_url())
 
@@ -211,7 +208,8 @@ class Renderer(base.Renderer):
                                          community_url=events[0]['community_url'],
                                          community_name=events[0]['community_name'],
                                          num_events=len(events),
-                                         events=events))
+                                         events=events,
+                                         color=events[0]['color']))
             return group_events
         else:
             return None
@@ -226,19 +224,23 @@ class Renderer(base.Renderer):
         return list_events
 
     def getCalendarDict(self):
-        context = aq_inner(self.context)
+        # context = aq_inner(self.context)
         year, month = self.year_month_display()
         monthdates = [dat for dat in self.cal.itermonthdates(year, month)]
 
-        query_kw = {}
         start = monthdates[0]
         end = monthdates[-1]
-        events = get_events(context,
-                            start=start - timedelta(days=30),
-                            end=end,
-                            ret_mode=RET_MODE_OBJECTS,
-                            path=self.get_public_organs_fields(),
-                            expand=True, **query_kw)
+
+        date_range_query = {'query': (start - timedelta(days=30), end), 'range': 'min:max'}
+        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        items = portal_catalog.unrestrictedSearchResults(
+            portal_type='genweb.organs.sessio',
+            start=date_range_query,
+            path=self.get_public_organs_fields())
+        events = []
+        for event in items:
+            events.append(event._unrestrictedGetObject())
+
         return construct_calendar(events, start=start, end=end)
 
     @property
@@ -249,20 +251,18 @@ class Renderer(base.Renderer):
         today = localized_today(context)
         year, month = self.year_month_display()
         monthdates = [dat for dat in self.cal.itermonthdates(year, month)]
-
-        query_kw = {}
-
         start = monthdates[0]
         end = monthdates[-1]
 
-        events = get_events(
-            context,
-            start=start,
-            end=end,
-            ret_mode=RET_MODE_OBJECTS,
-            expand=True,
-            path=self.get_public_organs_fields(),
-            **query_kw)
+        date_range_query = {'query': (start, end), 'range': 'min:max'}
+        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        items = portal_catalog.unrestrictedSearchResults(
+            portal_type='genweb.organs.sessio',
+            start=date_range_query,
+            path=self.get_public_organs_fields())
+        events = []
+        for event in items:
+            events.append(event._unrestrictedGetObject())
 
         cal_dict = construct_calendar(events, start=start, end=end)
 

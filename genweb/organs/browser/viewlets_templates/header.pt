@@ -53,11 +53,8 @@
                Identifica't</tal:bk>
             </a>
         </li>
-<!--         <li>
-          <tal:block replace="structure provider:genweb.search_manager" />
-        </li> -->
         <li>
-          <a tal:attributes="href string:${portal_url}/${lang}/search"><i class="fa fa-search">&nbsp;<tal:bk i18n:translate="" i18n:domain="genweb.organs">Cercador</tal:bk></i></a>
+          <a tal:attributes="href string:${portal_url}/${lang}/search"><i class="fa fa-search" aria-hidden="true">&nbsp;<tal:bk i18n:translate="" i18n:domain="genweb.organs">Cercador</tal:bk></i></a>
         </li>
       </ul>
 

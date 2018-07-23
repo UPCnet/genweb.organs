@@ -660,21 +660,23 @@ class allSessions(BrowserView):
     def sessions(self):
         """ Returns sessions from organs marked as public fields,
             bypassing security permissions """
+
         values = api.content.find(
             portal_type=['genweb.organs.organgovern'],
             visiblefields=True,)
-
         results = []
         for item in values:
             path = item.getPath()
-            sessions = api.content.find(
-                portal_type=['genweb.organs.sessio'],
-                path=path,
+            portal_catalog = getToolByName(self.context, 'portal_catalog')
+            sessions = portal_catalog.unrestrictedSearchResults(
+                portal_type='genweb.organs.sessio',
                 sort_on='start',
-                sort_order='reverse',)
+                sort_order='reverse',
+                path={'query': path,
+                      'depth': 1})
             current_year = datetime.datetime.now().strftime('%Y')
             for session in sessions:
-                obj = session.getObject()
+                obj = session._unrestrictedGetObject()
                 event = IEventAccessor(obj)
                 if obj.start.strftime('%Y') == current_year:
                     results.append(dict(

@@ -1,7 +1,7 @@
-<div id="calendari" class="portlet portlet-calendari" 
+<div id="calendari" class="portlet portlet-calendari"
     tal:define="year view/year;
                 portal_state context/@@plone_portal_state;
-                portal_url portal_state/portal_url;" 
+                portal_url portal_state/portal_url;"
     i18n:domain="plone">
 
   <div>
@@ -64,10 +64,11 @@
     </div>
     <ul class="icons-ul">
       <tal:block tal:repeat="events view/getDayEventsGroup">
-        <li style="border-left: 5px solid yellow;">
-          <p tal:repeat="event events/events">
+        <li tal:define="licolor events/color"  tal:attributes="style string:border-left: 5px solid ${licolor}">
+          <p  tal:repeat="event events/events">
             <i class="fa fa-calendar"></i>&nbsp;
-            <a tal:attributes="href event/getURL" style="color: yellow;">
+            <a tal:attributes="href event/getURL;
+                               style string:color:${event/color}">
               <tal:event content="event/start"> 07/12 </tal:event>
               <span tal:condition="event/end">
                 <span i18n:translate="" i18n:domain="genweb.organs"> to </span>
