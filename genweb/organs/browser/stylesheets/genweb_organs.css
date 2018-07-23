@@ -1079,7 +1079,9 @@ input#acordNumber {width: 159px;}
 
 .bodyPresentation .subpuntTitle {padding-left:50px;}
 
-.bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {    padding: 0px!important;}
+.bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {
+    padding: 0px!important;
+}
 
 .agreementClass , .agreementSubClass  {
     color: #999;
@@ -2098,4 +2100,8 @@ a.calendari-seguent:hover  {
     margin-top: 0px;
 }
 
+.double-icon {margin-right: -7px !important;}
+
 /* END DEFAULT CSS NO MEDIA QUERY */
+
+

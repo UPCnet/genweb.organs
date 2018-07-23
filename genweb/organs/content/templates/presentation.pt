@@ -160,10 +160,9 @@
               <div class="span1 numberSpan">
                 <span class="proposalNumber" tal:content="item/proposalPoint"></span>
               </div>
-              <div class="span10 titleSpan">
+              <div class="span11 titleSpan">
                 <a tal:attributes="href string:${item/absolute_url}/view" class="editTitle editable titleSize" target="_blank">
-                  <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
-                </a>&nbsp;
+                  <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag></a>&nbsp;
                 <span class="btn-group bulletPuntPresentation" role="group" tal:condition="view/changeEstat">
                   <tal:block tal:condition="item/state">
                     <button class="label dropdown-toggle bullet-toggle"
@@ -185,7 +184,7 @@
                 <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
                   <ul class="listFiles">
                     <tal:documents repeat="item files">
-                      <li class="filesinTable">
+                      <li class="filesinTable 1">
                         <tal:block tal:condition="item/isGOFile">
                           <tal:block tal:condition="item/reservedURL">
                               <a tal:attributes="href item/reservedURL;" target="_blank">
@@ -238,7 +237,7 @@
                             <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
                               <tal:block repeat="estat item/estats">
                                 <li class="defaultValue">
-                                  <a tabindex="-1" tal:attributes="href string:changeSubpuntState?estat=${estat/title}&id=${item/id}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span tal:content="estat/title"></span></a>
+                                  <a tabindex="-1" tal:attributes="href string:changeSubpuntState?estat=${estat/title}&id=${item/id}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<tal:omit-tag tal:content="estat/title"></tal:omit-tag></a>
                                 </li>
                               </tal:block>
                             </ul>
@@ -246,17 +245,17 @@
                         </span>
                         <span class="agreementSubPuntPresentation" tal:content="item/agreement" tal:condition="item/agreement"></span>
                         <tal:files tal:define="files python:view.filesinside(item)" tal:condition="files">
-                          <ul class="listFiles">
+                          <ul class="listFiles" style="text-indent:-17px; margin-left:34px;">
                             <tal:documents repeat="item files">
                               <li class="filesinTable">
                                 <tal:block tal:condition="item/isGOFile">
-                                  <tal:block tal:condition="item/reservedURL">
-                                      <a tal:attributes="href item/reservedURL;" target="_blank">
-                                        <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span></a>
+                                  <tal:block tal:condition="item/reservedURL"><a tal:attributes="href item/reservedURL;" target="_blank">
+                                        <i tal:attributes="class item/classCSS"></i>
+                                        <tal:omit-tag tal:content="item/title"></tal:omit-tag></a>
                                   </tal:block>
-                                  <tal:block tal:condition="item/publicURL">
-                                      <a tal:attributes="href item/publicURL;" target="_blank">
-                                        <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span></a>
+                                  <tal:block tal:condition="item/publicURL"><a tal:attributes="href item/publicURL;" target="_blank">
+                                        <i tal:attributes="class item/classCSS"></i>
+                                        <tal:omit-tag tal:content="item/title"></tal:omit-tag></a>
                                   </tal:block>
                                 </tal:block>
                                 <tal:block tal:condition="item/isGODocument">

@@ -27,13 +27,13 @@
 
     <div tal:content="structure view/getPage"></div>
 
-    <div class="row-fluid" tal:condition="not:view/isAnon">
+<!--     <div class="row-fluid" tal:condition="not:view/isAnon">
       <div class="span12">
         <div class="box box-gradient clearfix">
         <h3 class="liniaBaix"><span class="fa fa-thumb-tack"></span>&nbsp;Organs relacionats amb mi</h3>
         </div>
       </div>
-    </div>
+    </div> -->
     <form name="searchform"
           action="@@search"
           class="searchPage enableAutoFocus"

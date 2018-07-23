@@ -581,7 +581,7 @@
                     <div class="span12" tal:condition="files">
                       <ul class="listFiles">
                         <tal:documents repeat="item files">
-                          <li class="filesinTable">
+                          <li class="filesinTable" style="width:98% !important;">
                             <i tal:attributes="class item/classCSS"></i>
                             <a tal:attributes="href item/absolute_url;"  tal:condition="item/new_tab" target="_blank">
                                <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
@@ -696,7 +696,7 @@
                           <div class="span12" tal:condition="files">
                               <ul style="list-style: none;" tal:condition="files">
                                 <tal:documents repeat="item files">
-                                  <li class="filesinTable">
+                                  <li class="filesinTable" style="width: 92% !important;">
                                     <i tal:attributes="class item/classCSS"></i>
                                     <a tal:attributes="href item/absolute_url;" tal:condition="item/new_tab" target="_blank">
                                        <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
