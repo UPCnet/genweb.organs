@@ -18,7 +18,7 @@
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), not all, not all, not all, only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
     .header-image {
-        background-size: auto !important;
+        /*background-size: auto !important;*/
         background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs@2x.jpg") !important;
     }
     #viewlet-above-content-title,
@@ -1767,8 +1767,7 @@ dd.actionMenuContent.actionMenuContentColor {
 /* End problems cleantheme */
 
 .header-image {
-  background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs.jpg") !important;
-
+  background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs@2x.jpg") !important;
 }
 
 
