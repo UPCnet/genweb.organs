@@ -27,13 +27,55 @@
 
     <div tal:content="structure view/getPage"></div>
 
-<!--     <div class="row-fluid" tal:condition="not:view/isAnon">
-      <div class="span12">
-        <div class="box box-gradient clearfix">
-        <h3 class="liniaBaix"><span class="fa fa-thumb-tack"></span>&nbsp;Organs relacionats amb mi</h3>
-        </div>
+    <div class="row-fluid" tal:condition="not:view/isAnon">
+
+      <table tal:define="organs view/getOwnOrgans"
+            class="table table-bordered table-condensed table-hover logFont">
+        <thead>
+          <tr>
+            <th>
+              <span i18n:translate="">Title / Code</span>
+            </th>
+            <th>
+              <tal:head i18n:translate="">Roles</tal:head>
+            </th>
+          </tr>
+        </thead>
+<!-- 
+        <tal:objects repeat="organ organs">
+          <tr>
+            <td >
+              <a href="" tal:attributes="href organ/path">
+                <span tal:content="organ/id"> Title </span> 
+              </a>
+            </td>
+            <td>
+              <span tal:content="organ/roles"> Roles </span> 
+            </td>
+          </tr>
+        </tal:objects> -->
+      </table>
+    </div>
+
+    <div tal:define="organs view/getOwnOrgans">
+      <div class="box box-gradient">
+      <h3 class="liniaBaix"><span class="fa fa-thumb-tack"></span>&nbsp;Organs relacionats amb mi</h3>
+      <div tal:condition="organs/secretari">
+        Secretari
       </div>
-    </div> -->
+     <!--  <div tal:condition="organs/editor">
+        Editor
+      </div>
+      <div tal:condition="organs/membre">
+        Membre
+      </div>
+      <div tal:condition="organs/afectat">
+        Afectat
+      </div> -->
+    </div>
+  </div>
+
+<div class="clearfix"></div>
     <form name="searchform"
           action="@@search"
           class="searchPage enableAutoFocus"
