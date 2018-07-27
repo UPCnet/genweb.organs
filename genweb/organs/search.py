@@ -38,6 +38,24 @@ class Search(BrowserView):
             return False
         return True
 
+    def getAllOwnOrgans(self):
+        results = []
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
+        lt = getToolByName(self, 'portal_languages')
+        lang = lt.getPreferredLanguage()
+        values = portal_catalog.unrestrictedSearchResults(
+            portal_type=['genweb.organs.sessio'],
+            sort_on='created',
+            path=root_path + '/' + lang)
+        for obj in values:
+            organ = obj._unrestrictedGetObject()
+            username = api.user.get_current().id
+            roles = api.user.get_roles(username=username, obj=organ)
+            sessionpath = organ.absolute_url()
+            results.append(dict(path=sessionpath, id=organ.title, roles=roles))
+        return results
+
     def getOwnOrgans(self):
         secretari = []
         editor = []
@@ -64,7 +82,7 @@ class Search(BrowserView):
                 membre.append(dict(path=sessionpath, id=organ.title, roles=roles))
             if 'OG4-Afectat' in roles:
                 afectat.append(dict(path=sessionpath, id=organ.title, roles=roles))
-        return secretari
+        return secretari, editor, membre, afectat
 
     valid_keys = ('sort_on', 'sort_order', 'sort_limit', 'fq', 'fl', 'facet')
 

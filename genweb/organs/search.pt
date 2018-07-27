@@ -29,19 +29,18 @@
 
     <div class="row-fluid" tal:condition="not:view/isAnon">
 
-      <table tal:define="organs view/getOwnOrgans"
+      <table tal:define="organs view/getAllOwnOrgans"
             class="table table-bordered table-condensed table-hover logFont">
         <thead>
           <tr>
             <th>
-              <span i18n:translate="">Title / Code</span>
+              <span i18n:translate="">TEMP ID / TITLE</span>
             </th>
             <th>
               <tal:head i18n:translate="">Roles</tal:head>
             </th>
           </tr>
         </thead>
-<!-- 
         <tal:objects repeat="organ organs">
           <tr>
             <td >
@@ -53,25 +52,77 @@
               <span tal:content="organ/roles"> Roles </span> 
             </td>
           </tr>
-        </tal:objects> -->
+        </tal:objects>
       </table>
     </div>
 
-    <div tal:define="organs view/getOwnOrgans">
+    <div tal:define="organs view/getOwnOrgans;
+                     secretari python:organs[0];
+                     editor python:organs[1];
+                     membre python:organs[2];
+                     afectat python:organs[3]">
       <div class="box box-gradient">
       <h3 class="liniaBaix"><span class="fa fa-thumb-tack"></span>&nbsp;Organs relacionats amb mi</h3>
-      <div tal:condition="organs/secretari">
-        Secretari
+      <div tal:condition="secretari">
+        <h2> Organs com a Secretari </h2>
+         <tal:objects repeat="organ secretari">
+          <ul>
+            <li >
+              <a href="" tal:attributes="href organ/path">
+                <span tal:content="organ/id"> Title </span> 
+              </a>
+            </li>
+            <li>
+              <span tal:content="organ/roles"> Roles </span> 
+            </li>
+          </ul>
+        </tal:objects>
       </div>
-     <!--  <div tal:condition="organs/editor">
-        Editor
+      <div tal:condition="editor">
+        <h2> Organs com a Editor </h2>
+         <tal:objects repeat="organ editor">
+          <ul>
+            <li >
+              <a href="" tal:attributes="href organ/path">
+                <span tal:content="organ/id"> Title </span> 
+              </a>
+            </li>
+            <li>
+              <span tal:content="organ/roles"> Roles </span> 
+            </li>
+          </ul>
+        </tal:objects>
       </div>
-      <div tal:condition="organs/membre">
-        Membre
+      <div tal:condition="membre">
+        <h2> Organs com a Membre </h2>
+         <tal:objects repeat="organ membre">
+          <ul>
+            <li >
+              <a href="" tal:attributes="href organ/path">
+                <span tal:content="organ/id"> Title </span> 
+              </a>
+            </li>
+            <li>
+              <span tal:content="organ/roles"> Roles </span> 
+            </li>
+          </ul>
+        </tal:objects>
       </div>
-      <div tal:condition="organs/afectat">
-        Afectat
-      </div> -->
+      <div tal:condition="afectat">
+        <h2> Organs com a Afectat </h2>
+         <tal:objects repeat="organ afectat">
+          <ul>
+            <li >
+              <a href="" tal:attributes="href organ/path">
+                <span tal:content="organ/id"> Title </span> 
+              </a>
+            </li>
+            <li>
+              <span tal:content="organ/roles"> Roles </span> 
+            </li>
+          </ul>
+        </tal:objects>
+      </div>
     </div>
   </div>
 
