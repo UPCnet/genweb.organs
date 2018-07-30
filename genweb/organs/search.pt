@@ -57,8 +57,7 @@
     </div> -->
 
 <tal:block tal:define="organs view/getOwnOrgans;" tal:condition="organs">
-    <div tal:define="
-                     secretari python:organs[0];
+    <div tal:define="secretari python:organs[0];
                      editor python:organs[1];
                      membre python:organs[2];
                      afectat python:organs[3]">
@@ -67,49 +66,45 @@
       <div tal:condition="secretari">
         <h3> Organs com a Secretari </h3>
          <tal:objects repeat="organ secretari">
-          <ul>
-            <li >
+            <p>
+              <i class="fa fa-list"></i>&nbsp;
               <a href="" tal:attributes="href organ/path">
                 <span tal:content="organ/id"> Title </span>
               </a>
-            </li>
-          </ul>
+            </p>
         </tal:objects>
       </div>
       <div tal:condition="editor">
         <h3> Organs com a Editor </h3>
          <tal:objects repeat="organ editor">
-          <ul>
-            <li >
+            <p>
+              <i class="fa fa-list"></i>&nbsp;
               <a href="" tal:attributes="href organ/path">
                 <span tal:content="organ/id"> Title </span>
               </a>
-            </li>
-          </ul>
+            </p>
         </tal:objects>
       </div>
       <div tal:condition="membre">
         <h3> Organs com a Membre </h3>
          <tal:objects repeat="organ membre">
-          <ul>
-            <li >
+            <p>
+              <i class="fa fa-list"></i>&nbsp;
               <a href="" tal:attributes="href organ/path">
                 <span tal:content="organ/id"> Title </span>
               </a>
-            </li>
-          </ul>
+            </p>
         </tal:objects>
       </div>
       <div tal:condition="afectat">
         <h3> Organs com a Afectat </h3>
          <tal:objects repeat="organ afectat">
-          <ul>
-            <li >
+            <p>
+              <i class="fa fa-list"></i>&nbsp;
               <a href="" tal:attributes="href organ/path">
                 <span tal:content="organ/id"> Title </span>
               </a>
-            </li>
-          </ul>
+            </p>
         </tal:objects>
       </div>
     </div>

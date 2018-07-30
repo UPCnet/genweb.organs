@@ -63,6 +63,7 @@ class Search(BrowserView):
             editor = []
             membre = []
             afectat = []
+            item_limit = 5
             portal_catalog = getToolByName(self, 'portal_catalog')
             root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
             lt = getToolByName(self, 'portal_languages')
@@ -70,23 +71,34 @@ class Search(BrowserView):
             values = portal_catalog.searchResults(
                 portal_type=['genweb.organs.sessio'],
                 sort_on='created',
+                sort_order='reverse',
                 path=root_path + '/' + lang)
             for obj in values:
                 organ = obj.getObject()
                 username = api.user.get_current().id
                 roles = api.user.get_roles(username=username, obj=organ)
                 sessionpath = organ.absolute_url()
-                if 'OG1-Secretari' in roles:
-                    secretari.append(dict(path=sessionpath, id=organ.title, roles=roles))
-                if 'OG2-Editor' in roles:
-                    editor.append(dict(path=sessionpath, id=organ.title, roles=roles))
-                if 'OG3-Membre' in roles:
-                    membre.append(dict(path=sessionpath, id=organ.title, roles=roles))
-                if 'OG4-Afectat' in roles:
-                    afectat.append(dict(path=sessionpath, id=organ.title, roles=roles))
-            return secretari, editor, membre, afectat
-            # return sorted(results3, key=itemgetter('id'), reverse=True)
+                if len(secretari) < item_limit:
+                    if 'OG1-Secretari' in roles:
+                        secretari.append(dict(path=sessionpath, id=organ.title))
+                if len(editor) < item_limit:
+                    if 'OG2-Editor' in roles:
+                        editor.append(dict(path=sessionpath, id=organ.title))
+                if len(membre) < item_limit:
+                    if 'OG3-Membre' in roles:
+                        membre.append(dict(path=sessionpath, id=organ.title))
+                if len(afectat) < item_limit:
+                    if 'OG4-Afectat' in roles:
+                        afectat.append(dict(path=sessionpath, id=organ.title))
 
+            secretari = sorted(secretari, key=itemgetter('id'), reverse=True)
+            editor = sorted(editor, key=itemgetter('id'), reverse=True)
+            membre = sorted(membre, key=itemgetter('id'), reverse=True)
+            afectat = sorted(afectat, key=itemgetter('id'), reverse=True)
+            if secretari or editor or membre or afectat:
+                return secretari, editor, membre, afectat
+            else:
+                return False
         else:
             return False
 
