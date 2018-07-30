@@ -27,7 +27,7 @@
 
     <div tal:content="structure view/getPage"></div>
 
-    <div class="row-fluid" tal:condition="not:view/isAnon">
+<!--     <div class="row-fluid" tal:condition="not:view/isAnon">
 
       <table tal:define="organs view/getAllOwnOrgans"
             class="table table-bordered table-condensed table-hover logFont">
@@ -45,18 +45,19 @@
           <tr>
             <td >
               <a href="" tal:attributes="href organ/path">
-                <span tal:content="organ/id"> Title </span> 
+                <span tal:content="organ/id"> Title </span>
               </a>
             </td>
             <td>
-              <span tal:content="organ/roles"> Roles </span> 
+              <span tal:content="organ/roles"> Roles </span>
             </td>
           </tr>
         </tal:objects>
       </table>
-    </div>
+    </div> -->
 
-    <div tal:define="organs view/getOwnOrgans;
+<tal:block tal:define="organs view/getOwnOrgans;" tal:condition="organs">
+    <div tal:define="
                      secretari python:organs[0];
                      editor python:organs[1];
                      membre python:organs[2];
@@ -64,67 +65,56 @@
       <div class="box box-gradient">
       <h3 class="liniaBaix"><span class="fa fa-thumb-tack"></span>&nbsp;Organs relacionats amb mi</h3>
       <div tal:condition="secretari">
-        <h2> Organs com a Secretari </h2>
+        <h3> Organs com a Secretari </h3>
          <tal:objects repeat="organ secretari">
           <ul>
             <li >
               <a href="" tal:attributes="href organ/path">
-                <span tal:content="organ/id"> Title </span> 
+                <span tal:content="organ/id"> Title </span>
               </a>
-            </li>
-            <li>
-              <span tal:content="organ/roles"> Roles </span> 
             </li>
           </ul>
         </tal:objects>
       </div>
       <div tal:condition="editor">
-        <h2> Organs com a Editor </h2>
+        <h3> Organs com a Editor </h3>
          <tal:objects repeat="organ editor">
           <ul>
             <li >
               <a href="" tal:attributes="href organ/path">
-                <span tal:content="organ/id"> Title </span> 
+                <span tal:content="organ/id"> Title </span>
               </a>
-            </li>
-            <li>
-              <span tal:content="organ/roles"> Roles </span> 
             </li>
           </ul>
         </tal:objects>
       </div>
       <div tal:condition="membre">
-        <h2> Organs com a Membre </h2>
+        <h3> Organs com a Membre </h3>
          <tal:objects repeat="organ membre">
           <ul>
             <li >
               <a href="" tal:attributes="href organ/path">
-                <span tal:content="organ/id"> Title </span> 
+                <span tal:content="organ/id"> Title </span>
               </a>
-            </li>
-            <li>
-              <span tal:content="organ/roles"> Roles </span> 
             </li>
           </ul>
         </tal:objects>
       </div>
       <div tal:condition="afectat">
-        <h2> Organs com a Afectat </h2>
+        <h3> Organs com a Afectat </h3>
          <tal:objects repeat="organ afectat">
           <ul>
             <li >
               <a href="" tal:attributes="href organ/path">
-                <span tal:content="organ/id"> Title </span> 
+                <span tal:content="organ/id"> Title </span>
               </a>
-            </li>
-            <li>
-              <span tal:content="organ/roles"> Roles </span> 
             </li>
           </ul>
         </tal:objects>
       </div>
     </div>
   </div>
+</tal:block>
 
 <div class="clearfix"></div>
     <form name="searchform"
@@ -474,7 +464,7 @@
 
     <tal:latestBlock tal:define="organ_govern view/getLatestCDG;
                                  consell_social view/getLatestCS;
-                                 claustre view/getLatestCU">
+                                 claustre view/getLatestCU" tal:condition="view/isAnon">
       <div class="titling-line-container">
         <h2 class="titling-line" i18n:domain="genweb.organs" i18n:translate=""> Accedir als darrers acords de </h2>
       </div>

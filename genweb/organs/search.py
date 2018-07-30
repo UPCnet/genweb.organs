@@ -9,6 +9,7 @@ from zope.component import getMultiAdapter
 from zope.i18nmessageid import MessageFactory
 from zope.publisher.browser import BrowserView
 from ZTUtils import make_query
+from operator import itemgetter
 from genweb.organs import permissions
 
 PLMF = MessageFactory('plonelocales')
@@ -57,32 +58,37 @@ class Search(BrowserView):
         return results
 
     def getOwnOrgans(self):
-        secretari = []
-        editor = []
-        membre = []
-        afectat = []
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
-        lt = getToolByName(self, 'portal_languages')
-        lang = lt.getPreferredLanguage()
-        values = portal_catalog.unrestrictedSearchResults(
-            portal_type=['genweb.organs.sessio'],
-            sort_on='created',
-            path=root_path + '/' + lang)
-        for obj in values:
-            organ = obj._unrestrictedGetObject()
-            username = api.user.get_current().id
-            roles = api.user.get_roles(username=username, obj=organ)
-            sessionpath = organ.absolute_url()
-            if 'OG1-Secretari' in roles:
-                secretari.append(dict(path=sessionpath, id=organ.title, roles=roles))
-            if 'OG2-Editor' in roles:
-                editor.append(dict(path=sessionpath, id=organ.title, roles=roles))
-            if 'OG3-Membre' in roles:
-                membre.append(dict(path=sessionpath, id=organ.title, roles=roles))
-            if 'OG4-Afectat' in roles:
-                afectat.append(dict(path=sessionpath, id=organ.title, roles=roles))
-        return secretari, editor, membre, afectat
+        if not api.user.is_anonymous():
+            secretari = []
+            editor = []
+            membre = []
+            afectat = []
+            portal_catalog = getToolByName(self, 'portal_catalog')
+            root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
+            lt = getToolByName(self, 'portal_languages')
+            lang = lt.getPreferredLanguage()
+            values = portal_catalog.searchResults(
+                portal_type=['genweb.organs.sessio'],
+                sort_on='created',
+                path=root_path + '/' + lang)
+            for obj in values:
+                organ = obj.getObject()
+                username = api.user.get_current().id
+                roles = api.user.get_roles(username=username, obj=organ)
+                sessionpath = organ.absolute_url()
+                if 'OG1-Secretari' in roles:
+                    secretari.append(dict(path=sessionpath, id=organ.title, roles=roles))
+                if 'OG2-Editor' in roles:
+                    editor.append(dict(path=sessionpath, id=organ.title, roles=roles))
+                if 'OG3-Membre' in roles:
+                    membre.append(dict(path=sessionpath, id=organ.title, roles=roles))
+                if 'OG4-Afectat' in roles:
+                    afectat.append(dict(path=sessionpath, id=organ.title, roles=roles))
+            return secretari, editor, membre, afectat
+            # return sorted(results3, key=itemgetter('id'), reverse=True)
+
+        else:
+            return False
 
     valid_keys = ('sort_on', 'sort_order', 'sort_limit', 'fq', 'fl', 'facet')
 
