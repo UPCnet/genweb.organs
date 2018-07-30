@@ -35,7 +35,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr tal:repeat="week view/cal_data">
+            <tr tal:repeat="week view/cal_data" tal:condition="view/isAnon">
               <tal:block repeat="day week">
                 <td tal:define="today day/today;
                               next_month day/next_month;
@@ -55,6 +55,28 @@
                   </td>
                 </tal:block>
               </tr>
+            <tr tal:repeat="week view/cal_data_validated" tal:condition="not:view/isAnon">
+              <tal:block repeat="day week">
+                <td tal:define="today day/today;
+                              next_month day/next_month;
+                              prev_month day/prev_month;
+                              events day/events;
+                              classtag python:view.getclasstag_event(day);
+                              limit python:len(events) if events is not None else 0"
+                    tal:attributes="class python:u'%s%s%s%s%s' %
+                              ((today and ' today' or ''),
+                              (next_month and ' cal_next_month' or ''),
+                              (prev_month and ' cal_prev_month' or ''),
+                              (events and ' cal_has_events' or ''),
+                              (classtag or ''));
+                              style string:background-color: ${day/color};
+                              data-year day/year; data-month day/month; data-day day/day;">
+                    <a tal:omit-tag="not:events" tal:content="day/day">31</a>
+                  </td>
+                </tal:block>
+              </tr>
+
+
           </tbody>
         </table>
       </div>
@@ -63,7 +85,28 @@
       <a href="" tal:Attributes="href string:${portal_url}/allsessions"><i class="fa fa-plus"></i>&nbsp;veure totes les sessions</a>
     </div>
     <ul class="icons-ul">
-      <tal:block tal:repeat="events view/getDayEventsGroup">
+      <tal:block tal:repeat="events view/getDayEventsGroup" tal:condition="view/isAnon">
+        <li tal:define="licolor events/color"  tal:attributes="style string:border-left: 5px solid ${licolor}">
+          <p  tal:repeat="event events/events">
+            <i class="fa fa-calendar"></i>&nbsp;
+            <a tal:attributes="href event/getURL;
+                               style string:color:${event/color}">
+              <tal:event content="event/start"> 07/12 </tal:event>
+              <span tal:condition="event/end">
+                <span i18n:translate="" i18n:domain="genweb.organs"> to </span>
+                <tal:event content="event/end"> 07/12 </tal:event>
+              </span>
+              - <tal:event content="event/Title"> Event Title </tal:event>
+            </a>
+          </p>
+          <div class="clearfix"></div>
+          <span class="text2">
+            <i class="fa fa-thumb-tack"></i>
+            <a tal:attributes="href events/community_url" tal:content="events/community_name"></a>
+          </span>
+        </li>
+      </tal:block>
+      <tal:block tal:repeat="events view/getDayEventsGroupValidated" tal:condition="not:view/isAnon">
         <li tal:define="licolor events/color"  tal:attributes="style string:border-left: 5px solid ${licolor}">
           <p  tal:repeat="event events/events">
             <i class="fa fa-calendar"></i>&nbsp;

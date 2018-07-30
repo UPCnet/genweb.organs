@@ -63,7 +63,7 @@ class Search(BrowserView):
             editor = []
             membre = []
             afectat = []
-            item_limit = 5
+            item_limit = 500
             portal_catalog = getToolByName(self, 'portal_catalog')
             root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
             lt = getToolByName(self, 'portal_languages')
@@ -80,21 +80,57 @@ class Search(BrowserView):
                 sessionpath = organ.absolute_url()
                 if len(secretari) < item_limit:
                     if 'OG1-Secretari' in roles:
-                        secretari.append(dict(path=sessionpath, id=organ.title))
+                        start = organ.start.strftime('%d/%m')
+                        end = organ.end.strftime('%d/%m')
+                        end = None if end == start else end
+                        secretari.append(dict(
+                            url=sessionpath,
+                            title=organ.title,
+                            color=organ.aq_parent.eventsColor,
+                            start=start,
+                            searchStart=organ.start.strftime('%Y%m%d'),
+                            end=end))
                 if len(editor) < item_limit:
                     if 'OG2-Editor' in roles:
-                        editor.append(dict(path=sessionpath, id=organ.title))
+                        start = organ.start.strftime('%d/%m')
+                        end = organ.end.strftime('%d/%m')
+                        end = None if end == start else end
+                        editor.append(dict(
+                            url=sessionpath,
+                            title=organ.title,
+                            color=organ.aq_parent.eventsColor,
+                            start=start,
+                            searchStart=organ.start.strftime('%Y%m%d'),
+                            end=end))
                 if len(membre) < item_limit:
                     if 'OG3-Membre' in roles:
-                        membre.append(dict(path=sessionpath, id=organ.title))
+                        start = organ.start.strftime('%d/%m')
+                        end = organ.end.strftime('%d/%m')
+                        end = None if end == start else end
+                        membre.append(dict(
+                            url=sessionpath,
+                            title=organ.title,
+                            color=organ.aq_parent.eventsColor,
+                            start=start,
+                            searchStart=organ.start.strftime('%Y%m%d'),
+                            end=end))
                 if len(afectat) < item_limit:
                     if 'OG4-Afectat' in roles:
-                        afectat.append(dict(path=sessionpath, id=organ.title))
+                        start = organ.start.strftime('%d/%m')
+                        end = organ.end.strftime('%d/%m')
+                        end = None if end == start else end
+                        afectat.append(dict(
+                            url=sessionpath,
+                            title=organ.title,
+                            color=organ.aq_parent.eventsColor,
+                            start=start,
+                            searchStart=organ.start.strftime('%Y%m%d'),
+                            end=end))
 
-            secretari = sorted(secretari, key=itemgetter('id'), reverse=True)
-            editor = sorted(editor, key=itemgetter('id'), reverse=True)
-            membre = sorted(membre, key=itemgetter('id'), reverse=True)
-            afectat = sorted(afectat, key=itemgetter('id'), reverse=True)
+            secretari = sorted(secretari, key=itemgetter('searchStart'), reverse=True)
+            editor = sorted(editor, key=itemgetter('searchStart'), reverse=True)
+            membre = sorted(membre, key=itemgetter('searchStart'), reverse=True)
+            afectat = sorted(afectat, key=itemgetter('searchStart'), reverse=True)
             if secretari or editor or membre or afectat:
                 return secretari, editor, membre, afectat
             else:

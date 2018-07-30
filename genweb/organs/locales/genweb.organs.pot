@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-07-18 14:54+0000\n"
+"POT-Creation-Date: 2018-07-30 13:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr ""
 
-#: ./genweb/organs/search.pt:386
+#: ./genweb/organs/search.pt:488
 msgid "Accedir als darrers acords de"
 msgstr ""
 
@@ -170,15 +170,15 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ./genweb/organs/search.pt:63
+#: ./genweb/organs/search.pt:165
 msgid "Cerca"
 msgstr ""
 
-#: ./genweb/organs/browser/viewlets_templates/header.pt:60
+#: ./genweb/organs/browser/viewlets_templates/header.pt:57
 msgid "Cercador"
 msgstr ""
 
-#: ./genweb/organs/search.pt:51
+#: ./genweb/organs/search.pt:153
 msgid "Cercar..."
 msgstr ""
 
@@ -426,7 +426,7 @@ msgstr ""
 msgid "From mail"
 msgstr ""
 
-#: ./genweb/organs/search.pt:225
+#: ./genweb/organs/search.pt:327
 msgid "Go to historic documentation"
 msgstr ""
 
@@ -573,7 +573,7 @@ msgstr ""
 msgid "Modified acta"
 msgstr ""
 
-#: ./genweb/organs/search.pt:163
+#: ./genweb/organs/search.pt:265
 msgid "Modified dates"
 msgstr ""
 
@@ -705,7 +705,7 @@ msgstr ""
 msgid "Organ type"
 msgstr ""
 
-#: ./genweb/organs/portlets/portlet_calendar.py:36
+#: ./genweb/organs/portlets/portlet_calendar.py:35
 msgid "Organs Calendar"
 msgstr ""
 
@@ -1062,11 +1062,11 @@ msgstr ""
 msgid "acord"
 msgstr ""
 
-#: ./genweb/organs/search.py:254
+#: ./genweb/organs/search.py:354
 msgid "alphabetically"
 msgstr ""
 
-#: ./genweb/organs/search.py:251
+#: ./genweb/organs/search.py:351
 msgid "date (newest first)"
 msgstr ""
 
@@ -1092,7 +1092,7 @@ msgid "informa_sessio"
 msgstr ""
 
 #. Default: "Search"
-#: ./genweb/organs/search.pt:61
+#: ./genweb/organs/search.pt:163
 msgid "label_search"
 msgstr ""
 
@@ -1128,16 +1128,21 @@ msgid "sense numeracio"
 msgstr ""
 
 #. Default: "Last session"
-#: ./genweb/organs/search.pt:179
+#: ./genweb/organs/search.pt:281
 msgid "time_last_session"
 msgstr ""
 
 #. Default: "Last year"
-#: ./genweb/organs/search.pt:196
+#: ./genweb/organs/search.pt:298
 msgid "time_last_year"
 msgstr ""
 
 #. Default: "Search Site"
-#: ./genweb/organs/search.pt:51
+#: ./genweb/organs/search.pt:153
 msgid "title_search_title"
+msgstr ""
+
+#: ./genweb/organs/portlets/portlet_calendar.pt:96
+#: ./genweb/organs/search.pt:75
+msgid "to"
 msgstr ""
