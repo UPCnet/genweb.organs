@@ -658,22 +658,39 @@ class allSessions(BrowserView):
         """ Returns sessions from organs marked as public fields,
             bypassing security permissions """
 
-        values = api.content.find(
-            portal_type=['genweb.organs.organgovern'],
-            visiblefields=True,)
+        # portal_catalog = getToolByName(self.context, 'portal_catalog')
+        # values = portal_catalog.unrestrictedSearchResults(
+        #     portal_type='genweb.organs.organgovern')
+        # sessions = []
+
+        username = api.user.get_current().id
         results = []
-        for item in values:
-            path = item.getPath()
-            portal_catalog = getToolByName(self.context, 'portal_catalog')
-            sessions = portal_catalog.unrestrictedSearchResults(
-                portal_type='genweb.organs.sessio',
-                sort_on='start',
-                sort_order='reverse',
-                path={'query': path,
-                      'depth': 1})
-            current_year = datetime.datetime.now().strftime('%Y')
-            for session in sessions:
-                obj = session._unrestrictedGetObject()
+        # for item in values:
+        # for event in items:
+        #     organ = event._unrestrictedGetObject()
+        #     roles = api.user.get_roles(username=username, obj=organ)
+        #     if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or organ.aq_parent.visiblefields:
+        #         sessions.append(organ)
+        # results = []
+        # for item in values:
+        #     path = item.getPath()
+
+        # root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
+        # lt = getToolByName(self, 'portal_languages')
+        # lang = lt.getPreferredLanguage()
+        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        sessions = portal_catalog.unrestrictedSearchResults(
+            portal_type='genweb.organs.sessio',
+            sort_on='start',
+            sort_order='reverse',
+        )
+        current_year = datetime.datetime.now().strftime('%Y')
+        for session in sessions:
+            obj = session._unrestrictedGetObject()
+            roles = []
+            if not api.user.is_anonymous():
+                roles = api.user.get_roles(username=username, obj=obj)
+            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or obj.aq_parent.visiblefields:
                 event = IEventAccessor(obj)
                 if obj.start.strftime('%Y') == current_year:
                     results.append(dict(
