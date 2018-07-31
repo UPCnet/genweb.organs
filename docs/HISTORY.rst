@@ -1,11 +1,33 @@
 Changelog
 =========
 
-0.22 (unreleased)
+0.22 (2018-07-31)
 -----------------
 
-- Nothing changed yet.
-
+* translations and separated role in search tempalte [Roberto Diaz]
+* added own sessions to allsessions view [Roberto Diaz]
+* show assigned organ to validated calendar view [Roberto Diaz]
+* changes in portlet calendar [Roberto Diaz]
+* bypass hacked path search [Roberto Diaz]
+* removed unused sort options [Roberto Diaz]
+* new portlets based on validated or not [Roberto Diaz]
+* changes in own organs [Roberto Diaz]
+* change search private view. If non anon hide ballons, and show ownorgans [Roberto Diaz]
+* testing own sessions view [Roberto Diaz]
+* testing private organs [Roberto Diaz]
+* removed border today event [Roberto Diaz]
+* addapted logo image to retina displays [Roberto Diaz]
+* css session table view [Roberto Diaz]
+* added colors and bypass unrestricted in calendar portlet [Roberto Diaz]
+* remove community_type [Roberto Diaz]
+* new templates [Roberto Diaz]
+* pending colors in events calendar. TEMP: Fixed to yellow! [Roberto Diaz]
+* added membres view [Roberto Diaz]
+* added all sessions list view from current year [Roberto Diaz]
+* added new banners [Roberto Diaz]
+* modifying caendar with visiblefields only, and index visiblefields added. Now header href links to current OG. CSS and little modifications [Roberto Diaz]
+* remove bold from arrows in calendar [Roberto Diaz]
+* first new calendar version [Roberto Diaz]
 
 0.21 (2018-07-12)
 -----------------
