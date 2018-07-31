@@ -80,7 +80,7 @@
       </div>
     </article>
     <div class="allSessions">
-      <a href="" tal:Attributes="href string:${portal_url}/allsessions"><i class="fa fa-plus"></i>&nbsp;veure totes les sessions</a>
+      <a href="" tal:Attributes="href string:${portal_url}/allsessions"><i class="fa fa-plus"></i>&nbsp;<tal:omit-tag i18n:translate="" i18n:domain="genweb.organs">veure totes les sessions</tal:omit-tag></a>
     </div>
     <ul class="icons-ul">
       <tal:block tal:repeat="events view/getDayEventsGroup" tal:condition="view/isAnon">

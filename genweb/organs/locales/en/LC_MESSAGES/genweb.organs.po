@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-07-31 10:27+0000\n"
+"POT-Creation-Date: 2018-07-31 14:50+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Draft Yellow</p><p>Pending aproval Orange</p><p>Approved Green</p><p>Not approved Red</p><p>Cancelled DarkRed</p><p>Informative LightSkyBlue</p><p>Informedt MediumBlue</p>"
 
-#: ./genweb/organs/search.pt:450
+#: ./genweb/organs/search.pt:381
 msgid "Accedir als darrers acords de"
 msgstr "Go to latests agreements of"
 
@@ -169,7 +169,7 @@ msgstr "Message attached executing the Send Message Action. It adds just the foo
 msgid "Cancel"
 msgstr "Cancel"
 
-#: ./genweb/organs/search.pt:145
+#: ./genweb/organs/search.pt:76
 msgid "Cerca"
 msgstr "Search"
 
@@ -177,7 +177,7 @@ msgstr "Search"
 msgid "Cercador"
 msgstr "Search"
 
-#: ./genweb/organs/search.pt:133
+#: ./genweb/organs/search.pt:64
 msgid "Cercar..."
 msgstr "Search..."
 
@@ -231,7 +231,7 @@ msgstr "Sessions color in the calendar"
 
 #: ./genweb/organs/browser/views/members.pt:13
 msgid "Composicio"
-msgstr ""
+msgstr "Composition"
 
 #: ./genweb/organs/content/document.py:56
 msgid "Content used to hide protected content"
@@ -281,11 +281,11 @@ msgstr "Date and Time"
 
 #: ./genweb/organs/browser/views/allsessions.pt:31
 msgid "Data i hora fi"
-msgstr ""
+msgstr "End Date and Time"
 
 #: ./genweb/organs/browser/views/allsessions.pt:28
 msgid "Data i hora inici"
-msgstr ""
+msgstr "Start Date and Time"
 
 #: ./genweb/organs/content/document.py:48
 msgid "Default content shown in the document view"
@@ -425,7 +425,7 @@ msgstr "From"
 msgid "From mail"
 msgstr "Email who sends the messages"
 
-#: ./genweb/organs/search.pt:307
+#: ./genweb/organs/search.pt:238
 msgid "Go to historic documentation"
 msgstr "Access to previous documentation"
 
@@ -520,7 +520,7 @@ msgstr "Mail address separated by comma values."
 
 #: ./genweb/organs/content/organgovern.py:174
 msgid "Make the sessions and composition members fields visibles to everyone, omitting the security systems."
-msgstr ""
+msgstr "Make the sessions and composition members fields visibles to everyone, omitting the security systems."
 
 #: ./genweb/organs/content/manualimport.py:28
 msgid "Manual Import"
@@ -572,7 +572,7 @@ msgstr "Modified agreement"
 msgid "Modified acta"
 msgstr "Modified meeting report"
 
-#: ./genweb/organs/search.pt:245
+#: ./genweb/organs/search.pt:176
 msgid "Modified dates"
 msgstr "Dates"
 
@@ -719,6 +719,10 @@ msgstr "Organs de Govern package"
 #: ./genweb/organs/content/organsfolder.py:26
 msgid "Organs folder logo"
 msgstr "Logo from the organs of government folder"
+
+#: ./genweb/organs/search.pt:32
+msgid "Organs relacionats amb mi"
+msgstr "Organs Related to Me"
 
 #: ./genweb/organs/content/organgovern.py:54
 #: ./genweb/organs/content/sessio.py:41
@@ -1032,7 +1036,7 @@ msgstr "Link to the video session"
 
 #: ./genweb/organs/content/organgovern.py:173
 msgid "Visible fields"
-msgstr ""
+msgstr "Visible fields"
 
 #: ./genweb/organs/content/templates/informar_view.pt:40
 msgid "Vista previa dels punts"
@@ -1061,11 +1065,11 @@ msgstr "[Agreement without number]"
 msgid "acord"
 msgstr "Agreement"
 
-#: ./genweb/organs/search.py:338
+#: ./genweb/organs/search.py:294
 msgid "alphabetically"
 msgstr "alphabetically"
 
-#: ./genweb/organs/search.py:335
+#: ./genweb/organs/search.py:291
 msgid "date (newest first)"
 msgstr "date (newest first)"
 
@@ -1091,7 +1095,7 @@ msgid "informa_sessio"
 msgstr "Send message about the session"
 
 #. Default: "Search"
-#: ./genweb/organs/search.pt:143
+#: ./genweb/organs/search.pt:74
 msgid "label_search"
 msgstr "Search"
 
@@ -1127,20 +1131,24 @@ msgid "sense numeracio"
 msgstr "Not numbered"
 
 #. Default: "Last session"
-#: ./genweb/organs/search.pt:261
+#: ./genweb/organs/search.pt:192
 msgid "time_last_session"
 msgstr "Last session"
 
 #. Default: "Last year"
-#: ./genweb/organs/search.pt:278
+#: ./genweb/organs/search.pt:209
 msgid "time_last_year"
 msgstr "Last year"
 
 #. Default: "Search Site"
-#: ./genweb/organs/search.pt:133
+#: ./genweb/organs/search.pt:64
 msgid "title_search_title"
 msgstr "Search on the Site"
 
 #: ./genweb/organs/portlets/portlet_calendar.pt:94
 msgid "to"
 msgstr "to"
+
+#: ./genweb/organs/portlets/portlet_calendar.pt:83
+msgid "veure totes les sessions"
+msgstr "show all sessions"

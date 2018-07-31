@@ -39,31 +39,9 @@ class Search(BrowserView):
             return False
         return True
 
-    def getAllOwnOrgans(self):
-        results = []
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
-        lt = getToolByName(self, 'portal_languages')
-        lang = lt.getPreferredLanguage()
-        values = portal_catalog.unrestrictedSearchResults(
-            portal_type=['genweb.organs.sessio'],
-            sort_on='created',
-            path=root_path + '/' + lang)
-        for obj in values:
-            organ = obj._unrestrictedGetObject()
-            username = api.user.get_current().id
-            roles = api.user.get_roles(username=username, obj=organ)
-            sessionpath = organ.absolute_url()
-            results.append(dict(path=sessionpath, id=organ.title, roles=roles))
-        return results
-
     def getOwnOrgans(self):
         if not api.user.is_anonymous():
-            secretari = []
-            editor = []
-            membre = []
-            afectat = []
-            item_limit = 500
+            results = []
             portal_catalog = getToolByName(self, 'portal_catalog')
             root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
             lt = getToolByName(self, 'portal_languages')
@@ -76,39 +54,17 @@ class Search(BrowserView):
             for obj in values:
                 organ = obj.getObject()
                 username = api.user.get_current().id
-                roles = api.user.get_roles(username=username, obj=organ)
+                all_roles = api.user.get_roles(username=username, obj=organ)
+                roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat']]
                 sessionpath = organ.absolute_url()
-                if len(secretari) < item_limit:
-                    if 'OG1-Secretari' in roles:
-                        secretari.append(dict(
-                            url=sessionpath,
-                            title=organ.title,
-                            color=organ.eventsColor))
-                if len(editor) < item_limit:
-                    if 'OG2-Editor' in roles:
-                        editor.append(dict(
-                            url=sessionpath,
-                            title=organ.title,
-                            color=organ.eventsColor))
-                if len(membre) < item_limit:
-                    if 'OG3-Membre' in roles:
-                        membre.append(dict(
-                            url=sessionpath,
-                            title=organ.title,
-                            color=organ.eventsColor))
-                if len(afectat) < item_limit:
-                    if 'OG4-Afectat' in roles:
-                        afectat.append(dict(
-                            url=sessionpath,
-                            title=organ.title,
-                            color=organ.eventsColor))
-
-            secretari = sorted(secretari, key=itemgetter('title'), reverse=True)
-            editor = sorted(editor, key=itemgetter('title'), reverse=True)
-            membre = sorted(membre, key=itemgetter('title'), reverse=True)
-            afectat = sorted(afectat, key=itemgetter('title'), reverse=True)
-            if secretari or editor or membre or afectat:
-                return secretari, editor, membre, afectat
+                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
+                    results.append(dict(
+                        url=sessionpath,
+                        title=organ.title,
+                        color=organ.eventsColor,
+                        role=roles))
+            if results:
+                return results
             else:
                 return False
         else:
