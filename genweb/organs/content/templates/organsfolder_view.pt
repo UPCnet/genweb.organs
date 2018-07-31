@@ -28,27 +28,28 @@
             </tr>
           </thead>
           <tal:documents repeat="item OrgansInside">
-              <tr>
-                <td>
-                  <a tal:attributes="href item/absolute_url;"
-                     tal:content="item/title">
-                          Item Title
-                  </a>
-                  <tal:omit-tag tal:condition="item/acronim">
-                  [<tal:omit-tag tal:content="item/acronim">
-                            Item Acronim
-                    </tal:omit-tag>]
-                  </tal:omit-tag>
-                </td>
-                <td style="text-align: center;" tal:condition="canView">
-                  <span tal:content="item/organType"
-                        i18n:translate=""
-                        tal:attributes="class item/organType"
-                        i18n:domain="genweb">
-                          Item Type
-                  </span>
-                </td>
-              </tr>
+            <tr>
+              <td>
+                <span class="icon-genweb-organs-organgovern"></span>
+                <a tal:attributes="href item/absolute_url;"
+                   tal:content="item/title">
+                        Item Title
+                </a>
+                <tal:omit-tag tal:condition="item/acronim">
+                [<tal:omit-tag tal:content="item/acronim">
+                          Item Acronim
+                  </tal:omit-tag>]
+                </tal:omit-tag>
+              </td>
+              <td style="text-align: center;" tal:condition="canView">
+                <span tal:content="item/organType"
+                      i18n:translate=""
+                      tal:attributes="class item/organType"
+                      i18n:domain="genweb">
+                        Item Type
+                </span>
+              </td>
+            </tr>
           </tal:documents>
         </table>
       </div>

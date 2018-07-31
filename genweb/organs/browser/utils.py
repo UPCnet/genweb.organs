@@ -332,7 +332,8 @@ class showColorOrgans(grok.View):
             obj = brain.getObject()
             element = {
                 'color': obj.eventsColor,
-                'path': obj.absolute_url() + '/edit'
+                'path': obj.absolute_url() + '/edit',
+                'sessions_visible_in_public_calendar': obj.visiblefields
             }
 
             results.append(element)

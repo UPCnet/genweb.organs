@@ -69,7 +69,7 @@ class Search(BrowserView):
             lt = getToolByName(self, 'portal_languages')
             lang = lt.getPreferredLanguage()
             values = portal_catalog.searchResults(
-                portal_type=['genweb.organs.sessio'],
+                portal_type=['genweb.organs.organgovern'],
                 sort_on='created',
                 sort_order='reverse',
                 path=root_path + '/' + lang)
@@ -80,57 +80,33 @@ class Search(BrowserView):
                 sessionpath = organ.absolute_url()
                 if len(secretari) < item_limit:
                     if 'OG1-Secretari' in roles:
-                        start = organ.start.strftime('%d/%m')
-                        end = organ.end.strftime('%d/%m')
-                        end = None if end == start else end
                         secretari.append(dict(
                             url=sessionpath,
                             title=organ.title,
-                            color=organ.aq_parent.eventsColor,
-                            start=start,
-                            searchStart=organ.start.strftime('%Y%m%d'),
-                            end=end))
+                            color=organ.eventsColor))
                 if len(editor) < item_limit:
                     if 'OG2-Editor' in roles:
-                        start = organ.start.strftime('%d/%m')
-                        end = organ.end.strftime('%d/%m')
-                        end = None if end == start else end
                         editor.append(dict(
                             url=sessionpath,
                             title=organ.title,
-                            color=organ.aq_parent.eventsColor,
-                            start=start,
-                            searchStart=organ.start.strftime('%Y%m%d'),
-                            end=end))
+                            color=organ.eventsColor))
                 if len(membre) < item_limit:
                     if 'OG3-Membre' in roles:
-                        start = organ.start.strftime('%d/%m')
-                        end = organ.end.strftime('%d/%m')
-                        end = None if end == start else end
                         membre.append(dict(
                             url=sessionpath,
                             title=organ.title,
-                            color=organ.aq_parent.eventsColor,
-                            start=start,
-                            searchStart=organ.start.strftime('%Y%m%d'),
-                            end=end))
+                            color=organ.eventsColor))
                 if len(afectat) < item_limit:
                     if 'OG4-Afectat' in roles:
-                        start = organ.start.strftime('%d/%m')
-                        end = organ.end.strftime('%d/%m')
-                        end = None if end == start else end
                         afectat.append(dict(
                             url=sessionpath,
                             title=organ.title,
-                            color=organ.aq_parent.eventsColor,
-                            start=start,
-                            searchStart=organ.start.strftime('%Y%m%d'),
-                            end=end))
+                            color=organ.eventsColor))
 
-            secretari = sorted(secretari, key=itemgetter('searchStart'), reverse=True)
-            editor = sorted(editor, key=itemgetter('searchStart'), reverse=True)
-            membre = sorted(membre, key=itemgetter('searchStart'), reverse=True)
-            afectat = sorted(afectat, key=itemgetter('searchStart'), reverse=True)
+            secretari = sorted(secretari, key=itemgetter('title'), reverse=True)
+            editor = sorted(editor, key=itemgetter('title'), reverse=True)
+            membre = sorted(membre, key=itemgetter('title'), reverse=True)
+            afectat = sorted(afectat, key=itemgetter('title'), reverse=True)
             if secretari or editor or membre or afectat:
                 return secretari, editor, membre, afectat
             else:
@@ -164,7 +140,7 @@ class Search(BrowserView):
             root_path + '/' + lang + '/claustre-universitari/claustre-universitari/']
 
         if query['path'] not in query_paths:
-            # If path is hacked and not in search paths, force to default
+            # If path is hacked and not in search paths, force default path
             query['path'] = root_path + '/' + lang + '/consell-de-govern/consell-de-govern/'
 
         if query['latest_session']:

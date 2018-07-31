@@ -311,16 +311,16 @@ class Renderer(base.Renderer):
 
         date_range_query = {'query': (start - timedelta(days=30), end), 'range': 'min:max'}
         portal_catalog = getToolByName(self.context, 'portal_catalog')
-        items = portal_catalog.searchResults(
+        items = portal_catalog.unrestrictedSearchResults(
             portal_type='genweb.organs.sessio',
             start=date_range_query)
         events = []
+        username = api.user.get_current().id
         for event in items:
-            organ = event.getObject()
-            username = api.user.get_current().id
+            organ = event._unrestrictedGetObject()
             roles = api.user.get_roles(username=username, obj=organ)
-            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles:
-                events.append(event.getObject())
+            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or organ.aq_parent.visiblefields:
+                events.append(organ)
 
         return construct_calendar(events, start=start, end=end)
 
@@ -391,17 +391,16 @@ class Renderer(base.Renderer):
 
         date_range_query = {'query': (start, end), 'range': 'min:max'}
         portal_catalog = getToolByName(self.context, 'portal_catalog')
-        items = portal_catalog.searchResults(
+        items = portal_catalog.unrestrictedSearchResults(
             portal_type='genweb.organs.sessio',
             start=date_range_query)
         events = []
-
+        username = api.user.get_current().id
         for event in items:
-            organ = event.getObject()
-            username = api.user.get_current().id
+            organ = event._unrestrictedGetObject()
             roles = api.user.get_roles(username=username, obj=organ)
-            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles:
-                events.append(event.getObject())
+            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or organ.aq_parent.visiblefields:
+                events.append(organ)
 
         cal_dict = construct_calendar(events, start=start, end=end)
 

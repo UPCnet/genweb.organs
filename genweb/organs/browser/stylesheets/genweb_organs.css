@@ -908,6 +908,19 @@ div#formfield-form-widgets-message.field {margin-bottom: 0px;}
 span.label.label-default,
 span.label.label-danger {float: right;}
 
+span.labelSearch {
+    float: right;
+    padding: 2px 4px 2px 4px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 15px;
+    color: #fff;
+    vertical-align: baseline;
+    white-space: nowrap;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #777777;
+}
+
 .presentation_template {
     margin-right: auto;
     margin-left: auto;

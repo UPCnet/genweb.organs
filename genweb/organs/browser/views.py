@@ -14,9 +14,6 @@ from genweb.organs import utils
 from AccessControl import Unauthorized
 from operator import itemgetter
 import datetime
-from genweb.organs.interfaces import IGenwebOrgansLayer
-from genweb.organs.content.sessio import ISessio
-# from five import grok
 
 
 # Disable CSRF

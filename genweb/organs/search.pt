@@ -64,71 +64,51 @@
       <div class="box box-gradient">
       <h3 class="liniaBaix"><span class="fa fa-thumb-tack"></span>&nbsp;Organs relacionats amb mi</h3>
       <div tal:condition="secretari">
-        <h3> Organs com a Secretari </h3>
-         <tal:objects repeat="organ secretari">
-            <p>
-              <i class="fa fa-calendar"></i>&nbsp;
-              <a tal:attributes="href organ/url;
-                                style string:color:${organ/color}">
-                <tal:event content="organ/start"> 07/12 </tal:event>
-                <span tal:condition="organ/end">
-                  <span i18n:domain="genweb.organs" i18n:translate="to">to</span>
-                  <tal:event content="organ/end"> 07/12 </tal:event>
-                </span>
-                - <tal:event content="organ/title"> Event Title </tal:event>
-              </a>
-            </p>
+        <tal:objects repeat="organ secretari">
+          <p>
+            <span class="labelSearch">Secretari</span>
+            <span tal:attributes="style string:background-color:${organ/color};">&nbsp;</span>
+            <span class="icon-genweb-organs-organgovern"></span>
+            <a tal:attributes="href organ/url;">
+              <tal:event content="organ/title"> Event Title </tal:event>
+            </a>
+          </p>
         </tal:objects>
       </div>
       <div tal:condition="editor">
-        <h3> Organs com a Editor </h3>
-         <tal:objects repeat="organ editor">
-            <p>
-              <i class="fa fa-calendar"></i>&nbsp;
-              <a tal:attributes="href organ/url;
-                                style string:color:${organ/color}">
-                <tal:event content="organ/start"> 07/12 </tal:event>
-                <span tal:condition="organ/end">
-                  <span i18n:domain="genweb.organs" i18n:translate="to">to</span>
-                  <tal:event content="organ/end"> 07/12 </tal:event>
-                </span>
-                - <tal:event content="organ/title"> Event Title </tal:event>
-              </a>
-            </p>
+        <tal:objects repeat="organ editor">
+          <p>
+            <span class="labelSearch">Editor</span>
+            <span tal:attributes="style string:background-color:${organ/color};">&nbsp;</span>
+            <span class="icon-genweb-organs-organgovern"></span>
+            <a tal:attributes="href organ/url;">
+              <tal:event content="organ/title"> Event Title </tal:event>
+            </a>
+          </p>
         </tal:objects>
       </div>
       <div tal:condition="membre">
-        <h3> Organs com a Membre </h3>
-         <tal:objects repeat="organ membre">
-            <p>
-              <i class="fa fa-calendar"></i>&nbsp;
-              <a tal:attributes="href organ/url;
-                                style string:color:${organ/color}">
-                <tal:event content="organ/start"> 07/12 </tal:event>
-                <span tal:condition="organ/end">
-                  <span i18n:domain="genweb.organs" i18n:translate="to">to</span>
-                  <tal:event content="organ/end"> 07/12 </tal:event>
-                </span>
-                - <tal:event content="organ/title"> Event Title </tal:event>
-              </a>
-            </p>
+        <tal:objects repeat="organ membre">
+          <p>
+            <span class="labelSearch">Membre</span>
+            <span tal:attributes="style string:background-color:${organ/color};">&nbsp;</span>
+            <span class="icon-genweb-organs-organgovern"></span>
+            <a tal:attributes="href organ/url;">
+              <tal:event content="organ/title"> Event Title </tal:event>
+            </a>
+          </p>
         </tal:objects>
       </div>
       <div tal:condition="afectat">
-        <h3> Organs com a Afectat </h3>
          <tal:objects repeat="organ afectat">
-            <p>
-              <i class="fa fa-calendar"></i>&nbsp;
-              <a tal:attributes="href organ/url;
-                                style string:color:${organ/color}">
-                <tal:event content="organ/start"> 07/12 </tal:event>
-                <span tal:condition="organ/end">
-                  <span i18n:domain="genweb.organs" i18n:translate="to">to</span>
-                  <tal:event content="organ/end"> 07/12 </tal:event>
-                </span>
-                - <tal:event content="organ/title"> Event Title </tal:event>
-              </a>
-            </p>
+          <p>
+            <span class="labelSearch">Afectat</span>
+            <span tal:attributes="style string:background-color:${organ/color};">&nbsp;</span>
+            <span class="icon-genweb-organs-organgovern"></span>
+            <a tal:attributes="href organ/url;">
+              <tal:event content="organ/title"> Event Title </tal:event>
+            </a>
+          </p>
         </tal:objects>
       </div>
     </div>
@@ -465,7 +445,7 @@
 
     <tal:latestBlock tal:define="organ_govern view/getLatestCDG;
                                  consell_social view/getLatestCS;
-                                 claustre view/getLatestCU" tal:condition="view/isAnon">
+                                 claustre view/getLatestCU">
       <div class="titling-line-container">
         <h2 class="titling-line" i18n:domain="genweb.organs" i18n:translate=""> Accedir als darrers acords de </h2>
       </div>
