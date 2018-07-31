@@ -158,12 +158,18 @@ class Search(BrowserView):
         lt = getToolByName(self, 'portal_languages')
         lang = lt.getPreferredLanguage()
 
+        query_paths = [
+            root_path + '/' + lang + '/consell-de-govern/consell-de-govern/',
+            root_path + '/' + lang + '/cs/ple-del-consell-social/',
+            root_path + '/' + lang + '/claustre-universitari/claustre-universitari/']
+
+        if query['path'] not in query_paths:
+            # If path is hacked and not in search paths, force to default
+            query['path'] = root_path + '/' + lang + '/consell-de-govern/consell-de-govern/'
+
         if query['latest_session']:
             if query['path'] == root_path + '/' + lang:
-                query['path'] = [
-                    root_path + '/' + lang + '/consell-de-govern/consell-de-govern/',
-                    root_path + '/' + lang + '/cs/ple-del-consell-social/',
-                    root_path + '/' + lang + '/claustre-universitari/claustre-universitari/']
+                query['path'] = query_paths
             if isinstance(query['path'], list):
                 for organ in query['path']:
                     session_path = api.content.find(
@@ -184,6 +190,8 @@ class Search(BrowserView):
             query['path'] = new_path
         # Make default view return 0 results
         if 'SearchableText' not in query:
+            # La primera vez, sin seleccionar nada, están marcados todos los elementos
+            # Cogemos por ejemplo el Folder para hacer el check
             if 'Folder' in query['portal_type']:
                 return None
         if 'genweb.organs.punt' in query['portal_type']:
