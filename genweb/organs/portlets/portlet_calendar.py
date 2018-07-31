@@ -160,12 +160,17 @@ class Renderer(base.Renderer):
 
     def getNextThreeEventsValidated(self):
         portal_catalog = getToolByName(self.context, 'portal_catalog')
-        items = portal_catalog.searchResults(
-            portal_type='genweb.organs.sessio',
-            path=self.get_public_organs_fields())
+        items = portal_catalog.unrestrictedSearchResults(
+            portal_type='genweb.organs.sessio')
         events = []
-        for event in items:
-            events.append(event.getObject())
+        username = api.user.get_current().id
+
+        for item in items:
+            organ = item._unrestrictedGetObject()
+            roles = api.user.get_roles(username=username, obj=organ)
+            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or organ.aq_parent.visiblefields:
+                events.append(organ)
+
         events = self.filterNextEvents(events)
         events = self.filterOccurrenceEvents(events)
 
@@ -186,8 +191,8 @@ class Renderer(base.Renderer):
                     searchStart=searchStart,
                     end=end,
                     color=event.aq_parent.eventsColor,
-                    community_name=event.aq_parent.aq_parent.title,
-                    community_url=event.aq_parent.aq_parent.absolute_url())
+                    community_name=event.aq_parent.title,
+                    community_url=event.aq_parent.absolute_url())
 
     def filterOccurrenceEvents(self, events):
         filter_events = []
