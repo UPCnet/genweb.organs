@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.23 (unreleased)
+0.23 (2018-08-02)
 -----------------
 
-- Nothing changed yet.
-
+* changed literal [Roberto Diaz]
+* remove document from types [Roberto Diaz]
 
 0.22 (2018-07-31)
 -----------------
