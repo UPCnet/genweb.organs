@@ -427,7 +427,7 @@ msgstr "Email who sends the messages"
 
 #: ./genweb/organs/search.pt:238
 msgid "Go to historic documentation"
-msgstr "Access to previous documentation"
+msgstr "Access to historic public documentation"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:165
 msgid "Historial"
