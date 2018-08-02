@@ -227,7 +227,7 @@ class Search(BrowserView):
         # Subpunt is added in other part of code
         # catalog = getToolByName(self.context, 'portal_catalog')
         # used_types = catalog._catalog.getIndex('portal_type').uniqueValues()
-        used_types = ('genweb.organs.acord', 'genweb.organs.document', 'genweb.organs.punt')
+        used_types = ('genweb.organs.acord', 'genweb.organs.punt')
         return self.filter_types(list(used_types))
 
     def getLatestCDG(self):
