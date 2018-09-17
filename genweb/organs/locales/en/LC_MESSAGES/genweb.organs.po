@@ -427,7 +427,7 @@ msgstr "Email who sends the messages"
 
 #: ./genweb/organs/search.pt:238
 msgid "Go to historic documentation"
-msgstr "Access to historic public documentation"
+msgstr "Access to historic public documentation (2002 - 2015)"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:165
 msgid "Historial"
@@ -722,7 +722,7 @@ msgstr "Logo from the organs of government folder"
 
 #: ./genweb/organs/search.pt:32
 msgid "Organs relacionats amb mi"
-msgstr "Organs Related to Me"
+msgstr "My relationship with the governing documents"
 
 #: ./genweb/organs/content/organgovern.py:54
 #: ./genweb/organs/content/sessio.py:41

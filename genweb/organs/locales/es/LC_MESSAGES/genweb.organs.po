@@ -427,7 +427,7 @@ msgstr "Dirección de la persona que envía los mensajes"
 
 #: ./genweb/organs/search.pt:238
 msgid "Go to historic documentation"
-msgstr "Acceso a la documentación pública histórica"
+msgstr "Acceso a la documentación pública histórica (2002 - 2015)"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:165
 msgid "Historial"
@@ -722,7 +722,7 @@ msgstr "Imagen de cabecera personalizada"
 
 #: ./genweb/organs/search.pt:32
 msgid "Organs relacionats amb mi"
-msgstr "Órganos relacionados conmigo"
+msgstr "Mi vinculación con los órganos de gobierno"
 
 #: ./genweb/organs/content/organgovern.py:54
 #: ./genweb/organs/content/sessio.py:41
