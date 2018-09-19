@@ -9,7 +9,7 @@ from zope.component import getMultiAdapter
 from zope.i18nmessageid import MessageFactory
 from zope.publisher.browser import BrowserView
 from ZTUtils import make_query
-from operator import itemgetter
+# from operator import itemgetter
 from genweb.organs import permissions
 
 PLMF = MessageFactory('plonelocales')
@@ -89,19 +89,30 @@ class Search(BrowserView):
         root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
         lt = getToolByName(self, 'portal_languages')
         lang = lt.getPreferredLanguage()
-
         query_paths = [
             root_path + '/' + lang + '/consell-de-govern/consell-de-govern/',
             root_path + '/' + lang + '/cs/ple-del-consell-social/',
             root_path + '/' + lang + '/claustre-universitari/claustre-universitari/']
-
-        if query['path'] not in query_paths:
-            # If path is hacked and not in search paths, force default path
-            query['path'] = root_path + '/' + lang + '/consell-de-govern/consell-de-govern/'
-
+        not_view = False
+        if type(query['path']) == str:
+            if query['path'] not in query_paths:
+                not_view = True
+        else:
+            for value in query['path']:
+                if value not in query_paths:
+                    not_view = True
+        if not_view:
+            return None
+        # if query['path'] not in query_paths:
+            # import ipdb; ipdb.set_trace()
+            # if query['path'] == '/empty_path/'
+            # return None
+            # else:
+                # If path is hacked and not in search paths, force default path
+                # query['path'] = root_path + '/' + lang + '/consell-de-govern/consell-de-govern/'
         if query['latest_session']:
-            if query['path'] == root_path + '/' + lang:
-                query['path'] = query_paths
+            # if query['path'] == root_path + '/' + lang:
+            #     query['path'] = query_paths
             if isinstance(query['path'], list):
                 for organ in query['path']:
                     session_path = api.content.find(
@@ -204,15 +215,19 @@ class Search(BrowserView):
         # respect navigation root
         if 'path' not in query:
             # Added /Plone/ca
-            # query['path'] = getNavigationRoot(self.context)
+            # query['path'] = '/all_checked/'
+            # getNavigationRoot(self.context)
             # Added all defaults folders:
-            root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
-            lt = getToolByName(self, 'portal_languages')
-            lang = lt.getPreferredLanguage()
-            query['path'] = [
-                root_path + '/' + lang + '/consell-de-govern/consell-de-govern/',
-                root_path + '/' + lang + '/cs/ple-del-consell-social/',
-                root_path + '/' + lang + '/claustre-universitari/claustre-universitari/']
+            if 'genweb.organs.acord' or 'genweb.organs.punt' in query['portal_type']:
+                query['path'] = '/empty_path/'
+            else:
+                root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
+                lt = getToolByName(self, 'portal_languages')
+                lang = lt.getPreferredLanguage()
+                query['path'] = [
+                    root_path + '/' + lang + '/consell-de-govern/consell-de-govern/',
+                    root_path + '/' + lang + '/cs/ple-del-consell-social/',
+                    root_path + '/' + lang + '/claustre-universitari/claustre-universitari/']
         return query
 
     def filter_types(self, types):
@@ -228,7 +243,7 @@ class Search(BrowserView):
         # catalog = getToolByName(self.context, 'portal_catalog')
         # used_types = catalog._catalog.getIndex('portal_type').uniqueValues()
         used_types = ('genweb.organs.acord', 'genweb.organs.punt')
-        return self.filter_types(list(used_types))
+        return sorted(self.filter_types(list(used_types)))
 
     def getLatestCDG(self):
         """ Retorna ultima sessió consell de govern """
