@@ -46,4 +46,12 @@
         layer=".interfaces.IGenwebOrgansLayer"
         />
 
+    <!-- Modified download file to pass the session state -->
+    <browser:page
+        name="download"
+        for="*"
+        class=".namedfile-browser.Download"
+        permission="zope2.View"
+        />
+
 </configure>
