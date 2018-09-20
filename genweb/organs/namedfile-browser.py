@@ -52,7 +52,6 @@ class Download(BrowserView):
         set_headers(file, self.request.response, filename=self.filename)
 
     def _getFile(self):
-
         if not self.fieldname:
             info = IPrimaryFieldInfo(self.context, None)
             if info is None:
@@ -70,63 +69,83 @@ class Download(BrowserView):
         # GENWEB ORGANS CODE ADDED
         # Antes de retornar el fichero comprobamos los estados de la sesion
         # para ver si lo debemos mostrar o no
-        from plone import api
-        from genweb.organs import utils
+        # Check if genweb.organs installed...
 
-        if utils.isManager(self):
+        from Products.CMFCore.utils import getToolByName
+        qi = getToolByName(self.context, 'portal_quickinstaller')
+        prods = qi.listInstalledProducts()
+        installed = False
+
+        for prod in prods:
+            if prod['id'] == 'genweb.organs':
+                installed = True
+
+        if not installed:
+            # Standard functionallity.
             return file
-
-        if self.context.aq_parent.portal_type == 'genweb.organs.sessio':
-            estatSessio = api.content.get_state(obj=self.context.aq_parent)
+        elif self.context.portal_type == 'File':
+            # If package is installed but thit is not an organ type
+            # then only is an standeard file, we have to show it.
+            return file
         else:
-            estatSessio = api.content.get_state(obj=self.context.aq_parent.aq_parent)
+            # Organs functionallity
+            from plone import api
+            from genweb.organs import utils
 
-        organ_tipus = self.context.organType
+            if utils.isManager(self):
+                return file
 
-        if organ_tipus == 'open_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
-                return file
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                return file
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
-                return file
-            elif estatSessio == 'tancada':
-                return file
-            elif estatSessio == 'en_correccio':
-                return file
+            if self.context.aq_parent.portal_type == 'genweb.organs.sessio':
+                estatSessio = api.content.get_state(obj=self.context.aq_parent)
+            else:
+                estatSessio = api.content.get_state(obj=self.context.aq_parent.aq_parent)
+
+            organ_tipus = self.context.organType
+
+            if organ_tipus == 'open_organ':
+                if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                    return file
+                elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return file
+                elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                    return file
+                elif estatSessio == 'tancada':
+                    return file
+                elif estatSessio == 'en_correccio':
+                    return file
+                else:
+                    raise Unauthorized
+
+            elif organ_tipus == 'restricted_to_members_organ':
+                if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                    return file
+                elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return file
+                elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return file
+                elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return file
+                elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return file
+                else:
+                    raise Unauthorized
+
+            elif organ_tipus == 'restricted_to_affected_organ':
+                if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                    return file
+                elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    return file
+                elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                    return file
+                elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                    return file
+                elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                    return file
+                else:
+                    raise Unauthorized
+
             else:
                 raise Unauthorized
-
-        elif organ_tipus == 'restricted_to_members_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
-                return file
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                return file
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                return file
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                return file
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                return file
-            else:
-                raise Unauthorized
-
-        elif organ_tipus == 'restricted_to_affected_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
-                return file
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                return file
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
-                return file
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
-                return file
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
-                return file
-            else:
-                raise Unauthorized
-
-        else:
-            raise Unauthorized
 
 
 class DisplayFile(Download):
