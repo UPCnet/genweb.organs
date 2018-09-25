@@ -1981,7 +1981,7 @@ td.organevent.cal_has_events .popover-content a {
     width: calc(100% / 7);
 }
 
-.portlet-calendari .cal_has_events {
+.portlet-calendari .cal_has_events, .portlet-calendari .cal_has_events:hover {
     border: 1px solid white;
 }
 

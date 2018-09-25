@@ -149,11 +149,15 @@ class Renderer(base.Renderer):
         events = []
         for event in items:
             events.append(event._unrestrictedGetObject())
+
         events = self.filterNextEvents(events)
         events = self.filterOccurrenceEvents(events)
 
         list_events = []
-        for event in events[:3]:
+        # hay que ordenar los events por fechas...
+        events.sort(key=lambda x: x.start, reverse=False)
+
+        for event in events:
             list_events.append(self.getEventCalendarDict(event))
 
         return list_events
@@ -175,7 +179,10 @@ class Renderer(base.Renderer):
         events = self.filterOccurrenceEvents(events)
 
         list_events = []
-        for event in events[:3]:
+        # hay que ordenar los events por fechas...
+        events.sort(key=lambda x: x.start, reverse=False)
+
+        for event in events:
             list_events.append(self.getEventCalendarDict(event))
 
         return list_events
@@ -214,20 +221,21 @@ class Renderer(base.Renderer):
         for event in events:
             if event.end > localized_now():
                 filter_events.append(event)
+
         return filter_events
 
     def getDayEventsGroup(self):
+        # Si no esta validat, mostra els propers 3 esdeveniments
         group_events = []
         if 'day' not in self.request.form and 'month' in self.request.form:
-            return None
-
-        if 'day' not in self.request.form and 'month' not in self.request.form:
+            list_events = self.getNextThreeEvents()
+        elif 'day' not in self.request.form and 'month' not in self.request.form:
             list_events = self.getNextThreeEvents()
         else:
             list_events = self.getDayEvents(self.getDateEvents())
 
-        if len(list_events):
-            list_events = sorted(list_events, key=lambda x: x['community_name'])
+        if list_events:
+            sorted(list_events, key=lambda x: x['community_name'])
             for key, group in itertools.groupby(list_events, key=lambda x: x['community_name']):
                 events = [event for event in group]
                 events = sorted(events, key=lambda x: (x['searchStart'], x['Title']))
@@ -238,22 +246,22 @@ class Renderer(base.Renderer):
                                          num_events=len(events),
                                          events=events,
                                          color=events[0]['color']))
-            return group_events
+            return group_events[:3]
         else:
             return None
 
     def getDayEventsGroupValidated(self):
+        # Si esta validat mostra els propers 3 esdeveniments
         group_events = []
         if 'day' not in self.request.form and 'month' in self.request.form:
-            return None
-
-        if 'day' not in self.request.form and 'month' not in self.request.form:
+            list_events = self.getNextThreeEventsValidated()
+        elif 'day' not in self.request.form and 'month' not in self.request.form:
             list_events = self.getNextThreeEventsValidated()
         else:
             list_events = self.getDayEventsValidated(self.getDateEvents())
 
-        if len(list_events):
-            list_events = sorted(list_events, key=lambda x: x['community_name'])
+        if list_events:
+            sorted(list_events, key=lambda x: x['community_name'])
             for key, group in itertools.groupby(list_events, key=lambda x: x['community_name']):
                 events = [event for event in group]
                 events = sorted(events, key=lambda x: (x['searchStart'], x['Title']))
@@ -264,7 +272,7 @@ class Renderer(base.Renderer):
                                          num_events=len(events),
                                          events=events,
                                          color=events[0]['color']))
-            return group_events
+            return group_events[:3]
         else:
             return None
 
