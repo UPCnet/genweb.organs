@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-07-31 14:50+0000\n"
+"POT-Creation-Date: 2018-10-03 14:15+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Borrador Yellow</p><p>Pendiente de aprobación Orange</p><p>Aprobado Green</p><p>No aprobado Red</p><p>Derogado DarkRed</p><p>Informativo LightSkyBlue</p><p>Informado MediumBlue</p>"
 
-#: ./genweb/organs/search.pt:381
+#: ./genweb/organs/search.pt:389
 msgid "Accedir als darrers acords de"
 msgstr "Acceder a los últimos acuerdos de"
 
@@ -425,7 +425,7 @@ msgstr "Asunto"
 msgid "From mail"
 msgstr "Dirección de la persona que envía los mensajes"
 
-#: ./genweb/organs/search.pt:238
+#: ./genweb/organs/search.pt:246
 msgid "Go to historic documentation"
 msgstr "Acceso a la documentación pública histórica (2002 - 2015)"
 
@@ -572,7 +572,7 @@ msgstr "Se ha modificado un acuerdo"
 msgid "Modified acta"
 msgstr "Se ha modificado una acta"
 
-#: ./genweb/organs/search.pt:176
+#: ./genweb/organs/search.pt:190
 msgid "Modified dates"
 msgstr "Fechas"
 
@@ -704,7 +704,7 @@ msgstr "Lista de nombres de las personas que se invitan a este órgano de forma 
 msgid "Organ type"
 msgstr "Tipo de órgano de gobierno"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:35
+#: ./genweb/organs/portlets/portlet_calendar.py:34
 msgid "Organs Calendar"
 msgstr "Organs Calendar"
 
@@ -723,6 +723,10 @@ msgstr "Imagen de cabecera personalizada"
 #: ./genweb/organs/search.pt:32
 msgid "Organs relacionats amb mi"
 msgstr "Mi vinculación con los órganos de gobierno"
+
+#: ./genweb/organs/search.pt:155
+msgid "Organs vinculats amb mi"
+msgstr "Órganos relacionados conmigo"
 
 #: ./genweb/organs/content/organgovern.py:54
 #: ./genweb/organs/content/sessio.py:41
@@ -1065,11 +1069,11 @@ msgstr "[Acuerdo sin numerar]"
 msgid "acord"
 msgstr "Acuerdo"
 
-#: ./genweb/organs/search.py:294
+#: ./genweb/organs/search.py:323
 msgid "alphabetically"
 msgstr "alfabéticamente"
 
-#: ./genweb/organs/search.py:291
+#: ./genweb/organs/search.py:320
 msgid "date (newest first)"
 msgstr "fecha (més reciente primero)"
 
@@ -1131,12 +1135,12 @@ msgid "sense numeracio"
 msgstr "Sin numerar"
 
 #. Default: "Last session"
-#: ./genweb/organs/search.pt:192
+#: ./genweb/organs/search.pt:212
 msgid "time_last_session"
 msgstr "Última sesión"
 
 #. Default: "Last year"
-#: ./genweb/organs/search.pt:209
+#: ./genweb/organs/search.pt:226
 msgid "time_last_year"
 msgstr "Último año"
 

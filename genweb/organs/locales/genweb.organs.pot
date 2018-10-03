@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-07-31 14:50+0000\n"
+"POT-Creation-Date: 2018-10-03 14:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr ""
 
-#: ./genweb/organs/search.pt:381
+#: ./genweb/organs/search.pt:389
 msgid "Accedir als darrers acords de"
 msgstr ""
 
@@ -426,7 +426,7 @@ msgstr ""
 msgid "From mail"
 msgstr ""
 
-#: ./genweb/organs/search.pt:238
+#: ./genweb/organs/search.pt:246
 msgid "Go to historic documentation"
 msgstr ""
 
@@ -573,7 +573,7 @@ msgstr ""
 msgid "Modified acta"
 msgstr ""
 
-#: ./genweb/organs/search.pt:176
+#: ./genweb/organs/search.pt:190
 msgid "Modified dates"
 msgstr ""
 
@@ -705,7 +705,7 @@ msgstr ""
 msgid "Organ type"
 msgstr ""
 
-#: ./genweb/organs/portlets/portlet_calendar.py:35
+#: ./genweb/organs/portlets/portlet_calendar.py:34
 msgid "Organs Calendar"
 msgstr ""
 
@@ -723,6 +723,10 @@ msgstr ""
 
 #: ./genweb/organs/search.pt:32
 msgid "Organs relacionats amb mi"
+msgstr ""
+
+#: ./genweb/organs/search.pt:155
+msgid "Organs vinculats amb mi"
 msgstr ""
 
 #: ./genweb/organs/content/organgovern.py:54
@@ -1066,11 +1070,11 @@ msgstr ""
 msgid "acord"
 msgstr ""
 
-#: ./genweb/organs/search.py:294
+#: ./genweb/organs/search.py:323
 msgid "alphabetically"
 msgstr ""
 
-#: ./genweb/organs/search.py:291
+#: ./genweb/organs/search.py:320
 msgid "date (newest first)"
 msgstr ""
 
@@ -1132,12 +1136,12 @@ msgid "sense numeracio"
 msgstr ""
 
 #. Default: "Last session"
-#: ./genweb/organs/search.pt:192
+#: ./genweb/organs/search.pt:212
 msgid "time_last_session"
 msgstr ""
 
 #. Default: "Last year"
-#: ./genweb/organs/search.pt:209
+#: ./genweb/organs/search.pt:226
 msgid "time_last_year"
 msgstr ""
 

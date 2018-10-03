@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-07-31 14:50+0000\n"
+"POT-Creation-Date: 2018-10-03 14:15+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>"
 msgstr "<p>Draft Yellow</p><p>Pending aproval Orange</p><p>Approved Green</p><p>Not approved Red</p><p>Cancelled DarkRed</p><p>Informative LightSkyBlue</p><p>Informedt MediumBlue</p>"
 
-#: ./genweb/organs/search.pt:381
+#: ./genweb/organs/search.pt:389
 msgid "Accedir als darrers acords de"
 msgstr "Go to latests agreements of"
 
@@ -425,7 +425,7 @@ msgstr "From"
 msgid "From mail"
 msgstr "Email who sends the messages"
 
-#: ./genweb/organs/search.pt:238
+#: ./genweb/organs/search.pt:246
 msgid "Go to historic documentation"
 msgstr "Access to historic public documentation (2002 - 2015)"
 
@@ -572,7 +572,7 @@ msgstr "Modified agreement"
 msgid "Modified acta"
 msgstr "Modified meeting report"
 
-#: ./genweb/organs/search.pt:176
+#: ./genweb/organs/search.pt:190
 msgid "Modified dates"
 msgstr "Dates"
 
@@ -704,7 +704,7 @@ msgstr "List of names of people who are invited to the meetings of this body sys
 msgid "Organ type"
 msgstr "Organ of government type"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:35
+#: ./genweb/organs/portlets/portlet_calendar.py:34
 msgid "Organs Calendar"
 msgstr "Organs Calendar"
 
@@ -723,6 +723,10 @@ msgstr "Logo from the organs of government folder"
 #: ./genweb/organs/search.pt:32
 msgid "Organs relacionats amb mi"
 msgstr "My relationship with the governing documents"
+
+#: ./genweb/organs/search.pt:155
+msgid "Organs vinculats amb mi"
+msgstr "My related organs"
 
 #: ./genweb/organs/content/organgovern.py:54
 #: ./genweb/organs/content/sessio.py:41
@@ -1065,11 +1069,11 @@ msgstr "[Agreement without number]"
 msgid "acord"
 msgstr "Agreement"
 
-#: ./genweb/organs/search.py:294
+#: ./genweb/organs/search.py:323
 msgid "alphabetically"
 msgstr "alphabetically"
 
-#: ./genweb/organs/search.py:291
+#: ./genweb/organs/search.py:320
 msgid "date (newest first)"
 msgstr "date (newest first)"
 
@@ -1131,12 +1135,12 @@ msgid "sense numeracio"
 msgstr "Not numbered"
 
 #. Default: "Last session"
-#: ./genweb/organs/search.pt:192
+#: ./genweb/organs/search.pt:212
 msgid "time_last_session"
 msgstr "Last session"
 
 #. Default: "Last year"
-#: ./genweb/organs/search.pt:209
+#: ./genweb/organs/search.pt:226
 msgid "time_last_year"
 msgstr "Last year"
 

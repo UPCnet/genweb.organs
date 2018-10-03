@@ -101,7 +101,8 @@
                  tal:define="b_start python:0;
                              b_start request/b_start | b_start;
                              batch python: view.results(query={'Language': pref_lang}, b_start=b_start);
-                             normalizeString nocall:context/@@plone/normalizeString;">
+                             normalizeString nocall:context/@@plone/normalizeString;
+                             isAnon context/@@plone_portal_state/anonymous;">
 
                 <div id="search-results-bar">
                     <dl>
@@ -143,6 +144,17 @@
                               <fieldset class="noborder">
                                   <h4 i18n:translate="" i18n:domain="genweb.organs">Organ de govern</h4>
                                   <div class="field">
+                                    <tal:block tal:condition="not:isAnon">
+                                      <input type="checkbox"
+                                             class="noborder"
+                                             id="path-og"
+                                             name="path"
+                                             checked
+                                             value=""
+                                             tal:attributes="value string:$root_path/not_anon_my_organs/" />
+                                      <label i18n:translate="" i18n:domain="genweb.organs">Organs vinculats amb mi</label>
+                                      <br/>
+                                    </tal:block>
                                     <input type="checkbox"
                                           class="noborder"
                                            id="path-og"

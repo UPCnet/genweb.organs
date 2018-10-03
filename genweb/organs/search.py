@@ -94,7 +94,32 @@ class Search(BrowserView):
             root_path + '/' + lang + '/cs/ple-del-consell-social/',
             root_path + '/' + lang + '/claustre-universitari/claustre-universitari/']
         not_view = False
-        if type(query['path']) == str:
+
+        if root_path + '/not_anon_my_organs/' in query['path']:
+            # Si no es anonim i ha enviat el check de "orgasn relacionats amb mi"
+            # fem una cerca especial, amb un string que després eliminem
+            if not api.user.is_anonymous():
+                results = []
+                values = api.content.find(
+                    portal_type=['genweb.organs.organgovern'],
+                    sort_on='created',
+                    sort_order='reverse',
+                    path=root_path + '/' + lang)
+                for obj in values:
+                    username = api.user.get_current().id
+                    all_roles = api.user.get_roles(username=username, obj=obj.getObject())
+                    roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat']]
+                    sessionpath = obj.getPath()
+                    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
+                            print query['path']
+                            if type(query['path']) == str:
+                                query['path'] = sessionpath
+                            else:
+                                query['path'].remove(root_path + '/not_anon_my_organs/')
+                                query['path'].append(sessionpath)
+                            print query['path']
+
+        elif type(query['path']) == str:
             if query['path'] not in query_paths:
                 not_view = True
         else:
@@ -103,16 +128,8 @@ class Search(BrowserView):
                     not_view = True
         if not_view:
             return None
-        # if query['path'] not in query_paths:
-            # import ipdb; ipdb.set_trace()
-            # if query['path'] == '/empty_path/'
-            # return None
-            # else:
-                # If path is hacked and not in search paths, force default path
-                # query['path'] = root_path + '/' + lang + '/consell-de-govern/consell-de-govern/'
+
         if query['latest_session']:
-            # if query['path'] == root_path + '/' + lang:
-            #     query['path'] = query_paths
             if isinstance(query['path'], list):
                 for organ in query['path']:
                     session_path = api.content.find(
@@ -134,7 +151,7 @@ class Search(BrowserView):
         # Make default view return 0 results
         if 'SearchableText' not in query:
             # La primera vez, sin seleccionar nada, están marcados todos los elementos
-            # Cogemos por ejemplo el Folder para hacer el check
+            # Hacemos el check con el Folder
             if 'Folder' in query['portal_type']:
                 return None
         if 'genweb.organs.punt' in query['portal_type']:
