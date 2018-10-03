@@ -19,7 +19,6 @@ from datetime import timedelta
 from plone import api
 
 import calendar
-import itertools
 
 
 PLMF = MessageFactory('plonelocales')
