@@ -83,9 +83,9 @@
       <a href="" tal:Attributes="href string:${portal_url}/allsessions"><i class="fa fa-plus"></i>&nbsp;<tal:omit-tag i18n:translate="" i18n:domain="genweb.organs">veure totes les sessions</tal:omit-tag></a>
     </div>
     <ul class="icons-ul">
-      <tal:block tal:repeat="events view/getDayEventsGroup" tal:condition="view/isAnon">
-        <li tal:define="licolor events/color"  tal:attributes="style string:border-left: 5px solid ${licolor}">
-          <p  tal:repeat="event events/events">
+      <tal:block tal:repeat="event view/getDayEventsGroup" tal:condition="view/isAnon">
+        <li tal:define="licolor event/color"  tal:attributes="style string:border-left: 5px solid ${licolor}">
+          <p>
             <i class="fa fa-calendar"></i>&nbsp;
             <a tal:attributes="href event/getURL;
                                style string:color:${event/color}">
@@ -100,13 +100,13 @@
           <div class="clearfix"></div>
           <span class="text2">
             <i class="fa fa-thumb-tack"></i>
-            <a tal:attributes="href events/community_url" tal:content="events/community_name"></a>
+            <a tal:attributes="href event/community_url" tal:content="event/community_name"></a>
           </span>
         </li>
       </tal:block>
-      <tal:block tal:repeat="events view/getDayEventsGroupValidated" tal:condition="not:view/isAnon">
-        <li tal:define="licolor events/color"  tal:attributes="style string:border-left: 5px solid ${licolor}">
-          <p  tal:repeat="event events/events">
+      <tal:block tal:repeat="event view/getDayEventsGroupValidated" tal:condition="not:view/isAnon">
+        <li tal:define="licolor event/color"  tal:attributes="style string:border-left: 5px solid ${licolor}">
+          <p>
             <i class="fa fa-calendar"></i>&nbsp;
             <a tal:attributes="href event/getURL;
                                style string:color:${event/color}">
@@ -121,7 +121,7 @@
           <div class="clearfix"></div>
           <span class="text2">
             <i class="fa fa-thumb-tack"></i>
-            <a tal:attributes="href events/community_url" tal:content="events/community_name"></a>
+            <a tal:attributes="href event/community_url" tal:content="event/community_name"></a>
           </span>
         </li>
       </tal:block>

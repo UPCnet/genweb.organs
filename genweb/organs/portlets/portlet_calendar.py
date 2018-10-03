@@ -233,20 +233,17 @@ class Renderer(base.Renderer):
             list_events = self.getNextThreeEvents()
         else:
             list_events = self.getDayEvents(self.getDateEvents())
-
         if list_events:
-            sorted(list_events, key=lambda x: x['community_name'])
-            for key, group in itertools.groupby(list_events, key=lambda x: x['community_name']):
-                events = [event for event in group]
-                events = sorted(events, key=lambda x: (x['searchStart'], x['Title']))
-                group_events.append(dict(Title=key,
-                                         getURL=events[0]['getURL'],
-                                         community_url=events[0]['community_url'],
-                                         community_name=events[0]['community_name'],
-                                         num_events=len(events),
-                                         events=events,
-                                         color=events[0]['color']))
-            return group_events[:3]
+            sorted(list_events, key=lambda x: x['searchStart'])
+            for event in list_events[:3]:
+                group_events.append(dict(Title=event['Title'],
+                                         getURL=event['getURL'],
+                                         color=event['color'],
+                                         start=event['start'],
+                                         end=event['end'],
+                                         community_url=event['community_url'],
+                                         community_name=event['community_name'],))
+            return group_events
         else:
             return None
 
@@ -261,18 +258,16 @@ class Renderer(base.Renderer):
             list_events = self.getDayEventsValidated(self.getDateEvents())
 
         if list_events:
-            sorted(list_events, key=lambda x: x['community_name'])
-            for key, group in itertools.groupby(list_events, key=lambda x: x['community_name']):
-                events = [event for event in group]
-                events = sorted(events, key=lambda x: (x['searchStart'], x['Title']))
-                group_events.append(dict(Title=key,
-                                         getURL=events[0]['getURL'],
-                                         community_url=events[0]['community_url'],
-                                         community_name=events[0]['community_name'],
-                                         num_events=len(events),
-                                         events=events,
-                                         color=events[0]['color']))
-            return group_events[:3]
+            sorted(list_events, key=lambda x: x['searchStart'])
+            for event in list_events[:3]:
+                group_events.append(dict(Title=event['Title'],
+                                         getURL=event['getURL'],
+                                         color=event['color'],
+                                         start=event['start'],
+                                         end=event['end'],
+                                         community_url=event['community_url'],
+                                         community_name=event['community_name'],))
+            return group_events
         else:
             return None
 
