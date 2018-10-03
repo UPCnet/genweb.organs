@@ -153,9 +153,6 @@ class Search(BrowserView):
                     if item.portal_type == 'genweb.organs.subpunt':
                         if permissions.canViewSubpunt(self, item):
                             newresults.append(res)
-                    if item.portal_type == 'genweb.organs.document':
-                        if permissions.canViewDocument(self, item):
-                            newresults.append(res)
                     if item.portal_type == 'genweb.organs.acord':
                         if permissions.canViewAcord(self, item):
                             newresults.append(res)
