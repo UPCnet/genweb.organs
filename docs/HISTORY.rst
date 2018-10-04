@@ -1,11 +1,18 @@
 Changelog
 =========
 
-0.24 (unreleased)
+0.24 (2018-10-04)
 -----------------
 
-- Nothing changed yet.
-
+* search in related organs [Roberto Diaz]
+* removed doc from search code [Roberto Diaz]
+* remove unused import [Roberto Diaz]
+* added 3 next event to all months view [Roberto Diaz]
+* events in calendar now always show next 3 [Roberto Diaz]
+* latest version check files permissions [Roberto Diaz]
+* changed radio to check and mark all by default. [Roberto Diaz]
+* fie permission not checked and bypassed when accesing directly. SOLVED! [Roberto Diaz]
+* changed translations [Roberto Diaz]
 
 0.23 (2018-08-02)
 -----------------
