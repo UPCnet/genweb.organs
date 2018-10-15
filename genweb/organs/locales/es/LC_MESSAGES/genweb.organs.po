@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-10-03 14:15+0000\n"
+"POT-Creation-Date: 2018-10-15 11:38+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -726,7 +726,7 @@ msgstr "Mi vinculación con los órganos de gobierno"
 
 #: ./genweb/organs/search.pt:155
 msgid "Organs vinculats amb mi"
-msgstr "Órganos relacionados conmigo"
+msgstr "Órganos vinculados conmigo"
 
 #: ./genweb/organs/content/organgovern.py:54
 #: ./genweb/organs/content/sessio.py:41
@@ -742,7 +742,7 @@ msgstr "Seleccione un fichero de áudio"
 msgid "Please upload a public file"
 msgstr "Fichero público"
 
-#: ./genweb/organs/content/file.py:61
+#: ./genweb/organs/content/file.py:59
 msgid "Please upload a reserved file"
 msgstr "Fichero restringido"
 
@@ -825,7 +825,7 @@ msgstr "Numera puntos"
 msgid "Reload proposalPoints manually"
 msgstr "Numera acuerdos"
 
-#: ./genweb/organs/content/file.py:62
+#: ./genweb/organs/content/file.py:60
 msgid "Reserved file description"
 msgstr "Fichero visible sólo por Secretarios, Editores y Miembros."
 

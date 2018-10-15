@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-10-03 14:15+0000\n"
+"POT-Creation-Date: 2018-10-15 11:38+0000\n"
 "PO-Revision-Date: 2017-04-20 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -742,7 +742,7 @@ msgstr "Please upload a media file"
 msgid "Please upload a public file"
 msgstr "Please upload a public file"
 
-#: ./genweb/organs/content/file.py:61
+#: ./genweb/organs/content/file.py:59
 msgid "Please upload a reserved file"
 msgstr "Please upload a restricted file"
 
@@ -825,7 +825,7 @@ msgstr "Number points"
 msgid "Reload proposalPoints manually"
 msgstr "Number points"
 
-#: ./genweb/organs/content/file.py:62
+#: ./genweb/organs/content/file.py:60
 msgid "Reserved file description"
 msgstr "Restricted file description"
 

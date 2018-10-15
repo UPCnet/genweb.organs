@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-10-03 14:15+0000\n"
+"POT-Creation-Date: 2018-10-15 11:38+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -726,7 +726,7 @@ msgstr "La meva vinculació amb els òrgans de govern"
 
 #: ./genweb/organs/search.pt:155
 msgid "Organs vinculats amb mi"
-msgstr "Òrgans relacionats amb mi"
+msgstr "Òrgans vinculats amb mi"
 
 #: ./genweb/organs/content/organgovern.py:54
 #: ./genweb/organs/content/sessio.py:41
@@ -742,7 +742,7 @@ msgstr "Seleccioni un fitxer de tipus àudio"
 msgid "Please upload a public file"
 msgstr "Fitxer públic"
 
-#: ./genweb/organs/content/file.py:61
+#: ./genweb/organs/content/file.py:59
 msgid "Please upload a reserved file"
 msgstr "Fitxer restringit"
 
@@ -825,7 +825,7 @@ msgstr "Numera punts"
 msgid "Reload proposalPoints manually"
 msgstr "Numera acords"
 
-#: ./genweb/organs/content/file.py:62
+#: ./genweb/organs/content/file.py:60
 msgid "Reserved file description"
 msgstr "Fitxer visible només per a Secretaris, Editors i Membres."
 
