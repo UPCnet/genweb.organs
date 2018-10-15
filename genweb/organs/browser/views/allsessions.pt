@@ -7,7 +7,7 @@
       i18n:domain="genweb.organs">
 <body>
 
-<metal:content-core fill-slot="content">
+<metal:content-core fill-slot="content" tal:define="sessions view/sessions">
 
   <h1 class="documentFirstHeading">
     Previsió calendaris de reunions d'òrgans de govern, representació i consulta <tal:year tal:content="view/year"></tal:year>
@@ -16,6 +16,7 @@
   <div class="documentDescription">
     La data i hora definitives de les reunions dels òrgans venen fixades per la convocatòria corresponent.
   </div>
+
 
 
   <table class="table table-bordered table-condensed table-hover logFont">
@@ -32,7 +33,7 @@
         </th>
       </tr>
     </thead>
-    <tal:objects repeat="item view/sessions">
+    <tal:objects repeat="item sessions/future">
       <tr>
         <td style="vertical-align: middle;">
           <i class="fa fa-list"></i>&nbsp;
@@ -48,6 +49,64 @@
     </tal:objects>
   </table>
 
+  <div class="documentDescription"></div>
+
+  <div class="panel-group">
+    <div class="panel panel-bordered">
+      <div>
+        <h4 class="panel-title" style="text-align: right;">
+          <a id="expandAll" data-toggle="collapse" href="#collapseSessions">
+            <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Mostra sessions anteriors</tal:omit-tag></a>
+          <a id="collapseAll" data-toggle="collapse" href="#collapseSessions">
+            <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Amaga sessions anteriors</tal:omit-tag></a>
+        </h4>
+      </div>
+      <div id="collapseSessions" class="panel-collapse collapse">
+        <table class="table table-bordered table-condensed table-hover logFont">
+          <br/>
+          <thead>
+            <tr>
+              <th style="vertical-align: middle;">
+                <span i18n:translate="">Organ de govern</span>
+              </th>
+              <th style="text-align: center; vertical-align: middle;">
+                <tal:head i18n:translate="">Data i hora inici</tal:head>
+              </th>
+              <th style="text-align: center; vertical-align: middle;">
+                <tal:head i18n:translate="">Data i hora fi</tal:head>
+              </th>
+            </tr>
+          </thead>
+          <tal:objects repeat="item sessions/past">
+            <tr>
+              <td style="vertical-align: middle;">
+                <i class="fa fa-list"></i>&nbsp;
+                  <a tal:attributes="href item/url;" tal:content="item/title" style="color:#007BC0; font-size: 14px;"> Item Title </a>
+              </td>
+              <td style="text-align: center; vertical-align: middle;">
+                <span tal:content="item/start"> Start </span>
+              </td>
+              <td style="text-align: center; vertical-align: middle;">
+                <span tal:content="item/end"> End </span>
+              </td>
+            </tr>
+          </tal:objects>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $("#collapseAll").hide()
+    $("#expandAll").click(function(){
+      $("#expandAll").hide();
+      $("#collapseAll").show();
+    })
+    $("#collapseAll").click(function(){
+      $("#expandAll").show();
+      $("#collapseAll").hide();
+    })
+  </script>
 
 </metal:content-core>
 

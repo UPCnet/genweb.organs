@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-10-15 11:38+0000\n"
+"POT-Creation-Date: 2018-10-15 12:58+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -115,6 +115,10 @@ msgstr "Contingut restringit"
 #: ./genweb/organs/content/templates/sessio_view.pt:459
 msgid "Altres"
 msgstr "Altres"
+
+#: ./genweb/organs/browser/views/allsessions.pt:61
+msgid "Amaga sessions anteriors"
+msgstr "Amaga sessions anteriors"
 
 #: ./genweb/organs/utils.py:113
 msgid "Anonymous user"
@@ -279,11 +283,11 @@ msgstr "Data"
 msgid "Data i hora"
 msgstr "Data"
 
-#: ./genweb/organs/browser/views/allsessions.pt:31
+#: ./genweb/organs/browser/views/allsessions.pt:32
 msgid "Data i hora fi"
 msgstr "Data i hora de finalització"
 
-#: ./genweb/organs/browser/views/allsessions.pt:28
+#: ./genweb/organs/browser/views/allsessions.pt:29
 msgid "Data i hora inici"
 msgstr "Data i hora d'inici"
 
@@ -584,6 +588,10 @@ msgstr "S'ha modificat un punt informatiu"
 msgid "Modified subpunt"
 msgstr "S'ha modificat un punt informatiu"
 
+#: ./genweb/organs/browser/views/allsessions.pt:59
+msgid "Mostra sessions anteriors"
+msgstr "Mostra sessions anteriors"
+
 #: ./genweb/organs/browser/views.py:231
 msgid "Moved subpunt by drag&drop"
 msgstr "S'ha canviat el número de punt informatiu al moure'l"
@@ -686,7 +694,7 @@ msgstr "Tipus d'òrgan"
 msgid "Organ Title"
 msgstr "Nom de l'òrgan"
 
-#: ./genweb/organs/browser/views/allsessions.pt:25
+#: ./genweb/organs/browser/views/allsessions.pt:26
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:201
 msgid "Organ de govern"
@@ -1149,10 +1157,10 @@ msgstr "Darrer any"
 msgid "title_search_title"
 msgstr "Cerca al lloc web"
 
-#: ./genweb/organs/portlets/portlet_calendar.pt:94
+#: ./genweb/organs/portlets/portlet_calendar.pt:96
 msgid "to"
 msgstr "a"
 
-#: ./genweb/organs/portlets/portlet_calendar.pt:83
+#: ./genweb/organs/portlets/portlet_calendar.pt:85
 msgid "veure totes les sessions"
 msgstr "veure totes les sessions"

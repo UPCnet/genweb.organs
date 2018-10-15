@@ -2120,3 +2120,9 @@ a.calendari-seguent:hover  {
 /* END DEFAULT CSS NO MEDIA QUERY */
 
 
+.panel-bordered {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    min-height: 10px!important;
+    padding: 10px 10px 10px 10px;
+}

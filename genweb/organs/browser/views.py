@@ -14,7 +14,7 @@ from genweb.organs import utils
 from AccessControl import Unauthorized
 from operator import itemgetter
 import datetime
-
+import DateTime
 
 # Disable CSRF
 try:
@@ -664,28 +664,29 @@ class allSessions(BrowserView):
         # sessions = []
 
         username = api.user.get_current().id
-        results = []
-        # for item in values:
-        # for event in items:
-        #     organ = event._unrestrictedGetObject()
-        #     roles = api.user.get_roles(username=username, obj=organ)
-        #     if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or organ.aq_parent.visiblefields:
-        #         sessions.append(organ)
-        # results = []
-        # for item in values:
-        #     path = item.getPath()
 
-        # root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
-        # lt = getToolByName(self, 'portal_languages')
-        # lang = lt.getPreferredLanguage()
+        today = DateTime.DateTime()   # Today
+        date_previous_events = {'query': (today), 'range': 'max'}
+        date_future_events = {'query': (today), 'range': 'min'}
+
         portal_catalog = getToolByName(self.context, 'portal_catalog')
-        sessions = portal_catalog.unrestrictedSearchResults(
+
+        previous_sessions = portal_catalog.unrestrictedSearchResults(
             portal_type='genweb.organs.sessio',
             sort_on='start',
             sort_order='reverse',
+            end=date_previous_events
         )
+
+        future_sessions = portal_catalog.unrestrictedSearchResults(
+            portal_type='genweb.organs.sessio',
+            sort_on='start',
+            sort_order='reverse',
+            end=date_future_events
+        )
+        past = []
         current_year = datetime.datetime.now().strftime('%Y')
-        for session in sessions:
+        for session in previous_sessions:
             obj = session._unrestrictedGetObject()
             roles = []
             if not api.user.is_anonymous():
@@ -693,13 +694,32 @@ class allSessions(BrowserView):
             if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or obj.aq_parent.visiblefields:
                 event = IEventAccessor(obj)
                 if obj.start.strftime('%Y') == current_year:
-                    results.append(dict(
+                    past.append(dict(
                         title=obj.aq_parent.title,
                         start=event.start.strftime('%d/%m/%Y %H:%M'),
                         end=event.end.strftime('%d/%m/%Y %H:%M'),
                         dateiso=event.start.strftime('%Y%m%d'),
                         url=obj.absolute_url()))
-        return sorted(results, key=itemgetter('dateiso'), reverse=False)
+
+        future = []
+        current_year = datetime.datetime.now().strftime('%Y')
+        for session in future_sessions:
+            obj = session._unrestrictedGetObject()
+            roles = []
+            if not api.user.is_anonymous():
+                roles = api.user.get_roles(username=username, obj=obj)
+            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or obj.aq_parent.visiblefields:
+                event = IEventAccessor(obj)
+                if obj.start.strftime('%Y') == current_year:
+                    future.append(dict(
+                        title=obj.aq_parent.title,
+                        start=event.start.strftime('%d/%m/%Y %H:%M'),
+                        end=event.end.strftime('%d/%m/%Y %H:%M'),
+                        dateiso=event.start.strftime('%Y%m%d'),
+                        url=obj.absolute_url()))
+        return dict(
+            future=sorted(future, key=itemgetter('dateiso'), reverse=False),
+            past=sorted(past, key=itemgetter('dateiso'), reverse=False))
 
 
 class showMembersOrgan(BrowserView):

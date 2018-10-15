@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-10-15 11:38+0000\n"
+"POT-Creation-Date: 2018-10-15 12:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,6 +115,10 @@ msgstr ""
 #: ./genweb/organs/content/impersonate_as.py:47
 #: ./genweb/organs/content/templates/sessio_view.pt:459
 msgid "Altres"
+msgstr ""
+
+#: ./genweb/organs/browser/views/allsessions.pt:61
+msgid "Amaga sessions anteriors"
 msgstr ""
 
 #: ./genweb/organs/utils.py:113
@@ -280,11 +284,11 @@ msgstr ""
 msgid "Data i hora"
 msgstr ""
 
-#: ./genweb/organs/browser/views/allsessions.pt:31
+#: ./genweb/organs/browser/views/allsessions.pt:32
 msgid "Data i hora fi"
 msgstr ""
 
-#: ./genweb/organs/browser/views/allsessions.pt:28
+#: ./genweb/organs/browser/views/allsessions.pt:29
 msgid "Data i hora inici"
 msgstr ""
 
@@ -585,6 +589,10 @@ msgstr ""
 msgid "Modified subpunt"
 msgstr ""
 
+#: ./genweb/organs/browser/views/allsessions.pt:59
+msgid "Mostra sessions anteriors"
+msgstr ""
+
 #: ./genweb/organs/browser/views.py:231
 msgid "Moved subpunt by drag&drop"
 msgstr ""
@@ -687,7 +695,7 @@ msgstr ""
 msgid "Organ Title"
 msgstr ""
 
-#: ./genweb/organs/browser/views/allsessions.pt:25
+#: ./genweb/organs/browser/views/allsessions.pt:26
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:201
 msgid "Organ de govern"
@@ -1150,10 +1158,10 @@ msgstr ""
 msgid "title_search_title"
 msgstr ""
 
-#: ./genweb/organs/portlets/portlet_calendar.pt:94
+#: ./genweb/organs/portlets/portlet_calendar.pt:96
 msgid "to"
 msgstr ""
 
-#: ./genweb/organs/portlets/portlet_calendar.pt:83
+#: ./genweb/organs/portlets/portlet_calendar.pt:85
 msgid "veure totes les sessions"
 msgstr ""
