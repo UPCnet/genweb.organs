@@ -55,8 +55,6 @@ class IFile(form.Schema):
         required=False,
     )
 
-    dexterity.read_permission(hiddenfile='cmf.ReviewPortalContent')
-    dexterity.write_permission(hiddenfile='cmf.ReviewPortalContent')
     hiddenfile = NamedBlobFile(
         title=_(u"Please upload a reserved file"),
         description=_(u"Reserved file description"),

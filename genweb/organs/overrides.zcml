@@ -54,4 +54,13 @@
         permission="zope2.View"
         />
 
+    <!-- Modified download file to pass the session state -->
+    <browser:page
+        name="display-file"
+        for="*"
+        class=".namedfile-browser.DisplayFile"
+        permission="zope2.View"
+        />
+
+
 </configure>
