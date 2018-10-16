@@ -51,9 +51,9 @@ class Search(BrowserView):
                 sort_on='created',
                 sort_order='reverse',
                 path=root_path + '/' + lang)
+            username = api.user.get_current().id
             for obj in values:
                 organ = obj.getObject()
-                username = api.user.get_current().id
                 all_roles = api.user.get_roles(username=username, obj=organ)
                 roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat']]
                 sessionpath = organ.absolute_url()
@@ -77,12 +77,12 @@ class Search(BrowserView):
         Everything in Plone that performs searches should go through this view.
         'query' should be a dictionary of catalog parameters.
         """
-        if query is None:
-            query = {}
         if batch:
             query['b_start'] = b_start = int(b_start)
             query['b_size'] = b_size
         query = self.filter_query(query)
+        if query['path'] == '/empty_path/':
+            return {}
         query['sort_order'] = 'reverse'
         newresults = []
         new_path = []
@@ -95,8 +95,10 @@ class Search(BrowserView):
             root_path + '/' + lang + '/claustre-universitari/claustre-universitari/']
         not_view = False
 
+        username = api.user.get_current().id
+
         if root_path + '/not_anon_my_organs/' in query['path']:
-            # Si no es anonim i ha enviat el check de "orgasn relacionats amb mi"
+            # Si no es anonim i ha enviat el check de "organs relacionats amb mi"
             # fem una cerca especial, amb un string que després eliminem
             if not api.user.is_anonymous():
                 results = []
@@ -106,18 +108,14 @@ class Search(BrowserView):
                     sort_order='reverse',
                     path=root_path + '/' + lang)
                 for obj in values:
-                    username = api.user.get_current().id
                     all_roles = api.user.get_roles(username=username, obj=obj.getObject())
                     roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat']]
                     sessionpath = obj.getPath()
                     if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
-                            print query['path']
-                            if type(query['path']) == str:
-                                query['path'] = sessionpath
-                            else:
-                                query['path'].remove(root_path + '/not_anon_my_organs/')
-                                query['path'].append(sessionpath)
-                            print query['path']
+                        if type(query['path']) == str:
+                            query['path'] = sessionpath.split()
+                        else:
+                            query['path'].append(sessionpath)
 
         elif type(query['path']) == str:
             if query['path'] not in query_paths:
@@ -190,6 +188,7 @@ class Search(BrowserView):
         text = query.get('SearchableText', None)
         if text is None:
             text = request.form.get('SearchableText', '')
+            text = text + '*'  # Adding autocomplete words...
         if not text:
             # Without text, must provide a meaningful non-empty search
             valid = set(valid_indexes).intersection(request.form.keys()) or \
