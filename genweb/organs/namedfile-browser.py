@@ -98,7 +98,6 @@ def getFileOrgans(self):
         from genweb.organs import utils
 
         if utils.isManager(self):
-            print "isManager"
             return file
 
         if self.context.aq_parent.portal_type == 'genweb.organs.sessio':
@@ -112,8 +111,20 @@ def getFileOrgans(self):
             if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
                 return file
             elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if self.context.visiblefile and self.context.hiddenfile:
+                    if utils.isMembre(self):
+                        if self.fieldname == 'visiblefile':
+                            raise Unauthorized
+                else:
+                    return file
                 return file
             elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                if self.context.visiblefile and self.context.hiddenfile:
+                    if utils.isMembre(self):
+                        if self.fieldname == 'visiblefile':
+                            raise Unauthorized
+                else:
+                    return file
                 return file
             elif estatSessio == 'tancada':
                 return file
