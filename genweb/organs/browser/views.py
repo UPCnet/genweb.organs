@@ -658,13 +658,7 @@ class allSessions(BrowserView):
         """ Returns sessions from organs marked as public fields,
             bypassing security permissions """
 
-        # portal_catalog = getToolByName(self.context, 'portal_catalog')
-        # values = portal_catalog.unrestrictedSearchResults(
-        #     portal_type='genweb.organs.organgovern')
-        # sessions = []
-
         username = api.user.get_current().id
-
         today = DateTime.DateTime()   # Today
         date_previous_events = {'query': (today), 'range': 'max'}
         date_future_events = {'query': (today), 'range': 'min'}
@@ -699,7 +693,7 @@ class allSessions(BrowserView):
                         start=event.start.strftime('%d/%m/%Y %H:%M'),
                         end=event.end.strftime('%d/%m/%Y %H:%M'),
                         dateiso=event.start.strftime('%Y%m%d'),
-                        url=obj.absolute_url()))
+                        url=session.getPath()))
 
         future = []
         current_year = datetime.datetime.now().strftime('%Y')
@@ -716,7 +710,7 @@ class allSessions(BrowserView):
                         start=event.start.strftime('%d/%m/%Y %H:%M'),
                         end=event.end.strftime('%d/%m/%Y %H:%M'),
                         dateiso=event.start.strftime('%Y%m%d'),
-                        url=obj.absolute_url()))
+                        url=session.getPath()))
         return dict(
             future=sorted(future, key=itemgetter('dateiso'), reverse=False),
             past=sorted(past, key=itemgetter('dateiso'), reverse=False))
