@@ -100,10 +100,10 @@ def getFileOrgans(self):
         if utils.isManager(self):
             return file
 
-        if self.context.aq_parent.portal_type == 'genweb.organs.sessio':
-            estatSessio = api.content.get_state(obj=self.context.aq_parent)
-        else:
+        if self.context.aq_parent.portal_type == 'genweb.organs.punt':
             estatSessio = api.content.get_state(obj=self.context.aq_parent.aq_parent)
+        else:
+            estatSessio = api.content.get_state(obj=self.context.aq_parent.aq_parent.aq_parent)
 
         organ_tipus = self.context.organType
 
@@ -127,8 +127,28 @@ def getFileOrgans(self):
                     return file
                 return file
             elif estatSessio == 'tancada':
+                if self.fieldname == 'hiddenfile':
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                        return file
+                    else:
+                        raise Unauthorized
+                else:
+                    if (utils.isMembre(self)):
+                        raise Unauthorized
+                    else:
+                        return file
                 return file
             elif estatSessio == 'en_correccio':
+                if self.fieldname == 'hiddenfile':
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                        return file
+                    else:
+                        raise Unauthorized
+                else:
+                    if (utils.isMembre(self)):
+                        raise Unauthorized
+                    else:
+                        return file
                 return file
             else:
                 raise Unauthorized

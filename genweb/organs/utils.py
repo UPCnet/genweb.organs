@@ -75,6 +75,12 @@ def isManager(self):
         return False
 
 
+def isAnon(self):
+    """ Return true if user has role OG1-Secretari """
+    if api.user.is_anonymous():
+        return True
+
+
 def addEntryLog(context, sender, message, recipients):
     """ Adds entry log with the values:
             context: where the actions is executed
