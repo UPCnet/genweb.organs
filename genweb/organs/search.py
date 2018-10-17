@@ -9,8 +9,10 @@ from zope.component import getMultiAdapter
 from zope.i18nmessageid import MessageFactory
 from zope.publisher.browser import BrowserView
 from ZTUtils import make_query
-# from operator import itemgetter
 from genweb.organs import permissions
+# import time
+# start_time = time.time()
+# print("--- %s seconds --- " % (time.time() - start_time))
 
 PLMF = MessageFactory('plonelocales')
 _ = MessageFactory('plone')
@@ -35,9 +37,8 @@ def quote_chars(s):
 class Search(BrowserView):
 
     def isAnon(self):
-        if not api.user.is_anonymous():
-            return False
-        return True
+        if api.user.is_anonymous():
+            return True
 
     def getOwnOrgans(self):
         if not api.user.is_anonymous():
@@ -48,27 +49,20 @@ class Search(BrowserView):
             lang = lt.getPreferredLanguage()
             values = portal_catalog.searchResults(
                 portal_type=['genweb.organs.organgovern'],
-                sort_on='created',
-                sort_order='reverse',
                 path=root_path + '/' + lang)
             username = api.user.get_current().id
             for obj in values:
                 organ = obj.getObject()
                 all_roles = api.user.get_roles(username=username, obj=organ)
                 roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat']]
-                sessionpath = organ.absolute_url()
                 if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
                     results.append(dict(
-                        url=sessionpath,
-                        title=organ.title,
+                        url=obj.getPath(),
+                        title=obj.Title,
                         color=organ.eventsColor,
                         role=roles))
-            if results:
-                return results
-            else:
-                return False
-        else:
-            return False
+
+            return results
 
     valid_keys = ('sort_on', 'sort_order', 'sort_limit', 'fq', 'fl', 'facet')
 
@@ -93,7 +87,6 @@ class Search(BrowserView):
             root_path + '/' + lang + '/consell-de-govern/consell-de-govern/',
             root_path + '/' + lang + '/cs/ple-del-consell-social/',
             root_path + '/' + lang + '/claustre-universitari/claustre-universitari/']
-        not_view = False
 
         username = api.user.get_current().id
 
@@ -104,11 +97,10 @@ class Search(BrowserView):
                 results = []
                 values = api.content.find(
                     portal_type=['genweb.organs.organgovern'],
-                    sort_on='created',
-                    sort_order='reverse',
                     path=root_path + '/' + lang)
                 for obj in values:
-                    all_roles = api.user.get_roles(username=username, obj=obj.getObject())
+                    organ = obj.getObject()
+                    all_roles = api.user.get_roles(username=username, obj=organ)
                     roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat']]
                     sessionpath = obj.getPath()
                     if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
@@ -119,13 +111,11 @@ class Search(BrowserView):
 
         elif type(query['path']) == str:
             if query['path'] not in query_paths:
-                not_view = True
+                return None
         else:
             for value in query['path']:
                 if value not in query_paths:
-                    not_view = True
-        if not_view:
-            return None
+                    return None
 
         if query['latest_session']:
             if isinstance(query['path'], list):
@@ -155,7 +145,7 @@ class Search(BrowserView):
         if 'genweb.organs.punt' in query['portal_type']:
             query['portal_type'].append('genweb.organs.subpunt')
         if query is None:
-            results = []
+            return None
         else:
             catalog = getToolByName(self.context, 'portal_catalog')
             try:
@@ -273,8 +263,6 @@ class Search(BrowserView):
             title = item[0].Title
             url = item[0].getPath()
             return dict(title=title, url=url)
-        else:
-            return None
 
     def getLatestCS(self):
         """ Retorna ultima sessió consell social """
@@ -291,8 +279,6 @@ class Search(BrowserView):
             title = item[0].Title
             url = item[0].getPath()
             return dict(title=title, url=url)
-        else:
-            return None
 
     def getLatestCU(self):
         """ Retorna ultima sessió claustre universitari """
@@ -309,8 +295,6 @@ class Search(BrowserView):
             title = item[0].Title
             url = item[0].getPath()
             return dict(title=title, url=url)
-        else:
-            return None
 
     def sort_options(self):
         """ Sorting options for search results view. """
@@ -355,8 +339,6 @@ class Search(BrowserView):
             portal_type=['Document'], id='benvingut')
         if item:
             return item[0].getObject().text.output
-        else:
-            return None
 
 
 class SortOption(object):
