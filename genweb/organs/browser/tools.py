@@ -14,8 +14,251 @@ from plone.namedfile.file import NamedBlobImage
 from plone.app.textfield.value import RichTextValue
 from datetime import datetime
 from plone.event.interfaces import IEventAccessor
-
+import os
 import pytz
+from Products.CMFPlone.interfaces import ISelectableConstrainTypes
+
+
+def getLoremIpsum(number, length, type_code):
+        """ Returns Lorem Ipsum text
+        """
+        return requests.get('http://loripsum.net/api/{0}/{1}/{2}'.format(number, type_code, length), verify=False, timeout=10).content
+
+
+def getRandomImage(w, h):
+    data = requests.get('http://dummyimage.com/{0}x{1}/aeaeae/ffffff'.format(w, h), verify=False, timeout=10).content
+    return NamedBlobImage(data=data,
+                          filename=u'image.jpg',
+                          contentType='image/jpeg')
+
+
+def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
+    open_og = api.content.create(
+        type='genweb.organs.organgovern',
+        title=og_title,
+        id=og_id,
+        container=og_unit,
+        safe_id=True)
+    open_og.acronim = og_string
+    open_og.descripcioOrgan = getLoremIpsum(1, 'medium', 'plaintext')
+    open_og.fromMail = 'testing@ploneteam.upcnet.es'
+    open_og.organType = og_type
+    open_og.logoOrgan = getRandomImage(200, 200)
+    open_og.visiblefields = True
+    open_og.eventsColor = 'green'
+    open_og.membresOrgan = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    open_og.convidatsPermanentsOrgan = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    open_og.adrecaLlista = 'membresconvidats@ploneteam.upcnet.es'
+    session_open = api.content.create(
+        type='genweb.organs.sessio',
+        id='planificada',
+        title='Sessió Planificada',
+        container=open_og,
+        safe_id=True)
+    session_open.membresConvocats = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    session_open.membresConvidats = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    session_open.llistaExcusats = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    session_open.assistents = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    session_open.noAssistents = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    session_open.adrecaLlista = 'convidats@ploneteam.upcnet.es'
+    session_open.llocConvocatoria = 'Barcelona'
+    session_open.numSessio = '01'
+    acc = IEventAccessor(session_open)
+    tz = pytz.timezone("Europe/Vienna")
+    acc.start = tz.localize(datetime(2018, 11, 18, 10, 0))
+    acc.end = tz.localize(datetime(2018, 11, 20, 10, 0))
+    acc.timezone = "Europe/Vienna"
+    punt = api.content.create(
+        type='genweb.organs.punt',
+        id='punt',
+        title='Punt Exemple',
+        container=session_open)
+    punt.proposalPoint = 1
+    punt.defaultContent = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    punt.estatsLlista = u'Esborrany'
+    # For working tests code
+    constraints = ISelectableConstrainTypes(punt)
+    constraints.setConstrainTypesMode(1)
+    constraints.setLocallyAllowedTypes(('genweb.organs.subpunt', 'genweb.organs.acord', 'genweb.organs.file', 'genweb.organs.document'))
+    subpunt = api.content.create(type='genweb.organs.subpunt', id='subpunt', title='SubPunt Exemple', container=punt)
+    subpunt.proposalPoint = 1.1
+    subpunt.defaultContent = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    subpunt.estatsLlista = u'Esborrany'
+    # constraints = ISelectableConstrainTypes(subpunt)
+    # constraints.setConstrainTypesMode(1)
+    # constraints.setLocallyAllowedTypes(('genweb.organs.document', 'genweb.organs.file'))
+
+    subacord = api.content.create(
+        type='genweb.organs.acord',
+        id='acord',
+        title='Acord Exemple',
+        container=punt)
+    subacord.proposalPoint = '2'
+    subacord.agreement = og_string + '/2018/01/02'
+    subacord.defaultContent = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    subacord.estatsLlista = u'Esborrany'
+    # constraints = ISelectableConstrainTypes(subacord)
+    # constraints.setConstrainTypesMode(1)
+    # constraints.setLocallyAllowedTypes(('genweb.organs.document', 'genweb.organs.file'))
+
+    acord = api.content.create(
+        type='genweb.organs.acord',
+        id='acord',
+        title='Acord Exemple',
+        container=session_open)
+    acord.proposalPoint = '2'
+    acord.agreement = og_string + '/2018/01/01'
+    acord.defaultContent = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    acord.estatsLlista = u'Esborrany'
+    acord.estatsLlista = u'Esborrany'
+    # constraints = ISelectableConstrainTypes(acord)
+    # constraints.setConstrainTypesMode(1)
+    # constraints.setLocallyAllowedTypes(('genweb.organs.document', 'genweb.organs.file'))
+    # # Creating files
+    # transaction.commit()
+    pdf_file = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'tests')) + '/testfile.pdf'
+    public_file = NamedBlobFile(
+        data=open(pdf_file, 'r').read(),
+        contentType='application/pdf',
+        filename=u'pdf-public.pdf'
+    )
+    restricted_file = NamedBlobFile(
+        data=open(pdf_file, 'r').read(),
+        contentType='application/pdf',
+        filename=u'pdf-restringit.pdf'
+    )
+    filepunt_1 = api.content.create(
+        type='genweb.organs.file',
+        id='public',
+        title='Fitxer NOMÉS Públic',
+        container=punt)
+    filepunt_1.visiblefile = public_file
+
+    # filepunt_2 = api.content.create(
+    #     type='genweb.organs.file',
+    #     id='restringit',
+    #     title='Fitxer NOMÉS Restringit',
+    #     container=punt)
+    # filepunt_2.hiddenfile = restricted_file
+
+    # filepunt_3 = api.content.create(
+    #     type='genweb.organs.file',
+    #     id='public-restringit',
+    #     title='Fitxer Públic i Restringit',
+    #     container=punt)
+    # filepunt_3.visiblefile = public_file
+    # filepunt_3.hiddenfile = restricted_file
+
+    # filepunt_4 = api.content.create(
+    #     type='genweb.organs.file',
+    #     id='public',
+    #     title='Fitxer NOMÉS Públic',
+    #     container=subpunt)
+    # filepunt_4.visiblefile = public_file
+
+    # filepunt_5 = api.content.create(
+    #     type='genweb.organs.file',
+    #     id='restringit',
+    #     title='Fitxer NOMÉS Restringit',
+    #     container=subpunt)
+    # filepunt_5.hiddenfile = restricted_file
+
+    # filepunt_6 = api.content.create(
+    #     type='genweb.organs.file',
+    #     id='public-restringit',
+    #     title='Fitxer Públic i Restringit',
+    #     container=subpunt)
+    # filepunt_6.visiblefile = public_file
+    # filepunt_6.hiddenfile = restricted_file
+
+    # filepunt_7 = api.content.create(
+    #     type='genweb.organs.file',
+    #     id='public',
+    #     title='Fitxer NOMÉS Públic',
+    #     container=acord)
+    # filepunt_7.visiblefile = public_file
+
+    # filepunt_8 = api.content.create(
+    #     type='genweb.organs.file',
+    #     id='restringit',
+    #     title='Fitxer NOMÉS Restringit',
+    #     container=acord)
+    # filepunt_8.hiddenfile = restricted_file
+
+    # filepunt_9 = api.content.create(
+    #     type='genweb.organs.file',
+    #     id='public-restringit',
+    #     title='Fitxer Públic i Restringit',
+    #     container=acord)
+    # filepunt_9.visiblefile = public_file
+    # filepunt_9.hiddenfile = restricted_file
+
+    # filepunt_10 = api.content.create(
+    #     type='genweb.organs.file',
+    #     id='public',
+    #     title='Fitxer NOMÉS Públic',
+    #     container=subacord)
+    # filepunt_10.visiblefile = public_file
+
+    # filepunt_11 = api.content.create(
+    #     type='genweb.organs.file',
+    #     id='restringit',
+    #     title='Fitxer NOMÉS Restringit',
+    #     container=subacord)
+    # filepunt_11.hiddenfile = restricted_file
+
+    # filepunt_12 = api.content.create(
+    #     type='genweb.organs.file',
+    #     id='public-restringit',
+    #     title='Fitxer Públic i Restringit',
+    #     container=subacord)
+    # filepunt_12.visiblefile = public_file
+    # filepunt_12.hiddenfile = restricted_file
+
+    sessio_convocada = api.content.copy(source=session_open, target=open_og, id='convocada')
+    sessio_convocada.title = 'Sessió Convocada'
+    api.content.transition(obj=sessio_convocada, transition='convocar')
+
+    sessio_realitzada = api.content.copy(source=sessio_convocada, target=open_og, id='realitzada')
+    sessio_realitzada.title = 'Sessió Realitzada'
+    api.content.transition(obj=sessio_realitzada, transition='convocar')
+    api.content.transition(obj=sessio_realitzada, transition='realitzar')
+
+    sessio_tancada = api.content.copy(source=sessio_realitzada, target=open_og, id='tancada')
+    sessio_tancada.title = 'Sessió Tancada'
+    api.content.transition(obj=sessio_tancada, transition='convocar')
+    api.content.transition(obj=sessio_tancada, transition='realitzar')
+    api.content.transition(obj=sessio_tancada, transition='tancar')
+
+    sessio_modificada = api.content.copy(source=sessio_realitzada, target=open_og, id='correcio')
+    sessio_modificada.title = 'Sessió en Correcció'
+    api.content.transition(obj=sessio_modificada, transition='convocar')
+    api.content.transition(obj=sessio_modificada, transition='realitzar')
+    api.content.transition(obj=sessio_modificada, transition='tancar')
+    api.content.transition(obj=sessio_modificada, transition='corregir')
+    transaction.commit()
 
 
 class changeMigrated(grok.View):
@@ -355,203 +598,8 @@ class createdTestContent(grok.View):
     grok.require('cmf.ManagePortal')
     grok.layer(IGenwebOrgansLayer)
 
-    def getLoremIpsum(self, number, length, type_code):
-            """ Returns Lorem Ipsum text
-            """
-            return requests.get('http://loripsum.net/api/{0}/{1}/{2}'.format(number, type_code, length), verify=False, timeout=10).content
-
-    def getRandomImage(self, w, h):
-        data = requests.get('http://dummyimage.com/{0}x{1}/aeaeae/ffffff'.format(w, h), verify=False, timeout=10).content
-        return NamedBlobImage(data=data,
-                              filename=u'image.jpg',
-                              contentType='image/jpeg')
-
-    def create_organ_content(self, og_unit, og_type, og_string, og_title):
-        open_og = api.content.create(
-            type='genweb.organs.organgovern',
-            title=og_title,
-            container=og_unit,
-            safe_id=True)
-        open_og.acronim = og_string
-        open_og.descripcioOrgan = self.getLoremIpsum(1, 'medium', 'plaintext')
-        open_og.fromMail = 'testing@ploneteam.upcnet.es'
-        open_og.organType = og_type
-        open_og.logoOrgan = self.getRandomImage(200, 200)
-        open_og.visiblefields = True
-        open_og.eventsColor = 'green'
-        open_og.membresOrgan = RichTextValue(
-            self.getLoremIpsum(2, 'long', 'html'),
-            'text/html', 'text/html').output
-        open_og.convidatsPermanentsOrgan = RichTextValue(
-            self.getLoremIpsum(2, 'long', 'html'),
-            'text/html', 'text/html').output
-        open_og.adrecaLlista = 'membresconvidats@ploneteam.upcnet.es'
-        session_open = api.content.create(
-            type='genweb.organs.sessio',
-            id='planificada',
-            title='Sessió Planificada',
-            container=open_og,
-            safe_id=True)
-        session_open.membresConvocats = RichTextValue(
-            self.getLoremIpsum(2, 'long', 'html'),
-            'text/html', 'text/html').output
-        session_open.membresConvidats = RichTextValue(
-            self.getLoremIpsum(2, 'long', 'html'),
-            'text/html', 'text/html').output
-        session_open.llistaExcusats = RichTextValue(
-            self.getLoremIpsum(2, 'long', 'html'),
-            'text/html', 'text/html').output
-        session_open.assistents = RichTextValue(
-            self.getLoremIpsum(2, 'long', 'html'),
-            'text/html', 'text/html').output
-        session_open.noAssistents = RichTextValue(
-            self.getLoremIpsum(2, 'long', 'html'),
-            'text/html', 'text/html').output
-        session_open.adrecaLlista = 'convidats@ploneteam.upcnet.es'
-        session_open.llocConvocatoria = 'Barcelona'
-        session_open.numSessio = '01'
-        acc = IEventAccessor(session_open)
-        tz = pytz.timezone("Europe/Vienna")
-        acc.start = tz.localize(datetime(2018, 11, 18, 10, 0))
-        acc.end = tz.localize(datetime(2018, 11, 20, 10, 0))
-        acc.timezone = "Europe/Vienna"
-        punt = api.content.create(
-            type='genweb.organs.punt',
-            id='punt',
-            title='Punt Exemple',
-            container=session_open)
-        punt.proposalPoint = 1
-        punt.defaultContent = RichTextValue(
-            self.getLoremIpsum(2, 'long', 'html'),
-            'text/html', 'text/html').output
-        punt.estatsLlista = u'Esborrany'
-        subpunt = api.content.create(
-            type='genweb.organs.subpunt',
-            id='subpunt',
-            title='SubPunt Exemple',
-            container=punt)
-        subpunt.proposalPoint = 1.1
-        subpunt.defaultContent = RichTextValue(
-            self.getLoremIpsum(2, 'long', 'html'),
-            'text/html', 'text/html').output
-        subpunt.estatsLlista = u'Esborrany'
-        acord = api.content.create(
-            type='genweb.organs.acord',
-            id='acord',
-            title='Acord Exemple',
-            container=session_open)
-        acord.proposalPoint = '2'
-        acord.agreement = og_string + '/2018/01/01'
-        acord.defaultContent = RichTextValue(
-            self.getLoremIpsum(2, 'long', 'html'),
-            'text/html', 'text/html').output
-        acord.estatsLlista = u'Esborrany'
-        # Creating files
-        file1 = requests.get(
-            api.portal.get().absolute_url() + '/++resource++genweb.organs.stylesheets/pdf_public.pdf')
-        public_file = NamedBlobFile(
-            data=file1.content,
-            contentType=file1.headers['Content-Type'],
-            filename=u'pdf-public.pdf'
-        )
-        file2 = requests.get(
-            api.portal.get().absolute_url() + '/++resource++genweb.organs.stylesheets/pdf_restringit.pdf')
-        restricted_file = NamedBlobFile(
-            data=file2.content,
-            contentType=file2.headers['Content-Type'],
-            filename=u'pdf-restringit.pdf'
-        )
-
-        filepunt_1 = api.content.create(
-            type='genweb.organs.file',
-            id='public',
-            title='Fitxer NOMÉS Públic',
-            container=punt)
-        filepunt_1.visiblefile = public_file
-
-        filepunt_2 = api.content.create(
-            type='genweb.organs.file',
-            id='restringit',
-            title='Fitxer NOMÉS Restringit',
-            container=punt)
-        filepunt_2.hiddenfile = restricted_file
-
-        filepunt_3 = api.content.create(
-            type='genweb.organs.file',
-            id='public-restringit',
-            title='Fitxer Públic i Restringit',
-            container=punt)
-        filepunt_3.visiblefile = public_file
-        filepunt_3.hiddenfile = restricted_file
-
-        filepunt_4 = api.content.create(
-            type='genweb.organs.file',
-            id='public',
-            title='Fitxer NOMÉS Públic',
-            container=subpunt)
-        filepunt_4.visiblefile = public_file
-
-        filepunt_5 = api.content.create(
-            type='genweb.organs.file',
-            id='restringit',
-            title='Fitxer NOMÉS Restringit',
-            container=subpunt)
-        filepunt_5.hiddenfile = restricted_file
-
-        filepunt_6 = api.content.create(
-            type='genweb.organs.file',
-            id='public-restringit',
-            title='Fitxer Públic i Restringit',
-            container=subpunt)
-        filepunt_6.visiblefile = public_file
-        filepunt_6.hiddenfile = restricted_file
-
-        filepunt_7 = api.content.create(
-            type='genweb.organs.file',
-            id='public',
-            title='Fitxer NOMÉS Públic',
-            container=acord)
-        filepunt_7.visiblefile = public_file
-
-        filepunt_8 = api.content.create(
-            type='genweb.organs.file',
-            id='restringit',
-            title='Fitxer NOMÉS Restringit',
-            container=acord)
-        filepunt_8.hiddenfile = restricted_file
-
-        filepunt_9 = api.content.create(
-            type='genweb.organs.file',
-            id='public-restringit',
-            title='Fitxer Públic i Restringit',
-            container=acord)
-        filepunt_9.visiblefile = public_file
-        filepunt_9.hiddenfile = restricted_file
-
-        sessio_convocada = api.content.copy(source=session_open, target=open_og, id='convocada')
-        sessio_convocada.title = 'Sessió Convocada'
-        api.content.transition(obj=sessio_convocada, transition='convocar')
-
-        sessio_realitzada = api.content.copy(source=sessio_convocada, target=open_og, id='realitzada')
-        sessio_realitzada.title = 'Sessió Realitzada'
-        api.content.transition(obj=sessio_realitzada, transition='convocar')
-        api.content.transition(obj=sessio_realitzada, transition='realitzar')
-
-        sessio_tancada = api.content.copy(source=sessio_realitzada, target=open_og, id='tancada')
-        sessio_tancada.title = 'Sessió Tancada'
-        api.content.transition(obj=sessio_tancada, transition='convocar')
-        api.content.transition(obj=sessio_tancada, transition='realitzar')
-        api.content.transition(obj=sessio_tancada, transition='tancar')
-
-        sessio_modificada = api.content.copy(source=sessio_realitzada, target=open_og, id='correcio')
-        sessio_modificada.title = 'Sessió en Correcció'
-        api.content.transition(obj=sessio_modificada, transition='convocar')
-        api.content.transition(obj=sessio_modificada, transition='realitzar')
-        api.content.transition(obj=sessio_modificada, transition='tancar')
-        api.content.transition(obj=sessio_modificada, transition='corregir')
-
     def render(self):
-        # messages = IStatusMessage(self.request)
+        messages = IStatusMessage(self.request)
         portal = api.portal.get()
         api.content.delete(obj=portal['ca']['test-og'], check_linkintegrity=False)
 
@@ -561,9 +609,33 @@ class createdTestContent(grok.View):
             title='Organ Tests',
             container=portal['ca'])
 
-        self.create_organ_content(og_unit, 'open_organ', 'OG.OPEN', 'Organ Obert')
-        self.create_organ_content(og_unit, 'restricted_to_affected_organ', 'OG.AFFECTED', 'Organ restringit a AFECTATS')
-        self.create_organ_content(og_unit, 'restricted_to_members_organ', 'OG.MEMBERS', 'Organ restringit a MEMBRES')
+        create_organ_content(og_unit, 'open_organ', 'OG.OPEN', 'Organ TEST Obert', 'obert')
+        create_organ_content(og_unit, 'restricted_to_affected_organ', 'OG.AFFECTED', 'Organ TEST restringit a AFECTATS', 'rest-afectats')
+        create_organ_content(og_unit, 'restricted_to_members_organ', 'OG.MEMBERS', 'Organ TEST restringit a MEMBRES', 'rest-membres')
 
-        # messages.add('Created test content to check permissions.', type='warning')
+        messages.add('Created test folder with TEST content to check permissions.', type='warning')
+        self.request.response.redirect(self.context.absolute_url())
+
+
+class testFilesAccess(grok.View):
+    # Este código prueba los permisos de acceso a los ficheros de organs
+    grok.context(Interface)
+    grok.name('test_file_acces_protection')
+    grok.require('cmf.ManagePortal')
+    grok.layer(IGenwebOrgansLayer)
+
+    def render(self):
+        messages = IStatusMessage(self.request)
+        portal = api.portal.get()
+        try:
+            testfolder = api.content.find(obj=portal['ca']['test-og'])
+        except:
+            return "You must create default content with /create_test_content"
+
+        with api.env.adopt_roles(['Member']):
+            api.content.find(obj=testfolder['obert'])
+            return "OK"
+        return "ERROR"
+
+        messages.add('TESTED FILE PERMISSIONS.', type='warning')
         # self.request.response.redirect(self.context.absolute_url())

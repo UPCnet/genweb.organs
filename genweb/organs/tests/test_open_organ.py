@@ -2,13 +2,14 @@
 from genweb.organs.testing import GENWEB_ORGANS_INTEGRATION_TESTING
 from zope.component import getMultiAdapter
 # from plone.testing.z2 import Browser
-# from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, TEST_USER_PASSWORD
+from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, TEST_USER_PASSWORD
 from plone.app.testing import login, logout
-# from plone.app.testing import setRoles
+from plone.app.testing import setRoles
 # from genweb.core.adapters import IImportant
 # from transaction import commit
 # from plone import api
 from genweb.organs.tests import organsTestBase
+from genweb.organs.browser import tools
 
 
 class IntegrationTestCase(organsTestBase):
@@ -36,11 +37,13 @@ class IntegrationTestCase(organsTestBase):
 
         # Create Base folder
         from plone import api
-        api.content.create(
+        og_unit = api.content.create(
             type='genweb.organs.organsfolder',
-            title='Carpeta Unitat OG',
-            id='folder-organs',
+            id='test-og',
+            title='Organ Tests',
             container=self.portal['ca'])
+
+        tools.create_organ_content(og_unit, 'open_organ', 'OG.OPEN', 'Organ TEST Obert', 'obert')
 
         logout()
 
@@ -56,19 +59,13 @@ class IntegrationTestCase(organsTestBase):
     #     self.loginBrowser(browser, portalURL)
     #     browser.open(portalURL + url)
 
-    # def test_create_organ_as_secretari(self):
-    #     """ Install all kind of Organs
-    #     """
-    #     username = 'usuari.secretari'
-    #     login(self.portal, username)
-    #     self.create_organ(organ_type="Closed")
-
     def test_create_organ_as_manager(self):
         """ Install all kind of Organs
         """
         username = 'usuari.manager'
         login(self.portal, username)
-        self.create_organ(organ_type="Closed")
+        # TODO
+        self.portal.ca['test-og'].obert.planificada.punt
 
     # def test_create_organ_as_editor(self):
     #     """ Install all kind of Organs

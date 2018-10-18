@@ -19,3 +19,14 @@ organs_sessio_workflow --> Workflow aplicat a la Sessió, i conté els estats:
 
     Només poden passar a l'estat en modificació, els OG1-Secretari.
 
+
+Testing
+=======
+
+Console 1:
+	
+	./bin/instance fg
+
+Console 2:
+    
+    ROBOT_BROWSER=chrome ./bin/test --all -m  genweb.organs  -t test_functional

@@ -9,6 +9,6 @@ Test Teardown  Close all browsers
 
 *** Test Cases ***
 
-Plone Tests Folders are created
+Plone is installed
     Go to  ${PLONE_URL}/ca
-    Page should contain  Organ Tests
+    Page should contain  Identifica

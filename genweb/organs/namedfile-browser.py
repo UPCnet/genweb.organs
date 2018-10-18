@@ -100,9 +100,11 @@ def getFileOrgans(self):
         if utils.isManager(self):
             return file
 
-        if self.context.aq_parent.portal_type == 'genweb.organs.punt':
+        if self.context.aq_parent.aq_parent.portal_type == 'genweb.organs.sessio':
+            # primer nivell
             estatSessio = api.content.get_state(obj=self.context.aq_parent.aq_parent)
         else:
+            # segon nivell
             estatSessio = api.content.get_state(obj=self.context.aq_parent.aq_parent.aq_parent)
 
         organ_tipus = self.context.organType
