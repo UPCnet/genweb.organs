@@ -58,7 +58,7 @@
     <browser:page
         name="display-file"
         for="*"
-        class=".namedfile-browser.DisplayFile"
+        class=".namedfilebrowser.DisplayFile"
         permission="zope2.View"
         />
 

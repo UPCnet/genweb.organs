@@ -17,6 +17,10 @@ from plone.event.interfaces import IEventAccessor
 import os
 import pytz
 from Products.CMFPlone.interfaces import ISelectableConstrainTypes
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
+
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
 def getLoremIpsum(number, length, type_code):
@@ -156,42 +160,42 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
         container=punt)
     filepunt_1.visiblefile = public_file
 
-    # filepunt_2 = api.content.create(
-    #     type='genweb.organs.file',
-    #     id='restringit',
-    #     title='Fitxer NOMÉS Restringit',
-    #     container=punt)
-    # filepunt_2.hiddenfile = restricted_file
+    filepunt_2 = api.content.create(
+        type='genweb.organs.file',
+        id='restringit',
+        title='Fitxer NOMÉS Restringit',
+        container=punt)
+    filepunt_2.hiddenfile = restricted_file
 
-    # filepunt_3 = api.content.create(
-    #     type='genweb.organs.file',
-    #     id='public-restringit',
-    #     title='Fitxer Públic i Restringit',
-    #     container=punt)
-    # filepunt_3.visiblefile = public_file
-    # filepunt_3.hiddenfile = restricted_file
+    filepunt_3 = api.content.create(
+        type='genweb.organs.file',
+        id='public-restringit',
+        title='Fitxer Públic i Restringit',
+        container=punt)
+    filepunt_3.visiblefile = public_file
+    filepunt_3.hiddenfile = restricted_file
 
-    # filepunt_4 = api.content.create(
-    #     type='genweb.organs.file',
-    #     id='public',
-    #     title='Fitxer NOMÉS Públic',
-    #     container=subpunt)
-    # filepunt_4.visiblefile = public_file
+    filepunt_4 = api.content.create(
+        type='genweb.organs.file',
+        id='public',
+        title='Fitxer NOMÉS Públic',
+        container=subpunt)
+    filepunt_4.visiblefile = public_file
 
-    # filepunt_5 = api.content.create(
-    #     type='genweb.organs.file',
-    #     id='restringit',
-    #     title='Fitxer NOMÉS Restringit',
-    #     container=subpunt)
-    # filepunt_5.hiddenfile = restricted_file
+    filepunt_5 = api.content.create(
+        type='genweb.organs.file',
+        id='restringit',
+        title='Fitxer NOMÉS Restringit',
+        container=subpunt)
+    filepunt_5.hiddenfile = restricted_file
 
-    # filepunt_6 = api.content.create(
-    #     type='genweb.organs.file',
-    #     id='public-restringit',
-    #     title='Fitxer Públic i Restringit',
-    #     container=subpunt)
-    # filepunt_6.visiblefile = public_file
-    # filepunt_6.hiddenfile = restricted_file
+    filepunt_6 = api.content.create(
+        type='genweb.organs.file',
+        id='public-restringit',
+        title='Fitxer Públic i Restringit',
+        container=subpunt)
+    filepunt_6.visiblefile = public_file
+    filepunt_6.hiddenfile = restricted_file
 
     # filepunt_7 = api.content.create(
     #     type='genweb.organs.file',
@@ -601,11 +605,14 @@ class createdTestContent(grok.View):
     def render(self):
         messages = IStatusMessage(self.request)
         portal = api.portal.get()
-        api.content.delete(obj=portal['ca']['test-og'], check_linkintegrity=False)
+        try:
+            api.content.delete(obj=portal['ca']['testingfolder'], check_linkintegrity=False)
+        except:
+            pass
 
         og_unit = api.content.create(
             type='genweb.organs.organsfolder',
-            id='test-og',
+            id='testingfolder',
             title='Organ Tests',
             container=portal['ca'])
 
