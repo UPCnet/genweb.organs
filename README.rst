@@ -24,9 +24,11 @@ Testing
 =======
 
 Console 1:
-	
+
 	./bin/instance fg
 
 Console 2:
-    
-    ROBOT_BROWSER=chrome ./bin/test --all -m  genweb.organs  -t test_functional
+
+    ./bin/test --all -m  genweb.organs  -t test_organ_obert
+
+    ROBOT_BROWSER=chrome ./bin/test --all -m  genweb.organs  -t test_organ_obert

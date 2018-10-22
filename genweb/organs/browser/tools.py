@@ -635,14 +635,33 @@ class testFilesAccess(grok.View):
         messages = IStatusMessage(self.request)
         portal = api.portal.get()
         try:
-            testfolder = api.content.find(obj=portal['ca']['test-og'])
+            textfolder = portal['ca']['testingfolder']
+            folder = api.content.find(context=textfolder, depth=0)[0]
         except:
             return "You must create default content with /create_test_content"
 
-        with api.env.adopt_roles(['Member']):
-            api.content.find(obj=testfolder['obert'])
-            return "OK"
-        return "ERROR"
+        # Create a new user.
+        api.user.create(
+            username="testuser",
+            roles=('Anonymous',),
+            email="anonuser@test.com",
+        )
+
+        with api.env.adopt_user(username="anonim"):
+            import ipdb; ipdb.set_trace()
+            #self.portal.ca['test-og'].obert.planificada.punt.public.restrictedTraverse('@@view')()
+            root_og = folder.getObject()
+            root_og['rest-membres'].restrictedTraverse('@@view')()
+            print root_og['rest-membres'].items()
+
+
+        # with api.env.adopt_roles(['Anonymous']):
+
+        #     root_og = folder.getObject()
+        #     root_og['rest-afectats']
+        #     print "OK2"
+        api.user.delete(username='testuser')
+        return "End of tests..."
 
         messages.add('TESTED FILE PERMISSIONS.', type='warning')
         # self.request.response.redirect(self.context.absolute_url())

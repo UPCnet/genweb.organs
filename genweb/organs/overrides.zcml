@@ -50,7 +50,7 @@
     <browser:page
         name="download"
         for="*"
-        class=".namedfile-browser.Download"
+        class=".namedfilebrowser.Download"
         permission="zope2.View"
         />
 
