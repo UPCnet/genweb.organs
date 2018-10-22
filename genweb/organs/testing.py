@@ -37,12 +37,12 @@ class GenwebOrgansLayer(PloneSandboxLayer):
         applyProfile(portal, 'genweb.upc:default')
         applyProfile(portal, 'genweb.organs:default')
 
-        # Create default users
-        portal.acl_users.userFolderAddUser('usuari.manager', 'secret', ['Manager'], [])
-        portal.acl_users.userFolderAddUser('usuari.secretari', 'secret', ['OG1-Secretari'], [])
-        portal.acl_users.userFolderAddUser('usuari.editor', 'secret', ['OG2-Editor'], [])
-        portal.acl_users.userFolderAddUser('usuari.membre', 'secret', ['OG3-Membre'], [])
-        portal.acl_users.userFolderAddUser('usuari.afectat', 'secret', ['OG4-Afectat'], [])
+        # # Create default users
+        # portal.acl_users.userFolderAddUser('usuari.manager', 'secret', ['Manager'], [])
+        # portal.acl_users.userFolderAddUser('usuari.secretari', 'secret', ['OG1-Secretari'], [])
+        # portal.acl_users.userFolderAddUser('usuari.editor', 'secret', ['OG2-Editor'], [])
+        # portal.acl_users.userFolderAddUser('usuari.membre', 'secret', ['OG3-Membre'], [])
+        # portal.acl_users.userFolderAddUser('usuari.afectat', 'secret', ['OG4-Afectat'], [])
 
     def tearDownZope(self, app):
         """Tear down Zope."""
