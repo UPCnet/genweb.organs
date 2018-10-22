@@ -197,49 +197,57 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
     filepunt_6.visiblefile = public_file
     filepunt_6.hiddenfile = restricted_file
 
-    # filepunt_7 = api.content.create(
-    #     type='genweb.organs.file',
-    #     id='public',
-    #     title='Fitxer NOMÉS Públic',
-    #     container=acord)
-    # filepunt_7.visiblefile = public_file
+    constraints = ISelectableConstrainTypes(acord)
+    constraints.setConstrainTypesMode(1)
+    constraints.setLocallyAllowedTypes(('genweb.organs.document', 'genweb.organs.file'))
 
-    # filepunt_8 = api.content.create(
-    #     type='genweb.organs.file',
-    #     id='restringit',
-    #     title='Fitxer NOMÉS Restringit',
-    #     container=acord)
-    # filepunt_8.hiddenfile = restricted_file
+    filepunt_7 = api.content.create(
+        type='genweb.organs.file',
+        id='public',
+        title='Fitxer NOMÉS Públic',
+        container=acord)
+    filepunt_7.visiblefile = public_file
 
-    # filepunt_9 = api.content.create(
-    #     type='genweb.organs.file',
-    #     id='public-restringit',
-    #     title='Fitxer Públic i Restringit',
-    #     container=acord)
-    # filepunt_9.visiblefile = public_file
-    # filepunt_9.hiddenfile = restricted_file
+    filepunt_8 = api.content.create(
+        type='genweb.organs.file',
+        id='restringit',
+        title='Fitxer NOMÉS Restringit',
+        container=acord)
+    filepunt_8.hiddenfile = restricted_file
 
-    # filepunt_10 = api.content.create(
-    #     type='genweb.organs.file',
-    #     id='public',
-    #     title='Fitxer NOMÉS Públic',
-    #     container=subacord)
-    # filepunt_10.visiblefile = public_file
+    filepunt_9 = api.content.create(
+        type='genweb.organs.file',
+        id='public-restringit',
+        title='Fitxer Públic i Restringit',
+        container=acord)
+    filepunt_9.visiblefile = public_file
+    filepunt_9.hiddenfile = restricted_file
 
-    # filepunt_11 = api.content.create(
-    #     type='genweb.organs.file',
-    #     id='restringit',
-    #     title='Fitxer NOMÉS Restringit',
-    #     container=subacord)
-    # filepunt_11.hiddenfile = restricted_file
+    constraints = ISelectableConstrainTypes(subacord)
+    constraints.setConstrainTypesMode(1)
+    constraints.setLocallyAllowedTypes(('genweb.organs.document', 'genweb.organs.file'))
 
-    # filepunt_12 = api.content.create(
-    #     type='genweb.organs.file',
-    #     id='public-restringit',
-    #     title='Fitxer Públic i Restringit',
-    #     container=subacord)
-    # filepunt_12.visiblefile = public_file
-    # filepunt_12.hiddenfile = restricted_file
+    filepunt_10 = api.content.create(
+        type='genweb.organs.file',
+        id='public',
+        title='Fitxer NOMÉS Públic',
+        container=subacord)
+    filepunt_10.visiblefile = public_file
+
+    filepunt_11 = api.content.create(
+        type='genweb.organs.file',
+        id='restringit',
+        title='Fitxer NOMÉS Restringit',
+        container=subacord)
+    filepunt_11.hiddenfile = restricted_file
+
+    filepunt_12 = api.content.create(
+        type='genweb.organs.file',
+        id='public-restringit',
+        title='Fitxer Públic i Restringit',
+        container=subacord)
+    filepunt_12.visiblefile = public_file
+    filepunt_12.hiddenfile = restricted_file
 
     sessio_convocada = api.content.copy(source=session_open, target=open_og, id='convocada')
     sessio_convocada.title = 'Sessió Convocada'
@@ -603,6 +611,7 @@ class createdTestContent(grok.View):
     grok.layer(IGenwebOrgansLayer)
 
     def render(self):
+        print "Creating test content folders..."
         messages = IStatusMessage(self.request)
         portal = api.portal.get()
         try:
@@ -621,7 +630,7 @@ class createdTestContent(grok.View):
         create_organ_content(og_unit, 'restricted_to_members_organ', 'OG.MEMBERS', 'Organ TEST restringit a MEMBRES', 'rest-membres')
 
         messages.add('Created test folder with TEST content to check permissions.', type='warning')
-        self.request.response.redirect(self.context.absolute_url())
+        # self.request.response.redirect(self.context.absolute_url())
 
 
 class testFilesAccess(grok.View):
@@ -635,31 +644,32 @@ class testFilesAccess(grok.View):
         messages = IStatusMessage(self.request)
         portal = api.portal.get()
         try:
-            textfolder = portal['ca']['testingfolder']
-            folder = api.content.find(context=textfolder, depth=0)[0]
+            testfolder = portal['ca']['testingfolder']
+            api.content.find(
+                context=testfolder,
+                depth=0)[0]
         except:
             return "You must create default content with /create_test_content"
 
         # Create a new user.
-        api.user.create(
-            username="testuser",
-            roles=('Anonymous',),
-            email="anonuser@test.com",
-        )
+        try:
+            api.user.create(
+                username="testuser",
+                roles=('Anonymous',),
+                email="anonuser@test.com",
+            )
+        except:
+            pass
 
-        with api.env.adopt_user(username="anonim"):
-            import ipdb; ipdb.set_trace()
-            #self.portal.ca['test-og'].obert.planificada.punt.public.restrictedTraverse('@@view')()
-            root_og = folder.getObject()
-            root_og['rest-membres'].restrictedTraverse('@@view')()
-            print root_og['rest-membres'].items()
+        # with api.env.adopt_user(username="testuser"):
+            # import ipdb; ipdb.set_trace()
+            # api.user.grant_roles(username="testuser", roles=['OG1-Secretari'])
+            # portal.ca.testingfolder.obert.planificada.punt.public.restrictedTraverse('@@view')()
+            # print portal.ca.testingfolder.obert.planificada.punt.public.restrictedTraverse('@@view')()
+            # api.user.grant_roles(username="testuser", roles=['OG2-Editor'])
+            # portal.ca.testingfolder.obert.planificada.punt.public.restrictedTraverse('@@view')()
+            # print portal.ca.testingfolder.obert.planificada.punt.public.restrictedTraverse('@@view')()
 
-
-        # with api.env.adopt_roles(['Anonymous']):
-
-        #     root_og = folder.getObject()
-        #     root_og['rest-afectats']
-        #     print "OK2"
         api.user.delete(username='testuser')
         return "End of tests..."
 
