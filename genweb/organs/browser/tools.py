@@ -626,8 +626,8 @@ class createdTestContent(grok.View):
             container=portal['ca'])
 
         create_organ_content(og_unit, 'open_organ', 'OG.OPEN', 'Organ TEST Obert', 'obert')
-        create_organ_content(og_unit, 'restricted_to_affected_organ', 'OG.AFFECTED', 'Organ TEST restringit a AFECTATS', 'rest-afectats')
-        create_organ_content(og_unit, 'restricted_to_members_organ', 'OG.MEMBERS', 'Organ TEST restringit a MEMBRES', 'rest-membres')
+        create_organ_content(og_unit, 'restricted_to_affected_organ', 'OG.AFFECTED', 'Organ TEST restringit a AFECTATS', 'afectats')
+        create_organ_content(og_unit, 'restricted_to_members_organ', 'OG.MEMBERS', 'Organ TEST restringit a MEMBRES', 'membres')
 
         messages.add('Created test folder with TEST content to check permissions.', type='warning')
         # self.request.response.redirect(self.context.absolute_url())
