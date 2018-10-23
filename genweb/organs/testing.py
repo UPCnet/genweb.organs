@@ -37,7 +37,7 @@ class GenwebOrgansLayer(PloneSandboxLayer):
         applyProfile(portal, 'genweb.upc:default')
         applyProfile(portal, 'genweb.organs:default')
 
-        # # Create default users
+        # # If you need to create site users...
         # portal.acl_users.userFolderAddUser('usuari.manager', 'secret', ['Manager'], [])
         # portal.acl_users.userFolderAddUser('usuari.secretari', 'secret', ['OG1-Secretari'], [])
         # portal.acl_users.userFolderAddUser('usuari.editor', 'secret', ['OG2-Editor'], [])

@@ -135,28 +135,32 @@ def getFileOrgans(self):
                     return file
                 return file
             elif estatSessio == 'tancada':
-                if self.fieldname == 'hiddenfile':
-                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                        return file
-                    else:
+                if self.context.visiblefile and self.context.hiddenfile:
+                    if utils.isMembre(self):
+                        if self.fieldname == 'visiblefile':
+                            raise Unauthorized
+                    elif utils.isAfectat(self) or utils.isAnon(self):
+                        if self.fieldname == 'hiddenfile':
+                            raise Unauthorized
+                elif self.context.hiddenfile or utils.isAnon(self):
+                    if utils.isAfectat(self):
                         raise Unauthorized
                 else:
-                    if (utils.isMembre(self)):
-                        raise Unauthorized
-                    else:
-                        return file
+                    return file
                 return file
             elif estatSessio == 'en_correccio':
-                if self.fieldname == 'hiddenfile':
-                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                        return file
-                    else:
+                if self.context.visiblefile and self.context.hiddenfile:
+                    if utils.isMembre(self):
+                        if self.fieldname == 'visiblefile':
+                            raise Unauthorized
+                    elif utils.isAfectat(self) or utils.isAnon(self):
+                        if self.fieldname == 'hiddenfile':
+                            raise Unauthorized
+                elif self.context.hiddenfile or utils.isAnon(self):
+                    if utils.isAfectat(self):
                         raise Unauthorized
                 else:
-                    if (utils.isMembre(self)):
-                        raise Unauthorized
-                    else:
-                        return file
+                    return file
                 return file
             else:
                 raise Unauthorized

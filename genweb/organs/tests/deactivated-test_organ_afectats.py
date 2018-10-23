@@ -1141,8 +1141,8 @@ class IntegrationTestCase(unittest.TestCase):
         self.assertTrue(Download(root_path.afectats.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
 
-    def test_organ_obert_membre(self):
-        """Test as OG3-Membre
+    def test_organ_restricted_to_afectats_view_files_as_membre(self):
+        """ Test viewing files in OG restricted to Afectats, com usuari OG3-Membre
         """
         logout()
         setRoles(self.portal, TEST_USER_ID, ['OG3-Membre'])
