@@ -704,4 +704,3 @@ class View(grok.View):
                 return True
             else:
                 raise Unauthorized
-
