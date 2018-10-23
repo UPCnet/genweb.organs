@@ -264,7 +264,7 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
     api.content.transition(obj=sessio_tancada, transition='realitzar')
     api.content.transition(obj=sessio_tancada, transition='tancar')
 
-    sessio_modificada = api.content.copy(source=sessio_realitzada, target=open_og, id='correcio')
+    sessio_modificada = api.content.copy(source=sessio_realitzada, target=open_og, id='correccio')
     sessio_modificada.title = 'Sessió en Correcció'
     api.content.transition(obj=sessio_modificada, transition='convocar')
     api.content.transition(obj=sessio_modificada, transition='realitzar')
