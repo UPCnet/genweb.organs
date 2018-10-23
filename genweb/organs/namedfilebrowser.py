@@ -125,6 +125,12 @@ def getFileOrgans(self):
                     if utils.isMembre(self):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
+                    elif utils.isAfectat(self):
+                        if self.fieldname == 'hiddenfile':
+                            raise Unauthorized
+                elif self.context.hiddenfile:
+                    if utils.isAfectat(self):
+                        raise Unauthorized
                 else:
                     return file
                 return file
