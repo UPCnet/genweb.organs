@@ -19,6 +19,11 @@ install:
     - buildout bootstrap
     - buildout -N
 
+# safelist
+branches:
+  only:
+  - master
+
 script:
     - coverage run bin/test -t genweb.organs  --layer=\!Robot
 
