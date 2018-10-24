@@ -4,7 +4,7 @@
 #       self.assertTrue(root_path.obert.xxtancadaxx.restrictedTraverse('@@view')())
 
 #     Para check de Unauthorized/NotFound no lleva el ()
-#       self.assertRaises(Unauthorized, root_path.obert.xxplanificadaxx.restrictedTraverse('@@view'))
+#       self.assertRaises(Unauthorized, root_path.obert.xxplanificadaxx.publishTraverse('@@view'))
 #
 
 import unittest
@@ -51,6 +51,7 @@ class FunctionalTestCase(unittest.TestCase):
             api.content.delete(obj=self.portal['ca']['testingfolder'], check_linkintegrity=False)
         except:
             pass
+        # Create default Organs Test Folder
         og_unit = api.content.create(
             type='genweb.organs.organsfolder',
             id='testingfolder',
@@ -77,7 +78,7 @@ class FunctionalTestCase(unittest.TestCase):
         request = TestRequest()
         # Check session state PLANIFICADA
         self.assertTrue(root_path.obert.planificada.restrictedTraverse('@@view')())
-        print " \n   ORGAN OBERT - [Secretari] - SESSIO PLANIFICADA - View"
+        print "\n    ORGAN OBERT - [Secretari] - SESSIO PLANIFICADA - View"
         # PUNT
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile')())
         print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
@@ -602,6 +603,7 @@ class FunctionalTestCase(unittest.TestCase):
         print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
+        # FIN EN CORRECCIO
 
     def test_organ_obert_view_files_as_editor(self):
         """Test as OG2-Editor
@@ -1138,6 +1140,7 @@ class FunctionalTestCase(unittest.TestCase):
         print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
+        # FIN EN CORRECCIO
 
     def test_organ_obert_view_files_as_membre(self):
         """ Test viewing files in OG Obert as user OG3-Membre
@@ -1674,7 +1677,7 @@ class FunctionalTestCase(unittest.TestCase):
         print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
-        # FIN CORRECCIO
+        # FIN EN CORRECCIO
 
     def test_organ_obert_view_files_as_afectat(self):
         """Test as OG4-Afectat
@@ -2207,8 +2210,9 @@ class FunctionalTestCase(unittest.TestCase):
         print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
         print "        ACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
+        # FIN EN CORRECCIO
 
-    def test_organ_obert_view_files_as_anonymous(self):
+    def test_organ_obert_view_files_as_anonim(self):
         """ Test as Anonymous
         """
         logout()
@@ -2738,3 +2742,4 @@ class FunctionalTestCase(unittest.TestCase):
         print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
         print "        ACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
+        # FIN EN CORRECCIO

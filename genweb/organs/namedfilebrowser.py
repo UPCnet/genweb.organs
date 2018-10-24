@@ -166,32 +166,101 @@ def getFileOrgans(self):
                 raise Unauthorized
 
         elif organ_tipus == 'restricted_to_members_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if utils.isAnon(self) or utils.isAfectat(self):
+                raise Unauthorized
+            elif estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
                 return file
             elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if self.context.visiblefile and self.context.hiddenfile:
+                    if utils.isMembre(self):
+                        if self.fieldname == 'visiblefile':
+                            raise Unauthorized
+                else:
+                    return file
                 return file
             elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if self.context.visiblefile and self.context.hiddenfile:
+                    if utils.isMembre(self):
+                        if self.fieldname == 'visiblefile':
+                            raise Unauthorized
+                else:
+                    return file
                 return file
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'tancada':
+                if self.context.visiblefile and self.context.hiddenfile:
+                    if utils.isMembre(self):
+                        if self.fieldname == 'visiblefile':
+                            raise Unauthorized
+                else:
+                    return file
                 return file
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'en_correccio':
+                if self.context.visiblefile and self.context.hiddenfile:
+                    if utils.isMembre(self):
+                        if self.fieldname == 'visiblefile':
+                            raise Unauthorized
+                else:
+                    return file
                 return file
             else:
                 raise Unauthorized
 
         elif organ_tipus == 'restricted_to_affected_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if utils.isAnon(self):
+                raise Unauthorized
+            elif estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
                 return file
             elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if self.context.visiblefile and self.context.hiddenfile:
+                    if utils.isMembre(self):
+                        if self.fieldname == 'visiblefile':
+                            raise Unauthorized
+                else:
+                    return file
                 return file
             elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                if self.context.visiblefile and self.context.hiddenfile:
+                    if utils.isMembre(self):
+                        if self.fieldname == 'visiblefile':
+                            raise Unauthorized
+                    elif utils.isAfectat(self):
+                        if self.fieldname == 'hiddenfile':
+                            raise Unauthorized
+                elif self.context.hiddenfile:
+                    if utils.isAfectat(self):
+                        raise Unauthorized
+                else:
+                    return file
                 return file
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'tancada':
+                if self.context.visiblefile and self.context.hiddenfile:
+                    if utils.isMembre(self):
+                        if self.fieldname == 'visiblefile':
+                            raise Unauthorized
+                    elif utils.isAfectat(self):
+                        if self.fieldname == 'hiddenfile':
+                            raise Unauthorized
+                elif self.context.hiddenfile:
+                    if utils.isAfectat(self):
+                        raise Unauthorized
+                else:
+                    return file
                 return file
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'en_correccio':
+                if self.context.visiblefile and self.context.hiddenfile:
+                    if utils.isMembre(self):
+                        if self.fieldname == 'visiblefile':
+                            raise Unauthorized
+                    elif utils.isAfectat(self):
+                        if self.fieldname == 'hiddenfile':
+                            raise Unauthorized
+                elif self.context.hiddenfile:
+                    if utils.isAfectat(self):
+                        raise Unauthorized
+                else:
+                    return file
                 return file
             else:
                 raise Unauthorized
-
         else:
             raise Unauthorized
