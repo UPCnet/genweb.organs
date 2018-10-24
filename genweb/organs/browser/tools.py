@@ -252,17 +252,20 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
     sessio_convocada = api.content.copy(source=session_open, target=open_og, id='convocada')
     sessio_convocada.title = 'Sessió Convocada'
     api.content.transition(obj=sessio_convocada, transition='convocar')
+    transaction.commit()
 
     sessio_realitzada = api.content.copy(source=sessio_convocada, target=open_og, id='realitzada')
     sessio_realitzada.title = 'Sessió Realitzada'
     api.content.transition(obj=sessio_realitzada, transition='convocar')
     api.content.transition(obj=sessio_realitzada, transition='realitzar')
+    transaction.commit()
 
     sessio_tancada = api.content.copy(source=sessio_realitzada, target=open_og, id='tancada')
     sessio_tancada.title = 'Sessió Tancada'
     api.content.transition(obj=sessio_tancada, transition='convocar')
     api.content.transition(obj=sessio_tancada, transition='realitzar')
     api.content.transition(obj=sessio_tancada, transition='tancar')
+    transaction.commit()
 
     sessio_modificada = api.content.copy(source=sessio_realitzada, target=open_og, id='correccio')
     sessio_modificada.title = 'Sessió en Correcció'
@@ -270,7 +273,7 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
     api.content.transition(obj=sessio_modificada, transition='realitzar')
     api.content.transition(obj=sessio_modificada, transition='tancar')
     api.content.transition(obj=sessio_modificada, transition='corregir')
-    #transaction.commit()
+    transaction.commit()
 
 
 class changeMigrated(grok.View):

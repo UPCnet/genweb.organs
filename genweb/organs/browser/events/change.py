@@ -31,15 +31,15 @@ def sessio_changed(session, event):
         if event.transition.id == 'convocant':
             raise Redirect(session.absolute_url() + '/mail_convocar')
 
-        # if event.transition.id == 'tancar':
-        #     member = api.user.get(username='admin')
-        #     user = member.getUser()
-        #     session.changeOwnership(user, recursive=False)
-        #     owners = session.users_with_local_role("Owner")
-        #     session.manage_delLocalRoles(owners)
-        #     if user.getId() == 'admin':
-        #         session.manage_setLocalRoles(user.getId(), ["Owner"])
-        #     else:
-        #         session.manage_setLocalRoles(user._id, ["Owner"])
-        #     session.reindexObjectSecurity()
-        #     transaction.commit()
+        if event.transition.id == 'tancar':
+            member = api.user.get(username='admin')
+            user = member.getUser()
+            session.changeOwnership(user, recursive=False)
+            owners = session.users_with_local_role("Owner")
+            session.manage_delLocalRoles(owners)
+            if user.getId() == 'admin':
+                session.manage_setLocalRoles(user.getId(), ["Owner"])
+            else:
+                session.manage_setLocalRoles(user._id, ["Owner"])
+            session.reindexObjectSecurity()
+            transaction.commit()
