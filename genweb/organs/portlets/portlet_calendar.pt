@@ -83,7 +83,11 @@
     <div class="allSessions">
       <a href="" tal:attributes="href string:${portal_url}/allsessions"><i class="fa fa-plus"></i>&nbsp;<tal:omit-tag i18n:translate="" i18n:domain="genweb.organs">veure totes les sessions</tal:omit-tag></a>
     </div>
+
+
     <ul class="icons-ul">
+
+
       <tal:block tal:repeat="event view/getDayEventsGroup" tal:condition="view/isAnon">
         <li tal:define="licolor event/color" tal:attributes="style string:border-left: 5px solid ${licolor}">
           <p>
@@ -98,13 +102,32 @@
               - <tal:event content="event/Title"> Event Title </tal:event>
             </a>
           </p>
-          <div class="clearfix"></div>
           <span class="text2">
             <i class="fa fa-thumb-tack"></i>
             <a tal:attributes="href event/community_url" tal:content="event/community_name"></a>
           </span>
         </li>
       </tal:block>
+
+      <hr/>NEW CODE
+      <tal:block tal:repeat="event view/next3Events">
+        <li>
+          <p>
+            <i class="fa fa-calendar"></i>&nbsp;
+            <a tal:attributes="href event/url">
+              <tal:event content="event/start"> 07/12 </tal:event>
+              - <tal:event content="event/session_title"> Event Title </tal:event>
+            </a>
+          </p>
+          <span class="text2">
+            <i class="fa fa-thumb-tack"></i>
+            <a tal:attributes="href event/title" tal:content="event/title"></a>
+          </span>
+        </li>
+      </tal:block>
+      <br/>end new code<hr/>
+<hr/>OLDCODE
+
       <tal:block tal:repeat="event view/getDayEventsGroupValidated" tal:condition="not:view/isAnon">
         <li tal:define="licolor event/color"  tal:attributes="style string:border-left: 5px solid ${licolor}">
           <p>
@@ -119,13 +142,15 @@
               - <tal:event content="event/Title"> Event Title </tal:event>
             </a>
           </p>
-          <div class="clearfix"></div>
           <span class="text2">
             <i class="fa fa-thumb-tack"></i>
             <a tal:attributes="href event/community_url" tal:content="event/community_name"></a>
           </span>
         </li>
       </tal:block>
+END OLDCODE
+<hr/>
+
     </ul>
 
   </div>

@@ -16,8 +16,12 @@ from datetime import datetime
 from plone.app.event.base import localized_now
 from plone.event.interfaces import IEvent
 from datetime import timedelta
+from plone.event.interfaces import IEventAccessor
+from operator import itemgetter
+import time
 from plone import api
-
+import DateTime
+import datetime
 import calendar
 
 
@@ -183,7 +187,6 @@ class Renderer(base.Renderer):
 
         for event in events:
             list_events.append(self.getEventCalendarDict(event))
-
         return list_events
 
     def getEventCalendarDict(self, event):
@@ -223,7 +226,45 @@ class Renderer(base.Renderer):
 
         return filter_events
 
+    def next3Events(self):
+        """ Returns next 3 events based on public organs fields """
+        start_time = time.time()
+        print("\n-- START NEW CODE --- %s seconds --- " % (time.time() - start_time))
+        today = DateTime.DateTime()   # Today
+        date_future_events = {'query': (today), 'range': 'min'}
+
+        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        if api.user.is_anonymous():
+            future_sessions = portal_catalog.unrestrictedSearchResults(
+                portal_type='genweb.organs.sessio',
+                sort_on='start',
+                end=date_future_events,
+                path=self.get_public_organs_fields()
+            )[:3]
+        else:
+            future_sessions = portal_catalog.unrestrictedSearchResults(
+                portal_type='genweb.organs.sessio',
+                sort_on='start',
+                end=date_future_events,
+            )[:3]
+
+        future = []
+        current_year = datetime.datetime.now().strftime('%Y')
+        for session in future_sessions:
+            obj = session._unrestrictedGetObject()
+            event = IEventAccessor(obj)
+            if obj.start.strftime('%Y') == current_year:
+                future.append(dict(
+                    title=obj.aq_parent.title,
+                    session_title=obj.title,
+                    start=event.start.strftime('%d/%m'),
+                    url=session.getPath()))
+        print("-- END NEW CODE   --- %s seconds --- " % (time.time() - start_time))
+        return future
+
     def getDayEventsGroup(self):
+        start_time = time.time()
+        print("\n-- START OLD CODE --- %s seconds --- " % (time.time() - start_time))
         # Si no esta validat, mostra els propers 3 esdeveniments
         group_events = []
         if 'day' not in self.request.form and 'month' in self.request.form:
@@ -242,8 +283,10 @@ class Renderer(base.Renderer):
                                          end=event['end'],
                                          community_url=event['community_url'],
                                          community_name=event['community_name'],))
+            print("-- END1 OLD CODE  --- %s seconds --- " % (time.time() - start_time))
             return group_events
         else:
+            print("-- END2 OLD CODE  --- %s seconds --- " % (time.time() - start_time))
             return None
 
     def getDayEventsGroupValidated(self):
