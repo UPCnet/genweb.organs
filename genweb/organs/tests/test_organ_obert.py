@@ -67,7 +67,7 @@ class IntegrationTestCase(unittest.TestCase):
 
         logout()
 
-    def test_organ_obert_secretari(self):
+    def test_organ_obert_view_files_as_secretari(self):
         """Test as OG1-Secretari
         """
         logout()
@@ -603,7 +603,7 @@ class IntegrationTestCase(unittest.TestCase):
         self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
 
-    def test_organ_obert_editor(self):
+    def test_organ_obert_view_files_as_editor(self):
         """Test as OG2-Editor
         """
         logout()
@@ -1676,7 +1676,7 @@ class IntegrationTestCase(unittest.TestCase):
         print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
         # FIN CORRECCIO
 
-    def test_organ_obert_afectat(self):
+    def test_organ_obert_view_files_as_afectat(self):
         """Test as OG4-Afectat
         """
         logout()
@@ -2208,7 +2208,7 @@ class IntegrationTestCase(unittest.TestCase):
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
         print "        ACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
 
-    def test_organ_obert_anonymous(self):
+    def test_organ_obert_view_files_as_anonymous(self):
         """ Test as Anonymous
         """
         logout()

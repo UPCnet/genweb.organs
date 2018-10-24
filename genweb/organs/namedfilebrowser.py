@@ -142,8 +142,8 @@ def getFileOrgans(self):
                     elif utils.isAfectat(self) or utils.isAnon(self):
                         if self.fieldname == 'hiddenfile':
                             raise Unauthorized
-                elif self.context.hiddenfile or utils.isAnon(self):
-                    if utils.isAfectat(self):
+                elif self.context.hiddenfile:
+                    if utils.isAfectat(self) or utils.isAnon(self):
                         raise Unauthorized
                 else:
                     return file
@@ -156,8 +156,8 @@ def getFileOrgans(self):
                     elif utils.isAfectat(self) or utils.isAnon(self):
                         if self.fieldname == 'hiddenfile':
                             raise Unauthorized
-                elif self.context.hiddenfile or utils.isAnon(self):
-                    if utils.isAfectat(self):
+                elif self.context.hiddenfile:
+                    if utils.isAfectat(self) or utils.isAnon(self):
                         raise Unauthorized
                 else:
                     return file

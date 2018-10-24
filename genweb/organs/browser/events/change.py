@@ -42,4 +42,4 @@ def sessio_changed(session, event):
             else:
                 session.manage_setLocalRoles(user._id, ["Owner"])
             session.reindexObjectSecurity()
-            # transaction.commit()
+            transaction.commit()

@@ -270,7 +270,7 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
     api.content.transition(obj=sessio_modificada, transition='realitzar')
     api.content.transition(obj=sessio_modificada, transition='tancar')
     api.content.transition(obj=sessio_modificada, transition='corregir')
-    # transaction.commit()
+    #transaction.commit()
 
 
 class changeMigrated(grok.View):
