@@ -8,7 +8,7 @@
 #
 
 import unittest
-from genweb.organs.testing import GENWEB_ORGANS_INTEGRATION_TESTING
+from genweb.organs.testing import GENWEB_ORGANS_FUNCTIONAL_TESTING
 from zope.component import getMultiAdapter
 from plone.app.testing import TEST_USER_ID, TEST_USER_NAME
 from plone.app.testing import login, logout
@@ -22,10 +22,10 @@ from zope.publisher.browser import TestRequest
 from zope.publisher.interfaces import NotFound
 
 
-class IntegrationTestCase(unittest.TestCase):
+class FunctionalTestCase(unittest.TestCase):
     """Base class for integration tests."""
 
-    layer = GENWEB_ORGANS_INTEGRATION_TESTING
+    layer = GENWEB_ORGANS_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.app = self.layer['app']
@@ -1792,7 +1792,7 @@ class IntegrationTestCase(unittest.TestCase):
         #
         # Check session state CONVOCADA
         self.assertRaises(Unauthorized, root_path.obert.convocada.restrictedTraverse('@@view'))
-        print "\n    ORGAN OBERT - [Afectat] - SESSIO CONVOCADA - Unauthorized"
+        print "    ORGAN OBERT - [Afectat] - SESSIO CONVOCADA - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile'))
         print "        PUNT/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile'))
@@ -1897,7 +1897,7 @@ class IntegrationTestCase(unittest.TestCase):
         #
         # Check session state REALITZADA
         self.assertTrue(root_path.obert.realitzada.restrictedTraverse('@@view')())
-        print "\n    ORGAN OBERT - [Afectat] - SESSIO REALITZADA  - True"
+        print "    ORGAN OBERT - [Afectat] - SESSIO REALITZADA  - True"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
         print "        PUNT/Fitxer public (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
