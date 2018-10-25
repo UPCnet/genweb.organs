@@ -81,10 +81,8 @@ def getFileOrgans(self):
     prods = qi.listInstalledProducts()
     installed = False
 
-    for prod in prods:
-        if prod['id'] == 'genweb.organs':
-            installed = True
-
+    if 'genweb.organs' in [prod['id'] for prod in prods]:
+        installed = True
     if not installed:
         # Standard functionallity.
         return file
@@ -103,17 +101,22 @@ def getFileOrgans(self):
         if self.context.aq_parent.aq_parent.portal_type == 'genweb.organs.sessio':
             # primer nivell
             estatSessio = api.content.get_state(obj=self.context.aq_parent.aq_parent)
+        elif self.context.portal_type == 'genweb.organs.acta':
+            estatSessio = api.content.get_state(obj=self.context.aq_parent)
         else:
             # segon nivell
             estatSessio = api.content.get_state(obj=self.context.aq_parent.aq_parent.aq_parent)
-
         organ_tipus = self.context.organType
-
         if organ_tipus == 'open_organ':
             if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
                 return file
             elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                if self.context.visiblefile and self.context.hiddenfile:
+                if (self.context.portal_type == 'genweb.organs.acta') or (self.context.portal_type == 'genweb.organs.audio'):
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                        return file
+                    else:
+                        raise Unauthorized
+                elif self.context.visiblefile and self.context.hiddenfile:
                     if utils.isMembre(self):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
@@ -121,7 +124,12 @@ def getFileOrgans(self):
                     return file
                 return file
             elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
-                if self.context.visiblefile and self.context.hiddenfile:
+                if (self.context.portal_type == 'genweb.organs.acta') or (self.context.portal_type == 'genweb.organs.audio'):
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                        return file
+                    else:
+                        raise Unauthorized
+                elif self.context.visiblefile and self.context.hiddenfile:
                     if utils.isMembre(self):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
@@ -135,7 +143,12 @@ def getFileOrgans(self):
                     return file
                 return file
             elif estatSessio == 'tancada':
-                if self.context.visiblefile and self.context.hiddenfile:
+                if (self.context.portal_type == 'genweb.organs.acta') or (self.context.portal_type == 'genweb.organs.audio'):
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                        return file
+                    else:
+                        raise Unauthorized
+                elif self.context.visiblefile and self.context.hiddenfile:
                     if utils.isMembre(self):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
@@ -149,7 +162,12 @@ def getFileOrgans(self):
                     return file
                 return file
             elif estatSessio == 'en_correccio':
-                if self.context.visiblefile and self.context.hiddenfile:
+                if (self.context.portal_type == 'genweb.organs.acta') or (self.context.portal_type == 'genweb.organs.audio'):
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                        return file
+                    else:
+                        raise Unauthorized
+                elif self.context.visiblefile and self.context.hiddenfile:
                     if utils.isMembre(self):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
@@ -171,7 +189,12 @@ def getFileOrgans(self):
             elif estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
                 return file
             elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                if self.context.visiblefile and self.context.hiddenfile:
+                if (self.context.portal_type == 'genweb.organs.acta') or (self.context.portal_type == 'genweb.organs.audio'):
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                        return file
+                    else:
+                        raise Unauthorized
+                elif self.context.visiblefile and self.context.hiddenfile:
                     if utils.isMembre(self):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
@@ -179,7 +202,12 @@ def getFileOrgans(self):
                     return file
                 return file
             elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                if self.context.visiblefile and self.context.hiddenfile:
+                if (self.context.portal_type == 'genweb.organs.acta') or (self.context.portal_type == 'genweb.organs.audio'):
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                        return file
+                    else:
+                        raise Unauthorized
+                elif self.context.visiblefile and self.context.hiddenfile:
                     if utils.isMembre(self):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
@@ -187,7 +215,12 @@ def getFileOrgans(self):
                     return file
                 return file
             elif estatSessio == 'tancada':
-                if self.context.visiblefile and self.context.hiddenfile:
+                if (self.context.portal_type == 'genweb.organs.acta') or (self.context.portal_type == 'genweb.organs.audio'):
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                        return file
+                    else:
+                        raise Unauthorized
+                elif self.context.visiblefile and self.context.hiddenfile:
                     if utils.isMembre(self):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
@@ -195,7 +228,12 @@ def getFileOrgans(self):
                     return file
                 return file
             elif estatSessio == 'en_correccio':
-                if self.context.visiblefile and self.context.hiddenfile:
+                if (self.context.portal_type == 'genweb.organs.acta') or (self.context.portal_type == 'genweb.organs.audio'):
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                        return file
+                    else:
+                        raise Unauthorized
+                elif self.context.visiblefile and self.context.hiddenfile:
                     if utils.isMembre(self):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
@@ -211,7 +249,12 @@ def getFileOrgans(self):
             elif estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
                 return file
             elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                if self.context.visiblefile and self.context.hiddenfile:
+                if (self.context.portal_type == 'genweb.organs.acta') or (self.context.portal_type == 'genweb.organs.audio'):
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                        return file
+                    else:
+                        raise Unauthorized
+                elif self.context.visiblefile and self.context.hiddenfile:
                     if utils.isMembre(self):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
@@ -219,7 +262,12 @@ def getFileOrgans(self):
                     return file
                 return file
             elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
-                if self.context.visiblefile and self.context.hiddenfile:
+                if (self.context.portal_type == 'genweb.organs.acta') or (self.context.portal_type == 'genweb.organs.audio'):
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                        return file
+                    else:
+                        raise Unauthorized
+                elif self.context.visiblefile and self.context.hiddenfile:
                     if utils.isMembre(self):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
@@ -233,7 +281,12 @@ def getFileOrgans(self):
                     return file
                 return file
             elif estatSessio == 'tancada':
-                if self.context.visiblefile and self.context.hiddenfile:
+                if (self.context.portal_type == 'genweb.organs.acta') or (self.context.portal_type == 'genweb.organs.audio'):
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                        return file
+                    else:
+                        raise Unauthorized
+                elif self.context.visiblefile and self.context.hiddenfile:
                     if utils.isMembre(self):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
@@ -247,7 +300,12 @@ def getFileOrgans(self):
                     return file
                 return file
             elif estatSessio == 'en_correccio':
-                if self.context.visiblefile and self.context.hiddenfile:
+                if (self.context.portal_type == 'genweb.organs.acta') or (self.context.portal_type == 'genweb.organs.audio'):
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                        return file
+                    else:
+                        raise Unauthorized
+                elif self.context.visiblefile and self.context.hiddenfile:
                     if utils.isMembre(self):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized

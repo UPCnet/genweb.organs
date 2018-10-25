@@ -21,8 +21,6 @@ from genweb.organs.namedfilebrowser import DisplayFile, Download
 from zope.publisher.browser import TestRequest
 from zope.publisher.interfaces import NotFound
 
-# TODO MEMBRE and check others!
-
 
 class FunctionalTestCase(unittest.TestCase):
     """Base class for integration tests."""

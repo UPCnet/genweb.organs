@@ -16,6 +16,7 @@ from plone.supermodel.directives import fieldset
 from plone import api
 from plone.namedfile.utils import get_contenttype
 from zope.schema import ValidationError
+from genweb.organs import utils
 
 
 grok.templatedir("templates")
@@ -78,15 +79,22 @@ class View(grok.View):
     grok.template('audio_view')
 
     def canView(self):
-        """ Return true if user is Editor/Secretari/Manager """
-        try:
-            username = api.user.get_current().id
-            roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'Manager' in roles:
-                return True
-            else:
-                raise Unauthorized
-        except:
+        # Permissions to view audio
+        if utils.isManager(self):
+            return True
+        estatSessio = utils.session_wf_state(self)
+
+        if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            return True
+        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        else:
             raise Unauthorized
 
     def is_opusfile(self):
