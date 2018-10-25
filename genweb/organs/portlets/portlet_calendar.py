@@ -21,7 +21,6 @@ from operator import itemgetter
 import time
 from plone import api
 import DateTime
-import datetime
 import calendar
 
 
@@ -228,38 +227,52 @@ class Renderer(base.Renderer):
 
     def next3Events(self):
         """ Returns next 3 events based on public organs fields """
-        start_time = time.time()
-        print("\n-- START NEW CODE --- %s seconds --- " % (time.time() - start_time))
-        today = DateTime.DateTime()   # Today
-        date_future_events = {'query': (today), 'range': 'min'}
-
+        formatDate = "%Y-%m-%d"
+        if 'day' in self.request.form and 'year' in self.request.form and 'month' in self.request.form:
+            date = '{}-{}-{}'.format(
+                self.request.form['year'],
+                self.request.form['month'],
+                self.request.form['day'])
+            dateEvent = datetime.strptime(date, formatDate)
+            # Shows only specified date
+            date_events = {'query': (dateEvent, dateEvent), 'range': 'min:max'}
+        else:
+            # TODO....
+            # Future, show 3 events
+            date = datetime.today().strftime(formatDate)
+            dateEvent = datetime.strptime(date, formatDate)
+            date_events = {'query': (dateEvent), 'range': 'min'}
         portal_catalog = getToolByName(self.context, 'portal_catalog')
         if api.user.is_anonymous():
             future_sessions = portal_catalog.unrestrictedSearchResults(
                 portal_type='genweb.organs.sessio',
                 sort_on='start',
-                end=date_future_events,
+                start=date_events,
                 path=self.get_public_organs_fields()
             )[:3]
         else:
             future_sessions = portal_catalog.unrestrictedSearchResults(
                 portal_type='genweb.organs.sessio',
                 sort_on='start',
-                end=date_future_events,
+                start=date_events,
             )[:3]
 
         future = []
-        current_year = datetime.datetime.now().strftime('%Y')
+        current_year = datetime.now().strftime('%Y')
         for session in future_sessions:
             obj = session._unrestrictedGetObject()
             event = IEventAccessor(obj)
+            start = event.start.strftime('%d/%m')
+            end = event.end.strftime('%d/%m')
+            end = None if end == start else end
             if obj.start.strftime('%Y') == current_year:
                 future.append(dict(
                     title=obj.aq_parent.title,
                     session_title=obj.title,
-                    start=event.start.strftime('%d/%m'),
+                    start=start,
+                    end=end,
+                    color=obj.eventsColor,
                     url=session.getPath()))
-        print("-- END NEW CODE   --- %s seconds --- " % (time.time() - start_time))
         return future
 
     def getDayEventsGroup(self):

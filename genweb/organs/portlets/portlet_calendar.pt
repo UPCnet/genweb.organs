@@ -88,7 +88,7 @@
     <ul class="icons-ul">
 
 
-      <tal:block tal:repeat="event view/getDayEventsGroup" tal:condition="view/isAnon">
+<!--       <tal:block tal:repeat="event view/getDayEventsGroup" tal:condition="view/isAnon">
         <li tal:define="licolor event/color" tal:attributes="style string:border-left: 5px solid ${licolor}">
           <p>
             <i class="fa fa-calendar"></i>&nbsp;
@@ -107,15 +107,19 @@
             <a tal:attributes="href event/community_url" tal:content="event/community_name"></a>
           </span>
         </li>
-      </tal:block>
+      </tal:block> -->
 
-      <hr/>NEW CODE
       <tal:block tal:repeat="event view/next3Events">
-        <li>
+        <li tal:define="licolor event/color"  tal:attributes="style string:border-left: 5px solid ${licolor}">
           <p>
             <i class="fa fa-calendar"></i>&nbsp;
-            <a tal:attributes="href event/url">
+            <a tal:attributes="href event/url; 
+                               style string:color:${event/color}">
               <tal:event content="event/start"> 07/12 </tal:event>
+              <span tal:condition="event/end">
+                <span i18n:translate="" i18n:domain="genweb.organs"> to </span>
+                <tal:event content="event/end"> 07/12 </tal:event>
+              </span>
               - <tal:event content="event/session_title"> Event Title </tal:event>
             </a>
           </p>
@@ -125,9 +129,8 @@
           </span>
         </li>
       </tal:block>
-      <br/>end new code<hr/>
-<hr/>OLDCODE
-
+      
+<!--       <hr/>OLDCODE
       <tal:block tal:repeat="event view/getDayEventsGroupValidated" tal:condition="not:view/isAnon">
         <li tal:define="licolor event/color"  tal:attributes="style string:border-left: 5px solid ${licolor}">
           <p>
@@ -148,7 +151,7 @@
           </span>
         </li>
       </tal:block>
-END OLDCODE
+END OLDCODE -->
 <hr/>
 
     </ul>
