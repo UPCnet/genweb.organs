@@ -235,13 +235,15 @@ class Renderer(base.Renderer):
                 self.request.form['day'])
             dateEvent = datetime.strptime(date, formatDate)
             # Shows only specified date
-            date_events = {'query': (dateEvent, dateEvent), 'range': 'min:max'}
+            date_events = {'query': (dateEvent, dateEvent), 'range': 'min'}
+            limit = 1
         else:
             # TODO....
             # Future, show 3 events
             date = datetime.today().strftime(formatDate)
             dateEvent = datetime.strptime(date, formatDate)
             date_events = {'query': (dateEvent), 'range': 'min'}
+            limit = 3
         portal_catalog = getToolByName(self.context, 'portal_catalog')
         if api.user.is_anonymous():
             future_sessions = portal_catalog.unrestrictedSearchResults(
@@ -249,13 +251,13 @@ class Renderer(base.Renderer):
                 sort_on='start',
                 start=date_events,
                 path=self.get_public_organs_fields()
-            )[:3]
+            )[:limit]
         else:
             future_sessions = portal_catalog.unrestrictedSearchResults(
                 portal_type='genweb.organs.sessio',
                 sort_on='start',
                 start=date_events,
-            )[:3]
+            )[:limit]
 
         future = []
         current_year = datetime.now().strftime('%Y')
