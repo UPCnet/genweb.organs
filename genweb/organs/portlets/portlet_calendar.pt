@@ -25,7 +25,7 @@
     </header>
     <article class="portlet-content">
       <div class="pad">
-        <table class="calendari" summary="Calendar"
+        <table class="calendari" summary="Calendar" style="border-collapse: unset;"
             i18n:attributes="summary summary_calendar">
           <thead>
             <tr class="weekdays">
@@ -35,7 +35,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr tal:repeat="week view/cal_data" tal:condition="view/isAnon">
+            <tr tal:repeat="week view/cal_data">
               <tal:block repeat="day week">
                 <td tal:define="today day/today;
                               next_month day/next_month;
@@ -43,26 +43,6 @@
                               events day/events;
                               classtag python:view.getclasstag_event(day);
 
-                              limit python:len(events) if events is not None else 0"
-                    tal:attributes="class python:u'%s%s%s%s%s' %
-                              ((today and ' today' or ''),
-                              (next_month and ' cal_next_month' or ''),
-                              (prev_month and ' cal_prev_month' or ''),
-                              (events and ' cal_has_events' or ''),
-                              (classtag or ''));
-                              style string:background-color: ${day/color};
-                              data-year day/year; data-month day/month; data-day day/day;">
-                    <a tal:omit-tag="not:events" tal:content="day/day">31</a>
-                  </td>
-                </tal:block>
-              </tr>
-            <tr tal:repeat="week view/cal_data_validated" tal:condition="not:view/isAnon">
-              <tal:block repeat="day week">
-                <td tal:define="today day/today;
-                              next_month day/next_month;
-                              prev_month day/prev_month;
-                              events day/events;
-                              classtag python:view.getclasstag_event(day);
                               limit python:len(events) if events is not None else 0"
                     tal:attributes="class python:u'%s%s%s%s%s' %
                               ((today and ' today' or ''),
@@ -86,34 +66,11 @@
 
 
     <ul class="icons-ul">
-
-
-<!--       <tal:block tal:repeat="event view/getDayEventsGroup" tal:condition="view/isAnon">
-        <li tal:define="licolor event/color" tal:attributes="style string:border-left: 5px solid ${licolor}">
-          <p>
-            <i class="fa fa-calendar"></i>&nbsp;
-            <a tal:attributes="href event/getURL;
-                               style string:color:${event/color}">
-              <tal:event content="event/start"> 07/12 </tal:event>
-              <span tal:condition="event/end">
-                <span i18n:translate="" i18n:domain="genweb.organs"> to </span>
-                <tal:event content="event/end"> 07/12 </tal:event>
-              </span>
-              - <tal:event content="event/Title"> Event Title </tal:event>
-            </a>
-          </p>
-          <span class="text2">
-            <i class="fa fa-thumb-tack"></i>
-            <a tal:attributes="href event/community_url" tal:content="event/community_name"></a>
-          </span>
-        </li>
-      </tal:block> -->
-
       <tal:block tal:repeat="event view/next3Events">
         <li tal:define="licolor event/color"  tal:attributes="style string:border-left: 5px solid ${licolor}">
           <p>
             <i class="fa fa-calendar"></i>&nbsp;
-            <a tal:attributes="href event/url; 
+            <a tal:attributes="href event/url;
                                style string:color:${event/color}">
               <tal:event content="event/start"> 07/12 </tal:event>
               <span tal:condition="event/end">
@@ -129,30 +86,6 @@
           </span>
         </li>
       </tal:block>
-      
-<!--       <hr/>OLDCODE
-      <tal:block tal:repeat="event view/getDayEventsGroupValidated" tal:condition="not:view/isAnon">
-        <li tal:define="licolor event/color"  tal:attributes="style string:border-left: 5px solid ${licolor}">
-          <p>
-            <i class="fa fa-calendar"></i>&nbsp;
-            <a tal:attributes="href event/getURL;
-                               style string:color:${event/color}">
-              <tal:event content="event/start"> 07/12 </tal:event>
-              <span tal:condition="event/end">
-                <span i18n:translate="" i18n:domain="genweb.organs"> to </span>
-                <tal:event content="event/end"> 07/12 </tal:event>
-              </span>
-              - <tal:event content="event/Title"> Event Title </tal:event>
-            </a>
-          </p>
-          <span class="text2">
-            <i class="fa fa-thumb-tack"></i>
-            <a tal:attributes="href event/community_url" tal:content="event/community_name"></a>
-          </span>
-        </li>
-      </tal:block>
-END OLDCODE -->
-<hr/>
 
     </ul>
 
