@@ -13,14 +13,9 @@ from plone.portlets.interfaces import IPortletDataProvider
 from zope.i18nmessageid import MessageFactory
 from zope.interface import implements
 from datetime import datetime
-from plone.app.event.base import localized_now
-from plone.event.interfaces import IEvent
 from datetime import timedelta
 from plone.event.interfaces import IEventAccessor
-from operator import itemgetter
-import time
 from plone import api
-import DateTime
 import calendar
 
 
@@ -133,56 +128,58 @@ class Renderer(base.Renderer):
 
     def next3Events(self):
         """ Returns next 3 events based on public organs fields """
+        portal_catalog = getToolByName(self.context, 'portal_catalog')
         formatDate = "%Y-%m-%d"
         if 'day' in self.request.form and 'year' in self.request.form and 'month' in self.request.form:
-            today = '{}-{}-{}'.format(
+            # Clicked in fixed day. Only this day events
+            date = '{}-{}-{}'.format(
                 self.request.form['year'],
                 self.request.form['month'],
                 self.request.form['day'])
-            tomorrow = '{}-{}-{}'.format(
-                self.request.form['year'],
-                self.request.form['month'],
-                int(self.request.form['day']) + 1)
-            dateEvent0 = datetime.strptime(today, formatDate)
-            dateEvent1 = datetime.strptime(tomorrow, formatDate)
-            # Shows only specified date (today)
-            date_events = {'query': (dateEvent0, dateEvent1), 'range': 'min:max'}
-        else:
-            date = datetime.today().strftime(formatDate)
             dateEvent = datetime.strptime(date, formatDate)
-            date_events = {'query': (dateEvent), 'range': 'min'}
-        portal_catalog = getToolByName(self.context, 'portal_catalog')
-        limit = 3
-        if api.user.is_anonymous():
+            # Shows only specified date
+            date_events = {'query': (dateEvent, dateEvent + timedelta(days=1)), 'range': 'min:max'}
+            # TODO: Solo esta con anon
             future_sessions = portal_catalog.unrestrictedSearchResults(
                 portal_type='genweb.organs.sessio',
                 sort_on='start',
                 start=date_events,
                 path=self.get_public_organs_fields(),
-                sort_limit=limit
-            )[:limit]
+            )
         else:
+            # Future, show 3 events
+            limit = 3
+            date = datetime.today().strftime(formatDate)
+            dateEvent = datetime.strptime(date, formatDate)
+            date_events = {'query': (dateEvent), 'range': 'min'}
+            # TODO: Solo esta con anon
             future_sessions = portal_catalog.unrestrictedSearchResults(
                 portal_type='genweb.organs.sessio',
                 sort_on='start',
                 start=date_events,
-                sort_limit=limit
+                path=self.get_public_organs_fields(),
+                sort_limit=limit,
             )[:limit]
 
         future = []
         current_year = datetime.now().strftime('%Y')
+
         for session in future_sessions:
             obj = session._unrestrictedGetObject()
             event = IEventAccessor(obj)
             start = event.start.strftime('%d/%m')
+            starthour = event.start.strftime('%H:%M')
             end = event.end.strftime('%d/%m')
+            endhour = event.end.strftime('%H:%M')
             end = None if end == start else end
             if obj.start.strftime('%Y') == current_year:
                 future.append(dict(
                     title=obj.aq_parent.title,
                     session_title=obj.title,
                     start=start,
+                    starthour=starthour,
                     end=end,
+                    endhour=endhour,
                     color=obj.eventsColor,
                     url=session.getPath()))
         return future
@@ -197,30 +194,18 @@ class Renderer(base.Renderer):
         monthdates = [dat for dat in self.cal.itermonthdates(year, month)]
         start = monthdates[0]
         end = monthdates[-1]
-
-        date_range_query = {'query': (start, end), 'range': 'min:max'}
         portal_catalog = getToolByName(self.context, 'portal_catalog')
-        if api.user.is_anonymous():
-            items = portal_catalog.unrestrictedSearchResults(
-                portal_type='genweb.organs.sessio',
-                start=date_range_query,
-                path=self.get_public_organs_fields())
-            events = []
-            for event in items:
-                events.append(event._unrestrictedGetObject())
-        else:
-            items = portal_catalog.unrestrictedSearchResults(
-                portal_type='genweb.organs.sessio',
-                start=date_range_query)
-            events = []
-            username = api.user.get_current().id
-            for event in items:
-                organ = event._unrestrictedGetObject()
-                roles = api.user.get_roles(username=username, obj=organ)
-                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or organ.aq_parent.visiblefields:
-                    events.append(organ)
+        items = portal_catalog.unrestrictedSearchResults(
+            portal_type='genweb.organs.sessio',
+            start={'query': (start, end), 'range': 'min:max'},
+            path=self.get_public_organs_fields()
+        )
 
-        cal_dict = construct_calendar(events, start=start, end=end)
+        events = []
+        for event in items:
+            events.append(event._unrestrictedGetObject())
+
+        cal_dict = construct_calendar(events)
 
         # [[day1week1, day2week1, ... day7week1], [day1week2, ...]]
         caldata = [[]]
@@ -236,7 +221,6 @@ class Renderer(base.Renderer):
             if date_events:
                 for occ in date_events:
                     color = occ.aq_parent.eventsColor
-
             caldata[-1].append(
                 {'date': dat,
                  'day': dat.day,

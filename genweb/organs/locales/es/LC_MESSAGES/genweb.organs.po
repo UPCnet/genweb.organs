@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-10-15 12:58+0000\n"
+"POT-Creation-Date: 2018-10-29 09:06+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -116,11 +116,11 @@ msgstr "Contenido restringido"
 msgid "Altres"
 msgstr "Otros"
 
-#: ./genweb/organs/browser/views/allsessions.pt:61
+#: ./genweb/organs/browser/views/allsessions.pt:27
 msgid "Amaga sessions anteriors"
 msgstr "Oculta sesiones anteriores"
 
-#: ./genweb/organs/utils.py:113
+#: ./genweb/organs/utils.py:119
 msgid "Anonymous user"
 msgstr "Usuario anónimo"
 
@@ -283,11 +283,11 @@ msgstr "Fecha"
 msgid "Data i hora"
 msgstr "Fecha y hora"
 
-#: ./genweb/organs/browser/views/allsessions.pt:32
+#: ./genweb/organs/browser/views/allsessions.pt:42
 msgid "Data i hora fi"
 msgstr "Fecha y hora de finalización"
 
-#: ./genweb/organs/browser/views/allsessions.pt:29
+#: ./genweb/organs/browser/views/allsessions.pt:39
 msgid "Data i hora inici"
 msgstr "Fecha y hora de inicio"
 
@@ -472,7 +472,7 @@ msgstr "Informa del resultado de la sesión"
 msgid "Invalid PDF file"
 msgstr "El fichero seleccionado no parece un fichero PDF."
 
-#: ./genweb/organs/content/audio.py:26
+#: ./genweb/organs/content/audio.py:27
 msgid "Invalid audio file"
 msgstr "El fichero seleccionado no parece en formato de audio."
 
@@ -588,7 +588,7 @@ msgstr "Se ha modificado un punto"
 msgid "Modified subpunt"
 msgstr "Se ha modificaco un punto"
 
-#: ./genweb/organs/browser/views/allsessions.pt:59
+#: ./genweb/organs/browser/views/allsessions.pt:25
 msgid "Mostra sessions anteriors"
 msgstr "Muestra sesiones anteriores"
 
@@ -647,7 +647,7 @@ msgstr "Miembro"
 msgid "OG4-Afectat"
 msgstr "Afectado"
 
-#: ./genweb/organs/content/audio.py:56
+#: ./genweb/organs/content/audio.py:57
 msgid "Only audio files are permitted."
 msgstr "Sólo están permitidos los ficheros de tipo audio."
 
@@ -694,7 +694,7 @@ msgstr "Tipo de órgano"
 msgid "Organ Title"
 msgstr "Nombre del órgano"
 
-#: ./genweb/organs/browser/views/allsessions.pt:26
+#: ./genweb/organs/browser/views/allsessions.pt:36
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:201
 msgid "Organ de govern"
@@ -741,7 +741,7 @@ msgstr "Órganos vinculados conmigo"
 msgid "Plantilles"
 msgstr "Plantillas"
 
-#: ./genweb/organs/content/audio.py:55
+#: ./genweb/organs/content/audio.py:56
 msgid "Please upload a media file"
 msgstr "Seleccione un fichero de áudio"
 
@@ -983,7 +983,7 @@ msgstr "Acuerdo"
 msgid "Tab acta"
 msgstr "Acta"
 
-#: ./genweb/organs/content/audio.py:33
+#: ./genweb/organs/content/audio.py:34
 msgid "Tab audio"
 msgstr "Audio"
 
@@ -1077,11 +1077,11 @@ msgstr "[Acuerdo sin numerar]"
 msgid "acord"
 msgstr "Acuerdo"
 
-#: ./genweb/organs/search.py:323
+#: ./genweb/organs/search.py:306
 msgid "alphabetically"
 msgstr "alfabéticamente"
 
-#: ./genweb/organs/search.py:320
+#: ./genweb/organs/search.py:303
 msgid "date (newest first)"
 msgstr "fecha (més reciente primero)"
 
@@ -1161,6 +1161,6 @@ msgstr "Buscar en el Sitio web"
 msgid "to"
 msgstr "a"
 
-#: ./genweb/organs/portlets/portlet_calendar.pt:85
+#: ./genweb/organs/portlets/portlet_calendar.pt:84
 msgid "veure totes les sessions"
 msgstr "mostrar todas las sesiones"

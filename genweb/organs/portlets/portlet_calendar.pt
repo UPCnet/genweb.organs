@@ -41,9 +41,7 @@
                               next_month day/next_month;
                               prev_month day/prev_month;
                               events day/events;
-                              classtag python:view.getclasstag_event(day);
-
-                              limit python:len(events) if events is not None else 0"
+                              classtag python:view.getclasstag_event(day);"
                     tal:attributes="class python:u'%s%s%s%s%s' %
                               ((today and ' today' or ''),
                               (next_month and ' cal_next_month' or ''),
@@ -60,25 +58,28 @@
         </table>
       </div>
     </article>
+
     <div class="allSessions">
       <a href="" tal:attributes="href string:${portal_url}/allsessions"><i class="fa fa-plus"></i>&nbsp;<tal:omit-tag i18n:translate="" i18n:domain="genweb.organs">veure totes les sessions</tal:omit-tag></a>
     </div>
-
 
     <ul class="icons-ul">
       <tal:block tal:repeat="event view/next3Events">
         <li tal:define="licolor event/color"  tal:attributes="style string:border-left: 5px solid ${licolor}">
           <p>
-            <i class="fa fa-calendar"></i>&nbsp;
             <a tal:attributes="href event/url;
                                style string:color:${event/color}">
-              <tal:event content="event/start"> 07/12 </tal:event>
-              <span tal:condition="event/end">
-                <span i18n:translate="" i18n:domain="genweb.organs"> to </span>
-                <tal:event content="event/end"> 07/12 </tal:event>
-              </span>
-              - <tal:event content="event/session_title"> Event Title </tal:event>
+              <tal:event content="event/session_title"> Event Title </tal:event>
             </a>
+          </p>
+          <p>
+            <i class="fa fa-calendar"></i>&nbsp;<tal:event content="event/start"> 07/12 </tal:event>
+            <tal:event content="event/starthour"> 07/12 </tal:event>
+            <span tal:condition="event/end">
+              <span i18n:translate="" i18n:domain="genweb.organs"> to </span>
+              <tal:event content="event/end"> 07/12 </tal:event>
+              <tal:event content="event/endhour"> 07/12 </tal:event>
+            </span>
           </p>
           <span class="text2">
             <i class="fa fa-thumb-tack"></i>
@@ -86,7 +87,7 @@
           </span>
         </li>
       </tal:block>
-
+      <hr/>
     </ul>
 
   </div>

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-10-15 12:58+0000\n"
+"POT-Creation-Date: 2018-10-29 09:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,11 +117,11 @@ msgstr ""
 msgid "Altres"
 msgstr ""
 
-#: ./genweb/organs/browser/views/allsessions.pt:61
+#: ./genweb/organs/browser/views/allsessions.pt:27
 msgid "Amaga sessions anteriors"
 msgstr ""
 
-#: ./genweb/organs/utils.py:113
+#: ./genweb/organs/utils.py:119
 msgid "Anonymous user"
 msgstr ""
 
@@ -284,11 +284,11 @@ msgstr ""
 msgid "Data i hora"
 msgstr ""
 
-#: ./genweb/organs/browser/views/allsessions.pt:32
+#: ./genweb/organs/browser/views/allsessions.pt:42
 msgid "Data i hora fi"
 msgstr ""
 
-#: ./genweb/organs/browser/views/allsessions.pt:29
+#: ./genweb/organs/browser/views/allsessions.pt:39
 msgid "Data i hora inici"
 msgstr ""
 
@@ -473,7 +473,7 @@ msgstr ""
 msgid "Invalid PDF file"
 msgstr ""
 
-#: ./genweb/organs/content/audio.py:26
+#: ./genweb/organs/content/audio.py:27
 msgid "Invalid audio file"
 msgstr ""
 
@@ -589,7 +589,7 @@ msgstr ""
 msgid "Modified subpunt"
 msgstr ""
 
-#: ./genweb/organs/browser/views/allsessions.pt:59
+#: ./genweb/organs/browser/views/allsessions.pt:25
 msgid "Mostra sessions anteriors"
 msgstr ""
 
@@ -648,7 +648,7 @@ msgstr ""
 msgid "OG4-Afectat"
 msgstr ""
 
-#: ./genweb/organs/content/audio.py:56
+#: ./genweb/organs/content/audio.py:57
 msgid "Only audio files are permitted."
 msgstr ""
 
@@ -695,7 +695,7 @@ msgstr ""
 msgid "Organ Title"
 msgstr ""
 
-#: ./genweb/organs/browser/views/allsessions.pt:26
+#: ./genweb/organs/browser/views/allsessions.pt:36
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:201
 msgid "Organ de govern"
@@ -742,7 +742,7 @@ msgstr ""
 msgid "Plantilles"
 msgstr ""
 
-#: ./genweb/organs/content/audio.py:55
+#: ./genweb/organs/content/audio.py:56
 msgid "Please upload a media file"
 msgstr ""
 
@@ -984,7 +984,7 @@ msgstr ""
 msgid "Tab acta"
 msgstr ""
 
-#: ./genweb/organs/content/audio.py:33
+#: ./genweb/organs/content/audio.py:34
 msgid "Tab audio"
 msgstr ""
 
@@ -1078,11 +1078,11 @@ msgstr ""
 msgid "acord"
 msgstr ""
 
-#: ./genweb/organs/search.py:323
+#: ./genweb/organs/search.py:306
 msgid "alphabetically"
 msgstr ""
 
-#: ./genweb/organs/search.py:320
+#: ./genweb/organs/search.py:303
 msgid "date (newest first)"
 msgstr ""
 
@@ -1162,6 +1162,6 @@ msgstr ""
 msgid "to"
 msgstr ""
 
-#: ./genweb/organs/portlets/portlet_calendar.pt:85
+#: ./genweb/organs/portlets/portlet_calendar.pt:84
 msgid "veure totes les sessions"
 msgstr ""
