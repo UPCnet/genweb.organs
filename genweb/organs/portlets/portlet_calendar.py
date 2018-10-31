@@ -6,7 +6,6 @@ from plone.app.event.base import first_weekday
 from plone.app.event.base import construct_calendar
 from plone.app.event.base import localized_today
 from plone.app.event.base import wkday_to_mon1
-from plone.app.event.portlets import get_calendar_url
 from plone.app.portlets import PloneMessageFactory as _
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
@@ -35,15 +34,8 @@ class Assignment(base.Assignment):
 class Renderer(base.Renderer):
     render = ViewPageTemplateFile('portlet_calendar.pt')
 
-    def isAnon(self):
-        if not api.user.is_anonymous():
-            return False
-        return True
-
     def update(self):
         context = aq_inner(self.context)
-
-        self.calendar_url = get_calendar_url(context, None)
 
         self.year, self.month = year, month = self.year_month_display()
         self.prev_year, self.prev_month = prev_year, prev_month = (
@@ -137,23 +129,21 @@ class Renderer(base.Renderer):
                 self.request.form['month'],
                 self.request.form['day'])
             dateEvent = datetime.strptime(date, formatDate)
-            # Shows only specified date
+            # returns sessions of specified date
             date_events = {'query': (dateEvent, dateEvent + timedelta(days=1)), 'range': 'min:max'}
-            # TODO: Solo esta con anon
-            future_sessions = portal_catalog.unrestrictedSearchResults(
+            sessions = portal_catalog.unrestrictedSearchResults(
                 portal_type='genweb.organs.sessio',
                 sort_on='start',
                 start=date_events,
                 path=self.get_public_organs_fields(),
             )
         else:
-            # Future, show 3 events
+            # return next 3 sessions
             limit = 3
             date = datetime.today().strftime(formatDate)
             dateEvent = datetime.strptime(date, formatDate)
             date_events = {'query': (dateEvent), 'range': 'min'}
-            # TODO: Solo esta con anon
-            future_sessions = portal_catalog.unrestrictedSearchResults(
+            sessions = portal_catalog.unrestrictedSearchResults(
                 portal_type='genweb.organs.sessio',
                 sort_on='start',
                 start=date_events,
@@ -161,10 +151,9 @@ class Renderer(base.Renderer):
                 sort_limit=limit,
             )[:limit]
 
-        future = []
-        current_year = datetime.now().strftime('%Y')
+        results = []
 
-        for session in future_sessions:
+        for session in sessions:
             obj = session._unrestrictedGetObject()
             event = IEventAccessor(obj)
             start = event.start.strftime('%d/%m')
@@ -172,17 +161,16 @@ class Renderer(base.Renderer):
             end = event.end.strftime('%d/%m')
             endhour = event.end.strftime('%H:%M')
             end = None if end == start else end
-            if obj.start.strftime('%Y') == current_year:
-                future.append(dict(
-                    title=obj.aq_parent.title,
-                    session_title=obj.title,
-                    start=start,
-                    starthour=starthour,
-                    end=end,
-                    endhour=endhour,
-                    color=obj.eventsColor,
-                    url=session.getPath()))
-        return future
+            results.append(dict(
+                title=obj.aq_parent.title,
+                session_title=obj.title,
+                start=start,
+                starthour=starthour,
+                end=end,
+                endhour=endhour,
+                color=obj.eventsColor,
+                url=session.getPath()))
+        return results
 
     @property
     def cal_data(self):
@@ -195,6 +183,7 @@ class Renderer(base.Renderer):
         start = monthdates[0]
         end = monthdates[-1]
         portal_catalog = getToolByName(self.context, 'portal_catalog')
+        # Shows the sessions of the public organs in the month calendar
         items = portal_catalog.unrestrictedSearchResults(
             portal_type='genweb.organs.sessio',
             start={'query': (start, end), 'range': 'min:max'},
