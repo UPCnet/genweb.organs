@@ -603,7 +603,7 @@ class Butlleti(BrowserView):
         if utils.isManager(self):
             return True
         estatSessio = utils.session_wf_state(self)
-        organ_tipus = self.context.aq_parent.organType
+        organ_tipus = self.context.organType
 
         if organ_tipus == 'open_organ':
             if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):

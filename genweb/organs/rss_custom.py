@@ -26,6 +26,7 @@ from Products.CMFPlone.interfaces.syndication import IFeedSettings
 from Products.ATContentTypes.interfaces.file import IFileContent
 from plone.uuid.interfaces import IUUID
 from zope.cachedescriptors.property import Lazy as lazy_property
+from operator import itemgetter
 
 # this might be a little silly but it's possible to not use
 # Products.CMFPlone with dexterity content types
@@ -163,24 +164,20 @@ class FolderFeed(BaseFeedData):
             ]:
                 add = False
                 tipus = item.portal_type
-                if tipus == 'genweb.organs.organgovern':
-                    organ_tipus = item.getObject().organType
+                organ_tipus = item.organType
+                if tipus == 'genweb.organs.organsfolder':
+                    add = True
+                elif tipus == 'genweb.organs.sessio' or tipus == 'genweb.organs.organgovern':
                     if organ_tipus == 'open_organ':
                         add = True
                     elif organ_tipus == 'restricted_to_members_organ':
                         if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                             add = True
-                        else:
-                            add = False
                     elif organ_tipus == 'restricted_to_affected_organ':
                         if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
                             add = True
-                        else:
-                            add = False
                     else:
                         add = False
-                if tipus == 'genweb.organs.organsfolder':
-                    add = True
             else:
                 # Els elements tipics de Plone/Genweb es mostren al RSS
                 add = True
@@ -188,7 +185,7 @@ class FolderFeed(BaseFeedData):
             if add:
                 filtered_items.append(item)
 
-        return filtered_items
+        return sorted(filtered_items, key=itemgetter('start'), reverse=True)
 
     def _items(self):
         """

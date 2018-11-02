@@ -86,7 +86,7 @@ class Webservice(BrowserView):
                     roles = api.user.get_roles(obj=element.aq_parent.aq_parent, username=username)
                 else:
                     roles = []
-                organ_tipus = element.aq_parent.aq_parent.organType
+                organ_tipus = element.organType
                 estatSessio = api.content.get_state(obj=element.aq_parent)
                 if organ_tipus == 'open_organ':
                     if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
@@ -135,7 +135,7 @@ class Webservice(BrowserView):
                     roles = api.user.get_roles(obj=element.aq_parent.aq_parent.aq_parent, username=username)
                 else:
                     roles = []
-                organ_tipus = element.aq_parent.aq_parent.aq_parent.organType
+                organ_tipus = element.organType
                 estatSessio = api.content.get_state(obj=element.aq_parent.aq_parent)
                 if organ_tipus == 'open_organ':
                     if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
