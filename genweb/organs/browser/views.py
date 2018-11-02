@@ -15,6 +15,7 @@ from AccessControl import Unauthorized
 from operator import itemgetter
 import datetime
 import DateTime
+import json
 
 # Disable CSRF
 try:
@@ -729,3 +730,87 @@ class showMembersOrgan(BrowserView):
             return self.context.Title()
         else:
             return self.request.response.redirect(api.portal.get().absolute_url())
+
+
+class findFileProperties(BrowserView):
+
+    def __call__(self):
+        # Return type properties
+        #
+        acta = api.content.find(portal_type='genweb.organs.acta')
+        audio = api.content.find(portal_type='genweb.organs.audio')
+        document = api.content.find(portal_type='genweb.organs.document')
+        file = api.content.find(portal_type='genweb.organs.file')
+        organgovern = api.content.find(portal_type='genweb.organs.organgovern')
+        acord = api.content.find(portal_type='genweb.organs.acord')
+        punt = api.content.find(portal_type='genweb.organs.punt')
+        sessio = api.content.find(portal_type='genweb.organs.sessio')
+        subpunt = api.content.find(portal_type='genweb.organs.subpunt')
+
+        actas = []
+        audios = []
+        documents = []
+        files = []
+        organs = []
+        acords = []
+        punts = []
+        sessions = []
+        subpunts = []
+
+        for item in acta:
+            actas.append(dict(
+                organType=item.organType,
+                path=item.getPath(),
+                id=item.id))
+        for item in audio:
+            audios.append(dict(
+                organType=item.organType,
+                path=item.getPath(),
+                id=item.id))
+        for item in document:
+            documents.append(dict(
+                organType=item.organType,
+                path=item.getPath(),
+                id=item.id))
+        for item in file:
+            files.append(dict(
+                organType=item.organType,
+                path=item.getPath(),
+                id=item.id))
+        for item in organgovern:
+            organs.append(dict(
+                organType=item.organType,
+                path=item.getPath(),
+                id=item.id))
+        for item in acord:
+            acords.append(dict(
+                organType=item.organType,
+                path=item.getPath(),
+                id=item.id))
+        for item in punt:
+            punts.append(dict(
+                organType=item.organType,
+                path=item.getPath(),
+                id=item.id))
+        for item in sessio:
+            sessions.append(dict(
+                organType=item.organType,
+                path=item.getPath(),
+                id=item.id))
+        for item in subpunt:
+            subpunts.append(dict(
+                organType=item.organType,
+                path=item.getPath(),
+                id=item.id))
+        results = dict(
+            actas=actas,
+            audios=audios,
+            documents=documents,
+            files=files,
+            organs=organs,
+            acords=acords,
+            punts=punts,
+            sessions=sessions,
+            subpunts=subpunts
+        )
+        return json.dumps(results)
