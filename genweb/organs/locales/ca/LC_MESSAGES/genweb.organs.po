@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-10-29 09:06+0000\n"
+"POT-Creation-Date: 2018-11-05 11:09+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -177,7 +177,7 @@ msgstr "Cancel·la"
 msgid "Cerca"
 msgstr "Cerca"
 
-#: ./genweb/organs/browser/viewlets_templates/header.pt:57
+#: ./genweb/organs/browser/viewlets_templates/header.pt:63
 msgid "Cercador"
 msgstr "Cercador"
 
@@ -189,31 +189,31 @@ msgstr "Cercar..."
 msgid "Changed Title"
 msgstr "S'ha canviat el títol"
 
-#: ./genweb/organs/browser/views.py:503
+#: ./genweb/organs/browser/views.py:504
 msgid "Changed acord color state"
 msgstr "S'ha canviat l'estat de l'acord"
 
-#: ./genweb/organs/browser/views.py:533
+#: ./genweb/organs/browser/views.py:534
 msgid "Changed acord intern state color"
 msgstr "S'ha canviat l'estat de l'acord"
 
-#: ./genweb/organs/browser/views.py:499
+#: ./genweb/organs/browser/views.py:500
 msgid "Changed punt color state"
 msgstr "S'ha canviat l'estat del punt informatiu"
 
-#: ./genweb/organs/browser/views.py:185
+#: ./genweb/organs/browser/views.py:186
 msgid "Changed punt number with drag&drop"
 msgstr "S'ha canviat el número de punt informatiu al moure l'element"
 
-#: ./genweb/organs/browser/views.py:497
+#: ./genweb/organs/browser/views.py:498
 msgid "Changed recursive color state of acord inside punt"
 msgstr "S'ha canviat l'estat de l'acord"
 
-#: ./genweb/organs/browser/views.py:495
+#: ./genweb/organs/browser/views.py:496
 msgid "Changed recursive color state of subpunt inside punt"
 msgstr "S'ha canviat l'estat del punt informatiu"
 
-#: ./genweb/organs/browser/views.py:531
+#: ./genweb/organs/browser/views.py:532
 msgid "Changed subpunt intern state color"
 msgstr "S'ha canviat l'estat del punt informatiu"
 
@@ -311,7 +311,7 @@ msgstr "Punt el·liminat"
 msgid "Deleted subpunt"
 msgstr "Punt el·liminat"
 
-#: ./genweb/organs/browser/views.py:116
+#: ./genweb/organs/browser/views.py:117
 msgid "Deleted via javascript"
 msgstr "Esborrat via javascript"
 
@@ -512,6 +512,10 @@ msgstr "Imatge que es farà servir com a logotip i que s'utilitzarà en la impre
 msgid "Logo organs folder description"
 msgstr "Imatge que es farà servir com a imatge de capçalera en aquesta unitat i al moment d'imprimir les actes dels òrgans. Les dimensions han de ser 978x78 píxels."
 
+#: ./genweb/organs/browser/viewlets_templates/header.pt:58
+msgid "Logout"
+msgstr "Desconnecta"
+
 #: ./genweb/organs/content/organgovern.py:112
 msgid "Mail address help"
 msgstr "Adreça o adreces a les quals arribaran els missatges quan hi hagi una notificació de l'òrgan. Es poden posar diverses adreces de correu. Han d'anar SEPARADES PER COMES."
@@ -592,7 +596,7 @@ msgstr "S'ha modificat un punt informatiu"
 msgid "Mostra sessions anteriors"
 msgstr "Mostra sessions anteriors"
 
-#: ./genweb/organs/browser/views.py:231
+#: ./genweb/organs/browser/views.py:232
 msgid "Moved subpunt by drag&drop"
 msgstr "S'ha canviat el número de punt informatiu al moure'l"
 
@@ -712,7 +716,7 @@ msgstr "Llista de noms dels membres convidats a les sessions d'aquest òrgan de 
 msgid "Organ type"
 msgstr "Tipus d'òrgan de govern"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:34
+#: ./genweb/organs/portlets/portlet_calendar.py:31
 msgid "Organs Calendar"
 msgstr "Calendari Òrgans"
 
@@ -825,11 +829,11 @@ msgstr "Destinataris"
 msgid "Relacio Assistents"
 msgstr "Relació d'assistents"
 
-#: ./genweb/organs/browser/views.py:432
+#: ./genweb/organs/browser/views.py:433
 msgid "Reload points manually"
 msgstr "Numera punts"
 
-#: ./genweb/organs/browser/views.py:378
+#: ./genweb/organs/browser/views.py:379
 msgid "Reload proposalPoints manually"
 msgstr "Numera acords"
 
@@ -1066,7 +1070,7 @@ msgstr "[Acord "
 msgid "[Acord sense numeracio]"
 msgstr "[Acord sense numeració]"
 
-#: ./genweb/organs/browser/views.py:288
+#: ./genweb/organs/browser/views.py:289
 #: ./genweb/organs/content/acta.py:204
 msgid "[Acord sense numerar]"
 msgstr "[Acord sense numeració]"
@@ -1136,7 +1140,7 @@ msgstr "Restringit a afectats"
 msgid "restricted_to_members_organ"
 msgstr "Restringit a membres"
 
-#: ./genweb/organs/browser/views.py:561
+#: ./genweb/organs/browser/views.py:562
 #: ./genweb/organs/content/impersonate_as.py:143
 #: ./genweb/organs/content/punt.py:148
 msgid "sense numeracio"
@@ -1157,10 +1161,10 @@ msgstr "Darrer any"
 msgid "title_search_title"
 msgstr "Cerca al lloc web"
 
-#: ./genweb/organs/portlets/portlet_calendar.pt:96
+#: ./genweb/organs/portlets/portlet_calendar.pt:78
 msgid "to"
 msgstr "a"
 
-#: ./genweb/organs/portlets/portlet_calendar.pt:84
+#: ./genweb/organs/portlets/portlet_calendar.pt:63
 msgid "veure totes les sessions"
 msgstr "veure totes les sessions"

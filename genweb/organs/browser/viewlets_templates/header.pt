@@ -53,6 +53,12 @@
                Identifica't</tal:bk>
             </a>
         </li>
+        <li tal:condition="not: viewlet/show_login">
+            <a tal:attributes="href string:${portal_url}/cas_logout">
+              <i class="fa fa-sign-out">&nbsp;<tal:bk i18n:domain="genweb.organs" i18n:translate="">
+               Logout </tal:bk>
+            </a>
+        </li>
         <li>
           <a tal:attributes="href string:${portal_url}/${lang}/search"><i class="fa fa-search" aria-hidden="true">&nbsp;<tal:bk i18n:translate="" i18n:domain="genweb.organs">Cercador</tal:bk></i></a>
         </li>
@@ -88,6 +94,12 @@
                tal:attributes="href string:${portal_url}/popup_login_form?came_from=${context/absolute_url}">
               <i class="fa fa-lock">&nbsp;<tal:bk i18n:domain="genweb" i18n:translate="identificat">
                Identifica't</tal:bk>
+            </a>
+        </li>
+        <li tal:condition="not: viewlet/show_login">
+            <a tal:attributes="href string:${portal_url}/cas_logout">
+              <i class="fa fa-sign-out">&nbsp;<tal:bk i18n:domain="genweb.organs" i18n:translate="">
+               Logout </tal:bk>
             </a>
         </li>
         <li>
