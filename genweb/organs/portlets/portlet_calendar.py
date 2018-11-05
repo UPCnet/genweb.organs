@@ -128,9 +128,12 @@ class Renderer(base.Renderer):
                 self.request.form['year'],
                 self.request.form['month'],
                 self.request.form['day'])
-            dateEvent = datetime.strptime(date, formatDate)
-            # returns sessions of specified date
-            date_events = {'query': (dateEvent, dateEvent + timedelta(days=1)), 'range': 'min:max'}
+        else:
+            # on load, show day events
+            date = datetime.today().strftime(formatDate)
+        dateEvent = datetime.strptime(date, formatDate)
+        date_events = {'query': (dateEvent, dateEvent + timedelta(days=1)), 'range': 'min:max'}
+        if api.user.is_anonymous():
             sessions = portal_catalog.unrestrictedSearchResults(
                 portal_type='genweb.organs.sessio',
                 sort_on='start',
@@ -138,19 +141,17 @@ class Renderer(base.Renderer):
                 path=self.get_public_organs_fields(),
             )
         else:
-            # return next 3 sessions
-            limit = 3
-            date = datetime.today().strftime(formatDate)
-            dateEvent = datetime.strptime(date, formatDate)
-            date_events = {'query': (dateEvent), 'range': 'min'}
             sessions = portal_catalog.unrestrictedSearchResults(
                 portal_type='genweb.organs.sessio',
                 sort_on='start',
                 start=date_events,
-                path=self.get_public_organs_fields(),
-                sort_limit=limit,
-            )[:limit]
-
+            )
+            # sessions = []
+            # username = api.user.get_current().id
+            # for item in items:
+            #     roles = api.user.get_roles(username=username, obj=item)
+            #     if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or item.visiblefields:
+            #         sessions.append(item)
         results = []
 
         for session in sessions:
@@ -180,6 +181,7 @@ class Renderer(base.Renderer):
         today = localized_today(context)
         year, month = self.year_month_display()
         monthdates = [dat for dat in self.cal.itermonthdates(year, month)]
+
         start = monthdates[0]
         end = monthdates[-1]
         portal_catalog = getToolByName(self.context, 'portal_catalog')
@@ -194,7 +196,7 @@ class Renderer(base.Renderer):
         for event in items:
             events.append(event._unrestrictedGetObject())
 
-        cal_dict = construct_calendar(events)
+        cal_dict = construct_calendar(events, start=start, end=end)
 
         # [[day1week1, day2week1, ... day7week1], [day1week2, ...]]
         caldata = [[]]
