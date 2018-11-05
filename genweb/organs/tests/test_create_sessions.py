@@ -90,50 +90,45 @@ class FunctionalTestCase(unittest.TestCase):
         login(self.portal, TEST_USER_NAME)
         self.assertTrue(api.content.create(
             type='genweb.organs.sessio',
-            id='session',
-            title='Session',
-            container=root_obert,
-            safe_id=True))
+            id='session1',
+            title='Session1',
+            container=root_obert))
         print "\n    ORGAN OBERT [Secretari] - Add Session - True"
         logout()
-        with self.assertRaises(Unauthorized):
-            with adopt_roles('OG2-Editor'):
-                api.content.create(
-                    type='genweb.organs.sessio',
-                    id='session',
-                    title='Session',
-                    container=root_obert,
-                    safe_id=True)
-        print "    ORGAN OBERT [Editor]    - Add Session - Unauthorized"
+        setRoles(self.portal, TEST_USER_ID, ['OG2-Editor'])
+        login(self.portal, TEST_USER_NAME)
+        self.assertTrue(api.content.create(
+            type='genweb.organs.sessio',
+            id='session2',
+            title='Session2',
+            container=root_obert))
+        print "    ORGAN OBERT [Editor]    - Add Session - True"
         logout()
         with self.assertRaises(Unauthorized):
             with adopt_roles('OG3-Membre'):
                 api.content.create(
                     type='genweb.organs.sessio',
-                    id='session',
-                    title='Session',
-                    container=root_obert,
-                    safe_id=True)
+                    id='session3',
+                    title='Session3',
+                    container=root_obert)
         print "    ORGAN OBERT [Membre]    - Add Session - Unauthorized"
         logout()
         with self.assertRaises(Unauthorized):
             with adopt_roles('OG4-Afectat'):
                 api.content.create(
                     type='genweb.organs.sessio',
-                    id='session',
-                    title='Session',
-                    container=root_obert,
-                    safe_id=True)
+                    id='session4',
+                    title='Session4',
+                    container=root_obert)
         print "    ORGAN OBERT [Afectat]   - Add Session - Unauthorized"
         logout()
         with self.assertRaises(Unauthorized):
             with adopt_roles('Anonim'):
                 api.content.create(
                     type='genweb.organs.sessio',
-                    id='session',
-                    title='Session',
-                    container=root_obert,
-                    safe_id=True)
+                    id='session5',
+                    title='Session5',
+                    container=root_obert)
         print "    ORGAN OBERT [Anonim]    - Add Session - Unauthorized"
 
         # Check organs membre
@@ -142,50 +137,45 @@ class FunctionalTestCase(unittest.TestCase):
         login(self.portal, TEST_USER_NAME)
         self.assertTrue(api.content.create(
             type='genweb.organs.sessio',
-            id='session',
-            title='Session',
-            container=root_membres,
-            safe_id=True))
+            id='session1',
+            title='Session1',
+            container=root_membres))
         print "\n    ORGAN RESTRINGIT MEMBRES [Secretari] - Add Session - True"
         logout()
-        with self.assertRaises(Unauthorized):
-            with adopt_roles('OG2-Editor'):
-                api.content.create(
-                    type='genweb.organs.sessio',
-                    id='session',
-                    title='Session',
-                    container=root_membres,
-                    safe_id=True)
-        print "    ORGAN RESTRINGIT MEMBRES [Editor]    - Add Session - Unauthorized"
+        setRoles(self.portal, TEST_USER_ID, ['OG2-Editor'])
+        login(self.portal, TEST_USER_NAME)
+        self.assertTrue(api.content.create(
+            type='genweb.organs.sessio',
+            id='session2',
+            title='Session2',
+            container=root_membres))
+        print "    ORGAN RESTRINGIT MEMBRES [Editor]    - Add Session - True"
         logout()
         with self.assertRaises(Unauthorized):
             with adopt_roles('OG3-Membre'):
                 api.content.create(
                     type='genweb.organs.sessio',
-                    id='session',
-                    title='Session',
-                    container=root_membres,
-                    safe_id=True)
+                    id='session3',
+                    title='Session3',
+                    container=root_membres)
         print "    ORGAN RESTRINGIT MEMBRES [Membre]    - Add Session - Unauthorized"
         logout()
         with self.assertRaises(Unauthorized):
             with adopt_roles('OG4-Afectat'):
                 api.content.create(
                     type='genweb.organs.sessio',
-                    id='session',
-                    title='Session',
-                    container=root_membres,
-                    safe_id=True)
+                    id='session4',
+                    title='Session4',
+                    container=root_membres)
         print "    ORGAN RESTRINGIT MEMBRES [Afectat]   - Add Session - Unauthorized"
         logout()
         with self.assertRaises(Unauthorized):
             with adopt_roles('Anonim'):
                 api.content.create(
                     type='genweb.organs.sessio',
-                    id='session',
-                    title='Session',
-                    container=root_membres,
-                    safe_id=True)
+                    id='session5',
+                    title='Session5',
+                    container=root_membres)
         print "    ORGAN RESTRINGIT MEMBRES [Anonim]    - Add Session - Unauthorized"
 
         # Check organs afectat
@@ -194,48 +184,43 @@ class FunctionalTestCase(unittest.TestCase):
         login(self.portal, TEST_USER_NAME)
         self.assertTrue(api.content.create(
             type='genweb.organs.sessio',
-            id='session',
-            title='Session',
-            container=root_afectats,
-            safe_id=True))
+            id='session1',
+            title='Session1',
+            container=root_afectats))
         print "\n    ORGAN RESTRINGIT AFECTATS [Secretari] - Add Session - True"
         logout()
-        with self.assertRaises(Unauthorized):
-            with adopt_roles('OG2-Editor'):
-                api.content.create(
-                    type='genweb.organs.sessio',
-                    id='session',
-                    title='Session',
-                    container=root_afectats,
-                    safe_id=True)
-        print "    ORGAN RESTRINGIT AFECTATS [Editor]    - Add Session - Unauthorized"
+        setRoles(self.portal, TEST_USER_ID, ['OG2-Editor'])
+        login(self.portal, TEST_USER_NAME)
+        self.assertTrue(api.content.create(
+            type='genweb.organs.sessio',
+            id='session2',
+            title='Session2',
+            container=root_afectats))
+        print "    ORGAN RESTRINGIT AFECTATS [Editor]    - Add Session - True"
         logout()
         with self.assertRaises(Unauthorized):
             with adopt_roles('OG3-Membre'):
                 api.content.create(
                     type='genweb.organs.sessio',
-                    id='session',
-                    title='Session',
-                    container=root_afectats,
-                    safe_id=True)
+                    id='session3',
+                    title='Session3',
+                    container=root_afectats)
         print "    ORGAN RESTRINGIT AFECTATS [Membre]    - Add Session - Unauthorized"
         logout()
         with self.assertRaises(Unauthorized):
             with adopt_roles('OG4-Afectat'):
                 api.content.create(
                     type='genweb.organs.sessio',
-                    id='session',
-                    title='Session',
-                    container=root_afectats,
-                    safe_id=True)
+                    id='session4',
+                    title='Session4',
+                    container=root_afectats)
         print "    ORGAN RESTRINGIT AFECTATS [Afectat]   - Add Session - Unauthorized"
         logout()
         with self.assertRaises(Unauthorized):
             with adopt_roles('Anonim'):
                 api.content.create(
                     type='genweb.organs.sessio',
-                    id='session',
-                    title='Session',
-                    container=root_afectats,
-                    safe_id=True)
+                    id='session5',
+                    title='Session5',
+                    container=root_afectats)
         print "    ORGAN RESTRINGIT AFECTATS [Anonim]    - Add Session - Unauthorized"

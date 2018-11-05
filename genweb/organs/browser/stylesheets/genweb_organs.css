@@ -1641,9 +1641,13 @@ span.estatpunt {
     text-align: center !important;
 }
 
-.realitzada, .label-realitzada,
-.open_organ, .label-open_organ,
-.Obert, .label-Obert
+.realitzada,
+.label-realitzada,
+.open_organ,
+.label-open_organ,
+.Públic,
+.Obert,
+.label-Obert
 {
     background-color: #456211 !important;
     padding: 1px 4px 2px !important;
