@@ -35,13 +35,35 @@
             </tr>
           </thead>
           <tbody>
-            <tr tal:repeat="week view/cal_data">
+            <tr tal:repeat="week view/cal_data" tal:condition="view/isAnon">
               <tal:block repeat="day week">
                 <td tal:define="today day/today;
                               next_month day/next_month;
                               prev_month day/prev_month;
                               events day/events;
-                              classtag python:view.getclasstag_event(day);"
+                              classtag python:view.getclasstag_event(day);
+
+                              limit python:len(events) if events is not None else 0"
+                    tal:attributes="class python:u'%s%s%s%s%s' %
+                              ((today and ' today' or ''),
+                              (next_month and ' cal_next_month' or ''),
+                              (prev_month and ' cal_prev_month' or ''),
+                              (events and ' cal_has_events' or ''),
+                              (classtag or ''));
+                              style string:background-color: ${day/color};
+                              data-year day/year; data-month day/month; data-day day/day;">
+                    <a tal:omit-tag="not:events" tal:content="day/day">31</a>
+                  </td>
+                </tal:block>
+              </tr>
+            <tr tal:repeat="week view/cal_data_validated" tal:condition="not:view/isAnon">
+              <tal:block repeat="day week">
+                <td tal:define="today day/today;
+                              next_month day/next_month;
+                              prev_month day/prev_month;
+                              events day/events;
+                              classtag python:view.getclasstag_event(day);
+                              limit python:len(events) if events is not None else 0"
                     tal:attributes="class python:u'%s%s%s%s%s' %
                               ((today and ' today' or ''),
                               (next_month and ' cal_next_month' or ''),
@@ -58,18 +80,16 @@
         </table>
       </div>
     </article>
-
     <div class="allSessions">
       <a href="" tal:attributes="href string:${portal_url}/allsessions"><i class="fa fa-plus"></i>&nbsp;<tal:omit-tag i18n:translate="" i18n:domain="genweb.organs">veure totes les sessions</tal:omit-tag></a>
     </div>
     <ul class="icons-ul">
-      <tal:block tal:repeat="event view/next3Events">
+      <tal:block tal:repeat="event view/getDayEventsGroup" tal:condition="view/isAnon">
         <li tal:define="licolor event/color" tal:attributes="style string:border-left: 5px solid ${licolor}">
           <p>
             <a tal:attributes="href event/url;
                                style string:color:${event/color}">
-              <tal:event content="event/session_title"> Event Title </tal:event>
-            </a>
+              <tal:event content="event/title"> Event Title </tal:event></a>
           </p>
           <p>
             <i class="fa fa-calendar"></i>&nbsp;<tal:event content="event/start"> 07/12 </tal:event>
@@ -82,7 +102,29 @@
           </p>
           <span class="text2">
             <i class="fa fa-thumb-tack"></i>
-            <a tal:attributes="href event/title" tal:content="event/title"></a>
+            <a tal:attributes="href event/session_title" tal:content="event/session_title"></a>
+          </span>
+        </li>
+      </tal:block>
+      <tal:block tal:repeat="event view/getDayEventsGroupValidated" tal:condition="not:view/isAnon">
+        <li tal:define="licolor event/color"  tal:attributes="style string:border-left: 5px solid ${licolor}">
+          <p>
+            <a tal:attributes="href event/url;
+                               style string:color:${event/color}">
+              <tal:event content="event/title"> Event Title </tal:event></a>
+          </p>
+          <p>
+            <i class="fa fa-calendar"></i>&nbsp;<tal:event content="event/start"> 07/12 </tal:event>
+            <tal:event content="event/starthour"> 07/12 </tal:event>
+            <span tal:condition="event/end">
+              <span i18n:translate="" i18n:domain="genweb.organs"> to </span>
+              <tal:event content="event/end"> 07/12 </tal:event>
+              <tal:event content="event/endhour"> 07/12 </tal:event>
+            </span>
+          </p>
+          <span class="text2">
+            <i class="fa fa-thumb-tack"></i>
+            <a tal:attributes="href event/session_title" tal:content="event/session_title"></a>
           </span>
         </li>
       </tal:block>
@@ -91,6 +133,7 @@
   </div>
 
 </div>
+
 
 <script type="text/javascript">
 $(document).ready(function () {
@@ -105,7 +148,6 @@ $(document).ready(function () {
         var elem_data = elem.data();
         var portlethash = pw.attr('id');
         portlethash = portlethash.substring(15, portlethash.length);
-
         url = portal_url + '/' + $('html').attr('lang') + '/@@render-portlet?portlethash=' + portlethash +
                 '&year=' + elem_data.year +
                 '&month=' + elem_data.month;
