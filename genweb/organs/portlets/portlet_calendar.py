@@ -13,9 +13,7 @@ from plone.portlets.interfaces import IPortletDataProvider
 from zope.i18nmessageid import MessageFactory
 from zope.interface import implements
 from datetime import datetime
-from plone.app.event.base import localized_now
 from plone.event.interfaces import IEvent
-from datetime import timedelta
 from plone import api
 import calendar
 
@@ -35,11 +33,6 @@ class Assignment(base.Assignment):
 
 class Renderer(base.Renderer):
     render = ViewPageTemplateFile('portlet_calendar.pt')
-
-    def isAnon(self):
-        if not api.user.is_anonymous():
-            return False
-        return True
 
     def update(self):
         context = aq_inner(self.context)
@@ -141,60 +134,6 @@ class Renderer(base.Renderer):
         dateEvent = datetime.strptime(date, formatDate)
         return dateEvent
 
-    # def getNextThreeEvents(self):
-    #     portal_catalog = getToolByName(self.context, 'portal_catalog')
-    #     formatDate = "%Y-%m-%d"
-
-    #     date = datetime.today().strftime(formatDate)
-    #     dateEvent = datetime.strptime(date, formatDate)
-    #     date_events = {'query': (dateEvent, dateEvent + timedelta(days=1)), 'range': 'min:max'}
-
-    #     items = portal_catalog.unrestrictedSearchResults(
-    #         portal_type='genweb.organs.sessio',
-    #         sort_on='start',
-    #         start=date_events,
-    #         path=self.get_public_organs_fields())
-    #     events = []
-    #     for event in items:
-    #         events.append(event._unrestrictedGetObject())
-
-    #     events = self.filterNextEvents(events)
-    #     events = self.filterOccurrenceEvents(events)
-
-    #     list_events = []
-    #     # hay que ordenar los events por fechas...
-    #     events.sort(key=lambda x: x.start, reverse=False)
-
-    #     for event in events:
-    #         list_events.append(self.getEventCalendarDict(event))
-
-    #     return list_events
-
-    # def getNextThreeEventsValidated(self):
-    #     portal_catalog = getToolByName(self.context, 'portal_catalog')
-    #     items = portal_catalog.unrestrictedSearchResults(
-    #         portal_type='genweb.organs.sessio')
-    #     events = []
-    #     username = api.user.get_current().id
-
-    #     for item in items:
-    #         organ = item._unrestrictedGetObject()
-    #         roles = api.user.get_roles(username=username, obj=organ)
-    #         if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or organ.aq_parent.visiblefields:
-    #             events.append(organ)
-
-    #     events = self.filterNextEvents(events)
-    #     events = self.filterOccurrenceEvents(events)
-
-    #     list_events = []
-    #     # hay que ordenar los events por fechas...
-    #     events.sort(key=lambda x: x.start, reverse=False)
-
-    #     for event in events:
-    #         list_events.append(self.getEventCalendarDict(event))
-
-    #     return list_events
-
     def getEventCalendarDict(self, event):
         start = event.start.strftime('%d/%m')
         starthour = event.start.strftime('%H:%M')
@@ -202,8 +141,9 @@ class Renderer(base.Renderer):
         endhour = event.end.strftime('%H:%M')
         end = None if end == start else end
         return dict(title=event.title,
-                    session_title=event.aq_parent.title,
                     url=event.absolute_url(),
+                    organ_title=event.aq_parent.title,
+                    organ_url=event.aq_parent.absolute_url(),
                     start=start,
                     starthour=starthour,
                     end=end,
@@ -226,44 +166,20 @@ class Renderer(base.Renderer):
 
         return filter_events
 
-    def filterNextEvents(self, events):
-        filter_events = []
-        for event in events:
-            if event.end > localized_now():
-                filter_events.append(event)
-
-        return filter_events
-
     def getDayEventsGroup(self):
-        # Si no esta validat, mostra els propers 3 esdeveniments
         results = []
         list_events = self.getDayEvents(self.getDateEvents())
         for event in list_events:
             results.append(dict(
                 title=event['title'],
-                session_title=event['session_title'],
+                url=event['url'],
+                organ_title=event['organ_title'],
+                organ_url=event['organ_url'],
                 start=event['start'],
                 starthour=event['starthour'],
                 end=event['end'],
                 endhour=event['endhour'],
-                color=event['color'],
-                url=event['url']))
-        return results
-
-    def getDayEventsGroupValidated(self):
-        # Si esta validat mostra els propers 3 esdeveniments
-        results = []
-        list_events = self.getDayEventsValidated(self.getDateEvents())
-        for event in list_events:
-            results.append(dict(
-                title=event['title'],
-                session_title=event['session_title'],
-                start=event['start'],
-                starthour=event['starthour'],
-                end=event['end'],
-                endhour=event['endhour'],
-                color=event['color'],
-                url=event['url']))
+                color=event['color']))
         return results
 
     def getDayEvents(self, date):
@@ -275,53 +191,33 @@ class Renderer(base.Renderer):
                 list_events.append(self.getEventCalendarDict(event))
         return list_events
 
-    def getDayEventsValidated(self, date):
-        events = self.getCalendarDictValidated()
-        list_events = []
-        if date.strftime('%Y-%m-%d') in events:
-            events = self.filterOccurrenceEvents(events[date.strftime('%Y-%m-%d')])
-            for event in events:
-                list_events.append(self.getEventCalendarDict(event))
-        return list_events
-
     def getCalendarDict(self):
-        # context = aq_inner(self.context)
         year, month = self.year_month_display()
         monthdates = [dat for dat in self.cal.itermonthdates(year, month)]
         start = monthdates[0]
         end = monthdates[-1]
-        date_range_query = {'query': (start - timedelta(days=30), end), 'range': 'min:max'}
+
+        date_range_query = {'query': (start, end), 'range': 'min:max'}
         portal_catalog = getToolByName(self.context, 'portal_catalog')
-
-        items = portal_catalog.unrestrictedSearchResults(
-            portal_type='genweb.organs.sessio',
-            start=date_range_query,
-            path=self.get_public_organs_fields())
-        events = []
-        for event in items:
-            events.append(event._unrestrictedGetObject())
-
-        return construct_calendar(events, start=start, end=end)
-
-    def getCalendarDictValidated(self):
-        # context = aq_inner(self.context)
-        year, month = self.year_month_display()
-        monthdates = [dat for dat in self.cal.itermonthdates(year, month)]
-        start = monthdates[0]
-        end = monthdates[-1]
-        date_range_query = {'query': (start - timedelta(days=30), end), 'range': 'min:max'}
-        portal_catalog = getToolByName(self.context, 'portal_catalog')
-
-        items = portal_catalog.unrestrictedSearchResults(
-            portal_type='genweb.organs.sessio',
-            start=date_range_query)
-        events = []
-        username = api.user.get_current().id
-        for event in items:
-            organ = event._unrestrictedGetObject()
-            roles = api.user.get_roles(username=username, obj=organ)
-            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or organ.aq_parent.visiblefields:
-                events.append(organ)
+        if api.user.is_anonymous():
+            items = portal_catalog.unrestrictedSearchResults(
+                portal_type='genweb.organs.sessio',
+                start=date_range_query,
+                path=self.get_public_organs_fields())
+            events = []
+            for event in items:
+                events.append(event._unrestrictedGetObject())
+        else:
+            items = portal_catalog.unrestrictedSearchResults(
+                portal_type='genweb.organs.sessio',
+                start=date_range_query)
+            events = []
+            username = api.user.get_current().id
+            for event in items:
+                session = event._unrestrictedGetObject()
+                roles = api.user.get_roles(username=username, obj=session)
+                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or session.aq_parent.visiblefields:
+                    events.append(session)
 
         return construct_calendar(events, start=start, end=end)
 
@@ -338,70 +234,24 @@ class Renderer(base.Renderer):
 
         date_range_query = {'query': (start, end), 'range': 'min:max'}
         portal_catalog = getToolByName(self.context, 'portal_catalog')
-        items = portal_catalog.unrestrictedSearchResults(
-            portal_type='genweb.organs.sessio',
-            start=date_range_query,
-            path=self.get_public_organs_fields())
         events = []
-        for event in items:
-            events.append(event._unrestrictedGetObject())
-
-        cal_dict = construct_calendar(events, start=start, end=end)
-
-        # [[day1week1, day2week1, ... day7week1], [day1week2, ...]]
-        caldata = [[]]
-        for dat in monthdates:
-            if len(caldata[-1]) == 7:
-                caldata.append([])
-            date_events = None
-            isodat = dat.isoformat()
-            if isodat in cal_dict:
-                date_events = cal_dict[isodat]
-
-            color = ''
-            if date_events:
-                for occ in date_events:
-                    color = occ.aq_parent.eventsColor
-
-            caldata[-1].append(
-                {'date': dat,
-                 'day': dat.day,
-                 'month': dat.month,
-                 'year': dat.year,
-                 'prev_month': dat.month < month,
-                 'next_month': dat.month > month,
-                 'color': color,
-                 'today':
-                    dat.year == today.year and
-                    dat.month == today.month and
-                    dat.day == today.day,
-                 'events': date_events})
-        return caldata
-
-    @property
-    def cal_data_validated(self):
-        """Calendar iterator over weeks and days of the month to display.
-           If user is validated, only shows own events
-        """
-        context = aq_inner(self.context)
-        today = localized_today(context)
-        year, month = self.year_month_display()
-        monthdates = [dat for dat in self.cal.itermonthdates(year, month)]
-        start = monthdates[0]
-        end = monthdates[-1]
-
-        date_range_query = {'query': (start, end), 'range': 'min:max'}
-        portal_catalog = getToolByName(self.context, 'portal_catalog')
-        items = portal_catalog.unrestrictedSearchResults(
-            portal_type='genweb.organs.sessio',
-            start=date_range_query)
-        events = []
-        username = api.user.get_current().id
-        for event in items:
-            organ = event._unrestrictedGetObject()
-            roles = api.user.get_roles(username=username, obj=organ)
-            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or organ.aq_parent.visiblefields:
-                events.append(organ)
+        if api.user.is_anonymous():
+            items = portal_catalog.unrestrictedSearchResults(
+                portal_type='genweb.organs.sessio',
+                start=date_range_query,
+                path=self.get_public_organs_fields())
+            for event in items:
+                events.append(event._unrestrictedGetObject())
+        else:
+            items = portal_catalog.unrestrictedSearchResults(
+                portal_type='genweb.organs.sessio',
+                start=date_range_query)
+            username = api.user.get_current().id
+            for event in items:
+                session = event._unrestrictedGetObject()
+                roles = api.user.get_roles(username=username, obj=session)
+                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or session.aq_parent.visiblefields:
+                    events.append(session)
 
         cal_dict = construct_calendar(events, start=start, end=end)
 
