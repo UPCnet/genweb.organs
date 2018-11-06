@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-10-15 12:58+0000\n"
+"POT-Creation-Date: 2018-11-05 11:09+0000\n"
 "PO-Revision-Date: 2017-04-20 14:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -116,11 +116,11 @@ msgstr "Contenido restringido"
 msgid "Altres"
 msgstr "Otros"
 
-#: ./genweb/organs/browser/views/allsessions.pt:61
+#: ./genweb/organs/browser/views/allsessions.pt:27
 msgid "Amaga sessions anteriors"
 msgstr "Oculta sesiones anteriores"
 
-#: ./genweb/organs/utils.py:113
+#: ./genweb/organs/utils.py:119
 msgid "Anonymous user"
 msgstr "Usuario anónimo"
 
@@ -177,7 +177,7 @@ msgstr "Cancela"
 msgid "Cerca"
 msgstr "Busca"
 
-#: ./genweb/organs/browser/viewlets_templates/header.pt:57
+#: ./genweb/organs/browser/viewlets_templates/header.pt:63
 msgid "Cercador"
 msgstr "Buscador"
 
@@ -189,31 +189,31 @@ msgstr "Buscar..."
 msgid "Changed Title"
 msgstr "Se ha cambiado el título"
 
-#: ./genweb/organs/browser/views.py:503
+#: ./genweb/organs/browser/views.py:504
 msgid "Changed acord color state"
 msgstr "Se ha cambiado el estado del acuerdo"
 
-#: ./genweb/organs/browser/views.py:533
+#: ./genweb/organs/browser/views.py:534
 msgid "Changed acord intern state color"
 msgstr "Se ha cambiado el estado del acuerdo"
 
-#: ./genweb/organs/browser/views.py:499
+#: ./genweb/organs/browser/views.py:500
 msgid "Changed punt color state"
 msgstr "Se ha cambiado el estado del punto"
 
-#: ./genweb/organs/browser/views.py:185
+#: ./genweb/organs/browser/views.py:186
 msgid "Changed punt number with drag&drop"
 msgstr "Se ha cambiado el número de punto informativo al mover el elemento"
 
-#: ./genweb/organs/browser/views.py:497
+#: ./genweb/organs/browser/views.py:498
 msgid "Changed recursive color state of acord inside punt"
 msgstr "Se ha cambiado el estado del acuerdo"
 
-#: ./genweb/organs/browser/views.py:495
+#: ./genweb/organs/browser/views.py:496
 msgid "Changed recursive color state of subpunt inside punt"
 msgstr "Se ha cambiado el estado del punto informativo"
 
-#: ./genweb/organs/browser/views.py:531
+#: ./genweb/organs/browser/views.py:532
 msgid "Changed subpunt intern state color"
 msgstr "Se ha cambiado el estado del punto informativo"
 
@@ -283,11 +283,11 @@ msgstr "Fecha"
 msgid "Data i hora"
 msgstr "Fecha y hora"
 
-#: ./genweb/organs/browser/views/allsessions.pt:32
+#: ./genweb/organs/browser/views/allsessions.pt:42
 msgid "Data i hora fi"
 msgstr "Fecha y hora de finalización"
 
-#: ./genweb/organs/browser/views/allsessions.pt:29
+#: ./genweb/organs/browser/views/allsessions.pt:39
 msgid "Data i hora inici"
 msgstr "Fecha y hora de inicio"
 
@@ -311,7 +311,7 @@ msgstr "Se ha borrado un punto"
 msgid "Deleted subpunt"
 msgstr "Se ha borrado un punto"
 
-#: ./genweb/organs/browser/views.py:116
+#: ./genweb/organs/browser/views.py:117
 msgid "Deleted via javascript"
 msgstr "Borrado elemento via javascript"
 
@@ -472,7 +472,7 @@ msgstr "Informa del resultado de la sesión"
 msgid "Invalid PDF file"
 msgstr "El fichero seleccionado no parece un fichero PDF."
 
-#: ./genweb/organs/content/audio.py:26
+#: ./genweb/organs/content/audio.py:27
 msgid "Invalid audio file"
 msgstr "El fichero seleccionado no parece en formato de audio."
 
@@ -511,6 +511,10 @@ msgstr "Imagen que se utilizará como logotipo y que se utilizará en la impresi
 #: ./genweb/organs/content/organsfolder.py:27
 msgid "Logo organs folder description"
 msgstr "Imagen que se utilizará como imagen de cabecera en esta unidad y en el momento de imprimir las actas de los órganos. Las dimensiones han de ser 978x78 píxeles."
+
+#: ./genweb/organs/browser/viewlets_templates/header.pt:58
+msgid "Logout"
+msgstr "Desconecta"
 
 #: ./genweb/organs/content/organgovern.py:112
 msgid "Mail address help"
@@ -588,11 +592,11 @@ msgstr "Se ha modificado un punto"
 msgid "Modified subpunt"
 msgstr "Se ha modificaco un punto"
 
-#: ./genweb/organs/browser/views/allsessions.pt:59
+#: ./genweb/organs/browser/views/allsessions.pt:25
 msgid "Mostra sessions anteriors"
 msgstr "Muestra sesiones anteriores"
 
-#: ./genweb/organs/browser/views.py:231
+#: ./genweb/organs/browser/views.py:232
 msgid "Moved subpunt by drag&drop"
 msgstr "Se ha movido el número de punto interno al moverlo"
 
@@ -647,7 +651,7 @@ msgstr "Miembro"
 msgid "OG4-Afectat"
 msgstr "Afectado"
 
-#: ./genweb/organs/content/audio.py:56
+#: ./genweb/organs/content/audio.py:57
 msgid "Only audio files are permitted."
 msgstr "Sólo están permitidos los ficheros de tipo audio."
 
@@ -694,7 +698,7 @@ msgstr "Tipo de órgano"
 msgid "Organ Title"
 msgstr "Nombre del órgano"
 
-#: ./genweb/organs/browser/views/allsessions.pt:26
+#: ./genweb/organs/browser/views/allsessions.pt:36
 #: ./genweb/organs/content/templates/impersonate_as.pt:59
 #: ./genweb/organs/content/templates/sessio_view.pt:201
 msgid "Organ de govern"
@@ -712,7 +716,7 @@ msgstr "Lista de nombres de las personas que se invitan a este órgano de forma 
 msgid "Organ type"
 msgstr "Tipo de órgano de gobierno"
 
-#: ./genweb/organs/portlets/portlet_calendar.py:34
+#: ./genweb/organs/portlets/portlet_calendar.py:31
 msgid "Organs Calendar"
 msgstr "Organs Calendar"
 
@@ -741,7 +745,7 @@ msgstr "Órganos vinculados conmigo"
 msgid "Plantilles"
 msgstr "Plantillas"
 
-#: ./genweb/organs/content/audio.py:55
+#: ./genweb/organs/content/audio.py:56
 msgid "Please upload a media file"
 msgstr "Seleccione un fichero de áudio"
 
@@ -825,11 +829,11 @@ msgstr "Destinatarios"
 msgid "Relacio Assistents"
 msgstr "Relación de asistentes"
 
-#: ./genweb/organs/browser/views.py:432
+#: ./genweb/organs/browser/views.py:433
 msgid "Reload points manually"
 msgstr "Numera puntos"
 
-#: ./genweb/organs/browser/views.py:378
+#: ./genweb/organs/browser/views.py:379
 msgid "Reload proposalPoints manually"
 msgstr "Numera acuerdos"
 
@@ -983,7 +987,7 @@ msgstr "Acuerdo"
 msgid "Tab acta"
 msgstr "Acta"
 
-#: ./genweb/organs/content/audio.py:33
+#: ./genweb/organs/content/audio.py:34
 msgid "Tab audio"
 msgstr "Audio"
 
@@ -1066,7 +1070,7 @@ msgstr "[Acuerdo "
 msgid "[Acord sense numeracio]"
 msgstr "[Acuerdo sin numeración]"
 
-#: ./genweb/organs/browser/views.py:288
+#: ./genweb/organs/browser/views.py:289
 #: ./genweb/organs/content/acta.py:204
 msgid "[Acord sense numerar]"
 msgstr "[Acuerdo sin numerar]"
@@ -1077,11 +1081,11 @@ msgstr "[Acuerdo sin numerar]"
 msgid "acord"
 msgstr "Acuerdo"
 
-#: ./genweb/organs/search.py:323
+#: ./genweb/organs/search.py:306
 msgid "alphabetically"
 msgstr "alfabéticamente"
 
-#: ./genweb/organs/search.py:320
+#: ./genweb/organs/search.py:303
 msgid "date (newest first)"
 msgstr "fecha (més reciente primero)"
 
@@ -1136,7 +1140,7 @@ msgstr "Restringido a afectados"
 msgid "restricted_to_members_organ"
 msgstr "Restringido a miembros"
 
-#: ./genweb/organs/browser/views.py:561
+#: ./genweb/organs/browser/views.py:562
 #: ./genweb/organs/content/impersonate_as.py:143
 #: ./genweb/organs/content/punt.py:148
 msgid "sense numeracio"
@@ -1157,10 +1161,10 @@ msgstr "Último año"
 msgid "title_search_title"
 msgstr "Buscar en el Sitio web"
 
-#: ./genweb/organs/portlets/portlet_calendar.pt:96
+#: ./genweb/organs/portlets/portlet_calendar.pt:78
 msgid "to"
 msgstr "a"
 
-#: ./genweb/organs/portlets/portlet_calendar.pt:85
+#: ./genweb/organs/portlets/portlet_calendar.pt:63
 msgid "veure totes les sessions"
 msgstr "mostrar todas las sesiones"

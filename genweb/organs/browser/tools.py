@@ -24,12 +24,13 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
 def getLoremIpsum(number, length, type_code):
-        """ Returns Lorem Ipsum text
+        """ Returns lorem ipsum text
         """
         return requests.get('http://loripsum.net/api/{0}/{1}/{2}'.format(number, type_code, length), verify=False, timeout=10).content
 
 
 def getRandomImage(w, h):
+    """ Returns dummy image """
     data = requests.get('http://dummyimage.com/{0}x{1}/aeaeae/ffffff'.format(w, h), verify=False, timeout=10).content
     return NamedBlobImage(data=data,
                           filename=u'image.jpg',
@@ -37,6 +38,7 @@ def getRandomImage(w, h):
 
 
 def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
+    """ Creates all structure based on organ type """
     open_og = api.content.create(
         type='genweb.organs.organgovern',
         title=og_title,
@@ -96,20 +98,54 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
         getLoremIpsum(2, 'long', 'html'),
         'text/html', 'text/html').output
     punt.estatsLlista = u'Esborrany'
-    # For working tests code
+    # For working test code. If not added, Plone works, but test dont.
     constraints = ISelectableConstrainTypes(punt)
     constraints.setConstrainTypesMode(1)
     constraints.setLocallyAllowedTypes(('genweb.organs.subpunt', 'genweb.organs.acord', 'genweb.organs.file', 'genweb.organs.document'))
-    subpunt = api.content.create(type='genweb.organs.subpunt', id='subpunt', title='SubPunt Exemple', container=punt)
+    document_public = api.content.create(
+        type='genweb.organs.document',
+        id='docpublic',
+        title='Document contingut public',
+        container=punt)
+    document_public.description = u"Lorem Ipsum description"
+    document_public.defaultContent = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    document_restringit = api.content.create(
+        type='genweb.organs.document',
+        id='docrestringit',
+        title='Document contingut restringit',
+        container=punt)
+    document_restringit.description = u"Lorem Ipsum description"
+    document_restringit.alternateContent = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    document_both = api.content.create(
+        type='genweb.organs.document',
+        id='docboth',
+        title='Document contingut public i restringit',
+        container=punt)
+    document_both.description = u"Lorem Ipsum description"
+    document_both.defaultContent = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    document_both.alternateContent = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    # For working tests code
+    # constraints = ISelectableConstrainTypes(punt)
+    # constraints.setConstrainTypesMode(1)
+    # constraints.setLocallyAllowedTypes(('genweb.organs.subpunt', 'genweb.organs.acord', 'genweb.organs.file', 'genweb.organs.document'))
+    subpunt = api.content.create(
+        type='genweb.organs.subpunt',
+        id='subpunt',
+        title='SubPunt Exemple',
+        container=punt)
     subpunt.proposalPoint = 1.1
     subpunt.defaultContent = RichTextValue(
         getLoremIpsum(2, 'long', 'html'),
         'text/html', 'text/html').output
     subpunt.estatsLlista = u'Esborrany'
-    # constraints = ISelectableConstrainTypes(subpunt)
-    # constraints.setConstrainTypesMode(1)
-    # constraints.setLocallyAllowedTypes(('genweb.organs.document', 'genweb.organs.file'))
-
     subacord = api.content.create(
         type='genweb.organs.acord',
         id='acord',
@@ -121,10 +157,6 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
         getLoremIpsum(2, 'long', 'html'),
         'text/html', 'text/html').output
     subacord.estatsLlista = u'Esborrany'
-    # constraints = ISelectableConstrainTypes(subacord)
-    # constraints.setConstrainTypesMode(1)
-    # constraints.setLocallyAllowedTypes(('genweb.organs.document', 'genweb.organs.file'))
-
     acord = api.content.create(
         type='genweb.organs.acord',
         id='acord',
@@ -136,12 +168,15 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
         getLoremIpsum(2, 'long', 'html'),
         'text/html', 'text/html').output
     acord.estatsLlista = u'Esborrany'
-    acord.estatsLlista = u'Esborrany'
-    # constraints = ISelectableConstrainTypes(acord)
-    # constraints.setConstrainTypesMode(1)
-    # constraints.setLocallyAllowedTypes(('genweb.organs.document', 'genweb.organs.file'))
-    # # Creating files
-    # transaction.commit()
+    api.content.copy(source=document_public, target=acord, safe_id=True)
+    api.content.copy(source=document_restringit, target=acord, safe_id=True)
+    api.content.copy(source=document_both, target=acord, safe_id=True)
+    api.content.copy(source=document_public, target=subpunt, safe_id=True)
+    api.content.copy(source=document_restringit, target=subpunt, safe_id=True)
+    api.content.copy(source=document_both, target=subpunt, safe_id=True)
+    api.content.copy(source=document_public, target=subacord, safe_id=True)
+    api.content.copy(source=document_restringit, target=subacord, safe_id=True)
+    api.content.copy(source=document_both, target=subacord, safe_id=True)
     pdf_file = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'tests')) + '/testfile.pdf'
     public_file = NamedBlobFile(
         data=open(pdf_file, 'r').read(),
@@ -153,20 +188,50 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
         contentType='application/pdf',
         filename=u'pdf-restringit.pdf'
     )
+    acta = api.content.create(
+        type='genweb.organs.acta',
+        id='acta',
+        title='Acta Exemple',
+        container=session_open)
+    acta.llocConvocatoria = u'Barcelona'
+    acta.enllacVideo = u'http://www.upc.edu'
+    acta.ordenDelDia = RichTextValue(
+        getLoremIpsum(2, 'long', 'html'),
+        'text/html', 'text/html').output
+    acta.membresConvocats = acta.ordenDelDia
+    acta.membresConvidats = acta.ordenDelDia
+    acta.llistaExcusats = acta.ordenDelDia
+    acta.llistaNoAssistens = acta.ordenDelDia
+    acta.file = public_file
+    acta.horaInici = session_open.start
+    acta.horaFi = session_open.end
+    acc.horaFi = tz.localize(datetime(2018, 11, 20, 10, 0))
+    audio = api.content.create(
+        type='genweb.organs.audio',
+        id='audio',
+        title='Audio Exemple',
+        container=acta)
+    audio.description = u'audio mp3 description'
+    mp3_file = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'tests')) + '/testaudio.mp3'
+    audio_file = NamedBlobFile(
+        data=open(mp3_file, 'r').read(),
+        contentType='audio/mpeg',
+        filename=u'acta-audio.mp3'
+    )
+    audio.file = audio_file
+
     filepunt_1 = api.content.create(
         type='genweb.organs.file',
         id='public',
         title='Fitxer NOMÉS Públic',
         container=punt)
     filepunt_1.visiblefile = public_file
-
     filepunt_2 = api.content.create(
         type='genweb.organs.file',
         id='restringit',
         title='Fitxer NOMÉS Restringit',
         container=punt)
     filepunt_2.hiddenfile = restricted_file
-
     filepunt_3 = api.content.create(
         type='genweb.organs.file',
         id='public-restringit',
@@ -174,80 +239,15 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
         container=punt)
     filepunt_3.visiblefile = public_file
     filepunt_3.hiddenfile = restricted_file
-
-    filepunt_4 = api.content.create(
-        type='genweb.organs.file',
-        id='public',
-        title='Fitxer NOMÉS Públic',
-        container=subpunt)
-    filepunt_4.visiblefile = public_file
-
-    filepunt_5 = api.content.create(
-        type='genweb.organs.file',
-        id='restringit',
-        title='Fitxer NOMÉS Restringit',
-        container=subpunt)
-    filepunt_5.hiddenfile = restricted_file
-
-    filepunt_6 = api.content.create(
-        type='genweb.organs.file',
-        id='public-restringit',
-        title='Fitxer Públic i Restringit',
-        container=subpunt)
-    filepunt_6.visiblefile = public_file
-    filepunt_6.hiddenfile = restricted_file
-
-    constraints = ISelectableConstrainTypes(acord)
-    constraints.setConstrainTypesMode(1)
-    constraints.setLocallyAllowedTypes(('genweb.organs.document', 'genweb.organs.file'))
-
-    filepunt_7 = api.content.create(
-        type='genweb.organs.file',
-        id='public',
-        title='Fitxer NOMÉS Públic',
-        container=acord)
-    filepunt_7.visiblefile = public_file
-
-    filepunt_8 = api.content.create(
-        type='genweb.organs.file',
-        id='restringit',
-        title='Fitxer NOMÉS Restringit',
-        container=acord)
-    filepunt_8.hiddenfile = restricted_file
-
-    filepunt_9 = api.content.create(
-        type='genweb.organs.file',
-        id='public-restringit',
-        title='Fitxer Públic i Restringit',
-        container=acord)
-    filepunt_9.visiblefile = public_file
-    filepunt_9.hiddenfile = restricted_file
-
-    constraints = ISelectableConstrainTypes(subacord)
-    constraints.setConstrainTypesMode(1)
-    constraints.setLocallyAllowedTypes(('genweb.organs.document', 'genweb.organs.file'))
-
-    filepunt_10 = api.content.create(
-        type='genweb.organs.file',
-        id='public',
-        title='Fitxer NOMÉS Públic',
-        container=subacord)
-    filepunt_10.visiblefile = public_file
-
-    filepunt_11 = api.content.create(
-        type='genweb.organs.file',
-        id='restringit',
-        title='Fitxer NOMÉS Restringit',
-        container=subacord)
-    filepunt_11.hiddenfile = restricted_file
-
-    filepunt_12 = api.content.create(
-        type='genweb.organs.file',
-        id='public-restringit',
-        title='Fitxer Públic i Restringit',
-        container=subacord)
-    filepunt_12.visiblefile = public_file
-    filepunt_12.hiddenfile = restricted_file
+    api.content.copy(source=filepunt_1, target=subpunt, safe_id=True)
+    api.content.copy(source=filepunt_2, target=subpunt, safe_id=True)
+    api.content.copy(source=filepunt_3, target=subpunt, safe_id=True)
+    api.content.copy(source=filepunt_1, target=acord, safe_id=True)
+    api.content.copy(source=filepunt_2, target=acord, safe_id=True)
+    api.content.copy(source=filepunt_3, target=acord, safe_id=True)
+    api.content.copy(source=filepunt_1, target=subacord, safe_id=True)
+    api.content.copy(source=filepunt_2, target=subacord, safe_id=True)
+    api.content.copy(source=filepunt_3, target=subacord, safe_id=True)
 
     sessio_convocada = api.content.copy(source=session_open, target=open_og, id='convocada')
     sessio_convocada.title = 'Sessió Convocada'
@@ -606,15 +606,15 @@ class showColorOrgans(grok.View):
         return json.dumps(results, indent=2, sort_keys=True)
 
 
-class createdTestContent(grok.View):
-    # Este código crea contenido de prueba para hacer TEST de acceso
+class createTestContent(grok.View):
+    # Este código crea contenido de prueba para hacer TEST de acceso y checking de permisos
     grok.context(Interface)
     grok.name('create_test_content')
     grok.require('cmf.ManagePortal')
     grok.layer(IGenwebOrgansLayer)
 
     def render(self):
-        print "Creating test content folders..."
+        print "## Executed create_test_content view to create testingfolder content..."
         messages = IStatusMessage(self.request)
         portal = api.portal.get()
         try:
@@ -629,11 +629,11 @@ class createdTestContent(grok.View):
             container=portal['ca'])
 
         create_organ_content(og_unit, 'open_organ', 'OG.OPEN', 'Organ TEST Obert', 'obert')
-        create_organ_content(og_unit, 'restricted_to_affected_organ', 'OG.AFFECTED', 'Organ TEST restringit a AFECTATS', 'afectats')
-        create_organ_content(og_unit, 'restricted_to_members_organ', 'OG.MEMBERS', 'Organ TEST restringit a MEMBRES', 'membres')
+        # create_organ_content(og_unit, 'restricted_to_affected_organ', 'OG.AFFECTED', 'Organ TEST restringit a AFECTATS', 'afectats')
+        # create_organ_content(og_unit, 'restricted_to_members_organ', 'OG.MEMBERS', 'Organ TEST restringit a MEMBRES', 'membres')
 
-        messages.add('Created test folder with TEST content to check permissions.', type='warning')
-        # self.request.response.redirect(self.context.absolute_url())
+        messages.add('Created testingfolder with TEST content to check permissions.', type='warning')
+        self.request.response.redirect(self.context.absolute_url())
 
 
 class testFilesAccess(grok.View):

@@ -661,7 +661,7 @@ class View(grok.View):
         if utils.isManager(self):
             return True
         estatSessio = utils.session_wf_state(self)
-        organ_tipus = self.context.aq_parent.organType  # 1 level up
+        organ_tipus = self.context.organType
 
         if organ_tipus == 'open_organ':
             if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):

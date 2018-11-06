@@ -125,4 +125,13 @@
       permission="zope2.View"
       />
 
+  <!-- View needed item properties-->
+  <browser:page
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      name="findFileProperties"
+      class=".views.findFileProperties"
+      layer="..interfaces.IGenwebOrgansLayer"
+      permission="cmf.ManagePortal"
+      />
+
 </configure>

@@ -215,6 +215,7 @@
     <permission name="Genweb Organs: Add Sessions" acquire="True">
       <role name="Manager"/>
       <role name="OG1-Secretari"/>
+      <role name="OG2-Editor"/>
     </permission>
     <permission name="Genweb: Authenticated Users" acquire="True">
       <role name="Authenticated"/>
