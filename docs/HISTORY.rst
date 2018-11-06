@@ -1,11 +1,62 @@
 Changelog
 =========
 
-0.25 (unreleased)
+0.25 (2018-11-06)
 -----------------
 
-- Nothing changed yet.
-
+* Merge remote-tracking branch 'origin/calendar_slow' [Roberto Diaz]
+* updated calendar portlet [Roberto Diaz]
+* redo calendar [Roberto Diaz]
+* testing events calendar [Roberto Diaz]
+* added logout to header [Roberto Diaz]
+* added test editor add session [Roberto Diaz]
+* removed aq_parent from organType and updated RSS code [Roberto Diaz]
+* refactor permissions [Roberto Diaz]
+* findfilesproperties [Roberto Diaz]
+* added test sessions permissions [Roberto Diaz]
+* added test create session [Roberto Diaz]
+* problemas con eventos que pasan durante el día de hoy [Roberto Diaz]
+* calendar tests2 [Roberto Diaz]
+* testing calendar [Roberto Diaz]
+* TODO show current date events [Roberto Diaz]
+* added acta/audio tests [Roberto Diaz]
+* fix bacnh to travis [Roberto Diaz]
+* refactoring search calendar events portlet [Roberto Diaz]
+* Update README.md [Roberto Diaz]
+* Update README.md [Roberto Diaz]
+* Update README.md [Roberto Diaz]
+* Update README.md [Roberto Diaz]
+* added functional tests to restricted to afectats i membres [Roberto Diaz]
+* change layer [Roberto Diaz]
+* test remove commit() 2 [Roberto Diaz]
+* test remove commit() [Roberto Diaz]
+* open_testg [Roberto Diaz]
+* removed transaction commits to bypass problems with travisci [Roberto Diaz]
+* test bypass travisci [Roberto Diaz]
+* test open organ, fails anon [Roberto Diaz]
+* added 1st testing organs of membres/affected [Roberto Diaz]
+* added 1st testing organs of membres/affected [Roberto Diaz]
+* added afected tests [Roberto Diaz]
+* added () to asserttrue [Roberto Diaz]
+* renamed state [Roberto Diaz]
+* added more tests [Roberto Diaz]
+* added acords [Roberto Diaz]
+* tests anonim [Roberto Diaz]
+* testing public.restrictedTraverse [Roberto Diaz]
+* tests [Roberto Diaz]
+* removed old files [Roberto Diaz]
+* added default creation content code [Roberto Diaz]
+* testing anon profiles [Roberto Diaz]
+* removed lang from allsessions view [Roberto Diaz]
+* updated getPath [Roberto Diaz]
+* Merge branch 'master' of github.com:UPCnet/genweb.organs [Roberto Diaz]
+* updated code search [Roberto Diaz]
+* 1st optimized search version [Roberto Diaz]
+* added permissions to hidden or visible based on role [Roberto Diaz]
+* moved up previous sessions [root muntanyeta]
+* changed all/previous sessions code splitted [Roberto Diaz]
+* changed translation relacionat -> vinculat [Roberto Diaz]
+* added override to display file to get permissions from og [Roberto Diaz]
 
 0.24 (2018-10-04)
 -----------------
