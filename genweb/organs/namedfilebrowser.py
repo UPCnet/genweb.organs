@@ -117,9 +117,13 @@ def getFileOrgans(self):
                     else:
                         raise Unauthorized
                 elif self.context.visiblefile and self.context.hiddenfile:
-                    if utils.isMembre(self):
+                    if utils.isAfectat(self):
+                        # TODO : SOLVE line 1820
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
+                    else:
+                        return file
+
                 else:
                     return file
                 return file
@@ -130,14 +134,14 @@ def getFileOrgans(self):
                     else:
                         raise Unauthorized
                 elif self.context.visiblefile and self.context.hiddenfile:
-                    if utils.isMembre(self):
+                    if utils.isMembre(self) and not (utils.isEditor(self) or utils.isMembre(self) or utils.isSecretari(self)):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
-                    elif utils.isAfectat(self):
+                    elif utils.isAfectat(self) and not (utils.isEditor(self) or utils.isMembre(self) or utils.isSecretari(self)):
                         if self.fieldname == 'hiddenfile':
                             raise Unauthorized
                 elif self.context.hiddenfile:
-                    if utils.isAfectat(self):
+                    if utils.isAfectat(self) and not (utils.isEditor(self) or utils.isMembre(self) or utils.isSecretari(self)):
                         raise Unauthorized
                 else:
                     return file
@@ -149,14 +153,14 @@ def getFileOrgans(self):
                     else:
                         raise Unauthorized
                 elif self.context.visiblefile and self.context.hiddenfile:
-                    if utils.isMembre(self):
+                    if utils.isMembre(self) and not (utils.isEditor(self) or utils.isMembre(self) or utils.isSecretari(self)):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
-                    elif utils.isAfectat(self) or utils.isAnon(self):
+                    elif (utils.isAfectat(self) or utils.isAnon(self)) and not (utils.isEditor(self) or utils.isMembre(self) or utils.isSecretari(self)):
                         if self.fieldname == 'hiddenfile':
                             raise Unauthorized
                 elif self.context.hiddenfile:
-                    if utils.isAfectat(self) or utils.isAnon(self):
+                    if (utils.isAfectat(self) or utils.isAnon(self)) and not (utils.isEditor(self) or utils.isMembre(self) or utils.isSecretari(self)):
                         raise Unauthorized
                 else:
                     return file
@@ -168,14 +172,14 @@ def getFileOrgans(self):
                     else:
                         raise Unauthorized
                 elif self.context.visiblefile and self.context.hiddenfile:
-                    if utils.isMembre(self):
+                    if utils.isMembre(self) and not (utils.isEditor(self) or utils.isMembre(self) or utils.isSecretari(self)):
                         if self.fieldname == 'visiblefile':
                             raise Unauthorized
-                    elif utils.isAfectat(self) or utils.isAnon(self):
+                    elif (utils.isAfectat(self) or utils.isAnon(self)) and not (utils.isEditor(self) or utils.isMembre(self) or utils.isSecretari(self)):
                         if self.fieldname == 'hiddenfile':
                             raise Unauthorized
                 elif self.context.hiddenfile:
-                    if utils.isAfectat(self) or utils.isAnon(self):
+                    if (utils.isAfectat(self) or utils.isAnon(self)) and not (utils.isEditor(self) or utils.isMembre(self) or utils.isSecretari(self)):
                         raise Unauthorized
                 else:
                     return file
@@ -184,7 +188,7 @@ def getFileOrgans(self):
                 raise Unauthorized
 
         elif organ_tipus == 'restricted_to_members_organ':
-            if utils.isAnon(self) or utils.isAfectat(self):
+            if utils.isAnon(self):
                 raise Unauthorized
             elif estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
                 return file
@@ -203,6 +207,7 @@ def getFileOrgans(self):
                 return file
             elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                 if (self.context.portal_type == 'genweb.organs.acta') or (self.context.portal_type == 'genweb.organs.audio'):
+
                     if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                         return file
                     else:
@@ -275,8 +280,10 @@ def getFileOrgans(self):
                         if self.fieldname == 'hiddenfile':
                             raise Unauthorized
                 elif self.context.hiddenfile:
-                    if utils.isAfectat(self):
+                    if utils.isAfectat(self) and (not utils.isEditor(self) or not utils.isMembre(self) or not utils.isSecretari(self)):
                         raise Unauthorized
+                    else:
+                        return file
                 else:
                     return file
                 return file
@@ -294,8 +301,10 @@ def getFileOrgans(self):
                         if self.fieldname == 'hiddenfile':
                             raise Unauthorized
                 elif self.context.hiddenfile:
-                    if utils.isAfectat(self):
+                    if utils.isAfectat(self) and not utils.isEditor(self) and not utils.isMembre(self) and not utils.isSecretari(self):
                         raise Unauthorized
+                    else:
+                        return file
                 else:
                     return file
                 return file
