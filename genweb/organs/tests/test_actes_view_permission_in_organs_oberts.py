@@ -77,88 +77,44 @@ class FunctionalTestCase(unittest.TestCase):
         request = TestRequest()
         # START check sessio PLANIFICADA
         self.assertTrue(root_path.planificada.restrictedTraverse('@@view')())
-        print "\n    ORGAN OBERT - [Secretari] - View SESSIO PLANIFICADA - True"
         self.assertTrue(root_path.planificada.acta.restrictedTraverse('@@view')())
-        print "        View ACTA - True"
         self.assertTrue(DisplayFile(root_path.planificada.acta, request).publishTraverse(request, 'file')())
-        print "        View ACTA attached PDF - True"
         self.assertTrue(Download(root_path.planificada.acta, request).publishTraverse(request, 'file')())
-        print "        Download ACTA attached PDF - True"
         self.assertTrue(root_path.planificada.acta.audio.restrictedTraverse('@@view')())
-        print "        View AUDIO - True"
         self.assertTrue(DisplayFile(root_path.planificada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        View AUDIO attached MP3 - True"
         self.assertTrue(Download(root_path.planificada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        Download AUDIO attached MP3 - True"
-        # FIN PLANIFICADA
-        #
         # START check sessio CONVOCADA
         self.assertTrue(root_path.convocada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Secretari] - View SESSIO CONVOCADA - True"
         self.assertTrue(root_path.convocada.acta.restrictedTraverse('@@view')())
-        print "        View ACTA - True"
         self.assertTrue(DisplayFile(root_path.convocada.acta, request).publishTraverse(request, 'file')())
-        print "        View ACTA attached PDF - True"
         self.assertTrue(Download(root_path.convocada.acta, request).publishTraverse(request, 'file')())
-        print "        Download ACTA attached PDF - True"
         self.assertTrue(root_path.convocada.acta.audio.restrictedTraverse('@@view')())
-        print "        View AUDIO - True"
         self.assertTrue(DisplayFile(root_path.convocada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        View AUDIO attached MP3 - True"
         self.assertTrue(Download(root_path.convocada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        Download AUDIO attached MP3 - True"
-        # FIN CONVOCADA
-        #
         # START check sessio REALITZADA
         self.assertTrue(root_path.realitzada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Secretari] - View SESSIO REALITZADA - True"
         self.assertTrue(root_path.realitzada.acta.restrictedTraverse('@@view')())
-        print "        View ACTA - True"
         self.assertTrue(DisplayFile(root_path.realitzada.acta, request).publishTraverse(request, 'file')())
-        print "        View ACTA attached PDF - True"
         self.assertTrue(Download(root_path.realitzada.acta, request).publishTraverse(request, 'file')())
-        print "        Download ACTA attached PDF - True"
         self.assertTrue(root_path.realitzada.acta.audio.restrictedTraverse('@@view')())
-        print "        View AUDIO - True"
         self.assertTrue(DisplayFile(root_path.realitzada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        View AUDIO attached MP3 - True"
         self.assertTrue(Download(root_path.realitzada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        Download AUDIO attached MP3 - True"
-        # FIN REALITZADA
-        #
         # START check sessio TANCADA
         self.assertTrue(root_path.tancada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Secretari] - View SESSIO TANCADA - True"
         self.assertTrue(root_path.tancada.acta.restrictedTraverse('@@view')())
-        print "        View ACTA - True"
         self.assertTrue(DisplayFile(root_path.tancada.acta, request).publishTraverse(request, 'file')())
-        print "        View ACTA attached PDF - True"
         self.assertTrue(Download(root_path.tancada.acta, request).publishTraverse(request, 'file')())
-        print "        Download ACTA attached PDF - True"
         self.assertTrue(root_path.tancada.acta.audio.restrictedTraverse('@@view')())
-        print "        View AUDIO - True"
         self.assertTrue(DisplayFile(root_path.tancada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        View AUDIO attached MP3 - True"
         self.assertTrue(Download(root_path.tancada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        Download AUDIO attached MP3 - True"
-        # FIN TANCADA
-        #
         # START check sessio EN CORRECCIO
         self.assertTrue(root_path.correccio.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Secretari] - View SESSIO EN CORRECCIO - True"
         self.assertTrue(root_path.correccio.acta.restrictedTraverse('@@view')())
-        print "        View ACTA - True"
         self.assertTrue(DisplayFile(root_path.correccio.acta, request).publishTraverse(request, 'file')())
-        print "        View ACTA attached PDF - True"
         self.assertTrue(Download(root_path.correccio.acta, request).publishTraverse(request, 'file')())
-        print "        Download ACTA attached PDF - True"
         self.assertTrue(root_path.correccio.acta.audio.restrictedTraverse('@@view')())
-        print "        View AUDIO - True"
         self.assertTrue(DisplayFile(root_path.correccio.acta.audio, request).publishTraverse(request, 'file')())
-        print "        View AUDIO attached MP3 - True"
         self.assertTrue(Download(root_path.correccio.acta.audio, request).publishTraverse(request, 'file')())
-        print "        Download AUDIO attached MP3 - True"
-        # # FIN EN CORRECCIO
 
     def test_organ_obert_view_actes_as_editor(self):
         """Test as OG2-Editor Actes i Audios
@@ -170,88 +126,44 @@ class FunctionalTestCase(unittest.TestCase):
         request = TestRequest()
         # START check sessio PLANIFICADA
         self.assertTrue(root_path.planificada.restrictedTraverse('@@view')())
-        print "\n    ORGAN OBERT - [Editor] - View SESSIO PLANIFICADA - True"
         self.assertTrue(root_path.planificada.acta.restrictedTraverse('@@view')())
-        print "        View ACTA - True"
         self.assertTrue(DisplayFile(root_path.planificada.acta, request).publishTraverse(request, 'file')())
-        print "        View ACTA attached PDF - True"
         self.assertTrue(Download(root_path.planificada.acta, request).publishTraverse(request, 'file')())
-        print "        Download ACTA attached PDF - True"
         self.assertTrue(root_path.planificada.acta.audio.restrictedTraverse('@@view')())
-        print "        View AUDIO - True"
         self.assertTrue(DisplayFile(root_path.planificada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        View AUDIO attached MP3 - True"
         self.assertTrue(Download(root_path.planificada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        Download AUDIO attached MP3 - True"
-        # FIN PLANIFICADA
-        #
         # START check sessio CONVOCADA
         self.assertTrue(root_path.convocada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Editor] - View SESSIO CONVOCADA - True"
         self.assertTrue(root_path.convocada.acta.restrictedTraverse('@@view')())
-        print "        View ACTA - True"
         self.assertTrue(DisplayFile(root_path.convocada.acta, request).publishTraverse(request, 'file')())
-        print "        View ACTA attached PDF - True"
         self.assertTrue(Download(root_path.convocada.acta, request).publishTraverse(request, 'file')())
-        print "        Download ACTA attached PDF - True"
         self.assertTrue(root_path.convocada.acta.audio.restrictedTraverse('@@view')())
-        print "        View AUDIO - True"
         self.assertTrue(DisplayFile(root_path.convocada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        View AUDIO attached MP3 - True"
         self.assertTrue(Download(root_path.convocada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        Download AUDIO attached MP3 - True"
-        # FIN CONVOCADA
-        #
         # START check sessio REALITZADA
         self.assertTrue(root_path.realitzada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Editor] - View SESSIO REALITZADA - True"
         self.assertTrue(root_path.realitzada.acta.restrictedTraverse('@@view')())
-        print "        View ACTA - True"
         self.assertTrue(DisplayFile(root_path.realitzada.acta, request).publishTraverse(request, 'file')())
-        print "        View ACTA attached PDF - True"
         self.assertTrue(Download(root_path.realitzada.acta, request).publishTraverse(request, 'file')())
-        print "        Download ACTA attached PDF - True"
         self.assertTrue(root_path.realitzada.acta.audio.restrictedTraverse('@@view')())
-        print "        View AUDIO - True"
         self.assertTrue(DisplayFile(root_path.realitzada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        View AUDIO attached MP3 - True"
         self.assertTrue(Download(root_path.realitzada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        Download AUDIO attached MP3 - True"
-        # FIN REALITZADA
-        #
         # START check sessio TANCADA
         self.assertTrue(root_path.tancada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Editor] - View SESSIO TANCADA - True"
         self.assertTrue(root_path.tancada.acta.restrictedTraverse('@@view')())
-        print "        View ACTA - True"
         self.assertTrue(DisplayFile(root_path.tancada.acta, request).publishTraverse(request, 'file')())
-        print "        View ACTA attached PDF - True"
         self.assertTrue(Download(root_path.tancada.acta, request).publishTraverse(request, 'file')())
-        print "        Download ACTA attached PDF - True"
         self.assertTrue(root_path.tancada.acta.audio.restrictedTraverse('@@view')())
-        print "        View AUDIO - True"
         self.assertTrue(DisplayFile(root_path.tancada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        View AUDIO attached MP3 - True"
         self.assertTrue(Download(root_path.tancada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        Download AUDIO attached MP3 - True"
-        # FIN TANCADA
-        #
         # START check sessio EN CORRECCIO
         self.assertTrue(root_path.correccio.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Editor] - View SESSIO EN CORRECCIO - True"
         self.assertTrue(root_path.correccio.acta.restrictedTraverse('@@view')())
-        print "        View ACTA - True"
         self.assertTrue(DisplayFile(root_path.correccio.acta, request).publishTraverse(request, 'file')())
-        print "        View ACTA attached PDF - True"
         self.assertTrue(Download(root_path.correccio.acta, request).publishTraverse(request, 'file')())
-        print "        Download ACTA attached PDF - True"
         self.assertTrue(root_path.correccio.acta.audio.restrictedTraverse('@@view')())
-        print "        View AUDIO - True"
         self.assertTrue(DisplayFile(root_path.correccio.acta.audio, request).publishTraverse(request, 'file')())
-        print "        View AUDIO attached MP3 - True"
         self.assertTrue(Download(root_path.correccio.acta.audio, request).publishTraverse(request, 'file')())
-        print "        Download AUDIO attached MP3 - True"
-        # # FIN EN CORRECCIO
 
     def test_organ_obert_view_actes_as_membre(self):
         """Test as OG3-Membre Actes i Audios
@@ -263,88 +175,44 @@ class FunctionalTestCase(unittest.TestCase):
         request = TestRequest()
         # START check sessio PLANIFICADA
         self.assertRaises(Unauthorized, root_path.planificada.restrictedTraverse('@@view'))
-        print "\n    ORGAN OBERT - [Membre] - View SESSIO PLANIFICADA - Unauthorized"
         self.assertRaises(Unauthorized, root_path.planificada.acta.restrictedTraverse('@@view'))
-        print "        View ACTA - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.planificada.acta, request).publishTraverse(request, 'file'))
-        print "        View ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.planificada.acta, request).publishTraverse(request, 'file'))
-        print "        Download ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, root_path.planificada.acta.audio.restrictedTraverse('@@view'))
-        print "        View AUDIO - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.planificada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        View AUDIO attached MP3 - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.planificada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        Download AUDIO attached MP3 - Unauthorized"
-        # FIN PLANIFICADA
-        #
         # START check sessio CONVOCADA
         self.assertTrue(root_path.convocada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Membre] - View SESSIO CONVOCADA - True"
         self.assertTrue(root_path.convocada.acta.restrictedTraverse('@@view')())
-        print "        View ACTA - True"
         self.assertTrue(DisplayFile(root_path.convocada.acta, request).publishTraverse(request, 'file')())
-        print "        View ACTA attached PDF - True"
         self.assertTrue(Download(root_path.convocada.acta, request).publishTraverse(request, 'file')())
-        print "        Download ACTA attached PDF - True"
         self.assertTrue(root_path.convocada.acta.audio.restrictedTraverse('@@view')())
-        print "        View AUDIO - True"
         self.assertTrue(DisplayFile(root_path.convocada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        View AUDIO attached MP3 - True"
         self.assertTrue(Download(root_path.convocada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        Download AUDIO attached MP3 - True"
-        # FIN CONVOCADA
-        #
         # START check sessio REALITZADA
         self.assertTrue(root_path.realitzada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Membre] - View SESSIO REALITZADA - True"
         self.assertTrue(root_path.realitzada.acta.restrictedTraverse('@@view')())
-        print "        View ACTA - True"
         self.assertTrue(DisplayFile(root_path.realitzada.acta, request).publishTraverse(request, 'file')())
-        print "        View ACTA attached PDF - True"
         self.assertTrue(Download(root_path.realitzada.acta, request).publishTraverse(request, 'file')())
-        print "        Download ACTA attached PDF - True"
         self.assertTrue(root_path.realitzada.acta.audio.restrictedTraverse('@@view')())
-        print "        View AUDIO - True"
         self.assertTrue(DisplayFile(root_path.realitzada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        View AUDIO attached MP3 - True"
         self.assertTrue(Download(root_path.realitzada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        Download AUDIO attached MP3 - True"
-        # FIN REALITZADA
-        #
         # START check sessio TANCADA
         self.assertTrue(root_path.tancada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Membre] - View SESSIO TANCADA - True"
         self.assertTrue(root_path.tancada.acta.restrictedTraverse('@@view')())
-        print "        View ACTA - True"
         self.assertTrue(DisplayFile(root_path.tancada.acta, request).publishTraverse(request, 'file')())
-        print "        View ACTA attached PDF - True"
         self.assertTrue(Download(root_path.tancada.acta, request).publishTraverse(request, 'file')())
-        print "        Download ACTA attached PDF - True"
         self.assertTrue(root_path.tancada.acta.audio.restrictedTraverse('@@view')())
-        print "        View AUDIO - True"
         self.assertTrue(DisplayFile(root_path.tancada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        View AUDIO attached MP3 - True"
         self.assertTrue(Download(root_path.tancada.acta.audio, request).publishTraverse(request, 'file')())
-        print "        Download AUDIO attached MP3 - True"
-        # FIN TANCADA
-        #
         # START check sessio EN CORRECCIO
         self.assertTrue(root_path.correccio.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Membre] - View SESSIO EN CORRECCIO - True"
         self.assertTrue(root_path.correccio.acta.restrictedTraverse('@@view')())
-        print "        View ACTA - True"
         self.assertTrue(DisplayFile(root_path.correccio.acta, request).publishTraverse(request, 'file')())
-        print "        View ACTA attached PDF - True"
         self.assertTrue(Download(root_path.correccio.acta, request).publishTraverse(request, 'file')())
-        print "        Download ACTA attached PDF - True"
         self.assertTrue(root_path.correccio.acta.audio.restrictedTraverse('@@view')())
-        print "        View AUDIO - True"
         self.assertTrue(DisplayFile(root_path.correccio.acta.audio, request).publishTraverse(request, 'file')())
-        print "        View AUDIO attached MP3 - True"
         self.assertTrue(Download(root_path.correccio.acta.audio, request).publishTraverse(request, 'file')())
-        print "        Download AUDIO attached MP3 - True"
-        # # FIN EN CORRECCIO
 
     def test_organ_obert_view_actes_as_afectat(self):
         """Test as OG4-Afectat Actes i Audios
@@ -356,88 +224,44 @@ class FunctionalTestCase(unittest.TestCase):
         request = TestRequest()
         # START check sessio PLANIFICADA
         self.assertRaises(Unauthorized, root_path.planificada.restrictedTraverse('@@view'))
-        print "\n    ORGAN OBERT - [Afectat] - View SESSIO PLANIFICADA - Unauthorized"
         self.assertRaises(Unauthorized, root_path.planificada.acta.restrictedTraverse('@@view'))
-        print "        View ACTA - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.planificada.acta, request).publishTraverse(request, 'file'))
-        print "        View ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.planificada.acta, request).publishTraverse(request, 'file'))
-        print "        Download ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, root_path.planificada.acta.audio.restrictedTraverse('@@view'))
-        print "        View AUDIO - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.planificada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        View AUDIO attached MP3 - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.planificada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        Download AUDIO attached MP3 - Unauthorized"
-        # FIN PLANIFICADA
-        #
         # START check sessio CONVOCADA
         self.assertRaises(Unauthorized, root_path.convocada.restrictedTraverse('@@view'))
-        print "    ORGAN OBERT - [Afectat] - View SESSIO CONVOCADA - Unauthorized"
         self.assertRaises(Unauthorized, root_path.convocada.acta.restrictedTraverse('@@view'))
-        print "        View ACTA - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.convocada.acta, request).publishTraverse(request, 'file'))
-        print "        View ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.convocada.acta, request).publishTraverse(request, 'file'))
-        print "        Download ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, root_path.convocada.acta.audio.restrictedTraverse('@@view'))
-        print "        View AUDIO - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.convocada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        View AUDIO attached MP3 - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.convocada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        Download AUDIO attached MP3 - Unauthorized"
-        # FIN CONVOCADA
-        #
         # START check sessio REALITZADA
         self.assertTrue(root_path.realitzada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Afectat] - View SESSIO REALITZADA"
         self.assertRaises(Unauthorized, root_path.realitzada.acta.restrictedTraverse('@@view'))
-        print "        View ACTA - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.realitzada.acta, request).publishTraverse(request, 'file'))
-        print "        View ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.realitzada.acta, request).publishTraverse(request, 'file'))
-        print "        Download ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, root_path.realitzada.acta.audio.restrictedTraverse('@@view'))
-        print "        View AUDIO - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.realitzada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        View AUDIO attached MP3 - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.realitzada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        Download AUDIO attached MP3 - Unauthorized"
-        # FIN REALITZADA
-        #
         # START check sessio TANCADA
         self.assertTrue(root_path.tancada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Afectat] - View SESSIO TANCADA - True"
         self.assertRaises(Unauthorized, root_path.tancada.acta.restrictedTraverse('@@view'))
-        print "        View ACTA - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.tancada.acta, request).publishTraverse(request, 'file'))
-        print "        View ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.tancada.acta, request).publishTraverse(request, 'file'))
-        print "        Download ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, root_path.tancada.acta.audio.restrictedTraverse('@@view'))
-        print "        View AUDIO - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.tancada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        View AUDIO attached MP3 - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.tancada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        Download AUDIO attached MP3 - Unauthorized"
-        # FIN TANCADA
-        #
         # START check sessio EN CORRECCIO
         self.assertTrue(root_path.correccio.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Afectat] - View SESSIO EN CORRECCIO - True"
         self.assertRaises(Unauthorized, root_path.correccio.acta.restrictedTraverse('@@view'))
-        print "        View ACTA - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.correccio.acta, request).publishTraverse(request, 'file'))
-        print "        View ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.correccio.acta, request).publishTraverse(request, 'file'))
-        print "        Download ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, root_path.correccio.acta.audio.restrictedTraverse('@@view'))
-        print "        View AUDIO - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.correccio.acta.audio, request).publishTraverse(request, 'file'))
-        print "        View AUDIO attached MP3 - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.correccio.acta.audio, request).publishTraverse(request, 'file'))
-        print "        Download AUDIO attached MP3 - Unauthorized"
-        # # FIN EN CORRECCIO
 
     def test_organ_obert_view_actes_as_anonim(self):
         """Test as ANONIM Actes i Audios
@@ -447,85 +271,41 @@ class FunctionalTestCase(unittest.TestCase):
         request = TestRequest()
         # START check sessio PLANIFICADA
         self.assertRaises(Unauthorized, root_path.planificada.restrictedTraverse('@@view'))
-        print "\n    ORGAN OBERT - [Anonim] - View SESSIO PLANIFICADA - Unauthorized"
         self.assertRaises(Unauthorized, root_path.planificada.acta.restrictedTraverse('@@view'))
-        print "        View ACTA - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.planificada.acta, request).publishTraverse(request, 'file'))
-        print "        View ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.planificada.acta, request).publishTraverse(request, 'file'))
-        print "        Download ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, root_path.planificada.acta.audio.restrictedTraverse('@@view'))
-        print "        View AUDIO - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.planificada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        View AUDIO attached MP3 - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.planificada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        Download AUDIO attached MP3 - Unauthorized"
-        # FIN PLANIFICADA
-        #
         # START check sessio CONVOCADA
         self.assertRaises(Unauthorized, root_path.convocada.restrictedTraverse('@@view'))
-        print "    ORGAN OBERT - [Anonim] - View SESSIO CONVOCADA - Unauthorized"
         self.assertRaises(Unauthorized, root_path.convocada.acta.restrictedTraverse('@@view'))
-        print "        View ACTA - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.convocada.acta, request).publishTraverse(request, 'file'))
-        print "        View ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.convocada.acta, request).publishTraverse(request, 'file'))
-        print "        Download ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, root_path.convocada.acta.audio.restrictedTraverse('@@view'))
-        print "        View AUDIO - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.convocada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        View AUDIO attached MP3 - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.convocada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        Download AUDIO attached MP3 - Unauthorized"
-        # FIN CONVOCADA
-        #
         # START check sessio REALITZADA
         self.assertRaises(Unauthorized, root_path.realitzada.restrictedTraverse('@@view'))
-        print "    ORGAN OBERT - [Anonim] - View SESSIO REALITZADA - Unauthorized"
         self.assertRaises(Unauthorized, root_path.realitzada.acta.restrictedTraverse('@@view'))
-        print "        View ACTA - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.realitzada.acta, request).publishTraverse(request, 'file'))
-        print "        View ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.realitzada.acta, request).publishTraverse(request, 'file'))
-        print "        Download ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, root_path.realitzada.acta.audio.restrictedTraverse('@@view'))
-        print "        View AUDIO - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.realitzada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        View AUDIO attached MP3 - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.realitzada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        Download AUDIO attached MP3 - Unauthorized"
-        # FIN REALITZADA
-        #
         # START check sessio TANCADA
         self.assertTrue(root_path.tancada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Anonim] - View SESSIO TANCADA - True"
         self.assertRaises(Unauthorized, root_path.tancada.acta.restrictedTraverse('@@view'))
-        print "        View ACTA - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.tancada.acta, request).publishTraverse(request, 'file'))
-        print "        View ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.tancada.acta, request).publishTraverse(request, 'file'))
-        print "        Download ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, root_path.tancada.acta.audio.restrictedTraverse('@@view'))
-        print "        View AUDIO - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.tancada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        View AUDIO attached MP3 - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.tancada.acta.audio, request).publishTraverse(request, 'file'))
-        print "        Download AUDIO attached MP3 - Unauthorized"
-        # FIN TANCADA
-        #
         # START check sessio EN CORRECCIO
         self.assertTrue(root_path.correccio.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Anonim] - View SESSIO EN CORRECCIO - True"
         self.assertRaises(Unauthorized, root_path.correccio.acta.restrictedTraverse('@@view'))
-        print "        View ACTA - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.correccio.acta, request).publishTraverse(request, 'file'))
-        print "        View ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.correccio.acta, request).publishTraverse(request, 'file'))
-        print "        Download ACTA attached PDF - Unauthorized"
         self.assertRaises(Unauthorized, root_path.correccio.acta.audio.restrictedTraverse('@@view'))
-        print "        View AUDIO - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.correccio.acta.audio, request).publishTraverse(request, 'file'))
-        print "        View AUDIO attached MP3 - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.correccio.acta.audio, request).publishTraverse(request, 'file'))
-        print "        Download AUDIO attached MP3 - Unauthorized"
-        # # FIN EN CORRECCIO
