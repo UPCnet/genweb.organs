@@ -49,7 +49,7 @@ class FunctionalTestCase(unittest.TestCase):
             title='Organ Tests',
             container=self.portal['ca'])
 
-        # Create Open Organ structure
+        # Create Organ structure
         tools.create_organ_content(
             og_unit,
             'open_organ',

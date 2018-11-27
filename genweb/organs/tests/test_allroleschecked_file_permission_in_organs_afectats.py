@@ -49,20 +49,19 @@ class FunctionalTestCase(unittest.TestCase):
             title='Organ Tests',
             container=self.portal['ca'])
 
-        # Create Open Organ structure
+        # Create Organ structure
         tools.create_organ_content(
             og_unit,
-            'open_organ',
-            'OG.OPEN',
-            'Organ TEST Obert',
-            'obert')
+            'restricted_to_affected_organ',
+            'OG.AFFECTED',
+            'Organ TEST restringit a AFECTATS',
+            'afectats')
 
         logout()
 
     def should_view_as_secretari(self, root_path):
         request = TestRequest()
         # Check session state PLANIFICADA
-        self.assertTrue(root_path.afectats.planificada.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.planificada.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.planificada.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -117,7 +116,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertTrue(Download(root_path.afectats.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state CONVOCADA
-        self.assertTrue(root_path.afectats.convocada.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -172,7 +170,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertTrue(Download(root_path.afectats.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state REALITZADA
-        self.assertTrue(root_path.afectats.realitzada.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -227,7 +224,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertTrue(Download(root_path.afectats.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state TANCADA
-        self.assertTrue(root_path.afectats.tancada.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -282,7 +278,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertTrue(Download(root_path.afectats.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state CORRECCIO
-        self.assertTrue(root_path.afectats.correccio.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -339,7 +334,6 @@ class FunctionalTestCase(unittest.TestCase):
     def should_view_as_editor(self, root_path):
         request = TestRequest()
         # Check session state PLANIFICADA
-        self.assertTrue(root_path.afectats.planificada.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.planificada.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.planificada.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -394,7 +388,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertTrue(Download(root_path.afectats.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state CONVOCADA
-        self.assertTrue(root_path.afectats.convocada.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -449,7 +442,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertTrue(Download(root_path.afectats.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state REALITZADA
-        self.assertTrue(root_path.afectats.realitzada.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -504,7 +496,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertTrue(Download(root_path.afectats.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state TANCADA
-        self.assertTrue(root_path.afectats.tancada.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -559,7 +550,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertTrue(Download(root_path.afectats.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state CORRECCIO
-        self.assertTrue(root_path.afectats.correccio.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -616,7 +606,6 @@ class FunctionalTestCase(unittest.TestCase):
     def should_view_as_membre(self, root_path):
         request = TestRequest()
         # Check session state PLANIFICADA
-        self.assertRaises(Unauthorized, root_path.afectats.planificada.restrictedTraverse('@@view'))
         # PUNT
         self.assertRaises(Unauthorized, DisplayFile(root_path.afectats.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
         self.assertRaises(Unauthorized, Download(root_path.afectats.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
@@ -671,7 +660,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertRaises(Unauthorized, Download(root_path.afectats.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
         #
         # Check session state CONVOCADA
-        self.assertTrue(root_path.afectats.convocada.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -726,7 +714,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertTrue(Download(root_path.afectats.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state REALITZADA
-        self.assertTrue(root_path.afectats.realitzada.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -781,7 +768,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertTrue(Download(root_path.afectats.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state TANCADA
-        self.assertTrue(root_path.afectats.tancada.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -836,7 +822,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertTrue(Download(root_path.afectats.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state CORRECCIO
-        self.assertTrue(root_path.afectats.correccio.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -894,7 +879,6 @@ class FunctionalTestCase(unittest.TestCase):
         root_path = self.portal.ca.testingfolder
         request = TestRequest()
         # Check session state PLANIFICADA
-        self.assertRaises(Unauthorized, root_path.afectats.planificada.restrictedTraverse('@@view'))
         # PUNT
         self.assertRaises(Unauthorized, DisplayFile(root_path.afectats.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
         self.assertRaises(Unauthorized, Download(root_path.afectats.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
@@ -949,7 +933,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertRaises(Unauthorized, Download(root_path.afectats.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
         #
         # Check session state CONVOCADA
-        self.assertRaises(Unauthorized, root_path.afectats.convocada.restrictedTraverse('@@view'))
         # PUNT
         self.assertRaises(Unauthorized, DisplayFile(root_path.afectats.convocada.punt.public, request).publishTraverse(request, 'visiblefile'))
         self.assertRaises(Unauthorized, Download(root_path.afectats.convocada.punt.public, request).publishTraverse(request, 'visiblefile'))
@@ -1004,7 +987,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertRaises(Unauthorized, Download(root_path.afectats.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
         #
         # Check session state REALITZADA
-        self.assertTrue(root_path.afectats.realitzada.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -1059,7 +1041,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertRaises(Unauthorized, Download(root_path.afectats.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
         #
         # Check session state TANCADA
-        self.assertTrue(root_path.afectats.tancada.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
@@ -1114,7 +1095,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertRaises(Unauthorized, Download(root_path.afectats.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
         #
         # Check session state CORRECCIO
-        self.assertTrue(root_path.afectats.correccio.restrictedTraverse('@@view')())
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
         self.assertTrue(Download(root_path.afectats.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
