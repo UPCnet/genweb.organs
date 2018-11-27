@@ -1,12 +1,3 @@
-#   WARNING!!!!
-
-#     Las vistas llevan () al final para el AssertTrue
-#       self.assertTrue(root_path.obert.xxtancadaxx.restrictedTraverse('@@view')())
-
-#     Para check de Unauthorized/NotFound no lleva el ()
-#       self.assertRaises(Unauthorized, root_path.obert.xxplanificadaxx.publishTraverse('@@view'))
-#
-
 import unittest
 from genweb.organs.testing import GENWEB_ORGANS_FUNCTIONAL_TESTING
 from zope.component import getMultiAdapter
@@ -69,7 +60,7 @@ class FunctionalTestCase(unittest.TestCase):
         logout()
 
     def test_organ_obert_view_files_as_secretari(self):
-        """Test as OG1-Secretari
+        """ User only has role OG1-Secretari
         """
         logout()
         setRoles(self.portal, TEST_USER_ID, ['OG1-Secretari'])
@@ -77,536 +68,277 @@ class FunctionalTestCase(unittest.TestCase):
         root_path = self.portal.ca.testingfolder
         request = TestRequest()
         # Check session state PLANIFICADA
-        self.assertTrue(root_path.obert.planificada.restrictedTraverse('@@view')())
-        print "\n    ORGAN OBERT - [Secretari] - SESSIO PLANIFICADA - View"
         # PUNT
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - View"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
-        #
-        # FIN PLANIFICADA
         #
         # Check session state CONVOCADA
-        self.assertTrue(root_path.obert.convocada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Secretari] - SESSIO CONVOCADA - View"
         # PUNT
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - View"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
-        #
-        # FIN CONVOCADA
         #
         # Check session state REALITZADA
-        self.assertTrue(root_path.obert.realitzada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Secretari] - SESSIO REALITZADA - View"
         # PUNT
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - View"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
-        #
-        # FIN REALITZADA
         #
         # Check session state TANCADA
-        self.assertTrue(root_path.obert.tancada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Secretari] - SESSIO TANCADA - View"
         # PUNT
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - View"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
-        #
-        # FIN TANCADA
         #
         # Check session state CORRECCIO
-        self.assertTrue(root_path.obert.correccio.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Secretari] - SESSIO EN MODIFICACIO - View"
         # PUNT
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - View"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
-        # FIN EN CORRECCIO
 
     def test_organ_obert_view_files_as_editor(self):
-        """Test as OG2-Editor
+        """ User only has role OG2-Editor
         """
         logout()
         setRoles(self.portal, TEST_USER_ID, ['OG2-Editor'])
@@ -614,536 +346,277 @@ class FunctionalTestCase(unittest.TestCase):
         root_path = self.portal.ca.testingfolder
         request = TestRequest()
         # Check session state PLANIFICADA
-        self.assertTrue(root_path.obert.planificada.restrictedTraverse('@@view')())
-        print "\n    ORGAN OBERT - [Editor] - SESSIO PLANIFICADA - View"
         # PUNT
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - View"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
-        #
-        # FIN PLANIFICADA
         #
         # Check session state CONVOCADA
-        self.assertTrue(root_path.obert.convocada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Editor] - SESSIO CONVOCADA - View"
         # PUNT
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - View"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
-        #
-        # FIN CONVOCADA
         #
         # Check session state REALITZADA
-        self.assertTrue(root_path.obert.realitzada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Editor] - SESSIO REALITZADA - View"
         # PUNT
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - View"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
-        #
-        # FIN REALITZADA
         #
         # Check session state TANCADA
-        self.assertTrue(root_path.obert.tancada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Editor] - SESSIO TANCADA - View"
         # PUNT
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - View"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
-        #
-        # FIN TANCADA
         #
         # Check session state CORRECCIO
-        self.assertTrue(root_path.obert.correccio.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Editor] - SESSIO EN MODIFICACIO - View"
         # PUNT
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - View"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
-        # FIN EN CORRECCIO
 
     def test_organ_obert_view_files_as_membre(self):
-        """ Test viewing files in OG Obert as user OG3-Membre
+        """ User only has role OG3-Membre
         """
         logout()
         setRoles(self.portal, TEST_USER_ID, ['OG3-Membre'])
@@ -1151,536 +624,277 @@ class FunctionalTestCase(unittest.TestCase):
         root_path = self.portal.ca.testingfolder
         request = TestRequest()
         # Check session state PLANIFICADA
-        self.assertRaises(Unauthorized, root_path.obert.planificada.restrictedTraverse('@@view'))
-        print "\n    ORGAN OBERT - [Membre] - SESSIO PLANIFICADA - Unauthorized"
         # PUNT
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBPUNT
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBACORD
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # ACORD
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
-        #
-        # FIN PLANIFICADA
         #
         # Check session state CONVOCADA
-        self.assertTrue(root_path.obert.convocada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Membre] - SESSIO CONVOCADA - View"
         # PUNT
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - View"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
-        #
-        # FIN CONVOCADA
         #
         # Check session state REALITZADA
-        self.assertTrue(root_path.obert.realitzada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Membre] - SESSIO REALITZADA - View"
         # PUNT
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - View"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
-        #
-        # FIN REALITZADA
         #
         # Check session state TANCADA
-        self.assertTrue(root_path.obert.tancada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Membre] - SESSIO TANCADA - View"
         # PUNT
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - View"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
-        #
-        # FIN TANCADA
         #
         # Check session state CORRECCIO
-        self.assertTrue(root_path.obert.correccio.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Membre] - SESSIO EN MODIFICACIO - View"
         # PUNT
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - View"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - View"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - View"
-        # FIN EN CORRECCIO
 
     def test_organ_obert_view_files_as_afectat(self):
-        """Test as OG4-Afectat
+        """ User only has role OG4-Afectat
         """
         logout()
         setRoles(self.portal, TEST_USER_ID, ['OG4-Afectat'])
@@ -1688,1058 +902,555 @@ class FunctionalTestCase(unittest.TestCase):
         root_path = self.portal.ca.testingfolder
         request = TestRequest()
         # Check session state PLANIFICADA
-        self.assertRaises(Unauthorized, root_path.obert.planificada.restrictedTraverse('@@view'))
-        print "\n    ORGAN OBERT - [Afectat] - SESSIO PLANIFICADA - Unauthorized"
         # PUNT
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBPUNT
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBACORD
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # ACORD
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
-        #
-        # FIN PLANIFICADA
         #
         # Check session state CONVOCADA
+        # PUNT
         self.assertRaises(Unauthorized, root_path.obert.convocada.restrictedTraverse('@@view'))
-        print "    ORGAN OBERT - [Afectat] - SESSIO CONVOCADA - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBPUNT
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBCORD
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # ACORD
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
-        #
-        # FIN CONVOCADA
         #
         # Check session state REALITZADA
+        # PUNT
         self.assertTrue(root_path.obert.realitzada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Afectat] - SESSIO REALITZADA  - True"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - True"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - True"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - True"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - True"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - True"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - True"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - True"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - True"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
-        #
-        # FIN REALITZADA
         #
         # Check session state TANCADA
+        # PUNT
         self.assertTrue(root_path.obert.tancada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Afectat] - SESSIO TANCADA - True"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - True"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - True"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # SUBPUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - True"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - True"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # SUBPUNT/ACORD
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - True"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - True"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - True"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - True"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
-        #
-        # FIN TANCADA
         #
         # Check session state CORRECCIO
+        # PUNT
         self.assertTrue(root_path.obert.correccio.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Afectat] - SESSIO EN MODIFICACIO - True"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - True"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - True"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - True"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - True"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - True"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - True"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - True"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - True"
         self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - True"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
-        # FIN EN CORRECCIO
 
     def test_organ_obert_view_files_as_anonim(self):
-        """ Test as Anonymous
+        """ User nas not any role, is Anonymous
         """
         logout()
         root_path = self.portal.ca.testingfolder
         request = TestRequest()
-        print "\n    ---- User Anonymous. Not logged in."
         # Check session state PLANIFICADA
-        self.assertRaises(Unauthorized, root_path.obert.planificada.restrictedTraverse('@@view'))
         # PUNT
-        print "\n    ORGAN OBERT - [Anonim] - SESSIO PLANIFICADA - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBPUNT
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBACORD
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # ACORD
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
-        #
-        # FIN PLANIFICADA
         #
         # Check session state CONVOCADA
+        # PUNT
         self.assertRaises(Unauthorized, root_path.obert.convocada.restrictedTraverse('@@view'))
-        print "    ORGAN OBERT - [Anonim] - SESSIO CONVOCADA - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBPUNT
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBCORD
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # ACORD
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
-        #
-        # FIN CONVOCADA
         #
         # Check session state REALITZADA
+        # PUNT
         self.assertRaises(Unauthorized, root_path.obert.realitzada.restrictedTraverse('@@view'))
-        print "    ORGAN OBERT - [Anonim] - SESSIO REALITZADA  - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBPUNT
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBACORD
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # ACORD
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public (camp visible) - Download - Unauthorized"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - Unauthorized"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
-        #
-        # FIN REALITZADA
         #
         # Check session state TANCADA
+        # PUNT
         self.assertTrue(root_path.obert.tancada.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Anonim] - SESSIO TANCADA - View"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # SUBPUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # SUBPUNT/ACORD
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "      ACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
-        #
-        # FIN TANCADA
         #
         # Check session state CORRECCIO
+        # PUNT
         self.assertTrue(root_path.obert.correccio.restrictedTraverse('@@view')())
-        print "    ORGAN OBERT - [Anonim] - SESSIO EN MODIFICACIO - View"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBPUNT
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp visible) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBPUNT/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # PUNT/SUBACORD
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        PUNT/SUBACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
         # ACORD
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public (camp visible) - Download - View"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public (camp hidden) - Download - NotFound"
         self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - NotFound"
         self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - NotFound"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer restringit (camp hidden) - Download - Unauthorized"
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - DisplayFile - View"
         self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        print "        ACORD/Fitxer public i restringit (camp visible) - Download - View"
         self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - DisplayFile - Unauthorized"
         self.assertRaises(Unauthorized, Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        print "        ACORD/Fitxer public i restringit (camp hidden) - Download - Unauthorized"
-        # FIN EN CORRECCIO
