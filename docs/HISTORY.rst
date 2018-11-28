@@ -1,11 +1,16 @@
 Changelog
 =========
 
-0.26 (unreleased)
+0.26 (2018-11-28)
 -----------------
 
-- Nothing changed yet.
-
+* running tests [Roberto Diaz]
+* changed folder path. SOLVED? [Roberto Diaz]
+* pending afectats and membres in namedfile [Roberto Diaz]
+* oberts test ok? [Roberto Diaz]
+* testing [Roberto Diaz]
+* TODO: check test_allroleschecked_file_permission_in_organs_oberts.py line 1820 [Roberto Diaz]
+* added testing files, pending solve afectat/membre [Roberto Diaz]
 
 0.25 (2018-11-06)
 -----------------
