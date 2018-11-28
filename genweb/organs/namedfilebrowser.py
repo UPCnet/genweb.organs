@@ -266,7 +266,7 @@ def getFileOrgans(self):
                             return file
                     else:
                         raise Unauthorized
-            if estatSessio == 'realitzada':
+            if (estatSessio == 'realitzada' or estatSessio == 'tancada' or estatSessio == 'en_correccio'):
                 if (self.context.portal_type == 'genweb.organs.acta') or (self.context.portal_type == 'genweb.organs.audio'):
                     if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                         return file
@@ -295,32 +295,3 @@ def getFileOrgans(self):
                             return file
                     else:
                         raise Unauthorized
-            if (estatSessio == 'tancada' or estatSessio == 'en_correccio'):
-                if (self.context.portal_type == 'genweb.organs.acta') or (self.context.portal_type == 'genweb.organs.audio'):
-                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                        return file
-                    else:
-                        raise Unauthorized
-                else:
-                    if (utils.isSecretari(self) or utils.isEditor(self)):
-                        return file
-                    elif utils.isMembre(self):
-                        if (self.context.visiblefile and self.context.hiddenfile):
-                            if self.fieldname == 'hiddenfile':
-                                return file
-                            else:
-                                raise Unauthorized
-                        else:
-                            return file
-                    else:
-                        if (self.context.visiblefile and self.context.hiddenfile):
-                            if self.fieldname == 'visiblefile':
-                                return file
-                            else:
-                                raise Unauthorized
-                        elif (self.context.hiddenfile):
-                                raise Unauthorized
-                        elif (self.context.visiblefile):
-                            return file
-                        else:
-                            raise Unauthorized
