@@ -134,4 +134,17 @@
       permission="cmf.ManagePortal"
       />
 
+  <permission
+       id="genweb.organs.VistaSecretariaGeneral"
+       title="genweb.organs: Vista Secretaria General"
+       />
+
+    <browser:page
+      for="*"
+      name="allorgans"
+      class=".views.allOrgans"
+      layer="..interfaces.IGenwebOrgansLayer"
+      permission="genweb.organs.VistaSecretariaGeneral"
+    />
+
 </configure>

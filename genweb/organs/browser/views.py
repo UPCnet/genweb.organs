@@ -16,6 +16,7 @@ from operator import itemgetter
 import datetime
 import DateTime
 import json
+import tools
 
 # Disable CSRF
 try:
@@ -814,3 +815,49 @@ class findFileProperties(BrowserView):
             subpunts=subpunts
         )
         return json.dumps(results)
+
+class allOrgans(BrowserView):
+    __call__ = ViewPageTemplateFile('views/allorgans.pt')
+
+    def organsTable(self):
+
+        all_brains = api.content.find(portal_type='genweb.organs.organgovern')
+        results = []
+        for brain in all_brains:
+            obj = brain.getObject()
+            roles = obj.get_local_roles()
+            secretaris = ""
+            editors = ""
+            if roles:
+                for (username, role) in roles:
+                    if 'OG1-Secretari' in role:
+                        secretaris += username+ ", "
+                    if 'OG2-Editor' in role:
+                        editors += username+ ", "
+
+            if secretaris == "":
+                secretaris = "-"
+            else:
+                secretaris = secretaris[:-2]
+
+            if editors == "":
+                editors = "-"
+            else:
+                editors = editors[:-2]
+
+            pa = obj.getParentNode()
+
+            elements = dict(title = obj.Title(),
+                        path = obj.absolute_url(),
+                        organType = obj.organType,
+                        acronim= obj.acronim,
+                        secretaris = secretaris,
+                        editors = editors,
+                        parent = pa.Title())
+
+            if pa.getParentNode().id != "ca":
+                elements['grandparent'] = pa.getParentNode().Title()
+
+            results.append(elements)
+
+        return results

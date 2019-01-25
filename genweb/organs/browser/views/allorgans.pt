@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="ca"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="genweb.organs">
+<body>
+
+  <metal:block fill-slot="top_slot"
+                   tal:define="disable_column_one python:request.set('disable_plone.leftcolumn',1);
+                               disable_column_two python:request.set('disable_plone.rightcolumn',1)" />
+
+  <metal:content-core fill-slot="main">
+    <metal:listingmacro define-macro="listing"
+                        tal:define="elements view/organsTable;">
+
+      <h1 class="documentFirstHeading">Òrgans de govern</h1>
+
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th style="text-align: center; width:15%">Unitat</th>
+            <th style="text-align: center;">Nom de l'òrgan</th>
+            <th style="text-align: center;">Tipus d'òrgan de govern</th> 
+            <th style="text-align: center; width:10%">Secretaris</th>
+            <th style="text-align: center; width:15%">Editors</th>
+          </tr>
+        </thead>
+        <tal:documents repeat="item elements">
+          <tr>
+            <td>
+              <tal:if condition="exists:item/grandparent">
+                <p style="text-align: center; font-weight: bold;"
+                  tal:content="item/grandparent">Grand</p>
+                <p style="text-align: center";
+                  tal:content="item/parent">Parent</p>
+              </tal:if>
+              <tal:elseif condition="not:exists:item/grandparent">
+                <p style="text-align: center; font-weight: bold;"
+                  tal:content="item/parent">Grand</p>
+              </tal:elseif>             
+            </td>
+            <td style="text-align: center;">
+              <span class="icon-genweb-organs-organgovern"></span>
+              <a tal:attributes="href item/path;"
+                tal:content="item/title">
+                  Item Title
+              </a>
+              <tal:omit-tag tal:condition="item/acronim">
+                [<tal:omit-tag tal:content="item/acronim">
+                  Item Acronim
+                </tal:omit-tag>]
+              </tal:omit-tag>
+            </td>
+            <td style="text-align: center;">
+              <span tal:content="item/organType"
+                    i18n:translate=""
+                    tal:attributes="class item/organType"
+                    i18n:domain="genweb">
+                      Item Type
+              </span>
+            </td>
+            <td style="text-align: center;">
+              <p tal:content="item/secretaris">
+                      Secretaris
+              </p>
+            </td>
+            <td style="text-align: center;">
+              <p tal:content="item/editors">
+                      Editors
+              </p>
+            </td>
+          </tr>
+        </tal:documents>
+      </table>
+
+    </metal:listingmacro>
+  </metal:content-core>
+
+</body>
+</html>
