@@ -17,6 +17,7 @@ import datetime
 import DateTime
 import json
 import tools
+from operator import itemgetter
 
 # Disable CSRF
 try:
@@ -857,7 +858,10 @@ class allOrgans(BrowserView):
 
             if pa.getParentNode().id != "ca":
                 elements['grandparent'] = pa.getParentNode().Title()
+                elements['to_sort'] = elements['grandparent']
+            else:
+                elements['to_sort'] = elements['parent']
 
             results.append(elements)
 
-        return results
+        return sorted(results, key=itemgetter('to_sort'), reverse=True)

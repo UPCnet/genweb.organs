@@ -31,17 +31,16 @@
           <tr>
             <td>
               <tal:if condition="exists:item/grandparent">
-                <p style="text-align: center; font-weight: bold;"
+                <p style="font-weight: bold;"
                   tal:content="item/grandparent">Grand</p>
-                <p style="text-align: center";
-                  tal:content="item/parent">Parent</p>
+                <p tal:content="item/parent">Parent</p>
               </tal:if>
               <tal:elseif condition="not:exists:item/grandparent">
-                <p style="text-align: center; font-weight: bold;"
+                <p style="font-weight: bold;"
                   tal:content="item/parent">Grand</p>
               </tal:elseif>             
             </td>
-            <td style="text-align: center;">
+            <td>
               <span class="icon-genweb-organs-organgovern"></span>
               <a tal:attributes="href item/path;"
                 tal:content="item/title">
@@ -61,12 +60,12 @@
                       Item Type
               </span>
             </td>
-            <td style="text-align: center;">
+            <td>
               <p tal:content="item/secretaris">
                       Secretaris
               </p>
             </td>
-            <td style="text-align: center;">
+            <td>
               <p tal:content="item/editors">
                       Editors
               </p>
