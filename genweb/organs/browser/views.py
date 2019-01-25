@@ -826,7 +826,9 @@ class allOrgans(BrowserView):
         results = []
         for brain in all_brains:
             obj = brain.getObject()
+            pa = obj.getParentNode()
             roles = obj.get_local_roles()
+            parent_roles = pa.get_local_roles()
             secretaris = ""
             editors = ""
             if roles:
@@ -835,6 +837,13 @@ class allOrgans(BrowserView):
                         secretaris += username+ ", "
                     if 'OG2-Editor' in role:
                         editors += username+ ", "
+
+            if parent_roles:
+                for (username, role) in parent_roles:
+                    if 'OG1-Secretari' in role and username not in secretaris:
+                        secretaris += username+ ", "
+                    if 'OG2-Editor' in role and username not in editors:
+                        editors += username+ ", "             
 
             if secretaris == "":
                 secretaris = "-"
@@ -845,8 +854,6 @@ class allOrgans(BrowserView):
                 editors = "-"
             else:
                 editors = editors[:-2]
-
-            pa = obj.getParentNode()
 
             elements = dict(title = obj.Title(),
                         path = obj.absolute_url(),
