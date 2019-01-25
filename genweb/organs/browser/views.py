@@ -864,4 +864,4 @@ class allOrgans(BrowserView):
 
             results.append(elements)
 
-        return sorted(results, key=itemgetter('to_sort'), reverse=True)
+        return sorted(results, key=itemgetter('to_sort'), reverse=False)
