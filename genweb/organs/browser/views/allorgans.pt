@@ -6,7 +6,6 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="genweb.organs">
 <body>
-
   <metal:block fill-slot="top_slot"
                    tal:define="disable_column_one python:request.set('disable_plone.leftcolumn',1);
                                disable_column_two python:request.set('disable_plone.rightcolumn',1)" />
@@ -23,8 +22,10 @@
             <th style="text-align: center; width:15%">Unitat</th>
             <th style="text-align: center;">Nom de l'òrgan</th>
             <th style="text-align: center;">Tipus d'òrgan de govern</th> 
-            <th style="text-align: center; width:10%">Secretaris</th>
-            <th style="text-align: center; width:15%">Editors</th>
+            <th style="text-align: center;">Secretaris</th>
+            <th style="text-align: center;">Editors</th>
+            <th style="text-align: center;">Membres</th>
+            <th style="text-align: center;">Afectats</th>
           </tr>
         </thead>
         <tal:documents repeat="item elements">
@@ -68,6 +69,16 @@
             <td>
               <p tal:content="item/editors">
                       Editors
+              </p>
+            </td>
+            <td>
+              <p tal:content="item/membres">
+                      Membres
+              </p>
+            </td>
+            <td>
+              <p tal:content="item/afectats">
+                      Afectats
               </p>
             </td>
           </tr>

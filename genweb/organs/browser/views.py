@@ -831,19 +831,29 @@ class allOrgans(BrowserView):
             parent_roles = pa.get_local_roles()
             secretaris = ""
             editors = ""
+            membres = ""
+            afectats = ""
             if roles:
                 for (username, role) in roles:
                     if 'OG1-Secretari' in role:
                         secretaris += username+ ", "
                     if 'OG2-Editor' in role:
                         editors += username+ ", "
+                    if 'OG3-Membre' in role:
+                        membres += username+ ", "
+                    if 'OG4-Afectat' in role:
+                        afectats += username+ ", "
 
             if parent_roles:
                 for (username, role) in parent_roles:
                     if 'OG1-Secretari' in role and username not in secretaris:
                         secretaris += username+ ", "
                     if 'OG2-Editor' in role and username not in editors:
-                        editors += username+ ", "             
+                        editors += username+ ", "       
+                    if 'OG3-Membre' in role and username not in secretaris:
+                        membres += username+ ", "
+                    if 'OG4-Afectat' in role and username not in editors:
+                        afectats += username+ ", "       
 
             if secretaris == "":
                 secretaris = "-"
@@ -855,12 +865,24 @@ class allOrgans(BrowserView):
             else:
                 editors = editors[:-2]
 
+            if membres == "":
+                membres = "-"
+            else:
+                membres = membres[:-2]
+
+            if afectats == "":
+                afectats = "-"
+            else:
+                afectats = afectats[:-2]
+
             elements = dict(title = obj.Title(),
                         path = obj.absolute_url(),
                         organType = obj.organType,
                         acronim= obj.acronim,
                         secretaris = secretaris,
                         editors = editors,
+                        membres = membres,
+                        afectats = afectats,
                         parent = pa.Title())
 
             if pa.getParentNode().id != "ca":
