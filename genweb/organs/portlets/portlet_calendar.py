@@ -16,6 +16,7 @@ from datetime import datetime
 from plone.event.interfaces import IEvent
 from plone import api
 import calendar
+from plone.event.interfaces import IEventAccessor
 
 
 PLMF = MessageFactory('plonelocales')
@@ -135,10 +136,11 @@ class Renderer(base.Renderer):
         return dateEvent
 
     def getEventCalendarDict(self, event):
+        eventhour = IEventAccessor(event)
         start = event.start.strftime('%d/%m')
-        starthour = event.start.strftime('%H:%M')
+        starthour = eventhour.start.strftime('%H:%M')
         end = event.end.strftime('%d/%m')
-        endhour = event.end.strftime('%H:%M')
+        endhour = eventhour.end.strftime('%H:%M')
         end = None if end == start else end
         return dict(title=event.title,
                     url=event.absolute_url(),
