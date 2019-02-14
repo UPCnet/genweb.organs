@@ -1,11 +1,22 @@
 Changelog
 =========
 
-0.27 (unreleased)
+0.28 (unreleased)
 -----------------
 
 - Nothing changed yet.
 
+
+0.27 (2019-02-12)
+-----------------
+
+* hour calendar bug fixed [r.ventura]
+* membres i afectats afegits a la vista allorgans [r.ventura]
+* sub-units of units ordered too [r.ventura]
+* fixed secretaries and editors problem [r.ventura]
+* alphabetical order [r.ventura]
+* view all organs sorted [r.ventura]
+* view all organs for General Secretary [r.ventura]
 
 0.26 (2018-11-28)
 -----------------
