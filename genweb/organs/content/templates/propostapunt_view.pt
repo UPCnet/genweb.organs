@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="ca"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="genweb.organs">
+<body>
+
+<metal:content-core fill-slot="content-core"
+  tal:define="title context/title;
+              description context/description;
+              text context/text;
+              signsFile context/signsFile;
+              anexFile context/anexFile;">
+
+  <p tal:content="description">description...</p>
+
+  <p tal:content="structure text">text...</p>
+
+
+</metal:content-core>
+
+</body>
+</html>

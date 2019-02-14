@@ -222,6 +222,13 @@ class View(grok.View):
         else:
             return False
 
+    def viewExcusesAndPoints(self):
+        # Només els Secretaris i Editors poden veure les excuses
+        if utils.isSecretari(self) or utils.isEditor(self):
+            return True
+        else:
+            return False
+
     def canModify(self):
         # If item is migrated, it can't be modified
         migrated_property = hasattr(self.context, 'migrated')
@@ -238,6 +245,15 @@ class View(grok.View):
             value = True
         return value or utils.isManager(self)
 
+    #NEW
+    def showOrdreDiaIAssistencia(self):
+        review_state = api.content.get_state(self.context)
+        value = False
+        roles = utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
+        if review_state in ['planificada', 'convocada'] and roles:
+            value = True
+        return value
+        
     def showEnviarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
@@ -310,6 +326,11 @@ class View(grok.View):
                                     classe='hidden',
                                     show=False,
                                     agreement=False))
+
+            elif obj.portal_type == 'Folder':
+                #la carpeta es pels punts proposats!
+                continue
+
             else:
                 item = obj._unrestrictedGetObject()
                 if len(item.objectIds()) > 0:
@@ -451,6 +472,42 @@ class View(grok.View):
             # annotations['genweb.organs.logMail'] = aaa
             try:
                 items = annotations['genweb.organs.logMail']
+                return sorted(items, key=itemgetter('index'), reverse=True)
+            except:
+                return False
+
+    def getAnnotationsExcuse(self):
+
+        if api.user.is_anonymous():
+            return False
+        else:
+            annotations = IAnnotations(self.context)
+            # This is used to remove log entries manually
+            # import ipdb;ipdb.set_trace()
+            # aaa = annotations['genweb.organs.logMail']
+            # pp(aaa)       # Search the desired entry position
+            # aaa.pop(0)    # remove the entry
+            # annotations['genweb.organs.logMail'] = aaa
+            try:
+                items = annotations['genweb.organs.excuse']
+                return sorted(items, key=itemgetter('index'), reverse=True)
+            except:
+                return False
+
+    def getAnnotationsPoints(self):
+
+        if api.user.is_anonymous():
+            return False
+        else:
+            annotations = IAnnotations(self.context)
+            # This is used to remove log entries manually
+            # import ipdb;ipdb.set_trace()
+            # aaa = annotations['genweb.organs.logMail']
+            # pp(aaa)       # Search the desired entry position
+            # aaa.pop(0)    # remove the entry
+            # annotations['genweb.organs.logMail'] = aaa
+            try:
+                items = annotations['genweb.organs.point']
                 return sorted(items, key=itemgetter('index'), reverse=True)
             except:
                 return False

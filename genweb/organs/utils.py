@@ -152,6 +152,99 @@ def addEntryLog(context, sender, message, recipients):
         annotations[KEY] = data
 
 
+def addExcuse(context, name, email, message):
+    """ Adds entry log with the values:
+            context: where the actions is executed
+            name: who make the excuse
+            email: user email
+            excuse message: description of the excuse
+    """
+
+    KEY = 'genweb.organs.excuse'
+    annotations = IAnnotations(context)
+
+    # This is used to remove all the log entries:
+    # import ipdb;ipdb.set_trace()
+    # annotations[KEY] = []
+    # To remove some entry:
+    # aaa = annotations[KEY]
+    # pp(aaa)       # Search the desired entry position
+    # aaa.pop(0)    # remove the entry
+
+    if annotations is not None:
+        try:
+            # Get data and append values
+            if annotations.get(KEY) is not None:
+                data = annotations.get(KEY)
+            else:
+                data = []
+        except:
+            # If it's empty, initialize data
+            data = []
+
+        date = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+
+        try:
+            index = len(annotations.get(KEY))
+        except:
+            index = 0
+
+        values = dict(index=index + 1,
+                      date=date,
+                      name=name,
+                      email=email,
+                      message=message)
+
+        data.append(values)
+        annotations[KEY] = data
+
+def addPoint(context, names, title, justification, path):
+    """ Adds entry log with the values:
+            context: where the actions is executed
+            names: who makes the point
+            title: title of the proposed point
+            justification: why
+    """
+
+    KEY = 'genweb.organs.point'
+    annotations = IAnnotations(context)
+
+    # This is used to remove all the log entries:
+    # import ipdb;ipdb.set_trace()
+    # annotations[KEY] = []
+    # To remove some entry:
+    # aaa = annotations[KEY]
+    # pp(aaa)       # Search the desired entry position
+    # aaa.pop(0)    # remove the entry
+
+    if annotations is not None:
+        try:
+            # Get data and append values
+            if annotations.get(KEY) is not None:
+                data = annotations.get(KEY)
+            else:
+                data = []
+        except:
+            # If it's empty, initialize data
+            data = []
+
+        date = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+
+        try:
+            index = len(annotations.get(KEY))
+        except:
+            index = 0
+
+        values = dict(index=index + 1,
+                      date=date,
+                      names=names,
+                      title=title,
+                      justification=justification,
+                      path=path)
+
+        data.append(values)
+        annotations[KEY] = data
+
 def FilesandDocumentsInside(self):
     # Return files and docs found inside the session object
     portal_catalog = getToolByName(self, 'portal_catalog')

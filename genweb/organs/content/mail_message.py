@@ -162,7 +162,7 @@ class Message(form.SchemaForm):
                 mfrom=sender,
                 subject=formData['fromTitle'],
                 encode=None,
-                immediate=False,
+                immediate=True,
                 charset='utf8',
                 msg_type='text/html')
 

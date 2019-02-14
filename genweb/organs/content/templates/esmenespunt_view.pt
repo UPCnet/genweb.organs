@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xml:lang="en" lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="genweb.organs">
+
+<body class="template-senMessage">
+
+<metal:block metal:fill-slot="top_slot"
+      tal:define="dummy python:request.set('disable_border', 1)" />
+
+<div metal:fill-slot="main">
+  <tal:main-macro metal:define-macro="main">
+
+    <div class="span12">
+      <h1 class="documentFirstHeading"
+        i18n:translate="">
+          Esmenar un punt de l'ordre del dia
+      </h1>
+      <br/>
+      <p>Not developed yet</p>
+    </div>
+
+  </tal:main-macro>
+
+</div>
+</body>
+</html>
