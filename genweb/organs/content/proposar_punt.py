@@ -165,10 +165,10 @@ class Message(form.SchemaForm):
 
         # create propostapunt content
         catalog = getToolByName(self.context, 'portal_catalog')
-        f_context = catalog.searchResults({'portal_type':'Folder', 'id':'Punts Proposats'})
+        f_context = catalog.unrestrictedSearchResults({'portal_type':'Folder', 'id':'puntsproposats'})
 
         if len(f_context) == 0:
-            f_context = _createObjectByType("Folder", self.context, "Punts Proposats")
+            f_context = _createObjectByType("Folder", self.context, "puntsproposats")
         else:
             f_context = f_context[0].getObject()
 

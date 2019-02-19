@@ -1878,13 +1878,79 @@ td.organevent.cal_has_events .popover-content a {
 }
 
 .list-agenda a {
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
     height: 300px;
     position: relative;
     display: block;
     transition: all .25s ease-out;
     overflow: hidden;
     margin-bottom: 24px;
+}
+
+.list-agenda img {
+    object-fit: cover;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 0;
+    transition: all .5s ease;
+}
+
+.list-agenda h2 {
+    font-size:15px;
+    font-weight: 900;
+    margin: 0;
+    margin: -3px -6px -6px;
+    padding: 3px 6px;
+    z-index: 1;
+    display: inline-table;
+    position: relative;
+    color: black;
+}
+
+.list-agenda p {
+    font-size: 12px;
+    margin: 6px -6px -3px;
+    padding:3px 6px;
+    display: inline-table;
+    position: relative;
+    z-index: 1;
+    color: grey;
+}
+
+.list-agenda div{
+    padding: 2px 72px 2px 20px;
+    background: rgba(255,255,255,.95);
+    z-index: 0;
+    height: 90px;
+    top: 69.5%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all .25s ease-out;
+}
+
+.list-agenda .icon{
+    line-height: 36px;
+    border:1.5px solid #007BC1;
+    position: absolute;
+    font-size:1.125rem;
+    border-radius:50%!important;
+    right: 18px;
+    bottom: 10%;
+    width: 36px;
+    height: 36px;
+    text-align: center;
+}
+
+.list-agenda .icon:hover{
+    box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 5px 10px rgba(0,0,0,.1), 0 10px 20px rgba(0,0,0,.05)!important;
+    transition: all .25s ease-in;
+    text-decoration: none;
+    transform: perspective(1px) scale(1.00775,1.00775) translateZ(0px);
+    -webkit-font-smoothing: subpixel-antialiased;
 }
 
 .list-agenda .event-title {
@@ -1942,16 +2008,11 @@ td.organevent.cal_has_events .popover-content a {
 }
 
 .list-agenda a:hover {
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 5px 10px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 5px 10px rgba(0,0,0,.1), 0 10px 20px rgba(0,0,0,.05)!important;
+    transition: all .25s ease-in;
     text-decoration: none;
-    background-color: #F6F7F7;
-    transform: perspective(1px) scale(1.00775, 1.00775) translateZ(0px);
+    transform: perspective(1px) scale(1.00775,1.00775) translateZ(0px);
     -webkit-font-smoothing: subpixel-antialiased;
-}
-
-.list-agenda a:hover .event-time::after {
-    opacity: 1;
-    transition: all .5s ease;
 }
 
 .event-multiple {
@@ -2129,4 +2190,35 @@ a.calendari-seguent:hover  {
     border: 1px solid #eee;
     min-height: 10px!important;
     padding: 10px 10px 10px 10px;
+}
+
+.link-ext {
+    background-color: #007BC1;
+    color: white;
+    padding: 14px 72px 0px 20px;
+    position:relative;
+    min-height:35px;
+    font-size:16px;
+}
+
+.link-ext:hover{
+    box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 5px 10px rgba(0,0,0,.1), 0 10px 20px rgba(0,0,0,.05)!important;
+    transition: all .25s ease-in;
+    text-decoration: none;
+    transform: perspective(1px) scale(1.00775,1.00775) translateZ(0px);
+    -webkit-font-smoothing: subpixel-antialiased;
+    color:white;
+}
+
+.link-ext i{
+    line-height: 39px;
+    border:1.5px solid #fff;
+    position: absolute;
+    font-size:1.125rem;
+    border-radius:50%!important;
+    right: 18px;
+    bottom: 10%;
+    width: 36px;
+    height: 36px;
+    text-align: center;
 }
