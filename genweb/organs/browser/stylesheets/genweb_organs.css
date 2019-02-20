@@ -870,6 +870,11 @@ padding: 0px 0px 32px 0px !important;
 .bannerTitle .Mobile > a {color: white;}
 .bannerTitle .Mobile > a:hover {color: white;}
 
+.bannerTitle > h1 {color: white;}
+.bannerTitle > h1:hover {color: white;}
+.bannerTitle .Mobile > h1 {color: white;}
+.bannerTitle .Mobile > h1:hover {color: white;}
+
 div.formControls {
     padding-top: 0px;}
 
@@ -2195,10 +2200,9 @@ a.calendari-seguent:hover  {
 .link-ext {
     background-color: #007BC1;
     color: white;
-    padding: 14px 72px 0px 20px;
+    padding: 9px 72px 0px 20px;
     position:relative;
     min-height:35px;
-    font-size:16px;
 }
 
 .link-ext:hover{
@@ -2217,8 +2221,35 @@ a.calendari-seguent:hover  {
     font-size:1.125rem;
     border-radius:50%!important;
     right: 18px;
-    bottom: 10%;
+    bottom: 17%;
     width: 36px;
     height: 36px;
     text-align: center;
+}
+
+.link-ext h2 {
+    font-size:15px;
+    margin: 0!important;
+    z-index: 1;
+    display: inline-table;
+    position: relative;
+    color: white;
+}
+
+.link-ext p {
+    font-size: 12px;
+    display: inline-table;
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-align: center;
+}
+
+.colorblue label{
+    color:#007BC1;
+}
+
+.img-consell{
+    height: 258px;
+    width: 248px;
 }

@@ -12,7 +12,7 @@
     <link rel="alternate" title="RSS 1.0" type="application/rss+xml"
           tal:define="here_url context/@@plone_context_state/object_url;"
           tal:condition="request/SearchableText|nothing"
-          tal:attributes="href string:$here_url/search_rss?${request/QUERY_STRING}"/>
+          />
     <link rel="home" title="Home" tal:attributes="href view/navroot_url" />
 
   </metal:block>
@@ -108,7 +108,7 @@
                     <dl>
                       <dd>
                           <div id="search-filter" i18n:domain="plone">
-                            <div class="row-fluid">
+                            <div class="row-fluid colorblue">
                              <div class="span4">
                               <fieldset class="noborder">
                                   <h4 i18n:translate="label_item_type">Item type</h4>
@@ -243,10 +243,8 @@
                       </dd>
                     </dl>
                 </div>
-              
-                <a class="link-ext" style="float:right" href="//governhistoric.upc.edu/" i18n:translate="" i18n:domain="genweb.organs">Go to historic documentation
-                  <i class="fa fa-external-link fa-2x" aria-hidden="true"></i>
-                </a>
+                
+                <a style="float:right" target="_blank" href="//governhistoric.upc.edu/" i18n:translate="" i18n:domain="genweb.organs">Go to historic documentation</a>
 
         
                 <metal:searchresults define-macro="search_results">
