@@ -224,7 +224,7 @@ class View(grok.View):
 
     def viewExcusesAndPoints(self):
         # Només els Secretaris i Editors poden veure les excuses
-        if utils.isSecretari(self) or utils.isEditor(self):
+        if utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self):
             return True
         else:
             return False
@@ -249,7 +249,7 @@ class View(grok.View):
     def showOrdreDiaIAssistencia(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
+        roles = utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isManager(self)
         if review_state in ['planificada', 'convocada'] and roles:
             value = True
         return value
