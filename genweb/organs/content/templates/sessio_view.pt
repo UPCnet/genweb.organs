@@ -138,10 +138,11 @@
   <div class="sessionActions">
 
     <!--NEW ACTIONS-->
+      <!--
       <div class="containerIcons" tal:condition="view/showOrdreDiaIAssistencia">
         <a href="proposa_punt_od" i18n:attributes="title envia_missatge; alt envia_missatge"><i class="fa fa-plus fa-3x" aria-hidden="true" style="font-size:1.1em"></i> <i class="fa fa-file-text fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Proposa un punt</span></a>
       </div>
-
+      -->
       <!--
       <div class="containerIcons" tal:condition="view/showOrdreDiaIAssistencia">
         <a href="esmenes_punt_od" i18n:attributes="title envia_missatge; alt envia_missatge"><i class="fa fa-list-ol fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Esmena un punt</span></a>
@@ -184,8 +185,9 @@
         <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
       <li tal:condition="python:loginfo and viewHistory"><a href="#notificationsTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Historial</tal:omit-tag></i></a></li>
+      <!--
       <li tal:condition="python:points and viewExcusesAndPoints"><a href="#puntsTab" data-toggle="tab">
-        <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Punts afegits</tal:omit-tag></i></a></li>
+        <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Punts afegits</tal:omit-tag></i></a></li>-->
       <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag></i></a></li>
     </ul>
@@ -200,8 +202,9 @@
         <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
       <li tal:condition="python:loginfo and viewHistory"><a href="#notificationsTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Historial</tal:omit-tag></i></a></li>
+      <!--
       <li tal:condition="python:points and viewExcusesAndPoints"><a href="#puntsTab" data-toggle="tab">
-        <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Punts afegits</tal:omit-tag></i></a></li>
+        <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Punts afegits</tal:omit-tag></i></a></li>-->
       <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag></i></a></li>
     </ul>
@@ -391,7 +394,7 @@
           </table>
         </div>
       </div>
-
+      <!--
       <div class="tab-pane" id="puntsTab" tal:condition="python:points and viewExcusesAndPoints">
         <div class="scrollit">
           <table class="table table-bordered table-condensed table-hover logFont">
@@ -430,7 +433,7 @@
           </table>
         </div>
       </div>
-
+      -->
       <div class="tab-pane" id="excusesTab" tal:condition="python:excuses and viewExcusesAndPoints">
         <div class="scrollit">
           <table class="table table-bordered table-condensed table-hover logFont">
