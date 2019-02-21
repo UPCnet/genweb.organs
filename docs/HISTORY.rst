@@ -1,11 +1,17 @@
 Changelog
 =========
 
-0.28 (unreleased)
+0.28 (2019-02-21)
 -----------------
 
-- Nothing changed yet.
-
+* admin can now see excusats [r.ventura]
+* només formulari excusats [r.ventura]
+* img header now its changed via /manage [r.ventura]
+* Change fields texts excusats [r.ventura]
+* header without link, historic documentation like before [r.ventura]
+* Banners done [r.ventura]
+* Merge branch 'master' of github.com:UPCnet/genweb.organs [r.ventura]
+* Excusat i proposar punts (per test) [r.ventura]
 
 0.27 (2019-02-12)
 -----------------
