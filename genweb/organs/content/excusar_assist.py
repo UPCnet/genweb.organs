@@ -26,15 +26,15 @@ class IExcusar(form.Schema):
     """ 
     """
     name = TextLine(
-        title=_(u"Nom complet"),
+        title=_(u"Nom i cognoms"),
         required=False)
 
     email = TextLine(
-        title=_(u"Adreça de correu electrònic"),
+        title=_(u"Correu electrònic"),
         required=False)
 
     comments = schema.Text(
-        title=_(u"Descripció del problema"),
+        title=_(u"Comentaris"),
         description=_(u"Descriu el motiu pel qual no pots assistir a la sessió"),
         required=True,
     )
@@ -101,7 +101,7 @@ class Message(form.SchemaForm):
             IStatusMessage(self.request).addStatusMessage(message, type="error")
             return
 
-        addExcuse(self.context, self.widgets["email"].value or formData['name'], self.widgets["email"].value or formData['email'], self.widgets["comments"].value)
+        addExcuse(self.context, self.widgets["name"].value or formData['name'], self.widgets["email"].value or formData['email'], self.widgets["comments"].value)
 
         self.context.plone_utils.addPortalMessage(
              _(u"Formulari enviat correctament"), 'info')
