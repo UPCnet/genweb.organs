@@ -2,7 +2,7 @@
 @media only screen and (max-width: 639px) {
     .header-image {
         height:40px !important;
-        display: block !important;
+        display: none !important;
     }
     .header-image.l2-image {
         height: auto !important;
@@ -21,8 +21,8 @@
     /*.header-image {
         //background-size: auto !important;
         background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs@2x.jpg") !important;
-    }
-    */
+    }*/
+    
     #viewlet-above-content-title,
     .documentFirstHeading,
     #viewlet-below-content-title,
@@ -36,6 +36,9 @@
 
 /* START DEFAULT CSS NO MEDIA QUERY */
 
+.no-image .header-image{
+    display: none !important;
+}
 
 .sessionActions {
     float:right;
@@ -1791,7 +1794,7 @@ dd.actionMenuContent.actionMenuContentColor {
 .portaltype-genweb-organs-sessio .modal-body {overflow-y: initial !important;}
 /* End problems cleantheme */
 
-/*.header-image {
+./*header-image {
   background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs@2x.jpg") !important;
 }*/
 
