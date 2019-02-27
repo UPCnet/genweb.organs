@@ -170,7 +170,7 @@ class Search(BrowserView):
         # Old documents
         if old:
 
-            with open('src/genweb.organs/genweb/organs/2013-2015.json', 'r') as first:
+            with open('2013-2015.json', 'r') as first:
                 data = json.load(first)
 
             old_results = []
@@ -184,7 +184,7 @@ class Search(BrowserView):
                             if str(d['unitat']).lower().replace(' ', '-') in path:
                                 old_results.append(d)
 
-            with open('src/genweb.organs/genweb/organs/1996-2013.json', 'r') as second:
+            with open('1996-2013.json', 'r') as second:
                 data2 = json.load(second)
 
             for d in data2:
