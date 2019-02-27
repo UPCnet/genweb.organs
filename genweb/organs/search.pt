@@ -101,6 +101,7 @@
                  tal:define="b_start python:0;
                              b_start request/b_start | b_start;
                              batch python: view.results(query={'Language': pref_lang}, b_start=b_start);
+                             batch_old python: view.results(query={'Language': pref_lang}, b_start=b_start, old='True');
                              normalizeString nocall:context/@@plone/normalizeString;
                              isAnon context/@@plone_portal_state/anonymous;">
 
@@ -264,13 +265,192 @@
                         Search results
                     </h2>
 
-                    <span i18n:translate="batch_x_items_matching_your_criteria" i18n:domain="plone">
-                        <strong i18n:name="number" id="search-results-number"
-                                tal:content="batch/sequence_length|string:0">234</strong>
+                    <span i18n:translate="batch_x_items_matching_your_criteria" i18n:domain="plone"
+                    tal:define="
+                             sum_results python: len(batch) + len(batch_old);">
+                        <strong i18n:name="number" id="search-results-number-batch"
+                                tal:content="sum_results | string:0">234</strong>
                         items matching your search terms.
-                    </span>.
-                    <br/>
+                    </span>
+
                     <dl class="searchResults">
+                        <tal:results repeat="item batch">
+                          <dt tal:attributes="class item/ContentTypeClass">
+                            <a href="#"
+                               tal:define="item_url item/getURL;
+                                           item_type item/PortalType"
+                               tal:attributes="href python:item_type in use_view_action and (item_url + '/view') or item_url;
+                                               class string:state-${item/review_state}"
+                               tal:content="python:item.getDataOrigin().pretty_title_or_id()" />
+                          </dt>
+                          <dd>
+                            <span class="discreet" i18n:domain="plone"
+                              tal:condition="show_about">
+                              <span class="documentAuthor"
+                                  i18n:translate="label_by_author">
+                              by
+                                  <tal:block tal:condition="item/Creator"
+                                      tal:define="author python:context.portal_membership.getMemberInfo(item.Creator())">
+                                    <a href="#"
+                                       tal:attributes="href string:$navigation_root_url/author/${item/Creator}"
+                                       tal:content="python:author and author['fullname'] or item.Creator()"
+                                       tal:omit-tag="not:item/Creator"
+                                       i18n:name="author">
+                                      Bob Dobalina
+                                    </a>
+                                  </tal:block>
+                              </span>
+
+                              <span tal:define="publication_date item/EffectiveDate;
+                                                modification_date item/ModificationDate">
+
+                                  <span class="documentPublished" tal:condition="python: publication_date != 'None'">
+                                    &mdash;
+                                    <span i18n:translate="box_published">
+                                      published
+                                    </span>
+                                    <span tal:replace="python:toLocalizedTime(publication_date, long_format=0)">
+                                      August 16, 2001 at 23:35:59
+                                    </span>
+                                  </span>
+
+                                  <span class="documentModified" tal:condition="python: modification_date != publication_date">
+                                    &mdash;
+                                    <span i18n:translate="box_last_modified">
+                                      last modified
+                                    </span>
+                                    <span tal:replace="python:toLocalizedTime(modification_date, long_format=1)">
+                                      August 16, 2001 at 23:35:59
+                                    </span>
+                                  </span>
+
+                              </span>
+
+                              <span tal:define="categories item/Subject|nothing"
+                                    tal:condition="categories">
+                                &mdash;
+                                <tal:filedunder i18n:translate="">filed under:</tal:filedunder>
+                                <span tal:repeat="category categories">
+                                  <a href=""
+                                     class="link-category"
+                                     rel="tag"
+                                     tal:content="category"
+                                     tal:attributes="href string:$navigation_root_url/@@search?Subject%3Alist=${category}">
+                                    Category
+                                  </a><tal:separator condition="not: repeat/category/end">,</tal:separator>
+                                </span>
+                              </span>
+                            </span>
+                            <div tal:content="item/CroppedDescription">
+                              Cropped description
+                            </div>
+
+                            <cite class="documentLocation link-location"
+                                  tal:define="breadcrumbs python: view.breadcrumbs(item);
+                                              is_rtl context/@@plone_portal_state/is_rtl;"
+                                  tal:condition='breadcrumbs'>
+                                <span i18n:translate="text_searchitem_location">
+                                    Located in
+                                </span>
+                                <span tal:repeat="crumb breadcrumbs"
+                                      tal:attributes="dir python:is_rtl and 'rtl' or 'ltr';">
+                                    <tal:item tal:define="is_last repeat/crumb/end;
+                                                          url crumb/absolute_url;
+                                                          title crumb/Title">
+                                        <a href="#"
+                                           tal:omit-tag="not: url"
+                                           tal:attributes="href url"
+                                           tal:content="title">
+                                            crumb
+                                        </a>
+                                        <span class="breadcrumbSeparator" tal:condition="not: is_last">
+                                            <tal:ltr condition="not: is_rtl">/</tal:ltr>
+                                            <tal:rtl condition="is_rtl">/</tal:rtl>
+                                        </span>
+                                     </tal:item>
+                                </span>
+                            </cite>
+                          </dd><br>
+                        </tal:results>
+                        <tal:results repeat="item batch_old">
+                            <dt class="contenttype-genweb-organs-punt old-documents-butlleti">
+                              <tal:if condition="item/text">
+                                <a href="#"
+                                   tal:define="item_url item/url;"
+                                   tal:attributes="href item_url"
+                                   tal:content="structure item/butlleti"/>
+                              </tal:if>
+                              <tal:elseif condition="not:item/text">
+                                <tal:if condition="item/title">
+                                <a href="#"
+                                   tal:define="item_url item/url;"
+                                   tal:attributes="href item_url"
+                                   tal:content="structure item/title"/>
+                                </tal:if>
+                                <tal:elseif condition="not:item/title">
+                                <a href="#"
+                                   tal:define="item_url item/url;"
+                                   tal:attributes="href item_url"
+                                   tal:content="structure item/id"/>
+                                </tal:elseif>
+                              </tal:elseif>
+                              
+                            </dt>
+                            <dd>
+                              <tal:if condition="item/text">
+                                <span>
+                                  <span>
+                                    Publicat l'any 
+                                  </span>
+                                  <span tal:replace="item/year">
+                                    August 16, 2001 at 23:35:59
+                                  </span>
+                                </span>
+                              </tal:if>
+                              <tal:elseif condition="not:item/text">
+                                <span class="discreet" tal:condition="show_about">
+                                  <span tal:define="createdby item/by;">
+                                    per
+                                    <span tal:replace="createdby">
+                                      Bob Dobalina
+                                    </span>
+                                  </span>
+
+                                  <span tal:define="publication_date item/date;">
+                                    <span class="documentPublished">
+                                      &mdash;
+                                      <span i18n:translate="box_published">
+                                        published
+                                      </span>
+                                      <span tal:replace="publication_date">
+                                        August 16, 2001 at 23:35:59
+                                      </span>
+                                    </span>
+                                  </span>
+                                  <br>
+                                </span>
+                                <span tal:define="butlleti item/butlleti;
+                                                  url_butlleti item/url_butlleti;
+                                                  unitat item/unitat;
+                                                  url_unitat item/url_unitat;">
+                                    <span i18n:translate="text_searchitem_location">
+                                      Located in
+                                    </span>
+                                    <a href="#"
+                                    tal:attributes="href url_unitat"
+                                    tal:content="structure unitat"/>
+                                     / 
+                                    <a href="#"
+                                    tal:attributes="href url_butlleti"
+                                    tal:content="structure butlleti"/>
+
+                                </span>
+                                <br><br>
+                              </tal:elseif>
+                            </dd>
+                          </tal:results>
+                    </dl>
+                    <!--<dl class="searchResults">
                         <tal:results repeat="item batch">
                               <dt tal:attributes="class item/ContentTypeClass">
                                 <a href="#"
@@ -371,7 +551,7 @@
 
                               </dd>
                         </tal:results>
-                    </dl>
+                    </dl>-->
                     <div metal:use-macro="context/batch_macros/macros/navigation" />
                   </metal:results>
                 </div>

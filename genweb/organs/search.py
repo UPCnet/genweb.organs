@@ -10,6 +10,9 @@ from zope.i18nmessageid import MessageFactory
 from zope.publisher.browser import BrowserView
 from ZTUtils import make_query
 from genweb.organs import permissions
+import json
+import requests
+from operator import itemgetter
 # import time
 # start_time = time.time()
 # print("--- %s seconds --- " % (time.time() - start_time))
@@ -66,7 +69,7 @@ class Search(BrowserView):
 
     valid_keys = ('sort_on', 'sort_order', 'sort_limit', 'fq', 'fl', 'facet')
 
-    def results(self, query=None, batch=True, b_size=50, b_start=0):
+    def results(self, query=None, batch=True, b_size=100, b_start=0, old=False):
         """ Get properly wrapped search results from the catalog.
         Everything in Plone that performs searches should go through this view.
         'query' should be a dictionary of catalog parameters.
@@ -164,7 +167,40 @@ class Search(BrowserView):
             except ParseError:
                 return []
 
+        # Old documents
+        if old:
+
+            with open('src/genweb.organs/genweb/organs/2013-2015.json', 'r') as first:
+                data = json.load(first)
+
+            old_results = []
+            for d in data:
+                if query['SearchableText'].replace('*', '') in d['title']:
+                    if isinstance(query['path'], str):
+                        if str(d['unitat']).lower().replace(' ', '-') in query['path']:
+                            old_results.append(d)
+                    else:
+                        for path in query['path']:
+                            if str(d['unitat']).lower().replace(' ', '-') in path:
+                                old_results.append(d)
+
+            with open('src/genweb.organs/genweb/organs/1996-2013.json', 'r') as second:
+                data2 = json.load(second)
+
+            for d in data2:
+                if query['SearchableText'].replace('*', '') in str(d['text']):
+                    old_results.append(d)
+
+            if batch:
+                old_results = Batch(old_results, b_size, b_start)
+
+            if 'created' not in query:
+                return old_results
+            else:
+                return []
+
         results = IContentListing(newresults)
+
         if batch:
             results = Batch(results, b_size, b_start)
         return results

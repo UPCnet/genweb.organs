@@ -2258,3 +2258,10 @@ a.calendari-seguent:hover  {
     height: 258px;
     width: 248px;
 }
+
+.old-documents-butlleti:before{
+    content: "\f0f6"!important;
+    font-family: FontAwesome;
+    background-image:none!important;
+    top:15px!important;
+}
