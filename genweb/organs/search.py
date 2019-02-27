@@ -169,7 +169,6 @@ class Search(BrowserView):
 
         # Old documents
         if old:
-
             with open('2013-2015.json', 'r') as first:
                 data = json.load(first)
 
