@@ -11,8 +11,7 @@ from zope.publisher.browser import BrowserView
 from ZTUtils import make_query
 from genweb.organs import permissions
 import json
-import requests
-from operator import itemgetter
+import pkg_resources
 # import time
 # start_time = time.time()
 # print("--- %s seconds --- " % (time.time() - start_time))
@@ -169,8 +168,12 @@ class Search(BrowserView):
 
         # Old documents
         if old:
-            with open('2013-2015.json', 'r') as first:
-                data = json.load(first)
+
+            genweborgansegg = pkg_resources.get_distribution('genweb.organs')
+            docs_1315 = open('{}/genweb/organs/2013-2015.json'.format(genweborgansegg.location))
+            docs_9613 = open('{}/genweb/organs/1996-2013.json'.format(genweborgansegg.location))
+            data = json.loads(docs_1315.read())
+            data2 = json.loads(docs_9613.read())
 
             old_results = []
             for d in data:
@@ -182,9 +185,6 @@ class Search(BrowserView):
                         for path in query['path']:
                             if str(d['unitat']).lower().replace(' ', '-') in path:
                                 old_results.append(d)
-
-            with open('1996-2013.json', 'r') as second:
-                data2 = json.load(second)
 
             for d in data2:
                 if query['SearchableText'].replace('*', '') in str(d['text']):
