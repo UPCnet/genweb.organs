@@ -16,8 +16,7 @@ from operator import itemgetter
 import datetime
 import DateTime
 import json
-import tools
-from operator import itemgetter
+from operator import attrgetter
 
 # Disable CSRF
 try:
@@ -896,3 +895,39 @@ class allOrgans(BrowserView):
             results = sorted(results, key=itemgetter('parent'))
 
         return sorted(results, key=itemgetter('to_sort'))
+
+
+class ReorderSessions(BrowserView):
+    """ Reordena sessions de la vista d'organ"""
+    def __call__(self):
+        """ This call reassign the correct sessions for an organ
+        """
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        brains = portal_catalog.searchResults(portal_type="genweb.organs.sessio")
+        sessions_to_reorder = []
+        acords_to_update = []
+        year = datetime.datetime.now().year
+
+        for brain in brains:
+            obj = brain.getObject()
+            if obj.getParentNode().id == self.context.id:
+                if obj.start.year == year:
+                    sessions_to_reorder.append(obj)
+
+        sessions = sorted(sessions_to_reorder, key=attrgetter('start'))
+        num_sessio = "01"
+        for ses in sessions:
+            ses.numSessio = num_sessio
+            # then, update acords from the session with the same num
+            for acord in ses.getChildNodes():
+                if acord.getPortalTypeName() == 'genweb.organs.acord':
+                    if acord.agreement:
+                        aux = acord.agreement.split('/')
+                        aux[2] = num_sessio
+                        acord.agreement = '/'.join(aux)
+
+            num_sessio = str(int(num_sessio) + 1)
+            if len(num_sessio) == 1:
+                num_sessio = '0' + num_sessio
+
+        self.request.response.redirect(self.context.absolute_url())

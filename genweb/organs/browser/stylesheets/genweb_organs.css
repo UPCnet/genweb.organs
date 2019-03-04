@@ -2265,3 +2265,13 @@ a.calendari-seguent:hover  {
     background-image:none!important;
     top:15px!important;
 }
+
+.reorder{
+    position: relative;
+    bottom:25px;
+}
+.reorder a{
+    position: absolute;
+    right: 4%;
+    margin: auto;
+}

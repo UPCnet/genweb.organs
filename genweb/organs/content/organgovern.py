@@ -411,3 +411,10 @@ class View(grok.View):
             return True
         else:
             return False
+
+    def viewOrdena(self):
+        value = False
+        roles = utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self)
+        if roles:
+            value = True
+        return value

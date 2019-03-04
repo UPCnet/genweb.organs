@@ -147,4 +147,12 @@
       permission="genweb.organs.VistaSecretariaGeneral"
     />
 
+    <browser:page
+      for="genweb.organs.content.organgovern.IOrgangovern"
+      name="orderSessions"
+      class=".views.ReorderSessions"
+      layer="..interfaces.IGenwebOrgansLayer"
+      permission="cmf.ModifyPortalContent"
+    />
+
 </configure>

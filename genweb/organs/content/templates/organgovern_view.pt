@@ -17,7 +17,8 @@
                    acords view/getAcords;
                    actes view/getActes;
                    hihaPersones view/hihaPersones;
-                   multipleTab view/multipleTab">
+                   multipleTab view/multipleTab;
+                   viewOrdena view/viewOrdena">
 
   <span tal:condition="view/canModify" style="float: right;">
     <tal:omit-tag i18n:translate="">Organ Govern type</tal:omit-tag>: &nbsp;
@@ -44,6 +45,8 @@
         <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
       <li tal:condition="actes"><a href="#actasTab" data-toggle="tab">
         <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Actes</tal:omit-tag></i></a></li>
+      <!--<li tal:condition="viewOrdena"><a data-toggle="tab">
+        <i class="fa .fa-retweet" aria-hidden="True">&nbsp;<tal:omit-tag>Reorganitzar</tal:omit-tag></i></a></li>-->
     </ul>
     <ul id="tabs" class="nav nav-tabs nav-stacked hidden-tablet visible-phone hidden-desktop" data-tabs="tabs">
       <li tal:condition="sessions" class="active"><a href="#sessionsTab" data-toggle="tab">
@@ -55,6 +58,14 @@
       <li tal:condition="actes"><a href="#actasTab" data-toggle="tab">
         <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Actes</tal:omit-tag></i></a></li>
     </ul>
+
+    <div tal:condition="viewOrdena" class="reorder">
+      <a href="orderSessions">
+        <i class="fa fa-refresh" aria-hidden="True">&nbsp;<tal:omit-tag>Reorganitzar</tal:omit-tag></i></a>
+    </div>
+
+
+
 
     <div id="organTabs" class="tab-content" >
       <div class="tab-pane active" id="sessionsTab" tal:condition="sessions">
