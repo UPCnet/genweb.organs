@@ -917,14 +917,17 @@ class ReorderSessions(BrowserView):
         sessions = sorted(sessions_to_reorder, key=attrgetter('start'))
         num_sessio = "01"
         for ses in sessions:
-            ses.numSessio = num_sessio
-            # then, update acords from the session with the same num
-            for acord in ses.getChildNodes():
-                if acord.getPortalTypeName() == 'genweb.organs.acord':
-                    if acord.agreement:
-                        aux = acord.agreement.split('/')
-                        aux[2] = num_sessio
-                        acord.agreement = '/'.join(aux)
+            if api.content.get_state(obj=ses) == 'planificada':
+                ses.numSessio = num_sessio
+                # then, update acords from the session with the same num
+                for acord in ses.getChildNodes():
+                    if acord.getPortalTypeName() == 'genweb.organs.acord':
+                        if acord.agreement:
+                            aux = acord.agreement.split('/')
+                            aux[2] = num_sessio
+                            acord.agreement = '/'.join(aux)
+            else:
+                num_sessio = ses.numSessio
 
             num_sessio = str(int(num_sessio) + 1)
             if len(num_sessio) == 1:
