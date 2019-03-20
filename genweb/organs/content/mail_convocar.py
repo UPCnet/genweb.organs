@@ -179,6 +179,9 @@ class Message(form.SchemaForm):
         # replace hidden fields to maintain correct urls...
         body = formData['message'].replace('----@@----http:/', 'http://').replace('----@@----https:/', 'https://').encode('utf-8')
 
+        root_url = api.portal.get().absolute_url() + "/" + lang
+        body = body.replace('resolveuid/', root_url + "/resolveuid/")
+
         sender = self.context.aq_parent.fromMail
         try:
             self.context.MailHost.send(

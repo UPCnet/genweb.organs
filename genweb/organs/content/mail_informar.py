@@ -160,6 +160,10 @@ class Message(form.SchemaForm):
 
         # replace hidden fields to maintain correct urls...
         body = formData['message'].replace('----@@----http:/', 'http://').replace('----@@----https:/', 'https://').encode('utf-8')
+
+        root_url = api.portal.get().absolute_url() + "/" + lang
+        body = body.replace('resolveuid/', root_url + "/resolveuid/")
+
         sender = self.context.aq_parent.fromMail
         try:
             self.context.MailHost.send(
@@ -251,6 +255,7 @@ class Message(form.SchemaForm):
                 agreement = ''
             # adding hidden field to maintain good urls
             results.append(str('&emsp;') + str('<a href=----@@----') + str(obj.getURL()) + str('>') + str(number) + str(obj.Title) + str('</a>') + '&nbsp;' + str(agreement))
+            
             if len(value.objectIds()) > 0:
                 valuesInside = portal_catalog.searchResults(
                     portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
