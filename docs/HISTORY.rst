@@ -1,11 +1,26 @@
 Changelog
 =========
 
-0.29 (unreleased)
+0.30 (unreleased)
 -----------------
 
 - Nothing changed yet.
 
+
+0.29 (2019-03-21)
+-----------------
+
+* intern urls for mail messages fixed [r.ventura]
+* numera sessions button changed and just for state planificada [r.ventura]
+* test fixing egg for tests :) [Roberto Diaz]
+* reorder num sessions current year and update their acords [r.ventura]
+* json now search in egg path [r.ventura]
+* json location like search.py [r.ventura]
+* json files location changed to stylesheets [r.ventura]
+* json fix urls [r.ventura]
+* search also old docs in butlleti [r.ventura]
+* Merge branch 'master' of github.com:UPCnet/genweb.organs [r.ventura]
+* header when mobile/small tablet hidded [r.ventura]
 
 0.28 (2019-02-21)
 -----------------
