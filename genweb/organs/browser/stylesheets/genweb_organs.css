@@ -1955,14 +1955,6 @@ td.organevent.cal_has_events .popover-content a {
     text-align: center;
 }
 
-.list-agenda .icon:hover{
-    box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 5px 10px rgba(0,0,0,.1), 0 10px 20px rgba(0,0,0,.05)!important;
-    transition: all .25s ease-in;
-    text-decoration: none;
-    transform: perspective(1px) scale(1.00775,1.00775) translateZ(0px);
-    -webkit-font-smoothing: subpixel-antialiased;
-}
-
 .list-agenda .event-title {
     font-size: 16px;
     color: #4a4a4a;
@@ -2023,6 +2015,62 @@ td.organevent.cal_has_events .popover-content a {
     text-decoration: none;
     transform: perspective(1px) scale(1.00775,1.00775) translateZ(0px);
     -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.list-banners a {
+    height: 75px;
+    position: relative;
+    display: block;
+    transition: all .25s ease-out;
+    overflow: hidden;
+    background: #f3f3f3;
+    margin-bottom: 24px;
+    border: 1px solid lightgrey;
+
+}
+.list-banners a:hover {
+    box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 5px 10px rgba(0,0,0,.1), 0 10px 20px rgba(0,0,0,.05)!important;
+    transition: all .25s ease-in;
+    text-decoration: none;
+    transform: perspective(1px) scale(1.00775,1.00775) translateZ(0px);
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.list-banners div{
+  width:200px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 47%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.list-banners h2 {
+    font-size: 16px;
+    color: #636363;
+}
+
+.list-banners p {
+    font-size: 12px;
+    margin: 6px -6px -3px;
+    padding:3px 6px;
+    display: inline-table;
+    position: relative;
+    z-index: 1;
+    color: grey;
+}
+
+.list-banners .icon{
+    line-height: 37px;
+    border:1.5px solid #007BC1;
+    position: absolute;
+    font-size:1.125rem;
+    border-radius:50%!important;
+    right: 12px;
+    bottom: 23%;
+    width: 36px;
+    height: 36px;
+    text-align: center;
 }
 
 .event-multiple {
