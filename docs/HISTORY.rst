@@ -1,11 +1,12 @@
 Changelog
 =========
 
-0.30 (unreleased)
+0.30 (2019-03-25)
 -----------------
 
-- Nothing changed yet.
-
+* nou link Models de documents [r.ventura]
+* Merge branch 'master' of github.com:UPCnet/genweb.organs [r.ventura]
+* titles, banners home page done (and styles) [r.ventura]
 
 0.29 (2019-03-21)
 -----------------
