@@ -118,7 +118,9 @@ class Message(form.SchemaForm):
             titleText = "Convocatòria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
             fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
             introData = "<br/><p>Podeu consultar la convocatòria i la documentació de la sessió aquí: <a href=" + \
-                        sessionLink + ">" + sessiontitle + "</a></p><br/>" + signatura
+                        sessionLink + ">" + sessiontitle + "</a></p>" +\
+                        "<p>Podeu excusar l’assistència a la sessió aqui: <a href=" +\
+                        sessionLink + "/excusar_assist_sessio>Excusar l’assistència</a></p><br/> "+ signatura
             moreData = html_content + \
                 '<br/>' + customBody + '<strong>' + sessiontitle + \
                 '</strong><br/><br/>Lloc: ' + place + "<br/>Data: " + sessiondate + \
@@ -131,7 +133,9 @@ class Message(form.SchemaForm):
             titleText = "Convocatoria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
             fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
             introData = "<br/><p>Puede consultar la convocatoria y la documentación de la sesión aquí: <a href=" + \
-                        sessionLink + ">" + sessiontitle + "</a></p><br/>" + signatura
+                        sessionLink + ">" + sessiontitle + "</a></p>" +\
+                        "<p>Puedes escusar tu asistencia a la sesión aquí: <a href=" +\
+                        sessionLink + "/excusar_assist_sessio>Escusar asistencia</a></p><br/> "+ signatura
             moreData = html_content + \
                 '<br/>' + customBody + '<strong>' + sessiontitle + \
                 '</strong><br/><br/>Lugar: ' + place + "<br/>Fecha: " + sessiondate + \
@@ -144,7 +148,9 @@ class Message(form.SchemaForm):
             titleText = "Call " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
             fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
             introData = "<br/><p>Information regarding the call and the documentation can be found here: <a href=" + \
-                        sessionLink + ">" + sessiontitle + "</a></p><br/>" + signatura
+                        sessionLink + ">" + sessiontitle + "</a></p>" +\
+                        "<p>You can apologise for you absence here: <a href=" +\
+                        sessionLink + "/excusar_assist_sessio>apologise</a></p><br/> "+ signatura
             moreData = html_content + \
                 '<br/>' + customBody + '<strong>' + sessiontitle + \
                 '</strong><br/><br/>Place: ' + place + "<br/>Date: " + sessiondate + \
