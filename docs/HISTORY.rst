@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.31 (unreleased)
+0.31 (2019-04-02)
 -----------------
 
-- Nothing changed yet.
-
+* feedback search if there are no results [r.ventura]
+* mail_convocar con link a excusar assistencia de la sesión actual [r.ventura]
 
 0.30 (2019-03-25)
 -----------------
