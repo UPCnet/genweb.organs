@@ -261,8 +261,7 @@
                     <div id="search-results"
                          tal:define="navigation_root_url context/@@plone_portal_state/navigation_root_url;">
 
-                        <metal:results tal:condition="batch"
-                                       tal:define="isAnon context/@@plone_portal_state/anonymous;
+                        <metal:results tal:define="isAnon context/@@plone_portal_state/anonymous;
                                                    toLocalizedTime nocall: context/@@plone/toLocalizedTime;
                                                    site_properties context/portal_properties/site_properties;
                                                    use_view_action site_properties/typesUseViewActionInListings|python:();

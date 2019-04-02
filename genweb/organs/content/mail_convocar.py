@@ -119,7 +119,7 @@ class Message(form.SchemaForm):
             fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
             introData = "<br/><p>Podeu consultar la convocatòria i la documentació de la sessió aquí: <a href=" + \
                         sessionLink + ">" + sessiontitle + "</a></p>" +\
-                        "<p>Podeu excusar l’assistència a la sessió aqui: <a href=" +\
+                        "<p>Podeu excusar l’assistència a la sessió aquí: <a href=" +\
                         sessionLink + "/excusar_assist_sessio>Excusar l’assistència</a></p><br/> "+ signatura
             moreData = html_content + \
                 '<br/>' + customBody + '<strong>' + sessiontitle + \
