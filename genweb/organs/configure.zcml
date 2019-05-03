@@ -58,4 +58,10 @@
         layer=".interfaces.IGenwebOrgansLayer"
     />
 
+    <browser:page
+        name="organs-settings"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".controlpanel.OrgansSettingsControlPanel"
+        permission="cmf.ManagePortal"/>
+
 </configure>

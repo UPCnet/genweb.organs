@@ -1,0 +1,9 @@
+id: organ-n
+description: Nombre d'òrgans
+service: organsdegovern
+categories:
+  - id: total
+    description: Total
+    type: online
+    frequency: ""
+    calculator: genweb.organs.indicators.calculators.OrganNumber

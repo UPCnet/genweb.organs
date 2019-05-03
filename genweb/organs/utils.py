@@ -9,6 +9,10 @@ import unicodedata
 from Acquisition import aq_inner
 from plone.app.layout.navigation.root import getNavigationRootObject
 
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
+from genweb.organs.controlpanel import IOrgansSettings
+
 
 def isAfectat(self):
     """ Return true if user has role OG4-Afectat """
@@ -409,3 +413,7 @@ def session_wf_state(self):
             if ISessio.providedBy(obj):
                 session_state = api.content.get_state(obj=obj)
                 return session_state
+
+def get_settings_property(property_id):
+    settings = getUtility(IRegistry).forInterface(IOrgansSettings)
+    return getattr(settings, property_id, None)

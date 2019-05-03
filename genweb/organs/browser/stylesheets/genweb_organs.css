@@ -2037,11 +2037,11 @@ td.organevent.cal_has_events .popover-content a {
 }
 
 .list-banners div{
-  width:200px;
+  width:230px;
   margin: 0;
   position: absolute;
   top: 50%;
-  left: 47%;
+  left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }

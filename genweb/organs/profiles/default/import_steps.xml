@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<import-steps>
+  <import-step id="setupVarious"
+               version="20160823-01"
+               handler="genweb.organs.setuphandlers.setupVarious"
+               title="Setup Security Settings">
+    <dependency step="genweb.organs" />
+    Create portal catalog indexes and metadata
+  </import-step>
+</import-steps>
