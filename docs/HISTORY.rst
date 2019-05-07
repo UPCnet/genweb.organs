@@ -1,11 +1,14 @@
 Changelog
 =========
 
-0.32 (unreleased)
+0.32 (2019-05-07)
 -----------------
 
-- Nothing changed yet.
-
+* link banner models de documents changed [r.ventura]
+* Merge branch 'master' of github.com:UPCnet/genweb.organs [r.ventura]
+* Indicadors i canvi de literal [r.ventura]
+* updated versions to pass tests [Roberto Diaz]
+* updated versions to pass tests [Roberto Diaz]
 
 0.31 (2019-04-02)
 -----------------
