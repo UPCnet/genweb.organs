@@ -106,13 +106,13 @@
   <viewlet name="plone.site_actions"/>
  </hidden>
  <hidden manager="plone.portalheader" skinname="GenwebTheme">
+  <viewlet name="genweb.header-organs"/>
   <viewlet name="plone.personal_bar"/>
   <viewlet name="plone.logo"/>
   <viewlet name="plone.global_sections"/>
   <viewlet name="plone.searchbox"/>
   <viewlet name="plone.app.i18n.locales.languageselector"/>
   <viewlet name="plone.app.multilingual.languageselector"/>
-  <viewlet name="genweb.header"/>
  </hidden>
  <hidden manager="plone.portaltop" skinname="GenwebTheme">
   <viewlet name="genweb.alumnipersonalbar"/>
