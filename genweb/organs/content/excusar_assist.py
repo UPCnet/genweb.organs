@@ -102,7 +102,6 @@ class Message(form.SchemaForm):
             return
 
         organ = self.context.getParentNode()
-        import ipdb; ipdb.set_trace()
         receptor = organ.excuseMail
         subject = u"Excusació de "+ (self.widgets["name"].value or formData['name']) + u" per la sessió [" + self.context.title + u"] "
         body = u"<p>L'usuari " + (self.widgets["name"].value or formData['name']) + u" ha excusat la seva assistència a la sessió <a href=" +self.context.absolute_url() +u">" + self.context.title + u"</a> de l'organ de govern" + organ.title + u" degut al següent motiu:</p>\n\n" + self.widgets["comments"].value
