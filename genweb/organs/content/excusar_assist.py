@@ -101,10 +101,33 @@ class Message(form.SchemaForm):
             IStatusMessage(self.request).addStatusMessage(message, type="error")
             return
 
-        addExcuse(self.context, self.widgets["name"].value or formData['name'], self.widgets["email"].value or formData['email'], self.widgets["comments"].value)
+        organ = self.context.getParentNode()
+        import ipdb; ipdb.set_trace()
+        receptor = organ.excuseMail
+        subject = u"Excusació de "+ (self.widgets["name"].value or formData['name']) + u" per la sessió [" + self.context.title + u"] "
+        body = u"<p>L'usuari " + (self.widgets["name"].value or formData['name']) + u" ha excusat la seva assistència a la sessió <a href=" +self.context.absolute_url() +u">" + self.context.title + u"</a> de l'organ de govern" + organ.title + u" degut al següent motiu:</p>\n\n" + self.widgets["comments"].value
 
-        self.context.plone_utils.addPortalMessage(
-             _(u"Formulari enviat correctament"), 'info')
+        subject = unicodedata.normalize('NFKD', subject)
+        body = unicodedata.normalize('NFKD', body)
+
+        try:
+            self.context.MailHost.send(
+                body,
+                mto=receptor,
+                mfrom= self.widgets["email"].value or formData['email'],
+                subject= subject,
+                encode=None,
+                immediate=False,
+                charset='utf8',
+                msg_type='text/html')
+
+            addExcuse(self.context, self.widgets["name"].value or formData['name'], self.widgets["email"].value or formData['email'], self.widgets["comments"].value)
+            self.context.plone_utils.addPortalMessage(
+             _(u"Missatge enviat correctament"), 'info')
+
+        except:
+            self.context.plone_utils.addPortalMessage(
+                _(u"Missatge no enviat. Comprovi el correu electronic"), 'error')
 
         return self.request.response.redirect(self.context.absolute_url())
 
