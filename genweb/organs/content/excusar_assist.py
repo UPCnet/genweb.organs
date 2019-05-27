@@ -104,7 +104,7 @@ class Message(form.SchemaForm):
         organ = self.context.getParentNode()
         receptor = organ.excuseMail
         subject = u"Excusació de "+ (self.widgets["name"].value or formData['name']) + u" per la sessió [" + self.context.title + u"] "
-        body = u"<p>L'usuari " + (self.widgets["name"].value or formData['name']) + u" ha excusat la seva assistència a la sessió <a href=" +self.context.absolute_url() +u">" + self.context.title + u"</a> de l'organ de govern" + organ.title + u" degut al següent motiu:</p>\n\n" + self.widgets["comments"].value
+        body = u"<p>L'usuari " + (self.widgets["name"].value or formData['name']) + u" ha excusat la seva assistència a la sessió <a href=" +self.context.absolute_url() +u">" + self.context.title + u"</a> de l'organ de govern " + organ.title + u" degut al següent motiu:</p>\n\n" + self.widgets["comments"].value
 
         subject = unicodedata.normalize('NFKD', subject)
         body = unicodedata.normalize('NFKD', body)
