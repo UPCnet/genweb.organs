@@ -37,7 +37,7 @@ class IOrgangovern(form.Schema):
 
     fieldset('organ',
              label=_(u'Tab organ'),
-             fields=['title', 'acronim', 'descripcioOrgan', 'fromMail', 'excuseMail', 'organType', 'logoOrgan', 'visiblefields', 'eventsColor', 'estatsLlista']
+             fields=['title', 'acronim', 'descripcioOrgan', 'fromMail', 'organType', 'logoOrgan', 'visiblefields', 'eventsColor', 'estatsLlista']
              )
 
     fieldset('assistents',
@@ -140,13 +140,6 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
-    excuseMail = schema.TextLine(
-        title=_(u"Adreça que rep els missatges d'excusats"),
-        description=_(u"Adreça o correu del que rebra els missatges quan algú excusi l'assistència"),
-        required=True,
-        constraint=checkEmailAddress
-    )
-    
     directives.widget(bodyMailconvoquing=WysiwygFieldWidget)
     bodyMailconvoquing = schema.Text(
         title=_(u"Body Mail"),
