@@ -151,9 +151,36 @@ class Search(BrowserView):
         else:
             catalog = getToolByName(self.context, 'portal_catalog')
             try:
+                #for all acords or punts
                 results = catalog(**query)
+                all_results= []
                 for res in results:
+                    all_results.append(res)
+
+                #for subjects
+                aux_subject_res = catalog.searchResults(portal_type=query['portal_type'], Subject=query['SearchableText'].replace('*', ''))
+                for res in aux_subject_res:
+                    if res not in all_results:
+                        all_results.append(res)
+
+                #for documents
+                ptype = query['portal_type']
+                query_docs = query
+                query_docs['portal_type'] = "genweb.organs.document"
+                aux_doc_res = catalog(**query_docs)
+                for res in aux_doc_res:
+                    obj = res.getObject()
+                    parent = obj.getParentNode()
+                    if parent.portal_type in ptype:
+                        if parent not in all_results:
+                            p_brain = catalog.searchResults(portal_type=ptype, id=parent.id)[0]
+                            all_results.append(p_brain)
+
+                for res in all_results:
                     item = res.getObject()
+                    if item.portal_type == "genweb.organs.document":
+                        item = item.getParentNode()
+
                     if item.portal_type == 'genweb.organs.punt':
                         if permissions.canViewPunt(self, item):
                             newresults.append(res)
