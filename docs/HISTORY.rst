@@ -1,11 +1,15 @@
 Changelog
 =========
 
-0.33 (unreleased)
+0.33 (2019-06-27)
 -----------------
 
-- Nothing changed yet.
-
+* search now able to search by subject and documents [r.ventura]
+* removed send mail when excuse [r.ventura]
+* just added a space [r.ventura]
+* remove ipdb [r.ventura]
+* send mail excusats and new field in organs [r.ventura]
+* make header visible [Roberto Diaz]
 
 0.32 (2019-05-07)
 -----------------
