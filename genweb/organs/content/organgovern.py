@@ -384,7 +384,13 @@ class View(grok.View):
             return None
 
     def getFAQs(self):
-        return self.context.FAQmembres.raw
+
+        try:
+            faqm = self.context.FAQmembres.raw
+        except:
+            faqm = ""
+
+        return faqm
 
     def canView(self):
         # Permissions to view ORGANS DE GOVERN
