@@ -17,6 +17,7 @@ from operator import itemgetter
 from plone.indexer import indexer
 from genweb.organs import utils
 from AccessControl import Unauthorized
+from plone.app.textfield import RichText as RichTextField
 
 
 types = SimpleVocabulary(
@@ -37,7 +38,7 @@ class IOrgangovern(form.Schema):
 
     fieldset('organ',
              label=_(u'Tab organ'),
-             fields=['title', 'acronim', 'descripcioOrgan', 'fromMail', 'organType', 'logoOrgan', 'visiblefields', 'eventsColor', 'estatsLlista']
+             fields=['title', 'acronim', 'descripcioOrgan', 'fromMail', 'organType', 'logoOrgan', 'visiblefields', 'eventsColor', 'estatsLlista', 'FAQmembres']
              )
 
     fieldset('assistents',
@@ -172,6 +173,12 @@ class IOrgangovern(form.Schema):
     visiblefields = schema.Bool(
         title=_(u"Visible fields"),
         description=_(u"Make the sessions and composition members fields visibles to everyone, omitting the security systems."),
+        required=False,
+    )
+
+    FAQmembres = RichTextField(
+        title=_(u"FAQ membres"),
+        description=_(u'Preguntes freqüents de membres'),
         required=False,
     )
 
@@ -375,6 +382,9 @@ class View(grok.View):
             return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
         else:
             return None
+
+    def getFAQs(self):
+        return self.context.FAQmembres.raw
 
     def canView(self):
         # Permissions to view ORGANS DE GOVERN

@@ -16,6 +16,7 @@
                    sessions view/SessionsInside;
                    acords view/getAcords;
                    actes view/getActes;
+                   faqs view/getFAQs;
                    hihaPersones view/hihaPersones;
                    multipleTab view/multipleTab;
                    viewOrdena view/viewOrdena">
@@ -45,8 +46,10 @@
         <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
       <li tal:condition="actes"><a href="#actasTab" data-toggle="tab">
         <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Actes</tal:omit-tag></i></a></li>
-
+      <li tal:condition="faqs"><a href="#faqTab" data-toggle="tab">
+        <i class="fa fa-question-circle" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">FAQ membres</tal:omit-tag></i></a></li>
     </ul>
+
     <ul id="tabs" class="nav nav-tabs nav-stacked hidden-tablet visible-phone hidden-desktop" data-tabs="tabs">
       <li tal:condition="sessions" class="active"><a href="#sessionsTab" data-toggle="tab">
         <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Sessions</tal:omit-tag></i></a></li>
@@ -56,6 +59,8 @@
         <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
       <li tal:condition="actes"><a href="#actasTab" data-toggle="tab">
         <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Actes</tal:omit-tag></i></a></li>
+      <li tal:condition="faqs"><a href="#faqTab" data-toggle="tab">
+        <i class="fa fa-question-circle" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">FAQ membres</tal:omit-tag></i></a></li>
     </ul>
 
     <div tal:condition="viewOrdena" class="reorder">
@@ -226,6 +231,11 @@
               </tal:documents>
             </tbody>
           </table>
+        </div>
+      </div>
+      <div class="tab-pane" id="faqTab" tal:condition="faqs">
+        <div class="faq_membres">
+          <p tal:content="structure faqs">FAQ membres</p>
         </div>
       </div>
     </div>
