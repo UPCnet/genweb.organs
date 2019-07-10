@@ -1,11 +1,12 @@
 Changelog
 =========
 
-0.34 (unreleased)
+0.34 (2019-07-10)
 -----------------
 
-- Nothing changed yet.
-
+* canvi literal banner [r.ventura]
+* error fixed FAQ tab [r.ventura]
+* FAQ membres field and tab done [r.ventura]
 
 0.33 (2019-06-27)
 -----------------
