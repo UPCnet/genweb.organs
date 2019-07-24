@@ -18,7 +18,8 @@ from plone.event.interfaces import IEventAccessor
 from operator import itemgetter
 from AccessControl import Unauthorized
 import datetime
-
+import csv
+from StringIO import StringIO
 
 grok.templatedir("templates")
 
@@ -440,6 +441,7 @@ class View(grok.View):
                               'depth': 1})
                     if values:
                         results = []
+                        results_export_CSV = []
                         for obj in values:
                             acc = IEventAccessor(self.context)
                             if acc.start:
@@ -449,6 +451,10 @@ class View(grok.View):
                             results.append(dict(title=obj.Title,
                                                 absolute_url=obj.getURL(),
                                                 date=dataSessio))
+                            results_export_CSV.append(dict(title=obj.Title,
+                                                            absolute_url=obj.getURP(),
+                                                            date=dataSessio))
+
                         return results
                     else:
                         return False
@@ -761,3 +767,87 @@ class View(grok.View):
                 return True
             else:
                 raise Unauthorized
+
+
+
+class exportActas(grok.View):
+    grok.context(ISessio)
+    grok.name('exportAcordsCSV')
+    grok.require('cmf.ManagePortal')
+
+    data_header_columns = [
+        "Titol",
+        "NumAcord",
+        "Estats",
+        "Continguit",
+        "Fitxers"]
+
+    def render(self):
+        output_file = StringIO()
+        # Write the BOM of the text stream to make its charset explicit
+        output_file.write(u'\ufeff'.encode('utf8'))
+        self.write_data(output_file)
+
+        header_content_type = 'text/csv'
+        header_filename = 'llista_acords_' + self.context.id + '.csv'
+        self.request.response.setHeader('Content-Type', header_content_type)
+        self.request.response.setHeader(
+            'Content-Disposition',
+            'attachment; filename="{0}"'.format(header_filename))
+        return output_file.getvalue()
+
+
+    def listAcords(self):
+        # If acords in site, publish the tab and the contents...
+        results = []
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+
+        values = portal_catalog.unrestrictedSearchResults(
+            portal_type=['genweb.organs.acord'],
+            sort_on='modified',
+            path={'query': folder_path,
+                  'depth': 3})
+        for obj in values:
+            # value = obj.getObject()
+            value = obj._unrestrictedGetObject()
+            if value.agreement:
+                if len(value.agreement.split('/')) > 2:
+                    try:
+                        num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3) + value.agreement.split('/')[3].zfill(3)
+                    except:
+                        num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3)
+                    any = value.agreement.split('/')[0]
+                else:
+                    num = value.agreement.split('/')[0].zfill(3)
+                    any = value.agreement.split('/')[1]
+            else:
+                num = any = ''
+
+            sons_string = ""
+            for son in value.getChildNodes():
+                sons_string += "- " + son.Title() + "\n"
+
+            results.append(dict(title=value.title,
+                                absolute_url=value.absolute_url(),
+                                agreement=value.agreement,
+                                hiddenOrder=any + num,
+                                estatsLlista=value.estatsLlista,
+                                contingut=value.defaultContent,
+                                sons=sons_string))
+
+        return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
+
+    def write_data(self,output_file):
+        writer = csv.writer(output_file, dialect='excel', delimiter=',')
+        writer.writerow(self.data_header_columns)
+
+        actes = self.listAcords
+        for acta in self.listAcords():
+            writer.writerow([acta['title'].encode('utf-8'),
+                             acta['agreement'].encode('utf-8'),
+                             acta['estatsLlista'].encode('utf-8'),
+                             acta['contingut'],
+                             acta['sons']
+
+            ])

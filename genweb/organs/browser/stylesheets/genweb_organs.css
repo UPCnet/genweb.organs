@@ -2329,3 +2329,23 @@ a.calendari-seguent:hover  {
     border: 1px solid #b2b2b2;
     padding: 10px;
 }
+
+.print-block {
+    border-bottom: 1px black solid;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+}
+
+.print-block h3 {
+    font-weight: bold;
+    color: black;
+}
+
+.btn-export-acords {
+    display: flex;
+    margin-top: 20px;
+}
+
+.btn-export-acords a{
+    margin: auto;
+}

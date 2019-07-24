@@ -136,7 +136,7 @@ def membresConvidatsDefaultValue(data):
 @form.default_value(field=IActa['membresConvocats'])
 def membresConvocatsDefaultValue(data):
     # copy membresConvocats from Session (parent object)
-    return data.context.membresConvocats
+    return data.context.assistents
 
 
 @form.default_value(field=IActa['llistaExcusats'])
