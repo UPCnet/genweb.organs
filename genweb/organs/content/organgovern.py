@@ -18,6 +18,8 @@ from plone.indexer import indexer
 from genweb.organs import utils
 from AccessControl import Unauthorized
 from plone.app.textfield import RichText as RichTextField
+import csv
+from StringIO import StringIO
 
 
 types = SimpleVocabulary(
@@ -434,3 +436,122 @@ class View(grok.View):
         if roles:
             value = True
         return value
+
+    def viewExportAcords(self):
+        # Només els Secretaris i Editors poden veure les excuses
+        if utils.isSecretari(self) or utils.isManager(self):
+            return True
+        else:
+            return False
+
+
+
+
+class exportActas(grok.View):
+    grok.context(IOrgangovern)
+    grok.name('exportAcordsCSV')
+    grok.require('cmf.ManagePortal')
+
+    data_header_columns = [
+        "Titol",
+        "NumAcord",
+        "Estats",
+        "Continguit",
+        "Fitxers"]
+
+    def render(self):
+        output_file = StringIO()
+        # Write the BOM of the text stream to make its charset explicit
+        output_file.write(u'\ufeff'.encode('utf8'))
+        self.write_data(output_file)
+
+        header_content_type = 'text/csv'
+        header_filename = 'llista_acords_' + self.context.id + '.csv'
+        self.request.response.setHeader('Content-Type', header_content_type)
+        self.request.response.setHeader(
+            'Content-Disposition',
+            'attachment; filename="{0}"'.format(header_filename))
+        return output_file.getvalue()
+
+
+    def listAcords(self):
+        # If acords in site, publish the tab and the contents...
+        results = []
+
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+
+        # Només veu els acords de les sessions que pot veure
+        sessions = portal_catalog.unrestrictedSearchResults(
+            portal_type='genweb.organs.sessio',
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        paths = []
+        if api.user.is_anonymous():
+            username = None
+        else:
+            username = api.user.get_current().id
+
+        organ_type = self.context.organType
+        for session in sessions:
+            paths.append(session.getPath())
+
+        for path in paths:
+            values = portal_catalog.unrestrictedSearchResults(
+                portal_type=['genweb.organs.acord'],
+                sort_on='modified',
+                path={'query': path,
+                      'depth': 3})
+            for obj in values:
+                # value = obj.getObject()
+                value = obj._unrestrictedGetObject()
+                if value.agreement:
+                    if len(value.agreement.split('/')) > 2:
+                        try:
+                            num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3) + value.agreement.split('/')[3].zfill(3)
+                        except:
+                            num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3)
+                        any = value.agreement.split('/')[0]
+                    else:
+                        num = value.agreement.split('/')[0].zfill(3)
+                        any = value.agreement.split('/')[1]
+                else:
+                    num = any = ''
+
+                sons_string = ""
+                for son in value.getChildNodes():
+                    sons_string += "- " + son.Title() + "\n"
+
+                results.append(dict(title=value.title,
+                                    absolute_url=value.absolute_url(),
+                                    agreement=value.agreement,
+                                    hiddenOrder=any + num,
+                                    estatsLlista=value.estatsLlista,
+                                    contingut=value.defaultContent,
+                                    sons=sons_string))
+
+        return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
+
+    def write_data(self,output_file):
+        writer = csv.writer(output_file, dialect='excel', delimiter=',')
+        writer.writerow(self.data_header_columns)
+
+        for acord in self.listAcords():
+
+            try:
+                title = acord['title'].encode('utf-8')
+            except:
+                title = acord['title']
+
+            if acord['contingut']:
+                acord['contingut'] = unicode(acord['contingut']).encode('utf-8')
+
+            writer.writerow([title,
+                             acord['agreement'],
+                             acord['estatsLlista'].encode('utf-8'),
+                             acord['contingut'],
+                             acord['sons']
+
+            ])

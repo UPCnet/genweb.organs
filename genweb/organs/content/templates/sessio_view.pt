@@ -355,9 +355,6 @@
               </tbody>
             </table>
           </div>
-          <div class="btn-export-acords" tal:condition="viewHistory">
-            <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/exportAcordsCSV" data-toggle="" data-target=""><i class="fa fa-download" aria-hidden="true"></i>&nbsp;<span>Exportar acords</span></a>
-          </div>
         </div>
       </div>
 
