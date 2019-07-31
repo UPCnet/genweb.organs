@@ -445,8 +445,6 @@ class View(grok.View):
             return False
 
 
-
-
 class exportActas(grok.View):
     grok.context(IOrgangovern)
     grok.name('exportAcordsCSV')
@@ -456,7 +454,7 @@ class exportActas(grok.View):
         "Titol",
         "NumAcord",
         "Estats",
-        "Continguit",
+        "Contingut",
         "Fitxers"]
 
     def render(self):
@@ -472,7 +470,6 @@ class exportActas(grok.View):
             'Content-Disposition',
             'attachment; filename="{0}"'.format(header_filename))
         return output_file.getvalue()
-
 
     def listAcords(self):
         # If acords in site, publish the tab and the contents...
@@ -534,7 +531,7 @@ class exportActas(grok.View):
 
         return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
 
-    def write_data(self,output_file):
+    def write_data(self, output_file):
         writer = csv.writer(output_file, dialect='excel', delimiter=',')
         writer.writerow(self.data_header_columns)
 
@@ -553,5 +550,4 @@ class exportActas(grok.View):
                              acord['estatsLlista'].encode('utf-8'),
                              acord['contingut'],
                              acord['sons']
-
             ])
