@@ -1,11 +1,13 @@
 Changelog
 =========
 
-0.35 (unreleased)
+0.35 (2019-09-04)
 -----------------
 
-- Nothing changed yet.
-
+* Corrección [Iago López Fernández]
+* changed export acords to organs [r.ventura]
+* fix print button session [r.ventura]
+* Exportar Acords & relacio assistents [r.ventura]
 
 0.34 (2019-07-10)
 -----------------
