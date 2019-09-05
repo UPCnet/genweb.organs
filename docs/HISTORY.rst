@@ -1,10 +1,9 @@
 Changelog
 =========
 
-0.36 (unreleased)
+0.36 (2019-09-05)
 -----------------
 
-- Nothing changed yet.
 
 
 0.35 (2019-09-04)
