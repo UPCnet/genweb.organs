@@ -386,13 +386,22 @@ class View(grok.View):
             return None
 
     def getFAQs(self):
+        if self.canViewFAQs():
+            try:
+                faqm = self.context.FAQmembres.raw
+            except:
+                faqm = ""
 
-        try:
-            faqm = self.context.FAQmembres.raw
-        except:
-            faqm = ""
+            return faqm
+        return None
 
-        return faqm
+    def canViewFAQs(self):
+        user = api.user.get_current()
+        userPermissions = api.user.get_roles(user=user, obj=self)
+        for permission in ['Manager', 'WebMaster', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre']:
+            if permission in userPermissions:
+                return True
+        return False
 
     def canView(self):
         # Permissions to view ORGANS DE GOVERN
