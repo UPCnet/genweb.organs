@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
-from plone import api
+from Products.CMFCore.utils import getToolByName
+
 from five import grok
-from genweb.organs import _
-from genweb.organs import utils
+from plone import api
+from plone.app.textfield import RichText as RichTextField
 from plone.directives import form
 from plone.namedfile.field import NamedBlobImage
-from Products.CMFCore.utils import getToolByName
 from zope import schema
+
+from genweb.organs import _
+from genweb.organs import utils
 
 grok.templatedir("templates")
 
@@ -14,6 +17,12 @@ grok.templatedir("templates")
 class IOrgansfolder(form.Schema):
     """ Organs Folder: Carpeta Unitat que conté Organs de Govern
     """
+
+    informationText = RichTextField(
+        title=_(u"Text informatiu"),
+        description=_(u'Text que es veurà quan el directori no conté cap Organ de Govern visible'),
+        required=False,
+    )
 
     customImage = schema.Bool(
         title=_(u'Fer servir capcalera personalitzada?'),

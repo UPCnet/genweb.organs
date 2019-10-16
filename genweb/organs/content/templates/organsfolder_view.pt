@@ -55,11 +55,15 @@
       </div>
 
       <metal:empty metal:define-slot="no_items_in_listing">
-        <p class="discreet"
-           tal:condition="not: OrgansInside"
-           i18n:translate="description_no_items_in_folder">
+        <div class="discreet"
+           tal:condition="not: OrgansInside">
+          <tal:block tal:condition="context/informationText"
+                     tal:content="structure context/informationText/output"></tal:block>
+          <p tal:condition="not:context/informationText"
+                     i18n:translate="description_no_items_in_folder">
             There are currently no Organs in this folder.
-        </p>
+          </p>
+        </div>
       </metal:empty>
 
     </metal:listingmacro>
