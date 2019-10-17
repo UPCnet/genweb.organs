@@ -1,11 +1,12 @@
 Changelog
 =========
 
-0.37 (unreleased)
+0.37 (2019-10-17)
 -----------------
 
-- Nothing changed yet.
-
+* Añadir campo de información en las carpetas de unidad [Iago López Fernández]
+* Pestaña FAQs: evitar error con usuarios anonimos y añadir en los permisos de visualización el permiso de OG4-Afectat [Iago López Fernández]
+* Visualizar pestaña FAQs solo si tienes alguno de los siguientes permisos ['Manager', 'WebMaster', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre'] [Iago López Fernández]
 
 0.36 (2019-09-05)
 -----------------
