@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.38 (unreleased)
+0.38 (2019-11-18)
 -----------------
 
-- Nothing changed yet.
-
+* Quitar ver más resultados del buscador superior [Iago López Fernández]
 
 0.37 (2019-10-17)
 -----------------
