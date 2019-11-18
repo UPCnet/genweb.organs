@@ -1,15 +1,25 @@
 # -*- coding: utf-8 -*-
-from plone import api
 from DateTime import DateTime
-from plone.app.contentlisting.interfaces import IContentListing
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.PloneBatch import Batch
+from Products.CMFPlone.browser.navtree import getNavigationRoot
+from Products.CMFPlone.utils import safe_unicode
+from Products.PythonScripts.standard import url_quote_plus
 from Products.ZCTextIndex.ParseTree import ParseError
+from ZTUtils import make_query
+
+from five import grok
+from plone import api
+from plone.app.contentlisting.interfaces import IContentListing
 from zope.component import getMultiAdapter
 from zope.i18nmessageid import MessageFactory
+from zope.interface import Interface
 from zope.publisher.browser import BrowserView
-from ZTUtils import make_query
+
+from genweb.core.utils import pref_lang
 from genweb.organs import permissions
+from genweb.organs.interfaces import IGenwebOrgansLayer
+
 import json
 import pkg_resources
 # import time
@@ -229,6 +239,7 @@ class Search(BrowserView):
 
         if batch:
             results = Batch(results, b_size, b_start)
+
         return results
 
     def filter_query(self, query):
@@ -433,3 +444,108 @@ class SortOption(object):
         if '@@updated_search' in base_url:
             base_url = base_url.replace('@@updated_search', '@@search')
         return base_url + '?' + make_query(q)
+
+
+# Hide show more
+class TypeAheadSearch(grok.View):
+    grok.name('gw_type_ahead_search')
+    grok.context(Interface)
+    grok.layer(IGenwebOrgansLayer)
+
+    def render(self):
+        # We set the parameters sent in livesearch using the old way.
+        q = self.request['q']
+
+        limit = 10
+        path = None
+        ploneUtils = getToolByName(self.context, 'plone_utils')
+        portal_url = getToolByName(self.context, 'portal_url')()
+        pretty_title_or_id = ploneUtils.pretty_title_or_id
+        portalProperties = getToolByName(self.context, 'portal_properties')
+        siteProperties = getattr(portalProperties, 'site_properties', None)
+        useViewAction = []
+        if siteProperties is not None:
+            useViewAction = siteProperties.getProperty('typesUseViewActionInListings', [])
+
+        # SIMPLE CONFIGURATION
+        MAX_TITLE = 40
+        MAX_DESCRIPTION = 80
+
+        # generate a result set for the query
+        catalog = self.context.portal_catalog
+
+        friendly_types = ploneUtils.getUserFriendlyTypes()
+
+        def quotestring(s):
+            return '"%s"' % s
+
+        def quote_bad_chars(s):
+            bad_chars = ["(", ")"]
+            for char in bad_chars:
+                s = s.replace(char, quotestring(char))
+            return s
+
+        multispace = u'\u3000'.encode('utf-8')
+        for char in ('?', '-', '+', '*', multispace):
+            q = q.replace(char, ' ')
+        r = q.split()
+        r = " AND ".join(r)
+        r = quote_bad_chars(r) + '*'
+        searchterms = url_quote_plus(r)
+
+        params = {'SearchableText': r,
+                  'portal_type': friendly_types,
+                  'sort_limit': limit + 1}
+
+        if path is None:
+            # useful for subsides
+            params['path'] = getNavigationRoot(self.context)
+        else:
+            params['path'] = path
+
+        params["Language"] = pref_lang()
+        # search limit+1 results to know if limit is exceeded
+        results = catalog(**params)
+
+        REQUEST = self.context.REQUEST
+        RESPONSE = REQUEST.RESPONSE
+        RESPONSE.setHeader('Content-Type', 'application/json')
+
+        label_show_all = _('label_show_all', default='Show all items')
+
+        ts = getToolByName(self.context, 'translation_service')
+
+        queryElements = []
+
+        if results:
+            # TODO: We have to build a JSON with the desired parameters.
+            for result in results[:limit]:
+                # Calculate icon replacing '.' per '-' as '.' in portal_types break CSS
+                icon = result.portal_type.lower().replace(".", "-")
+                itemUrl = result.getURL()
+                if result.portal_type in useViewAction:
+                    itemUrl += '/view'
+
+                full_title = safe_unicode(pretty_title_or_id(result))
+                if len(full_title) > MAX_TITLE:
+                    display_title = ''.join((full_title[:MAX_TITLE], '...'))
+                else:
+                    display_title = full_title
+
+                full_title = full_title.replace('"', '&quot;')
+
+                display_description = safe_unicode(result.Description)
+                if len(display_description) > MAX_DESCRIPTION:
+                    display_description = ''.join(
+                        (display_description[:MAX_DESCRIPTION], '...'))
+
+                # We build the dictionary element with the desired parameters and we add it to the queryElements array.
+                queryElement = {
+                    'class': '',
+                    'title': display_title,
+                    'description': display_description,
+                    'itemUrl': itemUrl,
+                    'icon': icon}
+                queryElements.append(queryElement)
+
+        return json.dumps(queryElements)
