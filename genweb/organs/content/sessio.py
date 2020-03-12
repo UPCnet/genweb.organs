@@ -1,23 +1,30 @@
 # -*- coding: utf-8 -*-
+import datetime
+
+from AccessControl import Unauthorized
+from Products.CMFCore.utils import getToolByName
+
+from collective import dexteritytextindexer
 from five import grok
-from zope import schema
+from operator import itemgetter
+from plone import api
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.autoform import directives
 from plone.directives import dexterity
 from plone.directives import form
-from genweb.organs import _
-from collective import dexteritytextindexer
-from Products.CMFCore.utils import getToolByName
-from plone import api
-from zope.annotation.interfaces import IAnnotations
-from plone.autoform import directives
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from plone.supermodel.directives import fieldset
-from genweb.organs import utils
-from zope.i18n import translate
-from z3c.form.interfaces import HIDDEN_MODE  # INPUT_MODE, DISPLAY_MODE
+from plone.directives import form
 from plone.event.interfaces import IEventAccessor
-from operator import itemgetter
-from AccessControl import Unauthorized
-import datetime
+from plone.supermodel.directives import fieldset
+from z3c.form.interfaces import DISPLAY_MODE
+from z3c.form.interfaces import HIDDEN_MODE  # INPUT_MODE
+from z3c.form.interfaces import IAddForm
+from z3c.form.interfaces import IEditForm
+from zope import schema
+from zope.annotation.interfaces import IAnnotations
+from zope.i18n import translate
+
+from genweb.organscopc import _
+from genweb.organscopc import utils
 
 grok.templatedir("templates")
 
@@ -47,16 +54,17 @@ class ISessio(form.Schema):
         required=True,
     )
 
-    directives.mode(numSessioShowOnly='display')
+    form.mode(IAddForm, numSessioShowOnly='display')
+    form.mode(IEditForm, numSessioShowOnly='hidden')
     numSessioShowOnly = schema.TextLine(
         title=_(u"Session number"),
         required=False,
     )
 
-    directives.mode(numSessio='hidden')
+    form.mode(IAddForm, numSessio='hidden')
     numSessio = schema.TextLine(
         title=_(u"Session number"),
-        required=False,
+        required=True,
     )
 
     llocConvocatoria = schema.TextLine(
@@ -252,7 +260,7 @@ class View(grok.View):
         if review_state in ['planificada', 'convocada'] and roles:
             value = True
         return value
-        
+
     def showEnviarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
