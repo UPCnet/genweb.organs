@@ -23,8 +23,8 @@ from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from zope.i18n import translate
 
-from genweb.organscopc import _
-from genweb.organscopc import utils
+from genweb.organs import _
+from genweb.organs import utils
 
 grok.templatedir("templates")
 
