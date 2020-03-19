@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.39 (unreleased)
+0.39 (2020-03-19)
 -----------------
 
-- Nothing changed yet.
-
+* Habilitar edició del número de la sessió [Iago López Fernández]
 
 0.38 (2019-11-18)
 -----------------
