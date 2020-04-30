@@ -17,12 +17,12 @@
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), not all, not all, not all, only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
-    
+
     /*.header-image {
         //background-size: auto !important;
         background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs@2x.jpg") !important;
     }*/
-    
+
     #viewlet-above-content-title,
     .documentFirstHeading,
     #viewlet-below-content-title,
@@ -2341,11 +2341,13 @@ a.calendari-seguent:hover  {
     color: black;
 }
 
+.btn-export-punts,
 .btn-export-acords {
     display: flex;
     margin-top: 20px;
 }
 
-.btn-export-acords a{
+.btn-export-punts a,
+.btn-export-acords a {
     margin: auto;
 }

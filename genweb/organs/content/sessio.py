@@ -12,7 +12,6 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from plone.directives import dexterity
 from plone.directives import form
-from plone.directives import form
 from plone.event.interfaces import IEventAccessor
 from plone.supermodel.directives import fieldset
 from z3c.form.interfaces import DISPLAY_MODE

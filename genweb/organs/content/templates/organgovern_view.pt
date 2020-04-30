@@ -15,9 +15,11 @@
                    activeClassConvidats view/activeClassConvidats;
                    sessions view/SessionsInside;
                    acords view/getAcords;
+                   punts view/getPunts;
                    actes view/getActes;
                    faqs view/getFAQs;
                    expAcords view/viewExportAcords;
+                   expPunts view/viewExportPunts;
                    hihaPersones view/hihaPersones;
                    multipleTab view/multipleTab;
                    viewOrdena view/viewOrdena">
@@ -38,6 +40,11 @@
 
   <div id="contentOrgan">
 
+    <div tal:condition="viewOrdena" class="reorder">
+      <a href="orderSessions">
+        <i class="fa fa-refresh" aria-hidden="True">&nbsp;<tal:omit-tag>Numera sessions</tal:omit-tag></i></a>
+    </div>
+
     <ul id="tabs" class="nav nav-tabs visible-tablet hidden-phone visible-desktop" data-tabs="tabs">
       <li tal:condition="sessions" class="active"><a href="#sessionsTab" data-toggle="tab">
         <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Sessions</tal:omit-tag></i></a></li>
@@ -45,6 +52,8 @@
         <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Organ Govern members</tal:omit-tag></i></a></li>
       <li tal:condition="acords"><a href="#acordsTab" data-toggle="tab">
         <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
+      <li tal:condition="punts"><a href="#puntsTab" data-toggle="tab">
+        <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Punts informatius</tal:omit-tag></i></a></li>
       <li tal:condition="actes"><a href="#actasTab" data-toggle="tab">
         <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Actes</tal:omit-tag></i></a></li>
       <li tal:condition="faqs"><a href="#faqTab" data-toggle="tab">
@@ -58,19 +67,13 @@
         <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Organ Govern members</tal:omit-tag></i></a></li>
       <li tal:condition="acords"><a href="#acordsTab" data-toggle="tab">
         <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
+      <li tal:condition="punts"><a href="#puntsTab" data-toggle="tab">
+        <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Punts informatius</tal:omit-tag></i></a></li>
       <li tal:condition="actes"><a href="#actasTab" data-toggle="tab">
         <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Actes</tal:omit-tag></i></a></li>
       <li tal:condition="faqs"><a href="#faqTab" data-toggle="tab">
         <i class="fa fa-question-circle" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">FAQ membres</tal:omit-tag></i></a></li>
     </ul>
-
-    <div tal:condition="viewOrdena" class="reorder">
-      <a href="orderSessions">
-        <i class="fa fa-refresh" aria-hidden="True">&nbsp;<tal:omit-tag>Numera sessions</tal:omit-tag></i></a>
-    </div>
-
-
-
 
     <div id="organTabs" class="tab-content" >
       <div class="tab-pane active" id="sessionsTab" tal:condition="sessions">
@@ -202,6 +205,36 @@
             <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/exportAcordsCSV" data-toggle="" data-target=""><i class="fa fa-download" aria-hidden="true"></i>&nbsp;<span>Exportar acords</span></a>
         </div>
       </div>
+
+      <div class="tab-pane" id="puntsTab" tal:condition="punts">
+        <div class="scrollit">
+          <table class="table table-bordered table-condensed table-hover logFont">
+            <thead>
+              <tr>
+                <th style="text-align: center;">
+                   <tal:data i18n:translate="">Titol</tal:data>
+                 </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tal:documents repeat="item punts">
+                <tr>
+                  <td style="vertical-align: middle;">
+                    <i class="fa fa-check" aria-hidden="True">&nbsp;
+                    <a tal:attributes="href item/absolute_url;" tal:content="item/title" style="color: #007BC0; font-size: 14px;">
+                            Item Title
+                    </a>
+                  </td>
+                </tr>
+              </tal:documents>
+            </tbody>
+          </table>
+        </div>
+        <div class="btn-export-punts" tal:condition="expPunts">
+            <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/exportPuntsCSV" data-toggle="" data-target=""><i class="fa fa-download" aria-hidden="true"></i>&nbsp;<span>Exportar punts</span></a>
+        </div>
+      </div>
+
       <div class="tab-pane" id="actasTab" tal:condition="actes">
         <div class="scrollit">
           <table class="table table-bordered table-condensed table-hover logFont">
