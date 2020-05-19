@@ -17,12 +17,12 @@
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), not all, not all, not all, only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
-    
+
     /*.header-image {
         //background-size: auto !important;
         background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs@2x.jpg") !important;
     }*/
-    
+
     #viewlet-above-content-title,
     .documentFirstHeading,
     #viewlet-below-content-title,
@@ -1865,6 +1865,10 @@ td.organevent.cal_has_events .popover-content a {
     padding: 0;
 }
 
+.list-agenda.span12 {
+    border-bottom: 0px solid transparent;
+}
+
 .list-agenda .row {
     margin-left: -15px;
     margin-right: -15px;
@@ -2037,7 +2041,7 @@ td.organevent.cal_has_events .popover-content a {
 }
 
 .list-banners div{
-  width:230px;
+  width: 230px;
   margin: 0;
   position: absolute;
   top: 50%;
@@ -2045,6 +2049,12 @@ td.organevent.cal_has_events .popover-content a {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+
+.list-banners .span6.col-sm-6 div{
+  width: 320px;
+  left: 44%;
+}
+
 .list-banners h2 {
     font-size: 16px;
     color: #636363;
@@ -2348,4 +2358,9 @@ a.calendari-seguent:hover  {
 
 .btn-export-acords a{
     margin: auto;
+}
+
+#content-core > .titling-line-container:first-child > h2.titling-line {
+    margin-top: 0px;
+    padding-top: 0px;
 }
