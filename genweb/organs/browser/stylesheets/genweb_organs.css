@@ -2083,6 +2083,25 @@ td.organevent.cal_has_events .popover-content a {
     text-align: center;
 }
 
+.list-banners a.img-banner {
+    background: transparent;
+}
+
+.list-banners a.img-banner.white-font .icon {
+    border: 1.5px solid #FFFFFF;
+}
+
+.list-banners a.img-banner.white-font h2 {
+    text-shadow: 0 0 5px #000000;
+}
+
+.list-banners a.img-banner.white-font,
+.list-banners a.img-banner.white-font:hover,
+.list-banners a.img-banner.white-font h2,
+.list-banners a.img-banner.white-font .icon {
+    color: #FFFFFF;
+}
+
 .event-multiple {
     position: relative;
     background-color: #007bc0 !important;
