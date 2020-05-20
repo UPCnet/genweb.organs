@@ -617,7 +617,7 @@
       <div class="row-fluid">
         <ol class="list-banners span12" style="outline-style: none;">
           <li class="span6 col-sm-6" style="outline-style: none;">
-              <a href="https://governhistoric.upc.edu/ca/@@search?portal_type%3Alist=Document">
+              <a href="https://governhistoric.upc.edu/ca/@@search?portal_type%3Alist=Document" target="_blink">
                   <div>
                     <h2>Hemeroteca i documentació d’òrgans d’anys anteriors</h2>
                   </div>
@@ -625,11 +625,11 @@
               </a>
           </li>
           <li class="span6 col-sm-6" style="outline-style: none;">
-              <a href="https://www.upc.edu/slt/ca/recursos-redaccio/models-documents/governupc">
+              <a href="https://www.upc.edu/slt/ca/recursos-redaccio/models-documents/governupc" target="_blink">
                   <div>
                     <h2>Pautes per a l’elaboració de documents</h2>
                   </div>
-                  <i class="icon fa fa-arrow-right" aria-hidden="true"></i>
+                  <i class="icon fa fa-external-link" aria-hidden="true"></i>
               </a>
           </li>
         </ol>
