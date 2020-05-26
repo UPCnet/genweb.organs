@@ -251,9 +251,9 @@
                                                  name="created.query:record:list:date"
                                                  tal:attributes="value ever;
                                                                  checked python:checked==ever and 'checked' or '';"/>
-                                          <label for="query-date-ever" i18n:translate="time_ever">Ever</label>
+                                          <label for="query-date-ever" i18n:domain="genweb" i18n:translate="time_ever">Ever</label>
                                           <br/>
-                                          <input type="radio"
+                                          <!-- <input type="radio"
                                                  id="query-date-lastsession"
                                                  name="created.query:record:list:date"
                                                  tal:attributes="value lastsession;
@@ -266,7 +266,7 @@
                                                  tal:attributes="value lastmonth;
                                                                  checked python:checked==lastmonth and 'checked' or '';"/>
                                           <label for="query-date-lastmonth" i18n:translate="time_last_month">Last month</label>
-                                          <br />
+                                          <br /> -->
                                           <input type="radio"
                                                  id="query-date-lastyear"
                                                  name="created.query:record:list:date"
@@ -636,13 +636,13 @@
       </div>
     </tal:banners>
 
-    <div class="clearfix"></div>
+    <!-- <div class="clearfix"></div>
 
     <div class="titling-line-container">
       <h2 class="titling-line" i18n:domain="genweb.organs" i18n:translate=""> Sobre Govern UPC </h2>
     </div>
 
-    <div tal:content="structure view/getPage"></div>
+    <div tal:content="structure view/getPage"></div> -->
 
   </div>
 

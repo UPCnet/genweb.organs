@@ -2383,3 +2383,7 @@ a.calendari-seguent:hover  {
     margin-top: 0px;
     padding-top: 0px;
 }
+
+#search-filter .span4 {
+    margin-bottom: 0px !important;
+}

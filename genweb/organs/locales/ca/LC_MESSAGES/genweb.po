@@ -68,3 +68,6 @@ msgstr "Restringit a membres"
 
 msgid "restricted_to_affected_organ"
 msgstr "Restringit a afectats"
+
+msgid "time_ever"
+msgstr "Qualsevol data"

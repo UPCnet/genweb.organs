@@ -68,3 +68,6 @@ msgstr "Restricted to members"
 
 msgid "restricted_to_affected_organ"
 msgstr "Restricted to affected"
+
+msgid "time_ever"
+msgstr "Any date"
