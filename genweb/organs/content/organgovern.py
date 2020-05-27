@@ -172,6 +172,8 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
+    directives.read_permission(visiblefields='genweb.organs.add.organs')
+    directives.write_permission(visiblefields='genweb.organs.add.organs')
     visiblefields = schema.Bool(
         title=_(u"Visible fields"),
         description=_(u"Make the sessions and composition members fields visibles to everyone, omitting the security systems."),
