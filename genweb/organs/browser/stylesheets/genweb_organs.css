@@ -1786,6 +1786,9 @@ dd.actionMenuContent.actionMenuContentColor {
     box-shadow: 3px 3px 4px 1px #e2e2e2;
 }
 
+.box-search .span12 {
+    margin-bottom: 0px !important;
+}
 .noborder {border-bottom: 0px;}
 
 #peu [class*="span"] .pull-right {float: right!important;}
@@ -1897,7 +1900,6 @@ td.organevent.cal_has_events .popover-content a {
     display: block;
     transition: all .25s ease-out;
     overflow: hidden;
-    margin-bottom: 24px;
 }
 
 .list-agenda img {
