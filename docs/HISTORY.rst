@@ -1,11 +1,15 @@
 Changelog
 =========
 
-0.40 (unreleased)
+0.40 (2020-05-28)
 -----------------
 
-- Nothing changed yet.
-
+* Añadir permiso campo Sessions visibles al calendari -> solo manager [Iago López Fernández]
+* Estilos home [Iago López Fernández]
+* Quitar opciones buscador + quitar Sobre Govern UPC [Iago López Fernández]
+* Enlaces externos [Iago López Fernández]
+* Estilos baner con imagen [Iago López Fernández]
+* Reorganizar home [Iago López Fernández]
 
 0.39 (2020-03-19)
 -----------------
