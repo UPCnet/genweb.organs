@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.41 (unreleased)
+0.41 (2020-06-03)
 -----------------
 
-- Nothing changed yet.
-
+* Cambiar enlace home [Iago López Fernández]
 
 0.40 (2020-05-28)
 -----------------
