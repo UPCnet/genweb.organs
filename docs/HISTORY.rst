@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.42 (unreleased)
+0.42 (2020-06-10)
 -----------------
 
-- Nothing changed yet.
-
+* Literales buscador [Iago López Fernández]
 
 0.41 (2020-06-03)
 -----------------
