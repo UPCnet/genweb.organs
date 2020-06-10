@@ -160,7 +160,7 @@
                             <div class="row-fluid colorblue">
                              <div class="span4">
                               <fieldset class="noborder">
-                                  <h4 i18n:translate="label_item_type">Item type</h4>
+                                  <h4 i18n:domain="genweb" i18n:translate="tipus_de_document">Tipus de document</h4>
                                   <div class="field"
                                        tal:define="portal_types portal/portal_types;
                                                    types_list view/types_list;">
@@ -191,7 +191,7 @@
                              </div>
                              <div class="span4">
                               <fieldset class="noborder">
-                                  <h4 i18n:translate="" i18n:domain="genweb.organs">Organ de govern</h4>
+                                  <h4 i18n:translate="organ_colegiat" i18n:domain="genweb">Organ colegiat</h4>
                                   <div class="field">
                                     <tal:block tal:condition="not:isAnon">
                                       <input type="checkbox"
@@ -236,7 +236,7 @@
                              </div>
                              <div class="span4">
                               <fieldset class="noborder">
-                                  <h4 i18n:translate="" i18n:domain="genweb.organs">Modified dates</h4>
+                                  <h4 i18n:translate="periode" i18n:domain="genweb">Periode</h4>
                                   <div class="field">
                                       <div class="formHelp"></div>
                                       <tal:datetime define="today python:DateTime().earliestTime();

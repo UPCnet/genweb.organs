@@ -71,3 +71,12 @@ msgstr "Restricted to affected"
 
 msgid "time_ever"
 msgstr "Any date"
+
+msgid "tipus_de_document"
+msgstr "Document type"
+
+msgid "organ_colegiat"
+msgstr "Collegiate Organ"
+
+msgid "periode"
+msgstr "Period"
