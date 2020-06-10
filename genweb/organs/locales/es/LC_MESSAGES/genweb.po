@@ -79,4 +79,4 @@ msgid "organ_colegiat"
 msgstr "Órgan colegiado"
 
 msgid "periode"
-msgstr ""
+msgstr "Periodo"
