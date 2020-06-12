@@ -24,6 +24,16 @@
       title="Genweb Organs: Add Organs"
     />
 
+    <permission
+      id="genweb.organs.manage.vote"
+      title="Genweb Organs: Manage Vote"
+    />
+
+    <permission
+      id="genweb.organs.add.vote"
+      title="Genweb Organs: Add Vote"
+    />
+
     <!-- Include configuration for dependencies listed in setup.py -->
     <includeDependencies package="." />
 

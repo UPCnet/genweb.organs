@@ -1,22 +1,25 @@
 # -*- coding: utf-8 -*-
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.Five.browser import BrowserView
-from Products.CMFCore.utils import getToolByName
-from plone import api
-from zope.interface import alsoProvides
-from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
-from plone.folder.interfaces import IExplicitOrdering
-from genweb.organs.utils import addEntryLog
-from genweb.organs import _
-from plone.event.interfaces import IEventAccessor
-import unicodedata
-from genweb.organs import utils
 from AccessControl import Unauthorized
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
+from operator import attrgetter
 from operator import itemgetter
+from plone import api
+from plone.event.interfaces import IEventAccessor
+from plone.folder.interfaces import IExplicitOrdering
+from zope.interface import alsoProvides
+
+from genweb.organs import _
+from genweb.organs import utils
+from genweb.organs.utils import addEntryLog
+
 import datetime
 import DateTime
 import json
-from operator import attrgetter
+import unicodedata
 
 # Disable CSRF
 try:
@@ -848,11 +851,11 @@ class allOrgans(BrowserView):
                     if 'OG1-Secretari' in role and username not in secretaris:
                         secretaris += username+ ", "
                     if 'OG2-Editor' in role and username not in editors:
-                        editors += username+ ", "       
+                        editors += username+ ", "
                     if 'OG3-Membre' in role and username not in secretaris:
                         membres += username+ ", "
                     if 'OG4-Afectat' in role and username not in editors:
-                        afectats += username+ ", "       
+                        afectats += username+ ", "
 
             if secretaris == "":
                 secretaris = "-"

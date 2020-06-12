@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
-from plone import api
-from zope.annotation.interfaces import IAnnotations
-from datetime import datetime
-from Products.CMFCore.utils import getToolByName
-from genweb.organs import _
-from Products.PluggableAuthService.interfaces.plugins import IPropertiesPlugin
-import unicodedata
 from Acquisition import aq_inner
-from plone.app.layout.navigation.root import getNavigationRootObject
+from Products.CMFCore.utils import getToolByName
+from Products.PluggableAuthService.interfaces.plugins import IPropertiesPlugin
 
-from zope.component import getUtility
+from datetime import datetime
+from plone import api
+from plone.app.layout.navigation.root import getNavigationRootObject
 from plone.registry.interfaces import IRegistry
+from zope.annotation.interfaces import IAnnotations
+from zope.component import getUtility
+
+from genweb.organs import _
 from genweb.organs.controlpanel import IOrgansSettings
+
+import unicodedata
 
 
 def isAfectat(self):
@@ -413,6 +415,7 @@ def session_wf_state(self):
             if ISessio.providedBy(obj):
                 session_state = api.content.get_state(obj=obj)
                 return session_state
+
 
 def get_settings_property(property_id):
     settings = getUtility(IRegistry).forInterface(IOrgansSettings)

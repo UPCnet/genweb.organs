@@ -17,7 +17,7 @@
     <div class="span12">
       <h1 class="documentFirstHeading"
         i18n:translate="">
-          Formulari per a la inclusió de punts nous en l'ordre del dia del Consell de Govern
+          Formulari per a la inclusio de punts nous en l'ordre del dia del Consell de Govern
       </h1>
       <metal:block use-macro="context/@@ploneform-macros/titlelessform"></metal:block>
     </div>

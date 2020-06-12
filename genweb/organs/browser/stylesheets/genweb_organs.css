@@ -86,8 +86,7 @@ ul#tabs.nav.nav-tabs {
     border: medium none;
     color: #555;
     margin-right: 5px;
-    min-width: 85px;
-    padding: 8px 20px;
+    padding: 8px 15px;
     text-align: center;
     outline: medium none;
 }
@@ -1165,6 +1164,18 @@ div.containerIcons a img.link_blank { display: none }
     margin-left: 5px!important;
 }
 
+.puntVoteButtons.span12 {
+    margin: 5px 0px !important;
+}
+
+.puntVoteButtons.span12 .span2 {
+    width: 8.04294%;
+}
+
+.puntVoteButtons.span12 .span10 {
+    margin-bottom: 0px;
+}
+
 .bodyPresentation .puntTitle.span12{margin-left: 0px!important;}
 
 .span1.numberSpan {
@@ -1789,6 +1800,7 @@ dd.actionMenuContent.actionMenuContentColor {
 .box-search .span12 {
     margin-bottom: 0px !important;
 }
+
 .noborder {border-bottom: 0px;}
 
 #peu [class*="span"] .pull-right {float: right!important;}
@@ -2388,4 +2400,46 @@ a.calendari-seguent:hover  {
 
 #search-filter .span4 {
     margin-bottom: 0px !important;
+}
+
+.btn-group + .btn-group {
+    margin-left: 0px !important;
+}
+
+.btn-group.votes li a:hover {
+    cursor: pointer;
+}
+
+.hasVote a.btn {
+    cursor: initial;
+}
+
+#resultsVotesTab td {
+    vertical-align: middle;
+}
+
+#resultsVotesTab tr.collapsed + tr {
+    display: none !important;
+}
+
+#resultsVotesTab .infovotes {
+    display: none;
+}
+
+#resultsVotesTab .infovotes.opened {
+    display: table-row;
+}
+
+#resultsVotesTab .fa-chevron-down,
+#resultsVotesTab .fa-chevron-up {
+    margin-right: 5px;
+}
+
+#resultsVotesTab .openInfo.opened .fa-chevron-down,
+#resultsVotesTab .openInfo:not(.opened) .fa-chevron-up {
+    display: none;
+}
+
+#resultsVotesTab .infovotes td {
+    border-top: 0px solid #b2b2b2;
 }

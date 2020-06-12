@@ -1,21 +1,34 @@
 # -*- coding: utf-8 -*-
+from AccessControl import Unauthorized
+from Acquisition import aq_inner
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import safe_unicode
+
+from cgi import escape
+from collective import dexteritytextindexer
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from five import grok
-from zope import schema
+from plone import api
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.autoform import directives
 from plone.directives import dexterity
 from plone.directives import form
-from genweb.organs import _
-from collective import dexteritytextindexer
-from Products.CMFCore.utils import getToolByName
-from plone.autoform import directives
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from zope.schema.vocabulary import SimpleVocabulary
-from zope.schema.interfaces import IContextSourceBinder
-from zope.interface import directlyProvides
-import unicodedata
 from plone.indexer import indexer
-from genweb.organs import utils
-from AccessControl import Unauthorized
 from plone.supermodel.directives import fieldset
+from zope import schema
+from zope.interface import directlyProvides
+from zope.schema.interfaces import IContextSourceBinder
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
+
+from genweb.organs import _
+from genweb.organs import utils
+
+import ast
+import datetime
+import transaction
+import unicodedata
 
 grok.templatedir("templates")
 
@@ -50,6 +63,17 @@ def llistaEstats(context):
 
 
 directlyProvides(llistaEstats, IContextSourceBinder)
+
+
+llistaEstatsVotacio = SimpleVocabulary(
+    [SimpleTerm(value=u'open', title=_(u'Open')),
+     SimpleTerm(value=u'close', title=_(u'Close'))]
+)
+
+llistaTipusVotacio = SimpleVocabulary(
+    [SimpleTerm(value=u'public', title=_(u'Public')),
+     SimpleTerm(value=u'secret', title=_(u'Secret'))]
+)
 
 
 class IAcord(form.Schema):
@@ -89,6 +113,15 @@ class IAcord(form.Schema):
         source=llistaEstats,
         required=True,
     )
+
+    directives.omitted('estatVotacio')
+    estatVotacio = schema.Choice(title=u'', source=llistaEstatsVotacio, required=False)
+
+    directives.omitted('tipusVotacio')
+    tipusVotacio = schema.Choice(title=u'', source=llistaTipusVotacio, required=False)
+
+    # directives.omitted('infoVotacio')
+    infoVotacio = schema.Text(title=u'', required=False, default=u'{}')
 
 
 @form.default_value(field=IAcord['proposalPoint'])
@@ -213,3 +246,153 @@ class View(grok.View):
                 return True
             else:
                 raise Unauthorized
+
+
+class OpenPublicVote(grok.View):
+    grok.context(IAcord)
+    grok.name('openPublicVote')
+    grok.require('genweb.organs.manage.vote')
+
+    def render(self):
+        self.context.estatVotacio = 'open'
+        self.context.tipusVotacio = 'public'
+        self.context.reindexObject()
+        transaction.commit()
+
+
+class OpenSecretVote(grok.View):
+    grok.context(IAcord)
+    grok.name('openSecretVote')
+    grok.require('genweb.organs.manage.vote')
+
+    def render(self):
+        self.context.estatVotacio = 'open'
+        self.context.tipusVotacio = 'secret'
+        self.context.reindexObject()
+        transaction.commit()
+
+
+class ReopenVote(grok.View):
+    grok.context(IAcord)
+    grok.name('reopenVote')
+    grok.require('cmf.ManagePortal')
+
+    def render(self):
+        self.context.estatVotacio = 'open'
+        self.context.reindexObject()
+        transaction.commit()
+
+
+class CloseVote(grok.View):
+    grok.context(IAcord)
+    grok.name('closeVote')
+    grok.require('genweb.organs.manage.vote')
+
+    def render(self):
+        self.context.estatVotacio = 'close'
+        self.context.reindexObject()
+        transaction.commit()
+
+
+class favorVote(grok.View):
+    grok.context(IAcord)
+    grok.name('favorVote')
+    grok.require('genweb.organs.add.vote')
+
+    def render(self):
+        if not isinstance(self.context.infoVotacio, dict):
+            self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
+
+        user = api.user.get_current().id
+        if user not in self.context.infoVotacio:
+            self.context.infoVotacio.update({user: 'favor'})
+            self.context.reindexObject()
+            transaction.commit()
+            sendVoteEmail(self.context, 'a favor')
+
+
+class AgainstVote(grok.View):
+    grok.context(IAcord)
+    grok.name('againstVote')
+    grok.require('genweb.organs.add.vote')
+
+    def render(self):
+        if not isinstance(self.context.infoVotacio, dict):
+            self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
+
+        user = api.user.get_current().id
+        if user not in self.context.infoVotacio:
+            self.context.infoVotacio.update({user: 'against'})
+            self.context.reindexObject()
+            transaction.commit()
+            sendVoteEmail(self.context, 'en contra')
+
+
+class WhiteVote(grok.View):
+    grok.context(IAcord)
+    grok.name('whiteVote')
+    grok.require('genweb.organs.add.vote')
+
+    def render(self):
+        if not isinstance(self.context.infoVotacio, dict):
+            self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
+
+        user = api.user.get_current().id
+        if user not in self.context.infoVotacio:
+            self.context.infoVotacio.update({user: 'white'})
+            self.context.reindexObject()
+            transaction.commit()
+            sendVoteEmail(self.context, 'en blanc')
+
+
+def sendVoteEmail(context, vote):
+    context = aq_inner(context)
+
+    user_email = api.user.get_current().getProperty('email')
+    if user_email:
+        mailhost = getToolByName(context, 'MailHost')
+
+        portal = api.portal.get()
+        sender_email = portal.getProperty('email_from_address')
+        sender_name = portal.getProperty('email_from_name').encode('utf-8')
+        email_charset = portal.getProperty('email_charset')
+        sender_name + ' ' + '<' + sender_email + '>'
+
+        msg = MIMEMultipart()
+        msg['From'] = sender_name
+        msg['To'] = user_email
+        msg['Subject'] = escape(safe_unicode(_(u'Votació Govern UPC')))
+        msg['charset'] = email_charset
+
+        message = """En data {data}, hora {hora}, has votat {vot} a l'acord {acord} de la sessió {sessio} de l'òrgan {organ}.
+
+Missatge automàtic generat per https://govern.upc.edu/"""
+
+        now = datetime.datetime.now()
+        if context.aq_parent.portal_type == 'genweb.organs.sessio':
+
+            data = {
+                'data': now.strftime("%d/%m/%Y"),
+                'hora': now.strftime("%H:%M"),
+                'vot': vote,
+                'acord': context.title,
+                'sessio': context.aq_parent.title,
+                'organ': context.aq_parent.aq_parent.title,
+            }
+
+            msg.attach(MIMEText(message.format(**data), 'plain', email_charset))
+            mailhost.send(msg)
+
+        elif context.aq_parent.portal_type == 'genweb.organs.punt':
+
+            data = {
+                'data': now.strftime("%d/%m/%Y"),
+                'hora': now.strftime("%H:%M"),
+                'vot': vote,
+                'acord': context.title,
+                'sessio': context.aq_parent.aq_parent.title,
+                'organ': context.aq_parent.aq_parent.aq_parent.title,
+            }
+
+            msg.attach(MIMEText(message.format(**data), 'plain', email_charset))
+            mailhost.send(msg)

@@ -150,7 +150,7 @@
       -->
 
       <div class="containerIcons" tal:condition="view/showOrdreDiaIAssistencia">
-        <a href="excusar_assist_sessio" i18n:attributes="title envia_missatge; alt envia_missatge"><i class="fa fa-minus fa-3x" style="font-size:1.1em" aria-hidden="true"></i> <i class="fa fa-user fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Excusa l'assistència</span></a>
+        <a href="excusar_assist_sessio" i18n:attributes="title envia_missatge; alt envia_missatge"><i class="fa fa-minus fa-3x" style="font-size:1.1em" aria-hidden="true"></i> <i class="fa fa-user fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Excusa l'assistencia</span></a>
       </div>
 
 
@@ -190,6 +190,8 @@
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Punts afegits</tal:omit-tag></i></a></li>-->
       <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag></i></a></li>
+      <li tal:condition="view/canViewResultsVote"><a href="#resultsVotesTab" data-toggle="tab">
+        <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions</tal:omit-tag></i></a></li>
     </ul>
     <ul id="tabs" class="nav nav-tabs nav-stacked hidden-tablet visible-phone hidden-desktop" data-tabs="tabs">
       <li class="active"><a href="#dadesTab" data-toggle="tab">
@@ -207,6 +209,8 @@
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Punts afegits</tal:omit-tag></i></a></li>-->
       <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag></i></a></li>
+      <li tal:condition="view/canViewResultsVote"><a href="#resultsVotesTab" data-toggle="tab">
+        <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions</tal:omit-tag></i></a></li>
     </ul>
 
     <div id="sessionTabs" class="tab-content">
@@ -452,7 +456,7 @@
                   <tal:data i18n:translate="">Email</tal:data>
                 </th>
                 <th>
-                  <tal:data i18n:translate="">Descripció del problema</tal:data>
+                  <tal:data i18n:translate="">Descripcio del problema</tal:data>
                 </th>
               </tr>
             </thead>
@@ -470,6 +474,57 @@
           </table>
         </div>
       </div>
+
+
+      <div class="tab-pane" id="resultsVotesTab" tal:condition="view/canViewResultsVote">
+        <div class="scrollit" tal:define="votes view/getAllResultsVotes">
+          <table tal:condition="votes" class="table table-bordered table-condensed table-hover logFont">
+            <thead>
+              <tr i18n:domain="genweb.organs">
+                <th width="40%" i18n:translate="">Acord</th>
+                <th width="20%" style="text-align:center;" i18n:translate="">A favor</th>
+                <th width="20%" style="text-align:center;" i18n:translate="">En contra</th>
+                <th width="20%" style="text-align:center;" i18n:translate="">En blanc</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tal:block tal:repeat="vote votes">
+                <tr tal:condition="not:vote/isPublic">
+                  <td width="40%" tal:content="string:${vote/title} [${vote/code}]"></td>
+                  <td width="20%" style="text-align:center;" tal:content="vote/favorVote"></td>
+                  <td width="20%" style="text-align:center;" tal:content="vote/againstVote"></td>
+                  <td width="20%" style="text-align:center;" tal:content="vote/whiteVote"></td>
+                </tr>
+                <tal:block tal:condition="vote/isPublic">
+                  <tr class="openInfo" tal:attributes="data-open string:#${vote/UID}">
+                    <td width="40%">
+                      <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
+                      <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
+                      <span tal:content="string:${vote/title} [${vote/code}]"></span>
+                    </td>
+                    <td width="20%" style="text-align:center;" tal:content="vote/favorVote"></td>
+                    <td width="20%" style="text-align:center;" tal:content="vote/againstVote"></td>
+                    <td width="20%" style="text-align:center;" tal:content="vote/whiteVote"></td>
+                  </tr>
+                  <tr class="infovotes" tal:attributes="id vote/UID">
+                    <td width="40%"></td>
+                    <td width="20%" style="text-align:center;">
+                      <p tal:repeat="user vote/favorVoteList" tal:content="user"></p>
+                    </td>
+                    <td width="20%" style="text-align:center;">
+                      <p tal:repeat="user vote/againstVoteList" tal:content="user"></p>
+                    </td>
+                    <td width="20%" style="text-align:center;">
+                      <p tal:repeat="user vote/whiteVoteList" tal:content="user"></p>
+                    </td>
+                  </tr>
+                </tal:block>
+              </tal:block>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
 
     </div>
   </div>
@@ -627,6 +682,48 @@
                         </ul>
                       </tal:block>
                     </div>
+
+                    <tal:block tal:condition="view/canViewManageVote">
+                      <tal:block tal:condition="agreement">
+                        <div class="btn-group votes" role="group"
+                             style="float: right;" aria-label="Open vote" tal:condition="item/canOpenVote">
+                          <button class="label dropdown-toggle"
+                              type="button" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                            <li class="openPublicVote" tal:attributes="data-id item/id"><a tabindex="-1" data-type="open"><span><i class="fa fa-users"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Public</tal:omit-tag></span></a></li>
+                            <li class="openSecretVote" tal:attributes="data-id item/id"><a tabindex="-1" data-type="private"><span><i class="fa fa-user-secret"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Secret</tal:omit-tag></span></a></li>
+                          </ul>
+                        </div>
+
+                        <div class="btn-group votes" role="group"
+                             style="float: right;" aria-label="Close vote" tal:condition="item/canCloseVote">
+                          <button class="label dropdown-toggle"
+                              type="button" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="false">
+                              <i tal:attributes="class item/classVote" aria-hidden="true"></i>
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                            <li class="closeVote" tal:attributes="data-id item/id"><a tabindex="-1" data-type="open"><span><i class="fa fa-user-times"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Close</tal:omit-tag></span></a></li>
+                          </ul>
+                        </div>
+
+                        <div class="btn-group votes closed" role="group"
+                             style="float: right;" aria-label="Reopen vote" tal:condition="item/canReopenVote">
+                          <button class="label">
+                              <i class="fa fa-user-times" aria-hidden="true"></i>
+                            <!-- <span class="caret"></span> -->
+                          </button>
+                          <!-- <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                            <li id="reopenVote" tal:attributes="data-id item/id"><a tabindex="-1" data-type="open"><span><i tal:attributes="class item/classVote"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Reopen</tal:omit-tag></span></a></li>
+                          </ul> -->
+                        </div>
+                      </tal:block>
+                    </tal:block>
                   </tal:editActions>
                   <div tal:condition="not:canModify" style="float: right;">
                     <tal:block tal:condition="item/state">
@@ -637,6 +734,7 @@
                     </tal:block>
                   </div>
                 </div>
+
                 <tal:block-contenidos tal:define="files python:view.filesinsidePunt(item);
                                                   subpunts python:view.SubpuntsInside(item)">
                 <div class="puntTitle span12" tal:define="contenidos python:files or subpunts">
@@ -715,6 +813,24 @@
                     </div>
                   </tal:files>
                 </div>
+                <tal:block tal:condition="view/canViewVoteButtons">
+                  <div class="puntVoteButtons span12" tal:condition="item/canCloseVote">
+                    <span class="span2"></span>
+                    <div class="span10 notVote" tal:condition="not: item/hasVote">
+                      <a class="btn btn-notvote span4 favor" tal:attributes="data-id item/id" i18n:translate="">A favor</a>
+                      <a class="btn btn-notvote span4 against" tal:attributes="data-id item/id" i18n:translate="">En contra</a>
+                      <a class="btn btn-notvote span4 white" tal:attributes="data-id item/id" i18n:translate="">En blanc</a>
+                    </div>
+                    <div class="span10 hasVote" tal:condition="item/hasVote">
+                      <a class="btn btn-notvote span4" tal:condition="not: item/favorVote" i18n:translate="">A favor</a>
+                      <a class="btn btn-info span4" tal:condition="item/favorVote" i18n:translate="">A favor</a>
+                      <a class="btn btn-notvote span4" tal:condition="not: item/againstVote" i18n:translate="">En contra</a>
+                      <a class="btn btn-info span4" tal:condition="item/againstVote" i18n:translate="">En contra</a>
+                      <a class="btn btn-notvote span4" tal:condition="not: item/whiteVote" i18n:translate="">En blanc</a>
+                      <a class="btn btn-info span4" tal:condition="item/whiteVote" i18n:translate="">En blanc</a>
+                    </div>
+                  </div>
+                </tal:block>
                 <div tal:condition="subpunts" class="sortable2">
                   <tal:subpunts repeat="itemSubpunt subpunts">
                     <ol class="li_subgrups" tal:attributes="id itemSubpunt/id"
@@ -937,6 +1053,46 @@
 
 <div style="margin-bottom:20px;"></div>
 
+<script type="text/javascript" tal:condition="view/canViewVoteButtons">
+  var refreshNeeded = false;
+
+  $(".notVote .favor").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/favorVote',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+  $(".notVote .against").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/againstVote',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+  $(".notVote .white").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/whiteVote',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+  $(document).ajaxStop(function(){
+     if(refreshNeeded){
+        window.location.reload();
+    }
+  });
+</script>
+
 <script type="text/javascript" tal:condition="canModify">
   var refreshNeeded = false;
   $(".createPunt").on('click', function(){
@@ -963,6 +1119,36 @@
             type: 'POST',
             url: '@@createElement',
             data: params,
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+  $(".openPublicVote").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/openPublicVote',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+  $(".openSecretVote").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/openSecretVote',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+  $(".closeVote").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/closeVote',
             success: function(){
               refreshNeeded = true;
             },
@@ -1022,7 +1208,7 @@
     $(".expand").parent().parent().parent().find('.listFiles').slideDown();
     $("#expandAll").hide();
     $("#collapseAll").show();
-  })
+  });
 
   $("#collapseAll").click(function(){
     $(".notexpand").slideUp();
@@ -1033,7 +1219,12 @@
     $(".expand").parent().parent().parent().find('.listFiles').slideUp();
     $("#expandAll").show();
     $("#collapseAll").hide();
-  })
+  });
+
+  $(".openInfo").click(function(){
+    $(this).toggleClass("opened");
+    $($(this).attr("data-open")).toggleClass("opened");
+  });
 
 </script>
 

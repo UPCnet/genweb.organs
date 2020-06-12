@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import datetime
-
 from AccessControl import Unauthorized
 from Products.CMFCore.utils import getToolByName
 
@@ -25,6 +23,9 @@ from zope.i18n import translate
 
 from genweb.organs import _
 from genweb.organs import utils
+
+import datetime
+import ast
 
 grok.templatedir("templates")
 
@@ -252,7 +253,6 @@ class View(grok.View):
             value = True
         return value or utils.isManager(self)
 
-    #NEW
     def showOrdreDiaIAssistencia(self):
         review_state = api.content.get_state(self.context)
         value = False
@@ -326,6 +326,16 @@ class View(grok.View):
         results = []
 
         for obj in values:
+
+            canOpenVote = False
+            canCloseVote = False
+            canReopenVote = False
+            classVote = False
+            hasVote = False
+            favorVote = False
+            againstVote = False
+            whiteVote = False
+
             if obj.portal_type == 'genweb.organs.acta' or obj.portal_type == 'genweb.organs.audio':
                 # add actas to view_template for ordering but dont show them
                 item = obj._unrestrictedGetObject()
@@ -358,6 +368,34 @@ class View(grok.View):
                     else:
                         agreement = _(u"sense numeracio")
                     isPunt = False
+
+                    acord = obj.getObject()
+                    canOpenVote = acord.estatVotacio == None
+                    canCloseVote = acord.estatVotacio == 'open'
+                    canReopenVote = acord.estatVotacio == 'close'
+
+                    currentUser = api.user.get_current().id
+
+                    if not isinstance(acord.infoVotacio, dict):
+                        if acord.infoVotacio == None or acord.infoVotacio == "":
+                            acord.infoVotacio = {}
+                        else:
+                            acord.infoVotacio = ast.literal_eval(acord.infoVotacio)
+
+                    hasVote = currentUser in acord.infoVotacio
+                    if hasVote:
+                        favorVote = acord.infoVotacio[currentUser] == 'favor'
+                        againstVote = acord.infoVotacio[currentUser] == 'against'
+                        whiteVote = acord.infoVotacio[currentUser] == 'white'
+
+                    if acord.estatVotacio == None:
+                        classVote = 'fa fa-bar-chart'
+                    else:
+                        if acord.tipusVotacio == 'public':
+                            classVote = 'fa fa-users'
+                        else:
+                            classVote = 'fa fa-user-secret'
+
                 else:
                     agreement = False
                     isPunt = True
@@ -375,6 +413,14 @@ class View(grok.View):
                                     show=True,
                                     isPunt=isPunt,
                                     classe=classe,
+                                    canOpenVote=canOpenVote,
+                                    canCloseVote=canCloseVote,
+                                    canReopenVote=canReopenVote,
+                                    hasVote=hasVote,
+                                    classVote=classVote,
+                                    favorVote=favorVote,
+                                    againstVote=againstVote,
+                                    whiteVote=whiteVote,
                                     items_inside=inside))
         return results
 
@@ -769,3 +815,73 @@ class View(grok.View):
                 return True
             else:
                 raise Unauthorized
+
+    def canViewManageVote(self):
+        # estatSessio = utils.session_wf_state(self)
+        # return estatSessio == 'convocada' and (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self))
+        return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
+
+    def canViewVoteButtons(self):
+        # estatSessio = utils.session_wf_state(self)
+        # return estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isMembre(self))
+        return utils.isSecretari(self) or utils.isMembre(self)
+
+    def canViewResultsVote(self):
+        # estatSessio = utils.session_wf_state(self)
+        # return estatSessio == 'convocada' and (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self))
+        return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
+
+    def getAllResultsVotes(self):
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+
+        acords = portal_catalog.unrestrictedSearchResults(
+            portal_type=['genweb.organs.acord'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 3})
+
+        results = []
+        for acord in acords:
+            acordObj = acord._unrestrictedGetObject()
+
+            if acordObj.estatVotacio in ['open', 'close']:
+                data = {'UID': acord.UID,
+                        'title': acordObj.title,
+                        'code': acordObj.agreement if acordObj.agreement else '',
+                        'isPublic': acordObj.tipusVotacio == 'public' and (utils.isManager(self) or utils.isSecretari(self)),
+                        'favorVote': 0,
+                        'againstVote': 0,
+                        'whiteVote': 0}
+
+                infoVotacio = acordObj.infoVotacio
+                if isinstance(infoVotacio, str):
+                    infoVotacio = ast.literal_eval(infoVotacio)
+
+                if data['isPublic']:
+                    data.update({'favorVoteList': []})
+                    data.update({'againstVoteList': []})
+                    data.update({'whiteVoteList': []})
+
+                    for key, value in infoVotacio.items():
+                        if value == 'favor':
+                            data['favorVote'] += 1
+                            data['favorVoteList'].append(key)
+                        elif value == 'against':
+                            data['againstVote'] += 1
+                            data['againstVoteList'].append(key)
+                        elif value == 'white':
+                            data['whiteVote'] += 1
+                            data['whiteVoteList'].append(key)
+                else:
+                    for key, value in infoVotacio.items():
+                        if value == 'favor':
+                            data['favorVote'] += 1
+                        elif value == 'against':
+                            data['againstVote'] += 1
+                        elif value == 'white':
+                            data['whiteVote'] += 1
+
+                results.append(data)
+
+        return results

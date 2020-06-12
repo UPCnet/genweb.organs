@@ -118,41 +118,41 @@
 
   <!-- API ACORDS WEBSERVICE -->
   <browser:page
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      name="acord"
-      class=".webservice.Webservice"
-      layer="..interfaces.IGenwebOrgansLayer"
-      permission="zope2.View"
-      />
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="acord"
+    class=".webservice.Webservice"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="zope2.View"
+    />
 
   <!-- View needed item properties-->
   <browser:page
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      name="findFileProperties"
-      class=".views.findFileProperties"
-      layer="..interfaces.IGenwebOrgansLayer"
-      permission="cmf.ManagePortal"
-      />
-
-  <permission
-       id="genweb.organs.VistaSecretariaGeneral"
-       title="genweb.organs: Vista Secretaria General"
-       />
-
-    <browser:page
-      for="*"
-      name="allorgans"
-      class=".views.allOrgans"
-      layer="..interfaces.IGenwebOrgansLayer"
-      permission="genweb.organs.VistaSecretariaGeneral"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="findFileProperties"
+    class=".views.findFileProperties"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="cmf.ManagePortal"
     />
 
-    <browser:page
-      for="genweb.organs.content.organgovern.IOrgangovern"
-      name="orderSessions"
-      class=".views.ReorderSessions"
-      layer="..interfaces.IGenwebOrgansLayer"
-      permission="cmf.ModifyPortalContent"
+  <permission
+    id="genweb.organs.VistaSecretariaGeneral"
+    title="genweb.organs: Vista Secretaria General"
+    />
+
+  <browser:page
+    for="*"
+    name="allorgans"
+    class=".views.allOrgans"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="genweb.organs.VistaSecretariaGeneral"
+    />
+
+  <browser:page
+    for="genweb.organs.content.organgovern.IOrgangovern"
+    name="orderSessions"
+    class=".views.ReorderSessions"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="cmf.ModifyPortalContent"
     />
 
 </configure>
