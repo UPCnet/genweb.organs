@@ -21,6 +21,7 @@
                 assistents context/assistents;
                 noAssistents context/noAssistents;
                 viewHistory view/viewHistory;
+                getAllResultsVotes view/getAllResultsVotes;
                 viewExcusesAndPoints view/viewExcusesAndPoints">
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
@@ -190,8 +191,10 @@
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Punts afegits</tal:omit-tag></i></a></li>-->
       <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag></i></a></li>
-      <li tal:condition="view/canViewResultsVote"><a href="#resultsVotesTab" data-toggle="tab">
-        <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions</tal:omit-tag></i></a></li>
+      <tal:block tal:condition="view/canViewResultsVote">
+        <li tal:condition="getAllResultsVotes"><a href="#resultsVotesTab" data-toggle="tab">
+          <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions</tal:omit-tag></i></a></li>
+      </tal:block>
     </ul>
     <ul id="tabs" class="nav nav-tabs nav-stacked hidden-tablet visible-phone hidden-desktop" data-tabs="tabs">
       <li class="active"><a href="#dadesTab" data-toggle="tab">
@@ -209,8 +212,10 @@
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Punts afegits</tal:omit-tag></i></a></li>-->
       <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag></i></a></li>
-      <li tal:condition="view/canViewResultsVote"><a href="#resultsVotesTab" data-toggle="tab">
-        <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions</tal:omit-tag></i></a></li>
+      <tal:block tal:condition="view/canViewResultsVote">
+        <li tal:condition="getAllResultsVotes"><a href="#resultsVotesTab" data-toggle="tab">
+          <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions</tal:omit-tag></i></a></li>
+      </tal:block>
     </ul>
 
     <div id="sessionTabs" class="tab-content">
@@ -477,7 +482,7 @@
 
 
       <div class="tab-pane" id="resultsVotesTab" tal:condition="view/canViewResultsVote">
-        <div class="scrollit" tal:define="votes view/getAllResultsVotes">
+        <div class="scrollit" tal:define="votes getAllResultsVotes">
           <table tal:condition="votes" class="table table-bordered table-condensed table-hover logFont">
             <thead>
               <tr i18n:domain="genweb.organs">
