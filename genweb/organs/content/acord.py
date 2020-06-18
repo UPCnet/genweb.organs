@@ -120,7 +120,7 @@ class IAcord(form.Schema):
     directives.omitted('tipusVotacio')
     tipusVotacio = schema.Choice(title=u'', source=llistaTipusVotacio, required=False)
 
-    # directives.omitted('infoVotacio')
+    directives.omitted('infoVotacio')
     infoVotacio = schema.Text(title=u'', required=False, default=u'{}')
 
 
