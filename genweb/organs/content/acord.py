@@ -96,6 +96,7 @@ class IAcord(form.Schema):
     )
 
     form.mode(agreement='hidden')
+    dexteritytextindexer.searchable('agreement')
     agreement = schema.TextLine(
         title=_(u'Agreement number'),
         required=False,
