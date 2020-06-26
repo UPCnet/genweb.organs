@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
 from Products.CMFCore.utils import getToolByName
@@ -392,7 +393,7 @@ class View(grok.View):
                         classVote = 'fa fa-bar-chart'
                     else:
                         if acord.tipusVotacio == 'public':
-                            classVote = 'fa fa-users'
+                            classVote = 'fa fa-pie-chart'
                         else:
                             classVote = 'fa fa-user-secret'
 
