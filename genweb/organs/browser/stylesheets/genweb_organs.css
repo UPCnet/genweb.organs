@@ -2443,3 +2443,20 @@ a.calendari-seguent:hover  {
 #resultsVotesTab .infovotes td {
     border-top: 0px solid #b2b2b2;
 }
+
+.hasVote .btn-notvote,
+.hasVote .btn-notvote:hover {
+    background-color: transparent !important;;
+    background-image: linear-gradient(to bottom, transparent, transparent) !important;
+    color: #999 !important;
+    border: 0px solid #999 !important;
+    filter: none;
+}
+
+.hasVote .btn-info,
+.hasVote .btn-info:hover {
+    background-color: #007bc0a1 !important;;
+    background-image: linear-gradient(to bottom, transparent, transparent) !important;
+    border: 1px solid #999 !important;
+    filter: none;
+}
