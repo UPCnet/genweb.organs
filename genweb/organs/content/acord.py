@@ -261,16 +261,16 @@ class OpenPublicVote(grok.View):
         transaction.commit()
 
 
-class OpenSecretVote(grok.View):
-    grok.context(IAcord)
-    grok.name('openSecretVote')
-    grok.require('genweb.organs.manage.vote')
+# class OpenSecretVote(grok.View):
+#     grok.context(IAcord)
+#     grok.name('openSecretVote')
+#     grok.require('genweb.organs.manage.vote')
 
-    def render(self):
-        self.context.estatVotacio = 'open'
-        self.context.tipusVotacio = 'secret'
-        self.context.reindexObject()
-        transaction.commit()
+#     def render(self):
+#         self.context.estatVotacio = 'open'
+#         self.context.tipusVotacio = 'secret'
+#         self.context.reindexObject()
+#         transaction.commit()
 
 
 class ReopenVote(grok.View):

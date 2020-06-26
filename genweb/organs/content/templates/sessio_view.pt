@@ -700,7 +700,7 @@
                           </button>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="types">
                             <li class="openPublicVote" tal:attributes="data-id item/id"><a tabindex="-1" data-type="open"><span><i class="fa fa-users"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Public</tal:omit-tag></span></a></li>
-                            <li class="openSecretVote" tal:attributes="data-id item/id"><a tabindex="-1" data-type="private"><span><i class="fa fa-user-secret"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Secret</tal:omit-tag></span></a></li>
+                            <!-- <li class="openSecretVote" tal:attributes="data-id item/id"><a tabindex="-1" data-type="private"><span><i class="fa fa-user-secret"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Secret</tal:omit-tag></span></a></li> -->
                           </ul>
                         </div>
 
@@ -1140,7 +1140,7 @@
     });
   });
 
-  $(".openSecretVote").on('click', function(){
+  /*$(".openSecretVote").on('click', function(){
     $.ajax({
             type: 'POST',
             url: $(this).attr('data-id') + '/openSecretVote',
@@ -1148,7 +1148,7 @@
               refreshNeeded = true;
             },
     });
-  });
+  });*/
 
   $(".closeVote").on('click', function(){
     $.ajax({
