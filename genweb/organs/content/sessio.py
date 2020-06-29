@@ -74,6 +74,11 @@ class ISessio(form.Schema):
         required=False,
     )
 
+    linkSala = schema.TextLine(
+        title=_(u"Enllac a la sala"),
+        required=False,
+    )
+
     adrecaLlista = schema.Text(
         title=_(u"mail address"),
         description=_(u"notification_mail_help"),
@@ -597,6 +602,7 @@ class View(grok.View):
         values = dict(horaInici=horaInici,
                       horaFi=horaFi,
                       llocConvocatoria=llocConvocatoria,
+                      linkSala=self.context.linkSala,
                       organTitle=self.context.aq_parent.Title(),
                       sessionNumber=sessionNumber,
                       status=status,
@@ -830,6 +836,9 @@ class View(grok.View):
     def canViewResultsVote(self):
         # estatSessio = utils.session_wf_state(self)
         # return estatSessio == 'convocada' and (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self))
+        return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
+
+    def canViewLinkSala(self):
         return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
 
     def getAllResultsVotes(self):
