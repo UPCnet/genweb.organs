@@ -272,7 +272,7 @@ msgstr "Clique <a href=\"./\">aquí</a> para volver al modo de visualización po
 #: ./genweb/organs/content/acord.py:70
 #: ./genweb/organs/content/templates/sessio_view.pt:727
 msgid "Close"
-msgstr "Cerrada"
+msgstr "Cerrar votación"
 
 #: ./genweb/organs/content/organgovern.py:132
 msgid "Color del esdeveniments"
@@ -977,7 +977,7 @@ msgstr ""
 #: ./genweb/organs/content/acord.py:74
 #: ./genweb/organs/content/templates/sessio_view.pt:713
 msgid "Public"
-msgstr "A mano alzada"
+msgstr "Abrir votacin"
 
 #: ./genweb/organs/content/file.py:54
 #: ./genweb/organs/content/propostapunt.py:43

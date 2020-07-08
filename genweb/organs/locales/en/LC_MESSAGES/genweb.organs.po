@@ -272,7 +272,7 @@ msgstr "Click <a href=\"./\">here</a> to show the previous view."
 #: ./genweb/organs/content/acord.py:70
 #: ./genweb/organs/content/templates/sessio_view.pt:727
 msgid "Close"
-msgstr "Close"
+msgstr "Close vote"
 
 #: ./genweb/organs/content/organgovern.py:132
 msgid "Color del esdeveniments"
@@ -977,7 +977,7 @@ msgstr ""
 #: ./genweb/organs/content/acord.py:74
 #: ./genweb/organs/content/templates/sessio_view.pt:713
 msgid "Public"
-msgstr "Freehand"
+msgstr "Open vote"
 
 #: ./genweb/organs/content/file.py:54
 #: ./genweb/organs/content/propostapunt.py:43
