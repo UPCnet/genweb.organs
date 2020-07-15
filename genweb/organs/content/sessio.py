@@ -838,6 +838,9 @@ class View(grok.View):
         # return estatSessio == 'convocada' and (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self))
         return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
 
+    def canViewExtendedResultsVote(self):
+        return utils.isManager(self) or utils.isSecretari(self)
+
     def canViewLinkSala(self):
         return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
 
@@ -859,7 +862,8 @@ class View(grok.View):
                 data = {'UID': acord.UID,
                         'title': acordObj.title,
                         'code': acordObj.agreement if acordObj.agreement else '',
-                        'isPublic': acordObj.tipusVotacio == 'public' and (utils.isManager(self) or utils.isSecretari(self)),
+                        'state': _(u'open') if acordObj.estatVotacio == 'open' else _(u'close'),
+                        'isPublic': acordObj.tipusVotacio == 'public' and self.canViewExtendedResultsVote(),
                         'favorVote': 0,
                         'againstVote': 0,
                         'whiteVote': 0}

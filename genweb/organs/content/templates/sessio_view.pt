@@ -494,45 +494,57 @@
 
       <div class="tab-pane" id="resultsVotesTab" tal:condition="view/canViewResultsVote">
         <div class="scrollit" tal:define="votes getAllResultsVotes">
-          <table tal:condition="votes" class="table table-bordered table-condensed table-hover logFont">
+          <table tal:condition="votes" class="table table-bordered table-condensed table-hover logFont"
+                 tal:define="canViewExtendedResultsVote view/canViewExtendedResultsVote">
             <thead>
               <tr i18n:domain="genweb.organs">
                 <th width="40%" i18n:translate="">Acord</th>
-                <th width="20%" style="text-align:center;" i18n:translate="">A favor</th>
-                <th width="20%" style="text-align:center;" i18n:translate="">En contra</th>
-                <th width="20%" style="text-align:center;" i18n:translate="">En blanc</th>
+                <tal tal:condition="not:canViewExtendedResultsVote">
+                  <th width="20%" style="text-align:center;" i18n:translate="">A favor</th>
+                  <th width="20%" style="text-align:center;" i18n:translate="">En contra</th>
+                  <th width="20%" style="text-align:center;" i18n:translate="">En blanc</th>
+                </tal>
+                <tal tal:condition="canViewExtendedResultsVote">
+                  <th width="15%" style="text-align:center;" i18n:translate="">A favor</th>
+                  <th width="15%" style="text-align:center;" i18n:translate="">En contra</th>
+                  <th width="15%" style="text-align:center;" i18n:translate="">En blanc</th>
+                  <th width="15%" style="text-align:center;" i18n:translate="">State</th>
+                </tal>
               </tr>
             </thead>
             <tbody>
               <tal:block tal:repeat="vote votes">
                 <tr tal:condition="not:vote/isPublic">
-                  <td width="40%" tal:content="string:${vote/title} [${vote/code}]"></td>
-                  <td width="20%" style="text-align:center;" tal:content="vote/favorVote"></td>
-                  <td width="20%" style="text-align:center;" tal:content="vote/againstVote"></td>
-                  <td width="20%" style="text-align:center;" tal:content="vote/whiteVote"></td>
+                  <td tal:content="string:${vote/title} [${vote/code}]"></td>
+                  <td style="text-align:center;" tal:content="vote/favorVote"></td>
+                  <td style="text-align:center;" tal:content="vote/againstVote"></td>
+                  <td style="text-align:center;" tal:content="vote/whiteVote"></td>
+                  <td style="text-align:center;" tal:condition="canViewExtendedResultsVote" tal:content="vote/state"></td>
                 </tr>
                 <tal:block tal:condition="vote/isPublic">
                   <tr class="openInfo" tal:attributes="data-open string:#${vote/UID}">
-                    <td width="40%">
+                    <td>
                       <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
                       <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
                       <span tal:content="string:${vote/title} [${vote/code}]"></span>
                     </td>
-                    <td width="20%" style="text-align:center;" tal:content="vote/favorVote"></td>
-                    <td width="20%" style="text-align:center;" tal:content="vote/againstVote"></td>
-                    <td width="20%" style="text-align:center;" tal:content="vote/whiteVote"></td>
+                    <td style="text-align:center;" tal:content="vote/favorVote"></td>
+                    <td style="text-align:center;" tal:content="vote/againstVote"></td>
+                    <td style="text-align:center;" tal:content="vote/whiteVote"></td>
+                    <td style="text-align:center;" tal:condition="canViewExtendedResultsVote" tal:content="vote/state"></td>
                   </tr>
                   <tr class="infovotes" tal:attributes="id vote/UID">
-                    <td width="40%"></td>
-                    <td width="20%" style="text-align:center;">
+                    <td /td>
+                    <td style="text-align:center;">
                       <p tal:repeat="user vote/favorVoteList" tal:content="user"></p>
                     </td>
-                    <td width="20%" style="text-align:center;">
+                    <td style="text-align:center;">
                       <p tal:repeat="user vote/againstVoteList" tal:content="user"></p>
                     </td>
-                    <td width="20%" style="text-align:center;">
+                    <td style="text-align:center;">
                       <p tal:repeat="user vote/whiteVoteList" tal:content="user"></p>
                     </td>
+                    <td style="text-align:center;" tal:condition="canViewExtendedResultsVote"></td>
                   </tr>
                 </tal:block>
               </tal:block>
