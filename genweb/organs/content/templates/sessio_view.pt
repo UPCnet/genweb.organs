@@ -151,7 +151,7 @@
       -->
 
       <div class="containerIcons" tal:condition="view/showOrdreDiaIAssistencia">
-        <a href="excusar_assist_sessio" i18n:attributes="title envia_missatge; alt envia_missatge"><i class="fa fa-minus fa-3x" style="font-size:1.1em" aria-hidden="true"></i> <i class="fa fa-user fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Excusa l'assistencia</span></a>
+        <a href="excusar_assist_sessio" i18n:attributes="title excusa_assistencia; alt excusa_assistencia"><i class="fa fa-minus fa-3x" style="font-size:1.1em" aria-hidden="true"></i> <i class="fa fa-user fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Excusa l'assistencia</span></a>
       </div>
 
 

@@ -1326,9 +1326,13 @@ msgstr "data (més recent primer)"
 msgid "description_no_items_in_folder"
 msgstr "No hi ha cap òrgan de govern en aquesta unitat."
 
-#: ./genweb/organs/content/templates/sessio_view.pt:154
+#: ./genweb/organs/content/templates/sessio_view.pt:160
 msgid "envia_missatge"
 msgstr "Missatge als membres"
+
+#: ./genweb/organs/content/templates/sessio_view.pt:154
+msgid "excusa_assistencia"
+msgstr "Excusa l'assistencia"
 
 #: ./genweb/organs/content/organgovern.py:162
 msgid "footerMail"
