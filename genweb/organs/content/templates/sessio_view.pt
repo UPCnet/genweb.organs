@@ -495,7 +495,7 @@
       <div class="tab-pane" id="resultsVotesTab" tal:condition="view/canViewResultsVote">
         <div class="scrollit" tal:define="votes getAllResultsVotes">
           <table tal:condition="votes" class="table table-bordered table-condensed table-hover logFont"
-                 tal:define="canViewExtendedResultsVote view/canViewExtendedResultsVote">
+                 tal:define="canViewExtendedResultsVote view/canViewManageVote">
             <thead>
               <tr i18n:domain="genweb.organs">
                 <th width="40%" i18n:translate="">Acord</th>
