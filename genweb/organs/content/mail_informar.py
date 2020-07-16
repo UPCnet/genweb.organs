@@ -255,7 +255,7 @@ class Message(form.SchemaForm):
                 agreement = ''
             # adding hidden field to maintain good urls
             results.append(str('&emsp;') + str('<a href=----@@----') + str(obj.getURL()) + str('>') + str(number) + str(obj.Title) + str('</a>') + '&nbsp;' + str(agreement))
-            
+
             if len(value.objectIds()) > 0:
                 valuesInside = portal_catalog.searchResults(
                     portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
@@ -271,8 +271,10 @@ class Message(form.SchemaForm):
                     if subpunt.portal_type == 'genweb.organs.acord':
                         if subpunt.agreement:
                             agreement = _(u'[Acord ') + str(subpunt.agreement) + ' - ' + str(subpunt.estatsLlista).upper() + ' ]'
+                        else:
+                            agreement = _(u'[Acord sense numeracio]')
                     else:
-                        agreement = _(u'[Acord sense numeracio]')
+                        agreement = ''
                     # adding hidden field to maintain good urls
                     results.append(str('&emsp;&emsp;') + str('<a href=----@@----') + str(item.getURL()) + str('>') + str(numberSubpunt) + str(item.Title) + str('</a>') + '&nbsp;' + str(agreement))
         return '<br/>'.join(results)
