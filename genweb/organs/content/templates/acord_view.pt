@@ -24,7 +24,8 @@
 
 <metal:content-core fill-slot="content-core"
   tal:define="defaultContent context/defaultContent;
-              filesanddocs view/FilesandDocumentsInside;">
+              filesanddocs view/FilesandDocumentsInside;
+              votacions view/VotacionsInside;">
 
   <div class="clearfix"></div><br/>
 
@@ -67,6 +68,36 @@
       </tr>
     </tbody>
   </table>
+
+  <table class="table table-bordered table-responsive votacions" tal:condition="votacions">
+    <thead>
+      <tr>
+        <th>
+          <tal:data i18n:translate="">Esmenes / Votacions</tal:data>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <ul class="ul_items">
+            <tal:documents repeat="item votacions">
+              <li class="listFiles">
+                  <a tal:content="item/title"
+                     tal:attributes="href item/absolute_url;
+                                     title item/title;
+                                     alt item/title">
+                     Votacio title
+                  </a>
+              </li>
+            </tal:documents>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
 
 </metal:content-core>
 

@@ -33,5 +33,8 @@
   <type type_id="genweb.organs.subpunt">
    <bound-workflow workflow_id="organs_one_state_workflow"/>
   </type>
+  <type type_id="genweb.organs.votacioacord">
+   <bound-workflow workflow_id="organs_one_state_workflow"/>
+  </type>
  </bindings>
 </object>

@@ -2461,3 +2461,16 @@ a.calendari-seguent:hover  {
     border: 1px solid #999 !important;
     filter: none;
 }
+
+a#genweb-organs-votacioacord.contenttype-genweb-organs-votacioacord {
+    display: none;
+}
+
+body.portaltype-genweb-organs-votacioacord input#form-widgets-title {
+    width: 98%;
+}
+
+.separacioEsmena {
+    width: 20px;
+    display: inline-block;
+}
