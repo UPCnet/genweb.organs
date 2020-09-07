@@ -862,7 +862,7 @@ padding: 0px 0px 32px 0px !important;
     z-index: 10;
 }
 
-.ul-session span {
+.ul-session span:not(.highlightedSearchTerm) {
     float: right;
 }
 
