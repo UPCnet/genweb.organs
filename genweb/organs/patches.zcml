@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:monkey="http://namespaces.plone.org/monkey"
+    i18n_domain="genweb.organs">
+
+    <include package="collective.monkeypatcher" />
+
+    <monkey:patch
+        description="Mostrar en el breadcrumb el enlace a un genweb.organs.organsFolder cuando es una vista por defecto de un directorio"
+        class="Products.CMFPlone.browser.navigation.PhysicalNavigationBreadcrumbs"
+        original="breadcrumbs"
+        replacement=".patches.breadcrumbs"
+        />
+
+</configure>

@@ -74,4 +74,6 @@
         class=".controlpanel.OrgansSettingsControlPanel"
         permission="cmf.ManagePortal"/>
 
+    <include file="patches.zcml" />
+
 </configure>
