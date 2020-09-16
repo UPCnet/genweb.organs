@@ -69,7 +69,7 @@ class Search(BrowserView):
                 roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat']]
                 if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
                     results.append(dict(
-                        url=obj.getPath(),
+                        url=obj.getObject().absolute_url(),
                         title=obj.Title,
                         color=organ.eventsColor,
                         role=roles))
@@ -334,7 +334,7 @@ class Search(BrowserView):
             sort_order='reverse')
         if item:
             title = item[0].Title
-            url = item[0].getPath()
+            url = item[0].getObject().absolute_url()
             return dict(title=title, url=url)
 
     def getLatestCS(self):
@@ -350,7 +350,7 @@ class Search(BrowserView):
             sort_order='reverse')
         if item:
             title = item[0].Title
-            url = item[0].getPath()
+            url = item[0].getObject().absolute_url()
             return dict(title=title, url=url)
 
     def getLatestCU(self):
@@ -366,7 +366,7 @@ class Search(BrowserView):
             sort_order='reverse')
         if item:
             title = item[0].Title
-            url = item[0].getPath()
+            url = item[0].getObject().absolute_url()
             return dict(title=title, url=url)
 
     def sort_options(self):
