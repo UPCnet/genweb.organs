@@ -12,6 +12,7 @@ from five import grok
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
+from plone.dexterity.utils import createContentInContainer
 from plone.directives import dexterity
 from plone.directives import form
 from plone.indexer import indexer
@@ -176,6 +177,21 @@ class View(grok.View):
     grok.context(IAcord)
     grok.template('acord_view')
 
+    def VotacionsInside(self):
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        values = portal_catalog.unrestrictedSearchResults(
+            portal_type=['genweb.organs.votacioacord'],
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+        for obj in values:
+            results.append(dict(title=obj.Title,
+                                absolute_url=obj.getURL()))
+        return results
+
     def FilesandDocumentsInside(self):
         return utils.FilesandDocumentsInside(self)
 
@@ -261,6 +277,20 @@ class OpenPublicVote(grok.View):
         transaction.commit()
 
 
+class OpenOtherPublicVote(grok.View):
+    grok.context(IAcord)
+    grok.name('openOtherPublicVote')
+    grok.require('genweb.organs.manage.vote')
+
+    def render(self):
+        if 'title' in self.request.form and self.request.form['title'] and self.request.form['title'] != '':
+            item = createContentInContainer(self.context, "genweb.organs.votacioacord", title=self.request.form['title'])
+            item.estatVotacio = 'open'
+            item.tipusVotacio = 'public'
+            item.reindexObject()
+            transaction.commit()
+
+
 # class OpenSecretVote(grok.View):
 #     grok.context(IAcord)
 #     grok.name('openSecretVote')
@@ -271,6 +301,20 @@ class OpenPublicVote(grok.View):
 #         self.context.tipusVotacio = 'secret'
 #         self.context.reindexObject()
 #         transaction.commit()
+
+
+# class OpenSecretPublicVote(grok.View):
+#     grok.context(IAcord)
+#     grok.name('openOtherSecretVote')
+#     grok.require('genweb.organs.manage.vote')
+
+#     def render(self):
+#         if 'title' in self.request.form and self.request.form['title'] and self.request.form['title'] != '':
+#             item = createContentInContainer(self.context, "genweb.organs.votacioacord", title=self.request.form['title'])
+#             item.estatVotacio = 'open'
+#             item.tipusVotacio = 'secret'
+#             item.reindexObject()
+#             transaction.commit()
 
 
 class ReopenVote(grok.View):

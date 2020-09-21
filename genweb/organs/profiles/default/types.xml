@@ -11,4 +11,5 @@
   <object meta_type="Dexterity FTI" name="genweb.organs.audio" />
   <object meta_type="Dexterity FTI" name="genweb.organs.acord" />
   <object meta_type="Dexterity FTI" name="genweb.organs.propostapunt" />
+  <object meta_type="Dexterity FTI" name="genweb.organs.votacioacord" />
 </object>
