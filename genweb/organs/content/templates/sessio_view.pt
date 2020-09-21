@@ -502,15 +502,18 @@
               <tr i18n:domain="genweb.organs">
                 <th width="40%" i18n:translate="">Acord / Esmena</th>
                 <tal tal:condition="not:canViewExtendedResultsVote">
-                  <th width="20%" style="text-align:center;" i18n:translate="">A favor</th>
-                  <th width="20%" style="text-align:center;" i18n:translate="">En contra</th>
-                  <th width="20%" style="text-align:center;" i18n:translate="">En blanc</th>
-                </tal>
-                <tal tal:condition="canViewExtendedResultsVote">
                   <th width="15%" style="text-align:center;" i18n:translate="">A favor</th>
                   <th width="15%" style="text-align:center;" i18n:translate="">En contra</th>
                   <th width="15%" style="text-align:center;" i18n:translate="">En blanc</th>
-                  <th width="15%" style="text-align:center;" i18n:translate="">State</th>
+                  <th width="15%" style="text-align:center;" i18n:translate="">Totals</th>
+                </tal>
+                <tal tal:condition="canViewExtendedResultsVote">
+                  <th width="10%" style="text-align:center;" i18n:translate="">A favor</th>
+                  <th width="10%" style="text-align:center;" i18n:translate="">En contra</th>
+                  <th width="10%" style="text-align:center;" i18n:translate="">En blanc</th>
+                  <th width="10%" style="text-align:center;" i18n:translate="">Vots emesos</th>
+                  <th width="10%" style="text-align:center;" i18n:translate="">State</th>
+                  <th width="10%" style="text-align:center;" i18n:translate="">Accions</th>
                 </tal>
               </tr>
             </thead>
@@ -523,10 +526,22 @@
                   <tal:block tal:condition="vote/isEsmena">
                     <td><span class="separacioEsmena"></span><span tal:content="vote/title"></span></td>
                   </tal:block>
-                  <td style="text-align:center;" tal:content="vote/favorVote"></td>
-                  <td style="text-align:center;" tal:content="vote/againstVote"></td>
-                  <td style="text-align:center;" tal:content="vote/whiteVote"></td>
+                  <tal:block tal:condition="not:vote/isOpen">
+                    <td style="text-align:center;" tal:content="vote/favorVote"></td>
+                    <td style="text-align:center;" tal:content="vote/againstVote"></td>
+                    <td style="text-align:center;" tal:content="vote/whiteVote"></td>
+                    <td style="text-align:center;" tal:content="vote/totalVote"></td>
+                  </tal:block>
+                  <tal:block tal:condition="vote/isOpen">
+                    <td style="text-align:center;"></td>
+                    <td style="text-align:center;"></td>
+                    <td style="text-align:center;"></td>
+                    <td style="text-align:center;" tal:content="vote/totalVote"></td>
+                  </tal:block>
                   <td style="text-align:center;" tal:condition="canViewExtendedResultsVote" tal:content="vote/state"></td>
+                  <td style="text-align:center;" tal:condition="canViewExtendedResultsVote">
+                    <span class="fa fa-trash removeVote" tal:attributes="data-url vote/URL"></span>
+                  </td>
                 </tr>
                 <tal:block tal:condition="vote/isPublic">
                   <tr class="openInfo" tal:attributes="data-open string:#${vote/UID}">
@@ -543,22 +558,46 @@
                         <span tal:content="vote/title"></span>
                       </tal:block>
                     </td>
-                    <td style="text-align:center;" tal:content="vote/favorVote"></td>
-                    <td style="text-align:center;" tal:content="vote/againstVote"></td>
-                    <td style="text-align:center;" tal:content="vote/whiteVote"></td>
+                    <tal:block tal:condition="not:vote/isOpen">
+                      <td style="text-align:center;" tal:content="vote/favorVote"></td>
+                      <td style="text-align:center;" tal:content="vote/againstVote"></td>
+                      <td style="text-align:center;" tal:content="vote/whiteVote"></td>
+                      <td style="text-align:center;" tal:content="vote/totalVote"></td>
+                    </tal:block>
+                    <tal:block tal:condition="vote/isOpen">
+                      <td style="text-align:center;"></td>
+                      <td style="text-align:center;"></td>
+                      <td style="text-align:center;"></td>
+                      <td style="text-align:center;" tal:content="vote/totalVote"></td>
+                    </tal:block>
                     <td style="text-align:center;" tal:condition="canViewExtendedResultsVote" tal:content="vote/state"></td>
+                    <td style="text-align:center;" >
+                      <span class="fa fa-trash removeVote" tal:attributes="data-url vote/URL"></span>
+                    </td>
                   </tr>
                   <tr class="infovotes" tal:attributes="id vote/UID">
-                    <td /td>
-                    <td style="text-align:center;">
-                      <p tal:repeat="user vote/favorVoteList" tal:content="user"></p>
-                    </td>
-                    <td style="text-align:center;">
-                      <p tal:repeat="user vote/againstVoteList" tal:content="user"></p>
-                    </td>
-                    <td style="text-align:center;">
-                      <p tal:repeat="user vote/whiteVoteList" tal:content="user"></p>
-                    </td>
+                    <td></td>
+                    <tal:block tal:condition="not:vote/isOpen">
+                      <td style="text-align:center;">
+                        <p tal:repeat="user vote/favorVoteList" tal:content="user"></p>
+                      </td>
+                      <td style="text-align:center;">
+                        <p tal:repeat="user vote/againstVoteList" tal:content="user"></p>
+                      </td>
+                      <td style="text-align:center;">
+                        <p tal:repeat="user vote/whiteVoteList" tal:content="user"></p>
+                      </td>
+                      <td style="text-align:center;"></td>
+                    </tal:block>
+                    <tal:block tal:condition="vote/isOpen">
+                      <td style="text-align:center;"></td>
+                      <td style="text-align:center;"></td>
+                      <td style="text-align:center;"></td>
+                      <td style="text-align:center;">
+                        <p tal:repeat="user vote/totalVoteList" tal:content="user"></p>
+                      </td>
+                    </tal:block>
+                    <td style="text-align:center;" tal:condition="canViewExtendedResultsVote"></td>
                     <td style="text-align:center;" tal:condition="canViewExtendedResultsVote"></td>
                   </tr>
                 </tal:block>
@@ -1278,6 +1317,7 @@
     });
   });*/
 
+
   /*$(".openOtherSecretVote").on('click', function(){
     var titolVotacio = prompt($(this).attr('data-title'), "");
     if (titolVotacio) {
@@ -1293,6 +1333,16 @@
       alert($(this).attr('data-error'));
     }
   });*/
+
+  $(".removeVote").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-url') + '/removeVote',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
 
   $(".closeVote").on('click', function(){
     $.ajax({

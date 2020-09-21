@@ -878,13 +878,16 @@ class View(grok.View):
 
             if acordObj.estatVotacio in ['open', 'close']:
                 data = {'UID': acord.UID,
+                        'URL': acordObj.absolute_url(),
                         'title': acordObj.title,
                         'code': acordObj.agreement if acordObj.agreement else '',
                         'state': _(u'open') if acordObj.estatVotacio == 'open' else _(u'close'),
+                        'isOpen': acordObj.estatVotacio == 'open',
                         'isPublic': acordObj.tipusVotacio == 'public' and self.canViewManageVote(),
                         'favorVote': 0,
                         'againstVote': 0,
                         'whiteVote': 0,
+                        'totalVote': 0,
                         'isEsmena': False}
 
                 infoVotacio = acordObj.infoVotacio
@@ -895,8 +898,11 @@ class View(grok.View):
                     data.update({'favorVoteList': []})
                     data.update({'againstVoteList': []})
                     data.update({'whiteVoteList': []})
+                    data.update({'totalVoteList': []})
 
                     for key, value in infoVotacio.items():
+                        data['totalVote'] += 1
+                        data['totalVoteList'].append(key)
                         if value == 'favor':
                             data['favorVote'] += 1
                             data['favorVoteList'].append(key)
@@ -908,6 +914,7 @@ class View(grok.View):
                             data['whiteVoteList'].append(key)
                 else:
                     for key, value in infoVotacio.items():
+                        data['totalVote'] += 1
                         if value == 'favor':
                             data['favorVote'] += 1
                         elif value == 'against':
@@ -931,12 +938,15 @@ class View(grok.View):
                     esmenaObj = esmena._unrestrictedGetObject()
 
                     data = {'UID': esmena.UID,
+                            'URL': esmenaObj.absolute_url(),
                             'title': esmenaObj.title,
                             'state': _(u'open') if esmenaObj.estatVotacio == 'open' else _(u'close'),
                             'isPublic': esmenaObj.tipusVotacio == 'public' and self.canViewManageVote(),
+                            'isOpen': esmenaObj.estatVotacio == 'open',
                             'favorVote': 0,
                             'againstVote': 0,
                             'whiteVote': 0,
+                            'totalVote': 0,
                             'isEsmena': True}
 
                     infoVotacio = esmenaObj.infoVotacio
@@ -947,8 +957,11 @@ class View(grok.View):
                         data.update({'favorVoteList': []})
                         data.update({'againstVoteList': []})
                         data.update({'whiteVoteList': []})
+                        data.update({'totalVoteList': []})
 
                         for key, value in infoVotacio.items():
+                            data['totalVote'] += 1
+                            data['totalVoteList'].append(key)
                             if value == 'favor':
                                 data['favorVote'] += 1
                                 data['favorVoteList'].append(key)
@@ -960,6 +973,7 @@ class View(grok.View):
                                 data['whiteVoteList'].append(key)
                     else:
                         for key, value in infoVotacio.items():
+                            data['totalVote'] += 1
                             if value == 'favor':
                                 data['favorVote'] += 1
                             elif value == 'against':
