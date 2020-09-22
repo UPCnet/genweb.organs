@@ -122,7 +122,7 @@ class CloseVote(grok.View):
         transaction.commit()
 
 
-class favorVote(grok.View):
+class FavorVote(grok.View):
     grok.context(IVotacioAcord)
     grok.name('favorVote')
     grok.require('genweb.organs.add.vote')
@@ -226,3 +226,14 @@ Missatge automàtic generat per https://govern.upc.edu/"""
 
             msg.attach(MIMEText(message.format(**data), 'plain', email_charset))
             mailhost.send(msg)
+
+
+class RemoveVote(grok.View):
+    grok.context(IVotacioAcord)
+    grok.name('removeVote')
+    grok.require('genweb.organs.manage.vote')
+
+    def render(self):
+        parent = self.context.aq_parent
+        parent.manage_delObjects([self.context.getId()])
+        transaction.commit()

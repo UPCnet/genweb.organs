@@ -505,15 +505,15 @@
                   <th width="15%" style="text-align:center;" i18n:translate="">A favor</th>
                   <th width="15%" style="text-align:center;" i18n:translate="">En contra</th>
                   <th width="15%" style="text-align:center;" i18n:translate="">En blanc</th>
-                  <th width="15%" style="text-align:center;" i18n:translate="">Totals</th>
+                  <th width="15%" style="text-align:center;" i18n:translate="">Vots emesos</th>
                 </tal>
                 <tal tal:condition="canViewExtendedResultsVote">
-                  <th width="10%" style="text-align:center;" i18n:translate="">A favor</th>
-                  <th width="10%" style="text-align:center;" i18n:translate="">En contra</th>
-                  <th width="10%" style="text-align:center;" i18n:translate="">En blanc</th>
-                  <th width="10%" style="text-align:center;" i18n:translate="">Vots emesos</th>
-                  <th width="10%" style="text-align:center;" i18n:translate="">State</th>
-                  <th width="10%" style="text-align:center;" i18n:translate="">Accions</th>
+                  <th width="12%" style="text-align:center;" i18n:translate="">A favor</th>
+                  <th width="12%" style="text-align:center;" i18n:translate="">En contra</th>
+                  <th width="12%" style="text-align:center;" i18n:translate="">En blanc</th>
+                  <th width="12%" style="text-align:center;" i18n:translate="">Vots emesos</th>
+                  <th width="8%" style="text-align:center;" i18n:translate="">State</th>
+                  <th width="4%" style="text-align:center;" i18n:translate=""></th>
                 </tal>
               </tr>
             </thead>

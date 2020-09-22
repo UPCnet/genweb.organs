@@ -2445,6 +2445,11 @@ a.calendari-seguent:hover  {
     border-top: 0px solid #b2b2b2;
 }
 
+#resultsVotesTab .removeVote:hover {
+    color: #557c95;
+    cursor: pointer;
+}
+
 .hasVote .btn-notvote,
 .hasVote .btn-notvote:hover {
     background-color: transparent !important;;
