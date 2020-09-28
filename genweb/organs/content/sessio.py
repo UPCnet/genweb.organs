@@ -847,22 +847,30 @@ class View(grok.View):
     def canViewManageVote(self):
         # estatSessio = utils.session_wf_state(self)
         # return estatSessio == 'convocada' and (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self))
-        return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
+        if self.context.aq_parent.id == 'consell-de-govern':
+            return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
+        return False
 
     def canViewVoteButtons(self):
         # estatSessio = utils.session_wf_state(self)
         # return estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isMembre(self))
-        return utils.isSecretari(self) or utils.isMembre(self)
+        if self.context.aq_parent.id == 'consell-de-govern':
+            return utils.isSecretari(self) or utils.isMembre(self)
+        return False
 
     def canViewResultsVote(self):
         # estatSessio = utils.session_wf_state(self)
         # return estatSessio == 'convocada' and (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self))
-        return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
+        if self.context.aq_parent.id == 'consell-de-govern':
+            return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
+        return False
 
     def canViewLinkSala(self):
         return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
 
     def getAllResultsVotes(self):
+        if self.context.aq_parent.id != 'consell-de-govern':
+            return []
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
