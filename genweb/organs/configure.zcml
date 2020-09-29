@@ -34,6 +34,21 @@
       title="Genweb Organs: Add Vote"
     />
 
+    <permission
+      id="genweb.organs.manage.quorum"
+      title="Genweb Organs: Manage Quorum"
+    />
+
+    <permission
+      id="genweb.organs.add.quorum"
+      title="Genweb Organs: Add Quorum"
+    />
+
+    <permission
+      id="genweb.organs.remove.quorum"
+      title="Genweb Organs: Remove Quorum"
+    />
+
     <!-- Include configuration for dependencies listed in setup.py -->
     <includeDependencies package="." />
 

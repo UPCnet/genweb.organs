@@ -22,6 +22,7 @@
                 noAssistents context/noAssistents;
                 viewHistory view/viewHistory;
                 getAllResultsVotes view/getAllResultsVotes;
+                getInfoQuorums view/getInfoQuorums;
                 viewExcusesAndPoints view/viewExcusesAndPoints;
                 getTitlePrompt view/getTitlePrompt;
                 getErrorPrompt view/getErrorPrompt;">
@@ -138,39 +139,97 @@
 
   <iframe name="iframe" id="iframe" width="1" height="1" src="butlleti"></iframe>
 
-  <div class="sessionActions">
+  <div class="sessionActions" tal:define="showOpenQuorum view/showOpenQuorum">
 
     <!--NEW ACTIONS-->
       <!--
       <div class="containerIcons" tal:condition="view/showOrdreDiaIAssistencia">
-        <a href="proposa_punt_od" i18n:attributes="title envia_missatge; alt envia_missatge"><i class="fa fa-plus fa-3x" aria-hidden="true" style="font-size:1.1em"></i> <i class="fa fa-file-text fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Proposa un punt</span></a>
+        <a href="proposa_punt_od" i18n:attributes="title envia_missatge; alt envia_missatge">
+          <i class="fa fa-plus fa-3x" aria-hidden="true" style="font-size:1.1em"></i>
+          <i class="fa fa-file-text fa-3x" aria-hidden="true"></i>
+          <br/><span i18n:translate="">Proposa un punt</span>
+        </a>
       </div>
       -->
       <!--
       <div class="containerIcons" tal:condition="view/showOrdreDiaIAssistencia">
-        <a href="esmenes_punt_od" i18n:attributes="title envia_missatge; alt envia_missatge"><i class="fa fa-list-ol fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Esmena un punt</span></a>
+        <a href="esmenes_punt_od" i18n:attributes="title envia_missatge; alt envia_missatge">
+          <i class="fa fa-list-ol fa-3x" aria-hidden="true"></i>
+          <br/><span i18n:translate="">Esmena un punt</span>
+        </a>
       </div>
       -->
 
       <div class="containerIcons" tal:condition="view/showOrdreDiaIAssistencia">
-        <a href="excusar_assist_sessio" i18n:attributes="title excusa_assistencia; alt excusa_assistencia"><i class="fa fa-minus fa-3x" style="font-size:1.1em" aria-hidden="true"></i> <i class="fa fa-user fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Excusa l'assistencia</span></a>
+        <a href="excusar_assist_sessio" i18n:attributes="title excusa_assistencia; alt excusa_assistencia">
+          <i class="fa fa-minus fa-3x" style="font-size:1.1em" aria-hidden="true"></i>
+          <i class="fa fa-user fa-3x" aria-hidden="true"></i>
+          <br/><span i18n:translate="">Excusa l'assistencia</span>
+        </a>
       </div>
-
-
 
       <div class="containerIcons" tal:condition="view/showEnviarButton">
-        <a href="mail_message" i18n:attributes="title envia_missatge; alt envia_missatge"><i class="fa fa-envelope fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Envia missatge</span></a>
+        <a href="mail_message" i18n:attributes="title envia_missatge; alt envia_missatge">
+          <i class="fa fa-envelope fa-3x" aria-hidden="true"></i>
+          <br/><span i18n:translate="">Envia missatge</span>
+        </a>
       </div>
+
       <div class="containerIcons" tal:condition="view/showPresentacionButton">
-        <a i18n:attributes="title Presentacio; alt Presentacio" href="presentation"><i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Presentacio</span></a>
+        <a i18n:attributes="title Presentacio; alt Presentacio" href="presentation">
+          <i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i>
+          <br/><span i18n:translate="">Presentacio</span>
+        </a>
       </div>
+
       <div class="containerIcons" tal:condition="view/showPublicarButton">
-        <a href="mail_informar" i18n:attributes="title informa_sessio; alt informa_sessio"><i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Informa sessio</span></a>
+        <a href="mail_informar" i18n:attributes="title informa_sessio; alt informa_sessio">
+          <i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i>
+          <br/><span i18n:translate="">Informa sessio</span>
+        </a>
       </div>
 
       <div class="containerIcons">
-        <a href="javascript:printPage(iframe);" i18n:attributes="title printOrdreDia; alt printOrdreDia"><i class="fa fa-print fa-3x" aria-hidden="true"></i><br/><span i18n:translate="">Print</span></a>
+        <a href="javascript:printPage(iframe);" i18n:attributes="title printOrdreDia; alt printOrdreDia">
+          <i class="fa fa-print fa-3x" aria-hidden="true"></i>
+          <br/><span i18n:translate="">Print</span>
+        </a>
       </div>
+
+      <tal:block tal:condition="view/canViewManageQuorumButtons">
+        <div class="containerIcons" tal:condition="showOpenQuorum">
+          <a class="openQuorum" href="#" i18n:attributes="title open_quorum; alt open_quorum;">
+            <i class="fa fa-pluse fa-3x" style="font-size:1.1em" aria-hidden="true"></i>
+            <i class="fa fa-users fa-3x" aria-hidden="true"></i>
+            <br/><span i18n:translate="">Obrir Quorum</span>
+          </a>
+        </div>
+
+        <div class="containerIcons" tal:condition="not:showOpenQuorum">
+          <a class="closeQuorum" href="#" i18n:attributes="title close_quorum; alt close_quorum;">
+            <i class="fa fa-minus fa-3x" style="font-size:1.1em" aria-hidden="true"></i>
+            <i class="fa fa-users fa-3x" aria-hidden="true"></i>
+            <br/><span i18n:translate="">Tancar Quorum</span>
+          </a>
+        </div>
+      </tal:block>
+
+      <tal:block tal:condition="view/canViewAddQuorumButtons">
+        <div class="containerIcons" tal:condition="not:showOpenQuorum"
+             tal:define="checkHasQuorum view/checkHasQuorum">
+          <a tal:condition="not:checkHasQuorum" class="addQuorum"
+             href="#" i18n:attributes="title add_quorum; alt add_quorum;">
+            <i class="fa fa-plus fa-3x" aria-hidden="true"></i>
+            <br/><span i18n:translate="">Control Quorum</span>
+          </a>
+
+          <span tal:condition="checkHasQuorum" class="addQuorumChecked"
+                i18n:attributes="title add_quorum; alt add_quorum;">
+            <i class="fa fa-check fa-3x" aria-hidden="true"></i>
+            <br/><span i18n:translate="">Control Quorum</span>
+          </span>
+        </div>
+      </tal:block>
   </div>
 
   <div class="clearfix"></div>
@@ -194,8 +253,8 @@
       <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag></i></a></li>
       <tal:block tal:condition="view/canViewResultsVote">
-        <li tal:condition="getAllResultsVotes"><a href="#resultsVotesTab" data-toggle="tab">
-          <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions</tal:omit-tag></i></a></li>
+        <li tal:condition="python: getAllResultsVotes or getInfoQuorums"><a href="#resultsVotesTab" data-toggle="tab">
+          <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions / Quorums</tal:omit-tag></i></a></li>
       </tal:block>
     </ul>
     <ul id="tabs" class="nav nav-tabs nav-stacked hidden-tablet visible-phone hidden-desktop" data-tabs="tabs">
@@ -215,8 +274,8 @@
       <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag></i></a></li>
       <tal:block tal:condition="view/canViewResultsVote">
-        <li tal:condition="getAllResultsVotes"><a href="#resultsVotesTab" data-toggle="tab">
-          <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions</tal:omit-tag></i></a></li>
+        <li tal:condition="python: getAllResultsVotes or getInfoQuorums"><a href="#resultsVotesTab" data-toggle="tab">
+          <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions / Quorums</tal:omit-tag></i></a></li>
       </tal:block>
     </ul>
 
@@ -495,7 +554,8 @@
 
 
       <div class="tab-pane" id="resultsVotesTab" tal:condition="view/canViewResultsVote">
-        <div class="scrollit" tal:define="votes getAllResultsVotes">
+        <div class="scrollit" tal:define="votes getAllResultsVotes; quorums getInfoQuorums;">
+
           <table tal:condition="votes" class="table table-bordered table-condensed table-hover logFont"
                  tal:define="canViewExtendedResultsVote view/canViewManageVote">
             <thead>
@@ -604,6 +664,30 @@
               </tal:block>
             </tbody>
           </table>
+
+          <table tal:condition="quorums" class="table table-bordered table-condensed table-hover logFont"
+                 style="width: 40% !important;">
+            <thead i18n:domain="genweb.organs">
+              <tr>
+                <th colspan="3">Quorums</th>
+              </tr>
+              <tr>
+                <th width="45%" i18n:translate="">Inici</th>
+                <th width="45%" i18n:translate="">Fi</th>
+                <th width="10%" style="text-align:center;" i18n:translate="">Num.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr tal:repeat="quorum quorums">
+                <tal:block tal:define="quorumInfo python: quorums[quorum]">
+                  <td tal:content="quorumInfo/start"></td>
+                  <td tal:content="quorumInfo/end"></td>
+                  <td style="text-align:center;" tal:content="quorumInfo/total"></td>
+                </tal:block>
+              </tr>
+            </tbody>
+          </table>
+
         </div>
       </div>
 
@@ -1364,9 +1448,39 @@
     });
   });
 
+  $(".openQuorum").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: 'openQuorum',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+  $(".closeQuorum").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: 'closeQuorum',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+  $(".addQuorum").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: 'addQuorum',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
   $(document).ajaxStop(function(){
      if(refreshNeeded){
-        window.location.reload();
+        setTimeout(function(){ window.location.reload(); }, 1000);
     }
   });
 

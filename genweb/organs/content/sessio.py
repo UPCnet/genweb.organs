@@ -25,8 +25,9 @@ from zope.i18n import translate
 from genweb.organs import _
 from genweb.organs import utils
 
-import datetime
 import ast
+import datetime
+import transaction
 
 grok.templatedir("templates")
 
@@ -146,6 +147,9 @@ class ISessio(form.Schema):
         description=_(u"Signatura description"),
         required=False,
     )
+
+    directives.omitted('infoQuorums')
+    infoQuorums = schema.Text(title=u'', required=False, default=u'{}')
 
 
 @form.default_value(field=ISessio['numSessio'])
@@ -871,6 +875,7 @@ class View(grok.View):
     def getAllResultsVotes(self):
         if self.context.aq_parent.id != 'consell-de-govern':
             return []
+
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
@@ -1001,3 +1006,108 @@ class View(grok.View):
 
     def getErrorPrompt(self):
         return _(u'error_prompt_votacio')
+
+    def getInfoQuorums(self):
+        if not isinstance(self.context.infoQuorums, dict):
+            self.context.infoQuorums = ast.literal_eval(self.context.infoQuorums)
+
+        return self.context.infoQuorums
+
+    def canViewManageQuorumButtons(self):
+        if self.context.aq_parent.id == 'consell-de-govern':
+            return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
+        return False
+
+    def canViewAddQuorumButtons(self):
+        if self.context.aq_parent.id == 'consell-de-govern':
+            return utils.isSecretari(self) or utils.isMembre(self)
+        return False
+
+    def checkHasQuorum(self):
+        if not isinstance(self.context.infoQuorums, dict):
+            self.context.infoQuorums = ast.literal_eval(self.context.infoQuorums)
+
+        lenQuorums = len(self.context.infoQuorums)
+        if lenQuorums > 0 and not self.context.infoQuorums[lenQuorums]['end']:
+            return api.user.get_current().id in self.context.infoQuorums[lenQuorums]['people']
+
+        return False
+
+    def showOpenQuorum(self):
+        if not isinstance(self.context.infoQuorums, dict):
+            self.context.infoQuorums = ast.literal_eval(self.context.infoQuorums)
+
+        lenQuorums = len(self.context.infoQuorums)
+        if lenQuorums == 0 or self.context.infoQuorums[lenQuorums]['end']:
+            return True
+
+        return False
+
+
+class OpenQuorum(grok.View):
+    grok.context(ISessio)
+    grok.name('openQuorum')
+    grok.require('genweb.organs.manage.quorum')
+
+    def render(self):
+        if not isinstance(self.context.infoQuorums, dict):
+            self.context.infoQuorums = ast.literal_eval(self.context.infoQuorums)
+
+        lenQuorums = len(self.context.infoQuorums)
+        if lenQuorums == 0 or self.context.infoQuorums[lenQuorums]['end']:
+            idQuorum = lenQuorums + 1
+            self.context.infoQuorums.update({
+                idQuorum: {
+                    'start': datetime.datetime.now().strftime('%d/%m/%Y %H:%M'),
+                    'end': None,
+                    'people': [api.user.get_current().id],
+                    'total': 1,
+                }
+            })
+
+        transaction.commit()
+
+
+class CloseQuorum(grok.View):
+    grok.context(ISessio)
+    grok.name('closeQuorum')
+    grok.require('genweb.organs.manage.quorum')
+
+    def render(self):
+        if not isinstance(self.context.infoQuorums, dict):
+            self.context.infoQuorums = ast.literal_eval(self.context.infoQuorums)
+
+        lenQuorums = len(self.context.infoQuorums)
+        if lenQuorums > 0 and not self.context.infoQuorums[lenQuorums]['end']:
+            self.context.infoQuorums[lenQuorums]['end'] = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
+
+        transaction.commit()
+
+
+class RemoveQuorums(grok.View):
+    grok.context(ISessio)
+    grok.name('removeQuorums')
+    grok.require('genweb.organs.remove.quorum')
+
+    def render(self):
+        self.context.infoQuorums = {}
+        transaction.commit()
+
+
+class AddQuorum(grok.View):
+    grok.context(ISessio)
+    grok.name('addQuorum')
+    grok.require('genweb.organs.add.quorum')
+
+    def render(self):
+        if not isinstance(self.context.infoQuorums, dict):
+            self.context.infoQuorums = ast.literal_eval(self.context.infoQuorums)
+
+        lenQuorums = len(self.context.infoQuorums)
+        if lenQuorums > 0 and not self.context.infoQuorums[lenQuorums]['end']:
+            username = api.user.get_current().id
+            if username not in self.context.infoQuorums[lenQuorums]['people']:
+                self.context.infoQuorums[lenQuorums]['people'].append(username)
+                self.context.infoQuorums[lenQuorums]['total'] = len(self.context.infoQuorums[lenQuorums]['people'])
+
+        transaction.commit()

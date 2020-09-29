@@ -2479,3 +2479,8 @@ body.portaltype-genweb-organs-votacioacord input#form-widgets-title {
     width: 20px;
     display: inline-block;
 }
+
+.addQuorumChecked .fa,
+.addQuorumChecked span {
+    color: #569555;
+}
