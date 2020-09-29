@@ -1,11 +1,33 @@
 Changelog
 =========
 
-0.43 (unreleased)
+0.43 (2020-09-29)
 -----------------
 
-- Nothing changed yet.
-
+* Quorum [Iago López Fernández]
+* Ver votaciones solo dentro de consell-de-govern [Iago López Fernández]
+* Eliminar votaciones [Iago López Fernández]
+* Votos totales [Iago López Fernández]
+* Merge remote-tracking branch 'origin/esmenes' [Iago López Fernández]
+* Fix urls homepage [Iago López Fernández]
+* Fix _blink a _blank [Iago López Fernández]
+* Mostrar en el breadcrumb el enlace a un genweb.organs.organsFolder cuando es una vista por defecto de un directorio [Iago López Fernández]
+* Quitar <Mostra com si fos...> [Iago López Fernández]
+* Fix css [Iago López Fernández]
+* Votación esmenas [Iago López Fernández]
+* Arreglar error acción Envia resum (genweb.organs.subpunt) [Iago López Fernández]
+* Editores ven la información extendida de la tabla de resultados [Iago López Fernández]
+* Mostrar estado de la votación en la tabla de resultados [Iago López Fernández]
+* Quitar accion votaciones cuando esta cerrada [Iago López Fernández]
+* Literal [Iago López Fernández]
+* Literals [Iago López Fernández]
+* Enlace a la sala [Iago López Fernández]
+* Cambiar icono votacion publica [Iago López Fernández]
+* Quitar votación privada [Iago López Fernández]
+* Estilo botones votaciones [Iago López Fernández]
+* Hacer que se pueda buscar un acord por su codigo [Iago López Fernández]
+* Icono [Iago López Fernández]
+* Votacions en els acords [Iago López Fernández]
 
 0.42 (2020-06-10)
 -----------------
