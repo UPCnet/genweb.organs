@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.44 (unreleased)
+0.44 (2020-09-30)
 -----------------
 
-- Nothing changed yet.
-
+* Fix Quorum membre [Iago López Fernández]
+* Estilo [Iago López Fernández]
 
 0.43 (2020-09-29)
 -----------------
