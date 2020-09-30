@@ -1326,6 +1326,16 @@
     });
   });
 
+  $(".addQuorum").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: 'addQuorum',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
   $(document).ajaxStop(function(){
      if(refreshNeeded){
         window.location.reload();
@@ -1462,16 +1472,6 @@
     $.ajax({
             type: 'POST',
             url: 'closeQuorum',
-            success: function(){
-              refreshNeeded = true;
-            },
-    });
-  });
-
-  $(".addQuorum").on('click', function(){
-    $.ajax({
-            type: 'POST',
-            url: 'addQuorum',
             success: function(){
               refreshNeeded = true;
             },
