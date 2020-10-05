@@ -322,52 +322,72 @@ class Search(BrowserView):
         return sorted(self.filter_types(list(used_types)))
 
     def getLatestCDG(self):
-        """ Retorna ultima sessió consell de govern """
+        """ Retorna ultima sessió consell de govern en estat que no sigui planificada """
         root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
         lt = getToolByName(self, 'portal_languages')
         lang = lt.getPreferredLanguage()
         portal_catalog = getToolByName(self, 'portal_catalog')
-        item = portal_catalog.searchResults(
+        items = portal_catalog.searchResults(
             portal_type=['genweb.organs.sessio'],
             path=root_path + "/" + lang + "/consell-de-govern/consell-de-govern",
             sort_on='created',
             sort_order='reverse')
-        if item:
-            title = item[0].Title
-            url = item[0].getObject().absolute_url()
+        if items:
+            for item in items:
+                itemObj = item.getObject()
+                estatSessio = api.content.get_state(obj=itemObj)
+                if estatSessio != 'planificada':
+                    title = item.Title
+                    url = itemObj.absolute_url()
+                    return dict(title=title, url=url)
+
+            title = items[0].Title
+            url = items[0].getObject().absolute_url()
             return dict(title=title, url=url)
 
     def getLatestCS(self):
-        """ Retorna ultima sessió consell social """
+        """ Retorna ultima sessió consell social en estat que no sigui planificada """
         root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
         lt = getToolByName(self, 'portal_languages')
         lang = lt.getPreferredLanguage()
         portal_catalog = getToolByName(self, 'portal_catalog')
-        item = portal_catalog.searchResults(
+        items = portal_catalog.searchResults(
             portal_type=['genweb.organs.sessio'],
             path=root_path + "/" + lang + "/cs/ple-del-consell-social",
             sort_on='created',
             sort_order='reverse')
-        if item:
-            title = item[0].Title
-            url = item[0].getObject().absolute_url()
+        if items:
+            for item in items:
+                itemObj = item.getObject()
+                estatSessio = api.content.get_state(obj=itemObj)
+                if estatSessio != 'planificada':
+                    title = item.Title
+                    url = itemObj.absolute_url()
+                    return dict(title=title, url=url)
+
+            title = items[0].Title
+            url = items[0].getObject().absolute_url()
             return dict(title=title, url=url)
 
     def getLatestCU(self):
-        """ Retorna ultima sessió claustre universitari """
+        """ Retorna ultima sessió claustre universitari en estat que no sigui planificada """
         root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
         lt = getToolByName(self, 'portal_languages')
         lang = lt.getPreferredLanguage()
         portal_catalog = getToolByName(self, 'portal_catalog')
-        item = portal_catalog.searchResults(
+        items = portal_catalog.searchResults(
             portal_type=['genweb.organs.sessio'],
             path=root_path + "/" + lang + "/claustre-universitari/claustre-universitari",
             sort_on='created',
             sort_order='reverse')
-        if item:
-            title = item[0].Title
-            url = item[0].getObject().absolute_url()
-            return dict(title=title, url=url)
+        if items:
+            for item in items:
+                itemObj = item.getObject()
+                estatSessio = api.content.get_state(obj=itemObj)
+                if estatSessio != 'planificada':
+                    title = item.Title
+                    url = itemObj.absolute_url()
+                    return dict(title=title, url=url)
 
     def sort_options(self):
         """ Sorting options for search results view. """
