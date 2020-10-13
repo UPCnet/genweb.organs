@@ -339,7 +339,6 @@ class View(grok.View):
 
             canOpenVote = False
             canCloseVote = False
-            canReopenVote = False
             canRecloseVote = False
             titleEsmena = ''
             classVote = False
@@ -386,7 +385,7 @@ class View(grok.View):
                     canOpenVote = acord.estatVotacio == None
                     canCloseVote = acord.estatVotacio == 'open'
 
-                    if acord.estatVotacio == 'close':
+                    if canOpenVote:
                         acord_folder_path = '/'.join(item.getPhysicalPath())
                         esmenas = portal_catalog.unrestrictedSearchResults(
                             portal_type=['genweb.organs.votacioacord'],
@@ -399,9 +398,7 @@ class View(grok.View):
                                 canRecloseVote = acord.id + '/' + esmena.id
                                 titleEsmena = esmena.Title
                                 votacio = esmena.getObject()
-
-                        if not canRecloseVote:
-                            canReopenVote = True
+                                canOpenVote = False
 
                     currentUser = api.user.get_current().id
 
@@ -444,7 +441,6 @@ class View(grok.View):
                                     classe=classe,
                                     canOpenVote=canOpenVote,
                                     canCloseVote=canCloseVote,
-                                    canReopenVote=canReopenVote,
                                     canRecloseVote=canRecloseVote,
                                     titleEsmena=titleEsmena,
                                     hasVote=hasVote,
@@ -901,7 +897,8 @@ class View(grok.View):
                         'againstVote': 0,
                         'whiteVote': 0,
                         'totalVote': 0,
-                        'isEsmena': False}
+                        'isEsmena': False,
+                        'isVote': True}
 
                 infoVotacio = acordObj.infoVotacio
                 if isinstance(infoVotacio, str) or isinstance(infoVotacio, unicode):
@@ -940,64 +937,82 @@ class View(grok.View):
 
                 results.append(data)
 
-                acord_folder_path = '/'.join(acordObj.getPhysicalPath())
-                esmenas = portal_catalog.unrestrictedSearchResults(
-                    portal_type=['genweb.organs.votacioacord'],
-                    sort_on='getObjPositionInParent',
-                    path={'query': acord_folder_path,
-                          'depth': 1})
+            acord_folder_path = '/'.join(acordObj.getPhysicalPath())
+            esmenas = portal_catalog.unrestrictedSearchResults(
+                portal_type=['genweb.organs.votacioacord'],
+                sort_on='getObjPositionInParent',
+                path={'query': acord_folder_path,
+                      'depth': 1})
 
-                for esmena in esmenas:
-                    esmenaObj = esmena._unrestrictedGetObject()
+            if esmenas and acordObj.estatVotacio == None:
+                data = {'UID': acord.UID,
+                        'URL': acordObj.absolute_url(),
+                        'title': acordObj.title,
+                        'code': acordObj.agreement if acordObj.agreement else '',
+                        'state': '',
+                        'isOpen': False,
+                        'isPublic': False,
+                        'favorVote': '',
+                        'againstVote': '',
+                        'whiteVote': '',
+                        'totalVote': '',
+                        'isEsmena': False,
+                        'isVote': False}
 
-                    data = {'UID': esmena.UID,
-                            'URL': esmenaObj.absolute_url(),
-                            'title': esmenaObj.title,
-                            'state': _(u'open') if esmenaObj.estatVotacio == 'open' else _(u'close'),
-                            'isPublic': esmenaObj.tipusVotacio == 'public' and self.canViewManageVote(),
-                            'isOpen': esmenaObj.estatVotacio == 'open',
-                            'favorVote': 0,
-                            'againstVote': 0,
-                            'whiteVote': 0,
-                            'totalVote': 0,
-                            'isEsmena': True}
+                results.append(data)
 
-                    infoVotacio = esmenaObj.infoVotacio
-                    if isinstance(infoVotacio, str) or isinstance(infoVotacio, unicode):
-                        infoVotacio = ast.literal_eval(infoVotacio)
+            for esmena in esmenas:
+                esmenaObj = esmena._unrestrictedGetObject()
 
-                    if data['isPublic']:
-                        data.update({'favorVoteList': []})
-                        data.update({'againstVoteList': []})
-                        data.update({'whiteVoteList': []})
-                        data.update({'totalVoteList': []})
+                data = {'UID': esmena.UID,
+                        'URL': esmenaObj.absolute_url(),
+                        'title': esmenaObj.title,
+                        'state': _(u'open') if esmenaObj.estatVotacio == 'open' else _(u'close'),
+                        'isPublic': esmenaObj.tipusVotacio == 'public' and self.canViewManageVote(),
+                        'isOpen': esmenaObj.estatVotacio == 'open',
+                        'favorVote': 0,
+                        'againstVote': 0,
+                        'whiteVote': 0,
+                        'totalVote': 0,
+                        'isEsmena': True,
+                        'isVote': True}
 
-                        for key, value in infoVotacio.items():
-                            data['totalVote'] += 1
-                            data['totalVoteList'].append(key)
-                            if value == 'favor':
-                                data['favorVote'] += 1
-                                data['favorVoteList'].append(key)
-                            elif value == 'against':
-                                data['againstVote'] += 1
-                                data['againstVoteList'].append(key)
-                            elif value == 'white':
-                                data['whiteVote'] += 1
-                                data['whiteVoteList'].append(key)
-                    else:
-                        for key, value in infoVotacio.items():
-                            data['totalVote'] += 1
-                            if value == 'favor':
-                                data['favorVote'] += 1
-                            elif value == 'against':
-                                data['againstVote'] += 1
-                            elif value == 'white':
-                                data['whiteVote'] += 1
+                infoVotacio = esmenaObj.infoVotacio
+                if isinstance(infoVotacio, str) or isinstance(infoVotacio, unicode):
+                    infoVotacio = ast.literal_eval(infoVotacio)
 
-                    if data['favorVote'] == 0 and data['againstVote'] == 0 and data['whiteVote'] == 0:
-                        data['isPublic'] = False
+                if data['isPublic']:
+                    data.update({'favorVoteList': []})
+                    data.update({'againstVoteList': []})
+                    data.update({'whiteVoteList': []})
+                    data.update({'totalVoteList': []})
 
-                    results.append(data)
+                    for key, value in infoVotacio.items():
+                        data['totalVote'] += 1
+                        data['totalVoteList'].append(key)
+                        if value == 'favor':
+                            data['favorVote'] += 1
+                            data['favorVoteList'].append(key)
+                        elif value == 'against':
+                            data['againstVote'] += 1
+                            data['againstVoteList'].append(key)
+                        elif value == 'white':
+                            data['whiteVote'] += 1
+                            data['whiteVoteList'].append(key)
+                else:
+                    for key, value in infoVotacio.items():
+                        data['totalVote'] += 1
+                        if value == 'favor':
+                            data['favorVote'] += 1
+                        elif value == 'against':
+                            data['againstVote'] += 1
+                        elif value == 'white':
+                            data['whiteVote'] += 1
+
+                if data['favorVote'] == 0 and data['againstVote'] == 0 and data['whiteVote'] == 0:
+                    data['isPublic'] = False
+
+                results.append(data)
 
         return results
 

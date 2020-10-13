@@ -921,7 +921,7 @@ msgstr "Òrgans vinculats amb mi"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:914
 msgid "Other Public"
-msgstr "Iniciar altre votació"
+msgstr "Iniciar esmena"
 
 #: ./genweb/organs/controlpanel.py:39
 msgid "Paràmetres de configuració de Genweb Organs"
@@ -1006,7 +1006,7 @@ msgstr "Proposta punt"
 #: ./genweb/organs/content/acord.py:75
 #: ./genweb/organs/content/templates/sessio_view.pt:868
 msgid "Public"
-msgstr "Iniciar votació"
+msgstr "Iniciar votació final"
 
 #: ./genweb/organs/content/file.py:54
 #: ./genweb/organs/content/propostapunt.py:43

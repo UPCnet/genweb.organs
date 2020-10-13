@@ -600,7 +600,7 @@
                   </tal:block>
                   <td style="text-align:center;" tal:condition="canViewExtendedResultsVote" tal:content="vote/state"></td>
                   <td style="text-align:center;" tal:condition="canViewExtendedResultsVote">
-                    <span class="fa fa-trash removeVote" tal:attributes="data-url vote/URL"></span>
+                    <span tal:condition="vote/isVote" class="fa fa-trash removeVote" tal:attributes="data-url vote/URL"></span>
                   </td>
                 </tr>
                 <tal:block tal:condition="vote/isPublic">
@@ -868,6 +868,13 @@
                                 <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Public</tal:omit-tag></span>
                               </a>
                             </li>
+                            <li class="openOtherPublicVote" tal:attributes="data-id item/id;
+                                                                            data-title getTitlePrompt;
+                                                                            data-error getErrorPrompt;">
+                              <a tabindex="-1" data-type="openOther">
+                                <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Other Public</tal:omit-tag></span>
+                              </a>
+                            </li>
                             <!-- <li class="openSecretVote" tal:attributes="data-id item/id">
                               <a tabindex="-1" data-type="private">
                                 <span><i class="fa fa-user-secret"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Secret</tal:omit-tag></span>
@@ -890,37 +897,6 @@
                                 <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Close</tal:omit-tag></span>
                               </a>
                             </li>
-                          </ul>
-                        </div>
-
-                        <div class="btn-group votes" role="group"
-                             style="float: right;" aria-label="Reopen vote or open other" tal:condition="item/canReopenVote">
-                          <button class="label dropdown-toggle"
-                                  type="button" data-toggle="dropdown"
-                                  aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-pie-chart" aria-hidden="true"></i>
-                            <span class="caret"></span>
-                          </button>
-                          <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                            <!-- <li id="reopenVote" tal:attributes="data-id item/id">
-                              <a tabindex="-1" data-type="open">
-                                <span><i tal:attributes="class item/classVote"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Reopen</tal:omit-tag></span>
-                              </a>
-                            </li> -->
-                            <li class="openOtherPublicVote" tal:attributes="data-id item/id;
-                                                                            data-title getTitlePrompt;
-                                                                            data-error getErrorPrompt;">
-                              <a tabindex="-1" data-type="openOther">
-                                <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Other Public</tal:omit-tag></span>
-                              </a>
-                            </li>
-                            <!-- <li class="openOtherSecretVote" tal:attributes="data-id item/id;
-                                                                            data-title getTitlePrompt;
-                                                                            data-error getErrorPrompt;">
-                              <a tabindex="-1" data-type="privateOther">
-                                <span><i class="fa fa-user-secret"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Other Secret</tal:omit-tag></span>
-                              </a>
-                            </li> -->
                           </ul>
                         </div>
 
