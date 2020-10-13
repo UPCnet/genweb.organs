@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from plone import api
+
 from genweb.organs import utils
 
 # Código copiado del canView de cada tipo.
@@ -21,9 +23,9 @@ def canViewAcord(self, item):
     if organ_tipus == 'open_organ':
         if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
             return True
-        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+        elif estatSessio == 'convocada':
             return True
-        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+        elif estatSessio == 'realitzada':
             return True
         elif estatSessio == 'tancada':
             return True
@@ -72,9 +74,9 @@ def canViewPunt(self, item):
     if organ_tipus == 'open_organ':
         if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
             return True
-        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+        elif estatSessio == 'convocada':
             return True
-        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+        elif estatSessio == 'realitzada':
             return True
         elif estatSessio == 'tancada':
             return True
@@ -123,9 +125,9 @@ def canViewSubpunt(self, item):
     if organ_tipus == 'open_organ':
         if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
             return True
-        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+        elif estatSessio == 'convocada':
             return True
-        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+        elif estatSessio == 'realitzada':
             return True
         elif estatSessio == 'tancada':
             return True

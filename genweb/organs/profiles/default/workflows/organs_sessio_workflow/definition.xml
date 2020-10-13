@@ -24,10 +24,13 @@
  <state state_id="convocada" title="SessioConvocada" i18n:attributes="title">
   <exit-transition transition_id="realitzar"/>
   <permission-map name="Access contents information" acquired="False">
+   <permission-role>Anonymous</permission-role>
+   <permission-role>Authenticated</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
+   <permission-role>OG4-Afectat</permission-role>
   </permission-map>
   <permission-map name="Add portal content" acquired="False">
    <permission-role>Manager</permission-role>
@@ -83,10 +86,13 @@
    <permission-role>OG1-Secretari</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
+   <permission-role>Anonymous</permission-role>
+   <permission-role>Authenticated</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
    <permission-role>OG3-Membre</permission-role>
+   <permission-role>OG4-Afectat</permission-role>
   </permission-map>
  </state>
  <state state_id="en_correccio" title="SessioEnModificacio" i18n:attributes="title">
@@ -259,6 +265,8 @@
  <state state_id="realitzada" title="SessioRealitzada" i18n:attributes="title">
   <exit-transition transition_id="tancar"/>
   <permission-map name="Access contents information" acquired="False">
+   <permission-role>Anonymous</permission-role>
+   <permission-role>Authenticated</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>
@@ -319,6 +327,8 @@
    <permission-role>OG1-Secretari</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
+   <permission-role>Anonymous</permission-role>
+   <permission-role>Authenticated</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>OG1-Secretari</permission-role>
    <permission-role>OG2-Editor</permission-role>

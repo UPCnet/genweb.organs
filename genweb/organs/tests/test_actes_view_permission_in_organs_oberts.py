@@ -231,7 +231,7 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertRaises(Unauthorized, DisplayFile(root_path.planificada.acta.audio, request).publishTraverse(request, 'file'))
         self.assertRaises(Unauthorized, Download(root_path.planificada.acta.audio, request).publishTraverse(request, 'file'))
         # START check sessio CONVOCADA
-        self.assertRaises(Unauthorized, root_path.convocada.restrictedTraverse('@@view'))
+        self.assertTrue(root_path.convocada.restrictedTraverse('@@view'))
         self.assertRaises(Unauthorized, root_path.convocada.acta.restrictedTraverse('@@view'))
         self.assertRaises(Unauthorized, DisplayFile(root_path.convocada.acta, request).publishTraverse(request, 'file'))
         self.assertRaises(Unauthorized, Download(root_path.convocada.acta, request).publishTraverse(request, 'file'))
@@ -278,7 +278,7 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertRaises(Unauthorized, DisplayFile(root_path.planificada.acta.audio, request).publishTraverse(request, 'file'))
         self.assertRaises(Unauthorized, Download(root_path.planificada.acta.audio, request).publishTraverse(request, 'file'))
         # START check sessio CONVOCADA
-        self.assertRaises(Unauthorized, root_path.convocada.restrictedTraverse('@@view'))
+        self.assertTrue(root_path.convocada.restrictedTraverse('@@view'))
         self.assertRaises(Unauthorized, root_path.convocada.acta.restrictedTraverse('@@view'))
         self.assertRaises(Unauthorized, DisplayFile(root_path.convocada.acta, request).publishTraverse(request, 'file'))
         self.assertRaises(Unauthorized, Download(root_path.convocada.acta, request).publishTraverse(request, 'file'))
@@ -286,7 +286,7 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertRaises(Unauthorized, DisplayFile(root_path.convocada.acta.audio, request).publishTraverse(request, 'file'))
         self.assertRaises(Unauthorized, Download(root_path.convocada.acta.audio, request).publishTraverse(request, 'file'))
         # START check sessio REALITZADA
-        self.assertRaises(Unauthorized, root_path.realitzada.restrictedTraverse('@@view'))
+        self.assertTrue(root_path.realitzada.restrictedTraverse('@@view'))
         self.assertRaises(Unauthorized, root_path.realitzada.acta.restrictedTraverse('@@view'))
         self.assertRaises(Unauthorized, DisplayFile(root_path.realitzada.acta, request).publishTraverse(request, 'file'))
         self.assertRaises(Unauthorized, Download(root_path.realitzada.acta, request).publishTraverse(request, 'file'))
