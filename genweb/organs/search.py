@@ -11,6 +11,7 @@ from ZTUtils import make_query
 from five import grok
 from plone import api
 from plone.app.contentlisting.interfaces import IContentListing
+from operator import itemgetter
 from zope.component import getMultiAdapter
 from zope.i18nmessageid import MessageFactory
 from zope.interface import Interface
@@ -332,18 +333,23 @@ class Search(BrowserView):
             path=root_path + "/" + lang + "/consell-de-govern/consell-de-govern",
             sort_on='created',
             sort_order='reverse')
+
         if items:
+            results = []
             for item in items:
-                itemObj = item.getObject()
+                itemObj = item._unrestrictedGetObject()
                 estatSessio = api.content.get_state(obj=itemObj)
                 if estatSessio != 'planificada':
-                    title = item.Title
-                    url = itemObj.absolute_url()
-                    return dict(title=title, url=url)
-
-            title = items[0].Title
-            url = items[0].getObject().absolute_url()
-            return dict(title=title, url=url)
+                    num = itemObj.numSessio.zfill(3)
+                    any = itemObj.start.strftime('%Y%m%d')
+                    results.append(dict(title=item.Title,
+                                        url=itemObj.absolute_url(),
+                                        hiddenOrder=int(any + num)))
+            if results:
+                results = sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
+                title = results[0]['title']
+                url = results[0]['url']
+                return dict(title=title, url=url)
 
     def getLatestCS(self):
         """ Retorna ultima sessió consell social en estat que no sigui planificada """
@@ -356,18 +362,23 @@ class Search(BrowserView):
             path=root_path + "/" + lang + "/cs/ple-del-consell-social",
             sort_on='created',
             sort_order='reverse')
+
         if items:
+            results = []
             for item in items:
-                itemObj = item.getObject()
+                itemObj = item._unrestrictedGetObject()
                 estatSessio = api.content.get_state(obj=itemObj)
                 if estatSessio != 'planificada':
-                    title = item.Title
-                    url = itemObj.absolute_url()
-                    return dict(title=title, url=url)
-
-            title = items[0].Title
-            url = items[0].getObject().absolute_url()
-            return dict(title=title, url=url)
+                    num = itemObj.numSessio.zfill(3)
+                    any = itemObj.start.strftime('%Y%m%d')
+                    results.append(dict(title=item.Title,
+                                        url=itemObj.absolute_url(),
+                                        hiddenOrder=int(any + num)))
+            if results:
+                results = sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
+                title = results[0]['title']
+                url = results[0]['url']
+                return dict(title=title, url=url)
 
     def getLatestCU(self):
         """ Retorna ultima sessió claustre universitari en estat que no sigui planificada """
@@ -380,14 +391,23 @@ class Search(BrowserView):
             path=root_path + "/" + lang + "/claustre-universitari/claustre-universitari",
             sort_on='created',
             sort_order='reverse')
+
         if items:
+            results = []
             for item in items:
-                itemObj = item.getObject()
+                itemObj = item._unrestrictedGetObject()
                 estatSessio = api.content.get_state(obj=itemObj)
                 if estatSessio != 'planificada':
-                    title = item.Title
-                    url = itemObj.absolute_url()
-                    return dict(title=title, url=url)
+                    num = itemObj.numSessio.zfill(3)
+                    any = itemObj.start.strftime('%Y%m%d')
+                    results.append(dict(title=item.Title,
+                                        url=itemObj.absolute_url(),
+                                        hiddenOrder=int(any + num)))
+            if results:
+                results = sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
+                title = results[0]['title']
+                url = results[0]['url']
+                return dict(title=title, url=url)
 
     def sort_options(self):
         """ Sorting options for search results view. """
