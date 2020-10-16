@@ -463,12 +463,64 @@ class View(grok.View):
                   'depth': 1})
         results = []
         for obj in values:
+
+            canOpenVote = False
+            canCloseVote = False
+            canRecloseVote = False
+            titleEsmena = ''
+            classVote = False
+            hasVote = False
+            favorVote = False
+            againstVote = False
+            whiteVote = False
+
             item = obj.getObject()
             if obj.portal_type == 'genweb.organs.acord':
                 if item.agreement:
                     agreement = item.agreement
                 else:
                     agreement = _(u"sense numeracio")
+
+                votacio = item
+                canOpenVote = item.estatVotacio == None
+                canCloseVote = item.estatVotacio == 'open'
+
+                if canOpenVote:
+                    acord_folder_path = '/'.join(item.getPhysicalPath())
+                    esmenas = portal_catalog.unrestrictedSearchResults(
+                        portal_type=['genweb.organs.votacioacord'],
+                        sort_on='getObjPositionInParent',
+                        path={'query': acord_folder_path,
+                              'depth': 1})
+
+                    for esmena in esmenas:
+                        if esmena.getObject().estatVotacio == 'open':
+                            canRecloseVote = '/'.join(item.absolute_url_path().split('/')[-2:]) + '/' + esmena.id
+                            titleEsmena = esmena.Title
+                            votacio = esmena.getObject()
+                            canOpenVote = False
+
+                currentUser = api.user.get_current().id
+
+                if not isinstance(votacio.infoVotacio, dict):
+                    if votacio.infoVotacio == None or votacio.infoVotacio == "":
+                        votacio.infoVotacio = {}
+                    else:
+                        votacio.infoVotacio = ast.literal_eval(votacio.infoVotacio)
+
+                hasVote = currentUser in votacio.infoVotacio
+                if hasVote:
+                    favorVote = votacio.infoVotacio[currentUser] == 'favor'
+                    againstVote = votacio.infoVotacio[currentUser] == 'against'
+                    whiteVote = votacio.infoVotacio[currentUser] == 'white'
+
+                if votacio.estatVotacio == None:
+                    classVote = 'fa fa-bar-chart'
+                else:
+                    if votacio.tipusVotacio == 'public':
+                        classVote = 'fa fa-pie-chart'
+                    else:
+                        classVote = 'fa fa-user-chart'
             else:
                 agreement = False
             results.append(dict(title=obj.Title,
@@ -480,6 +532,15 @@ class View(grok.View):
                                 agreement=agreement,
                                 estats=self.estatsCanvi(obj),
                                 css=self.getColor(obj),
+                                canOpenVote=canOpenVote,
+                                canCloseVote=canCloseVote,
+                                canRecloseVote=canRecloseVote,
+                                titleEsmena=titleEsmena,
+                                hasVote=hasVote,
+                                classVote=classVote,
+                                favorVote=favorVote,
+                                againstVote=againstVote,
+                                whiteVote=whiteVote,
                                 id='/'.join(item.absolute_url_path().split('/')[-2:])))
         return results
 
@@ -875,11 +936,25 @@ class View(grok.View):
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
-        acords = portal_catalog.unrestrictedSearchResults(
-            portal_type=['genweb.organs.acord'],
+        items = portal_catalog.unrestrictedSearchResults(
+            portal_type=['genweb.organs.acord', 'genweb.organs.punt'],
             sort_on='getObjPositionInParent',
             path={'query': folder_path,
-                  'depth': 3})
+                  'depth': 1})
+
+        acords = []
+        for item in items:
+            if item.portal_type == 'genweb.organs.acord':
+                acords.append(item)
+            else:
+                items_within_punt = portal_catalog.unrestrictedSearchResults(
+                    portal_type=['genweb.organs.acord'],
+                    sort_on='getObjPositionInParent',
+                    path={'query': '/'.join(item.getObject().getPhysicalPath()),
+                          'depth': 1})
+
+                for item_within_punt in items_within_punt:
+                    acords.append(item_within_punt)
 
         results = []
         for acord in acords:
