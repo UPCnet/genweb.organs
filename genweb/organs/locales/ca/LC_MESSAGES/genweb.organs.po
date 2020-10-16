@@ -1292,7 +1292,7 @@ msgstr "Títol"
 
 #: ./genweb/organs/content/votacio_acord.py:33
 msgid "Titol votacio"
-msgstr "Titol votació"
+msgstr "Títol votació"
 
 #: ./genweb/organs/configure.zcml:69
 msgid "UPC Organs de Govern (genweb.organs)"
