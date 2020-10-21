@@ -149,7 +149,7 @@ class View(grok.View):
         organ_tipus = self.context.organType
         if self.context.visiblefile and self.context.hiddenfile:
             if organ_tipus == 'open_organ':
-                if utils.isMembre(self):
+                if (utils.isMembre(self) or utils.isAfectat(self)):
                     return False
                 else:
                     return True
@@ -166,7 +166,7 @@ class View(grok.View):
 
         elif self.context.hiddenfile:
             if organ_tipus == 'open_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
                     return True
                 else:
                     return False
@@ -213,7 +213,7 @@ class View(grok.View):
         organ_tipus = self.context.organType
         if self.context.visiblefile and self.context.hiddenfile:
             if organ_tipus == 'open_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
                     return True
                 else:
                     return False
@@ -229,7 +229,7 @@ class View(grok.View):
                     return False
         elif self.context.hiddenfile:
             if organ_tipus == 'open_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
                     return True
                 else:
                     return False

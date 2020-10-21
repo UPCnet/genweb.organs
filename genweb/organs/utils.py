@@ -251,6 +251,7 @@ def addPoint(context, names, title, justification, path):
         data.append(values)
         annotations[KEY] = data
 
+
 def FilesandDocumentsInside(self):
     # Return files and docs found inside the session object
     portal_catalog = getToolByName(self, 'portal_catalog')
@@ -320,19 +321,34 @@ def FilesandDocumentsInside(self):
 
             if obj.portal_type == 'genweb.organs.file':
                 class_css = 'fa fa-2x fa-file-pdf-o'
+                organ_tipus = self.context.organType
                 if value.visiblefile and value.hiddenfile:
-                    if isMembre(self):
-                        results.append(dict(title=obj.Title,
-                                            portal_type=obj.portal_type,
-                                            absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
-                                            new_tab=True,
-                                            classCSS=class_css))
+                    if organ_tipus == 'open_organ':
+                        if isMembre(self) or isAfectat(self):
+                            results.append(dict(title=obj.Title,
+                                                portal_type=obj.portal_type,
+                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
+                                                new_tab=True,
+                                                classCSS=class_css))
+                        else:
+                            results.append(dict(title=obj.Title,
+                                                portal_type=obj.portal_type,
+                                                absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
+                                                new_tab=True,
+                                                classCSS=class_css))
                     else:
-                        results.append(dict(title=obj.Title,
-                                            portal_type=obj.portal_type,
-                                            absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
-                                            new_tab=True,
-                                            classCSS=class_css))
+                        if isMembre(self):
+                            results.append(dict(title=obj.Title,
+                                                portal_type=obj.portal_type,
+                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
+                                                new_tab=True,
+                                                classCSS=class_css))
+                        else:
+                            results.append(dict(title=obj.Title,
+                                                portal_type=obj.portal_type,
+                                                absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
+                                                new_tab=True,
+                                                classCSS=class_css))
                 elif value.visiblefile:
                     results.append(dict(title=obj.Title,
                                         absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
@@ -340,12 +356,20 @@ def FilesandDocumentsInside(self):
                                         classCSS=class_css,
                                         hidden=False))
                 elif value.hiddenfile:
-                    if isManager(self) or isSecretari(self) or isEditor(self) or isMembre(self):
-                        results.append(dict(title=obj.Title,
-                                            portal_type=obj.portal_type,
-                                            absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
-                                            new_tab=True,
-                                            classCSS=class_css))
+                    if organ_tipus == 'open_organ':
+                        if isManager(self) or isSecretari(self) or isEditor(self) or isMembre(self) or isAfectat(self):
+                            results.append(dict(title=obj.Title,
+                                                portal_type=obj.portal_type,
+                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
+                                                new_tab=True,
+                                                classCSS=class_css))
+                    else:
+                        if isManager(self) or isSecretari(self) or isEditor(self) or isMembre(self):
+                            results.append(dict(title=obj.Title,
+                                                portal_type=obj.portal_type,
+                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
+                                                new_tab=True,
+                                                classCSS=class_css))
     return results
 
 

@@ -125,7 +125,7 @@ def getFileOrgans(self):
                 else:
                     if (utils.isSecretari(self) or utils.isEditor(self)):
                         return file
-                    elif utils.isMembre(self):
+                    elif (utils.isMembre(self) or utils.isAfectat(self)):
                         if (self.context.visiblefile and self.context.hiddenfile):
                             if self.fieldname == 'hiddenfile':
                                 return file
@@ -144,7 +144,7 @@ def getFileOrgans(self):
                 else:
                     if (utils.isSecretari(self) or utils.isEditor(self)):
                         return file
-                    elif utils.isMembre(self):
+                    elif (utils.isMembre(self) or utils.isAfectat(self)):
                         if (self.context.visiblefile and self.context.hiddenfile):
                             if self.fieldname == 'hiddenfile':
                                 return file
@@ -173,7 +173,7 @@ def getFileOrgans(self):
                 else:
                     if (utils.isSecretari(self) or utils.isEditor(self)):
                         return file
-                    elif utils.isMembre(self):
+                    elif (utils.isMembre(self) or utils.isAfectat(self)):
                         if (self.context.visiblefile and self.context.hiddenfile):
                             if self.fieldname == 'hiddenfile':
                                 return file
