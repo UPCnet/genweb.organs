@@ -187,7 +187,7 @@ def sendVoteEmail(context, vote):
         sender_name + ' ' + '<' + sender_email + '>'
 
         msg = MIMEMultipart()
-        msg['From'] = sender_name
+        msg['From'] = sender_email
         msg['To'] = user_email
         msg['Subject'] = escape(safe_unicode(_(u'Votació Govern UPC')))
         msg['charset'] = email_charset
