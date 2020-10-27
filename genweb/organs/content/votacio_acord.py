@@ -197,7 +197,7 @@ def sendVoteEmail(context, vote):
 Missatge automàtic generat per https://govern.upc.edu/"""
 
         now = datetime.datetime.now()
-        if context.aq_parent.portal_type == 'genweb.organs.sessio':
+        if context.aq_parent.aq_parent.portal_type == 'genweb.organs.sessio':
 
             data = {
                 'data': now.strftime("%d/%m/%Y"),
@@ -212,7 +212,7 @@ Missatge automàtic generat per https://govern.upc.edu/"""
             msg.attach(MIMEText(message.format(**data), 'plain', email_charset))
             mailhost.send(msg)
 
-        elif context.aq_parent.portal_type == 'genweb.organs.punt':
+        elif context.aq_parent.aq_parent.portal_type == 'genweb.organs.punt':
 
             data = {
                 'data': now.strftime("%d/%m/%Y"),
