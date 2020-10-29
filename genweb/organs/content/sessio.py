@@ -546,21 +546,37 @@ class View(grok.View):
 
     def canViewTabActes(self):
         # Permissions to view acta
+        if utils.isManager(self):
+            return True
         estatSessio = utils.session_wf_state(self)
-        if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
-            return True
-        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif utils.isManager(self):
-            return True
+        organ_tipus = self.context.organType
+
+        if organ_tipus == 'open_organ':
+            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                return True
+            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                return True
+            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            else:
+                return False
         else:
-            return False
+            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+                return True
+            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                return True
+            else:
+                return False
 
     def ActesInside(self):
         """ Retorna les actes creades aquí dintre (sense tenir compte estat)
