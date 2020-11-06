@@ -864,16 +864,16 @@
                             <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                            <li class="openPublicVote" tal:attributes="data-id item/id">
-                              <a tabindex="-1" data-type="open">
-                                <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Public</tal:omit-tag></span>
-                              </a>
-                            </li>
                             <li class="openOtherPublicVote" tal:attributes="data-id item/id;
                                                                             data-title getTitlePrompt;
                                                                             data-error getErrorPrompt;">
                               <a tabindex="-1" data-type="openOther">
                                 <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Other Public</tal:omit-tag></span>
+                              </a>
+                            </li>
+                            <li class="openPublicVote" tal:attributes="data-id item/id">
+                              <a tabindex="-1" data-type="open">
+                                <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Public</tal:omit-tag></span>
                               </a>
                             </li>
                             <!-- <li class="openSecretVote" tal:attributes="data-id item/id">
@@ -1115,16 +1115,16 @@
                                   <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                                  <li class="openPublicVote" tal:attributes="data-id itemSubpunt/id">
-                                    <a tabindex="-1" data-type="open">
-                                      <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Public</tal:omit-tag></span>
-                                    </a>
-                                  </li>
                                   <li class="openOtherPublicVote" tal:attributes="data-id itemSubpunt/id;
                                                                                   data-title getTitlePrompt;
                                                                                   data-error getErrorPrompt;">
                                     <a tabindex="-1" data-type="openOther">
                                       <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Other Public</tal:omit-tag></span>
+                                    </a>
+                                  </li>
+                                  <li class="openPublicVote" tal:attributes="data-id itemSubpunt/id">
+                                    <a tabindex="-1" data-type="open">
+                                      <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Public</tal:omit-tag></span>
                                     </a>
                                   </li>
                                   <!-- <li class="openSecretVote" tal:attributes="data-id item/id">
