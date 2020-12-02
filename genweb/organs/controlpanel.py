@@ -76,3 +76,45 @@ class OrgansSettingsEditForm(controlpanel.RegistryEditForm):
 
 class OrgansSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
     form = OrgansSettingsEditForm
+
+
+class IGDocSettings(model.Schema):
+    """ Global GDoc settings.
+    """
+    gdoc_url = schema.TextLine(
+        title=_(u'URL GDoc'),
+        required=False)
+
+    gdoc_user = schema.TextLine(
+        title=_(u'Usuari GDoc'),
+        required=False)
+
+    gdoc_hash = schema.TextLine(  # Password
+        title=_(u'Hash GDoc'),
+        required=False)
+
+    codiexpedient_url = schema.TextLine(
+        title=_(u'URL Generar codi expedient'),
+        required=False)
+
+    codiexpedient_apikey = schema.TextLine(  # Password
+        title=_(u'API Key Generar codi expedient'),
+        required=False)
+
+    portafirmes_url = schema.TextLine(
+        title=_(u'URL Portafirmes'),
+        required=False)
+
+    portafirmes_apikey = schema.TextLine(  # Password
+        title=_(u'API Key Portafirmes'),
+        required=False)
+
+
+class GDocSettingsEditForm(controlpanel.RegistryEditForm):
+
+    schema = IGDocSettings
+    label = _(u'GDoc')
+
+
+class GDocSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
+    form = GDocSettingsEditForm

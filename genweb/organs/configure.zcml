@@ -49,6 +49,16 @@
       title="Genweb Organs: Remove Quorum"
     />
 
+    <permission
+      id="genweb.organs.gdoc.sign"
+      title="Genweb Organs: GDoc Sign"
+    />
+
+    <permission
+      id="genweb.organs.gdoc.view"
+      title="Genweb Organs: GDoc View"
+    />
+
     <!-- Include configuration for dependencies listed in setup.py -->
     <includeDependencies package="." />
 
@@ -87,6 +97,12 @@
         name="organs-settings"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         class=".controlpanel.OrgansSettingsControlPanel"
+        permission="cmf.ManagePortal"/>
+
+    <browser:page
+        name="organs-gdoc-settings"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".controlpanel.GDocSettingsControlPanel"
         permission="cmf.ManagePortal"/>
 
     <include file="patches.zcml" />

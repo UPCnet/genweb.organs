@@ -1,21 +1,31 @@
 # -*- coding: utf-8 -*-
+from AccessControl import Unauthorized
+from Products.CMFCore.utils import getToolByName
+
 from five import grok
 from zope import schema
+from plone import api
 from plone.directives import form
 from plone.directives import dexterity
-from AccessControl import Unauthorized
-from genweb.organs import _
 from plone.app.dexterity import PloneMessageFactory as _PMF
 from collective import dexteritytextindexer
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.supermodel.directives import fieldset
-from Products.CMFCore.utils import getToolByName
 from plone.event.interfaces import IEventAccessor
 from plone.namedfile.field import NamedBlobFile
 from plone.namedfile.utils import get_contenttype
+from z3c.form.interfaces import IAddForm
+from z3c.form.interfaces import IEditForm
 from zope.schema import ValidationError
+
+from genweb.organs import _
 from genweb.organs import utils
+
+import ast
+import json
+import requests
+import transaction
 
 grok.templatedir("templates")
 
@@ -31,7 +41,7 @@ class IActa(form.Schema):
     fieldset('acta',
              label=_(u'Tab acta'),
              fields=['title', 'horaInici', 'horaFi', 'llocConvocatoria',
-                     'ordenDelDia', 'enllacVideo', 'file']
+                     'ordenDelDia', 'enllacVideo', 'file', 'infoGDoc']
              )
 
     fieldset('assistents',
@@ -111,6 +121,9 @@ class IActa(form.Schema):
         description=_(u"Acta PDF file description"),
         required=False,
     )
+
+    directives.omitted('infoGDoc')
+    infoGDoc = schema.Text(title=u'', required=False, default=u'{}')
 
 
 @form.validator(field=IActa['file'])
@@ -291,28 +304,348 @@ class View(dexterity.DisplayForm):
         else:
             return ''
 
+    def checkSerieGDoc(self):
+        if utils.isManager(self) or utils.isSecretari(self):
+            return utils.isValidSerieGdoc(self)
+
+        return {'visible_gdoc': False,
+                'valid_serie': False,
+                'msg_error': ''}
+
     def AudioInside(self):
         """ Retorna els fitxers d'audio creats aquí dintre (sense tenir compte estat)
         """
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        portal_catalog = getToolByName(self, 'portal_catalog')
-        values = portal_catalog.searchResults(
-            portal_type='genweb.organs.audio',
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
-        if values:
-            results = []
-            for obj in values:
-                results.append(dict(title=obj.Title,
-                                    absolute_url=obj.getURL(),
-                                    audio=obj.getObject().file))
-            return results
+        if not self.hasUnitatDocumental():
+            folder_path = '/'.join(self.context.getPhysicalPath())
+            portal_catalog = getToolByName(self, 'portal_catalog')
+            values = portal_catalog.searchResults(
+                portal_type='genweb.organs.audio',
+                sort_on='getObjPositionInParent',
+                path={'query': folder_path,
+                      'depth': 1})
+            if values:
+                results = []
+                for obj in values:
+                    audio = obj.getObject().file
+                    results.append(dict(title=obj.Title,
+                                        absolute_url=obj.getURL(),
+                                        download_url=self.context.absolute_url() + '/@@download/file/' + audio.filename,
+                                        content_type=audio.contentType))
+                return results
         else:
-            return False
+            if self.context.infoGDoc['audios']:
+                results = []
+                for pos in self.context.infoGDoc['audios']:
+                    audio = self.context.infoGDoc['audios'][pos]
+                    results.append(dict(title=audio['title'],
+                                        absolute_url=self.context.absolute_url() + '/viewAudio?pos=' + str(pos),
+                                        download_url=self.context.absolute_url() + '/downloadAudio?pos=' + str(pos),
+                                        content_type=audio['contentType']))
+                return results
+
+        return False
+
+    def getGdDocActa(self):
+        if self.context.infoGDoc:
+            return {'filename': self.context.infoGDoc['acta']['filename'],
+                    'sizeKB': self.context.infoGDoc['acta']['sizeKB']}
+
+    def hasUnitatDocumental(self):
+        if not isinstance(self.context.infoGDoc, dict):
+            self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
+
+        return 'unitatDocumental' in self.context.infoGDoc
+
+    def hasFirma(self):
+        if not isinstance(self.context.infoGDoc, dict):
+            self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
+
+        return 'unitatDocumental' in self.context.infoGDoc and 'firma' in self.context.infoGDoc
 
 
 class Edit(dexterity.EditForm):
     """A standard edit form.
     """
     grok.context(IActa)
+
+
+class SignActa(grok.View):
+    grok.context(IActa)
+    grok.name('signActa')
+    grok.require('genweb.organs.gdoc.sign')
+
+    def render(self):
+        if self.context.infoGDoc and 'enviatASignar' in self.context.infoGDoc and self.context.infoGDoc['enviatASignar']:
+            return self.request.response.redirect(self.context.absolute_url())
+
+        organ = utils.get_organ(self.context)
+        if organ.visiblegdoc:
+            if self.context.file:
+                gdoc_settings = utils.get_settings_gdoc()
+
+                # Petición para obtener un código de expediente
+                result_codi = requests.get(gdoc_settings.codiexpedient_url + '/api/codi?serie=' + organ.serie, headers={'X-Api-Key': gdoc_settings.codiexpedient_apikey})
+
+                if result_codi.status_code == 200:
+                    content_codi = json.loads(result_codi.content)
+
+                    data_exp = {"expedient": content_codi['codi'],
+                                "titolPropi": content_codi['codi'] + ' - ' + self.context.title}
+
+                    # Petición que crea un serie documental / expediente en gdoc
+                    result_exp = requests.post(gdoc_settings.gdoc_url + '/api/serie/' + organ.serie + '/udch?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash, json=data_exp)
+                    content_exp = json.loads(result_exp.content)
+
+                    if result_exp.status_code == 200:
+                        if 'idElementCreat' in content_exp:
+
+                            if not isinstance(self.context.infoGDoc, dict):
+                                self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
+
+                            self.context.infoGDoc.update({'unitatDocumental': str(content_exp['idElementCreat']),
+                                                          'acta': {},
+                                                          'audios': {},
+                                                          'firma': '',
+                                                          'enviatASignar': False})
+                            self.context.reindexObject()
+
+                            data_acta = {"tipusDocumental": "452",
+                                         "idioma": "CA",
+                                         "nomAplicacioCreacio": "Govern UPC",
+                                         "autors": "[{'id': '1291399'}]",
+                                         "agentsAmbCodiEsquemaIdentificacio": False,
+                                         "validesaAdministrativa": True}
+
+                            files = {'fitxer': (self.context.file.filename, self.context.file.open().read(), self.context.file.contentType)}
+
+                            # Subimos la acta a la serie documental creada en el gdoc
+                            result_acta = requests.post(gdoc_settings.gdoc_url + '/api/pare/' + str(content_exp['idElementCreat']) + '/doce?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash, data=data_acta, files=files)
+
+                            content_acta = json.loads(result_acta.content)
+                            if result_acta.status_code == 200:
+
+                                # Obtenemos el uuid de la acta subida, necessaria para la petición al portafirmes
+                                result_info_acta = requests.get(gdoc_settings.gdoc_url + '/api/doce/' + str(content_acta['idElementCreat']) + '/consulta?hash=' + gdoc_settings.gdoc_hash)
+
+                                content_info_acta = json.loads(result_info_acta.content)
+                                if result_info_acta.status_code == 200:
+                                    self.context.infoGDoc['acta'] = {'id': str(content_acta['idElementCreat']),
+                                                                     'uuid': str(content_info_acta['documentElectronic']['uuid']),
+                                                                     'filename': self.context.file.filename,
+                                                                     'contentType': self.context.file.contentType,
+                                                                     'sizeKB': self.context.file.getSize() / 1024}
+                                    self.context.reindexObject()
+
+                            pos = 0
+
+                            # Miramos si hay algun audio subido
+                            for audio_id in self.context:
+                                if self.context[audio_id].portal_type == 'genweb.organs.audio':
+                                    audio = self.context[audio_id]
+                                    data_audio = {"tipusDocumental": "906340",
+                                                  "idioma": "CA",
+                                                  "nomAplicacioCreacio": "Govern UPC",
+                                                  "autors": "[{'id': '1291399'}]",
+                                                  "agentsAmbCodiEsquemaIdentificacio": False,
+                                                  "validesaAdministrativa": True}
+
+                                    files = {'fitxer': (audio.file.filename, audio.file.open(), audio.file.contentType)}
+
+                                    # Subimos el audio a la serie documental creada en el gdoc
+                                    result_audio = requests.post(gdoc_settings.gdoc_url + '/api/pare/' + str(content_exp['idElementCreat']) + '/doce?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash, data=data_audio, files=files)
+
+                                    content_audio = json.loads(result_audio.content)
+                                    if result_audio.status_code == 200:
+
+                                        # Obtenemos el uuid del audio subido, necessaria para la petición al portafirmes
+                                        result_info_audio = requests.get(gdoc_settings.gdoc_url + '/api/doce/' + str(content_audio['idElementCreat']) + '/consulta?hash=' + gdoc_settings.gdoc_hash)
+
+                                        content_info_audio = json.loads(result_info_audio.content)
+                                        if result_info_audio.status_code == 200:
+                                            self.context.infoGDoc['audios'].update({str(pos): {'id': str(content_audio['idElementCreat']),
+                                                                                               'uuid': str(content_info_audio['documentElectronic']['uuid']),
+                                                                                               'title': audio.title,
+                                                                                               'filename': audio.file.filename,
+                                                                                               'contentType': audio.file.contentType}})
+                                            pos += 1
+                                            self.context.reindexObject()
+
+                            data_sign = {
+                                "descripcioPeticio": "Signatura acta",
+                                "documents": [
+                                    {
+                                        "paginaSignaturaVisible": 1,
+                                        "codi": self.context.infoGDoc['acta']['uuid']
+                                    }
+                                ],
+                                "passosPeticio": [
+                                    {
+                                        "nivellSignatura": "NOMES_PAN",
+                                        "signants": [
+                                            {
+                                                "commonName": "iago.lopez"
+                                            },
+                                            {
+                                                "commonName": "janet.dura"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "promocionar": "S",
+                                "codiCategoria": "CAT6",
+                                "codiTipusSignatura": "DETACHED",
+                                "dataLimit": "29-02-2021 22:00:00",
+                                "emissor": "Govern UPC",
+                                "informacio": "Signatura acta",
+                                "motiusRebuig": [
+                                    {
+                                        "codi": "Inacabada",
+                                        "descripcio": "Petició inacabada"
+                                    }
+                                ]
+                            }
+
+                            if self.context.infoGDoc['audios']:
+                                data_sign.update({'documentsAnnexos': []})
+                                for audio in self.context.infoGDoc['audios']:
+                                    data_sign['documentsAnnexos'].append({"codi": self.context.infoGDoc['audios'][audio]['uuid']})
+
+                            # Creamos la petición al portafirmes de la acta y los audios anexos
+                            result_sign = requests.post(gdoc_settings.portafirmes_url, json=data_sign, headers={'X-Api-Key': gdoc_settings.portafirmes_apikey})
+
+                            if result_sign.status_code == 201:
+                                self.context._Add_portal_content_Permission = ('Manager', 'Site Administrator', 'WebMaster')
+                                self.context._Modify_portal_content_Permission = ('Manager', 'Site Administrator', 'WebMaster')
+                                self.context._Delete_objects_Permission = ('Manager', 'Site Administrator', 'WebMaster')
+
+                                self.context.file = None
+                                for audio_id in self.context:
+                                    api.content.delete(self.context[audio_id])
+
+                                self.context.infoGDoc['enviatASignar'] = True
+                                self.context.plone_utils.addPortalMessage(_(u'L\'acta a sigut enviada correctament'), 'success')
+                                transaction.commit()
+                            else:
+                                self.context.plone_utils.addPortalMessage(_(u'No s\'ha pogut enviar a firmar l\'acta: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+
+                            return self.request.response.redirect(self.context.absolute_url())
+                    else:
+                        if 'codi' in content_exp:
+                            if content_exp['codi'] == 503:
+                                self.context.plone_utils.addPortalMessage(_(u'GDoc: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                            elif content_exp['codi'] == 528:
+                                self.context.plone_utils.addPortalMessage(_(u'GDoc: La sèrie documental configurada no existeix'), 'error')
+
+                            return self.request.response.redirect(self.context.absolute_url())
+
+                        self.context.plone_utils.addPortalMessage(_(u'GDoc: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                        return self.request.response.redirect(self.context.absolute_url())
+                else:
+                    self.context.plone_utils.addPortalMessage(_(u'No s\'ha pogut generar el codi de expedient: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                    return self.request.response.redirect(self.context.absolute_url())
+
+            else:
+                self.context.plone_utils.addPortalMessage(_(u'L\'acta no està annexada'), 'error')
+                return self.request.response.redirect(self.context.absolute_url())
+
+
+class ViewActa(grok.View):
+    grok.context(IActa)
+    grok.name('viewActa')
+    grok.require('genweb.organs.gdoc.view')
+
+    def render(self):
+        organ = utils.get_organ(self.context)
+        if organ.visiblegdoc:
+            gdoc_settings = utils.get_settings_gdoc()
+
+            if not isinstance(self.context.infoGDoc, dict):
+                self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
+
+            result = requests.get(gdoc_settings.gdoc_url + '/api/documentelectronic/' + self.context.infoGDoc['acta']['uuid'] + '?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash)
+
+            if result.status_code == 200:
+                self.request.response.setHeader('content-type', self.context.infoGDoc['acta']['contentType'])
+                self.request.response.setHeader('content-disposition', 'inline; filename=' + str(self.context.infoGDoc['acta']['filename']))
+                return result.content
+            else:
+                self.context.plone_utils.addPortalMessage(_(u'Error al consultar les dades'), 'error')
+
+            return self.request.response.redirect(self.context.absolute_url())
+
+
+class DownloadActa(grok.View):
+    grok.context(IActa)
+    grok.name('downloadActa')
+    grok.require('genweb.organs.gdoc.view')
+
+    def render(self):
+        organ = utils.get_organ(self.context)
+        if organ.visiblegdoc:
+            gdoc_settings = utils.get_settings_gdoc()
+
+            if not isinstance(self.context.infoGDoc, dict):
+                self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
+
+            result = requests.get(gdoc_settings.gdoc_url + '/api/documentelectronic/' + self.context.infoGDoc['acta']['uuid'] + '?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash)
+
+            if result.status_code == 200:
+                self.request.response.setHeader('content-type', self.context.infoGDoc['acta']['contentType'])
+                self.request.response.setHeader('content-disposition', 'attachment; filename=' + str(self.context.infoGDoc['acta']['filename']))
+                return result.content
+            else:
+                self.context.plone_utils.addPortalMessage(_(u'Error al consultar les dades'), 'error')
+
+            return self.request.response.redirect(self.context.absolute_url())
+
+
+class ViewAudio(grok.View):
+    grok.context(IActa)
+    grok.name('viewAudio')
+    grok.require('genweb.organs.gdoc.view')
+
+    def render(self):
+        if 'pos' in self.request:
+            organ = utils.get_organ(self.context)
+            if organ.visiblegdoc:
+                gdoc_settings = utils.get_settings_gdoc()
+
+                if not isinstance(self.context.infoGDoc, dict):
+                    self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
+
+                result = requests.get(gdoc_settings.gdoc_url + '/api/documentelectronic/' + self.context.infoGDoc['audios'][self.request['pos']]['uuid'] + '?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash)
+
+                if result.status_code == 200:
+                    self.request.response.setHeader('content-type', self.context.infoGDoc['audios'][self.request['pos']]['contentType'])
+                    self.request.response.setHeader('content-disposition', 'inline; filename=' + str(self.context.infoGDoc['audios'][self.request['pos']]['filename']))
+                    return result.content
+                else:
+                    self.context.plone_utils.addPortalMessage(_(u'Error al consultar les dades'), 'error')
+
+            return self.request.response.redirect(self.context.absolute_url())
+
+
+class DownloadAudio(grok.View):
+    grok.context(IActa)
+    grok.name('downloadAudio')
+    grok.require('genweb.organs.gdoc.view')
+
+    def render(self):
+        if 'pos' in self.request:
+            organ = utils.get_organ(self.context)
+            if organ.visiblegdoc:
+                gdoc_settings = utils.get_settings_gdoc()
+
+                if not isinstance(self.context.infoGDoc, dict):
+                    self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
+
+                result = requests.get(gdoc_settings.gdoc_url + '/api/documentelectronic/' + self.context.infoGDoc['audios'][self.request['pos']]['uuid'] + '?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash)
+
+                if result.status_code == 200:
+                    self.request.response.setHeader('content-type', self.context.infoGDoc['audios'][self.request['pos']]['contentType'])
+                    self.request.response.setHeader('content-disposition', 'attachment; filename=' + str(self.context.infoGDoc['audios'][self.request['pos']]['filename']))
+                    return result.content
+                else:
+                    self.context.plone_utils.addPortalMessage(_(u'Error al consultar les dades'), 'error')
+
+                return self.request.response.redirect(self.context.absolute_url())

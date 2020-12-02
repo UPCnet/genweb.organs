@@ -19,7 +19,9 @@
                    horaInici view/horaInici;
                    audio view/AudioInside;
                    enllacVideo context/enllacVideo;
-                   absolute_url context/absolute_url;">
+                   absolute_url context/absolute_url;
+                   checkSerieGDoc view/checkSerieGDoc;
+                   hasUnitatDocumental view/hasUnitatDocumental;">
 
 <tal:block tal:condition="view/canView">
 
@@ -33,6 +35,15 @@
  <iframe name="iframe" id="iframe" width="1" height="1" src="printActa"></iframe>
 
   <tal:omit-tag>
+
+    <tal:block tal:condition="checkSerieGDoc/visible_gdoc">
+      <div class="alert alert-error" role="alert" tal:condition="not:checkSerieGDoc/valid_serie">
+        <button data-dismiss="alert" class="close" type="button">×</button>
+        <strong>Error</strong>
+        <span tal:content="checkSerieGDoc/msg_error"></span>
+      </div>
+    </tal:block>
+
     <div class="modal fade hide previewModal" id="previewModal" tabindex="-1" role="dialog"
          aria-labelledby="previewModalLabel" aria-hidden="true" data-remote="previewActa">
       <div class="modal-header">
@@ -46,7 +57,17 @@
         <button class="btn" data-dismiss="modal" aria-hidden="true"><span i18n:translate="">Tancar</span></button>
       </div>
     </div>
-    <a class="btn btn-info btnActa" style="float:right;"
+
+    <tal:block tal:condition="not: view/hasFirma">
+      <tal:block tal:condition="checkSerieGDoc/visible_gdoc">
+        <a class="btn btn-info btnActa" style="float:right;" href="signActa"
+           tal:condition="checkSerieGDoc/valid_serie">
+            <i class="fa fa-arrow-right"></i>&nbsp;<span i18n:translate=""> Enviar acta a signar</span>
+        </a>
+      </tal:block>
+    </tal:block>
+
+    <a class="btn btn-info btnActa" style="float:right; margin-right:10px;"
     tal:attributes="href string:javascript:printPage(iframe);">
         <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
     </a>
@@ -95,10 +116,10 @@
               <tal:documents repeat="item audio">
                 <ol style="float:right;">
                   <i class="fa fa-file-audio-o" aria-hidden="true"></i>
-                  <tal:audio tal:define="content_type item/audio/contentType|nothing;
-                                        download_url string:${item/absolute_url}/@@download/file/${item/audio/filename}">
+                  <tal:audio tal:define="content_type item/content_type|nothing;
+                                         download_url item/download_url">
                     <a href="#"
-                      tal:attributes="href item/absolute_url;"
+                      tal:attributes="href item/download_url;"
                       tal:content="item/title">Audio filename
                     </a>
                     <div class="clearfix"></div>
@@ -165,26 +186,46 @@
   </tal:block>
 
   <br/>
-  <ta:block tal:condition="context/file">
-    <div tal:define="public_file_download_url string:${absolute_url}/@@download/file/${context/file/filename};
-                   public_file_view_url string:${absolute_url}/@@display-file/file/;">
-    <h3 i18n:translate="">Acta PDF</h3>
-    <p>
-      <a tal:attributes="href public_file_view_url">
-        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-        <tal:name tal:content="context/file/filename">Filename</tal:name>
-      </a>
-      <span class="discreet"
-          tal:define="size context/file/getSize;
-                      kb python:size/1024">
-        &mdash; <span tal:replace="kb" /> KB</span>
-        <a tal:attributes="href public_file_download_url">
-          <i class="fa fa-download" aria-hidden="true"></i>
-        </a>
-    </p>
 
-  </div>
-</ta:block>
+  <tal:block tal:condition="not:hasUnitatDocumental">
+    <ta:block tal:condition="context/file">
+      <div tal:define="public_file_download_url string:${absolute_url}/@@download/file/${context/file/filename};
+                     public_file_view_url string:${absolute_url}/@@display-file/file/;">
+        <h3 i18n:translate="">Acta PDF</h3>
+        <p>
+          <a tal:attributes="href public_file_view_url">
+            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+            <tal:name tal:content="context/file/filename">Filename</tal:name>
+          </a>
+          <span class="discreet"
+              tal:define="size context/file/getSize;
+                          kb python:size/1024">
+            &mdash; <span tal:replace="kb" /> KB</span>
+            <a tal:attributes="href public_file_download_url">
+              <i class="fa fa-download" aria-hidden="true"></i>
+            </a>
+        </p>
+      </div>
+    </ta:block>
+  </tal:block>
+  <tal:block tal:condition="hasUnitatDocumental" tal:define="acta view/getGdDocActa">
+    <div tal:define="public_file_download_url string:${absolute_url}/downloadActa;
+                     public_file_view_url string:${absolute_url}/viewActa;">
+      <h3 i18n:translate="">Acta PDF</h3>
+      <p>
+        <a tal:attributes="href public_file_view_url">
+          <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+          <tal:name tal:content="acta/filename">Filename</tal:name>
+        </a>
+        <span class="discreet"
+            tal:define="kb acta/sizeKB">
+          &mdash; <span tal:replace="kb" /> KB</span>
+          <a tal:attributes="href public_file_download_url">
+            <i class="fa fa-download" aria-hidden="true"></i>
+          </a>
+      </p>
+    </div>
+  </tal:block>
 
 </tal:block>
 </metal:content-core>

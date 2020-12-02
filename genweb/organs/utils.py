@@ -12,7 +12,10 @@ from zope.component import getUtility
 
 from genweb.organs import _
 from genweb.organs.controlpanel import IOrgansSettings
+from genweb.organs.controlpanel import IGDocSettings
 
+import json
+import requests
 import unicodedata
 
 
@@ -203,6 +206,7 @@ def addExcuse(context, name, email, message):
 
         data.append(values)
         annotations[KEY] = data
+
 
 def addPoint(context, names, title, justification, path):
     """ Adds entry log with the values:
@@ -444,3 +448,53 @@ def session_wf_state(self):
 def get_settings_property(property_id):
     settings = getUtility(IRegistry).forInterface(IOrgansSettings)
     return getattr(settings, property_id, None)
+
+
+def get_settings_gdoc():
+    return getUtility(IRegistry).forInterface(IGDocSettings)
+
+
+def isValidSerieGdoc(self):
+    organ = get_organ(self.context)
+    if organ.visiblegdoc:
+        gdoc_settings = get_settings_gdoc()
+        result = requests.get(gdoc_settings.gdoc_url + '/api/serie/' + organ.serie + '?hash=' + gdoc_settings.gdoc_hash)
+        if result.status_code == 200:
+            return {'visible_gdoc': True,
+                    'valid_serie': True,
+                    'msg_error': ''}
+        else:
+            content = json.loads(result.content)
+            if 'codi' in content:
+                if content['codi'] == 503:
+                    return {'visible_gdoc': True,
+                            'valid_serie': False,
+                            'msg_error': u'GDoc: Contacta amb algun administrador de la web perquè revisi la configuració'}
+                elif content['codi'] == 528:
+                    return {'visible_gdoc': True,
+                            'valid_serie': False,
+                            'msg_error': u'GDoc: La sèrie documental configurada no existeix'}
+
+            return {'visible_gdoc': True,
+                    'valid_serie': False,
+                    'msg_error': u'GDoc: Contacta amb algun administrador de la web perquè revisi la configuració'}
+
+    return {'visible_gdoc': False,
+            'valid_serie': False,
+            'msg_error': ''}
+
+
+def get_organ(context):
+    from genweb.organs.content.organgovern import IOrgangovern
+    if IOrgangovern.providedBy(context):
+        return context
+    else:
+        portal_state = context.unrestrictedTraverse('@@plone_portal_state')
+        root = getNavigationRootObject(context, portal_state.portal())
+        physical_path = aq_inner(context).getPhysicalPath()
+        relative = physical_path[len(root.getPhysicalPath()):]
+        for i in range(len(relative)):
+            now = relative[:i + 1]
+            obj = aq_inner(root.unrestrictedTraverse(now))
+            if IOrgangovern.providedBy(obj):
+                return obj

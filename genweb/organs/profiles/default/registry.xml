@@ -3,4 +3,7 @@
     <records
         interface="genweb.organs.controlpanel.IOrgansSettings"
         purge="False"/>
+    <records
+        interface="genweb.organs.controlpanel.IGDocSettings"
+        purge="False"/>
 </registry>

@@ -238,6 +238,16 @@
       <role name="OG1-Secretari"/>
       <role name="OG3-Membre"/>
     </permission>
+    <permission name="Genweb Organs: GDoc Sign" acquire="True">
+      <role name="Manager"/>
+      <role name="OG1-Secretari"/>
+    </permission>
+    <permission name="Genweb Organs: GDoc View" acquire="True">
+      <role name="Manager"/>
+      <role name="OG1-Secretari"/>
+      <role name="OG2-Editor"/>
+      <role name="OG3-Membre"/>
+    </permission>
     <permission name="Genweb: Authenticated Users" acquire="True">
       <role name="Authenticated"/>
     </permission>

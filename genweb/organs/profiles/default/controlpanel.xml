@@ -11,4 +11,16 @@
         visible="True">
         <permission>Manage Portal</permission>
     </configlet>
+
+    <configlet
+        title="Organs GDoc"
+        action_id="genweb.organs.gdoc"
+        appId="genweb.organs.gdoc"
+        category="Products"
+        condition_expr=""
+        url_expr="string:${portal_url}/organs-gdoc-settings"
+        icon_expr="string:${portal_url}/++resource++cpgenweb.png"
+        visible="True">
+        <permission>Manage Portal</permission>
+    </configlet>
 </object>

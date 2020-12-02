@@ -58,6 +58,11 @@ class IOrgangovern(form.Schema):
              fields=['bodyMailconvoquing', 'bodyMailSend', 'footerMail', 'footer'],
              )
 
+    fieldset('gdoc',
+             label=_(u'GDoc'),
+             fields=['visiblegdoc', 'serie'],
+             )
+
     dexterity.write_permission(title='genweb.webmaster')
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
@@ -183,6 +188,18 @@ class IOrgangovern(form.Schema):
     FAQmembres = RichTextField(
         title=_(u"FAQ membres"),
         description=_(u'Preguntes freqüents de membres'),
+        required=False,
+    )
+
+    visiblegdoc = schema.Bool(
+        title=_(u"Activar signat i desat d'actes de les reunions"),
+        description=_(u"Al activar aquesta opcio habilita un nou boto per enviar l’acta a signar i desar."),
+        required=False,
+    )
+
+    serie = schema.TextLine(
+        title=_(u"Serie"),
+        description=_(u"Identificador utilitzat per saber on es vol pujar la documentació"),
         required=False,
     )
 
