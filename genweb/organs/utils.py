@@ -458,30 +458,32 @@ def isValidSerieGdoc(self):
     organ = get_organ(self.context)
     if organ.visiblegdoc:
         gdoc_settings = get_settings_gdoc()
-        result = requests.get(gdoc_settings.gdoc_url + '/api/serie/' + organ.serie + '?hash=' + gdoc_settings.gdoc_hash)
-        if result.status_code == 200:
-            return {'visible_gdoc': True,
-                    'valid_serie': True,
-                    'msg_error': ''}
-        else:
-            content = json.loads(result.content)
-            if 'codi' in content:
-                if content['codi'] == 503:
-                    return {'visible_gdoc': True,
-                            'valid_serie': False,
-                            'msg_error': u'GDoc: Contacta amb algun administrador de la web perquè revisi la configuració'}
-                elif content['codi'] == 528:
-                    return {'visible_gdoc': True,
-                            'valid_serie': False,
-                            'msg_error': u'GDoc: La sèrie documental configurada no existeix'}
+        try:
+            result = requests.get(gdoc_settings.gdoc_url + '/api/serie/' + organ.serie + '?hash=' + gdoc_settings.gdoc_hash, timeout=10)
+            if result.status_code == 200:
+                return {'visible_gdoc': True,
+                        'valid_serie': True,
+                        'msg_error': ''}
+            else:
+                content = json.loads(result.content)
+                if 'codi' in content:
+                    if content['codi'] == 503:
+                        return {'visible_gdoc': True,
+                                'valid_serie': False,
+                                'msg_error': u'GDoc: Contacta amb algun administrador de la web perquè revisi la configuració'}
+                    elif content['codi'] == 528:
+                        return {'visible_gdoc': True,
+                                'valid_serie': False,
+                                'msg_error': u'GDoc: La sèrie documental configurada no existeix'}
 
-            return {'visible_gdoc': True,
+                return {'visible_gdoc': True,
+                        'valid_serie': False,
+                        'msg_error': u'GDoc: Contacta amb algun administrador de la web perquè revisi la configuració'}
+
+        except:
+            return {'visible_gdoc': False,
                     'valid_serie': False,
-                    'msg_error': u'GDoc: Contacta amb algun administrador de la web perquè revisi la configuració'}
-
-    return {'visible_gdoc': False,
-            'valid_serie': False,
-            'msg_error': ''}
+                    'msg_error': u'GDoc timeout: Contacta amb algun administrador de la web perquè revisi la configuració'}
 
 
 def get_organ(context):

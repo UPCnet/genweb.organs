@@ -15,8 +15,6 @@ from plone.supermodel.directives import fieldset
 from plone.event.interfaces import IEventAccessor
 from plone.namedfile.field import NamedBlobFile
 from plone.namedfile.utils import get_contenttype
-from z3c.form.interfaces import IAddForm
-from z3c.form.interfaces import IEditForm
 from zope.schema import ValidationError
 
 from genweb.organs import _
@@ -383,165 +381,172 @@ class SignActa(grok.View):
             if self.context.file:
                 gdoc_settings = utils.get_settings_gdoc()
 
-                # Petición para obtener un código de expediente
-                result_codi = requests.get(gdoc_settings.codiexpedient_url + '/api/codi?serie=' + organ.serie, headers={'X-Api-Key': gdoc_settings.codiexpedient_apikey})
+                try:
+                    # Petición para obtener un código de expediente
+                    result_codi = requests.get(gdoc_settings.codiexpedient_url + '/api/codi?serie=' + organ.serie, headers={'X-Api-Key': gdoc_settings.codiexpedient_apikey}, timeout=10)
 
-                if result_codi.status_code == 200:
-                    content_codi = json.loads(result_codi.content)
+                    if result_codi.status_code == 200:
+                        content_codi = json.loads(result_codi.content)
 
-                    data_exp = {"expedient": content_codi['codi'],
-                                "titolPropi": content_codi['codi'] + ' - ' + self.context.title}
+                        data_exp = {"expedient": content_codi['codi'],
+                                    "titolPropi": content_codi['codi'] + ' - ' + self.context.title}
 
-                    # Petición que crea un serie documental / expediente en gdoc
-                    result_exp = requests.post(gdoc_settings.gdoc_url + '/api/serie/' + organ.serie + '/udch?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash, json=data_exp)
-                    content_exp = json.loads(result_exp.content)
+                        # Petición que crea un serie documental / expediente en gdoc
+                        result_exp = requests.post(gdoc_settings.gdoc_url + '/api/serie/' + organ.serie + '/udch?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash, json=data_exp, timeout=10)
+                        content_exp = json.loads(result_exp.content)
 
-                    if result_exp.status_code == 200:
-                        if 'idElementCreat' in content_exp:
+                        if result_exp.status_code == 200:
+                            if 'idElementCreat' in content_exp:
 
-                            if not isinstance(self.context.infoGDoc, dict):
-                                self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
+                                if not isinstance(self.context.infoGDoc, dict):
+                                    self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
 
-                            self.context.infoGDoc.update({'unitatDocumental': str(content_exp['idElementCreat']),
-                                                          'acta': {},
-                                                          'audios': {},
-                                                          'firma': '',
-                                                          'enviatASignar': False})
-                            self.context.reindexObject()
+                                self.context.infoGDoc.update({'unitatDocumental': str(content_exp['idElementCreat']),
+                                                              'acta': {},
+                                                              'audios': {},
+                                                              'firma': '',
+                                                              'enviatASignar': False})
+                                self.context.reindexObject()
 
-                            data_acta = {"tipusDocumental": "452",
-                                         "idioma": "CA",
-                                         "nomAplicacioCreacio": "Govern UPC",
-                                         "autors": "[{'id': '1291399'}]",
-                                         "agentsAmbCodiEsquemaIdentificacio": False,
-                                         "validesaAdministrativa": True}
+                                data_acta = {"tipusDocumental": "452",
+                                             "idioma": "CA",
+                                             "nomAplicacioCreacio": "Govern UPC",
+                                             "autors": "[{'id': '1291399'}]",
+                                             "agentsAmbCodiEsquemaIdentificacio": False,
+                                             "validesaAdministrativa": True}
 
-                            files = {'fitxer': (self.context.file.filename, self.context.file.open().read(), self.context.file.contentType)}
+                                files = {'fitxer': (self.context.file.filename, self.context.file.open().read(), self.context.file.contentType)}
 
-                            # Subimos la acta a la serie documental creada en el gdoc
-                            result_acta = requests.post(gdoc_settings.gdoc_url + '/api/pare/' + str(content_exp['idElementCreat']) + '/doce?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash, data=data_acta, files=files)
+                                # Subimos la acta a la serie documental creada en el gdoc
+                                result_acta = requests.post(gdoc_settings.gdoc_url + '/api/pare/' + str(content_exp['idElementCreat']) + '/doce?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash, data=data_acta, files=files)
 
-                            content_acta = json.loads(result_acta.content)
-                            if result_acta.status_code == 200:
+                                content_acta = json.loads(result_acta.content)
+                                if result_acta.status_code == 200:
 
-                                # Obtenemos el uuid de la acta subida, necessaria para la petición al portafirmes
-                                result_info_acta = requests.get(gdoc_settings.gdoc_url + '/api/doce/' + str(content_acta['idElementCreat']) + '/consulta?hash=' + gdoc_settings.gdoc_hash)
+                                    # Obtenemos el uuid de la acta subida, necessaria para la petición al portafirmes
+                                    result_info_acta = requests.get(gdoc_settings.gdoc_url + '/api/doce/' + str(content_acta['idElementCreat']) + '/consulta?hash=' + gdoc_settings.gdoc_hash, timeout=10)
 
-                                content_info_acta = json.loads(result_info_acta.content)
-                                if result_info_acta.status_code == 200:
-                                    self.context.infoGDoc['acta'] = {'id': str(content_acta['idElementCreat']),
-                                                                     'uuid': str(content_info_acta['documentElectronic']['uuid']),
-                                                                     'filename': self.context.file.filename,
-                                                                     'contentType': self.context.file.contentType,
-                                                                     'sizeKB': self.context.file.getSize() / 1024}
-                                    self.context.reindexObject()
+                                    content_info_acta = json.loads(result_info_acta.content)
+                                    if result_info_acta.status_code == 200:
+                                        self.context.infoGDoc['acta'] = {'id': str(content_acta['idElementCreat']),
+                                                                         'uuid': str(content_info_acta['documentElectronic']['uuid']),
+                                                                         'filename': self.context.file.filename,
+                                                                         'contentType': self.context.file.contentType,
+                                                                         'sizeKB': self.context.file.getSize() / 1024}
+                                        self.context.reindexObject()
 
-                            pos = 0
+                                pos = 0
 
-                            # Miramos si hay algun audio subido
-                            for audio_id in self.context:
-                                if self.context[audio_id].portal_type == 'genweb.organs.audio':
-                                    audio = self.context[audio_id]
-                                    data_audio = {"tipusDocumental": "906340",
-                                                  "idioma": "CA",
-                                                  "nomAplicacioCreacio": "Govern UPC",
-                                                  "autors": "[{'id': '1291399'}]",
-                                                  "agentsAmbCodiEsquemaIdentificacio": False,
-                                                  "validesaAdministrativa": True}
-
-                                    files = {'fitxer': (audio.file.filename, audio.file.open(), audio.file.contentType)}
-
-                                    # Subimos el audio a la serie documental creada en el gdoc
-                                    result_audio = requests.post(gdoc_settings.gdoc_url + '/api/pare/' + str(content_exp['idElementCreat']) + '/doce?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash, data=data_audio, files=files)
-
-                                    content_audio = json.loads(result_audio.content)
-                                    if result_audio.status_code == 200:
-
-                                        # Obtenemos el uuid del audio subido, necessaria para la petición al portafirmes
-                                        result_info_audio = requests.get(gdoc_settings.gdoc_url + '/api/doce/' + str(content_audio['idElementCreat']) + '/consulta?hash=' + gdoc_settings.gdoc_hash)
-
-                                        content_info_audio = json.loads(result_info_audio.content)
-                                        if result_info_audio.status_code == 200:
-                                            self.context.infoGDoc['audios'].update({str(pos): {'id': str(content_audio['idElementCreat']),
-                                                                                               'uuid': str(content_info_audio['documentElectronic']['uuid']),
-                                                                                               'title': audio.title,
-                                                                                               'filename': audio.file.filename,
-                                                                                               'contentType': audio.file.contentType}})
-                                            pos += 1
-                                            self.context.reindexObject()
-
-                            data_sign = {
-                                "descripcioPeticio": "Signatura acta",
-                                "documents": [
-                                    {
-                                        "paginaSignaturaVisible": 1,
-                                        "codi": self.context.infoGDoc['acta']['uuid']
-                                    }
-                                ],
-                                "passosPeticio": [
-                                    {
-                                        "nivellSignatura": "NOMES_PAN",
-                                        "signants": [
-                                            {
-                                                "commonName": "iago.lopez"
-                                            },
-                                            {
-                                                "commonName": "janet.dura"
-                                            }
-                                        ]
-                                    }
-                                ],
-                                "promocionar": "S",
-                                "codiCategoria": "CAT6",
-                                "codiTipusSignatura": "DETACHED",
-                                "dataLimit": "29-02-2021 22:00:00",
-                                "emissor": "Govern UPC",
-                                "informacio": "Signatura acta",
-                                "motiusRebuig": [
-                                    {
-                                        "codi": "Inacabada",
-                                        "descripcio": "Petició inacabada"
-                                    }
-                                ]
-                            }
-
-                            if self.context.infoGDoc['audios']:
-                                data_sign.update({'documentsAnnexos': []})
-                                for audio in self.context.infoGDoc['audios']:
-                                    data_sign['documentsAnnexos'].append({"codi": self.context.infoGDoc['audios'][audio]['uuid']})
-
-                            # Creamos la petición al portafirmes de la acta y los audios anexos
-                            result_sign = requests.post(gdoc_settings.portafirmes_url, json=data_sign, headers={'X-Api-Key': gdoc_settings.portafirmes_apikey})
-
-                            if result_sign.status_code == 201:
-                                self.context._Add_portal_content_Permission = ('Manager', 'Site Administrator', 'WebMaster')
-                                self.context._Modify_portal_content_Permission = ('Manager', 'Site Administrator', 'WebMaster')
-                                self.context._Delete_objects_Permission = ('Manager', 'Site Administrator', 'WebMaster')
-
-                                self.context.file = None
+                                # Miramos si hay algun audio subido
                                 for audio_id in self.context:
-                                    api.content.delete(self.context[audio_id])
+                                    if self.context[audio_id].portal_type == 'genweb.organs.audio':
+                                        audio = self.context[audio_id]
+                                        data_audio = {"tipusDocumental": "906340",
+                                                      "idioma": "CA",
+                                                      "nomAplicacioCreacio": "Govern UPC",
+                                                      "autors": "[{'id': '1291399'}]",
+                                                      "agentsAmbCodiEsquemaIdentificacio": False,
+                                                      "validesaAdministrativa": True}
 
-                                self.context.infoGDoc['enviatASignar'] = True
-                                self.context.plone_utils.addPortalMessage(_(u'L\'acta a sigut enviada correctament'), 'success')
-                                transaction.commit()
-                            else:
-                                self.context.plone_utils.addPortalMessage(_(u'No s\'ha pogut enviar a firmar l\'acta: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                                        files = {'fitxer': (audio.file.filename, audio.file.open(), audio.file.contentType)}
 
+                                        # Subimos el audio a la serie documental creada en el gdoc
+                                        result_audio = requests.post(gdoc_settings.gdoc_url + '/api/pare/' + str(content_exp['idElementCreat']) + '/doce?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash, data=data_audio, files=files)
+
+                                        content_audio = json.loads(result_audio.content)
+                                        if result_audio.status_code == 200:
+
+                                            # Obtenemos el uuid del audio subido, necessaria para la petición al portafirmes
+                                            result_info_audio = requests.get(gdoc_settings.gdoc_url + '/api/doce/' + str(content_audio['idElementCreat']) + '/consulta?hash=' + gdoc_settings.gdoc_hash, timeout=10)
+
+                                            content_info_audio = json.loads(result_info_audio.content)
+                                            if result_info_audio.status_code == 200:
+                                                self.context.infoGDoc['audios'].update({str(pos): {'id': str(content_audio['idElementCreat']),
+                                                                                                   'uuid': str(content_info_audio['documentElectronic']['uuid']),
+                                                                                                   'title': audio.title,
+                                                                                                   'filename': audio.file.filename,
+                                                                                                   'contentType': audio.file.contentType}})
+                                                pos += 1
+                                                self.context.reindexObject()
+
+                                data_sign = {
+                                    "descripcioPeticio": "Signatura acta" + ' - ' + self.context.title,
+                                    "documents": [
+                                        {
+                                            "paginaSignaturaVisible": 1,
+                                            "codi": self.context.infoGDoc['acta']['uuid']
+                                        }
+                                    ],
+                                    "passosPeticio": [
+                                        {
+                                            "nivellSignatura": "NOMES_PAN",
+                                            "signants": [
+                                                {
+                                                    "commonName": "iago.lopez"
+                                                },
+                                                {
+                                                    "commonName": "janet.dura"
+                                                },
+                                                {
+                                                    "commonName": "eulalia.formenti"
+                                                },
+                                            ]
+                                        }
+                                    ],
+                                    "promocionar": "S",
+                                    "codiCategoria": "CAT6",
+                                    "codiTipusSignatura": "DETACHED",
+                                    "dataLimit": "29-02-2021 22:00:00",
+                                    "emissor": "Govern UPC",
+                                    "informacio": "Signatura acta" + ' - ' + self.context.title,
+                                    "motiusRebuig": [
+                                        {
+                                            "codi": "Inacabada",
+                                            "descripcio": "Petició inacabada"
+                                        }
+                                    ]
+                                }
+
+                                if self.context.infoGDoc['audios']:
+                                    data_sign.update({'documentsAnnexos': []})
+                                    for audio in self.context.infoGDoc['audios']:
+                                        data_sign['documentsAnnexos'].append({"codi": self.context.infoGDoc['audios'][audio]['uuid']})
+
+                                # Creamos la petición al portafirmes de la acta y los audios anexos
+                                result_sign = requests.post(gdoc_settings.portafirmes_url, json=data_sign, headers={'X-Api-Key': gdoc_settings.portafirmes_apikey}, timeout=10)
+
+                                if result_sign.status_code == 201:
+                                    self.context._Add_portal_content_Permission = ('Manager', 'Site Administrator', 'WebMaster')
+                                    self.context._Modify_portal_content_Permission = ('Manager', 'Site Administrator', 'WebMaster')
+                                    self.context._Delete_objects_Permission = ('Manager', 'Site Administrator', 'WebMaster')
+
+                                    self.context.file = None
+                                    for audio_id in self.context:
+                                        api.content.delete(self.context[audio_id])
+
+                                    self.context.infoGDoc['enviatASignar'] = True
+                                    self.context.plone_utils.addPortalMessage(_(u'L\'acta a sigut enviada correctament'), 'success')
+                                    transaction.commit()
+                                else:
+                                    self.context.plone_utils.addPortalMessage(_(u'No s\'ha pogut enviar a firmar l\'acta: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+
+                                return self.request.response.redirect(self.context.absolute_url())
+                        else:
+                            if 'codi' in content_exp:
+                                if content_exp['codi'] == 503:
+                                    self.context.plone_utils.addPortalMessage(_(u'GDoc: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                                elif content_exp['codi'] == 528:
+                                    self.context.plone_utils.addPortalMessage(_(u'GDoc: La sèrie documental configurada no existeix'), 'error')
+
+                                return self.request.response.redirect(self.context.absolute_url())
+
+                            self.context.plone_utils.addPortalMessage(_(u'GDoc: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
                             return self.request.response.redirect(self.context.absolute_url())
                     else:
-                        if 'codi' in content_exp:
-                            if content_exp['codi'] == 503:
-                                self.context.plone_utils.addPortalMessage(_(u'GDoc: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
-                            elif content_exp['codi'] == 528:
-                                self.context.plone_utils.addPortalMessage(_(u'GDoc: La sèrie documental configurada no existeix'), 'error')
-
-                            return self.request.response.redirect(self.context.absolute_url())
-
-                        self.context.plone_utils.addPortalMessage(_(u'GDoc: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                        self.context.plone_utils.addPortalMessage(_(u'No s\'ha pogut generar el codi de expedient: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
                         return self.request.response.redirect(self.context.absolute_url())
-                else:
-                    self.context.plone_utils.addPortalMessage(_(u'No s\'ha pogut generar el codi de expedient: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                except:
+                    self.context.plone_utils.addPortalMessage(_(u'S\'ha sobrepasat el temps d\'espera per executar la petició: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
                     return self.request.response.redirect(self.context.absolute_url())
 
             else:

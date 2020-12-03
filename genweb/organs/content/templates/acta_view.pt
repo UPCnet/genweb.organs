@@ -44,6 +44,14 @@
       </div>
     </tal:block>
 
+    <tal:block tal:condition="not:checkSerieGDoc/visible_gdoc">
+      <div class="alert alert-error" role="alert" tal:condition="checkSerieGDoc/msg_error">
+        <button data-dismiss="alert" class="close" type="button">×</button>
+        <strong>Error</strong>
+        <span tal:content="checkSerieGDoc/msg_error"></span>
+      </div>
+    </tal:block>
+
     <div class="modal fade hide previewModal" id="previewModal" tabindex="-1" role="dialog"
          aria-labelledby="previewModalLabel" aria-hidden="true" data-remote="previewActa">
       <div class="modal-header">
