@@ -124,7 +124,7 @@ class IActa(form.Schema):
         required=False,
     )
 
-    # directives.omitted('infoGDoc')
+    directives.omitted('infoGDoc')
     infoGDoc = schema.Text(title=u'', required=False, default=u'{}')
 
 
@@ -395,8 +395,11 @@ class SignActa(grok.View):
                         logger.info('2.1. S\'ha obtingut correctament el codi del expedient')
                         content_codi = json.loads(result_codi.content)
 
-                        data_exp = {"expedient": content_codi['codi'],
-                                    "titolPropi": content_codi['codi'] + ' - ' + self.context.title}
+                        now = datetime.datetime.now()
+                        codi_expedient = now.strftime("%Y") + '-' + content_codi['codi']
+
+                        data_exp = {"expedient": codi_expedient,
+                                    "titolPropi": codi_expedient + ' - ' + self.context.title}
 
                         # Petició que crea un sèrie documental / expedient en gdoc
                         logger.info('3. Creació de la serie documental en gdoc')
@@ -520,7 +523,7 @@ class SignActa(grok.View):
                                     ],
                                     "passosPeticio": [
                                         {
-                                            "nivellSignatura": "NOMES_PAN",
+                                            "nivellSignatura": "CDA",
                                             "signants": [
                                                 {
                                                     "commonName": "iago.lopez"
@@ -536,8 +539,8 @@ class SignActa(grok.View):
                                     ],
                                     "promocionar": "S",
                                     "codiCategoria": "CAT6",
-                                    "codiTipusSignatura": "DETACHED",
-                                    "dataLimit": (datetime.datetime.now() + datetime.timedelta(days=1)).strftime("%d-%m-%Y %H:%M:00"),
+                                    "codiTipusSignatura": "ATTACHED",
+                                    "dataLimit": (now + datetime.timedelta(days=1)).strftime("%d-%m-%Y %H:%M:00"),
                                     "emissor": "Govern UPC",
                                     "informacio": "Signatura acta" + ' - ' + self.context.title,
                                     "motiusRebuig": [
