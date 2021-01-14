@@ -484,6 +484,10 @@ def isValidSerieGdoc(self):
             return {'visible_gdoc': False,
                     'valid_serie': False,
                     'msg_error': u'GDoc timeout: Contacta amb algun administrador de la web perquè revisi la configuració'}
+    else:
+        return {'visible_gdoc': False,
+                'valid_serie': False,
+                'msg_error': ''}
 
 
 def get_organ(context):
