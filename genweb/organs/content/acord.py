@@ -456,6 +456,72 @@ Missatge automàtic generat per https://govern.upc.edu/"""
             mailhost.send(msg)
 
 
+def sendRemoveVoteEmail(context):
+    context = aq_inner(context)
+    mailhost = getToolByName(context, 'MailHost')
+
+    portal = api.portal.get()
+    email_charset = portal.getProperty('email_charset')
+
+    if context.aq_parent.portal_type == 'genweb.organs.sessio':
+        sender_email = context.aq_parent.aq_parent.fromMail
+    elif context.aq_parent.portal_type == 'genweb.organs.punt':
+        sender_email = context.aq_parent.aq_parent.aq_parent.fromMail
+
+    user_emails = []
+
+    infoVotacio = context.infoVotacio
+    if isinstance(infoVotacio, str) or isinstance(infoVotacio, unicode):
+        infoVotacio = ast.literal_eval(infoVotacio)
+
+    for key, value in infoVotacio.items():
+        try:
+            email = api.user.get(username=key).getProperty('email')
+            if email:
+                user_emails.append(email)
+        except:
+            pass
+
+    if user_emails:
+        msg = MIMEMultipart()
+        msg['From'] = sender_email
+        msg['Bcc'] = user_emails
+        msg['Subject'] = escape(safe_unicode(_(u'Votació Govern UPC')))
+        msg['charset'] = email_charset
+
+        message = """En data {data}, hora {hora}, la votació de l'acord {acord} de la sessió {sessio} de l'òrgan {organ} ha estat anul·lada i el teu vot emès ha estat eliminat.
+
+    Missatge automàtic generat per https://govern.upc.edu/"""
+
+        now = datetime.datetime.now()
+        if context.aq_parent.aq_parent.portal_type == 'genweb.organs.sessio':
+
+            data = {
+                'data': now.strftime("%d/%m/%Y"),
+                'hora': now.strftime("%H:%M"),
+                'acord': context.aq_parent.title,
+                'sessio': context.aq_parent.aq_parent.title,
+                'organ': context.aq_parent.aq_parent.aq_parent.title,
+            }
+
+            msg.attach(MIMEText(message.format(**data), 'plain', email_charset))
+            mailhost.send(msg)
+
+        elif context.aq_parent.aq_parent.portal_type == 'genweb.organs.punt':
+
+            data = {
+                'data': now.strftime("%d/%m/%Y"),
+                'hora': now.strftime("%H:%M"),
+                'esmena': context.title,
+                'acord': context.aq_parent.title,
+                'sessio': context.aq_parent.aq_parent.aq_parent.title,
+                'organ': context.aq_parent.aq_parent.aq_parent.aq_parent.title,
+            }
+
+            msg.attach(MIMEText(message.format(**data), 'plain', email_charset))
+            mailhost.send(msg)
+
+
 class RemoveVote(grok.View):
     grok.context(IAcord)
     grok.name('removeVote')
@@ -469,3 +535,4 @@ class RemoveVote(grok.View):
         self.context.horaFiVotacio = None
         self.context.reindexObject()
         transaction.commit()
+        sendRemoveVoteEmail(self.context)
