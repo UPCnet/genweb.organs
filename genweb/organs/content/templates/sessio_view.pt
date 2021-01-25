@@ -561,12 +561,14 @@
                  tal:define="canViewExtendedResultsVote view/canViewManageVote">
             <thead>
               <tr i18n:domain="genweb.organs">
-                <th width="40%" i18n:translate="">Acord / Esmena</th>
+                <th width="38%" i18n:translate="">Acord / Esmena</th>
                 <tal tal:condition="not:canViewExtendedResultsVote">
-                  <th width="15%" style="text-align:center;" i18n:translate="">A favor</th>
-                  <th width="15%" style="text-align:center;" i18n:translate="">En contra</th>
-                  <th width="15%" style="text-align:center;" i18n:translate="">En blanc</th>
-                  <th width="15%" style="text-align:center;" i18n:translate="">Vots emesos</th>
+                  <th width="14%" style="text-align:center;" i18n:translate="">A favor</th>
+                  <th width="14%" style="text-align:center;" i18n:translate="">En contra</th>
+                  <th width="14%" style="text-align:center;" i18n:translate="">En blanc</th>
+                  <th width="14%" style="text-align:center;" i18n:translate="">Vots emesos</th>
+                  <th width="6%" style="text-align:center;" i18n:translate=""></th>
+
                 </tal>
                 <tal tal:condition="canViewExtendedResultsVote">
                   <th width="12%" style="text-align:center;" i18n:translate="">A favor</th>
@@ -574,7 +576,7 @@
                   <th width="12%" style="text-align:center;" i18n:translate="">En blanc</th>
                   <th width="12%" style="text-align:center;" i18n:translate="">Vots emesos</th>
                   <th width="8%" style="text-align:center;" i18n:translate="">State</th>
-                  <th width="4%" style="text-align:center;" i18n:translate=""></th>
+                  <th width="6%" style="text-align:center;" i18n:translate=""></th>
                 </tal>
               </tr>
             </thead>
@@ -582,10 +584,14 @@
               <tal:block tal:repeat="vote votes">
                 <tr tal:condition="not:vote/isPublic">
                   <tal:block tal:condition="not:vote/isEsmena">
-                    <td tal:content="string:${vote/title} [${vote/code}]"></td>
+                    <td>
+                      <span tal:content="string:${vote/title} [${vote/code}]"></span>
+                    </td>
                   </tal:block>
                   <tal:block tal:condition="vote/isEsmena">
-                    <td><span class="separacioEsmena"></span><span tal:content="vote/title"></span></td>
+                    <td>
+                      <span class="separacioEsmena"></span><span tal:content="vote/title"></span>
+                    </td>
                   </tal:block>
                   <tal:block tal:condition="not:vote/isOpen">
                     <td style="text-align:center;" tal:content="vote/favorVote"></td>
@@ -600,8 +606,17 @@
                     <td style="text-align:center;" tal:content="vote/totalVote"></td>
                   </tal:block>
                   <td style="text-align:center;" tal:condition="canViewExtendedResultsVote" tal:content="vote/state"></td>
-                  <td style="text-align:center;" tal:condition="canViewExtendedResultsVote">
-                    <span tal:condition="vote/isVote" class="fa fa-trash removeVote" tal:attributes="data-url vote/URL"></span>
+                  <td style="text-align:center;">
+                    <tal:block tal:condition="vote/hourOpen">
+                      <span tal:condition="not:vote/hourClose" class="fa fa-info-circle"
+                            tal:attributes="title string:Inici: ${vote/hourOpen}"></span>
+                      <span tal:condition="vote/hourClose" class="fa fa-info-circle"
+                            tal:attributes="title string:Inici: ${vote/hourOpen}
+Fi: ${vote/hourClose}"></span>
+                    </tal:block>
+                    <tal:block tal:condition="canViewExtendedResultsVote">
+                      <span tal:condition="vote/isVote" class="fa fa-trash removeVote" tal:attributes="data-url vote/URL"></span>
+                    </tal:block>
                   </td>
                 </tr>
                 <tal:block tal:condition="vote/isPublic">
@@ -632,8 +647,15 @@
                       <td style="text-align:center;" tal:content="vote/totalVote"></td>
                     </tal:block>
                     <td style="text-align:center;" tal:condition="canViewExtendedResultsVote" tal:content="vote/state"></td>
-                    <td style="text-align:center;" >
-                      <span class="fa fa-trash removeVote" tal:attributes="data-url vote/URL"></span>
+                    <td style="text-align:center;">
+                      <tal:block tal:condition="vote/hourOpen">
+                        <span tal:condition="not:vote/hourClose" class="fa fa-info-circle"
+                              tal:attributes="title string:Inici: ${vote/hourOpen}"></span>
+                        <span tal:condition="vote/hourClose" class="fa fa-info-circle"
+                              tal:attributes="title string:Inici: ${vote/hourOpen}
+Fi: ${vote/hourClose}"></span>
+                      </tal:block>
+                      <span tal:condition="canViewExtendedResultsVote" class="fa fa-trash removeVote" tal:attributes="data-url vote/URL"></span>
                     </td>
                   </tr>
                   <tr class="infovotes" tal:attributes="id vote/UID">

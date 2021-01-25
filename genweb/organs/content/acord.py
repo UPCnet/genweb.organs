@@ -122,6 +122,12 @@ class IAcord(form.Schema):
     directives.omitted('tipusVotacio')
     tipusVotacio = schema.Choice(title=u'', source=llistaTipusVotacio, required=False)
 
+    directives.omitted('horaIniciVotacio')
+    horaIniciVotacio = schema.Text(title=u'', required=False)
+
+    directives.omitted('horaFiVotacio')
+    horaFiVotacio = schema.Text(title=u'', required=False)
+
     directives.omitted('infoVotacio')
     infoVotacio = schema.Text(title=u'', required=False, default=u'{}')
 
@@ -273,6 +279,7 @@ class OpenPublicVote(grok.View):
     def render(self):
         self.context.estatVotacio = 'open'
         self.context.tipusVotacio = 'public'
+        self.context.horaIniciVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
         self.context.reindexObject()
         transaction.commit()
 
@@ -287,6 +294,7 @@ class OpenOtherPublicVote(grok.View):
             item = createContentInContainer(self.context, "genweb.organs.votacioacord", title=self.request.form['title'])
             item.estatVotacio = 'open'
             item.tipusVotacio = 'public'
+            item.horaIniciVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
             item.reindexObject()
             transaction.commit()
 
@@ -299,6 +307,7 @@ class OpenOtherPublicVote(grok.View):
 #     def render(self):
 #         self.context.estatVotacio = 'open'
 #         self.context.tipusVotacio = 'secret'
+#         self.context.horaIniciVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
 #         self.context.reindexObject()
 #         transaction.commit()
 
@@ -313,6 +322,7 @@ class OpenOtherPublicVote(grok.View):
 #             item = createContentInContainer(self.context, "genweb.organs.votacioacord", title=self.request.form['title'])
 #             item.estatVotacio = 'open'
 #             item.tipusVotacio = 'secret'
+#             item.horaIniciVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
 #             item.reindexObject()
 #             transaction.commit()
 
@@ -335,6 +345,7 @@ class CloseVote(grok.View):
 
     def render(self):
         self.context.estatVotacio = 'close'
+        self.context.horaFiVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
         self.context.reindexObject()
         transaction.commit()
 
@@ -454,5 +465,7 @@ class RemoveVote(grok.View):
         self.context.estatVotacio = None
         self.context.tipusVotacio = None
         self.context.infoVotacio = '{}'
+        self.context.horaIniciVotacio = None
+        self.context.horaFiVotacio = None
         self.context.reindexObject()
         transaction.commit()

@@ -2452,6 +2452,10 @@ a.calendari-seguent:hover  {
     cursor: pointer;
 }
 
+#resultsVotesTab .fa-info-circle:hover {
+    color: #557c95;
+}
+
 .hasVote .btn-notvote,
 .hasVote .btn-notvote:hover {
     background-color: transparent !important;;

@@ -40,6 +40,12 @@ class IVotacioAcord(form.Schema):
     directives.omitted('tipusVotacio')
     tipusVotacio = schema.Choice(title=u'', source=llistaTipusVotacio, required=False)
 
+    directives.omitted('horaIniciVotacio')
+    horaIniciVotacio = schema.Text(title=u'', required=False)
+
+    directives.omitted('horaFiVotacio')
+    horaFiVotacio = schema.Text(title=u'', required=False)
+
     directives.omitted('infoVotacio')
     infoVotacio = schema.Text(title=u'', required=False, default=u'{}')
 
@@ -118,6 +124,7 @@ class CloseVote(grok.View):
 
     def render(self):
         self.context.estatVotacio = 'close'
+        self.context.horaFiVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
         self.context.reindexObject()
         transaction.commit()
 
