@@ -971,11 +971,13 @@
                     <span tal:condition="agreement" class="agreementClass">
                       [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
                     </span>
-                    <span tal:condition="item/canRecloseVote" class="editTitle editable subtitleSize">
-                      <br/>
-                      <tal:omit-tag i18n:translate="">Vote</tal:omit-tag>:
-                      <tal:omit-tag tal:content="item/titleEsmena"></tal:omit-tag>
-                    </span>
+                    <tal:block tal:condition="view/canViewResultsVote">
+                      <span tal:condition="item/canRecloseVote" class="editTitle editable subtitleSize">
+                        <br/>
+                        <tal:omit-tag i18n:translate="">Vote</tal:omit-tag>:
+                        <tal:omit-tag tal:content="item/titleEsmena"></tal:omit-tag>
+                      </span>
+                    </tal:block>
                   </div>
                   <div class="span1 boleta" tal:define="estat item/state">
 <!--                     <tal:block tal:condition="canModify">
@@ -1195,11 +1197,13 @@
                           <span tal:condition="agreement" class="agreementClass">
                             [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
                           </span>
-                          <span tal:condition="itemSubpunt/canRecloseVote" class="editTitle editable subtitleSize">
-                            <br/>
-                            <tal:omit-tag i18n:translate="">Vote</tal:omit-tag>:
-                            <tal:omit-tag tal:content="itemSubpunt/titleEsmena"></tal:omit-tag>
-                          </span>
+                          <tal:block tal:condition="view/canViewResultsVote">
+                            <span tal:condition="itemSubpunt/canRecloseVote" class="editTitle editable subtitleSize">
+                              <br/>
+                              <tal:omit-tag i18n:translate="">Vote</tal:omit-tag>:
+                              <tal:omit-tag tal:content="itemSubpunt/titleEsmena"></tal:omit-tag>
+                            </span>
+                          </tal:block>
                         </div>
                         <div class="span2 boleta" tal:define="estat itemSubpunt/state">
 <!--                           <tal:block tal:condition="canModify" tal:define="estat itemSubpunt/state">
