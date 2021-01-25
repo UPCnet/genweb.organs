@@ -398,10 +398,12 @@ def sendVoteEmail(context, vote):
         mailhost = getToolByName(context, 'MailHost')
 
         portal = api.portal.get()
-        sender_email = portal.getProperty('email_from_address')
-        sender_name = portal.getProperty('email_from_name').encode('utf-8')
         email_charset = portal.getProperty('email_charset')
-        sender_name + ' ' + '<' + sender_email + '>'
+
+        if context.aq_parent.portal_type == 'genweb.organs.sessio':
+            sender_email = context.aq_parent.aq_parent.fromMail
+        elif context.aq_parent.portal_type == 'genweb.organs.punt':
+            sender_email = context.aq_parent.aq_parent.aq_parent.fromMail
 
         msg = MIMEMultipart()
         msg['From'] = sender_email
