@@ -244,9 +244,9 @@ def sendRemoveVoteEmail(context):
     portal = api.portal.get()
     email_charset = portal.getProperty('email_charset')
 
-    if context.aq_parent.portal_type == 'genweb.organs.sessio':
+    if context.aq_parent.aq_parent.portal_type == 'genweb.organs.sessio':
         sender_email = context.aq_parent.aq_parent.aq_parent.fromMail
-    elif context.aq_parent.portal_type == 'genweb.organs.punt':
+    elif context.aq_parent.aq_parent.portal_type == 'genweb.organs.punt':
         sender_email = context.aq_parent.aq_parent.aq_parent.aq_parent.fromMail
 
     user_emails = []
@@ -266,8 +266,8 @@ def sendRemoveVoteEmail(context):
     if user_emails:
         msg = MIMEMultipart()
         msg['From'] = sender_email
-        msg['Bcc'] = user_emails
-        msg['Subject'] = escape(safe_unicode(_(u'Votació Govern UPC')))
+        msg['Bcc'] = ', '.join(user_emails)
+        msg['Subject'] = escape(safe_unicode(_(u'Votació anul·lada Govern UPC')))
         msg['charset'] = email_charset
 
         message = """En data {data}, hora {hora}, la votació de l'esmena {esmena} de l'acord {acord} de la sessió {sessio} de l'òrgan {organ} ha estat anul·lada i el teu vot emès ha estat eliminat.
@@ -310,7 +310,7 @@ class RemoveVote(grok.View):
     grok.require('genweb.organs.manage.vote')
 
     def render(self):
+        sendRemoveVoteEmail(self.context)
         parent = self.context.aq_parent
         parent.manage_delObjects([self.context.getId()])
         transaction.commit()
-        sendRemoveVoteEmail(self.context)

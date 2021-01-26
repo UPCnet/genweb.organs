@@ -485,8 +485,8 @@ def sendRemoveVoteEmail(context):
     if user_emails:
         msg = MIMEMultipart()
         msg['From'] = sender_email
-        msg['Bcc'] = user_emails
-        msg['Subject'] = escape(safe_unicode(_(u'Votació Govern UPC')))
+        msg['Bcc'] = ', '.join(user_emails)
+        msg['Subject'] = escape(safe_unicode(_(u'Votació anul·lada Govern UPC')))
         msg['charset'] = email_charset
 
         message = """En data {data}, hora {hora}, la votació de l'acord {acord} de la sessió {sessio} de l'òrgan {organ} ha estat anul·lada i el teu vot emès ha estat eliminat.
@@ -494,7 +494,7 @@ def sendRemoveVoteEmail(context):
     Missatge automàtic generat per https://govern.upc.edu/"""
 
         now = datetime.datetime.now()
-        if context.aq_parent.aq_parent.portal_type == 'genweb.organs.sessio':
+        if context.aq_parent.portal_type == 'genweb.organs.sessio':
 
             data = {
                 'data': now.strftime("%d/%m/%Y"),
@@ -507,7 +507,7 @@ def sendRemoveVoteEmail(context):
             msg.attach(MIMEText(message.format(**data), 'plain', email_charset))
             mailhost.send(msg)
 
-        elif context.aq_parent.aq_parent.portal_type == 'genweb.organs.punt':
+        elif context.aq_parent.portal_type == 'genweb.organs.punt':
 
             data = {
                 'data': now.strftime("%d/%m/%Y"),
@@ -528,6 +528,7 @@ class RemoveVote(grok.View):
     grok.require('genweb.organs.manage.vote')
 
     def render(self):
+        sendRemoveVoteEmail(self.context)
         self.context.estatVotacio = None
         self.context.tipusVotacio = None
         self.context.infoVotacio = '{}'
@@ -535,4 +536,3 @@ class RemoveVote(grok.View):
         self.context.horaFiVotacio = None
         self.context.reindexObject()
         transaction.commit()
-        sendRemoveVoteEmail(self.context)
