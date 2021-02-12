@@ -14,6 +14,7 @@
                   hihaReserved view/hihaReserved;
                   absolute_url context/absolute_url;
                   icon view/icon_type;
+                  pdf view/pdf_reserved;
                   audio view/audio_reserved;
                   video view/video_reserved;
                   isPDFpublic view/isPDFpublic;
@@ -42,7 +43,14 @@
           <a tal:attributes="href reserved_file_download_url" title="Descarrega fitxer" alt="Descarrega fitxer"
                tal:condition="not:audio">
             <i class="fa fa-download fa-2x" aria-hidden="true"></i></a>
-        <div class="documentDescription"></div>
+
+          <div class="documentDescription"></div>
+          <tal:block tal:condition="pdf">
+            <object type="application/pdf" width="100%" height="480"
+                    tal:define="filename context/hiddenfile/filename"
+                    tal:attributes="data string:${absolute_url}/@@display-file/hiddenfile/${filename}">
+            </object>
+          </tal:block>
           <video tal:condition="video" controls="controls" width="640px" height="320px">
             <source tal:attributes="src reserved_file_download_url; type reserved_content_type"></source>
           </video>
