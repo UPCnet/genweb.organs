@@ -561,13 +561,13 @@
                  tal:define="canViewExtendedResultsVote view/canViewManageVote">
             <thead>
               <tr i18n:domain="genweb.organs">
-                <th width="38%" i18n:translate="">Acord / Esmena</th>
+                <th width="36%" i18n:translate="">Acord / Esmena</th>
                 <tal tal:condition="not:canViewExtendedResultsVote">
                   <th width="14%" style="text-align:center;" i18n:translate="">A favor</th>
                   <th width="14%" style="text-align:center;" i18n:translate="">En contra</th>
                   <th width="14%" style="text-align:center;" i18n:translate="">En blanc</th>
                   <th width="14%" style="text-align:center;" i18n:translate="">Vots emesos</th>
-                  <th width="6%" style="text-align:center;" i18n:translate=""></th>
+                  <th width="8%" style="text-align:center;" i18n:translate=""></th>
 
                 </tal>
                 <tal tal:condition="canViewExtendedResultsVote">
@@ -576,13 +576,13 @@
                   <th width="12%" style="text-align:center;" i18n:translate="">En blanc</th>
                   <th width="12%" style="text-align:center;" i18n:translate="">Vots emesos</th>
                   <th width="8%" style="text-align:center;" i18n:translate="">State</th>
-                  <th width="6%" style="text-align:center;" i18n:translate=""></th>
+                  <th width="8%" style="text-align:center;" i18n:translate=""></th>
                 </tal>
               </tr>
             </thead>
             <tbody>
               <tal:block tal:repeat="vote votes">
-                <tr tal:condition="not:vote/isPublic">
+                <tr tal:condition="not:vote/isPublic" tal:attributes="id string:vote-${vote/UID}">
                   <tal:block tal:condition="not:vote/isEsmena">
                     <td>
                       <span tal:content="string:${vote/title} [${vote/code}]"></span>
@@ -594,19 +594,22 @@
                     </td>
                   </tal:block>
                   <tal:block tal:condition="not:vote/isOpen">
-                    <td style="text-align:center;" tal:content="vote/favorVote"></td>
-                    <td style="text-align:center;" tal:content="vote/againstVote"></td>
-                    <td style="text-align:center;" tal:content="vote/whiteVote"></td>
-                    <td style="text-align:center;" tal:content="vote/totalVote"></td>
+                    <td class="vote-favorVote" style="text-align:center;" tal:content="vote/favorVote"></td>
+                    <td class="vote-againstVote" style="text-align:center;" tal:content="vote/againstVote"></td>
+                    <td class="vote-whiteVote" style="text-align:center;" tal:content="vote/whiteVote"></td>
+                    <td class="vote-totalVote" style="text-align:center;" tal:content="vote/totalVote"></td>
                   </tal:block>
                   <tal:block tal:condition="vote/isOpen">
-                    <td style="text-align:center;"></td>
-                    <td style="text-align:center;"></td>
-                    <td style="text-align:center;"></td>
-                    <td style="text-align:center;" tal:content="vote/totalVote"></td>
+                    <td class="vote-favorVote" style="text-align:center;"></td>
+                    <td class="vote-againstVote" style="text-align:center;"></td>
+                    <td class="vote-whiteVote" style="text-align:center;"></td>
+                    <td class="vote-totalVote" style="text-align:center;" tal:content="vote/totalVote"></td>
                   </tal:block>
                   <td style="text-align:center;" tal:condition="canViewExtendedResultsVote" tal:content="vote/state"></td>
                   <td style="text-align:center;">
+                    <tal:block tal:condition="vote/isOpen">
+                      <span tal:attributes="data-uid vote/UID" class="refreshVote fa fa-refresh" aria-hidden="true"></span>
+                    </tal:block>
                     <tal:block tal:condition="vote/hourOpen">
                       <span tal:condition="not:vote/hourClose" class="fa fa-info-circle"
                             tal:attributes="title string:Inici: ${vote/hourOpen}"></span>
@@ -620,34 +623,38 @@ Fi: ${vote/hourClose}"></span>
                   </td>
                 </tr>
                 <tal:block tal:condition="vote/isPublic">
-                  <tr class="openInfo" tal:attributes="data-open string:#${vote/UID}">
+                  <tr class="openInfo" tal:attributes="data-open string:#${vote/UID};
+                                                       id string:vote-${vote/UID}">
                     <td>
                       <tal:block tal:condition="not:vote/isEsmena">
                         <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
                         <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
-                        <span tal:content="string:${vote/title} [${vote/code}]"></span>
+                        <span class="vote-title" tal:content="string:${vote/title} [${vote/code}]"></span>
                       </tal:block>
                       <tal:block tal:condition="vote/isEsmena">
                         <span class="separacioEsmena"></span>
                         <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
                         <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
-                        <span tal:content="vote/title"></span>
+                        <span class="vote-title esmena" tal:content="vote/title"></span>
                       </tal:block>
                     </td>
                     <tal:block tal:condition="not:vote/isOpen">
-                      <td style="text-align:center;" tal:content="vote/favorVote"></td>
-                      <td style="text-align:center;" tal:content="vote/againstVote"></td>
-                      <td style="text-align:center;" tal:content="vote/whiteVote"></td>
-                      <td style="text-align:center;" tal:content="vote/totalVote"></td>
+                      <td class="vote-favorVote" style="text-align:center;" tal:content="vote/favorVote"></td>
+                      <td class="vote-againstVote" style="text-align:center;" tal:content="vote/againstVote"></td>
+                      <td class="vote-whiteVote" style="text-align:center;" tal:content="vote/whiteVote"></td>
+                      <td class="vote-totalVote" style="text-align:center;" tal:content="vote/totalVote"></td>
                     </tal:block>
                     <tal:block tal:condition="vote/isOpen">
-                      <td style="text-align:center;"></td>
-                      <td style="text-align:center;"></td>
-                      <td style="text-align:center;"></td>
-                      <td style="text-align:center;" tal:content="vote/totalVote"></td>
+                      <td class="vote-favorVote" style="text-align:center;"></td>
+                      <td class="vote-againstVote" style="text-align:center;"></td>
+                      <td class="vote-whiteVote" style="text-align:center;"></td>
+                      <td class="vote-totalVote" style="text-align:center;" tal:content="vote/totalVote"></td>
                     </tal:block>
-                    <td style="text-align:center;" tal:condition="canViewExtendedResultsVote" tal:content="vote/state"></td>
+                    <td class="vote-state" style="text-align:center;" tal:condition="canViewExtendedResultsVote" tal:content="vote/state"></td>
                     <td style="text-align:center;">
+                      <tal:block tal:condition="vote/isOpen">
+                        <span tal:attributes="data-uid vote/UID" class="refreshVote fa fa-refresh" aria-hidden="true"></span>
+                      </tal:block>
                       <tal:block tal:condition="vote/hourOpen">
                         <span tal:condition="not:vote/hourClose" class="fa fa-info-circle"
                               tal:attributes="title string:Inici: ${vote/hourOpen}"></span>
@@ -661,22 +668,22 @@ Fi: ${vote/hourClose}"></span>
                   <tr class="infovotes" tal:attributes="id vote/UID">
                     <td></td>
                     <tal:block tal:condition="not:vote/isOpen">
-                      <td style="text-align:center;">
+                      <td class="vote-users-favorVote" style="text-align:center;">
                         <p tal:repeat="user vote/favorVoteList" tal:content="user"></p>
                       </td>
-                      <td style="text-align:center;">
+                      <td class="vote-users-againstVote" style="text-align:center;">
                         <p tal:repeat="user vote/againstVoteList" tal:content="user"></p>
                       </td>
-                      <td style="text-align:center;">
+                      <td class="vote-users-whiteVote" style="text-align:center;">
                         <p tal:repeat="user vote/whiteVoteList" tal:content="user"></p>
                       </td>
                       <td style="text-align:center;"></td>
                     </tal:block>
                     <tal:block tal:condition="vote/isOpen">
-                      <td style="text-align:center;"></td>
-                      <td style="text-align:center;"></td>
-                      <td style="text-align:center;"></td>
-                      <td style="text-align:center;">
+                      <td class="vote-users-favorVote" style="text-align:center;"></td>
+                      <td class="vote-users-againstVote" style="text-align:center;"></td>
+                      <td class="vote-users-whiteVote" style="text-align:center;"></td>
+                      <td class="vote-users-totalVote" style="text-align:center;">
                         <p tal:repeat="user vote/totalVoteList" tal:content="user"></p>
                       </td>
                     </tal:block>
@@ -1447,6 +1454,33 @@ Fi: ${vote/hourClose}"></span>
             url: 'addQuorum',
             success: function(){
               refreshNeeded = true;
+            },
+    });
+  });
+
+  $(".refreshVote").on('click', function(){
+    uid = $(this).attr('data-uid');
+    $.ajax({
+            type: 'GET',
+            data: {'UID': uid},
+            url: 'reloadVoteStats',
+            success: function(result){
+              data = $.parseJSON(result)
+              $('#vote-' + uid + ' .vote-totalVote').html(data.totalVote);
+              $('#' + uid + ' .vote-users-totalVote').html(data.totalVoteListHTML);
+              $('#vote-' + uid + ' .vote-state').html(data.state);
+              if (data.open)  {
+                $('#vote-' + uid + ' .fa-info-circle').attr('title', 'Inici: ' + data.hourOpen);
+              } else{
+                $('#vote-' + uid + ' .vote-favorVote').html(data.favorVote);
+                $('#vote-' + uid + ' .vote-againstVote').html(data.againstVote);
+                $('#vote-' + uid + ' .vote-whiteVote').html(data.whiteVote);
+                $('#' + uid + ' .vote-users-favorVote').html(data.favorVoteListHTML);
+                $('#' + uid + ' .vote-users-againstVote').html(data.againstVoteListHTML);
+                $('#' + uid + ' .vote-users-whiteVote').html(data.whiteVoteListHTML);
+                $('#vote-' + uid + ' .fa-info-circle').attr('title', 'Inici: ' + data.hourOpen + '\nFi: ' + data.hourClose);
+                $('#vote-' + uid + ' .refreshVote').remove();
+              }
             },
     });
   });
