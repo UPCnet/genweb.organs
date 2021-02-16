@@ -1025,9 +1025,6 @@ class View(grok.View):
                         elif value == 'white':
                             data['whiteVote'] += 1
 
-                if data['favorVote'] == 0 and data['againstVote'] == 0 and data['whiteVote'] == 0:
-                    data['isPublic'] = False
-
                 results.append(data)
 
             acord_folder_path = '/'.join(acordObj.getPhysicalPath())
