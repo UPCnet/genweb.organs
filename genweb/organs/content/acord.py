@@ -522,17 +522,17 @@ def sendRemoveVoteEmail(context):
             mailhost.send(msg)
 
 
-class RemoveVote(grok.View):
-    grok.context(IAcord)
-    grok.name('removeVote')
-    grok.require('genweb.organs.manage.vote')
+# class RemoveVote(grok.View):
+#     grok.context(IAcord)
+#     grok.name('removeVote')
+#     grok.require('genweb.organs.manage.vote')
 
-    def render(self):
-        sendRemoveVoteEmail(self.context)
-        self.context.estatVotacio = None
-        self.context.tipusVotacio = None
-        self.context.infoVotacio = '{}'
-        self.context.horaIniciVotacio = None
-        self.context.horaFiVotacio = None
-        self.context.reindexObject()
-        transaction.commit()
+#     def render(self):
+#         sendRemoveVoteEmail(self.context)
+#         self.context.estatVotacio = None
+#         self.context.tipusVotacio = None
+#         self.context.infoVotacio = '{}'
+#         self.context.horaIniciVotacio = None
+#         self.context.horaFiVotacio = None
+#         self.context.reindexObject()
+#         transaction.commit()
