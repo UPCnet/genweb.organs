@@ -304,13 +304,16 @@ def sendRemoveVoteEmail(context):
             mailhost.send(msg)
 
 
-# class RemoveVote(grok.View):
-#     grok.context(IVotacioAcord)
-#     grok.name('removeVote')
-#     grok.require('genweb.organs.manage.vote')
+class RemoveVote(grok.View):
+    grok.context(IVotacioAcord)
+    grok.name('removeVote')
+    grok.require('genweb.organs.manage.vote')
 
-#     def render(self):
-#         sendRemoveVoteEmail(self.context)
-#         parent = self.context.aq_parent
-#         parent.manage_delObjects([self.context.getId()])
-#         transaction.commit()
+    def render(self):
+        estatSessio = utils.session_wf_state(self)
+        if estatSessio not in ['tancada', 'en_correccio']:
+            sendRemoveVoteEmail(self.context)
+
+        parent = self.context.aq_parent
+        parent.manage_delObjects([self.context.getId()])
+        transaction.commit()
