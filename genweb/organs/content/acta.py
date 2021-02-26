@@ -43,7 +43,7 @@ class IActa(form.Schema):
     fieldset('acta',
              label=_(u'Tab acta'),
              fields=['title', 'horaInici', 'horaFi', 'llocConvocatoria',
-                     'ordenDelDia', 'enllacVideo', 'file', 'infoGDoc']
+                     'ordenDelDia', 'enllacVideo', 'file', 'acta', 'infoGDoc']
              )
 
     fieldset('assistents',
@@ -119,6 +119,12 @@ class IActa(form.Schema):
     )
 
     file = NamedBlobFile(
+        title=_(u"Attachment"),
+        description=_(u"Attachment PDF file description"),
+        required=False,
+    )
+
+    acta = NamedBlobFile(
         title=_(u"Acta PDF"),
         description=_(u"Acta PDF file description"),
         required=False,
@@ -128,6 +134,7 @@ class IActa(form.Schema):
     infoGDoc = schema.Text(title=u'', required=False, default=u'{}')
 
 
+@form.validator(field=IActa['acta'])
 @form.validator(field=IActa['file'])
 def validateFileType(value):
     if value is not None:
@@ -348,9 +355,21 @@ class View(dexterity.DisplayForm):
         return False
 
     def getGdDocActa(self):
+        if not isinstance(self.context.infoGDoc, dict):
+            self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
+
         if self.context.infoGDoc:
             return {'filename': self.context.infoGDoc['acta']['filename'],
                     'sizeKB': self.context.infoGDoc['acta']['sizeKB']}
+
+    def getFilecActa(self):
+        if not isinstance(self.context.infoGDoc, dict):
+            self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
+
+        if 'adjunt' in self.context.infoGDoc and self.context.infoGDoc['adjunt'] != {}:
+            return {'filename': self.context.infoGDoc['adjunt']['filename'],
+                    'sizeKB': self.context.infoGDoc['adjunt']['sizeKB']}
+        return None
 
     def hasUnitatDocumental(self):
         if not isinstance(self.context.infoGDoc, dict):
@@ -382,7 +401,7 @@ class SignActa(grok.View):
 
         organ = utils.get_organ(self.context)
         if organ.visiblegdoc:
-            if self.context.file:
+            if self.context.acta:
                 gdoc_settings = utils.get_settings_gdoc()
 
                 try:
@@ -415,6 +434,7 @@ class SignActa(grok.View):
 
                                 self.context.infoGDoc.update({'unitatDocumental': str(content_exp['idElementCreat']),
                                                               'acta': {},
+                                                              'adjunt': {},
                                                               'audios': {},
                                                               'firma': '',
                                                               'enviatASignar': False})
@@ -427,7 +447,7 @@ class SignActa(grok.View):
                                              "agentsAmbCodiEsquemaIdentificacio": False,
                                              "validesaAdministrativa": True}
 
-                                files = {'fitxer': (self.context.file.filename, self.context.file.open().read(), self.context.file.contentType)}
+                                files = {'fitxer': (self.context.acta.filename, self.context.acta.open().read(), self.context.acta.contentType)}
 
                                 # Pujem l'acta a la sèrie documental creada al gdoc
                                 logger.info('4. Puja de l\'acta al gdoc')
@@ -446,9 +466,9 @@ class SignActa(grok.View):
                                         logger.info('4.3. S\'ha obtingut correctament el uuid de l\'acta')
                                         self.context.infoGDoc['acta'] = {'id': str(content_acta['idElementCreat']),
                                                                          'uuid': str(content_info_acta['documentElectronic']['uuid']),
-                                                                         'filename': self.context.file.filename,
-                                                                         'contentType': self.context.file.contentType,
-                                                                         'sizeKB': self.context.file.getSize() / 1024}
+                                                                         'filename': self.context.acta.filename,
+                                                                         'contentType': self.context.acta.contentType,
+                                                                         'sizeKB': self.context.acta.getSize() / 1024}
                                         self.context.reindexObject()
 
                                     else:
@@ -462,6 +482,51 @@ class SignActa(grok.View):
                                     logger.info(result_acta.content)
                                     self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pogut pujar l\'acta: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
                                     return self.request.response.redirect(self.context.absolute_url())
+
+                                # Mirem si hi ha algun fitxer adjunt
+                                if self.context.file:
+                                    data_file = {"tipusDocumental": "906340",
+                                                 "idioma": "CA",
+                                                 "nomAplicacioCreacio": "Govern UPC",
+                                                 "autors": "[{'id': '1291399'}]",
+                                                 "agentsAmbCodiEsquemaIdentificacio": False,
+                                                 "validesaAdministrativa": True}
+
+                                    files = {'fitxer': (self.context.file.filename, self.context.file.open().read(), self.context.file.contentType)}
+
+                                    # Pujem el fitxer adjunt a la sèrie documental creada al gdoc
+                                    logger.info('5. Puja del fitxer adjunt al gdoc')
+                                    result_file = requests.post(gdoc_settings.gdoc_url + '/api/pare/' + str(content_exp['idElementCreat']) + '/doce?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash, data=data_file, files=files)
+
+                                    content_file = json.loads(result_file.content)
+                                    if result_file.status_code == 200:
+                                        logger.info('5.1. S\'ha creat correctament el fitxer adjunt')
+
+                                        # Obtenim el uuid del fitxer adjunt pujat, necessària per a la petició al portafirmes
+                                        logger.info('5.2. Petició per demanar el uuid del fitxer adjunt')
+                                        result_info_file = requests.get(gdoc_settings.gdoc_url + '/api/doce/' + str(content_file['idElementCreat']) + '/consulta?hash=' + gdoc_settings.gdoc_hash, timeout=10)
+
+                                        content_info_file = json.loads(result_info_file.content)
+                                        if result_info_file.status_code == 200:
+                                            logger.info('5.3. S\'ha obtingut correctament el uuid del fitxer adjunt')
+                                            self.context.infoGDoc['adjunt'] = {'id': str(content_file['idElementCreat']),
+                                                                               'uuid': str(content_info_file['documentElectronic']['uuid']),
+                                                                               'filename': self.context.file.filename,
+                                                                               'contentType': self.context.file.contentType,
+                                                                               'sizeKB': self.context.file.getSize() / 1024}
+                                            self.context.reindexObject()
+
+                                        else:
+                                            logger.info('5.2.ERROR. Petició per demanar el uuid del fitxer adjunt')
+                                            logger.info(result_info_file.content)
+                                            self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pugut obtenir l\'informació del fitxer adjunt: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                                            return self.request.response.redirect(self.context.absolute_url())
+
+                                    else:
+                                        logger.info('5.ERROR. Puja del fitxer adjunt al gdoc')
+                                        logger.info(result_file.content)
+                                        self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pogut pujar el fitxer adjunt: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                                        return self.request.response.redirect(self.context.absolute_url())
 
                                 pos = 0
 
@@ -479,20 +544,20 @@ class SignActa(grok.View):
                                         files = {'fitxer': (audio.file.filename, audio.file.open(), audio.file.contentType)}
 
                                         # Pujem l'àudio a la sèrie documental creada al gdoc
-                                        logger.info('5. Puja del àudio al gdoc - ' + audio.file.filename)
+                                        logger.info('6. Puja del àudio al gdoc - ' + audio.file.filename)
                                         result_audio = requests.post(gdoc_settings.gdoc_url + '/api/pare/' + str(content_exp['idElementCreat']) + '/doce?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash, data=data_audio, files=files)
 
                                         content_audio = json.loads(result_audio.content)
                                         if result_audio.status_code == 200:
-                                            logger.info('5.1. S\'ha creat correctament el àudio')
+                                            logger.info('6.1. S\'ha creat correctament el àudio')
 
                                             # Obtenim el uuid de l'àudio pujat, necessària per a la petició al portafirmes
-                                            logger.info('5.2. Petició per demanar el uuid del àudio')
+                                            logger.info('6.2. Petició per demanar el uuid del àudio')
                                             result_info_audio = requests.get(gdoc_settings.gdoc_url + '/api/doce/' + str(content_audio['idElementCreat']) + '/consulta?hash=' + gdoc_settings.gdoc_hash, timeout=10)
 
                                             content_info_audio = json.loads(result_info_audio.content)
                                             if result_info_audio.status_code == 200:
-                                                logger.info('5.3. S\'ha obtingut correctament el uuid del àudio')
+                                                logger.info('6.3. S\'ha obtingut correctament el uuid del àudio')
                                                 self.context.infoGDoc['audios'].update({str(pos): {'id': str(content_audio['idElementCreat']),
                                                                                                    'uuid': str(content_info_audio['documentElectronic']['uuid']),
                                                                                                    'title': audio.title,
@@ -502,13 +567,13 @@ class SignActa(grok.View):
                                                 self.context.reindexObject()
 
                                             else:
-                                                logger.info('5.2.ERROR. Petició per demanar el uuid del àudio')
+                                                logger.info('6.2.ERROR. Petició per demanar el uuid del àudio')
                                                 logger.info(result_info_audio.content)
                                                 self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pugut obtenir l\'informació del àudio: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
                                                 return self.request.response.redirect(self.context.absolute_url())
 
                                         else:
-                                            logger.info('5.ERROR. Puja del àudio al gdoc - ' + audio.file.filename)
+                                            logger.info('6.ERROR. Puja del àudio al gdoc - ' + audio.file.filename)
                                             logger.info(result_audio.content)
                                             self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pogut pujar el àudio: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
                                             return self.request.response.redirect(self.context.absolute_url())
@@ -528,12 +593,12 @@ class SignActa(grok.View):
                                                 {
                                                     "commonName": "iago.lopez"
                                                 },
-                                                {
-                                                    "commonName": "janet.dura"
-                                                },
-                                                {
-                                                    "commonName": "eulalia.formenti"
-                                                },
+                                                # {
+                                                #     "commonName": "janet.dura"
+                                                # },
+                                                # {
+                                                #     "commonName": "eulalia.formenti"
+                                                # },
                                             ]
                                         }
                                     ],
@@ -551,21 +616,25 @@ class SignActa(grok.View):
                                     ]
                                 }
 
-                                if self.context.infoGDoc['audios']:
+                                if self.context.infoGDoc['audios'] or self.context.infoGDoc['adjunt']:
                                     data_sign.update({'documentsAnnexos': []})
+                                    if self.context.infoGDoc['adjunt']:
+                                        data_sign['documentsAnnexos'].append({"codi": self.context.infoGDoc['adjunt']['uuid']})
+
                                     for audio in self.context.infoGDoc['audios']:
                                         data_sign['documentsAnnexos'].append({"codi": self.context.infoGDoc['audios'][audio]['uuid']})
 
                                 # Creem la petició al portafirmes de l'acta i els àudios annexos
-                                logger.info('6. Petició de la firma al portafirmes')
+                                logger.info('7. Petició de la firma al portafirmes')
                                 result_sign = requests.post(gdoc_settings.portafirmes_url, json=data_sign, headers={'X-Api-Key': gdoc_settings.portafirmes_apikey}, timeout=10)
 
                                 if result_sign.status_code == 201:
-                                    logger.info('6.1. La petició de la firma s\'ha processat correctament')
+                                    logger.info('7.1. La petició de la firma s\'ha processat correctament')
                                     self.context._Add_portal_content_Permission = ('Manager', 'Site Administrator', 'WebMaster')
                                     self.context._Modify_portal_content_Permission = ('Manager', 'Site Administrator', 'WebMaster')
                                     self.context._Delete_objects_Permission = ('Manager', 'Site Administrator', 'WebMaster')
 
+                                    self.context.acta = None
                                     self.context.file = None
                                     for audio_id in self.context:
                                         api.content.delete(self.context[audio_id])
@@ -574,7 +643,7 @@ class SignActa(grok.View):
                                     self.context.plone_utils.addPortalMessage(_(u'S\'ha enviat a firmar correctament'), 'success')
                                     transaction.commit()
                                 else:
-                                    logger.info('6.ERROR. Petició de la firma al portafirmes')
+                                    logger.info('7.ERROR. Petició de la firma al portafirmes')
                                     logger.info(result_sign.content)
                                     self.context.plone_utils.addPortalMessage(_(u'No s\'ha pogut enviar a firmar: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
 
@@ -649,6 +718,56 @@ class DownloadActa(grok.View):
             if result.status_code == 200:
                 self.request.response.setHeader('content-type', self.context.infoGDoc['acta']['contentType'])
                 self.request.response.setHeader('content-disposition', 'attachment; filename=' + str(self.context.infoGDoc['acta']['filename']))
+                return result.content
+            else:
+                self.context.plone_utils.addPortalMessage(_(u'Error al consultar les dades'), 'error')
+
+            return self.request.response.redirect(self.context.absolute_url())
+
+
+class ViewFile(grok.View):
+    grok.context(IActa)
+    grok.name('viewFile')
+    grok.require('genweb.organs.gdoc.view')
+
+    def render(self):
+        organ = utils.get_organ(self.context)
+        if organ.visiblegdoc:
+            gdoc_settings = utils.get_settings_gdoc()
+
+            if not isinstance(self.context.infoGDoc, dict):
+                self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
+
+            result = requests.get(gdoc_settings.gdoc_url + '/api/documentelectronic/' + self.context.infoGDoc['adjunt']['uuid'] + '?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash)
+
+            if result.status_code == 200:
+                self.request.response.setHeader('content-type', self.context.infoGDoc['adjunt']['contentType'])
+                self.request.response.setHeader('content-disposition', 'inline; filename=' + str(self.context.infoGDoc['adjunt']['filename']))
+                return result.content
+            else:
+                self.context.plone_utils.addPortalMessage(_(u'Error al consultar les dades'), 'error')
+
+            return self.request.response.redirect(self.context.absolute_url())
+
+
+class DownloadFile(grok.View):
+    grok.context(IActa)
+    grok.name('downloadFile')
+    grok.require('genweb.organs.gdoc.view')
+
+    def render(self):
+        organ = utils.get_organ(self.context)
+        if organ.visiblegdoc:
+            gdoc_settings = utils.get_settings_gdoc()
+
+            if not isinstance(self.context.infoGDoc, dict):
+                self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
+
+            result = requests.get(gdoc_settings.gdoc_url + '/api/documentelectronic/' + self.context.infoGDoc['adjunt']['uuid'] + '?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash)
+
+            if result.status_code == 200:
+                self.request.response.setHeader('content-type', self.context.infoGDoc['adjunt']['contentType'])
+                self.request.response.setHeader('content-disposition', 'attachment; filename=' + str(self.context.infoGDoc['adjunt']['filename']))
                 return result.content
             else:
                 self.context.plone_utils.addPortalMessage(_(u'Error al consultar les dades'), 'error')

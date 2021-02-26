@@ -21,7 +21,8 @@
                    enllacVideo context/enllacVideo;
                    absolute_url context/absolute_url;
                    checkSerieGDoc view/checkSerieGDoc;
-                   hasUnitatDocumental view/hasUnitatDocumental;">
+                   hasUnitatDocumental view/hasUnitatDocumental;
+                   getFilecActa view/getFilecActa;">
 
 <tal:block tal:condition="view/canView">
 
@@ -199,7 +200,7 @@
     <ta:block tal:condition="context/file">
       <div tal:define="public_file_download_url string:${absolute_url}/@@download/file/${context/file/filename};
                      public_file_view_url string:${absolute_url}/@@display-file/file/;">
-        <h3 i18n:translate="">Acta PDF</h3>
+        <h3 i18n:translate="">Attachment</h3>
         <p>
           <a tal:attributes="href public_file_view_url">
             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
@@ -215,20 +216,57 @@
         </p>
       </div>
     </ta:block>
+    <ta:block tal:condition="context/acta">
+      <div tal:define="public_acta_download_url string:${absolute_url}/@@download/acta/${context/acta/filename};
+                       public_acta_view_url string:${absolute_url}/@@display-file/acta/;">
+        <h3 i18n:translate="">Acta PDF</h3>
+        <p>
+          <a tal:attributes="href public_acta_view_url">
+            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+            <tal:name tal:content="context/acta/filename">Filename</tal:name>
+          </a>
+          <span class="discreet"
+              tal:define="size context/acta/getSize;
+                          kb python:size/1024">
+            &mdash; <span tal:replace="kb" /> KB</span>
+            <a tal:attributes="href public_acta_download_url">
+              <i class="fa fa-download" aria-hidden="true"></i>
+            </a>
+        </p>
+      </div>
+    </ta:block>
   </tal:block>
   <tal:block tal:condition="hasUnitatDocumental" tal:define="acta view/getGdDocActa">
-    <div tal:define="public_file_download_url string:${absolute_url}/downloadActa;
-                     public_file_view_url string:${absolute_url}/viewActa;">
-      <h3 i18n:translate="">Acta PDF</h3>
+    <div tal:condition="getFilecActa"
+         tal:define="public_file_download_url string:${absolute_url}/downloadFile;
+                     public_file_view_url string:${absolute_url}/viewFile;">
+      <h3 i18n:translate="">Attachment</h3>
       <p>
         <a tal:attributes="href public_file_view_url">
+          <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+          <tal:name tal:content="getFilecActa/filename">Filename</tal:name>
+        </a>
+        <span class="discreet"
+            tal:define="kb getFilecActa/sizeKB">
+          &mdash; <span tal:replace="kb" /> KB</span>
+          <a tal:attributes="href public_file_download_url">
+            <i class="fa fa-download" aria-hidden="true"></i>
+          </a>
+      </p>
+    </div>
+
+    <div tal:define="public_acta_download_url string:${absolute_url}/downloadActa;
+                     public_acta_view_url string:${absolute_url}/viewActa;">
+      <h3 i18n:translate="">Acta PDF</h3>
+      <p>
+        <a tal:attributes="href public_acta_view_url">
           <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
           <tal:name tal:content="acta/filename">Filename</tal:name>
         </a>
         <span class="discreet"
             tal:define="kb acta/sizeKB">
           &mdash; <span tal:replace="kb" /> KB</span>
-          <a tal:attributes="href public_file_download_url">
+          <a tal:attributes="href public_acta_download_url">
             <i class="fa fa-download" aria-hidden="true"></i>
           </a>
       </p>
