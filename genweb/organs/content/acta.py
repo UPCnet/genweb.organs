@@ -28,6 +28,7 @@ import requests
 import transaction
 
 logger = logging.getLogger(__name__)
+TIMEOUT = 15
 
 grok.templatedir("templates")
 
@@ -358,7 +359,7 @@ class View(dexterity.DisplayForm):
         if not isinstance(self.context.infoGDoc, dict):
             self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
 
-        if self.context.infoGDoc:
+        if self.context.infoGDoc and self.context.infoGDoc['acta'] != {}:
             return {'filename': self.context.infoGDoc['acta']['filename'],
                     'sizeKB': self.context.infoGDoc['acta']['sizeKB']}
 
@@ -381,7 +382,7 @@ class View(dexterity.DisplayForm):
         if not isinstance(self.context.infoGDoc, dict):
             self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
 
-        return 'unitatDocumental' in self.context.infoGDoc and 'firma' in self.context.infoGDoc
+        return 'unitatDocumental' in self.context.infoGDoc and 'enviatASignar' in self.context.infoGDoc and self.context.infoGDoc['enviatASignar']
 
 
 class Edit(dexterity.EditForm):
@@ -396,6 +397,9 @@ class SignActa(grok.View):
     grok.require('genweb.organs.gdoc.sign')
 
     def render(self):
+        if not isinstance(self.context.infoGDoc, dict):
+            self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
+
         if self.context.infoGDoc and 'enviatASignar' in self.context.infoGDoc and self.context.infoGDoc['enviatASignar']:
             return self.request.response.redirect(self.context.absolute_url())
 
@@ -405,10 +409,22 @@ class SignActa(grok.View):
                 gdoc_settings = utils.get_settings_gdoc()
 
                 try:
+                    if self.context.infoGDoc and 'unitatDocumental' in self.context.infoGDoc and self.context.infoGDoc['unitatDocumental']:
+                        logger.info('0. Eliminació serie documental en gdoc per tornar-la a crear')
+                        result_del = requests.delete(gdoc_settings.gdoc_url + '/api/udch/' + self.context.infoGDoc['unitatDocumental'] + '/esborrar?&hash=' + gdoc_settings.gdoc_hash, timeout=TIMEOUT)
+
+                        if result_del.status_code == 200:
+                            logger.info('0.1. S\'ha eliminat correctament la serie documental en gdoc')
+                        else:
+                            logger.info('0.ERROR Eliminació serie documental en gdoc per tornar-la a crear')
+                            logger.info(result_del.content)
+                            self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pogut eliminar els contiguts de GDoc per tornar-los a crear.'), 'error')
+                            return self.request.response.redirect(self.context.absolute_url())
+
                     # Petició per obtenir un codi d'expedient
                     logger.info('1. Iniciant firma de l\'acta - ' + self.context.title)
                     logger.info('2. Demamant codi del expedient al servei generadorcodiexpedient')
-                    result_codi = requests.get(gdoc_settings.codiexpedient_url + '/api/codi?serie=' + organ.serie, headers={'X-Api-Key': gdoc_settings.codiexpedient_apikey}, timeout=10)
+                    result_codi = requests.get(gdoc_settings.codiexpedient_url + '/api/codi?serie=' + organ.serie, headers={'X-Api-Key': gdoc_settings.codiexpedient_apikey}, timeout=TIMEOUT)
 
                     if result_codi.status_code == 200:
                         logger.info('2.1. S\'ha obtingut correctament el codi del expedient')
@@ -422,7 +438,7 @@ class SignActa(grok.View):
 
                         # Petició que crea un sèrie documental / expedient en gdoc
                         logger.info('3. Creació de la serie documental en gdoc')
-                        result_exp = requests.post(gdoc_settings.gdoc_url + '/api/serie/' + organ.serie + '/udch?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash, json=data_exp, timeout=10)
+                        result_exp = requests.post(gdoc_settings.gdoc_url + '/api/serie/' + organ.serie + '/udch?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash, json=data_exp, timeout=TIMEOUT)
                         content_exp = json.loads(result_exp.content)
 
                         if result_exp.status_code == 200:
@@ -436,7 +452,6 @@ class SignActa(grok.View):
                                                               'acta': {},
                                                               'adjunt': {},
                                                               'audios': {},
-                                                              'firma': '',
                                                               'enviatASignar': False})
                                 self.context.reindexObject()
 
@@ -459,7 +474,7 @@ class SignActa(grok.View):
 
                                     # Obtenim el uuid de la acta pujada, necessària per a la petició al portafirmes
                                     logger.info('4.2. Petició per demanar el uuid de l\'acta')
-                                    result_info_acta = requests.get(gdoc_settings.gdoc_url + '/api/doce/' + str(content_acta['idElementCreat']) + '/consulta?hash=' + gdoc_settings.gdoc_hash, timeout=10)
+                                    result_info_acta = requests.get(gdoc_settings.gdoc_url + '/api/doce/' + str(content_acta['idElementCreat']) + '/consulta?hash=' + gdoc_settings.gdoc_hash, timeout=TIMEOUT)
 
                                     content_info_acta = json.loads(result_info_acta.content)
                                     if result_info_acta.status_code == 200:
@@ -504,7 +519,7 @@ class SignActa(grok.View):
 
                                         # Obtenim el uuid del fitxer adjunt pujat, necessària per a la petició al portafirmes
                                         logger.info('5.2. Petició per demanar el uuid del fitxer adjunt')
-                                        result_info_file = requests.get(gdoc_settings.gdoc_url + '/api/doce/' + str(content_file['idElementCreat']) + '/consulta?hash=' + gdoc_settings.gdoc_hash, timeout=10)
+                                        result_info_file = requests.get(gdoc_settings.gdoc_url + '/api/doce/' + str(content_file['idElementCreat']) + '/consulta?hash=' + gdoc_settings.gdoc_hash, timeout=TIMEOUT)
 
                                         content_info_file = json.loads(result_info_file.content)
                                         if result_info_file.status_code == 200:
@@ -553,7 +568,7 @@ class SignActa(grok.View):
 
                                             # Obtenim el uuid de l'àudio pujat, necessària per a la petició al portafirmes
                                             logger.info('6.2. Petició per demanar el uuid del àudio')
-                                            result_info_audio = requests.get(gdoc_settings.gdoc_url + '/api/doce/' + str(content_audio['idElementCreat']) + '/consulta?hash=' + gdoc_settings.gdoc_hash, timeout=10)
+                                            result_info_audio = requests.get(gdoc_settings.gdoc_url + '/api/doce/' + str(content_audio['idElementCreat']) + '/consulta?hash=' + gdoc_settings.gdoc_hash, timeout=TIMEOUT)
 
                                             content_info_audio = json.loads(result_info_audio.content)
                                             if result_info_audio.status_code == 200:
@@ -626,7 +641,7 @@ class SignActa(grok.View):
 
                                 # Creem la petició al portafirmes de l'acta i els àudios annexos
                                 logger.info('7. Petició de la firma al portafirmes')
-                                result_sign = requests.post(gdoc_settings.portafirmes_url, json=data_sign, headers={'X-Api-Key': gdoc_settings.portafirmes_apikey}, timeout=10)
+                                result_sign = requests.post(gdoc_settings.portafirmes_url, json=data_sign, headers={'X-Api-Key': gdoc_settings.portafirmes_apikey}, timeout=TIMEOUT)
 
                                 if result_sign.status_code == 201:
                                     logger.info('7.1. La petició de la firma s\'ha processat correctament')

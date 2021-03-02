@@ -22,7 +22,8 @@
                    absolute_url context/absolute_url;
                    checkSerieGDoc view/checkSerieGDoc;
                    hasUnitatDocumental view/hasUnitatDocumental;
-                   getFilecActa view/getFilecActa;">
+                   getFilecActa view/getFilecActa;
+                   hasFirma view/hasFirma;">
 
 <tal:block tal:condition="view/canView">
 
@@ -67,7 +68,7 @@
       </div>
     </div>
 
-    <tal:block tal:condition="not: view/hasFirma">
+    <tal:block tal:condition="not:hasFirma">
       <tal:block tal:condition="checkSerieGDoc/visible_gdoc">
         <a class="btn btn-info btnActa" style="float:right;" href="signActa"
            tal:condition="checkSerieGDoc/valid_serie">
@@ -196,7 +197,7 @@
 
   <br/>
 
-  <tal:block tal:condition="not:hasUnitatDocumental">
+  <tal:block tal:condition="not:hasFirma">
     <ta:block tal:condition="context/file">
       <div tal:define="public_file_download_url string:${absolute_url}/@@download/file/${context/file/filename};
                      public_file_view_url string:${absolute_url}/@@display-file/file/;">
@@ -236,7 +237,7 @@
       </div>
     </ta:block>
   </tal:block>
-  <tal:block tal:condition="hasUnitatDocumental" tal:define="acta view/getGdDocActa">
+  <tal:block tal:condition="hasFirma" tal:define="acta view/getGdDocActa">
     <div tal:condition="getFilecActa"
          tal:define="public_file_download_url string:${absolute_url}/downloadFile;
                      public_file_view_url string:${absolute_url}/viewFile;">
