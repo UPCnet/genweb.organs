@@ -311,7 +311,7 @@ class RemoveVote(grok.View):
 
     def render(self):
         estatSessio = utils.session_wf_state(self)
-        if estatSessio not in ['tancada', 'en_correccio']:
+        if estatSessio not in ['realitzada', 'tancada', 'en_correccio']:
             sendRemoveVoteEmail(self.context)
 
         parent = self.context.aq_parent
