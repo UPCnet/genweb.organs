@@ -122,6 +122,12 @@ class IAcord(form.Schema):
     directives.omitted('tipusVotacio')
     tipusVotacio = schema.Choice(title=u'', source=llistaTipusVotacio, required=False)
 
+    directives.omitted('horaIniciVotacio')
+    horaIniciVotacio = schema.Text(title=u'', required=False)
+
+    directives.omitted('horaFiVotacio')
+    horaFiVotacio = schema.Text(title=u'', required=False)
+
     directives.omitted('infoVotacio')
     infoVotacio = schema.Text(title=u'', required=False, default=u'{}')
 
@@ -273,6 +279,7 @@ class OpenPublicVote(grok.View):
     def render(self):
         self.context.estatVotacio = 'open'
         self.context.tipusVotacio = 'public'
+        self.context.horaIniciVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
         self.context.reindexObject()
         transaction.commit()
 
@@ -287,6 +294,7 @@ class OpenOtherPublicVote(grok.View):
             item = createContentInContainer(self.context, "genweb.organs.votacioacord", title=self.request.form['title'])
             item.estatVotacio = 'open'
             item.tipusVotacio = 'public'
+            item.horaIniciVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
             item.reindexObject()
             transaction.commit()
 
@@ -299,6 +307,7 @@ class OpenOtherPublicVote(grok.View):
 #     def render(self):
 #         self.context.estatVotacio = 'open'
 #         self.context.tipusVotacio = 'secret'
+#         self.context.horaIniciVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
 #         self.context.reindexObject()
 #         transaction.commit()
 
@@ -313,6 +322,7 @@ class OpenOtherPublicVote(grok.View):
 #             item = createContentInContainer(self.context, "genweb.organs.votacioacord", title=self.request.form['title'])
 #             item.estatVotacio = 'open'
 #             item.tipusVotacio = 'secret'
+#             item.horaIniciVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
 #             item.reindexObject()
 #             transaction.commit()
 
@@ -335,6 +345,7 @@ class CloseVote(grok.View):
 
     def render(self):
         self.context.estatVotacio = 'close'
+        self.context.horaFiVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
         self.context.reindexObject()
         transaction.commit()
 
@@ -398,10 +409,12 @@ def sendVoteEmail(context, vote):
         mailhost = getToolByName(context, 'MailHost')
 
         portal = api.portal.get()
-        sender_email = portal.getProperty('email_from_address')
-        sender_name = portal.getProperty('email_from_name').encode('utf-8')
         email_charset = portal.getProperty('email_charset')
-        sender_name + ' ' + '<' + sender_email + '>'
+
+        if context.aq_parent.portal_type == 'genweb.organs.sessio':
+            sender_email = context.aq_parent.aq_parent.fromMail
+        elif context.aq_parent.portal_type == 'genweb.organs.punt':
+            sender_email = context.aq_parent.aq_parent.aq_parent.fromMail
 
         msg = MIMEMultipart()
         msg['From'] = sender_email
@@ -443,14 +456,86 @@ Missatge automàtic generat per https://govern.upc.edu/"""
             mailhost.send(msg)
 
 
+def sendRemoveVoteEmail(context):
+    context = aq_inner(context)
+    mailhost = getToolByName(context, 'MailHost')
+
+    portal = api.portal.get()
+    email_charset = portal.getProperty('email_charset')
+
+    if context.aq_parent.portal_type == 'genweb.organs.sessio':
+        sender_email = context.aq_parent.aq_parent.fromMail
+    elif context.aq_parent.portal_type == 'genweb.organs.punt':
+        sender_email = context.aq_parent.aq_parent.aq_parent.fromMail
+
+    user_emails = []
+
+    infoVotacio = context.infoVotacio
+    if isinstance(infoVotacio, str) or isinstance(infoVotacio, unicode):
+        infoVotacio = ast.literal_eval(infoVotacio)
+
+    for key, value in infoVotacio.items():
+        try:
+            email = api.user.get(username=key).getProperty('email')
+            if email:
+                user_emails.append(email)
+        except:
+            pass
+
+    if user_emails:
+        msg = MIMEMultipart()
+        msg['From'] = sender_email
+        msg['Bcc'] = ', '.join(user_emails)
+        msg['Subject'] = escape(safe_unicode(_(u'Votació anul·lada Govern UPC')))
+        msg['charset'] = email_charset
+
+        message = """En data {data}, hora {hora}, la votació de l'acord {acord} de la sessió {sessio} de l'òrgan {organ} ha estat anul·lada i el teu vot emès ha estat eliminat.
+
+    Missatge automàtic generat per https://govern.upc.edu/"""
+
+        now = datetime.datetime.now()
+        if context.aq_parent.portal_type == 'genweb.organs.sessio':
+
+            data = {
+                'data': now.strftime("%d/%m/%Y"),
+                'hora': now.strftime("%H:%M"),
+                'acord': context.aq_parent.title,
+                'sessio': context.aq_parent.aq_parent.title,
+                'organ': context.aq_parent.aq_parent.aq_parent.title,
+            }
+
+            msg.attach(MIMEText(message.format(**data), 'plain', email_charset))
+            mailhost.send(msg)
+
+        elif context.aq_parent.portal_type == 'genweb.organs.punt':
+
+            data = {
+                'data': now.strftime("%d/%m/%Y"),
+                'hora': now.strftime("%H:%M"),
+                'esmena': context.title,
+                'acord': context.aq_parent.title,
+                'sessio': context.aq_parent.aq_parent.aq_parent.title,
+                'organ': context.aq_parent.aq_parent.aq_parent.aq_parent.title,
+            }
+
+            msg.attach(MIMEText(message.format(**data), 'plain', email_charset))
+            mailhost.send(msg)
+
+
 class RemoveVote(grok.View):
     grok.context(IAcord)
     grok.name('removeVote')
     grok.require('genweb.organs.manage.vote')
 
     def render(self):
+        estatSessio = utils.session_wf_state(self)
+        if estatSessio not in ['realitzada', 'tancada', 'en_correccio']:
+            sendRemoveVoteEmail(self.context)
+
         self.context.estatVotacio = None
         self.context.tipusVotacio = None
         self.context.infoVotacio = '{}'
+        self.context.horaIniciVotacio = None
+        self.context.horaFiVotacio = None
         self.context.reindexObject()
         transaction.commit()

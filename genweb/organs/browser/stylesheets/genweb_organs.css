@@ -713,11 +713,13 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
 }
 
 .bodyPresentation .bannerOrgansPresentation .bannerTitle {
-    font-size: 40px;
+    font-size: 36px;
+    line-height: 36px;
     left: 0px;
+    top: 70px;
     margin-left: 0;
-    padding-left: 12%;
-    top: 72px;
+    padding-left: 11%;
+    padding-right: 11%;
 }
 
 .bodyPresentation h1{
@@ -2445,9 +2447,14 @@ a.calendari-seguent:hover  {
     border-top: 0px solid #b2b2b2;
 }
 
+#resultsVotesTab .fa-refresh:hover,
 #resultsVotesTab .removeVote:hover {
     color: #557c95;
     cursor: pointer;
+}
+
+#resultsVotesTab .fa-info-circle:hover {
+    color: #557c95;
 }
 
 .hasVote .btn-notvote,

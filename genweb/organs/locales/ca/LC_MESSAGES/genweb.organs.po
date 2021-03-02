@@ -326,9 +326,9 @@ msgstr "Contingut públic"
 msgid "Contingut reservat"
 msgstr "Contingut restringit"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:224
-msgid "Control Quorum"
-msgstr "Control Quòrum"
+#: ./genweb/organs/content/templates/sessio_view.pt:223
+msgid "Control quorum"
+msgstr "Control quòrum"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:242
 msgid "Convocatoria"
@@ -907,9 +907,9 @@ msgstr "Membre"
 msgid "OG4-Afectat"
 msgstr "Afectat"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:205
-msgid "Obrir Quorum"
-msgstr "Obrir Quòrum"
+#: ./genweb/organs/content/templates/sessio_view.pt:204
+msgid "Obrir quorum"
+msgstr "Obrir quòrum"
 
 #: ./genweb/organs/content/audio.py:57
 msgid "Only audio files are permitted."
@@ -1336,9 +1336,9 @@ msgstr "Punt informatiu"
 msgid "Tancar"
 msgstr "Tanca"
 
-#: ./genweb/organs/content/templates/sessio_view.pt:213
-msgid "Tancar Quorum"
-msgstr "Tancar Quòrum"
+#: ./genweb/organs/content/templates/sessio_view.pt:212
+msgid "Tancar quorum"
+msgstr "Tancar quòrum"
 
 #: ./genweb/organs/content/proposar_punt.py:72
 msgid "Telèfon"

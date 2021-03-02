@@ -1,11 +1,46 @@
 Changelog
 =========
 
-0.45 (unreleased)
+0.46 (unreleased)
 -----------------
 
 - Nothing changed yet.
 
+
+0.45 (2021-03-01)
+-----------------
+
+* Cambiar permisos para ver las votaciones y el quorum, activo a todos [Iago López Fernández]
+* Cambiar permisos para ver las votaciones y el quorum [Iago López Fernández]
+* Descomentar mensaje al borrar votación y solo enviarlo si la session no esta en estado tancada o en modificació [Iago López Fernández]
+* Tabla votaciones [Iago López Fernández]
+* Tabla votaciones [Iago López Fernández]
+* Comentar mensaje al borrar votación [Iago López Fernández]
+* Refrescar votación [Iago López Fernández]
+* Previsualizar pdf de los ficheros restringidos [Iago López Fernández]
+* Mostrar permisos por defecto de plone en el sharing de genweb.organs.organgover [Iago López Fernández]
+* Informar fecha de inicio y fin de las votaciones en dispositivos móviles [Iago López Fernández]
+* Enviar correo al eliminar una votación [Iago López Fernández]
+* Enviar correo al eliminar una votación [Iago López Fernández]
+* Informar fecha de inicio y fin de las votaciones [Iago López Fernández]
+* Enviar correos votaciones con el correo definido en el organ [Iago López Fernández]
+* Cambiar literales quorum [Iago López Fernández]
+* No mostrar título votación sin validación [Iago López Fernández]
+* Estilos vista presentacion [Iago López Fernández]
+* Cambiar orden visualización votación final y esmena + cambiar sus literales [Iago López Fernández]
+* Permisos afectados en organs publicos [Iago López Fernández]
+* Fix email esmenas [Iago López Fernández]
+* Fix email esmenas [Iago López Fernández]
+* Añadir permisos a los Afectat para ver documentación en los organ publicos [Iago López Fernández]
+* Permisos contenido votacion [Iago López Fernández]
+* Literal [Iago López Fernández]
+* Votaciones de <acords> dentro de <punts> [Iago López Fernández]
+* Al abrir quorum solo añadir al usuario si es secretario [Iago López Fernández]
+* Cambios votaciones: posibilidad de votar esmena antes del acord [Iago López Fernández]
+* No mostrar sessions en estat planificada en l'apartat Accessos directes a les sessions mes recents [Iago López Fernández]
+* Organs publicos, hacer publica la información una vez convocada [Iago López Fernández]
+* Fix: Envio correo notificacion voto [Iago López Fernández]
+* No mostrar sessions en estat planificada en l'apartat Accessos directes a les sessions mes recents [Iago López Fernández]
 
 0.44 (2020-09-30)
 -----------------

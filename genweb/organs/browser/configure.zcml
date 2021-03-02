@@ -155,4 +155,12 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <browser:page
+    for="*"
+    name="reloadVoteStats"
+    class=".views.ReloadVoteStats"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="genweb.organs.add.vote"
+    />
+
 </configure>

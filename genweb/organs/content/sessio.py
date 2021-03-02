@@ -924,31 +924,22 @@ class View(grok.View):
     def canViewManageVote(self):
         # estatSessio = utils.session_wf_state(self)
         # return estatSessio == 'convocada' and (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self))
-        if self.context.aq_parent.id == 'consell-de-govern':
-            return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
-        return False
+        return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
 
     def canViewVoteButtons(self):
         # estatSessio = utils.session_wf_state(self)
         # return estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isMembre(self))
-        if self.context.aq_parent.id == 'consell-de-govern':
-            return utils.isSecretari(self) or utils.isMembre(self)
-        return False
+        return utils.isSecretari(self) or utils.isMembre(self)
 
     def canViewResultsVote(self):
         # estatSessio = utils.session_wf_state(self)
         # return estatSessio == 'convocada' and (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self))
-        if self.context.aq_parent.id == 'consell-de-govern':
-            return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
-        return False
+        return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
 
     def canViewLinkSala(self):
         return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
 
     def getAllResultsVotes(self):
-        if self.context.aq_parent.id != 'consell-de-govern':
-            return []
-
         portal_catalog = getToolByName(self, 'portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
@@ -984,6 +975,8 @@ class View(grok.View):
                         'state': _(u'open') if acordObj.estatVotacio == 'open' else _(u'close'),
                         'isOpen': acordObj.estatVotacio == 'open',
                         'isPublic': acordObj.tipusVotacio == 'public' and self.canViewManageVote(),
+                        'hourOpen': acordObj.horaIniciVotacio,
+                        'hourClose': acordObj.horaFiVotacio,
                         'favorVote': 0,
                         'againstVote': 0,
                         'whiteVote': 0,
@@ -1023,9 +1016,6 @@ class View(grok.View):
                         elif value == 'white':
                             data['whiteVote'] += 1
 
-                if data['favorVote'] == 0 and data['againstVote'] == 0 and data['whiteVote'] == 0:
-                    data['isPublic'] = False
-
                 results.append(data)
 
             acord_folder_path = '/'.join(acordObj.getPhysicalPath())
@@ -1043,6 +1033,8 @@ class View(grok.View):
                         'state': '',
                         'isOpen': False,
                         'isPublic': False,
+                        'hourOpen': acordObj.horaIniciVotacio,
+                        'hourClose': acordObj.horaFiVotacio,
                         'favorVote': '',
                         'againstVote': '',
                         'whiteVote': '',
@@ -1061,6 +1053,8 @@ class View(grok.View):
                         'state': _(u'open') if esmenaObj.estatVotacio == 'open' else _(u'close'),
                         'isPublic': esmenaObj.tipusVotacio == 'public' and self.canViewManageVote(),
                         'isOpen': esmenaObj.estatVotacio == 'open',
+                        'hourOpen': esmenaObj.horaIniciVotacio,
+                        'hourClose': esmenaObj.horaFiVotacio,
                         'favorVote': 0,
                         'againstVote': 0,
                         'whiteVote': 0,
@@ -1100,9 +1094,6 @@ class View(grok.View):
                         elif value == 'white':
                             data['whiteVote'] += 1
 
-                if data['favorVote'] == 0 and data['againstVote'] == 0 and data['whiteVote'] == 0:
-                    data['isPublic'] = False
-
                 results.append(data)
 
         return results
@@ -1120,14 +1111,10 @@ class View(grok.View):
         return self.context.infoQuorums
 
     def canViewManageQuorumButtons(self):
-        if self.context.aq_parent.id == 'consell-de-govern':
-            return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
-        return False
+        return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
 
     def canViewAddQuorumButtons(self):
-        if self.context.aq_parent.id == 'consell-de-govern':
-            return utils.isSecretari(self) or utils.isMembre(self)
-        return False
+        return utils.isSecretari(self) or utils.isMembre(self)
 
     def checkHasQuorum(self):
         if not isinstance(self.context.infoQuorums, dict):

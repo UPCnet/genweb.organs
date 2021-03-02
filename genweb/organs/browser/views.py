@@ -11,11 +11,13 @@ from plone import api
 from plone.event.interfaces import IEventAccessor
 from plone.folder.interfaces import IExplicitOrdering
 from zope.interface import alsoProvides
+from zope.i18n import translate
 
 from genweb.organs import _
 from genweb.organs import utils
 from genweb.organs.utils import addEntryLog
 
+import ast
 import datetime
 import DateTime
 import json
@@ -952,3 +954,65 @@ class ReorderSessions(BrowserView):
                 num_sessio = '0' + num_sessio
 
         self.request.response.redirect(self.context.absolute_url())
+
+
+class ReloadVoteStats(BrowserView):
+    """ Retorna el valor necessaris per refrescar les dades d'una votació"""
+    def __call__(self):
+        portal_catalog = getToolByName(self, 'portal_catalog')
+        results = portal_catalog.unrestrictedSearchResults(
+            UID=self.request.UID,
+            portal_type=['genweb.organs.votacioacord', 'genweb.organs.acord', 'genweb.organs.punt'])
+
+        if results:
+            votacio = results[0].getObject()
+            viewList = utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
+            lang = self.context.language
+
+            infoVotacio = votacio.infoVotacio
+            if isinstance(infoVotacio, str) or isinstance(infoVotacio, unicode):
+                infoVotacio = ast.literal_eval(infoVotacio)
+
+            if votacio.estatVotacio == 'open':
+                data = {'open': True,
+                        'state': translate(msgid='open', domain='genweb.organs', target_language=lang),
+                        'hourOpen': votacio.horaIniciVotacio,
+                        'totalVote': 0,
+                        'totalVoteListHTML': ''}
+
+                for key, value in infoVotacio.items():
+                    data['totalVote'] += 1
+                    if viewList:
+                        data['totalVoteListHTML'] += '<p>' + key + '</p>'
+            else:
+                data = {'open': False,
+                        'state': translate(msgid='close', domain='genweb.organs', target_language=lang),
+                        'hourOpen': votacio.horaIniciVotacio,
+                        'hourClose': votacio.horaFiVotacio,
+                        'favorVote': 0,
+                        'favorVoteListHTML': '',
+                        'againstVote': 0,
+                        'againstVoteListHTML': '',
+                        'whiteVote': 0,
+                        'whiteVoteListHTML': '',
+                        'totalVote': 0,
+                        'totalVoteListHTML': ''}
+
+                for key, value in infoVotacio.items():
+                    data['totalVote'] += 1
+                    if value == 'favor':
+                        data['favorVote'] += 1
+                        if viewList:
+                            data['favorVoteListHTML'] += '<p>' + key + '</p>'
+                    elif value == 'against':
+                        data['againstVote'] += 1
+                        if viewList:
+                            data['againstVoteListHTML'] += '<p>' + key + '</p>'
+                    elif value == 'white':
+                        data['whiteVote'] += 1
+                        if viewList:
+                            data['whiteVoteListHTML'] += '<p>' + key + '</p>'
+
+            return json.dumps(data)
+
+        return False

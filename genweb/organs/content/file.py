@@ -101,6 +101,13 @@ class View(grok.View):
         else:
             return None
 
+    def pdf_reserved(self):
+        if self.context.hiddenfile:
+            ct = self.context.hiddenfile.contentType
+            return 'application/pdf' == ct
+        else:
+            return None
+
     def audio_reserved(self):
         if self.context.hiddenfile:
             ct = self.context.hiddenfile.contentType
