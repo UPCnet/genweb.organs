@@ -149,7 +149,8 @@ class SharingView(BrowserView):
             # carpeta OG (genweb.organs.organsfolder) que son els default
             # i al OG (genweb.organs.organgovern)
 
-            if self.context.portal_type == 'genweb.organs.sessio' \
+            if self.context.portal_type == 'genweb.organs.organgovern' \
+               or self.context.portal_type == 'genweb.organs.sessio' \
                or self.context.portal_type == 'genweb.organs.acord' \
                or self.context.portal_type == 'genweb.organs.acta' \
                or self.context.portal_type == 'genweb.organs.audio' \
