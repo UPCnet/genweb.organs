@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from Acquisition import aq_chain
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.PluggableAuthService.interfaces.plugins import IPropertiesPlugin
@@ -203,6 +204,7 @@ def addExcuse(context, name, email, message):
 
         data.append(values)
         annotations[KEY] = data
+
 
 def addPoint(context, names, title, justification, path):
     """ Adds entry log with the values:
@@ -444,3 +446,11 @@ def session_wf_state(self):
 def get_settings_property(property_id):
     settings = getUtility(IRegistry).forInterface(IOrgansSettings)
     return getattr(settings, property_id, None)
+
+
+def get_organ(context):
+    from genweb.organs.content.organgovern import IOrgangovern
+    for obj in aq_chain(context):
+        if IOrgangovern.providedBy(obj):
+            return obj
+    return None
