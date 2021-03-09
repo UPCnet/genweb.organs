@@ -384,6 +384,24 @@ class View(dexterity.DisplayForm):
 
         return 'unitatDocumental' in self.context.infoGDoc and 'enviatASignar' in self.context.infoGDoc and self.context.infoGDoc['enviatASignar']
 
+    def estatFirma(self):
+        if not isinstance(self.context.infoGDoc, dict):
+            self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
+
+        if 'firma' in self.context.infoGDoc and 'id' in self.context.infoGDoc['firma']:
+            gdoc_settings = utils.get_settings_gdoc()
+            result = requests.get(gdoc_settings.portafirmes_url + '/' + str(self.context.infoGDoc['firma']['id']), headers={'X-Api-Key': gdoc_settings.portafirmes_apikey}, timeout=TIMEOUT)
+
+            if result.status_code == 200:
+                content = json.loads(result.content)
+                self.context.infoGDoc['firma']['estat'] = content['estatPeticio']
+                return content['estatPeticio']
+            else:
+                self.context.plone_utils.addPortalMessage(_(u'No s\'ha pogut obtenir informació del portafirmes: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                return self.context.infoGDoc['firma']['estat']
+        else:
+            return 'PENDENT'
+
 
 class Edit(dexterity.EditForm):
     """A standard edit form.
@@ -452,7 +470,8 @@ class SignActa(grok.View):
                                                               'acta': {},
                                                               'adjunt': {},
                                                               'audios': {},
-                                                              'enviatASignar': False})
+                                                              'enviatASignar': False,
+                                                              'firma': {}})
                                 self.context.reindexObject()
 
                                 data_acta = {"tipusDocumental": "452",
@@ -605,12 +624,12 @@ class SignActa(grok.View):
                                         {
                                             "nivellSignatura": "CDA",
                                             "signants": [
-                                                {
-                                                    "commonName": "iago.lopez"
-                                                },
                                                 # {
-                                                #     "commonName": "janet.dura"
+                                                #     "commonName": "iago.lopez"
                                                 # },
+                                                {
+                                                    "commonName": "janet.dura"
+                                                },
                                                 # {
                                                 #     "commonName": "eulalia.formenti"
                                                 # },
@@ -655,6 +674,11 @@ class SignActa(grok.View):
                                         api.content.delete(self.context[audio_id])
 
                                     self.context.infoGDoc['enviatASignar'] = True
+
+                                    content_sign = json.loads(result_sign.content)
+                                    self.context.infoGDoc['firma'] = {'id': content_sign['idPeticio'],
+                                                                      'estat': content_sign['estatPeticio']}
+
                                     self.context.plone_utils.addPortalMessage(_(u'S\'ha enviat a firmar correctament'), 'success')
                                     transaction.commit()
                                 else:

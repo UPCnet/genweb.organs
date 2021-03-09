@@ -2495,3 +2495,10 @@ body.portaltype-genweb-organs-votacioacord input#form-widgets-title {
 .list-banners .link_blank {
     display: none !important;
 }
+
+.estatFirma {
+    padding: 5px 10px !important;
+    border-radius: 15px !important;
+    margin-top: 4px;
+    display: inline-block;
+}

@@ -68,6 +68,8 @@
       </div>
     </div>
 
+    <span class="badge badge-pill estatFirma" tal:condition="hasFirma" tal:content="view/estatFirma">PENDENT_SIGNANTS</span>
+
     <tal:block tal:condition="not:hasFirma">
       <tal:block tal:condition="checkSerieGDoc/visible_gdoc">
         <a class="btn btn-info btnActa" style="float:right;" href="signActa"
