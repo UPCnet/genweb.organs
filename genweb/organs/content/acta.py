@@ -660,7 +660,7 @@ class SignActa(grok.View):
 
                                 # Creem la petició al portafirmes de l'acta i els àudios annexos
                                 logger.info('7. Petició de la firma al portafirmes')
-                                result_sign = requests.post(gdoc_settings.portafirmes_url, json=data_sign, headers={'X-Api-Key': gdoc_settings.portafirmes_apikey}, timeout=TIMEOUT)
+                                result_sign = requests.post(gdoc_settings.portafirmes_url, json=data_sign, headers={'X-Api-Key': gdoc_settings.portafirmes_apikey})
 
                                 if result_sign.status_code == 201:
                                     logger.info('7.1. La petició de la firma s\'ha processat correctament')

@@ -54,6 +54,13 @@
       </div>
     </tal:block>
 
+    <div id="infoSend" class="alert alert-warning" role="alert">
+      <button data-dismiss="alert" class="close" type="button">×</button>
+      <strong>Info</strong>
+      <p i18n:translate="">Aquesta acció pot trigar una estona. El procés de signatura continuarà independentment de que aquesta pantalla pugui donar timeout.</p>
+      <p i18n:translate="">Si en uns minuts torneu a aquesta pàgina apareixerà l'estat de l'acta ja processada en el portafirmes.</p>
+    </div>
+
     <div class="modal fade hide previewModal" id="previewModal" tabindex="-1" role="dialog"
          aria-labelledby="previewModalLabel" aria-hidden="true" data-remote="previewActa">
       <div class="modal-header">
@@ -72,7 +79,7 @@
 
     <tal:block tal:condition="not:hasFirma">
       <tal:block tal:condition="checkSerieGDoc/visible_gdoc">
-        <a class="btn btn-info btnActa" style="float:right;" href="signActa"
+        <a id="signActa" class="btn btn-info btnActa" style="float:right;" href="signActa"
            tal:condition="checkSerieGDoc/valid_serie">
             <i class="fa fa-arrow-right"></i>&nbsp;<span i18n:translate=""> Enviar acta a signar</span>
         </a>
@@ -275,6 +282,19 @@
       </p>
     </div>
   </tal:block>
+
+  <div id="miniLoaderScreen">
+    <div class="loaderBorder">
+      <div class="loader"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $('#signActa').on('click', function(){
+      $('#infoSend').show();
+      $('#miniLoaderScreen').show();
+    });
+  </script>
 
 </tal:block>
 </metal:content-core>

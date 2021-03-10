@@ -2502,3 +2502,51 @@ body.portaltype-genweb-organs-votacioacord input#form-widgets-title {
     margin-top: 4px;
     display: inline-block;
 }
+
+#infoSend {
+    display: none;
+}
+
+#miniLoaderScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background-color: #80808033;
+    display: none;
+}
+
+#miniLoaderScreen .loaderBorder {
+    position: fixed;
+    top: calc(50% - 2px);
+    left: calc(50% - 2px);
+    border: 7px solid #0a7fc2;
+    border-radius: 50% !important;
+    width: 35px;
+    height: 35px;
+}
+
+#miniLoaderScreen .loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    border: 5px solid #FFFFFF;
+    border-top: 5px solid #007BC1;
+    border-radius: 50% !important;
+    width: 35px;
+    height: 35px;
+    animation: spin 2s linear infinite;
+    -webkit-animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
