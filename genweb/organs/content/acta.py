@@ -638,7 +638,7 @@ class SignActa(grok.View):
                                     ],
                                     "promocionar": "S",
                                     "codiCategoria": "CAT6",
-                                    "codiTipusSignatura": "ATTACHED",
+                                    "codiTipusSignatura": "ATTACHED_VISIBLE_MARGE",
                                     "dataLimit": (now + datetime.timedelta(days=1)).strftime("%d-%m-%Y %H:%M:00"),
                                     "emissor": "Govern UPC",
                                     "informacio": "Signatura acta" + ' - ' + self.context.title,
