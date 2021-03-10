@@ -57,8 +57,7 @@
     <div id="infoSend" class="alert alert-warning" role="alert">
       <button data-dismiss="alert" class="close" type="button">×</button>
       <strong>Info</strong>
-      <p i18n:translate="">Aquesta acció pot trigar una estona. El procés de signatura continuarà independentment de que aquesta pantalla pugui donar timeout.</p>
-      <p i18n:translate="">Si en uns minuts torneu a aquesta pàgina apareixerà l'estat de l'acta ja processada en el portafirmes.</p>
+      <span i18n:translate="">Aquesta acció pot trigar una estona. El procés de signatura continuarà independentment de que aquesta pantalla pugui donar timeout. Si en uns minuts torneu a aquesta pàgina apareixerà l'estat de l'acta ja processada en el portafirmes.</span>
     </div>
 
     <div class="modal fade hide previewModal" id="previewModal" tabindex="-1" role="dialog"
