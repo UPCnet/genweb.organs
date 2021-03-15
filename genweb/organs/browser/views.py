@@ -835,6 +835,7 @@ class findFileProperties(BrowserView):
         )
         return json.dumps(results)
 
+
 class allOrgans(BrowserView):
     __call__ = ViewPageTemplateFile('views/allorgans.pt')
 
@@ -893,15 +894,22 @@ class allOrgans(BrowserView):
             else:
                 afectats = afectats[:-2]
 
-            elements = dict(title = obj.Title(),
-                        path = obj.absolute_url(),
-                        organType = obj.organType,
-                        acronim= obj.acronim,
-                        secretaris = secretaris,
-                        editors = editors,
-                        membres = membres,
-                        afectats = afectats,
-                        parent = pa.Title())
+            sessions_open_last_year = api.content.find(
+                portal_type='genweb.organs.sessio',
+                path='/'.join(obj.getPhysicalPath()),
+                start={'query': datetime.datetime.now() - datetime.timedelta(days=365), 'range': 'min'})
+
+            elements = dict(
+                title=obj.Title(),
+                path=obj.absolute_url(),
+                organType=obj.organType,
+                acronim=obj.acronim,
+                secretaris=secretaris,
+                editors=editors,
+                membres=membres,
+                afectats=afectats,
+                sessions_open_last_year=len(sessions_open_last_year),
+                parent=pa.Title())
 
             if pa.getParentNode().id != "ca":
                 elements['grandparent'] = pa.getParentNode().Title()
