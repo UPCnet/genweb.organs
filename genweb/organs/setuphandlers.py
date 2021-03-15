@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from Products.CMFCore.utils import getToolByName
+from plone import api
 
 
 fields_to_index = [('estatAprovacio', 'FieldIndex'),
@@ -19,7 +19,6 @@ def add_catalog_indexes(catalog):
 
 
 def setupVarious(context):
-    portal = context.getSite()
-    catalog = getToolByName(portal, 'portal_catalog')
+    catalog = api.portal.get_tool(name='portal_catalog')
 
     add_catalog_indexes(catalog)

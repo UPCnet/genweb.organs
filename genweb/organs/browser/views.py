@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -51,7 +50,7 @@ class createElement(BrowserView):
         # TODO: Al anadir el estado con espacio y acento lo pone mal
         # En crear el objeto no hace falta poner el log, porque
         # ya salta el HOOK y lo hace
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         action = self.request.form.get('action')
         itemid = self.request.form.get('name')
         if itemid == '':
@@ -96,7 +95,7 @@ class createElement(BrowserView):
 class Delete(BrowserView):
 
     def __call__(self):
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         action = self.request.form.get('action')
         itemid = self.request.form.get('item')
         portal_type = self.request.form.get('portal_type')
@@ -119,7 +118,7 @@ class Delete(BrowserView):
                 deleteItem = element[0].getObject()
                 with api.env.adopt_roles(['OG1-Secretari']):
                     api.content.delete(deleteItem)
-                portal_catalog = getToolByName(self, 'portal_catalog')
+                portal_catalog = api.portal.get_tool(name='portal_catalog')
                 addEntryLog(self.context, None, _(u'Deleted via javascript'), deleteItem.Title() + ' - (' + self.request.form.get('item') + ')')
                 folder_path = '/'.join(self.context.getPhysicalPath())
                 puntsOrdered = portal_catalog.searchResults(
@@ -168,7 +167,7 @@ class Move(BrowserView):
         #     raise Unauthorized
 
         #  ./wildcard.foldercontents-1.2.7-py2.7.egg/wildcard/foldercontents/
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         action = self.request.form.get('action')
         itemid = self.request.form.get('itemid')
 
@@ -275,7 +274,7 @@ class ActaPrintView(BrowserView):
         """ Retorna els punt en format text per mostrar a l'ordre
             del dia de les actes
         """
-        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.aq_parent.getPhysicalPath())
         values = portal_catalog.searchResults(
             portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
@@ -377,7 +376,7 @@ class ReloadAcords(BrowserView):
         if CSRF:
             alsoProvides(self.request, IDisableCSRFProtection)
 
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         acro_parent = getattr(self.context.aq_parent, 'acronim', None)
 
@@ -448,7 +447,7 @@ class ReloadPoints(BrowserView):
         if CSRF:
             alsoProvides(self.request, IDisableCSRFProtection)
 
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
         addEntryLog(self.context, None, _(u'Reload points manually'), '')  # add log
@@ -491,7 +490,7 @@ class changeActualState(BrowserView):
         if CSRF:
             alsoProvides(self.request, IDisableCSRFProtection)
 
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         estat = self.request.form.get('estat')
         itemid = self.request.form.get('id')
 
@@ -537,7 +536,7 @@ class changeSubpuntState(BrowserView):
         if CSRF:
             alsoProvides(self.request, IDisableCSRFProtection)
 
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         estat = self.request.form.get('estat')
         itemid = self.request.form.get('id')
         object_path = '/'.join(self.context.getPhysicalPath()) + '/' + str(itemid.split('/')[0])
@@ -564,7 +563,7 @@ class Butlleti(BrowserView):
         return api.content.get_state(obj=self.context)
 
     def PuntsOrdreDelDia(self):
-        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.unrestrictedSearchResults(
             portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
@@ -685,7 +684,7 @@ class allSessions(BrowserView):
         date_previous_events = {'query': (today), 'range': 'max'}
         date_future_events = {'query': (today), 'range': 'min'}
 
-        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
 
         previous_sessions = portal_catalog.unrestrictedSearchResults(
             portal_type='genweb.organs.sessio',
@@ -922,7 +921,7 @@ class ReorderSessions(BrowserView):
     def __call__(self):
         """ This call reassign the correct sessions for an organ
         """
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         brains = portal_catalog.searchResults(portal_type="genweb.organs.sessio")
         sessions_to_reorder = []
         acords_to_update = []
@@ -959,7 +958,7 @@ class ReorderSessions(BrowserView):
 class ReloadVoteStats(BrowserView):
     """ Retorna el valor necessaris per refrescar les dades d'una votació"""
     def __call__(self):
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         results = portal_catalog.unrestrictedSearchResults(
             UID=self.request.UID,
             portal_type=['genweb.organs.votacioacord', 'genweb.organs.acord', 'genweb.organs.punt'])

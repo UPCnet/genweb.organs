@@ -135,7 +135,7 @@ class IAcord(form.Schema):
 @form.default_value(field=IAcord['proposalPoint'])
 def proposalPointDefaultValue(data):
     # assign default proposalPoint value to Punt
-    portal_catalog = getToolByName(data.context, 'portal_catalog')
+    portal_catalog = api.portal.get_tool(name='portal_catalog')
     path_url = data.context.getPhysicalPath()[1:]
     folder_path = ""
     for path in path_url:
@@ -184,7 +184,7 @@ class View(grok.View):
     grok.template('acord_view')
 
     def VotacionsInside(self):
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.unrestrictedSearchResults(
             portal_type=['genweb.organs.votacioacord'],

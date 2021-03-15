@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_chain
 from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
 from Products.PluggableAuthService.interfaces.plugins import IPropertiesPlugin
 
 from datetime import datetime
@@ -256,7 +255,7 @@ def addPoint(context, names, title, justification, path):
 
 def FilesandDocumentsInside(self):
     # Return files and docs found inside the session object
-    portal_catalog = getToolByName(self, 'portal_catalog')
+    portal_catalog = api.portal.get_tool(name='portal_catalog')
     folder_path = '/'.join(self.context.getPhysicalPath())
     values = portal_catalog.unrestrictedSearchResults(
         portal_type=['genweb.organs.file', 'genweb.organs.document'],
@@ -377,7 +376,7 @@ def FilesandDocumentsInside(self):
 
 def SubPuntsInside(self):
     # Returns punts and acords inside Punts
-    portal_catalog = getToolByName(self, 'portal_catalog')
+    portal_catalog = api.portal.get_tool(name='portal_catalog')
     folder_path = '/'.join(self.context.getPhysicalPath())
     values = portal_catalog.unrestrictedSearchResults(
         portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
@@ -400,8 +399,10 @@ def SubPuntsInside(self):
 
 def getColor(self):
     # Get custom colors on passed organ states
-    estat = self._unrestrictedGetObject().estatsLlista
-    values = self.estatsLlista
+    obj = self._unrestrictedGetObject()
+    estat = obj.estatsLlista
+    organ = get_organ(obj)
+    values = organ.estatsLlista
     color = '#777777'
     for value in values.split('</p>'):
         if value != '':
@@ -413,7 +414,8 @@ def getColor(self):
 
 def estatsCanvi(self):
     # Returns real names from estats
-    values = self.estatsLlista
+    organ = get_organ(self._unrestrictedGetObject())
+    values = organ.estatsLlista
     items = []
     for value in values.split('</p>'):
         if value != '':

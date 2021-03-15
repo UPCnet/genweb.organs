@@ -1,25 +1,27 @@
 # -*- coding: utf-8 -*-
-from plone import api
-from five import grok
-from zope import schema
-from plone.directives import form
-from genweb.organs import _
-from collective import dexteritytextindexer
-from plone.app.users.userdataschema import checkEmailAddress
-from plone.namedfile.field import NamedBlobImage
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-from Products.CMFCore.utils import getToolByName
-from plone.autoform import directives
-from plone.supermodel.directives import fieldset
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from plone.directives import dexterity
-from operator import itemgetter
-from plone.indexer import indexer
-from genweb.organs import utils
-from AccessControl import Unauthorized
-from plone.app.textfield import RichText as RichTextField
-import csv
 from StringIO import StringIO
+from AccessControl import Unauthorized
+
+from collective import dexteritytextindexer
+from five import grok
+from operator import itemgetter
+from plone import api
+from plone.app.textfield import RichText as RichTextField
+from plone.app.users.userdataschema import checkEmailAddress
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.autoform import directives
+from plone.directives import dexterity
+from plone.directives import form
+from plone.indexer import indexer
+from plone.namedfile.field import NamedBlobImage
+from plone.supermodel.directives import fieldset
+from zope import schema
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+
+from genweb.organs import _
+from genweb.organs import utils
+
+import csv
 
 
 types = SimpleVocabulary(
@@ -238,7 +240,7 @@ class View(grok.View):
     def SessionsInside(self):
         """ Retorna les sessions internes (sense tenir compte estat)
         """
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
             portal_type='genweb.organs.sessio',
@@ -273,7 +275,7 @@ class View(grok.View):
             Després s'aplica el permís per cada rol a la vista de l'acord """
         results = []
 
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
         # Només veu els acords de les sessions que pot veure
@@ -357,7 +359,7 @@ class View(grok.View):
             Affectat i altres NO veuen MAI les ACTES """
         if utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isManager(self):
             results = []
-            portal_catalog = getToolByName(self, 'portal_catalog')
+            portal_catalog = api.portal.get_tool(name='portal_catalog')
             folder_path = '/'.join(self.context.getPhysicalPath())
 
             sessions = portal_catalog.searchResults(
@@ -487,7 +489,7 @@ class exportActas(grok.View):
         # If acords in site, publish the tab and the contents...
         results = []
 
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
         # Només veu els acords de les sessions que pot veure

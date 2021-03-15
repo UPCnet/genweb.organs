@@ -1,21 +1,24 @@
 # -*- coding: utf-8 -*-
+from AccessControl import Unauthorized
+
+from collective import dexteritytextindexer
 from five import grok
-from zope import schema
+from plone import api
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.autoform import directives
 from plone.directives import dexterity
 from plone.directives import form
-from genweb.organs import _
-from collective import dexteritytextindexer
-from Products.CMFCore.utils import getToolByName
-from plone.autoform import directives
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from zope.schema.vocabulary import SimpleVocabulary
-from zope.schema.interfaces import IContextSourceBinder
-from zope.interface import directlyProvides
-import unicodedata
 from plone.indexer import indexer
-from genweb.organs import utils
 from plone.supermodel.directives import fieldset
-from AccessControl import Unauthorized
+from zope import schema
+from zope.interface import directlyProvides
+from zope.schema.interfaces import IContextSourceBinder
+from zope.schema.vocabulary import SimpleVocabulary
+
+from genweb.organs import utils
+from genweb.organs import _
+
+import unicodedata
 
 grok.templatedir("templates")
 
@@ -82,7 +85,7 @@ class ISubpunt(form.Schema):
 @form.default_value(field=ISubpunt['proposalPoint'])
 def proposalPointDefaultValue(data):
     # Assign default proposalPoint value to Subpunt
-    portal_catalog = getToolByName(data.context, 'portal_catalog')
+    portal_catalog = api.portal.get_tool(name='portal_catalog')
     path_url = data.context.getPhysicalPath()[1:]
     folder_path = ""
     for path in path_url:

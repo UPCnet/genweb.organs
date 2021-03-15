@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from Products.CMFCore.utils import getToolByName
-
 from five import grok
 from plone import api
 from plone.app.textfield import RichText as RichTextField
@@ -49,7 +47,7 @@ class View(grok.View):
         """ Retorna els organs de govern depenent del rol
             i l'estat de l'Organ. Per això fa 3 cerques
         """
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
             portal_type='genweb.organs.organgovern',

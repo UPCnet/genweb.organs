@@ -1,18 +1,20 @@
 # Remove organs from navigation depending on user and role
 # Modified code in line  75 (results to return)
 # On line 82 is the HARD CODE!!!
+from Products.CMFCore.utils import getToolByName
+
 from plone.app.layout.navigation.navtree import buildFolderTree
 from plone.app.layout.navigation.navtree import NavtreeStrategyBase
-from Products.CMFCore.utils import getToolByName
 
 
 def customBuildFolderTree(context, obj=None, query={}, strategy=NavtreeStrategyBase()):
     """
     """
+    from plone import api
     from genweb.organs import utils as utilsOrgans
 
     portal_url = getToolByName(context, 'portal_url')
-    portal_catalog = getToolByName(context, 'portal_catalog')
+    portal_catalog = api.portal.get_tool(name='portal_catalog')
 
     showAllParents = strategy.showAllParents
     rootPath = strategy.rootPath

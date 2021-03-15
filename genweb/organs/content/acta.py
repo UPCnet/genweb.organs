@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*-
-from five import grok
-from zope import schema
-from plone.directives import form
-from plone.directives import dexterity
 from AccessControl import Unauthorized
-from genweb.organs import _
-from plone.app.dexterity import PloneMessageFactory as _PMF
+
 from collective import dexteritytextindexer
-from plone.autoform import directives
+from five import grok
+from plone import api
+from plone.app.dexterity import PloneMessageFactory as _PMF
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from plone.supermodel.directives import fieldset
-from Products.CMFCore.utils import getToolByName
+from plone.autoform import directives
+from plone.directives import dexterity
+from plone.directives import form
 from plone.event.interfaces import IEventAccessor
 from plone.namedfile.field import NamedBlobFile
 from plone.namedfile.utils import get_contenttype
+from plone.supermodel.directives import fieldset
+from zope import schema
 from zope.schema import ValidationError
+
+from genweb.organs import _
 from genweb.organs import utils
 
 grok.templatedir("templates")
@@ -184,7 +186,7 @@ def Punts2Acta(self):
     """ Retorna els punt en format text per mostrar a l'ordre
         del dia de les actes
     """
-    portal_catalog = getToolByName(self.context, 'portal_catalog')
+    portal_catalog = api.portal.get_tool(name='portal_catalog')
     folder_path = '/'.join(self.context.getPhysicalPath())
     values = portal_catalog.searchResults(
         portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
@@ -295,7 +297,7 @@ class View(dexterity.DisplayForm):
         """ Retorna els fitxers d'audio creats aquí dintre (sense tenir compte estat)
         """
         folder_path = '/'.join(self.context.getPhysicalPath())
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         values = portal_catalog.searchResults(
             portal_type='genweb.organs.audio',
             sort_on='getObjPositionInParent',
