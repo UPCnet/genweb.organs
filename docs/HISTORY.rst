@@ -1,11 +1,17 @@
 Changelog
 =========
 
-0.46 (unreleased)
+0.46 (2021-03-17)
 -----------------
 
-- Nothing changed yet.
-
+* Vista allorgans - añadir número de sesiones que se han creado el último año (365) [Iago López Fernández]
+* portal_catalog: sustituir getToolByName por api.portal.get_tool [Iago López Fernández]
+* Imagenes banners [Iago López Fernández]
+* Mejora envio correos votaciones [Iago López Fernández]
+* Quitar carpeta de unidad de la vista de butlleti [Iago López Fernández]
+* Añadir enlace a sala y modificar email convocar [Iago López Fernández]
+* Deshacer: Mostrar permisos por defecto de plone en el sharing de genweb.organs.organgovern [Iago López Fernández]
+* No enviar mensaje al borrar votación si la sesión esta en estado realizada [Iago López Fernández]
 
 0.45 (2021-03-01)
 -----------------
