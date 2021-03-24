@@ -12,6 +12,9 @@
   <type type_id="genweb.organs.audio">
    <bound-workflow workflow_id="organs_one_state_workflow"/>
   </type>
+  <type type_id="genweb.organs.annex">
+   <bound-workflow workflow_id="organs_one_state_workflow"/>
+  </type>
   <type type_id="genweb.organs.document">
    <bound-workflow workflow_id="organs_one_state_workflow"/>
   </type>

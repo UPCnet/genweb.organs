@@ -22,18 +22,13 @@ from genweb.organs import utils
 grok.templatedir("templates")
 
 
-class InvalidPDFFile(ValidationError):
-    """Exception for invalid PDF file"""
-    __doc__ = _(u"Invalid PDF file")
-
-
 class IActa(form.Schema):
     """ ACTA """
 
     fieldset('acta',
              label=_(u'Tab acta'),
              fields=['title', 'horaInici', 'horaFi', 'llocConvocatoria',
-                     'ordenDelDia', 'enllacVideo', 'file']
+                     'ordenDelDia', 'enllacVideo']
              )
 
     fieldset('assistents',
@@ -107,20 +102,6 @@ class IActa(form.Schema):
         description=_(u"If you want to add a video file, not a url, there is a trick, you must add an Audio Type and leave this field empty."),
         required=False,
     )
-
-    file = NamedBlobFile(
-        title=_(u"Acta PDF"),
-        description=_(u"Acta PDF file description"),
-        required=False,
-    )
-
-
-@form.validator(field=IActa['file'])
-def validateFileType(value):
-    if value is not None:
-        mimetype = get_contenttype(value)
-        if mimetype != 'application/pdf':
-            raise InvalidPDFFile(mimetype)
 
 
 @form.default_value(field=IActa['title'])
@@ -309,6 +290,26 @@ class View(dexterity.DisplayForm):
                 results.append(dict(title=obj.Title,
                                     absolute_url=obj.getURL(),
                                     audio=obj.getObject().file))
+            return results
+        else:
+            return False
+
+    def AnnexInside(self):
+        """ Retorna els fitxers annexos creats aquí dintre (sense tenir compte estat)
+        """
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        values = portal_catalog.searchResults(
+            portal_type='genweb.organs.annex',
+            sort_on='getObjPositionInParent',
+            path={'query': folder_path,
+                  'depth': 1})
+        if values:
+            results = []
+            for obj in values:
+                results.append(dict(title=obj.Title,
+                                    absolute_url=obj.getURL(),
+                                    file=obj.getObject().file))
             return results
         else:
             return False

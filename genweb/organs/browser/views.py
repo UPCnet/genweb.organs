@@ -20,6 +20,7 @@ import ast
 import datetime
 import DateTime
 import json
+import transaction
 import unicodedata
 
 # Disable CSRF
@@ -1023,3 +1024,26 @@ class ReloadVoteStats(BrowserView):
             return json.dumps(data)
 
         return False
+
+
+class migracioAnnexosActes(BrowserView):
+
+    def __call__(self):
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        values = portal_catalog.searchResults(portal_type='genweb.organs.acta')
+        for value in values:
+            try:
+                acta = value.getObject()
+                if acta.file:
+                    api.content.create(
+                        title=acta.file.filename,
+                        file=acta.file,
+                        type='genweb.organs.annex',
+                        container=acta)
+
+                    acta.file = None
+            except:
+                pass
+
+        transaction.commit()
+        return 'OK'

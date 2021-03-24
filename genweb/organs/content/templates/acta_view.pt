@@ -18,6 +18,7 @@
                    horaFi view/horaFi;
                    horaInici view/horaInici;
                    audio view/AudioInside;
+                   annexes view/AnnexInside;
                    enllacVideo context/enllacVideo;
                    absolute_url context/absolute_url;">
 
@@ -165,26 +166,33 @@
   </tal:block>
 
   <br/>
-  <ta:block tal:condition="context/file">
-    <div tal:define="public_file_download_url string:${absolute_url}/@@download/file/${context/file/filename};
-                   public_file_view_url string:${absolute_url}/@@display-file/file/;">
-    <h3 i18n:translate="">Acta PDF</h3>
-    <p>
-      <a tal:attributes="href public_file_view_url">
-        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-        <tal:name tal:content="context/file/filename">Filename</tal:name>
-      </a>
-      <span class="discreet"
-          tal:define="size context/file/getSize;
-                      kb python:size/1024">
-        &mdash; <span tal:replace="kb" /> KB</span>
-        <a tal:attributes="href public_file_download_url">
-          <i class="fa fa-download" aria-hidden="true"></i>
-        </a>
-    </p>
 
-  </div>
-</ta:block>
+
+  <ta:block tal:condition="annexes">
+    <tal:block tal:define="multiple_annexes python:len(annexes)>1">
+      <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
+      <h3 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
+    </tal:block>
+    <tal:documents repeat="item annexes">
+      <div tal:define="public_file_download_url string:${item/absolute_url}/@@download/file/${item/file/filename};
+                       public_file_view_url string:${item/absolute_url}/@@display-file/file/;">
+        <p>
+          <a tal:attributes="href public_file_view_url">
+            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+            <tal:name tal:content="item/file/filename">Filename</tal:name>
+          </a>
+          <span class="discreet"
+              tal:define="size item/file/getSize;
+                          kb python:size/1024">
+            &mdash; <span tal:replace="kb" /> KB</span>
+            <a tal:attributes="href public_file_download_url">
+              <i class="fa fa-download" aria-hidden="true"></i>
+            </a>
+        </p>
+      </div>
+    </tal:documents>
+  </ta:block>
+
 
 </tal:block>
 </metal:content-core>

@@ -825,6 +825,7 @@ padding: 0px 0px 32px 0px !important;
 .portaltype-genweb-organs-document a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-acta a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-audio a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-annex a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-acord a#plone-contentmenu-workflow.dropdown-toggle
  {display: none;}
 
@@ -837,6 +838,7 @@ padding: 0px 0px 32px 0px !important;
 .portaltype-genweb-organs-document a#plone-contentmenu-multilingual.dropdown-toggle,
 .portaltype-genweb-organs-acta a#plone-contentmenu-multilingual.dropdown-toggle,
 .portaltype-genweb-organs-audio a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-annex a#plone-contentmenu-multilingual.dropdown-toggle,
 .portaltype-genweb-organs-acord a#plone-contentmenu-multilingual.dropdown-toggle
  {display: none;}
 
@@ -1037,6 +1039,19 @@ span.icon-genweb-organs-audio,
 .subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-audio"] span:after
 {
     background-position: -24px -0px !important;
+}
+
+dt.contenttype-genweb-organs-annex:before,
+i.icon-genweb-organs-annex,
+span.icon-genweb-organs-annex,
+#listing-table a.contenttype-genweb-organs-annex:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-annex:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-annex"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-annex"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-annex"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-annex"] span:after
+{
+    background-position: -24px -24px !important;
 }
 
 dt.contenttype-genweb-organs-file:before,
