@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
-from plone import api
-from five import grok
-from z3c.form import button
-from plone.directives import form
+from AccessControl import Unauthorized
 from Products.statusmessages.interfaces import IStatusMessage
-from genweb.organs.interfaces import IGenwebOrgansLayer
+
+from five import grok
+from plone import api
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.autoform import directives
+from plone.directives import form
+from z3c.form import button
+from zope import schema
+
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
-from AccessControl import Unauthorized
-from plone.autoform import directives
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from zope import schema
-from Products.CMFCore.utils import getToolByName
+from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs.utils import addEntryLog
+
 import transaction
 import unicodedata
 
@@ -94,7 +96,7 @@ class Message(form.SchemaForm):
         item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
         defaultEstat = ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8')
 
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         puntsInFolder = portal_catalog.searchResults(
             portal_type=['genweb.organs.punt', 'genweb.organs.acord'],

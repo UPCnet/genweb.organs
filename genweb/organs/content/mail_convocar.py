@@ -119,11 +119,16 @@ class Message(form.SchemaForm):
             fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
             introData = "<br/><p>Podeu consultar la convocatòria i la documentació de la sessió aquí: <a href=" + \
                         sessionLink + ">" + sessiontitle + "</a></p>" +\
-                        "<p>Podeu excusar l’assistència a la sessió aquí: <a href=" +\
-                        sessionLink + "/excusar_assist_sessio>Excusar l’assistència</a></p><br/> "+ signatura
+                        "<p>Podeu excusar l’absència a la sessió aquí: <a href=" +\
+                        sessionLink + "/excusar_assist_sessio>Excusar l’absència</a></p><br/> " + signatura
             moreData = html_content + \
                 '<br/>' + customBody + '<strong>' + sessiontitle + \
-                '</strong><br/><br/>Lloc: ' + place + "<br/>Data: " + sessiondate + \
+                '</strong><br/><br/>Lloc: ' + place
+
+            if session.linkSala is not None:
+                moreData += "<br/>Enllaç a la sala: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
+
+            moreData += "<br/>Data: " + sessiondate + \
                 "<br/>Hora d'inici: " + starthour + \
                 "<br/>Hora de fi: " + endHour + \
                 '<br/><br/>'
@@ -134,11 +139,16 @@ class Message(form.SchemaForm):
             fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
             introData = "<br/><p>Puede consultar la convocatoria y la documentación de la sesión aquí: <a href=" + \
                         sessionLink + ">" + sessiontitle + "</a></p>" +\
-                        "<p>Puedes escusar tu asistencia a la sesión aquí: <a href=" +\
-                        sessionLink + "/excusar_assist_sessio>Escusar asistencia</a></p><br/> "+ signatura
+                        "<p>Puedes escusar tu ausencia a la sesión aquí: <a href=" +\
+                        sessionLink + "/excusar_assist_sessio>Escusar ausencia</a></p><br/> " + signatura
             moreData = html_content + \
                 '<br/>' + customBody + '<strong>' + sessiontitle + \
-                '</strong><br/><br/>Lugar: ' + place + "<br/>Fecha: " + sessiondate + \
+                '</strong><br/><br/>Lugar: ' + place
+
+            if session.linkSala is not None:
+                moreData += "<br/>Enlace a la sala: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
+
+            moreData += "<br/>Fecha: " + sessiondate + \
                 "<br/>Hora de inicio: " + starthour + \
                 "<br/>Hora de finalización: " + endHour + \
                 '<br/><br/>'
@@ -150,10 +160,15 @@ class Message(form.SchemaForm):
             introData = "<br/><p>Information regarding the call and the documentation can be found here: <a href=" + \
                         sessionLink + ">" + sessiontitle + "</a></p>" +\
                         "<p>You can apologise for you absence here: <a href=" +\
-                        sessionLink + "/excusar_assist_sessio>apologise</a></p><br/> "+ signatura
+                        sessionLink + "/excusar_assist_sessio>apologise</a></p><br/> " + signatura
             moreData = html_content + \
                 '<br/>' + customBody + '<strong>' + sessiontitle + \
-                '</strong><br/><br/>Place: ' + place + "<br/>Date: " + sessiondate + \
+                '</strong><br/><br/>Place: ' + place
+
+            if session.linkSala is not None:
+                moreData += "<br/>Link to the room: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
+
+            moreData += "<br/>Date: " + sessiondate + \
                 "<br/>Start date: " + starthour + \
                 "<br/>End date: " + endHour + \
                 '<br/><br/>'

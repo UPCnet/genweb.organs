@@ -1,7 +1,6 @@
 
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
-from Products.CMFCore.utils import getToolByName
 
 from collective import dexteritytextindexer
 from five import grok
@@ -10,7 +9,6 @@ from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from plone.directives import dexterity
-from plone.directives import form
 from plone.directives import form
 from plone.event.interfaces import IEventAccessor
 from plone.supermodel.directives import fieldset
@@ -312,7 +310,7 @@ class View(grok.View):
         return utils.estatsCanvi(data)
 
     def hihaPunts(self):
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.unrestrictedSearchResults(
             portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
@@ -326,7 +324,7 @@ class View(grok.View):
     def PuntsInside(self):
         """ Retorna punts i acords d'aquí dintre (sense tenir compte estat)
         """
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.unrestrictedSearchResults(
             sort_on='getObjPositionInParent',
@@ -454,7 +452,7 @@ class View(grok.View):
     def SubpuntsInside(self, data):
         """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
         """
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + data['id']
         values = portal_catalog.unrestrictedSearchResults(
             portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
@@ -589,7 +587,7 @@ class View(grok.View):
                 canViewActes = self.canViewTabActes()
                 if canViewActes:
                     folder_path = '/'.join(self.context.getPhysicalPath())
-                    portal_catalog = getToolByName(self, 'portal_catalog')
+                    portal_catalog = api.portal.get_tool(name='portal_catalog')
                     values = portal_catalog.searchResults(
                         portal_type='genweb.organs.acta',
                         sort_on='getObjPositionInParent',
@@ -731,7 +729,7 @@ class View(grok.View):
 
     def filesinsidePunt(self, item):
         session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
 
         values = portal_catalog.searchResults(
             portal_type=['genweb.organs.file', 'genweb.organs.document'],
@@ -839,7 +837,7 @@ class View(grok.View):
     def AcordsInside(self):
         # If acords in site, publish the tab and the contents...
         results = []
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
         values = portal_catalog.unrestrictedSearchResults(
@@ -940,7 +938,7 @@ class View(grok.View):
         return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
 
     def getAllResultsVotes(self):
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
         items = portal_catalog.unrestrictedSearchResults(

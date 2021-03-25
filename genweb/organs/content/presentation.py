@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
-from plone import api
-from five import grok
-from plone.directives import form
-from genweb.organs.interfaces import IGenwebOrgansLayer
-from genweb.organs.content.sessio import ISessio
-from Products.CMFCore.utils import getToolByName
-from plone.app.layout.navigation.root import getNavigationRootObject
-from Acquisition import aq_inner
-from genweb.organs import utils
-from genweb.organs import _
 from AccessControl import Unauthorized
+from Acquisition import aq_inner
+
+from five import grok
+from plone import api
+from plone.app.layout.navigation.root import getNavigationRootObject
+from plone.directives import form
+
+from genweb.organs import _
+from genweb.organs import utils
+from genweb.organs.content.sessio import ISessio
+from genweb.organs.interfaces import IGenwebOrgansLayer
 
 
 grok.templatedir("templates")
@@ -31,7 +32,7 @@ class Presentation(form.SchemaForm):
         return api.content.get_state(obj=self.context)
 
     def PuntsInside(self):
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.unrestrictedSearchResults(
             sort_on='getObjPositionInParent',
@@ -93,7 +94,7 @@ class Presentation(form.SchemaForm):
     def SubpuntsInside(self, data):
         """ Retorna les sessions i el seu contingut
         """
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + data['id']
         values = portal_catalog.unrestrictedSearchResults(
             portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
@@ -143,7 +144,7 @@ class Presentation(form.SchemaForm):
         return results
 
     def filesinside(self, item):
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
         values = portal_catalog.searchResults(
             portal_type=['genweb.organs.file', 'genweb.organs.document'],
@@ -234,11 +235,11 @@ class Presentation(form.SchemaForm):
                             hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/' + file.hiddenfile.filename
                             classCSS = 'fa fa-file-pdf-o text-error'
                     elif file.visiblefile:
-                            hasPublic = True
-                            hasPrivate = False
-                            visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/' + file.visiblefile.filename
-                            hiddenUrl = ''
-                            classCSS = 'fa fa-file-pdf-o text-success'
+                        hasPublic = True
+                        hasPrivate = False
+                        visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/' + file.visiblefile.filename
+                        hiddenUrl = ''
+                        classCSS = 'fa fa-file-pdf-o text-success'
 
                 if obj.portal_type == 'genweb.organs.document':
                     isGODocument = True

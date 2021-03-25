@@ -11,6 +11,7 @@ from genweb.organs.content.organsfolder import IOrgansfolder
 from genweb.organs.content.file import IFile
 from genweb.organs.content.document import IDocument
 from genweb.organs.content.audio import IAudio
+from genweb.organs.content.annex import IAnnex
 from genweb.organs.content.acord import IAcord
 from genweb.organs.content.votacio_acord import IVotacioAcord
 
@@ -49,6 +50,10 @@ class Document(Item):
 
 class Audio(Item):
     implements(IAudio)
+
+
+class Annex(Item):
+    implements(IAnnex)
 
 
 class Acord(Item):

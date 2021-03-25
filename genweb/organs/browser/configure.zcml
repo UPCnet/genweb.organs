@@ -163,4 +163,12 @@
     permission="genweb.organs.add.vote"
     />
 
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="migracioAnnexosActes"
+    class=".views.migracioAnnexosActes"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="cmf.ManagePortal"
+    />
+
 </configure>

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-from plone import api
 from five import grok
+from plone import api
 from plone.directives import form
-from genweb.organs.interfaces import IGenwebOrgansLayer
-from genweb.organs import _
-from genweb.organs.content.sessio import ISessio
-from Products.CMFCore.utils import getToolByName
-from genweb.organs import utils
 from plone.event.interfaces import IEventAccessor
 from zope.i18n import translate
+
+from genweb.organs import _
+from genweb.organs import utils
+from genweb.organs.content.sessio import ISessio
+from genweb.organs.interfaces import IGenwebOrgansLayer
 
 grok.templatedir("templates")
 
@@ -114,7 +114,7 @@ class ShowSessionAs(form.SchemaForm):
     def PuntsInside(self):
         """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
         """
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
             sort_on='getObjPositionInParent',
@@ -161,7 +161,7 @@ class ShowSessionAs(form.SchemaForm):
     def SubpuntsInside(self, data):
         """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
         """
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + data['id']
         values = portal_catalog.searchResults(
             portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
@@ -198,7 +198,7 @@ class ShowSessionAs(form.SchemaForm):
         """ Retorna els fitxers d'audio creats aquí dintre (sense tenir compte estat)
         """
         folder_path = '/'.join(self.context.getPhysicalPath())
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         values = portal_catalog.searchResults(
             portal_type='genweb.organs.audio',
             sort_on='getObjPositionInParent',
@@ -217,7 +217,7 @@ class ShowSessionAs(form.SchemaForm):
         """ Retorna les actes creades aquí dintre (sense tenir compte estat)
         """
         folder_path = '/'.join(self.context.getPhysicalPath())
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         values = portal_catalog.searchResults(
             portal_type='genweb.organs.acta',
             sort_on='getObjPositionInParent',
@@ -288,7 +288,7 @@ class ShowSessionAs(form.SchemaForm):
 
     def filesinsidePunt(self, item):
         session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         role = self.request.form.get('id', '')
 
         values = portal_catalog.searchResults(

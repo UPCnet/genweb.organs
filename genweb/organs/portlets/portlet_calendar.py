@@ -2,21 +2,23 @@
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.app.event.base import first_weekday
+
+from datetime import datetime
+from plone import api
 from plone.app.event.base import construct_calendar
+from plone.app.event.base import first_weekday
 from plone.app.event.base import localized_today
 from plone.app.event.base import wkday_to_mon1
 from plone.app.event.portlets import get_calendar_url
 from plone.app.portlets import PloneMessageFactory as _
 from plone.app.portlets.portlets import base
+from plone.event.interfaces import IEvent
+from plone.event.interfaces import IEventAccessor
 from plone.portlets.interfaces import IPortletDataProvider
 from zope.i18nmessageid import MessageFactory
 from zope.interface import implements
-from datetime import datetime
-from plone.event.interfaces import IEvent
-from plone import api
+
 import calendar
-from plone.event.interfaces import IEventAccessor
 
 
 PLMF = MessageFactory('plonelocales')
@@ -200,7 +202,7 @@ class Renderer(base.Renderer):
         end = monthdates[-1]
 
         date_range_query = {'query': (start, end), 'range': 'min:max'}
-        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         if api.user.is_anonymous():
             items = portal_catalog.unrestrictedSearchResults(
                 portal_type='genweb.organs.sessio',
@@ -235,7 +237,7 @@ class Renderer(base.Renderer):
         end = monthdates[-1]
 
         date_range_query = {'query': (start, end), 'range': 'min:max'}
-        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         events = []
         if api.user.is_anonymous():
             items = portal_catalog.unrestrictedSearchResults(

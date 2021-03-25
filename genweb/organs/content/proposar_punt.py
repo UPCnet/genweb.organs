@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
-from plone import api
-from five import grok
-from zope.schema import TextLine
-from plone.namedfile.field import NamedBlobFile
-from z3c.form import button
-from plone.directives import form
-from Products.statusmessages.interfaces import IStatusMessage
-from genweb.organs.interfaces import IGenwebOrgansLayer
-from genweb.organs import _
-from genweb.organs.content.sessio import ISessio
-from zope import schema
-from genweb.organs.utils import addPoint
 from AccessControl import Unauthorized
 from Products.CMFCore.utils import getToolByName
-from datetime import datetime
 from Products.CMFPlone.utils import _createObjectByType
+from Products.statusmessages.interfaces import IStatusMessage
+
+from datetime import datetime
+from five import grok
+from plone import api
+from plone.directives import form
+from plone.namedfile.field import NamedBlobFile
+from z3c.form import button
 from z3c.form.interfaces import DISPLAY_MODE
+from zope import schema
+from zope.schema import TextLine
+
+from genweb.organs import _
+from genweb.organs.content.sessio import ISessio
+from genweb.organs.interfaces import IGenwebOrgansLayer
+from genweb.organs.utils import addPoint
 
 
 grok.templatedir("templates")
@@ -164,8 +166,8 @@ class Message(form.SchemaForm):
             return
 
         # create propostapunt content
-        catalog = getToolByName(self.context, 'portal_catalog')
-        f_context = catalog.unrestrictedSearchResults({'portal_type':'Folder', 'id':'puntsproposats'})
+        catalog = api.portal.get_tool(name='portal_catalog')
+        f_context = catalog.unrestrictedSearchResults({'portal_type': 'Folder', 'id': 'puntsproposats'})
 
         if len(f_context) == 0:
             f_context = _createObjectByType("Folder", self.context, "puntsproposats")

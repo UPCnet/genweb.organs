@@ -18,11 +18,11 @@
                    horaFi view/horaFi;
                    horaInici view/horaInici;
                    audio view/AudioInside;
+                   annexes view/AnnexInside;
                    enllacVideo context/enllacVideo;
                    absolute_url context/absolute_url;
                    checkSerieGDoc view/checkSerieGDoc;
                    hasUnitatDocumental view/hasUnitatDocumental;
-                   getFilecActa view/getFilecActa;
                    hasFirma view/hasFirma;">
 
 <tal:block tal:condition="view/canView">
@@ -57,7 +57,7 @@
     <div id="infoSend" class="alert alert-warning" role="alert">
       <button data-dismiss="alert" class="close" type="button">×</button>
       <strong>Info</strong>
-      <span i18n:translate="">Aquesta acció pot trigar una estona. El procés de signatura continuarà independentment de que aquesta pantalla pugui donar timeout. Si en uns minuts torneu a aquesta pàgina apareixerà l'estat de l'acta ja processada en el portafirmes.</span>
+      <span>Aquesta acció pot trigar una estona. El procés de signatura continuarà independentment de que aquesta pantalla pugui donar timeout. Si en uns minuts torneu a aquesta pàgina apareixerà l'estat de l'acta ja processada en el portafirmes.</span>
     </div>
 
     <div class="modal fade hide previewModal" id="previewModal" tabindex="-1" role="dialog"
@@ -206,25 +206,30 @@
   <br/>
 
   <tal:block tal:condition="not:hasFirma">
-    <ta:block tal:condition="context/file">
-      <div tal:define="public_file_download_url string:${absolute_url}/@@download/file/${context/file/filename};
-                     public_file_view_url string:${absolute_url}/@@display-file/file/;">
-        <h3 i18n:translate="">Attachment</h3>
-        <p>
-          <a tal:attributes="href public_file_view_url">
-            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-            <tal:name tal:content="context/file/filename">Filename</tal:name>
-          </a>
-          <span class="discreet"
-              tal:define="size context/file/getSize;
-                          kb python:size/1024">
-            &mdash; <span tal:replace="kb" /> KB</span>
-            <a tal:attributes="href public_file_download_url">
-              <i class="fa fa-download" aria-hidden="true"></i>
+
+    <ta:block tal:condition="annexes">
+      <tal:block tal:define="multiple_annexes python:len(annexes)>1">
+        <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
+        <h3 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
+      </tal:block>
+      <tal:documents repeat="item annexes">
+        <div tal:define="public_file_download_url string:${item/absolute_url}/@@download/file/${item/filename};
+                         public_file_view_url string:${item/absolute_url}/@@display-file/file/;">
+          <p>
+            <a tal:attributes="href public_file_view_url">
+              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+              <tal:name tal:content="item/filename">Filename</tal:name>
             </a>
-        </p>
-      </div>
+            <span class="discreet">
+              &mdash; <span tal:replace="item/sizeKB" /> KB</span>
+              <a tal:attributes="href public_file_download_url">
+                <i class="fa fa-download" aria-hidden="true"></i>
+              </a>
+          </p>
+        </div>
+      </tal:documents>
     </ta:block>
+
     <ta:block tal:condition="context/acta">
       <div tal:define="public_acta_download_url string:${absolute_url}/@@download/acta/${context/acta/filename};
                        public_acta_view_url string:${absolute_url}/@@display-file/acta/;">
@@ -237,7 +242,7 @@
           <span class="discreet"
               tal:define="size context/acta/getSize;
                           kb python:size/1024">
-            &mdash; <span tal:replace="kb" /> KB</span>
+            &mdash; <span tal:replace="context/acta/getSize" /> KB</span>
             <a tal:attributes="href public_acta_download_url">
               <i class="fa fa-download" aria-hidden="true"></i>
             </a>
@@ -245,24 +250,30 @@
       </div>
     </ta:block>
   </tal:block>
+
   <tal:block tal:condition="hasFirma" tal:define="acta view/getGdDocActa">
-    <div tal:condition="getFilecActa"
-         tal:define="public_file_download_url string:${absolute_url}/downloadFile;
-                     public_file_view_url string:${absolute_url}/viewFile;">
-      <h3 i18n:translate="">Attachment</h3>
-      <p>
-        <a tal:attributes="href public_file_view_url">
-          <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-          <tal:name tal:content="getFilecActa/filename">Filename</tal:name>
-        </a>
-        <span class="discreet"
-            tal:define="kb getFilecActa/sizeKB">
-          &mdash; <span tal:replace="kb" /> KB</span>
-          <a tal:attributes="href public_file_download_url">
-            <i class="fa fa-download" aria-hidden="true"></i>
-          </a>
-      </p>
-    </div>
+    <ta:block tal:condition="annexes">
+      <tal:block tal:define="multiple_annexes python:len(annexes)>1">
+        <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
+        <h3 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
+      </tal:block>
+      <tal:documents repeat="item annexes">
+        <div tal:define="public_file_download_url item/download_url;
+                         public_file_view_url item/absolute_url">
+          <p>
+            <a tal:attributes="href public_file_view_url">
+              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+              <tal:name tal:content="item/filename">Filename</tal:name>
+            </a>
+            <span class="discreet">
+              &mdash; <span tal:replace="item/sizeKB" /> KB</span>
+              <a tal:attributes="href public_file_download_url">
+                <i class="fa fa-download" aria-hidden="true"></i>
+              </a>
+          </p>
+        </div>
+      </tal:documents>
+    </ta:block>
 
     <div tal:define="public_acta_download_url string:${absolute_url}/downloadActa;
                      public_acta_view_url string:${absolute_url}/viewActa;">

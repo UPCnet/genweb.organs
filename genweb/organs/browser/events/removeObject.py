@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
-from Products.CMFCore.utils import getToolByName
-from zope.lifecycleevent.interfaces import IObjectRemovedEvent
-from genweb.organs.content.punt import IPunt
-from genweb.organs.content.acord import IAcord
-from genweb.organs.content.subpunt import ISubpunt
 from five import grok
+from plone import api
 from zope.globalrequest import getRequest
-from genweb.organs.utils import addEntryLog
+from zope.lifecycleevent.interfaces import IObjectRemovedEvent
+
 from genweb.organs import _
+from genweb.organs.content.acord import IAcord
+from genweb.organs.content.punt import IPunt
+from genweb.organs.content.subpunt import ISubpunt
+from genweb.organs.utils import addEntryLog
+
 import transaction
 
 
 def remove_punt_acord(trans, obj=None, parent=None):
     """ Removing punt i subpunt is the same """
-    portal_catalog = getToolByName(obj, 'portal_catalog')
+    portal_catalog = api.portal.get_tool(name='portal_catalog')
     items = portal_catalog.searchResults(
         portal_type=['genweb.organs.punt', 'genweb.organs.acord', 'genweb.organs.subpunt'],
         sort_on='getObjPositionInParent',
@@ -60,7 +62,7 @@ def remove_punt_acord(trans, obj=None, parent=None):
 
 
 def remove_subpunt(trans, obj=None, parent=None):
-    portal_catalog = getToolByName(obj, 'portal_catalog')
+    portal_catalog = api.portal.get_tool(name='portal_catalog')
     items = portal_catalog.searchResults(
         portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
         sort_on='getObjPositionInParent',

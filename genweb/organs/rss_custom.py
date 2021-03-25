@@ -5,28 +5,28 @@
     Hides organ_type depending on user vieweng the RSS
 
 """
-from genweb.organs import utils
-
-from zope.component.hooks import getSite
-from zope.component import adapts
-from zope.interface import implements
-from zope.interface import Interface
-from zope.component import queryMultiAdapter
-
 from DateTime import DateTime
 from OFS.interfaces import IItem
-
+from Products.ATContentTypes.interfaces.file import IFileContent
 from Products.CMFCore.utils import getToolByName
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
 from Products.CMFPlone.interfaces.syndication import IFeed
 from Products.CMFPlone.interfaces.syndication import IFeedItem
 from Products.CMFPlone.interfaces.syndication import ISearchFeed
 from Products.CMFPlone.interfaces.syndication import IFeedSettings
-from Products.ATContentTypes.interfaces.file import IFileContent
-from plone.uuid.interfaces import IUUID
-from zope.cachedescriptors.property import Lazy as lazy_property
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
 from operator import itemgetter
+from plone import api
+from plone.uuid.interfaces import IUUID
+from zope.component.hooks import getSite
+from zope.component import adapts
+from zope.interface import implements
+from zope.interface import Interface
+from zope.cachedescriptors.property import Lazy as lazy_property
+from zope.component import queryMultiAdapter
+
+from genweb.organs import utils
+
 
 # this might be a little silly but it's possible to not use
 # Products.CMFPlone with dexterity content types
@@ -143,7 +143,7 @@ class FolderFeed(BaseFeedData):
         return '%s/favicon.ico' % self.site.absolute_url()
 
     def _brains(self):
-        catalog = getToolByName(self.context, 'portal_catalog')
+        catalog = api.portal.get_tool(name='portal_catalog')
         items = catalog(path={
             'query': '/'.join(self.context.getPhysicalPath()),
             'depth': 1

@@ -1,22 +1,24 @@
 # -*- coding: utf-8 -*-
+from AccessControl import Unauthorized
+from Products.statusmessages.interfaces import IStatusMessage
+
 from five import grok
 from plone import api
-from zope.schema import TextLine
-from z3c.form import button
-from plone.directives import form
-from Products.statusmessages.interfaces import IStatusMessage
-from genweb.organs.interfaces import IGenwebOrgansLayer
-from genweb.organs import _
-from genweb.organs.content.sessio import ISessio
-from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from z3c.form.interfaces import DISPLAY_MODE
-from genweb.organs.utils import addEntryLog
-from Products.CMFCore.utils import getToolByName
-import unicodedata
-from AccessControl import Unauthorized
+from plone.autoform import directives
+from plone.directives import form
 from plone.event.interfaces import IEventAccessor
+from z3c.form import button
+from z3c.form.interfaces import DISPLAY_MODE
 from zope import schema
+from zope.schema import TextLine
+
+from genweb.organs import _
+from genweb.organs.utils import addEntryLog
+from genweb.organs.content.sessio import ISessio
+from genweb.organs.interfaces import IGenwebOrgansLayer
+
+import unicodedata
 
 grok.templatedir("templates")
 
@@ -193,7 +195,7 @@ class Message(form.SchemaForm):
         return self.request.response.redirect(self.context.absolute_url())
 
     def PuntsOrdreDelDia(self):
-        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.unrestrictedSearchResults(
             portal_type='genweb.organs.punt',
@@ -230,7 +232,7 @@ class Message(form.SchemaForm):
         """ Retorna els punt en format text per mostrar a l'ordre
             del dia de les actes
         """
-        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         values = portal_catalog.searchResults(
             portal_type=['genweb.organs.punt', 'genweb.organs.acord'],

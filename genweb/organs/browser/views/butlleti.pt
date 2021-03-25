@@ -74,7 +74,6 @@
       <tr>
         <td style="width:80%; text-align:left;">
           <h1>
-            <span tal:content="view/getUnitat"></span> -
             <span tal:content="view/getOrganTitle">Butlletin Session Title</span>
           </h1>
           <h2 tal:content="view/getTitle" class="h2butlleti">Butlletin Session Title</h2>

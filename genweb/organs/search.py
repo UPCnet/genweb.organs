@@ -56,7 +56,7 @@ class Search(BrowserView):
     def getOwnOrgans(self):
         if not api.user.is_anonymous():
             results = []
-            portal_catalog = getToolByName(self, 'portal_catalog')
+            portal_catalog = api.portal.get_tool(name='portal_catalog')
             root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
             lt = getToolByName(self, 'portal_languages')
             lang = lt.getPreferredLanguage()
@@ -160,21 +160,21 @@ class Search(BrowserView):
         if query is None:
             return None
         else:
-            catalog = getToolByName(self.context, 'portal_catalog')
+            catalog = api.portal.get_tool(name='portal_catalog')
             try:
-                #for all acords or punts
+                # for all acords or punts
                 results = catalog(**query)
-                all_results= []
+                all_results = []
                 for res in results:
                     all_results.append(res)
 
-                #for subjects
+                # for subjects
                 aux_subject_res = catalog.searchResults(portal_type=query['portal_type'], Subject=query['SearchableText'].replace('*', ''))
                 for res in aux_subject_res:
                     if res not in all_results:
                         all_results.append(res)
 
-                #for documents
+                # for documents
                 ptype = query['portal_type']
                 query_docs = query
                 query_docs['portal_type'] = "genweb.organs.document"
@@ -246,7 +246,7 @@ class Search(BrowserView):
     def filter_query(self, query):
         request = self.request
 
-        catalog = getToolByName(self.context, 'portal_catalog')
+        catalog = api.portal.get_tool(name='portal_catalog')
         valid_indexes = tuple(catalog.indexes())
         valid_keys = self.valid_keys + valid_indexes
         text = query.get('SearchableText', None)
@@ -317,7 +317,7 @@ class Search(BrowserView):
         # only show the types of Organs de Govern
         # removed subpunt because visually is the same that punt.
         # Subpunt is added in other part of code
-        # catalog = getToolByName(self.context, 'portal_catalog')
+        # catalog = api.portal.get_tool(name='portal_catalog')
         # used_types = catalog._catalog.getIndex('portal_type').uniqueValues()
         used_types = ('genweb.organs.acord', 'genweb.organs.punt')
         return sorted(self.filter_types(list(used_types)))
@@ -327,7 +327,7 @@ class Search(BrowserView):
         root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
         lt = getToolByName(self, 'portal_languages')
         lang = lt.getPreferredLanguage()
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         items = portal_catalog.searchResults(
             portal_type=['genweb.organs.sessio'],
             path=root_path + "/" + lang + "/consell-de-govern/consell-de-govern",
@@ -356,7 +356,7 @@ class Search(BrowserView):
         root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
         lt = getToolByName(self, 'portal_languages')
         lang = lt.getPreferredLanguage()
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         items = portal_catalog.searchResults(
             portal_type=['genweb.organs.sessio'],
             path=root_path + "/" + lang + "/cs/ple-del-consell-social",
@@ -385,7 +385,7 @@ class Search(BrowserView):
         root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
         lt = getToolByName(self, 'portal_languages')
         lang = lt.getPreferredLanguage()
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         items = portal_catalog.searchResults(
             portal_type=['genweb.organs.sessio'],
             path=root_path + "/" + lang + "/claustre-universitari/claustre-universitari",
@@ -447,7 +447,7 @@ class Search(BrowserView):
 
     def getPage(self):
         """ Retorna la pagina benvingut """
-        portal_catalog = getToolByName(self, 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         item = portal_catalog.searchResults(
             portal_type=['Document'], id='benvingut')
         if item:

@@ -190,10 +190,8 @@ def sendVoteEmail(context, vote):
         portal = api.portal.get()
         email_charset = portal.getProperty('email_charset')
 
-        if context.aq_parent.portal_type == 'genweb.organs.sessio':
-            sender_email = context.aq_parent.aq_parent.aq_parent.fromMail
-        elif context.aq_parent.portal_type == 'genweb.organs.punt':
-            sender_email = context.aq_parent.aq_parent.aq_parent.aq_parent.fromMail
+        organ = utils.get_organ(context)
+        sender_email = organ.fromMail
 
         msg = MIMEMultipart()
         msg['From'] = sender_email
@@ -244,10 +242,8 @@ def sendRemoveVoteEmail(context):
     portal = api.portal.get()
     email_charset = portal.getProperty('email_charset')
 
-    if context.aq_parent.aq_parent.portal_type == 'genweb.organs.sessio':
-        sender_email = context.aq_parent.aq_parent.aq_parent.fromMail
-    elif context.aq_parent.aq_parent.portal_type == 'genweb.organs.punt':
-        sender_email = context.aq_parent.aq_parent.aq_parent.aq_parent.fromMail
+    organ = utils.get_organ(context)
+    sender_email = organ.fromMail
 
     user_emails = []
 

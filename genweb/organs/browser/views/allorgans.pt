@@ -21,11 +21,12 @@
           <tr>
             <th style="text-align: center; width:15%">Unitat</th>
             <th style="text-align: center;">Nom de l'òrgan</th>
-            <th style="text-align: center;">Tipus d'òrgan de govern</th> 
+            <th style="text-align: center;">Tipus d'òrgan de govern</th>
             <th style="text-align: center;">Secretaris</th>
             <th style="text-align: center;">Editors</th>
             <th style="text-align: center;">Membres</th>
             <th style="text-align: center;">Afectats</th>
+            <th style="text-align: center;">Sessions obertes l'últim any</th>
           </tr>
         </thead>
         <tal:documents repeat="item elements">
@@ -39,7 +40,7 @@
               <tal:elseif condition="not:exists:item/grandparent">
                 <p style="font-weight: bold;"
                   tal:content="item/parent">Grand</p>
-              </tal:elseif>             
+              </tal:elseif>
             </td>
             <td>
               <span class="icon-genweb-organs-organgovern"></span>
@@ -79,6 +80,11 @@
             <td>
               <p tal:content="item/afectats">
                       Afectats
+              </p>
+            </td>
+            <td>
+              <p tal:content="item/sessions_open_last_year">
+                      Sessions obertes l'últim any
               </p>
             </td>
           </tr>

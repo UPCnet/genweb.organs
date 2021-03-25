@@ -1226,7 +1226,7 @@ Fi: ${vote/hourClose}"></span>
                           <span tal:condition="agreement" class="agreementClass">
                             [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
                           </span>
-                          <tal:block tal:condition="view/canViewResultsVote">
+                          <tal:block tal:condition="canViewVoteButtons">
                             <span tal:condition="itemSubpunt/canRecloseVote" class="editTitle editable subtitleSize">
                               <br/>
                               <tal:omit-tag i18n:translate="">Vote</tal:omit-tag>:
