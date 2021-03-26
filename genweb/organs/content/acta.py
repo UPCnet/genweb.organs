@@ -433,11 +433,31 @@ class SignActa(grok.View):
     grok.name('signActa')
     grok.require('genweb.organs.gdoc.sign')
 
+    def getSignants(self):
+        local_roles = self.context.get_local_roles()
+        users = []
+        for user in local_roles:
+            if 'OG1-Secretari' in user[1]:
+                try:
+                    users_group = api.user.get_users(groupname=user[0])
+                    for userx in users_group:
+                        if userx:
+                            users.append(userx.id)
+                except:
+                    users.append(user[0])
+
+        return users
+
     def render(self):
         if not isinstance(self.context.infoGDoc, dict):
             self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
 
         if self.context.infoGDoc and 'enviatASignar' in self.context.infoGDoc and self.context.infoGDoc['enviatASignar']:
+            return self.request.response.redirect(self.context.absolute_url())
+
+        signants = self.getSignants()
+        if not signants:
+            self.context.plone_utils.addPortalMessage(_(u'No hi ha secretaris per firmar l\'acta.'), 'error')
             return self.request.response.redirect(self.context.absolute_url())
 
         organ = utils.get_organ(self.context)
@@ -648,18 +668,8 @@ class SignActa(grok.View):
                                     "passosPeticio": [
                                         {
                                             "nivellSignatura": "CDA",
-                                            "signants": [
-                                                {
-                                                    "commonName": "iago.lopez"
-                                                },
-                                                # {
-                                                #     "commonName": "janet.dura"
-                                                # },
-                                                # {
-                                                #     "commonName": "eulalia.formenti"
-                                                # },
-                                            ]
-                                        }
+                                            "signants": [{"commonName": signant} for signant in signants],
+                                        },
                                     ],
                                     "promocionar": "S",
                                     "codiCategoria": "CAT6",
