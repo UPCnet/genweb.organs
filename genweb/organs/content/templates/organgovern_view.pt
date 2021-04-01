@@ -253,7 +253,6 @@
         url: 'getActesOrgangovern',
         success: function(result){
           data = $.parseJSON(result);
-          debugger;
           $.each(data, function(key, value){
             var actaHTML = '<tr>';
             actaHTML += '<td>';
