@@ -171,4 +171,19 @@
     permission="cmf.ManagePortal"
     />
 
+  <browser:page
+    for="genweb.organs.content.organgovern.IOrgangovern"
+    name="getAcordsOrgangovern"
+    class=".views.getAcordsOrgangovern"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="genweb.organs.content.organgovern.IOrgangovern"
+    name="getActesOrgangovern"
+    class=".views.getActesOrgangovern"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="zope2.View"
+    />
 </configure>

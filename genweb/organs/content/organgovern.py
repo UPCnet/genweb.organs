@@ -270,124 +270,132 @@ class View(grok.View):
                                 review_state=obj.review_state))
         return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
 
-    def getAcords(self):
-        """ La llista d'acords i el tab el veu tothom.
-            Després s'aplica el permís per cada rol a la vista de l'acord """
-        results = []
+    # def getAcords(self):
+    #     """ La llista d'acords i el tab el veu tothom.
+    #         Després s'aplica el permís per cada rol a la vista de l'acord """
+    #     results = []
 
-        portal_catalog = api.portal.get_tool(name='portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath())
+    #     portal_catalog = api.portal.get_tool(name='portal_catalog')
+    #     folder_path = '/'.join(self.context.getPhysicalPath())
 
-        # Només veu els acords de les sessions que pot veure
-        sessions = portal_catalog.unrestrictedSearchResults(
-            portal_type='genweb.organs.sessio',
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
+    #     # Només veu els acords de les sessions que pot veure
+    #     sessions = portal_catalog.unrestrictedSearchResults(
+    #         portal_type='genweb.organs.sessio',
+    #         sort_on='getObjPositionInParent',
+    #         path={'query': folder_path,
+    #               'depth': 1})
 
-        paths = []
-        if api.user.is_anonymous():
-            username = None
-        else:
-            username = api.user.get_current().id
+    #     paths = []
+    #     if api.user.is_anonymous():
+    #         username = None
+    #     else:
+    #         username = api.user.get_current().id
 
-        organ_type = self.context.organType
-        for session in sessions:
-            paths.append(session.getPath())
+    #     organ_type = self.context.organType
+    #     for session in sessions:
+    #         paths.append(session.getPath())
 
-        for path in paths:
-            values = portal_catalog.unrestrictedSearchResults(
-                portal_type=['genweb.organs.acord'],
-                sort_on='modified',
-                path={'query': path,
-                      'depth': 3})
+    #     for path in paths:
+    #         values = portal_catalog.unrestrictedSearchResults(
+    #             portal_type=['genweb.organs.acord'],
+    #             sort_on='modified',
+    #             path={'query': path,
+    #                   'depth': 3})
 
-            for obj in values:
-                value = obj.getObject()
-                if value.agreement:
-                    if len(value.agreement.split('/')) > 2:
-                        try:
-                            num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3) + value.agreement.split('/')[3].zfill(3)
-                        except:
-                            num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3)
-                        any = value.agreement.split('/')[0]
-                    else:
-                        num = value.agreement.split('/')[0].zfill(3)
-                        any = value.agreement.split('/')[1]
-                else:
-                    num = ''
-                    any = ''
-                if value.aq_parent.aq_parent.portal_type == 'genweb.organs.sessio':
-                    wf_state = api.content.get_state(obj=value.aq_parent.aq_parent)
-                    if username:
-                        roles = api.user.get_roles(username=username, obj=value.aq_parent.aq_parent)
-                    else:
-                        roles = []
-                else:
-                    wf_state = api.content.get_state(obj=value.aq_parent)
-                    if username:
-                        roles = api.user.get_roles(username=username, obj=value.aq_parent)
-                    else:
-                        roles = []
-                # Oculta acords from table depending on role and state
-                add_acord = False
-                if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
-                    add_acord = True
-                elif 'OG3-Membre' in roles:
-                    if 'planificada' not in wf_state:
-                        add_acord = True
-                elif 'OG4-Afectat' in roles:
-                    if organ_type == 'open_organ' or organ_type == 'restricted_to_affected_organ':
-                        if 'realitzada' in wf_state or 'tancada' in wf_state or 'en_correccio' in wf_state:
-                            add_acord = True
-                else:
-                    if 'tancada' in wf_state or 'en_correccio' in wf_state:
-                        add_acord = True
+    #         for obj in values:
+    #             value = obj.getObject()
+    #             if value.agreement:
+    #                 if len(value.agreement.split('/')) > 2:
+    #                     try:
+    #                         num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3) + value.agreement.split('/')[3].zfill(3)
+    #                     except:
+    #                         num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3)
+    #                     any = value.agreement.split('/')[0]
+    #                 else:
+    #                     num = value.agreement.split('/')[0].zfill(3)
+    #                     any = value.agreement.split('/')[1]
+    #             else:
+    #                 num = ''
+    #                 any = ''
+    #             if value.aq_parent.aq_parent.portal_type == 'genweb.organs.sessio':
+    #                 wf_state = api.content.get_state(obj=value.aq_parent.aq_parent)
+    #                 if username:
+    #                     roles = api.user.get_roles(username=username, obj=value.aq_parent.aq_parent)
+    #                 else:
+    #                     roles = []
+    #             else:
+    #                 wf_state = api.content.get_state(obj=value.aq_parent)
+    #                 if username:
+    #                     roles = api.user.get_roles(username=username, obj=value.aq_parent)
+    #                 else:
+    #                     roles = []
+    #             # Oculta acords from table depending on role and state
+    #             add_acord = False
+    #             if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
+    #                 add_acord = True
+    #             elif 'OG3-Membre' in roles:
+    #                 if 'planificada' not in wf_state:
+    #                     add_acord = True
+    #             elif 'OG4-Afectat' in roles:
+    #                 if organ_type == 'open_organ' or organ_type == 'restricted_to_affected_organ':
+    #                     if 'realitzada' in wf_state or 'tancada' in wf_state or 'en_correccio' in wf_state:
+    #                         add_acord = True
+    #             else:
+    #                 if 'tancada' in wf_state or 'en_correccio' in wf_state:
+    #                     add_acord = True
 
-                if add_acord:
-                    results.append(dict(title=value.title,
-                                        absolute_url=value.absolute_url(),
-                                        agreement=value.agreement,
-                                        hiddenOrder=any + num,
-                                        estatsLlista=value.estatsLlista,
-                                        color=utils.getColor(obj)))
+    #             if add_acord:
+    #                 results.append(dict(title=value.title,
+    #                                     absolute_url=value.absolute_url(),
+    #                                     agreement=value.agreement,
+    #                                     hiddenOrder=any + num,
+    #                                     estatsLlista=value.estatsLlista,
+    #                                     color=utils.getColor(obj)))
 
-        return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
+    #     return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
 
-    def getActes(self):
+    # def getActes(self):
+    #     """ Si es Manager/Secretari/Editor/Membre show actas
+    #         Affectat i altres NO veuen MAI les ACTES """
+    #     if utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isManager(self):
+    #         results = []
+    #         portal_catalog = api.portal.get_tool(name='portal_catalog')
+    #         folder_path = '/'.join(self.context.getPhysicalPath())
+
+    #         sessions = portal_catalog.searchResults(
+    #             portal_type='genweb.organs.sessio',
+    #             sort_on='getObjPositionInParent',
+    #             path={'query': folder_path,
+    #                   'depth': 1})
+
+    #         paths = []
+    #         for session in sessions:
+    #             paths.append(session.getPath())
+
+    #         for path in paths:
+    #             values = portal_catalog.searchResults(
+    #                 portal_type=['genweb.organs.acta'],
+    #                 sort_on='modified',
+    #                 path={'query': path,
+    #                       'depth': 3})
+
+    #             for obj in values:
+    #                 value = obj.getObject()
+    #                 results.append(dict(title=value.title,
+    #                                     absolute_url=value.absolute_url(),
+    #                                     data=value.horaInici.strftime('%d/%m/%Y'),
+    #                                     hiddenOrder=value.horaInici.strftime('%Y%m%d')))
+    #         return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
+    #     else:
+    #         return None
+
+    def viewActes(self):
         """ Si es Manager/Secretari/Editor/Membre show actas
             Affectat i altres NO veuen MAI les ACTES """
         if utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isManager(self):
-            results = []
-            portal_catalog = api.portal.get_tool(name='portal_catalog')
-            folder_path = '/'.join(self.context.getPhysicalPath())
-
-            sessions = portal_catalog.searchResults(
-                portal_type='genweb.organs.sessio',
-                sort_on='getObjPositionInParent',
-                path={'query': folder_path,
-                      'depth': 1})
-
-            paths = []
-            for session in sessions:
-                paths.append(session.getPath())
-
-            for path in paths:
-                values = portal_catalog.searchResults(
-                    portal_type=['genweb.organs.acta'],
-                    sort_on='modified',
-                    path={'query': path,
-                          'depth': 3})
-
-                for obj in values:
-                    value = obj.getObject()
-                    results.append(dict(title=value.title,
-                                        absolute_url=value.absolute_url(),
-                                        data=value.horaInici.strftime('%d/%m/%Y'),
-                                        hiddenOrder=value.horaInici.strftime('%Y%m%d')))
-            return sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
+            return True
         else:
-            return None
+            return False
 
     def getFAQs(self):
         if self.canViewFAQs():
