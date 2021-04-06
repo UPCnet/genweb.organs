@@ -4,7 +4,7 @@ python:
     - 2.7
 
 before_install:
-  - sudo apt-get install --yes libsasl2-dev python-dev libldap2-dev libssl-dev
+  - sudo apt-get install --yes libsasl2-dev python-dev libldap2-dev libssl-dev libgtk-3-dev
 
 before_script:
   - export ROBOT_SELENIUM2LIBRARY_RUN_ON_FAILURE="Capture Page Screenshot"
@@ -15,7 +15,7 @@ before_script:
 
 install:
     - pip install setuptools zc.buildout
-    - pip install coveralls coverage
+    - pip install coveralls coverage requests nose-htmloutput nose
     - buildout bootstrap
     - buildout -N
 
