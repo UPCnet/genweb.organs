@@ -45,8 +45,7 @@ addons:
 notifications:
   email:
     recipients:
-      - roberto.diaz@upcnet.es
-      - Roberto Diaz
+      - plone.team@upcnet.es
     on_success: change
     on_failure: change
 
