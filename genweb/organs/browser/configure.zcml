@@ -186,4 +186,13 @@
     layer="..interfaces.IGenwebOrgansLayer"
     permission="zope2.View"
     />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="updateIndicadors"
+    class=".views.updateIndicadors"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="cmf.ManagePortal"
+    />
+
 </configure>

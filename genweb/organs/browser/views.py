@@ -15,6 +15,8 @@ from zope.i18n import translate
 from genweb.organs import _
 from genweb.organs import utils
 from genweb.organs.utils import addEntryLog
+from genweb.organs.utils import get_settings_property
+from genweb.organs.indicators.updating import update_indicators
 
 import ast
 import datetime
@@ -1172,3 +1174,16 @@ class getActesOrgangovern(BrowserView):
             return json.dumps(sorted(results, key=itemgetter('hiddenOrder'), reverse=True))
         else:
             return json.dumps([])
+
+
+class updateIndicadors(BrowserView):
+
+    def __call__(self):
+        update_indicators(
+            self, service=get_settings_property('service_id'), indicator='organ-n')
+
+        update_indicators(
+            self, service=get_settings_property('service_id'), indicator='sessio-n')
+
+        update_indicators(
+            self, service=get_settings_property('service_id'), indicator='acord-n')
