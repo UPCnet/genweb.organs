@@ -19,6 +19,7 @@
       <table class="table table-striped table-bordered">
         <thead>
           <tr>
+            <th style="text-align: center; width:10%">Tipus d'unitat</th>
             <th style="text-align: center; width:15%">Unitat</th>
             <th style="text-align: center;">Nom de l'òrgan</th>
             <th style="text-align: center;">Tipus d'òrgan de govern</th>
@@ -33,14 +34,11 @@
           <tr>
             <td>
               <tal:if condition="exists:item/grandparent">
-                <p style="font-weight: bold;"
-                  tal:content="item/grandparent">Grand</p>
-                <p tal:content="item/parent">Parent</p>
+                <p tal:content="item/grandparent">Grand</p>
               </tal:if>
-              <tal:elseif condition="not:exists:item/grandparent">
-                <p style="font-weight: bold;"
-                  tal:content="item/parent">Grand</p>
-              </tal:elseif>
+            </td>
+            <td>
+              <p tal:content="item/parent">Unitat</p>
             </td>
             <td>
               <span class="icon-genweb-organs-organgovern"></span>
