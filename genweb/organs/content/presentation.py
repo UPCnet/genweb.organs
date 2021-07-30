@@ -428,5 +428,7 @@ class Presentation(form.SchemaForm):
             return True
         elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
             return True
+        elif self.context.organType == 'open_organ' and estatSessio in ['convocada', 'realitzada', 'tancada', 'en_correccio'] and utils.isAfectat(self):
+            return True
         else:
             raise Unauthorized

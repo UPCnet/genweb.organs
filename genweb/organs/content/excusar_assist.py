@@ -1,30 +1,25 @@
 # -*- coding: utf-8 -*-
-from plone import api
-from five import grok
-from zope.schema import TextLine
-from z3c.form import button
-from plone.directives import form
-from Products.statusmessages.interfaces import IStatusMessage
-from genweb.organs.interfaces import IGenwebOrgansLayer
-from genweb.organs import _
-from genweb.organs.content.sessio import ISessio
-from plone.autoform import directives
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from zope import schema
-from z3c.form.interfaces import DISPLAY_MODE
-from genweb.organs.utils import addEntryLog
-from genweb.organs.utils import addExcuse
 from AccessControl import Unauthorized
 from Products.CMFCore.utils import getToolByName
-from plone.event.interfaces import IEventAccessor
-import unicodedata
+from Products.statusmessages.interfaces import IStatusMessage
+
+from five import grok
+from plone import api
+from plone.directives import form
+from z3c.form import button
+from z3c.form.interfaces import DISPLAY_MODE
+from zope import schema
+from zope.schema import TextLine
+
+from genweb.organs import _
+from genweb.organs.content.sessio import ISessio
+from genweb.organs.interfaces import IGenwebOrgansLayer
+from genweb.organs.utils import addExcuse
 
 grok.templatedir("templates")
 
 
 class IExcusar(form.Schema):
-    """ 
-    """
     name = TextLine(
         title=_(u"Nom i cognoms"),
         required=False)
@@ -58,17 +53,14 @@ class Message(form.SchemaForm):
         else:
             username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'OG3-Membre' in roles or 'Manager' in roles:
+            if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles:
                 self.request.set('disable_border', True)
                 super(Message, self).update()
             else:
                 raise Unauthorized
 
-
     def updateWidgets(self):
         super(Message, self).updateWidgets()
-
-        session = self.context
 
         user = api.user.get_current().id
         acl_users = getToolByName(self.context, 'acl_users')
@@ -102,10 +94,8 @@ class Message(form.SchemaForm):
             return
 
         addExcuse(self.context, self.widgets["name"].value or formData['name'], self.widgets["email"].value or formData['email'], self.widgets["comments"].value)
-    
-        self.context.plone_utils.addPortalMessage(
-             _(u"Missatge enviat correctament"), 'info')
 
+        self.context.plone_utils.addPortalMessage(_(u"Missatge enviat correctament"), 'info')
 
         return self.request.response.redirect(self.context.absolute_url())
 
