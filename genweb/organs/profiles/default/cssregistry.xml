@@ -10,14 +10,14 @@
     bundle="default" cacheable="True" compression="safe" conditionalcomment=""
     cookable="True" enabled="on" expression=""
     id="++resource++genweb.organs.stylesheets/genweb_organs.css"
-    insert-after="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,600"
-    media="" rel="stylesheet" rendering="import"/>
+    insert-after="++resource++genweb.cleantheme.stylesheets/genweb_cleantheme.css"
+    media="" rel="stylesheet" rendering="link"/>
 
  <stylesheet title="" applyPrefix="False" authenticated="False"
     bundle="default" cacheable="True" compression="safe" conditionalcomment=""
     cookable="True" enabled="on" expression=""
     id="++resource++genweb.organs.stylesheets/print.css"
     insert-after="++resource++genweb.organs.stylesheets/genweb_organs.css"
-    media="print" rel="stylesheet" rendering="import"/>
+    media="print" rel="stylesheet" rendering="link"/>
 
 </object>

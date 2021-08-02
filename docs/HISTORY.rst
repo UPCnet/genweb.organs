@@ -1,11 +1,33 @@
 Changelog
 =========
 
-0.47 (unreleased)
+0.48 (unreleased)
 -----------------
 
 - Nothing changed yet.
 
+
+0.47 (2021-04-07)
+-----------------
+
+* travis is green now [Roberto Diaz]
+* travis should be green now [Roberto Diaz]
+* another fix [Roberto Diaz]
+* fixing travis [Roberto Diaz]
+* fix versions 2 [Roberto Diaz]
+* fix versions [Roberto Diaz]
+* Merge pull request #2 from UPCnet/test_update_for_travis [Roberto Díaz]
+*  [Roberto Díaz]
+* fixed versions [Roberto Díaz]
+* fixed versions [Roberto Diaz]
+* Merge pull request #1 from UPCnet/test_update_for_travis [Roberto Díaz]
+*  [Roberto Díaz]
+* updated pathlib and use https to pass travis ;) [Roberto Díaz]
+* updated pathlib and use https [Roberto Diaz]
+* Quitar debugger js [Iago López Fernández]
+* Rendimiento: tablas actas y acords del organ [Iago López Fernández]
+* Multiples annexos en las actas [Iago López Fernández]
+* Cambiar condicion vista sesion [Iago López Fernández]
 
 0.46 (2021-03-17)
 -----------------
