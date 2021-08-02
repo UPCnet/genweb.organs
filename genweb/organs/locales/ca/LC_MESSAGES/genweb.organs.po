@@ -481,7 +481,7 @@ msgstr "Esteu visualitzant la sessió amb el rol"
 
 #: ./genweb/organs/content/organgovern.py:135
 msgid "Events color help"
-msgstr "Si està marcada la opció anterior, color amb el que es mostren les sessions d'aquest òrgan al calendari. Són vàlids tant els literals CSS (green) com els codis de colors HTML (#008000). En cas de no indicar cap color, s'utilitzarà el color per defecte #007BC0.<br/>Podeu trobar la llista de colors acceptats pels navegadors <a href='http://www.w3schools.com/colors/colors_names.asp' target='_blank'>aquí.</a>"
+msgstr "Si està marcada la opció anterior, color amb el que es mostren les sessions d'aquest òrgan al calendari. Són vàlids tant els literals CSS (green) com els codis de colors HTML (#008000). En cas de no indicar cap color, s'utilitzarà el color per defecte #A6A6A6.<br/>Podeu trobar la llista de colors acceptats pels navegadors <a href='http://www.w3schools.com/colors/colors_names.asp' target='_blank'>aquí.</a>"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:168
 msgid "Excusa l'assistencia"
