@@ -1151,24 +1151,24 @@ class OpenQuorum(grok.View):
         lenQuorums = len(self.context.infoQuorums)
         if lenQuorums == 0 or self.context.infoQuorums[lenQuorums]['end']:
             idQuorum = lenQuorums + 1
-            if utils.isSecretari(self):
-                self.context.infoQuorums.update({
-                    idQuorum: {
-                        'start': datetime.datetime.now().strftime('%d/%m/%Y %H:%M'),
-                        'end': None,
-                        'people': [api.user.get_current().id],
-                        'total': 1,
-                    }
-                })
-            else:
-                self.context.infoQuorums.update({
-                    idQuorum: {
-                        'start': datetime.datetime.now().strftime('%d/%m/%Y %H:%M'),
-                        'end': None,
-                        'people': [],
-                        'total': 0,
-                    }
-                })
+            # if utils.isSecretari(self):
+            #     self.context.infoQuorums.update({
+            #         idQuorum: {
+            #             'start': datetime.datetime.now().strftime('%d/%m/%Y %H:%M'),
+            #             'end': None,
+            #             'people': [api.user.get_current().id],
+            #             'total': 1,
+            #         }
+            #     })
+            # else:
+            self.context.infoQuorums.update({
+                idQuorum: {
+                    'start': datetime.datetime.now().strftime('%d/%m/%Y %H:%M'),
+                    'end': None,
+                    'people': [],
+                    'total': 0,
+                }
+            })
 
         transaction.commit()
 
