@@ -435,8 +435,9 @@ class SignActa(grok.View):
     grok.name('signActa')
     grok.require('genweb.organs.gdoc.sign')
 
-    def getSignants(self):
-        local_roles = self.context.get_local_roles()
+    def getSecretariUsers(self, context):
+        local_roles = context.get_local_roles()
+
         users = []
         for user in local_roles:
             if 'OG1-Secretari' in user[1]:
@@ -449,6 +450,18 @@ class SignActa(grok.View):
                     users.append(user[0])
 
         return users
+
+    def getSignants(self):
+        context = self.context
+        users = self.getSecretariUsers(context)
+
+        while not getattr(context, '__ac_local_roles_block__', True):
+            context = context.aq_parent
+            users += self.getSecretariUsers(context)
+
+        listUsers = list(set(users))
+        import ipdb; ipdb.set_trace()
+        return listUsers
 
     def generateActaPDF(self):
         options = {'cookie': [('__ac', self.request.cookies['__ac']),
