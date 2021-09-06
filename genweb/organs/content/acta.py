@@ -460,7 +460,6 @@ class SignActa(grok.View):
             users += self.getSecretariUsers(context)
 
         listUsers = list(set(users))
-        import ipdb; ipdb.set_trace()
         return listUsers
 
     def generateActaPDF(self):
