@@ -455,7 +455,7 @@ class SignActa(grok.View):
         context = self.context
         users = self.getSecretariUsers(context)
 
-        while not getattr(context, '__ac_local_roles_block__', True):
+        while not getattr(context, '__ac_local_roles_block__', None):
             context = context.aq_parent
             users += self.getSecretariUsers(context)
 
