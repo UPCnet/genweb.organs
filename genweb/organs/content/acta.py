@@ -567,7 +567,7 @@ class SignActa(grok.View):
                                                                      'uuid': str(content_info_acta['documentElectronic']['uuid']),
                                                                      'filename': self.context.id + '.pdf',
                                                                      'contentType': 'application/pdf',
-                                                                     'sizeKB': os.path.getsize(self.context.id + '.pdf') / 1024}
+                                                                     'sizeKB': os.path.getsize('/tmp/' + self.context.id + '.pdf') / 1024}
                                     self.context.reindexObject()
 
                                 else:
