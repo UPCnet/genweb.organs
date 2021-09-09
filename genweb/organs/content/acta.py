@@ -467,7 +467,7 @@ class SignActa(grok.View):
                               ('I18N_LANGUAGE', self.request.cookies['I18N_LANGUAGE'])]}
 
         pdfkit.from_url(self.context.absolute_url() + '/printActa', '/tmp/' + self.context.id + '.pdf', options=options)
-        return open('/tmp/' + self.context.id + '.pdf', 'r')
+        return open('/tmp/' + self.context.id + '.pdf', 'rb')
 
     def removeActaPDF(self):
         try:
@@ -488,7 +488,6 @@ class SignActa(grok.View):
             self.context.plone_utils.addPortalMessage(_(u'No hi ha secretaris per firmar l\'acta.'), 'error')
             return self.request.response.redirect(self.context.absolute_url())
 
-        actaPDF = self.generateActaPDF()
         organ = utils.get_organ(self.context)
         if organ.visiblegdoc:
 
@@ -505,7 +504,6 @@ class SignActa(grok.View):
                         logger.info('0.ERROR Eliminació serie documental en gdoc per tornar-la a crear')
                         logger.info(result_del.content)
                         self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pogut eliminar els contiguts de GDoc per tornar-los a crear.'), 'error')
-                        self.removeActaPDF()
                         return self.request.response.redirect(self.context.absolute_url())
 
                 # Petició per obtenir un codi d'expedient
@@ -550,6 +548,7 @@ class SignActa(grok.View):
                                          "agentsAmbCodiEsquemaIdentificacio": False,
                                          "validesaAdministrativa": True}
 
+                            actaPDF = self.generateActaPDF()
                             files = {'fitxer': (self.context.id + '.pdf', actaPDF.read(), 'application/pdf')}
 
                             # Pujem l'acta a la sèrie documental creada al gdoc
