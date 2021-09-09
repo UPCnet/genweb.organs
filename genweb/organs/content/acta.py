@@ -470,10 +470,12 @@ class SignActa(grok.View):
         return open('/tmp/' + self.context.id + '.pdf', 'r')
 
     def removeActaPDF(self):
-        os.remove('/tmp/' + self.context.id + '.pdf')
+        try:
+            os.remove('/tmp/' + self.context.id + '.pdf')
+        except:
+            pass
 
     def render(self):
-        actaPDF = self.generateActaPDF()
 
         if not isinstance(self.context.infoGDoc, dict):
             self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
@@ -486,6 +488,7 @@ class SignActa(grok.View):
             self.context.plone_utils.addPortalMessage(_(u'No hi ha secretaris per firmar l\'acta.'), 'error')
             return self.request.response.redirect(self.context.absolute_url())
 
+        actaPDF = self.generateActaPDF()
         organ = utils.get_organ(self.context)
         if organ.visiblegdoc:
 
@@ -502,6 +505,7 @@ class SignActa(grok.View):
                         logger.info('0.ERROR Eliminació serie documental en gdoc per tornar-la a crear')
                         logger.info(result_del.content)
                         self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pogut eliminar els contiguts de GDoc per tornar-los a crear.'), 'error')
+                        self.removeActaPDF()
                         return self.request.response.redirect(self.context.absolute_url())
 
                 # Petició per obtenir un codi d'expedient
@@ -574,12 +578,14 @@ class SignActa(grok.View):
                                     logger.info('4.2.ERROR. Petició per demanar el uuid de l\'acta')
                                     logger.info(result_info_acta.content)
                                     self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pugut obtenir l\'informació de l\'acta: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                                    self.removeActaPDF()
                                     return self.request.response.redirect(self.context.absolute_url())
 
                             else:
                                 logger.info('4.ERROR. Puja de l\'acta al gdoc')
                                 logger.info(result_acta.content)
                                 self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pogut pujar l\'acta: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                                self.removeActaPDF()
                                 return self.request.response.redirect(self.context.absolute_url())
 
                             pos = 0
@@ -625,12 +631,14 @@ class SignActa(grok.View):
                                             logger.info('5.2.ERROR. Petició per demanar el uuid del fitxer adjunt')
                                             logger.info(result_info_file.content)
                                             self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pugut obtenir l\'informació del fitxer adjunt: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                                            self.removeActaPDF()
                                             return self.request.response.redirect(self.context.absolute_url())
 
                                     else:
                                         logger.info('5.ERROR. Puja del fitxer adjunt al gdoc - ' + annex.file.filename)
                                         logger.info(result_file.content)
                                         self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pogut pujar el fitxer adjunt: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                                        self.removeActaPDF()
                                         return self.request.response.redirect(self.context.absolute_url())
 
                             pos = 0
@@ -675,12 +683,14 @@ class SignActa(grok.View):
                                             logger.info('6.2.ERROR. Petició per demanar el uuid del àudio')
                                             logger.info(result_info_audio.content)
                                             self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pugut obtenir l\'informació del àudio: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                                            self.removeActaPDF()
                                             return self.request.response.redirect(self.context.absolute_url())
 
                                     else:
                                         logger.info('6.ERROR. Puja del àudio al gdoc - ' + audio.file.filename)
                                         logger.info(result_audio.content)
                                         self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pogut pujar el àudio: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                                        self.removeActaPDF()
                                         return self.request.response.redirect(self.context.absolute_url())
 
                             data_sign = {
@@ -741,11 +751,13 @@ class SignActa(grok.View):
 
                                 self.context.plone_utils.addPortalMessage(_(u'S\'ha enviat a firmar correctament'), 'success')
                                 transaction.commit()
+                                self.removeActaPDF()
                             else:
                                 logger.info('7.ERROR. Petició de la firma al portafirmes')
                                 logger.info(result_sign.content)
                                 self.context.plone_utils.addPortalMessage(_(u'No s\'ha pogut enviar a firmar: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
 
+                            self.removeActaPDF()
                             return self.request.response.redirect(self.context.absolute_url())
                     else:
                         logger.info('3.ERROR. Creació de la serie documental en gdoc')
@@ -756,23 +768,22 @@ class SignActa(grok.View):
                             elif content_exp['codi'] == 528:
                                 self.context.plone_utils.addPortalMessage(_(u'GDoc: La sèrie documental configurada no existeix'), 'error')
 
+                            self.removeActaPDF()
                             return self.request.response.redirect(self.context.absolute_url())
 
                         self.context.plone_utils.addPortalMessage(_(u'GDoc: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                        self.removeActaPDF()
                         return self.request.response.redirect(self.context.absolute_url())
                 else:
                     logger.info('2.ERROR. Demamant codi del expedient al servei generadorcodiexpedient')
                     logger.info(result_codi.content)
                     self.context.plone_utils.addPortalMessage(_(u'No s\'ha pogut generar el codi de expedient: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                    self.removeActaPDF()
                     return self.request.response.redirect(self.context.absolute_url())
             except:
                 self.context.plone_utils.addPortalMessage(_(u'S\'ha sobrepasat el temps d\'espera per executar la petició: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
-                return self.request.response.redirect(self.context.absolute_url())
-
-            try:
                 self.removeActaPDF()
-            except:
-                pass
+                return self.request.response.redirect(self.context.absolute_url())
 
 
 class ViewActa(grok.View):
