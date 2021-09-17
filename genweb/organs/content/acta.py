@@ -464,7 +464,7 @@ class SignActa(grok.View):
 
     def generateActaPDF(self):
         options = {'cookie': [('__ac', self.request.cookies['__ac']),
-                              ('I18N_LANGUAGE', self.request.cookies['I18N_LANGUAGE'])]}
+                              ('I18N_LANGUAGE', self.request.cookies.get('I18N_LANGUAGE', 'ca'))]}
 
         pdfkit.from_url(self.context.absolute_url() + '/printActa', '/tmp/' + self.context.id + '.pdf', options=options)
         return open('/tmp/' + self.context.id + '.pdf', 'rb')
