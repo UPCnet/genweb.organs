@@ -372,7 +372,7 @@ class View(dexterity.DisplayForm):
                                         sizeKB=annex.getSize() / 1024))
                 return results
         else:
-            if self.context.infoGDoc['adjunts']:
+            if 'adjunts' in self.context.infoGDoc and self.context.infoGDoc['adjunts']:
                 results = []
                 for pos in self.context.infoGDoc['adjunts']:
                     annex = self.context.infoGDoc['adjunts'][pos]
