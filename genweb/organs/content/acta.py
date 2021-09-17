@@ -754,7 +754,10 @@ class SignActa(grok.View):
                             else:
                                 logger.info('7.ERROR. Petició de la firma al portafirmes')
                                 logger.info(result_sign.content)
-                                self.context.plone_utils.addPortalMessage(_(u'No s\'ha pogut enviar a firmar: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                                if 'tamany' in result_sign.content:
+                                    self.context.plone_utils.addPortalMessage(_(u'No s\'ha pogut enviar a firmar: S\'ha superat el tamany màxim'), 'error')
+                                else:
+                                    self.context.plone_utils.addPortalMessage(_(u'No s\'ha pogut enviar a firmar: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
 
                             self.removeActaPDF()
                             return self.request.response.redirect(self.context.absolute_url())
