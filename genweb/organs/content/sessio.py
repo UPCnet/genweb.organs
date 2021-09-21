@@ -926,22 +926,31 @@ class View(grok.View):
     def canViewManageVote(self):
         # estatSessio = utils.session_wf_state(self)
         # return estatSessio == 'convocada' and (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self))
-        return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
+        if self.context.aq_parent.organType == 'open_organ':
+            return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
+        return False
 
     def canViewVoteButtons(self):
         # estatSessio = utils.session_wf_state(self)
         # return estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isMembre(self))
-        return utils.isSecretari(self) or utils.isMembre(self)
+        if self.context.aq_parent.organType == 'open_organ':
+            return utils.isSecretari(self) or utils.isMembre(self)
+        return False
 
     def canViewResultsVote(self):
         # estatSessio = utils.session_wf_state(self)
         # return estatSessio == 'convocada' and (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self))
-        return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
+        if self.context.aq_parent.organType == 'open_organ':
+            return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
+        return False
 
     def canViewLinkSala(self):
         return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
 
     def getAllResultsVotes(self):
+        if self.context.aq_parent.organType != 'open_organ':
+            return []
+
         portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
@@ -1113,10 +1122,14 @@ class View(grok.View):
         return self.context.infoQuorums
 
     def canViewManageQuorumButtons(self):
-        return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
+        if self.context.aq_parent.organType == 'open_organ':
+            return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
+        return False
 
     def canViewAddQuorumButtons(self):
-        return utils.isSecretari(self) or utils.isMembre(self)
+        if self.context.aq_parent.organType == 'open_organ':
+            return utils.isSecretari(self) or utils.isMembre(self)
+        return False
 
     def checkHasQuorum(self):
         if not isinstance(self.context.infoQuorums, dict):
