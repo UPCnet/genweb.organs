@@ -1,11 +1,20 @@
 Changelog
 =========
 
-0.48 (unreleased)
+0.48 (2021-09-21)
 -----------------
 
-- Nothing changed yet.
-
+* Votaciones y quorum solo en organs publicos [Iago López Fernández]
+* No ver listado esmenas si no tienes permisos [Iago López Fernández]
+* Secretario no hace quorum automaticamente [Iago López Fernández]
+* Cambiar color por defecto eventos calendario [Iago López Fernández]
+* Cambio de permisos en organs publicos para el rol afectat [Iago López Fernández]
+* Permiso visualización fichero publico en organ publico convocada [Iago López Fernández]
+* Añadir nuevo campo allorgans [Iago López Fernández]
+* http -> https [Iago López Fernández]
+* Pasar indicadores a una vista y quitar los hooks [Iago López Fernández]
+* Permisos visualización fichero [Iago López Fernández]
+* Cambio cssregistry.xml [Iago López Fernández]
 
 0.47 (2021-04-07)
 -----------------
