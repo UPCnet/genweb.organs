@@ -183,20 +183,31 @@ class View(grok.View):
     grok.context(IAcord)
     grok.template('acord_view')
 
-    def VotacionsInside(self):
-        portal_catalog = api.portal.get_tool(name='portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        values = portal_catalog.unrestrictedSearchResults(
-            portal_type=['genweb.organs.votacioacord'],
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
+    def canViewVotacionsInside(self):
+        estatSessio = utils.session_wf_state(self)
+        if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            return True
+        elif estatSessio in ['convocada', 'realitzada', 'tancada', 'en_correccio'] and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            return True
+        else:
+            return False
 
-        results = []
-        for obj in values:
-            results.append(dict(title=obj.Title,
-                                absolute_url=obj.getURL()))
-        return results
+    def VotacionsInside(self):
+        if self.canViewVotacionsInside():
+            portal_catalog = api.portal.get_tool(name='portal_catalog')
+            folder_path = '/'.join(self.context.getPhysicalPath())
+            values = portal_catalog.unrestrictedSearchResults(
+                portal_type=['genweb.organs.votacioacord'],
+                sort_on='getObjPositionInParent',
+                path={'query': folder_path,
+                      'depth': 1})
+
+            results = []
+            for obj in values:
+                results.append(dict(title=obj.Title,
+                                    absolute_url=obj.getURL()))
+            return results
+        return []
 
     def FilesandDocumentsInside(self):
         return utils.FilesandDocumentsInside(self)
