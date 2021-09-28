@@ -1558,11 +1558,6 @@ Fi: ${vote/hourClose}"></span>
     });
   });
 
-  $(document).ajaxStop(function(){
-     if(refreshNeeded){
-        window.location.reload();
-    }
-  });
 </script>
 
 <script type="text/javascript" tal:condition="view/canViewManageQuorumButtons">
@@ -1710,6 +1705,12 @@ Fi: ${vote/hourClose}"></span>
   $(".openInfo").click(function(){
     $(this).toggleClass("opened");
     $($(this).attr("data-open")).toggleClass("opened");
+  });
+
+  $(document).ajaxStop(function(){
+   if(refreshNeeded){
+      window.location.reload();
+    }
   });
 
 </script>
