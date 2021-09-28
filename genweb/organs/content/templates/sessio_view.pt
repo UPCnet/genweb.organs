@@ -1415,7 +1415,117 @@ Fi: ${vote/hourClose}"></span>
 
 <div style="margin-bottom:20px;"></div>
 
-<script type="text/javascript" tal:condition="canViewVoteButtons">
+<script type="text/javascript" tal:condition="view/canViewManageVote">
+
+  $(".removeVote").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-url') + '/removeVote',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+  $(".closeVote").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/closeVote',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+  $(".recloseVote").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/closeVote',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+  $(".openPublicVote").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/openPublicVote',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+  $(".openOtherPublicVote").on('click', function(){
+    var titolVotacio = prompt($(this).attr('data-title'), "");
+    if (titolVotacio) {
+      $.ajax({
+              type: 'POST',
+              data: {'title': titolVotacio},
+              url: $(this).attr('data-id') + '/openOtherPublicVote',
+              success: function(){
+                refreshNeeded = true;
+              },
+      });
+    }
+  });
+
+  $(".refreshVote").on('click', function(){
+    uid = $(this).attr('data-uid');
+    $.ajax({
+            type: 'GET',
+            data: {'UID': uid},
+            url: 'reloadVoteStats',
+            success: function(result){
+              data = $.parseJSON(result)
+              $('#vote-' + uid + ' .vote-totalVote').html(data.totalVote);
+              $('#' + uid + ' .vote-users-totalVote').html(data.totalVoteListHTML);
+              $('#vote-' + uid + ' .vote-state').html(data.state);
+              if (data.open)  {
+                $('#vote-' + uid + ' .fa-info-circle').attr('title', 'Inici: ' + data.hourOpen);
+              } else{
+                $('#vote-' + uid + ' .vote-favorVote').html(data.favorVote);
+                $('#vote-' + uid + ' .vote-againstVote').html(data.againstVote);
+                $('#vote-' + uid + ' .vote-whiteVote').html(data.whiteVote);
+                $('#' + uid + ' .vote-users-favorVote').html(data.favorVoteListHTML);
+                $('#' + uid + ' .vote-users-againstVote').html(data.againstVoteListHTML);
+                $('#' + uid + ' .vote-users-whiteVote').html(data.whiteVoteListHTML);
+                $('#vote-' + uid + ' .fa-info-circle').attr('title', 'Inici: ' + data.hourOpen + '\nFi: ' + data.hourClose);
+                $('#vote-' + uid + ' .refreshVote').remove();
+              }
+            },
+    });
+  });
+
+  /*$(".openSecretVote").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/openSecretVote',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });*/
+
+
+  /*$(".openOtherSecretVote").on('click', function(){
+    var titolVotacio = prompt($(this).attr('data-title'), "");
+    if (titolVotacio) {
+      $.ajax({
+              type: 'POST',
+              data: {'title': titolVotacio}
+              url: $(this).attr('data-id') + '/openOtherSecretVote',
+              success: function(){
+                refreshNeeded = true;
+              },
+      });
+    }
+  });*/
+
+</script>
+
+<script type="text/javascript" tal:condition="view/canViewVoteButtons">
   var refreshNeeded = false;
 
   $(".notVote .favor").on('click', function(){
@@ -1448,6 +1558,39 @@ Fi: ${vote/hourClose}"></span>
     });
   });
 
+  $(document).ajaxStop(function(){
+     if(refreshNeeded){
+        window.location.reload();
+    }
+  });
+</script>
+
+<script type="text/javascript" tal:condition="view/canViewManageQuorumButtons">
+
+  $(".openQuorum").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: 'openQuorum',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+  $(".closeQuorum").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: 'closeQuorum',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
+
+</script>
+
+<script type="text/javascript" tal:condition="view/canViewAddQuorumButtons">
+
   $(".addQuorum").on('click', function(){
     $.ajax({
             type: 'POST',
@@ -1458,38 +1601,6 @@ Fi: ${vote/hourClose}"></span>
     });
   });
 
-  $(".refreshVote").on('click', function(){
-    uid = $(this).attr('data-uid');
-    $.ajax({
-            type: 'GET',
-            data: {'UID': uid},
-            url: 'reloadVoteStats',
-            success: function(result){
-              data = $.parseJSON(result)
-              $('#vote-' + uid + ' .vote-totalVote').html(data.totalVote);
-              $('#' + uid + ' .vote-users-totalVote').html(data.totalVoteListHTML);
-              $('#vote-' + uid + ' .vote-state').html(data.state);
-              if (data.open)  {
-                $('#vote-' + uid + ' .fa-info-circle').attr('title', 'Inici: ' + data.hourOpen);
-              } else{
-                $('#vote-' + uid + ' .vote-favorVote').html(data.favorVote);
-                $('#vote-' + uid + ' .vote-againstVote').html(data.againstVote);
-                $('#vote-' + uid + ' .vote-whiteVote').html(data.whiteVote);
-                $('#' + uid + ' .vote-users-favorVote').html(data.favorVoteListHTML);
-                $('#' + uid + ' .vote-users-againstVote').html(data.againstVoteListHTML);
-                $('#' + uid + ' .vote-users-whiteVote').html(data.whiteVoteListHTML);
-                $('#vote-' + uid + ' .fa-info-circle').attr('title', 'Inici: ' + data.hourOpen + '\nFi: ' + data.hourClose);
-                $('#vote-' + uid + ' .refreshVote').remove();
-              }
-            },
-    });
-  });
-
-  $(document).ajaxStop(function(){
-     if(refreshNeeded){
-        window.location.reload();
-    }
-  });
 </script>
 
 <script type="text/javascript" tal:condition="canModify">
@@ -1518,109 +1629,6 @@ Fi: ${vote/hourClose}"></span>
             type: 'POST',
             url: '@@createElement',
             data: params,
-            success: function(){
-              refreshNeeded = true;
-            },
-    });
-  });
-
-  $(".openPublicVote").on('click', function(){
-    $.ajax({
-            type: 'POST',
-            url: $(this).attr('data-id') + '/openPublicVote',
-            success: function(){
-              refreshNeeded = true;
-            },
-    });
-  });
-
-  $(".openOtherPublicVote").on('click', function(){
-    var titolVotacio = prompt($(this).attr('data-title'), "");
-    if (titolVotacio) {
-      $.ajax({
-              type: 'POST',
-              data: {'title': titolVotacio},
-              url: $(this).attr('data-id') + '/openOtherPublicVote',
-              success: function(){
-                refreshNeeded = true;
-              },
-      });
-    }/* else {
-      alert($(this).attr('data-error'));
-    }*/
-  });
-
-  /*$(".openSecretVote").on('click', function(){
-    $.ajax({
-            type: 'POST',
-            url: $(this).attr('data-id') + '/openSecretVote',
-            success: function(){
-              refreshNeeded = true;
-            },
-    });
-  });*/
-
-
-  /*$(".openOtherSecretVote").on('click', function(){
-    var titolVotacio = prompt($(this).attr('data-title'), "");
-    if (titolVotacio) {
-      $.ajax({
-              type: 'POST',
-              data: {'title': titolVotacio}
-              url: $(this).attr('data-id') + '/openOtherSecretVote',
-              success: function(){
-                refreshNeeded = true;
-              },
-      });
-    } else {
-      alert($(this).attr('data-error'));
-    }
-  });*/
-
-  $(".removeVote").on('click', function(){
-    $.ajax({
-            type: 'POST',
-            url: $(this).attr('data-url') + '/removeVote',
-            success: function(){
-              refreshNeeded = true;
-            },
-    });
-  });
-
-  $(".closeVote").on('click', function(){
-    $.ajax({
-            type: 'POST',
-            url: $(this).attr('data-id') + '/closeVote',
-            success: function(){
-              refreshNeeded = true;
-            },
-    });
-  });
-
-  $(".recloseVote").on('click', function(){
-    $.ajax({
-            type: 'POST',
-            url: $(this).attr('data-id') + '/closeVote',
-            success: function(){
-              refreshNeeded = true;
-            },
-    });
-  });
-
-  $(".openQuorum").on('click', function(){
-    $.ajax({
-            type: 'POST',
-            url: 'openQuorum',
-            success: function(){
-              refreshNeeded = true;
-            },
-    });
-  });
-
-  $(".closeQuorum").on('click', function(){
-    $.ajax({
-            type: 'POST',
-            url: 'closeQuorum',
             success: function(){
               refreshNeeded = true;
             },
