@@ -25,6 +25,7 @@
    <element value="genweb.organs.document"/>
    <element value="genweb.organs.file"/>
    <element value="genweb.organs.acta"/>
+   <element value="genweb.organs.acord"/>
   </linkable>
   <customplugins>
    <element value="plonebrowser"/>
