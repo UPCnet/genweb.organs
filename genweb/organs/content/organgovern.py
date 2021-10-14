@@ -20,6 +20,7 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 from genweb.organs import _
 from genweb.organs import utils
+from genweb.organs.z3cwidget import SelectUsersInputFieldWidget
 
 import csv
 
@@ -62,7 +63,7 @@ class IOrgangovern(form.Schema):
 
     fieldset('gdoc',
              label=_(u'GDoc'),
-             fields=['visiblegdoc', 'serie'],
+             fields=['visiblegdoc', 'serie', 'signants'],
              )
 
     dexterity.write_permission(title='genweb.webmaster')
@@ -202,6 +203,12 @@ class IOrgangovern(form.Schema):
     serie = schema.TextLine(
         title=_(u"Serie"),
         description=_(u"Identificador utilitzat per saber on es vol pujar la documentació"),
+        required=False,
+    )
+
+    form.widget('signants', SelectUsersInputFieldWidget)
+    signants = schema.TextLine(
+        title=_(u'Signants'),
         required=False,
     )
 

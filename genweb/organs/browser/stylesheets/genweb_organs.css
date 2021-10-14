@@ -2560,6 +2560,32 @@ body.template-printacta footer#peu #cookies-id {
   display: none !important;
 }
 
+#form-widgets-select_users {
+    width: 420px;
+}
+
+#form-widgets-select_users-modal {
+    width: 1000px;
+    left:  40%;
+}
+
+#form-widgets-select_users-btn-clear,
+#form-widgets-select_users-btn,
+#form-widgets-select_users-btn-modal {
+    margin-bottom: 8px;
+    margin-left: 6px;
+}
+
+#form-widgets-select_users-warn,
+#form-widgets-select_users-error {
+    display: none;
+}
+
+#form-widgets-select_users-warn.viewWarn,
+#form-widgets-select_users-error.viewError {
+    display: block;
+}
+
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
   100% { -webkit-transform: rotate(360deg); }

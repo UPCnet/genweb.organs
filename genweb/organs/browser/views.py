@@ -14,9 +14,10 @@ from zope.i18n import translate
 
 from genweb.organs import _
 from genweb.organs import utils
+from genweb.organs.indicators.updating import update_indicators
 from genweb.organs.utils import addEntryLog
 from genweb.organs.utils import get_settings_property
-from genweb.organs.indicators.updating import update_indicators
+from genweb.organs.utils import getLdapUserData
 
 import ast
 import datetime
@@ -1187,3 +1188,23 @@ class updateIndicadors(BrowserView):
 
         update_indicators(
             self, service=get_settings_property('service_id'), indicator='acord-n')
+
+
+class getUsers(BrowserView):
+
+    def __call__(self):
+        users = getLdapUserData(self.request.form['user'])
+        if users and len(users) > 0:
+            listUsers = []
+            for user in users:
+                try:
+                    listUsers.append({
+                        'user': user['id'],
+                        'email': user['mail'],
+                        'fullname': user['sn'],
+                    })
+                except:
+                    pass
+            return json.dumps(listUsers)
+        else:
+            return None

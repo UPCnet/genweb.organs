@@ -435,32 +435,38 @@ class SignActa(grok.View):
     grok.name('signActa')
     grok.require('genweb.organs.gdoc.sign')
 
-    def getSecretariUsers(self, context):
-        local_roles = context.get_local_roles()
+    # def getSecretariUsers(self, context):
+    #     local_roles = context.get_local_roles()
 
-        users = []
-        for user in local_roles:
-            if 'OG1-Secretari' in user[1]:
-                try:
-                    users_group = api.user.get_users(groupname=user[0])
-                    for userx in users_group:
-                        if userx:
-                            users.append(userx.id)
-                except:
-                    users.append(user[0])
+    #     users = []
+    #     for user in local_roles:
+    #         if 'OG1-Secretari' in user[1]:
+    #             try:
+    #                 users_group = api.user.get_users(groupname=user[0])
+    #                 for userx in users_group:
+    #                     if userx:
+    #                         users.append(userx.id)
+    #             except:
+    #                 users.append(user[0])
 
-        return users
+    #     return users
 
-    def getSignants(self):
-        context = self.context
-        users = self.getSecretariUsers(context)
+    # def getSignants(self):
+    #     context = self.context
+    #     users = self.getSecretariUsers(context)
 
-        while not getattr(context, '__ac_local_roles_block__', None):
-            context = context.aq_parent
-            users += self.getSecretariUsers(context)
+    #     while not getattr(context, '__ac_local_roles_block__', None):
+    #         context = context.aq_parent
+    #         users += self.getSecretariUsers(context)
 
-        listUsers = list(set(users))
-        return listUsers
+    #     listUsers = list(set(users))
+    #     return listUsers
+
+    def getSignants(self, organ):
+        signants = organ.signants
+        if signants:
+            return signants.split(', ')
+        return None
 
     def generateActaPDF(self):
         options = {'cookie': [('__ac', self.request.cookies['__ac']),
@@ -483,14 +489,13 @@ class SignActa(grok.View):
         if self.context.infoGDoc and 'enviatASignar' in self.context.infoGDoc and self.context.infoGDoc['enviatASignar']:
             return self.request.response.redirect(self.context.absolute_url())
 
-        signants = self.getSignants()
+        organ = utils.get_organ(self.context)
+        signants = self.getSignants(organ)
         if not signants:
             self.context.plone_utils.addPortalMessage(_(u'No hi ha secretaris per firmar l\'acta.'), 'error')
             return self.request.response.redirect(self.context.absolute_url())
 
-        organ = utils.get_organ(self.context)
         if organ.visiblegdoc:
-
             gdoc_settings = utils.get_settings_gdoc()
 
             try:

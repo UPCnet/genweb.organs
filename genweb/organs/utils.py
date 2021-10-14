@@ -508,3 +508,12 @@ def get_organ(context):
             if IOrgangovern.providedBy(obj):
                 return obj
     return None
+
+
+def getLdapUserData(user, typology=None):
+    acl_users = api.portal.get_tool(name='acl_users')
+    if not typology:
+        search_result = acl_users.searchUsers(id=user, exactMatch=True)
+    else:
+        search_result = acl_users.searchUsers(id=user, exactMatch=True, typology=typology)
+    return search_result
