@@ -1,11 +1,18 @@
 Changelog
 =========
 
-0.49 (unreleased)
+0.50 (unreleased)
 -----------------
 
 - Nothing changed yet.
 
+
+0.49 (2021-09-30)
+-----------------
+
+* Añadir enlaces de acord en el Tiny [Iago López Fernández]
+* JS refreshNeeded [Iago López Fernández]
+* Reorganizar JS votaciones y quorum [Iago López Fernández]
 
 0.48 (2021-09-21)
 -----------------
