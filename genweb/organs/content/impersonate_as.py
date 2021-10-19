@@ -49,11 +49,24 @@ class ShowSessionAs(form.SchemaForm):
             return _(u'Membre')
         elif role == 'Affected':
             return _(u'Afectat')
+        elif role == 'Guest':
+            return _(u'Convidat')
         else:
             return self.request.response.redirect(self.context.absolute_url())
 
     def isAfectat(self):
         role = _(u'Afectat')
+        if self.simulation() == role:
+            review_state = api.content.get_state(self.context)
+            if review_state in ['planificada', 'convocada']:
+                return False
+            if review_state in ['realitzada', 'tancada', 'en_correccio']:
+                return True
+        else:
+            return False
+
+    def isConvidat(self):
+        role = _(u'Convidat')
         if self.simulation() == role:
             review_state = api.content.get_state(self.context)
             if review_state in ['planificada', 'convocada']:
@@ -302,7 +315,7 @@ class ShowSessionAs(form.SchemaForm):
                 tipus = 'fa fa-file-pdf-o'
             else:
                 tipus = 'fa fa-file-text-o'
-            if role == 'Other' or role == 'Affected':
+            if role == 'Other' or role == 'Affected' or role == 'Guest':
                 if obj.portal_type == 'genweb.organs.document':
                     # Es un document, mostrem part publica si la té
                     if obj.getObject().defaultContent:

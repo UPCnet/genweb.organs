@@ -427,6 +427,7 @@ class listpermissions(grok.View):
             editors = []
             membres = []
             afectats = []
+            convidats = []
             if roles:
                 for (username, role) in roles:
                     if 'OG1-Secretari' in role:
@@ -437,6 +438,8 @@ class listpermissions(grok.View):
                         membres.append(str(username))
                     if 'OG4-Afectat' in role:
                         afectats.append(str(username))
+                    if 'OG5-Convidat' in role:
+                        convidats.append(str(username))
             element = {
                 'title': obj.Title(),
                 'path': obj.absolute_url() + '/sharing',
@@ -444,6 +447,7 @@ class listpermissions(grok.View):
                 'OG2-Editor': editors,
                 'OG3-Membre': membres,
                 'OG4-Afectat': afectats,
+                'OG5-Convidat': convidats,
                 'organType': obj.organType,
                 'fromMail': obj.fromMail,
                 'adrecaLlista': obj.adrecaLlista,

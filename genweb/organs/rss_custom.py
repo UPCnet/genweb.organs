@@ -174,7 +174,7 @@ class FolderFeed(BaseFeedData):
                         if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                             add = True
                     elif organ_tipus == 'restricted_to_affected_organ':
-                        if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                        if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                             add = True
                     else:
                         add = False

@@ -339,7 +339,7 @@ class ActaPrintView(BrowserView):
                 return True
             elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                 return True
             elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                 return True
@@ -633,7 +633,7 @@ class Butlleti(BrowserView):
                 return True
             elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                 return True
             elif estatSessio == 'tancada':
                 return True
@@ -661,11 +661,11 @@ class Butlleti(BrowserView):
                 return True
             elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                 return True
             else:
                 raise Unauthorized
@@ -709,7 +709,7 @@ class allSessions(BrowserView):
             roles = []
             if not api.user.is_anonymous():
                 roles = api.user.get_roles(username=username, obj=obj)
-            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or obj.aq_parent.visiblefields:
+            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG5-Convidat' in roles or 'Manager' in roles or obj.aq_parent.visiblefields:
                 event = IEventAccessor(obj)
                 if obj.start.strftime('%Y') == current_year:
                     past.append(dict(
@@ -726,7 +726,7 @@ class allSessions(BrowserView):
             roles = []
             if not api.user.is_anonymous():
                 roles = api.user.get_roles(username=username, obj=obj)
-            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or obj.aq_parent.visiblefields:
+            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG5-Convidat' in roles or 'Manager' in roles or obj.aq_parent.visiblefields:
                 event = IEventAccessor(obj)
                 if obj.start.strftime('%Y') == current_year:
                     future.append(dict(
@@ -855,27 +855,32 @@ class allOrgans(BrowserView):
             editors = ""
             membres = ""
             afectats = ""
+            convidats = ""
             if roles:
                 for (username, role) in roles:
                     if 'OG1-Secretari' in role:
-                        secretaris += username+ ", "
+                        secretaris += username + ", "
                     if 'OG2-Editor' in role:
-                        editors += username+ ", "
+                        editors += username + ", "
                     if 'OG3-Membre' in role:
-                        membres += username+ ", "
+                        membres += username + ", "
                     if 'OG4-Afectat' in role:
-                        afectats += username+ ", "
+                        afectats += username + ", "
+                    if 'OG5-Convidats' in role:
+                        convidats += username + ", "
 
             if parent_roles:
                 for (username, role) in parent_roles:
                     if 'OG1-Secretari' in role and username not in secretaris:
-                        secretaris += username+ ", "
+                        secretaris += username + ", "
                     if 'OG2-Editor' in role and username not in editors:
-                        editors += username+ ", "
-                    if 'OG3-Membre' in role and username not in secretaris:
-                        membres += username+ ", "
-                    if 'OG4-Afectat' in role and username not in editors:
-                        afectats += username+ ", "
+                        editors += username + ", "
+                    if 'OG3-Membre' in role and username not in membres:
+                        membres += username + ", "
+                    if 'OG4-Afectat' in role and username not in afectats:
+                        afectats += username + ", "
+                    if 'OG4-Convidats' in role and username not in convidats:
+                        convidats += username + ", "
 
             if secretaris == "":
                 secretaris = "-"
@@ -1119,7 +1124,7 @@ class getAcordsOrgangovern(BrowserView):
                 elif 'OG3-Membre' in roles:
                     if 'planificada' not in wf_state:
                         add_acord = True
-                elif 'OG4-Afectat' in roles:
+                elif 'OG4-Afectat' in roles or 'OG5-Convidat' in roles:
                     if organ_type == 'open_organ' or organ_type == 'restricted_to_affected_organ':
                         if 'realitzada' in wf_state or 'tancada' in wf_state or 'en_correccio' in wf_state:
                             add_acord = True

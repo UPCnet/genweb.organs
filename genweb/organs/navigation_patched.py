@@ -99,7 +99,7 @@ def customBuildFolderTree(context, obj=None, query={}, strategy=NavtreeStrategyB
                 if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                     results.append(value)
             elif organType == 'restricted_to_affected_organ':
-                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
+                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG4-Convidat' in roles:
                     results.append(value)
             else:
                 # remove element

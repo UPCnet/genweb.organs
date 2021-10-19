@@ -86,7 +86,7 @@ class View(grok.View):
         organ_tipus = self.context.organType
         if self.context.defaultContent and self.context.alternateContent:
             if organ_tipus == 'open_organ':
-                if (utils.isMembre(self) or utils.isAfectat(self)):
+                if (utils.isMembre(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                     return False
                 else:
                     return True
@@ -96,13 +96,13 @@ class View(grok.View):
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isAfectat(self)):
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                     return True
                 else:
                     return False
         elif self.context.alternateContent:
             if organ_tipus == 'open_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                     return True
                 else:
                     return False
@@ -125,7 +125,7 @@ class View(grok.View):
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                     return True
                 else:
                     return False
@@ -140,7 +140,7 @@ class View(grok.View):
         organ_tipus = self.context.organType
         if self.context.defaultContent and self.context.alternateContent:
             if organ_tipus == 'open_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                     return True
                 else:
                     return False
@@ -156,7 +156,7 @@ class View(grok.View):
                     return False
         elif self.context.alternateContent:
             if organ_tipus == 'open_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                     return True
                 else:
                     return False
@@ -216,11 +216,11 @@ class View(grok.View):
                 return True
             elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                 return True
             else:
                 raise Unauthorized

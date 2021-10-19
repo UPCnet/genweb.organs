@@ -16,6 +16,19 @@ from genweb.organs.controlpanel import IOrgansSettings
 import unicodedata
 
 
+def isConvidat(self):
+    """ Return true if user has role OG5-Convidat """
+    try:
+        username = api.user.get_current().id
+        roles = api.user.get_roles(username=username, obj=self.context)
+        if 'OG5-Convidat' in roles:
+            return True
+        else:
+            return False
+    except:
+        return False
+
+
 def isAfectat(self):
     """ Return true if user has role OG4-Afectat """
     try:
@@ -325,7 +338,7 @@ def FilesandDocumentsInside(self):
                 organ_tipus = self.context.organType
                 if value.visiblefile and value.hiddenfile:
                     if organ_tipus == 'open_organ':
-                        if isMembre(self) or isAfectat(self):
+                        if isMembre(self) or isAfectat(self) or isConvidat(self):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
@@ -358,7 +371,7 @@ def FilesandDocumentsInside(self):
                                         hidden=False))
                 elif value.hiddenfile:
                     if organ_tipus == 'open_organ':
-                        if isManager(self) or isSecretari(self) or isEditor(self) or isMembre(self) or isAfectat(self):
+                        if isManager(self) or isSecretari(self) or isEditor(self) or isMembre(self) or isAfectat(self) or isConvidat(self):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,

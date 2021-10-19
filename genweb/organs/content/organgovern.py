@@ -336,7 +336,7 @@ class View(grok.View):
     #             elif 'OG3-Membre' in roles:
     #                 if 'planificada' not in wf_state:
     #                     add_acord = True
-    #             elif 'OG4-Afectat' in roles:
+    #             elif 'OG4-Afectat' in roles or 'OG5-Convidat' in roles:
     #                 if organ_type == 'open_organ' or organ_type == 'restricted_to_affected_organ':
     #                     if 'realitzada' in wf_state or 'tancada' in wf_state or 'en_correccio' in wf_state:
     #                         add_acord = True
@@ -411,7 +411,7 @@ class View(grok.View):
         if not api.user.is_anonymous():
             user = api.user.get_current()
             userPermissions = api.user.get_roles(user=user, obj=self)
-            for permission in ['Manager', 'WebMaster', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat']:
+            for permission in ['Manager', 'WebMaster', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat']:
                 if permission in userPermissions:
                     return True
         return False
@@ -433,7 +433,7 @@ class View(grok.View):
                 raise Unauthorized
         # if restricted_to_affected_organ
         elif organType == 'restricted_to_affected_organ':
-            if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self) or utils.isConvidat(self)):
                 return True
             else:
                 raise Unauthorized

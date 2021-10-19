@@ -815,6 +815,7 @@ Fi: ${vote/hourClose}"></span>
         <ul class="dropdown-menu" role="menu" aria-labelledby="types">
           <li><a tabindex="-1" href="view_as_role?id=Member"><span i18n:translate="">Membre</span></a></li>
           <li><a tabindex="-1" href="view_as_role?id=Affected"><span i18n:translate="">Afectat</span></a></li>
+          <li><a tabindex="-1" href="view_as_role?id=Guest"><span i18n:translate="">Convidat</span></a></li>
           <li><a tabindex="-1" href="view_as_role?id=Other"><span i18n:translate="">Altres</span></a></li>
         </ul>
       </div> -->

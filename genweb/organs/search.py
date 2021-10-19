@@ -67,8 +67,8 @@ class Search(BrowserView):
             for obj in values:
                 organ = obj.getObject()
                 all_roles = api.user.get_roles(username=username, obj=organ)
-                roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat']]
-                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
+                roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat']]
+                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG5-Convidat' in roles:
                     results.append(dict(
                         url=obj.getObject().absolute_url(),
                         title=obj.Title,
@@ -114,9 +114,9 @@ class Search(BrowserView):
                 for obj in values:
                     organ = obj.getObject()
                     all_roles = api.user.get_roles(username=username, obj=organ)
-                    roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat']]
+                    roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat']]
                     sessionpath = obj.getPath()
-                    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
+                    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG5-Convidat' in roles:
                         if type(query['path']) == str:
                             query['path'] = sessionpath.split()
                         else:

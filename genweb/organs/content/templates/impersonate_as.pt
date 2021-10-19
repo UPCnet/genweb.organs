@@ -9,6 +9,7 @@
 
 <metal:content-core fill-slot="content-core"
       tal:define="show view/simulation;
+                  isConvidat view/isConvidat;
                   isAfectat view/isAfectat;
                   isMembre view/isMembre;
                   isPublic view/isPublic;
@@ -28,7 +29,7 @@
     <br/> <tal:block i18n:translate="">Cliqueu <a href="./">aqui</a> per tornar al mode de visualitzacio per defecte.</tal:block>
   </div>
 
-  <div tal:condition="python: isAfectat or isMembre or isPublic">
+  <div tal:condition="python: isConvidat or isAfectat or isMembre or isPublic">
 
       <div class="clearfix"></div>
       <div id="contentSessio">

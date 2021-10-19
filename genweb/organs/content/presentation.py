@@ -221,7 +221,7 @@ class Presentation(form.SchemaForm):
                             visibleUrl = ''
                             hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/' + file.hiddenfile.filename
                             classCSS = 'fa fa-file-pdf-o text-success double-icon'
-                        elif 'OG4-Afectat' in roles:
+                        elif 'OG4-Afectat' in roles or 'OG5-Convidat' in roles:
                             hasPublic = True
                             hasPrivate = False
                             visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/' + file.visiblefile.filename
@@ -252,7 +252,7 @@ class Presentation(form.SchemaForm):
                             hasPrivate = True
                             raw_content = file.alternateContent
                             classCSS = 'fa fa-file-text-o text-success double-icon'
-                        elif 'OG4-Afectat' in roles:
+                        elif 'OG4-Afectat' in roles or 'OG5-Convidat' in roles:
                             hasPublic = True
                             hasPrivate = False
                             raw_content = file.defaultContent
@@ -428,7 +428,7 @@ class Presentation(form.SchemaForm):
             return True
         elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
             return True
-        elif self.context.organType == 'open_organ' and estatSessio in ['convocada', 'realitzada', 'tancada', 'en_correccio'] and utils.isAfectat(self):
+        elif self.context.organType == 'open_organ' and estatSessio in ['convocada', 'realitzada', 'tancada', 'en_correccio'] and (utils.isAfectat(self) or utils.isConvidat(self)):
             return True
         else:
             raise Unauthorized

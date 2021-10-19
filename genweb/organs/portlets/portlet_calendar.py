@@ -220,7 +220,7 @@ class Renderer(base.Renderer):
             for event in items:
                 session = event._unrestrictedGetObject()
                 roles = api.user.get_roles(username=username, obj=session)
-                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or session.aq_parent.visiblefields:
+                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG5-Convidat' in roles or 'Manager' in roles or session.aq_parent.visiblefields:
                     events.append(session)
 
         return construct_calendar(events, start=start, end=end)
@@ -254,7 +254,7 @@ class Renderer(base.Renderer):
             for event in items:
                 session = event._unrestrictedGetObject()
                 roles = api.user.get_roles(username=username, obj=session)
-                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or session.aq_parent.visiblefields:
+                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG5-Convidat' in roles or 'Manager' in roles or session.aq_parent.visiblefields:
                     events.append(session)
 
         cal_dict = construct_calendar(events, start=start, end=end)

@@ -93,7 +93,7 @@ class Webservice(BrowserView):
                         results2.append(value)
                     elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                         results2.append(value)
-                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG5-Convidat' in roles):
                         results2.append(value)
                     elif estatSessio == 'tancada':
                         results2.append(value)
@@ -119,11 +119,11 @@ class Webservice(BrowserView):
                         results2.append(value)
                     elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                         results2.append(value)
-                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG5-Convidat' in roles):
                         results2.append(value)
-                    elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG5-Convidat' in roles):
                         results2.append(value)
-                    elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG5-Convidat' in roles):
                         results2.append(value)
                     else:
                         continue
@@ -142,7 +142,7 @@ class Webservice(BrowserView):
                         results2.append(value)
                     elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                         results2.append(value)
-                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG5-Convidat' in roles):
                         results2.append(value)
                     elif estatSessio == 'tancada':
                         results2.append(value)
@@ -168,11 +168,11 @@ class Webservice(BrowserView):
                         results2.append(value)
                     elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                         results2.append(value)
-                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG5-Convidat' in roles):
                         results2.append(value)
-                    elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG5-Convidat' in roles):
                         results2.append(value)
-                    elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG5-Convidat' in roles):
                         results2.append(value)
                     else:
                         continue

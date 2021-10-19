@@ -43,6 +43,7 @@ class GenwebOrgansLayer(PloneSandboxLayer):
         # portal.acl_users.userFolderAddUser('usuari.editor', 'secret', ['OG2-Editor'], [])
         # portal.acl_users.userFolderAddUser('usuari.membre', 'secret', ['OG3-Membre'], [])
         # portal.acl_users.userFolderAddUser('usuari.afectat', 'secret', ['OG4-Afectat'], [])
+        # portal.acl_users.userFolderAddUser('usuari.convidat', 'secret', ['OG5-Convidat], [])
 
     def tearDownZope(self, app):
         """Tear down Zope."""

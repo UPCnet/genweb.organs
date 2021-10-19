@@ -85,7 +85,7 @@ class View(grok.View):
                                         review_state=obj.review_state))
             # if restricted_to_affected_organ
             elif organType == 'restricted_to_affected_organ':
-                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
+                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'OG5-Convidat' in roles:
                     results.append(dict(title=value.title,
                                         absolute_url=value.absolute_url(),
                                         acronim=value.acronim,

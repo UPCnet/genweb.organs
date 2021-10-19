@@ -11,6 +11,7 @@
     <role name="OG2-Editor"/>
     <role name="OG3-Membre"/>
     <role name="OG4-Afectat"/>
+    <role name="OG5-Convidat"/>
     <role name="Owner"/>
     <role name="Reader"/>
     <role name="Reviewer"/>
