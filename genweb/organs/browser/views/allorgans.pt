@@ -16,6 +16,10 @@
 
       <h1 class="documentFirstHeading">Òrgans de govern</h1>
 
+      <a class="btn btn-info btn-export" href="exportallorgans">Export</a>
+
+      <br>
+
       <table class="table table-striped table-bordered">
         <thead>
           <tr>
@@ -27,6 +31,7 @@
             <th style="text-align: center;">Editors</th>
             <th style="text-align: center;">Membres</th>
             <th style="text-align: center;">Afectats</th>
+            <th style="text-align: center;">Convidats</th>
             <th style="text-align: center;">Sessions obertes l'últim any</th>
           </tr>
         </thead>
@@ -77,6 +82,11 @@
             </td>
             <td>
               <p tal:content="item/afectats">
+                      Afectats
+              </p>
+            </td>
+            <td>
+              <p tal:content="item/convidats">
                       Afectats
               </p>
             </td>
