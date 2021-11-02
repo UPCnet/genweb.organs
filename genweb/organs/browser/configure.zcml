@@ -148,6 +148,14 @@
     />
 
   <browser:page
+    for="*"
+    name="exportallorgans"
+    class=".views.exportAllOrgans"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="genweb.organs.VistaSecretariaGeneral"
+    />
+
+  <browser:page
     for="genweb.organs.content.organgovern.IOrgangovern"
     name="orderSessions"
     class=".views.ReorderSessions"

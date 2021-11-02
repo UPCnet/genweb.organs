@@ -26,4 +26,9 @@
   </index>
   <column value="visiblefields"/>
 
+  <index name="index_estatVotacio" meta_type="FieldIndex">
+    <indexed_attr value="index_estatVotacio"/>
+  </index>
+  <column value="index_estatVotacio"/>
+
 </object>

@@ -71,6 +71,11 @@ ul#tabs.nav.nav-tabs {
     float: right;
 }
 
+.btn-export {
+    margin-bottom: 20px !important;
+    float: right;
+}
+
 .sessionOrdreDia{
     margin-top: 0px;
     text-align: left;

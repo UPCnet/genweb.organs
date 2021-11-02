@@ -16,6 +16,10 @@
 
       <h1 class="documentFirstHeading">Òrgans de govern</h1>
 
+      <a class="btn btn-info btn-export" href="exportallorgans">Export</a>
+
+      <br>
+
       <table class="table table-striped table-bordered">
         <thead>
           <tr>
