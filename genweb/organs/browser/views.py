@@ -872,7 +872,7 @@ def getAllOrgans():
                     editors += username + ", "
                 if 'OG3-Membre' in role and username not in secretaris:
                     membres += username + ", "
-                if 'OG4-Afectat' in role and username not in editors:
+                if 'OG4-Afectat' in role and username not in afectats:
                     afectats += username + ", "
 
         if secretaris == "":
