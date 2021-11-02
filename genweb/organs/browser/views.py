@@ -980,7 +980,7 @@ class exportAllOrgans(BrowserView):
             if organ['acronim']:
                 title += ' [' + organ['acronim'] + ']'
 
-            writer.writerow([getattr(organ, 'grandparent', ''),
+            writer.writerow([organ['grandparent'] if 'grandparent' in organ else '',
                              organ['parent'],
                              title,
                              translate(msgid=organ['organType'], domain='genweb.organs', target_language='ca'),
