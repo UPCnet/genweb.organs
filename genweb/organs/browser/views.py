@@ -3,6 +3,7 @@ from AccessControl import Unauthorized
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from StringIO import StringIO
 
 from operator import attrgetter
 from operator import itemgetter
@@ -19,6 +20,7 @@ from genweb.organs.utils import get_settings_property
 from genweb.organs.indicators.updating import update_indicators
 
 import ast
+import csv
 import datetime
 import DateTime
 import json
@@ -839,92 +841,143 @@ class findFileProperties(BrowserView):
         return json.dumps(results)
 
 
+def getAllOrgans():
+    all_brains = api.content.find(portal_type='genweb.organs.organgovern')
+    results = []
+    for brain in all_brains:
+        obj = brain.getObject()
+        pa = obj.getParentNode()
+        roles = obj.get_local_roles()
+        parent_roles = pa.get_local_roles()
+        secretaris = ""
+        editors = ""
+        membres = ""
+        afectats = ""
+        if roles:
+            for (username, role) in roles:
+                if 'OG1-Secretari' in role:
+                    secretaris += username + ", "
+                if 'OG2-Editor' in role:
+                    editors += username + ", "
+                if 'OG3-Membre' in role:
+                    membres += username + ", "
+                if 'OG4-Afectat' in role:
+                    afectats += username + ", "
+
+        if parent_roles:
+            for (username, role) in parent_roles:
+                if 'OG1-Secretari' in role and username not in secretaris:
+                    secretaris += username + ", "
+                if 'OG2-Editor' in role and username not in editors:
+                    editors += username + ", "
+                if 'OG3-Membre' in role and username not in secretaris:
+                    membres += username + ", "
+                if 'OG4-Afectat' in role and username not in editors:
+                    afectats += username + ", "
+
+        if secretaris == "":
+            secretaris = "-"
+        else:
+            secretaris = secretaris[:-2]
+
+        if editors == "":
+            editors = "-"
+        else:
+            editors = editors[:-2]
+
+        if membres == "":
+            membres = "-"
+        else:
+            membres = membres[:-2]
+
+        if afectats == "":
+            afectats = "-"
+        else:
+            afectats = afectats[:-2]
+
+        sessions_open_last_year = api.content.find(
+            portal_type='genweb.organs.sessio',
+            path='/'.join(obj.getPhysicalPath()),
+            start={'query': datetime.datetime.now() - datetime.timedelta(days=365), 'range': 'min'})
+
+        elements = dict(
+            title=obj.Title(),
+            path=obj.absolute_url(),
+            organType=obj.organType,
+            acronim=obj.acronim,
+            secretaris=secretaris,
+            editors=editors,
+            membres=membres,
+            afectats=afectats,
+            sessions_open_last_year=len(sessions_open_last_year),
+            parent=pa.Title())
+
+        if pa.getParentNode().id != "ca":
+            elements['grandparent'] = pa.getParentNode().Title()
+            elements['to_sort'] = elements['grandparent']
+        else:
+            elements['to_sort'] = elements['parent']
+
+        results.append(elements)
+
+        results = sorted(results, key=itemgetter('parent'))
+
+    return sorted(results, key=itemgetter('to_sort'))
+
+
 class allOrgans(BrowserView):
     __call__ = ViewPageTemplateFile('views/allorgans.pt')
 
     def organsTable(self):
+        return getAllOrgans()
 
-        all_brains = api.content.find(portal_type='genweb.organs.organgovern')
-        results = []
-        for brain in all_brains:
-            obj = brain.getObject()
-            pa = obj.getParentNode()
-            roles = obj.get_local_roles()
-            parent_roles = pa.get_local_roles()
-            secretaris = ""
-            editors = ""
-            membres = ""
-            afectats = ""
-            if roles:
-                for (username, role) in roles:
-                    if 'OG1-Secretari' in role:
-                        secretaris += username+ ", "
-                    if 'OG2-Editor' in role:
-                        editors += username+ ", "
-                    if 'OG3-Membre' in role:
-                        membres += username+ ", "
-                    if 'OG4-Afectat' in role:
-                        afectats += username+ ", "
 
-            if parent_roles:
-                for (username, role) in parent_roles:
-                    if 'OG1-Secretari' in role and username not in secretaris:
-                        secretaris += username+ ", "
-                    if 'OG2-Editor' in role and username not in editors:
-                        editors += username+ ", "
-                    if 'OG3-Membre' in role and username not in secretaris:
-                        membres += username+ ", "
-                    if 'OG4-Afectat' in role and username not in editors:
-                        afectats += username+ ", "
+class exportAllOrgans(BrowserView):
 
-            if secretaris == "":
-                secretaris = "-"
-            else:
-                secretaris = secretaris[:-2]
+    data_header_columns = [
+        "Tipus d'unitat",
+        "Unitat",
+        "Nom de l'òrgan",
+        "Tipus d'òrgan de govern",
+        "Secretaris",
+        "Editors",
+        "Membres",
+        "Afectats",
+        "Sessions obertes l'últim any"]
 
-            if editors == "":
-                editors = "-"
-            else:
-                editors = editors[:-2]
+    def __call__(self):
+        output_file = StringIO()
+        # Write the BOM of the text stream to make its charset explicit
+        output_file.write(u'\ufeff'.encode('utf8'))
+        self.write_data(output_file)
 
-            if membres == "":
-                membres = "-"
-            else:
-                membres = membres[:-2]
+        header_content_type = 'text/csv'
+        header_filename = 'llista_organs' + '.csv'
+        self.request.response.setHeader('Content-Type', header_content_type)
+        self.request.response.setHeader(
+            'Content-Disposition',
+            'attachment; filename="{0}"'.format(header_filename))
+        return output_file.getvalue()
 
-            if afectats == "":
-                afectats = "-"
-            else:
-                afectats = afectats[:-2]
+    def write_data(self, output_file):
+        writer = csv.writer(output_file, dialect='excel', delimiter=',')
+        writer.writerow(self.data_header_columns)
 
-            sessions_open_last_year = api.content.find(
-                portal_type='genweb.organs.sessio',
-                path='/'.join(obj.getPhysicalPath()),
-                start={'query': datetime.datetime.now() - datetime.timedelta(days=365), 'range': 'min'})
+        for organ in getAllOrgans():
+            title = organ['title']
+            if organ['acronim']:
+                title += ' [' + organ['acronim'] + ']'
 
-            elements = dict(
-                title=obj.Title(),
-                path=obj.absolute_url(),
-                organType=obj.organType,
-                acronim=obj.acronim,
-                secretaris=secretaris,
-                editors=editors,
-                membres=membres,
-                afectats=afectats,
-                sessions_open_last_year=len(sessions_open_last_year),
-                parent=pa.Title())
-
-            if pa.getParentNode().id != "ca":
-                elements['grandparent'] = pa.getParentNode().Title()
-                elements['to_sort'] = elements['grandparent']
-            else:
-                elements['to_sort'] = elements['parent']
-
-            results.append(elements)
-
-            results = sorted(results, key=itemgetter('parent'))
-
-        return sorted(results, key=itemgetter('to_sort'))
+            writer.writerow([getattr(organ, 'grandparent', ''),
+                             organ['parent'],
+                             title,
+                             translate(msgid=organ['organType'], domain='genweb.organs', target_language='ca'),
+                             organ['secretaris'],
+                             organ['editors'],
+                             organ['membres'],
+                             organ['afectats'],
+                             organ['sessions_open_last_year'],
+            ])
 
 
 class ReorderSessions(BrowserView):
