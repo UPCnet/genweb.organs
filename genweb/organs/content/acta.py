@@ -542,6 +542,7 @@ class SignActa(grok.View):
                                                           'acta': {},
                                                           'adjunts': {},
                                                           'audios': {},
+                                                          'url': {},
                                                           'enviatASignar': False,
                                                           'firma': {}})
                             self.context.reindexObject()
@@ -697,6 +698,59 @@ class SignActa(grok.View):
                                         self.removeActaPDF()
                                         return self.request.response.redirect(self.context.absolute_url())
 
+                            # Creem el fitxer .url apuntant a la URL de la sessió
+                            logger.info('7. Creació del fitxer .url')
+                            session = utils.get_session(self.context)
+                            furl = open(session.id + ".url", "w")
+                            furl.write("[InternetShortcut]\n")
+                            furl.write("URL=" + session.absolute_url())
+                            furl.close()
+
+                            data_url = {"tipusDocumental": "906340",
+                                        "idioma": "CA",
+                                        "nomAplicacioCreacio": "Govern UPC",
+                                        "autors": "[{'id': '1291399'}]",
+                                        "agentsAmbCodiEsquemaIdentificacio": False,
+                                        "validesaAdministrativa": True}
+
+                            furl = open(session.id + ".url", "r")
+                            files = {'fitxer': (session.id + '.url', furl.read(), 'application/octet-stream')}
+
+                            # Pujem el fitxer .url a la sèrie documental creada al gdoc
+                            logger.info('7. Puja del fitxer .url al gdoc')
+                            result_url = requests.post(gdoc_settings.gdoc_url + '/api/pare/' + str(content_exp['idElementCreat']) + '/doce?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash, data=data_url, files=files)
+
+                            content_url = json.loads(result_url.content)
+                            if result_url.status_code == 200:
+                                logger.info('7.1. S\'ha creat correctament el fitxer .url')
+
+                                # Obtenim el uuid del fitxer .url pujada, necessària per a la petició al portafirmes
+                                logger.info('7.2. Petició per demanar el uuid del fitxer .url')
+                                result_info_url = requests.get(gdoc_settings.gdoc_url + '/api/doce/' + str(content_url['idElementCreat']) + '/consulta?hash=' + gdoc_settings.gdoc_hash, timeout=TIMEOUT)
+
+                                if result_info_url.status_code == 200:
+                                    content_info_url = json.loads(result_info_url.content)
+                                    logger.info('7.3. S\'ha obtingut correctament el uuid de la URL')
+                                    self.context.infoGDoc['url'] = {'id': str(content_url['idElementCreat']),
+                                                                    'uuid': str(content_info_url['documentElectronic']['uuid']),
+                                                                    'filename': session.id + '.url',
+                                                                    'contentType': 'application/octet-stream'}
+                                    self.context.reindexObject()
+
+                                else:
+                                    logger.info('7.2.ERROR. Petició per demanar el uuid del fitxer .url')
+                                    logger.info(result_info_url.content)
+                                    self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pugut obtenir l\'informació de la URL: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                                    self.removeActaPDF()
+                                    return self.request.response.redirect(self.context.absolute_url())
+
+                            else:
+                                logger.info('7.ERROR. Puja del fitxer .url al gdoc')
+                                logger.info(content_url.content)
+                                self.context.plone_utils.addPortalMessage(_(u'GDoc: No s\'ha pogut pujar el fitxer .url: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                                self.removeActaPDF()
+                                return self.request.response.redirect(self.context.absolute_url())
+
                             data_sign = {
                                 "descripcioPeticio": "Signatura acta" + ' - ' + self.context.title,
                                 "documents": [
@@ -722,23 +776,25 @@ class SignActa(grok.View):
                                         "codi": "Inacabada",
                                         "descripcio": "Petició inacabada"
                                     }
-                                ]
+                                ],
+                                "documentsAnnexos": []
                             }
 
                             if self.context.infoGDoc['audios'] or self.context.infoGDoc['adjunts']:
-                                data_sign.update({'documentsAnnexos': []})
                                 for adjunt in self.context.infoGDoc['adjunts']:
                                     data_sign['documentsAnnexos'].append({"codi": self.context.infoGDoc['adjunts'][adjunt]['uuid']})
 
                                 for audio in self.context.infoGDoc['audios']:
                                     data_sign['documentsAnnexos'].append({"codi": self.context.infoGDoc['audios'][audio]['uuid']})
 
+                            data_sign['documentsAnnexos'].append({"codi": self.context.infoGDoc['url']['uuid']})
+
                             # Creem la petició al portafirmes de l'acta i els àudios annexos
-                            logger.info('7. Petició de la firma al portafirmes')
+                            logger.info('8. Petició de la firma al portafirmes')
                             result_sign = requests.post(gdoc_settings.portafirmes_url, json=data_sign, headers={'X-Api-Key': gdoc_settings.portafirmes_apikey})
 
                             if result_sign.status_code == 201:
-                                logger.info('7.1. La petició de la firma s\'ha processat correctament')
+                                logger.info('8.1. La petició de la firma s\'ha processat correctament')
                                 self.context._Add_portal_content_Permission = ('Manager', 'Site Administrator', 'WebMaster')
                                 self.context._Modify_portal_content_Permission = ('Manager', 'Site Administrator', 'WebMaster')
                                 self.context._Delete_objects_Permission = ('Manager', 'Site Administrator', 'WebMaster')
@@ -757,7 +813,7 @@ class SignActa(grok.View):
                                 transaction.commit()
                                 self.removeActaPDF()
                             else:
-                                logger.info('7.ERROR. Petició de la firma al portafirmes')
+                                logger.info('8.ERROR. Petició de la firma al portafirmes')
                                 logger.info(result_sign.content)
                                 if 'tamany' in result_sign.content:
                                     self.context.plone_utils.addPortalMessage(_(u'No s\'ha pogut enviar a firmar: S\'ha superat el tamany màxim'), 'error')

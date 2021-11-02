@@ -431,21 +431,10 @@ def estatsCanvi(self):
 
 def session_wf_state(self):
     # Returns session state. Check it recurring all path...
-    from genweb.organs.content.sessio import ISessio
-    if ISessio.providedBy(self.context):
-        portal_state = api.content.get_state(obj=self.context)
+    session = get_session(self.context)
+    if session:
+        portal_state = api.content.get_state(obj=session)
         return portal_state
-    else:
-        portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
-        root = getNavigationRootObject(self.context, portal_state.portal())
-        physical_path = aq_inner(self.context).getPhysicalPath()
-        relative = physical_path[len(root.getPhysicalPath()):]
-        for i in range(len(relative)):
-            now = relative[:i + 1]
-            obj = aq_inner(root.unrestrictedTraverse(now))
-            if ISessio.providedBy(obj):
-                session_state = api.content.get_state(obj=obj)
-                return session_state
 
 
 def get_settings_property(property_id):
@@ -506,6 +495,23 @@ def get_organ(context):
             now = relative[:i + 1]
             obj = aq_inner(root.unrestrictedTraverse(now))
             if IOrgangovern.providedBy(obj):
+                return obj
+    return None
+
+
+def get_session(context):
+    from genweb.organs.content.sessio import ISessio
+    if ISessio.providedBy(context):
+        return context
+    else:
+        portal_state = context.unrestrictedTraverse('@@plone_portal_state')
+        root = getNavigationRootObject(context, portal_state.portal())
+        physical_path = aq_inner(context).getPhysicalPath()
+        relative = physical_path[len(root.getPhysicalPath()):]
+        for i in range(len(relative)):
+            now = relative[:i + 1]
+            obj = aq_inner(root.unrestrictedTraverse(now))
+            if ISessio.providedBy(obj):
                 return obj
     return None
 
