@@ -19,6 +19,8 @@ from z3c.form.interfaces import IEditForm
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from zope.i18n import translate
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -28,6 +30,13 @@ import datetime
 import transaction
 
 grok.templatedir("templates")
+
+
+sessionModalities = SimpleVocabulary(
+    [SimpleTerm(value=u'attended', title=_(u'attended')),
+     SimpleTerm(value=u'mixed', title=_(u'mixed')),
+     SimpleTerm(value=u'distance', title=_(u'distance'))]
+)
 
 
 class ISessio(form.Schema):
@@ -76,6 +85,12 @@ class ISessio(form.Schema):
     linkSala = schema.TextLine(
         title=_(u"Enllac a la sala"),
         required=False,
+    )
+
+    modality = schema.Choice(
+        title=_(u"Modality of meet"),
+        source=sessionModalities,
+        required=True,
     )
 
     adrecaLlista = schema.Text(
@@ -703,6 +718,7 @@ class View(grok.View):
                       horaFi=horaFi,
                       llocConvocatoria=llocConvocatoria,
                       linkSala=self.context.linkSala,
+                      modality=self.context.modality,
                       organTitle=self.context.aq_parent.Title(),
                       sessionNumber=sessionNumber,
                       status=status,
