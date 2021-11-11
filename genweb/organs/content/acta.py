@@ -211,7 +211,7 @@ def Punts2Acta(self):
               'depth': 1})
 
     results = []
-    results.append('<div class="num_acta"> <ol>')
+    results.append('<div class="num_acta">')
     for obj in values:
         # value = obj.getObject()
         value = obj._unrestrictedGetObject()
@@ -222,7 +222,7 @@ def Punts2Acta(self):
                 agreement = _(u"[Acord sense numerar]")
         else:
             agreement = ''
-        results.append('<li>' + str(obj.Title) + ' ' + str(agreement))
+        results.append('<p>' + str(value.proposalPoint) + '. ' + str(obj.Title) + ' ' + str(agreement) + '</p>')
 
         if len(value.objectIds()) > 0:
             valuesInside = portal_catalog.searchResults(
@@ -231,7 +231,6 @@ def Punts2Acta(self):
                 path={'query': obj.getPath(),
                       'depth': 1})
 
-            results.append('<ol>')
             for item in valuesInside:
                 subpunt = item.getObject()
                 if subpunt.portal_type == 'genweb.organs.acord':
@@ -241,13 +240,9 @@ def Punts2Acta(self):
                         agreement = _("[Acord sense numerar]")
                 else:
                     agreement = ''
-                results.append('<li>' + str(item.Title) + ' ' + str(agreement) + '</li>')
-            results.append('</ol></li>')
-        else:
-            results.append('</li>')
+                results.append('<p style="padding-left: 30px;">' + str(subpunt.proposalPoint) + '. ' + str(item.Title) + ' ' + str(agreement) + '</p>')
 
-    results.append('</ol> </div>')
-
+    results.append('</div>')
     return ''.join(results)
 
 
