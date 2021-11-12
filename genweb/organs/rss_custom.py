@@ -25,6 +25,7 @@ from zope.interface import Interface
 from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.component import queryMultiAdapter
 
+from genweb.theme.browser.viewlets import packages_installed
 from genweb.organs import utils
 
 
@@ -185,7 +186,12 @@ class FolderFeed(BaseFeedData):
             if add:
                 filtered_items.append(item)
 
-        return sorted(filtered_items, key=itemgetter('start'), reverse=True)
+
+        installed = packages_installed()
+        if 'genweb.organs' in installed:
+            return sorted(filtered_items, key=itemgetter('start'), reverse=True)
+        else:
+            return sorted(filtered_items, key=itemgetter('Date'), reverse=True)
 
     def _items(self):
         """
