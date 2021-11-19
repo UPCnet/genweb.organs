@@ -1,11 +1,17 @@
 Changelog
 =========
 
-0.50 (unreleased)
+0.50 (2021-11-19)
 -----------------
 
-- Nothing changed yet.
-
+* Cambiar orden RSS de carpetas de Genweb primero creados primero [Iago López Fernández]
+* Mover campo modalidad [Iago López Fernández]
+* Afegir modalitat de reunio a la sessio [Iago López Fernández]
+* Cambiar como se genera la info de las actas predefinida, sin ol li [Iago López Fernández]
+* Vista exportallorgans [Iago López Fernández]
+* Fix error allorgans [Iago López Fernández]
+* Vista exportallorgans, exportacion del resultado de allorgans en .csv [Iago López Fernández]
+* Indexar estatVotacio [Iago López Fernández]
 
 0.49 (2021-09-30)
 -----------------
