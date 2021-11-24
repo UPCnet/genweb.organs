@@ -742,7 +742,7 @@ msgstr "No assistents"
 
 #: ./genweb/organs/content/sessio.py:37
 msgid "mixed"
-msgstr "Mixtes"
+msgstr "Mixta"
 
 #: ./genweb/organs/content/sessio.py:91
 #: ./genweb/organs/content/templates/sessio_view.pt:316
