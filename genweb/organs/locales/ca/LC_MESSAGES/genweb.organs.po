@@ -1641,10 +1641,6 @@ msgstr "Mostrar tots el items"
 msgid "mail address"
 msgstr "Adreça de correu de membres i convidats"
 
-#: ./genweb/organs/content/sessio.py:37
-msgid "mixed"
-msgstr "Mixtes"
-
 #: ./genweb/organs/z3cwidget/text_input_select_users.pt:52
 msgid "nom.cognoms"
 msgstr ""
