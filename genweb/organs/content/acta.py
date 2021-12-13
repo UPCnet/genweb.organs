@@ -696,7 +696,7 @@ class SignActa(grok.View):
                             # Creem el fitxer .url apuntant a la URL de la sessió
                             logger.info('7. Creació del fitxer .url')
                             session = utils.get_session(self.context)
-                            furl = open(session.id + ".url", "w")
+                            furl = open("/tmp/" + session.id + ".url", "w")
                             furl.write("[InternetShortcut]\n")
                             furl.write("URL=" + session.absolute_url())
                             furl.close()
@@ -708,7 +708,7 @@ class SignActa(grok.View):
                                         "agentsAmbCodiEsquemaIdentificacio": False,
                                         "validesaAdministrativa": True}
 
-                            furl = open(session.id + ".url", "r")
+                            furl = open("/tmp/" + session.id + ".url", "r")
                             files = {'fitxer': (session.id + '.url', furl.read(), 'application/octet-stream')}
 
                             # Pujem el fitxer .url a la sèrie documental creada al gdoc
