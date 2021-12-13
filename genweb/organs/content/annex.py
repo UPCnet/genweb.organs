@@ -126,22 +126,22 @@ class View(grok.View):
             return None
 
     def pdf_reserved(self):
-        if self.context.hiddenfile:
-            ct = self.context.hiddenfile.contentType
+        if self.context.file:
+            ct = self.context.file.contentType
             return 'application/pdf' == ct
         else:
             return None
 
     def audio_reserved(self):
-        if self.context.hiddenfile:
-            ct = self.context.hiddenfile.contentType
+        if self.context.file:
+            ct = self.context.file.contentType
             return 'audio/' in ct
         else:
             return None
 
     def video_reserved(self):
-        if self.context.hiddenfile:
-            ct = self.context.hiddenfile.contentType
+        if self.context.file:
+            ct = self.context.file.contentType
             return 'video/' in ct
         else:
             return None

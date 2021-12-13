@@ -840,6 +840,10 @@ msgstr "Missatge no enviat. Comprovi els destinataris del missatge"
 msgid "Missing members"
 msgstr "No assistents"
 
+#: ./genweb/organs/content/sessio.py:37
+msgid "mixed"
+msgstr "Mixta"
+
 #: ./genweb/organs/content/sessio.py:91
 #: ./genweb/organs/content/templates/sessio_view.pt:316
 msgid "Modality of meet"

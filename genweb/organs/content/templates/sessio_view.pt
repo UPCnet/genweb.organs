@@ -298,6 +298,10 @@
             <b i18n:translate="">Session end date and time</b>:
             <span tal:content="horaFi"></span>
           </li>
+          <li tal:condition="modality">
+            <b i18n:translate="">Modality of meet</b>:
+            <span i18n:translate="" tal:content="modality"></span>
+          </li>
           <li tal:condition="llocConvocatoria">
             <b i18n:translate="">Session location</b>:
             <span tal:content="llocConvocatoria"></span>
@@ -312,10 +316,6 @@
               </span>
             </li>
           </tal:block>
-          <li tal:condition="modality">
-            <b i18n:translate="">Modality of meet</b>:
-            <span i18n:translate="" tal:content="modality"></span>
-          </li>
           <li tal:condition="organTitle">
             <b i18n:translate="">Organ de govern</b>:
             <span tal:content="organTitle"></span>
