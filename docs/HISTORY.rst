@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.51 (unreleased)
+0.51 (2021-12-14)
 -----------------
 
-- Nothing changed yet.
-
+* Fix display-file annex [ilopezsmx]
+* Modificar literal mixtes a mixta [Iago López Fernández]
 
 0.50 (2021-11-19)
 -----------------
