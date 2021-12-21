@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.52 (unreleased)
+0.52 (2021-12-21)
 -----------------
 
-- Nothing changed yet.
-
+* Añadir al mensaje de la convocatoria la modalidad [ilopezsmx]
 
 0.51 (2021-12-14)
 -----------------
