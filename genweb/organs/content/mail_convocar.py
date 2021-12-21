@@ -1,21 +1,25 @@
 # -*- coding: utf-8 -*-
-from plone import api
-from five import grok
-from zope.schema import TextLine
-from z3c.form import button
-from plone.directives import form
+from AccessControl import Unauthorized
 from Products.statusmessages.interfaces import IStatusMessage
-from genweb.organs.interfaces import IGenwebOrgansLayer
+
+from five import grok
+from plone import api
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.autoform import directives
+from plone.directives import form
+from plone.event.interfaces import IEventAccessor
+from time import strftime
+from z3c.form import button
+from z3c.form.interfaces import DISPLAY_MODE
+from zope import schema
+from zope.i18n import translate
+from zope.schema import TextLine
+
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
-from AccessControl import Unauthorized
-from plone.autoform import directives
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from zope import schema
-from time import strftime
-from z3c.form.interfaces import DISPLAY_MODE
+from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs.utils import addEntryLog
-from plone.event.interfaces import IEventAccessor
+
 import unicodedata
 
 grok.templatedir("templates")
@@ -128,6 +132,9 @@ class Message(form.SchemaForm):
             if session.linkSala is not None:
                 moreData += "<br/>Enllaç a la sala: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
 
+            if session.modality is not None:
+                moreData += "<br/>Modalitat de la sessió: " + translate(msgid=session.modality, domain='genweb.organs', target_language='ca')
+
             moreData += "<br/>Data: " + sessiondate + \
                 "<br/>Hora d'inici: " + starthour + \
                 "<br/>Hora de fi: " + endHour + \
@@ -148,6 +155,9 @@ class Message(form.SchemaForm):
             if session.linkSala is not None:
                 moreData += "<br/>Enlace a la sala: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
 
+            if session.modality is not None:
+                "<br/>Modalidad de la sesión: " + translate(msgid=session.modality, domain='genweb.organs', target_language='es')
+
             moreData += "<br/>Fecha: " + sessiondate + \
                 "<br/>Hora de inicio: " + starthour + \
                 "<br/>Hora de finalización: " + endHour + \
@@ -167,6 +177,9 @@ class Message(form.SchemaForm):
 
             if session.linkSala is not None:
                 moreData += "<br/>Link to the room: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
+
+            if session.modality is not None:
+                moreData += "<br/>Session modality: " + translate(msgid=session.modality, domain='genweb.organs', target_language='en')
 
             moreData += "<br/>Date: " + sessiondate + \
                 "<br/>Start date: " + starthour + \
