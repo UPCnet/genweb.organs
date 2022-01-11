@@ -197,6 +197,13 @@
         </a>
       </div>
 
+      <div class="containerIcons">
+        <a href="exportCSV" i18n:attributes="title exportOrdreDia; alt exportOrdreDia">
+          <i class="fa fa-download fa-3x" aria-hidden="true"></i>
+          <br/><span i18n:translate="">Export</span>
+        </a>
+      </div>
+
       <tal:block tal:condition="view/canViewManageQuorumButtons">
         <div class="containerIcons" tal:condition="showOpenQuorum">
           <a class="openQuorum" href="#" i18n:attributes="title open_quorum; alt open_quorum;">

@@ -1,6 +1,7 @@
 
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
+from StringIO import StringIO
 
 from collective import dexteritytextindexer
 from five import grok
@@ -21,11 +22,11 @@ from zope.annotation.interfaces import IAnnotations
 from zope.i18n import translate
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
-
 from genweb.organs import _
 from genweb.organs import utils
 
 import ast
+import csv
 import datetime
 import transaction
 
@@ -1245,3 +1246,111 @@ class AddQuorum(grok.View):
                 self.context.infoQuorums[lenQuorums]['total'] = len(self.context.infoQuorums[lenQuorums]['people'])
 
         transaction.commit()
+
+
+class ExportCSV(grok.View):
+    grok.context(ISessio)
+    grok.name('exportCSV')
+    grok.require('zope2.View')
+
+    data_header_columns = [
+        "Punt",
+        "Títol",
+        "Tipus",
+        "Acord",
+        "Estat",
+        "URL"]
+
+    def render(self):
+        output_file = StringIO()
+        # Write the BOM of the text stream to make its charset explicit
+        output_file.write(u'\ufeff'.encode('utf8'))
+        self.write_data(output_file)
+
+        header_content_type = 'text/csv'
+        header_filename = 'ordre_del_dia_' + self.context.id + '.csv'
+        self.request.response.setHeader('Content-Type', header_content_type)
+        self.request.response.setHeader(
+            'Content-Disposition',
+            'attachment; filename="{0}"'.format(header_filename))
+        return output_file.getvalue()
+
+    def write_data(self, output_file):
+        writer = csv.writer(output_file, dialect='excel', delimiter=',')
+        writer.writerow(self.data_header_columns)
+
+        info = []
+        writer.writerow(['',
+                         self.context.Title(),
+                         self.context.portal_type.split('.')[2].capitalize(),
+                         '',
+                         translate(msgid=api.content.get_state(self.context), domain='genweb', target_language='ca'),
+                         self.context.absolute_url()])
+
+        writer.writerow(['', '', '', '', '', ''])
+
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        values = portal_catalog.unrestrictedSearchResults(
+            sort_on='getObjPositionInParent',
+            portal_type=['genweb.organs.acord', 'genweb.organs.punt'],
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+
+        for brain in values:
+            obj = brain.getObject()
+
+            acord = ''
+            if brain.portal_type == 'genweb.organs.acord':
+                acord = obj.agreement
+
+            writer.writerow([obj.proposalPoint,
+                             '' + brain.Title,
+                             brain.portal_type.split('.')[2].capitalize(),
+                             acord,
+                             translate(msgid=obj.estatsLlista, domain='genweb.organs', target_language='ca'),
+                             obj.absolute_url()])
+
+            self.write_data_inside(obj, output_file)
+
+    def write_data_inside(self, context, output_file, last_lvl=False):
+        writer = csv.writer(output_file, dialect='excel', delimiter=',')
+
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        folder_path = '/'.join(context.getPhysicalPath())
+        values = portal_catalog.unrestrictedSearchResults(
+            sort_on='getObjPositionInParent',
+            portal_type=['genweb.organs.acord', 'genweb.organs.subpunt', 'genweb.organs.file', 'genweb.organs.document'],
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+
+        for brain in values:
+            obj = brain.getObject()
+
+            if not last_lvl:
+                title = '-- ' + brain.Title
+            else:
+                title = '-- -- ' + brain.Title
+
+            acord = ''
+            if brain.portal_type == 'genweb.organs.acord':
+                acord = obj.agreement
+
+            proposalPoint = ''
+            state = ''
+            if brain.portal_type in ['genweb.organs.acord', 'genweb.organs.subpunt']:
+                proposalPoint = obj.proposalPoint
+                state = obj.estatsLlista
+
+            writer.writerow([proposalPoint,
+                             title,
+                             brain.portal_type.split('.')[2].capitalize(),
+                             acord,
+                             translate(msgid=state, domain='genweb.organs', target_language='ca'),
+                             obj.absolute_url()])
+
+            self.write_data_inside(obj, output_file, True)
