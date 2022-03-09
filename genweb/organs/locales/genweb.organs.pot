@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-11-11 10:33+0000\n"
+"POT-Creation-Date: 2022-03-09 14:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,6 +117,10 @@ msgstr ""
 
 #: ./genweb/organs/content/acta.py:126
 msgid "Acta PDF file description"
+msgstr ""
+
+#: ./genweb/organs/content/acta.py:480
+msgid "Acta send to sign"
 msgstr ""
 
 #: ./genweb/organs/content/templates/organgovern_view.pt:48
@@ -485,7 +489,7 @@ msgid "En contra"
 msgstr ""
 
 #: ./genweb/organs/content/sessio.py:86
-#: ./genweb/organs/content/templates/sessio_view.pt:307
+#: ./genweb/organs/content/templates/sessio_view.pt:311
 msgid "Enllac a la sala"
 msgstr ""
 
@@ -514,7 +518,7 @@ msgstr ""
 msgid "Enviar acta a signar"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:867
+#: ./genweb/organs/content/acta.py:868
 msgid "Error al consultar les dades"
 msgstr ""
 
@@ -633,11 +637,11 @@ msgstr ""
 msgid "GDoc"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:825
+#: ./genweb/organs/content/acta.py:826
 msgid "GDoc: Contacta amb algun administrador de la web perquè revisi la configuració"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:827
+#: ./genweb/organs/content/acta.py:828
 msgid "GDoc: La sèrie documental configurada no existeix"
 msgstr ""
 
@@ -856,7 +860,7 @@ msgid "Missing members"
 msgstr ""
 
 #: ./genweb/organs/content/sessio.py:91
-#: ./genweb/organs/content/templates/sessio_view.pt:316
+#: ./genweb/organs/content/templates/sessio_view.pt:302
 msgid "Modality of meet"
 msgstr ""
 
@@ -919,7 +923,7 @@ msgstr ""
 msgid "No s'ha pogut enviar a firmar: S'ha superat el tamany màxim"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:838
+#: ./genweb/organs/content/acta.py:839
 msgid "No s'ha pogut generar el codi de expedient: Contacta amb algun administrador de la web perquè revisi la configuració"
 msgstr ""
 
@@ -1236,7 +1240,7 @@ msgstr ""
 msgid "S'ha enviat a firmar correctament"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:842
+#: ./genweb/organs/content/acta.py:843
 msgid "S'ha sobrepasat el temps d'espera per executar la petició: Contacta amb algun administrador de la web perquè revisi la configuració"
 msgstr ""
 

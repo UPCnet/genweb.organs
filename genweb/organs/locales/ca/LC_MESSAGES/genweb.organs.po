@@ -104,6 +104,10 @@ msgstr "Acta"
 msgid "Acta PDF file description"
 msgstr "NOTA: Només s'accepta un fitxer en format PDF."
 
+#: ./genweb/organs/content/acta.py:480
+msgid "Acta send to sign"
+msgstr "Acta enviat a signar"
+
 #: ./genweb/organs/content/templates/organgovern_view.pt:48
 msgid "Actes"
 msgstr "Actes"
@@ -470,7 +474,7 @@ msgid "En contra"
 msgstr "En contra"
 
 #: ./genweb/organs/content/sessio.py:86
-#: ./genweb/organs/content/templates/sessio_view.pt:307
+#: ./genweb/organs/content/templates/sessio_view.pt:311
 msgid "Enllac a la sala"
 msgstr "Enllaç a la sala"
 
@@ -499,7 +503,7 @@ msgstr "Missatge als membres"
 msgid "Enviar acta a signar"
 msgstr "Enviar acta a signar"
 
-#: ./genweb/organs/content/acta.py:867
+#: ./genweb/organs/content/acta.py:868
 msgid "Error al consultar les dades"
 msgstr "Error al consultar les dades"
 
@@ -618,11 +622,11 @@ msgstr "Adreça de qui envia els missatges"
 msgid "GDoc"
 msgstr "GDoc"
 
-#: ./genweb/organs/content/acta.py:825
+#: ./genweb/organs/content/acta.py:826
 msgid "GDoc: Contacta amb algun administrador de la web perquè revisi la configuració"
 msgstr "GDoc: Contacta amb algun administrador de la web perquè revisi la configuració"
 
-#: ./genweb/organs/content/acta.py:827
+#: ./genweb/organs/content/acta.py:828
 msgid "GDoc: La sèrie documental configurada no existeix"
 msgstr "GDoc: La sèrie documental configurada no existeix"
 
@@ -840,12 +844,8 @@ msgstr "Missatge no enviat. Comprovi els destinataris del missatge"
 msgid "Missing members"
 msgstr "No assistents"
 
-#: ./genweb/organs/content/sessio.py:37
-msgid "mixed"
-msgstr "Mixta"
-
 #: ./genweb/organs/content/sessio.py:91
-#: ./genweb/organs/content/templates/sessio_view.pt:316
+#: ./genweb/organs/content/templates/sessio_view.pt:302
 msgid "Modality of meet"
 msgstr "Modalitat de reunió"
 
@@ -908,7 +908,7 @@ msgstr "No s'ha pogut enviar a firmar: Contacta amb algun administrador de la we
 msgid "No s'ha pogut enviar a firmar: S'ha superat el tamany màxim"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:838
+#: ./genweb/organs/content/acta.py:839
 msgid "No s'ha pogut generar el codi de expedient: Contacta amb algun administrador de la web perquè revisi la configuració"
 msgstr "No s'ha pogut generar el codi de expedient: Contacta amb algun administrador de la web perquè revisi la configuració"
 
@@ -1225,7 +1225,7 @@ msgstr "Resultats votacions / Quòrums"
 msgid "S'ha enviat a firmar correctament"
 msgstr "S'ha enviat a firmar correctament"
 
-#: ./genweb/organs/content/acta.py:842
+#: ./genweb/organs/content/acta.py:843
 msgid "S'ha sobrepasat el temps d'espera per executar la petició: Contacta amb algun administrador de la web perquè revisi la configuració"
 msgstr "S'ha sobrepasat el temps d'espera per executar la petició: Contacta amb algun administrador de la web perquè revisi la configuració"
 
@@ -1640,6 +1640,10 @@ msgstr "Mostrar tots el items"
 #: ./genweb/organs/content/sessio.py:97
 msgid "mail address"
 msgstr "Adreça de correu de membres i convidats"
+
+#: ./genweb/organs/content/sessio.py:37
+msgid "mixed"
+msgstr "Mixta"
 
 #: ./genweb/organs/z3cwidget/text_input_select_users.pt:52
 msgid "nom.cognoms"

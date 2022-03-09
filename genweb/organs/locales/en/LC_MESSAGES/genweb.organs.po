@@ -104,6 +104,10 @@ msgstr "Annex file"
 msgid "Acta PDF file description"
 msgstr "NOTE: Only PDF files are accepted."
 
+#: ./genweb/organs/content/acta.py:480
+msgid "Acta send to sign"
+msgstr "Acta send to sign"
+
 #: ./genweb/organs/content/templates/organgovern_view.pt:48
 msgid "Actes"
 msgstr "Meeting reports"
@@ -470,7 +474,7 @@ msgid "En contra"
 msgstr "Against"
 
 #: ./genweb/organs/content/sessio.py:86
-#: ./genweb/organs/content/templates/sessio_view.pt:307
+#: ./genweb/organs/content/templates/sessio_view.pt:311
 msgid "Enllac a la sala"
 msgstr "Link to the room"
 
@@ -499,7 +503,7 @@ msgstr "Send message"
 msgid "Enviar acta a signar"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:867
+#: ./genweb/organs/content/acta.py:868
 msgid "Error al consultar les dades"
 msgstr ""
 
@@ -618,11 +622,11 @@ msgstr "Email who sends the messages"
 msgid "GDoc"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:825
+#: ./genweb/organs/content/acta.py:826
 msgid "GDoc: Contacta amb algun administrador de la web perquè revisi la configuració"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:827
+#: ./genweb/organs/content/acta.py:828
 msgid "GDoc: La sèrie documental configurada no existeix"
 msgstr ""
 
@@ -841,7 +845,7 @@ msgid "Missing members"
 msgstr "List of people not attending"
 
 #: ./genweb/organs/content/sessio.py:91
-#: ./genweb/organs/content/templates/sessio_view.pt:316
+#: ./genweb/organs/content/templates/sessio_view.pt:302
 msgid "Modality of meet"
 msgstr ""
 
@@ -904,7 +908,7 @@ msgstr ""
 msgid "No s'ha pogut enviar a firmar: S'ha superat el tamany màxim"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:838
+#: ./genweb/organs/content/acta.py:839
 msgid "No s'ha pogut generar el codi de expedient: Contacta amb algun administrador de la web perquè revisi la configuració"
 msgstr ""
 
@@ -1221,7 +1225,7 @@ msgstr ""
 msgid "S'ha enviat a firmar correctament"
 msgstr ""
 
-#: ./genweb/organs/content/acta.py:842
+#: ./genweb/organs/content/acta.py:843
 msgid "S'ha sobrepasat el temps d'espera per executar la petició: Contacta amb algun administrador de la web perquè revisi la configuració"
 msgstr ""
 

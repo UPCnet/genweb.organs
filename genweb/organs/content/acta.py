@@ -477,7 +477,6 @@ class SignActa(grok.View):
             pass
 
     def render(self):
-
         if not isinstance(self.context.infoGDoc, dict):
             self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
 
@@ -816,6 +815,7 @@ class SignActa(grok.View):
                                     self.context.plone_utils.addPortalMessage(_(u'No s\'ha pogut enviar a firmar: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
 
                             self.removeActaPDF()
+                            utils.addEntryLog(self.context.__parent__, None, _(u'Acta send to sign'), self.context.absolute_url())
                             return self.request.response.redirect(self.context.absolute_url())
                     else:
                         logger.info('3.ERROR. Creació de la serie documental en gdoc')
