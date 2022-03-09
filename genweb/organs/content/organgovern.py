@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from StringIO import StringIO
 from AccessControl import Unauthorized
+from Products.statusmessages.interfaces import IStatusMessage
+from StringIO import StringIO
 
 from collective import dexteritytextindexer
 from five import grok
@@ -22,6 +23,7 @@ from genweb.organs import _
 from genweb.organs import utils
 
 import csv
+import transaction
 
 
 types = SimpleVocabulary(
@@ -198,6 +200,19 @@ class Edit(dexterity.EditForm):
     """ Organ de govern EDIT form
     """
     grok.context(IOrgangovern)
+
+    def update(self):
+        super(Edit, self).update()
+        try:
+            if self.context.visiblefields:
+                folder_title = self.context.aq_parent.aq_parent.title.lower()
+                if folder_title in ['centres docents', 'departaments', 'instituts de recerca', 'escola de doctorat']:
+                    self.context.visiblefields = False
+                    self.context.reindexObject()
+                    transaction.commit()
+                    IStatusMessage(self.request).addStatusMessage(_(u'Visible fields disabled: In the calendar visible on the public cover, it only shows the planned sessions of certain public governing bodies of the UPC.'), 'info')
+        except:
+            pass
 
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
