@@ -121,70 +121,73 @@ class Message(form.SchemaForm):
         if lang == 'ca':
             titleText = "Convocatòria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
             fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
-            introData = "<br/><p>Podeu consultar la convocatòria i la documentació de la sessió aquí: <a href=" + \
+            introData = "<p>Podeu consultar la convocatòria i la documentació de la sessió aquí: <a href=" + \
                         sessionLink + ">" + sessiontitle + "</a></p>" +\
                         "<p>Podeu excusar l’absència a la sessió aquí: <a href=" +\
                         sessionLink + "/excusar_assist_sessio>Excusar l’absència</a></p><br/> " + signatura
-            moreData = html_content + \
-                '<br/>' + customBody + '<strong>' + sessiontitle + \
-                '</strong><br/><br/>Lloc: ' + place
 
-            if session.linkSala is not None:
-                moreData += "<br/>Enllaç a la sala: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
+            moreData = html_content + '<br/>' + customBody + '<strong>' + sessiontitle + '</strong>'
 
             if session.modality is not None:
                 moreData += "<br/>Modalitat de la sessió: " + translate(msgid=session.modality, domain='genweb.organs', target_language='ca')
 
+            moreData += '<br/>Lloc: ' + place
+
+            if session.linkSala is not None:
+                moreData += "<br/>Enllaç a la sessió: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
+
             moreData += "<br/>Data: " + sessiondate + \
                 "<br/>Hora d'inici: " + starthour + \
                 "<br/>Hora de fi: " + endHour + \
-                '<br/><br/>'
+                '<br/>'
             bodyMail = str(moreData) + str(introData)
 
         if lang == 'es':
             titleText = "Convocatoria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
             fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
-            introData = "<br/><p>Puede consultar la convocatoria y la documentación de la sesión aquí: <a href=" + \
+            introData = "<p>Puede consultar la convocatoria y la documentación de la sesión aquí: <a href=" + \
                         sessionLink + ">" + sessiontitle + "</a></p>" +\
                         "<p>Puedes escusar tu ausencia a la sesión aquí: <a href=" +\
                         sessionLink + "/excusar_assist_sessio>Escusar ausencia</a></p><br/> " + signatura
-            moreData = html_content + \
-                '<br/>' + customBody + '<strong>' + sessiontitle + \
-                '</strong><br/><br/>Lugar: ' + place
 
-            if session.linkSala is not None:
-                moreData += "<br/>Enlace a la sala: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
+            moreData = html_content + '<br/>' + customBody + '<strong>' + sessiontitle + '</strong>'
 
             if session.modality is not None:
                 "<br/>Modalidad de la sesión: " + translate(msgid=session.modality, domain='genweb.organs', target_language='es')
 
+            moreData += '<br/>Lugar: ' + place
+
+            if session.linkSala is not None:
+                moreData += "<br/>Enlace a la sesión: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
+
             moreData += "<br/>Fecha: " + sessiondate + \
                 "<br/>Hora de inicio: " + starthour + \
                 "<br/>Hora de finalización: " + endHour + \
-                '<br/><br/>'
+                '<br/>'
             bodyMail = str(moreData) + str(introData)
 
         if lang == 'en':
             titleText = "Call " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
             fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
-            introData = "<br/><p>Information regarding the call and the documentation can be found here: <a href=" + \
+            introData = "<p>Information regarding the call and the documentation can be found here: <a href=" + \
                         sessionLink + ">" + sessiontitle + "</a></p>" +\
                         "<p>You can apologise for you absence here: <a href=" +\
                         sessionLink + "/excusar_assist_sessio>apologise</a></p><br/> " + signatura
-            moreData = html_content + \
-                '<br/>' + customBody + '<strong>' + sessiontitle + \
-                '</strong><br/><br/>Place: ' + place
 
-            if session.linkSala is not None:
-                moreData += "<br/>Link to the room: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
+            moreData = html_content + '<br/>' + customBody + '<strong>' + sessiontitle + '</strong>'
 
             if session.modality is not None:
                 moreData += "<br/>Session modality: " + translate(msgid=session.modality, domain='genweb.organs', target_language='en')
 
+            moreData += '<br/>Place: ' + place
+
+            if session.linkSala is not None:
+                moreData += "<br/>Link to the session: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
+
             moreData += "<br/>Date: " + sessiondate + \
                 "<br/>Start date: " + starthour + \
                 "<br/>End date: " + endHour + \
-                '<br/><br/>'
+                '<br/>'
             bodyMail = str(moreData) + str(introData)
 
         self.widgets["sender"].mode = DISPLAY_MODE
