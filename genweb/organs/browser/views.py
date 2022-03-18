@@ -714,12 +714,17 @@ class allSessions(BrowserView):
             if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or obj.aq_parent.visiblefields:
                 event = IEventAccessor(obj)
                 if obj.start.strftime('%Y') == current_year:
+                    startDate = event.start.strftime('%d/%m/%Y')
+                    endDate = event.end.strftime('%d/%m/%Y')
                     past.append(dict(
+                        id=obj.aq_parent.id,
                         title=obj.aq_parent.title,
-                        start=event.start.strftime('%d/%m/%Y %H:%M'),
-                        end=event.end.strftime('%d/%m/%Y %H:%M'),
+                        date=startDate if startDate == endDate else startDate + " " + endDate,
+                        start=event.start.strftime('%H:%M'),
+                        end=event.end.strftime('%H:%M'),
                         dateiso=event.start.strftime('%Y%m%d'),
-                        url=session.getPath()))
+                        url=session.getPath(),
+                        breakline=obj.aq_parent.id=='ple-del-consell-social'))
 
         future = []
         current_year = datetime.datetime.now().strftime('%Y')
@@ -731,12 +736,17 @@ class allSessions(BrowserView):
             if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or obj.aq_parent.visiblefields:
                 event = IEventAccessor(obj)
                 if obj.start.strftime('%Y') == current_year:
+                    startDate = event.start.strftime('%d/%m/%Y')
+                    endDate = event.end.strftime('%d/%m/%Y')
                     future.append(dict(
+                        id=obj.aq_parent.id,
                         title=obj.aq_parent.title,
-                        start=event.start.strftime('%d/%m/%Y %H:%M'),
-                        end=event.end.strftime('%d/%m/%Y %H:%M'),
+                        date=startDate if startDate == endDate else startDate + " " + endDate,
+                        start=event.start.strftime('%H:%M'),
+                        end=event.end.strftime('%H:%M'),
                         dateiso=event.start.strftime('%Y%m%d'),
-                        url=session.getPath()))
+                        url=session.getPath(),
+                        breakline=obj.aq_parent.id=='ple-del-consell-social'))
         return dict(
             future=sorted(future, key=itemgetter('dateiso'), reverse=False),
             past=sorted(past, key=itemgetter('dateiso'), reverse=False))

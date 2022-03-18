@@ -2290,6 +2290,31 @@ a.calendari-seguent:hover  {
     margin-bottom: 10px;
 }
 
+body.template-allsessions #portal-column-content table.table-bordered {
+    border-right: 0px solid transparent;
+}
+
+body.template-allsessions #portal-column-content table tr.consell-de-govern {
+    background-color: #deeeff;
+}
+
+body.template-allsessions #portal-column-content table tr.claustre-universitari {
+    background-color: #e8e8e8;
+}
+
+body.template-allsessions #portal-column-content table tr.breakline {
+    height: 30px;
+}
+
+body.template-allsessions #portal-column-content table tr.breakline td {
+    border-left: 0px solid transparent;
+}
+
+body.template-allsessions #portal-column-content table tr:not(.breakline) th:last-child,
+body.template-allsessions #portal-column-content table tr:not(.breakline) td:last-child {
+    border-right: 1px solid #b2b2b2;
+}
+
 .link-banner {
     font-size: 1.125rem;
     font-weight: 500;
