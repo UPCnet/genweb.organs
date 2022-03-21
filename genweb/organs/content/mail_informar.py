@@ -80,7 +80,7 @@ class Message(form.SchemaForm):
         self.widgets["sender"].value = str(organ.fromMail)
         session = self.context
         if session.adrecaAfectatsLlista:
-            self.widgets["recipients"].value = str(session.adrecaLlista) + ' ' + str(session.adrecaAfectatsLlista)
+            self.widgets["recipients"].value = str(session.adrecaLlista) + ', ' + str(session.adrecaAfectatsLlista)
         else:
             self.widgets["recipients"].value = str(session.adrecaLlista)
 
