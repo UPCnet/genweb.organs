@@ -128,15 +128,18 @@
   </script>
 
   <script type="text/javascript">
-    function printPage(newWindow){
-      newWindow.focus();
-      newWindow.print();
+    function printButlletiPage(){
+      if($("iframe").length == 0){
+        $("<iframe name='iframe' id='iframe' width='1' height='1' src='butlleti'>").appendTo("body");
+      }
+      window.frames["iframe"].focus();
+      setTimeout(function(){
+        window.frames["iframe"].print();
+      }, 1000);
     }
   </script>
 
   <div class="documentDescription description"></div>
-
-  <iframe name="iframe" id="iframe" width="1" height="1" src="butlleti"></iframe>
 
   <div class="sessionActions" tal:define="showOpenQuorum view/showOpenQuorum">
 
@@ -170,7 +173,7 @@
       </div>
 
       <div class="containerIcons">
-        <a href="javascript:printPage(iframe);" i18n:attributes="title printOrdreDia; alt printOrdreDia">
+        <a href="javascript:printButlletiPage();" i18n:attributes="title printOrdreDia; alt printOrdreDia">
           <i class="fa fa-print fa-3x" aria-hidden="true"></i>
           <br/><span i18n:translate="">Print</span>
         </a>
