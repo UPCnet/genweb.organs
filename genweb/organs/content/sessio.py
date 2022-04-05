@@ -22,6 +22,7 @@ from zope.annotation.interfaces import IAnnotations
 from zope.i18n import translate
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
+
 from genweb.organs import _
 from genweb.organs import utils
 
@@ -249,14 +250,16 @@ class View(grok.View):
 
     def viewHistory(self):
         # Només els Secretaris i Managers podem veure el LOG
-        if utils.isSecretari(self) or utils.isManager(self):
+        roles = utils.getUserRoles(self)
+        if 'OG1-Secretari' in roles or 'Manager' in roles:
             return True
         else:
             return False
 
     def viewExcusesAndPoints(self):
         # Només els Secretaris i Editors poden veure les excuses
-        if utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self):
+        roles = utils.getUserRoles(self)
+        if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
             return True
         else:
             return False
@@ -269,47 +272,51 @@ class View(grok.View):
                 return False
 
         # But if not migrated, check permissions...
+        roles = utils.getUserRoles(self)
         review_state = api.content.get_state(self.context)
         value = False
-        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and utils.isSecretari(self):
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and 'OG1-Secretari' in roles:
             value = True
-        if review_state in ['planificada', 'convocada', 'realitzada'] and utils.isEditor(self):
+        if review_state in ['planificada', 'convocada', 'realitzada'] and 'OG2-Editor' in roles:
             value = True
-        return value or utils.isManager(self)
+        return value or 'Manager' in roles
 
     def showOrdreDiaIAssistencia(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isManager(self)
-        if review_state in ['planificada', 'convocada'] and roles:
+        roles = utils.getUserRoles(self)
+        has_roles = 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles
+        if review_state in ['planificada', 'convocada'] and has_roles:
             value = True
-        elif self.context.organType == 'open_organ' and review_state == 'convocada' and utils.isAfectat(self):
+        elif self.context.organType == 'open_organ' and review_state == 'convocada' and 'OG4-Afectat' in has_roles:
             value = True
         return value
 
     def showEnviarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self)
-        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and roles:
+        roles = utils.getUserRoles(self)
+        has_roles = 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and has_roles:
             value = True
         return value
 
     def showPresentacionButton(self):
         estatSessio = utils.session_wf_state(self)
-        if utils.isManager(self):
+        roles = utils.getUserRoles(self)
+        if 'Manager' in roles:
             return True
-        elif estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+        elif estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
             return True
-        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+        elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
             return True
-        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+        elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
             return True
-        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+        elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
             return True
-        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+        elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
             return True
-        elif self.context.organType == 'open_organ' and estatSessio in ['convocada', 'realitzada', 'tancada', 'en_correccio'] and utils.isAfectat(self):
+        elif self.context.organType == 'open_organ' and estatSessio in ['convocada', 'realitzada', 'tancada', 'en_correccio'] and 'OG4-Afectat' in roles:
             return True
         else:
             return False
@@ -317,8 +324,9 @@ class View(grok.View):
     def showPublicarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self)
-        if review_state in ['realitzada', 'en_correccio'] and roles:
+        roles = utils.getUserRoles(self)
+        has_roles = 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles
+        if review_state in ['realitzada', 'en_correccio'] and has_roles:
             value = True
         return value
 
@@ -353,6 +361,7 @@ class View(grok.View):
 
         results = []
 
+        roles = utils.getUserRoles(self)
         for obj in values:
 
             canOpenVote = False
@@ -386,7 +395,7 @@ class View(grok.View):
                 # TODO !
                 # review_state = api.content.get_state(self.context)
                 # if review_state in ['realitzada', 'en_correccio']
-                if utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self):
+                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
                     classe = "ui-state-grey"
                 else:
                     classe = "ui-state-grey-not_move"
@@ -564,34 +573,35 @@ class View(grok.View):
 
     def canViewTabActes(self):
         # Permissions to view acta
-        if utils.isManager(self):
+        roles = utils.getUserRoles(self)
+        if 'Manager' in roles:
             return True
         estatSessio = utils.session_wf_state(self)
         organ_tipus = self.context.organType
 
         if organ_tipus == 'open_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
                 return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
                 return True
             else:
                 return False
         else:
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
                 return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                 return True
             else:
                 return False
@@ -758,9 +768,10 @@ class View(grok.View):
             path={'query': session_path,
                   'depth': 1})
         results = []
+        roles = utils.getUserRoles(self)
         for obj in values:
             value = obj.getObject()
-            if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self):
+            if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
                 # Editor i Secretari veuen contingut. NO obren en finestra nova
                 if obj.portal_type == 'genweb.organs.file':
                     classCSS = 'fa fa-file-pdf-o'  # Es un file
@@ -791,7 +802,7 @@ class View(grok.View):
                 if obj.portal_type == 'genweb.organs.document':
                     classCSS = 'fa fa-file-text-o'
                     if value.defaultContent and value.alternateContent:
-                        if utils.isMembre(self):
+                        if 'OG3-Membre' in roles:
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL(),
@@ -813,7 +824,7 @@ class View(grok.View):
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
                     elif value.alternateContent:
-                        if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self):
+                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL(),
@@ -824,7 +835,7 @@ class View(grok.View):
                 if obj.portal_type == 'genweb.organs.file':
                     classCSS = 'fa fa-file-pdf-o'
                     if value.visiblefile and value.hiddenfile:
-                        if utils.isMembre(self):
+                        if 'OG3-Membre' in roles:
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
@@ -846,7 +857,7 @@ class View(grok.View):
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
                     elif value.hiddenfile:
-                        if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self):
+                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
@@ -893,13 +904,14 @@ class View(grok.View):
     def canView(self):
         # Permissions to view SESSIONS
         # If manager Show all
-        if utils.isManager(self):
+        roles = utils.getUserRoles(self)
+        if 'Manager' in roles:
             return True
         estatSessio = utils.session_wf_state(self)
         organ_tipus = self.context.organType
 
         if organ_tipus == 'open_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
                 return True
             elif estatSessio == 'convocada':
                 return True
@@ -913,56 +925,54 @@ class View(grok.View):
                 raise Unauthorized
 
         if organ_tipus == 'restricted_to_members_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
                 return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                 return True
             else:
                 raise Unauthorized
 
         if organ_tipus == 'restricted_to_affected_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
                 return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
                 return True
             else:
                 raise Unauthorized
 
     def canViewManageVote(self):
-        # estatSessio = utils.session_wf_state(self)
-        # return estatSessio == 'convocada' and (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self))
         if self.context.aq_parent.organType == 'open_organ':
-            return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
+            roles = utils.getUserRoles(self)
+            return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles
         return False
 
     def canViewVoteButtons(self):
-        # estatSessio = utils.session_wf_state(self)
-        # return estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isMembre(self))
         if self.context.aq_parent.organType == 'open_organ':
-            return utils.isSecretari(self) or utils.isMembre(self)
+            roles = utils.getUserRoles(self)
+            return 'OG1-Secretari' in roles or 'OG3-Membre' in roles
         return False
 
     def canViewResultsVote(self):
-        # estatSessio = utils.session_wf_state(self)
-        # return estatSessio == 'convocada' and (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self))
         if self.context.aq_parent.organType == 'open_organ':
-            return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
+            roles = utils.getUserRoles(self)
+            return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles
         return False
 
     def canViewLinkSala(self):
-        return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
+        roles = utils.getUserRoles(self)
+        return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles
 
     def getAllResultsVotes(self):
         if self.context.aq_parent.organType != 'open_organ':
@@ -1140,12 +1150,14 @@ class View(grok.View):
 
     def canViewManageQuorumButtons(self):
         if self.context.aq_parent.organType == 'open_organ':
-            return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
+            roles = utils.getUserRoles(self)
+            return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles
         return False
 
     def canViewAddQuorumButtons(self):
         if self.context.aq_parent.organType == 'open_organ':
-            return utils.isSecretari(self) or utils.isMembre(self)
+            roles = utils.getUserRoles(self)
+            return 'OG1-Secretari' in roles or 'OG3-Membre' in roles
         return False
 
     def checkHasQuorum(self):
@@ -1181,7 +1193,8 @@ class OpenQuorum(grok.View):
         lenQuorums = len(self.context.infoQuorums)
         if lenQuorums == 0 or self.context.infoQuorums[lenQuorums]['end']:
             idQuorum = lenQuorums + 1
-            # if utils.isSecretari(self):
+            # roles = utils.getUserRoles(self)
+            # if 'OG1-Secretari' in roles:
             #     self.context.infoQuorums.update({
             #         idQuorum: {
             #             'start': datetime.datetime.now().strftime('%d/%m/%Y %H:%M'),

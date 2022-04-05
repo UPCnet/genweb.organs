@@ -18,67 +18,55 @@ import unicodedata
 
 def isAfectat(self):
     """ Return true if user has role OG4-Afectat """
-    try:
-        username = api.user.get_current().id
-        roles = api.user.get_roles(username=username, obj=self.context)
-        if 'OG4-Afectat' in roles:
-            return True
-        else:
-            return False
-    except:
+    roles = getUserRoles(self)
+    if 'OG4-Afectat' in roles:
+        return True
+    else:
         return False
 
 
 def isMembre(self):
     """ Return true if user has role OG3-Membre """
-    try:
-        username = api.user.get_current().id
-        roles = api.user.get_roles(username=username, obj=self.context)
-        if 'OG3-Membre' in roles:
-            return True
-        else:
-            return False
-    except:
+    roles = getUserRoles(self)
+    if 'OG3-Membre' in roles:
+        return True
+    else:
         return False
 
 
 def isEditor(self):
     """ Returns true if user has role OG2-Editor """
-    try:
-        username = api.user.get_current().id
-        roles = api.user.get_roles(username=username, obj=self.context)
-        if 'OG2-Editor' in roles:
-            return True
-        else:
-            return False
-    except:
+    roles = getUserRoles(self)
+    if 'OG2-Editor' in roles:
+        return True
+    else:
         return False
 
 
 def isSecretari(self):
     """ Return true if user has role OG1-Secretari """
-    try:
-        username = api.user.get_current().id
-        roles = api.user.get_roles(username=username, obj=self.context)
-        if 'OG1-Secretari' in roles:
-            return True
-        else:
-            return False
-    except:
+    roles = getUserRoles(self)
+    if 'OG1-Secretari' in roles:
+        return True
+    else:
         return False
 
 
 def isManager(self):
     """ Return true if user has role Manager """
+    roles = getUserRoles(self)
+    if 'Manager' in roles:
+        return True
+    else:
+        return False
+
+
+def getUserRoles(self):
     try:
         username = api.user.get_current().id
-        roles = api.user.get_roles(username=username, obj=self.context)
-        if 'Manager' in roles:
-            return True
-        else:
-            return False
+        return api.user.get_roles(username=username, obj=self.context)
     except:
-        return False
+        return []
 
 
 def isAnon(self):

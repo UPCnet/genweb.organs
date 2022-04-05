@@ -25,7 +25,13 @@
                 viewExcusesAndPoints view/viewExcusesAndPoints;
                 getTitlePrompt view/getTitlePrompt;
                 getErrorPrompt view/getErrorPrompt;
-                canViewVoteButtons view/canViewVoteButtons;">
+                canViewVoteButtons view/canViewVoteButtons;
+                canViewAddQuorumButtons view/canViewAddQuorumButtons;
+                canViewManageQuorumButtons view/canViewManageQuorumButtons;
+                canViewManageVote view/canViewManageVote;
+                canViewResultsVote view/canViewResultsVote;
+                acordsInside view/AcordsInside;
+                actesInside view/ActesInside">
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
         <h1 class="documentFirstHeading" tal:content="context/title" />
@@ -186,7 +192,7 @@
         </a>
       </div>
 
-      <tal:block tal:condition="view/canViewManageQuorumButtons">
+      <tal:block tal:condition="canViewManageQuorumButtons">
         <div class="containerIcons" tal:condition="showOpenQuorum">
           <a class="openQuorum" href="#" i18n:attributes="title open_quorum; alt open_quorum;">
             <i class="fa fa-pluse fa-3x" style="font-size:1.1em" aria-hidden="true"></i>
@@ -204,7 +210,7 @@
         </div>
       </tal:block>
 
-      <tal:block tal:condition="view/canViewAddQuorumButtons">
+      <tal:block tal:condition="canViewAddQuorumButtons">
         <div class="containerIcons" tal:condition="not:showOpenQuorum"
              tal:define="checkHasQuorum view/checkHasQuorum">
           <a tal:condition="not:checkHasQuorum" class="addQuorum"
@@ -231,15 +237,15 @@
         <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Convocatoria</tal:omit-tag></i></a></li>
       <li tal:condition="hihaPersones"><a href="#assistentsTab" data-toggle="tab">
         <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Assistents</tal:omit-tag></i></a></li>
-      <li tal:condition="view/showActaTab"><a href="#actaTab" data-toggle="tab" >
+      <li tal:condition="actesInside"><a href="#actaTab" data-toggle="tab" >
         <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Acta</tal:omit-tag></i></a></li>
-      <li tal:condition="view/showAcordsTab"><a href="#acordsTab" data-toggle="tab">
+      <li tal:condition="acordsInside"><a href="#acordsTab" data-toggle="tab">
         <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
       <li tal:condition="python:loginfo and viewHistory"><a href="#notificationsTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Historial</tal:omit-tag></i></a></li>
       <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag></i></a></li>
-      <tal:block tal:condition="view/canViewResultsVote">
+      <tal:block tal:condition="canViewResultsVote">
         <li tal:condition="python: getAllResultsVotes or getInfoQuorums"><a href="#resultsVotesTab" data-toggle="tab">
           <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions / Quorums</tal:omit-tag></i></a></li>
       </tal:block>
@@ -249,15 +255,15 @@
         <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Convocatoria</tal:omit-tag></i></a></li>
       <li tal:condition="hihaPersones"><a href="#assistentsTab" data-toggle="tab">
         <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Assistents</tal:omit-tag></i></a></li>
-      <li tal:condition="view/showActaTab"><a href="#actaTab" data-toggle="tab" >
+      <li tal:condition="actesInside"><a href="#actaTab" data-toggle="tab" >
         <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Acta</tal:omit-tag></i></a></li>
-      <li tal:condition="view/showAcordsTab"><a href="#acordsTab" data-toggle="tab">
+      <li tal:condition="acordsInside"><a href="#acordsTab" data-toggle="tab">
         <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
       <li tal:condition="python:loginfo and viewHistory"><a href="#notificationsTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Historial</tal:omit-tag></i></a></li>
       <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag></i></a></li>
-      <tal:block tal:condition="view/canViewResultsVote">
+      <tal:block tal:condition="canViewResultsVote">
         <li tal:condition="python: getAllResultsVotes or getInfoQuorums"><a href="#resultsVotesTab" data-toggle="tab">
           <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions / Quorums</tal:omit-tag></i></a></li>
       </tal:block>
@@ -358,8 +364,8 @@
         </div>
       </div>
 
-      <div class="tab-pane" id="actaTab" tal:condition="view/showActaTab">
-        <div class="clearfix" tal:define="actes view/ActesInside" tal:condition="actes">
+      <div class="tab-pane" id="actaTab" tal:define="actes actesInside" tal:condition="actesInside">
+        <div class="clearfix">
           <b i18n:translate="">Actes de la sessio:</b>
           <table>
             <tbody>
@@ -382,8 +388,8 @@
         </div>
       </div>
 
-      <div class="tab-pane" id="acordsTab" tal:condition="view/showAcordsTab">
-        <div class="clearfix" tal:define="acords view/AcordsInside" tal:condition="acords">
+      <div class="tab-pane" id="acordsTab" tal:define="acords acordsInside" tal:condition="acordsInside">
+        <div class="clearfix">
           <div class="scrollit">
             <table class="table table-bordered table-condensed table-hover logFont">
               <thead>
@@ -503,15 +509,14 @@
       </div>
 
 
-      <div class="tab-pane" id="resultsVotesTab" tal:condition="view/canViewResultsVote">
+      <div class="tab-pane" id="resultsVotesTab" tal:condition="canViewResultsVote">
         <div class="scrollit" tal:define="votes getAllResultsVotes; quorums getInfoQuorums;">
 
-          <table tal:condition="votes" class="table table-bordered table-condensed table-hover logFont"
-                 tal:define="canViewExtendedResultsVote view/canViewManageVote">
+          <table tal:condition="votes" class="table table-bordered table-condensed table-hover logFont">
             <thead>
               <tr i18n:domain="genweb.organs">
                 <th width="36%" i18n:translate="">Acord / Esmena</th>
-                <tal tal:condition="not:canViewExtendedResultsVote">
+                <tal tal:condition="not:canViewManageVote">
                   <th width="14%" style="text-align:center;" i18n:translate="">A favor</th>
                   <th width="14%" style="text-align:center;" i18n:translate="">En contra</th>
                   <th width="14%" style="text-align:center;" i18n:translate="">En blanc</th>
@@ -519,7 +524,7 @@
                   <th width="8%" style="text-align:center;" i18n:translate=""></th>
 
                 </tal>
-                <tal tal:condition="canViewExtendedResultsVote">
+                <tal tal:condition="canViewManageVote">
                   <th width="12%" style="text-align:center;" i18n:translate="">A favor</th>
                   <th width="12%" style="text-align:center;" i18n:translate="">En contra</th>
                   <th width="12%" style="text-align:center;" i18n:translate="">En blanc</th>
@@ -554,7 +559,7 @@
                     <td class="vote-whiteVote" style="text-align:center;"></td>
                     <td class="vote-totalVote" style="text-align:center;" tal:content="vote/totalVote"></td>
                   </tal:block>
-                  <td style="text-align:center;" tal:condition="canViewExtendedResultsVote" tal:content="vote/state"></td>
+                  <td style="text-align:center;" tal:condition="canViewManageVote" tal:content="vote/state"></td>
                   <td style="text-align:center;">
                     <tal:block tal:condition="vote/isOpen">
                       <span tal:attributes="data-uid vote/UID" class="refreshVote fa fa-refresh" aria-hidden="true"></span>
@@ -566,7 +571,7 @@
                             tal:attributes="title string:Inici: ${vote/hourOpen}
 Fi: ${vote/hourClose}"></span>
                     </tal:block>
-                    <tal:block tal:condition="canViewExtendedResultsVote">
+                    <tal:block tal:condition="canViewManageVote">
                       <span tal:condition="vote/isVote" class="fa fa-trash removeVote" tal:attributes="data-url vote/URL"></span>
                     </tal:block>
                   </td>
@@ -599,7 +604,7 @@ Fi: ${vote/hourClose}"></span>
                       <td class="vote-whiteVote" style="text-align:center;"></td>
                       <td class="vote-totalVote" style="text-align:center;" tal:content="vote/totalVote"></td>
                     </tal:block>
-                    <td class="vote-state" style="text-align:center;" tal:condition="canViewExtendedResultsVote" tal:content="vote/state"></td>
+                    <td class="vote-state" style="text-align:center;" tal:condition="canViewManageVote" tal:content="vote/state"></td>
                     <td style="text-align:center;">
                       <tal:block tal:condition="vote/isOpen">
                         <span tal:attributes="data-uid vote/UID" class="refreshVote fa fa-refresh" aria-hidden="true"></span>
@@ -611,7 +616,7 @@ Fi: ${vote/hourClose}"></span>
                               tal:attributes="title string:Inici: ${vote/hourOpen}
 Fi: ${vote/hourClose}"></span>
                       </tal:block>
-                      <span tal:condition="canViewExtendedResultsVote" class="fa fa-trash removeVote" tal:attributes="data-url vote/URL"></span>
+                      <span tal:condition="canViewManageVote" class="fa fa-trash removeVote" tal:attributes="data-url vote/URL"></span>
                     </td>
                   </tr>
                   <tr class="infovotes" tal:attributes="id vote/UID">
@@ -636,8 +641,8 @@ Fi: ${vote/hourClose}"></span>
                         <p tal:repeat="user vote/totalVoteList" tal:content="user"></p>
                       </td>
                     </tal:block>
-                    <td style="text-align:center;" tal:condition="canViewExtendedResultsVote"></td>
-                    <td style="text-align:center;" tal:condition="canViewExtendedResultsVote"></td>
+                    <td style="text-align:center;" tal:condition="canViewManageVote"></td>
+                    <td style="text-align:center;" tal:condition="canViewManageVote"></td>
                   </tr>
                 </tal:block>
               </tal:block>
@@ -831,7 +836,7 @@ Fi: ${vote/hourClose}"></span>
                       </tal:block>
                     </div>
 
-                    <tal:block tal:condition="view/canViewManageVote">
+                    <tal:block tal:condition="canViewManageVote">
                       <tal:block tal:condition="agreement">
                         <div class="btn-group votes" role="group"
                              style="float: right;" aria-label="Open vote" tal:condition="item/canOpenVote">
@@ -949,7 +954,7 @@ Fi: ${vote/hourClose}"></span>
                     <span tal:condition="agreement" class="agreementClass">
                       [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
                     </span>
-                    <tal:block tal:condition="view/canViewResultsVote">
+                    <tal:block tal:condition="canViewResultsVote">
                       <span tal:condition="item/canRecloseVote" class="editTitle editable subtitleSize">
                         <br/>
                         <tal:omit-tag i18n:translate="">Vote</tal:omit-tag>:
@@ -1083,7 +1088,7 @@ Fi: ${vote/hourClose}"></span>
                             </tal:block>
                           </div>
 
-                          <tal:block tal:condition="view/canViewManageVote">
+                          <tal:block tal:condition="canViewManageVote">
                             <tal:block tal:condition="agreement">
                               <div class="btn-group votes" role="group"
                                    style="float: right;" aria-label="Open vote" tal:condition="itemSubpunt/canOpenVote">
@@ -1364,7 +1369,7 @@ Fi: ${vote/hourClose}"></span>
 
 <div style="margin-bottom:20px;"></div>
 
-<script type="text/javascript" tal:condition="view/canViewManageVote">
+<script type="text/javascript" tal:condition="canViewManageVote">
 
   $(".removeVote").on('click', function(){
     $.ajax({
@@ -1474,7 +1479,7 @@ Fi: ${vote/hourClose}"></span>
 
 </script>
 
-<script type="text/javascript" tal:condition="view/canViewVoteButtons">
+<script type="text/javascript" tal:condition="canViewVoteButtons">
   var refreshNeeded = false;
 
   $(".notVote .favor").on('click', function(){
@@ -1509,7 +1514,7 @@ Fi: ${vote/hourClose}"></span>
 
 </script>
 
-<script type="text/javascript" tal:condition="view/canViewManageQuorumButtons">
+<script type="text/javascript" tal:condition="canViewManageQuorumButtons">
 
   $(".openQuorum").on('click', function(){
     $.ajax({
@@ -1533,7 +1538,7 @@ Fi: ${vote/hourClose}"></span>
 
 </script>
 
-<script type="text/javascript" tal:condition="view/canViewAddQuorumButtons">
+<script type="text/javascript" tal:condition="canViewAddQuorumButtons">
 
   $(".addQuorum").on('click', function(){
     $.ajax({
