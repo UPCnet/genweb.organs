@@ -250,7 +250,8 @@ class View(grok.View):
 
     def viewHistory(self):
         # Només els Secretaris i Managers podem veure el LOG
-        roles = utils.getUserRoles(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
         if 'OG1-Secretari' in roles or 'Manager' in roles:
             return True
         else:
@@ -258,7 +259,8 @@ class View(grok.View):
 
     def viewExcusesAndPoints(self):
         # Només els Secretaris i Editors poden veure les excuses
-        roles = utils.getUserRoles(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
         if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
             return True
         else:
@@ -272,7 +274,8 @@ class View(grok.View):
                 return False
 
         # But if not migrated, check permissions...
-        roles = utils.getUserRoles(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
         review_state = api.content.get_state(self.context)
         value = False
         if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and 'OG1-Secretari' in roles:
@@ -284,7 +287,8 @@ class View(grok.View):
     def showOrdreDiaIAssistencia(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = utils.getUserRoles(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
         has_roles = 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles
         if review_state in ['planificada', 'convocada'] and has_roles:
             value = True
@@ -295,7 +299,8 @@ class View(grok.View):
     def showEnviarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = utils.getUserRoles(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
         has_roles = 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles
         if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and has_roles:
             value = True
@@ -303,7 +308,8 @@ class View(grok.View):
 
     def showPresentacionButton(self):
         estatSessio = utils.session_wf_state(self)
-        roles = utils.getUserRoles(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
         if 'Manager' in roles:
             return True
         elif estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
@@ -324,7 +330,8 @@ class View(grok.View):
     def showPublicarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = utils.getUserRoles(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
         has_roles = 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles
         if review_state in ['realitzada', 'en_correccio'] and has_roles:
             value = True
@@ -361,7 +368,8 @@ class View(grok.View):
 
         results = []
 
-        roles = utils.getUserRoles(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
         for obj in values:
 
             canOpenVote = False
@@ -573,7 +581,8 @@ class View(grok.View):
 
     def canViewTabActes(self):
         # Permissions to view acta
-        roles = utils.getUserRoles(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
         if 'Manager' in roles:
             return True
         estatSessio = utils.session_wf_state(self)
@@ -768,7 +777,8 @@ class View(grok.View):
             path={'query': session_path,
                   'depth': 1})
         results = []
-        roles = utils.getUserRoles(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
         for obj in values:
             value = obj.getObject()
             if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
@@ -904,7 +914,8 @@ class View(grok.View):
     def canView(self):
         # Permissions to view SESSIONS
         # If manager Show all
-        roles = utils.getUserRoles(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
         if 'Manager' in roles:
             return True
         estatSessio = utils.session_wf_state(self)
@@ -954,24 +965,28 @@ class View(grok.View):
 
     def canViewManageVote(self):
         if self.context.aq_parent.organType == 'open_organ':
-            roles = utils.getUserRoles(self)
+            username = api.user.get_current().id
+            roles = utils.getUserRoles(self, self.context, username)
             return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles
         return False
 
     def canViewVoteButtons(self):
         if self.context.aq_parent.organType == 'open_organ':
-            roles = utils.getUserRoles(self)
+            username = api.user.get_current().id
+            roles = utils.getUserRoles(self, self.context, username)
             return 'OG1-Secretari' in roles or 'OG3-Membre' in roles
         return False
 
     def canViewResultsVote(self):
         if self.context.aq_parent.organType == 'open_organ':
-            roles = utils.getUserRoles(self)
+            username = api.user.get_current().id
+            roles = utils.getUserRoles(self, self.context, username)
             return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles
         return False
 
     def canViewLinkSala(self):
-        roles = utils.getUserRoles(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
         return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles
 
     def getAllResultsVotes(self):
@@ -1150,13 +1165,15 @@ class View(grok.View):
 
     def canViewManageQuorumButtons(self):
         if self.context.aq_parent.organType == 'open_organ':
-            roles = utils.getUserRoles(self)
+            username = api.user.get_current().id
+            roles = utils.getUserRoles(self, self.context, username)
             return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles
         return False
 
     def canViewAddQuorumButtons(self):
         if self.context.aq_parent.organType == 'open_organ':
-            roles = utils.getUserRoles(self)
+            username = api.user.get_current().id
+            roles = utils.getUserRoles(self, self.context, username)
             return 'OG1-Secretari' in roles or 'OG3-Membre' in roles
         return False
 
@@ -1193,7 +1210,8 @@ class OpenQuorum(grok.View):
         lenQuorums = len(self.context.infoQuorums)
         if lenQuorums == 0 or self.context.infoQuorums[lenQuorums]['end']:
             idQuorum = lenQuorums + 1
-            # roles = utils.getUserRoles(self)
+            # username = api.user.get_current().id
+            # roles = utils.getUserRoles(self, self.context, username)
             # if 'OG1-Secretari' in roles:
             #     self.context.infoQuorums.update({
             #         idQuorum: {

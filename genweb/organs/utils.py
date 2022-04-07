@@ -6,6 +6,7 @@ from Products.PluggableAuthService.interfaces.plugins import IPropertiesPlugin
 from datetime import datetime
 from plone import api
 from plone.app.layout.navigation.root import getNavigationRootObject
+from plone.memoize import instance
 from plone.registry.interfaces import IRegistry
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
@@ -18,7 +19,8 @@ import unicodedata
 
 def isAfectat(self):
     """ Return true if user has role OG4-Afectat """
-    roles = getUserRoles(self)
+    username = api.user.get_current().id
+    roles = getUserRoles(self, self.context, username)
     if 'OG4-Afectat' in roles:
         return True
     else:
@@ -27,7 +29,8 @@ def isAfectat(self):
 
 def isMembre(self):
     """ Return true if user has role OG3-Membre """
-    roles = getUserRoles(self)
+    username = api.user.get_current().id
+    roles = getUserRoles(self, self.context, username)
     if 'OG3-Membre' in roles:
         return True
     else:
@@ -36,7 +39,8 @@ def isMembre(self):
 
 def isEditor(self):
     """ Returns true if user has role OG2-Editor """
-    roles = getUserRoles(self)
+    username = api.user.get_current().id
+    roles = getUserRoles(self, self.context, username)
     if 'OG2-Editor' in roles:
         return True
     else:
@@ -45,7 +49,8 @@ def isEditor(self):
 
 def isSecretari(self):
     """ Return true if user has role OG1-Secretari """
-    roles = getUserRoles(self)
+    username = api.user.get_current().id
+    roles = getUserRoles(self, self.context, username)
     if 'OG1-Secretari' in roles:
         return True
     else:
@@ -54,17 +59,17 @@ def isSecretari(self):
 
 def isManager(self):
     """ Return true if user has role Manager """
-    roles = getUserRoles(self)
+    username = api.user.get_current().id
+    roles = getUserRoles(self, self.context, username)
     if 'Manager' in roles:
         return True
     else:
         return False
 
-
-def getUserRoles(self):
+@instance.memoize
+def getUserRoles(self, context, username):
     try:
-        username = api.user.get_current().id
-        return api.user.get_roles(username=username, obj=self.context)
+        return api.user.get_roles(username=username, obj=context)
     except:
         return []
 
