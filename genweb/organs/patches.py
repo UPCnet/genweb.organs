@@ -61,7 +61,7 @@ def breadcrumbs(self):
 
 @ram.cache(lambda *args: time() // (480 * 60))
 def get_alternate_languages(self):
-     """Cache relative urls only. If we have multilingual sites
+    """Cache relative urls only. If we have multilingual sites
         and multi domain site caching absolute urls will result in
         very inefficient caching. Build absolute url in template.
     """
