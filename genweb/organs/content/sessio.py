@@ -47,12 +47,12 @@ class ISessio(form.Schema):
 
     fieldset('assistents',
              label=_(u'Assistents'),
-             fields=['membresConvocats', 'membresConvidats', 'llistaExcusats', 'assistents', 'noAssistents', 'adrecaLlista']
+             fields=['infoAssistents' ,'membresConvocats', 'membresConvidats', 'llistaExcusats', 'assistents', 'noAssistents', 'adrecaLlista']
              )
 
     fieldset('afectats',
              label=_(u'Afectats'),
-             fields=['adrecaAfectatsLlista'],
+             fields=['infoAfectats' ,'adrecaAfectatsLlista'],
              )
 
     fieldset('plantilles',
@@ -95,18 +95,37 @@ class ISessio(form.Schema):
         required=True,
     )
 
+    form.mode(IAddForm, adrecaLlista='display')
     adrecaLlista = schema.Text(
         title=_(u"mail address"),
         description=_(u"notification_mail_help"),
         required=True,
     )
 
+    form.mode(IAddForm, infoAfectats='display')
+    form.mode(IEditForm, infoAfectats='display')
+    infoAfectats = schema.Text(
+        title=_(u"Informació"),
+        description=_(u"Aquestes dades podran ser omplertes una vegada convocada la sessió."),
+        required=False,
+    )
+
+    form.mode(IAddForm, adrecaAfectatsLlista='display')
     adrecaAfectatsLlista = schema.Text(
         title=_(u"Stakeholders mail address"),
         description=_(u"Stakeholders mail address help."),
         required=False,
     )
 
+    form.mode(IAddForm, infoAssistents='display')
+    form.mode(IEditForm, infoAssistents='display')
+    infoAssistents = schema.Text(
+        title=_(u"Informació"),
+        description=_(u"Aquestes dades podran ser omplertes una vegada convocada la sessió."),
+        required=False,
+    )
+
+    form.mode(IAddForm, membresConvocats='display')
     directives.widget(membresConvocats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('membresConvocats')
     membresConvocats = schema.Text(
@@ -115,6 +134,7 @@ class ISessio(form.Schema):
         required=False,
     )
 
+    form.mode(IAddForm, membresConvidats='display')
     directives.widget(membresConvidats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('membresConvidats')
     membresConvidats = schema.Text(
@@ -123,6 +143,7 @@ class ISessio(form.Schema):
         required=False,
     )
 
+    form.mode(IAddForm, llistaExcusats='display')
     directives.widget(llistaExcusats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('llistaExcusats')
     llistaExcusats = schema.Text(
@@ -131,6 +152,7 @@ class ISessio(form.Schema):
         required=False,
     )
 
+    form.mode(IAddForm, assistents='display')
     directives.widget(assistents=WysiwygFieldWidget)
     dexteritytextindexer.searchable('assistents')
     assistents = schema.Text(
@@ -139,6 +161,7 @@ class ISessio(form.Schema):
         required=False,
     )
 
+    form.mode(IAddForm, noAssistents='display')
     directives.widget(noAssistents=WysiwygFieldWidget)
     dexteritytextindexer.searchable('noAssistents')
     noAssistents = schema.Text(
@@ -198,30 +221,6 @@ def numSessioShowOnlyDefaultValue(data):
     return '{0}'.format(str(total + 1).zfill(2))
 
 
-@form.default_value(field=ISessio['membresConvocats'])
-def membresConvocatsDefaultValue(data):
-    # copy Convocats from Organ de Govern (parent object)
-    return data.context.membresOrgan
-
-
-@form.default_value(field=ISessio['membresConvidats'])
-def membresConvidatsDefaultValue(data):
-    # copy Convidats from Organ de Govern (parent object)
-    return data.context.convidatsPermanentsOrgan
-
-
-@form.default_value(field=ISessio['adrecaLlista'])
-def adrecaLlistaDefaultValue(data):
-    # copy adrecaLlista from Organ de Govern (parent object)
-    return data.context.adrecaLlista
-
-
-@form.default_value(field=ISessio['adrecaAfectatsLlista'])
-def adrecaAfectatsLlistaDefaultValue(data):
-    # copy adrecaAfectats from Organ de Govern (parent object)
-    return data.context.adrecaAfectatsLlista
-
-
 @form.default_value(field=ISessio['bodyMail'])
 def bodyMailDefaultValue(data):
     # copy bodyMail from Organ de Govern (parent object)
@@ -242,6 +241,19 @@ class Edit(dexterity.EditForm):
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
         self.widgets["numSessioShowOnly"].mode = HIDDEN_MODE
+        review_state = api.content.get_state(self.context)
+        if review_state == 'planificada':
+            self.groups[0].fields._data['assistents'].mode = DISPLAY_MODE
+            self.groups[0].fields._data["adrecaLlista"].mode = DISPLAY_MODE
+            self.groups[0].fields._data["membresConvocats"].mode = DISPLAY_MODE
+            self.groups[0].fields._data["membresConvidats"].mode = DISPLAY_MODE
+            self.groups[0].fields._data["llistaExcusats"].mode = DISPLAY_MODE
+            self.groups[0].fields._data["assistents"].mode = DISPLAY_MODE
+            self.groups[0].fields._data["noAssistents"].mode = DISPLAY_MODE
+            self.groups[0].fields._data["adrecaAfectatsLlista"].mode = DISPLAY_MODE
+        else:
+            self.groups[0].fields._data['infoAfectats'].mode = HIDDEN_MODE
+            self.groups[0].fields._data['infoAssistents'].mode = HIDDEN_MODE
 
 
 class View(grok.View):

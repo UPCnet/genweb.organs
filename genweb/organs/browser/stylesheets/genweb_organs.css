@@ -154,6 +154,8 @@ a.collapsed .icon-chevron-down{
 }
 
 /* CSS  modal afegir punts massivament */
+body.template-mail_convocar #form-widgets-membresConvocats,
+body.template-mail_convocar #form-widgets-membresConvidats,
 #form-widgets-message {
     height: 165px;
  }
@@ -2539,4 +2541,31 @@ body.portaltype-genweb-organs-votacioacord input#form-widgets-title {
 
 .list-banners .link_blank {
     display: none !important;
+}
+
+#formfield-form-widgets-infoAfectats,
+#formfield-form-widgets-infoAssistents {
+    margin-bottom: 0px;
+}
+
+#formfield-form-widgets-infoAfectats label,
+#formfield-form-widgets-infoAssistents label {
+    width: 100%;
+    display: block;
+    padding: 8px;
+    border: 1px solid #8fd1e3;
+    border-bottom: 1px solid #66c0d9;
+    background-color: #d2edf4;
+    background-image: linear-gradient(to bottom, #e1f3f8, #b8e2ee);
+    background-repeat: repeat-x;
+    color: #216f86;
+    font-size: 14px;
+    margin-bottom: 23px;
+}
+
+#formfield-form-widgets-infoAfectats label span,
+#formfield-form-widgets-infoAssistents label span {
+    color: #216f86;
+    font-size: 14px;
+    display: inline;
 }

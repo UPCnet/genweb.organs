@@ -20,6 +20,7 @@ from genweb.organs.content.sessio import ISessio
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs.utils import addEntryLog
 
+import transaction
 import unicodedata
 
 grok.templatedir("templates")
@@ -47,6 +48,26 @@ class IMessage(form.Schema):
     message = schema.Text(
         title=_(u"Message"),
         required=True,
+    )
+
+    directives.widget(membresConvocats=WysiwygFieldWidget)
+    membresConvocats = schema.Text(
+        title=_(u"Incoming members list"),
+        description=_(u"Incoming members list help"),
+        required=False,
+    )
+
+    directives.widget(membresConvidats=WysiwygFieldWidget)
+    membresConvidats = schema.Text(
+        title=_(u"Invited members"),
+        description=_(u"Invited members help"),
+        required=False,
+    )
+
+    adrecaAfectatsLlista = schema.Text(
+        title=_(u"Stakeholders mail address"),
+        description=_(u"Stakeholders mail address help."),
+        required=False,
     )
 
 
@@ -193,8 +214,12 @@ class Message(form.SchemaForm):
         self.widgets["sender"].mode = DISPLAY_MODE
         self.widgets["sender"].value = str(organ.fromMail)
         self.widgets["fromTitle"].value = fromMessage
-        self.widgets["recipients"].value = str(session.adrecaLlista)
+        self.widgets["recipients"].value = str(organ.adrecaLlista)
         self.widgets["message"].value = bodyMail
+
+        self.widgets["membresConvocats"].value = str(organ.membresOrgan)
+        self.widgets["membresConvidats"].value = str(organ.convidatsPermanentsOrgan)
+        self.widgets["adrecaAfectatsLlista"].value = str(organ.adrecaAfectatsLlista)
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):
@@ -239,6 +264,14 @@ class Message(form.SchemaForm):
             addEntryLog(self.context, None, _(u'Missatge no enviat'), formData['recipients'])
             self.context.plone_utils.addPortalMessage(
                 _(u"Missatge no enviat. Comprovi els destinataris del missatge"), 'error')
+
+        session = self.context
+        session.membresConvocats = formData['membresConvocats']
+        session.membresConvidats = formData['membresConvidats']
+        session.adrecaAfectatsLlista = formData['adrecaAfectatsLlista']
+        session.adrecaLlista = formData['recipients']
+        session.reindexObject()
+        transaction.commit()
 
         return self.request.response.redirect(self.context.absolute_url())
 
