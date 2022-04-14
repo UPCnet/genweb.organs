@@ -304,7 +304,7 @@ class View(grok.View):
         has_roles = 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles
         if review_state in ['planificada', 'convocada'] and has_roles:
             value = True
-        elif self.context.organType == 'open_organ' and review_state == 'convocada' and 'OG4-Afectat' in roles:
+        elif self.context.organType == 'open_organ' and review_state == 'convocada' and 'OG5-Convidat' in roles:
             value = True
         return value
 
@@ -334,7 +334,7 @@ class View(grok.View):
             return True
         elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
             return True
-        elif self.context.organType == 'open_organ' and estatSessio in ['convocada', 'realitzada', 'tancada', 'en_correccio'] and 'OG4-Afectat' in roles:
+        elif self.context.organType == 'open_organ' and estatSessio in ['convocada', 'realitzada', 'tancada', 'en_correccio'] and 'OG5-Convidat' in roles:
             return True
         else:
             return False
@@ -603,13 +603,13 @@ class View(grok.View):
         if organ_tipus == 'open_organ':
             if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
                 return True
-            elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+            elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles):
                 return True
-            elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+            elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles):
                 return True
-            elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+            elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles):
                 return True
-            elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+            elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles):
                 return True
             else:
                 return False
@@ -976,25 +976,19 @@ class View(grok.View):
                 raise Unauthorized
 
     def canViewManageVote(self):
-        if self.context.aq_parent.organType == 'open_organ':
-            username = api.user.get_current().id
-            roles = utils.getUserRoles(self, self.context, username)
-            return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles
-        return False
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles
 
     def canViewVoteButtons(self):
-        if self.context.aq_parent.organType == 'open_organ':
-            username = api.user.get_current().id
-            roles = utils.getUserRoles(self, self.context, username)
-            return 'OG1-Secretari' in roles or 'OG3-Membre' in roles
-        return False
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        return 'OG1-Secretari' in roles or 'OG3-Membre' in roles
 
     def canViewResultsVote(self):
-        if self.context.aq_parent.organType == 'open_organ':
-            username = api.user.get_current().id
-            roles = utils.getUserRoles(self, self.context, username)
-            return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles
-        return False
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles
 
     def canViewLinkSala(self):
         username = api.user.get_current().id
@@ -1002,9 +996,6 @@ class View(grok.View):
         return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles
 
     def getAllResultsVotes(self):
-        if self.context.aq_parent.organType != 'open_organ':
-            return []
-
         portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
@@ -1176,18 +1167,14 @@ class View(grok.View):
         return self.context.infoQuorums
 
     def canViewManageQuorumButtons(self):
-        if self.context.aq_parent.organType == 'open_organ':
-            username = api.user.get_current().id
-            roles = utils.getUserRoles(self, self.context, username)
-            return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles
-        return False
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles
 
     def canViewAddQuorumButtons(self):
-        if self.context.aq_parent.organType == 'open_organ':
-            username = api.user.get_current().id
-            roles = utils.getUserRoles(self, self.context, username)
-            return 'OG1-Secretari' in roles or 'OG3-Membre' in roles
-        return False
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        return 'OG1-Secretari' in roles or 'OG3-Membre' in roles
 
     def checkHasQuorum(self):
         if not isinstance(self.context.infoQuorums, dict):
