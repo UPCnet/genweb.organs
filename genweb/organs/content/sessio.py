@@ -304,7 +304,7 @@ class View(grok.View):
         has_roles = 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles
         if review_state in ['planificada', 'convocada'] and has_roles:
             value = True
-        elif self.context.organType == 'open_organ' and review_state == 'convocada' and 'OG4-Afectat' in has_roles:
+        elif self.context.organType == 'open_organ' and review_state == 'convocada' and 'OG4-Afectat' in roles:
             value = True
         return value
 
