@@ -599,13 +599,13 @@ class View(grok.View):
         if organ_tipus == 'open_organ':
             if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
                 return True
-            elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+            elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                 return True
-            elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+            elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                 return True
             elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
                 return True
-            elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+            elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
                 return True
             else:
                 return False

@@ -118,7 +118,7 @@ def getFileOrgans(self):
                     raise Unauthorized
             if estatSessio == 'convocada':
                 if self.context.portal_type in ['genweb.organs.acta', 'genweb.organs.audio', 'genweb.organs.annex']:
-                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                         return file
                     else:
                         raise Unauthorized
@@ -147,7 +147,7 @@ def getFileOrgans(self):
                             raise Unauthorized
             if estatSessio == 'realitzada':
                 if self.context.portal_type in ['genweb.organs.acta', 'genweb.organs.audio', 'genweb.organs.annex']:
-                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                         return file
                     else:
                         raise Unauthorized
@@ -205,7 +205,7 @@ def getFileOrgans(self):
                             raise Unauthorized
             if estatSessio == 'en_correccio':
                 if self.context.portal_type in ['genweb.organs.acta', 'genweb.organs.audio', 'genweb.organs.annex']:
-                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
                         return file
                     else:
                         raise Unauthorized
