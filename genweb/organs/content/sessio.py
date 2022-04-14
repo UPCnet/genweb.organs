@@ -304,8 +304,6 @@ class View(grok.View):
         has_roles = 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles
         if review_state in ['planificada', 'convocada'] and has_roles:
             value = True
-        elif self.context.organType == 'open_organ' and review_state == 'convocada' and 'OG5-Convidat' in roles:
-            value = True
         return value
 
     def showEnviarButton(self):
@@ -333,8 +331,6 @@ class View(grok.View):
         elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
             return True
         elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
-            return True
-        elif self.context.organType == 'open_organ' and estatSessio in ['convocada', 'realitzada', 'tancada', 'en_correccio'] and 'OG5-Convidat' in roles:
             return True
         else:
             return False
@@ -603,13 +599,13 @@ class View(grok.View):
         if organ_tipus == 'open_organ':
             if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
                 return True
-            elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles):
+            elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
                 return True
-            elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles):
+            elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
                 return True
-            elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles):
+            elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
                 return True
-            elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles):
+            elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
                 return True
             else:
                 return False
