@@ -19,52 +19,52 @@ import unicodedata
 
 def isAfectat(self):
     """ Return true if user has role OG4-Afectat """
-    username = api.user.get_current().id
-    roles = getUserRoles(self, self.context, username)
-    if 'OG4-Afectat' in roles:
-        return True
-    else:
-        return False
+    if not api.user.is_anonymous():
+        username = api.user.get_current().id
+        roles = getUserRoles(self, self.context, username)
+        if 'OG4-Afectat' in roles:
+            return True
+    return False
 
 
 def isMembre(self):
     """ Return true if user has role OG3-Membre """
-    username = api.user.get_current().id
-    roles = getUserRoles(self, self.context, username)
-    if 'OG3-Membre' in roles:
-        return True
-    else:
-        return False
+    if not api.user.is_anonymous():
+        username = api.user.get_current().id
+        roles = getUserRoles(self, self.context, username)
+        if 'OG3-Membre' in roles:
+            return True
+    return False
 
 
 def isEditor(self):
     """ Returns true if user has role OG2-Editor """
-    username = api.user.get_current().id
-    roles = getUserRoles(self, self.context, username)
-    if 'OG2-Editor' in roles:
-        return True
-    else:
-        return False
+    if not api.user.is_anonymous():
+        username = api.user.get_current().id
+        roles = getUserRoles(self, self.context, username)
+        if 'OG2-Editor' in roles:
+            return True
+    return False
 
 
 def isSecretari(self):
     """ Return true if user has role OG1-Secretari """
-    username = api.user.get_current().id
-    roles = getUserRoles(self, self.context, username)
-    if 'OG1-Secretari' in roles:
-        return True
-    else:
-        return False
+    if not api.user.is_anonymous():
+        username = api.user.get_current().id
+        roles = getUserRoles(self, self.context, username)
+        if 'OG1-Secretari' in roles:
+            return True
+    return False
 
 
 def isManager(self):
     """ Return true if user has role Manager """
-    username = api.user.get_current().id
-    roles = getUserRoles(self, self.context, username)
-    if 'Manager' in roles:
-        return True
-    else:
-        return False
+    if not api.user.is_anonymous():
+        username = api.user.get_current().id
+        roles = getUserRoles(self, self.context, username)
+        if 'Manager' in roles:
+            return True
+    return False
 
 @instance.memoize
 def getUserRoles(self, context, username):
