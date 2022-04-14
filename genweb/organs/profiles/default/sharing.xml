@@ -28,4 +28,11 @@
       i18n:attributes="title"
       />
 
+  <role
+      id="OG5-Convidat"
+      title="OG5-Convidat"
+      permission="Manage portal"
+      i18n:attributes="title"
+      />
+
 </sharing>

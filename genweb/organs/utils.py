@@ -17,6 +17,16 @@ from genweb.organs.controlpanel import IOrgansSettings
 import unicodedata
 
 
+def isConvidat(self):
+    """ Return true if user has role OG4-Afectat """
+    if not api.user.is_anonymous():
+        username = api.user.get_current().id
+        roles = getUserRoles(self, self.context, username)
+        if 'OG5-Convidat' in roles:
+            return True
+    return False
+
+
 def isAfectat(self):
     """ Return true if user has role OG4-Afectat """
     if not api.user.is_anonymous():
