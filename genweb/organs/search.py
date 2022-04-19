@@ -20,6 +20,7 @@ from zope.publisher.browser import BrowserView
 from genweb.core.utils import pref_lang
 from genweb.organs import permissions
 from genweb.organs.interfaces import IGenwebOrgansLayer
+from genweb.organs import utils
 
 import json
 import pkg_resources
@@ -67,8 +68,8 @@ class Search(BrowserView):
             for obj in values:
                 organ = obj.getObject()
                 all_roles = api.user.get_roles(username=username, obj=organ)
-                roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat']]
-                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
+                roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat']]
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                     results.append(dict(
                         url=obj.getObject().absolute_url(),
                         title=obj.Title,
@@ -114,9 +115,9 @@ class Search(BrowserView):
                 for obj in values:
                     organ = obj.getObject()
                     all_roles = api.user.get_roles(username=username, obj=organ)
-                    roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat']]
+                    roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat']]
                     sessionpath = obj.getPath()
-                    if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                         if type(query['path']) == str:
                             query['path'] = sessionpath.split()
                         else:

@@ -15,6 +15,7 @@ from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs.utils import addExcuse
+from genweb.organs import utils
 
 grok.templatedir("templates")
 
@@ -53,7 +54,7 @@ class Message(form.SchemaForm):
         else:
             username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'OG3-Membre' in roles or 'Manager' in roles:
+            if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG3-Membre', 'OG5-Convidat'], roles):
                 self.request.set('disable_border', True)
                 super(Message, self).update()
             else:

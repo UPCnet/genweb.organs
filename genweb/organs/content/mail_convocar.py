@@ -19,6 +19,7 @@ from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs.utils import addEntryLog
+from genweb.organs import utils
 
 import transaction
 import unicodedata
@@ -90,7 +91,7 @@ class Message(form.SchemaForm):
         else:
             username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'Manager' in roles:
+            if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
                 self.request.set('disable_border', True)
                 super(Message, self).update()
             else:

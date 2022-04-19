@@ -8,6 +8,8 @@ from AccessControl.ZopeGuards import guarded_getattr
 from Products.Five.browser import BrowserView
 from AccessControl import Unauthorized
 
+from genweb.organs import utils
+
 
 class Download(BrowserView):
     """Download a file, via ../context/@@download/fieldname/filename
@@ -97,7 +99,8 @@ def getFileOrgans(self):
         from plone import api
         from genweb.organs import utils
 
-        if utils.isManager(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if 'Manager' in roles:
             return file
 
         if self.context.aq_parent.aq_parent.portal_type == 'genweb.organs.sessio':
@@ -112,20 +115,20 @@ def getFileOrgans(self):
         organ_tipus = self.context.organType
         if organ_tipus == 'open_organ':
             if estatSessio == 'planificada':
-                if (utils.isSecretari(self) or utils.isEditor(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                     return file
                 else:
                     raise Unauthorized
             if estatSessio == 'convocada':
                 if self.context.portal_type in ['genweb.organs.acta', 'genweb.organs.audio', 'genweb.organs.annex']:
-                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         return file
                     else:
                         raise Unauthorized
                 else:
-                    if (utils.isSecretari(self) or utils.isEditor(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                         return file
-                    elif (utils.isMembre(self) or utils.isAfectat(self)):
+                    elif utils.checkhasRol(['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                         if (self.context.visiblefile and self.context.hiddenfile):
                             if self.fieldname == 'hiddenfile':
                                 return file
@@ -147,14 +150,14 @@ def getFileOrgans(self):
                             raise Unauthorized
             if estatSessio == 'realitzada':
                 if self.context.portal_type in ['genweb.organs.acta', 'genweb.organs.audio', 'genweb.organs.annex']:
-                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         return file
                     else:
                         raise Unauthorized
                 else:
-                    if (utils.isSecretari(self) or utils.isEditor(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                         return file
-                    elif (utils.isMembre(self) or utils.isAfectat(self)):
+                    elif utils.checkhasRol(['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                         if (self.context.visiblefile and self.context.hiddenfile):
                             if self.fieldname == 'hiddenfile':
                                 return file
@@ -176,14 +179,14 @@ def getFileOrgans(self):
                             raise Unauthorized
             if estatSessio == 'tancada':
                 if self.context.portal_type in ['genweb.organs.acta', 'genweb.organs.audio', 'genweb.organs.annex']:
-                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                         return file
                     else:
                         raise Unauthorized
                 else:
-                    if (utils.isSecretari(self) or utils.isEditor(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                         return file
-                    elif (utils.isMembre(self) or utils.isAfectat(self)):
+                    elif utils.checkhasRol(['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                         if (self.context.visiblefile and self.context.hiddenfile):
                             if self.fieldname == 'hiddenfile':
                                 return file
@@ -205,14 +208,14 @@ def getFileOrgans(self):
                             raise Unauthorized
             if estatSessio == 'en_correccio':
                 if self.context.portal_type in ['genweb.organs.acta', 'genweb.organs.audio', 'genweb.organs.annex']:
-                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         return file
                     else:
                         raise Unauthorized
                 else:
-                    if (utils.isSecretari(self) or utils.isEditor(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                         return file
-                    elif (utils.isMembre(self) or utils.isAfectat(self)):
+                    elif utils.checkhasRol(['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                         if (self.context.visiblefile and self.context.hiddenfile):
                             if self.fieldname == 'hiddenfile':
                                 return file
@@ -235,20 +238,20 @@ def getFileOrgans(self):
 
         elif organ_tipus == 'restricted_to_members_organ':
             if estatSessio == 'planificada':
-                if (utils.isSecretari(self) or utils.isEditor(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                     return file
                 else:
                     raise Unauthorized
             if estatSessio == 'convocada':
                 if self.context.portal_type in ['genweb.organs.acta', 'genweb.organs.audio', 'genweb.organs.annex']:
-                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         return file
                     else:
                         raise Unauthorized
                 else:
-                    if (utils.isSecretari(self) or utils.isEditor(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                         return file
-                    elif utils.isMembre(self):
+                    elif utils.checkhasRol(['OG3-Membre', 'OG5-Convidat'], roles):
                         if (self.context.visiblefile and self.context.hiddenfile):
                             if self.fieldname == 'hiddenfile':
                                 return file
@@ -260,14 +263,14 @@ def getFileOrgans(self):
                         raise Unauthorized
             if (estatSessio == 'realitzada' or estatSessio == 'tancada' or estatSessio == 'en_correccio'):
                 if self.context.portal_type in ['genweb.organs.acta', 'genweb.organs.audio', 'genweb.organs.annex']:
-                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         return file
                     else:
                         raise Unauthorized
                 else:
-                    if (utils.isSecretari(self) or utils.isEditor(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                         return file
-                    elif utils.isMembre(self):
+                    elif utils.checkhasRol(['OG3-Membre', 'OG5-Convidat'], roles):
                         if (self.context.visiblefile and self.context.hiddenfile):
                             if self.fieldname == 'hiddenfile':
                                 return file
@@ -275,27 +278,27 @@ def getFileOrgans(self):
                                 raise Unauthorized
                         else:
                             return file
-                    elif utils.isAfectat(self):
+                    elif 'OG4-Afectat' in roles:
                         raise Unauthorized
                     else:
                         raise Unauthorized
 
         elif organ_tipus == 'restricted_to_affected_organ':
             if estatSessio == 'planificada':
-                if (utils.isSecretari(self) or utils.isEditor(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                     return file
                 else:
                     raise Unauthorized
             if estatSessio == 'convocada':
                 if self.context.portal_type in ['genweb.organs.acta', 'genweb.organs.audio', 'genweb.organs.annex']:
-                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         return file
                     else:
                         raise Unauthorized
                 else:
-                    if (utils.isSecretari(self) or utils.isEditor(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                         return file
-                    elif utils.isMembre(self):
+                    elif utils.checkhasRol(['OG3-Membre', 'OG5-Convidat'], roles):
                         if (self.context.visiblefile and self.context.hiddenfile):
                             if self.fieldname == 'hiddenfile':
                                 return file
@@ -307,14 +310,14 @@ def getFileOrgans(self):
                         raise Unauthorized
             if (estatSessio == 'realitzada' or estatSessio == 'tancada' or estatSessio == 'en_correccio'):
                 if self.context.portal_type in ['genweb.organs.acta', 'genweb.organs.audio', 'genweb.organs.annex']:
-                    if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         return file
                     else:
                         raise Unauthorized
                 else:
-                    if (utils.isSecretari(self) or utils.isEditor(self)):
+                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                         return file
-                    elif utils.isMembre(self):
+                    elif utils.checkhasRol(['OG3-Membre', 'OG5-Convidat'], roles):
                         if (self.context.visiblefile and self.context.hiddenfile):
                             if self.fieldname == 'hiddenfile':
                                 return file
@@ -322,7 +325,7 @@ def getFileOrgans(self):
                                 raise Unauthorized
                         else:
                             return file
-                    elif utils.isAfectat(self):
+                    elif 'OG4-Afectat' in roles:
                         if (self.context.visiblefile and self.context.hiddenfile):
                             if self.fieldname == 'visiblefile':
                                 return file

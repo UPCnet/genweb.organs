@@ -264,7 +264,7 @@ class View(grok.View):
         # Només els Secretaris i Managers podem veure el LOG
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
-        if 'OG1-Secretari' in roles or 'Manager' in roles:
+        if utils.checkhasRol(['Manager', 'OG1-Secretari'], roles):
             return True
         else:
             return False
@@ -273,7 +273,7 @@ class View(grok.View):
         # Només els Secretaris i Editors poden veure les excuses
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
-        if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
+        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
             return True
         else:
             return False
@@ -301,7 +301,7 @@ class View(grok.View):
         value = False
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
-        has_roles = 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'Manager' in roles
+        has_roles = utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles)
         if review_state in ['planificada', 'convocada'] and has_roles:
             value = True
         return value
@@ -311,7 +311,7 @@ class View(grok.View):
         value = False
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
-        has_roles = 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles
+        has_roles = utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
         if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and has_roles:
             value = True
         return value
@@ -322,15 +322,15 @@ class View(grok.View):
         roles = utils.getUserRoles(self, self.context, username)
         if 'Manager' in roles:
             return True
-        elif estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+        elif estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
             return True
-        elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+        elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
             return True
-        elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+        elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
             return True
-        elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+        elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
             return True
-        elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+        elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
             return True
         else:
             return False
@@ -340,7 +340,7 @@ class View(grok.View):
         value = False
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
-        has_roles = 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles
+        has_roles = utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
         if review_state in ['realitzada', 'en_correccio'] and has_roles:
             value = True
         return value
@@ -411,7 +411,7 @@ class View(grok.View):
                 # TODO !
                 # review_state = api.content.get_state(self.context)
                 # if review_state in ['realitzada', 'en_correccio']
-                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'Manager' in roles:
+                if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
                     classe = "ui-state-grey"
                 else:
                     classe = "ui-state-grey-not_move"
@@ -597,28 +597,28 @@ class View(grok.View):
         organ_tipus = self.context.organType
 
         if organ_tipus == 'open_organ':
-            if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+            elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+            elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
             else:
                 return False
         else:
-            if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+            elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+            elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
             else:
                 return False
@@ -944,29 +944,29 @@ class View(grok.View):
                 raise Unauthorized
 
         if organ_tipus == 'restricted_to_members_organ':
-            if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+            elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+            elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
             else:
                 raise Unauthorized
 
         if organ_tipus == 'restricted_to_affected_organ':
-            if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+            elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+            elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
             else:
                 raise Unauthorized
@@ -974,22 +974,22 @@ class View(grok.View):
     def canViewManageVote(self):
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
-        return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles
+        return utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
 
     def canViewVoteButtons(self):
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
-        return 'OG1-Secretari' in roles or 'OG3-Membre' in roles
+        return utils.checkhasRol(['OG1-Secretari', 'OG3-Membre'], roles)
 
     def canViewResultsVote(self):
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
-        return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles
+        return 'Manager' in roles or utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre'], roles)
 
     def canViewLinkSala(self):
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
-        return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles
+        return 'Manager' in roles or utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles)
 
     def getAllResultsVotes(self):
         portal_catalog = api.portal.get_tool(name='portal_catalog')
@@ -1165,12 +1165,12 @@ class View(grok.View):
     def canViewManageQuorumButtons(self):
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
-        return 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles
+        return utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
 
     def canViewAddQuorumButtons(self):
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
-        return 'OG1-Secretari' in roles or 'OG3-Membre' in roles
+        return utils.checkhasRol(['OG1-Secretari', 'OG3-Membre'], roles)
 
     def checkHasQuorum(self):
         if not isinstance(self.context.infoQuorums, dict):

@@ -329,37 +329,27 @@ class ActaPrintView(BrowserView):
 
     def canView(self):
         # Permissions to GENERATE PRINT acta view
-        if utils.isManager(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if 'Manager' in roles:
             return True
+
         estatSessio = utils.session_wf_state(self)
         organ_tipus = self.context.organType
 
-        if organ_tipus == 'open_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
-                return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
-                return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                return True
-            else:
-                raise Unauthorized
+        if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
+            return True
+        elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+            return True
+        elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+            return True
+        elif organ_tipus == 'open_organ' and estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+            return True
+        elif organ_tipus != 'open_organ' and estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+            return True
+        elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+            return True
         else:
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
-                return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-                return True
-            else:
-                raise Unauthorized
+            raise Unauthorized
 
 
 class ActaPreviewView(ActaPrintView):
@@ -625,17 +615,19 @@ class Butlleti(BrowserView):
 
     def canView(self):
         # Permissions to GENERATE BUTLLETI
-        if utils.isManager(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if 'Manager' in roles:
             return True
+
         estatSessio = utils.session_wf_state(self)
         organ_tipus = self.context.organType
 
         if organ_tipus == 'open_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
             elif estatSessio == 'tancada':
                 return True
@@ -645,29 +637,29 @@ class Butlleti(BrowserView):
                 raise Unauthorized
 
         if organ_tipus == 'restricted_to_members_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
             else:
                 raise Unauthorized
 
         if organ_tipus == 'restricted_to_affected_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
             else:
                 raise Unauthorized
@@ -684,7 +676,7 @@ class allSessions(BrowserView):
         """ Returns sessions from organs marked as public fields,
             bypassing security permissions """
 
-        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
         today = DateTime.DateTime()   # Today
         date_previous_events = {'query': (today), 'range': 'max'}
         date_future_events = {'query': (today), 'range': 'min'}
@@ -708,10 +700,7 @@ class allSessions(BrowserView):
         current_year = datetime.datetime.now().strftime('%Y')
         for session in previous_sessions:
             obj = session._unrestrictedGetObject()
-            roles = []
-            if not api.user.is_anonymous():
-                roles = api.user.get_roles(username=username, obj=obj)
-            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or obj.aq_parent.visiblefields:
+            if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles) or obj.aq_parent.visiblefields:
                 event = IEventAccessor(obj)
                 if obj.start.strftime('%Y') == current_year:
                     startDate = event.start.strftime('%d/%m/%Y')
@@ -730,10 +719,7 @@ class allSessions(BrowserView):
         current_year = datetime.datetime.now().strftime('%Y')
         for session in future_sessions:
             obj = session._unrestrictedGetObject()
-            roles = []
-            if not api.user.is_anonymous():
-                roles = api.user.get_roles(username=username, obj=obj)
-            if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles or 'Manager' in roles or obj.aq_parent.visiblefields:
+            if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles) or obj.aq_parent.visiblefields:
                 event = IEventAccessor(obj)
                 if obj.start.strftime('%Y') == current_year:
                     startDate = event.start.strftime('%d/%m/%Y')
@@ -1039,7 +1025,8 @@ class ReloadVoteStats(BrowserView):
 
         if results:
             votacio = results[0].getObject()
-            viewList = utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
+            roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+            viewList = utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
             lang = self.context.language
 
             infoVotacio = votacio.infoVotacio
@@ -1206,7 +1193,8 @@ class getActesOrgangovern(BrowserView):
     def __call__(self):
         """ Si es Manager/Secretari/Editor/Membre show actas
             Affectat i altres NO veuen MAI les ACTES """
-        if utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isManager(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
             results = []
             portal_catalog = api.portal.get_tool(name='portal_catalog')
             folder_path = '/'.join(self.context.getPhysicalPath())

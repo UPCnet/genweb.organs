@@ -372,7 +372,8 @@ class View(grok.View):
     # def getActes(self):
     #     """ Si es Manager/Secretari/Editor/Membre show actas
     #         Affectat i altres NO veuen MAI les ACTES """
-    #     if utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isManager(self):
+    #     roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+    #     if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
     #         results = []
     #         portal_catalog = api.portal.get_tool(name='portal_catalog')
     #         folder_path = '/'.join(self.context.getPhysicalPath())
@@ -407,7 +408,8 @@ class View(grok.View):
     def viewActes(self):
         """ Si es Manager/Secretari/Editor/Membre show actas
             Affectat i altres NO veuen MAI les ACTES """
-        if utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isManager(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
             return True
         else:
             return False
@@ -434,21 +436,24 @@ class View(grok.View):
     def canView(self):
         # Permissions to view ORGANS DE GOVERN
         # Bypass if manager
-        if utils.isManager(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if 'Manager' in roles:
             return True
+
         organType = self.context.organType
+
         # If Obert
         if organType == 'open_organ':
             return True
         # if restricted_to_members_organ
         elif organType == 'restricted_to_members_organ':
-            if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
             else:
                 raise Unauthorized
         # if restricted_to_affected_organ
         elif organType == 'restricted_to_affected_organ':
-            if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
             else:
                 raise Unauthorized
@@ -462,21 +467,22 @@ class View(grok.View):
         else:
             username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
+
         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
             return True
         else:
             return False
 
     def viewOrdena(self):
-        value = False
-        roles = utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self)
-        if roles:
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
             value = True
-        return value
+        return False
 
     def viewExportAcords(self):
         # Només els Secretaris i Editors poden veure les excuses
-        if utils.isSecretari(self) or utils.isManager(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if utils.checkhasRol(['Manager', 'OG1-Secretari'], roles):
             return True
         else:
             return False

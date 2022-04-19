@@ -11,7 +11,7 @@ def customBuildFolderTree(context, obj=None, query={}, strategy=NavtreeStrategyB
     """
     """
     from plone import api
-    from genweb.organs import utils as utilsOrgans
+    from genweb.organs import utils
 
     portal_url = getToolByName(context, 'portal_url')
     portal_catalog = api.portal.get_tool(name='portal_catalog')
@@ -96,10 +96,10 @@ def customBuildFolderTree(context, obj=None, query={}, strategy=NavtreeStrategyB
             if 'Manager' in roles or (organType == 'open_organ'):
                 results.append(value)
             elif organType == 'restricted_to_members_organ':
-                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                     results.append(value)
             elif organType == 'restricted_to_affected_organ':
-                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                     results.append(value)
             else:
                 # remove element

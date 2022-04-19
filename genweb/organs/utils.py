@@ -76,12 +76,20 @@ def isManager(self):
             return True
     return False
 
+
 @instance.memoize
 def getUserRoles(self, context, username):
     try:
         return api.user.get_roles(username=username, obj=context)
     except:
         return []
+
+
+def checkhasRol(check_roles, user_roles):
+    for check_rol in check_roles:
+        if check_rol in user_roles:
+            return True
+    return False
 
 
 def isAnon(self):
@@ -268,7 +276,8 @@ def FilesandDocumentsInside(self):
     results = []
     for obj in values:
         value = obj.getObject()
-        if isManager(self) or isSecretari(self) or isEditor(self):
+        roles = getUserRoles(self, self.context, api.user.get_current().id)
+        if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
             class_css = 'fa fa-2x fa-file-pdf-o'
             if obj.portal_type == 'genweb.organs.file':
                 if value.visiblefile and value.hiddenfile:
@@ -297,7 +306,7 @@ def FilesandDocumentsInside(self):
             if obj.portal_type == 'genweb.organs.document':
                 class_css = 'fa fa-2x fa-file-text-o'
                 if value.defaultContent and value.alternateContent:
-                    if isMembre(self):
+                    if checkhasRol(['OG3-Membre', 'OG5-Convidat'], roles):
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
                                             absolute_url=obj.getURL(),
@@ -316,7 +325,7 @@ def FilesandDocumentsInside(self):
                                         new_tab=True,
                                         classCSS=class_css))
                 elif value.alternateContent:
-                    if isManager(self) or isSecretari(self) or isEditor(self) or isMembre(self):
+                    if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
                                             absolute_url=obj.getURL(),
@@ -328,7 +337,7 @@ def FilesandDocumentsInside(self):
                 organ_tipus = self.context.organType
                 if value.visiblefile and value.hiddenfile:
                     if organ_tipus == 'open_organ':
-                        if isMembre(self) or isAfectat(self):
+                        if checkhasRol(['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
@@ -341,7 +350,7 @@ def FilesandDocumentsInside(self):
                                                 new_tab=True,
                                                 classCSS=class_css))
                     else:
-                        if isMembre(self):
+                        if checkhasRol(['OG3-Membre', 'OG5-Convidat'], roles):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
@@ -361,14 +370,14 @@ def FilesandDocumentsInside(self):
                                         hidden=False))
                 elif value.hiddenfile:
                     if organ_tipus == 'open_organ':
-                        if isManager(self) or isSecretari(self) or isEditor(self) or isMembre(self) or isAfectat(self):
+                        if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
                                                 new_tab=True,
                                                 classCSS=class_css))
                     else:
-                        if isManager(self) or isSecretari(self) or isEditor(self) or isMembre(self):
+                        if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,

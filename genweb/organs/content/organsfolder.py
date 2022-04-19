@@ -77,7 +77,7 @@ class View(grok.View):
                                     review_state=obj.review_state))
             # if restricted_to_members_organ
             elif organType == 'restricted_to_members_organ':
-                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                     results.append(dict(title=value.title,
                                         absolute_url=value.absolute_url(),
                                         acronim=value.acronim,
@@ -85,7 +85,7 @@ class View(grok.View):
                                         review_state=obj.review_state))
             # if restricted_to_affected_organ
             elif organType == 'restricted_to_affected_organ':
-                if 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles:
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                     results.append(dict(title=value.title,
                                         absolute_url=value.absolute_url(),
                                         acronim=value.acronim,
@@ -96,7 +96,8 @@ class View(grok.View):
 
     def canView(self):
         # Permissions per veure l'estat dels organs a la taula principal
-        if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
             return True
         else:
             return False
