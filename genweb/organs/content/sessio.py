@@ -250,9 +250,9 @@ class Edit(dexterity.EditForm):
             self.groups[0].fields._data["llistaExcusats"].mode = DISPLAY_MODE
             self.groups[0].fields._data["assistents"].mode = DISPLAY_MODE
             self.groups[0].fields._data["noAssistents"].mode = DISPLAY_MODE
-            self.groups[0].fields._data["adrecaAfectatsLlista"].mode = DISPLAY_MODE
+            self.groups[1].fields._data["adrecaAfectatsLlista"].mode = DISPLAY_MODE
         else:
-            self.groups[0].fields._data['infoAfectats'].mode = HIDDEN_MODE
+            self.groups[1].fields._data['infoAfectats'].mode = HIDDEN_MODE
             self.groups[0].fields._data['infoAssistents'].mode = HIDDEN_MODE
 
 
