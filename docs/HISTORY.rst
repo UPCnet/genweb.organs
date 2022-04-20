@@ -1,11 +1,30 @@
 Changelog
 =========
 
-0.53 (unreleased)
+0.53 (2022-04-20)
 -----------------
 
-- Nothing changed yet.
-
+* Funcionalidad OG5-Convidat [Iago López]
+* Tests OG5-Convidat [Iago López]
+* Crear rol OG5-Convidat [Iago López]
+* Deshacer: Cambio de permisos en organs publicos para el rol afectat [Iago López]
+* Fix [Iago López]
+* Votaciones en todos los tipos de organ [Iago López]
+* Fix permission [Iago López]
+* Utils [Iago López]
+* Fix indentation [Iago López]
+* Canvi visualització camps de la sessió [ilopezsmx]
+* IndentationError [Pilar Marinas]
+* Parche para mejorar las votaciones cache de 8 horas del multilingual ya que no se utiliza [Pilar Marinas]
+* Cache getUserRoles by user and context [Pilar Marinas]
+* Mejora rendimiento sessión [Iago López]
+* Cargar Butlleti de la session cuando se clica a imprimir [Iago López]
+* Fix mail_informar, añadir coma entre los correos de los miembros y los afectados [Iago López]
+* Cambio estructura tabla allsessions [Iago López]
+* Rendimiento sessión [Iago López]
+* Modificar correo convocatoria [Iago López]
+* Deshabilitar check visiblefields en ciertos organ [Iago López]
+* Extracción del orden del dia [ilopezsmx]
 
 0.52 (2021-12-21)
 -----------------
