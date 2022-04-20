@@ -20,6 +20,7 @@ from genweb.organs import _
 from genweb.organs import utils
 from genweb.organs.content.acord import llistaEstatsVotacio
 from genweb.organs.content.acord import llistaTipusVotacio
+from genweb.organs.utils import addEntryLog
 
 import ast
 import datetime
@@ -82,6 +83,19 @@ class VotacioAcordView(grok.View):
             raise Unauthorized
 
 
+class ReopenVote(grok.View):
+    grok.context(IVotacioAcord)
+    grok.name('reopenVote')
+    grok.require('genweb.organs.manage.vote')
+
+    def render(self):
+        if self.context.estatVotacio == 'close':
+            self.context.estatVotacio = 'open'
+            self.context.reindexObject()
+            transaction.commit()
+            addEntryLog(self.context.__parent__.__parent__, None, _(u'Reoberta votacio esmena'), self.context.__parent__.absolute_url())
+
+
 class CloseVote(grok.View):
     grok.context(IVotacioAcord)
     grok.name('closeVote')
@@ -92,6 +106,7 @@ class CloseVote(grok.View):
         self.context.horaFiVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
         self.context.reindexObject()
         transaction.commit()
+        addEntryLog(self.context.__parent__.__parent__, None, _(u'Tancada votacio esmena'), self.context.__parent__.absolute_url())
 
 
 class FavorVote(grok.View):
@@ -278,3 +293,4 @@ class RemoveVote(grok.View):
         parent = self.context.aq_parent
         parent.manage_delObjects([self.context.getId()])
         transaction.commit()
+        addEntryLog(self.context.__parent__.__parent__, None, _(u'Eliminada votacio esmena'), self.context.__parent__.absolute_url())

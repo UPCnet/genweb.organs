@@ -1019,6 +1019,13 @@ class View(grok.View):
         for acord in acords:
             acordObj = acord._unrestrictedGetObject()
 
+            acord_folder_path = '/'.join(acordObj.getPhysicalPath())
+            esmenas = portal_catalog.unrestrictedSearchResults(
+                portal_type=['genweb.organs.votacioacord'],
+                sort_on='getObjPositionInParent',
+                path={'query': acord_folder_path,
+                      'depth': 1})
+
             if acordObj.estatVotacio in ['open', 'close']:
                 data = {'UID': acord.UID,
                         'URL': acordObj.absolute_url(),
@@ -1034,7 +1041,19 @@ class View(grok.View):
                         'whiteVote': 0,
                         'totalVote': 0,
                         'isEsmena': False,
-                        'isVote': True}
+                        'isVote': True,
+                        'canReopen': True }
+
+                if acordObj.estatVotacio == 'open':
+                    data['canReopen'] = False
+                else:
+                    for esmena in esmenas:
+                        esmenaObj = esmena._unrestrictedGetObject()
+                        if esmenaObj.estatVotacio == 'open':
+                            data['canReopen'] = False
+                            break
+
+                canReopen = data['canReopen']
 
                 infoVotacio = acordObj.infoVotacio
                 if isinstance(infoVotacio, str) or isinstance(infoVotacio, unicode):
@@ -1070,13 +1089,6 @@ class View(grok.View):
 
                 results.append(data)
 
-            acord_folder_path = '/'.join(acordObj.getPhysicalPath())
-            esmenas = portal_catalog.unrestrictedSearchResults(
-                portal_type=['genweb.organs.votacioacord'],
-                sort_on='getObjPositionInParent',
-                path={'query': acord_folder_path,
-                      'depth': 1})
-
             if esmenas and acordObj.estatVotacio == None:
                 data = {'UID': acord.UID,
                         'URL': acordObj.absolute_url(),
@@ -1092,9 +1104,17 @@ class View(grok.View):
                         'whiteVote': '',
                         'totalVote': '',
                         'isEsmena': False,
-                        'isVote': False}
+                        'isVote': False,
+                        'canReopen': False }
 
                 results.append(data)
+
+                canReopen = True
+                for esmena in esmenas:
+                    esmenaObj = esmena._unrestrictedGetObject()
+                    if esmenaObj.estatVotacio == 'open':
+                        canReopen = False
+                        break
 
             for esmena in esmenas:
                 esmenaObj = esmena._unrestrictedGetObject()
@@ -1112,7 +1132,8 @@ class View(grok.View):
                         'whiteVote': 0,
                         'totalVote': 0,
                         'isEsmena': True,
-                        'isVote': True}
+                        'isVote': True,
+                        'canReopen': canReopen }
 
                 infoVotacio = esmenaObj.infoVotacio
                 if isinstance(infoVotacio, str) or isinstance(infoVotacio, unicode):

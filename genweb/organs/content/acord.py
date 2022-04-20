@@ -25,6 +25,7 @@ from zope.schema.vocabulary import SimpleVocabulary
 
 from genweb.organs import _
 from genweb.organs import utils
+from genweb.organs.utils import addEntryLog
 
 import ast
 import datetime
@@ -302,6 +303,7 @@ class OpenPublicVote(grok.View):
         self.context.horaIniciVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
         self.context.reindexObject()
         transaction.commit()
+        addEntryLog(self.context.__parent__, None, _(u'Oberta votacio acord'), self.context.absolute_url())
 
 
 class OpenOtherPublicVote(grok.View):
@@ -317,6 +319,7 @@ class OpenOtherPublicVote(grok.View):
             item.horaIniciVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
             item.reindexObject()
             transaction.commit()
+            addEntryLog(self.context.__parent__, None, _(u'Oberta votacio esmena'), self.context.absolute_url())
 
 
 # class OpenSecretVote(grok.View):
@@ -350,12 +353,14 @@ class OpenOtherPublicVote(grok.View):
 class ReopenVote(grok.View):
     grok.context(IAcord)
     grok.name('reopenVote')
-    grok.require('cmf.ManagePortal')
+    grok.require('genweb.organs.manage.vote')
 
     def render(self):
-        self.context.estatVotacio = 'open'
-        self.context.reindexObject()
-        transaction.commit()
+        if self.context.estatVotacio == 'close':
+            self.context.estatVotacio = 'open'
+            self.context.reindexObject()
+            transaction.commit()
+            addEntryLog(self.context.__parent__, None, _(u'Reoberta votacio acord'), self.context.absolute_url())
 
 
 class CloseVote(grok.View):
@@ -368,6 +373,7 @@ class CloseVote(grok.View):
         self.context.horaFiVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
         self.context.reindexObject()
         transaction.commit()
+        addEntryLog(self.context.__parent__, None, _(u'Tancada votacio acord'), self.context.absolute_url())
 
 
 class FavorVote(grok.View):
@@ -555,3 +561,4 @@ class RemoveVote(grok.View):
         self.context.horaFiVotacio = None
         self.context.reindexObject()
         transaction.commit()
+        addEntryLog(self.context.__parent__, None, _(u'Eliminada votacio acord'), self.context.absolute_url())

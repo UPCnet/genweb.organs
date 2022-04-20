@@ -561,6 +561,11 @@
                   </tal:block>
                   <td style="text-align:center;" tal:condition="canViewManageVote" tal:content="vote/state"></td>
                   <td style="text-align:center;">
+                    <tal:block tal:condition="canViewManageVote">
+                      <span tal:condition="vote/canReopen" class="fa fa-pencil-square-o reopenVote"
+                            tal:attributes="data-url vote/URL"
+                            i18n:attributes="title reopen_vote"></span>
+                    </tal:block>
                     <tal:block tal:condition="vote/isOpen">
                       <span tal:attributes="data-uid vote/UID" class="refreshVote fa fa-refresh" aria-hidden="true"></span>
                     </tal:block>
@@ -606,6 +611,11 @@ Fi: ${vote/hourClose}"></span>
                     </tal:block>
                     <td class="vote-state" style="text-align:center;" tal:condition="canViewManageVote" tal:content="vote/state"></td>
                     <td style="text-align:center;">
+                      <tal:block tal:condition="canViewManageVote">
+                        <span tal:condition="vote/canReopen" class="fa fa-pencil-square-o reopenVote"
+                              tal:attributes="data-url vote/URL"
+                              i18n:attributes="title reopen_vote"></span>
+                      </tal:block>
                       <tal:block tal:condition="vote/isOpen">
                         <span tal:attributes="data-uid vote/UID" class="refreshVote fa fa-refresh" aria-hidden="true"></span>
                       </tal:block>
@@ -1370,6 +1380,16 @@ Fi: ${vote/hourClose}"></span>
 <div style="margin-bottom:20px;"></div>
 
 <script type="text/javascript" tal:condition="canViewManageVote">
+
+  $(".reopenVote").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-url') + '/reopenVote',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
 
   $(".removeVote").on('click', function(){
     $.ajax({
