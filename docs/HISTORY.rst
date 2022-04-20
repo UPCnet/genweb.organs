@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.54 (unreleased)
+0.54 (2022-04-20)
 -----------------
 
-- Nothing changed yet.
-
+* Reobrir votacions [Iago López]
+* Fix Canvi visualització camps de la sessió [Iago López]
 
 0.53 (2022-04-20)
 -----------------
