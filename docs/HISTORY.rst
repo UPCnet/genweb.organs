@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.55 (unreleased)
+0.55 (2022-04-21)
 -----------------
 
-- Nothing changed yet.
-
+* Fix error navigation portlet [Iago López]
 
 0.54 (2022-04-20)
 -----------------
