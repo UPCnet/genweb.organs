@@ -842,7 +842,7 @@ class View(grok.View):
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
                     elif value.alternateContent:
-                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
+                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL(),
@@ -875,7 +875,7 @@ class View(grok.View):
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
                     elif value.hiddenfile:
-                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
+                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
