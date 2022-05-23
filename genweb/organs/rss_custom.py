@@ -169,13 +169,14 @@ class FolderFeed(BaseFeedData):
                 if tipus == 'genweb.organs.organsfolder':
                     add = True
                 elif tipus == 'genweb.organs.sessio' or tipus == 'genweb.organs.organgovern':
+                    roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
                     if organ_tipus == 'open_organ':
                         add = True
                     elif organ_tipus == 'restricted_to_members_organ':
-                        if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                        if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             add = True
                     elif organ_tipus == 'restricted_to_affected_organ':
-                        if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                        if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                             add = True
                     else:
                         add = False

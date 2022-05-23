@@ -12,4 +12,11 @@
         replacement=".patches.breadcrumbs"
         />
 
+    <monkey:patch
+        description="Para mejorar las votaciones hemos hecho una cache de 8 horas del multilingual ya que no se utiliza"
+        class="plone.app.multilingual.browser.viewlets.AlternateLanguagesViewlet"
+        original="get_alternate_languages"
+        replacement=".patches.get_alternate_languages"
+        />
+
 </configure>

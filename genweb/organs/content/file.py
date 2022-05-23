@@ -151,39 +151,42 @@ class View(grok.View):
     def viewPublic(self):
         """ Cuando se muestra la parte pública del FICHERO
         """
-        if utils.isManager(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if 'Manager' in roles:
             return True
+
         organ_tipus = self.context.organType
+
         if self.context.visiblefile and self.context.hiddenfile:
             if organ_tipus == 'open_organ':
-                if (utils.isMembre(self) or utils.isAfectat(self)):
+                if utils.checkhasRol(['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                     return False
                 else:
                     return True
             elif organ_tipus == 'restricted_to_members_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isAfectat(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG4-Afectat'], roles):
                     return True
                 else:
                     return False
 
         elif self.context.hiddenfile:
             if organ_tipus == 'open_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_members_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
@@ -192,12 +195,12 @@ class View(grok.View):
             if organ_tipus == 'open_organ':
                 return True
             elif organ_tipus == 'restricted_to_members_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
@@ -215,38 +218,41 @@ class View(grok.View):
     def viewReserved(self):
         """ Cuando se muestra la parte privada del FICHERO
         """
-        if utils.isManager(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if 'Manager' in roles:
             return True
+
         organ_tipus = self.context.organType
+
         if self.context.visiblefile and self.context.hiddenfile:
             if organ_tipus == 'open_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_members_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
         elif self.context.hiddenfile:
             if organ_tipus == 'open_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_members_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
@@ -262,12 +268,15 @@ class View(grok.View):
     def canView(self):
         # Permissions to view FILE
         # If manager Show all
-        if utils.isManager(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if 'Manager' in roles:
             return True
+
         estatSessio = utils.session_wf_state(self)
         organ_tipus = self.context.organType
+
         if organ_tipus == 'open_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
             elif estatSessio == 'convocada':
                 return True
@@ -281,29 +290,29 @@ class View(grok.View):
                 raise Unauthorized
 
         elif organ_tipus == 'restricted_to_members_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
             else:
                 raise Unauthorized
 
         elif organ_tipus == 'restricted_to_affected_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
             else:
                 raise Unauthorized

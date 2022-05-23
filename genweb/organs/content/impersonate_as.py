@@ -31,7 +31,7 @@ class ShowSessionAs(form.SchemaForm):
         username = api.user.get_current().id
         if username:
             roles = api.user.get_roles(username=username, obj=self.context)
-            if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
+            if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
                 return role
             else:
                 return False
@@ -88,11 +88,12 @@ class ShowSessionAs(form.SchemaForm):
     def canModify(self):
         review_state = api.content.get_state(self.context)
         value = False
-        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and utils.isSecretari(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and 'OG1-Secretari' in roles:
             value = True
-        if review_state in ['planificada', 'convocada', 'realitzada'] and utils.isEditor(self):
+        if review_state in ['planificada', 'convocada', 'realitzada'] and 'OG2-Editor' in roles:
             value = True
-        return value or utils.isManager(self)
+        return value or 'Manager' in roles
 
     def getColor(self, data):
         # assign custom colors on organ states

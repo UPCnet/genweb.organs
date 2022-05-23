@@ -11,7 +11,6 @@
     <tal:main-macro metal:define-macro="main"
         tal:define="loginfo view/getAnnotations;
                 excuses view/getAnnotationsExcuse;
-                points view/getAnnotationsPoints;
                 canModify view/canModify;
                 items view/PuntsInside;
                 hihaPersones view/hihaPersones;
@@ -26,7 +25,13 @@
                 viewExcusesAndPoints view/viewExcusesAndPoints;
                 getTitlePrompt view/getTitlePrompt;
                 getErrorPrompt view/getErrorPrompt;
-                canViewVoteButtons view/canViewVoteButtons;">
+                canViewVoteButtons view/canViewVoteButtons;
+                canViewAddQuorumButtons view/canViewAddQuorumButtons;
+                canViewManageQuorumButtons view/canViewManageQuorumButtons;
+                canViewManageVote view/canViewManageVote;
+                canViewResultsVote view/canViewResultsVote;
+                acordsInside view/AcordsInside;
+                actesInside view/ActesInside">
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
         <h1 class="documentFirstHeading" tal:content="context/title" />
@@ -38,7 +43,6 @@
   <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
   <script tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery-ui.min.js"></script>
   <script tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script>
-  <!-- <script tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.ui.touch-punch.min.js"></script> -->
 </tal:scripts>
 
   <script type="text/javascript" tal:condition="canModify">
@@ -130,36 +134,20 @@
   </script>
 
   <script type="text/javascript">
-    function printPage(newWindow){
-      newWindow.focus();
-      newWindow.print();
+    function printButlletiPage(){
+      if($("iframe").length == 0){
+        $("<iframe name='iframe' id='iframe' width='1' height='1' src='butlleti'>").appendTo("body");
+      }
+      window.frames["iframe"].focus();
+      setTimeout(function(){
+        window.frames["iframe"].print();
+      }, 1000);
     }
   </script>
 
   <div class="documentDescription description"></div>
 
-  <iframe name="iframe" id="iframe" width="1" height="1" src="butlleti"></iframe>
-
   <div class="sessionActions" tal:define="showOpenQuorum view/showOpenQuorum">
-
-    <!--NEW ACTIONS-->
-      <!--
-      <div class="containerIcons" tal:condition="view/showOrdreDiaIAssistencia">
-        <a href="proposa_punt_od" i18n:attributes="title envia_missatge; alt envia_missatge">
-          <i class="fa fa-plus fa-3x" aria-hidden="true" style="font-size:1.1em"></i>
-          <i class="fa fa-file-text fa-3x" aria-hidden="true"></i>
-          <br/><span i18n:translate="">Proposa un punt</span>
-        </a>
-      </div>
-      -->
-      <!--
-      <div class="containerIcons" tal:condition="view/showOrdreDiaIAssistencia">
-        <a href="esmenes_punt_od" i18n:attributes="title envia_missatge; alt envia_missatge">
-          <i class="fa fa-list-ol fa-3x" aria-hidden="true"></i>
-          <br/><span i18n:translate="">Esmena un punt</span>
-        </a>
-      </div>
-      -->
 
       <div class="containerIcons" tal:condition="view/showOrdreDiaIAssistencia">
         <a href="excusar_assist_sessio" i18n:attributes="title excusa_assistencia; alt excusa_assistencia">
@@ -191,13 +179,20 @@
       </div>
 
       <div class="containerIcons">
-        <a href="javascript:printPage(iframe);" i18n:attributes="title printOrdreDia; alt printOrdreDia">
+        <a href="javascript:printButlletiPage();" i18n:attributes="title printOrdreDia; alt printOrdreDia">
           <i class="fa fa-print fa-3x" aria-hidden="true"></i>
           <br/><span i18n:translate="">Print</span>
         </a>
       </div>
 
-      <tal:block tal:condition="view/canViewManageQuorumButtons">
+      <div class="containerIcons">
+        <a href="exportCSV" i18n:attributes="title exportOrdreDia; alt exportOrdreDia">
+          <i class="fa fa-download fa-3x" aria-hidden="true"></i>
+          <br/><span i18n:translate="">Export</span>
+        </a>
+      </div>
+
+      <tal:block tal:condition="canViewManageQuorumButtons">
         <div class="containerIcons" tal:condition="showOpenQuorum">
           <a class="openQuorum" href="#" i18n:attributes="title open_quorum; alt open_quorum;">
             <i class="fa fa-pluse fa-3x" style="font-size:1.1em" aria-hidden="true"></i>
@@ -215,7 +210,7 @@
         </div>
       </tal:block>
 
-      <tal:block tal:condition="view/canViewAddQuorumButtons">
+      <tal:block tal:condition="canViewAddQuorumButtons">
         <div class="containerIcons" tal:condition="not:showOpenQuorum"
              tal:define="checkHasQuorum view/checkHasQuorum">
           <a tal:condition="not:checkHasQuorum" class="addQuorum"
@@ -242,18 +237,15 @@
         <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Convocatoria</tal:omit-tag></i></a></li>
       <li tal:condition="hihaPersones"><a href="#assistentsTab" data-toggle="tab">
         <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Assistents</tal:omit-tag></i></a></li>
-      <li tal:condition="view/showActaTab"><a href="#actaTab" data-toggle="tab" >
+      <li tal:condition="actesInside"><a href="#actaTab" data-toggle="tab" >
         <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Acta</tal:omit-tag></i></a></li>
-      <li tal:condition="view/showAcordsTab"><a href="#acordsTab" data-toggle="tab">
+      <li tal:condition="acordsInside"><a href="#acordsTab" data-toggle="tab">
         <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
       <li tal:condition="python:loginfo and viewHistory"><a href="#notificationsTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Historial</tal:omit-tag></i></a></li>
-      <!--
-      <li tal:condition="python:points and viewExcusesAndPoints"><a href="#puntsTab" data-toggle="tab">
-        <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Punts afegits</tal:omit-tag></i></a></li>-->
       <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag></i></a></li>
-      <tal:block tal:condition="view/canViewResultsVote">
+      <tal:block tal:condition="canViewResultsVote">
         <li tal:condition="python: getAllResultsVotes or getInfoQuorums"><a href="#resultsVotesTab" data-toggle="tab">
           <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions / Quorums</tal:omit-tag></i></a></li>
       </tal:block>
@@ -263,18 +255,15 @@
         <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Convocatoria</tal:omit-tag></i></a></li>
       <li tal:condition="hihaPersones"><a href="#assistentsTab" data-toggle="tab">
         <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Assistents</tal:omit-tag></i></a></li>
-      <li tal:condition="view/showActaTab"><a href="#actaTab" data-toggle="tab" >
+      <li tal:condition="actesInside"><a href="#actaTab" data-toggle="tab" >
         <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Acta</tal:omit-tag></i></a></li>
-      <li tal:condition="view/showAcordsTab"><a href="#acordsTab" data-toggle="tab">
+      <li tal:condition="acordsInside"><a href="#acordsTab" data-toggle="tab">
         <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
       <li tal:condition="python:loginfo and viewHistory"><a href="#notificationsTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Historial</tal:omit-tag></i></a></li>
-      <!--
-      <li tal:condition="python:points and viewExcusesAndPoints"><a href="#puntsTab" data-toggle="tab">
-        <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Punts afegits</tal:omit-tag></i></a></li>-->
       <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
         <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag></i></a></li>
-      <tal:block tal:condition="view/canViewResultsVote">
+      <tal:block tal:condition="canViewResultsVote">
         <li tal:condition="python: getAllResultsVotes or getInfoQuorums"><a href="#resultsVotesTab" data-toggle="tab">
           <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions / Quorums</tal:omit-tag></i></a></li>
       </tal:block>
@@ -375,8 +364,8 @@
         </div>
       </div>
 
-      <div class="tab-pane" id="actaTab" tal:condition="view/showActaTab">
-        <div class="clearfix" tal:define="actes view/ActesInside" tal:condition="actes">
+      <div class="tab-pane" id="actaTab" tal:define="actes actesInside" tal:condition="actesInside">
+        <div class="clearfix">
           <b i18n:translate="">Actes de la sessio:</b>
           <table>
             <tbody>
@@ -399,8 +388,8 @@
         </div>
       </div>
 
-      <div class="tab-pane" id="acordsTab" tal:condition="view/showAcordsTab">
-        <div class="clearfix" tal:define="acords view/AcordsInside" tal:condition="acords">
+      <div class="tab-pane" id="acordsTab" tal:define="acords acordsInside" tal:condition="acordsInside">
+        <div class="clearfix">
           <div class="scrollit">
             <table class="table table-bordered table-condensed table-hover logFont">
               <thead>
@@ -481,46 +470,7 @@
           </table>
         </div>
       </div>
-      <!--
-      <div class="tab-pane" id="puntsTab" tal:condition="python:points and viewExcusesAndPoints">
-        <div class="scrollit">
-          <table class="table table-bordered table-condensed table-hover logFont">
-            <thead>
-              <tr>
-                <th>
-                   <tal:data>#</tal:data>
-                 </th>
-                <th>
-                   <tal:data i18n:translate="">Data i hora</tal:data>
-                 </th>
-                <th>
-                  <tal:data i18n:translate="">Noms dels membres</tal:data>
-                </th>
-                <th>
-                  <tal:data i18n:translate="">Títol del punt</tal:data>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tal:documents repeat="data points">
-                <tr>
-                  <td tal:content="data/index|nothing"></td>
-                  <td tal:content="data/date"></td>
-                  <td tal:content="data/names"></td>
-                  <td>
-                    <a href="#"
-                       tal:attributes="href data/path"
-                       tal:content="data/title">
-                            Item Title
-                    </a>
-                  </td>
-                </tr>
-              </tal:documents>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      -->
+
       <div class="tab-pane" id="excusesTab" tal:condition="python:excuses and viewExcusesAndPoints">
         <div class="scrollit">
           <table class="table table-bordered table-condensed table-hover logFont">
@@ -559,15 +509,14 @@
       </div>
 
 
-      <div class="tab-pane" id="resultsVotesTab" tal:condition="view/canViewResultsVote">
+      <div class="tab-pane" id="resultsVotesTab" tal:condition="canViewResultsVote">
         <div class="scrollit" tal:define="votes getAllResultsVotes; quorums getInfoQuorums;">
 
-          <table tal:condition="votes" class="table table-bordered table-condensed table-hover logFont"
-                 tal:define="canViewExtendedResultsVote view/canViewManageVote">
+          <table tal:condition="votes" class="table table-bordered table-condensed table-hover logFont">
             <thead>
               <tr i18n:domain="genweb.organs">
                 <th width="36%" i18n:translate="">Acord / Esmena</th>
-                <tal tal:condition="not:canViewExtendedResultsVote">
+                <tal tal:condition="not:canViewManageVote">
                   <th width="14%" style="text-align:center;" i18n:translate="">A favor</th>
                   <th width="14%" style="text-align:center;" i18n:translate="">En contra</th>
                   <th width="14%" style="text-align:center;" i18n:translate="">En blanc</th>
@@ -575,7 +524,7 @@
                   <th width="8%" style="text-align:center;" i18n:translate=""></th>
 
                 </tal>
-                <tal tal:condition="canViewExtendedResultsVote">
+                <tal tal:condition="canViewManageVote">
                   <th width="12%" style="text-align:center;" i18n:translate="">A favor</th>
                   <th width="12%" style="text-align:center;" i18n:translate="">En contra</th>
                   <th width="12%" style="text-align:center;" i18n:translate="">En blanc</th>
@@ -610,8 +559,13 @@
                     <td class="vote-whiteVote" style="text-align:center;"></td>
                     <td class="vote-totalVote" style="text-align:center;" tal:content="vote/totalVote"></td>
                   </tal:block>
-                  <td style="text-align:center;" tal:condition="canViewExtendedResultsVote" tal:content="vote/state"></td>
+                  <td style="text-align:center;" tal:condition="canViewManageVote" tal:content="vote/state"></td>
                   <td style="text-align:center;">
+                    <tal:block tal:condition="canViewManageVote">
+                      <span tal:condition="vote/canReopen" class="fa fa-pencil-square-o reopenVote"
+                            tal:attributes="data-url vote/URL"
+                            i18n:attributes="title reopen_vote"></span>
+                    </tal:block>
                     <tal:block tal:condition="vote/isOpen">
                       <span tal:attributes="data-uid vote/UID" class="refreshVote fa fa-refresh" aria-hidden="true"></span>
                     </tal:block>
@@ -622,7 +576,7 @@
                             tal:attributes="title string:Inici: ${vote/hourOpen}
 Fi: ${vote/hourClose}"></span>
                     </tal:block>
-                    <tal:block tal:condition="canViewExtendedResultsVote">
+                    <tal:block tal:condition="canViewManageVote">
                       <span tal:condition="vote/isVote" class="fa fa-trash removeVote" tal:attributes="data-url vote/URL"></span>
                     </tal:block>
                   </td>
@@ -655,8 +609,13 @@ Fi: ${vote/hourClose}"></span>
                       <td class="vote-whiteVote" style="text-align:center;"></td>
                       <td class="vote-totalVote" style="text-align:center;" tal:content="vote/totalVote"></td>
                     </tal:block>
-                    <td class="vote-state" style="text-align:center;" tal:condition="canViewExtendedResultsVote" tal:content="vote/state"></td>
+                    <td class="vote-state" style="text-align:center;" tal:condition="canViewManageVote" tal:content="vote/state"></td>
                     <td style="text-align:center;">
+                      <tal:block tal:condition="canViewManageVote">
+                        <span tal:condition="vote/canReopen" class="fa fa-pencil-square-o reopenVote"
+                              tal:attributes="data-url vote/URL"
+                              i18n:attributes="title reopen_vote"></span>
+                      </tal:block>
                       <tal:block tal:condition="vote/isOpen">
                         <span tal:attributes="data-uid vote/UID" class="refreshVote fa fa-refresh" aria-hidden="true"></span>
                       </tal:block>
@@ -667,7 +626,7 @@ Fi: ${vote/hourClose}"></span>
                               tal:attributes="title string:Inici: ${vote/hourOpen}
 Fi: ${vote/hourClose}"></span>
                       </tal:block>
-                      <span tal:condition="canViewExtendedResultsVote" class="fa fa-trash removeVote" tal:attributes="data-url vote/URL"></span>
+                      <span tal:condition="canViewManageVote" class="fa fa-trash removeVote" tal:attributes="data-url vote/URL"></span>
                     </td>
                   </tr>
                   <tr class="infovotes" tal:attributes="id vote/UID">
@@ -692,8 +651,8 @@ Fi: ${vote/hourClose}"></span>
                         <p tal:repeat="user vote/totalVoteList" tal:content="user"></p>
                       </td>
                     </tal:block>
-                    <td style="text-align:center;" tal:condition="canViewExtendedResultsVote"></td>
-                    <td style="text-align:center;" tal:condition="canViewExtendedResultsVote"></td>
+                    <td style="text-align:center;" tal:condition="canViewManageVote"></td>
+                    <td style="text-align:center;" tal:condition="canViewManageVote"></td>
                   </tr>
                 </tal:block>
               </tal:block>
@@ -887,7 +846,7 @@ Fi: ${vote/hourClose}"></span>
                       </tal:block>
                     </div>
 
-                    <tal:block tal:condition="view/canViewManageVote">
+                    <tal:block tal:condition="canViewManageVote">
                       <tal:block tal:condition="agreement">
                         <div class="btn-group votes" role="group"
                              style="float: right;" aria-label="Open vote" tal:condition="item/canOpenVote">
@@ -1005,7 +964,7 @@ Fi: ${vote/hourClose}"></span>
                     <span tal:condition="agreement" class="agreementClass">
                       [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
                     </span>
-                    <tal:block tal:condition="view/canViewResultsVote">
+                    <tal:block tal:condition="canViewResultsVote">
                       <span tal:condition="item/canRecloseVote" class="editTitle editable subtitleSize">
                         <br/>
                         <tal:omit-tag i18n:translate="">Vote</tal:omit-tag>:
@@ -1139,7 +1098,7 @@ Fi: ${vote/hourClose}"></span>
                             </tal:block>
                           </div>
 
-                          <tal:block tal:condition="view/canViewManageVote">
+                          <tal:block tal:condition="canViewManageVote">
                             <tal:block tal:condition="agreement">
                               <div class="btn-group votes" role="group"
                                    style="float: right;" aria-label="Open vote" tal:condition="itemSubpunt/canOpenVote">
@@ -1420,7 +1379,17 @@ Fi: ${vote/hourClose}"></span>
 
 <div style="margin-bottom:20px;"></div>
 
-<script type="text/javascript" tal:condition="view/canViewManageVote">
+<script type="text/javascript" tal:condition="canViewManageVote">
+
+  $(".reopenVote").on('click', function(){
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-url') + '/reopenVote',
+            success: function(){
+              refreshNeeded = true;
+            },
+    });
+  });
 
   $(".removeVote").on('click', function(){
     $.ajax({
@@ -1530,7 +1499,7 @@ Fi: ${vote/hourClose}"></span>
 
 </script>
 
-<script type="text/javascript" tal:condition="view/canViewVoteButtons">
+<script type="text/javascript" tal:condition="canViewVoteButtons">
   var refreshNeeded = false;
 
   $(".notVote .favor").on('click', function(){
@@ -1565,7 +1534,7 @@ Fi: ${vote/hourClose}"></span>
 
 </script>
 
-<script type="text/javascript" tal:condition="view/canViewManageQuorumButtons">
+<script type="text/javascript" tal:condition="canViewManageQuorumButtons">
 
   $(".openQuorum").on('click', function(){
     $.ajax({
@@ -1589,7 +1558,7 @@ Fi: ${vote/hourClose}"></span>
 
 </script>
 
-<script type="text/javascript" tal:condition="view/canViewAddQuorumButtons">
+<script type="text/javascript" tal:condition="canViewAddQuorumButtons">
 
   $(".addQuorum").on('click', function(){
     $.ajax({

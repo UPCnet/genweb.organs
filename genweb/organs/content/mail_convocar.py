@@ -1,21 +1,27 @@
 # -*- coding: utf-8 -*-
-from plone import api
-from five import grok
-from zope.schema import TextLine
-from z3c.form import button
-from plone.directives import form
+from AccessControl import Unauthorized
 from Products.statusmessages.interfaces import IStatusMessage
-from genweb.organs.interfaces import IGenwebOrgansLayer
+
+from five import grok
+from plone import api
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.autoform import directives
+from plone.directives import form
+from plone.event.interfaces import IEventAccessor
+from time import strftime
+from z3c.form import button
+from z3c.form.interfaces import DISPLAY_MODE
+from zope import schema
+from zope.i18n import translate
+from zope.schema import TextLine
+
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
-from AccessControl import Unauthorized
-from plone.autoform import directives
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from zope import schema
-from time import strftime
-from z3c.form.interfaces import DISPLAY_MODE
+from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs.utils import addEntryLog
-from plone.event.interfaces import IEventAccessor
+from genweb.organs import utils
+
+import transaction
 import unicodedata
 
 grok.templatedir("templates")
@@ -45,6 +51,26 @@ class IMessage(form.Schema):
         required=True,
     )
 
+    directives.widget(membresConvocats=WysiwygFieldWidget)
+    membresConvocats = schema.Text(
+        title=_(u"Incoming members list"),
+        description=_(u"Incoming members list help"),
+        required=False,
+    )
+
+    directives.widget(membresConvidats=WysiwygFieldWidget)
+    membresConvidats = schema.Text(
+        title=_(u"Invited members"),
+        description=_(u"Invited members help"),
+        required=False,
+    )
+
+    adrecaAfectatsLlista = schema.Text(
+        title=_(u"Stakeholders mail address"),
+        description=_(u"Stakeholders mail address help."),
+        required=False,
+    )
+
 
 class Message(form.SchemaForm):
     grok.name('mail_convocar')
@@ -65,7 +91,7 @@ class Message(form.SchemaForm):
         else:
             username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
-            if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'Manager' in roles:
+            if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
                 self.request.set('disable_border', True)
                 super(Message, self).update()
             else:
@@ -117,68 +143,84 @@ class Message(form.SchemaForm):
         if lang == 'ca':
             titleText = "Convocatòria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
             fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
-            introData = "<br/><p>Podeu consultar la convocatòria i la documentació de la sessió aquí: <a href=" + \
+            introData = "<p>Podeu consultar la convocatòria i la documentació de la sessió aquí: <a href=" + \
                         sessionLink + ">" + sessiontitle + "</a></p>" +\
                         "<p>Podeu excusar l’absència a la sessió aquí: <a href=" +\
                         sessionLink + "/excusar_assist_sessio>Excusar l’absència</a></p><br/> " + signatura
-            moreData = html_content + \
-                '<br/>' + customBody + '<strong>' + sessiontitle + \
-                '</strong><br/><br/>Lloc: ' + place
+
+            moreData = html_content + '<br/>' + customBody + '<strong>' + sessiontitle + '</strong>'
+
+            if session.modality is not None:
+                moreData += "<br/>Modalitat de la sessió: " + translate(msgid=session.modality, domain='genweb.organs', target_language='ca')
+
+            moreData += '<br/>Lloc: ' + place
 
             if session.linkSala is not None:
-                moreData += "<br/>Enllaç a la sala: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
+                moreData += "<br/>Enllaç a la sessió: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
 
             moreData += "<br/>Data: " + sessiondate + \
                 "<br/>Hora d'inici: " + starthour + \
                 "<br/>Hora de fi: " + endHour + \
-                '<br/><br/>'
+                '<br/>'
             bodyMail = str(moreData) + str(introData)
 
         if lang == 'es':
             titleText = "Convocatoria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
             fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
-            introData = "<br/><p>Puede consultar la convocatoria y la documentación de la sesión aquí: <a href=" + \
+            introData = "<p>Puede consultar la convocatoria y la documentación de la sesión aquí: <a href=" + \
                         sessionLink + ">" + sessiontitle + "</a></p>" +\
                         "<p>Puedes escusar tu ausencia a la sesión aquí: <a href=" +\
                         sessionLink + "/excusar_assist_sessio>Escusar ausencia</a></p><br/> " + signatura
-            moreData = html_content + \
-                '<br/>' + customBody + '<strong>' + sessiontitle + \
-                '</strong><br/><br/>Lugar: ' + place
+
+            moreData = html_content + '<br/>' + customBody + '<strong>' + sessiontitle + '</strong>'
+
+            if session.modality is not None:
+                "<br/>Modalidad de la sesión: " + translate(msgid=session.modality, domain='genweb.organs', target_language='es')
+
+            moreData += '<br/>Lugar: ' + place
 
             if session.linkSala is not None:
-                moreData += "<br/>Enlace a la sala: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
+                moreData += "<br/>Enlace a la sesión: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
 
             moreData += "<br/>Fecha: " + sessiondate + \
                 "<br/>Hora de inicio: " + starthour + \
                 "<br/>Hora de finalización: " + endHour + \
-                '<br/><br/>'
+                '<br/>'
             bodyMail = str(moreData) + str(introData)
 
         if lang == 'en':
             titleText = "Call " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
             fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
-            introData = "<br/><p>Information regarding the call and the documentation can be found here: <a href=" + \
+            introData = "<p>Information regarding the call and the documentation can be found here: <a href=" + \
                         sessionLink + ">" + sessiontitle + "</a></p>" +\
                         "<p>You can apologise for you absence here: <a href=" +\
                         sessionLink + "/excusar_assist_sessio>apologise</a></p><br/> " + signatura
-            moreData = html_content + \
-                '<br/>' + customBody + '<strong>' + sessiontitle + \
-                '</strong><br/><br/>Place: ' + place
+
+            moreData = html_content + '<br/>' + customBody + '<strong>' + sessiontitle + '</strong>'
+
+            if session.modality is not None:
+                moreData += "<br/>Session modality: " + translate(msgid=session.modality, domain='genweb.organs', target_language='en')
+
+            moreData += '<br/>Place: ' + place
 
             if session.linkSala is not None:
-                moreData += "<br/>Link to the room: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
+                moreData += "<br/>Link to the session: <a href='" + session.linkSala + "' target='_blank'>" + session.linkSala + "</a>"
 
             moreData += "<br/>Date: " + sessiondate + \
                 "<br/>Start date: " + starthour + \
                 "<br/>End date: " + endHour + \
-                '<br/><br/>'
+                '<br/>'
             bodyMail = str(moreData) + str(introData)
 
         self.widgets["sender"].mode = DISPLAY_MODE
         self.widgets["sender"].value = str(organ.fromMail)
         self.widgets["fromTitle"].value = fromMessage
-        self.widgets["recipients"].value = str(session.adrecaLlista)
+        self.widgets["recipients"].value = str(organ.adrecaLlista)
         self.widgets["message"].value = bodyMail
+
+        self.widgets["membresConvocats"].value = str(organ.membresOrgan)
+        self.widgets["membresConvidats"].value = str(organ.convidatsPermanentsOrgan)
+        self.widgets["adrecaAfectatsLlista"].value = str(organ.adrecaAfectatsLlista)
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):
@@ -223,6 +265,14 @@ class Message(form.SchemaForm):
             addEntryLog(self.context, None, _(u'Missatge no enviat'), formData['recipients'])
             self.context.plone_utils.addPortalMessage(
                 _(u"Missatge no enviat. Comprovi els destinataris del missatge"), 'error')
+
+        session = self.context
+        session.membresConvocats = formData['membresConvocats']
+        session.membresConvidats = formData['membresConvidats']
+        session.adrecaAfectatsLlista = formData['adrecaAfectatsLlista']
+        session.adrecaLlista = formData['recipients']
+        session.reindexObject()
+        transaction.commit()
 
         return self.request.response.redirect(self.context.absolute_url())
 

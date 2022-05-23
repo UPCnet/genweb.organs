@@ -14,7 +14,8 @@
   </h1>
 
   <div class="documentDescription">
-    La data i hora definitives de les reunions dels òrgans venen fixades per la convocatòria corresponent.
+    <p>La data i hora definitives de les reunions dels òrgans venen fixades per la convocatòria corresponent.</p>
+    <p>Si vols que al teu calendari apareguin totes aquestes reunions et pots subscriure al calendari de Reunions d'òrgans de govern, representació i consulta de la UPC al següent <a href="https://calendar.google.com/calendar/u/0?cid=dXBjLmVkdV9qZzhuNjU4ZTNwMzc5cjJjNWd1OGhxOG42NEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" target="_blank">enllaç</a>.</p>
   </div>
 
  <div class="panel-group">
@@ -33,28 +34,33 @@
           <thead>
             <tr>
               <th style="vertical-align: middle;">
-                <span i18n:translate="">Organ de govern</span>
+                <span i18n:translate="">Organ</span>
               </th>
-              <th style="text-align: center; vertical-align: middle;">
-                <tal:head i18n:translate="">Data i hora inici</tal:head>
+              <th style="text-align: center; vertical-align: middle;" width="110px">
+                <tal:head i18n:translate="">Data sessio</tal:head>
               </th>
-              <th style="text-align: center; vertical-align: middle;">
-                <tal:head i18n:translate="">Data i hora fi</tal:head>
+              <th style="text-align: center; vertical-align: middle;" width="110px">
+                <tal:head i18n:translate="">Horari</tal:head>
               </th>
             </tr>
           </thead>
           <tal:objects repeat="item sessions/past">
-            <tr>
+            <tr tal:attributes="class item/id">
               <td style="vertical-align: middle;">
                 <i class="fa fa-list"></i>&nbsp;
                   <a tal:attributes="href item/url;" tal:content="item/title" style="color:#007BC0; font-size: 14px;"> Item Title </a>
               </td>
               <td style="text-align: center; vertical-align: middle;">
-                <span tal:content="item/start"> Start </span>
+                <span tal:content="item/date"> Data </span>
               </td>
               <td style="text-align: center; vertical-align: middle;">
-                <span tal:content="item/end"> End </span>
+                <span tal:content="string:${item/start}-${item/end}"> Horari </span>
               </td>
+            </tr>
+            <tr tal:condition="item/breakline" class="breakline">
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
           </tal:objects>
         </table>
@@ -68,28 +74,33 @@
     <thead>
       <tr>
         <th style="vertical-align: middle;">
-          <span i18n:translate="">Organ de govern</span>
+          <span i18n:translate="">Organ</span>
         </th>
-        <th style="text-align: center; vertical-align: middle;">
-          <tal:head i18n:translate="">Data i hora inici</tal:head>
+        <th style="text-align: center; vertical-align: middle;" width="110px">
+          <tal:head i18n:translate="">Data sessio</tal:head>
         </th>
-        <th style="text-align: center; vertical-align: middle;">
-          <tal:head i18n:translate="">Data i hora fi</tal:head>
+        <th style="text-align: center; vertical-align: middle;" width="110px">
+          <tal:head i18n:translate="">Horari</tal:head>
         </th>
       </tr>
     </thead>
     <tal:objects repeat="item sessions/future">
-      <tr>
+      <tr tal:attributes="class item/id">
         <td style="vertical-align: middle;">
           <i class="fa fa-list"></i>&nbsp;
             <a tal:attributes="href item/url;" tal:content="item/title" style="color:#007BC0; font-size: 14px;"> Item Title </a>
         </td>
         <td style="text-align: center; vertical-align: middle;">
-          <span tal:content="item/start"> Start </span>
+          <span tal:content="item/date"> Data </span>
         </td>
         <td style="text-align: center; vertical-align: middle;">
-          <span tal:content="item/end"> End </span>
+          <span tal:content="string:${item/start}-${item/end}"> Horari </span>
         </td>
+      </tr>
+      <tr tal:condition="item/breakline" class="breakline">
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
     </tal:objects>
   </table>

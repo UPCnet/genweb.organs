@@ -215,7 +215,7 @@ class Presentation(form.SchemaForm):
                     roles = api.user.get_roles(username=username, obj=self.context)
                     classCSS = 'fa fa-file-pdf-o'
                     if file.visiblefile and file.hiddenfile:
-                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
+                        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             hasPublic = False
                             hasPrivate = True
                             visibleUrl = ''
@@ -228,7 +228,7 @@ class Presentation(form.SchemaForm):
                             hiddenUrl = ''
                             classCSS = 'fa fa-file-pdf-o text-success'
                     elif file.hiddenfile:
-                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
+                        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             hasPublic = False
                             hasPrivate = True
                             visibleUrl = ''
@@ -247,7 +247,7 @@ class Presentation(form.SchemaForm):
                     roles = api.user.get_roles(username=username, obj=self.context)
                     classCSS = 'fa fa-file-text-o'
                     if file.alternateContent and file.defaultContent:
-                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
+                        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             hasPublic = False
                             hasPrivate = True
                             raw_content = file.alternateContent
@@ -258,13 +258,13 @@ class Presentation(form.SchemaForm):
                             raw_content = file.defaultContent
                             classCSS = 'fa fa-file-text-o text-success'
                     elif file.defaultContent:
-                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
+                        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             hasPublic = False
                             hasPrivate = True
                             raw_content = file.defaultContent
                             classCSS = 'fa fa-file-text-o text-success'
                     elif file.alternateContent:
-                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles:
+                        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             hasPublic = False
                             hasPrivate = True
                             raw_content = file.alternateContent
@@ -375,7 +375,7 @@ class Presentation(form.SchemaForm):
                 return False
             else:
                 roles = api.user.get_roles(username=username, obj=self.context)
-                if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG2-Membre' in roles:
+                if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
@@ -403,10 +403,10 @@ class Presentation(form.SchemaForm):
                 return False
             else:
                 roles = api.user.get_roles(username=username, obj=self.context)
-                if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
+                if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
                     if self.wf_state() in ['planificada', 'convocada', 'realitzada']:
                         return True
-                if 'OG1-Secretari' in roles or 'Manager' in roles:
+                if utils.checkhasRol(['Manager', 'OG1-Secretari'], roles):
                     if self.wf_state() == 'en_correccio':
                         return True
                 else:
@@ -416,19 +416,18 @@ class Presentation(form.SchemaForm):
         # Permissions to view acords based on ODT definition file
         # TODO: add if is obert /restricted to ...
         estatSessio = utils.session_wf_state(self)
-        if utils.isManager(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if 'Manager' in roles:
             return True
-        elif estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+        elif estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
             return True
-        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+        elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
             return True
-        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+        elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
             return True
-        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+        elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
             return True
-        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif self.context.organType == 'open_organ' and estatSessio in ['convocada', 'realitzada', 'tancada', 'en_correccio'] and utils.isAfectat(self):
+        elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
             return True
         else:
             raise Unauthorized

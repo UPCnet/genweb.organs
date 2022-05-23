@@ -123,11 +123,20 @@ class FunctionalTestCase(unittest.TestCase):
         print "    ORGAN OBERT [Afectat]   - Add Session - Unauthorized"
         logout()
         with self.assertRaises(Unauthorized):
-            with adopt_roles('Anonim'):
+            with adopt_roles('OG5-Convidat'):
                 api.content.create(
                     type='genweb.organs.sessio',
                     id='session5',
                     title='Session5',
+                    container=root_obert)
+        print "    ORGAN OBERT [Convidat]   - Add Session - Unauthorized"
+        logout()
+        with self.assertRaises(Unauthorized):
+            with adopt_roles('Anonim'):
+                api.content.create(
+                    type='genweb.organs.sessio',
+                    id='session6',
+                    title='Session6',
                     container=root_obert)
         print "    ORGAN OBERT [Anonim]    - Add Session - Unauthorized"
 
@@ -170,11 +179,20 @@ class FunctionalTestCase(unittest.TestCase):
         print "    ORGAN RESTRINGIT MEMBRES [Afectat]   - Add Session - Unauthorized"
         logout()
         with self.assertRaises(Unauthorized):
-            with adopt_roles('Anonim'):
+            with adopt_roles('OG5-Convidat'):
                 api.content.create(
                     type='genweb.organs.sessio',
                     id='session5',
                     title='Session5',
+                    container=root_membres)
+        print "    ORGAN RESTRINGIT MEMBRES [Convidat]   - Add Session - Unauthorized"
+        logout()
+        with self.assertRaises(Unauthorized):
+            with adopt_roles('Anonim'):
+                api.content.create(
+                    type='genweb.organs.sessio',
+                    id='session6',
+                    title='Session6',
                     container=root_membres)
         print "    ORGAN RESTRINGIT MEMBRES [Anonim]    - Add Session - Unauthorized"
 
@@ -217,10 +235,19 @@ class FunctionalTestCase(unittest.TestCase):
         print "    ORGAN RESTRINGIT AFECTATS [Afectat]   - Add Session - Unauthorized"
         logout()
         with self.assertRaises(Unauthorized):
-            with adopt_roles('Anonim'):
+            with adopt_roles('OG5-Convidat'):
                 api.content.create(
                     type='genweb.organs.sessio',
                     id='session5',
                     title='Session5',
+                    container=root_afectats)
+        print "    ORGAN RESTRINGIT AFECTATS [Convidat]   - Add Session - Unauthorized"
+        logout()
+        with self.assertRaises(Unauthorized):
+            with adopt_roles('Anonim'):
+                api.content.create(
+                    type='genweb.organs.sessio',
+                    id='session6',
+                    title='Session6',
                     container=root_afectats)
         print "    ORGAN RESTRINGIT AFECTATS [Anonim]    - Add Session - Unauthorized"

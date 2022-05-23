@@ -15,6 +15,7 @@ from z3c.form.interfaces import DISPLAY_MODE
 from genweb.organs.utils import addEntryLog
 from AccessControl import Unauthorized
 from plone.event.interfaces import IEventAccessor
+from genweb.organs import utils
 import unicodedata
 
 grok.templatedir("templates")
@@ -55,7 +56,7 @@ class Message(form.SchemaForm):
 		else:
 			username = api.user.get_current().id
 			roles = api.user.get_roles(username=username, obj=self.context)
-			if 'OG2-Editor' in roles or 'OG1-Secretari' in roles or 'OG3-Membre' in roles:
+			if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
 				self.request.set('disable_border', True)
 				super(Message, self).update()
 			else:

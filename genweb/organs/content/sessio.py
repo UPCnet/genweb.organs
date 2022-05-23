@@ -1,6 +1,7 @@
 
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
+from StringIO import StringIO
 
 from collective import dexteritytextindexer
 from five import grok
@@ -26,6 +27,7 @@ from genweb.organs import _
 from genweb.organs import utils
 
 import ast
+import csv
 import datetime
 import transaction
 
@@ -45,12 +47,12 @@ class ISessio(form.Schema):
 
     fieldset('assistents',
              label=_(u'Assistents'),
-             fields=['membresConvocats', 'membresConvidats', 'llistaExcusats', 'assistents', 'noAssistents', 'adrecaLlista']
+             fields=['infoAssistents' ,'membresConvocats', 'membresConvidats', 'llistaExcusats', 'assistents', 'noAssistents', 'adrecaLlista']
              )
 
     fieldset('afectats',
              label=_(u'Afectats'),
-             fields=['adrecaAfectatsLlista'],
+             fields=['infoAfectats' ,'adrecaAfectatsLlista'],
              )
 
     fieldset('plantilles',
@@ -93,18 +95,37 @@ class ISessio(form.Schema):
         required=True,
     )
 
+    form.mode(IAddForm, adrecaLlista='display')
     adrecaLlista = schema.Text(
         title=_(u"mail address"),
         description=_(u"notification_mail_help"),
         required=True,
     )
 
+    form.mode(IAddForm, infoAfectats='display')
+    form.mode(IEditForm, infoAfectats='display')
+    infoAfectats = schema.Text(
+        title=_(u"Informació"),
+        description=_(u"Aquestes dades podran ser omplertes una vegada convocada la sessió."),
+        required=False,
+    )
+
+    form.mode(IAddForm, adrecaAfectatsLlista='display')
     adrecaAfectatsLlista = schema.Text(
         title=_(u"Stakeholders mail address"),
         description=_(u"Stakeholders mail address help."),
         required=False,
     )
 
+    form.mode(IAddForm, infoAssistents='display')
+    form.mode(IEditForm, infoAssistents='display')
+    infoAssistents = schema.Text(
+        title=_(u"Informació"),
+        description=_(u"Aquestes dades podran ser omplertes una vegada convocada la sessió."),
+        required=False,
+    )
+
+    form.mode(IAddForm, membresConvocats='display')
     directives.widget(membresConvocats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('membresConvocats')
     membresConvocats = schema.Text(
@@ -113,6 +134,7 @@ class ISessio(form.Schema):
         required=False,
     )
 
+    form.mode(IAddForm, membresConvidats='display')
     directives.widget(membresConvidats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('membresConvidats')
     membresConvidats = schema.Text(
@@ -121,6 +143,7 @@ class ISessio(form.Schema):
         required=False,
     )
 
+    form.mode(IAddForm, llistaExcusats='display')
     directives.widget(llistaExcusats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('llistaExcusats')
     llistaExcusats = schema.Text(
@@ -129,6 +152,7 @@ class ISessio(form.Schema):
         required=False,
     )
 
+    form.mode(IAddForm, assistents='display')
     directives.widget(assistents=WysiwygFieldWidget)
     dexteritytextindexer.searchable('assistents')
     assistents = schema.Text(
@@ -137,6 +161,7 @@ class ISessio(form.Schema):
         required=False,
     )
 
+    form.mode(IAddForm, noAssistents='display')
     directives.widget(noAssistents=WysiwygFieldWidget)
     dexteritytextindexer.searchable('noAssistents')
     noAssistents = schema.Text(
@@ -196,30 +221,6 @@ def numSessioShowOnlyDefaultValue(data):
     return '{0}'.format(str(total + 1).zfill(2))
 
 
-@form.default_value(field=ISessio['membresConvocats'])
-def membresConvocatsDefaultValue(data):
-    # copy Convocats from Organ de Govern (parent object)
-    return data.context.membresOrgan
-
-
-@form.default_value(field=ISessio['membresConvidats'])
-def membresConvidatsDefaultValue(data):
-    # copy Convidats from Organ de Govern (parent object)
-    return data.context.convidatsPermanentsOrgan
-
-
-@form.default_value(field=ISessio['adrecaLlista'])
-def adrecaLlistaDefaultValue(data):
-    # copy adrecaLlista from Organ de Govern (parent object)
-    return data.context.adrecaLlista
-
-
-@form.default_value(field=ISessio['adrecaAfectatsLlista'])
-def adrecaAfectatsLlistaDefaultValue(data):
-    # copy adrecaAfectats from Organ de Govern (parent object)
-    return data.context.adrecaAfectatsLlista
-
-
 @form.default_value(field=ISessio['bodyMail'])
 def bodyMailDefaultValue(data):
     # copy bodyMail from Organ de Govern (parent object)
@@ -240,6 +241,19 @@ class Edit(dexterity.EditForm):
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
         self.widgets["numSessioShowOnly"].mode = HIDDEN_MODE
+        review_state = api.content.get_state(self.context)
+        if review_state == 'planificada':
+            self.groups[0].fields._data['assistents'].mode = DISPLAY_MODE
+            self.groups[0].fields._data["adrecaLlista"].mode = DISPLAY_MODE
+            self.groups[0].fields._data["membresConvocats"].mode = DISPLAY_MODE
+            self.groups[0].fields._data["membresConvidats"].mode = DISPLAY_MODE
+            self.groups[0].fields._data["llistaExcusats"].mode = DISPLAY_MODE
+            self.groups[0].fields._data["assistents"].mode = DISPLAY_MODE
+            self.groups[0].fields._data["noAssistents"].mode = DISPLAY_MODE
+            self.groups[1].fields._data["adrecaAfectatsLlista"].mode = DISPLAY_MODE
+        else:
+            self.groups[1].fields._data['infoAfectats'].mode = HIDDEN_MODE
+            self.groups[0].fields._data['infoAssistents'].mode = HIDDEN_MODE
 
 
 class View(grok.View):
@@ -248,14 +262,18 @@ class View(grok.View):
 
     def viewHistory(self):
         # Només els Secretaris i Managers podem veure el LOG
-        if utils.isSecretari(self) or utils.isManager(self):
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        if utils.checkhasRol(['Manager', 'OG1-Secretari'], roles):
             return True
         else:
             return False
 
     def viewExcusesAndPoints(self):
         # Només els Secretaris i Editors poden veure les excuses
-        if utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self):
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
             return True
         else:
             return False
@@ -268,47 +286,51 @@ class View(grok.View):
                 return False
 
         # But if not migrated, check permissions...
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
         review_state = api.content.get_state(self.context)
         value = False
-        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and utils.isSecretari(self):
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and 'OG1-Secretari' in roles:
             value = True
-        if review_state in ['planificada', 'convocada', 'realitzada'] and utils.isEditor(self):
+        if review_state in ['planificada', 'convocada', 'realitzada'] and 'OG2-Editor' in roles:
             value = True
-        return value or utils.isManager(self)
+        return value or 'Manager' in roles
 
     def showOrdreDiaIAssistencia(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isManager(self)
-        if review_state in ['planificada', 'convocada'] and roles:
-            value = True
-        elif self.context.organType == 'open_organ' and review_state == 'convocada' and utils.isAfectat(self):
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        has_roles = utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles)
+        if review_state in ['planificada', 'convocada'] and has_roles:
             value = True
         return value
 
     def showEnviarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self)
-        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and roles:
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        has_roles = utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and has_roles:
             value = True
         return value
 
     def showPresentacionButton(self):
         estatSessio = utils.session_wf_state(self)
-        if utils.isManager(self):
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        if 'Manager' in roles:
             return True
-        elif estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+        elif estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
             return True
-        elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+        elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
             return True
-        elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+        elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
             return True
-        elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+        elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
             return True
-        elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
-            return True
-        elif self.context.organType == 'open_organ' and estatSessio in ['convocada', 'realitzada', 'tancada', 'en_correccio'] and utils.isAfectat(self):
+        elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
             return True
         else:
             return False
@@ -316,8 +338,10 @@ class View(grok.View):
     def showPublicarButton(self):
         review_state = api.content.get_state(self.context)
         value = False
-        roles = utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self)
-        if review_state in ['realitzada', 'en_correccio'] and roles:
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        has_roles = utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
+        if review_state in ['realitzada', 'en_correccio'] and has_roles:
             value = True
         return value
 
@@ -352,6 +376,8 @@ class View(grok.View):
 
         results = []
 
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
         for obj in values:
 
             canOpenVote = False
@@ -385,7 +411,7 @@ class View(grok.View):
                 # TODO !
                 # review_state = api.content.get_state(self.context)
                 # if review_state in ['realitzada', 'en_correccio']
-                if utils.isSecretari(self) or utils.isEditor(self) or utils.isManager(self):
+                if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
                     classe = "ui-state-grey"
                 else:
                     classe = "ui-state-grey-not_move"
@@ -563,34 +589,36 @@ class View(grok.View):
 
     def canViewTabActes(self):
         # Permissions to view acta
-        if utils.isManager(self):
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        if 'Manager' in roles:
             return True
         estatSessio = utils.session_wf_state(self)
         organ_tipus = self.context.organType
 
         if organ_tipus == 'open_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
             else:
                 return False
         else:
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
             else:
                 return False
@@ -757,9 +785,11 @@ class View(grok.View):
             path={'query': session_path,
                   'depth': 1})
         results = []
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
         for obj in values:
             value = obj.getObject()
-            if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self):
+            if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
                 # Editor i Secretari veuen contingut. NO obren en finestra nova
                 if obj.portal_type == 'genweb.organs.file':
                     classCSS = 'fa fa-file-pdf-o'  # Es un file
@@ -790,7 +820,7 @@ class View(grok.View):
                 if obj.portal_type == 'genweb.organs.document':
                     classCSS = 'fa fa-file-text-o'
                     if value.defaultContent and value.alternateContent:
-                        if utils.isMembre(self):
+                        if 'OG3-Membre' in roles:
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL(),
@@ -812,7 +842,7 @@ class View(grok.View):
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
                     elif value.alternateContent:
-                        if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self):
+                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL(),
@@ -823,7 +853,7 @@ class View(grok.View):
                 if obj.portal_type == 'genweb.organs.file':
                     classCSS = 'fa fa-file-pdf-o'
                     if value.visiblefile and value.hiddenfile:
-                        if utils.isMembre(self):
+                        if 'OG3-Membre' in roles:
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
@@ -845,7 +875,7 @@ class View(grok.View):
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
                     elif value.hiddenfile:
-                        if utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self):
+                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
@@ -892,13 +922,15 @@ class View(grok.View):
     def canView(self):
         # Permissions to view SESSIONS
         # If manager Show all
-        if utils.isManager(self):
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        if 'Manager' in roles:
             return True
         estatSessio = utils.session_wf_state(self)
         organ_tipus = self.context.organType
 
         if organ_tipus == 'open_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
                 return True
             elif estatSessio == 'convocada':
                 return True
@@ -912,61 +944,54 @@ class View(grok.View):
                 raise Unauthorized
 
         if organ_tipus == 'restricted_to_members_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
             else:
                 raise Unauthorized
 
         if organ_tipus == 'restricted_to_affected_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
             else:
                 raise Unauthorized
 
     def canViewManageVote(self):
-        # estatSessio = utils.session_wf_state(self)
-        # return estatSessio == 'convocada' and (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self))
-        if self.context.aq_parent.organType == 'open_organ':
-            return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
-        return False
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        return utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
 
     def canViewVoteButtons(self):
-        # estatSessio = utils.session_wf_state(self)
-        # return estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isMembre(self))
-        if self.context.aq_parent.organType == 'open_organ':
-            return utils.isSecretari(self) or utils.isMembre(self)
-        return False
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        return utils.checkhasRol(['OG1-Secretari', 'OG3-Membre'], roles)
 
     def canViewResultsVote(self):
-        # estatSessio = utils.session_wf_state(self)
-        # return estatSessio == 'convocada' and (utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self))
-        if self.context.aq_parent.organType == 'open_organ':
-            return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
-        return False
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        return 'Manager' in roles or utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre'], roles)
 
     def canViewLinkSala(self):
-        return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        return 'Manager' in roles or utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles)
 
     def getAllResultsVotes(self):
-        if self.context.aq_parent.organType != 'open_organ':
-            return []
-
         portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
 
@@ -994,6 +1019,13 @@ class View(grok.View):
         for acord in acords:
             acordObj = acord._unrestrictedGetObject()
 
+            acord_folder_path = '/'.join(acordObj.getPhysicalPath())
+            esmenas = portal_catalog.unrestrictedSearchResults(
+                portal_type=['genweb.organs.votacioacord'],
+                sort_on='getObjPositionInParent',
+                path={'query': acord_folder_path,
+                      'depth': 1})
+
             if acordObj.estatVotacio in ['open', 'close']:
                 data = {'UID': acord.UID,
                         'URL': acordObj.absolute_url(),
@@ -1009,7 +1041,19 @@ class View(grok.View):
                         'whiteVote': 0,
                         'totalVote': 0,
                         'isEsmena': False,
-                        'isVote': True}
+                        'isVote': True,
+                        'canReopen': True }
+
+                if acordObj.estatVotacio == 'open':
+                    data['canReopen'] = False
+                else:
+                    for esmena in esmenas:
+                        esmenaObj = esmena._unrestrictedGetObject()
+                        if esmenaObj.estatVotacio == 'open':
+                            data['canReopen'] = False
+                            break
+
+                canReopen = data['canReopen']
 
                 infoVotacio = acordObj.infoVotacio
                 if isinstance(infoVotacio, str) or isinstance(infoVotacio, unicode):
@@ -1045,13 +1089,6 @@ class View(grok.View):
 
                 results.append(data)
 
-            acord_folder_path = '/'.join(acordObj.getPhysicalPath())
-            esmenas = portal_catalog.unrestrictedSearchResults(
-                portal_type=['genweb.organs.votacioacord'],
-                sort_on='getObjPositionInParent',
-                path={'query': acord_folder_path,
-                      'depth': 1})
-
             if esmenas and acordObj.estatVotacio == None:
                 data = {'UID': acord.UID,
                         'URL': acordObj.absolute_url(),
@@ -1067,9 +1104,17 @@ class View(grok.View):
                         'whiteVote': '',
                         'totalVote': '',
                         'isEsmena': False,
-                        'isVote': False}
+                        'isVote': False,
+                        'canReopen': False }
 
                 results.append(data)
+
+                canReopen = True
+                for esmena in esmenas:
+                    esmenaObj = esmena._unrestrictedGetObject()
+                    if esmenaObj.estatVotacio == 'open':
+                        canReopen = False
+                        break
 
             for esmena in esmenas:
                 esmenaObj = esmena._unrestrictedGetObject()
@@ -1087,7 +1132,8 @@ class View(grok.View):
                         'whiteVote': 0,
                         'totalVote': 0,
                         'isEsmena': True,
-                        'isVote': True}
+                        'isVote': True,
+                        'canReopen': canReopen }
 
                 infoVotacio = esmenaObj.infoVotacio
                 if isinstance(infoVotacio, str) or isinstance(infoVotacio, unicode):
@@ -1138,14 +1184,14 @@ class View(grok.View):
         return self.context.infoQuorums
 
     def canViewManageQuorumButtons(self):
-        if self.context.aq_parent.organType == 'open_organ':
-            return utils.isManager(self) or utils.isSecretari(self) or utils.isEditor(self)
-        return False
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        return utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
 
     def canViewAddQuorumButtons(self):
-        if self.context.aq_parent.organType == 'open_organ':
-            return utils.isSecretari(self) or utils.isMembre(self)
-        return False
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        return utils.checkhasRol(['OG1-Secretari', 'OG3-Membre'], roles)
 
     def checkHasQuorum(self):
         if not isinstance(self.context.infoQuorums, dict):
@@ -1180,7 +1226,9 @@ class OpenQuorum(grok.View):
         lenQuorums = len(self.context.infoQuorums)
         if lenQuorums == 0 or self.context.infoQuorums[lenQuorums]['end']:
             idQuorum = lenQuorums + 1
-            # if utils.isSecretari(self):
+            # username = api.user.get_current().id
+            # roles = utils.getUserRoles(self, self.context, username)
+            # if 'OG1-Secretari' in roles:
             #     self.context.infoQuorums.update({
             #         idQuorum: {
             #             'start': datetime.datetime.now().strftime('%d/%m/%Y %H:%M'),
@@ -1245,3 +1293,111 @@ class AddQuorum(grok.View):
                 self.context.infoQuorums[lenQuorums]['total'] = len(self.context.infoQuorums[lenQuorums]['people'])
 
         transaction.commit()
+
+
+class ExportCSV(grok.View):
+    grok.context(ISessio)
+    grok.name('exportCSV')
+    grok.require('zope2.View')
+
+    data_header_columns = [
+        "Punt",
+        "Títol",
+        "Tipus",
+        "Acord",
+        "Estat",
+        "URL"]
+
+    def render(self):
+        output_file = StringIO()
+        # Write the BOM of the text stream to make its charset explicit
+        output_file.write(u'\ufeff'.encode('utf8'))
+        self.write_data(output_file)
+
+        header_content_type = 'text/csv'
+        header_filename = 'ordre_del_dia_' + self.context.id + '.csv'
+        self.request.response.setHeader('Content-Type', header_content_type)
+        self.request.response.setHeader(
+            'Content-Disposition',
+            'attachment; filename="{0}"'.format(header_filename))
+        return output_file.getvalue()
+
+    def write_data(self, output_file):
+        writer = csv.writer(output_file, dialect='excel', delimiter=',')
+        writer.writerow(self.data_header_columns)
+
+        info = []
+        writer.writerow(['',
+                         self.context.Title(),
+                         self.context.portal_type.split('.')[2].capitalize(),
+                         '',
+                         translate(msgid=api.content.get_state(self.context), domain='genweb', target_language='ca'),
+                         self.context.absolute_url()])
+
+        writer.writerow(['', '', '', '', '', ''])
+
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        values = portal_catalog.unrestrictedSearchResults(
+            sort_on='getObjPositionInParent',
+            portal_type=['genweb.organs.acord', 'genweb.organs.punt'],
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+
+        for brain in values:
+            obj = brain.getObject()
+
+            acord = ''
+            if brain.portal_type == 'genweb.organs.acord':
+                acord = obj.agreement
+
+            writer.writerow([obj.proposalPoint,
+                             '' + brain.Title,
+                             brain.portal_type.split('.')[2].capitalize(),
+                             acord,
+                             translate(msgid=obj.estatsLlista, domain='genweb.organs', target_language='ca'),
+                             obj.absolute_url()])
+
+            self.write_data_inside(obj, output_file)
+
+    def write_data_inside(self, context, output_file, last_lvl=False):
+        writer = csv.writer(output_file, dialect='excel', delimiter=',')
+
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        folder_path = '/'.join(context.getPhysicalPath())
+        values = portal_catalog.unrestrictedSearchResults(
+            sort_on='getObjPositionInParent',
+            portal_type=['genweb.organs.acord', 'genweb.organs.subpunt', 'genweb.organs.file', 'genweb.organs.document'],
+            path={'query': folder_path,
+                  'depth': 1})
+
+        results = []
+
+        for brain in values:
+            obj = brain.getObject()
+
+            if not last_lvl:
+                title = '-- ' + brain.Title
+            else:
+                title = '-- -- ' + brain.Title
+
+            acord = ''
+            if brain.portal_type == 'genweb.organs.acord':
+                acord = obj.agreement
+
+            proposalPoint = ''
+            state = ''
+            if brain.portal_type in ['genweb.organs.acord', 'genweb.organs.subpunt']:
+                proposalPoint = obj.proposalPoint
+                state = obj.estatsLlista
+
+            writer.writerow([proposalPoint,
+                             title,
+                             brain.portal_type.split('.')[2].capitalize(),
+                             acord,
+                             translate(msgid=state, domain='genweb.organs', target_language='ca'),
+                             obj.absolute_url()])
+
+            self.write_data_inside(obj, output_file, True)

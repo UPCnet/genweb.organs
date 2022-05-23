@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
+from plone import api
+from operator import itemgetter
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
-from plone import api
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-import unicodedata
-from operator import itemgetter
+
+from genweb.organs import utils
+
 import json
+import unicodedata
 
 
 @implementer(IPublishTraverse)
@@ -86,14 +90,16 @@ class Webservice(BrowserView):
                     roles = api.user.get_roles(obj=element.aq_parent.aq_parent, username=username)
                 else:
                     roles = []
+
                 organ_tipus = element.organType
                 estatSessio = api.content.get_state(obj=element.aq_parent)
+
                 if organ_tipus == 'open_organ':
-                    if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+                    if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                         results2.append(value)
-                    elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                    elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         results2.append(value)
-                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                         results2.append(value)
                     elif estatSessio == 'tancada':
                         results2.append(value)
@@ -102,47 +108,50 @@ class Webservice(BrowserView):
                     else:
                         continue
                 if organ_tipus == 'restricted_to_members_organ':
-                    if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+                    if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                         results2.append(value)
-                    elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                    elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         results2.append(value)
-                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                    elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         results2.append(value)
-                    elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                    elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         results2.append(value)
-                    elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                    elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         results2.append(value)
                     else:
                         continue
                 if organ_tipus == 'restricted_to_affected_organ':
-                    if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+                    if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                         results2.append(value)
-                    elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                    elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         results2.append(value)
-                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                         results2.append(value)
-                    elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                         results2.append(value)
-                    elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                         results2.append(value)
                     else:
                         continue
                 else:
                     # remove element
                     continue
+
             elif element.aq_parent.aq_parent.aq_parent.portal_type == 'genweb.organs.organgovern':
                 if username:
                     roles = api.user.get_roles(obj=element.aq_parent.aq_parent.aq_parent, username=username)
                 else:
                     roles = []
+
                 organ_tipus = element.organType
                 estatSessio = api.content.get_state(obj=element.aq_parent.aq_parent)
+
                 if organ_tipus == 'open_organ':
-                    if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+                    if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                         results2.append(value)
-                    elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                    elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         results2.append(value)
-                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                         results2.append(value)
                     elif estatSessio == 'tancada':
                         results2.append(value)
@@ -151,28 +160,28 @@ class Webservice(BrowserView):
                     else:
                         continue
                 if organ_tipus == 'restricted_to_members_organ':
-                    if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+                    if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                         results2.append(value)
-                    elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                    elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         results2.append(value)
-                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                    elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         results2.append(value)
-                    elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                    elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         results2.append(value)
-                    elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                    elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         results2.append(value)
                     else:
                         continue
                 if organ_tipus == 'restricted_to_affected_organ':
-                    if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+                    if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                         results2.append(value)
-                    elif estatSessio == 'convocada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles):
+                    elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                         results2.append(value)
-                    elif estatSessio == 'realitzada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                         results2.append(value)
-                    elif estatSessio == 'tancada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                         results2.append(value)
-                    elif estatSessio == 'en_correccio' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG4-Afectat' in roles):
+                    elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                         results2.append(value)
                     else:
                         continue
@@ -181,6 +190,7 @@ class Webservice(BrowserView):
                     continue
             else:
                 continue
+
         for value in results2:
             item = value.getObject()
 

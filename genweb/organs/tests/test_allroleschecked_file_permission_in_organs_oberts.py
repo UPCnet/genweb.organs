@@ -603,7 +603,7 @@ class FunctionalTestCase(unittest.TestCase):
         self.assertTrue(DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
         self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
 
-    def should_view_as_membre(self, root_path):
+    def should_view_as_membre_or_convidat(self, root_path):
         request = TestRequest()
         # Check session state PLANIFICADA
         # PUNT
@@ -1212,12 +1212,12 @@ class FunctionalTestCase(unittest.TestCase):
         root_path = self.portal.ca.testingfolder
         setRoles(self.portal, TEST_USER_ID, ['OG3-Membre', 'OG4-Afectat'])
         login(self.portal, TEST_USER_NAME)
-        self.should_view_as_membre(root_path)
+        self.should_view_as_membre_or_convidat(root_path)
         logout()
         root_path = self.portal.ca.testingfolder
         setRoles(self.portal, TEST_USER_ID, ['OG3-Membre'])
         login(self.portal, TEST_USER_NAME)
-        self.should_view_as_membre(root_path)
+        self.should_view_as_membre_or_convidat(root_path)
         logout()
 
     def test_organobert_must_be_shown_as_afectat(self):
@@ -1226,4 +1226,12 @@ class FunctionalTestCase(unittest.TestCase):
         setRoles(self.portal, TEST_USER_ID, ['OG4-Afectat'])
         login(self.portal, TEST_USER_NAME)
         self.should_view_as_afectat(root_path)
+        logout()
+
+    def test_organobert_must_be_shown_as_convidat(self):
+        logout()
+        root_path = self.portal.ca.testingfolder
+        setRoles(self.portal, TEST_USER_ID, ['OG5-Convidat'])
+        login(self.portal, TEST_USER_NAME)
+        self.should_view_as_membre_or_convidat(root_path)
         logout()

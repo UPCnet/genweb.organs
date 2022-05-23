@@ -1,11 +1,58 @@
 Changelog
 =========
 
-0.51 (unreleased)
+0.56 (unreleased)
 -----------------
 
 - Nothing changed yet.
 
+
+0.55 (2022-04-21)
+-----------------
+
+* Fix error navigation portlet [Iago López]
+
+0.54 (2022-04-20)
+-----------------
+
+* Reobrir votacions [Iago López]
+* Fix Canvi visualització camps de la sessió [Iago López]
+
+0.53 (2022-04-20)
+-----------------
+
+* Funcionalidad OG5-Convidat [Iago López]
+* Tests OG5-Convidat [Iago López]
+* Crear rol OG5-Convidat [Iago López]
+* Deshacer: Cambio de permisos en organs publicos para el rol afectat [Iago López]
+* Fix [Iago López]
+* Votaciones en todos los tipos de organ [Iago López]
+* Fix permission [Iago López]
+* Utils [Iago López]
+* Fix indentation [Iago López]
+* Canvi visualització camps de la sessió [ilopezsmx]
+* IndentationError [Pilar Marinas]
+* Parche para mejorar las votaciones cache de 8 horas del multilingual ya que no se utiliza [Pilar Marinas]
+* Cache getUserRoles by user and context [Pilar Marinas]
+* Mejora rendimiento sessión [Iago López]
+* Cargar Butlleti de la session cuando se clica a imprimir [Iago López]
+* Fix mail_informar, añadir coma entre los correos de los miembros y los afectados [Iago López]
+* Cambio estructura tabla allsessions [Iago López]
+* Rendimiento sessión [Iago López]
+* Modificar correo convocatoria [Iago López]
+* Deshabilitar check visiblefields en ciertos organ [Iago López]
+* Extracción del orden del dia [ilopezsmx]
+
+0.52 (2021-12-21)
+-----------------
+
+* Añadir al mensaje de la convocatoria la modalidad [ilopezsmx]
+
+0.51 (2021-12-14)
+-----------------
+
+* Fix display-file annex [ilopezsmx]
+* Modificar literal mixtes a mixta [Iago López Fernández]
 
 0.50 (2021-11-19)
 -----------------

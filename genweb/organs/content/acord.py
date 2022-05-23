@@ -25,6 +25,7 @@ from zope.schema.vocabulary import SimpleVocabulary
 
 from genweb.organs import _
 from genweb.organs import utils
+from genweb.organs.utils import addEntryLog
 
 import ast
 import datetime
@@ -191,10 +192,11 @@ class View(grok.View):
     grok.template('acord_view')
 
     def canViewVotacionsInside(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
         estatSessio = utils.session_wf_state(self)
-        if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+        if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
             return True
-        elif estatSessio in ['convocada', 'realitzada', 'tancada', 'en_correccio'] and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+        elif estatSessio in ['convocada', 'realitzada', 'tancada', 'en_correccio'] and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre'], roles):
             return True
         else:
             return False
@@ -240,14 +242,15 @@ class View(grok.View):
     def canView(self):
         # Permissions to view ACORDS. Poden estar a 1 i 2 nivells
         # If manager Show all
-        if utils.isManager(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if 'Manager' in roles:
             return True
-        estatSessio = utils.session_wf_state(self)
 
+        estatSessio = utils.session_wf_state(self)
         organ_tipus = self.context.organType
 
         if organ_tipus == 'open_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
             elif estatSessio == 'convocada':
                 return True
@@ -261,29 +264,29 @@ class View(grok.View):
                 raise Unauthorized
 
         if organ_tipus == 'restricted_to_members_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
             else:
                 raise Unauthorized
 
         if organ_tipus == 'restricted_to_affected_organ':
-            if estatSessio == 'planificada' and (utils.isSecretari(self) or utils.isEditor(self)):
+            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self)):
+            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'realitzada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'tancada' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
-            elif estatSessio == 'en_correccio' and (utils.isSecretari(self) or utils.isEditor(self) or utils.isMembre(self) or utils.isAfectat(self)):
+            elif estatSessio == 'en_correccio' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                 return True
             else:
                 raise Unauthorized
@@ -300,6 +303,7 @@ class OpenPublicVote(grok.View):
         self.context.horaIniciVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
         self.context.reindexObject()
         transaction.commit()
+        addEntryLog(self.context.__parent__, None, _(u'Oberta votacio acord'), self.context.absolute_url())
 
 
 class OpenOtherPublicVote(grok.View):
@@ -315,6 +319,7 @@ class OpenOtherPublicVote(grok.View):
             item.horaIniciVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
             item.reindexObject()
             transaction.commit()
+            addEntryLog(self.context.__parent__, None, _(u'Oberta votacio esmena'), self.context.absolute_url())
 
 
 # class OpenSecretVote(grok.View):
@@ -348,12 +353,14 @@ class OpenOtherPublicVote(grok.View):
 class ReopenVote(grok.View):
     grok.context(IAcord)
     grok.name('reopenVote')
-    grok.require('cmf.ManagePortal')
+    grok.require('genweb.organs.manage.vote')
 
     def render(self):
-        self.context.estatVotacio = 'open'
-        self.context.reindexObject()
-        transaction.commit()
+        if self.context.estatVotacio == 'close':
+            self.context.estatVotacio = 'open'
+            self.context.reindexObject()
+            transaction.commit()
+            addEntryLog(self.context.__parent__, None, _(u'Reoberta votacio acord'), self.context.absolute_url())
 
 
 class CloseVote(grok.View):
@@ -366,6 +373,7 @@ class CloseVote(grok.View):
         self.context.horaFiVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
         self.context.reindexObject()
         transaction.commit()
+        addEntryLog(self.context.__parent__, None, _(u'Tancada votacio acord'), self.context.absolute_url())
 
 
 class FavorVote(grok.View):
@@ -553,3 +561,4 @@ class RemoveVote(grok.View):
         self.context.horaFiVotacio = None
         self.context.reindexObject()
         transaction.commit()
+        addEntryLog(self.context.__parent__, None, _(u'Eliminada votacio acord'), self.context.absolute_url())
