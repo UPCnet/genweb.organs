@@ -744,12 +744,7 @@ class SignActa(grok.View):
                                         "codi": self.context.infoGDoc['acta']['uuid']
                                     }
                                 ],
-                                "passosPeticio": [
-                                    {
-                                        "nivellSignatura": "CDA",
-                                        "signants": [{"commonName": signant} for signant in signants],
-                                    },
-                                ],
+                                "passosPeticio": [],
                                 "promocionar": "S",
                                 "codiCategoria": "CAT6",
                                 "codiTipusSignatura": "ATTACHED_VISIBLE_MARGE",
@@ -764,6 +759,12 @@ class SignActa(grok.View):
                                 ],
                                 "documentsAnnexos": []
                             }
+
+                            for signant in signants:
+                                data_sign["passosPeticio"].append({
+                                    "nivellSignatura": "CDA",
+                                    "signants": [{"commonName": signant}]
+                                })
 
                             if self.context.infoGDoc['audios'] or self.context.infoGDoc['adjunts']:
                                 for adjunt in self.context.infoGDoc['adjunts']:
