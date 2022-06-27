@@ -2,6 +2,7 @@
            tal:define="getActaLogo view/getActaLogo;
                       signatura view/signatura;
                       Title context/Title;
+                      modalitat view/sessionModality;
                       llocConvocatoria context/llocConvocatoria;
                       horaInici context/horaInici;
                       horaFi context/horaFi;
@@ -23,6 +24,11 @@
     <hr/>
     <div>
       <div class="span12" style="margin-bottom: 0px">
+        <tal:omit-tag tal:condition="modalitat">
+          <th style="display: inline-block;"><strong i18n:translate="">Modality of meet</strong><b>:</b></th>
+          <span i18n:translate="" tal:content="modalitat"></span>
+          <br/>
+        </tal:omit-tag>
         <tal:omit-tag tal:condition="llocConvocatoria">
           <th style="display: inline-block;"><strong i18n:translate="">Session location</strong><b>:</b></th>
           <span tal:content="llocConvocatoria"></span>
