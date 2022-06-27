@@ -264,6 +264,10 @@ class ActaPrintView(BrowserView):
         """ Get organGovern Title used for printing the acta """
         return self.aq_parent.aq_parent.Title()
 
+    def sessionModality(self):
+        """ Get organGovern Title used for printing the acta """
+        return self.aq_parent.aq_parent.modality
+
     def getActaLogo(self):
         """ Getlogo to use in print """
         try:
