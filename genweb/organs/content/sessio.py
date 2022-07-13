@@ -1369,7 +1369,7 @@ class ExportCSV(grok.View):
         folder_path = '/'.join(context.getPhysicalPath())
         values = portal_catalog.unrestrictedSearchResults(
             sort_on='getObjPositionInParent',
-            portal_type=['genweb.organs.acord', 'genweb.organs.subpunt', 'genweb.organs.file', 'genweb.organs.document'],
+            portal_type=['genweb.organs.acord', 'genweb.organs.subpunt'],
             path={'query': folder_path,
                   'depth': 1})
 

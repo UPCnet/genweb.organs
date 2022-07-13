@@ -1,11 +1,19 @@
 Changelog
 =========
 
-0.56 (unreleased)
+0.57 (unreleased)
 -----------------
 
 - Nothing changed yet.
 
+
+0.56 (2022-07-11)
+-----------------
+
+* Quitar ficheros y documentos del exportCSV [Iago López]
+* Mostrar la modalitat en acta_print i acta_preview [Iago López]
+* Añadir texto allsessions [Iago López]
+* Fix permission OG5-Convidat [Iago López]
 
 0.55 (2022-04-21)
 -----------------

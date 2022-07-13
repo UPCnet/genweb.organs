@@ -1379,6 +1379,10 @@ Fi: ${vote/hourClose}"></span>
 
 <div style="margin-bottom:20px;"></div>
 
+<script type="text/javascript">
+  var refreshNeeded = false;
+</script>
+
 <script type="text/javascript" tal:condition="canViewManageVote">
 
   $(".reopenVote").on('click', function(){
