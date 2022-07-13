@@ -849,7 +849,7 @@ class ViewActa(grok.View):
             if not isinstance(self.context.infoGDoc, dict):
                 self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
 
-            result = requests.get(gdoc_settings.gdoc_url + '/api/documentelectronic/' + self.context.infoGDoc['acta']['uuid'] + '?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash)
+            result = requests.get(gdoc_settings.copiesautentiques_url + '/api/copia?idDocument=' + self.context.infoGDoc['acta']['uuid'] + '&idioma=CATALA', headers={'X-Api-Key': gdoc_settings.copiesautentiques_apikey})
 
             if result.status_code == 200:
                 self.request.response.setHeader('content-type', self.context.infoGDoc['acta']['contentType'])
@@ -874,7 +874,7 @@ class DownloadActa(grok.View):
             if not isinstance(self.context.infoGDoc, dict):
                 self.context.infoGDoc = ast.literal_eval(self.context.infoGDoc)
 
-            result = requests.get(gdoc_settings.gdoc_url + '/api/documentelectronic/' + self.context.infoGDoc['acta']['uuid'] + '?uid=' + gdoc_settings.gdoc_user + '&hash=' + gdoc_settings.gdoc_hash)
+            result = requests.get(gdoc_settings.copiesautentiques_url + '/api/copia?idDocument=' + self.context.infoGDoc['acta']['uuid'] + '&idioma=CATALA', headers={'X-Api-Key': gdoc_settings.copiesautentiques_apikey})
 
             if result.status_code == 200:
                 self.request.response.setHeader('content-type', self.context.infoGDoc['acta']['contentType'])

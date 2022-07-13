@@ -89,7 +89,7 @@ class IGDocSettings(model.Schema):
         title=_(u'Usuari GDoc'),
         required=False)
 
-    gdoc_hash = schema.Password(  # Password
+    gdoc_hash = schema.TextLine(
         title=_(u'Hash GDoc'),
         required=False)
 
@@ -97,7 +97,7 @@ class IGDocSettings(model.Schema):
         title=_(u'URL Generar codi expedient'),
         required=False)
 
-    codiexpedient_apikey = schema.Password(  # Password
+    codiexpedient_apikey = schema.TextLine(
         title=_(u'API Key Generar codi expedient'),
         required=False)
 
@@ -105,8 +105,16 @@ class IGDocSettings(model.Schema):
         title=_(u'URL Portafirmes'),
         required=False)
 
-    portafirmes_apikey = schema.Password(  # Password
+    portafirmes_apikey = schema.TextLine(
         title=_(u'API Key Portafirmes'),
+        required=False)
+
+    copiesautentiques_url = schema.TextLine(
+        title=_(u'URL Còpies Autèntiques'),
+        required=False)
+
+    copiesautentiques_apikey = schema.TextLine(
+        title=_(u'API Key Còpies Autèntiques'),
         required=False)
 
 
