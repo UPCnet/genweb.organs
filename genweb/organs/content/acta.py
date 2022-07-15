@@ -788,7 +788,7 @@ class SignActa(grok.View):
 
                                 content_sign = json.loads(result_sign.content)
                                 self.context.idFirma = content_sign['idPeticio']
-                                self.context.estatFirma = content_sign['estatPeticio']
+                                self.context.estatFirma = "PENDENT"
 
                                 self.context.plone_utils.addPortalMessage(_(u'S\'ha enviat a firmar correctament'), 'success')
                                 transaction.commit()
