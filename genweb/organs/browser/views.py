@@ -1263,3 +1263,9 @@ class getUsers(BrowserView):
             return json.dumps(listUsers)
         else:
             return None
+
+
+class updateInfoPortafirmes(BrowserView):
+
+    def __call__(self):
+        pass

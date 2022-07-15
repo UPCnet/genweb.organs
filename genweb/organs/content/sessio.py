@@ -20,6 +20,7 @@ from z3c.form.interfaces import IEditForm
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from zope.i18n import translate
+from zope.interface import Interface
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 

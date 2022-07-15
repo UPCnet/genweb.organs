@@ -4,6 +4,8 @@ from plone import api
 
 
 fields_to_index = [('estatAprovacio', 'FieldIndex'),
+                   ('idFirma', 'FieldIndex'),
+                   ('estatFirma', 'FieldIndex'),
                    ('dataSessio', 'DateIndex')]
 
 

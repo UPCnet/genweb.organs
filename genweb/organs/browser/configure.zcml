@@ -211,4 +211,14 @@
     permission="zope2.View"
     />
 
+  <!--  -->
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="updateInfoPortafirmes"
+    class=".views.updateInfoPortafirmes"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="zope2.View"
+    />
+
 </configure>
