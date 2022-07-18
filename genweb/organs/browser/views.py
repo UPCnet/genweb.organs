@@ -25,8 +25,11 @@ import csv
 import datetime
 import DateTime
 import json
+import logging
 import transaction
 import unicodedata
+
+logger = logging.getLogger(__name__)
 
 # Disable CSRF
 try:
@@ -1285,4 +1288,4 @@ class updateInfoPortafirmes(BrowserView):
                         # TODO Send message
                         # motiuRebuj = body['motiusRebuig']
         except:
-            pass
+            logger.info("ERROR updateInfoPortafirmes")

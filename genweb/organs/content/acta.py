@@ -46,7 +46,8 @@ class IActa(form.Schema):
     fieldset('acta',
              label=_(u'Tab acta'),
              fields=['title', 'horaInici', 'horaFi', 'llocConvocatoria',
-                     'ordenDelDia', 'enllacVideo', 'acta', 'infoGDoc']
+                     'ordenDelDia', 'enllacVideo', 'acta',
+                     'infoGDoc', 'idFirma', 'estatFirma']
              )
 
     fieldset('assistents',
@@ -522,8 +523,7 @@ class SignActa(grok.View):
                                                           'adjunts': {},
                                                           'audios': {},
                                                           'url': {},
-                                                          'enviatASignar': False,
-                                                          'firma': {}})
+                                                          'enviatASignar': False})
                             self.context.reindexObject()
 
                             data_acta = {"tipusDocumental": "452",
