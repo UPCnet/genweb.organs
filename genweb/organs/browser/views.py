@@ -1268,4 +1268,21 @@ class getUsers(BrowserView):
 class updateInfoPortafirmes(BrowserView):
 
     def __call__(self):
-        pass
+        try:
+            body = json.loads(self.request['BODY'])
+            if body:
+                idFirma = body['idPeticio']
+                newEstatFirma = body['estatPeticio']
+
+                portal_catalog = api.portal.get_tool(name='portal_catalog')
+                firma = portal_catalog.searchResults(idFirma=idFirma)
+                if firma:
+                    firma = firma[0].getObject()
+
+                    if firma.estatFirma != newEstatFirma:
+                        firma.estatFirma = newEstatFirma
+                        firma.reindexObject()
+                        # TODO Send message
+                        # motiuRebuj = body['motiusRebuig']
+        except:
+            pass
