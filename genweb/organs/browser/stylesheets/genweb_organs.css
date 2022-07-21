@@ -2570,3 +2570,29 @@ body.portaltype-genweb-organs-votacioacord input#form-widgets-title {
     font-size: 14px;
     display: inline;
 }
+
+/* FIRMA DOCUMENTAL */
+
+.estatFirma {
+    padding: 5px 10px !important;
+    border-radius: 15px !important;
+    margin-top: 4px;
+    display: inline-block;
+    text-transform: uppercase;
+    color: #000 !important;
+}
+
+.estatFirma.pendent,
+.estatFirma.en_proces,
+.estatFirma.pendent_altres_usuaris {
+    background-color: #FFDA9E;
+}
+
+.estatFirma.signada {
+    background-color: #B0F2C2;
+}
+
+.estatFirma.rebutjada,
+.estatFirma.cancelada {
+    background-color: #FCB7AF;
+}

@@ -1,0 +1,28 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser">
+
+  <!-- Permisos -->
+
+  <permission
+    id="genweb.organs.firmadocumental.sign"
+    title="Genweb Organs: Documental Firm Sign" />
+
+  <permission
+    id="genweb.organs.firmadocumental.view"
+    title="Genweb Organs: Documental Firm View" />
+
+  <!-- Behavior and view -->
+
+  <include package=".behaviors" />
+  <include package=".views" />
+
+  <!-- Controlpanel -->
+
+  <browser:page
+    name="organs-firmadocumental-settings"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    class=".controlpanel.FirmaDocumentalSettingsControlPanel"
+    permission="cmf.ManagePortal" />
+
+</configure>

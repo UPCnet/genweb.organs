@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone">
+
+    <!-- TODO GW6 name="genweb.organs.firmadocumental" -->
+
+    <plone:behavior
+        title="Firma documental"
+        description="Afegir camps necesaris per la firma de la documentació"
+        provides=".firma_documental.IFirmaDocumental"
+        factory=".firma_documental.FirmaDocumental"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        />
+
+</configure>

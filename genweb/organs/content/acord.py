@@ -26,6 +26,7 @@ from zope.schema.vocabulary import SimpleVocabulary
 from genweb.organs import _
 from genweb.organs import utils
 from genweb.organs.utils import addEntryLog
+from genweb.organs.firma_documental.utils import UtilsFirmaDocumental
 
 import ast
 import datetime
@@ -187,7 +188,7 @@ class Edit(dexterity.EditForm):
         super(Edit, self).updateWidgets()
 
 
-class View(grok.View):
+class View(grok.View, UtilsFirmaDocumental):
     grok.context(IAcord)
     grok.template('acord_view')
 

@@ -1,0 +1,142 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     tal:omit-tag=""
+     i18n:domain="genweb.organs">
+
+  <input type="text" autocomplete="no" readonly
+         id="form-widgets-select_users"
+         tal:attributes="name view/name;
+                         class view/klass;
+                         style view/style;
+                         title view/title;
+                         lang view/lang;
+                         onclick view/onclick;
+                         ondblclick view/ondblclick;
+                         onmousedown view/onmousedown;
+                         onmouseup view/onmouseup;
+                         onmouseover view/onmouseover;
+                         onmousemove view/onmousemove;
+                         onmouseout view/onmouseout;
+                         onkeypress view/onkeypress;
+                         onkeydown view/onkeydown;
+                         onkeyup view/onkeyup;
+                         value view/value;
+                         disabled view/disabled;
+                         tabindex view/tabindex;
+                         onfocus view/onfocus;
+                         onblur view/onblur;
+                         onchange view/onchange;
+                         alt view/alt;
+                         accesskey view/accesskey;
+                         onselect view/onselect;
+                         size view/size;
+                         maxlength view/maxlength;
+                         placeholder view/placeholder;
+                         autocapitalize view/autocapitalize;" />
+
+  <input id="form-widgets-select_users-btn-modal" type="button"
+         data-toggle="modal" data-target="#form-widgets-select_users-modal"
+         i18n:attributes="value Cerca"/>
+
+  <input id="form-widgets-select_users-btn-clear" type="button"
+         i18n:attributes="value Eliminar"/>
+
+  <div id="form-widgets-select_users-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" i18n:translate="">Cerca usuari</h4>
+        </div>
+        <div class="modal-body">
+          <input id="form-widgets-select_users-input" type="text" autocomplete="no"
+                 i18n:attributes="placeholder nom.cognoms"/>
+
+          <input id="form-widgets-select_users-btn" type="button"
+                 i18n:attributes="value Cerca"/>
+
+          <p id="form-widgets-select_users-error" i18n:translate="">
+            <b>Error:</b> El format es incorrecte. <b>nom.cognom</b>
+          </p>
+
+          <p id="form-widgets-select_users-warn" i18n:translate="">
+            No hi ha resultats.
+          </p>
+
+          <table id="form-widgets-select_users-hint">
+            <thead>
+              <th i18n:translate="">Usuari</th>
+              <th i18n:translate="">Nom complet</th>
+              <th i18n:translate="">Correu</th>
+              <th></th>
+            </thead>
+            <tbody>
+              <tr><td/><td/><td/><td/><td/></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var hideElementsSelect = function(){
+      $("#form-widgets-select_users-error").removeClass("viewError");
+      $("#form-widgets-select_users-warn").removeClass("viewWarn");
+      $("#form-widgets-select_users-hint > tbody").html("<tr><td/><td/><td/><td/><td/></tr>");
+    }
+
+    var addUser = function(user){
+      parent = $(user).parent().parent();
+      if($("#form-widgets-select_users").val().length > 0){
+        $("#form-widgets-select_users").val($("#form-widgets-select_users").val() + ', ' + $(parent).children('.userid').html());
+      }else{
+        $("#form-widgets-select_users").val($(parent).children('.userid').html());
+      }
+
+      $('#form-widgets-select_users-modal').modal('toggle');
+    }
+
+    $("#form-widgets-select_users-btn").on("click", function(){
+      hideElementsSelect();
+      var regexUsername = new RegExp('^[a-zA-ZñÑçÇ]{1,}\\.[a-zA-Z0-9-.ñÑçÇ]{1,}$');
+      var user = $("#form-widgets-select_users-input").val();
+      if(regexUsername.test(user)){
+        $.ajax({
+          type: 'POST',
+          data: { "user" : $("#form-widgets-select_users-input").val() },
+          url: 'getUsers',
+          success: function(data){
+            results = $.parseJSON(data);
+            if(results != null && results.length > 0){
+              $("#form-widgets-select_users-hint > tbody").html("");
+              $.each( results, function( key, value ){
+                $("#form-widgets-select_users-hint").show();
+                field = "<tr>";
+                field += "<td class='userid'>" + value['user'] + "</td>";
+                field += "<td class='fullname'>" + value['fullname'] + "</td>";
+                field += "<td class='email'>" + value['email'] + "</td>";
+                field += "<td class='actions'>";
+                field += "<a class='label add' i18n:attributes='alt add' onclick='addUser(this)'>";
+                field += "<span class='fa fa-plus' aria-hidden='true'></span>";
+                field += "</a>";
+                field += "</td>";
+                field += "</tr>";
+                $("#form-widgets-select_users-hint").append(field);
+              });
+            }else{
+              $("#form-widgets-select_users-warn").addClass("viewWarn");
+            }
+          }
+        });
+      }else{
+        $("#form-widgets-select_users-error").addClass("viewError");
+      }
+    });
+
+    $("#form-widgets-select_users-btn-clear").on("click", function(){
+      $("#form-widgets-select_users").val("");
+    });
+  </script>
+
+</html>

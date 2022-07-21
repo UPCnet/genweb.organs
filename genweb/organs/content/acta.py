@@ -10,14 +10,14 @@ from plone.autoform import directives
 from plone.directives import dexterity
 from plone.directives import form
 from plone.event.interfaces import IEventAccessor
-from plone.namedfile.field import NamedBlobFile
-from plone.namedfile.utils import get_contenttype
 from plone.supermodel.directives import fieldset
 from zope import schema
-from zope.schema import ValidationError
 
 from genweb.organs import _
 from genweb.organs import utils
+from genweb.organs.firma_documental.utils import UtilsFirmaDocumental
+
+import ast
 
 grok.templatedir("templates")
 
@@ -211,7 +211,7 @@ def Punts2Acta(self):
     return ''.join(results)
 
 
-class View(dexterity.DisplayForm):
+class View(dexterity.DisplayForm, UtilsFirmaDocumental):
     grok.context(IActa)
     grok.template('acta_view')
 
@@ -263,42 +263,78 @@ class View(dexterity.DisplayForm):
     def AudioInside(self):
         """ Retorna els fitxers d'audio creats aquí dintre (sense tenir compte estat)
         """
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        portal_catalog = api.portal.get_tool(name='portal_catalog')
-        values = portal_catalog.searchResults(
-            portal_type='genweb.organs.audio',
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
-        if values:
-            results = []
-            for obj in values:
-                results.append(dict(title=obj.Title,
-                                    absolute_url=obj.getURL(),
-                                    audio=obj.getObject().file))
-            return results
+        if not self.hasFirma():
+            folder_path = '/'.join(self.context.getPhysicalPath())
+            portal_catalog = api.portal.get_tool(name='portal_catalog')
+            values = portal_catalog.searchResults(
+                portal_type='genweb.organs.audio',
+                sort_on='getObjPositionInParent',
+                path={'query': folder_path,
+                      'depth': 1})
+            if values:
+                results = []
+                for obj in values:
+                    audio = obj.getObject().file
+                    results.append(dict(title=obj.Title,
+                                        absolute_url=obj.getURL(),
+                                        download_url=self.context.absolute_url() + '/@@download/file/' + audio.filename,
+                                        content_type=audio.contentType))
+                return results
         else:
-            return False
+            if self.context.info_firma['audios']:
+                results = []
+                for pos in self.context.info_firma['audios']:
+                    audio = self.context.info_firma['audios'][pos]
+                    results.append(dict(title=audio['title'],
+                                        absolute_url=self.context.absolute_url() + '/viewAudio?pos=' + str(pos),
+                                        download_url=self.context.absolute_url() + '/downloadAudio?pos=' + str(pos),
+                                        content_type=audio['contentType']))
+                return results
+
+        return False
 
     def AnnexInside(self):
         """ Retorna els fitxers annexos creats aquí dintre (sense tenir compte estat)
         """
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        portal_catalog = api.portal.get_tool(name='portal_catalog')
-        values = portal_catalog.searchResults(
-            portal_type='genweb.organs.annex',
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
-        if values:
-            results = []
-            for obj in values:
-                results.append(dict(title=obj.Title,
-                                    absolute_url=obj.getURL(),
-                                    file=obj.getObject().file))
-            return results
+        if not self.hasFirma():
+            folder_path = '/'.join(self.context.getPhysicalPath())
+            portal_catalog = api.portal.get_tool(name='portal_catalog')
+            values = portal_catalog.searchResults(
+                portal_type='genweb.organs.annex',
+                sort_on='getObjPositionInParent',
+                path={'query': folder_path,
+                      'depth': 1})
+            if values:
+                results = []
+                for obj in values:
+                    annex = obj.getObject().file
+                    results.append(dict(title=obj.Title,
+                                        absolute_url=obj.getURL(),
+                                        download_url=self.context.absolute_url() + '/@@download/file/' + annex.filename,
+                                        filename=annex.filename,
+                                        sizeKB=annex.getSize() / 1024))
+                return results
         else:
-            return False
+            if 'adjunts' in self.context.info_firma and self.context.info_firma['adjunts']:
+                results = []
+                for pos in self.context.info_firma['adjunts']:
+                    annex = self.context.info_firma['adjunts'][pos]
+                    results.append(dict(title=annex['title'],
+                                        absolute_url=self.context.absolute_url() + '/viewFile?pos=' + str(pos),
+                                        download_url=self.context.absolute_url() + '/downloadFile?pos=' + str(pos),
+                                        filename=annex['filename'],
+                                        sizeKB=annex['sizeKB']))
+                return results
+
+        return False
+
+    def getGdDocActa(self):
+        if not isinstance(self.context.info_firma, dict):
+            self.context.info_firma = ast.literal_eval(self.context.info_firma)
+
+        if self.context.info_firma and self.context.info_firma['acta'] != {}:
+            return {'filename': self.context.info_firma['acta']['filename'],
+                    'sizeKB': self.context.info_firma['acta']['sizeKB']}
 
 
 class Edit(dexterity.EditForm):

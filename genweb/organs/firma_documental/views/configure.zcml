@@ -1,0 +1,49 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser">
+
+  <!-- Acta -->
+
+  <browser:page
+    name="signActa"
+    for="genweb.organs.content.acta.IActa"
+    class=".acta.SignActa"
+    permission="genweb.organs.firmadocumental.sign"/>
+
+  <browser:page
+    name="viewActa"
+    for="genweb.organs.content.acta.IActa"
+    class=".acta.ViewActa"
+    permission="genweb.organs.firmadocumental.view"/>
+
+  <browser:page
+    name="downloadActa"
+    for="genweb.organs.content.acta.IActa"
+    class=".acta.DownloadActa"
+    permission="genweb.organs.firmadocumental.view"/>
+
+  <browser:page
+    name="viewFile"
+    for="genweb.organs.content.acta.IActa"
+    class=".acta.ViewFile"
+    permission="genweb.organs.firmadocumental.view"/>
+
+  <browser:page
+    name="downloadFile"
+    for="genweb.organs.content.acta.IActa"
+    class=".acta.DownloadFile"
+    permission="genweb.organs.firmadocumental.view"/>
+
+  <browser:page
+    name="viewAudio"
+    for="genweb.organs.content.acta.IActa"
+    class=".acta.ViewAudio"
+    permission="genweb.organs.firmadocumental.view"/>
+
+  <browser:page
+    name="downloadAudio"
+    for="genweb.organs.content.acta.IActa"
+    class=".acta.DownloadAudio"
+    permission="genweb.organs.firmadocumental.view"/>
+
+</configure>

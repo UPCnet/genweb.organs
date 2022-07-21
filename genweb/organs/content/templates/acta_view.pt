@@ -8,19 +8,20 @@
 <body>
 
 <metal:content-core fill-slot="content-core"
-       tal:define="membresConvocats context/membresConvocats;
-                   membresConvidats context/membresConvidats;
-                   llistaExcusats context/llistaExcusats;
-                   llistaNoAssistens context/llistaNoAssistens;
-                   assistents context/assistents;
-                   ordenDelDia context/ordenDelDia;
-                   llocConvocatoria context/llocConvocatoria;
-                   horaFi view/horaFi;
-                   horaInici view/horaInici;
-                   audio view/AudioInside;
-                   annexes view/AnnexInside;
-                   enllacVideo context/enllacVideo;
-                   absolute_url context/absolute_url;">
+  tal:define="membresConvocats context/membresConvocats;
+              membresConvidats context/membresConvidats;
+              llistaExcusats context/llistaExcusats;
+              llistaNoAssistens context/llistaNoAssistens;
+              assistents context/assistents;
+              ordenDelDia context/ordenDelDia;
+              llocConvocatoria context/llocConvocatoria;
+              horaFi view/horaFi;
+              horaInici view/horaInici;
+              audio view/AudioInside;
+              annexes view/AnnexInside;
+              enllacVideo context/enllacVideo;
+              absolute_url context/absolute_url;
+              hasFirma view/hasFirma;">
 
 <tal:block tal:condition="view/canView">
 
@@ -47,6 +48,15 @@
         <button class="btn" data-dismiss="modal" aria-hidden="true"><span i18n:translate="">Tancar</span></button>
       </div>
     </div>
+
+    <tal:block tal:condition="hasFirma">
+
+      <span tal:define="estatFirma view/estatFirma"
+            tal:attributes="class string:badge badge-pill estatFirma ${estatFirma}"
+            tal:content="estatFirma">PENDENT_SIGNANTS</span>
+
+    </tal:block>
+
     <a class="btn btn-info btnActa" style="float:right;"
     tal:attributes="href string:javascript:printPage(iframe);">
         <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
@@ -97,7 +107,7 @@
                 <ol style="float:right;">
                   <i class="fa fa-file-audio-o" aria-hidden="true"></i>
                   <tal:audio tal:define="content_type item/audio/contentType|nothing;
-                                        download_url string:${item/absolute_url}/@@download/file/${item/audio/filename}">
+                                         download_url string:${item/absolute_url}/@@download/file/${item/audio/filename}">
                     <a href="#"
                       tal:attributes="href item/absolute_url;"
                       tal:content="item/title">Audio filename
@@ -167,31 +177,92 @@
 
   <br/>
 
+  <tal:block tal:condition="not:hasFirma">
+    <ta:block tal:condition="annexes">
+      <tal:block tal:define="multiple_annexes python:len(annexes)>1">
+        <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
+        <h3 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
+      </tal:block>
+      <tal:documents repeat="item annexes">
+        <div tal:define="public_file_download_url string:${item/absolute_url}/@@download/file/${item/filename};
+                         public_file_view_url string:${item/absolute_url}/@@display-file/file/;">
+          <p>
+            <a tal:attributes="href public_file_view_url">
+              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+              <tal:name tal:content="item/filename">Filename</tal:name>
+            </a>
+            <span class="discreet">
+              &mdash; <span tal:replace="item/sizeKB" /> KB</span>
+              <a tal:attributes="href public_file_download_url">
+                <i class="fa fa-download" aria-hidden="true"></i>
+              </a>
+          </p>
+        </div>
+      </tal:documents>
+    </ta:block>
 
-  <ta:block tal:condition="annexes">
-    <tal:block tal:define="multiple_annexes python:len(annexes)>1">
-      <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
-      <h3 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
-    </tal:block>
-    <tal:documents repeat="item annexes">
-      <div tal:define="public_file_download_url string:${item/absolute_url}/@@download/file/${item/file/filename};
-                       public_file_view_url string:${item/absolute_url}/@@display-file/file/;">
+    <ta:block tal:condition="context/acta">
+      <div tal:define="public_acta_download_url string:${absolute_url}/@@download/acta/${context/acta/filename};
+                       public_acta_view_url string:${absolute_url}/@@display-file/acta/;">
+        <h3 i18n:translate="">Acta PDF</h3>
         <p>
-          <a tal:attributes="href public_file_view_url">
+          <a tal:attributes="href public_acta_view_url">
             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-            <tal:name tal:content="item/file/filename">Filename</tal:name>
+            <tal:name tal:content="context/acta/filename">Filename</tal:name>
           </a>
           <span class="discreet"
-              tal:define="size item/file/getSize;
+              tal:define="size context/acta/getSize;
                           kb python:size/1024">
-            &mdash; <span tal:replace="kb" /> KB</span>
-            <a tal:attributes="href public_file_download_url">
+            &mdash; <span tal:replace="context/acta/getSize" /> KB</span>
+            <a tal:attributes="href public_acta_download_url">
               <i class="fa fa-download" aria-hidden="true"></i>
             </a>
         </p>
       </div>
-    </tal:documents>
-  </ta:block>
+    </ta:block>
+  </tal:block>
+
+  <tal:block tal:condition="hasFirma" tal:define="acta view/getGdDocActa">
+    <ta:block tal:condition="annexes">
+      <tal:block tal:define="multiple_annexes python:len(annexes)>1">
+        <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
+        <h3 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
+      </tal:block>
+      <tal:documents repeat="item annexes">
+        <div tal:define="public_file_download_url item/download_url;
+                         public_file_view_url item/absolute_url">
+          <p>
+            <a tal:attributes="href public_file_view_url">
+              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+              <tal:name tal:content="item/filename">Filename</tal:name>
+            </a>
+            <span class="discreet">
+              &mdash; <span tal:replace="item/sizeKB" /> KB</span>
+              <a tal:attributes="href public_file_download_url">
+                <i class="fa fa-download" aria-hidden="true"></i>
+              </a>
+          </p>
+        </div>
+      </tal:documents>
+    </ta:block>
+
+    <div tal:define="public_acta_download_url string:${absolute_url}/downloadActa;
+                     public_acta_view_url string:${absolute_url}/viewActa;">
+      <h3 i18n:translate="">Acta PDF</h3>
+      <p>
+        <a tal:attributes="href public_acta_view_url">
+          <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+          <tal:name tal:content="acta/filename">Filename</tal:name>
+        </a>
+        <span class="discreet"
+            tal:define="kb acta/sizeKB">
+          &mdash; <span tal:replace="kb" /> KB</span>
+          <a tal:attributes="href public_acta_download_url">
+            <i class="fa fa-download" aria-hidden="true"></i>
+          </a>
+      </p>
+    </div>
+  </tal:block>
 
 
 </tal:block>

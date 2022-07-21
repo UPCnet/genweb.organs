@@ -31,4 +31,14 @@
   </index>
   <column value="index_estatVotacio"/>
 
+  <index name="idFirma" meta_type="FieldIndex">
+    <indexed_attr value="idFirma"/>
+  </index>
+  <column value="idFirma"/>
+
+  <index name="estatFirma" meta_type="FieldIndex">
+    <indexed_attr value="estatFirma"/>
+  </index>
+  <column value="estatFirma"/>
+
 </object>

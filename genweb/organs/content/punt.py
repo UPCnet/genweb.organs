@@ -18,6 +18,7 @@ from zope.schema.interfaces import IContextSourceBinder
 
 from genweb.organs import _
 from genweb.organs import utils
+from genweb.organs.firma_documental.utils import UtilsFirmaDocumental
 
 import unicodedata
 
@@ -110,7 +111,7 @@ class Edit(dexterity.EditForm):
     grok.context(IPunt)
 
 
-class View(grok.View):
+class View(grok.View, UtilsFirmaDocumental):
     grok.context(IPunt)
     grok.template('punt+subpunt_view')
 
