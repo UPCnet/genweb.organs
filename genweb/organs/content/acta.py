@@ -10,6 +10,7 @@ from plone.autoform import directives
 from plone.directives import dexterity
 from plone.directives import form
 from plone.event.interfaces import IEventAccessor
+from plone.namedfile.field import NamedBlobFile
 from plone.supermodel.directives import fieldset
 from zope import schema
 
@@ -28,7 +29,7 @@ class IActa(form.Schema):
     fieldset('acta',
              label=_(u'Tab acta'),
              fields=['title', 'horaInici', 'horaFi', 'llocConvocatoria',
-                     'ordenDelDia', 'enllacVideo']
+                     'ordenDelDia', 'enllacVideo', 'acta']
              )
 
     fieldset('assistents',
@@ -100,6 +101,12 @@ class IActa(form.Schema):
     enllacVideo = schema.TextLine(
         title=_(u"Video link"),
         description=_(u"If you want to add a video file, not a url, there is a trick, you must add an Audio Type and leave this field empty."),
+        required=False,
+    )
+
+    acta = NamedBlobFile(
+        title=_(u"Acta PDF"),
+        description=_(u"Acta PDF file description"),
         required=False,
     )
 
