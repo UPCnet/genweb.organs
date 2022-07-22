@@ -3,7 +3,7 @@ from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
 from genweb.organs.firma_documental.controlpanel import IFirmaDocumentalSettings
-from genweb.organs.utils import get_organ
+from genweb.organs import utils
 
 import ast
 import json
@@ -15,7 +15,7 @@ def get_settings_firma_documental():
 
 
 def is_valid_serie_gdoc(self):
-    organ = get_organ(self.context)
+    organ = utils.get_organ(self.context)
     if organ.visiblegdoc:
         firma_settings = get_settings_firma_documental()
         try:
@@ -71,3 +71,11 @@ class UtilsFirmaDocumental():
             return self.context.estat_firma.lower()
         else:
             return 'pendent'
+
+    def checkSerieGDoc(self):
+        if utils.isManager(self) or utils.isSecretari(self):
+            return is_valid_serie_gdoc(self)
+
+        return {'visible_gdoc': False,
+                'valid_serie': False,
+                'msg_error': ''}

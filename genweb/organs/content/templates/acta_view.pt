@@ -21,20 +21,44 @@
               annexes view/AnnexInside;
               enllacVideo context/enllacVideo;
               absolute_url context/absolute_url;
-              hasFirma view/hasFirma;">
+              hasFirma view/hasFirma;
+              checkSerieGDoc view/checkSerieGDoc;">
 
 <tal:block tal:condition="view/canView">
 
-    <script type="text/javascript">
-      function printPage(newWindow){
-        newWindow.focus('printActa');
-        newWindow.print('printActa');
+  <script type="text/javascript">
+    function printPage(newWindow){
+      newWindow.focus('printActa');
+      newWindow.print('printActa');
     }
   </script>
 
  <iframe name="iframe" id="iframe" width="1" height="1" src="printActa"></iframe>
 
   <tal:omit-tag>
+
+    <tal:block tal:condition="checkSerieGDoc/visible_gdoc">
+      <div class="alert alert-error" role="alert" tal:condition="not:checkSerieGDoc/valid_serie">
+        <button data-dismiss="alert" class="close" type="button">×</button>
+        <strong>Error</strong>
+        <span tal:content="checkSerieGDoc/msg_error"></span>
+      </div>
+    </tal:block>
+
+    <tal:block tal:condition="not:checkSerieGDoc/visible_gdoc">
+      <div class="alert alert-error" role="alert" tal:condition="checkSerieGDoc/msg_error">
+        <button data-dismiss="alert" class="close" type="button">×</button>
+        <strong>Error</strong>
+        <span tal:content="checkSerieGDoc/msg_error"></span>
+      </div>
+    </tal:block>
+
+    <div id="infoSend" class="alert alert-warning" role="alert">
+      <button data-dismiss="alert" class="close" type="button">×</button>
+      <strong>Info</strong>
+      <span>Aquesta acció pot trigar una estona. El procés de signatura continuarà independentment de que aquesta pantalla pugui donar timeout. Si en uns minuts torneu a aquesta pàgina apareixerà l'estat de l'acta ja processada en el portafirmes.</span>
+    </div>
+
     <div class="modal fade hide previewModal" id="previewModal" tabindex="-1" role="dialog"
          aria-labelledby="previewModalLabel" aria-hidden="true" data-remote="previewActa">
       <div class="modal-header">
@@ -55,6 +79,15 @@
             tal:attributes="class string:badge badge-pill estatFirma ${estatFirma}"
             tal:content="estatFirma">PENDENT_SIGNANTS</span>
 
+    </tal:block>
+
+    <tal:block tal:condition="not:hasFirma">
+      <tal:block tal:condition="checkSerieGDoc/visible_gdoc">
+        <a id="signActa" class="btn btn-info btnActa" style="float:right;" href="signActa"
+           tal:condition="checkSerieGDoc/valid_serie">
+            <i class="fa fa-arrow-right"></i>&nbsp;<span i18n:translate="">Enviar acta a signar</span>
+        </a>
+      </tal:block>
     </tal:block>
 
     <a class="btn btn-info btnActa" style="float:right;"
@@ -264,6 +297,18 @@
     </div>
   </tal:block>
 
+  <div id="miniLoaderScreen">
+    <div class="loaderBorder">
+      <div class="loader"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $('#signActa').on('click', function(){
+      $('#infoSend').show();
+      $('#miniLoaderScreen').show();
+    });
+  </script>
 
 </tal:block>
 </metal:content-core>
