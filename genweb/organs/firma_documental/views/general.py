@@ -1,8 +1,16 @@
 # -*- coding: utf-8 -*-
+from Products.Five.browser import BrowserView
+
+from plone import api
+
 from genweb.organs import _
 from genweb.organs.firma_documental import utils
 
+import json
+import logging
 import requests
+
+logger = logging.getLogger(__name__)
 
 
 def getCopiaAutentica(self, uuid):
@@ -71,3 +79,24 @@ def downloadGDoc(self, uuid, contentType, filename):
             return copia_autentica
 
         return self.request.response.redirect(self.context.absolute_url())
+
+
+class UpdateInfoPortafirmes(BrowserView):
+
+    def __call__(self):
+        try:
+            body = json.loads(self.request['BODY'])
+            if body:
+                idFirma = body['idPeticio']
+                newEstatFirma = body['estatPeticio']
+
+                portal_catalog = api.portal.get_tool(name='portal_catalog')
+                firma = portal_catalog.searchResults(id_firma=idFirma)
+                if firma:
+                    firma = firma[0].getObject()
+
+                    if firma.estat_firma != newEstatFirma:
+                        firma.estat_firma = newEstatFirma
+                        firma.reindexObject()
+        except:
+            logger.info("ERROR updateInfoPortafirmes")

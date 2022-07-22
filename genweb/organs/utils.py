@@ -464,7 +464,42 @@ def get_settings_property(property_id):
 
 def get_organ(context):
     from genweb.organs.content.organgovern import IOrgangovern
-    for obj in aq_chain(context):
-        if IOrgangovern.providedBy(obj):
-            return obj
+    if IOrgangovern.providedBy(context):
+        return context
+    else:
+        portal_state = context.unrestrictedTraverse('@@plone_portal_state')
+        root = getNavigationRootObject(context, portal_state.portal())
+        physical_path = aq_inner(context).getPhysicalPath()
+        relative = physical_path[len(root.getPhysicalPath()):]
+        for i in range(len(relative)):
+            now = relative[:i + 1]
+            obj = aq_inner(root.unrestrictedTraverse(now))
+            if IOrgangovern.providedBy(obj):
+                return obj
     return None
+
+
+def get_session(context):
+    from genweb.organs.content.sessio import ISessio
+    if ISessio.providedBy(context):
+        return context
+    else:
+        portal_state = context.unrestrictedTraverse('@@plone_portal_state')
+        root = getNavigationRootObject(context, portal_state.portal())
+        physical_path = aq_inner(context).getPhysicalPath()
+        relative = physical_path[len(root.getPhysicalPath()):]
+        for i in range(len(relative)):
+            now = relative[:i + 1]
+            obj = aq_inner(root.unrestrictedTraverse(now))
+            if ISessio.providedBy(obj):
+                return obj
+    return None
+
+
+def getLdapUserData(user, typology=None):
+    acl_users = api.portal.get_tool(name='acl_users')
+    if not typology:
+        search_result = acl_users.searchUsers(id=user, exactMatch=True)
+    else:
+        search_result = acl_users.searchUsers(id=user, exactMatch=True, typology=typology)
+    return search_result
