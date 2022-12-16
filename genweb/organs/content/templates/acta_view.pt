@@ -255,7 +255,7 @@
     </ta:block>
   </tal:block>
 
-  <tal:block tal:condition="hasFirma" tal:define="acta view/getGdDocActa">
+  <tal:block tal:condition="hasFirma" tal:define="acta view/getPFDActa">
     <ta:block tal:condition="annexes">
       <tal:block tal:define="multiple_annexes python:len(annexes)>1">
         <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>

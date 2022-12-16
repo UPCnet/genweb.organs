@@ -104,6 +104,7 @@ class IActa(form.Schema):
         required=False,
     )
 
+    form.mode(acta='hidden')
     acta = NamedBlobFile(
         title=_(u"Acta PDF"),
         description=_(u"Acta PDF file description"),
@@ -335,7 +336,7 @@ class View(dexterity.DisplayForm, UtilsFirmaDocumental):
 
         return False
 
-    def getGdDocActa(self):
+    def getPFDActa(self):
         if not isinstance(self.context.info_firma, dict):
             self.context.info_firma = ast.literal_eval(self.context.info_firma)
 
