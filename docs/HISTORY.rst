@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.57 (unreleased)
+0.57 (2022-12-19)
 -----------------
 
-- Nothing changed yet.
-
+* Permisos canView Butlleti [Iago López Fernández]
+* Fix refreshNeeded session [Iago López]
 
 0.56 (2022-07-11)
 -----------------
