@@ -3,6 +3,7 @@ from AccessControl import Unauthorized
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
+from Products.statusmessages.interfaces import IStatusMessage
 
 from cgi import escape
 from collective import dexteritytextindexer
@@ -382,6 +383,10 @@ class FavorVote(grok.View):
     grok.require('genweb.organs.add.vote')
 
     def render(self):
+        if self.context.estatVotacio == 'close':
+            IStatusMessage(self.request).addStatusMessage(_(u'La votació ja està tancada, el seu vot no s\'ha registrat.'), 'error')
+            return
+
         if not isinstance(self.context.infoVotacio, dict):
             self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
 
@@ -399,6 +404,10 @@ class AgainstVote(grok.View):
     grok.require('genweb.organs.add.vote')
 
     def render(self):
+        if self.context.estatVotacio == 'close':
+            IStatusMessage(self.request).addStatusMessage(_(u'La votació ja està tancada, el seu vot no s\'ha registrat.'), 'error')
+            return
+
         if not isinstance(self.context.infoVotacio, dict):
             self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
 
@@ -416,6 +425,10 @@ class WhiteVote(grok.View):
     grok.require('genweb.organs.add.vote')
 
     def render(self):
+        if self.context.estatVotacio == 'close':
+            IStatusMessage(self.request).addStatusMessage(_(u'La votació ja està tancada, el seu vot no s\'ha registrat.'), 'error')
+            return
+
         if not isinstance(self.context.infoVotacio, dict):
             self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
 
