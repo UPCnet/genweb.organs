@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.58 (unreleased)
+0.58 (2023-02-20)
 -----------------
 
-- Nothing changed yet.
-
+* Controlar que no se pueda votar si la votación a sido cerrada [Iago López]
 
 0.57 (2022-12-19)
 -----------------
