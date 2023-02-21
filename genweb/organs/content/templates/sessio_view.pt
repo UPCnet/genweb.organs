@@ -1508,31 +1508,49 @@ Fi: ${vote/hourClose}"></span>
 
   $(".notVote .favor").on('click', function(){
     $.ajax({
-            type: 'POST',
-            url: $(this).attr('data-id') + '/favorVote',
-            success: function(){
-              refreshNeeded = true;
-            },
+      type: 'POST',
+      url: $(this).attr('data-id') + '/favorVote',
+      success: function(result){
+        result = JSON.parse(result)
+        if (result.status == "success") {
+          refreshNeeded = true;
+        } else {
+          alert(result.msg);
+          refreshNeeded = true;
+        }
+      },
     });
   });
 
   $(".notVote .against").on('click', function(){
     $.ajax({
-            type: 'POST',
-            url: $(this).attr('data-id') + '/againstVote',
-            success: function(){
-              refreshNeeded = true;
-            },
+      type: 'POST',
+      url: $(this).attr('data-id') + '/againstVote',
+      success: function(result){
+        result = JSON.parse(result)
+        if (result.status == "success") {
+          refreshNeeded = true;
+        } else {
+          alert(result.msg);
+          refreshNeeded = true;
+        }
+      },
     });
   });
 
   $(".notVote .white").on('click', function(){
     $.ajax({
-            type: 'POST',
-            url: $(this).attr('data-id') + '/whiteVote',
-            success: function(){
-              refreshNeeded = true;
-            },
+      type: 'POST',
+      url: $(this).attr('data-id') + '/whiteVote',
+      success: function(result){
+        result = JSON.parse(result)
+        if (result.status == "success") {
+          refreshNeeded = true;
+        } else {
+          alert(result.msg);
+          refreshNeeded = true;
+        }
+      },
     });
   });
 

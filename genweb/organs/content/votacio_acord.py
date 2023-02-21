@@ -4,7 +4,6 @@ from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.statusmessages.interfaces import IStatusMessage
 
 from cgi import escape
 from email.mime.multipart import MIMEMultipart
@@ -25,6 +24,7 @@ from genweb.organs.utils import addEntryLog
 
 import ast
 import datetime
+import json
 import transaction
 
 
@@ -117,8 +117,7 @@ class FavorVote(grok.View):
 
     def render(self):
         if self.context.estatVotacio == 'close':
-            IStatusMessage(self.request).addStatusMessage(_(u'La votació ja està tancada, el seu vot no s\'ha registrat.'), 'error')
-            return
+            return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
 
         if not isinstance(self.context.infoVotacio, dict):
             self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
@@ -129,6 +128,9 @@ class FavorVote(grok.View):
             self.context.reindexObject()
             transaction.commit()
             sendVoteEmail(self.context, 'a favor')
+            return json.dumps({"status": 'success', "msg": ''})
+
+        return json.dumps({"status": 'error', "msg": _(u'Ja té un vot registrat, no pot votar dues vegades.')})
 
 
 class AgainstVote(grok.View):
@@ -138,8 +140,7 @@ class AgainstVote(grok.View):
 
     def render(self):
         if self.context.estatVotacio == 'close':
-            IStatusMessage(self.request).addStatusMessage(_(u'La votació ja està tancada, el seu vot no s\'ha registrat.'), 'error')
-            return
+            return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
 
         if not isinstance(self.context.infoVotacio, dict):
             self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
@@ -150,6 +151,9 @@ class AgainstVote(grok.View):
             self.context.reindexObject()
             transaction.commit()
             sendVoteEmail(self.context, 'en contra')
+            return json.dumps({"status": 'success', "msg": ''})
+
+        return json.dumps({"status": 'error', "msg": _(u'Ja té un vot registrat, no pot votar dues vegades.')})
 
 
 class WhiteVote(grok.View):
@@ -159,8 +163,7 @@ class WhiteVote(grok.View):
 
     def render(self):
         if self.context.estatVotacio == 'close':
-            IStatusMessage(self.request).addStatusMessage(_(u'La votació ja està tancada, el seu vot no s\'ha registrat.'), 'error')
-            return
+            return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
 
         if not isinstance(self.context.infoVotacio, dict):
             self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
@@ -171,6 +174,9 @@ class WhiteVote(grok.View):
             self.context.reindexObject()
             transaction.commit()
             sendVoteEmail(self.context, 'en blanc')
+            return json.dumps({"status": 'success', "msg": ''})
+
+        return json.dumps({"status": 'error', "msg": _(u'Ja té un vot registrat, no pot votar dues vegades.')})
 
 
 def sendVoteEmail(context, vote):
