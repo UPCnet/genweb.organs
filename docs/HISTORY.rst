@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.59 (unreleased)
+0.59 (2023-02-22)
 -----------------
 
-- Nothing changed yet.
-
+* Fix None in mail_convocar [Iago López]
+* Mejora del aviso: Controlar que no se pueda votar si la votación a sido cerrada [Iago López]
 
 0.58 (2023-02-20)
 -----------------
