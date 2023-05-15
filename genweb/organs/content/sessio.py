@@ -37,7 +37,8 @@ grok.templatedir("templates")
 sessionModalities = SimpleVocabulary(
     [SimpleTerm(value=u'attended', title=_(u'attended')),
      SimpleTerm(value=u'mixed', title=_(u'mixed')),
-     SimpleTerm(value=u'distance', title=_(u'distance'))]
+     SimpleTerm(value=u'distance', title=_(u'distance')),
+     SimpleTerm(value=u'asynchronous', title=_(u'asynchronous'))]
 )
 
 
