@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.60 (unreleased)
+0.60 (2023-05-15)
 -----------------
 
-- Nothing changed yet.
-
+* [ADD] Añadir nueva modalidad de reunión de la sessión [Iago López]
 
 0.59 (2023-02-22)
 -----------------
