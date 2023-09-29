@@ -1,11 +1,33 @@
 Changelog
 =========
 
-0.57 (unreleased)
+0.61 (unreleased)
 -----------------
 
 - Nothing changed yet.
 
+
+0.60 (2023-05-15)
+-----------------
+
+* [ADD] Añadir nueva modalidad de reunión de la sessión [Iago López]
+
+0.59 (2023-02-22)
+-----------------
+
+* Fix None in mail_convocar [Iago López]
+* Mejora del aviso: Controlar que no se pueda votar si la votación a sido cerrada [Iago López]
+
+0.58 (2023-02-20)
+-----------------
+
+* Controlar que no se pueda votar si la votación a sido cerrada [Iago López]
+
+0.57 (2022-12-19)
+-----------------
+
+* Permisos canView Butlleti [Iago López Fernández]
+* Fix refreshNeeded session [Iago López]
 
 0.56 (2022-07-11)
 -----------------

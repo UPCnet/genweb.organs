@@ -630,9 +630,9 @@ class Butlleti(BrowserView):
         if organ_tipus == 'open_organ':
             if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
-            elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+            elif estatSessio == 'convocada':
                 return True
-            elif estatSessio == 'realitzada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+            elif estatSessio == 'realitzada':
                 return True
             elif estatSessio == 'tancada':
                 return True

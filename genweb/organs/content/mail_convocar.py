@@ -213,14 +213,14 @@ class Message(form.SchemaForm):
             bodyMail = str(moreData) + str(introData)
 
         self.widgets["sender"].mode = DISPLAY_MODE
-        self.widgets["sender"].value = str(organ.fromMail)
+        self.widgets["sender"].value = str(organ.fromMail) if organ.fromMail else ""
         self.widgets["fromTitle"].value = fromMessage
-        self.widgets["recipients"].value = str(organ.adrecaLlista)
+        self.widgets["recipients"].value = str(organ.adrecaLlista) if organ.adrecaLlista else ""
         self.widgets["message"].value = bodyMail
 
-        self.widgets["membresConvocats"].value = str(organ.membresOrgan)
-        self.widgets["membresConvidats"].value = str(organ.convidatsPermanentsOrgan)
-        self.widgets["adrecaAfectatsLlista"].value = str(organ.adrecaAfectatsLlista)
+        self.widgets["membresConvocats"].value = str(organ.membresOrgan) if organ.membresOrgan else ""
+        self.widgets["membresConvidats"].value = str(organ.convidatsPermanentsOrgan) if organ.convidatsPermanentsOrgan else ""
+        self.widgets["adrecaAfectatsLlista"].value = str(organ.adrecaAfectatsLlista) if organ.adrecaAfectatsLlista else ""
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):
