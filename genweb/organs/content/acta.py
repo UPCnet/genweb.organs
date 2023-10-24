@@ -20,6 +20,8 @@ from genweb.organs.firma_documental.utils import UtilsFirmaDocumental
 
 import ast
 
+import transaction
+
 grok.templatedir("templates")
 
 
@@ -337,6 +339,11 @@ class View(dexterity.DisplayForm, UtilsFirmaDocumental):
         return False
 
     def getPFDActa(self):
+        if not hasattr(self.context, 'info_firma'):
+            self.context.info_firma = {}
+            transaction.commit()
+            self.context.reindexObject()
+        
         if not isinstance(self.context.info_firma, dict):
             self.context.info_firma = ast.literal_eval(self.context.info_firma)
 

@@ -25,10 +25,10 @@ class IFirmaDocumental(model.Schema):
     directives.omitted('info_firma')
     info_firma = schema.Text(title=u'', required=False, default=u'{}')
 
-    directives.omitted('id_firma')
+    # TODO: directives.omitted('id_firma')
     id_firma = schema.TextLine(title=u'', required=False, default=u'')
 
-    directives.omitted('estat_firma')
+    # TODO: directives.omitted('estat_firma')
     estat_firma = schema.TextLine(title=u'', required=False, default=u'')
 
 
