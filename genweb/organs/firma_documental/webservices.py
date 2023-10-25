@@ -135,14 +135,7 @@ class ClientFirma(object):
 
         return res
 
-counter = 0
-
 def uploadFileGdoc(expedient, file, is_acta=False):
-    global counter
-    if counter > 0:
-        raise ClientFirmaException('http://localhost:8080', 'Test error')
-    counter += 1
-
     if not isinstance(file, dict):
         file = {'fitxer': (file.filename, file.open().read(), file.contentType)}
 
