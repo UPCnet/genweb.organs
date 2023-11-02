@@ -1214,6 +1214,12 @@ class View(grok.View):
 
         return False
 
+    def canViewSignButton(self):
+        estatSessio = utils.session_wf_state(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        import ipdb; ipdb.set_trace()
+        return estatSessio == 'tancada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles)
 
 class OpenQuorum(grok.View):
     grok.context(ISessio)

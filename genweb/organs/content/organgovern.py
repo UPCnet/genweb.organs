@@ -214,6 +214,11 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
+    form.widget('signants_docs', SelectUsersInputFieldWidget)
+    signants_docs = schema.TextLine(
+        title=_(u'Signants Documentació'),
+        required=False,
+    )
 
 @indexer(IOrgangovern)
 def organType(obj):
