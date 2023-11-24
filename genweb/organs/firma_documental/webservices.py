@@ -96,7 +96,7 @@ class ClientFirma(object):
                     "signants": [{"commonName": signant}]
                 } for signant in signants],
             "promocionar": "S",
-            "codiCategoria": "CAT6",
+            "codiCategoria": "CAT43",
             "codiTipusSignatura": "ATTACHED_VISIBLE_MARGE",
             "dataLimit": (datetime.datetime.now() + datetime.timedelta(days=1)).strftime("%d-%m-%Y %H:%M:00"),
             "emissor": "Govern UPC",
@@ -135,9 +135,10 @@ class ClientFirma(object):
 
         return res
 
-def uploadFileGdoc(expedient, file, is_acta=False):
+
+def uploadFileGdoc(expedient, file, filename=None, is_acta=False):
     if not isinstance(file, dict):
-        file = {'fitxer': (file.filename, file.open().read(), file.contentType)}
+        file = {'fitxer': (filename or file.filename, file.open().read(), file.contentType)}
 
     client = ClientFirma()
 
@@ -147,7 +148,7 @@ def uploadFileGdoc(expedient, file, is_acta=False):
         content_file = client.uploadFitxerGDoc(expedient=expedient, fitxer=file, is_acta=is_acta)
         logger.info("S'ha creat correctament el fitxer")
 
-        upload_setp = 'getInfoElement'
+        upload_step = 'getInfoElement'
         logger.info('Petició per demanar el uuid del fitxer')
         content_info_file = client.getInfoElement(content_file['idElementCreat'])
         logger.info("S'ha obtingut correctament el uuid del fitxer")

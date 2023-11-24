@@ -21,7 +21,8 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 from genweb.organs import _
 from genweb.organs import utils
-from genweb.organs.z3cwidget import SelectUsersInputFieldWidget # TODO condicional en caso que el todo de abajo se quite
+from genweb.organs.z3cwidget import SelectUsersActaInputFieldWidget
+from genweb.organs.z3cwidget import SelectUsersOtherInputFieldWidget
 
 import csv
 import transaction
@@ -65,7 +66,7 @@ class IOrgangovern(form.Schema):
 
     fieldset('gdoc',
              label=_(u'GDoc'),
-             fields=['visiblegdoc', 'serie', 'signants'],
+             fields=['visiblegdoc', 'serie', 'signants_acta', 'signants_other'],
              )
 
     dexterity.write_permission(title='genweb.webmaster')
@@ -208,17 +209,18 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
-    form.widget('signants', SelectUsersInputFieldWidget)
-    signants = schema.TextLine(
-        title=_(u'Signants'),
+    form.widget('signants_acta', SelectUsersActaInputFieldWidget)
+    signants_acta = schema.TextLine(
+        title=_(u'Signants Acta'),
         required=False,
     )
 
-    form.widget('signants_docs', SelectUsersInputFieldWidget)
-    signants_docs = schema.TextLine(
-        title=_(u'Signants Documentació'),
+    form.widget('signants_other', SelectUsersOtherInputFieldWidget)
+    signants_other = schema.TextLine(
+        title=_(u'Signants Altre Documentació'),
         required=False,
     )
+
 
 @indexer(IOrgangovern)
 def organType(obj):

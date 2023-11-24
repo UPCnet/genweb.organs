@@ -4,7 +4,7 @@
      i18n:domain="genweb.organs">
 
   <input type="text" autocomplete="no" readonly
-         id="form-widgets-select_users"
+         id="form-widgets-select_users_acta"
          tal:attributes="name view/name;
                          class view/klass;
                          style view/style;
@@ -34,14 +34,14 @@
                          placeholder view/placeholder;
                          autocapitalize view/autocapitalize;" />
 
-  <input id="form-widgets-select_users-btn-modal" type="button"
-         data-toggle="modal" data-target="#form-widgets-select_users-modal"
+  <input id="form-widgets-select_users_acta-btn-modal" type="button"
+         data-toggle="modal" data-target="#form-widgets-select_users_acta-modal"
          i18n:attributes="value Cerca"/>
 
-  <input id="form-widgets-select_users-btn-clear" type="button"
+  <input id="form-widgets-select_users_acta-btn-clear" type="button"
          i18n:attributes="value Eliminar"/>
 
-  <div id="form-widgets-select_users-modal" class="modal fade" role="dialog">
+  <div id="form-widgets-select_users_acta-modal" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -49,21 +49,21 @@
           <h4 class="modal-title" i18n:translate="">Cerca usuari</h4>
         </div>
         <div class="modal-body">
-          <input id="form-widgets-select_users-input" type="text" autocomplete="no"
+          <input id="form-widgets-select_users_acta-input" type="text" autocomplete="no"
                  i18n:attributes="placeholder nom.cognoms"/>
 
-          <input id="form-widgets-select_users-btn" type="button"
+          <input id="form-widgets-select_users_acta-btn" type="button"
                  i18n:attributes="value Cerca"/>
 
-          <p id="form-widgets-select_users-error" i18n:translate="">
+          <p id="form-widgets-select_users_acta-error" i18n:translate="">
             <b>Error:</b> El format es incorrecte. <b>nom.cognom</b>
           </p>
 
-          <p id="form-widgets-select_users-warn" i18n:translate="">
+          <p id="form-widgets-select_users_acta-warn" i18n:translate="">
             No hi ha resultats.
           </p>
 
-          <table id="form-widgets-select_users-hint">
+          <table id="form-widgets-select_users_acta-hint">
             <thead>
               <th i18n:translate="">Usuari</th>
               <th i18n:translate="">Nom complet</th>
@@ -81,37 +81,37 @@
 
   <script type="text/javascript">
     var hideElementsSelect = function(){
-      $("#form-widgets-select_users-error").removeClass("viewError");
-      $("#form-widgets-select_users-warn").removeClass("viewWarn");
-      $("#form-widgets-select_users-hint > tbody").html("<tr><td/><td/><td/><td/><td/></tr>");
+      $("#form-widgets-select_users_acta-error").removeClass("viewError");
+      $("#form-widgets-select_users_acta-warn").removeClass("viewWarn");
+      $("#form-widgets-select_users_acta-hint > tbody").html("<tr><td/><td/><td/><td/><td/></tr>");
     }
 
     var addUser = function(user){
       parent = $(user).parent().parent();
-      if($("#form-widgets-select_users").val().length > 0){
-        $("#form-widgets-select_users").val($("#form-widgets-select_users").val() + ', ' + $(parent).children('.userid').html());
+      if($("#form-widgets-select_users_acta").val().length > 0){
+        $("#form-widgets-select_users_acta").val($("#form-widgets-select_users_acta").val() + ', ' + $(parent).children('.userid').html());
       }else{
-        $("#form-widgets-select_users").val($(parent).children('.userid').html());
+        $("#form-widgets-select_users_acta").val($(parent).children('.userid').html());
       }
 
-      $('#form-widgets-select_users-modal').modal('toggle');
+      $('#form-widgets-select_users_acta-modal').modal('toggle');
     }
 
-    $("#form-widgets-select_users-btn").on("click", function(){
+    $("#form-widgets-select_users_acta-btn").on("click", function(){
       hideElementsSelect();
       var regexUsername = new RegExp('^[a-zA-ZñÑçÇ]{1,}\\.[a-zA-Z0-9-.ñÑçÇ]{1,}$');
-      var user = $("#form-widgets-select_users-input").val();
+      var user = $("#form-widgets-select_users_acta-input").val();
       if(regexUsername.test(user)){
         $.ajax({
           type: 'POST',
-          data: { "user" : $("#form-widgets-select_users-input").val() },
+          data: { "user" : $("#form-widgets-select_users_acta-input").val() },
           url: 'getUsers',
           success: function(data){
             results = $.parseJSON(data);
             if(results != null && results.length > 0){
-              $("#form-widgets-select_users-hint > tbody").html("");
+              $("#form-widgets-select_users_acta-hint > tbody").html("");
               $.each( results, function( key, value ){
-                $("#form-widgets-select_users-hint").show();
+                $("#form-widgets-select_users_acta-hint").show();
                 field = "<tr>";
                 field += "<td class='userid'>" + value['user'] + "</td>";
                 field += "<td class='fullname'>" + value['fullname'] + "</td>";
@@ -122,20 +122,20 @@
                 field += "</a>";
                 field += "</td>";
                 field += "</tr>";
-                $("#form-widgets-select_users-hint").append(field);
+                $("#form-widgets-select_users_acta-hint").append(field);
               });
             }else{
-              $("#form-widgets-select_users-warn").addClass("viewWarn");
+              $("#form-widgets-select_users_acta-warn").addClass("viewWarn");
             }
           }
         });
       }else{
-        $("#form-widgets-select_users-error").addClass("viewError");
+        $("#form-widgets-select_users_acta-error").addClass("viewError");
       }
     });
 
-    $("#form-widgets-select_users-btn-clear").on("click", function(){
-      $("#form-widgets-select_users").val("");
+    $("#form-widgets-select_users_acta-btn-clear").on("click", function(){
+      $("#form-widgets-select_users_acta").val("");
     });
   </script>
 

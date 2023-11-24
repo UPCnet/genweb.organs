@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 class SignActa(BrowserView):
 
     def getSignants(self, organ):
-        signants = organ.signants
+        signants = organ.signants_acta
         if signants:
             return signants.split(', ')
         return None
@@ -50,7 +50,65 @@ class SignActa(BrowserView):
         except:
             pass
 
+    def getFilesSessio(self, portal_type=None):
+        if not portal_type:
+            portal_type = ['genweb.organs.file', 'genweb.organs.document']
+        else:
+            portal_type = [portal_type]
+        portal_catalog = api.portal.get_tool('portal_catalog')
+        session = utils.get_session(self.context)
+        session_path = '/'.join(session.getPhysicalPath())
+        values = portal_catalog.searchResults(
+            portal_type=portal_type,
+            sort_on='getObjPositionInParent',
+            path={'query': session_path}
+        )
+        return [(val.getObject(), val.getObject().getParentNode()) for val in values]
+
+    def uploadFilesGdoc(self, id_exp, files, save_title=False, save_size=False):
+        uploaded_files = {}
+        for idx, file_content in enumerate(files):
+            file = file_content.file if not isinstance(file_content, NamedBlobFile) else file_content
+            info_adjunt = uploadFileGdoc(id_exp, file)
+            if save_title and not isinstance(file_content, NamedBlobFile):
+                info_adjunt['title'] = file_content.title
+            if save_size and not isinstance(file_content, NamedBlobFile):
+                info_adjunt['sizeKB'] = file.getSize() / 1024
+            uploaded_files.update({str(idx): info_adjunt})
+            self.context.reindexObject()
+        return uploaded_files
+
+    def uploadFilesSessioGdoc(self, id_exp, files):
+        uploaded_files = {}
+        idx = 0
+        for file_content, parent_container in files:
+            filename_append = 'Informe sobre '
+            if parent_container.portal_type == 'genweb.organs.acord':
+                filename_append = 'Acord [%s] ' % (parent_container.agreement or 'Acord sense numerar')
+
+            if file_content.visiblefile:
+                info_file = uploadFileGdoc(
+                    expedient=id_exp,
+                    file=file_content.visiblefile,
+                    filename=('Public - ' + filename_append + file_content.visiblefile.filename)
+                )
+                uploaded_files.update({str(idx): info_file})
+                idx += 1
+
+            if file_content.hiddenfile:
+                info_file = uploadFileGdoc(
+                    expedient=id_exp,
+                    file=file_content.hiddenfile,
+                    filename=('Restringit - ' + filename_append + file_content.hiddenfile.filename)
+                )
+                info_file.update({'title': file_content.title, 'sizeKB': file_content.hiddenfile.getSize() / 1024})
+                uploaded_files.update({str(idx): info_file})
+                idx += 1
+
+        return uploaded_files
+
     def __call__(self):
+        import ipdb; ipdb.set_trace()
         error_to_msg_map = {
             'deleteSerieDocumental': {
                 'console_log': '0.ERROR. Eliminació serie documental en gdoc per tornar-la a crear.',
@@ -78,12 +136,16 @@ class SignActa(BrowserView):
                 'console_log': '6.ERROR. Puja del àudio al gdoc.',
                 'portal_msg': _(u'GDoc: No s\'ha pogut pujar el àudio: Contacta amb algun administrador de la web perquè revisi la configuració.')
             },
+            'uploadSessionFiles': {
+                'console_log': '7.ERROR. Puja dels fitxers de la sessió al gdoc.',
+                'portal_msg': _(u'GDoc: No s\'ha pogut pujar els fitxers de la sessió: Contacta amb algun administrador de la web perquè revisi la configuració.')
+            },
             'uploadURLFile': {
-                'console_log': '7.ERROR. Puja del fitxer .url al gdoc.',
+                'console_log': '8.ERROR. Puja del fitxer .url al gdoc.',
                 'portal_msg': _(u'GDoc: No s\'ha pogut pujar el fitxer .url: Contacta amb algun administrador de la web perquè revisi la configuració.')
             },
             'uploadActaPortafirmes': {
-                'console_log': '8.ERROR. Petició de la firma al portafirmes.',
+                'console_log': '9.ERROR. Petició de la firma al portafirmes.',
                 'portal_msg': _(u'Portafirmes: No s\'ha pogut enviar la petició de la firma: Contacta amb algun administrador de la web perquè revisi la configuració.'),
                 'portal_msg_supera_tamany': _(u'Portafirmes: No s\'ha pogut enviar la petició de la firma: El tamany dels fitxers supera el màxim permès.'),
                 'choose_portal_msg': lambda resp: 'portal_msg_supera_tamany' if 'tamany' in json.dumps(resp) else 'portal_msg'
@@ -144,6 +206,10 @@ class SignActa(BrowserView):
                 'adjunts': {},
                 'audios': {},
                 'url': {},
+                'sessio': {
+                    'fitxers': {},
+                    'documents': {}
+                },
                 'enviatASignar': False
             })
             self.context.reindexObject()
@@ -161,32 +227,28 @@ class SignActa(BrowserView):
             })
 
             logger.info('5. Puja dels fitxers adjunts al gdoc')
-            lista_adjunts = [key for key in self.context if self.context[key].portal_type == 'genweb.organs.annex']
             sign_step = "uploadAdjuntGDoc"
-
-            for idx, adjunt_id in enumerate(lista_adjunts):
-                annex = self.context[adjunt_id]
-                info_adjunt = uploadFileGdoc(content_exp['idElementCreat'], annex.file)
-                info_adjunt.update({
-                    'title': annex.title,
-                    'sizeKB': annex.file.getSize() / 1024
-                })
-                self.context.info_firma['adjunts'].update({str(idx): info_adjunt })
-                self.context.reindexObject()
+            lista_adjunts = [self.context[key] for key in self.context if self.context[key].portal_type == 'genweb.organs.annex']
+            self.context.info_firma['adjunts'].update(
+                self.uploadFilesGdoc(content_exp['idElementCreat'], lista_adjunts, save_title=True, save_size=True)
+            )
 
             logger.info('6. Puja dels àudios al gdoc')
-            lista_audios = [key for key in self.context if self.context[key].portal_type == 'genweb.organs.audio']
             sign_step = "uploadAudioGDoc"
+            lista_audios = [self.context[key] for key in self.context if self.context[key].portal_type == 'genweb.organs.audio']
+            self.context.info_firma['audios'].update(
+                self.uploadFilesGdoc(content_exp['idElementCreat'], lista_audios, save_title=True)
+            )
 
-            for idx, audio_id in enumerate(lista_audios):
-                audio = self.context[audio_id]
-                info_audio = uploadFileGdoc(content_exp['idElementCreat'], audio.file)
-                info_audio.update({'title': audio.title})
-                self.context.info_firma['audios'].update({str(idx): info_audio})
-                self.context.reindexObject()
+            logger.info('7. Puja dels fitxers de la sessió al gdoc')
+            sign_step = "uploadSessionFiles"
+            lista_fitxers = self.getFilesSessio(portal_type='genweb.organs.file')
+            self.context.info_firma['sessio']['fitxers'].update(
+                self.uploadFilesSessioGdoc(content_exp['idElementCreat'], lista_fitxers)
+            )
 
             # Creem el fitxer .url apuntant a la URL de la sessió
-            logger.info('7. Creació del fitxer .url')
+            logger.info('8. Creació del fitxer .url')
             session = utils.get_session(self.context)
             furl = open("/tmp/" + session.id + ".url", "w")
             furl.write("[InternetShortcut]\n")
@@ -198,16 +260,17 @@ class SignActa(BrowserView):
 
             # Pujem el fitxer .url a la sèrie documental creada al gdoc
             sign_step = "uploadURLFile"
-            logger.info('7. Puja del fitxer .url al gdoc')
+            logger.info('8.1 Puja del fitxer .url al gdoc')
 
             self.context.info_firma['url'] = uploadFileGdoc(content_exp['idElementCreat'], files)
             self.context.reindexObject()
 
             sign_step = 'uploadActaPortafirmes'
-            logger.info('8. Petició de la firma al portafirmes')
+            logger.info('9. Petició de la firma al portafirmes')
             documentAnnexos = (
                 [{"codi": adjunt['uuid']} for adjunt in self.context.info_firma['adjunts'].values()] +
                 [{"codi": audio['uuid']} for audio in self.context.info_firma['audios'].values()] +
+                [{"codi": fitxer['uuid']} for fitxer in self.context.info_firma['sessio']['fitxers'].values()] +
                 [{"codi": self.context.info_firma['url']['uuid']}]
             )
             content_sign = client.uploadActaPortafirmes(
@@ -216,7 +279,7 @@ class SignActa(BrowserView):
                 documentAnnexos,
                 signants,
             )
-            logger.info('8.1. S\'ha enviat correctament la petició de la firma al portafirmes')
+            logger.info('9.1. S\'ha enviat correctament la petició de la firma al portafirmes')
 
             self.context._Add_portal_content_Permission = ('Manager', 'Site Administrator', 'WebMaster')
             self.context._Modify_portal_content_Permission = ('Manager', 'Site Administrator', 'WebMaster')

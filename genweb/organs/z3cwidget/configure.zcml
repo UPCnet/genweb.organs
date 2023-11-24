@@ -3,18 +3,33 @@
     xmlns:z3c="http://namespaces.zope.org/z3c"
     i18n_domain="plone">
 
-  <class class=".widget.SelectUsersInputWidget">
+  <class class=".widget.SelectUsersActaInputWidget">
     <require
         permission="zope.Public"
-        interface=".widget.ISelectUsersInputWidget"
+        interface=".widget.ISelectUsersActaInputWidget"
         />
   </class>
 
   <z3c:widgetTemplate
       mode="input"
-      widget=".widget.ISelectUsersInputWidget"
+      widget=".widget.ISelectUsersActaInputWidget"
       layer="z3c.form.interfaces.IFormLayer"
-      template="text_input_select_users.pt"
+      template="text_input_select_users_acta.pt"
+      />
+
+
+  <class class=".widget.SelectUsersOtherInputWidget">
+    <require
+        permission="zope.Public"
+        interface=".widget.ISelectUsersOtherInputWidget"
+        />
+  </class>
+
+  <z3c:widgetTemplate
+      mode="input"
+      widget=".widget.ISelectUsersOtherInputWidget"
+      layer="z3c.form.interfaces.IFormLayer"
+      template="text_input_select_users_other.pt"
       />
 
 </configure>

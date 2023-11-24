@@ -8,14 +8,14 @@ import zope.interface
 import zope.schema.interfaces
 
 
-class ISelectUsersInputWidget(z3c.form.interfaces.ITextWidget):
+class ISelectUsersActaInputWidget(z3c.form.interfaces.ITextWidget):
     pass
 
 
-class SelectUsersInputWidget(z3c.form.browser.text.TextWidget, AutocompleteSelectionWidget):
-    zope.interface.implementsOnly(ISelectUsersInputWidget)
+class SelectUsersActaInputWidget(z3c.form.browser.text.TextWidget, AutocompleteSelectionWidget):
+    zope.interface.implementsOnly(ISelectUsersActaInputWidget)
 
-    klass = u'teacher-input-widget'
+    klass = u'select-users-acta-input-widget'
 
     def update(self):
         super(z3c.form.browser.text.TextWidget, self).update()
@@ -24,5 +24,24 @@ class SelectUsersInputWidget(z3c.form.browser.text.TextWidget, AutocompleteSelec
 
 @zope.component.adapter(zope.schema.interfaces.IField, z3c.form.interfaces.IFormLayer)
 @zope.interface.implementer(z3c.form.interfaces.IFieldWidget)
-def SelectUsersInputFieldWidget(field, request):
-    return z3c.form.widget.FieldWidget(field, SelectUsersInputWidget(request))
+def SelectUsersActaInputFieldWidget(field, request):
+    return z3c.form.widget.FieldWidget(field, SelectUsersActaInputWidget(request))
+
+
+class ISelectUsersOtherInputWidget(z3c.form.interfaces.ITextWidget):
+    pass
+
+class SelectUsersOtherInputWidget(z3c.form.browser.text.TextWidget, AutocompleteSelectionWidget):
+    zope.interface.implementsOnly(ISelectUsersOtherInputWidget)
+
+    klass = u'select-users-other-input-widget'
+
+    def update(self):
+        super(z3c.form.browser.text.TextWidget, self).update()
+        z3c.form.browser.widget.addFieldClass(self)
+
+
+@zope.component.adapter(zope.schema.interfaces.IField, z3c.form.interfaces.IFormLayer)
+@zope.interface.implementer(z3c.form.interfaces.IFieldWidget)
+def SelectUsersOtherInputFieldWidget(field, request):
+    return z3c.form.widget.FieldWidget(field, SelectUsersOtherInputWidget(request))
