@@ -11,6 +11,8 @@ from genweb.organs.firma_documental.views.general import downloadCopiaAutentica
 from genweb.organs.firma_documental.views.general import downloadGDoc
 from genweb.organs.firma_documental.views.general import viewCopiaAutentica
 from genweb.organs.firma_documental.views.general import viewGDoc
+from genweb.organs.firma_documental.webservices import ClientFirma, ClientFirmaException, uploadFileGdoc
+from plone.namedfile.file import NamedBlobFile
 
 import ast
 import datetime
@@ -45,7 +47,275 @@ class SignActa(BrowserView):
         except:
             pass
 
+    def getFilesSessio(self, portal_type=None):
+        if not portal_type:
+            portal_type = ['genweb.organs.file', 'genweb.organs.document']
+        else:
+            portal_type = [portal_type]
+        portal_catalog = api.portal.get_tool('portal_catalog')
+        session = utils.get_session(self.context)
+        session_path = '/'.join(session.getPhysicalPath())
+        values = portal_catalog.searchResults(
+            portal_type=portal_type,
+            sort_on='getObjPositionInParent',
+            path={'query': session_path}
+        )
+        return [(val.getObject(), val.getObject().getParentNode()) for val in values]
+
+    def uploadFilesGdoc(self, id_exp, files, save_title=False, save_size=False):
+        uploaded_files = {}
+        for idx, file_content in enumerate(files):
+            info_adjunt = uploadFileGdoc(id_exp, file_content.file)
+            if save_title:
+                info_adjunt['title'] = file_content.title
+            if save_size:
+                info_adjunt['sizeKB'] = file_content.file.getSize() / 1024
+            uploaded_files.update({str(idx): info_adjunt})
+            self.context.reindexObject()
+        return uploaded_files
+
+    def uploadFilesSessioGdoc(self, id_exp, files):
+        uploaded_files = {}
+        idx = 0
+        for file_content, parent_container in files:
+            filename_append = 'Informe sobre '
+            if parent_container.portal_type == 'genweb.organs.acord':
+                filename_append = 'Acord [%s] ' % (parent_container.agreement or 'Acord sense numerar')
+
+            if file_content.visiblefile:
+                info_file = uploadFileGdoc(
+                    expedient=id_exp,
+                    file=file_content.visiblefile,
+                    filename=('Public - ' + filename_append + file_content.visiblefile.filename)
+                )
+                uploaded_files.update({str(idx): info_file})
+                idx += 1
+
+            if file_content.hiddenfile:
+                info_file = uploadFileGdoc(
+                    expedient=id_exp,
+                    file=file_content.hiddenfile,
+                    filename=('Restringit - ' + filename_append + file_content.hiddenfile.filename)
+                )
+                info_file.update({'title': file_content.title, 'sizeKB': file_content.hiddenfile.getSize() / 1024})
+                uploaded_files.update({str(idx): info_file})
+                idx += 1
+
+        return uploaded_files
+
     def __call__(self):
+        error_to_msg_map = {
+            'deleteSerieDocumental': {
+                'console_log': '0.ERROR. Eliminació serie documental en gdoc per tornar-la a crear.',
+                'portal_msg': _(u'GDoc: No s\'ha pogut eliminar els contiguts de GDoc per tornar-los a crear.')
+            },
+            'getCodiExpedidElementCreatient': {
+                'console_log': '2.ERROR. Petició per demanar el codi del expedient.',
+                'portal_msg': _(u'GDoc: No s\'ha pogut obtenir el codi del expedient: Contacta amb algun administrador de la web perquè revisi la configuració.')
+            },
+            'createSerieDocumental': {
+                'console_log': '3.ERROR. Creació de la serie documental en gdoc.',
+                'portal_msg': _(u'GDoc: No s\'ha pogut crear la serie documental: Contacta amb algun administrador de la web perquè revisi la configuració.'),
+                'portal_msg_noExisteix': _(u'GDoc: No s\'ha pogut crear la serie documental: La serie documental no existeix.'),
+                'choose_portal_msg': lambda resp: 'portal_msg_noExisteix' if resp['codi'] and resp['codi'] == 528 else 'portal_msg'
+            },
+            'uploadActaGDoc': {
+                'console_log': '4.ERROR. Puja de l\'acta al gdoc.',
+                'portal_msg': _(u'GDoc: No s\'ha pogut pujar l\'acta: Contacta amb algun administrador de la web perquè revisi la configuració.')
+            },
+            'uploadAdjuntGDoc': {
+                'console_log': '5.ERROR. Puja del fitxer adjunt al gdoc.',
+                'portal_msg': _(u'GDoc: No s\'ha pogut pujar el fitxer adjunt: Contacta amb algun administrador de la web perquè revisi la configuració.')
+            },
+            'uploadAudioGDoc': {
+                'console_log': '6.ERROR. Puja del àudio al gdoc.',
+                'portal_msg': _(u'GDoc: No s\'ha pogut pujar el àudio: Contacta amb algun administrador de la web perquè revisi la configuració.')
+            },
+            'uploadSessionFiles': {
+                'console_log': '7.ERROR. Puja dels fitxers de la sessió al gdoc.',
+                'portal_msg': _(u'GDoc: No s\'ha pogut pujar els fitxers de la sessió: Contacta amb algun administrador de la web perquè revisi la configuració.')
+            },
+            'uploadURLFile': {
+                'console_log': '8.ERROR. Puja del fitxer .url al gdoc.',
+                'portal_msg': _(u'GDoc: No s\'ha pogut pujar el fitxer .url: Contacta amb algun administrador de la web perquè revisi la configuració.')
+            },
+            'uploadActaPortafirmes': {
+                'console_log': '9.ERROR. Petició de la firma al portafirmes.',
+                'portal_msg': _(u'Portafirmes: No s\'ha pogut enviar la petició de la firma: Contacta amb algun administrador de la web perquè revisi la configuració.'),
+                'portal_msg_supera_tamany': _(u'Portafirmes: No s\'ha pogut enviar la petició de la firma: El tamany dels fitxers supera el màxim permès.'),
+                'choose_portal_msg': lambda resp: 'portal_msg_supera_tamany' if 'tamany' in json.dumps(resp) else 'portal_msg'
+            }
+        }
+
+        if not isinstance(self.context.info_firma, dict):
+            self.context.info_firma = ast.literal_eval(self.context.info_firma)
+
+        if self.context.info_firma and 'enviatASignar' in self.context.info_firma and self.context.info_firma['enviatASignar']:
+            return self.request.response.redirect(self.context.absolute_url())
+
+        organ = utils.get_organ(self.context)
+        signants = self.getSignants(organ)
+
+        if not signants:
+            self.context.plone_utils.addPortalMessage(_(u'No hi ha secretaris per firmar l\'acta.'), 'error')
+            return self.request.response.redirect(self.context.absolute_url())
+
+        if not organ.visiblegdoc:
+            return
+
+        client = ClientFirma()
+        sign_step = ""
+
+        try:
+            sign_step = "deleteSerieDocumental"
+            if self.context.info_firma and 'unitatDocumental' in self.context.info_firma and self.context.info_firma['unitatDocumental']:
+                logger.info('0. Eliminació serie documental en gdoc per tornar-la a crear')
+                client.deleteSerieDocumental(self.context.info_firma['unitatDocumental'])
+                logger.info('0.1. S\'ha eliminat correctament la serie documental en gdoc')
+
+            logger.info('1. Iniciant firma de l\'acta - ' + self.context.title)
+
+            sign_step = "getCodiExpedient"
+            logger.info('2. Demamant codi del expedient al servei generadorcodiexpedient')
+            content_codi = client.getCodiExpedient(organ.serie)
+            logger.info('2.1. S\'ha obtingut correctament el codi del expedient')
+
+            now = datetime.datetime.now()
+            codi_expedient = now.strftime("%Y") + '-' + content_codi['codi']
+
+            sign_step = "createSerieDocumental"
+            logger.info('3. Creació de la serie documental en gdoc')
+            content_exp = client.createSerieDocumental(
+                serie=organ.serie,
+                expedient=codi_expedient,
+                titolPropi=codi_expedient + ' - ' + self.context.title
+            )
+
+            logger.info('3.1. S\'ha creat correctament la serie documental')
+
+            if not isinstance(self.context.info_firma, dict):
+                self.context.info_firma = ast.literal_eval(self.context.info_firma)
+            self.context.info_firma.update({
+                'unitatDocumental': str(content_exp['idElementCreat']),
+                'acta': {},
+                'adjunts': {},
+                'audios': {},
+                'url': {},
+                'sessio': {
+                    'fitxers': {},
+                    'documents': {}
+                },
+                'enviatASignar': False
+            })
+            self.context.reindexObject()
+
+            actaPDF = self.generateActaPDF()
+            sign_step = "uploadActaGDoc"
+            logger.info('4. Puja de l\'acta al gdoc')
+            self.context.info_firma['acta'] = uploadFileGdoc(
+                content_exp['idElementCreat'],
+                {'fitxer': (self.context.id + '.pdf', actaPDF.read(), 'application/pdf')},
+                is_acta=True
+            )
+            self.context.info_firma['acta'].update({
+                'sizeKB': os.path.getsize('/tmp/' + self.context.id + '.pdf') / 1024
+            })
+
+            logger.info('5. Puja dels fitxers adjunts al gdoc')
+            sign_step = "uploadAdjuntGDoc"
+            lista_adjunts = [self.context[key] for key in self.context if self.context[key].portal_type == 'genweb.organs.annex']
+            self.context.info_firma['adjunts'].update(
+                self.uploadFilesGdoc(content_exp['idElementCreat'], lista_adjunts, save_title=True, save_size=True)
+            )
+
+            logger.info('6. Puja dels àudios al gdoc')
+            sign_step = "uploadAudioGDoc"
+            lista_audios = [self.context[key] for key in self.context if self.context[key].portal_type == 'genweb.organs.audio']
+            self.context.info_firma['audios'].update(
+                self.uploadFilesGdoc(content_exp['idElementCreat'], lista_audios, save_title=True)
+            )
+
+            logger.info('7. Puja dels fitxers de la sessió al gdoc')
+            sign_step = "uploadSessionFiles"
+            lista_fitxers = self.getFilesSessio(portal_type='genweb.organs.file')
+            self.context.info_firma['sessio']['fitxers'].update(
+                self.uploadFilesSessioGdoc(content_exp['idElementCreat'], lista_fitxers)
+            )
+
+            # Creem el fitxer .url apuntant a la URL de la sessió
+            logger.info('8. Creació del fitxer .url')
+            session = utils.get_session(self.context)
+            furl = open("/tmp/" + session.id + ".url", "w")
+            furl.write("[InternetShortcut]\n")
+            furl.write("URL=" + session.absolute_url())
+            furl.close()
+
+            furl = open("/tmp/" + session.id + ".url", "r")
+            files = {'fitxer': (session.id + '.url', furl.read(), 'application/octet-stream')}
+
+            # Pujem el fitxer .url a la sèrie documental creada al gdoc
+            sign_step = "uploadURLFile"
+            logger.info('8.1 Puja del fitxer .url al gdoc')
+
+            self.context.info_firma['url'] = uploadFileGdoc(content_exp['idElementCreat'], files)
+            self.context.reindexObject()
+
+            sign_step = 'uploadActaPortafirmes'
+            logger.info('9. Petició de la firma al portafirmes')
+            documentAnnexos = (
+                [{"codi": adjunt['uuid']} for adjunt in self.context.info_firma['adjunts'].values()] +
+                [{"codi": audio['uuid']} for audio in self.context.info_firma['audios'].values()] +
+                [{"codi": fitxer['uuid']} for fitxer in self.context.info_firma['sessio']['fitxers'].values()] +
+                [{"codi": self.context.info_firma['url']['uuid']}]
+            )
+            content_sign = client.uploadActaPortafirmes(
+                self.context.title,
+                self.context.info_firma['acta']['uuid'],
+                documentAnnexos,
+                signants,
+            )
+            logger.info('9.1. S\'ha enviat correctament la petició de la firma al portafirmes')
+
+            self.context._Add_portal_content_Permission = ('Manager', 'Site Administrator', 'WebMaster')
+            self.context._Modify_portal_content_Permission = ('Manager', 'Site Administrator', 'WebMaster')
+            self.context._Delete_objects_Permission = ('Manager', 'Site Administrator', 'WebMaster')
+
+            self.context.acta = None
+            for audio_id in self.context:
+                api.content.delete(self.context[audio_id])
+
+            self.context.info_firma['enviatASignar'] = True
+
+            self.context.id_firma = content_sign['idPeticio']
+            self.context.estat_firma = "PENDENT"
+            self.context.reindexObject()
+
+            self.context.plone_utils.addPortalMessage(_(u'S\'ha enviat a firmar correctament'), 'success')
+            transaction.commit()
+            self.removeActaPDF()
+
+        except ClientFirmaException as e:
+            if e.timeout:
+                self.context.plone_utils.addPortalMessage(_(u'S\'ha sobrepasat el temps d\'espera per executar la petició: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
+                self.removeActaPDF()
+                return self.request.response.redirect(self.context.absolute_url())
+
+            choose_msg_func = error_to_msg_map[sign_step].get('choose_portal_msg', None)
+            portal_msg = 'portal_msg' if not choose_msg_func else choose_msg_func(e.response)
+            # if sign_step == 'createSerieDocumental' and e.response['codi'] and e.response['codi'] == 528:
+            #     portal_msg == 'portal_msg_no_existeix'
+            # if sign_step == 'uploadActaPortafirmes' and 'tamany' in json.dumps(e.response):
+            #     portal_msg == 'portal_msg_supera_tamany'
+
+            logger.info(error_to_msg_map[sign_step]['console_log'] + ' Exception: %s', str(e))
+            self.context.plone_utils.addPortalMessage(error_to_msg_map[sign_step][portal_msg], 'error')
+            self.removeActaPDF()
+            return self.request.response.redirect(self.context.absolute_url())
+
+        utils.addEntryLog(self.context.__parent__, None, _(u'Acta send to sign'), self.context.absolute_url())
+        return self.request.response.redirect(self.context.absolute_url())
+
+    def __old_call__(self):
         if not isinstance(self.context.info_firma, dict):
             self.context.info_firma = ast.literal_eval(self.context.info_firma)
 
@@ -91,6 +361,7 @@ class SignActa(BrowserView):
 
                     # Petició que crea un sèrie documental / expedient en gdoc
                     logger.info('3. Creació de la serie documental en gdoc')
+
                     result_exp = requests.post(fd_settings.gdoc_url + '/api/serie/' + organ.serie + '/udch?uid=' + fd_settings.gdoc_user + '&hash=' + fd_settings.gdoc_hash, json=data_exp, timeout=TIMEOUT)
                     content_exp = json.loads(result_exp.content)
 
