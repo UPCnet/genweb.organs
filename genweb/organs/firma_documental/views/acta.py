@@ -22,6 +22,7 @@ import os
 import pdfkit
 import requests
 import transaction
+import traceback
 
 logger = logging.getLogger(__name__)
 
@@ -47,20 +48,104 @@ class SignActa(BrowserView):
         except:
             pass
 
-    def getFilesSessio(self, portal_type=None):
-        if not portal_type:
-            portal_type = ['genweb.organs.file', 'genweb.organs.document']
-        else:
-            portal_type = [portal_type]
+    def generateDocumentPDF(self, document, filename, visibility='public'):
+        options = {'cookie': [('__ac', self.request.cookies['__ac']),
+                              ('I18N_LANGUAGE', self.request.cookies.get('I18N_LANGUAGE', 'ca'))]}
+        _filename = filename.replace('/', ' ')
+        import ipdb; ipdb.set_trace()
+        pdfkit.from_url(document.absolute_url() + '/printDocument?visibility=' + visibility, '/tmp/' + _filename, options=options)
+        return open('/tmp/' + _filename, 'rb')
+
+    def removeDocumentPDF(self, filename):
+        _filename = filename.replace('/', ' ')
+        try:
+            os.remove('/tmp/' + _filename)
+        except Exception:
+            pass
+
+    def ensure_info_firma_punt(self, punt):
+        if not hasattr(punt, 'info_firma'):
+            punt.info_firma = {}
+        if not isinstance(punt.info_firma, dict):
+            punt.info_firma = ast.literal_eval(punt.info_firma)
+
+        if not punt.info_firma:
+            punt.info_firma = {
+                'related_acta': '',
+                'fitxers': {},
+                'documents': {}
+            }
+
+    def getPuntsWithFiles(self):
         portal_catalog = api.portal.get_tool('portal_catalog')
         session = utils.get_session(self.context)
         session_path = '/'.join(session.getPhysicalPath())
-        values = portal_catalog.searchResults(
-            portal_type=portal_type,
-            sort_on='getObjPositionInParent',
-            path={'query': session_path}
+        punts = portal_catalog.searchResults(
+            portal_type=['genweb.organs.acord', 'genweb.organs.punt'],
+            path={'query': session_path, 'depth': 1},
+            sort_on='getObjPositionInParent'
         )
-        return [(val.getObject(), val.getObject().getParentNode()) for val in values]
+        punts_with_files = []
+        for punt in punts:
+            files_punt = portal_catalog.searchResults(
+                portal_type=['genweb.organs.file', 'genweb.organs.document'],
+                path={'query': punt.getPath(), 'depth': 1},
+                sort_on='getObjPositionInParent'
+            )
+            if files_punt:
+                punts_with_files.append(punt.getObject())
+
+            if punt.getObject().portal_type == 'genweb.organs.acord':
+                continue
+
+            subpunts = portal_catalog.searchResults(
+                portal_type=['genweb.organs.acord', 'genweb.organs.subpunt'],
+                path={'query': punt.getPath(), 'depth': 1},
+                sort_on='getObjPositionInParent'
+            )
+
+            for subpunt in subpunts:
+                files_subpunt = portal_catalog.searchResults(
+                    portal_type=['genweb.organs.file', 'genweb.organs.document'],
+                    path={'query': subpunt.getPath(), 'depth': 1},
+                    sort_on='getObjPositionInParent'
+                )
+                if files_subpunt:
+                    punts_with_files.append(subpunt.getObject())
+
+        return punts_with_files
+
+    def uploadFilesPuntsGdoc(self, id_exp, punts):
+        portal_catalog = api.portal.get_tool('portal_catalog')
+        uploaded_files_uuid = []
+        for punt in punts:
+            self.ensure_info_firma_punt(punt)
+            files = portal_catalog.searchResults(
+                portal_type=['genweb.organs.file', 'genweb.organs.document'],
+                path={'query': '/'.join(punt.getPhysicalPath()), 'depth': 1},
+                sort_on='getObjPositionInParent'
+            )
+            filename_append = 'Informe sobre '
+            if punt.portal_type == 'genweb.organs.acord':
+                filename_append = 'Acord [%s] ' % (punt.agreement or 'Acord sense numerar')
+            idx = 0
+            for file in files:
+                file_content = file.getObject()
+                if file.portal_type == 'genweb.organs.file':
+                    file_info = self.uploadFileSessioGdoc(id_exp, file_content, filename_append)
+                else:
+                    file_info = self.uploadDocsSessioGdoc(id_exp, file_content, filename_append)
+
+                if file_info['public']:
+                    punt.info_firma['fitxers'][str(idx)] = file_info['public']
+                    uploaded_files_uuid.append(file_info['public']['uuid'])
+                    idx += 1
+                if file_info['private']:
+                    punt.info_firma['fitxers'][str(idx)] = file_info['private']
+                    uploaded_files_uuid.append(file_info['private']['uuid'])
+                    idx += 1
+
+        return uploaded_files_uuid
 
     def uploadFilesGdoc(self, id_exp, files, save_title=False, save_size=False):
         uploaded_files = {}
@@ -70,38 +155,53 @@ class SignActa(BrowserView):
                 info_adjunt['title'] = file_content.title
             if save_size:
                 info_adjunt['sizeKB'] = file_content.file.getSize() / 1024
-            uploaded_files.update({str(idx): info_adjunt})
+            uploaded_files[str(idx)] = info_adjunt
             self.context.reindexObject()
         return uploaded_files
 
-    def uploadFilesSessioGdoc(self, id_exp, files):
-        uploaded_files = {}
-        idx = 0
-        for file_content, parent_container in files:
-            filename_append = 'Informe sobre '
-            if parent_container.portal_type == 'genweb.organs.acord':
-                filename_append = 'Acord [%s] ' % (parent_container.agreement or 'Acord sense numerar')
+    def uploadFileSessioGdoc(self, id_exp, file_content, filename_append):
+        file_res = {
+            'public': None,
+            'private': None
+        }
+        for filetype in ['visiblefile', 'hiddenfile']:
+            file = getattr(file_content, filetype) if hasattr(file_content, filetype) else None
+            if not file:
+                continue
+            file = getattr(file_content, filetype)
+            is_public = filetype == 'visiblefile'
 
-            if file_content.visiblefile:
-                info_file = uploadFileGdoc(
-                    expedient=id_exp,
-                    file=file_content.visiblefile,
-                    filename=('Public - ' + filename_append + file_content.visiblefile.filename)
-                )
-                uploaded_files.update({str(idx): info_file})
-                idx += 1
+            filename = ('Public - ' if is_public else 'Restringit - ') + filename_append + file_content.Title()
 
-            if file_content.hiddenfile:
-                info_file = uploadFileGdoc(
-                    expedient=id_exp,
-                    file=file_content.hiddenfile,
-                    filename=('Restringit - ' + filename_append + file_content.hiddenfile.filename)
-                )
-                info_file.update({'title': file_content.title, 'sizeKB': file_content.hiddenfile.getSize() / 1024})
-                uploaded_files.update({str(idx): info_file})
-                idx += 1
+            info_file = uploadFileGdoc(id_exp, file, filename.decode('utf-8'))
+            info_file.update({'title': filename, 'sizeKB': file.getSize() / 1024})
+            file_res['public' if is_public else 'private'] = info_file
 
-        return uploaded_files
+        return file_res
+
+    def uploadDocsSessioGdoc(self, id_exp, document_content, filename_append):
+        file_res = {
+            'public': None,
+            'private': None
+        }
+
+        for filetype in ['defaultContent', 'alternateContent']:
+            document = getattr(document_content, filetype) if hasattr(document_content, filetype) else None
+            if not document:
+                continue
+            is_public = filetype == 'defaultContent'
+            filename = ('Public - ' if is_public else 'Restringit - ') + filename_append + document_content.Title()
+            pdf_file = self.generateDocumentPDF(document_content, filename, 'public' if is_public else 'private')
+            info_file = uploadFileGdoc(
+                expedient=id_exp,
+                file={"fitxer": [filename.decode('utf-8'), pdf_file.read(), 'application/pdf']},
+            )
+            info_file['title'] = filename
+            file_res['public' if is_public else 'private'] = info_file
+            pdf_file.close()
+            self.removeDocumentPDF(filename)
+
+        return file_res
 
     def __call__(self):
         error_to_msg_map = {
@@ -214,7 +314,7 @@ class SignActa(BrowserView):
             logger.info('4. Puja de l\'acta al gdoc')
             self.context.info_firma['acta'] = uploadFileGdoc(
                 content_exp['idElementCreat'],
-                {'fitxer': (self.context.id + '.pdf', actaPDF.read(), 'application/pdf')},
+                {'fitxer': [self.context.id + '.pdf', actaPDF.read(), 'application/pdf']},
                 is_acta=True
             )
             self.context.info_firma['acta'].update({
@@ -234,13 +334,14 @@ class SignActa(BrowserView):
             self.context.info_firma['audios'].update(
                 self.uploadFilesGdoc(content_exp['idElementCreat'], lista_audios, save_title=True)
             )
-
             logger.info('7. Puja dels fitxers de la sessió al gdoc')
+            sign_step = "getPuntsWithFiles"
+            logger.info('7.1 Obtenir tots els punts i acords amb fitxers')
+            lista_punts = self.getPuntsWithFiles()
             sign_step = "uploadSessionFiles"
-            lista_fitxers = self.getFilesSessio(portal_type='genweb.organs.file')
-            self.context.info_firma['sessio']['fitxers'].update(
-                self.uploadFilesSessioGdoc(content_exp['idElementCreat'], lista_fitxers)
-            )
+            logger.info('7.2 Puja dels fitxers de la sessió al gdoc')
+            import ipdb; ipdb.set_trace()
+            punt_files_uuid = self.uploadFilesPuntsGdoc(content_exp['idElementCreat'], lista_punts)
 
             # Creem el fitxer .url apuntant a la URL de la sessió
             logger.info('8. Creació del fitxer .url')
@@ -251,7 +352,7 @@ class SignActa(BrowserView):
             furl.close()
 
             furl = open("/tmp/" + session.id + ".url", "r")
-            files = {'fitxer': (session.id + '.url', furl.read(), 'application/octet-stream')}
+            files = {'fitxer': [session.id + '.url', furl.read(), 'application/octet-stream']}
 
             # Pujem el fitxer .url a la sèrie documental creada al gdoc
             sign_step = "uploadURLFile"
@@ -263,10 +364,10 @@ class SignActa(BrowserView):
             sign_step = 'uploadActaPortafirmes'
             logger.info('9. Petició de la firma al portafirmes')
             documentAnnexos = (
-                [{"codi": adjunt['uuid']} for adjunt in self.context.info_firma['adjunts'].values()] +
-                [{"codi": audio['uuid']} for audio in self.context.info_firma['audios'].values()] +
-                [{"codi": fitxer['uuid']} for fitxer in self.context.info_firma['sessio']['fitxers'].values()] +
-                [{"codi": self.context.info_firma['url']['uuid']}]
+                [{"codi": adjunt['uuid']} for idx, adjunt in self.context.info_firma['adjunts'].items()] +
+                [{"codi": audio['uuid']} for idx, audio in self.context.info_firma['audios'].items()] +
+                [{"codi": self.context.info_firma['url']['uuid']}] +
+                [{"codi": punt_file_uuid} for punt_file_uuid in punt_files_uuid]
             )
             content_sign = client.uploadActaPortafirmes(
                 self.context.title,
@@ -307,8 +408,15 @@ class SignActa(BrowserView):
             # if sign_step == 'uploadActaPortafirmes' and 'tamany' in json.dumps(e.response):
             #     portal_msg == 'portal_msg_supera_tamany'
 
-            logger.info(error_to_msg_map[sign_step]['console_log'] + ' Exception: %s', str(e))
+            logger.error(error_to_msg_map[sign_step]['console_log'] + ' Exception: %s', str(e))
             self.context.plone_utils.addPortalMessage(error_to_msg_map[sign_step][portal_msg], 'error')
+            self.removeActaPDF()
+            return self.request.response.redirect(self.context.absolute_url())
+
+        except Exception as e:
+            logger.error('ERROR. ' + sign_step + ' Exception: %s', str(e))
+            logger.error(traceback.format_exc())
+            self.context.plone_utils.addPortalMessage(_(u'Error al signar l\'acta: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
             self.removeActaPDF()
             return self.request.response.redirect(self.context.absolute_url())
 

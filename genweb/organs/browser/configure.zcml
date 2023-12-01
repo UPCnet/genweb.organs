@@ -22,6 +22,14 @@
     />
 
     <browser:page
+      for="genweb.organs.content.document.IDocument"
+      name="printDocument"
+      class=".views.DocumentPrintView"
+      layer="..interfaces.IGenwebOrgansLayer"
+      permission="zope2.View"
+    />
+
+    <browser:page
       for="genweb.organs.content.acta.IActa"
       name="previewActa"
       class=".views.ActaPreviewView"

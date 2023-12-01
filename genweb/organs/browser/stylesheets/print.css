@@ -19,7 +19,9 @@ li {
   padding-bottom:50px;
 }
 
-.template-printacta header#portal-header {
+.template-printacta header#portal-header,
+.template-printdocument header#portal-header,
+.template-printdocument footer {
   display: none;
 }
 

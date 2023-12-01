@@ -357,6 +357,50 @@ class ActaPrintView(BrowserView):
             raise Unauthorized
 
 
+class DocumentPrintView(BrowserView):
+
+    __call__ = ViewPageTemplateFile('views/document_print.pt')
+
+    # def unitatTitle(self):
+    #     """ Get organGovern Title used for printing the acta """
+    #     return self.aq_parent.aq_parent.aq_parent.aq_parent.Title()
+
+    # def organGovernTitle(self):
+    #     """ Get organGovern Title used for printing the acta """
+    #     return self.aq_parent.aq_parent.aq_parent.Title()
+
+    # def sessionTitle(self):
+    #     """ Get organGovern Title used for printing the acta """
+    #     return self.aq_parent.aq_parent.Title()
+
+    # def sessionModality(self):
+    #     """ Get organGovern Title used for printing the acta """
+    #     return self.aq_parent.aq_parent.modality
+
+    # def getActaLogo(self):
+    #     """ Getlogo to use in print """
+    #     try:
+    #         self.context.aq_parent.aq_parent.logoOrgan.filename
+    #         return self.context.aq_parent.aq_parent.absolute_url() + '/@@images/logoOrgan'
+    #     except:
+    #         return None
+
+    def canViewDocument(self):
+        # Permissions to GENERATE PRINT document view
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
+            return True
+
+        else:
+            raise Unauthorized
+
+    def getDocument(self):
+        doctype = self.request.get('visibility', 'public')
+        if doctype == 'private':
+            return self.context.alternateContent
+        else:
+            return self.context.defaultContent
+
 class ActaPreviewView(ActaPrintView):
 
     __call__ = ViewPageTemplateFile('views/acta_preview.pt')
