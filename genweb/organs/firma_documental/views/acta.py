@@ -12,7 +12,6 @@ from genweb.organs.firma_documental.views.general import downloadGDoc
 from genweb.organs.firma_documental.views.general import viewCopiaAutentica
 from genweb.organs.firma_documental.views.general import viewGDoc
 from genweb.organs.firma_documental.webservices import ClientFirma, ClientFirmaException, uploadFileGdoc
-from plone.namedfile.file import NamedBlobFile
 
 import ast
 import datetime
@@ -45,14 +44,13 @@ class SignActa(BrowserView):
     def removeActaPDF(self):
         try:
             os.remove('/tmp/' + self.context.id + '.pdf')
-        except:
+        except Exception:
             pass
 
     def generateDocumentPDF(self, document, filename, visibility='public'):
         options = {'cookie': [('__ac', self.request.cookies['__ac']),
                               ('I18N_LANGUAGE', self.request.cookies.get('I18N_LANGUAGE', 'ca'))]}
         _filename = filename.replace('/', ' ')
-        import ipdb; ipdb.set_trace()
         pdfkit.from_url(document.absolute_url() + '/printDocument?visibility=' + visibility, '/tmp/' + _filename, options=options)
         return open('/tmp/' + _filename, 'rb')
 
@@ -340,7 +338,6 @@ class SignActa(BrowserView):
             lista_punts = self.getPuntsWithFiles()
             sign_step = "uploadSessionFiles"
             logger.info('7.2 Puja dels fitxers de la sessió al gdoc')
-            import ipdb; ipdb.set_trace()
             punt_files_uuid = self.uploadFilesPuntsGdoc(content_exp['idElementCreat'], lista_punts)
 
             # Creem el fitxer .url apuntant a la URL de la sessió
