@@ -401,6 +401,13 @@ class DocumentPrintView(BrowserView):
         else:
             return self.context.defaultContent
 
+    def getOrganLogo(self):
+        try:
+            self.context.aq_parent.aq_parent.logoOrgan.filename
+            return self.context.aq_parent.aq_parent.absolute_url() + '/@@images/logoOrgan'
+        except:
+            return None
+
 class ActaPreviewView(ActaPrintView):
 
     __call__ = ViewPageTemplateFile('views/acta_preview.pt')

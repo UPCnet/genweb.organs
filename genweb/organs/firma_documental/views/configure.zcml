@@ -42,6 +42,20 @@
     permission="genweb.organs.firmadocumental.view" />
 
   <browser:page
+    name="viewFile"
+    for="genweb.organs.content.acord.IAcord"
+    class=".acta.ViewFile"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    permission="zope2.View" />
+
+  <browser:page
+    name="viewFile"
+    for="genweb.organs.content.punt.IPunt"
+    class=".acta.ViewFile"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    permission="zope2.View" />
+
+  <browser:page
     name="downloadFile"
     for="genweb.organs.content.acta.IActa"
     class=".acta.DownloadFile"

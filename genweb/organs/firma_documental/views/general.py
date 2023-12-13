@@ -4,7 +4,8 @@ from Products.Five.browser import BrowserView
 from plone import api
 
 from genweb.organs import _
-from genweb.organs.firma_documental import utils
+from genweb.organs import utils
+from genweb.organs.firma_documental import utils as utilsFD
 
 import json
 import logging
@@ -14,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 def getCopiaAutentica(self, uuid):
-    fd_settings = utils.get_settings_firma_documental()
+    fd_settings = utilsFD.get_settings_firma_documental()
     result = requests.get(fd_settings.copiesautentiques_url + '/api/copia?idDocument=' + uuid + '&idioma=CATALA', headers={'X-Api-Key': fd_settings.copiesautentiques_apikey})
     if result.status_code == 200:
         return result.content
@@ -24,7 +25,7 @@ def getCopiaAutentica(self, uuid):
 
 
 def getGDoc(self, uuid):
-    fd_settings = utils.get_settings_firma_documental()
+    fd_settings = utilsFD.get_settings_firma_documental()
     result = requests.get(fd_settings.gdoc_url + '/api/documentelectronic/' + uuid + '?uid=' + fd_settings.gdoc_user + '&hash=' + fd_settings.gdoc_hash)
     if result.status_code == 200:
         return result.content

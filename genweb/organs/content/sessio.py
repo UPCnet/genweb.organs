@@ -492,7 +492,8 @@ class View(grok.View):
                                     favorVote=favorVote,
                                     againstVote=againstVote,
                                     whiteVote=whiteVote,
-                                    items_inside=inside))
+                                    items_inside=inside,
+                                    info_firma=item.info_firma if hasattr(item, 'info_firma') else None))
         return results
 
     def SubpuntsInside(self, data):
@@ -585,8 +586,16 @@ class View(grok.View):
                                 favorVote=favorVote,
                                 againstVote=againstVote,
                                 whiteVote=whiteVote,
-                                id='/'.join(item.absolute_url_path().split('/')[-2:])))
+                                id='/'.join(item.absolute_url_path().split('/')[-2:]),
+                                info_firma=item.info_firma if hasattr(item, 'info_firma') else None))
         return results
+
+    def canModifyPunt(self, item):
+        # If send to sign or signed, it can't be modified
+        if item['info_firma'] and item['info_firma'].get('fitxers', None):
+            return False
+        # else check if can modify session
+        return self.canModify()
 
     def canViewTabActes(self):
         # Permissions to view acta
@@ -777,6 +786,20 @@ class View(grok.View):
         return self.context.absolute_url()
 
     def filesinsidePunt(self, item):
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        if item['info_firma'] and item['info_firma'].get('fitxers', None):
+            results = []
+            for pos, file in item['info_firma']['fitxers'].items():
+                class_css = 'fa fa-file-pdf-o ' + ('text-success' if file['public'] else 'text-error')
+                if file['public'] or 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:                
+                    results.append(dict(title=file['title'],
+                                        absolute_url=item['absolute_url'] + '/viewFile?pos=' + str(pos),
+                                        classCSS=class_css,
+                                        new_tab=True,
+                                        id=file['uuid'],
+                                        portal_type='genweb.organs.file'))
+            return results
         session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
         portal_catalog = api.portal.get_tool(name='portal_catalog')
 
@@ -786,8 +809,6 @@ class View(grok.View):
             path={'query': session_path,
                   'depth': 1})
         results = []
-        username = api.user.get_current().id
-        roles = utils.getUserRoles(self, self.context, username)
         for obj in values:
             value = obj.getObject()
             if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
