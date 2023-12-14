@@ -13,6 +13,7 @@ from plone.folder.interfaces import IExplicitOrdering
 from zope.interface import alsoProvides
 from zope.i18n import translate
 
+from genweb.core.utils import json_response
 from genweb.organs import _
 from genweb.organs import utils
 from genweb.organs.indicators.updating import update_indicators
@@ -1314,3 +1315,21 @@ class getUsers(BrowserView):
             return json.dumps(listUsers)
         else:
             return None
+
+
+class allOrgansEstatsLlista(BrowserView):
+
+    @json_response
+    def __call__(self):
+        all_brains = api.content.find(portal_type='genweb.organs.organgovern')
+
+        results = []
+        for brain in all_brains:
+            results.append({
+                'id': brain.id,
+                'title': brain.Title,
+                'url': brain.getURL(),
+                'estats': brain.getObject().estatsLlista.replace('<p>', '').replace('</p>', '').split('\r\n')
+            })
+
+        return results

@@ -219,4 +219,12 @@
     permission="zope2.View"
     />
 
+  <browser:page
+    for="*"
+    name="allorgansestatsllista"
+    class=".views.allOrgansEstatsLlista"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="cmf.ManagePortal"
+    />
+
 </configure>
