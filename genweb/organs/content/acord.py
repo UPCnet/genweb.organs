@@ -17,6 +17,7 @@ from plone.directives import dexterity
 from plone.directives import form
 from plone.indexer import indexer
 from plone.supermodel.directives import fieldset
+from z3c.form.interfaces import IAddForm
 from zope import schema
 from zope.interface import directlyProvides
 from zope.schema.interfaces import IContextSourceBinder
@@ -98,7 +99,7 @@ class IAcord(form.Schema):
         required=False,
     )
 
-    form.mode(agreement='hidden')
+    form.mode(IAddForm, agreement='hidden')
     dexteritytextindexer.searchable('agreement')
     agreement = schema.TextLine(
         title=_(u'Agreement number'),
