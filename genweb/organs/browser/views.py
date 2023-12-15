@@ -13,6 +13,7 @@ from plone.folder.interfaces import IExplicitOrdering
 from zope.interface import alsoProvides
 from zope.i18n import translate
 
+from genweb.core.utils import json_response
 from genweb.organs import _
 from genweb.organs import utils
 from genweb.organs.utils import addEntryLog
@@ -1242,3 +1243,21 @@ class updateIndicadors(BrowserView):
 
         update_indicators(
             self, service=get_settings_property('service_id'), indicator='acord-n')
+
+
+class allOrgansEstatsLlista(BrowserView):
+
+    @json_response
+    def __call__(self):
+        all_brains = api.content.find(portal_type='genweb.organs.organgovern')
+
+        results = []
+        for brain in all_brains:
+            results.append({
+                'id': brain.id,
+                'title': brain.Title,
+                'url': brain.getURL(),
+                'estats': brain.getObject().estatsLlista.replace('<p>', '').replace('</p>', '').split('\r\n')
+            })
+
+        return results
