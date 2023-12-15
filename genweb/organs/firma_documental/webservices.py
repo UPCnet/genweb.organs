@@ -73,6 +73,9 @@ class ClientFirma(object):
                 if unicodedata.category(c) != 'Mn'
             ]
         )
+        fitxer['fitxer'][0] = fitxer['fitxer'][0].replace('"', "'")
+
+        fitxer['fitxer'][0] = fitxer['fitxer'][0][:196].strip() + ('...' if len(fitxer['fitxer'][0]) > 196 else '')
 
         url = self.settings.gdoc_url + '/api/pare/' + str(expedient) + '/doce?uid=' + self.settings.gdoc_user + '&hash=' + self.settings.gdoc_hash
         data = {

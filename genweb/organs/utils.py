@@ -6,6 +6,7 @@ from Products.PluggableAuthService.interfaces.plugins import IPropertiesPlugin
 from datetime import datetime
 from plone import api
 from plone.app.layout.navigation.root import getNavigationRootObject
+from plone.app.uuid.utils import uuidToObject
 from plone.memoize import instance
 from plone.registry.interfaces import IRegistry
 from zope.annotation.interfaces import IAnnotations
@@ -269,21 +270,23 @@ def FilesandDocumentsInside(self):
     organ_tipus = self.context.organType
     roles = getUserRoles(self, self.context, api.user.get_current().id)
 
-    if hasattr(self.context, 'info_firma') and self.context.info_firma and self.context.info_firma.get('fitxers', None):
+    if getattr(self.context, 'info_firma', None) and self.context.info_firma.get('fitxers', None):
         results = []
-        for pos, file in self.context.info_firma['fitxers'].items():
-            class_css = 'fa fa-2x fa-file-pdf-o text-success' if file['public'] else 'fa fa-2x fa-file-pdf-o text-error'
-            roles_to_check = ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat']
-            if organ_tipus == 'open_organ':
-                roles_to_check.append('OG4-Afectat')
-            if not file['public'] and not checkhasRol(roles_to_check, roles):
-                continue
-            results.append(dict(title=file['title'],
-                                absolute_url=self.context.absolute_url() + '/viewFile?pos=' + str(pos),
-                                classCSS=class_css,
-                                new_tab=True,
-                                ))
-        return results
+        acta = uuidToObject(self.context.info_firma.get('related_acta', None))
+        if acta and getattr(acta, 'info_firma', None) and 'enviatASignar' in acta.info_firma and acta.info_firma['enviatASignar']:
+            for pos, file in self.context.info_firma['fitxers'].items():
+                class_css = 'fa fa-2x fa-file-pdf-o text-success' if file['public'] else 'fa fa-2x fa-file-pdf-o text-error'
+                roles_to_check = ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat']
+                if organ_tipus == 'open_organ':
+                    roles_to_check.append('OG4-Afectat')
+                if not file['public'] and not checkhasRol(roles_to_check, roles):
+                    continue
+                results.append(dict(title=file['title'],
+                                    absolute_url=self.context.absolute_url() + '/viewFile?pos=' + str(pos),
+                                    classCSS=class_css,
+                                    new_tab=True,
+                                    ))
+            return results
     portal_catalog = api.portal.get_tool(name='portal_catalog')
     folder_path = '/'.join(self.context.getPhysicalPath())
     values = portal_catalog.unrestrictedSearchResults(

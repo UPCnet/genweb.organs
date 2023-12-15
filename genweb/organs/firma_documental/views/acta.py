@@ -3,6 +3,7 @@ from AccessControl.unauthorized import Unauthorized
 from Products.Five.browser import BrowserView
 
 from plone import api
+from plone.uuid.interfaces import IUUID
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -59,18 +60,6 @@ class SignActa(BrowserView):
         except Exception:
             pass
 
-    def ensure_info_firma_punt(self, punt):
-        if not hasattr(punt, 'info_firma'):
-            punt.info_firma = {}
-        if not isinstance(punt.info_firma, dict):
-            punt.info_firma = ast.literal_eval(punt.info_firma)
-
-        if not punt.info_firma:
-            punt.info_firma = {
-                'related_acta': '',
-                'fitxers': {},
-            }
-
     def getPuntsWithFiles(self):
         portal_catalog = api.portal.get_tool('portal_catalog')
         session = utils.get_session(self.context)
@@ -114,13 +103,16 @@ class SignActa(BrowserView):
         portal_catalog = api.portal.get_tool('portal_catalog')
         uploaded_files_uuid = []
         for punt in punts:
-            self.ensure_info_firma_punt(punt)
+            punt.info_firma = {
+                'related_acta': '',
+                'fitxers': {},
+            }
             files = portal_catalog.searchResults(
                 portal_type=['genweb.organs.file', 'genweb.organs.document'],
                 path={'query': '/'.join(punt.getPhysicalPath()), 'depth': 1},
                 sort_on='getObjPositionInParent'
             )
-            filename_append = 'Informe sobre '
+            filename_append = ''
             if punt.portal_type == 'genweb.organs.acord':
                 filename_append = 'Acord [%s] ' % (punt.agreement or 'Acord sense numerar')
             idx = 0
@@ -140,7 +132,7 @@ class SignActa(BrowserView):
                     uploaded_files_uuid.append(file_info['private']['uuid'])
                     idx += 1
                 punt.reindexObject()
-            punt.info_firma['related_acta'] = self.context.id
+            punt.info_firma['related_acta'] = IUUID(self.context, None)
         return uploaded_files_uuid
 
     def uploadFilesGdoc(self, id_exp, files, save_title=False, save_size=False):
@@ -167,7 +159,7 @@ class SignActa(BrowserView):
             file = getattr(file_content, filetype)
             is_public = filetype == 'visiblefile'
 
-            filename = ('Public - ' if is_public else 'Restringit - ') + filename_append + file_content.Title()
+            filename = ('Public - ' if is_public else 'LOPD - ') + filename_append + file_content.Title()
 
             info_file = uploadFileGdoc(id_exp, file, filename.decode('utf-8'))
             info_file.update({'title': filename, 'sizeKB': file.getSize() / 1024, 'public': is_public})
@@ -186,7 +178,7 @@ class SignActa(BrowserView):
             if not document:
                 continue
             is_public = filetype == 'defaultContent'
-            filename = ('Public - ' if is_public else 'Restringit - ') + filename_append + document_content.Title()
+            filename = ('Public - ' if is_public else 'LOPD - ') + filename_append + document_content.Title()
             pdf_file = self.generateDocumentPDF(document_content, filename, 'public' if is_public else 'private')
             info_file = uploadFileGdoc(
                 expedient=id_exp,
