@@ -1,11 +1,12 @@
 Changelog
 =========
 
-0.61 (unreleased)
+0.61 (2023-12-18)
 -----------------
 
-- Nothing changed yet.
-
+* [UPD] Permitir editar numero de acord en la edición [Iago López]
+* [ADD] View allOrgansEstatsLlista [Iago López]
+* Añadir confirmación antes de eliminar una votación [Iago López]
 
 0.60 (2023-05-15)
 -----------------
