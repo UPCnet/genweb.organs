@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.62 (unreleased)
+0.62 (2023-12-18)
 -----------------
 
-- Nothing changed yet.
-
+* [FIX] configure.zcml view [Iago López]
 
 0.61 (2023-12-18)
 -----------------
