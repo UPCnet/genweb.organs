@@ -205,10 +205,10 @@
 
   <browser:page
     for="*"
-    name="getUsers"
-    class=".views.getUsers"
+    name="allorgansestatsllista"
+    class=".views.allOrgansEstatsLlista"
     layer="..interfaces.IGenwebOrgansLayer"
-    permission="zope2.View"
+    permission="cmf.ManagePortal"
     />
 
 </configure>
