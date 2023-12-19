@@ -83,10 +83,10 @@
 
     <tal:block tal:condition="not:hasFirma">
       <tal:block tal:condition="checkSerieGDoc/visible_gdoc">
-        <a id="signActa" class="btn btn-info btnActa" style="float:right;" href="signActa"
+        <button id="signActa" class="btn btn-info btnActa" style="float:right;"
            tal:condition="checkSerieGDoc/valid_serie">
             <i class="fa fa-arrow-right"></i>&nbsp;<span i18n:translate="">Enviar acta a signar</span>
-        </a>
+        </button>
       </tal:block>
     </tal:block>
 
@@ -307,6 +307,21 @@
     $('#signActa').on('click', function(){
       $('#infoSend').show();
       $('#miniLoaderScreen').show();
+      $.ajax({
+        url: 'signActa',
+        type: 'POST',
+        success: function(data){
+          $('#miniLoaderScreen').hide();
+          $('#infoSend').hide();
+          window.location.reload();
+        },
+        error: function(){
+          $('#miniLoaderScreen').hide();
+          $('#infoSend').hide();
+          window.location.reload();
+        }
+      })
+      $('#ajax-spinner').hide();
     });
   </script>
 

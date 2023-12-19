@@ -239,17 +239,17 @@ class SignActa(BrowserView):
             self.context.info_firma = ast.literal_eval(self.context.info_firma)
 
         if self.context.info_firma and 'enviatASignar' in self.context.info_firma and self.context.info_firma['enviatASignar']:
-            return self.request.response.redirect(self.context.absolute_url())
+            return "Already sent to sign"
 
         organ = utils.get_organ(self.context)
         signants = self.getSignants(organ)
 
         if not signants:
             self.context.plone_utils.addPortalMessage(_(u'No hi ha secretaris per firmar l\'acta.'), 'error')
-            return self.request.response.redirect(self.context.absolute_url())
+            return "No signants"
 
         if not organ.visiblegdoc:
-            return
+            return "GDoc not set up"
 
         client = ClientFirma()
         sign_step = ""
@@ -386,7 +386,7 @@ class SignActa(BrowserView):
             if e.timeout:
                 self.context.plone_utils.addPortalMessage(_(u'S\'ha sobrepasat el temps d\'espera per executar la petició: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
                 self.removeActaPDF()
-                return self.request.response.redirect(self.context.absolute_url())
+                return "GDoc Timeout"
 
             choose_msg_func = error_to_msg_map[sign_step].get('choose_portal_msg', None)
             portal_msg = 'portal_msg' if not choose_msg_func else choose_msg_func(e.response)
@@ -398,17 +398,17 @@ class SignActa(BrowserView):
             logger.error(error_to_msg_map[sign_step]['console_log'] + ' Exception: %s', str(e))
             self.context.plone_utils.addPortalMessage(error_to_msg_map[sign_step][portal_msg], 'error')
             self.removeActaPDF()
-            return self.request.response.redirect(self.context.absolute_url())
+            return "GDoc Error"
 
         except Exception as e:
             logger.error('ERROR. ' + sign_step + ' Exception: %s', str(e))
             logger.error(traceback.format_exc())
             self.context.plone_utils.addPortalMessage(_(u'Error al signar l\'acta: Contacta amb algun administrador de la web perquè revisi la configuració'), 'error')
             self.removeActaPDF()
-            return self.request.response.redirect(self.context.absolute_url())
+            return "Error"
 
         utils.addEntryLog(self.context.__parent__, None, _(u'Acta send to sign'), self.context.absolute_url())
-        return self.request.response.redirect(self.context.absolute_url())
+        return "Success"
 
 
 class ViewActa(BrowserView):
