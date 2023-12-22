@@ -54,6 +54,13 @@
     class=".acta.ViewFile"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     permission="zope2.View" />
+  
+  <browser:page
+    name="viewFile"
+    for="genweb.organs.content.subpunt.ISubpunt"
+    class=".acta.ViewFile"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    permission="zope2.View" />
 
   <browser:page
     name="downloadFile"
