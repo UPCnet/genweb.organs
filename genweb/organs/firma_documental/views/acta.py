@@ -169,7 +169,7 @@ class SignActa(BrowserView):
             file = getattr(file_content, filetype)
             is_public = filetype == 'visiblefile'
 
-            filename = ('Public - ' if is_public else 'LOPD - ') + filename_append + file_content.Title()
+            filename = ('Public - ' if is_public else 'Restringit - ') + filename_append + file_content.Title()
 
             info_file = uploadFileGdoc(id_exp, file, filename.decode('utf-8'))
             info_file.update({'title': filename, 'sizeKB': file.getSize() / 1024, 'public': is_public})
