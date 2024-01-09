@@ -31,10 +31,10 @@
   </index>
   <column value="index_estatVotacio"/>
 
-  <index name="idFirma" meta_type="FieldIndex">
-    <indexed_attr value="idFirma"/>
+  <index name="id_firma" meta_type="FieldIndex">
+    <indexed_attr value="id_firma"/>
   </index>
-  <column value="idFirma"/>
+  <column value="id_firma"/>
 
   <index name="estatFirma" meta_type="FieldIndex">
     <indexed_attr value="estatFirma"/>

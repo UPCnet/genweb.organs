@@ -25,9 +25,12 @@ class ClientFirmaException(Exception):
     def __str__(self):
         if self.timeout:
             return '(%s) Request timeout: %s' % (self.url, self.message)
+        err = "Request failed"
         if self.status:
-            return '(%s) Request failed with status [%s]: %s' % (self.url, self.status, self.message)
-        return '(%s) Request failed: %s' % (self.url, self.message)
+            err += " with status [%s]" % self.status
+        if self.response:
+            err += ". Response: %s." % self.response
+        return err + '(%s) Original message: %s' % (self.url, self.message)
 
 
 class ClientFirma(object):

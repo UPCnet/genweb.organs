@@ -273,7 +273,11 @@ def FilesandDocumentsInside(self):
     if getattr(self.context, 'info_firma', None) and self.context.info_firma.get('fitxers', None):
         results = []
         acta = uuidToObject(self.context.info_firma.get('related_acta', None))
-        if acta and getattr(acta, 'info_firma', None) and 'enviatASignar' in acta.info_firma and acta.info_firma['enviatASignar']:
+        if (
+          acta and getattr(acta, 'info_firma', None)
+          and acta.info_firma.get('enviatASignar', None)
+          and acta.estat_firma.lower() in ['pendent', 'signada']
+        ):
             for pos, file in self.context.info_firma['fitxers'].items():
                 class_css = 'fa fa-2x fa-file-pdf-o text-success' if file['public'] else 'fa fa-2x fa-file-pdf-o text-error'
                 roles_to_check = ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat']

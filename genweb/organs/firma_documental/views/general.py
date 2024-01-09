@@ -2,6 +2,7 @@
 from Products.Five.browser import BrowserView
 
 from plone import api
+from plone.app.uuid.utils import uuidToObject
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -61,7 +62,12 @@ def downloadCopiaAutentica(self, uuid, contentType, filename):
 def viewGDoc(self, uuid, contentType, filename):
     organ = utils.get_organ(self.context)
     if organ.visiblegdoc:
-        copia_autentica = getGDoc(self, uuid)
+        get_document = getGDoc
+        if self.context.portal_type in ['genweb.organs.punt', 'genweb.organs.subpunt', 'genweb.organs.acord']:
+            acta = uuidToObject(self.context.info_firma['related_acta'])
+            if acta.estat_firma.lower() == 'signada':
+                get_document = getCopiaAutentica
+        copia_autentica = get_document(self, uuid)
         if copia_autentica:
             self.request.response.setHeader('content-type', contentType)
             self.request.response.setHeader('content-disposition', 'inline; filename=' + str(filename))

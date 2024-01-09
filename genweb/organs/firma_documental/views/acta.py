@@ -60,6 +60,20 @@ class SignActa(BrowserView):
         except Exception:
             pass
 
+    def clearPuntSigns(self):
+        portal_catalog = api.portal.get_tool('portal_catalog')
+        session = utils.get_session(self.context)
+        session_path = '/'.join(session.getPhysicalPath())
+        punts = portal_catalog.searchResults(
+            portal_type=['genweb.organs.acord', 'genweb.organs.punt', 'genweb.organs.subpunt'],
+            path={'query': session_path, 'depth': 2},
+        )
+        for punt in punts:
+            punt_obj = punt.getObject()
+            if hasattr(punt_obj, 'info_firma'):
+                punt_obj.info_firma = {}
+                punt_obj.reindexObject()
+
     def getPuntsWithFiles(self):
         portal_catalog = api.portal.get_tool('portal_catalog')
         session = utils.get_session(self.context)
@@ -72,7 +86,7 @@ class SignActa(BrowserView):
         punts_with_files = []
         for punt in punts:
             files_punt = portal_catalog.searchResults(
-                portal_type=['genweb.organs.file', 'genweb.organs.document'],
+                portal_type=['genweb.organs.file'],
                 path={'query': punt.getPath(), 'depth': 1},
                 sort_on='getObjPositionInParent'
             )
@@ -90,7 +104,7 @@ class SignActa(BrowserView):
 
             for subpunt in subpunts:
                 files_subpunt = portal_catalog.searchResults(
-                    portal_type=['genweb.organs.file', 'genweb.organs.document'],
+                    portal_type=['genweb.organs.file'],
                     path={'query': subpunt.getPath(), 'depth': 1},
                     sort_on='getObjPositionInParent'
                 )
@@ -118,11 +132,7 @@ class SignActa(BrowserView):
             idx = 0
             for file in files:
                 file_content = file.getObject()
-                if file.portal_type == 'genweb.organs.file':
-                    file_info = self.uploadFileSessioGdoc(id_exp, file_content, filename_append)
-                else:
-                    file_info = self.uploadDocsSessioGdoc(id_exp, file_content, filename_append)
-
+                file_info = self.uploadFileSessioGdoc(id_exp, file_content, filename_append)
                 if file_info['public']:
                     punt.info_firma['fitxers'][str(idx)] = file_info['public']
                     uploaded_files_uuid.append(file_info['public']['uuid'])
@@ -164,30 +174,6 @@ class SignActa(BrowserView):
             info_file = uploadFileGdoc(id_exp, file, filename.decode('utf-8'))
             info_file.update({'title': filename, 'sizeKB': file.getSize() / 1024, 'public': is_public})
             file_res['public' if is_public else 'private'] = info_file
-
-        return file_res
-
-    def uploadDocsSessioGdoc(self, id_exp, document_content, filename_append):
-        file_res = {
-            'public': None,
-            'private': None
-        }
-
-        for filetype in ['defaultContent', 'alternateContent']:
-            document = getattr(document_content, filetype) if hasattr(document_content, filetype) else None
-            if not document:
-                continue
-            is_public = filetype == 'defaultContent'
-            filename = ('Public - ' if is_public else 'LOPD - ') + filename_append + document_content.Title()
-            pdf_file = self.generateDocumentPDF(document_content, filename, 'public' if is_public else 'private')
-            info_file = uploadFileGdoc(
-                expedient=id_exp,
-                file={"fitxer": [filename.decode('utf-8'), pdf_file.read(), 'application/pdf']},
-            )
-            info_file.update({'title': filename, 'public': is_public})
-            file_res['public' if is_public else 'private'] = info_file
-            pdf_file.close()
-            self.removeDocumentPDF(filename)
 
         return file_res
 
@@ -238,7 +224,7 @@ class SignActa(BrowserView):
         if not isinstance(self.context.info_firma, dict):
             self.context.info_firma = ast.literal_eval(self.context.info_firma)
 
-        if self.context.info_firma and 'enviatASignar' in self.context.info_firma and self.context.info_firma['enviatASignar']:
+        if self.context.info_firma and self.context.info_firma.get('enviatASignar', False):
             return "Already sent to sign"
 
         organ = utils.get_organ(self.context)
@@ -324,6 +310,8 @@ class SignActa(BrowserView):
             )
             logger.info('7. Puja dels fitxers de la sessió al gdoc')
             sign_step = "getPuntsWithFiles"
+            logger.info('7.0.5 Netejar els camps de signatura dels punts')
+            self.clearPuntSigns()
             logger.info('7.1 Obtenir tots els punts i acords amb fitxers')
             lista_punts = self.getPuntsWithFiles()
             sign_step = "uploadSessionFiles"
@@ -374,7 +362,7 @@ class SignActa(BrowserView):
 
             self.context.info_firma['enviatASignar'] = True
 
-            self.context.id_firma = content_sign['idPeticio']
+            self.context.id_firma = str(content_sign['idPeticio'])
             self.context.estat_firma = "PENDENT"
             self.context.reindexObject()
 

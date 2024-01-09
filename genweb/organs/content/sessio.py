@@ -791,7 +791,11 @@ class View(grok.View):
         roles = utils.getUserRoles(self, self.context, username)
         if item['info_firma'] and item['info_firma'].get('fitxers', None):
             acta = uuidToObject(item['info_firma'].get('related_acta', None))
-            if acta and getattr(acta, 'info_firma', None) and 'enviatASignar' in acta.info_firma and acta.info_firma['enviatASignar']:
+            if (
+              acta and getattr(acta, 'info_firma', None)
+              and acta.info_firma.get('enviatASignar', False)
+              and acta.estat_firma.lower() in ['pendent', 'signada']
+            ):
                 results = []
                 for pos, file in item['info_firma']['fitxers'].items():
                     class_css = 'fa fa-file-pdf-o ' + ('text-success' if file['public'] else 'text-error')
