@@ -97,7 +97,7 @@ class UpdateInfoPortafirmes(BrowserView):
             if body:
                 idFirma = body['idPeticio']
                 newEstatFirma = body['estatPeticio']
-                logger.info("id de la firma: " + idFirma, ". Estat: " + newEstatFirma)
+                logger.info("id de la firma: " + str(idFirma), ". Estat: " + newEstatFirma)
                 portal_catalog = api.portal.get_tool(name='portal_catalog')
                 firma = portal_catalog.searchResults(id_firma=str(idFirma))
                 if firma:
