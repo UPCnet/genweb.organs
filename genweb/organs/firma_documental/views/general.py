@@ -91,14 +91,15 @@ def downloadGDoc(self, uuid, contentType, filename):
 class UpdateInfoPortafirmes(BrowserView):
 
     def __call__(self):
+        logger.info("Notificacio de portafirmes")
         try:
             body = json.loads(self.request['BODY'])
             if body:
                 idFirma = body['idPeticio']
                 newEstatFirma = body['estatPeticio']
-
+                logger.info("id de la firma: " + idFirma, ". Estat: " + newEstatFirma)
                 portal_catalog = api.portal.get_tool(name='portal_catalog')
-                firma = portal_catalog.searchResults(id_firma=idFirma)
+                firma = portal_catalog.searchResults(id_firma=str(idFirma))
                 if firma:
                     firma = firma[0].getObject()
 
