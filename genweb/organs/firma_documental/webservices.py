@@ -115,7 +115,7 @@ class ClientFirma(object):
                 } for signant in signants],
             "promocionar": "S",
             "codiCategoria": "CAT43",
-            "codiTipusSignatura": "ATTACHED_VISIBLE_MARGE",
+            "codiTipusSignatura": "ATTACHED_VISIBLE",
             "dataLimit": (datetime.datetime.now() + datetime.timedelta(days=1)).strftime("%d-%m-%Y %H:%M:00"),
             "emissor": "Govern UPC",
             "informacio": "Signatura acta" + ' - ' + acta_title,

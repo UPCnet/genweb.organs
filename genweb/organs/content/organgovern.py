@@ -211,6 +211,7 @@ class IOrgangovern(form.Schema):
     form.widget('signants', SelectUsersInputFieldWidget)
     signants = schema.TextLine(
         title=_(u'Signants'),
+        description=_(u"Identifica totes les persones que han de signar i en l’ordre en el es tramitarà en  el Portafirmes UPC"),
         required=False,
     )
 

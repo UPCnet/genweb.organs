@@ -54,6 +54,9 @@ def is_valid_serie_gdoc(self):
 class UtilsFirmaDocumental():
 
     def hasFirma(self):
+        if self.context.portal_type == 'genweb.organs.acta':
+            return hasFirmaActa(self.context)
+
         info_firma = getattr(self.context, 'info_firma', None)
         if info_firma:
             if not isinstance(info_firma, dict):
@@ -66,6 +69,9 @@ class UtilsFirmaDocumental():
             return False
 
     def estatFirma(self):
+        if self.context.portal_type == 'genweb.organs.acta':
+            return estatFirmaActa(self.context)
+
         estat_firma = getattr(self.context, 'estat_firma', None)
         if estat_firma:
             return self.context.estat_firma.lower()
@@ -79,3 +85,33 @@ class UtilsFirmaDocumental():
         return {'visible_gdoc': False,
                 'valid_serie': False,
                 'msg_error': ''}
+
+
+def estatFirmaActa(acta):
+    estats_map = {
+        "pendent": "Enviada i pendent de signatura",
+        "signada": "Desada i signada",
+        "rebutjada": "Signatura rebutjada",
+    }
+    estat_firma = getattr(acta, 'estat_firma', None)
+    if estat_firma:
+        estat = estat_firma.lower()
+        return {
+            'class': estat,
+            'text': estats_map.get(estat, estat)
+        }
+    else:
+        return {'class': 'pendent', 'text': estats_map.get['pendent']}
+
+
+def hasFirmaActa(acta):
+    info_firma = getattr(acta, 'info_firma', None)
+    if info_firma:
+        if not isinstance(info_firma, dict):
+            info_firma = ast.literal_eval(info_firma)
+            acta.info_firma = info_firma
+
+        return 'unitatDocumental' in info_firma and 'enviatASignar' in info_firma and info_firma['enviatASignar']
+    else:
+        info_firma = {}
+        return False

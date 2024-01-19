@@ -26,6 +26,7 @@ from zope.schema.vocabulary import SimpleVocabulary
 
 from genweb.organs import _
 from genweb.organs import utils
+from genweb.organs.firma_documental.utils import hasFirmaActa, estatFirmaActa
 
 import ast
 import csv
@@ -1242,6 +1243,30 @@ class View(grok.View):
 
         return False
 
+    def hasFirma(self):
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        actes = portal_catalog.searchResults(
+            portal_type=['genweb.organs.acta'],
+            path={'query': folder_path, 'depth': 1}
+        )
+        return any(hasFirmaActa(acta.getObject()) for acta in actes)
+
+    def estatFirma(self):
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        actes = portal_catalog.searchResults(
+            portal_type=['genweb.organs.acta'],
+            sort_on='created',
+            sort_order='reverse',
+            path={'query': folder_path, 'depth': 1}
+        )
+        for acta in actes:
+            acta_obj = acta.getObject()
+            if hasFirmaActa(acta_obj):
+                return estatFirmaActa(acta_obj)
+
+        return None
 
 class OpenQuorum(grok.View):
     grok.context(ISessio)

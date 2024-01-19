@@ -76,8 +76,8 @@
     <tal:block tal:condition="hasFirma">
 
       <span tal:define="estatFirma view/estatFirma"
-            tal:attributes="class string:badge badge-pill estatFirma ${estatFirma}"
-            tal:content="estatFirma">PENDENT_SIGNANTS</span>
+            tal:attributes="class string:badge badge-pill estatFirma ${estatFirma/class}"
+            tal:content="estatFirma/text">PENDENT_SIGNANTS</span>
 
     </tal:block>
 

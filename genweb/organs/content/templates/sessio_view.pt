@@ -147,6 +147,13 @@
 
   <div class="documentDescription description"></div>
 
+  <tal:block tal:condition="view/hasFirma">
+    <span style="margin-top: 11px;"
+          tal:define="estatFirma view/estatFirma"
+          tal:attributes="class string:badge badge-pill estatFirma ${estatFirma/class}"
+          tal:content="estatFirma/text">PENDENT_SIGNANTS</span>
+  </tal:block> 
+
   <div class="sessionActions" tal:define="showOpenQuorum view/showOpenQuorum">
 
       <div class="containerIcons" tal:condition="view/showOrdreDiaIAssistencia">

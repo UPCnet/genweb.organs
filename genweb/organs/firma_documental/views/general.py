@@ -62,12 +62,14 @@ def downloadCopiaAutentica(self, uuid, contentType, filename):
 def viewGDoc(self, uuid, contentType, filename):
     organ = utils.get_organ(self.context)
     if organ.visiblegdoc:
-        get_document = getGDoc
         if self.context.portal_type in ['genweb.organs.punt', 'genweb.organs.subpunt', 'genweb.organs.acord']:
             acta = uuidToObject(self.context.info_firma['related_acta'])
-            if acta.estat_firma.lower() == 'signada':
-                get_document = getCopiaAutentica
-        copia_autentica = get_document(self, uuid)
+        else:
+            acta = self.context
+        if acta.estat_firma.lower() == 'signada':
+            copia_autentica = getCopiaAutentica(self, uuid)
+        else:
+            copia_autentica = getGDoc(self, uuid)
         if copia_autentica:
             self.request.response.setHeader('content-type', contentType)
             self.request.response.setHeader('content-disposition', 'inline; filename=' + str(filename))
@@ -79,7 +81,10 @@ def viewGDoc(self, uuid, contentType, filename):
 def downloadGDoc(self, uuid, contentType, filename):
     organ = utils.get_organ(self.context)
     if organ.visiblegdoc:
-        copia_autentica = getGDoc(self, uuid)
+        if self.context.estat_firma.lower() == 'signada':
+            copia_autentica = getCopiaAutentica(self, uuid)
+        else:
+            copia_autentica = getGDoc(self, uuid)
         if copia_autentica:
             self.request.response.setHeader('content-type', contentType)
             self.request.response.setHeader('content-disposition', 'attachment; filename=' + str(filename))
