@@ -450,6 +450,10 @@ class WhiteVote(grok.View):
 def sendVoteEmail(context, vote):
     context = aq_inner(context)
 
+    # /acl_users/plugins/manage_plugins?plugin_type=IPropertiesPlugin
+    # Move the ldapUPC to the top of the active plugins.
+    # Otherwise member.getProperty('email') won't work properly.
+
     user_email = api.user.get_current().getProperty('email')
     if user_email:
         mailhost = getToolByName(context, 'MailHost')
