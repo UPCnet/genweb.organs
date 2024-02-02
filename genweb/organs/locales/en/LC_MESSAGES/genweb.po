@@ -71,3 +71,6 @@ msgstr "Restricted to affected"
 
 msgid "time_ever"
 msgstr "Any date"
+
+msgid "El valor ha de ser numèric."
+msgstr "The value must be numeric."
