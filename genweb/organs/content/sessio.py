@@ -21,6 +21,7 @@ from z3c.form.interfaces import IEditForm
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from zope.i18n import translate
+from zope.interface import Invalid
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
@@ -42,6 +43,12 @@ sessionModalities = SimpleVocabulary(
      SimpleTerm(value=u'distance', title=_(u'distance')),
      SimpleTerm(value=u'asynchronous', title=_(u'asynchronous'))]
 )
+
+
+def is_numeric(value):
+    if not value.isdigit():
+        raise Invalid(_(u'El valor ha de ser numèric.'))
+    return True
 
 
 class ISessio(form.Schema):
@@ -80,6 +87,7 @@ class ISessio(form.Schema):
     numSessio = schema.TextLine(
         title=_(u"Session number"),
         required=True,
+        constraint=is_numeric,
     )
 
     llocConvocatoria = schema.TextLine(

@@ -1413,13 +1413,15 @@ Fi: ${vote/hourClose}"></span>
   });
 
   $(".removeVote").on('click', function(){
-    $.ajax({
-            type: 'POST',
-            url: $(this).attr('data-url') + '/removeVote',
-            success: function(){
-              refreshNeeded = true;
-            },
-    });
+    if(confirm("Est\u00e0s segur de voler eliminar la votaci\u00f3?")){
+      $.ajax({
+              type: 'POST',
+              url: $(this).attr('data-url') + '/removeVote',
+              success: function(){
+                refreshNeeded = true;
+              },
+      });
+    }
   });
 
   $(".closeVote").on('click', function(){

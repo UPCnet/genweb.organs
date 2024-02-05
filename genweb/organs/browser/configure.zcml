@@ -213,6 +213,14 @@
 
   <browser:page
     for="*"
+    name="allorgansestatsllista"
+    class=".views.allOrgansEstatsLlista"
+    layer="..interfaces.IGenwebOrgansLayer"
+    permission="cmf.ManagePortal"
+    />
+
+  <browser:page
+    for="*"
     name="getUsers"
     class=".views.getUsers"
     layer="..interfaces.IGenwebOrgansLayer"

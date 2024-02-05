@@ -71,3 +71,6 @@ msgstr "Restringit a afectats"
 
 msgid "time_ever"
 msgstr "Qualsevol data"
+
+msgid "El valor ha de ser numèric."
+msgstr "El valor ha de ser numèric."

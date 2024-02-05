@@ -17,6 +17,7 @@ from plone.directives import dexterity
 from plone.directives import form
 from plone.indexer import indexer
 from plone.supermodel.directives import fieldset
+from z3c.form.interfaces import IAddForm
 from zope import schema
 from zope.interface import directlyProvides
 from zope.schema.interfaces import IContextSourceBinder
@@ -99,7 +100,7 @@ class IAcord(form.Schema):
         required=False,
     )
 
-    form.mode(agreement='hidden')
+    form.mode(IAddForm, agreement='hidden')
     dexteritytextindexer.searchable('agreement')
     agreement = schema.TextLine(
         title=_(u'Agreement number'),
@@ -449,6 +450,10 @@ class WhiteVote(grok.View):
 
 def sendVoteEmail(context, vote):
     context = aq_inner(context)
+
+    # /acl_users/plugins/manage_plugins?plugin_type=IPropertiesPlugin
+    # Move the ldapUPC to the top of the active plugins.
+    # Otherwise member.getProperty('email') won't work properly.
 
     user_email = api.user.get_current().getProperty('email')
     if user_email:
