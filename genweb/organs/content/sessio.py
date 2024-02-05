@@ -192,6 +192,9 @@ class ISessio(form.Schema):
     directives.omitted('infoQuorums')
     infoQuorums = schema.Text(title=u'', required=False, default=u'{}')
 
+    #directives.omitted('unitatDocumental')
+    unitatDocumental = schema.TextLine(title=u'Unitat documental', required=False, default=u'')
+
 
 @form.default_value(field=ISessio['numSessio'])
 def numSessioDefaultValue(data):
@@ -1267,6 +1270,12 @@ class View(grok.View):
                 return estatFirmaActa(acta_obj)
 
         return None
+    
+    def canViewSignButton(self):
+        estatSessio = utils.session_wf_state(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        return estatSessio == 'tancada' and utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
 
 class OpenQuorum(grok.View):
     grok.context(ISessio)

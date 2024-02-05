@@ -268,6 +268,12 @@ span.proposalNumberSubpunt {
    left:10px;
 }
 
+.ui-state-grey-file:hover {
+    background: #f9f9f9 none repeat scroll 0 0 !important;
+    position: relative;
+
+}
+
 .llistaAfegir {
     margin-top:10px;
     color: #333;
@@ -454,6 +460,19 @@ a.remove{background-color: #e8003d!important}
 .DADES button:hover {
 
 }
+
+.DADES .btn-info {
+    color: #fff;
+}
+
+.DADES .btn-info.btn-send-confirm[disabled] {
+    filter: brightness(80%);
+}
+
+.DADES .btn-info.btn-send-confirm[disabled]:hover {
+    background-position: 0 0;
+}
+
 .DADES .remove:hover {
     background: #d14836 none repeat scroll 0 0;
      border-color: #d14836;
@@ -2633,4 +2652,15 @@ body.portaltype-genweb-organs-votacioacord input#form-widgets-title {
     height: 35px;
     animation: fa-spin 2s linear infinite;
     -webkit-animation: fa-spin 2s linear infinite;
+}
+
+#send-confirmation.modal > .modal-body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#send-confirmation.modal .listFiles {
+    margin-top: 0px ;
+    padding-top: 0px ;
+    padding-bottom: 0px ;
 }
