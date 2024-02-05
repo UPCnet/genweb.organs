@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.63 (unreleased)
+0.63 (2024-02-05)
 -----------------
 
-- Nothing changed yet.
-
+* [UPD] Restringir que no pongan valores no númerico en el campo número de sessión [Iago López]
+* [ADD] Comentarios [Iago López]
 
 0.62 (2023-12-18)
 -----------------
