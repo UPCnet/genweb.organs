@@ -110,7 +110,7 @@ class Edit(dexterity.EditForm):
                 info_firma['public'].update({  # hará que aparezca el check de subir a gdoc con estado amarillo
                     'replaced': True,
                     'uploaded': False,
-                    'error': 'El fitxer ha estat reemplaçat.'
+                    'error': 'El fitxer ha estat reemplaçat'
                 })
                 IStatusMessage(self.request).addStatusMessage(
                     _(u"El fitxer públic s'ha de pujar de nou a GDoc desde la vista 'Signar i desar GDoc' de la sessió"), "info success"
@@ -125,7 +125,7 @@ class Edit(dexterity.EditForm):
                 info_firma['private'].update({ # hará que aparezca el check de subir a gdoc con estado amarillo
                     'replaced': True,
                     'uploaded': False,
-                    'error': 'El fitxer ha estat reemplaçat.'
+                    'error': 'El fitxer ha estat reemplaçat'
                 })
                 IStatusMessage(self.request).addStatusMessage(
                     _(u"El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Signar i desar GDoc' de la sessió"), "info success"

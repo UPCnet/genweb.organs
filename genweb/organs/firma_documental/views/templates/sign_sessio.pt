@@ -638,8 +638,10 @@
 
                     <ta:block tal:condition="acta/acta">
                       <div tal:define="public_acta_download_url string:${absolute_url}/@@download/acta/${acta/acta/filename};
-                                      public_acta_view_url string:${absolute_url}/@@display-file/acta/;">
-                        <h3 i18n:translate="">Acta PDF</h3>
+                                      public_acta_view_url string:${absolute_url}/@@display-file/acta/;
+                                      isSigned python:view.isSigned(acta)">
+                        <h3 tal:condition="not:isSigned" i18n:translate="">Acta PDF</h3>
+                        <h3 tal:condition="isSigned" i18n:translate="">Acta signada</h3>
                         <p>
                           <a tal:attributes="href public_acta_view_url">
                             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
@@ -657,7 +659,7 @@
                     </ta:block>
                   </tal:block>
 
-                  <tal:block tal:condition="hasFirma" tal:define="acta python:view.getPDFActa(acta)">
+                  <tal:block tal:condition="hasFirma" tal:define="actaPDF python:view.getPDFActa(acta)">
                     <ta:block tal:condition="annexes">
                       <tal:block tal:define="multiple_annexes python:len(annexes)>1">
                         <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
@@ -682,15 +684,17 @@
                     </ta:block>
 
                     <div tal:define="public_acta_download_url string:${absolute_url}/downloadActa;
-                                    public_acta_view_url string:${absolute_url}/viewActa;">
-                      <h3 i18n:translate="">Acta PDF</h3>
+                                    public_acta_view_url string:${absolute_url}/viewActa;
+                                    isSigned python:view.isSigned(acta)">
+                      <h3 tal:condition="not:isSigned" i18n:translate="">Acta PDF</h3>
+                      <h3 tal:condition="isSigned" i18n:translate="">Acta signada</h3>
                       <p>
                         <a tal:attributes="href public_acta_view_url">
                           <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                          <tal:name tal:content="acta/filename">Filename</tal:name>
+                          <tal:name tal:content="actaPDF/filename">Filename</tal:name>
                         </a>
                         <span class="discreet"
-                            tal:define="kb acta/sizeKB">
+                            tal:define="kb actaPDF/sizeKB">
                           &mdash; <span tal:replace="kb" /> KB</span>
                           <a tal:attributes="href public_acta_download_url">
                             <i class="fa fa-download" aria-hidden="true"></i>

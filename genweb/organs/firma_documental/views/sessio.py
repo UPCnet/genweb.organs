@@ -365,6 +365,12 @@ class SignSessioView(BrowserView, utilsFD.UtilsFirmaDocumental):
     def estatFirma(self, acta):
         return utilsFD.estatFirmaActa(acta)
 
+    def isSigned(self, acta):
+        estat_firma = getattr(acta, 'estat_firma', None) or ""
+        if self.hasFirma(acta) and estat_firma.lower() == 'signada':
+            return True
+        return False
+
     def checkSerieGDoc(self):
           return {'visible_gdoc': True,
                 'valid_serie': True,

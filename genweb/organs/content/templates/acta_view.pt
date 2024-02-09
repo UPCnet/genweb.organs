@@ -237,7 +237,8 @@
     <ta:block tal:condition="context/acta">
       <div tal:define="public_acta_download_url string:${absolute_url}/@@download/acta/${context/acta/filename};
                        public_acta_view_url string:${absolute_url}/@@display-file/acta/;">
-        <h3 i18n:translate="">Acta PDF</h3>
+        <h3 tal:condition="not:view/isSigned" i18n:translate="">Acta PDF</h3>
+        <h3 tal:condition="view/isSigned" i18n:translate="">Acta signada</h3>
         <p>
           <a tal:attributes="href public_acta_view_url">
             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
@@ -281,7 +282,8 @@
 
     <div tal:define="public_acta_download_url string:${absolute_url}/downloadActa;
                      public_acta_view_url string:${absolute_url}/viewActa;">
-      <h3 i18n:translate="">Acta PDF</h3>
+      <h3 tal:condition="not:view/isSigned" i18n:translate="">Acta PDF</h3>
+      <h3 tal:condition="view/isSigned" i18n:translate="">Acta signada</h3>
       <p>
         <a tal:attributes="href public_acta_view_url">
           <i class="fa fa-file-pdf-o" aria-hidden="true"></i>

@@ -351,6 +351,11 @@ class View(dexterity.DisplayForm, UtilsFirmaDocumental):
             return {'filename': self.context.info_firma['acta']['filename'],
                     'sizeKB': self.context.info_firma['acta']['sizeKB']}
 
+    def isSigned(self):
+        estat_firma = getattr(self.context, 'estat_firma', None) or ""
+        if self.hasFirma() and estat_firma.lower() == 'signada':
+            return True
+        return False
 
 class Edit(dexterity.EditForm):
     """A standard edit form.
