@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import ast
 from Acquisition import aq_chain
 from Acquisition import aq_inner
 from Products.PluggableAuthService.interfaces.plugins import IPropertiesPlugin
@@ -270,27 +271,27 @@ def FilesandDocumentsInside(self):
     organ_tipus = self.context.organType
     roles = getUserRoles(self, self.context, api.user.get_current().id)
 
-    if getattr(self.context, 'info_firma', None) and self.context.info_firma.get('fitxers', None):
-        results = []
-        acta = uuidToObject(self.context.info_firma.get('related_acta', None))
-        if (
-          acta and getattr(acta, 'info_firma', None)
-          and acta.info_firma.get('enviatASignar', None)
-          and acta.estat_firma.lower() in ['pendent', 'signada']
-        ):
-            for pos, file in self.context.info_firma['fitxers'].items():
-                class_css = 'fa fa-2x fa-file-pdf-o text-success' if file['public'] else 'fa fa-2x fa-file-pdf-o text-error'
-                roles_to_check = ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat']
-                if organ_tipus == 'open_organ':
-                    roles_to_check.append('OG4-Afectat')
-                if not file['public'] and not checkhasRol(roles_to_check, roles):
-                    continue
-                results.append(dict(title=file['title'],
-                                    absolute_url=self.context.absolute_url() + '/viewFile?pos=' + str(pos),
-                                    classCSS=class_css,
-                                    new_tab=True,
-                                    ))
-            return results
+    # if getattr(self.context, 'info_firma', None) and self.context.info_firma.get('fitxers', None):
+    #     results = []
+    #     acta = uuidToObject(self.context.info_firma.get('related_acta', None))
+    #     if (
+    #       acta and getattr(acta, 'info_firma', None)
+    #       and acta.info_firma.get('enviatASignar', None)
+    #       and acta.estat_firma.lower() in ['pendent', 'signada']
+    #     ):
+    #         for pos, file in self.context.info_firma['fitxers'].items():
+    #             class_css = 'fa fa-2x fa-file-pdf-o text-success' if file['public'] else 'fa fa-2x fa-file-pdf-o text-error'
+    #             roles_to_check = ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat']
+    #             if organ_tipus == 'open_organ':
+    #                 roles_to_check.append('OG4-Afectat')
+    #             if not file['public'] and not checkhasRol(roles_to_check, roles):
+    #                 continue
+    #             results.append(dict(title=file['title'],
+    #                                 absolute_url=self.context.absolute_url() + '/viewFile?pos=' + str(pos),
+    #                                 classCSS=class_css,
+    #                                 new_tab=True,
+    #                                 ))
+    #         return results
     portal_catalog = api.portal.get_tool(name='portal_catalog')
     folder_path = '/'.join(self.context.getPhysicalPath())
     values = portal_catalog.unrestrictedSearchResults(
@@ -357,53 +358,81 @@ def FilesandDocumentsInside(self):
                                             classCSS=class_css))
 
             if obj.portal_type == 'genweb.organs.file':
+                info_firma = getattr(value, 'info_firma', None) or {}
+                if not isinstance(info_firma, dict):
+                    info_firma = ast.literal_eval(info_firma)
+
                 class_css = 'fa fa-2x fa-file-pdf-o'
                 if value.visiblefile and value.hiddenfile:
                     if organ_tipus == 'open_organ':
                         if checkhasRol(['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+                            if info_firma.get('private', {}).get('uploaded', False):
+                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
+                            else:
+                                absolute_url = '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
+                                                absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=class_css))
                         else:
+                            if info_firma.get('public', {}).get('uploaded', False):
+                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
+                            else:
+                                absolute_url = '/@@display-file/visiblefile/' + value.visiblefile.filename
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
+                                                absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=class_css))
                     else:
+                        if info_firma.get('private', {}).get('uploaded', False):
+                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
+                        else:
+                            absolute_url = '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                         if checkhasRol(['OG3-Membre', 'OG5-Convidat'], roles):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
+                                                absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=class_css))
                         else:
+                            if info_firma.get('public', {}).get('uploaded', False):
+                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
+                            else:
+                                absolute_url = '/@@display-file/visiblefile/' + value.visiblefile.filename
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
+                                                absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=class_css))
                 elif value.visiblefile:
+                    if info_firma.get('public', {}).get('uploaded', False):
+                        absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
+                    else:
+                        absolute_url = '/@@display-file/visiblefile/' + value.visiblefile.filename
                     results.append(dict(title=obj.Title,
-                                        absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
+                                        absolute_url=absolute_url,
                                         new_tab=True,
                                         classCSS=class_css,
                                         hidden=False))
                 elif value.hiddenfile:
+                    if info_firma.get('private', {}).get('uploaded', False):
+                        absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
+                    else:
+                        absolute_url = '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                     if organ_tipus == 'open_organ':
                         if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
+                                                absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=class_css))
                     else:
                         if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
+                                                absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=class_css))
     return results

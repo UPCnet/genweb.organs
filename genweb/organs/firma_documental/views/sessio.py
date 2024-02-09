@@ -238,6 +238,19 @@ class SignSessioView(BrowserView, utilsFD.UtilsFirmaDocumental):
                     absolute_url = obj.getURL()
                     if info_firma.get('uploaded', False):
                         absolute_url += '/viewFileGDoc?visibility=' + visibility
+                    firma_status = {
+                        'sent': bool(info_firma),
+                        'success': info_firma and info_firma.get('uploaded', False),
+                        'failed': info_firma and not info_firma.get('uploaded', False) and not info_firma.get('replaced', False),
+                        'replaced': info_firma and not info_firma.get('uploaded', False) and info_firma.get('replaced', False),
+                        'cssClass': 'estatFirmaFile uploaded',
+                        'message': info_firma.get('error', "")
+                    }
+                    if firma_status['replaced']:
+                        firma_status['cssClass'] = 'estatFirmaFile replaced'
+                    elif firma_status['failed']:
+                        firma_status['cssClass'] = 'estatFirmaFile failed'
+
                     results.append(dict(
                         title=obj.Title,
                         portal_type=obj.portal_type,
@@ -246,7 +259,7 @@ class SignSessioView(BrowserView, utilsFD.UtilsFirmaDocumental):
                         classCSS=classCSS,
                         id=str(item['id']) + '/' + obj.id,
                         uuid=visibility + '-' + str(obj.UID),
-                        info_firma=info_firma,
+                        info_firma=firma_status,
                     ))
 
         return results

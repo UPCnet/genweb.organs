@@ -1852,8 +1852,9 @@ dd.actionMenuContent.actionMenuContentColor {
 /* Some problems with cleantheme */
 .portaltype-genweb-organs-sessio .modal-body {overflow-y: initial !important;}
 /* End problems cleantheme */
+.template-signsessio .modal-body {overflow-y: auto !important;}
 
-./*header-image {
+/*.header-image {
   background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs@2x.jpg") !important;
 }*/
 
@@ -2663,4 +2664,31 @@ body.portaltype-genweb-organs-votacioacord input#form-widgets-title {
     margin-top: 0px ;
     padding-top: 0px ;
     padding-bottom: 0px ;
+}
+
+.estatFirmaFile {
+    font-size: 20px !important;
+}
+
+.estatFirmaFile.uploaded {
+    color: #57c886;
+}
+
+.estatFirmaFile.replaced {
+    color: #e8d153; 
+}
+
+.estatFirmaFile.failed {
+    color: #c74646;
+
+}
+
+.legend-sign {
+    background-color: #fff;
+    padding: 5px 0px 5px 10px;
+    margin-bottom: 10px;
+}
+
+.legend-sign .legend-sign-item {
+    margin-bottom: 5px;
 }

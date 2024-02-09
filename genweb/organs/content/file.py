@@ -1,17 +1,21 @@
 # -*- coding: utf-8 -*-
+import ast
 from five import grok
 from plone.directives import dexterity
 from plone.directives import form
+from z3c.form import button
 from genweb.organs import _
 from plone.namedfile.field import NamedBlobFile
 from zope import schema
 from plone import api
 from plone.app.dexterity import PloneMessageFactory as _PMF
+from Products.statusmessages.interfaces import IStatusMessage
 from collective import dexteritytextindexer
 from plone.supermodel.directives import fieldset
 from plone.namedfile.utils import get_contenttype
 from zope.schema import ValidationError
 from AccessControl import Unauthorized
+import transaction
 from genweb.organs import utils
 
 
@@ -80,6 +84,69 @@ class Edit(dexterity.EditForm):
     """A standard edit form. """
     grok.context(IFile)
 
+    # def update(self):
+    #     sessio = utils.get_session(self.getContent())
+    #     if sessio is not None:
+    #         estat = utils.session_wf_state(sessio)
+    #         if estat == 'tancada':
+    #             raise Unauthorized
+
+    # override handleApply
+    @button.buttonAndHandler(_("Save"), name="save")
+    def handleApply(self, action):
+        """ Custom handleApply for save button
+            If the file is replaced, the uploaded flag is set to False (for gdoc coherence)
+        """
+        super(Edit, self).handleApply.func(self, action)
+        w_visiblefile = self.getWidget('visiblefile')
+        w_hiddenfile = self.getWidget('hiddenfile')
+
+        info_firma = getattr(self.context, 'info_firma', None) or {}
+        if not isinstance(info_firma, dict):
+            info_firma = ast.literal_eval(info_firma)
+
+        if info_firma.get('public', {}).get('uploaded', False):
+            if w_visiblefile.action() == 'replace':
+                info_firma['public'].update({  # hará que aparezca el check de subir a gdoc con estado amarillo
+                    'replaced': True,
+                    'uploaded': False,
+                    'error': 'El fitxer ha estat reemplaçat.'
+                })
+                IStatusMessage(self.request).addStatusMessage(
+                    _(u"El fitxer públic s'ha de pujar de nou a GDoc desde la vista 'Signar i desar GDoc' de la sessió"), "info success"
+                )
+                # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gdoc automáticamente
+                # genweb.organs.firmadocumental.webservices.uploadFileGDoc
+            elif w_visiblefile.action() == 'remove':
+                info_firma.pop('public', None)
+
+        if info_firma.get('private', {}).get('uploaded', False):
+            if w_hiddenfile.action() == 'replace':
+                info_firma['private'].update({ # hará que aparezca el check de subir a gdoc con estado amarillo
+                    'replaced': True,
+                    'uploaded': False,
+                    'error': 'El fitxer ha estat reemplaçat.'
+                })
+                IStatusMessage(self.request).addStatusMessage(
+                    _(u"El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Signar i desar GDoc' de la sessió"), "info success"
+                )
+                # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gdoc
+                # genweb.organs.firmadocumental.webservices.uploadFileGDoc
+            elif w_hiddenfile.action() == 'remove':
+                info_firma.pop('private', None)
+        self.context.info_firma = str(info_firma)
+        transaction.commit()
+
+    def getWidget(self, widget_name):
+        """Get the widget by name."""
+        widget = self.widgets.get(widget_name)
+        if not widget:
+            for group in self.groups:
+                widget = group.widgets.get(widget_name)
+                if widget:
+                    break
+        return widget
+
 
 class View(grok.View):
     grok.context(IFile)
@@ -147,6 +214,42 @@ class View(grok.View):
             if 'application/pdf' in self.context.hiddenfile.contentType:
                 isPDF = True
         return isPDF
+
+    def publicFileUploadedGdoc(self):
+        info_firma = getattr(self.context, 'info_firma', None) or {}
+        if not isinstance(info_firma, dict):
+            info_firma = ast.literal_eval(info_firma)
+        return info_firma.get('public', {}).get('uploaded', False)
+
+    def privateFileUploadedGdoc(self):
+        info_firma = getattr(self.context, 'info_firma', None) or {}
+        if not isinstance(info_firma, dict):
+            info_firma = ast.literal_eval(info_firma)
+        return info_firma.get('private', {}).get('uploaded', False)
+
+    def publicFileViewURL(self):
+        if self.publicFileUploadedGdoc():
+            return self.context.absolute_url() + '/viewFileGDoc?visibility=public'
+        else:
+            return self.context.absolute_url() + '/@@display-file/visiblefile/' + self.context.visiblefile.filename
+
+    def privateFileViewURL(self):
+        if self.privateFileUploadedGdoc():
+            return self.context.absolute_url() + '/viewFileGDoc?visibility=private'
+        else:
+            return self.context.absolute_url() + '/@@display-file/hiddenfile/' + self.context.visiblefile.filename
+
+    def publicFileDownloadURL(self):
+        if self.publicFileUploadedGdoc():
+            return self.context.absolute_url() + '/downloadFileGDoc?visibility=public'
+        else:
+            return self.context.absolute_url() + '/@@download-file/visiblefile/' + self.context.visiblefile.filename
+
+    def privateFileDownloadURL(self):
+        if self.privateFileUploadedGdoc():
+            return self.context.absolute_url() + '/downloadFileGDoc?visibility=private'
+        else:
+            return self.context.absolute_url() + '/@@download-file/hiddenfile/' + self.context.hiddenfile.filename
 
     def viewPublic(self):
         """ Cuando se muestra la parte pública del FICHERO

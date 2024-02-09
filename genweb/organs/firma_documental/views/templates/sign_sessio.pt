@@ -20,7 +20,7 @@
       <div tal:replace="structure provider:plone.abovecontentbody"></div>
       <div tal:replace="structure provider:plone.belowcontentbody"></div>
       <div style="margin-bottom: 10px">
-        <a style="padding-top: 10px" class="docmentDescription" 18n:translate=""
+        <a style="padding-top: 10px" class="documentDescription" 18n:translate=""
               tal:attributes="href context/absolute_url">
               <i style="color: #557c95; margin-right: 7px" class="fa fa-chevron-left" aria-hidden="true"></i>Tornar</a>
       </div>
@@ -42,6 +42,21 @@
           <!-- <div id="sessionTabs" class="tab-pane active tab-content"> + this inside div#contentSessio -->
           <div id="documentsTab" class="tab-pane active" tal:condition="hihaDocs">
             <div tal:condition="items" id="documentsTab" class="DADES" style="overflow-x: hidden;">
+              <div class="legend-sign">
+                <h4>Possibles estats dels fitxers</h4>
+                <div class="legend-sign-item">
+                  <i class="fa fa-circle estatFirmaFile uploaded"></i>
+                  <span > El fitxer s'ha pujat i desat correctament a GDoc. </span>
+                </div>
+                <div class="legend-sign-item">
+                  <i class="fa fa-circle estatFirmaFile replaced"></i>
+                    <span > El fitxer, prèviament pujat i desat a GDoc, ha estat reemplaçat i s'ha d'enviar de nou. </span>
+                </div>
+                <div class="legend-sign-item">
+                  <i class="fa fa-circle estatFirmaFile failed"></i>
+                    <span > No s'ha pogut enviar el fitxer a GDoc. Normalment, és un problema temporal i es resol intentant pujar el fitxer de nou al cap d'una estona. </span>
+                </div>
+              </div>
               <div style="display: inline-block; padding-top: 5px;" class="documentDescription">
                 <span id="expandAll" i18n:translate="">Desplega tot <i style="color: #557c95" class="fa fa-chevron-down"
                     aria-hidden="true"></i></span>
@@ -112,15 +127,14 @@
                                           <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                                         </a>
                                         <div style="float:right; display: inline-table;">
-                                            <i class="fa fa-circle" style="color: #57c886; font-size: 20px;" title="Enviat i desat a GDoc"
-                                                  tal:condition="python:item['info_firma'] and item['info_firma'].get('uploaded', False)"></i>
-                                            <tal:block tal:condition="python:not item['info_firma'] or not item['info_firma'].get('uploaded', False)">
-                                              <i class="fa fa-circle" style="color: #c74646; font-size: 20px;"
-                                              tal:condition="python:item['info_firma'] and not item['info_firma'].get('uploaded', False)"
-                                              tal:attributes="title python:item['info_firma'].get('error', 'No s\'ha pogut pujar el fitxer a GDoc')"></i>
-                                              <input class="label label-important" type="checkbox" autocomplete="off"
-                                                tal:attributes="name python:'check:'+item['uuid']; value item/uuid" checked>
-                                            </tal:block>
+                                            <span tal:condition="not:item/info_firma/success" tal:content="item/info_firma/message"></span>
+                                            <i title="Enviat i desat a GDoc"
+                                                  tal:condition="item/info_firma/sent"
+                                                  tal:attributes="class string:fa fa-circle ${item/info_firma/cssClass}">
+                                            </i>
+                                            <input class="label label-important" type="checkbox" autocomplete="off"
+                                              tal:condition="not:item/info_firma/success"
+                                              tal:attributes="name python:'check:'+item['uuid']; value item/uuid" checked>
                                         </div>
                                       </li>
                                     </tal:documents>
@@ -161,15 +175,14 @@
                                                 <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                                               </a>
                                               <div style="float:right; display: inline-table;">
-                                                <i class="fa fa-circle" style="color: #57c886; font-size: 20px;" title="Enviat i desat a GDoc"
-                                                  tal:condition="python:item['info_firma'] and item['info_firma'].get('uploaded', False)"></i>
-                                                <tal:block tal:condition="python:not item['info_firma'] or not item['info_firma'].get('uploaded', False)">
-                                                  <i class="fa fa-circle" style="color: #c74646; font-size: 20px;"
-                                                  tal:condition="python:item['info_firma'] and not item['info_firma'].get('uploaded', False)"
-                                                  tal:attributes="title python:item['info_firma'].get('error', 'No s\'ha pogut pujar el fitxer a GDoc')"></i>
-                                                  <input class="label label-important" type="checkbox" autocomplete="off"
-                                                    tal:attributes="name python:'check:'+item['uuid']; value item/uuid" checked>
-                                                </tal:block>
+                                                <span tal:condition="not:item/info_firma/success" tal:content="item/info_firma/message"></span>
+                                                <i title="Enviat i desat a GDoc"
+                                                      tal:condition="item/info_firma/sent"
+                                                      tal:attributes="class string:fa fa-circle ${item/info_firma/cssClass}">
+                                                </i>
+                                                <input class="label label-important" type="checkbox" autocomplete="off"
+                                                  tal:condition="not:item/info_firma/success"
+                                                  tal:attributes="name python:'check:'+item['uuid']; value item/uuid" checked>
                                               </div>
                                             </li>
                                           </tal:documents>
@@ -223,7 +236,7 @@
                                       <tal:documents repeat="item files">
                                         <li class="filesinTable" style="width:98% !important; font-weight: bold !important;"
                                           tal:attributes="id item/uuid"
-                                          tal:condition="not:python:item['info_firma'] and item['info_firma'].get('uploaded', False)">
+                                          tal:condition="not:item/info_firma/success">
                                           <i tal:attributes="class item/classCSS"></i>
                                           <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                                         </li>
@@ -293,7 +306,7 @@
                                               <li class="filesinTable"
                                                 style="width: 92% !important; font-weight: bold !important;"
                                                 tal:attributes="id item/uuid"
-                                                tal:condition="not:python:item['info_firma'] and item['info_firma'].get('uploaded', False)">
+                                                tal:condition="not:item/info_firma/success">
                                                 <i tal:attributes="class item/classCSS"></i>
                                                 <tal:omit-tag tal:content="item/title">Doc title</tal:omit-tag>
                                               </li>
@@ -313,10 +326,10 @@
                   </ul>
                 </div>
                 <div class="modal-footer">
-                  <a href="#" class="btn" data-dismiss="modal">Tancar</a>
+                  <a href="#" class="btn" data-dismiss="modal">Cancel·lar</a>
                   <!-- El selector css ".DADES button" hace que se visualice mal el botón de boostrap
                     con la tag <button>, por tanto me veo obligado a poner div en su lugar -->
-                  <div id="send-sign-btn" class="btn btn-primary">Enviar</div>
+                  <div id="send-sign-btn" class="btn btn-primary">Confirmar</div>
                 </div>
               </div>
             </div>
@@ -685,7 +698,20 @@
                       </p>
                     </div>
                   </tal:block>
-
+                  <div class="modal fade hide previewModal" id="previewModal" tabindex="-1" role="dialog"
+                      aria-labelledby="previewModalLabel" aria-hidden="true" 
+                      tal:attributes="data-remote string:${acta/absolute_url}/previewActa">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      <h3 id="previewModalLabel"><span i18n:translate="">Previsualitzacio de l'acta</span></h3>
+                    </div>
+                    <div class="modal-body">
+                      <p>Acta</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn" data-dismiss="modal" aria-hidden="true"><span i18n:translate="">Tancar</span></button>
+                    </div>
+                  </div>
                   <div id="miniLoaderScreen">
                     <div class="loaderBorder">
                       <div class="loader"></div>

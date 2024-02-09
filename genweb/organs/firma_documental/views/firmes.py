@@ -11,7 +11,7 @@ from genweb.organs import _
 from genweb.organs import utils
 # from genweb.organs.firma_documental.views.general import downloadCopiaAutentica
 # from genweb.organs.firma_documental.views.general import downloadGDoc
-from genweb.organs.firma_documental.views.general import viewCopiaAutentica
+from genweb.organs.firma_documental.views.general import downloadCopiaAutentica, viewCopiaAutentica
 # from genweb.organs.firma_documental.views.general import viewGDoc
 from genweb.organs.firma_documental.webservices import ClientFirma, ClientFirmaException, uploadFileGdoc
 
@@ -103,10 +103,10 @@ class UploadFiles(BrowserView, FirmesMixin):
 
         if is_public:
             file_content = file.visiblefile
-            filename = 'Public - ' + filename_append + file.title
+            filename = 'Public - ' + filename_append + file.Title()
         else:
             file_content = file.hiddenfile
-            filename = 'Restringit - ' + filename_append + file.title
+            filename = 'Restringit - ' + filename_append + file.Title()
 
         try:
             info_file = uploadFileGdoc(self.context.unitatDocumental, file_content, filename.decode('utf-8'))
@@ -117,12 +117,13 @@ class UploadFiles(BrowserView, FirmesMixin):
             logger.error('ERROR. Puja del fitxer al GDoc. Exception: %s', str(e))
             info_file = {
                 'uploaded': False,
-                'error': "No s'ha pogut pujar el fitxer al GDoc. Torneu-ho a provar més tard."
+                'error': "No s'ha pogut pujar el fitxer al GDoc. Torneu a provar-ho més tard."
             }
             return False
 
         except Exception as e:
             logger.error('ERROR. Puja del fitxer al GDoc. Exception: %s', str(e))
+            logger.error(traceback.format_exc())
             info_file = {
                 'uploaded': False,
                 'error': "Hi ha hagut un error intern a l'hora de pujar el fitxer. Contacta amb algún administrador de la web perquè revisi la configuració."
@@ -520,32 +521,72 @@ class SignActa(BrowserView, FirmesMixin):
 
 
 class ViewFile(BrowserView):
+    _obtain_file_method_ = viewCopiaAutentica
 
     def __call__(self):
         if 'pos' in self.request or 'visibility' in self.request:
             if not isinstance(self.context.info_firma, dict):
                 self.context.info_firma = ast.literal_eval(self.context.info_firma)
             if self.context.portal_type == 'genweb.organs.acta':
+                if not self.canViewActa():
+                    raise Unauthorized
                 content = self.context.info_firma['adjunts'][self.request['pos']]
             else:
                 visibility = self.request.get('visibility', 'public')
                 if visibility != 'private':
                     visibility = 'public'
-                organ_tipus = self.context.organType
-                roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
-                roles_to_check = ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat']
-                if organ_tipus == 'open_organ':
-                    roles_to_check.append('OG4-Afectat')
-                elif not utils.checkhasRol(roles_to_check, roles):
+
+                if not self.canViewFile(visibility):
                     raise Unauthorized
 
-                if visibility != 'public' and not utils.checkhasRol(roles_to_check, roles):
-                    raise Unauthorized
-
-                if not visibility in self.context.info_firma:
+                if visibility not in self.context.info_firma:
                     self.context.plone_utils.addPortalMessage(_(u'El fitxer no existeix'), 'error')
                     return None
 
                 content = self.context.info_firma[visibility]
 
-            return viewCopiaAutentica(self, content['uuid'], content['contentType'], content['filename'])
+            return self._obtain_file_method_(content['uuid'], content['contentType'], content['filename'])
+
+    def canViewActa(self):
+        # Permissions to view acta
+
+        if self.context.portal_type != 'genweb.organs.acta':
+            raise Unauthorized # Only for actes
+
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if 'Manager' in roles:
+            return True
+
+        estatSessio = utils.session_wf_state(self)
+        organ_tipus = self.context.organType
+
+        roles_to_check = ['OG1-Secretari', 'OG2-Editor']
+        if estatSessio != 'planificada':
+            roles_to_check += ['OG3-Membre', 'OG5-Convidat']
+            if organ_tipus == 'open_organ' and estatSessio == 'tancada':
+                roles_to_check.append('OG4-Afectat')
+
+        if not utils.checkhasRol(roles_to_check, roles):
+            raise Unauthorized
+
+        return True
+
+    def canViewFile(self, visibility):
+        organ_tipus = self.context.organType
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        if 'Manager' in roles:
+            return True
+        roles_to_check = ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat']
+        if organ_tipus == 'open_organ':
+            roles_to_check.append('OG4-Afectat')
+        elif not utils.checkhasRol(roles_to_check, roles):
+            raise Unauthorized
+
+        if visibility != 'public' and not utils.checkhasRol(roles_to_check, roles):
+            raise Unauthorized
+
+        return True
+
+
+class DownloadFile(ViewFile):
+    _obtain_file_method_ = downloadCopiaAutentica

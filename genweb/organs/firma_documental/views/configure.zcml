@@ -46,8 +46,14 @@
     for="genweb.organs.content.file.IFile"
     class=".firmes.ViewFile"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-    permission="genweb.organs.firmadocumental.view" />
-
+    permission="zope2.View" />
+  
+  <browser:page
+    name="downloadFileGDoc"
+    for="genweb.organs.content.file.IFile"
+    class=".firmes.DownloadFile"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    permission="zope2.View" />
   <!-- <browser:page
     name="viewFile"
     for="genweb.organs.content.acord.IAcord"
@@ -95,7 +101,7 @@
     for="genweb.organs.content.sessio.ISessio"
     class=".sessio.SignSessioView"
     template="templates/sign_sessio.pt" 
-    permission="genweb.organs.firmadocumental.view"/>
+    permission="genweb.organs.firmadocumental.sign"/>
 
   <browser:page
     name="uploadFiles"
