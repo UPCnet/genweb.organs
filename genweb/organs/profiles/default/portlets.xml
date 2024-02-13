@@ -2,6 +2,9 @@
 <portlets>
 
     <portlet title="Organs Calendar" addview="organs.calendar.portlet"
-       description="Organs Calendar portlet"/>
+             description="Organs Calendar portlet"/>
+
+    <portlet title="La meva vinculació" addview="organs.lamevavinculacio.portlet"
+             description="La meva vinculació portlet"/>
 
 </portlets>

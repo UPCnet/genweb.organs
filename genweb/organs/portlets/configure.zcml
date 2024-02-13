@@ -10,10 +10,18 @@
 
     <plone:portlet
         name="organs.calendar.portlet"
-        interface=".portlet_calendar.ICalendarOrgansPortlet"
-        assignment=".portlet_calendar.Assignment"
-        renderer=".portlet_calendar.Renderer"
-        addview=".portlet_calendar.AddForm"
+        interface=".calendar.portlet_calendar.ICalendarOrgansPortlet"
+        assignment=".calendar.portlet_calendar.Assignment"
+        renderer=".calendar.portlet_calendar.Renderer"
+        addview=".calendar.portlet_calendar.AddForm"
+        />
+
+    <plone:portlet
+        name="organs.lamevavinculacio.portlet"
+        interface=".lamevavinculacio.lamevavinculacio.ILaMevaVinculacioOrgansPortlet"
+        assignment=".lamevavinculacio.lamevavinculacio.Assignment"
+        renderer=".lamevavinculacio.lamevavinculacio.Renderer"
+        addview=".lamevavinculacio.lamevavinculacio.AddForm"
         />
 
 </configure>
