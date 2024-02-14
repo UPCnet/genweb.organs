@@ -391,15 +391,11 @@ class FavorVote(grok.View):
             self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
 
         user = api.user.get_current().id
-        if user not in self.context.infoVotacio:
-            self.context.infoVotacio.update({user: 'favor'})
-            self.context.reindexObject()
-            transaction.commit()
-            sendVoteEmail(self.context, 'a favor')
-            return json.dumps({"status": 'success', "msg": ''})
-
-        return json.dumps({"status": 'error', "msg": _(u'Ja té un vot registrat, no pot votar dues vegades.')})
-
+        self.context.infoVotacio.update({user: 'favor'})
+        self.context.reindexObject()
+        transaction.commit()
+        sendVoteEmail(self.context, 'a favor')
+        return json.dumps({"status": 'success', "msg": ''})
 
 class AgainstVote(grok.View):
     grok.context(IAcord)
@@ -414,14 +410,11 @@ class AgainstVote(grok.View):
             self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
 
         user = api.user.get_current().id
-        if user not in self.context.infoVotacio:
-            self.context.infoVotacio.update({user: 'against'})
-            self.context.reindexObject()
-            transaction.commit()
-            sendVoteEmail(self.context, 'en contra')
-            return json.dumps({"status": 'success', "msg": ''})
-
-        return json.dumps({"status": 'error', "msg": _(u'Ja té un vot registrat, no pot votar dues vegades.')})
+        self.context.infoVotacio.update({user: 'against'})
+        self.context.reindexObject()
+        transaction.commit()
+        sendVoteEmail(self.context, 'en contra')
+        return json.dumps({"status": 'success', "msg": ''})
 
 
 class WhiteVote(grok.View):
@@ -437,14 +430,11 @@ class WhiteVote(grok.View):
             self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
 
         user = api.user.get_current().id
-        if user not in self.context.infoVotacio:
-            self.context.infoVotacio.update({user: 'white'})
-            self.context.reindexObject()
-            transaction.commit()
-            sendVoteEmail(self.context, 'en blanc')
-            return json.dumps({"status": 'success', "msg": ''})
-
-        return json.dumps({"status": 'error', "msg": _(u'Ja té un vot registrat, no pot votar dues vegades.')})
+        self.context.infoVotacio.update({user: 'white'})
+        self.context.reindexObject()
+        transaction.commit()
+        sendVoteEmail(self.context, 'en blanc')
+        return json.dumps({"status": 'success', "msg": ''})
 
 
 def sendVoteEmail(context, vote):

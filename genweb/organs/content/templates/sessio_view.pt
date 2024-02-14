@@ -1013,33 +1013,29 @@ Fi: ${vote/hourClose}"></span>
                 <tal:block tal:condition="canViewVoteButtons">
                   <div class="puntVoteButtons span12" tal:condition="item/canCloseVote">
                     <span class="span2"></span>
-                    <div class="span10 notVote" tal:condition="not: item/hasVote">
-                      <a class="btn btn-notvote span4 favor" tal:attributes="data-id item/id" i18n:translate="">A favor</a>
-                      <a class="btn btn-notvote span4 against" tal:attributes="data-id item/id" i18n:translate="">En contra</a>
-                      <a class="btn btn-notvote span4 white" tal:attributes="data-id item/id" i18n:translate="">En blanc</a>
-                    </div>
-                    <div class="span10 hasVote" tal:condition="item/hasVote">
-                      <a class="btn btn-notvote span4" tal:condition="not: item/favorVote" i18n:translate="">A favor</a>
+                    <div class="span10" >
+                      <a class="btn btn-notvote span4 favor" tal:attributes="data-id item/id"
+                         tal:condition="not: item/favorVote" i18n:translate="">A favor</a>
                       <a class="btn btn-info span4" tal:condition="item/favorVote" i18n:translate="">A favor</a>
-                      <a class="btn btn-notvote span4" tal:condition="not: item/againstVote" i18n:translate="">En contra</a>
+                      <a class="btn btn-notvote span4 against" tal:attributes="data-id item/id"
+                         tal:condition="not: item/againstVote" i18n:translate="">En contra</a>
                       <a class="btn btn-info span4" tal:condition="item/againstVote" i18n:translate="">En contra</a>
-                      <a class="btn btn-notvote span4" tal:condition="not: item/whiteVote" i18n:translate="">En blanc</a>
+                      <a class="btn btn-notvote span4 white" tal:attributes="data-id item/id"
+                         tal:condition="not: item/whiteVote" i18n:translate="">En blanc</a>
                       <a class="btn btn-info span4" tal:condition="item/whiteVote" i18n:translate="">En blanc</a>
                     </div>
                   </div>
                   <div class="puntVoteButtons span12" tal:condition="item/canRecloseVote">
                     <span class="span2"></span>
-                    <div class="span10 notVote" tal:condition="not: item/hasVote">
-                      <a class="btn btn-notvote span4 favor" tal:attributes="data-id item/canRecloseVote" i18n:translate="">A favor</a>
-                      <a class="btn btn-notvote span4 against" tal:attributes="data-id item/canRecloseVote" i18n:translate="">En contra</a>
-                      <a class="btn btn-notvote span4 white" tal:attributes="data-id item/canRecloseVote" i18n:translate="">En blanc</a>
-                    </div>
-                    <div class="span10 hasVote" tal:condition="item/hasVote">
-                      <a class="btn btn-notvote span4" tal:condition="not: item/favorVote" i18n:translate="">A favor</a>
+                    <div class="span10" >
+                      <a class="btn btn-notvote span4 favor" tal:attributes="data-id item/canRecloseVote"
+                         tal:condition="not: item/favorVote" i18n:translate="">A favor</a>
                       <a class="btn btn-info span4" tal:condition="item/favorVote" i18n:translate="">A favor</a>
-                      <a class="btn btn-notvote span4" tal:condition="not: item/againstVote" i18n:translate="">En contra</a>
+                      <a class="btn btn-notvote span4 against" tal:attributes="data-id item/canRecloseVote"
+                         tal:condition="not: item/againstVote" i18n:translate="">En contra</a>
                       <a class="btn btn-info span4" tal:condition="item/againstVote" i18n:translate="">En contra</a>
-                      <a class="btn btn-notvote span4" tal:condition="not: item/whiteVote" i18n:translate="">En blanc</a>
+                      <a class="btn btn-notvote span4 white" tal:attributes="data-id item/canRecloseVote"
+                         tal:condition="not: item/whiteVote" i18n:translate="">En blanc</a>
                       <a class="btn btn-info span4" tal:condition="item/whiteVote" i18n:translate="">En blanc</a>
                     </div>
                   </div>
@@ -1239,33 +1235,29 @@ Fi: ${vote/hourClose}"></span>
                         <tal:block tal:condition="canViewVoteButtons">
                           <div class="puntVoteButtons span12" tal:condition="itemSubpunt/canCloseVote">
                             <span class="span2"></span>
-                            <div class="span10 notVote" tal:condition="not: itemSubpunt/hasVote">
-                              <a class="btn btn-notvote span4 favor" tal:attributes="data-id itemSubpunt_id" i18n:translate="">A favor</a>
-                              <a class="btn btn-notvote span4 against" tal:attributes="data-id itemSubpunt_id" i18n:translate="">En contra</a>
-                              <a class="btn btn-notvote span4 white" tal:attributes="data-id itemSubpunt_id" i18n:translate="">En blanc</a>
-                            </div>
                             <div class="span10 hasVote" tal:condition="itemSubpunt/hasVote">
-                              <a class="btn btn-notvote span4" tal:condition="not: itemSubpunt/favorVote" i18n:translate="">A favor</a>
+                              <a class="btn btn-notvote span4 favor" tal:attributes="data-id itemSubpunt_id"
+                                 tal:condition="not: itemSubpunt/favorVote" i18n:translate="">A favor</a>
                               <a class="btn btn-info span4" tal:condition="itemSubpunt/favorVote" i18n:translate="">A favor</a>
-                              <a class="btn btn-notvote span4" tal:condition="not: itemSubpunt/againstVote" i18n:translate="">En contra</a>
+                              <a class="btn btn-notvote span4 against" tal:attributes="data-id itemSubpunt_id"
+                                 tal:condition="not: itemSubpunt/againstVote" i18n:translate="">En contra</a>
                               <a class="btn btn-info span4" tal:condition="itemSubpunt/againstVote" i18n:translate="">En contra</a>
-                              <a class="btn btn-notvote span4" tal:condition="not: itemSubpunt/whiteVote" i18n:translate="">En blanc</a>
+                              <a class="btn btn-notvote span4 white" tal:attributes="data-id itemSubpunt_id"
+                                 tal:condition="not: itemSubpunt/whiteVote" i18n:translate="">En blanc</a>
                               <a class="btn btn-info span4" tal:condition="itemSubpunt/whiteVote" i18n:translate="">En blanc</a>
                             </div>
                           </div>
                           <div class="puntVoteButtons span12" tal:condition="itemSubpunt/canRecloseVote">
                             <span class="span2"></span>
-                            <div class="span10 notVote" tal:condition="not: itemSubpunt/hasVote">
-                              <a class="btn btn-notvote span4 favor" tal:attributes="data-id itemSubpunt/canRecloseVote" i18n:translate="">A favor</a>
-                              <a class="btn btn-notvote span4 against" tal:attributes="data-id itemSubpunt/canRecloseVote" i18n:translate="">En contra</a>
-                              <a class="btn btn-notvote span4 white" tal:attributes="data-id itemSubpunt/canRecloseVote" i18n:translate="">En blanc</a>
-                            </div>
                             <div class="span10 hasVote" tal:condition="itemSubpunt/hasVote">
-                              <a class="btn btn-notvote span4" tal:condition="not: itemSubpunt/favorVote" i18n:translate="">A favor</a>
+                              <a class="btn btn-notvote span4 favor" tal:attributes="data-id itemSubpunt/canRecloseVote"
+                                 tal:condition="not: itemSubpunt/favorVote" i18n:translate="">A favor</a>
                               <a class="btn btn-info span4" tal:condition="itemSubpunt/favorVote" i18n:translate="">A favor</a>
-                              <a class="btn btn-notvote span4" tal:condition="not: itemSubpunt/againstVote" i18n:translate="">En contra</a>
+                              <a class="btn btn-notvote span4 against" tal:attributes="data-id itemSubpunt/canRecloseVote"
+                                 tal:condition="not: itemSubpunt/againstVote" i18n:translate="">En contra</a>
                               <a class="btn btn-info span4" tal:condition="itemSubpunt/againstVote" i18n:translate="">En contra</a>
-                              <a class="btn btn-notvote span4" tal:condition="not: itemSubpunt/whiteVote" i18n:translate="">En blanc</a>
+                              <a class="btn btn-notvote span4 white" tal:attributes="data-id itemSubpunt/canRecloseVote"
+                                 tal:condition="not: itemSubpunt/whiteVote" i18n:translate="">En blanc</a>
                               <a class="btn btn-info span4" tal:condition="itemSubpunt/whiteVote" i18n:translate="">En blanc</a>
                             </div>
                           </div>
@@ -1508,7 +1500,7 @@ Fi: ${vote/hourClose}"></span>
 <script type="text/javascript" tal:condition="canViewVoteButtons">
   var refreshNeeded = false;
 
-  $(".notVote .favor").on('click', function(){
+  $(".btn-notvote.favor").on('click', function(){
     $.ajax({
       type: 'POST',
       url: $(this).attr('data-id') + '/favorVote',
@@ -1524,7 +1516,7 @@ Fi: ${vote/hourClose}"></span>
     });
   });
 
-  $(".notVote .against").on('click', function(){
+  $(".btn-notvote.against").on('click', function(){
     $.ajax({
       type: 'POST',
       url: $(this).attr('data-id') + '/againstVote',
@@ -1540,7 +1532,7 @@ Fi: ${vote/hourClose}"></span>
     });
   });
 
-  $(".notVote .white").on('click', function(){
+  $(".btn-notvote.white").on('click', function(){
     $.ajax({
       type: 'POST',
       url: $(this).attr('data-id') + '/whiteVote',
