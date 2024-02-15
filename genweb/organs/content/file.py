@@ -340,10 +340,11 @@ class VisibleToHidden(grok.View):
     grok.require('zope2.View')
 
     def render(self):
-        self.context.hiddenfile = self.context.visiblefile
-        self.context.visiblefile = None
-        self.context.reindexObject()
-        transaction.commit()
+        if self.context.visiblefile:
+            self.context.hiddenfile = self.context.visiblefile
+            self.context.visiblefile = None
+            self.context.reindexObject()
+            transaction.commit()
         IStatusMessage(self.request).addStatusMessage(_(u'Visibilitat del fitxer modificada correctament.'), 'info')
         self.request.response.redirect(self.context.absolute_url())
 
@@ -355,9 +356,10 @@ class HiddenToVisible(grok.View):
     grok.require('zope2.View')
 
     def render(self):
-        self.context.visiblefile = self.context.hiddenfile
-        self.context.hiddenfile = None
-        self.context.reindexObject()
-        transaction.commit()
+        if self.context.hiddenfile:
+            self.context.visiblefile = self.context.hiddenfile
+            self.context.hiddenfile = None
+            self.context.reindexObject()
+            transaction.commit()
         IStatusMessage(self.request).addStatusMessage(_(u'Visibilitat del fitxer modificada correctament.'), 'info')
         self.request.response.redirect(self.context.absolute_url())
