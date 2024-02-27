@@ -97,7 +97,4 @@ class View(grok.View):
     def canView(self):
         # Permissions per veure l'estat dels organs a la taula principal
         roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
-        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
-            return True
-        else:
-            return False
+        return utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)

@@ -276,7 +276,7 @@ def FilesandDocumentsInside(self):
     results = []
     for obj in values:
         value = obj.getObject()
-        roles = getUserRoles(self, self.context, api.user.get_current().id)
+        roles = getUserRoles(self, value, api.user.get_current().id)
         if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
             class_css = 'fa fa-2x fa-file-pdf-o'
             if obj.portal_type == 'genweb.organs.file':

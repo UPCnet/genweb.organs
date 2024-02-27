@@ -461,31 +461,17 @@ class View(grok.View):
             raise Unauthorized
 
     def canModify(self):
-        if api.user.is_anonymous():
-            username = None
-            roles = []
-        else:
-            username = api.user.get_current().id
-            roles = api.user.get_roles(username=username, obj=self.context)
-
-        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
-            return True
-        else:
-            return False
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        return utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
 
     def viewOrdena(self):
         roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
-        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
-            value = True
-        return False
+        return utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
 
     def viewExportAcords(self):
         # Només els Secretaris i Editors poden veure les excuses
         roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
-        if utils.checkhasRol(['Manager', 'OG1-Secretari'], roles):
-            return True
-        else:
-            return False
+        return utils.checkhasRol(['Manager', 'OG1-Secretari'], roles)
 
 
 class exportActas(grok.View):

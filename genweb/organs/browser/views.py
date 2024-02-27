@@ -681,7 +681,6 @@ class allSessions(BrowserView):
         """ Returns sessions from organs marked as public fields,
             bypassing security permissions """
 
-        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
         today = DateTime.DateTime()   # Today
         date_previous_events = {'query': (today), 'range': 'max'}
         date_future_events = {'query': (today), 'range': 'min'}
@@ -705,6 +704,7 @@ class allSessions(BrowserView):
         current_year = datetime.datetime.now().strftime('%Y')
         for session in previous_sessions:
             obj = session._unrestrictedGetObject()
+            roles = utils.getUserRoles(self, obj, api.user.get_current().id)
             if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles) or obj.aq_parent.visiblefields:
                 event = IEventAccessor(obj)
                 if obj.start.strftime('%Y') == current_year:
@@ -724,6 +724,7 @@ class allSessions(BrowserView):
         current_year = datetime.datetime.now().strftime('%Y')
         for session in future_sessions:
             obj = session._unrestrictedGetObject()
+            roles = utils.getUserRoles(self, obj, api.user.get_current().id)
             if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles) or obj.aq_parent.visiblefields:
                 event = IEventAccessor(obj)
                 if obj.start.strftime('%Y') == current_year:
