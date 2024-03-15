@@ -1256,6 +1256,7 @@ class OpenQuorum(grok.View):
                 }
             })
 
+        self.context.reindexObject()
         transaction.commit()
 
 
@@ -1272,6 +1273,7 @@ class CloseQuorum(grok.View):
         if lenQuorums > 0 and not self.context.infoQuorums[lenQuorums]['end']:
             self.context.infoQuorums[lenQuorums]['end'] = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
 
+        self.context.reindexObject()
         transaction.commit()
 
 
@@ -1282,6 +1284,7 @@ class RemoveQuorums(grok.View):
 
     def render(self):
         self.context.infoQuorums = {}
+        self.context.reindexObject()
         transaction.commit()
 
 
@@ -1301,6 +1304,7 @@ class AddQuorum(grok.View):
                 self.context.infoQuorums[lenQuorums]['people'].append(username)
                 self.context.infoQuorums[lenQuorums]['total'] = len(self.context.infoQuorums[lenQuorums]['people'])
 
+        self.context.reindexObject()
         transaction.commit()
 
 
