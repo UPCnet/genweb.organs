@@ -1231,11 +1231,10 @@ Fi: ${vote/hourClose}"></span>
                             </div>
                           </tal:files>
                         </div>
-
                         <tal:block tal:condition="canViewVoteButtons">
                           <div class="puntVoteButtons span12" tal:condition="itemSubpunt/canCloseVote">
                             <span class="span2"></span>
-                            <div class="span10 hasVote" tal:condition="itemSubpunt/hasVote">
+                            <div class="span10 hasVote">
                               <a class="btn btn-notvote span4 favor" tal:attributes="data-id itemSubpunt_id"
                                  tal:condition="not: itemSubpunt/favorVote" i18n:translate="">A favor</a>
                               <a class="btn btn-info span4" tal:condition="itemSubpunt/favorVote" i18n:translate="">A favor</a>
@@ -1249,7 +1248,7 @@ Fi: ${vote/hourClose}"></span>
                           </div>
                           <div class="puntVoteButtons span12" tal:condition="itemSubpunt/canRecloseVote">
                             <span class="span2"></span>
-                            <div class="span10 hasVote" tal:condition="itemSubpunt/hasVote">
+                            <div class="span10 hasVote">
                               <a class="btn btn-notvote span4 favor" tal:attributes="data-id itemSubpunt/canRecloseVote"
                                  tal:condition="not: itemSubpunt/favorVote" i18n:translate="">A favor</a>
                               <a class="btn btn-info span4" tal:condition="itemSubpunt/favorVote" i18n:translate="">A favor</a>
