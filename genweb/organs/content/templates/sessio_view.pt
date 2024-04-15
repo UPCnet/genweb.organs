@@ -1432,7 +1432,6 @@ Fi: ${vote/hourClose}"></span>
 
   $(".openOtherPublicVote").on('click', function(){
     let titolVotacio = prompt($(this).attr('data-title'), "");
-    debugger;
     if (titolVotacio && confirm('T\u00edtol: ' + titolVotacio + '\n\nEst\xE0s segur que vols obrir aquesta esmena?')) {
       $.ajax({
               type: 'POST',
