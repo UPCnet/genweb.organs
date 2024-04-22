@@ -138,7 +138,7 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
-    dexterity.write_permission(estatsLlista='genweb.webmaster')
+    directives.omitted('estatsLlista')
     directives.widget(estatsLlista=WysiwygFieldWidget)
     estatsLlista = schema.Text(
         title=_(u"Agreement and document labels"),
