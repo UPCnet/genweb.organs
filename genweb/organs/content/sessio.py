@@ -405,6 +405,7 @@ class View(grok.View):
                 results.append(dict(id=obj.id,
                                     classe='hidden',
                                     show=False,
+                                    isAcord=False,
                                     agreement=False))
 
             elif obj.portal_type == 'Folder':
