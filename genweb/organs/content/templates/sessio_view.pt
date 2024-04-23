@@ -131,6 +131,21 @@
       });
     }
 
+    function hideAgreement(item){
+      $.ajax({
+        type: 'GET',
+        url: item + '/@@hideAgreement',
+        success: function(){
+          refreshNeeded = true;
+        },
+      });
+      $(document).ajaxStop(function(){
+        if(refreshNeeded){
+          window.location.reload();
+        }
+      });
+    }
+
   </script>
 
   <script type="text/javascript">
@@ -790,14 +805,30 @@ Fi: ${vote/hourClose}"></span>
       <div class="clearfix"></div>
       <ul id="sortable">
         <tal:documents repeat="item items">
-          <tal:block tal:define="agreement item/agreement">
+          <tal:block tal:define="agreement item/agreement;
+                                 isAcord item/isAcord">
             <li class="ui-state-grey" tal:attributes="id item/id; class item/classe">
               <td tal:condition="item/show">
                 <div class="span6 einesSpan">
                   <tal:editActions tal:condition="canModify">
                     <div style="float: right;" aria-label="Edit actions">
+                      <tal:block tal:condition="isAcord">
+                        <button type="button" class="hide-agreement label label-important"
+                                data-container="body"
+                                data-toggle="popover"
+                                data-placement="left"
+                                data-html="true"
+                                data-trigger="focus"
+                                title="Esborra número acord"
+                                data-original-title="Esborra número acord"
+                                tal:condition="not:item/omitAgreement"
+                                tal:attributes="data-item item/absolute_url">
+                          <i class="fa fa-undo" aria-hidden="true"></i>
+                        </button>
+                      </tal:block>
                       <button type="button" class="edit label label-info"
-                        data-original-title="Edit">
+                              title="Edit"
+                              data-original-title="Edit">
                         <i class="fa fa-pencil" aria-hidden="true"></i></button>
                       <button type="button" class="remove label label-important"
                         data-container="body"
@@ -805,6 +836,7 @@ Fi: ${vote/hourClose}"></span>
                         data-placement="left"
                         data-html="true"
                         data-trigger="focus"
+                        title="Esborra"
                         data-original-title="Esborra"
                         tal:attributes="data-item item/id; data-type item/portal_type">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -846,8 +878,8 @@ Fi: ${vote/hourClose}"></span>
                       </tal:block>
                     </div>
 
-                    <tal:block tal:condition="canViewManageVote">
-                      <tal:block tal:condition="agreement">
+                    <tal:block tal:condition="isAcord">
+                      <tal:block tal:condition="canViewManageVote">
                         <div class="btn-group votes" role="group"
                              style="float: right;" aria-label="Open vote" tal:condition="item/canOpenVote">
                           <button class="label dropdown-toggle"
@@ -999,6 +1031,7 @@ Fi: ${vote/hourClose}"></span>
                                   data-placement="left"
                                   data-html="true"
                                   data-trigger="focus"
+                                  title="Esborra"
                                   data-original-title="Esborra"
                                   tal:attributes="data-item item/id; data-type item/portal_type">
                                   <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -1044,12 +1077,28 @@ Fi: ${vote/hourClose}"></span>
                   <tal:subpunts repeat="itemSubpunt subpunts">
                     <ol class="li_subgrups" tal:attributes="id itemSubpunt/id"
                          tal:define="agreement itemSubpunt/agreement;
-                                     itemSubpunt_id itemSubpunt/id">
+                                     itemSubpunt_id itemSubpunt/id;
+                                     isAcord itemSubpunt/isAcord">
                       <div class="span6 agreementSpan"></div>
                       <div class="span6 einesSpan">
                         <div style="float: right;" aria-label="Edit actions" tal:condition="canModify">
+                          <tal:block tal:condition="isAcord">
+                            <button type="button" class="hide-agreement label label-important"
+                                    data-container="body"
+                                    data-toggle="popover"
+                                    data-placement="left"
+                                    data-html="true"
+                                    data-trigger="focus"
+                                    title="Esborra número acord"
+                                    data-original-title="Esborra número acord"
+                                    tal:condition="not:itemSubpunt/omitAgreement"
+                                    tal:attributes="data-item itemSubpunt/absolute_url">
+                              <i class="fa fa-undo" aria-hidden="true"></i>
+                            </button>
+                          </tal:block>
                           <button type="button" class="edit2 label label-info"
-                            data-original-title="Edit">
+                                  title="Edit"
+                                  data-original-title="Edit">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                           </button>
                           <button type="button" class="remove label label-important"
@@ -1058,6 +1107,7 @@ Fi: ${vote/hourClose}"></span>
                                 data-placement="left"
                                 data-html="true"
                                 data-trigger="focus"
+                                title="Esborra"
                                 data-original-title="Esborra"
                                 tal:attributes="data-item itemSubpunt_id; data-type itemSubpunt/portal_type">
                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -1094,8 +1144,8 @@ Fi: ${vote/hourClose}"></span>
                             </tal:block>
                           </div>
 
-                          <tal:block tal:condition="canViewManageVote">
-                            <tal:block tal:condition="agreement">
+                          <tal:block tal:condition="isAcord">
+                            <tal:block tal:condition="canViewManageVote">
                               <div class="btn-group votes" role="group"
                                    style="float: right;" aria-label="Open vote" tal:condition="itemSubpunt/canOpenVote">
 
@@ -1221,6 +1271,7 @@ Fi: ${vote/hourClose}"></span>
                                             data-placement="left"
                                             data-html="true"
                                             data-trigger="focus"
+                                            title="Esborra"
                                             data-original-title="Esborra"
                                             tal:attributes="data-item item/id; data-type item/portal_type">
                                             <i class="fa fa-trash-o" aria-hidden="true"></i></button>
@@ -1352,6 +1403,19 @@ Fi: ${vote/hourClose}"></span>
                   var name=$(this).data()['item'];
                   var portal_type=$(this).data()['type'];
                   var message='<a class="btn btn-info"> No </a>&nbsp;<a class="btn btn-danger" onclick=deleteElement("'+ name +','+ portal_type+'")> Si </a>'
+                  $(this).attr('data-content',message);
+                  $(this).popover('show');
+                }
+            });
+        });
+
+        $('button.hide-agreement').on('click', function (e) {
+            $('[data-toggle="popover"]').each(function () {
+                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                    $(this).popover('hide');
+                } else {
+                  var url=$(this).data()['item'];
+                  var message='<a class="btn btn-info"> No </a>&nbsp;<a class="btn btn-danger" onclick=hideAgreement("'+ url +'")> Si </a>'
                   $(this).attr('data-content',message);
                   $(this).popover('show');
                 }

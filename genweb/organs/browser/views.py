@@ -301,7 +301,7 @@ class ActaPrintView(BrowserView):
                 if value.agreement:
                     agreement = ' [Acord ' + str(value.agreement) + ']'
                 else:
-                    agreement = _(u"[Acord sense numerar]")
+                    agreement = _(u"[Acord sense numerar]") if not getattr(value, 'omitAgreement', False) else ''
             else:
                 agreement = ''
             results.append('<li>' + str(obj.Title) + ' ' + str(agreement))
@@ -320,7 +320,7 @@ class ActaPrintView(BrowserView):
                         if subpunt.agreement:
                             agreement = ' [Acord ' + str(subpunt.agreement) + ']'
                         else:
-                            agreement = _("[Acord sense numerar]")
+                            agreement = _("[Acord sense numerar]") if not getattr(subpunt, 'omitAgreement', False) else ''
                     else:
                         agreement = ''
                     results.append('<li>' + str(item.Title) + ' ' + str(agreement) + '</li>')
@@ -410,6 +410,7 @@ class ReloadAcords(BrowserView):
             if item.portal_type == 'genweb.organs.acord':
                 printid = '{0}'.format(str(idacord).zfill(2))
                 objecte.agreement = acronim + any + numsessio + printid
+                objecte.omitAgreement = False
                 idacord = idacord + 1
 
             if len(objecte.items()) > 0:
@@ -426,6 +427,7 @@ class ReloadAcords(BrowserView):
                     if value.portal_type == 'genweb.organs.acord':
                         printid = '{0}'.format(str(idacord).zfill(2))
                         newobjecte.agreement = acronim + any + numsessio + printid
+                        newobjecte.omitAgreement = False
                         idacord = idacord + 1
 
             index = index + 1
@@ -579,7 +581,7 @@ class Butlleti(BrowserView):
                 if value.agreement:
                     agreement = value.agreement
                 else:
-                    agreement = _(u"sense numeracio")
+                    agreement = _(u"sense numeracio") if not getattr(value, 'omitAgreement', False) else False
             else:
                 agreement = False
             results.append(dict(Title=obj.Title,
@@ -600,7 +602,7 @@ class Butlleti(BrowserView):
                         if subpunt.agreement:
                             agreement = subpunt.agreement
                         else:
-                            agreement = _(u"sense numeracio")
+                            agreement = _(u"sense numeracio") if not getattr(subpunt, 'omitAgreement', False) else False
                     else:
                         agreement = False
                     results.append(dict(Title=item.Title,

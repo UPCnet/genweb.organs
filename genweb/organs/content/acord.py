@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
+from Acquisition import aq_chain
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
@@ -26,6 +27,7 @@ from zope.schema.vocabulary import SimpleVocabulary
 
 from genweb.organs import _
 from genweb.organs import utils
+from genweb.organs.content.sessio import ISessio
 from genweb.organs.utils import addEntryLog
 
 import ast
@@ -99,11 +101,18 @@ class IAcord(form.Schema):
         required=False,
     )
 
-    form.mode(IAddForm, agreement='hidden')
+    form.mode(agreement='hidden')
     dexteritytextindexer.searchable('agreement')
     agreement = schema.TextLine(
         title=_(u'Agreement number'),
         required=False,
+    )
+
+    directives.omitted('omitAgreement')
+    omitAgreement = schema.Bool(
+        title=_(u'Omit Agreement number'),
+        required=False,
+        default=False
     )
 
     directives.widget(defaultContent=WysiwygFieldWidget)
@@ -239,7 +248,7 @@ class View(grok.View):
         if self.context.agreement:
             return _(u'[Acord ') + self.context.agreement + ']'
         else:
-            return _(u'[Acord sense numeracio]')
+            return _(u'[Acord sense numeracio]') if not getattr(self.context, 'omitAgreement', False) else ''
 
     def canView(self):
         # Permissions to view ACORDS. Poden estar a 1 i 2 nivells
@@ -576,3 +585,57 @@ class RemoveVote(grok.View):
         self.context.reindexObject()
         transaction.commit()
         addEntryLog(self.context.__parent__, None, _(u'Eliminada votacio acord'), self.context.absolute_url())
+
+
+
+class HideAgreement(grok.View):
+    grok.context(IAcord)
+    grok.name('hideAgreement')
+    grok.require('genweb.webmaster')
+
+    def getSessio(self, context):
+        for obj in aq_chain(context):
+            if ISessio.providedBy(obj):
+                return obj
+        return None
+
+    def canModify(self):
+        sessio = self.getSessio(self.context)
+
+        # If item is migrated, it can't be modified
+        migrated_property = hasattr(sessio, 'migrated')
+        if migrated_property:
+            if sessio.migrated is True:
+                return False
+
+        # But if not migrated, check permissions...
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, sessio, username)
+        review_state = api.content.get_state(sessio)
+        value = False
+        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and 'OG1-Secretari' in roles:
+            value = True
+        if review_state in ['planificada', 'convocada', 'realitzada'] and 'OG2-Editor' in roles:
+            value = True
+        return value or 'Manager' in roles
+
+    def render(self):
+        if not self.canModify():
+            raise Unauthorized
+
+        self.context.agreement = ''
+        self.context.omitAgreement = True
+        self.context.reindexObject()
+        transaction.commit()
+        return {"message": "OK"}, 200
+
+
+class ShowAgreement(grok.View):
+    grok.context(IAcord)
+    grok.name('showAgreement')
+    grok.require('cmf.ManagePortal')
+
+    def render(self):
+        self.context.omitAgreement = False
+        self.context.reindexObject()
+        transaction.commit()

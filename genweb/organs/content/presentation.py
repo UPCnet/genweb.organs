@@ -53,7 +53,7 @@ class Presentation(form.SchemaForm):
                         if item.agreement:
                             agreement = _(u'[Acord ') + item.agreement + ']'
                         else:
-                            agreement = _(u'[Acord sense numeracio]')
+                            agreement = _(u'[Acord sense numeracio]') if not getattr(item, 'omitAgreement', False) else False
                     else:
                         agreement = False
                     results.append(dict(title=obj.Title,
@@ -75,7 +75,7 @@ class Presentation(form.SchemaForm):
                         if item.agreement:
                             agreement = _(u'[Acord ') + item.agreement + ']'
                         else:
-                            agreement = _(u'[Acord sense numeracio]')
+                            agreement = _(u'[Acord sense numeracio]') if not getattr(item, 'omitAgreement', False) else False
                     else:
                         agreement = False
                     results.append(dict(title=obj.Title,
@@ -110,7 +110,7 @@ class Presentation(form.SchemaForm):
                     if item.agreement:
                         agreement = _(u'[Acord ') + item.agreement + ']'
                     else:
-                        agreement = _(u'[Acord sense numeracio]')
+                        agreement = _(u'[Acord sense numeracio]') if not getattr(item, 'omitAgreement', False) else False
                 else:
                     agreement = False
                 results.append(dict(title=obj.Title,
@@ -128,7 +128,7 @@ class Presentation(form.SchemaForm):
                     if item.agreement:
                         agreement = _(u'[Acord ') + item.agreement + ']'
                     else:
-                        agreement = _(u'[Acord sense numeracio]')
+                        agreement = _(u'[Acord sense numeracio]') if not getattr(item, 'omitAgreement', False) else False
                 else:
                     agreement = False
                 results.append(dict(title=obj.Title,

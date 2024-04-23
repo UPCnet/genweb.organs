@@ -253,7 +253,7 @@ class Message(form.SchemaForm):
                 if value.agreement:
                     agreement = _(u'[Acord ') + str(value.agreement) + ' - ' + str(value.estatsLlista).upper() + ' ]'
                 else:
-                    agreement = _(u'[Acord sense numeracio]')
+                    agreement = _(u'[Acord sense numeracio]') if not getattr(value, 'omitAgreement', False) else ''
             else:
                 agreement = ''
             # adding hidden field to maintain good urls
@@ -275,7 +275,7 @@ class Message(form.SchemaForm):
                         if subpunt.agreement:
                             agreement = _(u'[Acord ') + str(subpunt.agreement) + ' - ' + str(subpunt.estatsLlista).upper() + ' ]'
                         else:
-                            agreement = _(u'[Acord sense numeracio]')
+                            agreement = _(u'[Acord sense numeracio]') if not getattr(subpunt, 'omitAgreement', False) else ''
                     else:
                         agreement = ''
                     # adding hidden field to maintain good urls

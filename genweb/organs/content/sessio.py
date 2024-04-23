@@ -429,8 +429,11 @@ class View(grok.View):
                     if item.agreement:
                         agreement = item.agreement
                     else:
-                        agreement = _(u"sense numeracio")
+                        agreement = _(u"sense numeracio") if not getattr(item, 'omitAgreement', False) else False
+
                     isPunt = False
+                    isAcord = True
+                    omitAgreement = getattr(item, 'omitAgreement', False)
 
                     acord = obj.getObject()
                     votacio = acord
@@ -477,6 +480,8 @@ class View(grok.View):
                 else:
                     agreement = False
                     isPunt = True
+                    isAcord = False
+                    omitAgreement = False
 
                 results.append(dict(title=obj.Title,
                                     portal_type=obj.portal_type,
@@ -484,12 +489,14 @@ class View(grok.View):
                                     item_path=item.absolute_url_path(),
                                     proposalPoint=item.proposalPoint,
                                     agreement=agreement,
+                                    omitAgreement=omitAgreement,
                                     state=item.estatsLlista,
                                     css=self.getColor(obj),
                                     estats=self.estatsCanvi(obj),
                                     id=obj.id,
                                     show=True,
                                     isPunt=isPunt,
+                                    isAcord=isAcord,
                                     classe=classe,
                                     canOpenVote=canOpenVote,
                                     canCloseVote=canCloseVote,
@@ -531,7 +538,10 @@ class View(grok.View):
                 if item.agreement:
                     agreement = item.agreement
                 else:
-                    agreement = _(u"sense numeracio")
+                    agreement = _(u"sense numeracio") if not getattr(item, 'omitAgreement', False) else ''
+
+                isAcord = True
+                omitAgreement = getattr(item, 'omitAgreement', False)
 
                 votacio = item
                 canOpenVote = item.estatVotacio == None
@@ -575,6 +585,9 @@ class View(grok.View):
                         classVote = 'fa fa-user-chart'
             else:
                 agreement = False
+                isAcord = False
+                omitAgreement = False
+
             results.append(dict(title=obj.Title,
                                 portal_type=obj.portal_type,
                                 absolute_url=item.absolute_url(),
@@ -582,6 +595,8 @@ class View(grok.View):
                                 item_path=item.absolute_url_path(),
                                 state=item.estatsLlista,
                                 agreement=agreement,
+                                omitAgreement=omitAgreement,
+                                isAcord=isAcord,
                                 estats=self.estatsCanvi(obj),
                                 css=self.getColor(obj),
                                 canOpenVote=canOpenVote,
@@ -1039,7 +1054,7 @@ class View(grok.View):
                 data = {'UID': acord.UID,
                         'URL': acordObj.absolute_url(),
                         'title': acordObj.title,
-                        'code': acordObj.agreement if acordObj.agreement else '',
+                        'code': acordObj.agreement,
                         'state': _(u'open') if acordObj.estatVotacio == 'open' else _(u'close'),
                         'isOpen': acordObj.estatVotacio == 'open',
                         'isPublic': acordObj.tipusVotacio == 'public' and self.canViewManageVote(),
@@ -1102,7 +1117,7 @@ class View(grok.View):
                 data = {'UID': acord.UID,
                         'URL': acordObj.absolute_url(),
                         'title': acordObj.title,
-                        'code': acordObj.agreement if acordObj.agreement else '',
+                        'code': acordObj.agreement,
                         'state': '',
                         'isOpen': False,
                         'isPublic': False,

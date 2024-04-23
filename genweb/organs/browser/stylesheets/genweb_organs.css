@@ -451,9 +451,6 @@ a.remove{background-color: #e8003d!important}
     text-shadow: none;
     vertical-align: top;
 }
-.DADES button:hover {
-
-}
 .DADES .remove:hover {
     background: #d14836 none repeat scroll 0 0;
      border-color: #d14836;
@@ -465,7 +462,10 @@ a.remove{background-color: #e8003d!important}
     vertical-align: middle;
 }
 
+.DADES .hide-agreement.label:hover,
 .DADES .edit.label:hover { background-color: #007bc0; color:white; }
+
+.DADES .hide-agreement.label a,
 .DADES .edit.label a{ color:white!important; }
 
 .btn-info, .link-parent {
