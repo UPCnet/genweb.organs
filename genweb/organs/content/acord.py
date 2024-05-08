@@ -29,6 +29,7 @@ from genweb.organs import _
 from genweb.organs import utils
 from genweb.organs.content.sessio import ISessio
 from genweb.organs.utils import addEntryLog
+from genweb.organs.utils import checkHasOpenVote
 
 import ast
 import datetime
@@ -367,11 +368,15 @@ class ReopenVote(grok.View):
     grok.require('genweb.organs.manage.vote')
 
     def render(self):
+        if checkHasOpenVote(self.context):
+            return json.dumps({"status": 'error', "msg": _(u'Ja hi ha una votació oberta, no es pot obrir una altra.')})
+
         if self.context.estatVotacio == 'close':
             self.context.estatVotacio = 'open'
             self.context.reindexObject()
             transaction.commit()
             addEntryLog(self.context.__parent__, None, _(u'Reoberta votacio acord'), self.context.absolute_url())
+            return json.dumps({"status": 'success', "msg": ''})
 
 
 class CloseVote(grok.View):

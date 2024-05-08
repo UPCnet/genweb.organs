@@ -441,20 +441,19 @@ class View(grok.View):
                     canOpenVote = acord.estatVotacio == None
                     canCloseVote = acord.estatVotacio == 'open'
 
-                    if canOpenVote:
-                        acord_folder_path = '/'.join(item.getPhysicalPath())
-                        esmenas = portal_catalog.unrestrictedSearchResults(
-                            portal_type=['genweb.organs.votacioacord'],
-                            sort_on='getObjPositionInParent',
-                            path={'query': acord_folder_path,
-                                  'depth': 1})
+                    acord_folder_path = '/'.join(item.getPhysicalPath())
+                    esmenas = portal_catalog.unrestrictedSearchResults(
+                        portal_type=['genweb.organs.votacioacord'],
+                        sort_on='getObjPositionInParent',
+                        path={'query': acord_folder_path,
+                                'depth': 1})
 
-                        for esmena in esmenas:
-                            if esmena.getObject().estatVotacio == 'open':
-                                canRecloseVote = acord.id + '/' + esmena.id
-                                titleEsmena = esmena.Title
-                                votacio = esmena.getObject()
-                                canOpenVote = False
+                    for esmena in esmenas:
+                        if esmena.getObject().estatVotacio == 'open':
+                            canRecloseVote = acord.id + '/' + esmena.id
+                            titleEsmena = esmena.Title
+                            votacio = esmena.getObject()
+                            canOpenVote = False
 
                     currentUser = api.user.get_current().id
 
@@ -548,20 +547,19 @@ class View(grok.View):
                 canOpenVote = item.estatVotacio == None
                 canCloseVote = item.estatVotacio == 'open'
 
-                if canOpenVote:
-                    acord_folder_path = '/'.join(item.getPhysicalPath())
-                    esmenas = portal_catalog.unrestrictedSearchResults(
-                        portal_type=['genweb.organs.votacioacord'],
-                        sort_on='getObjPositionInParent',
-                        path={'query': acord_folder_path,
-                              'depth': 1})
+                acord_folder_path = '/'.join(item.getPhysicalPath())
+                esmenas = portal_catalog.unrestrictedSearchResults(
+                    portal_type=['genweb.organs.votacioacord'],
+                    sort_on='getObjPositionInParent',
+                    path={'query': acord_folder_path,
+                            'depth': 1})
 
-                    for esmena in esmenas:
-                        if esmena.getObject().estatVotacio == 'open':
-                            canRecloseVote = '/'.join(item.absolute_url_path().split('/')[-2:]) + '/' + esmena.id
-                            titleEsmena = esmena.Title
-                            votacio = esmena.getObject()
-                            canOpenVote = False
+                for esmena in esmenas:
+                    if esmena.getObject().estatVotacio == 'open':
+                        canRecloseVote = '/'.join(item.absolute_url_path().split('/')[-2:]) + '/' + esmena.id
+                        titleEsmena = esmena.Title
+                        votacio = esmena.getObject()
+                        canOpenVote = False
 
                 currentUser = api.user.get_current().id
 

@@ -468,3 +468,31 @@ def get_organ(context):
         if IOrgangovern.providedBy(obj):
             return obj
     return None
+
+def get_acord(context):
+    from genweb.organs.content.acord import IAcord
+    for obj in aq_chain(context):
+        if IAcord.providedBy(obj):
+            return obj
+    return None
+
+
+def checkHasOpenVote(context):
+    acord = get_acord(context)
+    if acord:
+        if acord.estatVotacio == 'open':
+            return True
+
+        acord_folder_path = '/'.join(acord.getPhysicalPath())
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        esmenas = portal_catalog.unrestrictedSearchResults(
+            portal_type=['genweb.organs.votacioacord'],
+            sort_on='getObjPositionInParent',
+            path={'query': acord_folder_path,
+                    'depth': 1})
+
+        for esmena in esmenas:
+            if esmena.getObject().estatVotacio == 'open':
+                return True
+
+    return False

@@ -1444,8 +1444,14 @@ Fi: ${vote/hourClose}"></span>
     $.ajax({
             type: 'POST',
             url: $(this).attr('data-url') + '/reopenVote',
-            success: function(){
-              refreshNeeded = true;
+            success: function(result){
+              result = JSON.parse(result)
+              if (result.status == "success") {
+                refreshNeeded = true;
+              } else {
+                alert(result.msg);
+                refreshNeeded = true;
+              }
             },
     });
   });
