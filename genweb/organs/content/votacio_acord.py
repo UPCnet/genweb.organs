@@ -92,7 +92,7 @@ class ReopenVote(grok.View):
 
     def render(self):
         if checkHasOpenVote(self.context):
-            return json.dumps({"status": 'error', "msg": _(u'Ja hi ha una votació oberta, no es pot obrir una altra.')})
+            return json.dumps({"status": 'error', "msg": _(u'Ja hi ha una votació oberta, no se\'n pot obrir una altra.')})
 
         if self.context.estatVotacio == 'close':
             self.context.estatVotacio = 'open'
