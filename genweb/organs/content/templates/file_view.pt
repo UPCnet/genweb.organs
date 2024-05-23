@@ -12,6 +12,9 @@
                   viewReserved view/viewReserved;
                   hihaPublic view/hihaPublic;
                   hihaReserved view/hihaReserved;
+                  changePublic view/changePublic;
+                  changeReserved view/changeReserved;
+                  changeFile python:changePublic or changeReserved;
                   absolute_url context/absolute_url;
                   icon view/icon_type;
                   pdf view/pdf_reserved;
@@ -27,8 +30,17 @@
         <div tal:define="reserved_content_type context/hiddenfile/contentType|nothing;
                          reserved_file_download_url view/privateFileDownloadURL;
                          reserved_file_view_url view/privateFileViewURL">
+          <div class="sessionActions" tal:condition="changeReserved">
+            <div class="containerIcons">
+              <a class="confirmRedirect" href="#" tal:attributes="data-redirect string:${absolute_url}/hiddenToVisible">
+                <i class="fa fa-rotate-right fa-3x" aria-hidden="true"></i>
+                <br><span i18n:translate="">Fitxer restringit a públic</span>
+              </a>
+            </div>
+          </div>
           <h3 tal:condition="not:view/privateFileUploadedGdoc" i18n:translate=""> Fitxer reservat </h3>
           <h3 tal:condition="view/privateFileUploadedGdoc" i18n:translate=""> Fitxer restringit [Versió baixada del GDoc] </h3>
+
           <i tal:attributes="class string:fa fa-2x text-error ${icon}" aria-hidden="true"></i>&nbsp;&nbsp;
           <span tal:condition="not:isPDFprivat">
               <tal:name tal:content="context/hiddenfile/filename">Filename</tal:name>
@@ -69,10 +81,19 @@
         <div tal:define="visible_content_type context/visiblefile/contentType|nothing;
                          public_file_download_url view/publicFileDownloadURL;
                          public_file_view_url view/publicFileViewURL">
+          <div class="sessionActions" tal:condition="changePublic">
+            <div class="containerIcons">
+              <a class="confirmRedirect" href="#" tal:attributes="data-redirect string:${absolute_url}/visibleToHidden">
+                <i class="fa fa-rotate-left fa-3x" aria-hidden="true"></i>
+                <br><span i18n:translate="">Fitxer públic a restringit</span>
+              </a>
+            </div>
+          </div>
           <tal:block tal:condition="view/showTitle">
             <h3 tal:condition="not:view/publicFileUploadedGdoc" i18n:translate="">Please upload a public file</h3>
             <h3 tal:condition="view/publicFileUploadedGdoc" i18n:translate="">Fitxer públic [Versió baixada del GDoc]</h3>
           </tal:block>
+
           <span tal:condition="not:isPDFpublic">
             <i class="fa fa-2x fa-file-pdf-o text-info" aria-hidden="true"></i>
             <tal:name tal:content="context/visiblefile/filename">Filename</tal:name>
@@ -98,6 +119,17 @@
       </div>
     </tal:blockPublic>
   </metal:block>
+
+  <script type="text/javascript" tal:condition="changeFile">
+    $(document).ready(function() {
+      $('.confirmRedirect').click(function() {
+        var redirect = $(this).attr('data-redirect');
+        if (confirm('Est\xE0s segur que vols canviar la visibilitat del fitxer? Aquesta acci\xF3 pot reempla\xE7ar el fitxer actual.')) {
+          window.location.href = redirect;
+        }
+      });
+    });
+  </script>
 
 </metal:content-core>
 

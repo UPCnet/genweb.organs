@@ -1,0 +1,23 @@
+<div id="lamevavinculacio" class="portlet portlet-lamevavinculacio"
+     tal:define="organs view/getOwnOrgans;"
+     tal:condition="organs"
+     i18n:domain="genweb.organs">
+
+  <div class="titling-line-container">
+    <h2 class="titling-line" i18n:domain="genweb.organs" i18n:translate=""> La meva vinculacio amb els organs de govern </h2>
+  </div>
+  <div class="box box-gradient">
+    <p tal:repeat="organ organs">
+      <tal:roles tal:repeat="role organ/role">
+        <span class="labelSearch" >
+          <tal:omit-tag tal:content="role" i18n:translate="">Secretari </tal:omit-tag>
+        </span>
+      </tal:roles>
+      <span tal:attributes="style string:background-color:${organ/color};">&nbsp;</span>
+      <span class="icon-genweb-organs-organgovern"></span>
+      <a tal:attributes="href organ/url;">
+        <tal:event content="organ/title"> Organ Title </tal:event>
+      </a>
+    </p>
+  </div>
+</div>

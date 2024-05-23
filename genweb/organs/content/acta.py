@@ -194,7 +194,7 @@ def Punts2Acta(self):
             if value.agreement:
                 agreement = ' [Acord ' + str(value.agreement) + ']'
             else:
-                agreement = _(u"[Acord sense numerar]")
+                agreement = _(u"[Acord sense numerar]")  if not getattr(value, 'omitAgreement', False) else ''
         else:
             agreement = ''
         results.append('<p>' + str(value.proposalPoint) + '. ' + str(obj.Title) + ' ' + str(agreement) + '</p>')
@@ -212,7 +212,7 @@ def Punts2Acta(self):
                     if subpunt.agreement:
                         agreement = ' [Acord ' + str(subpunt.agreement) + ']'
                     else:
-                        agreement = _("[Acord sense numerar]")
+                        agreement = _("[Acord sense numerar]") if not getattr(subpunt, 'omitAgreement', False) else ''
                 else:
                     agreement = ''
                 results.append('<p style="padding-left: 30px;">' + str(subpunt.proposalPoint) + '. ' + str(item.Title) + ' ' + str(agreement) + '</p>')

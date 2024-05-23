@@ -1,23 +1,26 @@
 # -*- coding: utf-8 -*-
 import ast
+
+from AccessControl import Unauthorized
+from Products.statusmessages.interfaces import IStatusMessage
+
+from collective import dexteritytextindexer
 from five import grok
-from plone.directives import dexterity
-from plone.directives import form
-from z3c.form import button
-from genweb.organs import _
-from plone.namedfile.field import NamedBlobFile
-from zope import schema
 from plone import api
 from plone.app.dexterity import PloneMessageFactory as _PMF
-from Products.statusmessages.interfaces import IStatusMessage
-from collective import dexteritytextindexer
-from plone.supermodel.directives import fieldset
+from plone.directives import dexterity
+from plone.directives import form
+from plone.namedfile.field import NamedBlobFile
 from plone.namedfile.utils import get_contenttype
+from plone.supermodel.directives import fieldset
+from zope import schema
 from zope.schema import ValidationError
-from AccessControl import Unauthorized
-import transaction
+from z3c.form import button
+
+from genweb.organs import _
 from genweb.organs import utils
 
+import transaction
 
 grok.templatedir("templates")
 
@@ -368,6 +371,15 @@ class View(grok.View):
             else:
                 raise Unauthorized
 
+
+    def changeReserved(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        return self.hihaReserved() and utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
+
+    def changePublic(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        return self.hihaPublic() and utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
+
     def canView(self):
         # Permissions to view FILE
         # If manager Show all
@@ -422,3 +434,34 @@ class View(grok.View):
 
         else:
             raise Unauthorized
+
+
+class VisibleToHidden(grok.View):
+    grok.context(IFile)
+    grok.name('visibleToHidden')
+    grok.require('zope2.View')
+
+    def render(self):
+        if self.context.visiblefile:
+            self.context.hiddenfile = self.context.visiblefile
+            self.context.visiblefile = None
+            self.context.reindexObject()
+            transaction.commit()
+        IStatusMessage(self.request).addStatusMessage(_(u'Visibilitat del fitxer modificada correctament.'), 'info')
+        self.request.response.redirect(self.context.absolute_url())
+
+
+
+class HiddenToVisible(grok.View):
+    grok.context(IFile)
+    grok.name('hiddenToVisible')
+    grok.require('zope2.View')
+
+    def render(self):
+        if self.context.hiddenfile:
+            self.context.visiblefile = self.context.hiddenfile
+            self.context.hiddenfile = None
+            self.context.reindexObject()
+            transaction.commit()
+        IStatusMessage(self.request).addStatusMessage(_(u'Visibilitat del fitxer modificada correctament.'), 'info')
+        self.request.response.redirect(self.context.absolute_url())

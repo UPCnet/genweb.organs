@@ -1,11 +1,31 @@
 Changelog
 =========
 
-0.64 (unreleased)
+0.65 (unreleased)
 -----------------
 
 - Nothing changed yet.
 
+
+0.64 (2024-05-13)
+-----------------
+
+* [UPD] Mensaje error [Iago López]
+* [UPD] Reabrir votaciones + control de errores [Iago López]
+* [UPD] Añadir boton para no mostrar numero de acord [Iago López]
+* [ADD] Añadir boton para no mostrar numero de acord [Iago López]
+* [UPD] No ver campo estatsLlista [Iago López]
+* [UPD] Deshacer commit 9b10ac8 - Imagenes organs [Iago López]
+* [FIX] Votaciones acords dentro de puntos [Iago López]
+* [DEL] debugger [Iago López]
+* [UPD] Imagenes organs [Iago López]
+* [ADD] Quorum views - Añadir reindexObject [Iago López]
+* [UPD] Permisos [Iago López]
+* [UPD] Confirmar creación esmenas [Iago López]
+* [UPD] Cambiar fichero público a restringido y viceversa [Iago López]
+* [ADD] Cambiar fichero público a restringido y viceversa [Iago López]
+* [UPD] Permitir de nuevo rehacer una votación [Iago López]
+* [ADD] Portlet lamevavinculacio [Iago López]
 
 0.63 (2024-02-05)
 -----------------

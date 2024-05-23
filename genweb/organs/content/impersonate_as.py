@@ -141,7 +141,7 @@ class ShowSessionAs(form.SchemaForm):
                     if item.agreement:
                         agreement = item.agreement
                     else:
-                        agreement = _(u"sense numeracio")
+                        agreement = _(u"sense numeracio") if not getattr(item, 'omitAgreement', False) else ''
                 else:
                     agreement = ''
                 results.append(dict(title=obj.Title,
@@ -178,7 +178,7 @@ class ShowSessionAs(form.SchemaForm):
                     if item.agreement:
                         agreement = item.agreement
                     else:
-                        agreement = _(u"sense numeracio")
+                        agreement = _(u"sense numeracio") if not getattr(item, 'omitAgreement', False) else ''
                 else:
                     agreement = ''
                 results.append(dict(title=obj.Title,

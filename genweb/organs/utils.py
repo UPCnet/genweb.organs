@@ -269,7 +269,7 @@ def addPoint(context, names, title, justification, path):
 def FilesandDocumentsInside(self):
     # Return files and docs found inside the session object
     organ_tipus = self.context.organType
-    roles = getUserRoles(self, self.context, api.user.get_current().id)
+    # roles = getUserRoles(self, self.context, api.user.get_current().id)
 
     # if getattr(self.context, 'info_firma', None) and self.context.info_firma.get('fitxers', None):
     #     results = []
@@ -302,6 +302,7 @@ def FilesandDocumentsInside(self):
     results = []
     for obj in values:
         value = obj.getObject()
+        roles = getUserRoles(self, value, api.user.get_current().id)
         if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
             class_css = 'fa fa-2x fa-file-pdf-o'
             if obj.portal_type == 'genweb.organs.file':
@@ -555,3 +556,32 @@ def getLdapUserData(user, typology=None):
     else:
         search_result = acl_users.searchUsers(id=user, exactMatch=True, typology=typology)
     return search_result
+
+
+def get_acord(context):
+    from genweb.organs.content.acord import IAcord
+    for obj in aq_chain(context):
+        if IAcord.providedBy(obj):
+            return obj
+    return None
+
+
+def checkHasOpenVote(context):
+    acord = get_acord(context)
+    if acord:
+        if acord.estatVotacio == 'open':
+            return True
+
+        acord_folder_path = '/'.join(acord.getPhysicalPath())
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        esmenas = portal_catalog.unrestrictedSearchResults(
+            portal_type=['genweb.organs.votacioacord'],
+            sort_on='getObjPositionInParent',
+            path={'query': acord_folder_path,
+                    'depth': 1})
+
+        for esmena in esmenas:
+            if esmena.getObject().estatVotacio == 'open':
+                return True
+
+    return False

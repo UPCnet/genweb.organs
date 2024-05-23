@@ -21,6 +21,7 @@ from genweb.organs import utils
 from genweb.organs.content.acord import llistaEstatsVotacio
 from genweb.organs.content.acord import llistaTipusVotacio
 from genweb.organs.utils import addEntryLog
+from genweb.organs.utils import checkHasOpenVote
 
 import ast
 import datetime
@@ -90,11 +91,15 @@ class ReopenVote(grok.View):
     grok.require('genweb.organs.manage.vote')
 
     def render(self):
+        if checkHasOpenVote(self.context):
+            return json.dumps({"status": 'error', "msg": _(u'Ja hi ha una votació oberta, no se\'n pot obrir una altra.')})
+
         if self.context.estatVotacio == 'close':
             self.context.estatVotacio = 'open'
             self.context.reindexObject()
             transaction.commit()
             addEntryLog(self.context.__parent__.__parent__, None, _(u'Reoberta votacio esmena'), self.context.__parent__.absolute_url())
+            return json.dumps({"status": 'success', "msg": ''})
 
 
 class CloseVote(grok.View):
@@ -123,14 +128,11 @@ class FavorVote(grok.View):
             self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
 
         user = api.user.get_current().id
-        if user not in self.context.infoVotacio:
-            self.context.infoVotacio.update({user: 'favor'})
-            self.context.reindexObject()
-            transaction.commit()
-            sendVoteEmail(self.context, 'a favor')
-            return json.dumps({"status": 'success', "msg": ''})
-
-        return json.dumps({"status": 'error', "msg": _(u'Ja té un vot registrat, no pot votar dues vegades.')})
+        self.context.infoVotacio.update({user: 'favor'})
+        self.context.reindexObject()
+        transaction.commit()
+        sendVoteEmail(self.context, 'a favor')
+        return json.dumps({"status": 'success', "msg": ''})
 
 
 class AgainstVote(grok.View):
@@ -146,14 +148,11 @@ class AgainstVote(grok.View):
             self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
 
         user = api.user.get_current().id
-        if user not in self.context.infoVotacio:
-            self.context.infoVotacio.update({user: 'against'})
-            self.context.reindexObject()
-            transaction.commit()
-            sendVoteEmail(self.context, 'en contra')
-            return json.dumps({"status": 'success', "msg": ''})
-
-        return json.dumps({"status": 'error', "msg": _(u'Ja té un vot registrat, no pot votar dues vegades.')})
+        self.context.infoVotacio.update({user: 'against'})
+        self.context.reindexObject()
+        transaction.commit()
+        sendVoteEmail(self.context, 'en contra')
+        return json.dumps({"status": 'success', "msg": ''})
 
 
 class WhiteVote(grok.View):
@@ -169,14 +168,11 @@ class WhiteVote(grok.View):
             self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
 
         user = api.user.get_current().id
-        if user not in self.context.infoVotacio:
-            self.context.infoVotacio.update({user: 'white'})
-            self.context.reindexObject()
-            transaction.commit()
-            sendVoteEmail(self.context, 'en blanc')
-            return json.dumps({"status": 'success', "msg": ''})
-
-        return json.dumps({"status": 'error', "msg": _(u'Ja té un vot registrat, no pot votar dues vegades.')})
+        self.context.infoVotacio.update({user: 'white'})
+        self.context.reindexObject()
+        transaction.commit()
+        sendVoteEmail(self.context, 'en blanc')
+        return json.dumps({"status": 'success', "msg": ''})
 
 
 def sendVoteEmail(context, vote):

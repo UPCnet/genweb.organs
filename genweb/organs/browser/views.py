@@ -302,7 +302,7 @@ class ActaPrintView(BrowserView):
                 if value.agreement:
                     agreement = ' [Acord ' + str(value.agreement) + ']'
                 else:
-                    agreement = _(u"[Acord sense numerar]")
+                    agreement = _(u"[Acord sense numerar]") if not getattr(value, 'omitAgreement', False) else ''
             else:
                 agreement = ''
             results.append('<li>' + str(obj.Title) + ' ' + str(agreement))
@@ -321,7 +321,7 @@ class ActaPrintView(BrowserView):
                         if subpunt.agreement:
                             agreement = ' [Acord ' + str(subpunt.agreement) + ']'
                         else:
-                            agreement = _("[Acord sense numerar]")
+                            agreement = _("[Acord sense numerar]") if not getattr(subpunt, 'omitAgreement', False) else ''
                     else:
                         agreement = ''
                     results.append('<li>' + str(item.Title) + ' ' + str(agreement) + '</li>')
@@ -411,6 +411,7 @@ class ReloadAcords(BrowserView):
             if item.portal_type == 'genweb.organs.acord':
                 printid = '{0}'.format(str(idacord).zfill(2))
                 objecte.agreement = acronim + any + numsessio + printid
+                objecte.omitAgreement = False
                 idacord = idacord + 1
 
             if len(objecte.items()) > 0:
@@ -427,6 +428,7 @@ class ReloadAcords(BrowserView):
                     if value.portal_type == 'genweb.organs.acord':
                         printid = '{0}'.format(str(idacord).zfill(2))
                         newobjecte.agreement = acronim + any + numsessio + printid
+                        newobjecte.omitAgreement = False
                         idacord = idacord + 1
 
             index = index + 1
@@ -580,7 +582,7 @@ class Butlleti(BrowserView):
                 if value.agreement:
                     agreement = value.agreement
                 else:
-                    agreement = _(u"sense numeracio")
+                    agreement = _(u"sense numeracio") if not getattr(value, 'omitAgreement', False) else False
             else:
                 agreement = False
             results.append(dict(Title=obj.Title,
@@ -601,7 +603,7 @@ class Butlleti(BrowserView):
                         if subpunt.agreement:
                             agreement = subpunt.agreement
                         else:
-                            agreement = _(u"sense numeracio")
+                            agreement = _(u"sense numeracio") if not getattr(subpunt, 'omitAgreement', False) else False
                     else:
                         agreement = False
                     results.append(dict(Title=item.Title,
@@ -682,7 +684,6 @@ class allSessions(BrowserView):
         """ Returns sessions from organs marked as public fields,
             bypassing security permissions """
 
-        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
         today = DateTime.DateTime()   # Today
         date_previous_events = {'query': (today), 'range': 'max'}
         date_future_events = {'query': (today), 'range': 'min'}
@@ -706,6 +707,7 @@ class allSessions(BrowserView):
         current_year = datetime.datetime.now().strftime('%Y')
         for session in previous_sessions:
             obj = session._unrestrictedGetObject()
+            roles = utils.getUserRoles(self, obj, api.user.get_current().id)
             if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles) or obj.aq_parent.visiblefields:
                 event = IEventAccessor(obj)
                 if obj.start.strftime('%Y') == current_year:
@@ -725,6 +727,7 @@ class allSessions(BrowserView):
         current_year = datetime.datetime.now().strftime('%Y')
         for session in future_sessions:
             obj = session._unrestrictedGetObject()
+            roles = utils.getUserRoles(self, obj, api.user.get_current().id)
             if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles) or obj.aq_parent.visiblefields:
                 event = IEventAccessor(obj)
                 if obj.start.strftime('%Y') == current_year:
@@ -1262,6 +1265,7 @@ class allOrgansEstatsLlista(BrowserView):
             })
 
         return results
+
 
 class getUsers(BrowserView):
 

@@ -410,6 +410,7 @@ class View(grok.View):
                 results.append(dict(id=obj.id,
                                     classe='hidden',
                                     show=False,
+                                    isAcord=False,
                                     agreement=False))
 
             elif obj.portal_type == 'Folder':
@@ -434,28 +435,30 @@ class View(grok.View):
                     if item.agreement:
                         agreement = item.agreement
                     else:
-                        agreement = _(u"sense numeracio")
+                        agreement = _(u"sense numeracio") if not getattr(item, 'omitAgreement', False) else False
+
                     isPunt = False
+                    isAcord = True
+                    omitAgreement = getattr(item, 'omitAgreement', False)
 
                     acord = obj.getObject()
                     votacio = acord
                     canOpenVote = acord.estatVotacio == None
                     canCloseVote = acord.estatVotacio == 'open'
 
-                    if canOpenVote:
-                        acord_folder_path = '/'.join(item.getPhysicalPath())
-                        esmenas = portal_catalog.unrestrictedSearchResults(
-                            portal_type=['genweb.organs.votacioacord'],
-                            sort_on='getObjPositionInParent',
-                            path={'query': acord_folder_path,
-                                  'depth': 1})
+                    acord_folder_path = '/'.join(item.getPhysicalPath())
+                    esmenas = portal_catalog.unrestrictedSearchResults(
+                        portal_type=['genweb.organs.votacioacord'],
+                        sort_on='getObjPositionInParent',
+                        path={'query': acord_folder_path,
+                                'depth': 1})
 
-                        for esmena in esmenas:
-                            if esmena.getObject().estatVotacio == 'open':
-                                canRecloseVote = acord.id + '/' + esmena.id
-                                titleEsmena = esmena.Title
-                                votacio = esmena.getObject()
-                                canOpenVote = False
+                    for esmena in esmenas:
+                        if esmena.getObject().estatVotacio == 'open':
+                            canRecloseVote = acord.id + '/' + esmena.id
+                            titleEsmena = esmena.Title
+                            votacio = esmena.getObject()
+                            canOpenVote = False
 
                     currentUser = api.user.get_current().id
 
@@ -482,6 +485,8 @@ class View(grok.View):
                 else:
                     agreement = False
                     isPunt = True
+                    isAcord = False
+                    omitAgreement = False
 
                 results.append(dict(title=obj.Title,
                                     portal_type=obj.portal_type,
@@ -489,12 +494,14 @@ class View(grok.View):
                                     item_path=item.absolute_url_path(),
                                     proposalPoint=item.proposalPoint,
                                     agreement=agreement,
+                                    omitAgreement=omitAgreement,
                                     state=item.estatsLlista,
                                     css=self.getColor(obj),
                                     estats=self.estatsCanvi(obj),
                                     id=obj.id,
                                     show=True,
                                     isPunt=isPunt,
+                                    isAcord=isAcord,
                                     classe=classe,
                                     canOpenVote=canOpenVote,
                                     canCloseVote=canCloseVote,
@@ -537,26 +544,28 @@ class View(grok.View):
                 if item.agreement:
                     agreement = item.agreement
                 else:
-                    agreement = _(u"sense numeracio")
+                    agreement = _(u"sense numeracio") if not getattr(item, 'omitAgreement', False) else ''
+
+                isAcord = True
+                omitAgreement = getattr(item, 'omitAgreement', False)
 
                 votacio = item
                 canOpenVote = item.estatVotacio == None
                 canCloseVote = item.estatVotacio == 'open'
 
-                if canOpenVote:
-                    acord_folder_path = '/'.join(item.getPhysicalPath())
-                    esmenas = portal_catalog.unrestrictedSearchResults(
-                        portal_type=['genweb.organs.votacioacord'],
-                        sort_on='getObjPositionInParent',
-                        path={'query': acord_folder_path,
-                              'depth': 1})
+                acord_folder_path = '/'.join(item.getPhysicalPath())
+                esmenas = portal_catalog.unrestrictedSearchResults(
+                    portal_type=['genweb.organs.votacioacord'],
+                    sort_on='getObjPositionInParent',
+                    path={'query': acord_folder_path,
+                            'depth': 1})
 
-                    for esmena in esmenas:
-                        if esmena.getObject().estatVotacio == 'open':
-                            canRecloseVote = '/'.join(item.absolute_url_path().split('/')[-2:]) + '/' + esmena.id
-                            titleEsmena = esmena.Title
-                            votacio = esmena.getObject()
-                            canOpenVote = False
+                for esmena in esmenas:
+                    if esmena.getObject().estatVotacio == 'open':
+                        canRecloseVote = '/'.join(item.absolute_url_path().split('/')[-2:]) + '/' + esmena.id
+                        titleEsmena = esmena.Title
+                        votacio = esmena.getObject()
+                        canOpenVote = False
 
                 currentUser = api.user.get_current().id
 
@@ -581,6 +590,9 @@ class View(grok.View):
                         classVote = 'fa fa-user-chart'
             else:
                 agreement = False
+                isAcord = False
+                omitAgreement = False
+
             results.append(dict(title=obj.Title,
                                 portal_type=obj.portal_type,
                                 absolute_url=item.absolute_url(),
@@ -588,6 +600,8 @@ class View(grok.View):
                                 item_path=item.absolute_url_path(),
                                 state=item.estatsLlista,
                                 agreement=agreement,
+                                omitAgreement=omitAgreement,
+                                isAcord=isAcord,
                                 estats=self.estatsCanvi(obj),
                                 css=self.getColor(obj),
                                 canOpenVote=canOpenVote,
@@ -1092,7 +1106,7 @@ class View(grok.View):
                 data = {'UID': acord.UID,
                         'URL': acordObj.absolute_url(),
                         'title': acordObj.title,
-                        'code': acordObj.agreement if acordObj.agreement else '',
+                        'code': acordObj.agreement,
                         'state': _(u'open') if acordObj.estatVotacio == 'open' else _(u'close'),
                         'isOpen': acordObj.estatVotacio == 'open',
                         'isPublic': acordObj.tipusVotacio == 'public' and self.canViewManageVote(),
@@ -1155,7 +1169,7 @@ class View(grok.View):
                 data = {'UID': acord.UID,
                         'URL': acordObj.absolute_url(),
                         'title': acordObj.title,
-                        'code': acordObj.agreement if acordObj.agreement else '',
+                        'code': acordObj.agreement,
                         'state': '',
                         'isOpen': False,
                         'isPublic': False,
@@ -1339,6 +1353,7 @@ class OpenQuorum(grok.View):
                 }
             })
 
+        self.context.reindexObject()
         transaction.commit()
 
 
@@ -1355,6 +1370,7 @@ class CloseQuorum(grok.View):
         if lenQuorums > 0 and not self.context.infoQuorums[lenQuorums]['end']:
             self.context.infoQuorums[lenQuorums]['end'] = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
 
+        self.context.reindexObject()
         transaction.commit()
 
 
@@ -1365,6 +1381,7 @@ class RemoveQuorums(grok.View):
 
     def render(self):
         self.context.infoQuorums = {}
+        self.context.reindexObject()
         transaction.commit()
 
 
@@ -1384,6 +1401,7 @@ class AddQuorum(grok.View):
                 self.context.infoQuorums[lenQuorums]['people'].append(username)
                 self.context.infoQuorums[lenQuorums]['total'] = len(self.context.infoQuorums[lenQuorums]['people'])
 
+        self.context.reindexObject()
         transaction.commit()
 
 
