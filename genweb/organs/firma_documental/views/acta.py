@@ -9,7 +9,6 @@ from genweb.organs import _
 from genweb.organs import utils
 from genweb.organs.firma_documental.views.general import downloadCopiaAutentica
 from genweb.organs.firma_documental.views.general import downloadGDoc
-from genweb.organs.firma_documental.views.general import viewCopiaAutentica
 from genweb.organs.firma_documental.views.general import viewGDoc
 from genweb.organs.firma_documental.webservices import ClientFirma, ClientFirmaException, uploadFileGdoc
 from genweb.organs.firma_documental.views.firmes import FirmesMixin
@@ -33,7 +32,7 @@ class ViewActa(BrowserView):
             self.context.info_firma = ast.literal_eval(self.context.info_firma)
 
         content = self.context.info_firma['acta']
-        return viewCopiaAutentica(self, content['uuid'], content['contentType'], content['filename'])
+        return viewGDoc(self, content['uuid'], content['contentType'], content['filename'])
 
 
 class DownloadActa(BrowserView):
