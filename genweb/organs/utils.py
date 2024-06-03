@@ -585,3 +585,44 @@ def checkHasOpenVote(context):
                 return True
 
     return False
+
+
+def getFilesSessio(context):
+    portal_catalog = api.portal.get_tool('portal_catalog')
+    session = get_session(context)
+    session_path = '/'.join(session.getPhysicalPath())
+    punts = portal_catalog.searchResults(
+        portal_type=['genweb.organs.acord', 'genweb.organs.punt'],
+        path={'query': session_path, 'depth': 1},
+        sort_on='getObjPositionInParent'
+    )
+    files = []
+    for punt in punts:
+        files_punt = portal_catalog.searchResults(
+            portal_type=['genweb.organs.file'],
+            path={'query': punt.getPath(), 'depth': 1},
+            sort_on='getObjPositionInParent'
+        )
+
+        for file in files_punt:
+            files.append(file.getObject())
+
+        if punt.getObject().portal_type == 'genweb.organs.acord':
+            continue
+
+        subpunts = portal_catalog.searchResults(
+            portal_type=['genweb.organs.acord', 'genweb.organs.subpunt'],
+            path={'query': punt.getPath(), 'depth': 1},
+            sort_on='getObjPositionInParent'
+        )
+
+        for subpunt in subpunts:
+            files_subpunt = portal_catalog.searchResults(
+                portal_type=['genweb.organs.file'],
+                path={'query': subpunt.getPath(), 'depth': 1},
+                sort_on='getObjPositionInParent'
+            )
+            for file in files_subpunt:
+                files.append(file.getObject())
+
+    return files

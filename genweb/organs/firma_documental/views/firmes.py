@@ -278,46 +278,6 @@ class SignActa(BrowserView, FirmesMixin):
         except Exception:
             pass
 
-    def getFilesSessio(self):
-        portal_catalog = api.portal.get_tool('portal_catalog')
-        session = utils.get_session(self.context)
-        session_path = '/'.join(session.getPhysicalPath())
-        punts = portal_catalog.searchResults(
-            portal_type=['genweb.organs.acord', 'genweb.organs.punt'],
-            path={'query': session_path, 'depth': 1},
-            sort_on='getObjPositionInParent'
-        )
-        files = []
-        for punt in punts:
-            files_punt = portal_catalog.searchResults(
-                portal_type=['genweb.organs.file'],
-                path={'query': punt.getPath(), 'depth': 1},
-                sort_on='getObjPositionInParent'
-            )
-
-            for file in files_punt:
-                files.append(file.getObject())
-
-            if punt.getObject().portal_type == 'genweb.organs.acord':
-                continue
-
-            subpunts = portal_catalog.searchResults(
-                portal_type=['genweb.organs.acord', 'genweb.organs.subpunt'],
-                path={'query': punt.getPath(), 'depth': 1},
-                sort_on='getObjPositionInParent'
-            )
-
-            for subpunt in subpunts:
-                files_subpunt = portal_catalog.searchResults(
-                    portal_type=['genweb.organs.file'],
-                    path={'query': subpunt.getPath(), 'depth': 1},
-                    sort_on='getObjPositionInParent'
-                )
-                for file in files_subpunt:
-                    files.append(file.getObject())
-
-        return files
-
     def fileUploaded(self, file):
         if not getattr(file, 'info_firma', None):
             file.info_firma = {}
@@ -393,7 +353,7 @@ class SignActa(BrowserView, FirmesMixin):
 
             # logger.info('3.1. S\'ha creat correctament la serie documental')
 
-            files_sessio = self.getFilesSessio()
+            files_sessio = utils.getFilesSessio(sessio)
             if any(not self.fileUploaded(file) for file in files_sessio):
                 self.context.plone_utils.addPortalMessage(_(u'Hi ha fitxers de la sessió que no s\'han pujat al Gestor Documental'), 'error')
                 return "Error"

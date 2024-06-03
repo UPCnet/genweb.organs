@@ -240,7 +240,7 @@ class View(grok.View):
         if self.privateFileUploadedGdoc():
             return self.context.absolute_url() + '/viewFileGDoc?visibility=private'
         else:
-            return self.context.absolute_url() + '/@@display-file/hiddenfile/' + self.context.visiblefile.filename
+            return self.context.absolute_url() + '/@@display-file/hiddenfile/' + self.context.hiddenfile.filename
 
     def publicFileDownloadURL(self):
         if self.publicFileUploadedGdoc():

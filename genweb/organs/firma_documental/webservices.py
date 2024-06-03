@@ -132,6 +132,17 @@ class ClientFirma(object):
             self._request('POST', url, json_data=data_sign, headers={'X-Api-Key': self.settings.portafirmes_apikey}, timeout=60).content
         )
 
+    def timbrarDocumentGdoc(self, idDocument, afegirTimbrat=False, idioma="CATALA"):
+        url = self.settings.signaturacsv_url + '/api/timbrarDocumentGdc'
+        data = {
+            'idDocument': idDocument,
+            'afegirTimbrat': afegirTimbrat,
+            'idioma': idioma
+        }
+        return json.loads(
+            self._request('POST', url, json_data=data, headers={'X-Api-Key': self.settings.signaturacsv_apikey}, timeout=self.timeout).content
+        )
+
     def _request(self, method, url, data=None, json_data=None, headers=None, files=None, timeout=None):
         timeout = timeout or self.timeout
         try:

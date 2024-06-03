@@ -48,6 +48,14 @@ class IFirmaDocumentalSettings(model.Schema):
         title=_(u'API Key Còpies Autèntiques'),
         required=False)
 
+    signaturacsv_url = schema.TextLine(
+        title=_(u'URL del servei de Signatura CSV'),
+        required=False)
+
+    signaturacsv_apikey = schema.TextLine(
+        title=_(u'API Key del servei de Signatura CSV'),
+        required=False)
+
 
 class FirmaDocumentalSettingsEditForm(controlpanel.RegistryEditForm):
 
