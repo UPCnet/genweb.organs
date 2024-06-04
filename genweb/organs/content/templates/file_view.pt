@@ -22,6 +22,8 @@
                   video view/video_reserved;
                   isPDFpublic view/isPDFpublic;
                   isPDFprivat view/isPDFprivat;
+                  privateFileUploadedGdoc view/privateFileUploadedGdoc;
+                  publicFileUploadedGdoc view/publicFileUploadedGdoc;
                   ">
 
   <metal:block define-macro="content-core">
@@ -30,7 +32,7 @@
         <div tal:define="reserved_content_type context/hiddenfile/contentType|nothing;
                          reserved_file_download_url view/privateFileDownloadURL;
                          reserved_file_view_url view/privateFileViewURL">
-          <div class="sessionActions" tal:condition="changeReserved">
+          <div class="sessionActions" tal:condition="python: changeReserved and not privateFileUploadedGdoc">
             <div class="containerIcons">
               <a class="confirmRedirect" href="#" tal:attributes="data-redirect string:${absolute_url}/hiddenToVisible">
                 <i class="fa fa-rotate-right fa-3x" aria-hidden="true"></i>
@@ -38,8 +40,8 @@
               </a>
             </div>
           </div>
-          <h3 tal:condition="not:view/privateFileUploadedGdoc" i18n:translate=""> Fitxer reservat </h3>
-          <h3 tal:condition="view/privateFileUploadedGdoc" i18n:translate=""> Fitxer restringit [Versió baixada del GDoc] </h3>
+          <h3 tal:condition="not:privateFileUploadedGdoc" i18n:translate=""> Fitxer reservat </h3>
+          <h3 tal:condition="privateFileUploadedGdoc" i18n:translate=""> Fitxer restringit [Versió baixada del GDoc] </h3>
 
           <i tal:attributes="class string:fa fa-2x text-error ${icon}" aria-hidden="true"></i>&nbsp;&nbsp;
           <span tal:condition="not:isPDFprivat">
@@ -81,7 +83,7 @@
         <div tal:define="visible_content_type context/visiblefile/contentType|nothing;
                          public_file_download_url view/publicFileDownloadURL;
                          public_file_view_url view/publicFileViewURL">
-          <div class="sessionActions" tal:condition="changePublic">
+          <div class="sessionActions" tal:condition="python:changePublic and not publicFileUploadedGdoc">
             <div class="containerIcons">
               <a class="confirmRedirect" href="#" tal:attributes="data-redirect string:${absolute_url}/visibleToHidden">
                 <i class="fa fa-rotate-left fa-3x" aria-hidden="true"></i>
@@ -90,8 +92,8 @@
             </div>
           </div>
           <tal:block tal:condition="view/showTitle">
-            <h3 tal:condition="not:view/publicFileUploadedGdoc" i18n:translate="">Please upload a public file</h3>
-            <h3 tal:condition="view/publicFileUploadedGdoc" i18n:translate="">Fitxer públic [Versió baixada del GDoc]</h3>
+            <h3 tal:condition="not:publicFileUploadedGdoc" i18n:translate="">Please upload a public file</h3>
+            <h3 tal:condition="publicFileUploadedGdoc" i18n:translate="">Fitxer públic [Versió baixada del GDoc]</h3>
           </tal:block>
 
           <span tal:condition="not:isPDFpublic">

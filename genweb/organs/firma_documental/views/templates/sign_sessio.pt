@@ -64,8 +64,7 @@
                     aria-hidden="true"></i></span>
               </div>
               <button class="btn btn-info btn-send-confirm" style="float:right; padding: 5px 8px;"
-                          tal:condition="checkSerieGDoc/valid_serie"
-                          tal:attributes="data-sign-url string:${acta/absolute_url}/signActa">
+                          tal:condition="checkSerieGDoc/valid_serie">
                             <i class="fa fa-arrow-right"></i>&nbsp;<span i18n:translate="">Signatura electrònica automatitzada</span>
                         </button>
               <div class="clearfix"></div>
@@ -431,7 +430,7 @@
               });
             </script>
           </div>
-          <div id="actaTab" tal:attributes="class python: 'tab-pane' + ('' if hihaDocs else ' active')">
+          <div id="actaTab" tal:attributes="class python: 'tab-pane' + ('' if hihaDocs else ' active')" tal:condition="acta">
             <div tal:define=" ordenDelDia acta/ordenDelDia;
                               audio python:view.AudioInsideActa(acta);
                               annexes python:view.AnnexInsideActa(acta);
@@ -745,6 +744,12 @@
                   </script>
 
                 </div>
+          </div>
+          <div id="actaTab" class="tab-pane active" tal:condition="not:acta">
+            Encara no s'ha generat cap acta per signar. 
+            <a tal:attributes="href python:context.absolute_url() + '/++add++genweb.organs.acta/'">
+              Afegeix un acta
+            </a>
           </div>
         </div>
       </div>

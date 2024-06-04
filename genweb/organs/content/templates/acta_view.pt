@@ -81,15 +81,6 @@
 
     </tal:block>
 
-    <tal:block tal:condition="not:hasFirma">
-      <tal:block tal:condition="checkSerieGDoc/visible_gdoc">
-        <button id="signActa" class="btn btn-info btnActa" style="float:right;"
-           tal:condition="checkSerieGDoc/valid_serie">
-            <i class="fa fa-arrow-right"></i>&nbsp;<span i18n:translate="">Enviar acta a signar</span>
-        </button>
-      </tal:block>
-    </tal:block>
-
     <a class="btn btn-info btnActa" style="float:right;"
     tal:attributes="href string:javascript:printPage(iframe);">
         <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
