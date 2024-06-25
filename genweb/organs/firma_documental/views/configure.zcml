@@ -25,21 +25,21 @@
     for="genweb.organs.content.acta.IActa"
     class=".acta.ViewActa"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-    permission="genweb.organs.firmadocumental.view" />
+    permission="zope2.View" />
 
   <browser:page
     name="downloadActa"
     for="genweb.organs.content.acta.IActa"
     class=".acta.DownloadActa"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-    permission="genweb.organs.firmadocumental.view" />
+    permission="zope2.View" />
 
   <browser:page
     name="viewFile"
     for="genweb.organs.content.acta.IActa"
     class=".firmes.ViewFile"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-    permission="genweb.organs.firmadocumental.view" />
+    permission="zope2.View" />
 
   <browser:page
     name="viewFileGDoc"
@@ -47,7 +47,7 @@
     class=".firmes.ViewFile"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     permission="zope2.View" />
-  
+
   <browser:page
     name="downloadFileGDoc"
     for="genweb.organs.content.file.IFile"
@@ -67,7 +67,7 @@
     class=".acta.ViewFile"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     permission="zope2.View" />
-  
+
   <browser:page
     name="viewFile"
     for="genweb.organs.content.subpunt.ISubpunt"
@@ -80,27 +80,27 @@
     for="genweb.organs.content.acta.IActa"
     class=".acta.DownloadFile"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-    permission="genweb.organs.firmadocumental.view" />
+    permission="zope2.View" />
 
   <browser:page
     name="viewAudio"
     for="genweb.organs.content.acta.IActa"
     class=".acta.ViewAudio"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-    permission="genweb.organs.firmadocumental.view" />
+    permission="zope2.View" />
 
   <browser:page
     name="downloadAudio"
     for="genweb.organs.content.acta.IActa"
     class=".acta.DownloadAudio"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-    permission="genweb.organs.firmadocumental.view" />
+    permission="zope2.View" />
 
   <browser:page
     name="signSessio"
     for="genweb.organs.content.sessio.ISessio"
     class=".sessio.SignSessioView"
-    template="templates/sign_sessio.pt" 
+    template="templates/sign_sessio.pt"
     permission="genweb.organs.firmadocumental.sign"/>
 
   <browser:page
