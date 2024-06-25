@@ -12,7 +12,7 @@
                     getErrorPrompt view/getErrorPrompt;
                     acta view/activeActa;
                     checkSerieGDoc view/checkSerieGDoc;">
-      
+
       <div tal:replace="structure provider:plone.abovecontenttitle"></div>
       <!-- <h1 class="documentFirstHeading" tal:content="context/title" /> -->
       <h1 class="documentFirstHeading">Informacio de signatures i desat de documentació</h1>
@@ -38,7 +38,7 @@
             <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Acta</tal:omit-tag></i></a></li>
         </ul>
         <div id="sesionTabs" class="tab-content" >
-          
+
           <!-- <div id="sessionTabs" class="tab-pane active tab-content"> + this inside div#contentSessio -->
           <div id="documentsTab" class="tab-pane active" tal:condition="hihaDocs">
             <div tal:condition="items" id="documentsTab" class="DADES" style="overflow-x: hidden;">
@@ -408,8 +408,8 @@
                   }
                   // desactivar/activar la visualización del punt (no se verá si ninguno de sus documentos o subpunts está activo)
                   puntTitle.parent("li").toggle(active);
-                  
-                  // comprobar si hay algún documento seleccionado en la lista de documentos. 
+
+                  // comprobar si hay algún documento seleccionado en la lista de documentos.
                   // en caso de que no haya ninguno, se oculta el botón que abre la modal de confirmación
                   hideConfirmButtonIfNoFiles();
                 });
@@ -449,7 +449,7 @@
                 <iframe name="iframe" id="iframe" width="1" height="1" src="printActa"></iframe>
 
                   <tal:omit-tag>
-                  <!-- May be interesting to put to the top of this page 
+                  <!-- May be interesting to put to the top of this page
                       <tal:block tal:condition="checkSerieGDoc/visible_gdoc">
                       <div class="alert alert-error" role="alert" tal:condition="not:checkSerieGDoc/valid_serie">
                         <button data-dismiss="alert" class="close" type="button">×</button>
@@ -464,7 +464,7 @@
                         <strong>Error</strong>
                         <span tal:content="checkSerieGDoc/msg_error"></span>
                       </div>
-                    </tal:block> 
+                    </tal:block>
 
                     <div id="infoSend" class="alert alert-warning" role="alert">
                       <button data-dismiss="alert" class="close" type="button">×</button>
@@ -702,7 +702,7 @@
                     </div>
                   </tal:block>
                   <div class="modal fade hide previewModal" id="previewModal" tabindex="-1" role="dialog"
-                      aria-labelledby="previewModalLabel" aria-hidden="true" 
+                      aria-labelledby="previewModalLabel" aria-hidden="true"
                       tal:attributes="data-remote string:${acta/absolute_url}/previewActa">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -745,11 +745,14 @@
 
                 </div>
           </div>
-          <div id="actaTab" class="tab-pane active" tal:condition="not:acta">
-            Encara no s'ha generat cap acta per signar. 
-            <a tal:attributes="href python:context.absolute_url() + '/++add++genweb.organs.acta/'">
-              Afegeix un acta
-            </a>
+          <div id="actaTab" class="tab-pane" tal:condition="not:acta">
+            <div class="alert" role="alert">
+              <strong i18n:translate="">Alerta</strong>
+              <span i18n:translate="">Encara no s'ha generat cap acta per signar.</span>
+              <a tal:attributes="href python:context.absolute_url() + '/++add++genweb.organs.acta/'">
+                <span i18n:translate="">Afegeix un acta</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
