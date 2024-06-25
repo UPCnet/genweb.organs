@@ -476,8 +476,10 @@
                     <tal:block tal:condition="hasFirma">
 
                       <span tal:define="estatFirma python:view.estatFirma(acta)"
-                            tal:attributes="class string:badge badge-pill estatFirma ${estatFirma/class}"
-                            tal:content="estatFirma/text">PENDENT_SIGNANTS</span>
+                            tal:attributes="class string:badge badge-pill estatFirma ${estatFirma/class}">
+                        <tal:block i18n:translate="">Acta: </tal:block>
+                        <tal:block tal:content="estatFirma/text">PENDENT_SIGNANTS</tal:block>
+                      </span>
 
                     </tal:block>
 
