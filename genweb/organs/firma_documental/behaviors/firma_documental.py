@@ -22,13 +22,13 @@ class IFirmaDocumental(model.Schema):
              label=_(u'Firma Documental'),
              fields=['info_firma', 'id_firma', 'estat_firma'])
 
-    # TODO: directives.omitted('info_firma')
+    directives.omitted('info_firma')
     info_firma = schema.Text(title=u'', required=False, default=u'{}')
 
-    # TODO: directives.omitted('id_firma')
+    directives.omitted('id_firma')
     id_firma = schema.TextLine(title=u'', required=False, default=u'')
 
-    # TODO: directives.omitted('estat_firma')
+    directives.omitted('estat_firma')
     estat_firma = schema.TextLine(title=u'', required=False, default=u'')
 
 
