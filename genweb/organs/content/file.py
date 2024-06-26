@@ -435,19 +435,49 @@ class View(grok.View):
         else:
             raise Unauthorized
 
+    def sessionIsClosed(self):
+        return utils.session_wf_state(self) == 'tancada'
+
 
 class VisibleToHidden(grok.View):
     grok.context(IFile)
     grok.name('visibleToHidden')
-    grok.require('zope2.View')
+    grok.require('cmf.ModifyPortalContent')
 
     def render(self):
+        if utils.session_wf_state(self) == 'tancada':
+            self.request.response.redirect(self.context.absolute_url())
+
         if self.context.visiblefile:
             self.context.hiddenfile = self.context.visiblefile
             self.context.visiblefile = None
-            self.context.reindexObject()
-            transaction.commit()
+
         IStatusMessage(self.request).addStatusMessage(_(u'Visibilitat del fitxer modificada correctament.'), 'info')
+
+        info_firma = getattr(self.context, 'info_firma', None) or {}
+        if not isinstance(info_firma, dict):
+            info_firma = ast.literal_eval(info_firma)
+
+        if info_firma.get('private', {}).get('uploaded', False):
+
+            info_firma['private'].update({
+                'replaced': True,
+                'uploaded': False,
+                'error': 'El fitxer ha estat reemplaçat'
+            })
+            IStatusMessage(self.request).addStatusMessage(
+                _(u"El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Signar i desar GDoc' de la sessió"), "info success"
+            )
+            # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gdoc automáticamente
+            # genweb.organs.firmadocumental.webservices.uploadFileGDoc
+
+        if info_firma.get('public', {}).get('uploaded', False):
+            info_firma.pop('public', None)
+
+        self.context.info_firma = str(info_firma)
+        self.context.reindexObject()
+        transaction.commit()
+
         self.request.response.redirect(self.context.absolute_url())
 
 
@@ -455,13 +485,40 @@ class VisibleToHidden(grok.View):
 class HiddenToVisible(grok.View):
     grok.context(IFile)
     grok.name('hiddenToVisible')
-    grok.require('zope2.View')
+    grok.require('cmf.ModifyPortalContent')
 
     def render(self):
+        if utils.session_wf_state(self) == 'tancada':
+            self.request.response.redirect(self.context.absolute_url())
+
         if self.context.hiddenfile:
             self.context.visiblefile = self.context.hiddenfile
             self.context.hiddenfile = None
-            self.context.reindexObject()
-            transaction.commit()
+
         IStatusMessage(self.request).addStatusMessage(_(u'Visibilitat del fitxer modificada correctament.'), 'info')
+
+        info_firma = getattr(self.context, 'info_firma', None) or {}
+        if not isinstance(info_firma, dict):
+            info_firma = ast.literal_eval(info_firma)
+
+        if info_firma.get('public', {}).get('uploaded', False):
+
+            info_firma['public'].update({
+                'replaced': True,
+                'uploaded': False,
+                'error': 'El fitxer ha estat reemplaçat'
+            })
+            IStatusMessage(self.request).addStatusMessage(
+                _(u"El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Signar i desar GDoc' de la sessió"), "info success"
+            )
+            # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gdoc automáticamente
+            # genweb.organs.firmadocumental.webservices.uploadFileGDoc
+
+        if info_firma.get('private', {}).get('uploaded', False):
+            info_firma.pop('private', None)
+
+        self.context.info_firma = str(info_firma)
+        self.context.reindexObject()
+        transaction.commit()
+
         self.request.response.redirect(self.context.absolute_url())
