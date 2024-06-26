@@ -8,10 +8,6 @@
     id="genweb.organs.firmadocumental.sign"
     title="Genweb Organs: Documental Firm Sign" />
 
-  <permission
-    id="genweb.organs.firmadocumental.view"
-    title="Genweb Organs: Documental Firm View" />
-
   <!-- Behavior and view -->
 
   <include package=".behaviors" />
