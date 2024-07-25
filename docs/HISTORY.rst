@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.65 (unreleased)
+0.65 (2024-07-25)
 -----------------
 
-- Nothing changed yet.
-
+* [UPD] Imagenes accesos directos [Iago López]
 
 0.64 (2024-05-13)
 -----------------
