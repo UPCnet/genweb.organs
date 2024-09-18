@@ -184,6 +184,12 @@ class UploadFiles(BrowserView, FirmesMixin):
                 file_obj = uuidToObject(file_id)
                 if file_obj:
                     success = self.uploadFileGdoc(file_obj, visibility) and success
+                    if not isinstance(file_obj.info_firma, dict):
+                        file_obj.info_firma = ast.literal_eval(file_obj.info_firma)
+                    res = client.timbrarDocumentGdoc(file_obj.info_firma[visibility]['id'], afegirTimbrat=True)
+                    file_obj.info_firma[visibility]['id'] = res['idDocument']
+                    file_obj.reindexObject()
+                    logger.info("1.1 Document timbrat correctament: [%s] %s " % (file_obj.info_firma[visibility]['id'], file_obj.info_firma[visibility]['filename']))
                 else:
                     logger.error('ERROR. No s\'ha pogut obtenir el fitxer amb id %s', file_id)
 

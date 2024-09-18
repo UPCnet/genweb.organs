@@ -63,7 +63,7 @@ def downloadCopiaAutentica(self, uuid, contentType, filename):
 def viewGDoc(self, uuid, contentType, filename):
     organ = utils.get_organ(self.context)
     if organ.visiblegdoc:
-        # Ahora al signar un documento se llama a la función timbrarFiles que devuelve un id con el documento 
+        # Ahora al signar un documento se llama a la función timbrarFiles que devuelve un id con el documento
         # ya timbrado, por lo que no es necesario llamar a getCopiaAutentica
         #
         # if self.context.portal_type in ['genweb.organs.punt', 'genweb.organs.subpunt', 'genweb.organs.acord']:
@@ -99,25 +99,25 @@ def downloadGDoc(self, uuid, contentType, filename):
 
 class UpdateInfoPortafirmes(BrowserView):
 
-    def _timbrarFile(self, info_firma):
-        client = ClientFirma()
-        logger.info("Timbrant document: [%s] %s " % (info_firma['id'], info_firma['filename']))
-        res = client.timbrarDocumentGdoc(info_firma['id'], afegirTimbrat=True)
-        info_firma['id'] = res['idDocument']
-        logger.info("Document timbrat correctament: [%s] %s " % (info_firma['id'], info_firma['filename']))
-        return info_firma
+    # def _timbrarFile(self, info_firma):
+    #     client = ClientFirma()
+    #     logger.info("Timbrant document: [%s] %s " % (info_firma['id'], info_firma['filename']))
+    #     res = client.timbrarDocumentGdoc(info_firma['id'], afegirTimbrat=True)
+    #     info_firma['id'] = res['idDocument']
+    #     logger.info("Document timbrat correctament: [%s] %s " % (info_firma['id'], info_firma['filename']))
+    #     return info_firma
 
-    def timbrarFiles(self, context):
-        files = utils.getFilesSessio(context)
-        for file in files:
-            if file.visiblefile and file.info_firma.get('public', {}).get('uploaded', False):
-                file.info_firma['public'] = self._timbrarFile(file.info_firma['public'])
+    # def timbrarFiles(self, context):
+    #     files = utils.getFilesSessio(context)
+    #     for file in files:
+    #         if file.visiblefile and file.info_firma.get('public', {}).get('uploaded', False):
+    #             file.info_firma['public'] = self._timbrarFile(file.info_firma['public'])
 
-            if file.hiddenfile and file.info_firma.get('private', {}).get('uploaded', False):
-                file.info_firma['private'] = self._timbrarFile(file.info_firma['private'])
-            file.reindexObject()
+    #         if file.hiddenfile and file.info_firma.get('private', {}).get('uploaded', False):
+    #             file.info_firma['private'] = self._timbrarFile(file.info_firma['private'])
+    #         file.reindexObject()
 
-        logger.info("Tots els documents timbrats correctament")
+    #     logger.info("Tots els documents timbrats correctament")
 
     def __call__(self):
         logger.info("Notificacio de portafirmes")
@@ -141,8 +141,8 @@ class UpdateInfoPortafirmes(BrowserView):
                 firma.estat_firma = newEstatFirma
                 firma.reindexObject()
 
-            if firma.estat_firma.lower() == 'signada':
-                self.timbrarFiles(context=firma)
+            # if firma.estat_firma.lower() == 'signada':
+            #     self.timbrarFiles(context=firma)
 
         except Exception as e:
             logger.exception("ERROR updateInfoPortafirmes. Exception: " + str(e))
