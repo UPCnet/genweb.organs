@@ -102,7 +102,7 @@ class UpdateInfoPortafirmes(BrowserView):
     # def _timbrarFile(self, info_firma):
     #     client = ClientFirma()
     #     logger.info("Timbrant document: [%s] %s " % (info_firma['id'], info_firma['filename']))
-    #     res = client.timbrarDocumentGdoc(info_firma['id'], afegirTimbrat=True)
+    #     res = client.timbrarDocumentGdoc(info_firma['id'])
     #     info_firma['id'] = res['idDocument']
     #     logger.info("Document timbrat correctament: [%s] %s " % (info_firma['id'], info_firma['filename']))
     #     return info_firma
