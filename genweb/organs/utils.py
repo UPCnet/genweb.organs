@@ -464,16 +464,19 @@ def SubPuntsInside(self):
 
 def getColor(self):
     # Get custom colors on passed organ states
-    obj = self._unrestrictedGetObject()
-    estat = obj.estatsLlista
-    organ = get_organ(obj)
-    values = organ.estatsLlista
     color = '#777777'
-    for value in values.split('</p>'):
-        if value != '':
-            item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
-            if estat.decode('utf-8') == ' '.join(item_net.split()[:-1]).lstrip():
-                return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
+    try:
+        obj = self._unrestrictedGetObject()
+        estat = obj.estatsLlista
+        organ = get_organ(obj)
+        values = organ.estatsLlista
+        for value in values.split('</p>'):
+            if value != '':
+                item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
+                if estat.decode('utf-8') == ' '.join(item_net.split()[:-1]).lstrip():
+                    return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
+    except:
+        pass
     return color
 
 
