@@ -134,11 +134,10 @@ a.collapsed .icon-chevron-down{
     background-position: -456px -72px;
 }
 
-
-
 .containerIcons {
     text-align: center;
     padding: 10px;
+    max-width: 90px;
 }
 
 .containerIcons > i {
@@ -2666,7 +2665,7 @@ body.portaltype-genweb-organs-votacioacord input#form-widgets-title {
 }
 
 .estatFirmaFile.replaced {
-    color: #e8d153; 
+    color: #e8d153;
 }
 
 .estatFirmaFile.failed {
