@@ -111,11 +111,11 @@ msgstr "Acta PDF"
 
 #: ./genweb/organs/content/acta.py:112
 msgid "Acta PDF file description"
-msgstr "Acta PDF file description"
+msgstr "Acta PDF descripció fitxer"
 
 #: ./genweb/organs/firma_documental/views/firmes.py:479
 msgid "Acta send to sign"
-msgstr "Acta send to sign"
+msgstr "Acta enviada a signar"
 
 #: ./genweb/organs/content/templates/acta_view.pt:232
 #: ./genweb/organs/firma_documental/views/templates/sign_sessio.pt:643
