@@ -49,7 +49,7 @@ class FirmesMixin(object):
         choose_msg_func = self.error_to_msg_map[sign_step].get('choose_portal_msg', None)
         portal_msg = choose_msg_func(exc.response) if choose_msg_func else 'portal_msg'
 
-        logger.error(self.error_to_msg_map[sign_step]['console_log'] + ' Exception: %s', str(self.e))
+        logger.error(self.error_to_msg_map[sign_step]['console_log'] + ' Exception: %s', str(exc))
         self.context.plone_utils.addPortalMessage(self.error_to_msg_map[sign_step][portal_msg], 'error')
 
         return "Error"
