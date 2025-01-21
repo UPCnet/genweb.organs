@@ -255,7 +255,7 @@
         <div class="containerIcons">
           <a href="signSessio" i18n:attributes="title sign_gdoc; alt sign_gdoc;">
             <i class="fa fa-pencil fa-3x" aria-hidden="true"></i>
-            <br/><span i18n:translate="">Signar i desar gDOC</span>
+            <br/><span i18n:translate="">Signar i desar documentació i acta</span>
           </a>
         </div>
       </tal:block>

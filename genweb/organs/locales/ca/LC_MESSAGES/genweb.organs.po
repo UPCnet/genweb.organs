@@ -489,12 +489,12 @@ msgid "El fitxer no existeix"
 msgstr "El fitxer no existeix"
 
 #: ./genweb/organs/content/file.py:119
-msgid "El fitxer públic s'ha de pujar de nou a GDoc desde la vista 'Signar i desar GDoc' de la sessió"
-msgstr "El fitxer públic s'ha de pujar de nou a GDoc desde la vista 'Signar i desar GDoc' de la sessió"
+msgid "El fitxer públic s'ha de pujar de nou a GDoc desde la vista 'Signar i desar documentació i acta' de la sessió"
+msgstr "El fitxer públic s'ha de pujar de nou a GDoc desde la vista 'Signar i desar documentació i acta' de la sessió"
 
 #: ./genweb/organs/content/file.py:134
-msgid "El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Signar i desar GDoc' de la sessió"
-msgstr "El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Signar i desar GDoc' de la sessió"
+msgid "El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Signar i desar documentació i acta' de la sessió"
+msgstr "El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Signar i desar documentació i acta' de la sessió"
 
 #: ./genweb/organs/content/sessio.py:50
 msgid "El valor ha de ser numèric."
@@ -1481,8 +1481,8 @@ msgid "Signants"
 msgstr "Signants"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:256
-msgid "Signar i desar gDOC"
-msgstr "Signar i desar gDOC"
+msgid "Signar i desar documentació i acta"
+msgstr "Signar i desar documentació i acta"
 
 #: ./genweb/organs/content/sessio.py:195
 msgid "Signatura"
@@ -1884,7 +1884,7 @@ msgstr "sense numeració"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:254
 msgid "sign_gdoc"
-msgstr "Signar i desar gDOC"
+msgstr "Signar i desar documentació i acta"
 
 #. Default: "Last year"
 #: ./genweb/organs/search.pt:275
