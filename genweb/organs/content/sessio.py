@@ -200,8 +200,14 @@ class ISessio(form.Schema):
     directives.omitted('infoQuorums')
     infoQuorums = schema.Text(title=u'', required=False, default=u'{}')
 
-    #directives.omitted('unitatDocumental')
-    unitatDocumental = schema.TextLine(title=u'Unitat documental', required=False, default=u'')
+    form.mode(IAddForm, unitatDocumental='display')
+    form.mode(IEditForm, unitatDocumental='display')
+    unitatDocumental = schema.TextLine(
+        title=u'Unitat documental',
+        description=_(u'Aquesta informació es generada automàticament pel gDOC'),
+        required=False,
+        default=u''
+    )
 
 
 @form.default_value(field=ISessio['numSessio'])
@@ -825,7 +831,7 @@ class View(grok.View):
         #         results = []
         #         for pos, file in item['info_firma']['fitxers'].items():
         #             class_css = 'fa fa-file-pdf-o ' + ('text-success' if file['public'] else 'text-error')
-        #             if file['public'] or 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:                
+        #             if file['public'] or 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:
         #                 results.append(dict(title=file['title'],
         #                                     absolute_url=item['absolute_url'] + '/viewFile?pos=' + str(pos),
         #                                     classCSS=class_css,
@@ -910,7 +916,7 @@ class View(grok.View):
                     info_firma = getattr(value, 'info_firma', None) or {}
                     if not isinstance(info_firma, dict):
                         info_firma = ast.literal_eval(info_firma)
-                    
+
                     classCSS = 'fa fa-file-pdf-o'
                     if value.visiblefile and value.hiddenfile:
                         if 'OG3-Membre' in roles:
