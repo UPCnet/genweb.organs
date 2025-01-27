@@ -116,7 +116,7 @@ class Edit(dexterity.EditForm):
                     'error': 'El fitxer ha estat reemplaçat'
                 })
                 IStatusMessage(self.request).addStatusMessage(
-                    _(u"El fitxer públic s'ha de pujar de nou a GDoc desde la vista 'Signar i desar documentació i acta' de la sessió"), "info success"
+                    _(u"El fitxer públic s'ha de pujar de nou a GDoc desde la vista 'Gestió signatura i arxiu gDOC"), "info success"
                 )
                 # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gdoc automáticamente
                 # genweb.organs.firmadocumental.webservices.uploadFileGDoc
@@ -131,7 +131,7 @@ class Edit(dexterity.EditForm):
                     'error': 'El fitxer ha estat reemplaçat'
                 })
                 IStatusMessage(self.request).addStatusMessage(
-                    _(u"El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Signar i desar documentació i acta' de la sessió"), "info success"
+                    _(u"El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Gestió signatura i arxiu gDOC"), "info success"
                 )
                 # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gdoc
                 # genweb.organs.firmadocumental.webservices.uploadFileGDoc
@@ -466,7 +466,7 @@ class VisibleToHidden(grok.View):
                 'error': 'El fitxer ha estat reemplaçat'
             })
             IStatusMessage(self.request).addStatusMessage(
-                _(u"El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Signar i desar documentació i acta' de la sessió"), "info success"
+                _(u"El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Gestió signatura i arxiu gDOC"), "info success"
             )
             # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gdoc automáticamente
             # genweb.organs.firmadocumental.webservices.uploadFileGDoc
@@ -509,7 +509,7 @@ class HiddenToVisible(grok.View):
                 'error': 'El fitxer ha estat reemplaçat'
             })
             IStatusMessage(self.request).addStatusMessage(
-                _(u"El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Signar i desar documentació i acta' de la sessió"), "info success"
+                _(u"El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Gestió signatura i arxiu gDOC"), "info success"
             )
             # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gdoc automáticamente
             # genweb.organs.firmadocumental.webservices.uploadFileGDoc

@@ -489,12 +489,12 @@ msgid "El fitxer no existeix"
 msgstr "El fitxer no existeix"
 
 #: ./genweb/organs/content/file.py:119
-msgid "El fitxer públic s'ha de pujar de nou a GDoc desde la vista 'Signar i desar documentació i acta' de la sessió"
-msgstr "El fitxer públic s'ha de pujar de nou a GDoc desde la vista 'Signar i desar documentació i acta' de la sessió"
+msgid "El fitxer públic s'ha de pujar de nou a GDoc desde la vista 'Gestió signatura i arxiu gDOC"
+msgstr "El fitxer públic s'ha de pujar de nou a GDoc desde la vista 'Gestió signatura i arxiu gDOC"
 
 #: ./genweb/organs/content/file.py:134
-msgid "El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Signar i desar documentació i acta' de la sessió"
-msgstr "El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Signar i desar documentació i acta' de la sessió"
+msgid "El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Gestió signatura i arxiu gDOC"
+msgstr "El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Gestió signatura i arxiu gDOC"
 
 #: ./genweb/organs/content/sessio.py:50
 msgid "El valor ha de ser numèric."

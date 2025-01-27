@@ -242,6 +242,7 @@
     <permission name="Genweb Organs: Documental Firm Sign" acquire="True">
       <role name="Manager"/>
       <role name="OG1-Secretari"/>
+      <role name="OG2-Editor"/>
     </permission>
     <permission name="Genweb: Authenticated Users" acquire="True">
       <role name="Authenticated"/>
