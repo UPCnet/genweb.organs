@@ -173,7 +173,7 @@ def uploadFileGdoc(expedient, file, filename=None, is_acta=False):
 
     upload_step = 'uploadFile'
     try:
-        logger.info('Puja del fitxer al gdoc - ' + file['fitxer'][0])
+        logger.info('Puja del fitxer al gDOC - ' + file['fitxer'][0])
         content_file = client.uploadFitxerGDoc(expedient=expedient, fitxer=file, is_acta=is_acta)
         logger.info("S'ha creat correctament el fitxer")
 
@@ -183,7 +183,7 @@ def uploadFileGdoc(expedient, file, filename=None, is_acta=False):
         logger.info("S'ha obtingut correctament el uuid del fitxer")
 
     except ClientFirmaException as e:
-        error = 'ERROR. Puja del fitxer al gdoc.' if upload_step == 'uploadFile' else 'ERROR. Demanar el uuid del fitxer.'
+        error = 'ERROR. Puja del fitxer al gDOC.' if upload_step == 'uploadFile' else 'ERROR. Demanar el uuid del fitxer.'
         logger.error(error)
         raise e
     return {

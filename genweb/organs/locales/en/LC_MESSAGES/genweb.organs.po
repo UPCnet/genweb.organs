@@ -489,11 +489,11 @@ msgid "El fitxer no existeix"
 msgstr ""
 
 #: ./genweb/organs/content/file.py:119
-msgid "El fitxer públic s'ha de pujar de nou a GDoc desde la vista 'Gestió signatura i arxiu gDOC"
+msgid "El fitxer públic s'ha de pujar de nou a gDOC desde la vista 'Gestió signatura i arxiu gDOC"
 msgstr ""
 
 #: ./genweb/organs/content/file.py:134
-msgid "El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Gestió signatura i arxiu gDOC"
+msgid "El fitxer restringit s'ha de pujar de nou a gDOC desde la vista 'Gestió signatura i arxiu gDOC"
 msgstr ""
 
 #: ./genweb/organs/content/sessio.py:50
@@ -648,7 +648,7 @@ msgid "Fitxer adjunt"
 msgstr ""
 
 #: ./genweb/organs/content/templates/file_view.pt:96
-msgid "Fitxer públic [Versió baixada del GDoc]"
+msgid "Fitxer públic [Versió baixada del gDOC]"
 msgstr ""
 
 #: ./genweb/organs/content/templates/file_view.pt:90
@@ -660,7 +660,7 @@ msgid "Fitxer reservat"
 msgstr "Restricted File"
 
 #: ./genweb/organs/content/templates/file_view.pt:44
-msgid "Fitxer restringit [Versió baixada del GDoc]"
+msgid "Fitxer restringit [Versió baixada del gDOC]"
 msgstr ""
 
 #: ./genweb/organs/content/templates/file_view.pt:39
@@ -700,47 +700,47 @@ msgid "From mail"
 msgstr "Email who sends the messages"
 
 #: ./genweb/organs/content/organgovern.py:67
-msgid "GDoc"
+msgid "gDOC"
 msgstr ""
 
 #: ./genweb/organs/firma_documental/views/firmes.py:73
-msgid "GDoc: No s'ha pogut crear la serie documental: Contacta amb algun administrador de la web perquè revisi la configuració."
+msgid "gDOC: No s'ha pogut crear la serie documental: Contacta amb algun administrador de la web perquè revisi la configuració."
 msgstr ""
 
 #: ./genweb/organs/firma_documental/views/firmes.py:74
-msgid "GDoc: No s'ha pogut crear la serie documental: La serie documental no existeix."
+msgid "gDOC: No s'ha pogut crear la serie documental: La serie documental no existeix."
 msgstr ""
 
 #: ./genweb/organs/firma_documental/views/firmes.py:62
-msgid "GDoc: No s'ha pogut eliminar els contiguts de GDoc per tornar-los a crear."
+msgid "gDOC: No s'ha pogut eliminar els contiguts de gDOC per tornar-los a crear."
 msgstr ""
 
 #: ./genweb/organs/firma_documental/views/firmes.py:66
-msgid "GDoc: No s'ha pogut obtenir el codi del expedient: Contacta amb algun administrador de la web perquè revisi la configuració."
+msgid "gDOC: No s'ha pogut obtenir el codi del expedient: Contacta amb algun administrador de la web perquè revisi la configuració."
 msgstr ""
 
 #: ./genweb/organs/firma_documental/views/firmes.py:238
-msgid "GDoc: No s'ha pogut pujar el fitxer .url: Contacta amb algun administrador de la web perquè revisi la configuració."
+msgid "gDOC: No s'ha pogut pujar el fitxer .url: Contacta amb algun administrador de la web perquè revisi la configuració."
 msgstr ""
 
 #: ./genweb/organs/firma_documental/views/firmes.py:226
-msgid "GDoc: No s'ha pogut pujar el fitxer adjunt: Contacta amb algun administrador de la web perquè revisi la configuració."
+msgid "gDOC: No s'ha pogut pujar el fitxer adjunt: Contacta amb algun administrador de la web perquè revisi la configuració."
 msgstr ""
 
 #: ./genweb/organs/firma_documental/views/firmes.py:230
-msgid "GDoc: No s'ha pogut pujar el àudio: Contacta amb algun administrador de la web perquè revisi la configuració."
+msgid "gDOC: No s'ha pogut pujar el àudio: Contacta amb algun administrador de la web perquè revisi la configuració."
 msgstr ""
 
 #: ./genweb/organs/firma_documental/views/firmes.py:79
-msgid "GDoc: No s'ha pogut pujar els fitxers de la sessió: Contacta amb algun administrador de la web perquè revisi la configuració."
+msgid "gDOC: No s'ha pogut pujar els fitxers de la sessió: Contacta amb algun administrador de la web perquè revisi la configuració."
 msgstr ""
 
 #: ./genweb/organs/firma_documental/views/firmes.py:222
-msgid "GDoc: No s'ha pogut pujar l'acta: Contacta amb algun administrador de la web perquè revisi la configuració."
+msgid "gDOC: No s'ha pogut pujar l'acta: Contacta amb algun administrador de la web perquè revisi la configuració."
 msgstr ""
 
 #: ./genweb/organs/firma_documental/controlpanel.py:20
-msgid "Hash GDoc"
+msgid "Hash gDOC"
 msgstr ""
 
 #: ./genweb/organs/firma_documental/views/firmes.py:358
@@ -1362,7 +1362,7 @@ msgid "S'ha sobrepasat el temps d'espera per executar la petició: Contacta amb 
 msgstr ""
 
 #: ./genweb/organs/firma_documental/views/firmes.py:200
-msgid "S'han pujat els fitxers correctament al GDoc"
+msgid "S'han pujat els fitxers correctament al gDOC"
 msgstr ""
 
 #: ./genweb/organs/content/file.py:98
@@ -1643,7 +1643,7 @@ msgid "URL Còpies Autèntiques"
 msgstr ""
 
 #: ./genweb/organs/firma_documental/controlpanel.py:12
-msgid "URL GDoc"
+msgid "URL gDOC"
 msgstr ""
 
 #: ./genweb/organs/firma_documental/controlpanel.py:24
@@ -1667,7 +1667,7 @@ msgid "Usuari"
 msgstr ""
 
 #: ./genweb/organs/firma_documental/controlpanel.py:16
-msgid "Usuari GDoc"
+msgid "Usuari gDOC"
 msgstr ""
 
 #: ./genweb/organs/content/templates/acta_view.pt:125
@@ -1883,7 +1883,7 @@ msgid "sense numeracio"
 msgstr "Not numbered"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:254
-msgid "sign_gdoc"
+msgid "sign_gDOC"
 msgstr ""
 
 #. Default: "Last year"

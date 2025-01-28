@@ -46,15 +46,15 @@
                 <h4>Possibles estats dels fitxers</h4>
                 <div class="legend-sign-item">
                   <i class="fa fa-circle estatFirmaFile uploaded"></i>
-                  <span > El fitxer s'ha pujat i desat correctament a GDoc. </span>
+                  <span > El fitxer s'ha pujat i desat correctament a gDOC. </span>
                 </div>
                 <div class="legend-sign-item">
                   <i class="fa fa-circle estatFirmaFile replaced"></i>
-                    <span > El fitxer, prèviament pujat i desat a GDoc, ha estat reemplaçat i s'ha d'enviar de nou. </span>
+                    <span > El fitxer, prèviament pujat i desat a gDOC, ha estat reemplaçat i s'ha d'enviar de nou. </span>
                 </div>
                 <div class="legend-sign-item">
                   <i class="fa fa-circle estatFirmaFile failed"></i>
-                    <span > No s'ha pogut enviar el fitxer a GDoc. Normalment, és un problema temporal i es resol intentant pujar el fitxer de nou al cap d'una estona. </span>
+                    <span > No s'ha pogut enviar el fitxer a gDOC. Normalment, és un problema temporal i es resol intentant pujar el fitxer de nou al cap d'una estona. </span>
                 </div>
               </div>
               <div style="display: inline-block; padding-top: 5px;" class="documentDescription">
@@ -129,7 +129,7 @@
                                         </a>
                                         <div style="float:right; display: inline-table;">
                                             <span tal:condition="not:item/info_firma/success" tal:content="item/info_firma/message"></span>
-                                            <i title="Enviat i desat a GDoc"
+                                            <i title="Enviat i desat a gDOC"
                                                   tal:condition="item/info_firma/sent"
                                                   tal:attributes="class string:fa fa-circle ${item/info_firma/cssClass}">
                                             </i>
@@ -179,7 +179,7 @@
                                               </a>
                                               <div style="float:right; display: inline-table;">
                                                 <span tal:condition="not:item/info_firma/success" tal:content="item/info_firma/message"></span>
-                                                <i title="Enviat i desat a GDoc"
+                                                <i title="Enviat i desat a gDOC"
                                                       tal:condition="item/info_firma/sent"
                                                       tal:attributes="class string:fa fa-circle ${item/info_firma/cssClass}">
                                                 </i>

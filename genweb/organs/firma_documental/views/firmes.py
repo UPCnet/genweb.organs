@@ -44,7 +44,7 @@ class FirmesMixin(object):
                 u'S\'ha sobrepasat el temps d\'espera per executar la petició: ' +
                 u'Contacta amb algun administrador de la web perquè revisi la configuració'
             ), 'error')
-            return "GDoc Timeout"
+            return "gDOC Timeout"
 
         choose_msg_func = self.error_to_msg_map[sign_step].get('choose_portal_msg', None)
         portal_msg = choose_msg_func(exc.response) if choose_msg_func else 'portal_msg'
@@ -58,25 +58,25 @@ class FirmesMixin(object):
 class UploadFiles(BrowserView, FirmesMixin):
     error_to_msg_map = {
         'deleteSerieDocumental': {
-            'console_log': '0.ERROR. Eliminació serie documental en gdoc per tornar-la a crear.',
-            'portal_msg': _(u'GDoc: No s\'ha pogut eliminar els contiguts de GDoc per tornar-los a crear.')
+            'console_log': '0.ERROR. Eliminació serie documental en gDOC per tornar-la a crear.',
+            'portal_msg': _(u'gDOC: No s\'ha pogut eliminar els contiguts de gDOC per tornar-los a crear.')
         },
         'getCodiExpedient': {
             'console_log': '2.ERROR. Petició per demanar el codi del expedient.',
             'portal_msg': _(
-                u'GDoc: No s\'ha pogut obtenir el codi del expedient: ' +
+                u'gDOC: No s\'ha pogut obtenir el codi del expedient: ' +
                 u'Contacta amb algun administrador de la web perquè revisi la configuració.'
             )
         },
         'createSerieDocumental': {
-            'console_log': '3.ERROR. Creació de la serie documental en gdoc.',
-            'portal_msg': _(u'GDoc: No s\'ha pogut crear la serie documental: Contacta amb algun administrador de la web perquè revisi la configuració.'),
-            'portal_msg_noExisteix': _(u'GDoc: No s\'ha pogut crear la serie documental: La serie documental no existeix.'),
+            'console_log': '3.ERROR. Creació de la serie documental en gDOC.',
+            'portal_msg': _(u'gDOC: No s\'ha pogut crear la serie documental: Contacta amb algun administrador de la web perquè revisi la configuració.'),
+            'portal_msg_noExisteix': _(u'gDOC: No s\'ha pogut crear la serie documental: La serie documental no existeix.'),
             'choose_portal_msg': lambda resp: 'portal_msg_noExisteix' if resp['codi'] and resp['codi'] == 528 else 'portal_msg'
         },
         'uploadSessionFiles': {
-            'console_log': '7.ERROR. Puja dels fitxers de la sessió al gdoc.',
-            'portal_msg': _(u'GDoc: No s\'ha pogut pujar els fitxers de la sessió: Contacta amb algun administrador de la web perquè revisi la configuració.')
+            'console_log': '7.ERROR. Puja dels fitxers de la sessió al gDOC.',
+            'portal_msg': _(u'gDOC: No s\'ha pogut pujar els fitxers de la sessió: Contacta amb algun administrador de la web perquè revisi la configuració.')
         },
     }
 
@@ -114,15 +114,15 @@ class UploadFiles(BrowserView, FirmesMixin):
             info_file['error'] = None
 
         except ClientFirmaException as e:
-            logger.error('ERROR. Puja del fitxer al GDoc. Exception: %s', str(e))
+            logger.error('ERROR. Puja del fitxer al gDOC. Exception: %s', str(e))
             info_file = {
                 'uploaded': False,
-                'error': "No s'ha pogut pujar el fitxer al GDoc. Torneu a provar-ho més tard."
+                'error': "No s'ha pogut pujar el fitxer al gDOC. Torneu a provar-ho més tard."
             }
             return False
 
         except Exception as e:
-            logger.error('ERROR. Puja del fitxer al GDoc. Exception: %s', str(e))
+            logger.error('ERROR. Puja del fitxer al gDOC. Exception: %s', str(e))
             logger.error(traceback.format_exc())
             info_file = {
                 'uploaded': False,
@@ -141,7 +141,7 @@ class UploadFiles(BrowserView, FirmesMixin):
         organ = utils.get_organ(self.context)
 
         if not organ.visiblegdoc:
-            return "GDoc not set up"
+            return "gDOC not set up"
 
         sign_step = ""
         files = self.request.form.get('check', None)
@@ -166,7 +166,7 @@ class UploadFiles(BrowserView, FirmesMixin):
                 codi_expedient = now.strftime("%Y") + '-' + content_codi['codi']
 
                 sign_step = "createSerieDocumental"
-                logger.info('0.2. Creació de la serie documental en gdoc')
+                logger.info('0.2. Creació de la serie documental en gDOC')
                 content_exp = client.createSerieDocumental(
                     serie=organ.serie,
                     expedient=codi_expedient,
@@ -175,7 +175,7 @@ class UploadFiles(BrowserView, FirmesMixin):
                 self.context.unitatDocumental = str(content_exp['idElementCreat'])
                 logger.info('0.2.1 S\'ha creat correctament la serie documental')
 
-            logger.info('1. Puja dels fitxers de la sessió al gdoc')
+            logger.info('1. Puja dels fitxers de la sessió al gDOC')
             success = True
 
             for file_id in files:
@@ -203,45 +203,45 @@ class UploadFiles(BrowserView, FirmesMixin):
             self.context.plone_utils.addPortalMessage(_(u"Alguns dels fitxers no s'han pujat corectament. Revisa els estats dels fitxers per més informació."), 'error')
             return "Error"
 
-        self.context.plone_utils.addPortalMessage(_(u'S\'han pujat els fitxers correctament al GDoc'), 'success')
+        self.context.plone_utils.addPortalMessage(_(u'S\'han pujat els fitxers correctament al gDOC'), 'success')
         return "Success"
 
 
 class SignActa(BrowserView, FirmesMixin):
     error_to_msg_map = {
         'deleteSerieDocumental': {
-            'console_log': '0.ERROR. Eliminació serie documental en gdoc per tornar-la a crear.',
-            'portal_msg': _(u'GDoc: No s\'ha pogut eliminar els contiguts de GDoc per tornar-los a crear.')
+            'console_log': '0.ERROR. Eliminació serie documental en gDOC per tornar-la a crear.',
+            'portal_msg': _(u'gDOC: No s\'ha pogut eliminar els contiguts de gDOC per tornar-los a crear.')
         },
         'getCodiExpedidElementCreatient': {
             'console_log': '2.ERROR. Petició per demanar el codi del expedient.',
-            'portal_msg': _(u'GDoc: No s\'ha pogut obtenir el codi del expedient: Contacta amb algun administrador de la web perquè revisi la configuració.')
+            'portal_msg': _(u'gDOC: No s\'ha pogut obtenir el codi del expedient: Contacta amb algun administrador de la web perquè revisi la configuració.')
         },
         'createSerieDocumental': {
-            'console_log': '3.ERROR. Creació de la serie documental en gdoc.',
-            'portal_msg': _(u'GDoc: No s\'ha pogut crear la serie documental: Contacta amb algun administrador de la web perquè revisi la configuració.'),
-            'portal_msg_noExisteix': _(u'GDoc: No s\'ha pogut crear la serie documental: La serie documental no existeix.'),
+            'console_log': '3.ERROR. Creació de la serie documental en gDOC.',
+            'portal_msg': _(u'gDOC: No s\'ha pogut crear la serie documental: Contacta amb algun administrador de la web perquè revisi la configuració.'),
+            'portal_msg_noExisteix': _(u'gDOC: No s\'ha pogut crear la serie documental: La serie documental no existeix.'),
             'choose_portal_msg': lambda resp: 'portal_msg_noExisteix' if resp['codi'] and resp['codi'] == 528 else 'portal_msg'
         },
         'uploadActaGDoc': {
-            'console_log': '4.ERROR. Puja de l\'acta al gdoc.',
-            'portal_msg': _(u'GDoc: No s\'ha pogut pujar l\'acta: Contacta amb algun administrador de la web perquè revisi la configuració.')
+            'console_log': '4.ERROR. Puja de l\'acta al gDOC.',
+            'portal_msg': _(u'gDOC: No s\'ha pogut pujar l\'acta: Contacta amb algun administrador de la web perquè revisi la configuració.')
         },
         'uploadAdjuntGDoc': {
-            'console_log': '5.ERROR. Puja del fitxer adjunt al gdoc.',
-            'portal_msg': _(u'GDoc: No s\'ha pogut pujar el fitxer adjunt: Contacta amb algun administrador de la web perquè revisi la configuració.')
+            'console_log': '5.ERROR. Puja del fitxer adjunt al gDOC.',
+            'portal_msg': _(u'gDOC: No s\'ha pogut pujar el fitxer adjunt: Contacta amb algun administrador de la web perquè revisi la configuració.')
         },
         'uploadAudioGDoc': {
-            'console_log': '6.ERROR. Puja del àudio al gdoc.',
-            'portal_msg': _(u'GDoc: No s\'ha pogut pujar el àudio: Contacta amb algun administrador de la web perquè revisi la configuració.')
+            'console_log': '6.ERROR. Puja del àudio al gDOC.',
+            'portal_msg': _(u'gDOC: No s\'ha pogut pujar el àudio: Contacta amb algun administrador de la web perquè revisi la configuració.')
         },
         'uploadSessionFiles': {
-            'console_log': '7.ERROR. Puja dels fitxers de la sessió al gdoc.',
-            'portal_msg': _(u'GDoc: No s\'ha pogut pujar els fitxers de la sessió: Contacta amb algun administrador de la web perquè revisi la configuració.')
+            'console_log': '7.ERROR. Puja dels fitxers de la sessió al gDOC.',
+            'portal_msg': _(u'gDOC: No s\'ha pogut pujar els fitxers de la sessió: Contacta amb algun administrador de la web perquè revisi la configuració.')
         },
         'uploadURLFile': {
-            'console_log': '8.ERROR. Puja del fitxer .url al gdoc.',
-            'portal_msg': _(u'GDoc: No s\'ha pogut pujar el fitxer .url: Contacta amb algun administrador de la web perquè revisi la configuració.')
+            'console_log': '8.ERROR. Puja del fitxer .url al gDOC.',
+            'portal_msg': _(u'gDOC: No s\'ha pogut pujar el fitxer .url: Contacta amb algun administrador de la web perquè revisi la configuració.')
         },
         'uploadActaPortafirmes': {
             'console_log': '9.ERROR. Petició de la firma al portafirmes.',
@@ -326,7 +326,7 @@ class SignActa(BrowserView, FirmesMixin):
             return "No signants"
 
         if not organ.visiblegdoc:
-            return "GDoc not set up"
+            return "gDOC not set up"
 
         sign_step = ""
 
@@ -335,9 +335,9 @@ class SignActa(BrowserView, FirmesMixin):
         try:
             # sign_step = "deleteSerieDocumental"
             # if self.context.info_firma and 'unitatDocumental' in self.context.info_firma and self.context.info_firma['unitatDocumental']:
-            #     logger.info('0. Eliminació serie documental en gdoc per tornar-la a crear')
+            #     logger.info('0. Eliminació serie documental en gDOC per tornar-la a crear')
             #     client.deleteSerieDocumental(self.context.info_firma['unitatDocumental'])
-            #     logger.info('0.1. S\'ha eliminat correctament la serie documental en gdoc')
+            #     logger.info('0.1. S\'ha eliminat correctament la serie documental en gDOC')
 
             # logger.info('1. Iniciant firma de l\'acta - ' + self.context.title)
 
@@ -350,7 +350,7 @@ class SignActa(BrowserView, FirmesMixin):
             # codi_expedient = now.strftime("%Y") + '-' + content_codi['codi']
 
             # sign_step = "createSerieDocumental"
-            # logger.info('3. Creació de la serie documental en gdoc')
+            # logger.info('3. Creació de la serie documental en gDOC')
             # content_exp = client.createSerieDocumental(
             #     serie=organ.serie,
             #     expedient=codi_expedient,
@@ -382,7 +382,7 @@ class SignActa(BrowserView, FirmesMixin):
 
             actaPDF = self.generateActaPDF()
             sign_step = "uploadActaGDoc"
-            logger.info('4. Puja de l\'acta al gdoc')
+            logger.info('4. Puja de l\'acta al gDOC')
             self.context.info_firma['acta'] = uploadFileGdoc(
                 sessio.unitatDocumental,
                 {'fitxer': [self.context.id + '.pdf', actaPDF.read(), 'application/pdf']},
@@ -392,7 +392,7 @@ class SignActa(BrowserView, FirmesMixin):
                 'sizeKB': os.path.getsize('/tmp/' + self.context.id + '.pdf') / 1024
             })
 
-            logger.info('5. Puja dels fitxers adjunts al gdoc')
+            logger.info('5. Puja dels fitxers adjunts al gDOC')
             sign_step = "uploadAdjuntGDoc"
             lista_adjunts = [
                 self.context[key]
@@ -402,7 +402,7 @@ class SignActa(BrowserView, FirmesMixin):
                 self.uploadFilesGdoc(sessio.unitatDocumental, lista_adjunts, save_title=True, save_size=True)
             )
 
-            logger.info('6. Puja dels àudios al gdoc')
+            logger.info('6. Puja dels àudios al gDOC')
             sign_step = "uploadAudioGDoc"
             lista_audios = [
                 self.context[key]
@@ -425,7 +425,7 @@ class SignActa(BrowserView, FirmesMixin):
 
             # Pujem el fitxer .url a la sèrie documental creada al gdoc
             sign_step = "uploadURLFile"
-            logger.info('8.1 Puja del fitxer .url al gdoc')
+            logger.info('8.1 Puja del fitxer .url al gDOC')
 
             self.context.info_firma['url'] = uploadFileGdoc(sessio.unitatDocumental, files)
             self.context.reindexObject()

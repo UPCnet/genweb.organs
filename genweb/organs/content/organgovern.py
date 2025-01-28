@@ -64,7 +64,7 @@ class IOrgangovern(form.Schema):
              )
 
     fieldset('gdoc',
-             label=_(u'GDoc'),
+             label=_(u'gDOC'),
              fields=['visiblegdoc', 'serie', 'signants'],
              )
 

@@ -30,21 +30,21 @@ def is_valid_serie_gdoc(self):
                     if content['codi'] == 503:
                         return {'visible_gdoc': True,
                                 'valid_serie': False,
-                                'msg_error': u'GDoc: Contacta amb algun administrador de la web perquè revisi la configuració'}
+                                'msg_error': u'gDOC: Contacta amb algun administrador de la web perquè revisi la configuració'}
 
                     elif content['codi'] == 528:
                         return {'visible_gdoc': True,
                                 'valid_serie': False,
-                                'msg_error': u'GDoc: La sèrie documental configurada no existeix'}
+                                'msg_error': u'gDOC: La sèrie documental configurada no existeix'}
 
                 return {'visible_gdoc': True,
                         'valid_serie': False,
-                        'msg_error': u'GDoc: Contacta amb algun administrador de la web perquè revisi la configuració'}
+                        'msg_error': u'gDOC: Contacta amb algun administrador de la web perquè revisi la configuració'}
 
         except:
             return {'visible_gdoc': False,
                     'valid_serie': False,
-                    'msg_error': u'GDoc timeout: Contacta amb algun administrador de la web perquè revisi la configuració'}
+                    'msg_error': u'gDOC timeout: Contacta amb algun administrador de la web perquè revisi la configuració'}
     else:
         return {'visible_gdoc': False,
                 'valid_serie': False,

@@ -98,7 +98,7 @@ class Edit(dexterity.EditForm):
     @button.buttonAndHandler(_("Save"), name="save")
     def handleApply(self, action):
         """ Custom handleApply for save button
-            If the file is replaced, the uploaded flag is set to False (for gdoc coherence)
+            If the file is replaced, the uploaded flag is set to False (for gDOC coherence)
         """
         super(Edit, self).handleApply.func(self, action)
         w_visiblefile = self.getWidget('visiblefile')
@@ -110,30 +110,30 @@ class Edit(dexterity.EditForm):
 
         if info_firma.get('public', {}).get('uploaded', False):
             if w_visiblefile.action() == 'replace':
-                info_firma['public'].update({  # hará que aparezca el check de subir a gdoc con estado amarillo
+                info_firma['public'].update({  # hará que aparezca el check de subir a gDOC con estado amarillo
                     'replaced': True,
                     'uploaded': False,
                     'error': 'El fitxer ha estat reemplaçat'
                 })
                 IStatusMessage(self.request).addStatusMessage(
-                    _(u"El fitxer públic s'ha de pujar de nou a GDoc desde la vista 'Gestió signatura i arxiu gDOC"), "info success"
+                    _(u"El fitxer públic s'ha de pujar de nou a gDOC desde la vista 'Gestió signatura i arxiu gDOC"), "info success"
                 )
-                # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gdoc automáticamente
+                # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gDOC automáticamente
                 # genweb.organs.firmadocumental.webservices.uploadFileGDoc
             elif w_visiblefile.action() == 'remove':
                 info_firma.pop('public', None)
 
         if info_firma.get('private', {}).get('uploaded', False):
             if w_hiddenfile.action() == 'replace':
-                info_firma['private'].update({ # hará que aparezca el check de subir a gdoc con estado amarillo
+                info_firma['private'].update({ # hará que aparezca el check de subir a gDOC con estado amarillo
                     'replaced': True,
                     'uploaded': False,
                     'error': 'El fitxer ha estat reemplaçat'
                 })
                 IStatusMessage(self.request).addStatusMessage(
-                    _(u"El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Gestió signatura i arxiu gDOC"), "info success"
+                    _(u"El fitxer restringit s'ha de pujar de nou a gDOC desde la vista 'Gestió signatura i arxiu gDOC"), "info success"
                 )
-                # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gdoc
+                # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gDOC
                 # genweb.organs.firmadocumental.webservices.uploadFileGDoc
             elif w_hiddenfile.action() == 'remove':
                 info_firma.pop('private', None)
@@ -466,9 +466,9 @@ class VisibleToHidden(grok.View):
                 'error': 'El fitxer ha estat reemplaçat'
             })
             IStatusMessage(self.request).addStatusMessage(
-                _(u"El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Gestió signatura i arxiu gDOC"), "info success"
+                _(u"El fitxer restringit s'ha de pujar de nou a gDOC desde la vista 'Gestió signatura i arxiu gDOC"), "info success"
             )
-            # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gdoc automáticamente
+            # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gDOC automáticamente
             # genweb.organs.firmadocumental.webservices.uploadFileGDoc
 
         if info_firma.get('public', {}).get('uploaded', False):
@@ -509,9 +509,9 @@ class HiddenToVisible(grok.View):
                 'error': 'El fitxer ha estat reemplaçat'
             })
             IStatusMessage(self.request).addStatusMessage(
-                _(u"El fitxer restringit s'ha de pujar de nou a GDoc desde la vista 'Gestió signatura i arxiu gDOC"), "info success"
+                _(u"El fitxer restringit s'ha de pujar de nou a gDOC desde la vista 'Gestió signatura i arxiu gDOC"), "info success"
             )
-            # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gdoc automáticamente
+            # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gDOC automáticamente
             # genweb.organs.firmadocumental.webservices.uploadFileGDoc
 
         if info_firma.get('private', {}).get('uploaded', False):

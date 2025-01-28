@@ -9,15 +9,15 @@ from genweb.organs import _
 class IFirmaDocumentalSettings(model.Schema):
 
     gdoc_url = schema.TextLine(
-        title=_(u'URL GDoc'),
+        title=_(u'URL gDOC'),
         required=False)
 
     gdoc_user = schema.TextLine(
-        title=_(u'Usuari GDoc'),
+        title=_(u'Usuari gDOC'),
         required=False)
 
     gdoc_hash = schema.TextLine(
-        title=_(u'Hash GDoc'),
+        title=_(u'Hash gDOC'),
         required=False)
 
     codiexpedient_url = schema.TextLine(
