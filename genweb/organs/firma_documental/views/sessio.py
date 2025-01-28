@@ -204,7 +204,7 @@ class SignSessioView(BrowserView, utilsFD.UtilsFirmaDocumental):
         #         results = []
         #         for pos, file in item['info_firma']['fitxers'].items():
         #             class_css = 'fa fa-file-pdf-o ' + ('text-success' if file['public'] else 'text-error')
-        #             if file['public'] or 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:                
+        #             if file['public'] or 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:
         #                 results.append(dict(title=file['title'],
         #                                     absolute_url=item['absolute_url'] + '/viewFile?pos=' + str(pos),
         #                                     classCSS=class_css,
@@ -358,6 +358,10 @@ class SignSessioView(BrowserView, utilsFD.UtilsFirmaDocumental):
         if acta.info_firma and acta.info_firma['acta'] != {}:
             return {'filename': acta.info_firma['acta']['filename'],
                     'sizeKB': acta.info_firma['acta']['sizeKB']}
+
+    def canFirm(self):
+        roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
+        return utils.checkhasRol(['Manager', 'OG1-Secretari'], roles)
 
     def hasFirma(self, acta):
         return utilsFD.hasFirmaActa(acta)

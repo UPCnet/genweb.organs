@@ -63,10 +63,12 @@
                 <span id="collapseAll" i18n:translate="">Plega tot <i style="color: #557c95" class="fa fa-chevron-up"
                     aria-hidden="true"></i></span>
               </div>
-              <button class="btn btn-info btn-send-confirm" style="float:right; padding: 5px 8px;"
-                          tal:condition="checkSerieGDoc/valid_serie">
-                            <i class="fa fa-arrow-right"></i>&nbsp;<span i18n:translate="">Signatura electrònica automatitzada</span>
-                        </button>
+              <tal:block tal:condition="view/canFirm">
+                <button class="btn btn-info btn-send-confirm" style="float:right; padding: 5px 8px;"
+                        tal:condition="checkSerieGDoc/valid_serie">
+                  <i class="fa fa-arrow-right"></i>&nbsp;<span i18n:translate="">Signatura electrònica automatitzada</span>
+                </button>
+              </tal:block>
               <div class="clearfix"></div>
                 <ul id="sortable">
                   <tal:documents repeat="item items">
@@ -131,9 +133,11 @@
                                                   tal:condition="item/info_firma/sent"
                                                   tal:attributes="class string:fa fa-circle ${item/info_firma/cssClass}">
                                             </i>
-                                            <input class="label label-important" type="checkbox" autocomplete="off"
-                                              tal:condition="not:item/info_firma/success"
-                                              tal:attributes="name python:'check:'+item['uuid']; value item/uuid" checked>
+                                            <tal:block tal:condition="view/canFirm">
+                                              <input class="label label-important" type="checkbox" autocomplete="off"
+                                                     tal:condition="not:item/info_firma/success"
+                                                     tal:attributes="name python:'check:'+item['uuid']; value item/uuid" checked>
+                                            </tal:block>
                                         </div>
                                       </li>
                                     </tal:documents>
@@ -179,9 +183,11 @@
                                                       tal:condition="item/info_firma/sent"
                                                       tal:attributes="class string:fa fa-circle ${item/info_firma/cssClass}">
                                                 </i>
-                                                <input class="label label-important" type="checkbox" autocomplete="off"
-                                                  tal:condition="not:item/info_firma/success"
-                                                  tal:attributes="name python:'check:'+item['uuid']; value item/uuid" checked>
+                                                <tal:block tal:condition="view/canFirm">
+                                                  <input class="label label-important" type="checkbox" autocomplete="off"
+                                                         tal:condition="not:item/info_firma/success"
+                                                         tal:attributes="name python:'check:'+item['uuid']; value item/uuid" checked>
+                                                </tal:block>
                                               </div>
                                             </li>
                                           </tal:documents>
@@ -483,24 +489,27 @@
 
                     </tal:block>
 
-                    <tal:block tal:condition="not:hasFirma">
-                      <!-- <tal:block tal:condition="checkSerieGDoc/visible_gdoc"> -->
-                        <button id="signActa" class="btn btn-info btnActa" style="float:right;"
-                          tal:condition="checkSerieGDoc/valid_serie"
-                          tal:attributes="data-sign-url string:${acta/absolute_url}/signActa">
-                            <i class="fa fa-arrow-right"></i>&nbsp;<span i18n:translate="">Enviar acta a signar</span>
-                        </button>
-                      <!-- </tal:block> -->
-                    </tal:block>
+                    <tal:block tal:condition="view/canFirm">
+                      <tal:block tal:condition="not:hasFirma">
+                        <!-- <tal:block tal:condition="checkSerieGDoc/visible_gdoc"> -->
+                          <button id="signActa" class="btn btn-info btnActa" style="float:right;"
+                            tal:condition="checkSerieGDoc/valid_serie"
+                            tal:attributes="data-sign-url string:${acta/absolute_url}/signActa">
+                              <i class="fa fa-arrow-right"></i>&nbsp;<span i18n:translate="">Enviar acta a signar</span>
+                          </button>
+                        <!-- </tal:block> -->
+                      </tal:block>
 
-                    <!-- <a class="btn btn-info btnActa" style="float:right;"
-                    tal:attributes="href string:javascript:printPage(iframe);">
-                        <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
-                    </a> -->
-                    <button data-target="#previewModal" role="button"
-                      class="btn btn-info visible-tablet hidden-phone visible-desktop" data-toggle="modal"
-                      style="float:right; margin-right:10px;">
-                      <i class="fa fa-eye"></i>&nbsp;<span i18n:translate=""> Preview Acta </span></button>
+                      <!-- <a class="btn btn-info btnActa" style="float:right;"
+                      tal:attributes="href string:javascript:printPage(iframe);">
+                          <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
+                      </a> -->
+                      <button data-target="#previewModal" role="button"
+                        class="btn btn-info visible-tablet hidden-phone visible-desktop" data-toggle="modal"
+                        style="float:right; margin-right:10px;">
+                        <i class="fa fa-eye"></i>&nbsp;<span i18n:translate=""> Preview Acta </span></button>
+
+                    </tal:block>
                   </tal:omit-tag>
 
                   <div class="clearfix documentDescription"></div>
