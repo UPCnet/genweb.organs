@@ -252,10 +252,10 @@
       </tal:block>
 
       <tal:block tal:condition="view/canViewSignButton">
-        <div class="containerIcons">
+        <div class="containerIcons mgDOC">
           <a href="signSessio" i18n:attributes="title sign_gdoc; alt sign_gdoc;">
             <i class="fa fa-pencil fa-3x" aria-hidden="true"></i>
-            <br/><span i18n:translate="">Signar i desar documentació i acta</span>
+            <br/><span i18n:translate="">Gestió signatura i arxiu gDOC</span>
           </a>
         </div>
       </tal:block>

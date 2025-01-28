@@ -1481,7 +1481,7 @@ msgid "Signants"
 msgstr ""
 
 #: ./genweb/organs/content/templates/sessio_view.pt:256
-msgid "Signar i desar documentació i acta"
+msgid "Gestió signatura i arxiu gDOC"
 msgstr ""
 
 #: ./genweb/organs/content/sessio.py:195

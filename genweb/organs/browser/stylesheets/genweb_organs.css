@@ -140,6 +140,10 @@ a.collapsed .icon-chevron-down{
     max-width: 90px;
 }
 
+.containerIcons.mgDOC {
+    max-width: 110px;
+}
+
 .containerIcons > i {
     position:relative;
     top: calc(50% - 10px); /* 50% - 3/4 of icon height */

@@ -1481,8 +1481,8 @@ msgid "Signants"
 msgstr "Signants"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:256
-msgid "Signar i desar documentació i acta"
-msgstr "Signar i desar documentació i acta"
+msgid "Gestió signatura i arxiu gDOC"
+msgstr "Gestió signatura i arxiu gDOC"
 
 #: ./genweb/organs/content/sessio.py:195
 msgid "Signatura"
@@ -1884,7 +1884,7 @@ msgstr "sense numeració"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:254
 msgid "sign_gdoc"
-msgstr "Signar i desar documentació i acta"
+msgstr "Gestió signatura i arxiu gDOC"
 
 #. Default: "Last year"
 #: ./genweb/organs/search.pt:275
