@@ -512,7 +512,7 @@ msgstr "Llista de membres que s'excusen de l'assistència de la sessió."
 
 #: ./genweb/organs/content/templates/sessio_view.pt:191
 msgid "Export"
-msgstr "Exportar"
+msgstr "Exportar l'ordre del dia"
 
 #: ./genweb/organs/content/organgovern.py:188
 #: ./genweb/organs/content/templates/organgovern_view.pt:50
@@ -1040,7 +1040,7 @@ msgstr "Previsualització dels punts/acords"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:184
 msgid "Print"
-msgstr "Imprimeix"
+msgstr "Imprimeix l'ordre del dia"
 
 #: ./genweb/organs/content/templates/acta_view.pt:52
 msgid "Print Acta"
@@ -1512,7 +1512,7 @@ msgstr "Excusa l'assistencia"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:189
 msgid "exportOrdreDia"
-msgstr "Exportar ordre del dia"
+msgstr "Exportar l'ordre del dia"
 
 #: ./genweb/organs/content/organgovern.py:166
 msgid "footerMail"
@@ -1578,7 +1578,7 @@ msgstr "Període"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:182
 msgid "printOrdreDia"
-msgstr "Imprimeix ordre del dia"
+msgstr "Imprimeix l'ordre del dia"
 
 #: ./genweb/organs/content/templates/sessio_view.pt:565
 msgid "reopen_vote"
