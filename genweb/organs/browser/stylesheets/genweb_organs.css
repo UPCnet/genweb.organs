@@ -134,8 +134,6 @@ a.collapsed .icon-chevron-down{
     background-position: -456px -72px;
 }
 
-
-
 .containerIcons {
     text-align: center;
     padding: 10px;
@@ -146,10 +144,12 @@ a.collapsed .icon-chevron-down{
     position:relative;
     top: calc(50% - 10px); /* 50% - 3/4 of icon height */
 }
+
 .containerIcons .fa {
     color: #557c95;
     font-size: 25px;
 }
+
 .containerIcons span {
     color: #557c95;
 }

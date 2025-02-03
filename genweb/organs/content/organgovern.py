@@ -138,7 +138,8 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
-    directives.omitted('estatsLlista')
+    directives.read_permission(estatsLlista='genweb.organs.add.organs')
+    directives.write_permission(estatsLlista='genweb.organs.add.organs')
     directives.widget(estatsLlista=WysiwygFieldWidget)
     estatsLlista = schema.Text(
         title=_(u"Agreement and document labels"),
