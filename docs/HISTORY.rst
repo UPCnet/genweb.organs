@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.66 (unreleased)
+0.66 (2025-02-03)
 -----------------
 
-- Nothing changed yet.
-
+* [UPD] Dejar a los manager editar el campo estatsLlista de un organ [Iago López]
+* [UPD] Literales [Iago López]
 
 0.65 (2024-07-25)
 -----------------
