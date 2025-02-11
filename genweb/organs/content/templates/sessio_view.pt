@@ -253,7 +253,7 @@
 
       <tal:block tal:condition="view/canViewSignButton">
         <div class="containerIcons mgDOC">
-          <a href="signSessio" i18n:attributes="title sign_gdoc; alt sign_gdoc;">
+          <a href="signSessio" alt="Gestió signatura i arxiu gDOC" title="Gestió signatura i arxiu gDOC">
             <i class="fa fa-pencil fa-3x" aria-hidden="true"></i>
             <br/><span i18n:translate="">Gestió signatura i arxiu gDOC</span>
           </a>
