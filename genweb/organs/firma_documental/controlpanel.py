@@ -36,10 +36,6 @@ class IFirmaDocumentalSettings(model.Schema):
         title=_(u'API Key Portafirmes'),
         required=False)
 
-    portafirmes_tokengw = schema.TextLine(
-        title=_(u'Token Portafimes a GW'),
-        required=False)
-
     copiesautentiques_url = schema.TextLine(
         title=_(u'URL Còpies Autèntiques'),
         required=False)
