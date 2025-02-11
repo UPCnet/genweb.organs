@@ -3,4 +3,9 @@
     <records
         interface="genweb.organs.controlpanel.IOrgansSettings"
         purge="False"/>
+
+    <records
+        interface="genweb.organs.firma_documental.controlpanel.IFirmaDocumentalSettings"
+        purge="False"/>
+
 </registry>

@@ -1,10 +1,18 @@
 # -*- coding: utf-8 -*-
+from Products.statusmessages.interfaces import IStatusMessage
+
+from plone import api
 from zExceptions import Redirect
-from genweb.organs.utils import addEntryLog
+from zope.globalrequest import getRequest
+
 from genweb.organs import _
 from genweb.organs import _GW
+from genweb.organs.firma_documental.utils import estatFirmaActa
+from genweb.organs.firma_documental.utils import hasFirmaActa
+from genweb.organs.utils import addEntryLog
+from genweb.organs.utils import get_organ
+
 import transaction
-from plone import api
 
 
 def sessio_changed(session, event):
@@ -32,6 +40,13 @@ def sessio_changed(session, event):
             raise Redirect(session.absolute_url() + '/mail_convocar')
 
         if event.transition.id == 'tancar':
+            organ = get_organ(session)
+            if organ.visiblegdoc:
+                estat_firma = estatFirma(session)
+                if not estat_firma or estat_firma['class'] != 'signada':
+                    IStatusMessage(getRequest()).addStatusMessage(
+                        _(u'No es pot tancar la sessió si no està signada l\'acta.'), 'alert')
+                    raise Redirect(session.absolute_url())
             member = api.user.get(username='admin')
             user = member.getUser()
             session.changeOwnership(user, recursive=False)
@@ -43,3 +58,20 @@ def sessio_changed(session, event):
                 session.manage_setLocalRoles(user._id, ["Owner"])
             session.reindexObjectSecurity()
             transaction.commit()
+
+
+def estatFirma(context):
+    portal_catalog = api.portal.get_tool(name='portal_catalog')
+    folder_path = '/'.join(context.getPhysicalPath())
+    actes = portal_catalog.searchResults(
+        portal_type=['genweb.organs.acta'],
+        sort_on='created',
+        sort_order='reverse',
+        path={'query': folder_path, 'depth': 1}
+    )
+    for acta in actes:
+        acta_obj = acta.getObject()
+        if hasFirmaActa(acta_obj):
+            return estatFirmaActa(acta_obj)
+
+    return None

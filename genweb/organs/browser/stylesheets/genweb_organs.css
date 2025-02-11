@@ -140,6 +140,10 @@ a.collapsed .icon-chevron-down{
     max-width: 90px;
 }
 
+.containerIcons.mgDOC {
+    max-width: 110px;
+}
+
 .containerIcons > i {
     position:relative;
     top: calc(50% - 10px); /* 50% - 3/4 of icon height */
@@ -267,6 +271,12 @@ span.proposalNumberSubpunt {
    font-size: 15px;
    bottom: 10px;
    left:10px;
+}
+
+.ui-state-grey-file:hover {
+    background: #f9f9f9 none repeat scroll 0 0 !important;
+    position: relative;
+
 }
 
 .llistaAfegir {
@@ -452,6 +462,19 @@ a.remove{background-color: #e8003d!important}
     text-shadow: none;
     vertical-align: top;
 }
+
+.DADES .btn-info {
+    color: #fff;
+}
+
+.DADES .btn-info.btn-send-confirm[disabled] {
+    filter: brightness(80%);
+}
+
+.DADES .btn-info.btn-send-confirm[disabled]:hover {
+    background-position: 0 0;
+}
+
 .DADES .remove:hover {
     background: #d14836 none repeat scroll 0 0;
      border-color: #d14836;
@@ -1834,8 +1857,9 @@ dd.actionMenuContent.actionMenuContentColor {
 /* Some problems with cleantheme */
 .portaltype-genweb-organs-sessio .modal-body {overflow-y: initial !important;}
 /* End problems cleantheme */
+.template-signsessio .modal-body {overflow-y: auto !important;}
 
-./*header-image {
+/*.header-image {
   background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs@2x.jpg") !important;
 }*/
 
@@ -2561,4 +2585,106 @@ body.portaltype-genweb-organs-votacioacord input#form-widgets-title {
     color: #216f86;
     font-size: 14px;
     display: inline;
+}
+
+/* FIRMA DOCUMENTAL */
+
+.estatFirma {
+    padding: 5px 10px !important;
+    border-radius: 15px !important;
+    margin-top: 4px;
+    display: inline-block;
+    text-transform: uppercase;
+    color: #000 !important;
+}
+
+.estatFirma.pendent,
+.estatFirma.en_proces,
+.estatFirma.pendent_altres_usuaris {
+    background-color: #FFDA9E;
+}
+
+.estatFirma.signada {
+    background-color: #B0F2C2;
+}
+
+.estatFirma.rebutjada,
+.estatFirma.cancelada {
+    background-color: #FCB7AF;
+}
+
+#infoSend {
+    display: none;
+}
+
+#miniLoaderScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background-color: #80808033;
+    display: none;
+}
+
+#miniLoaderScreen .loaderBorder {
+    position: fixed;
+    top: calc(50% - 2px);
+    left: calc(50% - 2px);
+    border: 7px solid #0a7fc2;
+    border-radius: 50% !important;
+    width: 35px;
+    height: 35px;
+}
+
+#miniLoaderScreen .loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    border: 5px solid #FFFFFF;
+    border-top: 5px solid #007BC1;
+    border-radius: 50% !important;
+    width: 35px;
+    height: 35px;
+    animation: fa-spin 2s linear infinite;
+    -webkit-animation: fa-spin 2s linear infinite;
+}
+
+#send-confirmation.modal > .modal-body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#send-confirmation.modal .listFiles {
+    margin-top: 0px ;
+    padding-top: 0px ;
+    padding-bottom: 0px ;
+}
+
+.estatFirmaFile {
+    font-size: 20px !important;
+}
+
+.estatFirmaFile.uploaded {
+    color: #57c886;
+}
+
+.estatFirmaFile.replaced {
+    color: #e8d153;
+}
+
+.estatFirmaFile.failed {
+    color: #c74646;
+
+}
+
+.legend-sign {
+    background-color: #fff;
+    padding: 5px 0px 5px 10px;
+    margin-bottom: 10px;
+}
+
+.legend-sign .legend-sign-item {
+    margin-bottom: 5px;
 }

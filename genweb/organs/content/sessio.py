@@ -8,6 +8,7 @@ from five import grok
 from operator import itemgetter
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.app.uuid.utils import uuidToObject
 from plone.autoform import directives
 from plone.directives import dexterity
 from plone.directives import form
@@ -26,6 +27,7 @@ from zope.schema.vocabulary import SimpleVocabulary
 
 from genweb.organs import _
 from genweb.organs import utils
+from genweb.organs.firma_documental.utils import hasFirmaActa, estatFirmaActa
 
 import ast
 import csv
@@ -197,6 +199,15 @@ class ISessio(form.Schema):
 
     directives.omitted('infoQuorums')
     infoQuorums = schema.Text(title=u'', required=False, default=u'{}')
+
+    form.mode(IAddForm, unitatDocumental='display')
+    form.mode(IEditForm, unitatDocumental='display')
+    unitatDocumental = schema.TextLine(
+        title=u'Unitat documental',
+        description=_(u'Aquesta informació es generada automàticament pel gDOC'),
+        required=False,
+        default=u''
+    )
 
 
 @form.default_value(field=ISessio['numSessio'])
@@ -507,7 +518,8 @@ class View(grok.View):
                                     favorVote=favorVote,
                                     againstVote=againstVote,
                                     whiteVote=whiteVote,
-                                    items_inside=inside))
+                                    items_inside=inside,
+                                    info_firma=item.info_firma if hasattr(item, 'info_firma') else None))
         return results
 
     def SubpuntsInside(self, data):
@@ -607,8 +619,16 @@ class View(grok.View):
                                 favorVote=favorVote,
                                 againstVote=againstVote,
                                 whiteVote=whiteVote,
-                                id='/'.join(item.absolute_url_path().split('/')[-2:])))
+                                id='/'.join(item.absolute_url_path().split('/')[-2:]),
+                                info_firma=item.info_firma if hasattr(item, 'info_firma') else None))
         return results
+
+    def canModifyPunt(self, item):
+        # If send to sign or signed, it can't be modified
+        if item['info_firma'] and item['info_firma'].get('fitxers', None):
+            return False
+        # else check if can modify session
+        return self.canModify()
 
     def canViewTabActes(self):
         # Permissions to view acta
@@ -799,6 +819,26 @@ class View(grok.View):
         return self.context.absolute_url()
 
     def filesinsidePunt(self, item):
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        # if item['info_firma'] and item['info_firma'].get('fitxers', None):
+        #     acta = uuidToObject(item['info_firma'].get('related_acta', None))
+        #     if (
+        #       acta and getattr(acta, 'info_firma', None)
+        #       and acta.info_firma.get('enviatASignar', False)
+        #       and acta.estat_firma.lower() in ['pendent', 'signada']
+        #     ):
+        #         results = []
+        #         for pos, file in item['info_firma']['fitxers'].items():
+        #             class_css = 'fa fa-file-pdf-o ' + ('text-success' if file['public'] else 'text-error')
+        #             if file['public'] or 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:
+        #                 results.append(dict(title=file['title'],
+        #                                     absolute_url=item['absolute_url'] + '/viewFile?pos=' + str(pos),
+        #                                     classCSS=class_css,
+        #                                     new_tab=True,
+        #                                     id=file['uuid'],
+        #                                     portal_type='genweb.organs.file'))
+        #         return results
         session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
         portal_catalog = api.portal.get_tool(name='portal_catalog')
 
@@ -808,10 +848,9 @@ class View(grok.View):
             path={'query': session_path,
                   'depth': 1})
         results = []
-        username = api.user.get_current().id
-        roles = utils.getUserRoles(self, self.context, username)
         for obj in values:
             value = obj.getObject()
+
             if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
                 # Editor i Secretari veuen contingut. NO obren en finestra nova
                 if obj.portal_type == 'genweb.organs.file':
@@ -874,34 +913,54 @@ class View(grok.View):
                                                 id=str(item['id']) + '/' + obj.id))
                 # es un fitxer, mostrem part publica si la té
                 if obj.portal_type == 'genweb.organs.file':
+                    info_firma = getattr(value, 'info_firma', None) or {}
+                    if not isinstance(info_firma, dict):
+                        info_firma = ast.literal_eval(info_firma)
+
                     classCSS = 'fa fa-file-pdf-o'
                     if value.visiblefile and value.hiddenfile:
                         if 'OG3-Membre' in roles:
+                            if info_firma.get('private', {}).get('uploaded', False):
+                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
+                            else:
+                                absolute_url = '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
+                                                absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=classCSS,
                                                 id=str(item['id']) + '/' + obj.id))
                         else:
+                            if info_firma.get('public', {}).get('uploaded', False):
+                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
+                            else:
+                                absolute_url = '/@@display-file/visiblefile/' + value.visiblefile.filename
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
+                                                absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=classCSS,
                                                 id=str(item['id']) + '/' + obj.id))
                     elif value.visiblefile:
+                        if info_firma.get('public', {}).get('uploaded', False):
+                            absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
+                        else:
+                            absolute_url = '/@@display-file/visiblefile/' + value.visiblefile.filename
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
-                                            absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
+                                            absolute_url=absolute_url,
                                             new_tab=True,
                                             classCSS=classCSS,
                                             id=str(item['id']) + '/' + obj.id))
                     elif value.hiddenfile:
                         if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:
+                            if info_firma.get('private', {}).get('uploaded', False):
+                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
+                            else:
+                                absolute_url = '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
+                                                absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=classCSS,
                                                 id=str(item['id']) + '/' + obj.id))
@@ -1235,6 +1294,42 @@ class View(grok.View):
             return True
 
         return False
+
+    def hasFirma(self):
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        actes = portal_catalog.searchResults(
+            portal_type=['genweb.organs.acta'],
+            path={'query': folder_path, 'depth': 1}
+        )
+        return any(hasFirmaActa(acta.getObject()) for acta in actes)
+
+    def estatFirma(self):
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        actes = portal_catalog.searchResults(
+            portal_type=['genweb.organs.acta'],
+            sort_on='created',
+            sort_order='reverse',
+            path={'query': folder_path, 'depth': 1}
+        )
+        for acta in actes:
+            acta_obj = acta.getObject()
+            if hasFirmaActa(acta_obj):
+                return estatFirmaActa(acta_obj)
+
+        return None
+
+    def canViewSignButton(self):
+        estatSessio = utils.session_wf_state(self)
+        username = api.user.get_current().id
+        roles = utils.getUserRoles(self, self.context, username)
+        organ = utils.get_organ(self.context)
+        return (
+            organ.visiblegdoc
+            and estatSessio in ['realitzada', 'en_correccio']
+            and utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
+        )
 
 
 class OpenQuorum(grok.View):

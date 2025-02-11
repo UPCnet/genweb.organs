@@ -29,7 +29,9 @@ from genweb.organs import _
 from genweb.organs import utils
 from genweb.organs.content.sessio import ISessio
 from genweb.organs.utils import addEntryLog
+from genweb.organs.firma_documental.utils import UtilsFirmaDocumental
 from genweb.organs.utils import checkHasOpenVote
+
 
 import ast
 import datetime
@@ -199,7 +201,7 @@ class Edit(dexterity.EditForm):
         super(Edit, self).updateWidgets()
 
 
-class View(grok.View):
+class View(grok.View, UtilsFirmaDocumental):
     grok.context(IAcord)
     grok.template('acord_view')
 

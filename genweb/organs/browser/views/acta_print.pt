@@ -41,6 +41,7 @@
     <h1 class="h1Print"><tal:omit-tag tal:content="view/unitatTitle">UNITAT</tal:omit-tag> -
     <tal:omit-tag tal:content="view/organGovernTitle">CONSELL DE GOVERN</tal:omit-tag></h1>
     <h2> ACTA <tal:omit-tag tal:content="view/sessionTitle">CONSELL DE GOVERN</tal:omit-tag></h2>
+    <span style="margin-top: 15px;" i18n:translate=""> Amb la signatura d'aquesta acta es dóna validesa i integritat als documents que l'acompanyen. </span>
     <hr/>
     <div class="span12" style="margin-bottom: 0px !important">
       <tal:omit-tag tal:condition="modalitat">
@@ -66,11 +67,11 @@
     <div class="clearfix"></div>
     <hr/>
     <div class="span12" style="margin-bottom: 0px !important; padding-left:0px !important; margin-left:0px !important;">
-      <div class="caixa span6" tal:condition="membresConvocats">
+      <div class="caixa span12" tal:condition="membresConvocats">
         <h4 i18n:translate=""> Assistants </h4>
         <div tal:replace="structure membresConvocats"></div>
       </div>
-      <div class="caixa span6">
+      <div class="caixa span12">
         <tal:block tal:condition="membresConvidats">
           <h4 i18n:translate=""> Invited members </h4>
           <span tal:replace="structure membresConvidats"></span>

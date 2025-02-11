@@ -162,6 +162,15 @@
 
   <div class="documentDescription description"></div>
 
+  <tal:block tal:condition="view/hasFirma">
+    <span style="margin-top: 10px;"
+          tal:define="estatFirma view/estatFirma"
+          tal:attributes="class string:badge badge-pill estatFirma ${estatFirma/class}">
+      <tal:block i18n:translate="">Acta: </tal:block>
+      <tal:block tal:content="estatFirma/text">PENDENT_SIGNANTS</tal:block>
+    </span>
+  </tal:block>
+
   <div class="sessionActions" tal:define="showOpenQuorum view/showOpenQuorum">
 
       <div class="containerIcons" tal:condition="view/showOrdreDiaIAssistencia">
@@ -241,6 +250,16 @@
           </span>
         </div>
       </tal:block>
+
+      <tal:block tal:condition="view/canViewSignButton">
+        <div class="containerIcons mgDOC">
+          <a href="signSessio" alt="Gestió signatura i arxiu gDOC" title="Gestió signatura i arxiu gDOC">
+            <i class="fa fa-pencil fa-3x" aria-hidden="true"></i>
+            <br/><span i18n:translate="">Gestió signatura i arxiu gDOC</span>
+          </a>
+        </div>
+      </tal:block>
+
   </div>
 
   <div class="clearfix"></div>
@@ -810,7 +829,7 @@ Fi: ${vote/hourClose}"></span>
             <li class="ui-state-grey" tal:attributes="id item/id; class item/classe">
               <td tal:condition="item/show">
                 <div class="span6 einesSpan">
-                  <tal:editActions tal:condition="canModify">
+                  <tal:editActions tal:condition="python: view.canModifyPunt(item)">
                     <div style="float: right;" aria-label="Edit actions">
                       <tal:block tal:condition="isAcord">
                         <button type="button" class="hide-agreement label label-important"
@@ -947,7 +966,7 @@ Fi: ${vote/hourClose}"></span>
                     </tal:block>
 
                   </tal:editActions>
-                  <div tal:condition="not:canModify" style="float: right;">
+                  <div tal:condition="python: not view.canModifyPunt(item)" style="float: right;">
                     <tal:block tal:condition="item/state">
                       <button class="btn label disabled" style="padding:3px;">
                       <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
@@ -1015,16 +1034,16 @@ Fi: ${vote/hourClose}"></span>
                   <tal:files>
                     <div class="span12" tal:condition="files">
                       <ul class="listFiles">
-                        <tal:documents repeat="item files">
+                        <tal:documents repeat="file_item files">
                           <li class="filesinTable" style="width:98% !important;">
-                            <i tal:attributes="class item/classCSS"></i>
-                            <a tal:attributes="href item/absolute_url;"  tal:condition="item/new_tab" target="_blank">
-                               <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                            <i tal:attributes="class file_item/classCSS"></i>
+                            <a tal:attributes="href file_item/absolute_url;"  tal:condition="file_item/new_tab" target="_blank">
+                               <tal:omit-tag tal:content="file_item/title"> Doc title</tal:omit-tag>
                             </a>
-                            <a tal:attributes="href item/absolute_url;" tal:condition="not:item/new_tab">
-                               <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                            <a tal:attributes="href file_item/absolute_url;" tal:condition="not:file_item/new_tab">
+                               <tal:omit-tag tal:content="file_item/title"> Doc title</tal:omit-tag>
                             </a>
-                            <div style="float:right; display: inline-table;" tal:condition="canModify">
+                            <div style="float:right; display: inline-table;" tal:condition="python: view.canModifyPunt(item)">
                                <button type="button" class="remove label label-important"
                                   data-container="body"
                                   data-toggle="popover"
@@ -1033,7 +1052,7 @@ Fi: ${vote/hourClose}"></span>
                                   data-trigger="focus"
                                   title="Esborra"
                                   data-original-title="Esborra"
-                                  tal:attributes="data-item item/id; data-type item/portal_type">
+                                  tal:attributes="data-file_item file_item/id; data-type file_item/portal_type">
                                   <i class="fa fa-trash-o" aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -1081,7 +1100,8 @@ Fi: ${vote/hourClose}"></span>
                                      isAcord itemSubpunt/isAcord">
                       <div class="span6 agreementSpan"></div>
                       <div class="span6 einesSpan">
-                        <div style="float: right;" aria-label="Edit actions" tal:condition="canModify">
+
+                        <div style="float: right;" aria-label="Edit actions" tal:condition="python: view.canModifyPunt(itemSubpunt)">
                           <tal:block tal:condition="isAcord">
                             <button type="button" class="hide-agreement label label-important"
                                     data-container="body"
@@ -1113,7 +1133,7 @@ Fi: ${vote/hourClose}"></span>
                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                           </button>
                         </div>
-                        <tal:editActions tal:condition="canModify">
+                        <tal:editActions tal:condition="python: view.canModifyPunt(itemSubpunt)">
                           <div class="btn-group" role="group" style="float: right;"
                                aria-label="Add element">
                               <button class="label dropdown-toggle"
@@ -1214,7 +1234,7 @@ Fi: ${vote/hourClose}"></span>
                           </tal:block>
                         </tal:editActions>
 
-                        <div tal:condition="not:canModify" style="float: right;">
+                        <div tal:condition="not:python: view.canModifyPunt(itemSubpunt)" style="float: right;">
                           <tal:block tal:condition="itemSubpunt/state">
                             <button class="btn label disabled " style="padding:3px;">
                             <i class="fa fa-circle" aria-hidden="true"  tal:attributes="style string:color:${itemSubpunt/css}"></i>
@@ -1264,7 +1284,7 @@ Fi: ${vote/hourClose}"></span>
                                     <a tal:attributes="href item/absolute_url;" tal:condition="not:item/new_tab">
                                        <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                                     </a>
-                                    <div style="float:right; display: inline-table;" tal:condition="canModify">
+                                    <div style="float:right; display: inline-table;" tal:condition="python: view.canModifyPunt(itemSubpunt)">
                                       <button type="button" class="remove label label-important"
                                             data-container="body"
                                             data-toggle="popover"

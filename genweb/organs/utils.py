@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import ast
 from Acquisition import aq_chain
 from Acquisition import aq_inner
 from Products.PluggableAuthService.interfaces.plugins import IPropertiesPlugin
@@ -6,6 +7,7 @@ from Products.PluggableAuthService.interfaces.plugins import IPropertiesPlugin
 from datetime import datetime
 from plone import api
 from plone.app.layout.navigation.root import getNavigationRootObject
+from plone.app.uuid.utils import uuidToObject
 from plone.memoize import instance
 from plone.registry.interfaces import IRegistry
 from zope.annotation.interfaces import IAnnotations
@@ -266,6 +268,30 @@ def addPoint(context, names, title, justification, path):
 
 def FilesandDocumentsInside(self):
     # Return files and docs found inside the session object
+    organ_tipus = self.context.organType
+    # roles = getUserRoles(self, self.context, api.user.get_current().id)
+
+    # if getattr(self.context, 'info_firma', None) and self.context.info_firma.get('fitxers', None):
+    #     results = []
+    #     acta = uuidToObject(self.context.info_firma.get('related_acta', None))
+    #     if (
+    #       acta and getattr(acta, 'info_firma', None)
+    #       and acta.info_firma.get('enviatASignar', None)
+    #       and acta.estat_firma.lower() in ['pendent', 'signada']
+    #     ):
+    #         for pos, file in self.context.info_firma['fitxers'].items():
+    #             class_css = 'fa fa-2x fa-file-pdf-o text-success' if file['public'] else 'fa fa-2x fa-file-pdf-o text-error'
+    #             roles_to_check = ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat']
+    #             if organ_tipus == 'open_organ':
+    #                 roles_to_check.append('OG4-Afectat')
+    #             if not file['public'] and not checkhasRol(roles_to_check, roles):
+    #                 continue
+    #             results.append(dict(title=file['title'],
+    #                                 absolute_url=self.context.absolute_url() + '/viewFile?pos=' + str(pos),
+    #                                 classCSS=class_css,
+    #                                 new_tab=True,
+    #                                 ))
+    #         return results
     portal_catalog = api.portal.get_tool(name='portal_catalog')
     folder_path = '/'.join(self.context.getPhysicalPath())
     values = portal_catalog.unrestrictedSearchResults(
@@ -333,54 +359,81 @@ def FilesandDocumentsInside(self):
                                             classCSS=class_css))
 
             if obj.portal_type == 'genweb.organs.file':
+                info_firma = getattr(value, 'info_firma', None) or {}
+                if not isinstance(info_firma, dict):
+                    info_firma = ast.literal_eval(info_firma)
+
                 class_css = 'fa fa-2x fa-file-pdf-o'
-                organ_tipus = self.context.organType
                 if value.visiblefile and value.hiddenfile:
                     if organ_tipus == 'open_organ':
                         if checkhasRol(['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+                            if info_firma.get('private', {}).get('uploaded', False):
+                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
+                            else:
+                                absolute_url = '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
+                                                absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=class_css))
                         else:
+                            if info_firma.get('public', {}).get('uploaded', False):
+                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
+                            else:
+                                absolute_url = '/@@display-file/visiblefile/' + value.visiblefile.filename
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
+                                                absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=class_css))
                     else:
+                        if info_firma.get('private', {}).get('uploaded', False):
+                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
+                        else:
+                            absolute_url = '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                         if checkhasRol(['OG3-Membre', 'OG5-Convidat'], roles):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
+                                                absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=class_css))
                         else:
+                            if info_firma.get('public', {}).get('uploaded', False):
+                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
+                            else:
+                                absolute_url = '/@@display-file/visiblefile/' + value.visiblefile.filename
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
+                                                absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=class_css))
                 elif value.visiblefile:
+                    if info_firma.get('public', {}).get('uploaded', False):
+                        absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
+                    else:
+                        absolute_url = '/@@display-file/visiblefile/' + value.visiblefile.filename
                     results.append(dict(title=obj.Title,
-                                        absolute_url=obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename,
+                                        absolute_url=absolute_url,
                                         new_tab=True,
                                         classCSS=class_css,
                                         hidden=False))
                 elif value.hiddenfile:
+                    if info_firma.get('private', {}).get('uploaded', False):
+                        absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
+                    else:
+                        absolute_url = '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                     if organ_tipus == 'open_organ':
                         if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
+                                                absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=class_css))
                     else:
                         if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename,
+                                                absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=class_css))
     return results
@@ -411,16 +464,19 @@ def SubPuntsInside(self):
 
 def getColor(self):
     # Get custom colors on passed organ states
-    obj = self._unrestrictedGetObject()
-    estat = obj.estatsLlista
-    organ = get_organ(obj)
-    values = organ.estatsLlista
     color = '#777777'
-    for value in values.split('</p>'):
-        if value != '':
-            item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
-            if estat.decode('utf-8') == ' '.join(item_net.split()[:-1]).lstrip():
-                return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
+    try:
+        obj = self._unrestrictedGetObject()
+        estat = obj.estatsLlista
+        organ = get_organ(obj)
+        values = organ.estatsLlista
+        for value in values.split('</p>'):
+            if value != '':
+                item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
+                if estat.decode('utf-8') == ' '.join(item_net.split()[:-1]).lstrip():
+                    return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
+    except:
+        pass
     return color
 
 
@@ -464,10 +520,46 @@ def get_settings_property(property_id):
 
 def get_organ(context):
     from genweb.organs.content.organgovern import IOrgangovern
-    for obj in aq_chain(context):
-        if IOrgangovern.providedBy(obj):
-            return obj
+    if IOrgangovern.providedBy(context):
+        return context
+    else:
+        portal_state = context.unrestrictedTraverse('@@plone_portal_state')
+        root = getNavigationRootObject(context, portal_state.portal())
+        physical_path = aq_inner(context).getPhysicalPath()
+        relative = physical_path[len(root.getPhysicalPath()):]
+        for i in range(len(relative)):
+            now = relative[:i + 1]
+            obj = aq_inner(root.unrestrictedTraverse(now))
+            if IOrgangovern.providedBy(obj):
+                return obj
     return None
+
+
+def get_session(context):
+    from genweb.organs.content.sessio import ISessio
+    if ISessio.providedBy(context):
+        return context
+    else:
+        portal_state = context.unrestrictedTraverse('@@plone_portal_state')
+        root = getNavigationRootObject(context, portal_state.portal())
+        physical_path = aq_inner(context).getPhysicalPath()
+        relative = physical_path[len(root.getPhysicalPath()):]
+        for i in range(len(relative)):
+            now = relative[:i + 1]
+            obj = aq_inner(root.unrestrictedTraverse(now))
+            if ISessio.providedBy(obj):
+                return obj
+    return None
+
+
+def getLdapUserData(user, typology=None):
+    acl_users = api.portal.get_tool(name='acl_users')
+    if not typology:
+        search_result = acl_users.searchUsers(id=user, exactMatch=True)
+    else:
+        search_result = acl_users.searchUsers(id=user, exactMatch=True, typology=typology)
+    return search_result
+
 
 def get_acord(context):
     from genweb.organs.content.acord import IAcord
@@ -496,3 +588,44 @@ def checkHasOpenVote(context):
                 return True
 
     return False
+
+
+def getFilesSessio(context):
+    portal_catalog = api.portal.get_tool('portal_catalog')
+    session = get_session(context)
+    session_path = '/'.join(session.getPhysicalPath())
+    punts = portal_catalog.searchResults(
+        portal_type=['genweb.organs.acord', 'genweb.organs.punt'],
+        path={'query': session_path, 'depth': 1},
+        sort_on='getObjPositionInParent'
+    )
+    files = []
+    for punt in punts:
+        files_punt = portal_catalog.searchResults(
+            portal_type=['genweb.organs.file'],
+            path={'query': punt.getPath(), 'depth': 1},
+            sort_on='getObjPositionInParent'
+        )
+
+        for file in files_punt:
+            files.append(file.getObject())
+
+        if punt.getObject().portal_type == 'genweb.organs.acord':
+            continue
+
+        subpunts = portal_catalog.searchResults(
+            portal_type=['genweb.organs.acord', 'genweb.organs.subpunt'],
+            path={'query': punt.getPath(), 'depth': 1},
+            sort_on='getObjPositionInParent'
+        )
+
+        for subpunt in subpunts:
+            files_subpunt = portal_catalog.searchResults(
+                portal_type=['genweb.organs.file'],
+                path={'query': subpunt.getPath(), 'depth': 1},
+                sort_on='getObjPositionInParent'
+            )
+            for file in files_subpunt:
+                files.append(file.getObject())
+
+    return files

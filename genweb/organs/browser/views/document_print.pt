@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    lang="en"
+    metal:use-macro="context/main_template/macros/master"
+    i18n:domain="genweb.organs">
+<body>
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<metal:column_one fill-slot="column_one_slot" />
+
+<metal:content-core fill-slot="main">
+  <link rel="stylesheet" media="print" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/print.css" />
+
+  <div style="float:left;" tal:condition="view/getOrganLogo">
+    <img style="height:67px;" tal:attributes="src view/getOrganLogo" />
+  </div>
+
+  <h1 class="pull-right" style="margin-top: 0px;">
+    <img width="207px" height="46px" tal:attributes="src string:${portal_url}/++genweb++static/images/logoUPC.png"/>
+  </h1>
+  <div class="clearfix"></div>
+  <h2 tal:content="context/Title">DOCUMENT</h2>
+  <tal:block tal:condition="view/canViewDocument">
+    <div tal:replace="structure view/getDocument"></div>
+  </tal:block>
+</metal:content-core>
+
+</body>
+</html>

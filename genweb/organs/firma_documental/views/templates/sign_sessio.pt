@@ -1,0 +1,780 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal" xmlns:i18n="http://xml.zope.org/namespaces/i18n" lang="ca"
+  metal:use-macro="context/main_template/macros/master" i18n:domain="genweb.organs">
+
+<body>
+
+  <metal:main fill-slot="main" tal:condition="view/canView">
+    <tal:main-macro metal:define-macro="main" tal:define="items view/PuntsInside;
+                    canModify view/canModify;
+                    hihaDocs view/hihaDocs;
+                    getTitlePrompt view/getTitlePrompt;
+                    getErrorPrompt view/getErrorPrompt;
+                    acta view/activeActa;
+                    checkSerieGDoc view/checkSerieGDoc;">
+
+      <div tal:replace="structure provider:plone.abovecontenttitle"></div>
+      <!-- <h1 class="documentFirstHeading" tal:content="context/title" /> -->
+      <h1 class="documentFirstHeading">Informacio de signatures i desat de documentació</h1>
+      <!-- <p class="documentDescription" tal:content="context/description" /> -->
+      <div tal:replace="structure provider:plone.abovecontentbody"></div>
+      <div tal:replace="structure provider:plone.belowcontentbody"></div>
+      <div style="margin-bottom: 10px">
+        <a style="padding-top: 10px" class="documentDescription" 18n:translate=""
+              tal:attributes="href context/absolute_url">
+              <i style="color: #557c95; margin-right: 7px" class="fa fa-chevron-left" aria-hidden="true"></i>Tornar</a>
+      </div>
+      <div id="contentSessio">
+        <ul id="tabs" class="nav nav-tabs visible-tablet hidden-phone visible-desktop" data-tabs="tabs">
+          <li class="active"><a href="#documentsTab" data-toggle="tab" tal:condition="hihaDocs">
+            <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Documentació</tal:omit-tag></i></a></li>
+          <li tal:condition="python:True" tal:attributes="class python:'' if hihaDocs else 'active'"><a href="#actaTab" data-toggle="tab">
+            <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Acta</tal:omit-tag></i></a></li>
+        </ul>
+        <ul id="tabs" class="nav nav-tabs nav-stacked hidden-tablet visible-phone hidden-desktop" data-tabs="tabs">
+          <li class="active"><a href="#documentsTab" data-toggle="tab" tal:condition="hihaDocs">
+            <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Documentació</tal:omit-tag></i></a></li>
+          <li tal:condition="python:True"><a href="#actaTab" data-toggle="tab" >
+            <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Acta</tal:omit-tag></i></a></li>
+        </ul>
+        <div id="sesionTabs" class="tab-content" >
+
+          <!-- <div id="sessionTabs" class="tab-pane active tab-content"> + this inside div#contentSessio -->
+          <div id="documentsTab" class="tab-pane active" tal:condition="hihaDocs">
+            <div tal:condition="items" id="documentsTab" class="DADES" style="overflow-x: hidden;">
+              <div class="legend-sign">
+                <h4>Possibles estats dels fitxers</h4>
+                <div class="legend-sign-item">
+                  <i class="fa fa-circle estatFirmaFile uploaded"></i>
+                  <span > El fitxer s'ha pujat i desat correctament a gDOC. </span>
+                </div>
+                <div class="legend-sign-item">
+                  <i class="fa fa-circle estatFirmaFile replaced"></i>
+                    <span > El fitxer, prèviament pujat i desat a gDOC, ha estat reemplaçat i s'ha d'enviar de nou. </span>
+                </div>
+                <div class="legend-sign-item">
+                  <i class="fa fa-circle estatFirmaFile failed"></i>
+                    <span > No s'ha pogut enviar el fitxer a gDOC. Normalment, és un problema temporal i es resol intentant pujar el fitxer de nou al cap d'una estona. </span>
+                </div>
+              </div>
+              <div style="display: inline-block; padding-top: 5px;" class="documentDescription">
+                <span id="expandAll" i18n:translate="">Desplega tot <i style="color: #557c95" class="fa fa-chevron-down"
+                    aria-hidden="true"></i></span>
+                <span id="collapseAll" i18n:translate="">Plega tot <i style="color: #557c95" class="fa fa-chevron-up"
+                    aria-hidden="true"></i></span>
+              </div>
+              <tal:block tal:condition="view/canFirm">
+                <button class="btn btn-info btn-send-confirm" style="float:right; padding: 5px 8px;"
+                        tal:condition="checkSerieGDoc/valid_serie">
+                  <i class="fa fa-arrow-right"></i>&nbsp;<span i18n:translate="">Signatura electrònica automatitzada</span>
+                </button>
+              </tal:block>
+              <div class="clearfix"></div>
+                <ul id="sortable">
+                  <tal:documents repeat="item items">
+                    <tal:block tal:define="agreement item/agreement">
+                      <li tal:attributes="id item/id">
+
+                        <td tal:condition="item/show">
+                          <tal:block-contenidos tal:define="files python:view.filesinsidePunt(item);
+                                                        subpunts python:view.SubpuntsInside(item)">
+                            <div class="puntTitle span12" tal:define="contenidos python:files or subpunts">
+                              <div class="span1 fletxaSpan visible-tablet hidden-phone visible-desktop">
+                                <button type="button" class="expand" tal:condition="contenidos" data-original-title="Expand">
+                                  <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="notexpand" tal:condition="contenidos"
+                                  data-original-title="Collapse">
+                                  <i  style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
+                                </button>
+                                </div>
+                              <div class="span1 numberSpan visible-tablet hidden-phone visible-desktop">
+                                <span class="proposalNumber " style="text-align: right; float:right;"
+                                  tal:content="item/proposalPoint"></span>
+                              </div>
+                              <div class="hidden-tablet visible-phone hidden-desktop">
+                                <span class="proposalNumber" style="text-align: right; float:left; padding-left:10px;"
+                                  tal:content="item/proposalPoint"></span>
+                                <button type="button" class="expand" tal:condition="contenidos" data-original-title="Expand">
+                                  <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="notexpand" tal:condition="contenidos"
+                                  data-original-title="Collapse">
+                                  <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
+                                </button>
+                                <br/>
+                              </div>
+                              <div class="span9 titleSpan">
+                                <a tal:attributes="data-pk item/id; href item/absolute_url" data-url="changeTitle"
+                                  class="editTitle editable titleSize">
+                                  <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                                </a>
+                                <span tal:condition="agreement" class="agreementClass">
+                                  [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag
+                                    tal:content="agreement">Acord code </tal:omit-tag>]
+                                </span>
+                              </div>
+                              <tal:files>
+                                <div class="span12" tal:condition="files">
+                                  <ul class="listFiles">
+                                    <tal:documents repeat="item files">
+                                      <li class="filesinTable ui-state-grey-file" style="width:98% !important;">
+                                        <i tal:attributes="class item/classCSS"></i>
+                                        <a tal:attributes="href item/absolute_url;" tal:condition="item/new_tab"
+                                          target="_blank">
+                                          <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                        </a>
+                                        <a tal:attributes="href item/absolute_url;" tal:condition="not:item/new_tab">
+                                          <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                        </a>
+                                        <div style="float:right; display: inline-table;">
+                                            <span tal:condition="not:item/info_firma/success" tal:content="item/info_firma/message"></span>
+                                            <i title="Enviat i desat a gDOC"
+                                                  tal:condition="item/info_firma/sent"
+                                                  tal:attributes="class string:fa fa-circle ${item/info_firma/cssClass}">
+                                            </i>
+                                            <tal:block tal:condition="view/canFirm">
+                                              <input class="label label-important" type="checkbox" autocomplete="off"
+                                                     tal:condition="not:item/info_firma/success"
+                                                     tal:attributes="name python:'check:'+item['uuid']; value item/uuid" checked>
+                                            </tal:block>
+                                        </div>
+                                      </li>
+                                    </tal:documents>
+                                  </ul>
+                                </div>
+                              </tal:files>
+                            </div>
+                            <div tal:condition="subpunts" class="sortable2">
+                              <tal:subpunts repeat="itemSubpunt subpunts">
+                                <ol class="li_subgrups" tal:attributes="id itemSubpunt/id" tal:define="agreement itemSubpunt/agreement;
+                                            itemSubpunt_id itemSubpunt/id">
+                                  <div class="span6 agreementSpan"></div>
+                                  <div class="subpuntTitle">
+                                    <div class="span1">
+                                      <span class="proposalNumberSubpunt" tal:content="itemSubpunt/proposalPoint"></span>
+                                    </div>
+                                    <div class="span9">
+                                      <a tal:attributes="data-pk itemSubpunt_id; href itemSubpunt/absolute_url"
+                                        data-type="text" data-url="changeTitle" class="editTitle editable subtitleSize">
+                                        <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
+                                      </a>
+                                      <span tal:condition="agreement" class="agreementClass">
+                                        [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag
+                                          tal:content="agreement">Acord code </tal:omit-tag>]
+                                      </span>
+                                    </div>
+                                    <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
+                                      <div class="span12" tal:condition="files">
+                                        <ul style="list-style: none;" tal:condition="files">
+                                          <tal:documents repeat="item files">
+                                            <li class="filesinTable ui-state-grey-file" style="width: 92% !important;">
+                                              <i tal:attributes="class item/classCSS"></i>
+                                              <a tal:attributes="href item/absolute_url;" tal:condition="item/new_tab"
+                                                target="_blank">
+                                                <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                              </a>
+                                              <a tal:attributes="href item/absolute_url;" tal:condition="not:item/new_tab">
+                                                <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                              </a>
+                                              <div style="float:right; display: inline-table;">
+                                                <span tal:condition="not:item/info_firma/success" tal:content="item/info_firma/message"></span>
+                                                <i title="Enviat i desat a gDOC"
+                                                      tal:condition="item/info_firma/sent"
+                                                      tal:attributes="class string:fa fa-circle ${item/info_firma/cssClass}">
+                                                </i>
+                                                <tal:block tal:condition="view/canFirm">
+                                                  <input class="label label-important" type="checkbox" autocomplete="off"
+                                                         tal:condition="not:item/info_firma/success"
+                                                         tal:attributes="name python:'check:'+item['uuid']; value item/uuid" checked>
+                                                </tal:block>
+                                              </div>
+                                            </li>
+                                          </tal:documents>
+                                        </ul>
+                                      </div>
+                                    </tal:files>
+                                  </div>
+                                </ol>
+                              </tal:subpunts>
+                            </div>
+                          </tal:block-contenidos>
+                        </td>
+                      </li>
+                    </tal:block>
+                  </tal:documents>
+                </ul>
+                <input tal:replace="structure context/@@authenticator/authenticator" />
+              <div id="send-confirmation" class="modal hide fade">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h3>Aquests documents s'enviaran al Gestor Documental</h3>
+                </div>
+                <div class="modal-body">
+                  <ul style="list-style-type: none; margin: 0; padding: 0; width: auto;">
+                    <tal:documents repeat="item items">
+                      <tal:block tal:define="agreement item/agreement">
+                        <li>
+                          <td tal:condition="item/show">
+                            <tal:block-contenidos tal:define="files python:view.filesinsidePunt(item);
+                                                          subpunts python:view.SubpuntsInside(item)">
+                              <div class="puntTitle span12" tal:condition="python: view.hasUnsentFiles(item, depth=2)">
+                                <div class="span1 numberSpan visible-tablet hidden-phone visible-desktop">
+                                  <span class="proposalNumber " style="text-align: right;"
+                                    tal:content="item/proposalPoint"></span>
+                                </div>
+                                <div class="hidden-tablet visible-phone hidden-desktop">
+                                  <span class="proposalNumber" style="text-align: right; float:left; padding-left:10px;"
+                                    tal:content="item/proposalPoint"></span>
+                                  <br />
+                                </div>
+                                <div class="span9 titleSpan">
+                                  <span class="titleSize" tal:content="item/title">Item Title</span>
+                                  <span tal:condition="agreement" class="agreementClass">
+                                    [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag
+                                      tal:content="agreement">Acord code </tal:omit-tag>]
+                                  </span>
+                                </div>
+                                <tal:files>
+                                  <div class="span12" tal:condition="files">
+                                    <ul class="listFiles">
+                                      <tal:documents repeat="item files">
+                                        <li class="filesinTable" style="width:98% !important; font-weight: bold !important;"
+                                          tal:attributes="id item/uuid"
+                                          tal:condition="not:item/info_firma/success">
+                                          <i tal:attributes="class item/classCSS"></i>
+                                          <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                        </li>
+                                      </tal:documents>
+                                    </ul>
+                                  </div>
+                                </tal:files>
+                              </div>
+                              <!-- Subpunts, en la modal están al mismo nivel que los punts-->
+                              <!-- <div tal:condition="subpunts">
+                          <tal:subpunts repeat="itemSubpunt subpunts">
+                            <div class="puntTitle span12" tal:define="filesSubpunt python:view.filesinsidePunt(itemSubpunt)" tal:condition="filesSubpunt">
+                              <div class="span1 numberSpan visible-tablet hidden-phone visible-desktop">
+                                <span class="proposalNumber " style="text-align: right; float:right;" tal:content="itemSubpunt/proposalPoint"></span>
+                              </div>
+                              <div class="hidden-tablet visible-phone hidden-desktop">
+                                <span class="proposalNumber" style="text-align: right; float:left; padding-left:10px;" tal:content="itemSubpunt/proposalPoint"></span>
+                                <br/>
+                              </div>
+                              <div class="span9 titleSpan">
+                                <span class="titleSize" tal:content="itemSubpunt/title">Item Title</span>
+                                <span tal:condition="agreement" class="agreementClass">
+                                  [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag tal:content="agreement">Acord code </tal:omit-tag>]
+                                </span>
+                              </div>
+                              <tal:files>
+                                <div class="span12" tal:condition="filesSubpunt">
+                                  <ul class="listFiles">
+                                    <tal:documents repeat="itemFilesSubpunt filesSubpunt">
+                                      <li class="filesinTable" style="width:98% !important;"
+                                          tal:attributes="id itemFilesSubpunt/uuid">
+                                        <i tal:attributes="class itemFilesSubpunt/classCSS"></i>
+                                        <tal:omit-tag tal:content="itemFilesSubpunt/title"> Doc title</tal:omit-tag>
+                                        <tal:omit-tag tal:content="itemFilesSubpunt/title"> Doc title</tal:omit-tag>
+                                      </li>
+                                    </tal:documents>
+                                  </ul>
+                                </div>
+                              </tal:files>
+                            </div>
+                          </tal:subpunts>
+                        </div> -->
+                              <div tal:condition="subpunts" class="sortable2">
+                                <tal:subpunts repeat="itemSubpunt subpunts">
+                                  <ol class="li_subgrups" tal:attributes="id itemSubpunt/id" tal:define="agreement itemSubpunt/agreement;
+                                              itemSubpunt_id itemSubpunt/id"
+                                    tal:condition="python: view.hasUnsentFiles(itemSubpunt)">
+                                    <div class="span6 agreementSpan"></div>
+                                    <div class="subpuntTitle">
+                                      <div class="span1">
+                                        <span class="proposalNumberSubpunt" tal:content="itemSubpunt/proposalPoint"></span>
+                                      </div>
+                                      <div class="span9">
+                                        <a tal:attributes="data-pk itemSubpunt_id; href itemSubpunt/absolute_url"
+                                          data-type="text" data-url="changeTitle" class="editTitle editable subtitleSize">
+                                          <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
+                                        </a>
+                                        <span tal:condition="agreement" class="agreementClass">
+                                          [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag
+                                            tal:content="agreement">Acord code </tal:omit-tag>]
+                                        </span>
+                                      </div>
+                                      <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
+                                        <div class="span12" tal:condition="files">
+                                          <ul style="list-style: none;" tal:condition="files">
+                                            <tal:documents repeat="item files">
+                                              <li class="filesinTable"
+                                                style="width: 92% !important; font-weight: bold !important;"
+                                                tal:attributes="id item/uuid"
+                                                tal:condition="not:item/info_firma/success">
+                                                <i tal:attributes="class item/classCSS"></i>
+                                                <tal:omit-tag tal:content="item/title">Doc title</tal:omit-tag>
+                                              </li>
+                                            </tal:documents>
+                                          </ul>
+                                        </div>
+                                      </tal:files>
+                                    </div>
+                                  </ol>
+                                </tal:subpunts>
+                              </div>
+                            </tal:block-contenidos>
+                          </td>
+                        </li>
+                      </tal:block>
+                    </tal:documents>
+                  </ul>
+                </div>
+                <div class="modal-footer">
+                  <a href="#" class="btn" data-dismiss="modal">Cancel·lar</a>
+                  <!-- El selector css ".DADES button" hace que se visualice mal el botón de boostrap
+                    con la tag <button>, por tanto me veo obligado a poner div en su lugar -->
+                  <div id="send-sign-btn" class="btn btn-primary">Confirmar</div>
+                </div>
+              </div>
+            </div>
+            <script type="text/javascript">
+              $(function () {
+
+                function hideConfirmButtonIfNoFiles(hide = false) {
+                  selected = $('input:checked').length > 0;
+                  if (hide) $('.btn-send-confirm').toggle(selected);
+                  else $('.btn-send-confirm').prop('disabled', !selected);
+                }
+                hideConfirmButtonIfNoFiles(true);
+                $('.expand').hide()
+                $('.expand').click(function (e) {
+                  e.stopPropagation();
+                  $(this).hide();
+                  $(this).siblings('.notexpand').show();
+                  $(this).parents(".puntTitle").siblings('.sortable2').slideDown();
+                  $(this).parents(".puntTitle").find('.listFiles').slideDown();
+                });
+                $('.notexpand').click(function (e) {
+                  e.stopPropagation();
+                  $(this).hide();
+                  $(this).siblings('.expand').show();
+                  $(this).parents(".puntTitle").siblings('.sortable2').slideUp();
+                  $(this).parents(".puntTitle").find('.listFiles').slideUp();
+                });
+                $("#expandAll").hide()
+                $("#expandAll").click(function () {
+                  $(".expand").click();
+                  $("#expandAll").hide();
+                  $("#collapseAll").show();
+                });
+                $("#collapseAll").click(function () {
+                  $(".notexpand").click();
+                  $("#expandAll").show();
+                  $("#collapseAll").hide();
+                });
+                $('.btn-send-confirm').click(function (e) { $('#send-confirmation').modal('show'); })
+                $(':checkbox').change(function () {
+                  const uuid = $(this).attr('name').substring(6); // quitar el 'check:' del nombre del checkbox
+                  const checked = $(this).is(':checked');
+                  // desactivar/activar la visualización del documento
+                  $('#' + uuid).toggle(checked);
+                  let active = checked;
+                  function hasCheckedFilesCallback() {
+                    if ($(':checkbox[name="check:' + this.id + '"]').is(':checked')) {
+                      active = true;
+                      return false;
+                    }
+                  }
+                  // comprobar si hay algún documento activo en el subpunt
+                  if (!active) {
+                    $('#' + uuid).siblings('.filesinTable').each(hasCheckedFilesCallback);
+                  }
+                  // desactivar/activar la visualización del subpunt (no se verá si ninguno de sus documentos está activo)
+                  // no tendrá efecto si es un documento que está directamente en el punt
+                  // Nota: .li_subgrups tiene un !important en el display
+                  //       asi que no hay más remedio que poner el estilo manualmente para esconder el elemento
+                  if (!active) $('#' + uuid).parents("ol.li_subgrups").attr('style', 'display:none !important')
+                  else $('#' + uuid).parents("ol.li_subgrups").removeAttr('style')
+                  //# desactivar el nodo que contiene todos los ficheros, solo funcionará en el punt
+                  $('#' + uuid).parents(".listFiles").parent().toggle(active);
+                  // obtener el punt a partir del documento dentro de un subpunt
+                  let puntTitle = $('#' + uuid).parents(".sortable2").siblings(".puntTitle");
+                  if (puntTitle.length == 0) {
+                    // si no encuentra desde el subpunt es que es un documento que está diractamente en el punt
+                    puntTitle = $('#' + uuid).parents(".puntTitle");
+                  }
+                  // comprobar si hay algún subpunt activo en el punt
+                  if (!active) {
+                    puntTitle.siblings(".sortable2").children("ol.li_subgrups").find(".filesinTable").each(hasCheckedFilesCallback);
+                  }
+                  // en caso de que no haya ningún subpunt activo en el punt, comprobar si hay algún documento activo en el punt
+                  if (!active) {
+                    puntTitle.find(".filesinTable").each(hasCheckedFilesCallback);
+                  }
+                  // desactivar/activar la visualización del punt (no se verá si ninguno de sus documentos o subpunts está activo)
+                  puntTitle.parent("li").toggle(active);
+
+                  // comprobar si hay algún documento seleccionado en la lista de documentos.
+                  // en caso de que no haya ninguno, se oculta el botón que abre la modal de confirmación
+                  hideConfirmButtonIfNoFiles();
+                });
+                $('#send-sign-btn').click(function () {
+                  $('#send-confirmation').modal('hide');
+                  var data = {};
+                  $('input:checked').each(function () {
+                    data[this.name] = this.value;
+                  });
+                  $('#miniLoaderScreen').show();
+                  $.ajax({
+                    url: 'uploadFiles',
+                    type: 'POST',
+                    data: data,
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                  }).then(() => window.location.reload());
+                });
+              });
+            </script>
+          </div>
+          <div id="actaTab" tal:attributes="class python: 'tab-pane' + ('' if hihaDocs else ' active')" tal:condition="acta">
+            <div tal:define=" ordenDelDia acta/ordenDelDia;
+                              audio python:view.AudioInsideActa(acta);
+                              annexes python:view.AnnexInsideActa(acta);
+                              enllacVideo acta/enllacVideo;
+                              absolute_url acta/absolute_url;
+                              hasFirma python:view.hasFirma(acta);
+                              ">
+
+                  <script type="text/javascript">
+                    function printPage(newWindow){
+                      newWindow.focus('printActa');
+                      newWindow.print('printActa');
+                    }
+                  </script>
+
+                <iframe name="iframe" id="iframe" width="1" height="1" src="printActa"></iframe>
+
+                  <tal:omit-tag>
+                  <!-- May be interesting to put to the top of this page
+                      <tal:block tal:condition="checkSerieGDoc/visible_gdoc">
+                      <div class="alert alert-error" role="alert" tal:condition="not:checkSerieGDoc/valid_serie">
+                        <button data-dismiss="alert" class="close" type="button">×</button>
+                        <strong>Error</strong>
+                        <span tal:content="checkSerieGDoc/msg_error"></span>
+                      </div>
+                    </tal:block>
+
+                    <tal:block tal:condition="not:checkSerieGDoc/visible_gdoc">
+                      <div class="alert alert-error" role="alert" tal:condition="checkSerieGDoc/msg_error">
+                        <button data-dismiss="alert" class="close" type="button">×</button>
+                        <strong>Error</strong>
+                        <span tal:content="checkSerieGDoc/msg_error"></span>
+                      </div>
+                    </tal:block>
+
+                    <div id="infoSend" class="alert alert-warning" role="alert">
+                      <button data-dismiss="alert" class="close" type="button">×</button>
+                      <strong>Info</strong>
+                      <span>Aquesta acció pot trigar una estona. El procés de signatura continuarà independentment de que aquesta pantalla pugui donar timeout. Si en uns minuts torneu a aquesta pàgina apareixerà l'estat de l'acta ja processada en el portafirmes.</span>
+                    </div> -->
+
+
+                    <tal:block tal:condition="hasFirma">
+
+                      <span tal:define="estatFirma python:view.estatFirma(acta)"
+                            tal:attributes="class string:badge badge-pill estatFirma ${estatFirma/class}">
+                        <tal:block i18n:translate="">Acta: </tal:block>
+                        <tal:block tal:content="estatFirma/text">PENDENT_SIGNANTS</tal:block>
+                      </span>
+
+                    </tal:block>
+
+                    <tal:block tal:condition="view/canFirm">
+                      <tal:block tal:condition="not:hasFirma">
+                        <!-- <tal:block tal:condition="checkSerieGDoc/visible_gdoc"> -->
+                          <button id="signActa" class="btn btn-info btnActa" style="float:right;"
+                            tal:condition="checkSerieGDoc/valid_serie"
+                            tal:attributes="data-sign-url string:${acta/absolute_url}/signActa">
+                              <i class="fa fa-arrow-right"></i>&nbsp;<span i18n:translate="">Enviar acta a signar</span>
+                          </button>
+                        <!-- </tal:block> -->
+                      </tal:block>
+
+                      <!-- <a class="btn btn-info btnActa" style="float:right;"
+                      tal:attributes="href string:javascript:printPage(iframe);">
+                          <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
+                      </a> -->
+                      <button data-target="#previewModal" role="button"
+                        class="btn btn-info visible-tablet hidden-phone visible-desktop" data-toggle="modal"
+                        style="float:right; margin-right:10px;">
+                        <i class="fa fa-eye"></i>&nbsp;<span i18n:translate=""> Preview Acta </span></button>
+
+                    </tal:block>
+                  </tal:omit-tag>
+
+                  <div class="clearfix documentDescription"></div>
+
+                  <!-- <div id="contentActa">
+                    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+                      <li class="active"><a href="#dadesTab" data-toggle="tab">
+                        <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Dades</tal:omit-tag></i></a></li>
+                      <li><a href="#assistentsTab" data-toggle="tab">
+                        <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Relacio Assistents</tal:omit-tag></i></a></li>
+                    </ul>
+
+                    <div id="actaTabs" class="tab-content">
+                      <div class="tab-pane active" id="dadesTab">
+                        <ul>
+                          <li tal:condition="horaInici">
+                            <b i18n:translate="">Session start time</b>
+                            <span style="float:right"
+                                  tal:content="horaInici"></span>
+                          </li>
+                          <li tal:condition="horaFi">
+                            <b i18n:translate="">Session end time</b>
+                            <span style="float:right"
+                                  tal:content="horaFi"></span>
+                          </li>
+                          <li tal:condition="llocConvocatoria">
+                            <b i18n:translate="">Lloc</b>
+                            <span style="float:right"
+                                  tal:content="llocConvocatoria"></span>
+                          </li>
+                          <li tal:condition="enllacVideo">
+                            <b i18n:translate="">Video link</b>
+                            <span style="float: right">
+                              <a tal:attributes="href enllacVideo" target="_blank"><span i18n:translate="">Video</span></a>
+                            </span>
+                          </li>
+                          <li tal:condition="audio">
+                            <b i18n:translate="">Audio de la sessio</b>
+                              <tal:documents repeat="item audio">
+                                <ol style="float:right;">
+                                  <i class="fa fa-file-audio-o" aria-hidden="true"></i>
+                                  <tal:audio tal:define="content_type item/audio/contentType|nothing;
+                                                        download_url string:${item/absolute_url}/@@download/file/${item/audio/filename}">
+                                    <a href="#"
+                                      tal:attributes="href item/absolute_url;"
+                                      tal:content="item/title">Audio filename
+                                    </a>
+                                    <div class="clearfix"></div>
+                                    <audio controls="controls">
+                                      <source tal:attributes="src download_url; type content_type"></source>
+                                    </audio>
+                                  </tal:audio>
+                                </ol>
+                                <div class="clearfix"></div>
+                              </tal:documents>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div class="tab-pane" id="assistentsTab">
+                        <div class="panel with-nav-tabs panel-primary">
+                          <div class="panel-heading">
+                            <ul class="nav nav-tabs">
+                                <li tal:condition="membresConvocats" class="active">
+                                  <a href="#tab1primary" data-toggle="tab" i18n:translate="">Assistants</a>
+                                </li>
+                                <li tal:condition="membresConvidats">
+                                  <a href="#tab2primary" data-toggle="tab" i18n:translate="">Invited members</a>
+                                </li>
+                                <li tal:condition="llistaExcusats">
+                                  <a href="#tab3primary" data-toggle="tab" i18n:translate="">Excused members</a>
+                                </li>
+                                <li tal:condition="llistaNoAssistens">
+                                  <a href="#tab5primary" data-toggle="tab" i18n:translate="">No assistents</a>
+                                </li>
+                            </ul>
+                          </div>
+                          <div class="panel-body">
+                            <div class="tab-content">
+                              <div tal:condition="membresConvocats" class="tab-pane fade in active" id="tab1primary">
+                                <span tal:replace="structure membresConvocats" />
+                              </div>
+                              <div tal:condition="membresConvidats" class="tab-pane fade" id="tab2primary">
+                                <span tal:replace="structure membresConvidats" />
+                              </div>
+                              <div tal:condition="llistaExcusats" class="tab-pane fade" id="tab3primary">
+                                <span tal:replace="structure llistaExcusats" />
+                              </div>
+                              <div tal:condition="assistents" class="tab-pane fade" id="tab4primary">
+                                <span tal:replace="structure assistents" />
+                              </div>
+                              <div tal:condition="llistaNoAssistens" class="tab-pane fade" id="tab5primary">
+                                <span tal:replace="structure llistaNoAssistens" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div> -->
+
+                  <div class="clearfix"></div>
+
+                  <div class="documentDescription description"></div>
+                  <tal:block tal:condition="ordenDelDia">
+                    <div tal:content="structure ordenDelDia"></div>
+                  </tal:block>
+
+                  <br/>
+
+                  <tal:block tal:condition="not:hasFirma">
+                    <ta:block tal:condition="annexes">
+                      <tal:block tal:define="multiple_annexes python:len(annexes)>1">
+                        <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
+                        <h3 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
+                      </tal:block>
+                      <tal:documents repeat="item annexes">
+                        <div tal:define="public_file_download_url string:${item/absolute_url}/@@download/file/${item/filename};
+                                        public_file_view_url string:${item/absolute_url}/@@display-file/file/;">
+                          <p>
+                            <a tal:attributes="href public_file_view_url">
+                              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                              <tal:name tal:content="item/filename">Filename</tal:name>
+                            </a>
+                            <span class="discreet">
+                              &mdash; <span tal:replace="item/sizeKB" /> KB</span>
+                              <a tal:attributes="href public_file_download_url">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                              </a>
+                          </p>
+                        </div>
+                      </tal:documents>
+                    </ta:block>
+
+                    <ta:block tal:condition="acta/acta">
+                      <div tal:define="public_acta_download_url string:${absolute_url}/@@download/acta/${acta/acta/filename};
+                                      public_acta_view_url string:${absolute_url}/@@display-file/acta/;
+                                      isSigned python:view.isSigned(acta)">
+                        <h3 tal:condition="not:isSigned" i18n:translate="">Acta PDF</h3>
+                        <h3 tal:condition="isSigned" i18n:translate="">Acta signada</h3>
+                        <p>
+                          <a tal:attributes="href public_acta_view_url">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            <tal:name tal:content="acta/acta/filename">Filename</tal:name>
+                          </a>
+                          <span class="discreet"
+                              tal:define="size acta/acta/getSize;
+                                          kb python:size/1024">
+                            &mdash; <span tal:replace="acta/acta/getSize" /> KB</span>
+                            <a tal:attributes="href public_acta_download_url">
+                              <i class="fa fa-download" aria-hidden="true"></i>
+                            </a>
+                        </p>
+                      </div>
+                    </ta:block>
+                  </tal:block>
+
+                  <tal:block tal:condition="hasFirma" tal:define="actaPDF python:view.getPDFActa(acta)">
+                    <ta:block tal:condition="annexes">
+                      <tal:block tal:define="multiple_annexes python:len(annexes)>1">
+                        <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
+                        <h3 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
+                      </tal:block>
+                      <tal:documents repeat="item annexes">
+                        <div tal:define="public_file_download_url item/download_url;
+                                        public_file_view_url item/absolute_url">
+                          <p>
+                            <a tal:attributes="href public_file_view_url">
+                              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                              <tal:name tal:content="item/filename">Filename</tal:name>
+                            </a>
+                            <span class="discreet">
+                              &mdash; <span tal:replace="item/sizeKB" /> KB</span>
+                              <a tal:attributes="href public_file_download_url">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                              </a>
+                          </p>
+                        </div>
+                      </tal:documents>
+                    </ta:block>
+
+                    <div tal:define="public_acta_download_url string:${absolute_url}/downloadActa;
+                                    public_acta_view_url string:${absolute_url}/viewActa;
+                                    isSigned python:view.isSigned(acta)">
+                      <h3 tal:condition="not:isSigned" i18n:translate="">Acta PDF</h3>
+                      <h3 tal:condition="isSigned" i18n:translate="">Acta signada</h3>
+                      <p>
+                        <a tal:attributes="href public_acta_view_url">
+                          <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                          <tal:name tal:content="actaPDF/filename">Filename</tal:name>
+                        </a>
+                        <span class="discreet"
+                            tal:define="kb actaPDF/sizeKB">
+                          &mdash; <span tal:replace="kb" /> KB</span>
+                          <a tal:attributes="href public_acta_download_url">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                          </a>
+                      </p>
+                    </div>
+                  </tal:block>
+                  <div class="modal fade hide previewModal" id="previewModal" tabindex="-1" role="dialog"
+                      aria-labelledby="previewModalLabel" aria-hidden="true"
+                      tal:attributes="data-remote string:${acta/absolute_url}/previewActa">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      <h3 id="previewModalLabel"><span i18n:translate="">Previsualitzacio de l'acta</span></h3>
+                    </div>
+                    <div class="modal-body">
+                      <p>Acta</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn" data-dismiss="modal" aria-hidden="true"><span i18n:translate="">Tancar</span></button>
+                    </div>
+                  </div>
+                  <div id="miniLoaderScreen">
+                    <div class="loaderBorder">
+                      <div class="loader"></div>
+                    </div>
+                  </div>
+
+                  <script type="text/javascript">
+                    $('#signActa').on('click', function(){
+                      $('#infoSend').show();
+                      $('#miniLoaderScreen').show();
+                      $.ajax({
+                        url: $(this).attr('data-sign-url'),
+                        type: 'POST',
+                        success: function(data){
+                          $('#miniLoaderScreen').hide();
+                          $('#infoSend').hide();
+                          window.location.reload();
+                        },
+                        error: function(){
+                          $('#miniLoaderScreen').hide();
+                          $('#infoSend').hide();
+                          window.location.reload();
+                        }
+                      })
+                      $('#ajax-spinner').hide();
+                    });
+                  </script>
+
+                </div>
+          </div>
+          <div id="actaTab" class="tab-pane" tal:condition="not:acta">
+            <div class="alert" role="alert">
+              <strong i18n:translate="">Alerta</strong>
+              <span i18n:translate="">Encara no s'ha generat cap acta per signar.</span>
+              <a tal:attributes="href python:context.absolute_url() + '/++add++genweb.organs.acta/'">
+                <span i18n:translate="">Afegeix un acta</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="miniLoaderScreen">
+        <div class="loaderBorder">
+          <div class="loader"></div>
+        </div>
+      </div>
+      <div style="margin-bottom:20px;"></div>
+    </tal:main-macro>
+  </metal:main>
+</body>
+
+</html>

@@ -8,32 +8,57 @@
 <body>
 
 <metal:content-core fill-slot="content-core"
-       tal:define="membresConvocats context/membresConvocats;
-                   membresConvidats context/membresConvidats;
-                   llistaExcusats context/llistaExcusats;
-                   llistaNoAssistens context/llistaNoAssistens;
-                   assistents context/assistents;
-                   ordenDelDia context/ordenDelDia;
-                   llocConvocatoria context/llocConvocatoria;
-                   horaFi view/horaFi;
-                   horaInici view/horaInici;
-                   audio view/AudioInside;
-                   annexes view/AnnexInside;
-                   enllacVideo context/enllacVideo;
-                   absolute_url context/absolute_url;">
+  tal:define="membresConvocats context/membresConvocats;
+              membresConvidats context/membresConvidats;
+              llistaExcusats context/llistaExcusats;
+              llistaNoAssistens context/llistaNoAssistens;
+              assistents context/assistents;
+              ordenDelDia context/ordenDelDia;
+              llocConvocatoria context/llocConvocatoria;
+              horaFi view/horaFi;
+              horaInici view/horaInici;
+              audio view/AudioInside;
+              annexes view/AnnexInside;
+              enllacVideo context/enllacVideo;
+              absolute_url context/absolute_url;
+              hasFirma view/hasFirma;
+              checkSerieGDoc view/checkSerieGDoc;">
 
 <tal:block tal:condition="view/canView">
 
-    <script type="text/javascript">
-      function printPage(newWindow){
-        newWindow.focus('printActa');
-        newWindow.print('printActa');
+  <script type="text/javascript">
+    function printPage(newWindow){
+      newWindow.focus('printActa');
+      newWindow.print('printActa');
     }
   </script>
 
  <iframe name="iframe" id="iframe" width="1" height="1" src="printActa"></iframe>
 
   <tal:omit-tag>
+
+    <tal:block tal:condition="checkSerieGDoc/visible_gdoc">
+      <div class="alert alert-error" role="alert" tal:condition="not:checkSerieGDoc/valid_serie">
+        <button data-dismiss="alert" class="close" type="button">×</button>
+        <strong>Error</strong>
+        <span tal:content="checkSerieGDoc/msg_error"></span>
+      </div>
+    </tal:block>
+
+    <tal:block tal:condition="not:checkSerieGDoc/visible_gdoc">
+      <div class="alert alert-error" role="alert" tal:condition="checkSerieGDoc/msg_error">
+        <button data-dismiss="alert" class="close" type="button">×</button>
+        <strong>Error</strong>
+        <span tal:content="checkSerieGDoc/msg_error"></span>
+      </div>
+    </tal:block>
+
+    <div id="infoSend" class="alert alert-warning" role="alert">
+      <button data-dismiss="alert" class="close" type="button">×</button>
+      <strong>Info</strong>
+      <span>Aquesta acció pot trigar una estona. El procés de signatura continuarà independentment de que aquesta pantalla pugui donar timeout. Si en uns minuts torneu a aquesta pàgina apareixerà l'estat de l'acta ja processada en el portafirmes.</span>
+    </div>
+
     <div class="modal fade hide previewModal" id="previewModal" tabindex="-1" role="dialog"
          aria-labelledby="previewModalLabel" aria-hidden="true" data-remote="previewActa">
       <div class="modal-header">
@@ -47,6 +72,17 @@
         <button class="btn" data-dismiss="modal" aria-hidden="true"><span i18n:translate="">Tancar</span></button>
       </div>
     </div>
+
+    <tal:block tal:condition="hasFirma">
+
+      <span tal:define="estatFirma view/estatFirma"
+            tal:attributes="class string:badge badge-pill estatFirma ${estatFirma/class}">
+        <tal:block i18n:translate="">Acta: </tal:block>
+        <tal:block tal:content="estatFirma/text">PENDENT_SIGNANTS</tal:block>
+      </span>
+
+    </tal:block>
+
     <a class="btn btn-info btnActa" style="float:right;"
     tal:attributes="href string:javascript:printPage(iframe);">
         <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
@@ -97,7 +133,7 @@
                 <ol style="float:right;">
                   <i class="fa fa-file-audio-o" aria-hidden="true"></i>
                   <tal:audio tal:define="content_type item/audio/contentType|nothing;
-                                        download_url string:${item/absolute_url}/@@download/file/${item/audio/filename}">
+                                         download_url string:${item/absolute_url}/@@download/file/${item/audio/filename}">
                     <a href="#"
                       tal:attributes="href item/absolute_url;"
                       tal:content="item/title">Audio filename
@@ -167,32 +203,122 @@
 
   <br/>
 
+  <tal:block tal:condition="not:hasFirma">
+    <ta:block tal:condition="annexes">
+      <tal:block tal:define="multiple_annexes python:len(annexes)>1">
+        <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
+        <h3 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
+      </tal:block>
+      <tal:documents repeat="item annexes">
+        <div tal:define="public_file_download_url string:${item/absolute_url}/@@download/file/${item/filename};
+                         public_file_view_url string:${item/absolute_url}/@@display-file/file/;">
+          <p>
+            <a tal:attributes="href public_file_view_url">
+              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+              <tal:name tal:content="item/filename">Filename</tal:name>
+            </a>
+            <span class="discreet">
+              &mdash; <span tal:replace="item/sizeKB" /> KB</span>
+              <a tal:attributes="href public_file_download_url">
+                <i class="fa fa-download" aria-hidden="true"></i>
+              </a>
+          </p>
+        </div>
+      </tal:documents>
+    </ta:block>
 
-  <ta:block tal:condition="annexes">
-    <tal:block tal:define="multiple_annexes python:len(annexes)>1">
-      <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
-      <h3 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
-    </tal:block>
-    <tal:documents repeat="item annexes">
-      <div tal:define="public_file_download_url string:${item/absolute_url}/@@download/file/${item/file/filename};
-                       public_file_view_url string:${item/absolute_url}/@@display-file/file/;">
+    <ta:block tal:condition="context/acta">
+      <div tal:define="public_acta_download_url string:${absolute_url}/@@download/acta/${context/acta/filename};
+                       public_acta_view_url string:${absolute_url}/@@display-file/acta/;">
+        <h3 tal:condition="not:view/isSigned" i18n:translate="">Acta PDF</h3>
+        <h3 tal:condition="view/isSigned" i18n:translate="">Acta signada</h3>
         <p>
-          <a tal:attributes="href public_file_view_url">
+          <a tal:attributes="href public_acta_view_url">
             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-            <tal:name tal:content="item/file/filename">Filename</tal:name>
+            <tal:name tal:content="context/acta/filename">Filename</tal:name>
           </a>
           <span class="discreet"
-              tal:define="size item/file/getSize;
+              tal:define="size context/acta/getSize;
                           kb python:size/1024">
-            &mdash; <span tal:replace="kb" /> KB</span>
-            <a tal:attributes="href public_file_download_url">
+            &mdash; <span tal:replace="context/acta/getSize" /> KB</span>
+            <a tal:attributes="href public_acta_download_url">
               <i class="fa fa-download" aria-hidden="true"></i>
             </a>
         </p>
       </div>
-    </tal:documents>
-  </ta:block>
+    </ta:block>
+  </tal:block>
 
+  <tal:block tal:condition="hasFirma" tal:define="acta view/getPFDActa">
+    <ta:block tal:condition="annexes">
+      <tal:block tal:define="multiple_annexes python:len(annexes)>1">
+        <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
+        <h3 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
+      </tal:block>
+      <tal:documents repeat="item annexes">
+        <div tal:define="public_file_download_url item/download_url;
+                         public_file_view_url item/absolute_url">
+          <p>
+            <a tal:attributes="href public_file_view_url">
+              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+              <tal:name tal:content="item/filename">Filename</tal:name>
+            </a>
+            <span class="discreet">
+              &mdash; <span tal:replace="item/sizeKB" /> KB</span>
+              <a tal:attributes="href public_file_download_url">
+                <i class="fa fa-download" aria-hidden="true"></i>
+              </a>
+          </p>
+        </div>
+      </tal:documents>
+    </ta:block>
+
+    <div tal:define="public_acta_download_url string:${absolute_url}/downloadActa;
+                     public_acta_view_url string:${absolute_url}/viewActa;">
+      <h3 tal:condition="not:view/isSigned" i18n:translate="">Acta PDF</h3>
+      <h3 tal:condition="view/isSigned" i18n:translate="">Acta signada</h3>
+      <p>
+        <a tal:attributes="href public_acta_view_url">
+          <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+          <tal:name tal:content="acta/filename">Filename</tal:name>
+        </a>
+        <span class="discreet"
+            tal:define="kb acta/sizeKB">
+          &mdash; <span tal:replace="kb" /> KB</span>
+          <a tal:attributes="href public_acta_download_url">
+            <i class="fa fa-download" aria-hidden="true"></i>
+          </a>
+      </p>
+    </div>
+  </tal:block>
+
+  <div id="miniLoaderScreen">
+    <div class="loaderBorder">
+      <div class="loader"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $('#signActa').on('click', function(){
+      $('#infoSend').show();
+      $('#miniLoaderScreen').show();
+      $.ajax({
+        url: 'signActa',
+        type: 'POST',
+        success: function(data){
+          $('#miniLoaderScreen').hide();
+          $('#infoSend').hide();
+          window.location.reload();
+        },
+        error: function(){
+          $('#miniLoaderScreen').hide();
+          $('#infoSend').hide();
+          window.location.reload();
+        }
+      })
+      $('#ajax-spinner').hide();
+    });
+  </script>
 
 </tal:block>
 </metal:content-core>

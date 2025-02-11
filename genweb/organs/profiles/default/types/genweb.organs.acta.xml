@@ -33,6 +33,7 @@
   <element value="plone.app.content.interfaces.INameFromTitle" />
   <element value="plone.app.relationfield.behavior.IRelatedItems" />
   <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation" />
+  <element value="genweb.organs.firma_documental.behaviors.firma_documental.IFirmaDocumental" />
  </property>
 
  <property name="schema">genweb.organs.content.acta.IActa</property>

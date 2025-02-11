@@ -22,16 +22,18 @@
                   video view/video_reserved;
                   isPDFpublic view/isPDFpublic;
                   isPDFprivat view/isPDFprivat;
+                  privateFileUploadedGdoc view/privateFileUploadedGdoc;
+                  publicFileUploadedGdoc view/publicFileUploadedGdoc;
+                  sessionIsClosed view/sessionIsClosed;
                   ">
 
   <metal:block define-macro="content-core">
     <tal:blockReserved tal:condition="viewReserved">
       <div tal:condition="hihaReserved">
         <div tal:define="reserved_content_type context/hiddenfile/contentType|nothing;
-                         reserved_file_download_url string:${absolute_url}/@@download/hiddenfile/${context/hiddenfile/filename};
-                         reserved_file_view_url string:${absolute_url}/@@display-file/hiddenfile/${context/hiddenfile/filename};">
-
-          <div class="sessionActions" tal:condition="changeReserved">
+                         reserved_file_download_url view/privateFileDownloadURL;
+                         reserved_file_view_url view/privateFileViewURL">
+          <div class="sessionActions" tal:condition="python: changeReserved and not sessionIsClosed">
             <div class="containerIcons">
               <a class="confirmRedirect" href="#" tal:attributes="data-redirect string:${absolute_url}/hiddenToVisible">
                 <i class="fa fa-rotate-right fa-3x" aria-hidden="true"></i>
@@ -39,7 +41,9 @@
               </a>
             </div>
           </div>
-          <h3 i18n:translate=""> Fitxer reservat </h3>
+          <h3 tal:condition="not:privateFileUploadedGdoc" i18n:translate=""> Fitxer reservat </h3>
+          <h3 tal:condition="privateFileUploadedGdoc" i18n:translate=""> Fitxer restringit [Versió baixada del GDoc] </h3>
+
           <i tal:attributes="class string:fa fa-2x text-error ${icon}" aria-hidden="true"></i>&nbsp;&nbsp;
           <span tal:condition="not:isPDFprivat">
               <tal:name tal:content="context/hiddenfile/filename">Filename</tal:name>
@@ -60,7 +64,7 @@
           <tal:block tal:condition="pdf">
             <object type="application/pdf" width="100%" height="480"
                     tal:define="filename context/hiddenfile/filename"
-                    tal:attributes="data string:${absolute_url}/@@display-file/hiddenfile/${filename}">
+                    tal:attributes="data reserved_file_view_url">
             </object>
           </tal:block>
           <video tal:condition="video" controls="controls" width="640px" height="320px">
@@ -78,9 +82,9 @@
     <tal:blockPublic tal:condition="viewPublic">
       <div tal:condition="hihaPublic">
         <div tal:define="visible_content_type context/visiblefile/contentType|nothing;
-                         public_file_download_url string:${absolute_url}/@@download/visiblefile/${context/visiblefile/filename};
-                         public_file_view_url string:${absolute_url}/@@display-file/visiblefile/${context/visiblefile/filename};">
-          <div class="sessionActions" tal:condition="changePublic">
+                         public_file_download_url view/publicFileDownloadURL;
+                         public_file_view_url view/publicFileViewURL">
+          <div class="sessionActions" tal:condition="python:changePublic and not sessionIsClosed">
             <div class="containerIcons">
               <a class="confirmRedirect" href="#" tal:attributes="data-redirect string:${absolute_url}/visibleToHidden">
                 <i class="fa fa-rotate-left fa-3x" aria-hidden="true"></i>
@@ -88,7 +92,11 @@
               </a>
             </div>
           </div>
-          <h3 tal:condition="view/showTitle" i18n:translate="">Please upload a public file</h3>
+          <tal:block tal:condition="view/showTitle">
+            <h3 tal:condition="not:publicFileUploadedGdoc" i18n:translate="">Please upload a public file</h3>
+            <h3 tal:condition="publicFileUploadedGdoc" i18n:translate="">Fitxer públic [Versió baixada del GDoc]</h3>
+          </tal:block>
+
           <span tal:condition="not:isPDFpublic">
             <i class="fa fa-2x fa-file-pdf-o text-info" aria-hidden="true"></i>
             <tal:name tal:content="context/visiblefile/filename">Filename</tal:name>
@@ -107,7 +115,7 @@
             <br/><br/>
             <object type="application/pdf" width="100%" height="480"
                     tal:define="filename context/visiblefile/filename"
-                    tal:attributes="data string:${absolute_url}/@@display-file/visiblefile/${filename}">
+                    tal:attributes="data public_file_view_url">
             </object>
           </span>
         </div>

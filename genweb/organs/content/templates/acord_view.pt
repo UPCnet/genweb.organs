@@ -29,6 +29,14 @@
 
   <div class="clearfix"></div><br/>
 
+  <tal:block tal:condition="view/hasFirma">
+
+    <span tal:define="estatFirma view/estatFirma"
+          tal:attributes="class string:badge badge-pill estatFirma ${estatFirma}"
+          tal:content="estatFirma">PENDENT_SIGNANTS</span>
+
+  </tal:block>
+
   <div tal:condition="defaultContent" style="padding-bottom:20px;">
     <span tal:replace="structure defaultContent" />
   </div>

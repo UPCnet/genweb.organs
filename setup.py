@@ -32,7 +32,8 @@ setup(name='genweb.organs',
       install_requires=[
           'setuptools',
           'collective.dexteritytextindexer',
-          'selenium'
+          'selenium',
+          'pdfkit'
       ],
       extras_require={'test': ['plone.app.testing',
                                'plone.app.testing[robot]>=4.2.2',

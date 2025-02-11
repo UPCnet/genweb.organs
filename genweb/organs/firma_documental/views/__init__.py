@@ -1,0 +1,13 @@
+# -*- coding: utf-8 -*-
+TIMEOUT = 15
+IDIOMA = "CA"
+
+# https://drive.google.com/file/d/1RHg6De48dFoPLNQ1C9mv9h2BCpbVtvsQ/view
+TIPUS_DOCUMENTAL_ACTA = "452"
+TIPUS_DOCUMENTAL_ACORD = "881"
+TIPUS_DOCUMENTAL_PUNT = "906340"  # Registre
+TIPUS_DOCUMENTAL_SUBPUNT = "906340"  # Registre
+TIPUS_DOCUMENTAL_ANNEX = "906340"  # Registre
+
+NOM_APLICACIO = "Govern UPC"
+AUTORS = "1291399"
