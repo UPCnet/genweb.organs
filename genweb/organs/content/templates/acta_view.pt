@@ -132,8 +132,8 @@
               <tal:documents repeat="item audio">
                 <ol style="float:right;">
                   <i class="fa fa-file-audio-o" aria-hidden="true"></i>
-                  <tal:audio tal:define="content_type item/audio/contentType|nothing;
-                                         download_url string:${item/absolute_url}/@@download/file/${item/audio/filename}">
+                  <tal:audio tal:define="content_type item/content_type|nothing;
+                                         download_url item/download_url">
                     <a href="#"
                       tal:attributes="href item/absolute_url;"
                       tal:content="item/title">Audio filename

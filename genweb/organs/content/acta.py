@@ -287,7 +287,7 @@ class View(dexterity.DisplayForm, UtilsFirmaDocumental):
                     audio = obj.getObject().file
                     results.append(dict(title=obj.Title,
                                         absolute_url=obj.getURL(),
-                                        download_url=self.context.absolute_url() + '/@@download/file/' + audio.filename,
+                                        download_url=obj.getURL() + '/@@download/file',
                                         content_type=audio.contentType))
                 return results
         else:
@@ -343,7 +343,7 @@ class View(dexterity.DisplayForm, UtilsFirmaDocumental):
             self.context.info_firma = {}
             transaction.commit()
             self.context.reindexObject()
-        
+
         if not isinstance(self.context.info_firma, dict):
             self.context.info_firma = ast.literal_eval(self.context.info_firma)
 
