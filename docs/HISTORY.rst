@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.68 (unreleased)
+0.68 (2025-02-13)
 -----------------
 
-- Nothing changed yet.
-
+* [FIX] Generacion de la url de los ficheros display-file [Iago López]
 
 0.67 (2025-02-13)
 -----------------
