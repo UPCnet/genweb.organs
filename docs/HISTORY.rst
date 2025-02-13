@@ -1,11 +1,13 @@
 Changelog
 =========
 
-0.67 (unreleased)
+0.67 (2025-02-13)
 -----------------
 
-- Nothing changed yet.
-
+* [DEL] Quitar campo controlpanel que no se usa [Iago López]
+* Merge branch firmes a master [Iago López]
+* [UPD] Mostrar bien literales [Iago López]
+* [FIX] Poder cerrar sesion despues de firma el acta [Iago López]
 
 0.66 (2025-02-03)
 -----------------
