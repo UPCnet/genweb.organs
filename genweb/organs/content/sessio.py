@@ -923,7 +923,7 @@ class View(grok.View):
                             if info_firma.get('private', {}).get('uploaded', False):
                                 absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
                             else:
-                                absolute_url = '/@@display-file/hiddenfile/' + value.hiddenfile.filename
+                                absolute_url = obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=absolute_url,
@@ -934,7 +934,7 @@ class View(grok.View):
                             if info_firma.get('public', {}).get('uploaded', False):
                                 absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
                             else:
-                                absolute_url = '/@@display-file/visiblefile/' + value.visiblefile.filename
+                                absolute_url = obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=absolute_url,
@@ -945,7 +945,7 @@ class View(grok.View):
                         if info_firma.get('public', {}).get('uploaded', False):
                             absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
                         else:
-                            absolute_url = '/@@display-file/visiblefile/' + value.visiblefile.filename
+                            absolute_url = obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
                                             absolute_url=absolute_url,
@@ -957,7 +957,7 @@ class View(grok.View):
                             if info_firma.get('private', {}).get('uploaded', False):
                                 absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
                             else:
-                                absolute_url = '/@@display-file/hiddenfile/' + value.hiddenfile.filename
+                                absolute_url = obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=absolute_url,

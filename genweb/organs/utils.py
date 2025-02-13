@@ -370,7 +370,7 @@ def FilesandDocumentsInside(self):
                             if info_firma.get('private', {}).get('uploaded', False):
                                 absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
                             else:
-                                absolute_url = '/@@display-file/hiddenfile/' + value.hiddenfile.filename
+                                absolute_url = obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=absolute_url,
@@ -380,7 +380,7 @@ def FilesandDocumentsInside(self):
                             if info_firma.get('public', {}).get('uploaded', False):
                                 absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
                             else:
-                                absolute_url = '/@@display-file/visiblefile/' + value.visiblefile.filename
+                                absolute_url = obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=absolute_url,
@@ -390,7 +390,7 @@ def FilesandDocumentsInside(self):
                         if info_firma.get('private', {}).get('uploaded', False):
                                 absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
                         else:
-                            absolute_url = '/@@display-file/hiddenfile/' + value.hiddenfile.filename
+                            absolute_url = obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                         if checkhasRol(['OG3-Membre', 'OG5-Convidat'], roles):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
@@ -401,7 +401,7 @@ def FilesandDocumentsInside(self):
                             if info_firma.get('public', {}).get('uploaded', False):
                                 absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
                             else:
-                                absolute_url = '/@@display-file/visiblefile/' + value.visiblefile.filename
+                                absolute_url = obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=absolute_url,
@@ -411,7 +411,7 @@ def FilesandDocumentsInside(self):
                     if info_firma.get('public', {}).get('uploaded', False):
                         absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
                     else:
-                        absolute_url = '/@@display-file/visiblefile/' + value.visiblefile.filename
+                        absolute_url = obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename
                     results.append(dict(title=obj.Title,
                                         absolute_url=absolute_url,
                                         new_tab=True,
@@ -421,7 +421,7 @@ def FilesandDocumentsInside(self):
                     if info_firma.get('private', {}).get('uploaded', False):
                         absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
                     else:
-                        absolute_url = '/@@display-file/hiddenfile/' + value.hiddenfile.filename
+                        absolute_url = obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                     if organ_tipus == 'open_organ':
                         if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                             results.append(dict(title=obj.Title,
