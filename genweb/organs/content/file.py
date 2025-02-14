@@ -246,13 +246,13 @@ class View(grok.View):
         if self.publicFileUploadedGdoc():
             return self.context.absolute_url() + '/downloadFileGDoc?visibility=public'
         else:
-            return self.context.absolute_url() + '/@@download-file/visiblefile/' + self.context.visiblefile.filename
+            return self.context.absolute_url() + '/@@download/visiblefile/' + self.context.visiblefile.filename
 
     def privateFileDownloadURL(self):
         if self.privateFileUploadedGdoc():
             return self.context.absolute_url() + '/downloadFileGDoc?visibility=private'
         else:
-            return self.context.absolute_url() + '/@@download-file/hiddenfile/' + self.context.hiddenfile.filename
+            return self.context.absolute_url() + '/@@download/hiddenfile/' + self.context.hiddenfile.filename
 
     def viewPublic(self):
         """ Cuando se muestra la parte pública del FICHERO
