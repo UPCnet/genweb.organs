@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.69 (unreleased)
+0.69 (2025-02-14)
 -----------------
 
-- Nothing changed yet.
-
+* [FIX] Download files url [Iago López]
+* [FIX] Audio de las actas [Iago López]
 
 0.68 (2025-02-13)
 -----------------
