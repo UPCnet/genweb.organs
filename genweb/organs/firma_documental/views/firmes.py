@@ -158,7 +158,7 @@ class UploadFiles(BrowserView, FirmesMixin):
         try:
             if not self.context.unitatDocumental:
                 sign_step = "getCodiExpedient"
-                logger.info('0.1. Demamant codi del expedient al servei generadorcodiexpedient')
+                logger.info('0.1. Demanant codi del expedient al servei generadorcodiexpedient')
                 content_codi = client.getCodiExpedient(organ.serie)
                 logger.info('0.1.1. S\'ha obtingut correctament el codi del expedient')
 
@@ -342,7 +342,7 @@ class SignActa(BrowserView, FirmesMixin):
             # logger.info('1. Iniciant firma de l\'acta - ' + self.context.title)
 
             # sign_step = "getCodiExpedient"
-            # logger.info('2. Demamant codi del expedient al servei generadorcodiexpedient')
+            # logger.info('2. Demanant codi del expedient al servei generadorcodiexpedient')
             # content_codi = client.getCodiExpedient(organ.serie)
             # logger.info('2.1. S\'ha obtingut correctament el codi del expedient')
 
