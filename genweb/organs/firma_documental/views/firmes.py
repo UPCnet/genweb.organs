@@ -80,7 +80,7 @@ class UploadFiles(BrowserView, FirmesMixin):
         },
     }
 
-    def uploadFileGdoc(self, file, visibility):
+    def uploadFileGdoc(self, author, file, visibility):
 
         if not hasattr(file, 'info_firma'):
             file.info_firma = {}
@@ -109,7 +109,7 @@ class UploadFiles(BrowserView, FirmesMixin):
             filename = 'Restringit - ' + filename_append + file.Title()
 
         try:
-            info_file = uploadFileGdoc(self.context.unitatDocumental, file_content, filename.decode('utf-8'))
+            info_file = uploadFileGdoc(author, self.context.unitatDocumental, file_content, filename.decode('utf-8'))
             info_file['uploaded'] = True
             info_file['error'] = None
 
@@ -183,7 +183,7 @@ class UploadFiles(BrowserView, FirmesMixin):
                 file_id = file_id.replace(visibility + '-', '', 1)
                 file_obj = uuidToObject(file_id)
                 if file_obj:
-                    success = self.uploadFileGdoc(file_obj, visibility) and success
+                    success = self.uploadFileGdoc(organ.author, file_obj, visibility) and success
                     if not isinstance(file_obj.info_firma, dict):
                         file_obj.info_firma = ast.literal_eval(file_obj.info_firma)
                     res = client.timbrarDocumentGdoc(file_obj.info_firma[visibility]['id'])
@@ -298,10 +298,10 @@ class SignActa(BrowserView, FirmesMixin):
 
         return True
 
-    def uploadFilesGdoc(self, id_exp, files, save_title=False, save_size=False):
+    def uploadFilesGdoc(self, author, id_exp, files, save_title=False, save_size=False):
         uploaded_files = {}
         for idx, file_content in enumerate(files):
-            info_adjunt = uploadFileGdoc(id_exp, file_content.file)
+            info_adjunt = uploadFileGdoc(author, id_exp, file_content.file)
             if save_title:
                 info_adjunt['title'] = file_content.title
             if save_size:
@@ -384,6 +384,7 @@ class SignActa(BrowserView, FirmesMixin):
             sign_step = "uploadActaGDoc"
             logger.info('4. Puja de l\'acta al gDOC')
             self.context.info_firma['acta'] = uploadFileGdoc(
+                organ.author,
                 sessio.unitatDocumental,
                 {'fitxer': [self.context.id + '.pdf', actaPDF.read(), 'application/pdf']},
                 is_acta=True
@@ -399,7 +400,7 @@ class SignActa(BrowserView, FirmesMixin):
                 for key in self.context if self.context[key].portal_type == 'genweb.organs.annex'
             ]
             self.context.info_firma['adjunts'].update(
-                self.uploadFilesGdoc(sessio.unitatDocumental, lista_adjunts, save_title=True, save_size=True)
+                self.uploadFilesGdoc(organ.author, sessio.unitatDocumental, lista_adjunts, save_title=True, save_size=True)
             )
 
             logger.info('6. Puja dels àudios al gDOC')
@@ -409,7 +410,7 @@ class SignActa(BrowserView, FirmesMixin):
                 for key in self.context if self.context[key].portal_type == 'genweb.organs.audio'
             ]
             self.context.info_firma['audios'].update(
-                self.uploadFilesGdoc(sessio.unitatDocumental, lista_audios, save_title=True)
+                self.uploadFilesGdoc(organ.author, sessio.unitatDocumental, lista_audios, save_title=True)
             )
 
             # Creem el fitxer .url apuntant a la URL de la sessió
@@ -427,7 +428,7 @@ class SignActa(BrowserView, FirmesMixin):
             sign_step = "uploadURLFile"
             logger.info('8.1 Puja del fitxer .url al gDOC')
 
-            self.context.info_firma['url'] = uploadFileGdoc(sessio.unitatDocumental, files)
+            self.context.info_firma['url'] = uploadFileGdoc(organ.author, sessio.unitatDocumental, files)
             self.context.reindexObject()
 
             sign_step = 'uploadActaPortafirmes'

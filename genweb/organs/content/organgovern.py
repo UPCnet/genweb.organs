@@ -65,7 +65,7 @@ class IOrgangovern(form.Schema):
 
     fieldset('gdoc',
              label=_(u'gDOC'),
-             fields=['visiblegdoc', 'serie', 'signants'],
+             fields=['visiblegdoc', 'serie', 'signants', 'author'],
              )
 
     dexterity.write_permission(title='genweb.webmaster')
@@ -213,6 +213,12 @@ class IOrgangovern(form.Schema):
     signants = schema.TextLine(
         title=_(u'Signants'),
         description=_(u"Identifica totes les persones que han de signar i en l’ordre en el es tramitarà en  el Portafirmes UPC"),
+        required=False,
+    )
+
+    author = schema.TextLine(
+        title=_(u"Autor"),
+        description=_(u"Identificador utilitzat per saber qui es el autor que puja la documentació al gDOC"),
         required=False,
     )
 

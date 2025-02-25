@@ -10,6 +10,7 @@ import unicodedata
 from plone import api
 from requests.exceptions import ConnectTimeout, ConnectionError, HTTPError, ReadTimeout
 from genweb.organs.firma_documental.utils import get_settings_firma_documental
+from genweb.organs import utils
 
 logger = logging.getLogger(__name__)
 
@@ -64,7 +65,7 @@ class ClientFirma(object):
             self._request('POST', url, json_data=data_exp, timeout=self.timeout).content
             )
 
-    def uploadFitxerGDoc(self, expedient, fitxer, is_acta=False):
+    def uploadFitxerGDoc(self, author, expedient, fitxer, is_acta=False):
         if not isinstance(fitxer, dict):
             fitxer = {'fitxer': [fitxer.filename, fitxer.open().read(), fitxer.contentType]}
         filename = fitxer['fitxer'][0]
@@ -85,7 +86,7 @@ class ClientFirma(object):
             'tipusDocumental': "452" if is_acta else '906340',
             'idioma': 'CA',
             'nomAplicacioCreacio': 'Govern UPC',
-            'autors': "[{'id': '1291399'}]",
+            'autors': "[{'id': " + author + "}]",
             'agentsAmbCodiEsquemaIdentificacio': False,
             'validesaAdministrativa': True
         }
@@ -165,7 +166,7 @@ class ClientFirma(object):
         return res
 
 
-def uploadFileGdoc(expedient, file, filename=None, is_acta=False):
+def uploadFileGdoc(author, expedient, file, filename=None, is_acta=False):
     if not isinstance(file, dict):
         file = {'fitxer': [filename or file.filename, file.open().read(), file.contentType]}
 
@@ -174,7 +175,7 @@ def uploadFileGdoc(expedient, file, filename=None, is_acta=False):
     upload_step = 'uploadFile'
     try:
         logger.info('Puja del fitxer al gDOC - ' + file['fitxer'][0])
-        content_file = client.uploadFitxerGDoc(expedient=expedient, fitxer=file, is_acta=is_acta)
+        content_file = client.uploadFitxerGDoc(author=author, expedient=expedient, fitxer=file, is_acta=is_acta)
         logger.info("S'ha creat correctament el fitxer")
 
         upload_step = 'getInfoElement'
