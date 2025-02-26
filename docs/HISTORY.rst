@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.70 (unreleased)
+0.70 (2025-02-26)
 -----------------
 
-- Nothing changed yet.
-
+* [UPD] Añadir campo author para subir la documentacion al gDOC [Iago López]
+* [FIX] Corregir falta de ortografia log firma documental [Iago López]
 
 0.69 (2025-02-14)
 -----------------
