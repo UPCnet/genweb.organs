@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.71 (unreleased)
+0.71 (2025-03-03)
 -----------------
 
-- Nothing changed yet.
-
+* [UPD] No obtener la copia autentica en los anexos subidos al gdoc [Iago López]
+* [UPD] Aumentar timeout en la subida de ficheros al gdoc [Iago López]
 
 0.70 (2025-02-26)
 -----------------
