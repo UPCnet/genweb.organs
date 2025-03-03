@@ -91,7 +91,7 @@ class ClientFirma(object):
             'validesaAdministrativa': True
         }
         return json.loads(
-            self._request('POST', url, data=data, files=fitxer, timeout=self.timeout).content
+            self._request('POST', url, data=data, files=fitxer, timeout=60).content
         )
 
     def getInfoElement(self, idElement):
