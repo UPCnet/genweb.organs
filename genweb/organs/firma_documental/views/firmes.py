@@ -10,9 +10,9 @@ from plone.app.uuid.utils import uuidToObject
 from genweb.organs import _
 from genweb.organs import utils
 # from genweb.organs.firma_documental.views.general import downloadCopiaAutentica
-# from genweb.organs.firma_documental.views.general import downloadGDoc
-from genweb.organs.firma_documental.views.general import downloadCopiaAutentica, viewCopiaAutentica
-# from genweb.organs.firma_documental.views.general import viewGDoc
+from genweb.organs.firma_documental.views.general import downloadGDoc
+# from genweb.organs.firma_documental.views.general import downloadCopiaAutentica, viewCopiaAutentica
+from genweb.organs.firma_documental.views.general import viewGDoc
 from genweb.organs.firma_documental.webservices import ClientFirma, ClientFirmaException, uploadFileGdoc
 
 import ast
@@ -488,7 +488,7 @@ class SignActa(BrowserView, FirmesMixin):
 
 
 class ViewFile(BrowserView):
-    _obtain_file_method_ = viewCopiaAutentica
+    _obtain_file_method_ = viewGDoc
 
     def __call__(self):
         if 'pos' in self.request or 'visibility' in self.request:
@@ -556,4 +556,4 @@ class ViewFile(BrowserView):
 
 
 class DownloadFile(ViewFile):
-    _obtain_file_method_ = downloadCopiaAutentica
+    _obtain_file_method_ = downloadGDoc
