@@ -85,7 +85,7 @@ def viewGDoc(self, uuid, contentType, filename):
 def downloadGDoc(self, uuid, contentType, filename):
     organ = utils.get_organ(self.context)
     if organ.visiblegdoc:
-        if self.context.estat_firma.lower() == 'signada':
+        if hasattr(self.context, 'estat_firma') and self.context.estat_firma.lower() == 'signada':
             copia_autentica = getCopiaAutentica(self, uuid)
         else:
             copia_autentica = getGDoc(self, uuid)
