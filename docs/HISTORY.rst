@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.72 (unreleased)
+0.72 (2025-03-28)
 -----------------
 
-- Nothing changed yet.
-
+* [FIX] Corregir descarga de ficheros [Iago López]
 
 0.71 (2025-03-03)
 -----------------
