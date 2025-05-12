@@ -8,6 +8,19 @@
 
 <body>
 
+  <div metal:fill-slot="main">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <tal:main-macro metal:define-macro="main">
+            <h1 class="documentFirstHeading" tal:content="view/title">Òrgans Folder</h1>
+            <div tal:content="structure view/message">Contingut</div>
+          </tal:main-macro>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <metal:content-core fill-slot="content-core">
     <metal:listingmacro define-macro="listing"
                         tal:define="OrgansInside view/OrgansInside;

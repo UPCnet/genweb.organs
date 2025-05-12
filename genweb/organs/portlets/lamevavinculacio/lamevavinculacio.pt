@@ -6,16 +6,16 @@
   <div class="titling-line-container">
     <h2 class="titling-line" i18n:domain="genweb.organs" i18n:translate=""> La meva vinculacio amb els organs de govern </h2>
   </div>
-  <div class="box box-gradient">
-    <p tal:repeat="organ organs">
+  <div class="box box-gradient p-3 mb-2 rounded border">
+    <p tal:repeat="organ organs" class="mb-2">
       <tal:roles tal:repeat="role organ/role">
-        <span class="labelSearch" >
+        <span class="labelSearch badge bg-secondary me-2 mb-1">
           <tal:omit-tag tal:content="role" i18n:translate="">Secretari </tal:omit-tag>
         </span>
       </tal:roles>
       <span tal:attributes="style string:background-color:${organ/color};">&nbsp;</span>
       <span class="icon-genweb-organs-organgovern"></span>
-      <a tal:attributes="href organ/url;">
+      <a tal:attributes="href organ/url;" class="fw-bold text-decoration-none ms-2">
         <tal:event content="organ/title"> Organ Title </tal:event>
       </a>
     </p>

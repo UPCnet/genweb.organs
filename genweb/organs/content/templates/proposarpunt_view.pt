@@ -13,17 +13,18 @@
 
 <div metal:fill-slot="main">
   <tal:main-macro metal:define-macro="main">
-
-    <div class="span12">
-      <h1 class="documentFirstHeading"
-        i18n:translate="">
-          Formulari per a la inclusio de punts nous en l'ordre del dia del Consell de Govern
-      </h1>
-      <metal:block use-macro="context/@@ploneform-macros/titlelessform"></metal:block>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="documentFirstHeading"
+            i18n:translate="">
+              Formulari per a la inclusio de punts nous en l'ordre del dia del Consell de Govern
+          </h1>
+          <metal:block use-macro="context/@@ploneform-macros/titlelessform"></metal:block>
+        </div>
+      </div>
     </div>
-
   </tal:main-macro>
-
 </div>
 </body>
 </html>

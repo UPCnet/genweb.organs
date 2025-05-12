@@ -1,37 +1,22 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-    xmlns:tal="http://xml.zope.org/namespaces/tal"
-    xmlns:metal="http://xml.zope.org/namespaces/metal"
-    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    lang="en"
-    metal:use-macro="context/main_template/macros/master"
-    i18n:domain="genweb.organs">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xml:lang="en" lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="genweb.organs">
 <body>
-
-<metal:content-core fill-slot="content-core" tal:condition="view/canView">
-
-  <metal:block define-macro="content-core"
-      tal:define="viewDocumentPublic view/viewDocumentPublic;
-                  viewDocumentReserved view/viewDocumentReserved;
-                  alternate context/alternateContent;
-                  default context/defaultContent;">
-
-    <tal:block tal:condition="viewDocumentReserved">
-      <span tal:condition="alternate">
-        <h3 i18n:translate=""> Contingut reservat</h3>
-        <div tal:replace="structure alternate"></div>
-      </span>
-    </tal:block>
-
-    <tal:block tal:condition="viewDocumentPublic">
-      <span tal:condition="default">
-	  <h3 i18n:translate="" tal:condition="view/showTitle"> Contingut public</h3>
-          <div tal:replace="structure default"> </div>
-      </span>
-    </tal:block>
-
-  </metal:block>
-
-</metal:content-core>
-
+<div metal:fill-slot="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <tal:main-macro metal:define-macro="main">
+          <h1 class="documentFirstHeading" tal:content="view/title">Document</h1>
+          <div tal:content="structure view/message">Document</div>
+        </tal:main-macro>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

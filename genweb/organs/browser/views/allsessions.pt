@@ -18,6 +18,15 @@
     <p>Si vols que al teu calendari apareguin totes aquestes reunions et pots subscriure al calendari de Reunions d'òrgans de govern, representació i consulta de la UPC al següent <a href="https://calendar.google.com/calendar/u/0?cid=dXBjLmVkdV9qZzhuNjU4ZTNwMzc5cjJjNWd1OGhxOG42NEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" target="_blank">enllaç</a>.</p>
   </div>
 
+ <div class="accordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSessions">
+          <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Mostra sessions anteriors</tal:omit-tag></button>
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSessions">
+          <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Amaga sessions anteriors</tal:omit-tag></button>
+      </h2>
+      <div id="collapseSessions" class="accordion-collapse collapse">
  <div class="panel-group">
     <div class="panel panel-bordered">
       <div>

@@ -130,7 +130,7 @@
 
 <div class="container">
 
-  <div class="row-fluid">
+  <div class="row">
     <div tal:condition="items" class="DADES presentation_template">
       <h1>
           <span tal:content="view/getSessionTitle" style='text-transform: uppercase'>Ordre del dia</span>

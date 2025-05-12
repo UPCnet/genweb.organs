@@ -5,12 +5,12 @@
     i18n:domain="plone">
 
   <div>
-    <header class="portlet-header">
-     <a href="#" rel="nofollow" class="calendari-anterior" title="Previous month"
+    <header class="portlet-header d-flex align-items-center justify-content-between">
+     <a href="#" rel="nofollow" class="calendari-anterior btn btn-outline-secondary btn-sm me-2" title="Previous month"
         tal:define="prev_month view/prev_month; prev_year view/prev_year;"
         tal:attributes="href view/prev_query; data-year prev_year; data-month prev_month;"
         i18n:attributes="title title_previous_month;"></a>
-     <h3>
+     <h3 class="mb-0">
         <span i18n:translate="" tal:omit-tag="">
            <span i18n:name="monthname" i18n:translate="" tal:content="view/month_name" tal:omit-tag="">monthname</span>
         </span>
@@ -18,17 +18,17 @@
            <span i18n:name="year" i18n:translate="" tal:content="year" tal:omit-tag="">year</span>
         </span>
      </h3>
-     <a href="#" rel="nofollow" class="calendari-seguent" title="Next month"
+     <a href="#" rel="nofollow" class="calendari-seguent btn btn-outline-secondary btn-sm ms-2" title="Next month"
         tal:define="next_month view/next_month; next_year view/next_year"
         tal:attributes="href view/next_query; data-year next_year; data-month next_month; "
         i18n:attributes="title title_next_month;"></a>
     </header>
     <article class="portlet-content">
       <div class="pad">
-        <table class="calendari" summary="Calendar" style="border-collapse: unset;"
+        <table class="table table-bordered calendari" summary="Calendar" style="border-collapse: unset;"
             i18n:attributes="summary summary_calendar">
           <thead>
-            <tr class="weekdays">
+            <tr class="weekdays table-light">
               <tal:data repeat="weekday view/weekdays">
                 <th scope="col" i18n:translate="" tal:content="weekday">Su</th>
               </tal:data>
@@ -43,8 +43,8 @@
                               events day/events;
                               classtag python:view.getclasstag_event(day);
                               limit python:len(events) if events is not None else 0"
-                    tal:attributes="class python:u'%s%s%s%s%s' %
-                              ((today and ' today' or ''),
+                    tal:attributes="class python:u'text-center align-middle%s%s%s%s%s' %
+                              ((today and ' table-primary' or ''),
                               (next_month and ' cal_next_month' or ''),
                               (prev_month and ' cal_prev_month' or ''),
                               (events and ' cal_has_events' or ''),
@@ -59,18 +59,18 @@
         </table>
       </div>
     </article>
-    <div class="allSessions">
-      <a href="" tal:attributes="href string:${portal_url}/allsessions"><i class="fa fa-plus"></i>&nbsp;<tal:omit-tag i18n:translate="" i18n:domain="genweb.organs">veure totes les sessions</tal:omit-tag></a>
+    <div class="allSessions my-2">
+      <a href="" class="btn btn-outline-primary btn-sm w-100" tal:attributes="href string:${portal_url}/allsessions"><i class="fa fa-plus"></i>&nbsp;<tal:omit-tag i18n:translate="" i18n:domain="genweb.organs">veure totes les sessions</tal:omit-tag></a>
     </div>
-    <ul class="icons-ul">
+    <ul class="icons-ul list-unstyled">
       <tal:block tal:repeat="event view/getDayEventsGroup">
         <li tal:define="licolor event/color" tal:attributes="style string:border-left: 5px solid ${licolor}">
-          <p>
+          <p class="mb-1">
             <a tal:attributes="href event/url;
                                style string:color:${event/color}">
               <tal:event content="event/title"> Event Title </tal:event></a>
           </p>
-          <p>
+          <p class="mb-1">
             <i class="fa fa-calendar"></i>&nbsp;<tal:event content="event/start"> 07/12 </tal:event>
             <tal:event content="event/starthour"> 07/12 </tal:event>
             <span tal:condition="event/end">
@@ -89,7 +89,6 @@
   </div>
 
 </div>
-
 
 <script type="text/javascript">
 $(document).ready(function () {

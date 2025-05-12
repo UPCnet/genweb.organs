@@ -12,45 +12,44 @@
       tal:define="dummy python:request.set('disable_border', 1)" />
 
 <div metal:fill-slot="main">
-  <tal:main-macro metal:define-macro="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <tal:main-macro metal:define-macro="main">
+          <h1 class="documentFirstHeading"
+             i18n:translate="">
+              Informar de la sessio
+          </h1>
 
-    <div class="span12">
-      <h1 class="documentFirstHeading"
-         i18n:translate="">
-          Informar de la sessio
-      </h1>
+          <p i18n:translate="">Llista de punts en el format del butlleti.</p>
 
-      <p i18n:translate="">Llista de punts en el format del butlleti.</p>
-
-      <div class="modal fade hide myModal" id="myModal" tabindex="-1" role="dialog"
-           aria-labelledby="myModalLabel" aria-hidden="true" data-remote="butlleti">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-              <h3 id="myModalLabel"><span i18n:translate="">Previsualitzacio dels punts</span></h3>
+          <div class="modal fade hide myModal" id="myModal" tabindex="-1" role="dialog"
+               aria-labelledby="myModalLabel" aria-hidden="true" data-remote="butlleti">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h3 id="myModalLabel"><span i18n:translate="">Previsualitzacio dels punts</span></h3>
+                </div>
+                <div class="modal-body"></div>
+              </div>
             </div>
-            <div class="modal-body"></div>
           </div>
-        </div>
+
+          <button data-target="#myModal" role="button"
+             class="btn btn-primary" data-toggle="modal">
+             <i class="icon icon-copy icon-white"></i>&nbsp;<span i18n:translate=""> Vista previa dels punts </span>
+           </button>
+
+          <div class="documentDescription description"></div>
+          <div class="clearfix"></div>
+
+          <metal:block use-macro="context/@@ploneform-macros/titlelessform"></metal:block>
+
+        </tal:main-macro>
       </div>
-
-      <button data-target="#myModal" role="button"
-         class="btn btn-primary" data-toggle="modal">
-         <i class="icon icon-copy icon-white"></i>&nbsp;<span i18n:translate=""> Vista previa dels punts </span>
-       </button>
-
-      <div class="documentDescription description"></div>
-      <div class="clearfix"></div>
-
-      <metal:block use-macro="context/@@ploneform-macros/titlelessform"></metal:block>
-
     </div>
-
-  </tal:main-macro>
-
+  </div>
 </div>
 </body>
 </html>
-
-

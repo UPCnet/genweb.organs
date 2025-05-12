@@ -1,11 +1,23 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-    xmlns:tal="http://xml.zope.org/namespaces/tal"
-    xmlns:metal="http://xml.zope.org/namespaces/metal"
-    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    lang="en"
-    metal:use-macro="context/main_template/macros/master"
-    i18n:domain="genweb.organs">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xml:lang="en" lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="genweb.organs">
 <body>
+<div metal:fill-slot="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <tal:main-macro metal:define-macro="main">
+          <h1 class="documentFirstHeading" tal:content="view/title">Annex</h1>
+          <div tal:content="structure view/message">Annex</div>
+        </tal:main-macro>
+      </div>
+    </div>
+  </div>
+</div>
 
 <metal:content-core fill-slot="content-core" tal:condition="view/canView"
       tal:define="absolute_url context/absolute_url;">

@@ -13,12 +13,14 @@
               text context/text;
               signsFile context/signsFile;
               anexFile context/anexFile;">
-
-  <p tal:content="description">description...</p>
-
-  <p tal:content="structure text">text...</p>
-
-
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <p tal:content="description">description...</p>
+        <p tal:content="structure text">text...</p>
+      </div>
+    </div>
+  </div>
 </metal:content-core>
 
 </body>

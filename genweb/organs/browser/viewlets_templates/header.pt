@@ -11,140 +11,144 @@
     tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
 
 <div class="container">
-  <div>
-    <h1 class="pull-left">
+  <div class="row align-items-center py-2">
+    <div class="col-auto">
       <a href="https://www.upc.edu" target="_blank">
         <img tal:attributes="src string:${portal_url}/++genweb++static/images/logoUPC.png"
              i18n:attributes="alt label_alt_logo; title label_title_logo"
              width="207px" height="46px" />
       </a>
-    </h1>
-    <a id='eines-menu' class="btn btn-navbar pull-right hidden-desktop hidden-tablet"
-       data-toggle="collapse" data-target=".nav-collapse-eines">
-      <i class="fa fa-bars"></i>
-    </a>
-    <tal:comment replace="nothing">  Menu escritorio </tal:comment>
-    <div class="nav-collapse nav-collapse-eines hidden-phone hidden-tablet">
-      <ul id="eines" class="nav nav-pills pull-right">
-        <li>
-          <a href="//serveistic.upc.edu/ca/organs-de-govern"
+    </div>
+    <div class="col text-end d-md-none">
+      <button id='eines-menu' class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#nav-eines-mobile" aria-controls="nav-eines-mobile" aria-expanded="false" aria-label="Menú">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+    <div class="col d-none d-md-block">
+      <ul id="eines" class="nav nav-pills justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link" href="//serveistic.upc.edu/ca/organs-de-govern"
              i18n:domain="genweb.organs"
-             i18n:attributes="title Info_del_Servei;
-                              alt Info_del_Servei">
-              <i class="fa fa-info-circle"> Info </i>
+             i18n:attributes="title Info_del_Servei; alt Info_del_Servei">
+              <i class="fa fa-info-circle"></i> Info
           </a>
         </li>
-        <li>
-          <a accesskey="4"
+        <li class="nav-item">
+          <a class="nav-link" accesskey="4"
                tal:attributes="href string:${portal_url}/${lang}/sitemap">
-               <i class="fa fa-sitemap">&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Site Map">Site Map</tal:bk>
+               <i class="fa fa-sitemap"></i>&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Site Map">Site Map</tal:bk>
           </a>
         </li>
-        <li>
-          <a accesskey="6"
+        <li class="nav-item">
+          <a class="nav-link" accesskey="6"
                tal:attributes="href string:${portal_https}/${lang}/contact">
-               <i class="fa fa-envelope">&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Contact">Contact</tal:bk></i>
+               <i class="fa fa-envelope"></i>&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Contact">Contact</tal:bk>
           </a>
         </li>
-        <li tal:condition="viewlet/show_login">
-            <a href="" data-toggle="modal" data-target="#loginModal"
+        <li class="nav-item" tal:condition="viewlet/show_login">
+            <a class="nav-link" href="" data-bs-toggle="modal" data-bs-target="#loginModal"
                tal:attributes="href string:${portal_url}/popup_login_form?came_from=${context/absolute_url}">
-              <i class="fa fa-lock">&nbsp;<tal:bk i18n:domain="genweb" i18n:translate="identificat">
+              <i class="fa fa-lock"></i>&nbsp;<tal:bk i18n:domain="genweb" i18n:translate="identificat">
                Identifica't</tal:bk>
             </a>
         </li>
-        <li tal:condition="not: viewlet/show_login">
-            <a tal:attributes="href string:${portal_url}/cas_logout">
-              <i class="fa fa-sign-out">&nbsp;<tal:bk i18n:domain="genweb.organs" i18n:translate="">
+        <li class="nav-item" tal:condition="not: viewlet/show_login">
+            <a class="nav-link" tal:attributes="href string:${portal_url}/cas_logout">
+              <i class="fa fa-sign-out"></i>&nbsp;<tal:bk i18n:domain="genweb.organs" i18n:translate="">
                Logout </tal:bk>
             </a>
         </li>
-        <li>
-          <a tal:attributes="href string:${portal_url}/${lang}/search"><i class="fa fa-search" aria-hidden="true">&nbsp;<tal:bk i18n:translate="" i18n:domain="genweb.organs">Cercador</tal:bk></i></a>
-        </li>
-      </ul>
-
-    </div>
-
-    <tal:comment replace="nothing">  Menu phone y tablet </tal:comment>
-    <div class="nav-collapse nav-collapse-eines hidden-desktop">
-      <ul id="eines" class="nav nav-pills" style="text-align: center">
-        <li>
-          <a href="//serveistic.upc.edu/ca/organs-de-govern"
-             i18n:domain="genweb.organs"
-             i18n:attributes="title Info_del_Servei;
-                              alt Info_del_Servei">
-             <i class="fa fa-info-circle"> Info </i>
-          </a>
-        </li>
-        <li>
-          <a accesskey="4"
-               tal:attributes="href string:${portal_url}/${lang}/sitemap">
-               <i class="fa fa-sitemap">&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Site Map">Site Map</tal:bk>
-          </a>
-        </li>
-        <li>
-          <a accesskey="6"
-               tal:attributes="href string:${portal_url}/${lang}/contact">
-               <i class="fa fa-envelope">&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Contact">Contact</tal:bk></i>
-          </a>
-        </li>
-        <li tal:condition="viewlet/show_login">
-            <a href="" data-toggle="modal" data-target="#loginModal"
-               tal:attributes="href string:${portal_url}/popup_login_form?came_from=${context/absolute_url}">
-              <i class="fa fa-lock">&nbsp;<tal:bk i18n:domain="genweb" i18n:translate="identificat">
-               Identifica't</tal:bk>
-            </a>
-        </li>
-        <li tal:condition="not: viewlet/show_login">
-            <a tal:attributes="href string:${portal_url}/cas_logout">
-              <i class="fa fa-sign-out">&nbsp;<tal:bk i18n:domain="genweb.organs" i18n:translate="">
-               Logout </tal:bk>
-            </a>
-        </li>
-        <li>
-          <a tal:attributes="href string:${portal_url}/${lang}/search"><i class="fa fa-search">&nbsp;<tal:bk i18n:translate="" i18n:domain="genweb.organs">Cercador</tal:bk></i></a>
+        <li class="nav-item">
+          <a class="nav-link" tal:attributes="href string:${portal_url}/${lang}/search"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;<tal:bk i18n:translate="" i18n:domain="genweb.organs">Cercador</tal:bk></a>
         </li>
       </ul>
     </div>
-    <div class="clearfix"></div>
-
-    <div class="bannerOrgans">
-      <tal:block tal:condition="getLogo">
-            <img tal:attributes="src getLogo" style="height:78px; width: 100%;" />
-            <div tal:condition="getTitle" class="bannerTitle visible-tablet hidden-phone visible-desktop">
-              <p>Govern UPC </p>
-            </div>
-            <div tal:condition="getTitle" class="bannerTitle Mobile hidden-tablet visible-phone hidden-desktop">
-              <p>Govern UPC </p>
-            </div>
-      </tal:block>
-      <tal:block tal:condition="not:getLogo">
-        <div class="bannerTitle visible-tablet hidden-phone visible-desktop">
-          <p>Govern UPC </p>
-        </div>
-        <div class="bannerTitle Mobile hidden-tablet visible-phone hidden-desktop">
-          <p>Govern UPC </p>
-        </div>
-        <div tal:attributes="class string:header-image nomarginleft ${viewlet/get_image_class}"></div>
-      </tal:block>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="collapse d-md-none" id="nav-eines-mobile">
+        <ul id="eines" class="nav nav-pills flex-column text-center">
+          <li class="nav-item">
+            <a class="nav-link" href="//serveistic.upc.edu/ca/organs-de-govern"
+               i18n:domain="genweb.organs"
+               i18n:attributes="title Info_del_Servei; alt Info_del_Servei">
+               <i class="fa fa-info-circle"></i> Info
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" accesskey="4"
+                 tal:attributes="href string:${portal_url}/${lang}/sitemap">
+                 <i class="fa fa-sitemap"></i>&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Site Map">Site Map</tal:bk>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" accesskey="6"
+                 tal:attributes="href string:${portal_url}/${lang}/contact">
+                 <i class="fa fa-envelope"></i>&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Contact">Contact</tal:bk>
+            </a>
+          </li>
+          <li class="nav-item" tal:condition="viewlet/show_login">
+              <a class="nav-link" href="" data-bs-toggle="modal" data-bs-target="#loginModal"
+                 tal:attributes="href string:${portal_url}/popup_login_form?came_from=${context/absolute_url}">
+                <i class="fa fa-lock"></i>&nbsp;<tal:bk i18n:domain="genweb" i18n:translate="identificat">
+                 Identifica't</tal:bk>
+              </a>
+          </li>
+          <li class="nav-item" tal:condition="not: viewlet/show_login">
+              <a class="nav-link" tal:attributes="href string:${portal_url}/cas_logout">
+                <i class="fa fa-sign-out"></i>&nbsp;<tal:bk i18n:domain="genweb.organs" i18n:translate="">
+                 Logout </tal:bk>
+              </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" tal:attributes="href string:${portal_url}/${lang}/search"><i class="fa fa-search"></i>&nbsp;<tal:bk i18n:translate="" i18n:domain="genweb.organs">Cercador</tal:bk></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="bannerOrgans mt-2">
+        <tal:block tal:condition="getLogo">
+              <img tal:attributes="src getLogo" style="height:78px; width: 100%; object-fit: contain;" />
+              <div tal:condition="getTitle" class="bannerTitle d-none d-md-block">
+                <p>Govern UPC </p>
+              </div>
+              <div tal:condition="getTitle" class="bannerTitle d-md-none">
+                <p>Govern UPC </p>
+              </div>
+        </tal:block>
+        <tal:block tal:condition="not:getLogo">
+          <div class="bannerTitle d-none d-md-block">
+            <p>Govern UPC </p>
+          </div>
+          <div class="bannerTitle d-md-none">
+            <p>Govern UPC </p>
+          </div>
+          <div tal:attributes="class string:header-image nomarginleft ${viewlet/get_image_class}"></div>
+        </tal:block>
+      </div>
     </div>
   </div>
 </div>
 
-<div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true"
+<div id="loginModal" class="modal fade" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true"
      i18n:domain="genweb">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="loginModalLabel" i18n:translate="label_start_session">Inicia la sessió</h3>
-  </div>
-  <div class="modal-body">
-    The popup login form
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Tanca</button>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel" i18n:translate="label_start_session">Inicia la sessió</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tanca"></button>
+      </div>
+      <div class="modal-body">
+        The popup login form
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Tanca">Tanca</button>
+      </div>
+    </div>
   </div>
 </div>
 
 </tal:block>
-

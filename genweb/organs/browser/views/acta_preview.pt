@@ -23,7 +23,7 @@
     <h2> ACTA <tal:omit-tag tal:content="view/sessionTitle">CONSELL DE GOVERN</tal:omit-tag></h2>
     <hr/>
     <div>
-      <div class="span12" style="margin-bottom: 0px">
+      <div class="col-12" style="margin-bottom: 0px">
         <tal:omit-tag tal:condition="modalitat">
           <th style="display: inline-block;"><strong i18n:translate="">Modality of meet</strong><b>:</b></th>
           <span i18n:translate="" tal:content="modalitat"></span>
@@ -48,12 +48,12 @@
     <div class="clearfix"></div>
     <hr/>
     <div>
-      <div class="span12" style="margin-bottom: 0px; padding-left:0px !important; margin-left:0px !important;">
-        <div class="caixa span6" tal:condition="membresConvocats">
+      <div class="col-12" style="margin-bottom: 0px; padding-left:0px !important; margin-left:0px !important;">
+        <div class="caixa col-6" tal:condition="membresConvocats">
           <h4 i18n:translate=""> Assistants </h4>
           <div tal:replace="structure membresConvocats"></div>
         </div>
-        <div class="caixa span6">
+        <div class="caixa col-6">
           <tal:block tal:condition="membresConvidats">
             <h4 i18n:translate=""> Invited members </h4>
             <span tal:replace="structure membresConvidats"></span>
@@ -89,5 +89,3 @@
     </tal:block>
 
 </tal:block>
-
-

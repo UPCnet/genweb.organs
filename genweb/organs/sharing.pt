@@ -43,7 +43,7 @@
 
             <input type="hidden" name="form.submitted:boolean" value="True" />
 
-            <div class="field">
+            <div class="mb-3">
                 <input type="text"
                        id="sharing-user-group-search"
                        size="30"
@@ -51,21 +51,21 @@
                        title="Search for user or group"
                        placeholder="Search for user or group"
                        i18n:attributes="title; placeholder"
-                       class="searchField"
+                       class="form-control mb-2"
                        value=""
                        />
                 <input type="submit"
                        id="sharing-search-button"
                        name="form.button.Search"
                        value="Search"
-                       class="searchButton allowMultiSubmit"
+                       class="btn btn-info searchButton allowMultiSubmit mb-2"
                        i18n:attributes="value label_search"
                        />
             </div>
 
         <div id="user-group-sharing-container">
         <table metal:define-macro="user-group-sharing" id="user-group-sharing"
-               class="listing"
+               class="table table-striped table-hover align-middle"
                summary="Current sharing permissions"
                tal:define="available_roles view/roles;
                            num_columns python:len(available_roles) + 1;
@@ -88,7 +88,7 @@
                                     disabled entry/disabled | python:False;
                                     oddrow repeat/entry/odd;
                                     sticky python:entry['id'] in view.STICKY"
-                        tal:attributes="class python:oddrow and 'odd' or 'even'">
+                        tal:attributes="class python:oddrow and 'table-active' or ''">
                         <td tal:attributes="title entry/id">
                             <img tal:condition="is_group" tal:replace="structure context/group.png" />
                             <img tal:condition="not:is_group" tal:replace="structure context/user.png" />
@@ -116,13 +116,13 @@
                                 tal:attributes="value entry/type"
                                 />
                         </td>
-                        <td class="listingCheckbox"
+                        <td class="text-center"
                             tal:repeat="role available_roles">
                             <tal:block define="entry_role python:entry['roles'][role['id']]">
                                 <img tal:condition="python:entry_role == 'global'" tal:replace="structure context/site_icon.png" />
                                 <img tal:condition="python:entry_role == 'acquired'" tal:replace="structure context/confirm_icon.png" />
                                 <tal:block condition="python:entry_role in (True, False)">
-                                  <input class="noborder"
+                                  <input class="form-check-input"
                                          type="checkbox"
                                          value="True"
                                          tal:attributes="name string:entries.role_${role/id}:records;
@@ -138,9 +138,9 @@
         </table>
         </div>
 
-        <div class="field" id="field-inherit"
+        <div class="form-check mb-3" id="field-inherit"
              tal:condition="view/can_edit_inherit">
-            <input class="noborder"
+            <input class="form-check-input"
                    type="checkbox"
                    name="inherit:boolean"
                    value="1"
@@ -148,10 +148,10 @@
                    id="inherit"
                    tal:attributes="checked python:view.inherited() and 'checked' or None"
                    />
-            <label for="inherit" i18n:translate="label_inherit_local_roles">
+            <label for="inherit" i18n:translate="label_inherit_local_roles" class="form-check-label">
             Inherit permissions from higher levels
             </label>
-            <div class="formHelp" i18n:translate="help_inherit_local_roles">
+            <div class="form-text" i18n:translate="help_inherit_local_roles">
                 By default, permissions from the container of this item are inherited.
                 If you disable this, only the explicitly defined sharing permissions will
                 be valid.
@@ -165,8 +165,8 @@
             </div>
         </div>
 
-            <input id="sharing-save-button" class="context allowMultiSubmit" type="submit" name="form.button.Save" value="Save" i18n:attributes="value label_save" />
-            <input class="standalone" type="submit" name="form.button.Cancel" value="Cancel" i18n:attributes="value label_cancel"/>
+            <input id="sharing-save-button" class="btn btn-primary context allowMultiSubmit me-2" type="submit" name="form.button.Save" value="Save" i18n:attributes="value label_save" />
+            <input class="btn btn-secondary standalone" type="submit" name="form.button.Cancel" value="Cancel" i18n:attributes="value label_cancel"/>
 
             <input tal:replace="structure context/@@authenticator/authenticator" />
 
