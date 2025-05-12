@@ -65,8 +65,6 @@
 
     </tal:notajax>
 </head>
-    <link rel="stylesheet"
-        tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
 
   <div style="padding: 15px 20px 40px 20px; background-color:white;">
 

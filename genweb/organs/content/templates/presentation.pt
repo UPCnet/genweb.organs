@@ -78,7 +78,6 @@
         <tal:splittedCSS4IE tal:replace="structure string:&lt;!--[if lt IE 10]&gt;&lt;link rel='stylesheet' href='${portal_url}/++genweb++stylesheets/genwebupc-ie.css'&gt;&lt;![endif]--&gt;" />
 
         <link rel="stylesheet" tal:attributes="href string:${portal_url}/dynamic.css">
-        <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/font-awesome-4.7.0/css/font-awesome.min.css" />
 
         <script tal:condition="not:anonim" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/smooth-scroll.min.js"></script>
         <script tal:condition="not:anonim" tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery.smooth-scroll.min.js"></script>
@@ -105,7 +104,7 @@
   </div>
 
   <metal:content-core tal:define="items view/PuntsInside">
-    <ul class="affix nav" style="z-index=2; right:0; top:170px;" tal:condition="not:anonim">
+    <ul class="affix nav" style="z-index:2; right:0; top:170px;" tal:condition="not:anonim">
       <li>
         <a href="" title="Tornar a la sessió" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Close">
           <i class="fa fa-home fa-3x" aria-hidden="true"></i></a>
