@@ -95,7 +95,7 @@ class Message(form.SchemaForm):
         values = self.aq_parent.aq_parent.estatsLlista
         value = values.split('</p>')[0]
         item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
-        defaultEstat = ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8')
+        defaultEstat = ' '.join(item_net.split()[:-1]).lstrip()
 
         portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
@@ -139,7 +139,7 @@ class Message(form.SchemaForm):
                                 type='genweb.organs.punt',
                                 title=line,
                                 container=self.context)
-                    obj.proposalPoint = unicode(str(index))
+                    obj.proposalPoint = str(index)
                     obj.estatsLlista = defaultEstat
                     index = index + 1
                     subindex = 1
@@ -171,7 +171,7 @@ class Message(form.SchemaForm):
                                     title=line,
                                     container=previousPuntContainer)
 
-                        newobj.proposalPoint = unicode(str(index - 1) + str('.') + str(subindex))
+                        newobj.proposalPoint = str(index - 1) + str('.') + str(subindex)
                         newobj.estatsLlista = defaultEstat
                         newobj.reindexObject()
                         subindex = subindex + 1

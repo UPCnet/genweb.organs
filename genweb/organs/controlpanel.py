@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from zope import schema
 from z3c.form import button
 from plone.supermodel import model
@@ -39,10 +37,10 @@ class OrgansSettingsEditForm(controlpanel.RegistryEditForm):
     label = _(u'Paràmetres de configuració de Genweb Organs')
 
     def updateFields(self):
-        super(OrgansSettingsEditForm, self).updateFields()
+        super().updateFields()
 
     def updateWidgets(self):
-        super(OrgansSettingsEditForm, self).updateWidgets()
+        super().updateWidgets()
 
     def fix_password_fields(self, data):
         """

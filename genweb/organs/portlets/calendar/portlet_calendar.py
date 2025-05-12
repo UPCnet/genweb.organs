@@ -16,7 +16,7 @@ from plone.event.interfaces import IEvent
 from plone.event.interfaces import IEventAccessor
 from plone.portlets.interfaces import IPortletDataProvider
 from zope.i18nmessageid import MessageFactory
-from zope.interface import implements
+from zope.interface import implementer
 
 import calendar
 
@@ -29,8 +29,8 @@ class ICalendarOrgansPortlet(IPortletDataProvider):
     """
 
 
+@implementer(ICalendarOrgansPortlet)
 class Assignment(base.Assignment):
-    implements(ICalendarOrgansPortlet)
     title = _(u'Organs Calendar')
 
 

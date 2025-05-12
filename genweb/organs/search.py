@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.PloneBatch import Batch
@@ -31,9 +30,9 @@ import pkg_resources
 PLMF = MessageFactory('plonelocales')
 _ = MessageFactory('plone')
 
-# We should accept both a simple space, unicode u'\u0020 but also a
-# multi-space, so called 'waji-kankaku', unicode u'\u3000'
-MULTISPACE = u'\u3000'.encode('utf-8')
+# We should accept both a simple space, unicode '\u0020' but also a
+# multi-space, so called 'waji-kankaku', unicode '\u3000'
+MULTISPACE = '\u3000'
 EVER = DateTime('1970/01/03')
 
 
@@ -526,7 +525,7 @@ class TypeAheadSearch(grok.View):
                 s = s.replace(char, quotestring(char))
             return s
 
-        multispace = u'\u3000'.encode('utf-8')
+        multispace = '\u3000'
         for char in ('?', '-', '+', '*', multispace):
             q = q.replace(char, ' ')
         r = q.split()

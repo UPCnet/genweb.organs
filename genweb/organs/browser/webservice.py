@@ -29,7 +29,7 @@ class Webservice(BrowserView):
         """Once we get to __call__, the path is lost so we
            capture it here on initialization
         """
-        super(Webservice, self).__init__(context, request)
+        super().__init__(context, request)
         self.acord = None
         path_ordered = request.path[::-1]
         self.acord = '/'.join(path_ordered)
@@ -70,7 +70,9 @@ class Webservice(BrowserView):
         for value in values.split('</p>'):
             if value != '':
                 item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
-                if estat.decode('utf-8') == ' '.join(item_net.split()[:-1]).lstrip():
+                if isinstance(estat, bytes):
+                    estat = estat.decode('utf-8')
+                if estat == ' '.join(item_net.split()[:-1]).lstrip():
                     return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
         return color
 

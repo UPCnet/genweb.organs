@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from Acquisition import aq_inner
 from Products.CMFPlone import utils
 from Products.CMFPlone.browser.navigation import get_view_url
