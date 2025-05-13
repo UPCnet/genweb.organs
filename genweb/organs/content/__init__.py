@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from zope.interface import implements
+from zope.interface import implementer
 from plone.dexterity.content import Item
 
 from genweb.organs.content.organgovern import IOrgangovern
@@ -16,49 +16,61 @@ from genweb.organs.content.acord import IAcord
 from genweb.organs.content.votacio_acord import IVotacioAcord
 
 
+@implementer(IOrgangovern)
 class Organgovern(Item):
-    implements(IOrgangovern)
+    pass
 
 
+@implementer(ISessio)
 class Sessio(Item):
-    implements(ISessio)
+    pass
 
 
+@implementer(IPunt)
 class Punt(Item):
-    implements(IPunt)
+    pass
 
 
+@implementer(ISubpunt)
 class Subpunt(Item):
-    implements(ISubpunt)
+    pass
 
 
+@implementer(IActa)
 class Acta(Item):
-    implements(IActa)
+    pass
 
 
+@implementer(IOrgansfolder)
 class Organsfolder(Item):
-    implements(IOrgansfolder)
+    pass
 
 
+@implementer(IFile)
 class File(Item):
-    implements(IFile)
+    pass
 
 
+@implementer(IDocument)
 class Document(Item):
-    implements(IDocument)
+    pass
 
 
+@implementer(IAudio)
 class Audio(Item):
-    implements(IAudio)
+    pass
 
 
+@implementer(IAnnex)
 class Annex(Item):
-    implements(IAnnex)
+    pass
 
 
+@implementer(IAcord)
 class Acord(Item):
-    implements(IAcord)
+    pass
 
 
+@implementer(IVotacioAcord)
 class VotacioAcord(Item):
-    implements(IVotacioAcord)
+    pass

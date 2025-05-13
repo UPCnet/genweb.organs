@@ -1,4 +1,4 @@
-from zope.interface import implements
+from zope.interface import implements, implementer
 from zope.publisher.interfaces import IPublishTraverse, NotFound
 
 from plone.rfc822.interfaces import IPrimaryFieldInfo
@@ -11,6 +11,7 @@ from AccessControl import Unauthorized
 from genweb.organs import utils
 
 
+@implementer(IPublishTraverse)
 class Download(BrowserView):
     """Download a file, via ../context/@@download/fieldname/filename
     `fieldname` is the name of an attribute on the context that contains
@@ -21,8 +22,6 @@ class Download(BrowserView):
     If no `fieldname` is supplied, then a default field is looked up through
     adaption to `plone.rfc822.interfaces.IPrimaryFieldInfo`.
     """
-
-    implements(IPublishTraverse)
 
     def __init__(self, context, request):
         super(Download, self).__init__(context, request)
