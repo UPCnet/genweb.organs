@@ -9,7 +9,6 @@ from cgi import escape
 from collective import dexteritytextindexer
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from five import grok
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
@@ -32,14 +31,14 @@ from genweb.organs.utils import addEntryLog
 from genweb.organs.firma_documental.utils import UtilsFirmaDocumental
 from genweb.organs.utils import checkHasOpenVote
 
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 import ast
 import datetime
 import json
 import transaction
 import unicodedata
-
-grok.templatedir("templates")
 
 
 def llistaEstats(context):
@@ -187,23 +186,15 @@ def estatVotacio(obj):
     return obj.estatVotacio
 
 
-grok.global_adapter(proposalPoint, name="index_proposalPoint")
-
-grok.global_adapter(agreement, name="index_agreement")
-
-grok.global_adapter(estatVotacio, name='index_estatVotacio')
-
-
 class Edit(dexterity.EditForm):
-    grok.context(IAcord)
-
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
 
 
-class View(grok.View, UtilsFirmaDocumental):
-    grok.context(IAcord)
-    grok.template('acord_view')
+class View(BrowserView, UtilsFirmaDocumental):
+    index = ViewPageTemplateFile("templates/acord_view.pt")
+    def __call__(self):
+        return self.index()
 
     def canViewVotacionsInside(self):
         roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
@@ -308,11 +299,7 @@ class View(grok.View, UtilsFirmaDocumental):
                 raise Unauthorized
 
 
-class OpenPublicVote(grok.View):
-    grok.context(IAcord)
-    grok.name('openPublicVote')
-    grok.require('genweb.organs.manage.vote')
-
+class OpenPublicVote(BrowserView):
     def render(self):
         self.context.estatVotacio = 'open'
         self.context.tipusVotacio = 'public'
@@ -322,11 +309,7 @@ class OpenPublicVote(grok.View):
         addEntryLog(self.context.__parent__, None, _(u'Oberta votacio acord'), self.context.absolute_url())
 
 
-class OpenOtherPublicVote(grok.View):
-    grok.context(IAcord)
-    grok.name('openOtherPublicVote')
-    grok.require('genweb.organs.manage.vote')
-
+class OpenOtherPublicVote(BrowserView):
     def render(self):
         if 'title' in self.request.form and self.request.form['title'] and self.request.form['title'] != '':
             item = createContentInContainer(self.context, "genweb.organs.votacioacord", title=self.request.form['title'])
@@ -338,11 +321,7 @@ class OpenOtherPublicVote(grok.View):
             addEntryLog(self.context.__parent__, None, _(u'Oberta votacio esmena'), self.context.absolute_url())
 
 
-# class OpenSecretVote(grok.View):
-#     grok.context(IAcord)
-#     grok.name('openSecretVote')
-#     grok.require('genweb.organs.manage.vote')
-
+# class OpenSecretVote(BrowserView):
 #     def render(self):
 #         self.context.estatVotacio = 'open'
 #         self.context.tipusVotacio = 'secret'
@@ -351,11 +330,7 @@ class OpenOtherPublicVote(grok.View):
 #         transaction.commit()
 
 
-# class OpenSecretPublicVote(grok.View):
-#     grok.context(IAcord)
-#     grok.name('openOtherSecretVote')
-#     grok.require('genweb.organs.manage.vote')
-
+# class OpenSecretPublicVote(BrowserView):
 #     def render(self):
 #         if 'title' in self.request.form and self.request.form['title'] and self.request.form['title'] != '':
 #             item = createContentInContainer(self.context, "genweb.organs.votacioacord", title=self.request.form['title'])
@@ -366,11 +341,7 @@ class OpenOtherPublicVote(grok.View):
 #             transaction.commit()
 
 
-class ReopenVote(grok.View):
-    grok.context(IAcord)
-    grok.name('reopenVote')
-    grok.require('genweb.organs.manage.vote')
-
+class ReopenVote(BrowserView):
     def render(self):
         if checkHasOpenVote(self.context):
             return json.dumps({"status": 'error', "msg": _(u'Ja hi ha una votació oberta, no se\'n pot obrir una altra.')})
@@ -383,11 +354,7 @@ class ReopenVote(grok.View):
             return json.dumps({"status": 'success', "msg": ''})
 
 
-class CloseVote(grok.View):
-    grok.context(IAcord)
-    grok.name('closeVote')
-    grok.require('genweb.organs.manage.vote')
-
+class CloseVote(BrowserView):
     def render(self):
         self.context.estatVotacio = 'close'
         self.context.horaFiVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
@@ -396,11 +363,7 @@ class CloseVote(grok.View):
         addEntryLog(self.context.__parent__, None, _(u'Tancada votacio acord'), self.context.absolute_url())
 
 
-class FavorVote(grok.View):
-    grok.context(IAcord)
-    grok.name('favorVote')
-    grok.require('genweb.organs.add.vote')
-
+class FavorVote(BrowserView):
     def render(self):
         if self.context.estatVotacio == 'close':
             return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
@@ -415,11 +378,7 @@ class FavorVote(grok.View):
         sendVoteEmail(self.context, 'a favor')
         return json.dumps({"status": 'success', "msg": ''})
 
-class AgainstVote(grok.View):
-    grok.context(IAcord)
-    grok.name('againstVote')
-    grok.require('genweb.organs.add.vote')
-
+class AgainstVote(BrowserView):
     def render(self):
         if self.context.estatVotacio == 'close':
             return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
@@ -435,11 +394,7 @@ class AgainstVote(grok.View):
         return json.dumps({"status": 'success', "msg": ''})
 
 
-class WhiteVote(grok.View):
-    grok.context(IAcord)
-    grok.name('whiteVote')
-    grok.require('genweb.organs.add.vote')
-
+class WhiteVote(BrowserView):
     def render(self):
         if self.context.estatVotacio == 'close':
             return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
@@ -576,11 +531,7 @@ def sendRemoveVoteEmail(context):
             mailhost.send(msg)
 
 
-class RemoveVote(grok.View):
-    grok.context(IAcord)
-    grok.name('removeVote')
-    grok.require('genweb.organs.manage.vote')
-
+class RemoveVote(BrowserView):
     def render(self):
         estatSessio = utils.session_wf_state(self)
         if estatSessio not in ['realitzada', 'tancada', 'en_correccio']:
@@ -597,11 +548,7 @@ class RemoveVote(grok.View):
 
 
 
-class HideAgreement(grok.View):
-    grok.context(IAcord)
-    grok.name('hideAgreement')
-    grok.require('genweb.webmaster')
-
+class HideAgreement(BrowserView):
     def getSessio(self, context):
         for obj in aq_chain(context):
             if ISessio.providedBy(obj):
@@ -639,11 +586,7 @@ class HideAgreement(grok.View):
         return {"message": "OK"}, 200
 
 
-class ShowAgreement(grok.View):
-    grok.context(IAcord)
-    grok.name('showAgreement')
-    grok.require('cmf.ManagePortal')
-
+class ShowAgreement(BrowserView):
     def render(self):
         self.context.omitAgreement = False
         self.context.reindexObject()

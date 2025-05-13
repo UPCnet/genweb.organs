@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from plone import api
-from five import grok
 from zope.schema import TextLine
 from z3c.form import button
 from plone.directives import form
@@ -17,8 +16,6 @@ from AccessControl import Unauthorized
 from plone.event.interfaces import IEventAccessor
 from genweb.organs import utils
 import unicodedata
-
-grok.templatedir("templates")
 
 
 class IMessage(form.Schema):
@@ -47,12 +44,6 @@ class IMessage(form.Schema):
 
 
 class Message(form.SchemaForm):
-    grok.name('mail_message')
-    grok.context(ISessio)
-    grok.template("message_view")
-    grok.require('zope2.View')
-    grok.layer(IGenwebOrgansLayer)
-
     ignoreContext = True
     schema = IMessage
 

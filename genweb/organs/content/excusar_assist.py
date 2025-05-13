@@ -3,7 +3,6 @@ from AccessControl import Unauthorized
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
-from five import grok
 from plone import api
 from plone.directives import form
 from z3c.form import button
@@ -16,8 +15,6 @@ from genweb.organs.content.sessio import ISessio
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs.utils import addExcuse
 from genweb.organs import utils
-
-grok.templatedir("templates")
 
 
 class IExcusar(form.Schema):
@@ -37,12 +34,6 @@ class IExcusar(form.Schema):
 
 
 class Message(form.SchemaForm):
-    grok.name('excusar_assist_sessio')
-    grok.context(ISessio)
-    grok.template("excusarassist_view")
-    grok.require('zope2.View')
-    grok.layer(IGenwebOrgansLayer)
-
     ignoreContext = True
     schema = IExcusar
 

@@ -2,7 +2,6 @@
 from AccessControl import Unauthorized
 from Acquisition import aq_inner
 
-from five import grok
 from plone import api
 from plone.app.layout.navigation.root import getNavigationRootObject
 from plone.directives import form
@@ -13,21 +12,12 @@ from genweb.organs.content.sessio import ISessio
 from genweb.organs.interfaces import IGenwebOrgansLayer
 
 
-grok.templatedir("templates")
-
-
 class IPresentation(form.Schema):
     """ Plantilla del mode presentacio: /presentation
     """
 
 
 class Presentation(form.SchemaForm):
-    grok.name('presentation')
-    grok.context(ISessio)
-    grok.template("presentation")
-    grok.require('zope2.View')
-    grok.layer(IGenwebOrgansLayer)
-
     def status(self):
         return api.content.get_state(obj=self.context)
 

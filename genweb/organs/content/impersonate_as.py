@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from five import grok
 from plone import api
 from plone.directives import form
 from plone.event.interfaces import IEventAccessor
@@ -10,8 +9,6 @@ from genweb.organs import utils
 from genweb.organs.content.sessio import ISessio
 from genweb.organs.interfaces import IGenwebOrgansLayer
 
-grok.templatedir("templates")
-
 
 class IImpersonate(form.Schema):
     """ Mode veure com: /view_as_role?id=OG2-Editor
@@ -19,12 +16,6 @@ class IImpersonate(form.Schema):
 
 
 class ShowSessionAs(form.SchemaForm):
-    grok.name('view_as_role')
-    grok.context(ISessio)
-    grok.template("impersonate_as")
-    grok.require('zope2.View')
-    grok.layer(IGenwebOrgansLayer)
-
     def getUserRole(self):
         # Només els rols Reponsable, Editor i Manager poden veure aquesta vista
         role = self.request.form.get('id', '')

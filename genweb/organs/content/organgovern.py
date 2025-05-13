@@ -4,7 +4,6 @@ from Products.statusmessages.interfaces import IStatusMessage
 from StringIO import StringIO
 
 from collective import dexteritytextindexer
-from five import grok
 from operator import itemgetter
 from plone import api
 from plone.app.textfield import RichText as RichTextField
@@ -26,6 +25,9 @@ from genweb.organs.z3cwidget import SelectUsersInputFieldWidget
 import csv
 import transaction
 
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
 
 types = SimpleVocabulary(
     [SimpleTerm(value='open_organ', title=_(u'open_organ')),
@@ -34,7 +36,6 @@ types = SimpleVocabulary(
      ]
 )
 
-grok.templatedir("templates")
 
 defaultEstats = _(u"<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>")
 
@@ -199,7 +200,7 @@ class IOrgangovern(form.Schema):
 
     visiblegdoc = schema.Bool(
         title=_(u"Activar signat i desat d'actes de les reunions"),
-        description=_(u"Al activar aquesta opcio habilita un nou boto per enviar l’acta a signar i desar."),
+        description=_(u"Al activar aquesta opcio habilita un nou boto per enviar l'acta a signar i desar."),
         required=False,
     )
 
@@ -212,7 +213,7 @@ class IOrgangovern(form.Schema):
     form.widget('signants', SelectUsersInputFieldWidget)
     signants = schema.TextLine(
         title=_(u'Signants'),
-        description=_(u"Identifica totes les persones que han de signar i en l’ordre en el es tramitarà en  el Portafirmes UPC"),
+        description=_(u"Identifica totes les persones que han de signar i en l'ordre en el es tramitarà en  el Portafirmes UPC"),
         required=False,
     )
 
@@ -231,7 +232,7 @@ def organType(obj):
 class Edit(dexterity.EditForm):
     """ Organ de govern EDIT form
     """
-    grok.context(IOrgangovern)
+    # grok.context(IOrgangovern)  # Eliminado: ya no es necesario
 
     def update(self):
         super(Edit, self).update()
@@ -250,11 +251,11 @@ class Edit(dexterity.EditForm):
         super(Edit, self).updateWidgets()
 
 
-class View(grok.View):
-    """ Organ de govern VIEW form
-    """
-    grok.context(IOrgangovern)
-    grok.template('organgovern_view')
+class View(BrowserView):
+    """ Organ de govern VIEW form """
+    index = ViewPageTemplateFile('templates/organgovern_view.pt')
+    def __call__(self):
+        return self.index()
 
     def activeClassMembres(self):
         if self.context.membresOrgan and self.context.convidatsPermanentsOrgan is None:
@@ -506,11 +507,8 @@ class View(grok.View):
         return utils.checkhasRol(['Manager', 'OG1-Secretari'], roles)
 
 
-class exportActas(grok.View):
-    grok.context(IOrgangovern)
-    grok.name('exportAcordsCSV')
-    grok.require('cmf.ManagePortal')
-
+class exportActas(BrowserView):
+    # Registrar en ZCML: name='exportAcordsCSV', for='genweb.organs.content.organgovern.IOrgangovern', permission='cmf.ManagePortal'
     data_header_columns = [
         "Titol",
         "NumAcord",

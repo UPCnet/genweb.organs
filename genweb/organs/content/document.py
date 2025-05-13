@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from five import grok
 from zope import schema
 from plone.directives import dexterity
 from plone.directives import form
@@ -8,12 +7,13 @@ from collective import dexteritytextindexer
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone import api
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.app.dexterity import PloneMessageFactory as _PMF
 from plone.supermodel.directives import fieldset
 from AccessControl import Unauthorized
 from genweb.organs import utils
-
-grok.templatedir("templates")
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 
 class IDocument(form.Schema):
@@ -66,12 +66,14 @@ def titleDefaultValue(data):
 
 class Edit(dexterity.EditForm):
     """A standard edit form. """
-    grok.context(IDocument)
+    pass
 
 
-class View(grok.View):
-    grok.context(IDocument)
-    grok.template('document_view')
+class View(BrowserView):
+    index = ViewPageTemplateFile("templates/document_view.pt")
+
+    def __call__(self):
+        return self.index()
 
     def showTitle(self):
         if api.user.is_anonymous():

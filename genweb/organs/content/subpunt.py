@@ -2,7 +2,6 @@
 from AccessControl import Unauthorized
 
 from collective import dexteritytextindexer
-from five import grok
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
@@ -14,14 +13,14 @@ from zope import schema
 from zope.interface import directlyProvides
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from genweb.organs import _
 from genweb.organs import utils
 from genweb.organs.firma_documental.utils import UtilsFirmaDocumental
 
 import unicodedata
-
-grok.templatedir("templates")
 
 
 def llistaEstats(context):
@@ -110,32 +109,23 @@ def proposalPoint(obj):
     return obj.proposalPoint
 
 
-grok.global_adapter(proposalPoint, name="index_proposalPoint")
-
-
 class Edit(dexterity.EditForm):
-    grok.context(ISubpunt)
+    pass
 
 
-class View(grok.View, UtilsFirmaDocumental):
-    grok.context(ISubpunt)
-    grok.template('punt+subpunt_view')
+class View(BrowserView, UtilsFirmaDocumental):
+    index = ViewPageTemplateFile("templates/punt+subpunt_view.pt")
+    def __call__(self):
+        return self.index()
 
     def FilesandDocumentsInside(self):
         return utils.FilesandDocumentsInside(self)
 
     def SubPuntsInside(self):
-        # Com fa servir el mateix template que els punts
-        # No podem tenir res dinte dels subpunts, per tant
-        # comentem la línia que sí que va amb punts, i que
-        # si deixem, seria el cas de tenir punts dintre de subpunts.
-        # return utils.SubPuntsInside(self)
         return None
 
     def getColor(self):
-        # assign custom colors on organ states
         estat = self.context.estatsLlista
-        # Different from punt. 2 levels up
         values = self.context.aq_parent.aq_parent.aq_parent.estatsLlista
         color = '#777777'
         for value in values.split('</p>'):
@@ -146,15 +136,11 @@ class View(grok.View, UtilsFirmaDocumental):
         return color
 
     def canView(self):
-        # Permissions to view PUNTS
-        # If manager Show all
         roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
         if 'Manager' in roles:
             return True
-
         estatSessio = utils.session_wf_state(self)
         organ_tipus = self.context.organType
-
         if organ_tipus == 'open_organ':
             if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
@@ -168,7 +154,6 @@ class View(grok.View, UtilsFirmaDocumental):
                 return True
             else:
                 raise Unauthorized
-
         if organ_tipus == 'restricted_to_members_organ':
             if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True
@@ -182,7 +167,6 @@ class View(grok.View, UtilsFirmaDocumental):
                 return True
             else:
                 raise Unauthorized
-
         if organ_tipus == 'restricted_to_affected_organ':
             if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
                 return True

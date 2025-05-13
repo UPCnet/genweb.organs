@@ -2,7 +2,6 @@
 from AccessControl import Unauthorized
 from Products.statusmessages.interfaces import IStatusMessage
 
-from five import grok
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
@@ -20,8 +19,6 @@ from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs import utils
 
 import unicodedata
-
-grok.templatedir("templates")
 
 
 class IMessage(form.Schema):
@@ -50,12 +47,6 @@ class IMessage(form.Schema):
 
 
 class Message(form.SchemaForm):
-    grok.name('mail_informar')
-    grok.context(ISessio)
-    grok.template("informar_view")
-    grok.require('zope2.View')
-    grok.layer(IGenwebOrgansLayer)
-
     ignoreContext = True
     schema = IMessage
 

@@ -219,4 +219,205 @@
     permission="zope2.View"
     />
 
+    <browser:page
+        name="change_migrated_to"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        class=".tools.changeMigrated"
+        permission="cmf.ManagePortal"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        name="change_proposal_after_migration"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        class=".tools.changeInitialProposalPoint"
+        permission="cmf.ManagePortal"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        name="change_file_mimetype_to_pdf"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        class=".tools.changeMimeType"
+        permission="cmf.ManagePortal"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        name="permissions_in_og_folders"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        class=".tools.listpermissions"
+        permission="cmf.ManagePortal"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        name="movefilestoprivateorpublic"
+        for="genweb.organs.content.sessio.ISessio"
+        class=".tools.MovePublicfilestoPrivate"
+        permission="cmf.ManagePortal"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        name="showColorOrgans"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        class=".tools.showColorOrgans"
+        permission="cmf.ManagePortal"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        name="create_test_content"
+        for="zope.interface.Interface"
+        class=".tools.createTestContent"
+        permission="cmf.ManagePortal"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        name="test_file_acces_protection"
+        for="zope.interface.Interface"
+        class=".tools.testFilesAccess"
+        permission="cmf.ManagePortal"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <subscriber
+        for="genweb.organs.content.punt.IPunt
+             zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+        handler=".events.removeObject.removePunt" />
+
+    <subscriber
+        for="genweb.organs.content.subpunt.ISubpunt
+             zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+        handler=".events.removeObject.removeSubpunt" />
+
+    <subscriber
+        for="genweb.organs.content.acord.IAcord
+             zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+        handler=".events.removeObject.removeAcord" />
+
+    <browser:page
+        for="genweb.organs.content.sessio.ISessio"
+        name="excusar_assist_sessio"
+        class=".content.excusar_assist.Message"
+        template="templates/excusarassist_view.pt"
+        permission="zope2.View"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.sessio.ISessio"
+        name="view_as_role"
+        class=".content.impersonate_as.ShowSessionAs"
+        template="templates/impersonate_as.pt"
+        permission="zope2.View"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.sessio.ISessio"
+        name="mail_convocar"
+        class=".content.mail_convocar.Message"
+        template="templates/mail_convocar.pt"
+        permission="zope2.View"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.sessio.ISessio"
+        name="mail_informar"
+        class=".content.mail_informar.Message"
+        template="templates/informar_view.pt"
+        permission="zope2.View"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.sessio.ISessio"
+        name="mail_message"
+        class=".content.mail_message.Message"
+        template="templates/message_view.pt"
+        permission="zope2.View"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.sessio.ISessio"
+        name="manualStructureCreation"
+        class=".content.manualimport.Message"
+        template="templates/manualimport_view.pt"
+        permission="zope2.View"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.organgovern.IOrgangovern"
+        name="view"
+        class=".content.organgovern.View"
+        template="templates/organgovern_view.pt"
+        permission="zope2.View"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.organgovern.IOrgangovern"
+        name="exportAcordsCSV"
+        class=".content.organgovern.exportActas"
+        permission="cmf.ManagePortal"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.sessio.ISessio"
+        name="presentation"
+        class=".content.presentation.Presentation"
+        template="templates/presentation.pt"
+        permission="zope2.View"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.sessio.ISessio"
+        name="proposa_punt_od"
+        class=".content.proposar_punt.Message"
+        template="templates/proposarpunt_view.pt"
+        permission="zope2.View"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.punt.IPunt"
+        name="view"
+        class=".content.punt.View"
+        template="templates/punt+subpunt_view.pt"
+        permission="zope2.View"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.sessio.ISessio"
+        name="view"
+        class=".content.sessio.View"
+        template="templates/sessio_view.pt"
+        permission="zope2.View"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.sessio.ISessio"
+        name="openQuorum"
+        class=".content.sessio.OpenQuorum"
+        permission="genweb.organs.manage.quorum"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.sessio.ISessio"
+        name="closeQuorum"
+        class=".content.sessio.CloseQuorum"
+        permission="genweb.organs.manage.quorum"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.sessio.ISessio"
+        name="removeQuorums"
+        class=".content.sessio.RemoveQuorums"
+        permission="genweb.organs.remove.quorum"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.sessio.ISessio"
+        name="addQuorum"
+        class=".content.sessio.AddQuorum"
+        permission="genweb.organs.add.quorum"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
+    <browser:page
+        for="genweb.organs.content.sessio.ISessio"
+        name="exportCSV"
+        class=".content.sessio.ExportCSV"
+        permission="zope2.View"
+        layer="..interfaces.IGenwebOrgansLayer" />
+
 </configure>

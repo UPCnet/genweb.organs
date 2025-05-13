@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
 from StringIO import StringIO
@@ -33,6 +32,8 @@ import ast
 import csv
 import datetime
 import transaction
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 grok.templatedir("templates")
 
@@ -256,8 +257,6 @@ def signaturaDefaultValue(data):
 class Edit(dexterity.EditForm):
     """ Session edit form
     """
-    grok.context(ISessio)
-
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
         self.widgets["numSessioShowOnly"].mode = HIDDEN_MODE
@@ -276,12 +275,13 @@ class Edit(dexterity.EditForm):
             self.groups[0].fields._data['infoAssistents'].mode = HIDDEN_MODE
 
 
-class View(grok.View):
-    grok.context(ISessio)
-    grok.template('sessio_view')
+class View(BrowserView):
+    index = ViewPageTemplateFile('templates/sessio_view.pt')
+    def __call__(self):
+        return self.index()
 
     def viewHistory(self):
-        # Només els Secretaris i Managers podem veure el LOG
+        # Només els Secretaris i Managers poden veure el LOG
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
         if utils.checkhasRol(['Manager', 'OG1-Secretari'], roles):
@@ -1332,11 +1332,7 @@ class View(grok.View):
         )
 
 
-class OpenQuorum(grok.View):
-    grok.context(ISessio)
-    grok.name('openQuorum')
-    grok.require('genweb.organs.manage.quorum')
-
+class OpenQuorum(BrowserView):
     def render(self):
         if not isinstance(self.context.infoQuorums, dict):
             self.context.infoQuorums = ast.literal_eval(self.context.infoQuorums)
@@ -1369,11 +1365,7 @@ class OpenQuorum(grok.View):
         transaction.commit()
 
 
-class CloseQuorum(grok.View):
-    grok.context(ISessio)
-    grok.name('closeQuorum')
-    grok.require('genweb.organs.manage.quorum')
-
+class CloseQuorum(BrowserView):
     def render(self):
         if not isinstance(self.context.infoQuorums, dict):
             self.context.infoQuorums = ast.literal_eval(self.context.infoQuorums)
@@ -1386,22 +1378,14 @@ class CloseQuorum(grok.View):
         transaction.commit()
 
 
-class RemoveQuorums(grok.View):
-    grok.context(ISessio)
-    grok.name('removeQuorums')
-    grok.require('genweb.organs.remove.quorum')
-
+class RemoveQuorums(BrowserView):
     def render(self):
         self.context.infoQuorums = {}
         self.context.reindexObject()
         transaction.commit()
 
 
-class AddQuorum(grok.View):
-    grok.context(ISessio)
-    grok.name('addQuorum')
-    grok.require('genweb.organs.add.quorum')
-
+class AddQuorum(BrowserView):
     def render(self):
         if not isinstance(self.context.infoQuorums, dict):
             self.context.infoQuorums = ast.literal_eval(self.context.infoQuorums)
@@ -1417,19 +1401,7 @@ class AddQuorum(grok.View):
         transaction.commit()
 
 
-class ExportCSV(grok.View):
-    grok.context(ISessio)
-    grok.name('exportCSV')
-    grok.require('zope2.View')
-
-    data_header_columns = [
-        "Punt",
-        "Títol",
-        "Tipus",
-        "Acord",
-        "Estat",
-        "URL"]
-
+class ExportCSV(BrowserView):
     def render(self):
         output_file = StringIO()
         # Write the BOM of the text stream to make its charset explicit

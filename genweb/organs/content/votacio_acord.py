@@ -3,12 +3,12 @@ from AccessControl import Unauthorized
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
+from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from cgi import escape
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from five import grok
 from plone import api
 from plone.autoform import directives
 from plone.directives import dexterity
@@ -54,16 +54,11 @@ class IVotacioAcord(form.Schema):
 
 
 class Edit(dexterity.EditForm):
-    grok.context(IVotacioAcord)
-
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
 
 
-class VotacioAcordView(grok.View):
-    grok.context(IVotacioAcord)
-    grok.name('view')
-
+class VotacioAcordView(BrowserView):
     def render(self):
         self.template = ViewPageTemplateFile('templates/votacio_acord.pt')
         return self.template(self)
@@ -85,11 +80,7 @@ class VotacioAcordView(grok.View):
             raise Unauthorized
 
 
-class ReopenVote(grok.View):
-    grok.context(IVotacioAcord)
-    grok.name('reopenVote')
-    grok.require('genweb.organs.manage.vote')
-
+class ReopenVote(BrowserView):
     def render(self):
         if checkHasOpenVote(self.context):
             return json.dumps({"status": 'error', "msg": _(u'Ja hi ha una votació oberta, no se\'n pot obrir una altra.')})
@@ -102,11 +93,7 @@ class ReopenVote(grok.View):
             return json.dumps({"status": 'success', "msg": ''})
 
 
-class CloseVote(grok.View):
-    grok.context(IVotacioAcord)
-    grok.name('closeVote')
-    grok.require('genweb.organs.manage.vote')
-
+class CloseVote(BrowserView):
     def render(self):
         self.context.estatVotacio = 'close'
         self.context.horaFiVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
@@ -115,11 +102,7 @@ class CloseVote(grok.View):
         addEntryLog(self.context.__parent__.__parent__, None, _(u'Tancada votacio esmena'), self.context.__parent__.absolute_url())
 
 
-class FavorVote(grok.View):
-    grok.context(IVotacioAcord)
-    grok.name('favorVote')
-    grok.require('genweb.organs.add.vote')
-
+class FavorVote(BrowserView):
     def render(self):
         if self.context.estatVotacio == 'close':
             return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
@@ -135,11 +118,7 @@ class FavorVote(grok.View):
         return json.dumps({"status": 'success', "msg": ''})
 
 
-class AgainstVote(grok.View):
-    grok.context(IVotacioAcord)
-    grok.name('againstVote')
-    grok.require('genweb.organs.add.vote')
-
+class AgainstVote(BrowserView):
     def render(self):
         if self.context.estatVotacio == 'close':
             return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
@@ -155,11 +134,7 @@ class AgainstVote(grok.View):
         return json.dumps({"status": 'success', "msg": ''})
 
 
-class WhiteVote(grok.View):
-    grok.context(IVotacioAcord)
-    grok.name('whiteVote')
-    grok.require('genweb.organs.add.vote')
-
+class WhiteVote(BrowserView):
     def render(self):
         if self.context.estatVotacio == 'close':
             return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
@@ -299,11 +274,7 @@ def sendRemoveVoteEmail(context):
             mailhost.send(msg)
 
 
-class RemoveVote(grok.View):
-    grok.context(IVotacioAcord)
-    grok.name('removeVote')
-    grok.require('genweb.organs.manage.vote')
-
+class RemoveVote(BrowserView):
     def render(self):
         estatSessio = utils.session_wf_state(self)
         if estatSessio not in ['realitzada', 'tancada', 'en_correccio']:

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from five import grok
 from plone import api
 from plone.app.textfield import RichText as RichTextField
 from plone.directives import form
@@ -8,8 +7,6 @@ from zope import schema
 
 from genweb.organs import _
 from genweb.organs import utils
-
-grok.templatedir("templates")
 
 
 class IOrgansfolder(form.Schema):
@@ -36,12 +33,9 @@ class IOrgansfolder(form.Schema):
     )
 
 
-class View(grok.View):
+class View(BrowserView):
     """ Carpeta unitat VIEW form
     """
-
-    grok.context(IOrgansfolder)
-    grok.template('organsfolder_view')
 
     def OrgansInside(self):
         """ Retorna els organs de govern depenent del rol

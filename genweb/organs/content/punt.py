@@ -2,7 +2,6 @@
 from AccessControl import Unauthorized
 
 from collective import dexteritytextindexer
-from five import grok
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
@@ -22,7 +21,9 @@ from genweb.organs.firma_documental.utils import UtilsFirmaDocumental
 
 import unicodedata
 
-grok.templatedir("templates")
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
 
 
 def llistaEstats(context):
@@ -104,16 +105,14 @@ def proposalPoint(obj):
     return obj.proposalPoint
 
 
-grok.global_adapter(proposalPoint, name="index_proposalPoint")
-
-
 class Edit(dexterity.EditForm):
-    grok.context(IPunt)
+    pass
 
 
-class View(grok.View, UtilsFirmaDocumental):
-    grok.context(IPunt)
-    grok.template('punt+subpunt_view')
+class View(BrowserView, UtilsFirmaDocumental):
+    index = ViewPageTemplateFile('templates/punt+subpunt_view.pt')
+    def __call__(self):
+        return self.index()
 
     def FilesandDocumentsInside(self):
         return utils.FilesandDocumentsInside(self)

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from plone import api
-from five import grok
 from zope.schema import TextLine
 from z3c.form import button
 from plone.directives import form
@@ -17,8 +16,6 @@ from AccessControl import Unauthorized
 from plone.event.interfaces import IEventAccessor
 from genweb.organs import utils
 import unicodedata
-
-grok.templatedir("templates")
 
 
 class IEsmenar(form.Schema):
@@ -38,16 +35,11 @@ class IEsmenar(form.Schema):
         required=True,
     )
 
-class Message(form.SchemaForm):
+class Message:
 
-	grok.name('esmenes_punt_od')
-	grok.context(ISessio)
-	grok.template("esmenespunt_view")
-	grok.require('zope2.View')
-	grok.layer(IGenwebOrgansLayer)
-
-	ignoreContext = True
-	schema = IEsmenar
+	def __init__(self, context, request):
+		self.context = context
+		self.request = request
 
 	def update(self):
 
@@ -58,6 +50,5 @@ class Message(form.SchemaForm):
 			roles = api.user.get_roles(username=username, obj=self.context)
 			if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
 				self.request.set('disable_border', True)
-				super(Message, self).update()
 			else:
 				raise Unauthorized

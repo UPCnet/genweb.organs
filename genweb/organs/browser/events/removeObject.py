@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from five import grok
 from plone import api
 from zope.globalrequest import getRequest
 from zope.lifecycleevent.interfaces import IObjectRemovedEvent
@@ -99,7 +98,6 @@ def deletion_confirmed():
     return is_delete_confirmation and is_post and form_being_submitted and not form_cancelled or form_delete
 
 
-@grok.subscribe(IPunt, IObjectRemovedEvent)
 def removePunt(obj, event):
     """ When the Punt is deleted, reorder proposalPoint field """
     if deletion_confirmed():
@@ -107,7 +105,6 @@ def removePunt(obj, event):
         transaction.get().addAfterCommitHook(remove_punt_acord, kws=kwargs)
 
 
-@grok.subscribe(ISubpunt, IObjectRemovedEvent)
 def removeSubpunt(obj, event):
     """ When the Subpunt is deleted, reorder proposalPoint field """
     if deletion_confirmed():
@@ -115,7 +112,6 @@ def removeSubpunt(obj, event):
         transaction.get().addAfterCommitHook(remove_subpunt, kws=kwargs)
 
 
-@grok.subscribe(IAcord, IObjectRemovedEvent)
 def removeAcord(obj, event):
     """ When the Acord is deleted, reorder proposalPoint field """
     if deletion_confirmed():

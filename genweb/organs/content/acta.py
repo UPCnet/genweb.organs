@@ -2,7 +2,6 @@
 from AccessControl import Unauthorized
 
 from collective import dexteritytextindexer
-from five import grok
 from plone import api
 from plone.app.dexterity import PloneMessageFactory as _PMF
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
@@ -22,7 +21,8 @@ import ast
 
 import transaction
 
-grok.templatedir("templates")
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 
 class IActa(form.Schema):
@@ -221,9 +221,11 @@ def Punts2Acta(self):
     return ''.join(results)
 
 
-class View(dexterity.DisplayForm, UtilsFirmaDocumental):
-    grok.context(IActa)
-    grok.template('acta_view')
+class View(BrowserView, UtilsFirmaDocumental):
+    index = ViewPageTemplateFile("templates/acta_view.pt")
+
+    def __call__(self):
+        return self.index()
 
     def canView(self):
         # Permissions to view acta
@@ -360,4 +362,4 @@ class View(dexterity.DisplayForm, UtilsFirmaDocumental):
 class Edit(dexterity.EditForm):
     """A standard edit form.
     """
-    grok.context(IActa)
+    # grok.context(IActa)

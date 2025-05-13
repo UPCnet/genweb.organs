@@ -5,7 +5,6 @@ from AccessControl import Unauthorized
 from Products.statusmessages.interfaces import IStatusMessage
 
 from collective import dexteritytextindexer
-from five import grok
 from plone import api
 from plone.app.dexterity import PloneMessageFactory as _PMF
 from plone.directives import dexterity
@@ -22,7 +21,8 @@ from genweb.organs import utils
 
 import transaction
 
-grok.templatedir("templates")
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 
 class InvalidPDFFile(ValidationError):
@@ -85,7 +85,6 @@ def titleDefaultValue(data):
 
 class Edit(dexterity.EditForm):
     """A standard edit form. """
-    grok.context(IFile)
 
     # def update(self):
     #     sessio = utils.get_session(self.getContent())
@@ -151,9 +150,11 @@ class Edit(dexterity.EditForm):
         return widget
 
 
-class View(grok.View):
-    grok.context(IFile)
-    grok.template('file_view')
+class View(BrowserView):
+    index = ViewPageTemplateFile("templates/file_view.pt")
+
+    def __call__(self):
+        return self.index()
 
     def icon_type(self):
         if self.context.hiddenfile:
@@ -439,12 +440,8 @@ class View(grok.View):
         return utils.session_wf_state(self) == 'tancada'
 
 
-class VisibleToHidden(grok.View):
-    grok.context(IFile)
-    grok.name('visibleToHidden')
-    grok.require('cmf.ModifyPortalContent')
-
-    def render(self):
+class VisibleToHidden(BrowserView):
+    def __call__(self):
         if utils.session_wf_state(self) == 'tancada':
             self.request.response.redirect(self.context.absolute_url())
 
@@ -459,7 +456,6 @@ class VisibleToHidden(grok.View):
             info_firma = ast.literal_eval(info_firma)
 
         if info_firma.get('private', {}).get('uploaded', False):
-
             info_firma['private'].update({
                 'replaced': True,
                 'uploaded': False,
@@ -468,8 +464,6 @@ class VisibleToHidden(grok.View):
             IStatusMessage(self.request).addStatusMessage(
                 _(u"El fitxer restringit s'ha de pujar de nou a gDOC desde la vista 'Gestió signatura i arxiu gDOC"), "info success"
             )
-            # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gDOC automáticamente
-            # genweb.organs.firmadocumental.webservices.uploadFileGDoc
 
         if info_firma.get('public', {}).get('uploaded', False):
             info_firma.pop('public', None)
@@ -481,13 +475,8 @@ class VisibleToHidden(grok.View):
         self.request.response.redirect(self.context.absolute_url())
 
 
-
-class HiddenToVisible(grok.View):
-    grok.context(IFile)
-    grok.name('hiddenToVisible')
-    grok.require('cmf.ModifyPortalContent')
-
-    def render(self):
+class HiddenToVisible(BrowserView):
+    def __call__(self):
         if utils.session_wf_state(self) == 'tancada':
             self.request.response.redirect(self.context.absolute_url())
 
@@ -502,7 +491,6 @@ class HiddenToVisible(grok.View):
             info_firma = ast.literal_eval(info_firma)
 
         if info_firma.get('public', {}).get('uploaded', False):
-
             info_firma['public'].update({
                 'replaced': True,
                 'uploaded': False,
@@ -511,8 +499,6 @@ class HiddenToVisible(grok.View):
             IStatusMessage(self.request).addStatusMessage(
                 _(u"El fitxer restringit s'ha de pujar de nou a gDOC desde la vista 'Gestió signatura i arxiu gDOC"), "info success"
             )
-            # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gDOC automáticamente
-            # genweb.organs.firmadocumental.webservices.uploadFileGDoc
 
         if info_firma.get('private', {}).get('uploaded', False):
             info_firma.pop('private', None)

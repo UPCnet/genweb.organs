@@ -2,7 +2,6 @@
 from AccessControl import Unauthorized
 from Products.statusmessages.interfaces import IStatusMessage
 
-from five import grok
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
@@ -23,8 +22,6 @@ from genweb.organs import utils
 
 import transaction
 import unicodedata
-
-grok.templatedir("templates")
 
 
 class IMessage(form.Schema):
@@ -73,12 +70,6 @@ class IMessage(form.Schema):
 
 
 class Message(form.SchemaForm):
-    grok.name('mail_convocar')
-    grok.context(ISessio)
-    grok.template("mail_convocar")
-    grok.require('zope2.View')
-    grok.layer(IGenwebOrgansLayer)
-
     ignoreContext = True
     schema = IMessage
 
@@ -145,8 +136,8 @@ class Message(form.SchemaForm):
             fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
             introData = "<p>Podeu consultar la convocatòria i la documentació de la sessió aquí: <a href=" + \
                         sessionLink + ">" + sessiontitle + "</a></p>" +\
-                        "<p>Podeu excusar l’absència a la sessió aquí: <a href=" +\
-                        sessionLink + "/excusar_assist_sessio>Excusar l’absència</a></p><br/> " + signatura
+                        "<p>Podeu excusar l'absència a la sessió aquí: <a href=" +\
+                        sessionLink + "/excusar_assist_sessio>Excusar l'absència</a></p><br/> " + signatura
 
             moreData = html_content + '<br/>' + customBody + '<strong>' + sessiontitle + '</strong>'
 

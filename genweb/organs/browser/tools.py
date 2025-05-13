@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from five import grok
 from plone.dexterity.interfaces import IDexterityContent
 from plone import api
 from genweb.organs.interfaces import IGenwebOrgansLayer
@@ -18,6 +17,7 @@ import os
 import pytz
 from Products.CMFPlone.interfaces import ISelectableConstrainTypes
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
+from Products.Five.browser import BrowserView
 
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -276,16 +276,11 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
     transaction.commit()
 
 
-class changeMigrated(grok.View):
+class changeMigrated(BrowserView):
     # Change migrated property of sessions.
     # No se pueden editar sessiones de la versión antigua, pero
     # en algunos casos, nos han pedido que se pueda...
     # Este código cambia el valor de la propiedad para eso
-    grok.context(IDexterityContent)
-    grok.name('change_migrated_to')
-    grok.require('cmf.ManagePortal')
-    grok.layer(IGenwebOrgansLayer)
-
     def render(self):
         # http:/session_url/change_migrated_to?value=False
         messages = IStatusMessage(self.request)
@@ -311,14 +306,9 @@ class changeMigrated(grok.View):
             pass
 
 
-class changeInitialProposalPoint(grok.View):
+class changeInitialProposalPoint(BrowserView):
     # After migration, there was an error...
     # Point 0 must be Informat, instead of Aprovat
-    grok.context(IDexterityContent)
-    grok.name('change_proposal_after_migration')
-    grok.require('cmf.ManagePortal')
-    grok.layer(IGenwebOrgansLayer)
-
     def render(self):
         items = api.content.find(path='/', portal_type='genweb.organs.punt')
         results = []
@@ -333,17 +323,12 @@ class changeInitialProposalPoint(grok.View):
         return json.dumps(results)
 
 
-class changeMimeType(grok.View):
+class changeMimeType(BrowserView):
     # After migration, there was an error...
     # Incorrect mimetypes in some pdf files
     # application/force-download -->
     # application/x-download -->
     # application/x-octet-stream -->
-
-    grok.context(IDexterityContent)
-    grok.name('change_file_mimetype_to_pdf')
-    grok.require('cmf.ManagePortal')
-    grok.layer(IGenwebOrgansLayer)
 
     def render(self):
         files = api.content.find(path='/', portal_type='genweb.organs.file')
@@ -409,13 +394,8 @@ class changeMimeType(grok.View):
         return json.dumps(results)
 
 
-class listpermissions(grok.View):
+class listpermissions(BrowserView):
     # List of permissions in object, in json format
-
-    grok.context(IDexterityContent)
-    grok.name('permissions_in_og_folders')
-    grok.require('cmf.ManagePortal')
-    grok.layer(IGenwebOrgansLayer)
 
     def render(self):
         all_brains = api.content.find(portal_type='genweb.organs.organgovern')
@@ -454,16 +434,11 @@ class listpermissions(grok.View):
         return json.dumps(results, indent=2, sort_keys=True)
 
 
-class MovePublicfilestoPrivate(grok.View):
+class MovePublicfilestoPrivate(BrowserView):
     # After migrating data, some files came with an error.
     # They were located as public files, but must be Private.
     # This view change all files from public to private and viceversa
     # in a given session
-
-    grok.context(ISessio)
-    grok.name('movefilestoprivateorpublic')
-    grok.require('cmf.ManagePortal')
-    grok.layer(IGenwebOrgansLayer)
 
     def showfiles(self):
         path = '/'.join(self.context.getPhysicalPath())
@@ -583,13 +558,8 @@ class MovePublicfilestoPrivate(grok.View):
          | <b><a href="?move2Public">move2Public</a></b>'
 
 
-class showColorOrgans(grok.View):
-
-    grok.context(IDexterityContent)
-    grok.name('showColorOrgans')
-    grok.require('cmf.ManagePortal')
-    grok.layer(IGenwebOrgansLayer)
-
+class showColorOrgans(BrowserView):
+    # Registrar en ZCML: name='showColorOrgans', for='plone.dexterity.interfaces.IDexterityContent', permission='cmf.ManagePortal', layer='genweb.organs.interfaces.IGenwebOrgansLayer'
     def render(self):
         path = '/'.join(self.context.getPhysicalPath())
         all_brains = api.content.find(portal_type='genweb.organs.organgovern', path=path)
@@ -606,13 +576,8 @@ class showColorOrgans(grok.View):
         return json.dumps(results, indent=2, sort_keys=True)
 
 
-class createTestContent(grok.View):
+class createTestContent(BrowserView):
     # Este código crea contenido de prueba para hacer TEST de acceso y checking de permisos
-    grok.context(Interface)
-    grok.name('create_test_content')
-    grok.require('cmf.ManagePortal')
-    grok.layer(IGenwebOrgansLayer)
-
     def render(self):
         print "## Executed create_test_content view to create testingfolder content..."
         messages = IStatusMessage(self.request)
@@ -636,13 +601,8 @@ class createTestContent(grok.View):
         self.request.response.redirect(self.context.absolute_url())
 
 
-class testFilesAccess(grok.View):
+class testFilesAccess(BrowserView):
     # Este código prueba los permisos de acceso a los ficheros de organs
-    grok.context(Interface)
-    grok.name('test_file_acces_protection')
-    grok.require('cmf.ManagePortal')
-    grok.layer(IGenwebOrgansLayer)
-
     def render(self):
         messages = IStatusMessage(self.request)
         portal = api.portal.get()

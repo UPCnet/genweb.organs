@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from five import grok
 from plone import api
 from Acquisition import aq_inner
 from zope.interface import Interface
@@ -12,18 +11,14 @@ from genweb.core.utils import genweb_config
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from plone.app.layout.navigation.root import getNavigationRootObject
 from genweb.organs.content.organsfolder import IOrgansfolder
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-grok.context(Interface)
 
-
-class viewletBase(grok.Viewlet):
-    grok.baseclass()
-
-    @memoize_contextless
+class viewletBase:
     def root_url(self):
         return self.portal().absolute_url()
 
-    @memoize_contextless
     def portal(self):
         return api.portal.get()
 
@@ -36,11 +31,11 @@ class viewletBase(grok.Viewlet):
         return lt.getPreferredLanguage()
 
 
-class gwHeader(viewletBase):
-    grok.name('genweb.header-organs')
-    grok.template('header')
-    grok.viewletmanager(IPortalHeader)
-    grok.layer(IGenwebOrgansLayer)
+class gwHeader(BrowserView):
+    index = ViewPageTemplateFile("../viewlets_templates/header.pt")
+
+    def __call__(self):
+        return self.index()
 
     def get_image_class(self):
         if self.genweb_config().treu_menu_horitzontal:

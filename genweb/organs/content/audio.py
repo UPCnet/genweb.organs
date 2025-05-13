@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from five import grok
 from plone.directives import dexterity
 from plone.directives import form
 from zope import schema
@@ -17,9 +16,9 @@ from plone import api
 from plone.namedfile.utils import get_contenttype
 from zope.schema import ValidationError
 from genweb.organs import utils
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-
-grok.templatedir("templates")
 
 
 class InvalidAudioFile(ValidationError):
@@ -71,12 +70,14 @@ def validateAudioType(value):
 
 class Edit(dexterity.EditForm):
     """A standard edit form. """
-    grok.context(IAudio)
+    # grok.context(IAudio)
 
 
-class View(grok.View):
-    grok.context(IAudio)
-    grok.template('audio_view')
+class View(BrowserView):
+    index = ViewPageTemplateFile("templates/audio_view.pt")
+
+    def __call__(self):
+        return self.index()
 
     def canView(self):
         # Permissions to view audio

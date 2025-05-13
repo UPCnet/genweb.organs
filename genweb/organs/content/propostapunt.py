@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from five import grok
 from zope import schema
 from plone.directives import dexterity
 from plone.directives import form
@@ -17,8 +16,8 @@ from genweb.organs import utils
 from plone.supermodel.directives import fieldset
 from AccessControl import Unauthorized
 from plone.namedfile.field import NamedBlobFile
-
-grok.templatedir("templates")
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 class IPropostapunt(form.Schema):
     """
@@ -52,12 +51,13 @@ class IPropostapunt(form.Schema):
 
 
 class Edit(dexterity.EditForm):
-    grok.context(IPropostapunt)
+    pass
 
 
-class View(grok.View):
-    grok.context(IPropostapunt)
-    grok.template('propostapunt_view')
+class View(BrowserView):
+    index = ViewPageTemplateFile("templates/propostapunt_view.pt")
+    def __call__(self):
+        return self.index()
 
     def FilesandDocumentsInside(self):
         return utils.FilesandDocumentsInside(self)

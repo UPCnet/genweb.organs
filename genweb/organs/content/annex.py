@@ -2,7 +2,6 @@
 from AccessControl import Unauthorized
 
 from collective import dexteritytextindexer
-from five import grok
 from zope import schema
 from zope.schema import ValidationError
 
@@ -17,8 +16,10 @@ from plone.supermodel.directives import fieldset
 from genweb.organs import _
 from genweb.organs import utils
 
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-grok.templatedir("templates")
+
 
 
 class InvalidAnnexFile(ValidationError):
@@ -68,12 +69,14 @@ def validateFileType(value):
 
 class Edit(dexterity.EditForm):
     """A standard edit form. """
-    grok.context(IAnnex)
+    pass
 
 
-class View(grok.View):
-    grok.context(IAnnex)
-    grok.template('annex_view')
+class View(BrowserView):
+    index = ViewPageTemplateFile("templates/annex_view.pt")
+
+    def __call__(self):
+        return self.index()
 
     def canView(self):
         # Permissions to view annex

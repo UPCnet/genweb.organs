@@ -7,7 +7,6 @@ from Products.PythonScripts.standard import url_quote_plus
 from Products.ZCTextIndex.ParseTree import ParseError
 from ZTUtils import make_query
 
-from five import grok
 from plone import api
 from plone.app.contentlisting.interfaces import IContentListing
 from operator import itemgetter
@@ -15,6 +14,7 @@ from zope.component import getMultiAdapter
 from zope.i18nmessageid import MessageFactory
 from zope.interface import Interface
 from zope.publisher.browser import BrowserView
+from Products.Five.browser import BrowserView
 
 from genweb.core.utils import pref_lang
 from genweb.organs import permissions
@@ -487,10 +487,9 @@ class SortOption(object):
 
 
 # Hide show more
-class TypeAheadSearch(grok.View):
-    grok.name('gw_type_ahead_search')
-    grok.context(Interface)
-    grok.layer(IGenwebOrgansLayer)
+class TypeAheadSearch(BrowserView):
+    def __call__(self):
+        return self.render()
 
     def render(self):
         # We set the parameters sent in livesearch using the old way.

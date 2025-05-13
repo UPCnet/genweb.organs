@@ -2,7 +2,6 @@
 from AccessControl import Unauthorized
 from Products.statusmessages.interfaces import IStatusMessage
 
-from five import grok
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
@@ -19,8 +18,6 @@ from genweb.organs import utils
 import transaction
 import unicodedata
 
-grok.templatedir("templates")
-
 
 class IMessage(form.Schema):
     """ Modal used to create massive punts: /manualStructureCreation
@@ -35,14 +32,7 @@ class IMessage(form.Schema):
 
 
 class Message(form.SchemaForm):
-    grok.name('manualStructureCreation')
-    grok.context(ISessio)
-    grok.template("manualimport_view")
-    grok.require('zope2.View')
-    grok.layer(IGenwebOrgansLayer)
-
     ignoreContext = True
-
     schema = IMessage
 
     # This trick hides the editable border and tabs in Plone

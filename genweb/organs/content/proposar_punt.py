@@ -5,7 +5,6 @@ from Products.CMFPlone.utils import _createObjectByType
 from Products.statusmessages.interfaces import IStatusMessage
 
 from datetime import datetime
-from five import grok
 from plone import api
 from plone.directives import form
 from plone.namedfile.field import NamedBlobFile
@@ -19,9 +18,6 @@ from genweb.organs.content.sessio import ISessio
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs.utils import addPoint
 from genweb.organs import utils
-
-
-grok.templatedir("templates")
 
 
 class IProposar(form.Schema):
@@ -109,12 +105,6 @@ class IProposar(form.Schema):
 
 
 class Message(form.SchemaForm):
-    grok.name('proposa_punt_od')
-    grok.context(ISessio)
-    grok.template("proposarpunt_view")
-    grok.require('zope2.View')
-    grok.layer(IGenwebOrgansLayer)
-
     ignoreContext = True
     schema = IProposar
 
