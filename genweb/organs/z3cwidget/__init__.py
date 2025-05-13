@@ -1,3 +1,3 @@
 # Convenience import
 
-from widget import SelectUsersInputFieldWidget
+from genweb.organs.z3cwidget.widget import SelectUsersInputFieldWidget
