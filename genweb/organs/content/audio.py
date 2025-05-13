@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from plone.directives import dexterity
 from z3c.form import form
 from zope import schema
 from genweb.organs import _
@@ -18,7 +17,6 @@ from zope.schema import ValidationError
 from genweb.organs import utils
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.autoform import directives
 
 
 
@@ -69,9 +67,9 @@ def validateAudioType(value):
                 raise InvalidAudioFile(mimetype)
 
 
-class Edit(dexterity.EditForm):
+class Edit(form.EditForm):
     """A standard edit form. """
-    # grok.context(IAudio)
+    pass
 
 
 class View(BrowserView):

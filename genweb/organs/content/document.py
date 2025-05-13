@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from zope import schema
-from plone.directives import dexterity
 from z3c.form import form
 from genweb.organs import _
 from collective import dexteritytextindexer
@@ -64,7 +63,7 @@ def titleDefaultValue(data):
     return data.context.Title()
 
 
-class Edit(dexterity.EditForm):
+class Edit(form.EditForm):
     """A standard edit form. """
     pass
 

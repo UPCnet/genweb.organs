@@ -13,7 +13,6 @@ from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from plone.dexterity.utils import createContentInContainer
-from plone.directives import dexterity
 from z3c.form import form
 from plone.indexer import indexer
 from plone.supermodel.directives import fieldset
@@ -186,7 +185,7 @@ def estatVotacio(obj):
     return obj.estatVotacio
 
 
-class Edit(dexterity.EditForm):
+class Edit(form.EditForm):
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
 

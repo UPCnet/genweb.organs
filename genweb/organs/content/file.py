@@ -7,7 +7,6 @@ from Products.statusmessages.interfaces import IStatusMessage
 from collective import dexteritytextindexer
 from plone import api
 from plone.app.dexterity import PloneMessageFactory as _PMF
-from plone.directives import dexterity
 from z3c.form import form
 from plone.namedfile.field import NamedBlobFile
 from plone.namedfile.utils import get_contenttype
@@ -84,7 +83,7 @@ def titleDefaultValue(data):
     return data.context.Title()
 
 
-class Edit(dexterity.EditForm):
+class Edit(form.EditForm):
     """A standard edit form. """
 
     # def update(self):

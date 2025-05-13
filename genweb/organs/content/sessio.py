@@ -8,7 +8,6 @@ from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.app.uuid.utils import uuidToObject
 from plone.autoform import directives
-from plone.directives import dexterity
 from z3c.form import form
 from plone.event.interfaces import IEventAccessor
 from plone.supermodel.directives import fieldset
@@ -251,7 +250,7 @@ def signaturaDefaultValue(data):
     return data.context.footerMail
 
 
-class Edit(dexterity.EditForm):
+class Edit(form.EditForm):
     """ Session edit form
     """
     def updateWidgets(self):

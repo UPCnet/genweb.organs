@@ -11,7 +11,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from plone import api
 from plone.autoform import directives
-from plone.directives import dexterity
 from z3c.form import form
 from zope import schema
 from zope.schema import TextLine
@@ -53,7 +52,7 @@ class IVotacioAcord(form.Schema):
     infoVotacio = schema.Text(title=u'', required=False, default=u'{}')
 
 
-class Edit(dexterity.EditForm):
+class Edit(form.EditForm):
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
 
