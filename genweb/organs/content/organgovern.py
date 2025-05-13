@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
 from Products.statusmessages.interfaces import IStatusMessage
-from StringIO import StringIO
+from io import StringIO
 
 from collective import dexteritytextindexer
 from operator import itemgetter
@@ -232,7 +232,6 @@ def organType(obj):
 class Edit(dexterity.EditForm):
     """ Organ de govern EDIT form
     """
-    # grok.context(IOrgangovern)  # Eliminado: ya no es necesario
 
     def update(self):
         super(Edit, self).update()

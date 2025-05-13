@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
-from StringIO import StringIO
+from io import StringIO
 
 from collective import dexteritytextindexer
-from five import grok
 from operator import itemgetter
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
@@ -34,8 +33,6 @@ import datetime
 import transaction
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
-grok.templatedir("templates")
 
 
 sessionModalities = SimpleVocabulary(

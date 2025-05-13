@@ -3,7 +3,7 @@ from AccessControl import Unauthorized
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from StringIO import StringIO
+from io import StringIO
 
 from operator import attrgetter
 from operator import itemgetter
@@ -318,10 +318,7 @@ class ActaPrintView(BrowserView):
                 for item in valuesInside:
                     subpunt = item.getObject()
                     if subpunt.portal_type == 'genweb.organs.acord':
-                        if subpunt.agreement:
-                            agreement = ' [Acord ' + str(subpunt.agreement) + ']'
-                        else:
-                            agreement = _("[Acord sense numerar]") if not getattr(subpunt, 'omitAgreement', False) else ''
+                        agreement = ' [Acord ' + str(subpunt.agreement) + ']'
                     else:
                         agreement = ''
                     results.append('<li>' + str(item.Title) + ' ' + str(agreement) + '</li>')

@@ -362,4 +362,4 @@ class View(BrowserView, UtilsFirmaDocumental):
 class Edit(dexterity.EditForm):
     """A standard edit form.
     """
-    # grok.context(IActa)
+    pass
