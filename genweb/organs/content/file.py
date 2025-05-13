@@ -8,7 +8,7 @@ from collective import dexteritytextindexer
 from plone import api
 from plone.app.dexterity import PloneMessageFactory as _PMF
 from plone.directives import dexterity
-from plone.directives import form
+from z3c.form import form
 from plone.namedfile.field import NamedBlobFile
 from plone.namedfile.utils import get_contenttype
 from plone.supermodel.directives import fieldset
@@ -23,6 +23,7 @@ import transaction
 
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
 
 
 class InvalidPDFFile(ValidationError):

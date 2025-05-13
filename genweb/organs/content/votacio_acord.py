@@ -12,7 +12,7 @@ from email.mime.text import MIMEText
 from plone import api
 from plone.autoform import directives
 from plone.directives import dexterity
-from plone.directives import form
+from z3c.form import form
 from zope import schema
 from zope.schema import TextLine
 

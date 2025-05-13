@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from plone.app.textfield import RichText as RichTextField
-from plone.directives import form
+from z3c.form import form
+from plone.autoform import directives
 from plone.namedfile.field import NamedBlobImage
 from zope import schema
 

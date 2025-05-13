@@ -4,7 +4,7 @@ from Acquisition import aq_inner
 
 from plone import api
 from plone.app.layout.navigation.root import getNavigationRootObject
-from plone.directives import form
+from z3c.form import form
 
 from genweb.organs import _
 from genweb.organs import utils

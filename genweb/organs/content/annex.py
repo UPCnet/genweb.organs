@@ -8,7 +8,7 @@ from zope.schema import ValidationError
 from plone import api
 from plone.app.dexterity import PloneMessageFactory as _PMF
 from plone.directives import dexterity
-from plone.directives import form
+from z3c.form import form
 from plone.namedfile.field import NamedBlobFile
 from plone.namedfile.utils import get_contenttype
 from plone.supermodel.directives import fieldset

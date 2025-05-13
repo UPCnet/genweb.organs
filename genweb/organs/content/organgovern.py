@@ -11,7 +11,7 @@ from plone.app.users.schema import checkEmailAddress
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from plone.directives import dexterity
-from plone.directives import form
+from z3c.form import form
 from plone.indexer import indexer
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel.directives import fieldset

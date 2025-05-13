@@ -14,7 +14,7 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from plone.dexterity.utils import createContentInContainer
 from plone.directives import dexterity
-from plone.directives import form
+from z3c.form import form
 from plone.indexer import indexer
 from plone.supermodel.directives import fieldset
 from z3c.form.interfaces import IAddForm

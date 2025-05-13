@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from plone.directives import dexterity
-from plone.directives import form
+from z3c.form import form
 from zope import schema
 from genweb.organs import _
 from plone.namedfile.field import NamedBlobFile
@@ -18,6 +18,7 @@ from zope.schema import ValidationError
 from genweb.organs import utils
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.autoform import directives
 
 
 

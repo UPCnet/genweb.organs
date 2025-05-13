@@ -6,7 +6,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 
 from datetime import datetime
 from plone import api
-from plone.directives import form
+from z3c.form import form
 from plone.namedfile.field import NamedBlobFile
 from z3c.form import button
 from z3c.form.interfaces import DISPLAY_MODE

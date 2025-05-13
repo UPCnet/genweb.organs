@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from plone import api
-from plone.directives import form
+from z3c.form import form
 from plone.event.interfaces import IEventAccessor
 from zope.i18n import translate
 

@@ -7,7 +7,7 @@ from plone.app.dexterity import PloneMessageFactory as _PMF
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from plone.directives import dexterity
-from plone.directives import form
+from z3c.form import form
 from plone.event.interfaces import IEventAccessor
 from plone.namedfile.field import NamedBlobFile
 from plone.supermodel.directives import fieldset

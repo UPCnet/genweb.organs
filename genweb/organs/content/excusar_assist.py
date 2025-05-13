@@ -4,11 +4,11 @@ from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
 from plone import api
-from plone.directives import form
-from z3c.form import button
+from z3c.form import form
 from z3c.form.interfaces import DISPLAY_MODE
 from zope import schema
 from zope.schema import TextLine
+from plone.autoform import directives
 
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio

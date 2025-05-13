@@ -5,8 +5,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
-from plone.directives import form
-from z3c.form import button
+from z3c.form import button, form
 from zope import schema
 
 from genweb.organs import _

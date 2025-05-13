@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from zope import schema
 from plone.directives import dexterity
-from plone.directives import form
+from z3c.form import form
 from genweb.organs import _
 from collective import dexteritytextindexer
 from Products.CMFCore.utils import getToolByName
