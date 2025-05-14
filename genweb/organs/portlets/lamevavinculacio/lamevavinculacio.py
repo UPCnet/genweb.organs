@@ -5,7 +5,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
-from zope.interface import implements, implementer
+from zope.interface import implementer
 
 from genweb.organs import _
 from genweb.organs import utils

@@ -6,14 +6,14 @@ import z3c.form.interfaces
 import z3c.form.widget
 import zope.interface
 import zope.schema.interfaces
+from zope.interface import implementer
 
 
 class ISelectUsersInputWidget(z3c.form.interfaces.ITextWidget):
     pass
 
-
+@implementer(ISelectUsersInputWidget)
 class SelectUsersInputWidget(z3c.form.browser.text.TextWidget, AutocompleteSelectionWidget):
-    zope.interface.implementsOnly(ISelectUsersInputWidget)
 
     klass = u'teacher-input-widget'
 

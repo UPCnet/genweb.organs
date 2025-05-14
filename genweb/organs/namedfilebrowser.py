@@ -1,4 +1,4 @@
-from zope.interface import implements, implementer
+from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse, NotFound
 
 from plone.rfc822.interfaces import IPrimaryFieldInfo
