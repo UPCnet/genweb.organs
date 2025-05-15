@@ -14,6 +14,7 @@ from plone.autoform import directives
 from z3c.form import form
 from zope import schema
 from zope.schema import TextLine
+from plone.supermodel import model
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -28,7 +29,7 @@ import json
 import transaction
 
 
-class IVotacioAcord(form.Schema):
+class IVotacioAcord(model.Schema):
     """ Enviar missatge als membres /mail_message
     """
     title = TextLine(

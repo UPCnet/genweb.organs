@@ -3,6 +3,7 @@ from plone import api
 from z3c.form import form
 from plone.event.interfaces import IEventAccessor
 from zope.i18n import translate
+from plone.supermodel import model
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -10,12 +11,12 @@ from genweb.organs.content.sessio import ISessio
 from genweb.organs.interfaces import IGenwebOrgansLayer
 
 
-class IImpersonate(form.Schema):
+class IImpersonate(model.Schema):
     """ Mode veure com: /view_as_role?id=OG2-Editor
     """
 
 
-class ShowSessionAs(form.SchemaForm):
+class ShowSessionAs(model.SchemaForm):
     def getUserRole(self):
         # Només els rols Reponsable, Editor i Manager poden veure aquesta vista
         role = self.request.form.get('id', '')

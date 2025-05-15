@@ -17,8 +17,9 @@ from AccessControl import Unauthorized
 from plone.namedfile.field import NamedBlobFile
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.supermodel import model
 
-class IPropostapunt(form.Schema):
+class IPropostapunt(model.Schema):
     """
     """
     title = schema.TextLine(

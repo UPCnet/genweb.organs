@@ -5,6 +5,7 @@ from Acquisition import aq_inner
 from plone import api
 from plone.app.layout.navigation.root import getNavigationRootObject
 from z3c.form import form
+from plone.supermodel import model
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -12,12 +13,12 @@ from genweb.organs.content.sessio import ISessio
 from genweb.organs.interfaces import IGenwebOrgansLayer
 
 
-class IPresentation(form.Schema):
+class IPresentation(model.Schema):
     """ Plantilla del mode presentacio: /presentation
     """
 
 
-class Presentation(form.SchemaForm):
+class Presentation(model.SchemaForm):
     def status(self):
         return api.content.get_state(obj=self.context)
 

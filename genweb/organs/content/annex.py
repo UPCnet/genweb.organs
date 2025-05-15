@@ -11,6 +11,7 @@ from z3c.form import form
 from plone.namedfile.field import NamedBlobFile
 from plone.namedfile.utils import get_contenttype
 from plone.supermodel.directives import fieldset
+from plone.supermodel import model
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -26,7 +27,7 @@ class InvalidAnnexFile(ValidationError):
     __doc__ = _(u"Invalid annex file")
 
 
-class IAnnex(form.Schema):
+class IAnnex(model.Schema):
     """ Annex: only annex files are permitted """
 
     fieldset('annex',

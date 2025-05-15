@@ -17,7 +17,7 @@ from zope.schema import ValidationError
 from genweb.organs import utils
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
+from plone.supermodel import model
 
 
 class InvalidAudioFile(ValidationError):
@@ -25,7 +25,7 @@ class InvalidAudioFile(ValidationError):
     __doc__ = _(u"Invalid audio file")
 
 
-class IAudio(form.Schema):
+class IAudio(model.Schema):
     """ Audio: only audio files are permitted """
 
     fieldset('audio',

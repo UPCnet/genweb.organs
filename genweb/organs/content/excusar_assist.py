@@ -9,6 +9,7 @@ from z3c.form.interfaces import DISPLAY_MODE
 from zope import schema
 from zope.schema import TextLine
 from plone.autoform import directives
+from plone.supermodel import model
 
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
@@ -17,7 +18,7 @@ from genweb.organs.utils import addExcuse
 from genweb.organs import utils
 
 
-class IExcusar(form.Schema):
+class IExcusar(model.Schema):
     name = TextLine(
         title=_(u"Nom i cognoms"),
         required=False)
@@ -33,7 +34,7 @@ class IExcusar(form.Schema):
     )
 
 
-class Message(form.SchemaForm):
+class Message(model.SchemaForm):
     ignoreContext = True
     schema = IExcusar
 

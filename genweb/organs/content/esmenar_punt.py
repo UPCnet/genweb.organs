@@ -16,9 +16,10 @@ from AccessControl import Unauthorized
 from plone.event.interfaces import IEventAccessor
 from genweb.organs import utils
 import unicodedata
+from plone.supermodel import model
 
 
-class IEsmenar(form.Schema):
+class IEsmenar(model.Schema):
     """ Enviar missatge als membres /mail_message
     """
     name = TextLine(

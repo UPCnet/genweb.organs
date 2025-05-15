@@ -14,6 +14,7 @@ from zope import schema
 from zope.i18n import translate
 from zope.schema import TextLine
 
+from plone.supermodel import model
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
 from genweb.organs.interfaces import IGenwebOrgansLayer
@@ -24,7 +25,7 @@ import transaction
 import unicodedata
 
 
-class IMessage(form.Schema):
+class IMessage(model.Schema):
     """ Convocar la sessió: /mail_convocar
     """
 
@@ -69,7 +70,7 @@ class IMessage(form.Schema):
     )
 
 
-class Message(form.SchemaForm):
+class Message(model.SchemaForm):
     ignoreContext = True
     schema = IMessage
 

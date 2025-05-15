@@ -14,6 +14,7 @@ from plone.supermodel.directives import fieldset
 from zope import schema
 from zope.schema import ValidationError
 from z3c.form import button
+from plone.supermodel import model
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -30,7 +31,7 @@ class InvalidPDFFile(ValidationError):
     __doc__ = _(u"Invalid PDF file")
 
 
-class IFile(form.Schema):
+class IFile(model.Schema):
     """ File: Per adjuntar els fitxers públics i/o privats
         A la part pública només fitxers PDF """
 

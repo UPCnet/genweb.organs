@@ -11,6 +11,7 @@ from plone.event.interfaces import IEventAccessor
 from plone.namedfile.field import NamedBlobFile
 from plone.supermodel.directives import fieldset
 from zope import schema
+from plone.supermodel import model
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -24,7 +25,7 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 
-class IActa(form.Schema):
+class IActa(model.Schema):
     """ ACTA """
 
     fieldset('acta',

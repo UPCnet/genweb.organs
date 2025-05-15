@@ -16,9 +16,10 @@ from AccessControl import Unauthorized
 from plone.event.interfaces import IEventAccessor
 from genweb.organs import utils
 import unicodedata
+from plone.supermodel import model
 
 
-class IMessage(form.Schema):
+class IMessage(model.Schema):
     """ Enviar missatge als membres /mail_message
     """
 
@@ -43,7 +44,7 @@ class IMessage(form.Schema):
     )
 
 
-class Message(form.SchemaForm):
+class Message(model.SchemaForm):
     ignoreContext = True
     schema = IMessage
 

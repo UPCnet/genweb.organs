@@ -12,6 +12,7 @@ from z3c.form import button
 from z3c.form.interfaces import DISPLAY_MODE
 from zope import schema
 from zope.schema import TextLine
+from plone.supermodel import model
 
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
@@ -20,7 +21,7 @@ from genweb.organs.utils import addPoint
 from genweb.organs import utils
 
 
-class IProposar(form.Schema):
+class IProposar(model.Schema):
     """ Enviar missatge als membres /mail_message"""
     form.mode(intro='display')
     intro = TextLine(
@@ -104,7 +105,7 @@ class IProposar(form.Schema):
     )
 
 
-class Message(form.SchemaForm):
+class Message(model.SchemaForm):
     ignoreContext = True
     schema = IProposar
 

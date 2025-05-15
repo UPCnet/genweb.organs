@@ -14,6 +14,7 @@ from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.supermodel import model
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -47,7 +48,7 @@ def llistaEstats(context):
 directlyProvides(llistaEstats, IContextSourceBinder)
 
 
-class ISubpunt(form.Schema):
+class ISubpunt(model.Schema):
     """ Subpunt: Molt similar el PUNT
     """
     fieldset('subpunt',

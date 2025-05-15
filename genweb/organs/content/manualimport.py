@@ -7,6 +7,7 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from z3c.form import button, form
 from zope import schema
+from plone.supermodel import model
 
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
@@ -18,7 +19,7 @@ import transaction
 import unicodedata
 
 
-class IMessage(form.Schema):
+class IMessage(model.Schema):
     """ Modal used to create massive punts: /manualStructureCreation
     """
 
@@ -30,7 +31,7 @@ class IMessage(form.Schema):
     )
 
 
-class Message(form.SchemaForm):
+class Message(model.SchemaForm):
     ignoreContext = True
     schema = IMessage
 

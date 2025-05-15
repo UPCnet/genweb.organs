@@ -22,6 +22,7 @@ from zope.interface import directlyProvides
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
+from plone.supermodel import model
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -83,7 +84,7 @@ llistaTipusVotacio = SimpleVocabulary(
 )
 
 
-class IAcord(form.Schema):
+class IAcord(model.Schema):
     """ Acord """
 
     fieldset('acord',

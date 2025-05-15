@@ -5,12 +5,15 @@ from z3c.form import form
 from plone.autoform import directives
 from plone.namedfile.field import NamedBlobImage
 from zope import schema
+from plone.supermodel import model
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from genweb.organs import _
 from genweb.organs import utils
 
 
-class IOrgansfolder(form.Schema):
+class IOrgansfolder(model.Schema):
     """ Organs Folder: Carpeta Unitat que conté Organs de Govern
     """
 

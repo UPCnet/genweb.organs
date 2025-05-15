@@ -11,6 +11,7 @@ from z3c.form import button
 from z3c.form.interfaces import DISPLAY_MODE
 from zope import schema
 from zope.schema import TextLine
+from plone.supermodel import model
 
 from genweb.organs import _
 from genweb.organs.utils import addEntryLog
@@ -21,7 +22,7 @@ from genweb.organs import utils
 import unicodedata
 
 
-class IMessage(form.Schema):
+class IMessage(model.Schema):
     """ Informar de la sessio: /mail_informar
     """
 
@@ -46,7 +47,7 @@ class IMessage(form.Schema):
     )
 
 
-class Message(form.SchemaForm):
+class Message(model.SchemaForm):
     ignoreContext = True
     schema = IMessage
 

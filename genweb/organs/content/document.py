@@ -13,9 +13,10 @@ from AccessControl import Unauthorized
 from genweb.organs import utils
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.supermodel import model
 
 
-class IDocument(form.Schema):
+class IDocument(model.Schema):
     """ Document: Per marcar si són públics o privats """
 
     fieldset('document',
