@@ -62,7 +62,7 @@ class ISubpunt(model.Schema):
         required=True
     )
 
-    form.mode(proposalPoint='hidden')
+    directives.mode(proposalPoint='hidden')
     proposalPoint = schema.TextLine(
         title=_(u'Proposal point number'),
         required=False

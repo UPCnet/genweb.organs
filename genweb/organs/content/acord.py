@@ -97,13 +97,13 @@ class IAcord(model.Schema):
         title=_(u'Acord Title'),
         required=True
     )
-    form.mode(proposalPoint='hidden')
+    directives.mode(proposalPoint='hidden')
     proposalPoint = schema.TextLine(
         title=_(u'Proposal point number'),
         required=False,
     )
 
-    form.mode(agreement='hidden')
+    directives.mode(agreement='hidden')
     dexteritytextindexer.searchable('agreement')
     agreement = schema.TextLine(
         title=_(u'Agreement number'),

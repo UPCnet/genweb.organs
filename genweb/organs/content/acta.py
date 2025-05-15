@@ -106,7 +106,7 @@ class IActa(model.Schema):
         required=False,
     )
 
-    form.mode(acta='hidden')
+    directives.mode(acta='hidden')
     acta = NamedBlobFile(
         title=_(u"Acta PDF"),
         description=_(u"Acta PDF file description"),

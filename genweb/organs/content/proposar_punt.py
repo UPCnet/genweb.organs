@@ -13,6 +13,7 @@ from z3c.form.interfaces import DISPLAY_MODE
 from zope import schema
 from zope.schema import TextLine
 from plone.supermodel import model
+from plone.autoform import directives
 
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
@@ -23,7 +24,7 @@ from genweb.organs import utils
 
 class IProposar(model.Schema):
     """ Enviar missatge als membres /mail_message"""
-    form.mode(intro='display')
+    directives.mode(intro='display')
     intro = TextLine(
         description=_(u"""
             La inclusió de punts nous en l'ordre del dia a iniciativa
@@ -38,7 +39,7 @@ class IProposar(model.Schema):
             """),
     )
     # 1. Identificaci´o dels membres que presenten la proposta
-    form.mode(one='display')
+    directives.mode(one='display')
 
     one = TextLine(
         title=_(u"1. Identificació dels membres que presenten la proposta"),
@@ -55,7 +56,7 @@ class IProposar(model.Schema):
         required=True)
 
     # 2. Identificacio de la persona que fa de ponent
-    form.mode(two='display')
+    directives.mode(two='display')
     two = TextLine(
         title=_(u"2. Identificació de la persona que fa de ponent")
     )
@@ -73,7 +74,7 @@ class IProposar(model.Schema):
         required=True)
 
     # 3 Punt de l'ordre del dia que es proposa incloure
-    form.mode(three='display')
+    directives.mode(three='display')
     three = TextLine(
         title=_(u"3. Punt de l'ordre del dia que es proposa incloure"),
     )
