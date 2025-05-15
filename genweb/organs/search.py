@@ -16,7 +16,7 @@ from zope.interface import Interface
 from zope.publisher.browser import BrowserView
 from Products.Five.browser import BrowserView
 
-from genweb.core.utils import pref_lang
+from genweb6.core.utils import pref_lang
 from genweb.organs import permissions
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs import utils

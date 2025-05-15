@@ -6,7 +6,7 @@ from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-from cgi import escape
+from html import escape
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from plone import api

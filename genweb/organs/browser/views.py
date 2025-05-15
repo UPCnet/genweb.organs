@@ -13,7 +13,7 @@ from plone.folder.interfaces import IExplicitOrdering
 from zope.interface import alsoProvides
 from zope.i18n import translate
 
-from genweb.core.utils import json_response
+from genweb6.core.utils import json_response
 from genweb.organs import _
 from genweb.organs import utils
 from genweb.organs.indicators.updating import update_indicators
