@@ -21,6 +21,8 @@ from zope.i18n import translate
 from zope.interface import Invalid
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
+from plone.supermodel import model
+from plone.supermodel import directives as model_directives
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -48,7 +50,39 @@ def is_numeric(value):
     return True
 
 
-class ISessio(form.Schema):
+def numSessio(context):
+    sessions = api.content.find(
+        portal_type='genweb.organs.sessio',
+        context=context)
+    total = 0
+    year = datetime.datetime.today().strftime('%Y')
+    for session in sessions:
+        if session.getObject().start.strftime('%Y') == year:
+            total = total + 1
+    return '{0}'.format(str(total + 1).zfill(2))
+
+
+def numSessioShowOnly(context):
+    sessions = api.content.find(
+        portal_type='genweb.organs.sessio',
+        context=context)
+    total = 0
+    year = datetime.datetime.today().strftime('%Y')
+    for session in sessions:
+        if session.getObject().start.strftime('%Y') == year:
+            total = total + 1
+    return '{0}'.format(str(total + 1).zfill(2))
+
+
+def bodyMail(context):
+    return context.bodyMailconvoquing
+
+
+def signatura(context):
+    return context.footerMail
+
+
+class ISessio(model.Schema):
     """ Sessio
     """
 
@@ -73,18 +107,20 @@ class ISessio(form.Schema):
         required=True,
     )
 
-    form.mode(IAddForm, numSessioShowOnly='display')
-    form.mode(IEditForm, numSessioShowOnly='hidden')
+    directives.mode(IAddForm, numSessioShowOnly='display')
+    directives.mode(IEditForm, numSessioShowOnly='hidden')
     numSessioShowOnly = schema.TextLine(
         title=_(u"Session number"),
         required=False,
+        defaultFactory=numSessioShowOnly
     )
 
-    form.mode(IAddForm, numSessio='hidden')
+    directives.mode(IAddForm, numSessio='hidden')
     numSessio = schema.TextLine(
         title=_(u"Session number"),
         required=True,
         constraint=is_numeric,
+        defaultFactory=numSessio
     )
 
     llocConvocatoria = schema.TextLine(
@@ -103,37 +139,37 @@ class ISessio(form.Schema):
         required=True,
     )
 
-    form.mode(IAddForm, adrecaLlista='display')
+    directives.mode(IAddForm, adrecaLlista='display')
     adrecaLlista = schema.Text(
         title=_(u"mail address"),
         description=_(u"notification_mail_help"),
         required=True,
     )
 
-    form.mode(IAddForm, infoAfectats='display')
-    form.mode(IEditForm, infoAfectats='display')
+    directives.mode(IAddForm, infoAfectats='display')
+    directives.mode(IEditForm, infoAfectats='display')
     infoAfectats = schema.Text(
         title=_(u"Informació"),
         description=_(u"Aquestes dades podran ser omplertes una vegada convocada la sessió."),
         required=False,
     )
 
-    form.mode(IAddForm, adrecaAfectatsLlista='display')
+    directives.mode(IAddForm, adrecaAfectatsLlista='display')
     adrecaAfectatsLlista = schema.Text(
         title=_(u"Stakeholders mail address"),
         description=_(u"Stakeholders mail address help."),
         required=False,
     )
 
-    form.mode(IAddForm, infoAssistents='display')
-    form.mode(IEditForm, infoAssistents='display')
+    directives.mode(IAddForm, infoAssistents='display')
+    directives.mode(IEditForm, infoAssistents='display')
     infoAssistents = schema.Text(
         title=_(u"Informació"),
         description=_(u"Aquestes dades podran ser omplertes una vegada convocada la sessió."),
         required=False,
     )
 
-    form.mode(IAddForm, membresConvocats='display')
+    directives.mode(IAddForm, membresConvocats='display')
     directives.widget(membresConvocats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('membresConvocats')
     membresConvocats = schema.Text(
@@ -142,7 +178,7 @@ class ISessio(form.Schema):
         required=False,
     )
 
-    form.mode(IAddForm, membresConvidats='display')
+    directives.mode(IAddForm, membresConvidats='display')
     directives.widget(membresConvidats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('membresConvidats')
     membresConvidats = schema.Text(
@@ -151,7 +187,7 @@ class ISessio(form.Schema):
         required=False,
     )
 
-    form.mode(IAddForm, llistaExcusats='display')
+    directives.mode(IAddForm, llistaExcusats='display')
     directives.widget(llistaExcusats=WysiwygFieldWidget)
     dexteritytextindexer.searchable('llistaExcusats')
     llistaExcusats = schema.Text(
@@ -160,7 +196,7 @@ class ISessio(form.Schema):
         required=False,
     )
 
-    form.mode(IAddForm, assistents='display')
+    directives.mode(IAddForm, assistents='display')
     directives.widget(assistents=WysiwygFieldWidget)
     dexteritytextindexer.searchable('assistents')
     assistents = schema.Text(
@@ -169,7 +205,7 @@ class ISessio(form.Schema):
         required=False,
     )
 
-    form.mode(IAddForm, noAssistents='display')
+    directives.mode(IAddForm, noAssistents='display')
     directives.widget(noAssistents=WysiwygFieldWidget)
     dexteritytextindexer.searchable('noAssistents')
     noAssistents = schema.Text(
@@ -184,6 +220,7 @@ class ISessio(form.Schema):
         title=_(u"Body Mail"),
         description=_(u"Body Mail convoquing description"),
         required=False,
+        defaultFactory=bodyMail
     )
 
     directives.widget(signatura=WysiwygFieldWidget)
@@ -192,13 +229,14 @@ class ISessio(form.Schema):
         title=_(u"Signatura"),
         description=_(u"Signatura description"),
         required=False,
+        defaultFactory=signatura
     )
 
     directives.omitted('infoQuorums')
     infoQuorums = schema.Text(title=u'', required=False, default=u'{}')
 
-    form.mode(IAddForm, unitatDocumental='display')
-    form.mode(IEditForm, unitatDocumental='display')
+    directives.mode(IAddForm, unitatDocumental='display')
+    directives.mode(IEditForm, unitatDocumental='display')
     unitatDocumental = schema.TextLine(
         title=u'Unitat documental',
         description=_(u'Aquesta informació es generada automàticament pel gDOC'),
@@ -207,13 +245,10 @@ class ISessio(form.Schema):
     )
 
 
-@form.default_value(field=ISessio['numSessio'])
-def numSessioDefaultValue(data):
-    # Agafem sessions ordenades
-    # Les comptem i assignem el següent valor
+def numSessio(context):
     sessions = api.content.find(
         portal_type='genweb.organs.sessio',
-        context=data.context)
+        context=context)
     total = 0
     year = datetime.datetime.today().strftime('%Y')
     for session in sessions:
@@ -222,14 +257,10 @@ def numSessioDefaultValue(data):
     return '{0}'.format(str(total + 1).zfill(2))
 
 
-@form.default_value(field=ISessio['numSessioShowOnly'])
-def numSessioShowOnlyDefaultValue(data):
-    # Agafem sessions ordenades
-    # Les comptem i assignem el següent valor.
-    # Aquest camp és només READONLY
+def numSessioShowOnly(context):
     sessions = api.content.find(
         portal_type='genweb.organs.sessio',
-        context=data.context)
+        context=context)
     total = 0
     year = datetime.datetime.today().strftime('%Y')
     for session in sessions:
@@ -238,16 +269,12 @@ def numSessioShowOnlyDefaultValue(data):
     return '{0}'.format(str(total + 1).zfill(2))
 
 
-@form.default_value(field=ISessio['bodyMail'])
-def bodyMailDefaultValue(data):
-    # copy bodyMail from Organ de Govern (parent object)
-    return data.context.bodyMailconvoquing
+def bodyMail(context):
+    return context.bodyMailconvoquing
 
 
-@form.default_value(field=ISessio['signatura'])
-def signaturaDefaultValue(data):
-    # copy signatura from Organ de Govern (parent object)
-    return data.context.footerMail
+def signatura(context):
+    return context.footerMail
 
 
 class Edit(form.EditForm):

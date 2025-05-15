@@ -8,6 +8,7 @@ from plone.autoform import directives
 from z3c.form import form
 from plone.indexer import indexer
 from plone.supermodel.directives import fieldset
+from plone.supermodel import model
 
 from zope import schema
 from zope.interface import directlyProvides
@@ -50,7 +51,7 @@ def llistaEstats(context):
 directlyProvides(llistaEstats, IContextSourceBinder)
 
 
-class IPunt(form.Schema):
+class IPunt(model.Schema):
     """ Punt
     """
     fieldset('punt',
@@ -64,7 +65,7 @@ class IPunt(form.Schema):
         required=True
     )
 
-    form.mode(proposalPoint='hidden')
+    directives.mode(proposalPoint='hidden')
     proposalPoint = schema.TextLine(
         title=_(u'Proposal point number'),
         required=False

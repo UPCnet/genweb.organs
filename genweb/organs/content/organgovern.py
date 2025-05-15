@@ -10,12 +10,13 @@ from plone.app.textfield import RichText as RichTextField
 from plone.app.users.schema import checkEmailAddress
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
-from z3c.form import form
 from plone.indexer import indexer
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel.directives import fieldset
 from zope import schema
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+from plone.supermodel import model
+from z3c.form import form
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -39,7 +40,7 @@ types = SimpleVocabulary(
 defaultEstats = _(u"<p>Esborrany Yellow</p><p>Pendent d'aprovació Orange</p><p>Aprovat Green</p><p>No aprovat Red</p><p>Derogat DarkRed</p><p>Informatiu LightSkyBlue</p><p>Informat MediumBlue</p>")
 
 
-class IOrgangovern(form.Schema):
+class IOrgangovern(model.Schema):
     """ Organ de Govern
     """
 
@@ -68,14 +69,12 @@ class IOrgangovern(form.Schema):
              fields=['visiblegdoc', 'serie', 'signants', 'author'],
              )
 
-    dexterity.write_permission(title='genweb.webmaster')
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_(u'Organ Title'),
         required=True
     )
 
-    dexterity.write_permission(acronim='genweb.webmaster')
     dexteritytextindexer.searchable('acronim')
     acronim = schema.TextLine(
         title=_(u'Acronym'),
@@ -91,7 +90,7 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
-    dexterity.write_permission(organType='genweb.webmaster')
+    directives.write_permission(organType='genweb.webmaster')
     organType = schema.Choice(
         title=_(u"Organ Govern type"),
         vocabulary=types,
@@ -144,7 +143,7 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
-    directives.read_permission(estatsLlista='genweb.organs.add.organs')
+    directives.write_permission(estatsLlista='genweb.organs.add.organs')
     directives.write_permission(estatsLlista='genweb.organs.add.organs')
     directives.widget(estatsLlista=WysiwygFieldWidget)
     estatsLlista = schema.Text(
@@ -209,7 +208,7 @@ class IOrgangovern(form.Schema):
         required=False,
     )
 
-    form.widget('signants', SelectUsersInputFieldWidget)
+    directives.widget('signants', SelectUsersInputFieldWidget)
     signants = schema.TextLine(
         title=_(u'Signants'),
         description=_(u"Identifica totes les persones que han de signar i en l'ordre en el es tramitarà en  el Portafirmes UPC"),
