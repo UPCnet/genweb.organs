@@ -4,7 +4,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
 from plone import api
-from z3c.form import form
+from z3c.form import form, button
 from z3c.form.interfaces import DISPLAY_MODE
 from zope import schema
 from zope.schema import TextLine
@@ -34,7 +34,7 @@ class IExcusar(model.Schema):
     )
 
 
-class Message(model.SchemaForm):
+class Message(form.Form):
     ignoreContext = True
     schema = IExcusar
 

@@ -13,6 +13,11 @@ from plone.registry.interfaces import IRegistry
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
 
+from zope.component.hooks import getSite
+from time import time
+from Products.CMFCore.utils import getToolByName
+from plone.memoize import ram
+
 from genweb.organs import _
 from genweb.organs.controlpanel import IOrgansSettings
 
@@ -631,3 +636,11 @@ def getFilesSessio(context):
                 files.append(file.getObject())
 
     return files
+
+@ram.cache(lambda *args: time() // (60 * 60))
+def packages_installed():
+    portal = getSite()
+
+    qi_tool = getToolByName(portal, 'portal_quickinstaller')
+    installed = [p['id'] for p in qi_tool.listInstalledProducts()]
+    return installed

@@ -290,134 +290,134 @@
              zope.lifecycleevent.interfaces.IObjectRemovedEvent"
         handler=".events.removeObject.removeAcord" />
 
-    <browser:page
+    <!-- <browser:page
         for="genweb.organs.content.sessio.ISessio"
         name="excusar_assist_sessio"
-        class=".content.excusar_assist.Message"
-        template="templates/excusarassist_view.pt"
+        class="genweb.organs.content.excusar_assist.Message"
+        template="genweb.organs.content.templates/excusarassist_view.pt"
         permission="zope2.View"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.sessio.ISessio"
         name="view_as_role"
-        class=".content.impersonate_as.ShowSessionAs"
-        template="templates/impersonate_as.pt"
+        class="genweb.organs.content.impersonate_as.ShowSessionAs"
+        template="genweb.organs.content.templates/impersonate_as.pt"
         permission="zope2.View"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.sessio.ISessio"
         name="mail_convocar"
-        class=".content.mail_convocar.Message"
-        template="templates/mail_convocar.pt"
+        class="genweb.organs.content.mail_convocar.Message"
+        template="genweb.organs.content.templates/mail_convocar.pt"
         permission="zope2.View"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.sessio.ISessio"
         name="mail_informar"
-        class=".content.mail_informar.Message"
-        template="templates/informar_view.pt"
+        class="genweb.organs.content.mail_informar.Message"
+        template="genweb.organs.content.templates/informar_view.pt"
         permission="zope2.View"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.sessio.ISessio"
         name="mail_message"
-        class=".content.mail_message.Message"
-        template="templates/message_view.pt"
+        class="genweb.organs.content.mail_message.Message"
+        template="genweb.organs.content.templates/message_view.pt"
         permission="zope2.View"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.sessio.ISessio"
         name="manualStructureCreation"
-        class=".content.manualimport.Message"
-        template="templates/manualimport_view.pt"
+        class="genweb.organs.content.manualimport.Message"
+        template="genweb.organs.content.templates/manualimport_view.pt"
         permission="zope2.View"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.organgovern.IOrgangovern"
         name="view"
-        class=".content.organgovern.View"
-        template="templates/organgovern_view.pt"
+        class="genweb.organs.content.organgovern.View"
+        template="genweb.organs.content.templates/organgovern_view.pt"
         permission="zope2.View"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.organgovern.IOrgangovern"
         name="exportAcordsCSV"
-        class=".content.organgovern.exportActas"
+        class="genweb.organs.content.organgovern.exportActas"
         permission="cmf.ManagePortal"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.sessio.ISessio"
         name="presentation"
-        class=".content.presentation.Presentation"
-        template="templates/presentation.pt"
+        class="genweb.organs.content.presentation.Presentation"
+        template="genweb.organs.content.templates/presentation.pt"
         permission="zope2.View"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.sessio.ISessio"
         name="proposa_punt_od"
-        class=".content.proposar_punt.Message"
-        template="templates/proposarpunt_view.pt"
+        class="genweb.organs.content.proposar_punt.Message"
+        template="genweb.organs.content.templates/proposarpunt_view.pt"
         permission="zope2.View"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.punt.IPunt"
         name="view"
-        class=".content.punt.View"
-        template="templates/punt+subpunt_view.pt"
+        class="genweb.organs.content.punt.View"
+        template="genweb.organs.content.templates/punt+subpunt_view.pt"
         permission="zope2.View"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.sessio.ISessio"
         name="view"
-        class=".content.sessio.View"
-        template="templates/sessio_view.pt"
+        class="genweb.organs.content.sessio.View"
+        template="genweb.organs.content.templates/sessio_view.pt"
         permission="zope2.View"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.sessio.ISessio"
         name="openQuorum"
-        class=".content.sessio.OpenQuorum"
+        class="genweb.organs.content.sessio.OpenQuorum"
         permission="genweb.organs.manage.quorum"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.sessio.ISessio"
         name="closeQuorum"
-        class=".content.sessio.CloseQuorum"
+        class="genweb.organs.content.sessio.CloseQuorum"
         permission="genweb.organs.manage.quorum"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.sessio.ISessio"
         name="removeQuorums"
-        class=".content.sessio.RemoveQuorums"
+        class="genweb.organs.content.sessio.RemoveQuorums"
         permission="genweb.organs.remove.quorum"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.sessio.ISessio"
         name="addQuorum"
-        class=".content.sessio.AddQuorum"
+        class="genweb.organs.content.sessio.AddQuorum"
         permission="genweb.organs.add.quorum"
         layer="..interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for="genweb.organs.content.sessio.ISessio"
         name="exportCSV"
-        class=".content.sessio.ExportCSV"
+        class="genweb.organs.content.sessio.ExportCSV"
         permission="zope2.View"
-        layer="..interfaces.IGenwebOrgansLayer" />
+        layer="..interfaces.IGenwebOrgansLayer" /> -->
 
 </configure>

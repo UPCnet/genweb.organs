@@ -18,7 +18,7 @@ class IPresentation(model.Schema):
     """
 
 
-class Presentation(model.SchemaForm):
+class Presentation(form.Form):
     def status(self):
         return api.content.get_state(obj=self.context)
 

@@ -44,7 +44,7 @@ class IMessage(model.Schema):
     )
 
 
-class Message(model.SchemaForm):
+class Message(form.Form):
     ignoreContext = True
     schema = IMessage
 

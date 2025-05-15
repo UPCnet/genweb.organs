@@ -106,7 +106,7 @@ class IProposar(model.Schema):
     )
 
 
-class Message(model.SchemaForm):
+class Message(form.Form):
     ignoreContext = True
     schema = IProposar
 

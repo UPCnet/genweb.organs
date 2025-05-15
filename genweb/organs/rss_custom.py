@@ -24,7 +24,7 @@ from zope.interface import implementer, Interface
 from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.component import queryMultiAdapter
 
-from genweb6.theme.browser.viewlets import packages_installed
+from genweb.organs.utils import packages_installed
 from genweb.organs import utils
 
 

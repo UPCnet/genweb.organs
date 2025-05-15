@@ -16,7 +16,7 @@ class IImpersonate(model.Schema):
     """
 
 
-class ShowSessionAs(model.SchemaForm):
+class ShowSessionAs(form.Form):
     def getUserRole(self):
         # Només els rols Reponsable, Editor i Manager poden veure aquesta vista
         role = self.request.form.get('id', '')
