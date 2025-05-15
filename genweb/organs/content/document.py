@@ -7,7 +7,7 @@ from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-from plone.app.dexterity import PloneMessageFactory as _PMF
+from Products.CMFPlone import PloneMessageFactory as _PMF
 from plone.supermodel.directives import fieldset
 from AccessControl import Unauthorized
 from genweb.organs import utils
@@ -15,6 +15,10 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.supermodel import model
 
+# Define la función defaultFactory para el campo 'title'
+def title_default_factory(context):
+    """Genera el valor predeterminado para el campo 'title'."""
+    return context.Title()
 
 class IDocument(model.Schema):
     """ Document: Per marcar si són públics o privats """
@@ -27,7 +31,8 @@ class IDocument(model.Schema):
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_PMF(u'label_title', default=u'Title'),
-        required=True
+        required=True,
+        defaultFactory=title_default_factory
     )
 
     dexteritytextindexer.searchable('title')
@@ -58,10 +63,10 @@ class IDocument(model.Schema):
     )
 
 
-@form.default_value(field=IDocument['title'])
-def titleDefaultValue(data):
-    # fica el títol de document
-    return data.context.Title()
+# @form.default_value(field=IDocument['title'])
+# def titleDefaultValue(data):
+#     # fica el títol de document
+#     return data.context.Title()
 
 
 class Edit(form.EditForm):

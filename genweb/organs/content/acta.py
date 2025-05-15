@@ -3,7 +3,7 @@ from AccessControl import Unauthorized
 
 from collective import dexteritytextindexer
 from plone import api
-from plone.app.dexterity import PloneMessageFactory as _PMF
+from Products.CMFPlone import PloneMessageFactory as _PMF
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from z3c.form import form
@@ -24,6 +24,36 @@ import transaction
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
+# Define las funciones defaultFactory para cada campo
+def title_default_factory(context):
+    return 'Acta - ' + context.Title()
+
+def membres_convidats_default_factory(context):
+    return context.membresConvidats
+
+def membres_convocats_default_factory(context):
+    return context.assistents
+
+def llista_excuses_default_factory(context):
+    return context.llistaExcusats
+
+def llista_no_assistens_default_factory(context):
+    return context.noAssistents
+
+def lloc_convocatoria_default_factory(context):
+    return context.llocConvocatoria
+
+def hora_inici_default_factory(context):
+    acc = IEventAccessor(context)
+    return acc.start
+
+def hora_fi_default_factory(context):
+    acc = IEventAccessor(context)
+    return acc.end
+
+def orden_del_dia_default_factory(context):
+    return Punts2Acta(context)
+
 
 class IActa(model.Schema):
     """ ACTA """
@@ -42,22 +72,26 @@ class IActa(model.Schema):
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_PMF(u'label_title', default=u'Title'),
-        required=True
+        required=True,
+        defaultFactory=title_default_factory
     )
 
     horaInici = schema.Datetime(
         title=_(u"Session start time"),
         required=False,
+        defaultFactory=hora_inici_default_factory
     )
 
     horaFi = schema.Datetime(
         title=_(u"Session end time"),
         required=False,
+        defaultFactory=hora_fi_default_factory
     )
 
     llocConvocatoria = schema.TextLine(
         title=_(u"Session location"),
         required=False,
+        defaultFactory=lloc_convocatoria_default_factory
     )
 
     directives.widget(membresConvocats=WysiwygFieldWidget)
@@ -66,6 +100,7 @@ class IActa(model.Schema):
         title=_(u"Assistants"),
         description=_(u"Assistants help"),
         required=False,
+        defaultFactory=membres_convocats_default_factory
     )
 
     directives.widget(membresConvidats=WysiwygFieldWidget)
@@ -74,6 +109,7 @@ class IActa(model.Schema):
         title=_(u"Invited members"),
         description=_(u"Invited members help"),
         required=False,
+        defaultFactory=membres_convidats_default_factory
     )
 
     directives.widget(llistaExcusats=WysiwygFieldWidget)
@@ -82,6 +118,7 @@ class IActa(model.Schema):
         title=_(u"Excused members"),
         description=_(u"Excused members help"),
         required=False,
+        defaultFactory=llista_excuses_default_factory
     )
 
     directives.widget(llistaNoAssistens=WysiwygFieldWidget)
@@ -90,6 +127,7 @@ class IActa(model.Schema):
         title=_(u"No assistents"),
         description=_(u"No assistents help"),
         required=False,
+        defaultFactory=llista_no_assistens_default_factory
     )
 
     directives.widget(ordenDelDia=WysiwygFieldWidget)
@@ -98,6 +136,7 @@ class IActa(model.Schema):
         title=_(u"Session order"),
         description=_(u"Session order description"),
         required=False,
+        defaultFactory=orden_del_dia_default_factory
     )
 
     enllacVideo = schema.TextLine(
@@ -114,63 +153,63 @@ class IActa(model.Schema):
     )
 
 
-@form.default_value(field=IActa['title'])
-def titleDefaultValue(data):
-    # copy membresConvidats from Session (parent object)
-    return 'Acta - ' + data.context.Title()
+# @form.default_value(field=IActa['title'])
+# def titleDefaultValue(data):
+#     # copy membresConvidats from Session (parent object)
+#     return 'Acta - ' + data.context.Title()
 
 
-@form.default_value(field=IActa['membresConvidats'])
-def membresConvidatsDefaultValue(data):
-    # copy membresConvidats from Session (parent object)
-    return data.context.membresConvidats
+# @form.default_value(field=IActa['membresConvidats'])
+# def membresConvidatsDefaultValue(data):
+#     # copy membresConvidats from Session (parent object)
+#     return data.context.membresConvidats
 
 
-@form.default_value(field=IActa['membresConvocats'])
-def membresConvocatsDefaultValue(data):
-    # copy membresConvocats from Session (parent object)
-    return data.context.assistents
+# @form.default_value(field=IActa['membresConvocats'])
+# def membresConvocatsDefaultValue(data):
+#     # copy membresConvocats from Session (parent object)
+#     return data.context.assistents
 
 
-@form.default_value(field=IActa['llistaExcusats'])
-def llistaExcusatsDefaultValue(data):
-    # copy llistaExcusats from Session (parent object)
-    return data.context.llistaExcusats
+# @form.default_value(field=IActa['llistaExcusats'])
+# def llistaExcusatsDefaultValue(data):
+#     # copy llistaExcusats from Session (parent object)
+#     return data.context.llistaExcusats
 
 
-@form.default_value(field=IActa['llistaNoAssistens'])
-def llistaNoAssistensDefaultValue(data):
-    # copy noAssistents from Session (parent object)
-    return data.context.noAssistents
+# @form.default_value(field=IActa['llistaNoAssistens'])
+# def llistaNoAssistensDefaultValue(data):
+#     # copy noAssistents from Session (parent object)
+#     return data.context.noAssistents
 
 
-# Hidden field used only to render and generate the PDF
-@form.default_value(field=IActa['llocConvocatoria'])
-def llocConvocatoriaDefaultValue(data):
-    # copy llocConvocatoria from Session (parent object)
-    return data.context.llocConvocatoria
+# # Hidden field used only to render and generate the PDF
+# @form.default_value(field=IActa['llocConvocatoria'])
+# def llocConvocatoriaDefaultValue(data):
+#     # copy llocConvocatoria from Session (parent object)
+#     return data.context.llocConvocatoria
 
 
-# Hidden field used only to render and generate the PDF
-@form.default_value(field=IActa['horaInici'])
-def horaIniciDefaultValue(data):
-    # copy horaInici from Session (parent object)
-    acc = IEventAccessor(data.context)
-    return acc.start
+# # Hidden field used only to render and generate the PDF
+# @form.default_value(field=IActa['horaInici'])
+# def horaIniciDefaultValue(data):
+#     # copy horaInici from Session (parent object)
+#     acc = IEventAccessor(data.context)
+#     return acc.start
 
 
-# Hidden field used only to render and generate the PDF
-@form.default_value(field=IActa['horaFi'])
-def horaFiDefaultValue(data):
-    # copy horaFi from Session (parent object)
-    acc = IEventAccessor(data.context)
-    return acc.end
+# # Hidden field used only to render and generate the PDF
+# @form.default_value(field=IActa['horaFi'])
+# def horaFiDefaultValue(data):
+#     # copy horaFi from Session (parent object)
+#     acc = IEventAccessor(data.context)
+#     return acc.end
 
 
-@form.default_value(field=IActa['ordenDelDia'])
-def ordenDelDiaDefaultValue(data):
-    # Copy all Punts from Session to Acta
-    return Punts2Acta(data)
+# @form.default_value(field=IActa['ordenDelDia'])
+# def ordenDelDiaDefaultValue(data):
+#     # Copy all Punts from Session to Acta
+#     return Punts2Acta(data)
 
 
 def Punts2Acta(self):

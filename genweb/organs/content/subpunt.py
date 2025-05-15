@@ -5,16 +5,17 @@ from collective import dexteritytextindexer
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
-from z3c.form import form
+from plone.autoform.interfaces import IFormFieldProvider
 from plone.indexer import indexer
 from plone.supermodel.directives import fieldset
 from zope import schema
-from zope.interface import directlyProvides
+from zope.interface import directlyProvides, provider
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.supermodel import model
+from z3c.form import form
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -32,12 +33,12 @@ def llistaEstats(context):
     for value in values.split('</p>'):
         if value != '':
             item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
-            estat = ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8')
+            estat = ' '.join(item_net.split()[:-1]).lstrip()
             literals.append(estat)
 
     for item in literals:
         if isinstance(item, str):
-            flattened = unicodedata.normalize('NFKD', item.decode('utf-8')).encode('ascii', errors='ignore')
+            flattened = unicodedata.normalize('NFKD', item).encode('ascii', errors='ignore')
         else:
             flattened = unicodedata.normalize('NFKD', item).encode('ascii', errors='ignore')
         terms.append(SimpleVocabulary.createTerm(item, flattened, item))
@@ -48,9 +49,32 @@ def llistaEstats(context):
 directlyProvides(llistaEstats, IContextSourceBinder)
 
 
+def proposal_point_default(context):
+    portal = api.portal.get()
+    request = portal.REQUEST
+    view = request.get('PUBLISHED', None)
+    if hasattr(view, 'context'):
+        context = view.context
+    else:
+        return "1.1"
+
+    portal_catalog = api.portal.get_tool(name='portal_catalog')
+    path_url = context.getPhysicalPath()[1:]
+    folder_path = '/' + '/'.join(path_url)
+
+    results = portal_catalog.searchResults(
+        portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
+        path={'query': folder_path, 'depth': 1}
+    )
+    subpunt_id = len(results) + 1
+
+    punt_id = context.proposalPoint if getattr(context, 'proposalPoint', None) else 1
+    return f"{punt_id}.{subpunt_id}"
+
+
+@provider(IFormFieldProvider)
 class ISubpunt(model.Schema):
-    """ Subpunt: Molt similar el PUNT
-    """
+    """ Subpunt: Molt similar el PUNT """
     fieldset('subpunt',
              label=_(u'Tab subpunt'),
              fields=['title', 'proposalPoint', 'defaultContent', 'estatsLlista']
@@ -65,7 +89,8 @@ class ISubpunt(model.Schema):
     directives.mode(proposalPoint='hidden')
     proposalPoint = schema.TextLine(
         title=_(u'Proposal point number'),
-        required=False
+        required=False,
+        defaultFactory=proposal_point_default,
     )
 
     directives.widget(defaultContent=WysiwygFieldWidget)
@@ -82,28 +107,6 @@ class ISubpunt(model.Schema):
     )
 
 
-@form.default_value(field=ISubpunt['proposalPoint'])
-def proposalPointDefaultValue(data):
-    # Assign default proposalPoint value to Subpunt
-    portal_catalog = api.portal.get_tool(name='portal_catalog')
-    path_url = data.context.getPhysicalPath()[1:]
-    folder_path = ""
-    for path in path_url:
-        folder_path += '/' + path
-
-    values = portal_catalog.searchResults(
-        portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
-        path={'query': folder_path,
-              'depth': 1})
-    subpunt_id = int(len(values)) + 1
-    if data.context.proposalPoint is None:
-        data.context.proposalPoint = 1
-        punt_id = 1
-    else:
-        punt_id = data.context.proposalPoint
-    return str(punt_id) + '.' + str(subpunt_id)
-
-
 @indexer(ISubpunt)
 def proposalPoint(obj):
     return obj.proposalPoint
@@ -115,6 +118,7 @@ class Edit(form.EditForm):
 
 class View(BrowserView, UtilsFirmaDocumental):
     index = ViewPageTemplateFile("templates/punt+subpunt_view.pt")
+
     def __call__(self):
         return self.index()
 
@@ -131,7 +135,7 @@ class View(BrowserView, UtilsFirmaDocumental):
         for value in values.split('</p>'):
             if value != '':
                 item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
-                if estat.decode('utf-8') == ' '.join(item_net.split()[:-1]).lstrip():
+                if estat == ' '.join(item_net.split()[:-1]).lstrip():
                     return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
         return color
 

@@ -6,7 +6,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 
 from collective import dexteritytextindexer
 from plone import api
-from plone.app.dexterity import PloneMessageFactory as _PMF
+from Products.CMFPlone import PloneMessageFactory as _PMF
 from z3c.form import form
 from plone.namedfile.field import NamedBlobFile
 from plone.namedfile.utils import get_contenttype
@@ -23,12 +23,30 @@ import transaction
 
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
+from z3c.form.validator import SimpleFieldValidator
+from zope.component import adapter
+from plone.dexterity.interfaces import IDexterityContent
 
 
 class InvalidPDFFile(ValidationError):
     """Exception for invalid PDF file"""
     __doc__ = _(u"Invalid PDF file")
+
+
+@adapter(schema.interfaces.IField, IDexterityContent, schema.interfaces.IField)
+class VisibleFileValidator(SimpleFieldValidator):
+    def validate(self, value):
+        """Valida que el archivo sea un PDF."""
+        super().validate(value)
+        if value is not None:
+            mimetype = get_contenttype(value)
+            if mimetype != 'application/pdf':
+                raise InvalidPDFFile(mimetype)
+
+# Define la función defaultFactory para el campo 'title'
+def title_default_factory(context):
+    """Genera el valor predeterminado para el campo 'title'."""
+    return context.Title()
 
 
 class IFile(model.Schema):
@@ -43,7 +61,8 @@ class IFile(model.Schema):
     dexteritytextindexer.searchable('title')
     title = schema.TextLine(
         title=_PMF(u'label_title', default=u'Title'),
-        required=True
+        required=True,
+        defaultFactory=title_default_factory
     )
 
     dexteritytextindexer.searchable('description')
@@ -70,18 +89,18 @@ class IFile(model.Schema):
     )
 
 
-@form.validator(field=IFile['visiblefile'])
-def validateFileType(value):
-    if value is not None:
-        mimetype = get_contenttype(value)
-        if mimetype != 'application/pdf':
-            raise InvalidPDFFile(mimetype)
+# @form.validator(field=IFile['visiblefile'])
+# def validateFileType(value):
+#     if value is not None:
+#         mimetype = get_contenttype(value)
+#         if mimetype != 'application/pdf':
+#             raise InvalidPDFFile(mimetype)
 
 
-@form.default_value(field=IFile['title'])
-def titleDefaultValue(data):
-    # ficar el títol de la sessió
-    return data.context.Title()
+# @form.default_value(field=IFile['title'])
+# def titleDefaultValue(data):
+#     # ficar el títol de la sessió
+#     return data.context.Title()
 
 
 class Edit(form.EditForm):
@@ -125,7 +144,7 @@ class Edit(form.EditForm):
 
         if info_firma.get('private', {}).get('uploaded', False):
             if w_hiddenfile.action() == 'replace':
-                info_firma['private'].update({ # hará que aparezca el check de subir a gDOC con estado amarillo
+                info_firma['private'].update({  # hará que aparezca el check de subir a gDOC con estado amarillo
                     'replaced': True,
                     'uploaded': False,
                     'error': 'El fitxer ha estat reemplaçat'
@@ -267,7 +286,9 @@ class View(BrowserView):
 
         if self.context.visiblefile and self.context.hiddenfile:
             if organ_tipus == 'open_organ':
-                if utils.checkhasRol(['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+                if utils.checkhasRol(
+                    ['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'],
+                        roles):
                     return False
                 else:
                     return True
@@ -277,24 +298,33 @@ class View(BrowserView):
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG4-Afectat'], roles):
+                if utils.checkhasRol(
+                    ['OG1-Secretari', 'OG2-Editor', 'OG4-Afectat'],
+                        roles):
                     return True
                 else:
                     return False
 
         elif self.context.hiddenfile:
             if organ_tipus == 'open_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+                if utils.checkhasRol(
+                    ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat',
+                     'OG5-Convidat'],
+                        roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_members_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+                if utils.checkhasRol(
+                    ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'],
+                        roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+                if utils.checkhasRol(
+                    ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'],
+                        roles):
                     return True
                 else:
                     return False
@@ -303,12 +333,16 @@ class View(BrowserView):
             if organ_tipus == 'open_organ':
                 return True
             elif organ_tipus == 'restricted_to_members_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+                if utils.checkhasRol(
+                    ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'],
+                        roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+                if utils.checkhasRol(
+                    ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'],
+                        roles):
                     return True
                 else:
                     return False
@@ -334,33 +368,47 @@ class View(BrowserView):
 
         if self.context.visiblefile and self.context.hiddenfile:
             if organ_tipus == 'open_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+                if utils.checkhasRol(
+                    ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat',
+                     'OG5-Convidat'],
+                        roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_members_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+                if utils.checkhasRol(
+                    ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'],
+                        roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+                if utils.checkhasRol(
+                    ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'],
+                        roles):
                     return True
                 else:
                     return False
         elif self.context.hiddenfile:
             if organ_tipus == 'open_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+                if utils.checkhasRol(
+                    ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat',
+                     'OG5-Convidat'],
+                        roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_members_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+                if utils.checkhasRol(
+                    ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'],
+                        roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+                if utils.checkhasRol(
+                    ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'],
+                        roles):
                     return True
                 else:
                     return False
@@ -373,14 +421,17 @@ class View(BrowserView):
             else:
                 raise Unauthorized
 
-
     def changeReserved(self):
         roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
-        return self.hihaReserved() and utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
+        return self.hihaReserved() and utils.checkhasRol(
+            ['Manager', 'OG1-Secretari', 'OG2-Editor'],
+            roles)
 
     def changePublic(self):
         roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
-        return self.hihaPublic() and utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
+        return self.hihaPublic() and utils.checkhasRol(
+            ['Manager', 'OG1-Secretari', 'OG2-Editor'],
+            roles)
 
     def canView(self):
         # Permissions to view FILE
@@ -393,7 +444,9 @@ class View(BrowserView):
         organ_tipus = self.context.organType
 
         if organ_tipus == 'open_organ':
-            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
+            if estatSessio == 'planificada' and utils.checkhasRol(
+                ['OG1-Secretari', 'OG2-Editor'],
+                    roles):
                 return True
             elif estatSessio == 'convocada':
                 return True
@@ -407,7 +460,9 @@ class View(BrowserView):
                 raise Unauthorized
 
         elif organ_tipus == 'restricted_to_members_organ':
-            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
+            if estatSessio == 'planificada' and utils.checkhasRol(
+                ['OG1-Secretari', 'OG2-Editor'],
+                    roles):
                 return True
             elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
@@ -421,7 +476,9 @@ class View(BrowserView):
                 raise Unauthorized
 
         elif organ_tipus == 'restricted_to_affected_organ':
-            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
+            if estatSessio == 'planificada' and utils.checkhasRol(
+                ['OG1-Secretari', 'OG2-Editor'],
+                    roles):
                 return True
             elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
@@ -450,7 +507,10 @@ class VisibleToHidden(BrowserView):
             self.context.hiddenfile = self.context.visiblefile
             self.context.visiblefile = None
 
-        IStatusMessage(self.request).addStatusMessage(_(u'Visibilitat del fitxer modificada correctament.'), 'info')
+        IStatusMessage(
+            self.request).addStatusMessage(
+            _(u'Visibilitat del fitxer modificada correctament.'),
+            'info')
 
         info_firma = getattr(self.context, 'info_firma', None) or {}
         if not isinstance(info_firma, dict):
@@ -485,7 +545,10 @@ class HiddenToVisible(BrowserView):
             self.context.visiblefile = self.context.hiddenfile
             self.context.hiddenfile = None
 
-        IStatusMessage(self.request).addStatusMessage(_(u'Visibilitat del fitxer modificada correctament.'), 'info')
+        IStatusMessage(
+            self.request).addStatusMessage(
+            _(u'Visibilitat del fitxer modificada correctament.'),
+            'info')
 
         info_firma = getattr(self.context, 'info_firma', None) or {}
         if not isinstance(info_firma, dict):

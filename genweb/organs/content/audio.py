@@ -8,7 +8,7 @@ from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.MimeTypeItem import guess_icon_path
 from collective import dexteritytextindexer
-from plone.app.dexterity import PloneMessageFactory as _PMF
+from Products.CMFPlone import PloneMessageFactory as _PMF
 from AccessControl import Unauthorized
 from plone.supermodel.directives import fieldset
 from plone import api
@@ -19,11 +19,27 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.supermodel import model
 
+from zope.interface import Invalid
+from z3c.form.validator import SimpleFieldValidator
+from zope.component import adapter
+from plone.dexterity.interfaces import IDexterityContent
+
 
 class InvalidAudioFile(ValidationError):
     """Exception for invalid audio file"""
     __doc__ = _(u"Invalid audio file")
 
+@adapter(schema.interfaces.IField, IDexterityContent, schema.interfaces.IField)
+class AudioFileValidator(SimpleFieldValidator):
+    def validate(self, value):
+        """Valida que el archivo sea un archivo de audio."""
+        super().validate(value)
+        if value is not None:
+            mimetype = get_contenttype(value)
+            if mimetype.split('/')[0] != 'audio':
+                # Permitir archivos OPUS
+                if value.filename.split('.')[-1:][0] != 'opus' and get_contenttype(value) != 'application/octet-stream':
+                    raise InvalidAudioFile(mimetype)
 
 class IAudio(model.Schema):
     """ Audio: only audio files are permitted """
@@ -57,14 +73,14 @@ class IAudio(model.Schema):
     )
 
 
-@form.validator(field=IAudio['file'])
-def validateAudioType(value):
-    if value is not None:
-        mimetype = get_contenttype(value)
-        if mimetype.split('/')[0] != 'audio':
-            # If opus file permit it...
-            if value.filename.split('.')[-1:][0] != 'opus' and get_contenttype(value) != 'application/octet-stream':
-                raise InvalidAudioFile(mimetype)
+# @form.validator(field=IAudio['file'])
+# def validateAudioType(value):
+#     if value is not None:
+#         mimetype = get_contenttype(value)
+#         if mimetype.split('/')[0] != 'audio':
+#             # If opus file permit it...
+#             if value.filename.split('.')[-1:][0] != 'opus' and get_contenttype(value) != 'application/octet-stream':
+#                 raise InvalidAudioFile(mimetype)
 
 
 class Edit(form.EditForm):

@@ -6,7 +6,7 @@ from zope import schema
 from zope.schema import ValidationError
 
 from plone import api
-from plone.app.dexterity import PloneMessageFactory as _PMF
+from Products.CMFPlone import PloneMessageFactory as _PMF
 from z3c.form import form
 from plone.namedfile.field import NamedBlobFile
 from plone.namedfile.utils import get_contenttype
@@ -19,13 +19,25 @@ from genweb.organs import utils
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-
+from zope.interface import Invalid
+from z3c.form.validator import SimpleFieldValidator
+from zope.component import adapter
+from plone.dexterity.interfaces import IDexterityContent
 
 
 class InvalidAnnexFile(ValidationError):
     """Exception for invalid annex file"""
     __doc__ = _(u"Invalid annex file")
 
+@adapter(schema.interfaces.IField, IDexterityContent, schema.interfaces.IField)
+class AnnexFileValidator(SimpleFieldValidator):
+    def validate(self, value):
+        """Valida que el archivo sea un PDF."""
+        super().validate(value)
+        if value is not None:
+            mimetype = get_contenttype(value)
+            if mimetype != 'application/pdf':
+                raise InvalidAnnexFile(mimetype)
 
 class IAnnex(model.Schema):
     """ Annex: only annex files are permitted """
@@ -59,12 +71,12 @@ class IAnnex(model.Schema):
     )
 
 
-@form.validator(field=IAnnex['file'])
-def validateFileType(value):
-    if value is not None:
-        mimetype = get_contenttype(value)
-        if mimetype != 'application/pdf':
-            raise InvalidAnnexFile(mimetype)
+# @form.validator(field=IAnnex['file'])
+# def validateFileType(value):
+#     if value is not None:
+#         mimetype = get_contenttype(value)
+#         if mimetype != 'application/pdf':
+#             raise InvalidAnnexFile(mimetype)
 
 
 class Edit(form.EditForm):

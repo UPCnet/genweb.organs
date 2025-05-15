@@ -231,4 +231,19 @@
         permission="genweb.organs.manage.vote"
     />
 
+    <adapter
+        factory=".content.file.VisibleFileValidator"
+        provides="z3c.form.interfaces.IValidator"
+    />
+
+    <adapter
+        factory=".content.audio.AudioFileValidator"
+        provides="z3c.form.interfaces.IValidator"
+    />
+
+    <adapter
+        factory=".content.annex.AnnexFileValidator"
+        provides="z3c.form.interfaces.IValidator"
+    />
+
 </configure>
