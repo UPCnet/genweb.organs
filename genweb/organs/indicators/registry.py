@@ -5,7 +5,7 @@ Registry containing the indicators that will be updated on the Indicators WS.
 import os
 import logging
 
-from genweb.core.indicators import Registry, RegistryException
+from genweb6.core.indicators import Registry, RegistryException
 
 
 logger = logging.getLogger(name='genweb.organs')
@@ -36,4 +36,3 @@ def register(context):
     registry.load_from_path(definitions_path)
     logger.info(
         "Indicators successfully loaded from {0}".format(definitions_path))
-

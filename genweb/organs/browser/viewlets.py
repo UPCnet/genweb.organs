@@ -6,7 +6,7 @@ from zope.component import getMultiAdapter
 from plone.memoize.view import memoize_contextless
 from Products.CMFCore.utils import getToolByName
 from plone.app.layout.viewlets.interfaces import IPortalHeader
-from genweb.core import HAS_PAM
+from genweb6.core import HAS_PAM
 from genweb6.core.utils import genweb_config
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from plone.app.layout.navigation.root import getNavigationRootObject

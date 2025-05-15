@@ -3,8 +3,8 @@ import logging
 import transaction
 from Products.CMFCore.utils import getToolByName
 
-from genweb.core.indicators import RegistryException
-from genweb.core.indicators import WebServiceReporter, ReporterException
+from genweb6.core.indicators import RegistryException
+from genweb6.core.indicators import WebServiceReporter, ReporterException
 from genweb.organs.utils import get_settings_property
 from genweb.organs.indicators.registry import get_registry
 
