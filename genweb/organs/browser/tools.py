@@ -579,7 +579,7 @@ class showColorOrgans(BrowserView):
 class createTestContent(BrowserView):
     # Este código crea contenido de prueba para hacer TEST de acceso y checking de permisos
     def render(self):
-        print "## Executed create_test_content view to create testingfolder content..."
+        print("## Executed create_test_content view to create testingfolder content...")
         messages = IStatusMessage(self.request)
         portal = api.portal.get()
         try:

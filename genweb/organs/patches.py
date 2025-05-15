@@ -6,7 +6,7 @@ from Products.CMFPlone.interfaces import IHideFromBreadcrumbs
 from plone.app.layout.navigation.root import getNavigationRoot
 from zope.component import getMultiAdapter
 
-from genweb.theme.browser.viewlets import packages_installed
+from genweb6.theme.browser.viewlets import packages_installed
 
 from plone.app.multilingual.interfaces import ITranslationManager
 from Products.CMFCore.utils import getToolByName

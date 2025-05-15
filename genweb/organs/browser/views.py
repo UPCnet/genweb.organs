@@ -271,7 +271,7 @@ class ActaPrintView(BrowserView):
         return self.aq_parent.aq_parent.modality
 
     def getActaLogo(self):
-        """ Getlogo to use in print """
+        """ Getlogo to use in print("""
         try:
             self.context.aq_parent.aq_parent.logoOrgan.filename
             return self.context.aq_parent.aq_parent.absolute_url() + '/@@images/logoOrgan'

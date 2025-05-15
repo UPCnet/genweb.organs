@@ -1,6 +1,6 @@
 """Module where all interfaces, events and exceptions live."""
-from genweb.theme.browser.interfaces import IGenwebTheme
+from genweb6.theme.interfaces import IGenweb6ThemeLayer
 
 
-class IGenwebOrgansLayer(IGenwebTheme):
+class IGenwebOrgansLayer(IGenweb6ThemeLayer):
     """Marker interface that defines a Zope 3 browser layer."""
