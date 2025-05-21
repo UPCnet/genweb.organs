@@ -23,13 +23,14 @@ from zope.interface import Invalid
 from z3c.form.validator import SimpleFieldValidator
 from zope.component import adapter
 from plone.dexterity.interfaces import IDexterityContent
+from zope.schema.interfaces import IField
 
 
 class InvalidAnnexFile(ValidationError):
     """Exception for invalid annex file"""
     __doc__ = _(u"Invalid annex file")
 
-@adapter(schema.interfaces.IField, IDexterityContent, schema.interfaces.IField)
+# @adapter(IField, IDexterityContent, IField)
 class AnnexFileValidator(SimpleFieldValidator):
     def validate(self, value):
         """Valida que el archivo sea un PDF."""

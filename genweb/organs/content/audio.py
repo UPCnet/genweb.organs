@@ -29,7 +29,7 @@ class InvalidAudioFile(ValidationError):
     """Exception for invalid audio file"""
     __doc__ = _(u"Invalid audio file")
 
-@adapter(schema.interfaces.IField, IDexterityContent, schema.interfaces.IField)
+# @adapter(schema.interfaces.IField, IDexterityContent, schema.interfaces.IField)
 class AudioFileValidator(SimpleFieldValidator):
     def validate(self, value):
         """Valida que el archivo sea un archivo de audio."""

@@ -7,7 +7,7 @@
 """
 from DateTime import DateTime
 from OFS.interfaces import IItem
-from Products.ATContentTypes.interfaces.file import IFileContent
+from plone.namedfile.interfaces import INamedBlobFile, INamedField
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.syndication import IFeed
 from Products.CMFPlone.interfaces.syndication import IFeedItem
@@ -300,7 +300,7 @@ class BaseItem(BaseFeedData):
 
     @property
     def has_enclosure(self):
-        return IFileContent.providedBy(self.context)
+        return INamedBlobFile.providedBy(self.context) or INamedField.providedBy(self.context)
 
     @lazy_property
     def file(self):

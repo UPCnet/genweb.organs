@@ -19,7 +19,7 @@
     <role name="WebMaster"/>
   </roles>
   <permissions>
-    <permission name="ATContentTypes Topic: Add ATBooleanCriterion" acquire="True">
+    <!-- <permission name="ATContentTypes Topic: Add ATBooleanCriterion" acquire="True">
       <role name="Contributor"/>
     </permission>
     <permission name="ATContentTypes Topic: Add ATCurrentAuthorCriterion" acquire="True">
@@ -97,7 +97,7 @@
       <role name="Contributor"/>
       <role name="Manager"/>
       <role name="Owner"/>
-    </permission>
+    </permission> -->
     <permission name="Access arbitrary user session data" acquire="True">
       <role name="Site Administrator"/>
     </permission>
@@ -115,9 +115,9 @@
     <permission name="Access session data" acquire="True">
       <role name="Site Administrator"/>
     </permission>
-    <permission name="Add Collage content" acquire="True">
+    <!-- <permission name="Add Collage content" acquire="True">
       <role name="Contributor"/>
-    </permission>
+    </permission> -->
     <permission name="Add portal content" acquire="True">
       <role name="Contributor"/>
       <role name="Manager"/>
@@ -135,9 +135,9 @@
       <role name="Manager"/>
       <role name="Owner"/>
     </permission>
-    <permission name="Add portal topics" acquire="True">
+    <!-- <permission name="Add portal topics" acquire="True">
       <role name="Contributor"/>
-    </permission>
+    </permission> -->
     <permission name="Allow sendto" acquire="True">
       <role name="Authenticated"/>
       <role name="Manager"/>
@@ -179,7 +179,7 @@
     <permission name="Change local roles" acquire="True">
       <role name="Site Administrator"/>
     </permission>
-    <permission name="Change portal events" acquire="True">
+    <!-- <permission name="Change portal events" acquire="True">
       <role name="Site Administrator"/>
     </permission>
     <permission name="Change portal topics" acquire="True">
@@ -187,7 +187,7 @@
       <role name="Manager"/>
       <role name="Owner"/>
       <role name="WebMaster"/>
-    </permission>
+    </permission> -->
     <permission name="Content rules: Manage rules" acquire="False">
       <role name="Manager"/>
     </permission>
@@ -251,10 +251,10 @@
     <permission name="Genweb: Authenticated Users" acquire="True">
       <role name="Authenticated"/>
     </permission>
-    <permission name="Genweb: Manage home portlets" acquire="True">
+    <!-- <permission name="Genweb: Manage home portlets" acquire="True">
       <role name="Manager"/>
       <role name="WebMaster"/>
-    </permission>
+    </permission> -->
     <permission name="Genweb: Member Users" acquire="True">
       <role name="Member"/>
     </permission>
@@ -295,60 +295,6 @@
       <role name="Editor"/>
       <role name="Manager"/>
       <role name="Owner"/>
-    </permission>
-    <permission name="PloneFormGen: Add Content" acquire="True">
-      <role name="Editor"/>
-      <role name="Manager"/>
-      <role name="Owner"/>
-      <role name="WebMaster"/>
-    </permission>
-    <permission name="PloneFormGen: Add Custom Scripts" acquire="True">
-      <role name="Editor"/>
-      <role name="Manager"/>
-      <role name="Owner"/>
-      <role name="WebMaster"/>
-    </permission>
-    <permission name="PloneFormGen: Add Data Savers" acquire="True">
-      <role name="Editor"/>
-      <role name="Manager"/>
-      <role name="Owner"/>
-      <role name="WebMaster"/>
-    </permission>
-    <permission name="PloneFormGen: Add Mailers" acquire="True">
-      <role name="Editor"/>
-      <role name="Manager"/>
-      <role name="Owner"/>
-      <role name="WebMaster"/>
-    </permission>
-    <permission name="PloneFormGen: Download Saved Input" acquire="True">
-      <role name="Editor"/>
-      <role name="Manager"/>
-      <role name="Owner"/>
-      <role name="WebMaster"/>
-    </permission>
-    <permission name="PloneFormGen: Edit Advanced Fields" acquire="True">
-      <role name="Editor"/>
-      <role name="Manager"/>
-      <role name="Owner"/>
-      <role name="WebMaster"/>
-    </permission>
-    <permission name="PloneFormGen: Edit Mail Addresses" acquire="True">
-      <role name="Editor"/>
-      <role name="Manager"/>
-      <role name="Owner"/>
-      <role name="WebMaster"/>
-    </permission>
-    <permission name="PloneFormGen: Edit Python Fields" acquire="True">
-      <role name="Editor"/>
-      <role name="Manager"/>
-      <role name="Owner"/>
-      <role name="WebMaster"/>
-    </permission>
-    <permission name="PloneFormGen: Edit TALES Fields" acquire="True">
-      <role name="Editor"/>
-      <role name="Manager"/>
-      <role name="Owner"/>
-      <role name="WebMaster"/>
     </permission>
     <permission name="Portlets: Manage own portlets" acquire="False">
       <role name="Editor"/>
@@ -413,10 +359,10 @@
       <role name="Owner"/>
       <role name="WebMaster"/>
     </permission>
-    <permission name="Use Database Methods" acquire="True">
+    <!-- <permission name="Use Database Methods" acquire="True">
       <role name="Site Administrator"/>
-    </permission>
-    <permission name="Use external editor" acquire="False">
+    </permission> -->
+    <!-- <permission name="Use external editor" acquire="False">
       <role name="Authenticated"/>
       <role name="Manager"/>
     </permission>
@@ -556,6 +502,6 @@
     </permission>
     <permission name="windowZ: Add Window" acquire="True">
       <role name="Contributor"/>
-    </permission>
+    </permission> -->
   </permissions>
 </rolemap>

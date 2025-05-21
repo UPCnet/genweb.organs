@@ -75,10 +75,10 @@
 
     <include package="z3c.jbot" file="meta.zcml" />
 
-    <browser:jbot
+    <!-- <browser:jbot
         directory="genweb.organs.content.templates"
         layer=".interfaces.IGenwebOrgansLayer"
-    />
+    /> -->
 
     <browser:page
         name="organs-settings"
@@ -88,7 +88,7 @@
 
     <include file="patches.zcml" />
 
-    <browser:viewlet
+    <!-- <browser:viewlet
         name="genweb.header-organs"
         for="*"
         manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
@@ -96,7 +96,7 @@
         template="../viewlets_templates/header.pt"
         layer=".interfaces.IGenwebOrgansLayer"
         permission="zope2.View"
-    />
+    /> -->
 
     <browser:page
         name="gw_type_ahead_search"

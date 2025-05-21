@@ -137,7 +137,7 @@
         permission="genweb.organs.manage.vote"
     />
 
-    <adapter
+    <!-- <adapter
         factory=".file.VisibleFileValidator"
         provides="z3c.form.interfaces.IValidator"
     />
@@ -150,7 +150,15 @@
     <adapter
         factory=".annex.AnnexFileValidator"
         provides="z3c.form.interfaces.IValidator"
-    />
+    /> -->
+
+    <browser:page
+        for=".organsfolder.IOrgansfolder"
+        name="view"
+        class=".organsfolder.View"
+        template="templates/organsfolder_view.pt"
+        permission="zope2.View"
+        layer="genweb.organs.interfaces.IGenwebOrgansLayer" />
 
     <browser:page
         for=".sessio.ISessio"
@@ -282,5 +290,9 @@
         permission="zope2.View"
         layer="genweb.organs.interfaces.IGenwebOrgansLayer" />
 
+    <browser:jbot
+        directory="templates"
+        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
 
 </configure>

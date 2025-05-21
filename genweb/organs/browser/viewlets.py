@@ -7,28 +7,37 @@ from plone.memoize.view import memoize_contextless
 from Products.CMFCore.utils import getToolByName
 from plone.app.layout.viewlets.interfaces import IPortalHeader
 from genweb6.core import HAS_PAM
-from genweb6.core.utils import genweb_config
+# from genweb6.core.utils import genweb_config
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from plone.app.layout.navigation.root import getNavigationRootObject
 from genweb.organs.content.organsfolder import IOrgansfolder
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.app.layout.viewlets.common import ViewletBase
+from plone.memoize.view import memoize_contextless
 
 
-class viewletBase:
+
+class viewletBase(ViewletBase):
+
+    @memoize_contextless
     def root_url(self):
         return self.portal().absolute_url()
 
+    @memoize_contextless
     def portal(self):
         return api.portal.get()
 
-    def genweb_config(self):
-        return genweb_config()
+    # def genweb_config(self):
+    #     return genweb_config()
 
+    @memoize_contextless
     def pref_lang(self):
-        """ Extracts the current language for the current user """
-        lt = getToolByName(self.portal(), 'portal_languages')
-        return lt.getPreferredLanguage()
+        lt = api.portal.get_tool(name='portal_languages')
+        lang = lt.getPreferredLanguage()
+        if lang not in ['ca', 'es', 'en']:
+            lang = 'ca'
+        return lang
 
 
 class gwHeader(BrowserView):

@@ -33,7 +33,7 @@ class InvalidPDFFile(ValidationError):
     __doc__ = _(u"Invalid PDF file")
 
 
-@adapter(schema.interfaces.IField, IDexterityContent, schema.interfaces.IField)
+# @adapter(schema.interfaces.IField, IDexterityContent, schema.interfaces.IField)
 class VisibleFileValidator(SimpleFieldValidator):
     def validate(self, value):
         """Valida que el archivo sea un PDF."""
