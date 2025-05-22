@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
-from setuptools import setup, find_packages
-import os
+"""Installer for the genweb.organs package."""
 
-version = '0.73.dev0'
+from setuptools import find_packages
+from setuptools import setup
 
-README = open("README.rst").read()
-HISTORY = open(os.path.join("docs", "HISTORY.rst")).read()
 
+long_description = '\n\n'.join([
+    open('README.rst').read(),
+    open('CONTRIBUTORS.rst').read(),
+    open('CHANGES.rst').read(),
+])
 setup(
     name='genweb.organs',
-    version=version,
+    version='0.73.dev0',
     description="Paquet Organs de Govern amb jQuery i que s'integra a Genweb.",
-    long_description=README + "\n" + HISTORY,
+    long_description=long_description,
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Plone :: 6.0",
@@ -25,12 +28,13 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     keywords='organs govern genweb',
-    author='plone.team@upcnet.es',
+    author='Plone Team',
     author_email='plone.team@upcnet.es',
     url='https://github.com/UPCnet/genweb.organs',
     license='GPL',
-    packages=find_packages(exclude=['ez_setup']),
+    packages=find_packages('src', exclude=['ez_setup']),
     namespace_packages=['genweb'],
+    package_dir={'': 'src'},
     include_package_data=True,
     zip_safe=False,
     python_requires='>=3.8',
@@ -53,5 +57,7 @@ setup(
     entry_points="""
     [z3c.autoinclude.plugin]
     target = plone
+    [console_scripts]
+    update_locale = genweb.organs.locales.update:update_locale
     """,
 )

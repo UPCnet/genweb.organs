@@ -1,0 +1,87 @@
+/* genweb_organs.css */
+/* Personalizaciones para la vista organgovern_view.pt */
+/* Estado: Realitzada */
+/* line 6, ../scss/_genweb_organs.scss */
+span.estatpunt:has(.boletaGran[style*="color: #28a745"]) {
+  font-weight: bold;
+}
+
+/* line 9, ../scss/_genweb_organs.scss */
+.boletaGran[style*="color: #28a745"] {
+  color: #28a745 !important;
+}
+
+/* Estado: Tancada */
+/* line 14, ../scss/_genweb_organs.scss */
+span.estatpunt:has(.boletaGran[style*="color: #007bc0"]) {
+  font-weight: bold;
+}
+
+/* line 17, ../scss/_genweb_organs.scss */
+.boletaGran[style*="color: #007bc0"] {
+  color: #007bc0 !important;
+}
+
+/* line 21, ../scss/_genweb_organs.scss */
+.table th, .table td {
+  vertical-align: middle !important;
+  font-size: 14px;
+}
+
+/* line 25, ../scss/_genweb_organs.scss */
+.table thead th {
+  background: #f5f5f5;
+  color: #333;
+  border-bottom: 2px solid #007bc0;
+}
+
+/* line 30, ../scss/_genweb_organs.scss */
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #f8fafd;
+}
+
+/* line 34, ../scss/_genweb_organs.scss */
+h1, h2, h3 {
+  color: #007bc0;
+  font-weight: 600;
+}
+
+/* line 39, ../scss/_genweb_organs.scss */
+.nav-tabs .nav-link.active {
+  background-color: #f5f5f5;
+  color: #007bc0;
+  border-color: #007bc0 #007bc0 #f5f5f5;
+}
+
+/* line 44, ../scss/_genweb_organs.scss */
+.nav-tabs .nav-link {
+  color: #007bc0;
+}
+
+/* line 48, ../scss/_genweb_organs.scss */
+.btn-export-acords .btn-info {
+  background-color: #007bc0;
+  border-color: #007bc0;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* line 55, ../scss/_genweb_organs.scss */
+.scrollit {
+  overflow-x: auto;
+}
+
+/* line 59, ../scss/_genweb_organs.scss */
+a {
+  text-decoration: none;
+}
+
+/* line 62, ../scss/_genweb_organs.scss */
+a:hover {
+  text-decoration: underline;
+}
+
+/* line 66, ../scss/_genweb_organs.scss */
+body {
+  background-color: pink !important;
+}
