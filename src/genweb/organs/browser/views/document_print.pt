@@ -11,7 +11,7 @@
 <metal:column_one fill-slot="column_one_slot" />
 
 <metal:content-core fill-slot="main">
-  <link rel="stylesheet" media="print" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/print.css" />
+  <link rel="stylesheet" media="print" tal:attributes="href string:${portal_url}/++theme++genweb.organs/stylesheets/print.css" />
 
   <div style="float:left;" tal:condition="view/getOrganLogo">
     <img style="height:67px;" tal:attributes="src view/getOrganLogo" />

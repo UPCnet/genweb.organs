@@ -1,90 +1,79 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      lang="en"
-      metal:use-macro="context/main_template/macros/master"
-      i18n:domain="plone">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal" xmlns:i18n="http://xml.zope.org/namespaces/i18n" lang="ca"
+  metal:use-macro="context/main_template/macros/master" i18n:domain="genweb.organs">
 
 <head>
   <metal:block metal:fill-slot="head_slot">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="++theme++genweb.organs/theme/stylesheets/genweb_organs.css" /> -->
 
     <link rel="alternate" title="RSS 1.0" type="application/rss+xml"
-          tal:define="here_url context/@@plone_context_state/object_url;"
-          tal:condition="request/SearchableText|nothing"
-          />
+      tal:define="here_url context/@@plone_context_state/object_url;" tal:condition="request/SearchableText|nothing" />
     <link rel="home" title="Home" tal:attributes="href view/navroot_url" />
 
   </metal:block>
 
-  <metal:block fill-slot="top_slot"
-               tal:define="dummy python:request.set('disable_border',1);" />
+  <metal:block fill-slot="top_slot" tal:define="dummy python:request.set('disable_border',1);" />
 </head>
 
 <body>
 
-  <div id="content-core" metal:fill-slot="main">
+  <div id="content-core" metal:fill-slot="main" class="container-fluid">
 
-        <tal:latestBlock tal:define="organ_govern view/getLatestCDG;
-                                 consell_social view/getLatestCS;
-                                 claustre view/getLatestCU">
-      <div class="titling-line-container">
-        <h2 class="titling-line" i18n:domain="genweb.organs" i18n:translate=""> Accessos directes a les sessions mes recents </h2>
-      </div>
-      <div class="row">
-        <ol class="list-agenda col-12" style="outline-style: none;">
+    <div class="titling-line-container">
+      <h2 class="titling-line" i18n:translate="">Sessions i acords dels òrgans col·legiats</h2>
+    </div>
 
-          <li tal:condition="organ_govern" class="col-md-4 col-12 mb-3" style="outline-style: none;">
-              <a tal:attributes="href organ_govern/url">
-                <img src="++resource++genweb.organs.stylesheets/foto_consell_govern.jpg">
-                  <div>
-                    <h2>Consell de Govern</h2>
-                    <p tal:content="organ_govern/title">Last session</p>
-                  </div>
-                  <i class="icon fa fa-arrow-right" aria-hidden="true"></i>
-              </a>
-          </li>
-          <li tal:condition="consell_social" class="col-md-4 col-12 mb-3" style="outline-style: none;">
-              <a tal:attributes="href consell_social/url">
-                <img src="++resource++genweb.organs.stylesheets/foto_consell_social.jpg">
-                  <div>
-                    <h2>Consell Social</h2>
-                    <p tal:content="consell_social/title">Last session</p>
-                  </div>
-                  <i class="icon fa fa-arrow-right" aria-hidden="true"></i>
-              </a>
-          </li>
-          <li tal:condition="claustre" class="col-md-4 col-12 mb-3" style="outline-style: none;">
-              <a tal:attributes="href claustre/url">
-                <img src="++resource++genweb.organs.stylesheets/foto_claustre.jpg">
-                  <div>
-                    <h2>Claustre Universitari</h2>
-                    <p tal:content="claustre/title">Last session</p>
-                  </div>
-                  <i class="icon fa fa-arrow-right" aria-hidden="true"></i>
-              </a>
-          </li>
-        </ol>
-      </div>
-    </tal:latestBlock>
+    <ol class="list-agenda">
+      <li tal:condition="view/getLatestCDG">
+        <a tal:attributes="href view/getLatestCDG/url" class="card text-decoration-none position-relative">
+          <img src="++theme++genweb.organs/img/foto_consell_govern.jpg" class="card-img-top" alt="Consell de Govern" />
+          <div class="card-body">
+            <h2 class="card-title h5">Consell de Govern</h2>
+            <p class="card-text" tal:content="view/getLatestCDG/title">Last session</p>
+          </div>
+          <span class="icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+        </a>
+      </li>
+      <li tal:condition="view/getLatestCS">
+        <a tal:attributes="href view/getLatestCS/url" class="card text-decoration-none position-relative">
+          <img src="++theme++genweb.organs/img/foto_consell_social.jpg" class="card-img-top" alt="Consell Social" />
+          <div class="card-body">
+            <h2 class="card-title h5">Consell Social</h2>
+            <p class="card-text" tal:content="view/getLatestCS/title">Last session</p>
+          </div>
+          <span class="icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+        </a>
+      </li>
+      <li tal:condition="view/getLatestCU">
+        <a tal:attributes="href view/getLatestCU/url" class="card text-decoration-none position-relative">
+          <img src="++theme++genweb.organs/img/foto_claustre.jpg" class="card-img-top" alt="Claustre Universitari" />
+          <div class="card-body">
+            <h2 class="card-title h5">Claustre Universitari</h2>
+            <p class="card-text" tal:content="view/getLatestCU/title">Last session</p>
+          </div>
+          <span class="icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+        </a>
+      </li>
+    </ol>
 
     <div class="clearfix"></div>
 
-    <tal:block tal:define="organs view/getOwnOrgans;" tal:condition="organs" i18n:domain="genweb.organs">
+    <tal:block tal:define="organs view/getOwnOrgans;" tal:condition="organs">
       <div class="titling-line-container">
-        <h2 class="titling-line" i18n:domain="genweb.organs" i18n:translate=""> La meva vinculacio amb els organs de govern </h2>
+        <h2 class="titling-line" i18n:translate="">La meva vinculació amb els òrgans de govern</h2>
       </div>
       <div class="box box-gradient">
         <p tal:repeat="organ organs">
           <tal:roles tal:repeat="role organ/role">
-            <span class="labelSearch" >
-              <tal:omit-tag tal:content="role" i18n:translate="">Secretari </tal:omit-tag>
+            <span class="badge bg-primary me-1">
+              <tal:omit-tag tal:content="role" i18n:translate="">Secretari</tal:omit-tag>
             </span>
           </tal:roles>
           <span tal:attributes="style string:background-color:${organ/color};">&nbsp;</span>
           <span class="icon-genweb-organs-organgovern"></span>
-          <a tal:attributes="href organ/url;">
-            <tal:event content="organ/title"> Organ Title </tal:event>
+          <a tal:attributes="href organ/url;" class="ms-1">
+            <tal:event content="organ/title">Organ Title</tal:event>
           </a>
         </p>
       </div>
@@ -92,27 +81,117 @@
 
     <div class="clearfix"></div>
 
+    <!-- Caja principal de Eines -->
+    <section class="mb-4">
+      <form method="GET" action="" role="search">
+        <div class="row mb-3 g-2 align-items-end">
+          <div class="col-10">
+            <input type="text" class="form-control" id="searchText" name="SearchableText" placeholder="Cercar..."
+              tal:attributes="value request/SearchableText|nothing" />
+          </div>
+          <div class="col-2">
+            <button type="submit" class="btn btn-primary w-100"><i class="fa fa-search me-2"></i>Cerca</button>
+          </div>
+        </div>
+        <div class="row mb-3 g-2">
+          <div class="col-md-4">
+            <label class="form-label">Tipus de document</label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="genweb.organs.acord" id="acordCheck"
+                name="portal_type:list" checked="checked" />
+              <label class="form-check-label" for="acordCheck">Acord</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="genweb.organs.punt" id="puntCheck"
+                name="portal_type:list" checked="checked" />
+              <label class="form-check-label" for="puntCheck">Punt informatiu</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Òrgan col·legiat</label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="govern" id="governCheck" name="organ:list"
+                checked="checked" />
+              <label class="form-check-label" for="governCheck">Consell de Govern</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="social" id="socialCheck" name="organ:list"
+                checked="checked" />
+              <label class="form-check-label" for="socialCheck">Consell Social</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="claustre" id="claustreCheck" name="organ:list"
+                checked="checked" />
+              <label class="form-check-label" for="claustreCheck">Claustre Universitari</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Període</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" value="any" id="periodeAny" name="period"
+                checked="checked" />
+              <label class="form-check-label" for="periodeAny">Qualsevol data</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" value="darrer" id="periodeDarrer" name="period" />
+              <label class="form-check-label" for="periodeDarrer">Darrer any</label>
+            </div>
+          </div>
+        </div>
+        <!-- Resultados de búsqueda -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card mt-3">
+              <div class="card-body">
+                <h5 class="card-title">Resultats de la cerca</h5>
+                <tal:block tal:define="results view/results">
+                  <tal:block tal:condition="results">
+                    <div class="list-group">
+                      <tal:documents repeat="item results">
+                        <a tal:attributes="href item/getURL"
+                          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                          <span>
+                            <span class="fw-bold" tal:content="item/Title">Títol</span>
+                            <span class="text-muted small ms-2" tal:content="item/portal_type">Tipus</span>
+                          </span>
+                          <span class="badge bg-secondary" tal:content="item/created|nothing"></span>
+                        </a>
+                      </tal:documents>
+                    </div>
+                  </tal:block>
+                  <tal:block tal:condition="not:results">
+                    <p class="text-muted">No s'han trobat resultats.</p>
+                  </tal:block>
+                </tal:block>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
 
     <div class="clearfix"></div>
 
     <tal:banners>
       <div class="row">
-        <ol class="list-banners col-12" style="outline-style: none;">
-          <li class="col-md-6 col-12 mb-3" style="outline-style: none;">
-              <a href="https://governhistoric.upc.edu/ca/benvingut" target="_blank">
-                  <div>
-                    <h2>Hemeroteca i documentació d'òrgans d'anys anteriors</h2>
-                  </div>
-                  <i class="icon fa fa-external-link" aria-hidden="true"></i>
-              </a>
+        <ol class="list-banners row list-unstyled">
+          <li class="col-md-6 mb-3">
+            <a href="https://governhistoric.upc.edu/ca/benvingut" target="_blank"
+              class="card h-100 text-decoration-none">
+              <div class="card-body">
+                <h2 class="card-title h5">Hemeroteca i documentació d'òrgans d'anys anteriors</h2>
+              </div>
+              <i class="icon fa fa-external-link position-absolute end-0 bottom-0 m-3" aria-hidden="true"></i>
+            </a>
           </li>
-          <li class="col-md-6 col-12 mb-3" style="outline-style: none;">
-              <a href="https://www.upc.edu/slt/ca/recursos-redaccio/models-documents/governupc" target="_blank">
-                  <div>
-                    <h2>Pautes per a l'elaboració de documents</h2>
-                  </div>
-                  <i class="icon fa fa-external-link" aria-hidden="true"></i>
-              </a>
+          <li class="col-md-6 mb-3">
+            <a href="https://www.upc.edu/slt/ca/recursos-redaccio/models-documents/governupc" target="_blank"
+              class="card h-100 text-decoration-none">
+              <div class="card-body">
+                <h2 class="card-title h5">Pautes per a l'elaboració de documents</h2>
+              </div>
+              <i class="icon fa fa-external-link position-absolute end-0 bottom-0 m-3" aria-hidden="true"></i>
+            </a>
           </li>
         </ol>
       </div>
@@ -128,5 +207,7 @@
 
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

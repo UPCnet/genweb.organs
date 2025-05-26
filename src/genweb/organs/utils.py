@@ -146,6 +146,7 @@ def addEntryLog(context, sender, message, recipients):
                 plugins = portal.acl_users.plugins.listPlugins(IPropertiesPlugin)
                 # We use the most preferent plugin
                 try:
+                    import ipdb; ipdb.set_trace()
                     pplugin = plugins[2][1]
                     all_user_properties = pplugin.enumerateUsers(api.user.get_current().id)
                     fullname = ''

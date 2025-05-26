@@ -48,263 +48,117 @@ def quote_chars(s):
 
 
 class Search(BrowserView):
-
-    def isAnon(self):
-        if api.user.is_anonymous():
-            return True
+    """
+    Vista de búsqueda para órganos, sesiones y acuerdos.
+    Compatible con Plone 6 y el nuevo template search.pt (Bootstrap 5).
+    """
 
     def getOwnOrgans(self):
-        if not api.user.is_anonymous():
-            results = []
-            portal_catalog = api.portal.get_tool(name='portal_catalog')
-            root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
-            lt = getToolByName(self, 'portal_languages')
-            lang = lt.getPreferredLanguage()
-            values = portal_catalog.searchResults(
-                portal_type=['genweb.organs.organgovern'],
-                path=root_path + '/' + lang)
-            username = api.user.get_current().id
-            for obj in values:
-                organ = obj.getObject()
-                all_roles = api.user.get_roles(username=username, obj=organ)
-                roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat']]
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
-                    results.append(dict(
-                        url=obj.getObject().absolute_url(),
-                        title=obj.Title,
-                        color=organ.eventsColor,
-                        role=roles))
+        if api.user.is_anonymous():
+            return []
+        results = []
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        root_path = '/'.join(api.portal.get().getPhysicalPath())
+        lang = api.portal.get_tool('portal_languages').getDefaultLanguage()
+        values = portal_catalog.searchResults(
+            portal_type=['genweb.organs.organgovern'],
+            path=f'{root_path}/{lang}'
+        )
+        username = api.user.get_current().id
+        for obj in values:
+            organ = obj.getObject()
+            all_roles = api.user.get_roles(username=username, obj=organ)
+            roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat']]
+            if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+                results.append(dict(
+                    url=organ.absolute_url(),
+                    title=obj.Title,
+                    color=getattr(organ, 'eventsColor', '#007bc0'),
+                    role=roles))
+        return results
 
-            return results
+    def getLatestCDG(self):
+        return self._getLatestSession('consell-de-govern/consell-de-govern', 'Consell de Govern')
 
-    valid_keys = ('sort_on', 'sort_order', 'sort_limit', 'fq', 'fl', 'facet')
+    def getLatestCS(self):
+        return self._getLatestSession('cs/ple-del-consell-social', 'Consell Social')
+
+    def getLatestCU(self):
+        return self._getLatestSession('claustre-universitari/claustre-universitari', 'Claustre Universitari')
+
+    def _getLatestSession(self, rel_path, label):
+        root_path = '/'.join(api.portal.get().getPhysicalPath())
+        lang = api.portal.get_tool('portal_languages').getDefaultLanguage()
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        items = portal_catalog.searchResults(
+            portal_type=['genweb.organs.sessio'],
+            path=f'{root_path}/{lang}/{rel_path}',
+            sort_on='created',
+            sort_order='reverse')
+        for item in items:
+            itemObj = item._unrestrictedGetObject()
+            estatSessio = api.content.get_state(obj=itemObj)
+            if estatSessio != 'planificada':
+                return dict(title=item.Title, url=itemObj.absolute_url())
+        return None
 
     def results(self, query=None, batch=True, b_size=100, b_start=0, old=False):
-        """ Get properly wrapped search results from the catalog.
-        Everything in Plone that performs searches should go through this view.
-        'query' should be a dictionary of catalog parameters.
-        """
+        if query is None:
+            query = {}
+        if not self.request.form and not query:
+            return []
         if batch:
             query['b_start'] = b_start = int(b_start)
             query['b_size'] = b_size
         query = self.filter_query(query)
-        if query['path'] == '/empty_path/':
-            return {}
+        if not query or query.get('path') == '/empty_path/':
+            return []
         query['sort_order'] = 'reverse'
-        newresults = []
-        new_path = []
-        root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
-        lt = getToolByName(self, 'portal_languages')
-        lang = lt.getPreferredLanguage()
-        query_paths = [
-            root_path + '/' + lang + '/consell-de-govern/consell-de-govern/',
-            root_path + '/' + lang + '/cs/ple-del-consell-social/',
-            root_path + '/' + lang + '/claustre-universitari/claustre-universitari/']
-
-        username = api.user.get_current().id
-
-        if root_path + '/not_anon_my_organs/' in query['path']:
-            # Si no es anonim i ha enviat el check de "organs relacionats amb mi"
-            # fem una cerca especial, amb un string que després eliminem
-            if not api.user.is_anonymous():
-                results = []
-                values = api.content.find(
-                    portal_type=['genweb.organs.organgovern'],
-                    path=root_path + '/' + lang)
-                for obj in values:
-                    organ = obj.getObject()
-                    all_roles = api.user.get_roles(username=username, obj=organ)
-                    roles = [o for o in all_roles if o in ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat']]
-                    sessionpath = obj.getPath()
-                    if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
-                        if type(query['path']) == str:
-                            query['path'] = sessionpath.split()
-                        else:
-                            query['path'].append(sessionpath)
-
-        elif type(query['path']) == str:
-            if query['path'] not in query_paths:
-                return None
-        else:
-            for value in query['path']:
-                if value not in query_paths:
-                    return None
-
-        if query['latest_session']:
-            if isinstance(query['path'], list):
-                for organ in query['path']:
-                    session_path = api.content.find(
-                        path=organ,
-                        portal_type='genweb.organs.sessio',
-                        sort_on='created',
-                        sort_order='reverse')
-                    if session_path:
-                        new_path.append(session_path[0].getPath())
-            if isinstance(query['path'], str):
-                session_path = api.content.find(
-                    path=query['path'],
-                    portal_type='genweb.organs.sessio',
-                    sort_on='created',
-                    sort_order='reverse')
-                if session_path:
-                    new_path.append(session_path[0].getPath())
-            query['path'] = new_path
-        # Make default view return 0 results
-        if 'SearchableText' not in query:
-            # La primera vez, sin seleccionar nada, están marcados todos los elementos
-            # Hacemos el check con el Folder
-            if 'Folder' in query['portal_type']:
-                return None
-        if 'genweb.organs.punt' in query['portal_type']:
-            query['portal_type'].append('genweb.organs.subpunt')
-        if query is None:
-            return None
-        else:
-            catalog = api.portal.get_tool(name='portal_catalog')
-            try:
-                # for all acords or punts
-                results = catalog(**query)
-                all_results = []
-                for res in results:
-                    all_results.append(res)
-
-                # for subjects
-                aux_subject_res = catalog.searchResults(portal_type=query['portal_type'], Subject=query['SearchableText'].replace('*', ''))
-                for res in aux_subject_res:
-                    if res not in all_results:
-                        all_results.append(res)
-
-                # for documents
-                ptype = query['portal_type']
-                query_docs = query
-                query_docs['portal_type'] = "genweb.organs.document"
-                aux_doc_res = catalog(**query_docs)
-                for res in aux_doc_res:
-                    obj = res.getObject()
-                    parent = obj.getParentNode()
-                    if parent.portal_type in ptype:
-                        if parent not in all_results:
-                            p_brain = catalog.searchResults(portal_type=ptype, id=parent.id)[0]
-                            all_results.append(p_brain)
-
-                for res in all_results:
-                    item = res.getObject()
-                    if item.portal_type == "genweb.organs.document":
-                        item = item.getParentNode()
-
-                    if item.portal_type == 'genweb.organs.punt':
-                        if permissions.canViewPunt(self, item):
-                            newresults.append(res)
-                    if item.portal_type == 'genweb.organs.subpunt':
-                        if permissions.canViewSubpunt(self, item):
-                            newresults.append(res)
-                    if item.portal_type == 'genweb.organs.acord':
-                        if permissions.canViewAcord(self, item):
-                            newresults.append(res)
-            except ParseError:
-                return []
-
-        # Old documents
-        if old:
-
-            genweborgansegg = pkg_resources.get_distribution('genweb.organs')
-            docs_1315 = open('{}/genweb/organs/2013-2015.json'.format(genweborgansegg.location))
-            docs_9613 = open('{}/genweb/organs/1996-2013.json'.format(genweborgansegg.location))
-            data = json.loads(docs_1315.read())
-            data2 = json.loads(docs_9613.read())
-
-            old_results = []
-            for d in data:
-                if query['SearchableText'].replace('*', '') in d['title']:
-                    if isinstance(query['path'], str):
-                        if str(d['unitat']).lower().replace(' ', '-') in query['path']:
-                            old_results.append(d)
-                    else:
-                        for path in query['path']:
-                            if str(d['unitat']).lower().replace(' ', '-') in path:
-                                old_results.append(d)
-
-            for d in data2:
-                if query['SearchableText'].replace('*', '') in str(d['text']):
-                    old_results.append(d)
-
-            if batch:
-                old_results = Batch(old_results, b_size, b_start)
-
-            if 'created' not in query:
-                return old_results
-            else:
-                return []
-
-        results = IContentListing(newresults)
-
-        if batch:
-            results = Batch(results, b_size, b_start)
-
-        return results
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        results = portal_catalog(**query)
+        # Adaptar los resultados para el frontend Bootstrap
+        output = []
+        for res in results:
+            obj = res.getObject()
+            output.append({
+                'Title': res.Title,
+                'getURL': res.getURL(),
+                'portal_type': res.portal_type,
+                'created': getattr(res, 'created', ''),
+            })
+        return output
 
     def filter_query(self, query):
+        # Solo filtra si hay texto o algún filtro
         request = self.request
-
         catalog = api.portal.get_tool(name='portal_catalog')
         valid_indexes = tuple(catalog.indexes())
-        valid_keys = self.valid_keys + valid_indexes
+        valid_keys = ('sort_on', 'sort_order', 'sort_limit', 'fq', 'fl', 'facet') + valid_indexes
         text = query.get('SearchableText', None)
         if text is None:
             text = request.form.get('SearchableText', '')
-            text = text + '*'  # Adding autocomplete words...
-        if not text:
-            # Without text, must provide a meaningful non-empty search
-            valid = set(valid_indexes).intersection(request.form.keys()) or \
-                set(valid_indexes).intersection(query.keys())
-            if not valid:
-                return
-
+        if not text and not any(k in request.form for k in ['portal_type', 'organ', 'period']):
+            return {}
+        # Construye el query
         for k, v in request.form.items():
             if v and ((k in valid_keys) or k.startswith('facet.')):
                 query[k] = v
         if text:
-            query['SearchableText'] = quote_chars(text)
-
-        # don't filter on created at all if we want all results
-        created = query.get('created')
-        # Add new prperty to check if they are searching in latest session
-        query['latest_session'] = False
-        if created:
-            if created['query'][0].ISO() == '1900-11-12T00:00:00':  # Fake to simulate LAST_SESSION
-                # Search latest session bassed on params
-                query['latest_session'] = True
-            else:
-                try:
-                    if created.get('query') and created['query'][0] <= EVER:
-                        del query['created']
-                except AttributeError:
-                    # created not a mapping
-                    del query['created']
-
-        # respect `types_not_searched` setting
+            query['SearchableText'] = text + '*'
+        # Tipos
         types = query.get('portal_type', [])
-        if 'query' in types:
-            types = types['query']
-        query['portal_type'] = self.filter_types(types)
-        # respect effective/expiration date
-        query['show_inactive'] = False
-        # respect navigation root
+        if isinstance(types, str):
+            types = [types]
+        query['portal_type'] = types or ['genweb.organs.acord', 'genweb.organs.punt']
+        # Path por defecto
         if 'path' not in query:
-            # Added /Plone/ca
-            # query['path'] = '/all_checked/'
-            # getNavigationRoot(self.context)
-            # Added all defaults folders:
-            if 'genweb.organs.acord' or 'genweb.organs.punt' in query['portal_type']:
-                query['path'] = '/empty_path/'
-            else:
-                root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
-                lt = getToolByName(self, 'portal_languages')
-                lang = lt.getPreferredLanguage()
-                query['path'] = [
-                    root_path + '/' + lang + '/consell-de-govern/consell-de-govern/',
-                    root_path + '/' + lang + '/cs/ple-del-consell-social/',
-                    root_path + '/' + lang + '/claustre-universitari/claustre-universitari/']
+            root_path = '/'.join(api.portal.get().getPhysicalPath())
+            lang = api.portal.get_tool('portal_languages').getDefaultLanguage()
+            query['path'] = [
+                f'{root_path}/{lang}/consell-de-govern/consell-de-govern/',
+                f'{root_path}/{lang}/cs/ple-del-consell-social/',
+                f'{root_path}/{lang}/claustre-universitari/claustre-universitari/'
+            ]
         return query
 
     def filter_types(self, types):
@@ -321,93 +175,6 @@ class Search(BrowserView):
         # used_types = catalog._catalog.getIndex('portal_type').uniqueValues()
         used_types = ('genweb.organs.acord', 'genweb.organs.punt')
         return sorted(self.filter_types(list(used_types)))
-
-    def getLatestCDG(self):
-        """ Retorna ultima sessió consell de govern en estat que no sigui planificada """
-        root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
-        lt = getToolByName(self, 'portal_languages')
-        lang = lt.getPreferredLanguage()
-        portal_catalog = api.portal.get_tool(name='portal_catalog')
-        items = portal_catalog.searchResults(
-            portal_type=['genweb.organs.sessio'],
-            path=root_path + "/" + lang + "/consell-de-govern/consell-de-govern",
-            sort_on='created',
-            sort_order='reverse')
-
-        if items:
-            results = []
-            for item in items:
-                itemObj = item._unrestrictedGetObject()
-                estatSessio = api.content.get_state(obj=itemObj)
-                if estatSessio != 'planificada':
-                    num = itemObj.numSessio.zfill(3)
-                    any = itemObj.start.strftime('%Y%m%d')
-                    results.append(dict(title=item.Title,
-                                        url=itemObj.absolute_url(),
-                                        hiddenOrder=int(any + num)))
-            if results:
-                results = sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
-                title = results[0]['title']
-                url = results[0]['url']
-                return dict(title=title, url=url)
-
-    def getLatestCS(self):
-        """ Retorna ultima sessió consell social en estat que no sigui planificada """
-        root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
-        lt = getToolByName(self, 'portal_languages')
-        lang = lt.getPreferredLanguage()
-        portal_catalog = api.portal.get_tool(name='portal_catalog')
-        items = portal_catalog.searchResults(
-            portal_type=['genweb.organs.sessio'],
-            path=root_path + "/" + lang + "/cs/ple-del-consell-social",
-            sort_on='created',
-            sort_order='reverse')
-
-        if items:
-            results = []
-            for item in items:
-                itemObj = item._unrestrictedGetObject()
-                estatSessio = api.content.get_state(obj=itemObj)
-                if estatSessio != 'planificada':
-                    num = itemObj.numSessio.zfill(3)
-                    any = itemObj.start.strftime('%Y%m%d')
-                    results.append(dict(title=item.Title,
-                                        url=itemObj.absolute_url(),
-                                        hiddenOrder=int(any + num)))
-            if results:
-                results = sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
-                title = results[0]['title']
-                url = results[0]['url']
-                return dict(title=title, url=url)
-
-    def getLatestCU(self):
-        """ Retorna ultima sessió claustre universitari en estat que no sigui planificada """
-        root_path = '/'.join(api.portal.get().getPhysicalPath())  # /998/govern
-        lt = getToolByName(self, 'portal_languages')
-        lang = lt.getPreferredLanguage()
-        portal_catalog = api.portal.get_tool(name='portal_catalog')
-        items = portal_catalog.searchResults(
-            portal_type=['genweb.organs.sessio'],
-            path=root_path + "/" + lang + "/claustre-universitari/claustre-universitari",
-            sort_on='created',
-            sort_order='reverse')
-
-        if items:
-            results = []
-            for item in items:
-                itemObj = item._unrestrictedGetObject()
-                estatSessio = api.content.get_state(obj=itemObj)
-                if estatSessio != 'planificada':
-                    num = itemObj.numSessio.zfill(3)
-                    any = itemObj.start.strftime('%Y%m%d')
-                    results.append(dict(title=item.Title,
-                                        url=itemObj.absolute_url(),
-                                        hiddenOrder=int(any + num)))
-            if results:
-                results = sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
-                title = results[0]['title']
-                url = results[0]['url']
-                return dict(title=title, url=url)
 
     def sort_options(self):
         """ Sorting options for search results view. """

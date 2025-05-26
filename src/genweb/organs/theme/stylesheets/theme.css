@@ -1,87 +1,3890 @@
+@charset "UTF-8";
 /* genweb_organs.css */
 /* Personalizaciones para la vista organgovern_view.pt */
-/* Estado: Realitzada */
-/* line 6, ../scss/_genweb_organs.scss */
-span.estatpunt:has(.boletaGran[style*="color: #28a745"]) {
-  font-weight: bold;
+@media only screen and (max-width: 639px) {
+  /* line 27, ../scss/_genweb_organs.scss */
+  .header-image {
+    height: 40px !important;
+    display: none !important;
+  }
+
+  /* line 32, ../scss/_genweb_organs.scss */
+  .header-image.l2-image {
+    height: auto !important;
+    margin-left: 0px !important;
+  }
+
+  /* line 37, ../scss/_genweb_organs.scss */
+  #viewlet-above-content-title,
+  .documentFirstHeading,
+  #viewlet-below-content-title,
+  #viewlet-above-content-body {
+    display: block !important;
+  }
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  /*.header-image {
+      //background-size: auto !important;
+      background-image: url("/++theme++genweb.organs/img/capcalera_organs@2x.jpg") !important;
+  }*/
+  /* line 52, ../scss/_genweb_organs.scss */
+  #viewlet-above-content-title,
+  .documentFirstHeading,
+  #viewlet-below-content-title,
+  #viewlet-above-content-body {
+    display: block !important;
+  }
+}
+/* line 61, ../scss/_genweb_organs.scss */
+.header-image {
+  background-image: url("/++theme++genweb.organs/img/capcalera_organs@2x.jpg") !important;
 }
 
-/* line 9, ../scss/_genweb_organs.scss */
-.boletaGran[style*="color: #28a745"] {
-  color: #28a745 !important;
+/* line 65, ../scss/_genweb_organs.scss */
+.titling-line-container {
+  position: relative;
 }
 
-/* Estado: Tancada */
-/* line 14, ../scss/_genweb_organs.scss */
-span.estatpunt:has(.boletaGran[style*="color: #007bc0"]) {
-  font-weight: bold;
+/* line 69, ../scss/_genweb_organs.scss */
+.titling-line {
+  font-size: 18px;
+  color: #636363;
+  position: relative;
+  overflow: hidden;
+  padding: 6px 0;
+  margin-top: 0;
+}
+/* line 77, ../scss/_genweb_organs.scss */
+.titling-line::after {
+  content: "";
+  position: absolute;
+  margin-left: 12px;
+  background: #d1d1d1;
+  height: 1px;
+  box-shadow: 1000px 0 0 -1000px #d1d1d1;
+  width: 100%;
+  top: 50%;
 }
 
-/* line 17, ../scss/_genweb_organs.scss */
-.boletaGran[style*="color: #007bc0"] {
-  color: #007bc0 !important;
+/* line 90, ../scss/_genweb_organs.scss */
+.list-agenda {
+  list-style: none;
+  padding: 0;
+}
+/* line 94, ../scss/_genweb_organs.scss */
+.list-agenda a {
+  height: 300px;
+  position: relative;
+  display: block;
+  transition: all .25s ease-out;
+  overflow: hidden;
+}
+/* line 101, ../scss/_genweb_organs.scss */
+.list-agenda a:hover {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 5px 10px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.05) !important;
+  transform: perspective(1px) scale(1.00775, 1.00775) translateZ(0px);
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+/* line 108, ../scss/_genweb_organs.scss */
+.list-agenda img {
+  object-fit: cover;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+  transition: all .5s ease;
+}
+/* line 119, ../scss/_genweb_organs.scss */
+.list-agenda .event-time {
+  background: linear-gradient(89deg, #00BCD4 0%, #007bc1 100%);
+  opacity: 0.9;
+  width: 128px;
+  height: 128px;
+  border-radius: 50% !important;
+  position: absolute;
+  left: calc(50% - 64px);
+  top: calc(45% - 64px - 36px);
+  display: table-cell;
+  text-align: center;
 }
 
-/* line 21, ../scss/_genweb_organs.scss */
-.table th, .table td {
-  vertical-align: middle !important;
-  font-size: 14px;
-}
-
-/* line 25, ../scss/_genweb_organs.scss */
-.table thead th {
-  background: #f5f5f5;
-  color: #333;
-  border-bottom: 2px solid #007bc0;
-}
-
-/* line 30, ../scss/_genweb_organs.scss */
-.table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: #f8fafd;
-}
-
-/* line 34, ../scss/_genweb_organs.scss */
-h1, h2, h3 {
-  color: #007bc0;
-  font-weight: 600;
-}
-
-/* line 39, ../scss/_genweb_organs.scss */
-.nav-tabs .nav-link.active {
-  background-color: #f5f5f5;
-  color: #007bc0;
-  border-color: #007bc0 #007bc0 #f5f5f5;
-}
-
-/* line 44, ../scss/_genweb_organs.scss */
-.nav-tabs .nav-link {
-  color: #007bc0;
-}
-
-/* line 48, ../scss/_genweb_organs.scss */
-.btn-export-acords .btn-info {
-  background-color: #007bc0;
-  border-color: #007bc0;
+/* line 134, ../scss/_genweb_organs.scss */
+.btn-info, .link-parent {
+  background-image: linear-gradient(to bottom, #007bc0, #007bc0) !important;
+  background-repeat: repeat-x;
+  border-color: transparent;
+  border-radius: 3px !important;
   color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+/* line 142, ../scss/_genweb_organs.scss */
+.btn-info:hover, .link-parent:hover {
+  background-color: #006ba7 !important;
+  border-color: transparent;
+  color: #fff;
+}
+
+/* line 150, ../scss/_genweb_organs.scss */
+.estatFirma {
+  padding: 5px 10px !important;
+  border-radius: 15px !important;
+  margin-top: 4px;
+  display: inline-block;
+  text-transform: uppercase;
+  color: #000 !important;
+}
+/* line 158, ../scss/_genweb_organs.scss */
+.estatFirma.pendent, .estatFirma.en_proces, .estatFirma.pendent_altres_usuaris {
+  background-color: #FFDA9E;
+}
+/* line 164, ../scss/_genweb_organs.scss */
+.estatFirma.signada {
+  background-color: #B0F2C2;
+}
+/* line 168, ../scss/_genweb_organs.scss */
+.estatFirma.rebutjada, .estatFirma.cancelada {
+  background-color: #FCB7AF;
+}
+
+/* line 175, ../scss/_genweb_organs.scss */
+.calendari {
+  width: 100%;
+  text-align: center;
+  color: #4a4a4a;
+}
+/* line 180, ../scss/_genweb_organs.scss */
+.calendari th, .calendari td {
+  text-align: center;
+  height: 30px;
+  width: calc(100% / 7);
+}
+/* line 186, ../scss/_genweb_organs.scss */
+.calendari th {
+  background-color: white;
+}
+
+/* line 191, ../scss/_genweb_organs.scss */
+.cal_has_events {
+  background-color: #A6A6A6;
+  text-shadow: none;
+  cursor: pointer;
+}
+/* line 196, ../scss/_genweb_organs.scss */
+.cal_has_events:hover {
+  filter: brightness(80%);
+}
+/* line 200, ../scss/_genweb_organs.scss */
+.cal_has_events a {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* line 207, ../scss/_genweb_organs.scss */
+input.searchPage {
+  width: 85%;
+}
+
+/* line 212, ../scss/_genweb_organs.scss */
+.form-control:focus {
+  border-color: #007bc0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 192, 0.25);
+}
+
+/* line 219, ../scss/_genweb_organs.scss */
+.text-muted {
+  color: #555 !important;
+}
+
+/* line 223, ../scss/_genweb_organs.scss */
+.bg-primary {
+  background-color: #007bc0 !important;
+}
+
+/* line 229, ../scss/_genweb_organs.scss */
+body {
+  background: #f7f7f7 !important;
+}
+
+/* line 233, ../scss/_genweb_organs.scss */
+#content-core {
+  max-width: 1200px;
+  margin: 32px auto 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.08);
+  padding: 32px 40px 32px 40px;
+}
+
+/* line 242, ../scss/_genweb_organs.scss */
+section.mb-4 {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.04);
+  padding: 32px 32px 24px 32px;
+  margin-bottom: 32px !important;
+}
+
+/* line 251, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2.align-items-end {
+  margin-bottom: 1.5rem !important;
+}
+/* line 253, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2.align-items-end .col-10, form[role="search"] .row.mb-3.g-2.align-items-end .col-2 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+/* line 257, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2.align-items-end .form-control {
+  border-radius: 6px 0 0 6px;
+  border: 1px solid #bcdff6;
+  background: #f7fbfd;
+  font-size: 1rem;
+  height: 48px;
+}
+/* line 264, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2.align-items-end .btn-primary {
+  border-radius: 0 6px 6px 0;
+  height: 48px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  width: 100%;
+}
+/* line 272, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2 {
+  margin-bottom: 1.5rem !important;
+}
+/* line 274, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2 .col-md-4 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+/* line 277, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2 .col-md-4 .form-label {
+  font-weight: 700;
+  color: #007bc0;
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+}
+/* line 283, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2 .col-md-4 .form-check {
+  margin-bottom: 8px;
+}
+/* line 286, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2 .col-md-4 .form-check-input {
+  border-radius: 4px;
+  border: 1.5px solid #bcdff6;
+  margin-right: 6px;
+}
+/* line 291, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2 .col-md-4 .form-check-label {
+  font-size: 1rem;
+  color: #222;
   font-weight: 500;
 }
-
-/* line 55, ../scss/_genweb_organs.scss */
-.scrollit {
-  overflow-x: auto;
+/* line 298, ../scss/_genweb_organs.scss */
+form[role="search"] .card.mt-3 {
+  margin-top: 2rem !important;
 }
 
-/* line 59, ../scss/_genweb_organs.scss */
-a {
+@media (max-width: 900px) {
+  /* line 304, ../scss/_genweb_organs.scss */
+  section.mb-4 {
+    padding: 16px 4vw 12px 4vw;
+  }
+
+  /* line 307, ../scss/_genweb_organs.scss */
+  form[role="search"] .row.mb-3.g-2.align-items-end {
+    flex-direction: column;
+  }
+  /* line 309, ../scss/_genweb_organs.scss */
+  form[role="search"] .row.mb-3.g-2.align-items-end .col-10, form[role="search"] .row.mb-3.g-2.align-items-end .col-2 {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  /* line 313, ../scss/_genweb_organs.scss */
+  form[role="search"] .row.mb-3.g-2.align-items-end .form-control, form[role="search"] .row.mb-3.g-2.align-items-end .btn-primary {
+    border-radius: 6px !important;
+  }
+
+  /* line 317, ../scss/_genweb_organs.scss */
+  form[role="search"] .row.mb-3.g-2 {
+    flex-direction: column;
+  }
+  /* line 319, ../scss/_genweb_organs.scss */
+  form[role="search"] .row.mb-3.g-2 .col-md-4 {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+}
+/* line 326, ../scss/_genweb_organs.scss */
+.row.mt-4 > .card {
+  margin-top: 2rem !important;
+}
+
+/* line 330, ../scss/_genweb_organs.scss */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.07);
+  border: none;
+  margin-bottom: 24px;
+}
+/* line 335, ../scss/_genweb_organs.scss */
+.card .card-body {
+  padding: 18px 20px 12px 20px;
+}
+/* line 338, ../scss/_genweb_organs.scss */
+.card .card-title {
+  color: #007bc0;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+/* line 346, ../scss/_genweb_organs.scss */
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid #eaeaea;
+  border-radius: 0;
+  padding: 14px 18px;
+  font-size: 1.05rem;
+}
+/* line 352, ../scss/_genweb_organs.scss */
+.list-group-item:last-child {
+  border-bottom: none;
+}
+/* line 355, ../scss/_genweb_organs.scss */
+.list-group-item .fw-bold {
+  color: #007bc0;
+}
+/* line 358, ../scss/_genweb_organs.scss */
+.list-group-item .badge {
+  background: #e5f3fa;
+  color: #007bc0;
+  font-weight: 600;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  padding: 6px 12px;
+}
+
+@media (max-width: 1200px) {
+  /* line 369, ../scss/_genweb_organs.scss */
+  #content-core {
+    padding: 12px 2vw;
+  }
+
+  /* line 372, ../scss/_genweb_organs.scss */
+  .list-agenda {
+    flex-direction: column;
+    gap: 18px;
+  }
+}
+/* START MEDIA QUERY CSS */
+@media only screen and (max-width: 639px) {
+  /* line 380, ../scss/_genweb_organs.scss */
+  .header-image {
+    height: 40px !important;
+    display: none !important;
+  }
+
+  /* line 384, ../scss/_genweb_organs.scss */
+  .header-image.l2-image {
+    height: auto !important;
+    margin-left: 0px !important;
+  }
+
+  /* line 388, ../scss/_genweb_organs.scss */
+  #viewlet-above-content-title,
+  .documentFirstHeading,
+  #viewlet-below-content-title,
+  #viewlet-above-content-body {
+    display: block !important;
+  }
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  /*.header-image {
+      //background-size: auto !important;
+      background-image: url("/++theme++genweb.organs/img/capcalera_organs@2x.jpg") !important;
+  }*/
+  /* line 403, ../scss/_genweb_organs.scss */
+  #viewlet-above-content-title,
+  .documentFirstHeading,
+  #viewlet-below-content-title,
+  #viewlet-above-content-body {
+    display: block !important;
+  }
+}
+/* END MEDIA QUERY CSS */
+/* START DEFAULT CSS NO MEDIA QUERY */
+/* line 416, ../scss/_genweb_organs.scss */
+.no-image .header-image {
+  display: none !important;
+}
+
+/* line 420, ../scss/_genweb_organs.scss */
+.sessionActions {
+  float: right;
+  display: flex;
+}
+
+/* line 425, ../scss/_genweb_organs.scss */
+td.centerMiddle,
+th.centerMiddle {
+  font-size: 13px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* line 432, ../scss/_genweb_organs.scss */
+.template-folder_contents li#contentview-view.active {
+  display: inline;
+}
+
+/* line 434, ../scss/_genweb_organs.scss */
+#formfield-form-widgets-captcha label {
+  display: none;
+}
+
+/* line 435, ../scss/_genweb_organs.scss */
+.portaltype-genweb-organs-organgovern div.tab-pane.active,
+.portaltype-genweb-organs-sessio div.tab-pane.active,
+.portaltype-genweb-organs-acta div.tab-pane.active {
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+/* line 442, ../scss/_genweb_organs.scss */
+ul#tabs.nav.nav-tabs {
+  margin: 0px;
+}
+
+/* line 446, ../scss/_genweb_organs.scss */
+.sessionCustomActions {
+  margin-bottom: 20px;
+  float: right;
+}
+
+/* line 451, ../scss/_genweb_organs.scss */
+.btn-export {
+  margin-bottom: 20px !important;
+  float: right;
+}
+
+/* line 456, ../scss/_genweb_organs.scss */
+.sessionOrdreDia {
+  margin-top: 0px;
+  text-align: left;
+  float: left;
+  margin-right: 20px;
+}
+
+/* line 463, ../scss/_genweb_organs.scss */
+#contentOrgan #tabs li a,
+#contentSessio #tabs li a,
+#contentActa #tabs li a {
+  background-color: #ddd;
+  background-image: none;
+  border: medium none;
+  color: #555;
+  margin-right: 5px;
+  padding: 8px 15px;
+  text-align: center;
+  outline: medium none;
+}
+
+/* line 476, ../scss/_genweb_organs.scss */
+#contentOrgan #tabs li.active a,
+#contentSessio #tabs li.active a,
+#contentActa #tabs li.active a {
+  background-image: none;
+  background-color: #f0f0f0;
+  border: none;
+  font-weight: bold;
+}
+
+/* line 485, ../scss/_genweb_organs.scss */
+.nav-tabs {
+  border-bottom: 0px solid #B2B2B2 !important;
+}
+
+/* line 489, ../scss/_genweb_organs.scss */
+#contentSessio #tabs > li.dropdown.open > ul > li > a {
+  background-color: white;
+  color: black;
+}
+
+/* line 494, ../scss/_genweb_organs.scss */
+#dadesTab li,
+#multimediaTab li,
+#actaTab li {
+  border-bottom: 1px solid white;
+  list-style: outside none;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+/* line 504, ../scss/_genweb_organs.scss */
+#dadesTab ul,
+#multimediaTab ul,
+#actaTab ul {
+  margin-left: 0px;
+}
+
+/* line 510, ../scss/_genweb_organs.scss */
+a.collapsed .icon-chevron-down {
+  background-position: -456px -72px;
+}
+
+/* line 514, ../scss/_genweb_organs.scss */
+.containerIcons {
+  text-align: center;
+  padding: 10px;
+  max-width: 90px;
+}
+
+/* line 520, ../scss/_genweb_organs.scss */
+.containerIcons.mgDOC {
+  max-width: 110px;
+}
+
+/* line 524, ../scss/_genweb_organs.scss */
+.containerIcons > i {
+  position: relative;
+  top: calc(50% - 10px);
+  /* 50% - 3/4 of icon height */
+}
+
+/* line 529, ../scss/_genweb_organs.scss */
+.containerIcons .fa {
+  color: #557c95;
+  font-size: 25px;
+}
+
+/* line 534, ../scss/_genweb_organs.scss */
+.containerIcons span {
+  color: #557c95;
+}
+
+/* CSS  modal afegir punts massivament */
+/* line 539, ../scss/_genweb_organs.scss */
+body.template-mail_convocar #form-widgets-membresConvocats,
+body.template-mail_convocar #form-widgets-membresConvidats,
+#form-widgets-message {
+  height: 165px;
+}
+
+/* add 98% to width */
+/* line 546, ../scss/_genweb_organs.scss */
+input#form-widgets-title,
+input#form-widgets-llocConvocatoria,
+input#form-widgets-horaInici,
+input#form-widgets-horaFi,
+input#form-widgets-IBasic-title,
+input#form-widgets-acronim,
+input#form-widgets-fromMail,
+input#form-widgets-eventsColor,
+input#form-widgets-adrecaLlista,
+input#form-widgets-any,
+input#form-widgets-numSessio,
+input#form-widgets-enllacVideo,
+input#form-widgets-enllacAudio,
+input#form-widgets-proposalPoint,
+input#form-widgets-agreement,
+input#form-widgets-recipients,
+input#form-widgets-linkSala,
+input#form-widgets-fromTitle {
+  width: 98%;
+}
+
+/*  Hide view action tab */
+/* line 566, ../scss/_genweb_organs.scss */
+.portaltype-genweb-organs-organsfolder #plone-contentmenu-display,
+.portaltype-genweb-organs-acta #plone-contentmenu-display,
+.portaltype-genweb-organs-organgovern #plone-contentmenu-display,
+.portaltype-genweb-organs-punt #plone-contentmenu-display,
+.portaltype-genweb-organs-sessio #plone-contentmenu-display,
+.portaltype-genweb-organs-acord #plone-contentmenu-display {
+  display: none;
+}
+
+/* line 574, ../scss/_genweb_organs.scss */
+.label-danger {
+  background-color: #d9534f !important;
+}
+
+/* line 578, ../scss/_genweb_organs.scss */
+.ul_items {
+  margin-left: 5px;
+}
+
+/* editable */
+/* line 585, ../scss/_genweb_organs.scss */
+#sortable {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
+/* line 593, ../scss/_genweb_organs.scss */
+span.proposalNumber {
+  color: #007BC0;
+  font-size: 20px;
+}
+
+/* line 597, ../scss/_genweb_organs.scss */
+.DADES > h2 {
+  margin-bottom: 15px;
+}
+
+/* line 601, ../scss/_genweb_organs.scss */
+.DADES ul, .DADES ol {
+  margin: 5px 0;
+}
+
+/* line 605, ../scss/_genweb_organs.scss */
+span.proposalNumberSubpunt {
+  color: #007BC0;
+  margin-left: 0;
+  font-weight: 800 !important;
+}
+
+/* line 611, ../scss/_genweb_organs.scss */
+#sortable .ui-state-highlight {
+  height: 1.5em;
+  line-height: 1.2em;
+  background: #f0f0f0;
+}
+
+/* line 617, ../scss/_genweb_organs.scss */
+#sortable .ui-state-highlight2 {
+  height: 1.5em;
+  line-height: 1.2em;
+  background: red;
+}
+
+/* line 623, ../scss/_genweb_organs.scss */
+.textFloating {
+  font-size: 18px;
+  font-weight: bold;
+  padding-left: 20px;
+  border-color: black;
+}
+
+/* line 630, ../scss/_genweb_organs.scss */
+.ui-state-grey, .ui-state-grey-not_move, .ui-state-grey-impersonate {
+  border: 1px solid #eee;
+  position: relative;
+  font-weight: normal;
+  color: black;
+}
+
+/* line 637, ../scss/_genweb_organs.scss */
+.ui-state-grey:hover {
+  background: #f9f9f9 none repeat scroll 0 0;
+  cursor: move;
+  position: relative;
+}
+
+/* line 643, ../scss/_genweb_organs.scss */
+.ui-state-grey:hover:before {
+  font-family: FontAwesome;
+  cursor: move;
+  color: #007BC0;
+  position: absolute;
+  font-size: 15px;
+  bottom: 10px;
+  left: 10px;
+}
+
+/* line 653, ../scss/_genweb_organs.scss */
+.ui-state-grey-file:hover {
+  background: #f9f9f9 none repeat scroll 0 0 !important;
+  position: relative;
+}
+
+/* line 659, ../scss/_genweb_organs.scss */
+.llistaAfegir {
+  margin-top: 10px;
+  color: #333;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 11px;
+  line-height: 18px;
+  text-align: right;
+}
+
+/* line 668, ../scss/_genweb_organs.scss */
+.llistaAfegir a {
+  padding: 1px 4px 2px;
+}
+
+/* line 672, ../scss/_genweb_organs.scss */
+.llistaAfegir a:hover {
+  background-color: #D4D4D4;
+  color: black;
+  padding: 1px 4px 2px;
+}
+
+/* line 678, ../scss/_genweb_organs.scss */
+.editTitle.editable.subtitleSize {
+  color: #555;
+  font-weight: normal;
+}
+
+/* line 682, ../scss/_genweb_organs.scss */
+.titleSize {
+  color: #555;
+  font-weight: normal;
+}
+
+/* line 687, ../scss/_genweb_organs.scss */
+span.label.nomarginLeft {
+  margin-left: 10px !important;
+  margin-right: 5px;
+  position: initial !important;
+  float: right;
+  font-size: 10px;
+}
+
+/* line 695, ../scss/_genweb_organs.scss */
+.puntTitle {
+  color: black;
+  font-size: 13px;
+  font-weight: bold;
+  color: black;
+  padding-top: 5px;
+}
+
+/* line 702, ../scss/_genweb_organs.scss */
+.subpuntTitle {
+  font-size: 13px;
+  padding-left: 50px !important;
+  /*line-height: 21px;*/
+}
+
+/* line 708, ../scss/_genweb_organs.scss */
+#modalSession {
+  width: 85%;
+  height: 700px;
+  right: 30%;
+  left: 30% !important;
+}
+
+/*#myModal {
+    width: 65%;
+    height: 525px;
+    right: 30%;
+    left: 40% !important;
+}*/
+/* line 722, ../scss/_genweb_organs.scss */
+div.modal-body.presentation {
+  max-height: 100% !important;
+}
+
+/* line 726, ../scss/_genweb_organs.scss */
+div.modal-header.presentation {
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+}
+
+/* line 732, ../scss/_genweb_organs.scss */
+div#modalSession.modal.fade.modalSession.in {
+  top: 35%;
+}
+
+/* line 736, ../scss/_genweb_organs.scss */
+#modalSessionView {
+  list-style-type: none;
+  margin: 0 3px 3px 3px;
+  padding: 0.4em;
+  padding-left: 1.5em;
+  width: auto;
+  border: 1px solid #D4D4D4;
+  font-weight: normal;
+  color: black;
+}
+
+/* line 748, ../scss/_genweb_organs.scss */
+.fa {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+/* line 753, ../scss/_genweb_organs.scss */
+.fa:before {
+  content: "\f067";
+  font-family: FontAwesome;
+}
+
+/* line 758, ../scss/_genweb_organs.scss */
+.editable-click, a.editable-click, a.editable-click:hover {
+  text-decoration: none;
+  border-bottom: dotted 1px #2c95b4 !important;
+}
+
+/* line 764, ../scss/_genweb_organs.scss */
+label.label.label-default {
+  color: #777777;
+  font-weight: 500;
+  background-color: #eee;
+  margin-right: 3px;
+  text-shadow: none !important;
+}
+
+/* line 772, ../scss/_genweb_organs.scss */
+label.label.label-default {
+  padding: 2px 4px !important;
+}
+
+/* line 774, ../scss/_genweb_organs.scss */
+.btn-group {
+  margin-top: 0px;
+  margin-right: 5px;
+}
+
+/* line 779, ../scss/_genweb_organs.scss */
+.btn-group a {
+  margin: 1px;
+}
+
+/* line 783, ../scss/_genweb_organs.scss */
+ul:empty {
+  padding: 0px !important;
+}
+
+/* line 787, ../scss/_genweb_organs.scss */
+a.addinsubpunt {
+  background-color: orange !important;
+}
+
+/* line 790, ../scss/_genweb_organs.scss */
+a.remove {
+  background-color: #e8003d !important;
+}
+
+/* line 792, ../scss/_genweb_organs.scss */
+.filesinTable .fa {
+  margin-right: 4px;
+}
+
+/* line 795, ../scss/_genweb_organs.scss */
+.filesinTable .fa-trash-o {
+  margin-right: 0;
+}
+
+/* line 799, ../scss/_genweb_organs.scss */
+.filesinTable > a {
+  color: #555;
+  font-weight: normal;
+}
+
+/* line 804, ../scss/_genweb_organs.scss */
+.subpuntTitle:hover:before {
+  cursor: move;
+  font-family: FontAwesome;
+  color: #ccc;
+  font-size: 13px;
+  font-weight: 300;
+  left: 15px;
+  position: absolute;
+}
+
+/* line 815, ../scss/_genweb_organs.scss */
+.ui-state-grey:hover:before {
+  font-family: FontAwesome;
+  cursor: move;
+  color: #ccc;
+  position: absolute;
+  font-size: 14px;
+  bottom: 5px;
+  left: 5px;
+}
+
+/* line 825, ../scss/_genweb_organs.scss */
+#sortable .ui-state-highlight2 {
+  height: 2em;
+  line-height: 1.2em;
+  background-color: transparent !important;
+  border: 2px dotted red !important;
+  border-radius: 5px;
+}
+
+/* line 833, ../scss/_genweb_organs.scss */
+.DADES button {
+  background-color: white;
+  border: 1px solid #557c95;
+  color: #557c95;
+  margin: 1px !important;
+  padding: 2px 6px 3px;
+  text-shadow: none;
+  vertical-align: top;
+}
+
+/* line 843, ../scss/_genweb_organs.scss */
+.DADES .btn-info {
+  color: #fff;
+}
+
+/* line 847, ../scss/_genweb_organs.scss */
+.DADES .btn-info.btn-send-confirm[disabled] {
+  filter: brightness(80%);
+}
+
+/* line 851, ../scss/_genweb_organs.scss */
+.DADES .btn-info.btn-send-confirm[disabled]:hover {
+  background-position: 0 0;
+}
+
+/* line 855, ../scss/_genweb_organs.scss */
+.DADES .remove:hover {
+  background: #d14836 none repeat scroll 0 0;
+  border-color: #d14836;
+  color: white;
+}
+
+/* line 861, ../scss/_genweb_organs.scss */
+.DADES .caret {
+  border-top: 4px solid #557c95;
+  vertical-align: middle;
+}
+
+/* line 866, ../scss/_genweb_organs.scss */
+.DADES .hide-agreement.label:hover,
+.DADES .edit.label:hover {
+  background-color: #007bc0;
+  color: white;
+}
+
+/* line 869, ../scss/_genweb_organs.scss */
+.DADES .hide-agreement.label a,
+.DADES .edit.label a {
+  color: white !important;
+}
+
+/* line 872, ../scss/_genweb_organs.scss */
+.btn-info, .link-parent {
+  background-image: linear-gradient(to bottom, #007bc0, #007bc0) !important;
+  background-repeat: repeat-x;
+  border-color: transparent;
+  border-radius: 3px !important;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* line 880, ../scss/_genweb_organs.scss */
+.btn-info:hover, .link-parent:hover, .btn-info:active, .link-parent:active, .btn-info.active, .btn-info.selected, .selected.link-parent, .contentViews .btn-info.selected:hover, .contentViews .selected.link-parent:hover, .active.link-parent, .btn-info.disabled, .disabled.link-parent, .btn-info[disabled], .link-parent[disabled] {
+  background-color: #0273b3 !important;
+  border-color: transparent;
+  color: #fff;
+}
+
+/* line 885, ../scss/_genweb_organs.scss */
+#sortable .dropdown-menu {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  z-index: 10000 !important;
+}
+
+/* line 890, ../scss/_genweb_organs.scss */
+#sortable .dropdown-menu li {
+  border: 0;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0;
+  font-size: 13px;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+/* line 899, ../scss/_genweb_organs.scss */
+#sortable .dropdown-menu li:last-child {
+  border-bottom: 0;
+}
+
+/* line 902, ../scss/_genweb_organs.scss */
+#sortable .dropdown-menu li:hover {
+  background: #f5f5f5;
+}
+
+/* line 905, ../scss/_genweb_organs.scss */
+#sortable .dropdown-menu li a:hover {
+  background-color: transparent;
+  background-image: none;
+  background-repeat: repeat-x;
+  color: black;
   text-decoration: none;
 }
 
-/* line 62, ../scss/_genweb_organs.scss */
-a:hover {
-  text-decoration: underline;
+/* line 912, ../scss/_genweb_organs.scss */
+.listFiles {
+  list-style: none;
+  padding-left: 0px !important;
+  padding-top: 10px;
 }
 
-/* line 66, ../scss/_genweb_organs.scss */
-body {
-  background-color: pink !important;
+/* line 917, ../scss/_genweb_organs.scss */
+.DADES .expand, .DADES .notexpand, .DADES .expand:hover, .DADES .notexpand:hover {
+  background: transparent none repeat scroll 0 0;
+  color: #007bc0;
+}
+
+/* line 921, ../scss/_genweb_organs.scss */
+.DADES .expand, .DADES .notexpand {
+  border: 0;
+}
+
+/* line 925, ../scss/_genweb_organs.scss */
+#sortable .filesinTable:last-child {
+  border-bottom: 0px solid #ececec !important;
+}
+
+/* line 929, ../scss/_genweb_organs.scss */
+.caixaPunts {
+  background-color: whitesmoke;
+  float: left;
+  list-style: outside none none;
+  margin-top: 10px;
+  padding: 15px;
+  width: 96%;
+  margin-bottom: 15px;
+}
+
+/* line 939, ../scss/_genweb_organs.scss */
+.editable-error-block.ui-state-error {
+  margin-left: 5px;
+}
+
+/* line 943, ../scss/_genweb_organs.scss */
+.agreement.editable-container.editable-inline input[type="text"] {
+  width: 30px;
+}
+
+/* line 947, ../scss/_genweb_organs.scss */
+.presentationModal {
+  font-size: 15px;
+  color: #557C95;
+  font-weight: bold;
+}
+
+/* line 953, ../scss/_genweb_organs.scss */
+.logoOrgan {
+  max-height: 60px;
+  width: auto;
+  display: block;
+}
+
+/* line 960, ../scss/_genweb_organs.scss */
+.agreement.editable.editable-click {
+  border: 0 none !important;
+  font-weight: normal;
+  font-size: 13px;
+  color: #555;
+}
+
+/* line 966, ../scss/_genweb_organs.scss */
+.editableform .editable-input {
+  left: 0;
+}
+
+/* amplada camp de text d'edit del titol */
+/* line 971, ../scss/_genweb_organs.scss */
+.editableform .editable-input > input {
+  font-size: 16px;
+  width: 30em;
+}
+
+/* line 975, ../scss/_genweb_organs.scss */
+.btn.label.disabled {
+  background: #ccc none repeat scroll 0 0;
+  border-color: #ccc;
+  color: #111;
+}
+
+/* line 980, ../scss/_genweb_organs.scss */
+.btn.label.disabled:hover {
+  background: #ccc none repeat scroll 0 0;
+  border-color: #ccc;
+  color: #111;
+}
+
+/* line 985, ../scss/_genweb_organs.scss */
+#estats a {
+  color: #557c95;
+}
+
+/* line 988, ../scss/_genweb_organs.scss */
+.DADES .acord {
+  background-image: linear-gradient(to bottom, #007bc0, #007bc0);
+  background-repeat: repeat-x;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* line 994, ../scss/_genweb_organs.scss */
+.DADES .acord:hover {
+  background-image: linear-gradient(to bottom, #006fae, #007bc0);
+}
+
+/* line 997, ../scss/_genweb_organs.scss */
+.dropdown-menu.estatsToggle a {
+  padding-left: 10px;
+}
+
+/* line 1000, ../scss/_genweb_organs.scss */
+.dropdown-menu.estatsToggle a span {
+  margin-left: 5px;
+}
+
+/* line 1003, ../scss/_genweb_organs.scss */
+.label.dropdown-toggle > a {
+  color: #557c95;
+}
+
+/* line 1006, ../scss/_genweb_organs.scss */
+.label.dropdown-toggle:hover {
+  border-color: #007bc0;
+}
+
+/* line 1010, ../scss/_genweb_organs.scss */
+.bodyPresentation span.proposalNumber {
+  color: #CCC;
+  font-size: 30px;
+}
+
+/* line 1015, ../scss/_genweb_organs.scss */
+.bodyPresentation span.proposalNumberSubpunt {
+  color: #CCC;
+  font-size: 23px;
+}
+
+/* line 1020, ../scss/_genweb_organs.scss */
+.bodyPresentation .agreement.editable.editable-click {
+  font-size: 20px;
+}
+
+/* line 1024, ../scss/_genweb_organs.scss */
+.bodyPresentation .affix {
+  padding-right: 20px;
+  position: fixed;
+  top: 30px;
+}
+
+/* line 1030, ../scss/_genweb_organs.scss */
+.bodyPresentation .puntTitle {
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: 0px !important;
+  color: #557C95;
+  padding-top: 0px;
+  padding-left: 15px;
+  margin-top: 0px !important;
+}
+
+/* line 1040, ../scss/_genweb_organs.scss */
+.bodyPresentation .editTitle.editable.subtitleSize {
+  color: #555;
+  font-size: 23px;
+}
+
+/* line 1045, ../scss/_genweb_organs.scss */
+.bodyPresentation .DADES ul, .DADES ol {
+  margin: 5px 0;
+  padding-top: 10px;
+  padding-right: 0px;
+  padding-bottom: 10px;
+}
+
+/* line 1052, ../scss/_genweb_organs.scss */
+.bodyPresentation .btn-group.open .dropdown-toggle {
+  width: 35px;
+  height: 30px;
+}
+
+/* line 1057, ../scss/_genweb_organs.scss */
+.bodyPresentation .DADES button {
+  height: 30px;
+  width: 35px;
+  line-height: 30px;
+}
+
+/* line 1063, ../scss/_genweb_organs.scss */
+.bodyPresentation .label.dropdown-toggle:hover {
+  width: 35px;
+}
+
+/* line 1067, ../scss/_genweb_organs.scss */
+.bodyPresentation .label.dropdown-toggle:hover {
+  border-color: #78aef8;
+  background-color: rgba(33, 154, 224, 0.29);
+  width: 35px;
+}
+
+/* line 1073, ../scss/_genweb_organs.scss */
+.bulletPuntPresentation {
+  padding-right: 25px;
+}
+
+/* line 1077, ../scss/_genweb_organs.scss */
+.bodyPresentation .fa-arrow-up:before {
+  color: #aaa;
+}
+
+/* line 1081, ../scss/_genweb_organs.scss */
+.bodyPresentation .fa-chevron-up:before {
+  color: #aaa;
+}
+
+/* line 1085, ../scss/_genweb_organs.scss */
+.bodyPresentation .fa-chevron-down:before {
+  color: #aaa;
+}
+
+/* line 1089, ../scss/_genweb_organs.scss */
+.bodyPresentation .fa-arrow-down:before {
+  color: #aaa;
+}
+
+/* line 1093, ../scss/_genweb_organs.scss */
+.bodyPresentation .label.dropdown-toggle {
+  font-size: 15px;
+}
+
+/* line 1097, ../scss/_genweb_organs.scss */
+.bodyPresentation .titleSize {
+  line-height: 30px;
+  font-size: 28px;
+}
+
+/* line 1102, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable li {
+  margin: 0px;
+  padding: 0px;
+  box-shadow: none;
+  margin-top: 0px;
+}
+
+/* line 1109, ../scss/_genweb_organs.scss */
+.bodyPresentation .dropdown-menu {
+  margin: 0px;
+  padding: 0px;
+  box-shadow: none;
+  width: 100%;
+}
+
+/* line 1116, ../scss/_genweb_organs.scss */
+.bodyPresentation .bannerOrgansPresentation.clearfix {
+  height: 91%;
+  padding-left: 10%;
+  width: auto;
+  padding-right: 10%;
+}
+
+/* line 1123, ../scss/_genweb_organs.scss */
+.bodyPresentation .bannerOrgansPresentation .bannerTitle {
+  font-size: 36px;
+  line-height: 36px;
+  left: 0px;
+  top: 70px;
+  margin-left: 0;
+  padding-left: 11%;
+  padding-right: 11%;
+}
+
+/* line 1133, ../scss/_genweb_organs.scss */
+.bodyPresentation h1 {
+  font-size: 215%;
+}
+
+/* line 1137, ../scss/_genweb_organs.scss */
+.bodyPresentation .li {
+  line-height: 25px;
+}
+
+/* line 1141, ../scss/_genweb_organs.scss */
+.bodyPresentation .presentation_template {
+  width: 100% !important;
+}
+
+/* line 1145, ../scss/_genweb_organs.scss */
+.bodyPresentation hr {
+  border-top: 3px solid #557c95;
+}
+
+/* line 1150, ../scss/_genweb_organs.scss */
+.bodyPresentation .subpuntTitle {
+  line-height: 30px;
+}
+
+/* line 1154, ../scss/_genweb_organs.scss */
+.bodyPresentation a:hover {
+  color: #007BC0;
+  text-decoration: underline;
+  line-height: 30px;
+}
+
+/* line 1160, ../scss/_genweb_organs.scss */
+.bodyPresentation .fa-3x {
+  font-size: 4em;
+}
+
+/* line 1164, ../scss/_genweb_organs.scss */
+.bodyPresentation .fa-home:before {
+  color: #DDD;
+}
+
+/* line 1168, ../scss/_genweb_organs.scss */
+.bodyPresentation .listFiles a {
+  font-size: 20px;
+}
+
+/* line 1172, ../scss/_genweb_organs.scss */
+.bodyPresentation .btn-group {
+  margin-right: 0px;
+}
+
+/* line 1176, ../scss/_genweb_organs.scss */
+.bodyPresentation .label.dropdown-toggle > a {
+  color: #002237;
+  font-size: 16px;
+  line-height: 30px;
+}
+
+/* line 1182, ../scss/_genweb_organs.scss */
+.bodyPresentation .dropdown-menu.estatsToggle a {
+  padding-left: 10px;
+}
+
+/* line 1186, ../scss/_genweb_organs.scss */
+.bodyPresentation .dropdown-menu.estatsToggle a span {
+  margin-left: 5px;
+}
+
+/* line 1190, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable .filesinTable {
+  margin-top: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  line-height: 30px;
+  padding-left: 20px;
+  background: transparent;
+}
+
+/* line 1199, ../scss/_genweb_organs.scss */
+.bodyPresentation .dropdown-menu a {
+  display: block;
+  padding: 2px 9px;
+  clear: both;
+  font-weight: normal;
+  line-height: 30px;
+  color: #000;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* line 1211, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable .dropdown-menu {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 0px;
+  width: auto;
+}
+
+/* line 1218, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable .dropdown-menu li {
+  margin-top: 0px !important;
+}
+
+/* line 1222, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable .dropdown-menu li {
+  line-height: 25px !important;
+}
+
+/* line 1225, ../scss/_genweb_organs.scss */
+.bodyPresentation .DADES button {
+  padding: 0px 0px 32px 0px !important;
+}
+
+/* line 1228, ../scss/_genweb_organs.scss */
+.portaltype-genweb-organs-organsfolder a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-organgovern a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-punt a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-subpunt a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-file a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-document a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-acta a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-audio a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-annex a#plone-contentmenu-workflow.dropdown-toggle,
+.portaltype-genweb-organs-acord a#plone-contentmenu-workflow.dropdown-toggle {
+  display: none;
+}
+
+/* line 1240, ../scss/_genweb_organs.scss */
+.portaltype-genweb-organs-organsfolder a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-organgovern a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-sessio a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-punt a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-subpunt a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-file a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-document a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-acta a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-audio a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-annex a#plone-contentmenu-multilingual.dropdown-toggle,
+.portaltype-genweb-organs-acord a#plone-contentmenu-multilingual.dropdown-toggle {
+  display: none;
+}
+
+/* line 1253, ../scss/_genweb_organs.scss */
+.popover {
+  z-index: 2060 !important;
+}
+
+/* line 1257, ../scss/_genweb_organs.scss */
+.bannerOrgans {
+  padding-top: 20px;
+  position: relative;
+}
+
+/* line 1258, ../scss/_genweb_organs.scss */
+.bannerTitle {
+  bottom: 20px;
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
+  height: 0;
+  left: 20px;
+  margin-left: 0;
+  padding-bottom: 30px;
+  padding-left: 0;
+  padding-top: 15px;
+  position: absolute;
+  text-align: left;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  text-transform: uppercase;
+  top: 30px;
+  z-index: 10;
+}
+
+/* line 1277, ../scss/_genweb_organs.scss */
+.ul-session span:not(.highlightedSearchTerm) {
+  float: right;
+}
+
+/* line 1281, ../scss/_genweb_organs.scss */
+.Mobile {
+  padding-top: 4px;
+}
+
+/* line 1285, ../scss/_genweb_organs.scss */
+.bannerTitle > a {
+  color: white;
+}
+
+/* line 1286, ../scss/_genweb_organs.scss */
+.bannerTitle > a:hover {
+  color: white;
+}
+
+/* line 1287, ../scss/_genweb_organs.scss */
+.bannerTitle .Mobile > a {
+  color: white;
+}
+
+/* line 1288, ../scss/_genweb_organs.scss */
+.bannerTitle .Mobile > a:hover {
+  color: white;
+}
+
+/* line 1290, ../scss/_genweb_organs.scss */
+.bannerTitle > h1 {
+  color: white;
+}
+
+/* line 1291, ../scss/_genweb_organs.scss */
+.bannerTitle > h1:hover {
+  color: white;
+}
+
+/* line 1292, ../scss/_genweb_organs.scss */
+.bannerTitle .Mobile > h1 {
+  color: white;
+}
+
+/* line 1293, ../scss/_genweb_organs.scss */
+.bannerTitle .Mobile > h1:hover {
+  color: white;
+}
+
+/* line 1295, ../scss/_genweb_organs.scss */
+div.formControls {
+  padding-top: 0px;
+}
+
+/* line 1298, ../scss/_genweb_organs.scss */
+div#formfield-form-widgets-message.field {
+  margin-bottom: 0px;
+}
+
+/* line 1300, ../scss/_genweb_organs.scss */
+.portaltype-genweb-organs-sessio .listFiles {
+  padding-left: 50px !important;
+}
+
+/* line 1304, ../scss/_genweb_organs.scss */
+.portaltype-genweb-organs-sessio .subpuntTitle {
+  padding-left: 75px !important;
+}
+
+/* line 1308, ../scss/_genweb_organs.scss */
+.portaltype-genweb-organs-sessio .span1 {
+  margin-bottom: 0px !important;
+}
+
+/* line 1312, ../scss/_genweb_organs.scss */
+.portaltype-genweb-organs-sessio .span2.boleta {
+  margin-left: 39px !important;
+}
+
+/* line 1316, ../scss/_genweb_organs.scss */
+.portaltype-genweb-organs-sessio ol li.filesinTable {
+  width: 585px !important;
+  margin-left: 35px !important;
+}
+
+/* line 1321, ../scss/_genweb_organs.scss */
+.listFiles {
+  list-style: none;
+  padding-bottom: 5px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+/* line 1328, ../scss/_genweb_organs.scss */
+.listFiles a {
+  font-size: 13px;
+}
+
+/* line 1330, ../scss/_genweb_organs.scss */
+span.label.label-default,
+span.label.label-danger {
+  float: right;
+}
+
+/* line 1333, ../scss/_genweb_organs.scss */
+span.labelSearch {
+  float: right;
+  padding: 2px 4px 2px 4px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 15px;
+  color: #fff;
+  vertical-align: baseline;
+  white-space: nowrap;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #777777;
+  margin-right: 5px;
+}
+
+/* line 1347, ../scss/_genweb_organs.scss */
+.presentation_template {
+  margin-right: auto;
+  margin-left: auto;
+  width: 768px;
+  background-color: white;
+  padding-top: 25px;
+  min-height: 600px;
+}
+
+/* line 1356, ../scss/_genweb_organs.scss */
+body, .smooth-container {
+  scroll-behavior: smooth;
+}
+
+/* line 1358, ../scss/_genweb_organs.scss */
+#sessionTabs {
+  padding-bottom: 20px;
+}
+
+/* line 1361, ../scss/_genweb_organs.scss */
+dt.contenttype-genweb-organs-historicfolder:before,
+i.icon-genweb-organs-historicfolder,
+span.icon-genweb-organs-historicfolder,
+#listing-table a.contenttype-genweb-organs-historicfolder:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-historicfolder:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-historicfolder"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-historicfolder"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-historicfolder"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-historicfolder"] span:after {
+  background-position: -242px -168px !important;
+}
+
+/* line 1374, ../scss/_genweb_organs.scss */
+dt.contenttype-genweb-organs-organgovern:before,
+i.icon-genweb-organs-organgovern,
+span.icon-genweb-organs-organgovern,
+#listing-table a.contenttype-genweb-organs-organgovern:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-organgovern:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-organgovern"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-organgovern"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-organgovern"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-organgovern"] span:after {
+  background-position: -48px -48px !important;
+}
+
+/* line 1387, ../scss/_genweb_organs.scss */
+dt.contenttype-genweb-organs-sessio:before,
+i.icon-genweb-organs-sessio,
+span.icon-genweb-organs-sessio,
+#listing-table a.contenttype-genweb-organs-sessio:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-sessio:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-sessio"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-sessio"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-sessio"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-sessio"] span:after {
+  background-position: -312px -168px !important;
+}
+
+/* line 1400, ../scss/_genweb_organs.scss */
+dt.contenttype-genweb-organs-document:before,
+i.icon-genweb-organs-document,
+span.icon-genweb-organs-document,
+#listing-table a.contenttype-genweb-organs-document:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-document:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-document"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-document"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-document"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-document"] span:after {
+  background-position: -24px -24px !important;
+}
+
+/* line 1413, ../scss/_genweb_organs.scss */
+dt.contenttype-genweb-organs-acta:before,
+i.icon-genweb-organs-acta,
+span.icon-genweb-organs-acta,
+#listing-table a.contenttype-genweb-organs-acta:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-acta:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-acta"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-acta"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-acta"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-acta"] span:after {
+  background-position: -24px -24px !important;
+}
+
+/* line 1426, ../scss/_genweb_organs.scss */
+dt.contenttype-genweb-organs-punt:before,
+i.icon-genweb-organs-punt,
+span.icon-genweb-organs-punt,
+#listing-table a.contenttype-genweb-organs-punt:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-punt:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-punt"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-punt"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-punt"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-punt"] span:after {
+  background-position: -384px -168px !important;
+}
+
+/* line 1439, ../scss/_genweb_organs.scss */
+dt.contenttype-genweb-organs-audio:before,
+i.icon-genweb-organs-audio,
+span.icon-genweb-organs-audio,
+#listing-table a.contenttype-genweb-organs-audio:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-audio:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-audio"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-audio"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-audio"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-audio"] span:after {
+  background-position: -24px -0px !important;
+}
+
+/* line 1452, ../scss/_genweb_organs.scss */
+dt.contenttype-genweb-organs-annex:before,
+i.icon-genweb-organs-annex,
+span.icon-genweb-organs-annex,
+#listing-table a.contenttype-genweb-organs-annex:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-annex:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-annex"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-annex"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-annex"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-annex"] span:after {
+  background-position: -24px -24px !important;
+}
+
+/* line 1465, ../scss/_genweb_organs.scss */
+dt.contenttype-genweb-organs-file:before,
+i.icon-genweb-organs-file,
+span.icon-genweb-organs-file,
+#listing-table a.contenttype-genweb-organs-file:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-file:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-file"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-file"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-file"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-file"] span:after {
+  background-position: -168px -168px !important;
+}
+
+/* line 1478, ../scss/_genweb_organs.scss */
+dt.contenttype-genweb-organs-subpunt:before,
+i.icon-genweb-organs-subpunt,
+span.icon-genweb-organs-subpunt,
+#listing-table a.contenttype-genweb-organs-subpunt:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-subpunt:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-subpunt"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-subpunt"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-subpunt"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-subpunt"] span:after {
+  background-position: -384px -168px !important;
+}
+
+/* line 1491, ../scss/_genweb_organs.scss */
+dt.contenttype-genweb-organs-organsfolder:before,
+i.icon-genweb-organs-organsfolder,
+span.icon-genweb-organs-organsfolder,
+#listing-table a.contenttype-genweb-organs-organsfolder:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-organsfolder:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-organsfolder"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-organsfolder"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-organsfolder"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-organsfolder"] span:after {
+  background-position: -384px -120px !important;
+}
+
+/* line 1504, ../scss/_genweb_organs.scss */
+dt.contenttype-genweb-organs-acord:before,
+i.icon-genweb-organs-acord,
+span.icon-genweb-organs-acord,
+#listing-table a.contenttype-genweb-organs-acord:before,
+.template-folder_tabular_view .listing a.contenttype-genweb-organs-acord:before,
+.subnavbar .nav-list .active ul a[class^="contenttype-genweb-organs-acord"] span:after,
+.subnavbar .nav-list .selected ul a[class^="contenttype-genweb-organs-acord"] span:after,
+.subnavbar .nav-list .active ul a[class*=" contenttype-genweb-organs-acord"] span:after,
+.subnavbar .nav-list .selected ul a[class*=" contenttype-genweb-organs-acord"] span:after {
+  background-position: -288px 0px !important;
+}
+
+/* line 1517, ../scss/_genweb_organs.scss */
+.share_popover {
+  display: none;
+}
+
+/* line 1519, ../scss/_genweb_organs.scss */
+h1.logoPresentation {
+  padding-left: 10%;
+}
+
+/* line 1521, ../scss/_genweb_organs.scss */
+.codiText {
+  padding-left: 29px;
+  font-size: 13px;
+  color: #555;
+}
+
+/* line 1527, ../scss/_genweb_organs.scss */
+input#acordNumber {
+  width: 159px;
+}
+
+/* line 1529, ../scss/_genweb_organs.scss */
+.bodyPresentation .subpuntTitle {
+  padding-left: 50px;
+}
+
+/* line 1531, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {
+  padding: 0px !important;
+}
+
+/* line 1535, ../scss/_genweb_organs.scss */
+.agreementClass, .agreementSubClass {
+  color: #999;
+}
+
+/* line 1539, ../scss/_genweb_organs.scss */
+li.filesinTable {
+  color: #555;
+}
+
+/* line 1541, ../scss/_genweb_organs.scss */
+ul.nav.nav-tabs {
+  margin-bottom: 0px;
+}
+
+/* line 1543, ../scss/_genweb_organs.scss */
+div.tab-pane.fade.active.in {
+  background-color: white;
+  border: 1px solid #b2b2b2;
+}
+
+/* line 1546, ../scss/_genweb_organs.scss */
+.panel-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 16px;
+  color: inherit;
+}
+
+/* line 1553, ../scss/_genweb_organs.scss */
+.panel-default > .panel-heading {
+  color: #333;
+  background-color: #f5f5f5;
+  border-color: #ddd;
+}
+
+/* line 1559, ../scss/_genweb_organs.scss */
+.panel-default {
+  border-color: #ddd;
+}
+
+/* line 1563, ../scss/_genweb_organs.scss */
+span.agreementClassPunt {
+  font-size: 11px;
+  font-weight: bold;
+}
+
+/* line 1568, ../scss/_genweb_organs.scss */
+.logFont {
+  background-color: white;
+  color: black;
+}
+
+/* line 1573, ../scss/_genweb_organs.scss */
+#workflow-transition-convocar {
+  display: none;
+}
+
+/* line 1577, ../scss/_genweb_organs.scss */
+#contentActionMenus li ul li.actionSeparator {
+  display: none;
+}
+
+/* line 1579, ../scss/_genweb_organs.scss */
+.expand {
+  padding-left: 0px;
+}
+
+/* line 1583, ../scss/_genweb_organs.scss */
+.puntTitle .span1, .puntTitle .span11 {
+  margin: 10px 0 0;
+}
+
+/* line 1587, ../scss/_genweb_organs.scss */
+div.containerIcons a img.link_blank {
+  display: none;
+}
+
+/* line 1589, ../scss/_genweb_organs.scss */
+.puntTitle.span12 {
+  margin-left: 5px !important;
+}
+
+/* line 1593, ../scss/_genweb_organs.scss */
+.puntVoteButtons.span12 {
+  margin: 5px 0px !important;
+}
+
+/* line 1597, ../scss/_genweb_organs.scss */
+.puntVoteButtons.span12 .span2 {
+  width: 8.04294%;
+}
+
+/* line 1601, ../scss/_genweb_organs.scss */
+.puntVoteButtons.span12 .span10 {
+  margin-bottom: 0px;
+}
+
+/* line 1605, ../scss/_genweb_organs.scss */
+.bodyPresentation .puntTitle.span12 {
+  margin-left: 0px !important;
+}
+
+/* line 1607, ../scss/_genweb_organs.scss */
+.span1.numberSpan {
+  margin-left: 0px !important;
+  margin-top: 0px;
+  margin-bottom: 5px !important;
+}
+
+/* line 1613, ../scss/_genweb_organs.scss */
+.span6.agreementSpan {
+  margin-bottom: 0px !important;
+}
+
+/* line 1615, ../scss/_genweb_organs.scss */
+.span6.einesSpan {
+  margin-bottom: 0px !important;
+}
+
+/* line 1617, ../scss/_genweb_organs.scss */
+.DADES button {
+  border: 1px solid #ddd;
+}
+
+/* line 1621, ../scss/_genweb_organs.scss */
+#sortable li {
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 13px;
+  margin: -1px 0px 0px 0px;
+  padding: 0.3em 0.3em 0.3em 0.1em;
+  float: left;
+  width: 99%;
+}
+
+/* line 1631, ../scss/_genweb_organs.scss */
+.span10.titleSpan {
+  margin-left: 10px !important;
+}
+
+/* line 1635, ../scss/_genweb_organs.scss */
+.span1.fletxaSpan {
+  margin-top: 0px !important;
+  width: 2.52147% !important;
+  margin-bottom: 0px !important;
+}
+
+/* line 1641, ../scss/_genweb_organs.scss */
+.span1.fletxaSpan .expand {
+  margin-top: 0px !important;
+  padding-top: 0px !important;
+}
+
+/* line 1646, ../scss/_genweb_organs.scss */
+.agreementClass {
+  padding-left: 5px !important;
+  font-weight: 500;
+}
+
+/* line 1651, ../scss/_genweb_organs.scss */
+.subpuntTitle .span11 {
+  padding-left: 0px !important;
+  margin-left: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+/* line 1657, ../scss/_genweb_organs.scss */
+.li_subgrups .span6 {
+  margin-bottom: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+/* line 1662, ../scss/_genweb_organs.scss */
+[class^="span"] {
+  margin-bottom: 15px !important;
+}
+
+/* line 1666, ../scss/_genweb_organs.scss */
+.span1.fletxaSpan button {
+  font-size: 14px !important;
+}
+
+/* line 1668, ../scss/_genweb_organs.scss */
+.bodyPresentation .DADES ul, .DADES ol {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+/* line 1673, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable li {
+  width: 100% !important;
+}
+
+/* line 1677, ../scss/_genweb_organs.scss */
+html {
+  background: #fff !important;
+}
+
+/* line 1681, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable li {
+  width: 100% !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  padding-bottom: 15px !important;
+}
+
+/* line 1689, ../scss/_genweb_organs.scss */
+.span6.einesSpan {
+  padding-right: 4px !important;
+}
+
+/* line 1693, ../scss/_genweb_organs.scss */
+.bodyPresentation .span1 {
+  width: 3.98291% !important;
+  text-align: right;
+}
+
+/* line 1694, ../scss/_genweb_organs.scss */
+.bodyPresentation .span10 {
+  width: 82.34188% !important;
+}
+
+/* line 1695, ../scss/_genweb_organs.scss */
+.bodyPresentation .span12 {
+  width: 100% !important;
+}
+
+/* line 1696, ../scss/_genweb_organs.scss */
+.bodyPresentation .listFiles {
+  list-style: none;
+  padding-top: 10px;
+}
+
+/* line 1700, ../scss/_genweb_organs.scss */
+.bodyPresentation .puntTitle .span1, .bodyPresentation .puntTitle .span11 {
+  margin: 0px 0 0;
+}
+
+/* line 1704, ../scss/_genweb_organs.scss */
+ol.li_subgrups {
+  display: inline-block !important;
+  clear: both !important;
+  width: 100% !important;
+}
+
+/* line 1710, ../scss/_genweb_organs.scss */
+.bodyPresentation .span1.numberSpan {
+  margin-top: 5px !important;
+  text-align: right !important;
+}
+
+/* line 1715, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable ol.li_subgrups div.subpuntTitle ul li.filesinTable {
+  padding-left: 0px !important;
+  list-style-type: none !important;
+  font-size: 130% !important;
+}
+
+/* line 1721, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable .filesinTable {
+  padding: 0px !important;
+  list-style-type: none !important;
+  font-size: 80% !important;
+  margin-left: 0px;
+}
+
+/* line 1728, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable .filesinTable {
+  border-bottom: none !important;
+}
+
+/* line 1730, ../scss/_genweb_organs.scss */
+.bodyPresentation .filesinTable.span12 .span9 {
+  margin: 0px !important;
+}
+
+/* line 1732, ../scss/_genweb_organs.scss */
+.bodyPresentation .subpuntTitle.span12 .span10 {
+  margin-left: 20px !important;
+}
+
+/* line 1734, ../scss/_genweb_organs.scss */
+.bodyPresentation span.fitxerReservat {
+  display: inline-block;
+  color: red;
+  font-weight: 300 !important;
+  margin-bottom: 10px;
+}
+
+/* line 1741, ../scss/_genweb_organs.scss */
+.bodyPresentation .filesinTable .fa {
+  margin-right: 10px;
+}
+
+/* line 1745, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable .filesinTable {
+  line-height: 20px !important;
+  margin-bottom: 8px !important;
+}
+
+/* line 1750, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable .filesinTable a {
+  color: #555 !important;
+  font-weight: 300 !important;
+}
+
+/* line 1755, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable .filesinTable a:hover {
+  line-height: 20px !important;
+  font-weight: 300 !important;
+  color: #007BC0 !important;
+}
+
+/* line 1761, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable li {
+  width: 100% !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  background-color: #fff;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  padding-top: 25px !important;
+  padding-bottom: 5px !important;
+  border-radius: 0px !important;
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+/* line 1777, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable ul.dropdown-menu li {
+  background-color: #fff;
+  padding-top: 5px;
+  padding-bottom: 5px !important;
+}
+
+/* line 1783, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable ul.dropdown-menu li.defaultValue {
+  background-color: #fff;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+/* line 1789, ../scss/_genweb_organs.scss */
+.bodyPresentation span.proposalNumber, .bodyPresentation span.proposalNumberSubpunt {
+  margin-right: 15px;
+  color: #0087C9 !important;
+}
+
+/* line 1794, ../scss/_genweb_organs.scss */
+.bodyPresentation img.link_blank {
+  display: none;
+  width: 0px !important;
+  height: 0px !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+/* line 1798, ../scss/_genweb_organs.scss */
+.portaltype-genweb-organs-sessio img.link_blank {
+  display: none;
+  width: 0px !important;
+  height: 0px !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+/* line 1802, ../scss/_genweb_organs.scss */
+.bodyPresentation .bulletPuntPresentation {
+  padding-right: 10px !important;
+}
+
+/* line 1806, ../scss/_genweb_organs.scss */
+.bodyPresentation .container {
+  height: 91%;
+  padding-left: 10%;
+  width: auto !important;
+  padding-right: 10%;
+}
+
+/* line 1813, ../scss/_genweb_organs.scss */
+.bodyPresentation .nav > li > a:hover i:before, .bodyPresentation .nav > li > a:hover {
+  text-decoration: none;
+  background-color: transparent !important;
+  color: #0087C9 !important;
+}
+
+/* line 1819, ../scss/_genweb_organs.scss */
+span.barra {
+  margin: 0px 5px;
+  color: #aaa;
+  font-weight: 300 !important;
+}
+
+/* line 1825, ../scss/_genweb_organs.scss */
+.bodyPresentation #sortable li.defaultValue {
+  margin-bottom: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+/* line 1830, ../scss/_genweb_organs.scss */
+.Afectat #sortable li {
+  width: 97% !important;
+}
+
+/* line 1834, ../scss/_genweb_organs.scss */
+.presentation_template li.punt.picked {
+  background: #e5f7ff !important;
+}
+
+/* line 1835, ../scss/_genweb_organs.scss */
+.bodyPresentation .picked .filesinTable:hover {
+  background: #e5f7ff !important;
+}
+
+/* line 1839, ../scss/_genweb_organs.scss */
+.portaltype-genweb-organs-sessio li.ui-state-grey.picked {
+  background: #e5f7ff !important;
+}
+
+/* line 1841, ../scss/_genweb_organs.scss */
+.bodyPresentation .agreementPuntPresentation, .bodyPresentation .agreementSubPuntPresentation {
+  font-size: 15px;
+  color: #888;
+}
+
+/* line 1846, ../scss/_genweb_organs.scss */
+.bodyPresentation .subpuntTitle.span12 {
+  margin-left: 0px !important;
+  padding-left: 90px !important;
+}
+
+/* line 1851, ../scss/_genweb_organs.scss */
+.bodyPresentation .subpuntTitle {
+  padding-left: 50px !important;
+}
+
+/* line 1855, ../scss/_genweb_organs.scss */
+.bodyPresentation span.proposalNumberSubpunt {
+  color: #ccc;
+  margin-left: 0;
+  margin-right: 0 !important;
+  font-weight: 500 !important;
+}
+
+/* line 1862, ../scss/_genweb_organs.scss */
+.bodyPresentation ul.dropdown-menu {
+  text-align: left;
+}
+
+/* line 1866, ../scss/_genweb_organs.scss */
+.bodyPresentation .puntTitle.span12 > .span1 {
+  text-align: left;
+}
+
+/* line 1870, ../scss/_genweb_organs.scss */
+.span6.einesSpan {
+  position: absolute !important;
+  right: 0px !important;
+  background: rgba(229, 247, 255, 0);
+  background: -moz-linear-gradient(left, rgba(229, 247, 255, 0) 0%, #e5f7ff 50%, #e5f7ff 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(229, 247, 255, 0)), color-stop(50%, #e5f7ff), color-stop(100%, #e5f7ff));
+  background: -webkit-linear-gradient(left, rgba(229, 247, 255, 0) 0%, #e5f7ff 50%, #e5f7ff 100%);
+  background: -o-linear-gradient(left, rgba(229, 247, 255, 0) 0%, #e5f7ff 50%, #e5f7ff 100%);
+  background: -ms-linear-gradient(left, rgba(229, 247, 255, 0) 0%, #e5f7ff 50%, #e5f7ff 100%);
+  background: linear-gradient(to right, rgba(229, 247, 255, 0) 0%, #e5f7ff 50%, #e5f7ff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', endColorstr='#e5f7ff', GradientType=1 );
+  display: none !important;
+}
+
+/* line 1884, ../scss/_genweb_organs.scss */
+.span6.agreementSpan {
+  display: none !important;
+}
+
+/* line 1888, ../scss/_genweb_organs.scss */
+.span9.titleSpan {
+  margin-bottom: 0px !important;
+}
+
+/* line 1892, ../scss/_genweb_organs.scss */
+.span9.titleSpan {
+  margin-top: 2px !important;
+}
+
+/* line 1896, ../scss/_genweb_organs.scss */
+.row-fluid .puntTitle.span12, .row-fluid .span1.numberSpan, .row-fluid .span1.fletxaSpan {
+  min-height: 10px !important;
+}
+
+/* line 1900, ../scss/_genweb_organs.scss */
+.span1.fletxaSpan i {
+  color: #aaa !important;
+}
+
+/* line 1904, ../scss/_genweb_organs.scss */
+#sortable .filesinTable {
+  background: transparent none repeat scroll 0 0;
+  border: 0 !important;
+  border-bottom: 1px solid #ddd !important;
+  box-shadow: none;
+  margin-bottom: 5px;
+  padding: 0 0 2px;
+}
+
+/* line 1913, ../scss/_genweb_organs.scss */
+.labelString {
+  padding: 3px 2px 3px 3px;
+  float: right;
+}
+
+/* line 1918, ../scss/_genweb_organs.scss */
+.span1.boleta {
+  margin-bottom: 0px !important;
+  float: right !important;
+  margin-right: 11px;
+  /*width: 10%!important;*/
+  text-align: right;
+  min-height: 10px;
+  margin-top: 2px !important;
+  z-index: -1 !important;
+}
+
+/* line 1929, ../scss/_genweb_organs.scss */
+.span2.boleta {
+  margin-bottom: 0px !important;
+  width: 10% !important;
+  text-align: right;
+  min-height: 10px;
+  margin-top: 2px !important;
+  margin-right: 6px !important;
+  float: right !important;
+}
+
+/* line 1939, ../scss/_genweb_organs.scss */
+.span9.titleSpan {
+  margin-bottom: 0px !important;
+  margin-left: 2% !important;
+}
+
+/* line 1944, ../scss/_genweb_organs.scss */
+.portaltype-genweb-organs-sessio .row-fluid [class*="span"] {
+  min-height: 10px !important;
+}
+
+/* line 1946, ../scss/_genweb_organs.scss */
+.picked {
+  display: block !important;
+  min-height: 30px !important;
+}
+
+/* line 1951, ../scss/_genweb_organs.scss */
+.show {
+  position: absolute !important;
+  right: 9px !important;
+  background: rgba(229, 247, 255, 0);
+  background: -moz-linear-gradient(left, rgba(229, 247, 255, 0) 0%, #e5f7ff 50%, #e5f7ff 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(229, 247, 255, 0)), color-stop(50%, #e5f7ff), color-stop(100%, #e5f7ff));
+  background: -webkit-linear-gradient(left, rgba(229, 247, 255, 0) 0%, #e5f7ff 50%, #e5f7ff 100%);
+  background: -o-linear-gradient(left, rgba(229, 247, 255, 0) 0%, #e5f7ff 50%, #e5f7ff 100%);
+  background: -ms-linear-gradient(left, rgba(229, 247, 255, 0) 0%, #e5f7ff 50%, #e5f7ff 100%);
+  background: linear-gradient(to right, rgba(229, 247, 255, 0) 0%, #e5f7ff 50%, #e5f7ff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', endColorstr='#e5f7ff', GradientType=1 );
+  display: block !important;
+}
+
+/* line 1965, ../scss/_genweb_organs.scss */
+.subpuntTitle.span12 .span1 {
+  width: 5% !important;
+  margin-right: 15px;
+}
+
+/* line 1970, ../scss/_genweb_organs.scss */
+.editable-input input {
+  font-size: 13px !important;
+}
+
+/* line 1972, ../scss/_genweb_organs.scss */
+.DADES .span12 .span12, .DADES .span12 .span9, .DADES .span9, .DADES .span12 .span12 .span12, .DADES .span12 {
+  margin-bottom: 3px !important;
+  min-height: 0px !important;
+}
+
+/* line 1974, ../scss/_genweb_organs.scss */
+.DADES ol.li_subgrups {
+  display: inline-block !important;
+  clear: both !important;
+  width: 100% !important;
+  min-width: 0px !important;
+  margin: 0px !important;
+  padding: 0px !important;
+  /*height: 21px;*/
+}
+
+/* line 1984, ../scss/_genweb_organs.scss */
+.subpuntTitle .span9 {
+  margin-left: 2.06748% !important;
+}
+
+/* line 1988, ../scss/_genweb_organs.scss */
+span.estatpunt {
+  display: inline-table;
+  font-size: 12px;
+  background: #f1f1f1;
+  padding: 0px 10px;
+  border-radius: 15px;
+  vertical-align: middle;
+}
+
+/* line 1997, ../scss/_genweb_organs.scss */
+.template-edit.portaltype-genweb-organs-sessio li.formTab.lastFormTab,
+.template-genweb-organs-sessio li.formTab.lastFormTab {
+  display: none !important;
+}
+
+/* line 2002, ../scss/_genweb_organs.scss */
+.bodyPresentation .modal {
+  position: absolute;
+  top: 50% !important;
+  transform: translate(0, -50%) !important;
+  -ms-transform: translate(0, -50%) !important;
+  -webkit-transform: translate(0, -50%) !important;
+  margin: auto 5% !important;
+  width: 90%;
+  left: 0 !important;
+  height: 80%;
+  z-index: 99999;
+  overflow: hidden !important;
+  background-color: white !important;
+}
+
+/* line 2017, ../scss/_genweb_organs.scss */
+.bodyPresentation .modal-content {
+  min-height: 100% !important;
+  overflow: hidden !important;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* line 2027, ../scss/_genweb_organs.scss */
+.bodyPresentation .modal-body {
+  position: absolute;
+  top: 53px;
+  /* height of header */
+  bottom: 45px;
+  /* height of footer */
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  max-height: 82% !important;
+}
+
+/* line 2037, ../scss/_genweb_organs.scss */
+.bodyPresentation .modal-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* line 2044, ../scss/_genweb_organs.scss */
+.scrollit {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 400px;
+}
+
+/* line 2050, ../scss/_genweb_organs.scss */
+.num_acta ol {
+  counter-reset: item;
+}
+
+/* line 2054, ../scss/_genweb_organs.scss */
+.num_acta li {
+  display: block;
+}
+
+/* line 2058, ../scss/_genweb_organs.scss */
+.num_acta ol li:before {
+  content: counters(item,".") ".";
+  counter-increment: item;
+  padding-right: 10px;
+  margin-left: -20px;
+}
+
+/* line 2065, ../scss/_genweb_organs.scss */
+.convocada, .label-convocada {
+  background-color: #8952ab !important;
+  padding: 1px 4px 2px !important;
+  border-radius: 3px !important;
+  font-weight: bold !important;
+  line-height: 14px !important;
+  color: white !important;
+  vertical-align: baseline !important;
+  white-space: nowrap !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+  text-align: center !important;
+}
+
+/* line 2078, ../scss/_genweb_organs.scss */
+.tancada, .label-tancada {
+  background-color: #007bc0 !important;
+  padding: 1px 4px 2px !important;
+  border-radius: 3px !important;
+  font-weight: bold !important;
+  line-height: 14px !important;
+  color: white !important;
+  vertical-align: baseline !important;
+  white-space: nowrap !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+  text-align: center !important;
+}
+
+/* line 2091, ../scss/_genweb_organs.scss */
+.realitzada,
+.label-realitzada,
+.open_organ,
+.label-open_organ,
+.Públic,
+.Obert,
+.label-Obert {
+  background-color: #456211 !important;
+  padding: 1px 4px 2px !important;
+  border-radius: 3px !important;
+  font-weight: bold !important;
+  line-height: 14px !important;
+  color: white !important;
+  vertical-align: baseline !important;
+  white-space: nowrap !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+  text-align: center !important;
+}
+
+/* line 2111, ../scss/_genweb_organs.scss */
+.planificada, .label-planificada {
+  background-color: #FFA500 !important;
+  padding: 1px 4px 2px !important;
+  border-radius: 3px !important;
+  font-weight: bold !important;
+  line-height: 14px !important;
+  color: white !important;
+  vertical-align: baseline !important;
+  white-space: nowrap !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+  text-align: center !important;
+}
+
+/* line 2124, ../scss/_genweb_organs.scss */
+.restricted_to_affected_organ, .label-restricted_to_affected_organ {
+  background-color: #FF5733 !important;
+  padding: 1px 4px 2px !important;
+  border-radius: 3px !important;
+  font-weight: bold !important;
+  line-height: 14px !important;
+  color: white !important;
+  vertical-align: baseline !important;
+  white-space: nowrap !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+  text-align: center !important;
+}
+
+/* line 2138, ../scss/_genweb_organs.scss */
+.en_correccio, .label-en_correccio,
+.restricted_to_members_organ, .label-restricted_to_members_organ {
+  background-color: #a62e1f !important;
+  padding: 1px 4px 2px !important;
+  border-radius: 3px !important;
+  font-weight: bold !important;
+  line-height: 14px !important;
+  color: white !important;
+  vertical-align: baseline !important;
+  white-space: nowrap !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+  text-align: center !important;
+}
+
+/* line 2153, ../scss/_genweb_organs.scss */
+#expandAll, #collapseAll {
+  cursor: pointer;
+}
+
+/* line 2155, ../scss/_genweb_organs.scss */
+li#contentview-view.active {
+  display: none;
+}
+
+/* line 2157, ../scss/_genweb_organs.scss */
+ul#contentActionMenus > li.dropdown > span.noMenuAction {
+  display: none;
+}
+
+/* line 2159, ../scss/_genweb_organs.scss */
+div#previewModal {
+  left: 34%;
+  width: 1000px;
+  right: 20%;
+}
+
+/* line 2165, ../scss/_genweb_organs.scss */
+input.searchPage {
+  width: 85%;
+}
+
+/* line 2168, ../scss/_genweb_organs.scss */
+.fa-file-pdf-o.double-icon:after {
+  content: "\f1c1";
+  font-family: fontawesome;
+  color: #a62e1f;
+  position: relative;
+  left: -7px;
+  top: 4px;
+  background-color: white;
+}
+
+/* line 2178, ../scss/_genweb_organs.scss */
+.fa-file-text-o.double-icon:after {
+  content: "\f0f6";
+  font-family: fontawesome;
+  color: #a62e1f;
+  position: relative;
+  left: -7px;
+  top: 4px;
+  background-color: white;
+}
+
+/* line 2188, ../scss/_genweb_organs.scss */
+dd.actionMenuContent.actionMenuContentColor {
+  display: inline-block;
+  padding: 4px 14px;
+  margin-bottom: 0;
+  font-size: 13px;
+  line-height: 18px;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #f6f6f6;
+  background-image: -moz-linear-gradient(top, #fff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #fff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #fff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfcfc', endColorstr='#e3e3e3', GradientType=0);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  border: 1px solid #b2b2b2;
+  border-bottom-color: #999999;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* line 2219, ../scss/_genweb_organs.scss */
+.box-search {
+  background-color: #f3f3f3;
+  border: 1px solid #ccc;
+  padding: 18px 15px 0px 15px;
+  box-shadow: 3px 3px 4px 1px #e2e2e2;
+}
+
+/* line 2226, ../scss/_genweb_organs.scss */
+.box-search .span12 {
+  margin-bottom: 0px !important;
+}
+
+/* line 2230, ../scss/_genweb_organs.scss */
+.noborder {
+  border-bottom: 0px;
+}
+
+/* line 2232, ../scss/_genweb_organs.scss */
+#peu [class*="span"] .pull-right {
+  float: right !important;
+}
+
+/* Some problems with cleantheme */
+/* line 2235, ../scss/_genweb_organs.scss */
+.portaltype-genweb-organs-sessio .modal-body {
+  overflow-y: initial !important;
+}
+
+/* End problems cleantheme */
+/* line 2237, ../scss/_genweb_organs.scss */
+.template-signsessio .modal-body {
+  overflow-y: auto !important;
+}
+
+/* line 2239, ../scss/_genweb_organs.scss */
+.header-image {
+  background-image: url("/++theme++genweb.organs/img/capcalera_organs@2x.jpg") !important;
+}
+
+/* line 2246, ../scss/_genweb_organs.scss */
+div.header-image.nomarginleft {
+  margin-left: 0px !important;
+}
+
+/* line 2250, ../scss/_genweb_organs.scss */
+ul.latests-acords {
+  list-style-type: none;
+}
+
+/* line 2254, ../scss/_genweb_organs.scss */
+.latests-acords li {
+  padding-bottom: 10px;
+}
+
+/* line 2258, ../scss/_genweb_organs.scss */
+.portletCalendar .ploneCalendar td.cal_prev_month, .portletCalendar .ploneCalendar td.cal_next_month {
+  opacity: 1 !important;
+}
+
+/* line 2262, ../scss/_genweb_organs.scss */
+.organevent {
+  text-align: center;
+}
+
+/* line 2266, ../scss/_genweb_organs.scss */
+td.organevent.cal_has_events {
+  border: 1px solid white;
+  font-weight: bold;
+  text-shadow: 0 -1px #06a;
+}
+
+/* line 2272, ../scss/_genweb_organs.scss */
+td.organevent.cal_has_events a {
+  color: white;
+}
+
+/* line 2276, ../scss/_genweb_organs.scss */
+td.organevent.cal_has_events .popover-content a {
+  color: #333333;
+  text-shadow: none;
+}
+
+/* line 2281, ../scss/_genweb_organs.scss */
+.titling-line-container {
+  position: relative;
+}
+
+/* line 2285, ../scss/_genweb_organs.scss */
+.titling-line {
+  font-size: 18px;
+  color: #636363;
+  position: relative;
+  overflow: hidden;
+  padding: 6px 0;
+  margin-top: 0;
+}
+
+/* line 2294, ../scss/_genweb_organs.scss */
+.titling-line::after {
+  content: "";
+  position: absolute;
+  margin-left: 12px;
+  background: #d1d1d1;
+  height: 1px;
+  box-shadow: 1000px 0 0 -1000px #d1d1d1;
+  width: 100%;
+  top: 50%;
+}
+
+/* line 2305, ../scss/_genweb_organs.scss */
+.list-agenda {
+  list-style: none;
+  padding: 0;
+}
+
+/* line 2310, ../scss/_genweb_organs.scss */
+.list-agenda.span12 {
+  border-bottom: 0px solid transparent;
+}
+
+/* line 2314, ../scss/_genweb_organs.scss */
+.list-agenda .row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+/* line 2319, ../scss/_genweb_organs.scss */
+.list-agenda .event-time {
+  opacity: 0.9;
+  background-image: linear-gradient(89deg, #00BCD4 0%, #007bc1 100%);
+  width: 128px;
+  height: 128px;
+  border-radius: 50% !important;
+  position: absolute;
+  left: 18px;
+  display: table-cell;
+  text-align: center;
+  left: calc(50% - 64px);
+  top: calc(45% - 64px - 36px);
+}
+
+/* line 2332, ../scss/_genweb_organs.scss */
+.col-md-3 {
+  width: 33%;
+}
+
+/* line 2336, ../scss/_genweb_organs.scss */
+.list-agenda a {
+  height: 300px;
+  position: relative;
+  display: block;
+  transition: all .25s ease-out;
+  overflow: hidden;
+}
+
+/* line 2344, ../scss/_genweb_organs.scss */
+.list-agenda img {
+  object-fit: cover;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+  transition: all .5s ease;
+}
+
+/* line 2355, ../scss/_genweb_organs.scss */
+.list-agenda h2 {
+  font-size: 15px;
+  font-weight: 900;
+  margin: 0;
+  margin: -3px -6px -6px;
+  padding: 3px 6px;
+  z-index: 1;
+  display: inline-table;
+  position: relative;
+  color: black;
+}
+
+/* line 2367, ../scss/_genweb_organs.scss */
+.list-agenda p {
+  font-size: 12px;
+  margin: 6px -6px -3px;
+  padding: 3px 6px;
+  display: inline-table;
+  position: relative;
+  z-index: 1;
+  color: grey;
+}
+
+/* line 2377, ../scss/_genweb_organs.scss */
+.list-agenda div {
+  padding: 2px 72px 2px 20px;
+  background: rgba(255, 255, 255, 0.95);
+  z-index: 0;
+  height: 90px;
+  top: 69.5%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all .25s ease-out;
+}
+
+/* line 2390, ../scss/_genweb_organs.scss */
+.list-agenda .icon {
+  line-height: 36px;
+  border: 1.5px solid #007BC1;
+  position: absolute;
+  font-size: 1.125rem;
+  border-radius: 50% !important;
+  right: 18px;
+  bottom: 10%;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+}
+
+/* line 2403, ../scss/_genweb_organs.scss */
+.list-agenda .event-title {
+  font-size: 16px;
+  color: #4a4a4a;
+  height: 84px;
+  background: rgba(255, 255, 255, 0.9);
+  position: absolute;
+  width: 91%;
+  margin: 0px;
+  bottom: 0;
+  padding: 12px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* line 2419, ../scss/_genweb_organs.scss */
+.list-agenda .event-time--wrap {
+  top: 50%;
+  transform: translateY(-50%);
+  position: relative;
+  display: block;
+}
+
+/* line 2426, ../scss/_genweb_organs.scss */
+.list-agenda .event-time::after {
+  opacity: 0;
+  line-height: 36px;
+  content: "\f061";
+  font-family: FontAwesome;
+  border: 1.5px solid #007BC1;
+  position: absolute;
+  font-size: 1.125rem;
+  bottom: -18px;
+  left: calc(50% - 18px);
+  margin-top: -18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50% !important;
+  text-align: center;
+  color: #007BC1;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 0;
+  transition: all .5s ease;
+}
+
+/* line 2447, ../scss/_genweb_organs.scss */
+.list-agenda .event-days {
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+  display: block;
+  padding-bottom: 1px;
+  margin-top: -2px;
+  line-height: 1;
+}
+
+/* line 2457, ../scss/_genweb_organs.scss */
+.list-agenda a:hover {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 5px 10px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.05) !important;
+  transition: all .25s ease-in;
+  text-decoration: none;
+  transform: perspective(1px) scale(1.00775, 1.00775) translateZ(0px);
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* line 2465, ../scss/_genweb_organs.scss */
+.list-banners a {
+  height: 75px;
+  position: relative;
+  display: block;
+  transition: all .25s ease-out;
+  overflow: hidden;
+  background: #f3f3f3;
+  margin-bottom: 24px;
+  border: 1px solid lightgrey;
+}
+
+/* line 2476, ../scss/_genweb_organs.scss */
+.list-banners a:hover {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 5px 10px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.05) !important;
+  transition: all .25s ease-in;
+  text-decoration: none;
+  transform: perspective(1px) scale(1.00775, 1.00775) translateZ(0px);
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* line 2484, ../scss/_genweb_organs.scss */
+.list-banners div {
+  width: 230px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+/* line 2494, ../scss/_genweb_organs.scss */
+.list-banners .span6.col-sm-6 div {
+  width: 320px;
+  left: 44%;
+}
+
+/* line 2499, ../scss/_genweb_organs.scss */
+.list-banners h2 {
+  font-size: 16px;
+  color: #636363;
+}
+
+/* line 2504, ../scss/_genweb_organs.scss */
+.list-banners p {
+  font-size: 12px;
+  margin: 6px -6px -3px;
+  padding: 3px 6px;
+  display: inline-table;
+  position: relative;
+  z-index: 1;
+  color: grey;
+}
+
+/* line 2514, ../scss/_genweb_organs.scss */
+.list-banners .icon {
+  line-height: 37px;
+  border: 1.5px solid #007BC1;
+  position: absolute;
+  font-size: 1.125rem;
+  border-radius: 50% !important;
+  right: 12px;
+  bottom: 23%;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+}
+
+/* line 2527, ../scss/_genweb_organs.scss */
+.list-banners a.img-banner {
+  background: transparent;
+}
+
+/* line 2531, ../scss/_genweb_organs.scss */
+.list-banners a.img-banner.white-font .icon {
+  border: 1.5px solid #FFFFFF;
+}
+
+/* line 2535, ../scss/_genweb_organs.scss */
+.list-banners a.img-banner.white-font h2 {
+  text-shadow: 0 0 5px #000000;
+}
+
+/* line 2539, ../scss/_genweb_organs.scss */
+.list-banners a.img-banner.white-font,
+.list-banners a.img-banner.white-font:hover,
+.list-banners a.img-banner.white-font h2,
+.list-banners a.img-banner.white-font .icon {
+  color: #FFFFFF;
+}
+
+/* line 2546, ../scss/_genweb_organs.scss */
+.event-multiple {
+  position: relative;
+  background-color: #007bc0 !important;
+}
+
+/* line 2551, ../scss/_genweb_organs.scss */
+.event-multiple:before {
+  content: "+";
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  position: absolute;
+  bottom: -3px;
+  right: 3px;
+}
+
+/* line 2561, ../scss/_genweb_organs.scss */
+.calendari {
+  width: 100%;
+  text-align: center;
+  color: #4a4a4a;
+}
+
+/* line 2567, ../scss/_genweb_organs.scss */
+.calendari th {
+  background-color: white;
+}
+
+/* line 2571, ../scss/_genweb_organs.scss */
+.calendari th, .calendari td {
+  text-align: center;
+  height: 30px;
+  width: calc(100% / 7);
+}
+
+/* line 2577, ../scss/_genweb_organs.scss */
+.portlet-calendari .cal_has_events, .portlet-calendari .cal_has_events:hover {
+  border: 1px solid white;
+}
+
+/* line 2581, ../scss/_genweb_organs.scss */
+.portlet-calendari .cal_has_events a {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* line 2586, ../scss/_genweb_organs.scss */
+.cal_has_events {
+  background-color: #A6A6A6;
+  text-shadow: none;
+  cursor: pointer;
+}
+
+/* line 2592, ../scss/_genweb_organs.scss */
+.cal_has_events:hover {
+  filter: brightness(80%);
+}
+
+/* line 2596, ../scss/_genweb_organs.scss */
+.icons-ul {
+  list-style: none;
+  margin: 15px 0 0 0;
+  font-size: 14px;
+  margin-top: 0px;
+}
+
+/* line 2604, ../scss/_genweb_organs.scss */
+.icons-ul li p {
+  font-weight: bold;
+}
+
+/* line 2608, ../scss/_genweb_organs.scss */
+.icons-ul li {
+  border-bottom: 1px solid #eee;
+  line-height: 15px;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  padding-left: 8px;
+  font-size: 14px;
+  border-left: 5px solid #007bc0;
+}
+
+/* line 2619, ../scss/_genweb_organs.scss */
+.icons-ul .text2 {
+  font-size: 13px;
+}
+
+/* line 2623, ../scss/_genweb_organs.scss */
+.text2 a {
+  color: black;
+}
+
+/* line 2627, ../scss/_genweb_organs.scss */
+.btn:hover {
+  filter: brightness(90%);
+}
+
+/* line 2632, ../scss/_genweb_organs.scss */
+#calendari header {
+  border-bottom: 5px solid #007bc0;
+  display: flex;
+}
+
+/* line 2637, ../scss/_genweb_organs.scss */
+.portlet-calendari .portlet-header {
+  display: flex;
+  padding: 10px 15px;
+}
+
+/* line 2643, ../scss/_genweb_organs.scss */
+.portlet-calendari .calendari-anterior::before, .portlet-calendari .calendari-seguent::before {
+  content: "\f060";
+  font-size: 1.125rem;
+  font-family: "FontAwesome";
+  border-radius: 50%;
+  padding: 5px;
+  border: 1px solid transparent;
+  -webkit-text-stroke: 2px white;
+}
+
+/* line 2653, ../scss/_genweb_organs.scss */
+.portlet-calendari .calendari-anterior:hover::before, .portlet-calendari .calendari-seguent:hover::before {
+  border: 1px solid #01559B;
+  transition: .25s all ease;
+  -webkit-text-stroke: 0.5px white;
+}
+
+/* line 2659, ../scss/_genweb_organs.scss */
+.portlet-calendari h3 {
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+  width: 100%;
+  margin: 2px;
+}
+
+/* line 2667, ../scss/_genweb_organs.scss */
+a.calendari-anterior:hover,
+a.calendari-seguent:hover {
+  text-decoration: none;
+}
+
+/* line 2672, ../scss/_genweb_organs.scss */
+.portlet-calendari .calendari-seguent::before {
+  content: "\f061";
+}
+
+/* line 2676, ../scss/_genweb_organs.scss */
+.globeBox {
+  border: 3px solid #f6f7f7 !important;
+}
+
+/* line 2680, ../scss/_genweb_organs.scss */
+.cal_prev_month, .cal_next_month {
+  opacity: .2;
+}
+
+/* line 2684, ../scss/_genweb_organs.scss */
+.today {
+  font-weight: bolder;
+}
+
+/* line 2688, ../scss/_genweb_organs.scss */
+.allSessions {
+  border-top: 1px solid #EEEEEE;
+  font-size: 13px;
+  line-height: 15px;
+  text-align: right;
+  padding-top: 5px;
+  margin-bottom: 10px;
+}
+
+/* line 2697, ../scss/_genweb_organs.scss */
+body.template-allsessions #portal-column-content table.table-bordered {
+  border-right: 0px solid transparent;
+}
+
+/* line 2701, ../scss/_genweb_organs.scss */
+body.template-allsessions #portal-column-content table tr.consell-de-govern {
+  background-color: #deeeff;
+}
+
+/* line 2705, ../scss/_genweb_organs.scss */
+body.template-allsessions #portal-column-content table tr.claustre-universitari {
+  background-color: #e8e8e8;
+}
+
+/* line 2709, ../scss/_genweb_organs.scss */
+body.template-allsessions #portal-column-content table tr.breakline {
+  height: 30px;
+}
+
+/* line 2713, ../scss/_genweb_organs.scss */
+body.template-allsessions #portal-column-content table tr.breakline td {
+  border-left: 0px solid transparent;
+}
+
+/* line 2717, ../scss/_genweb_organs.scss */
+body.template-allsessions #portal-column-content table tr:not(.breakline) th:last-child,
+body.template-allsessions #portal-column-content table tr:not(.breakline) td:last-child {
+  border-right: 1px solid #b2b2b2;
+}
+
+/* line 2722, ../scss/_genweb_organs.scss */
+.link-banner {
+  font-size: 1.125rem;
+  font-weight: 500;
+  background: #F2F5F6;
+  display: block;
+  padding: 30px 24px;
+  color: #636363;
+  position: relative;
+  transition: all .25s ease-out;
+  border-radius: 2px;
+  padding-right: 72px;
+  margin-top: 0px;
+}
+
+/* line 2736, ../scss/_genweb_organs.scss */
+.double-icon {
+  margin-right: -7px !important;
+}
+
+/* END DEFAULT CSS NO MEDIA QUERY */
+/* line 2741, ../scss/_genweb_organs.scss */
+.panel-bordered {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  min-height: 10px !important;
+  padding: 10px 10px 10px 10px;
+}
+
+/* line 2748, ../scss/_genweb_organs.scss */
+.link-ext {
+  background-color: #007BC1;
+  color: white;
+  padding: 9px 72px 0px 20px;
+  position: relative;
+  min-height: 35px;
+}
+
+/* line 2756, ../scss/_genweb_organs.scss */
+.link-ext:hover {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 5px 10px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.05) !important;
+  transition: all .25s ease-in;
+  text-decoration: none;
+  transform: perspective(1px) scale(1.00775, 1.00775) translateZ(0px);
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: white;
+}
+
+/* line 2765, ../scss/_genweb_organs.scss */
+.link-ext i {
+  line-height: 39px;
+  border: 1.5px solid #fff;
+  position: absolute;
+  font-size: 1.125rem;
+  border-radius: 50% !important;
+  right: 18px;
+  bottom: 17%;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+}
+
+/* line 2778, ../scss/_genweb_organs.scss */
+.link-ext h2 {
+  font-size: 15px;
+  margin: 0 !important;
+  z-index: 1;
+  display: inline-table;
+  position: relative;
+  color: white;
+}
+
+/* line 2787, ../scss/_genweb_organs.scss */
+.link-ext p {
+  font-size: 12px;
+  display: inline-table;
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+}
+
+/* line 2796, ../scss/_genweb_organs.scss */
+.colorblue label {
+  color: #007BC1;
+}
+
+/* line 2800, ../scss/_genweb_organs.scss */
+.img-consell {
+  height: 258px;
+  width: 248px;
+}
+
+/* line 2805, ../scss/_genweb_organs.scss */
+.old-documents-butlleti:before {
+  content: "" !important;
+  font-family: FontAwesome;
+  background-image: none !important;
+  top: 15px !important;
+}
+
+/* line 2812, ../scss/_genweb_organs.scss */
+.reorder {
+  position: relative;
+  bottom: 25px;
+}
+
+/* line 2816, ../scss/_genweb_organs.scss */
+.reorder a {
+  position: absolute;
+  right: 2.5%;
+  margin: auto;
+}
+
+/* line 2822, ../scss/_genweb_organs.scss */
+.faq_membres {
+  background: white;
+  border: 1px solid #b2b2b2;
+  padding: 10px;
+}
+
+/* line 2828, ../scss/_genweb_organs.scss */
+.print-block {
+  border-bottom: 1px black solid;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+
+/* line 2834, ../scss/_genweb_organs.scss */
+.print-block h3 {
+  font-weight: bold;
+  color: black;
+}
+
+/* line 2839, ../scss/_genweb_organs.scss */
+.btn-export-acords {
+  display: flex;
+  margin-top: 20px;
+}
+
+/* line 2844, ../scss/_genweb_organs.scss */
+.btn-export-acords a {
+  margin: auto;
+}
+
+/* line 2848, ../scss/_genweb_organs.scss */
+#content-core > .titling-line-container:first-child > h2.titling-line {
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+/* line 2853, ../scss/_genweb_organs.scss */
+#search-filter .span4 {
+  margin-bottom: 0px !important;
+}
+
+/* line 2857, ../scss/_genweb_organs.scss */
+.btn-group + .btn-group {
+  margin-left: 0px !important;
+}
+
+/* line 2861, ../scss/_genweb_organs.scss */
+.btn-group.votes li a:hover {
+  cursor: pointer;
+}
+
+/* line 2865, ../scss/_genweb_organs.scss */
+.hasVote a.btn.btn-info {
+  cursor: initial;
+}
+
+/* line 2869, ../scss/_genweb_organs.scss */
+#resultsVotesTab td {
+  vertical-align: middle;
+}
+
+/* line 2873, ../scss/_genweb_organs.scss */
+#resultsVotesTab tr.collapsed + tr {
+  display: none !important;
+}
+
+/* line 2877, ../scss/_genweb_organs.scss */
+#resultsVotesTab .infovotes {
+  display: none;
+}
+
+/* line 2881, ../scss/_genweb_organs.scss */
+#resultsVotesTab .infovotes.opened {
+  display: table-row;
+}
+
+/* line 2885, ../scss/_genweb_organs.scss */
+#resultsVotesTab .fa-chevron-down,
+#resultsVotesTab .fa-chevron-up {
+  margin-right: 5px;
+}
+
+/* line 2890, ../scss/_genweb_organs.scss */
+#resultsVotesTab .openInfo.opened .fa-chevron-down,
+#resultsVotesTab .openInfo:not(.opened) .fa-chevron-up {
+  display: none;
+}
+
+/* line 2895, ../scss/_genweb_organs.scss */
+#resultsVotesTab .infovotes td {
+  border-top: 0px solid #b2b2b2;
+}
+
+/* line 2899, ../scss/_genweb_organs.scss */
+#resultsVotesTab .fa-pencil-square-o:hover,
+#resultsVotesTab .fa-refresh:hover,
+#resultsVotesTab .removeVote:hover {
+  color: #557c95;
+  cursor: pointer;
+}
+
+/* line 2906, ../scss/_genweb_organs.scss */
+#resultsVotesTab .fa-info-circle:hover {
+  color: #557c95;
+}
+
+/* line 2910, ../scss/_genweb_organs.scss */
+.puntVoteButtons .btn-info,
+.puntVoteButtons .btn-info:hover {
+  background-color: #007bc0a1 !important;
+  background-image: linear-gradient(to bottom, transparent, transparent) !important;
+  border: 1px solid #999 !important;
+  filter: none;
+}
+
+/* line 2918, ../scss/_genweb_organs.scss */
+a#genweb-organs-votacioacord.contenttype-genweb-organs-votacioacord {
+  display: none;
+}
+
+/* line 2922, ../scss/_genweb_organs.scss */
+body.portaltype-genweb-organs-votacioacord input#form-widgets-title {
+  width: 98%;
+}
+
+/* line 2926, ../scss/_genweb_organs.scss */
+.separacioEsmena {
+  width: 20px;
+  display: inline-block;
+}
+
+/* line 2931, ../scss/_genweb_organs.scss */
+.addQuorumChecked .fa,
+.addQuorumChecked span {
+  color: #569555;
+}
+
+/* line 2936, ../scss/_genweb_organs.scss */
+.list-banners .link_blank {
+  display: none !important;
+}
+
+/* line 2940, ../scss/_genweb_organs.scss */
+#formfield-form-widgets-infoAfectats,
+#formfield-form-widgets-infoAssistents {
+  margin-bottom: 0px;
+}
+
+/* line 2945, ../scss/_genweb_organs.scss */
+#formfield-form-widgets-infoAfectats label,
+#formfield-form-widgets-infoAssistents label {
+  width: 100%;
+  display: block;
+  padding: 8px;
+  border: 1px solid #8fd1e3;
+  border-bottom: 1px solid #66c0d9;
+  background-color: #d2edf4;
+  background-image: linear-gradient(to bottom, #e1f3f8, #b8e2ee);
+  background-repeat: repeat-x;
+  color: #216f86;
+  font-size: 14px;
+  margin-bottom: 23px;
+}
+
+/* line 2960, ../scss/_genweb_organs.scss */
+#formfield-form-widgets-infoAfectats label span,
+#formfield-form-widgets-infoAssistents label span {
+  color: #216f86;
+  font-size: 14px;
+  display: inline;
+}
+
+/* FIRMA DOCUMENTAL */
+/* line 2969, ../scss/_genweb_organs.scss */
+.estatFirma {
+  padding: 5px 10px !important;
+  border-radius: 15px !important;
+  margin-top: 4px;
+  display: inline-block;
+  text-transform: uppercase;
+  color: #000 !important;
+}
+
+/* line 2978, ../scss/_genweb_organs.scss */
+.estatFirma.pendent,
+.estatFirma.en_proces,
+.estatFirma.pendent_altres_usuaris {
+  background-color: #FFDA9E;
+}
+
+/* line 2984, ../scss/_genweb_organs.scss */
+.estatFirma.signada {
+  background-color: #B0F2C2;
+}
+
+/* line 2988, ../scss/_genweb_organs.scss */
+.estatFirma.rebutjada,
+.estatFirma.cancelada {
+  background-color: #FCB7AF;
+}
+
+/* line 2993, ../scss/_genweb_organs.scss */
+#infoSend {
+  display: none;
+}
+
+/* line 2997, ../scss/_genweb_organs.scss */
+#miniLoaderScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background-color: #80808033;
+  display: none;
+}
+
+/* line 3008, ../scss/_genweb_organs.scss */
+#miniLoaderScreen .loaderBorder {
+  position: fixed;
+  top: calc(50% - 2px);
+  left: calc(50% - 2px);
+  border: 7px solid #0a7fc2;
+  border-radius: 50% !important;
+  width: 35px;
+  height: 35px;
+}
+
+/* line 3018, ../scss/_genweb_organs.scss */
+#miniLoaderScreen .loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  border: 5px solid #FFFFFF;
+  border-top: 5px solid #007BC1;
+  border-radius: 50% !important;
+  width: 35px;
+  height: 35px;
+  animation: fa-spin 2s linear infinite;
+  -webkit-animation: fa-spin 2s linear infinite;
+}
+
+/* line 3031, ../scss/_genweb_organs.scss */
+#send-confirmation.modal > .modal-body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+/* line 3036, ../scss/_genweb_organs.scss */
+#send-confirmation.modal .listFiles {
+  margin-top: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+/* line 3042, ../scss/_genweb_organs.scss */
+.estatFirmaFile {
+  font-size: 20px !important;
+}
+
+/* line 3046, ../scss/_genweb_organs.scss */
+.estatFirmaFile.uploaded {
+  color: #57c886;
+}
+
+/* line 3050, ../scss/_genweb_organs.scss */
+.estatFirmaFile.replaced {
+  color: #e8d153;
+}
+
+/* line 3054, ../scss/_genweb_organs.scss */
+.estatFirmaFile.failed {
+  color: #c74646;
+}
+
+/* line 3059, ../scss/_genweb_organs.scss */
+.legend-sign {
+  background-color: #fff;
+  padding: 5px 0px 5px 10px;
+  margin-bottom: 10px;
+}
+
+/* line 3065, ../scss/_genweb_organs.scss */
+.legend-sign .legend-sign-item {
+  margin-bottom: 5px;
+}
+
+/* line 3069, ../scss/_genweb_organs.scss */
+.titling-line {
+  font-size: 1.6rem;
+  color: #007bc0;
+  font-weight: 700;
+  margin-bottom: 24px;
+  margin-top: 0;
+}
+/* line 3075, ../scss/_genweb_organs.scss */
+.titling-line::after {
+  background: #007bc0;
+  height: 3px;
+  box-shadow: none;
+  width: 60px;
+  left: 0;
+  margin-left: 16px;
+  top: 60%;
+}
+
+/* Tarjetas de accesos directos */
+/* line 3087, ../scss/_genweb_organs.scss */
+.list-agenda {
+  display: flex;
+  gap: 32px;
+  justify-content: flex-start;
+  margin-bottom: 32px;
+}
+/* line 3092, ../scss/_genweb_organs.scss */
+.list-agenda li {
+  flex: 1 1 0;
+  min-width: 0;
+}
+/* line 3095, ../scss/_genweb_organs.scss */
+.list-agenda li .card {
+  border-radius: 16px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.07);
+  border: none;
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+/* line 3101, ../scss/_genweb_organs.scss */
+.list-agenda li .card:hover {
+  box-shadow: 0 8px 32px 0 rgba(0, 123, 192, 0.13);
+  transform: translateY(-2px) scale(1.01);
+}
+/* line 3105, ../scss/_genweb_organs.scss */
+.list-agenda li .card .card-img-top {
+  height: 140px;
+  object-fit: cover;
+  width: 100%;
+}
+/* line 3110, ../scss/_genweb_organs.scss */
+.list-agenda li .card .card-body {
+  padding: 18px 20px 12px 20px;
+}
+/* line 3113, ../scss/_genweb_organs.scss */
+.list-agenda li .card .card-title {
+  color: #007bc0;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+/* line 3119, ../scss/_genweb_organs.scss */
+.list-agenda li .card .icon {
+  background: #fff;
+  color: #007bc0;
+  border: 2px solid #007bc0;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  font-size: 1.3rem;
+}
+
+/* Buscador y filtros */
+/* line 3139, ../scss/_genweb_organs.scss */
+section.mb-4 {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.04);
+  padding: 32px 32px 24px 32px;
+  margin-bottom: 32px !important;
+}
+
+/* line 3148, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2.align-items-end {
+  margin-bottom: 1.5rem !important;
+}
+/* line 3150, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2.align-items-end .col-10, form[role="search"] .row.mb-3.g-2.align-items-end .col-2 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+/* line 3154, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2.align-items-end .form-control {
+  border-radius: 6px 0 0 6px;
+  border: 1px solid #bcdff6;
+  background: #f7fbfd;
+  font-size: 1rem;
+  height: 48px;
+}
+/* line 3161, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2.align-items-end .btn-primary {
+  border-radius: 0 6px 6px 0;
+  height: 48px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  width: 100%;
+}
+/* line 3169, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2 {
+  margin-bottom: 1.5rem !important;
+}
+/* line 3171, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2 .col-md-4 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+/* line 3174, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2 .col-md-4 .form-label {
+  font-weight: 700;
+  color: #007bc0;
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+}
+/* line 3180, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2 .col-md-4 .form-check {
+  margin-bottom: 8px;
+}
+/* line 3183, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2 .col-md-4 .form-check-input {
+  border-radius: 4px;
+  border: 1.5px solid #bcdff6;
+  margin-right: 6px;
+}
+/* line 3188, ../scss/_genweb_organs.scss */
+form[role="search"] .row.mb-3.g-2 .col-md-4 .form-check-label {
+  font-size: 1rem;
+  color: #222;
+  font-weight: 500;
+}
+/* line 3195, ../scss/_genweb_organs.scss */
+form[role="search"] .card.mt-3 {
+  margin-top: 2rem !important;
+}
+
+@media (max-width: 900px) {
+  /* line 3201, ../scss/_genweb_organs.scss */
+  section.mb-4 {
+    padding: 16px 4vw 12px 4vw;
+  }
+
+  /* line 3204, ../scss/_genweb_organs.scss */
+  form[role="search"] .row.mb-3.g-2.align-items-end {
+    flex-direction: column;
+  }
+  /* line 3206, ../scss/_genweb_organs.scss */
+  form[role="search"] .row.mb-3.g-2.align-items-end .col-10, form[role="search"] .row.mb-3.g-2.align-items-end .col-2 {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  /* line 3210, ../scss/_genweb_organs.scss */
+  form[role="search"] .row.mb-3.g-2.align-items-end .form-control, form[role="search"] .row.mb-3.g-2.align-items-end .btn-primary {
+    border-radius: 6px !important;
+  }
+
+  /* line 3214, ../scss/_genweb_organs.scss */
+  form[role="search"] .row.mb-3.g-2 {
+    flex-direction: column;
+  }
+  /* line 3216, ../scss/_genweb_organs.scss */
+  form[role="search"] .row.mb-3.g-2 .col-md-4 {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+}
+/* line 3223, ../scss/_genweb_organs.scss */
+.row.mt-4 > .card {
+  margin-top: 2rem !important;
+}
+
+/* Resultados */
+/* line 3228, ../scss/_genweb_organs.scss */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.07);
+  border: none;
+  margin-bottom: 24px;
+}
+/* line 3233, ../scss/_genweb_organs.scss */
+.card .card-body {
+  padding: 18px 20px 12px 20px;
+}
+/* line 3236, ../scss/_genweb_organs.scss */
+.card .card-title {
+  color: #007bc0;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+/* line 3244, ../scss/_genweb_organs.scss */
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid #eaeaea;
+  border-radius: 0;
+  padding: 14px 18px;
+  font-size: 1.05rem;
+}
+/* line 3250, ../scss/_genweb_organs.scss */
+.list-group-item:last-child {
+  border-bottom: none;
+}
+/* line 3253, ../scss/_genweb_organs.scss */
+.list-group-item .fw-bold {
+  color: #007bc0;
+}
+/* line 3256, ../scss/_genweb_organs.scss */
+.list-group-item .badge {
+  background: #e5f3fa;
+  color: #007bc0;
+  font-weight: 600;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  padding: 6px 12px;
+}
+
+@media (max-width: 1200px) {
+  /* line 3267, ../scss/_genweb_organs.scss */
+  #content-core {
+    padding: 12px 2vw;
+  }
+
+  /* line 3270, ../scss/_genweb_organs.scss */
+  .list-agenda {
+    flex-direction: column;
+    gap: 18px;
+  }
 }

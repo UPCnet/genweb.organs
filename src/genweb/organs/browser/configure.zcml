@@ -8,10 +8,10 @@
     <include package="z3c.jbot" file="meta.zcml" />
 
     <!-- ++resource++genweb.organs.stylesheets/genweb_organs.css -->
-    <browser:resourceDirectory
+    <!-- <browser:resourceDirectory
       name="genweb.organs.stylesheets"
       directory="stylesheets"
-      />
+      /> -->
 
     <browser:page
       for="genweb.organs.content.acta.IActa"

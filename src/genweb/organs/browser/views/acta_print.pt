@@ -13,7 +13,7 @@
 
 <tal:print tal:define="portal_state context/@@plone_portal_state; portal_url portal_state/portal_url;">
 
-<link rel="stylesheet" media="print" tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/print.css" />
+<link rel="stylesheet" media="print" tal:attributes="href string:${portal_url}/++theme++genweb.organs/stylesheets/print.css" />
 
   <tal:block i18n:domain="genweb.organs" tal:condition="view/canView"
            tal:define="getActaLogo view/getActaLogo;

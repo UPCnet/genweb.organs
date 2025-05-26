@@ -23,6 +23,8 @@ from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 from plone.supermodel import model
 from plone.supermodel import directives as model_directives
+from zope.schema.interfaces import IContextAwareDefaultFactory
+from zope.interface import provider
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -43,13 +45,12 @@ sessionModalities = SimpleVocabulary(
      SimpleTerm(value=u'asynchronous', title=_(u'asynchronous'))]
 )
 
-
 def is_numeric(value):
     if not value.isdigit():
         raise Invalid(_(u'El valor ha de ser numèric.'))
     return True
 
-
+@provider(IContextAwareDefaultFactory)
 def numSessio(context):
     sessions = api.content.find(
         portal_type='genweb.organs.sessio',
@@ -61,7 +62,7 @@ def numSessio(context):
             total = total + 1
     return '{0}'.format(str(total + 1).zfill(2))
 
-
+@provider(IContextAwareDefaultFactory)
 def numSessioShowOnly(context):
     sessions = api.content.find(
         portal_type='genweb.organs.sessio',
@@ -73,11 +74,11 @@ def numSessioShowOnly(context):
             total = total + 1
     return '{0}'.format(str(total + 1).zfill(2))
 
-
+@provider(IContextAwareDefaultFactory)
 def bodyMail(context):
     return context.bodyMailconvoquing
 
-
+@provider(IContextAwareDefaultFactory)
 def signatura(context):
     return context.footerMail
 
@@ -243,39 +244,6 @@ class ISessio(model.Schema):
         required=False,
         default=u''
     )
-
-
-def numSessio(context):
-    sessions = api.content.find(
-        portal_type='genweb.organs.sessio',
-        context=context)
-    total = 0
-    year = datetime.datetime.today().strftime('%Y')
-    for session in sessions:
-        if session.getObject().start.strftime('%Y') == year:
-            total = total + 1
-    return '{0}'.format(str(total + 1).zfill(2))
-
-
-def numSessioShowOnly(context):
-    sessions = api.content.find(
-        portal_type='genweb.organs.sessio',
-        context=context)
-    total = 0
-    year = datetime.datetime.today().strftime('%Y')
-    for session in sessions:
-        if session.getObject().start.strftime('%Y') == year:
-            total = total + 1
-    return '{0}'.format(str(total + 1).zfill(2))
-
-
-def bodyMail(context):
-    return context.bodyMailconvoquing
-
-
-def signatura(context):
-    return context.footerMail
-
 
 class Edit(form.EditForm):
     """ Session edit form

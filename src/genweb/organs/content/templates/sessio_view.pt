@@ -1,33 +1,1843 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      xml:lang="en" lang="en"
-      metal:use-macro="context/main_template/macros/master"
-      i18n:domain="genweb.organs">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal" xmlns:i18n="http://xml.zope.org/namespaces/i18n" lang="ca"
+  metal:use-macro="context/main_template/macros/master" i18n:domain="genweb.organs">
+
 <body>
-<div metal:fill-slot="main">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <tal:main-macro metal:define-macro="main">
-          <h1 class="documentFirstHeading" tal:content="view/title">Sessió</h1>
-          <div tal:content="structure view/message">Contingut</div>
-        </tal:main-macro>
+
+  <metal:main fill-slot="main" tal:condition="view/canView">
+    <tal:main-macro metal:define-macro="main" tal:define="loginfo view/getAnnotations;
+                excuses view/getAnnotationsExcuse;
+                canModify view/canModify;
+                items view/PuntsInside;
+                hihaPersones view/hihaPersones;
+                membresConvocats context/membresConvocats;
+                membresConvidats context/membresConvidats;
+                llistaExcusats context/llistaExcusats;
+                assistents context/assistents;
+                noAssistents context/noAssistents;
+                viewHistory view/viewHistory;
+                getAllResultsVotes view/getAllResultsVotes;
+                getInfoQuorums view/getInfoQuorums;
+                viewExcusesAndPoints view/viewExcusesAndPoints;
+                getTitlePrompt view/getTitlePrompt;
+                getErrorPrompt view/getErrorPrompt;
+                canViewVoteButtons view/canViewVoteButtons;
+                canViewAddQuorumButtons view/canViewAddQuorumButtons;
+                canViewManageQuorumButtons view/canViewManageQuorumButtons;
+                canViewManageVote view/canViewManageVote;
+                canViewResultsVote view/canViewResultsVote;
+                acordsInside view/AcordsInside;
+                actesInside view/ActesInside">
+
+      <div tal:replace="structure provider:plone.abovecontenttitle" />
+      <h1 class="documentFirstHeading" tal:content="context/title" />
+      <p class="documentDescription" tal:content="context/description" />
+      <div tal:replace="structure provider:plone.abovecontentbody" />
+      <div tal:replace="structure provider:plone.belowcontentbody" />
+
+      <tal:scripts tal:condition="canModify">
+        <link rel="stylesheet"
+          tal:attributes="href string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.css" />
+        <script
+          tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jquery-ui.min.js"></script>
+        <script
+          tal:attributes="src string:${portal_url}/++resource++genweb.organs.stylesheets/jqueryui-editable.min.js"></script>
+      </tal:scripts>
+
+      <script type="text/javascript" tal:condition="canModify">
+        $(function () {
+          var refreshNeeded = false;
+          $('#sortable').sortable({
+            placeholder: 'ui-state-highlight',
+            opacity: 0.5,
+            scroll: false,
+            start: function (event, ui) {
+              start = ui.item.index();
+            },
+            update: function (event, ui) {
+              var params = {};
+              params.itemid = ui.item.attr('id');
+              params.action = 'movepunt';
+              params.delta = ui.item.index() - start
+              $.ajax({
+                type: 'POST',
+                url: '@@fcmoveTable',
+                data: params,
+                success: function () {
+                  refreshNeeded = true;
+                },
+              });
+            },
+          }).disableSelection();
+
+          $('.sortable2').sortable({
+            placeholder: 'ui-state-highlight2',
+            opacity: 0.5,
+            scroll: false,
+            start: function (event, ui) {
+              start = ui.item.index();
+            },
+            update: function (event, ui) {
+              var params = {};
+              params.itemid = ui.item.attr('id');
+              params.action = 'movesubpunt';
+              params.delta = ui.item.index() - start
+              $.ajax({
+                type: 'POST',
+                url: '@@fcmoveTable',
+                data: params,
+                success: function () {
+                  refreshNeeded = true;
+                },
+              });
+            },
+          }).disableSelection();
+
+          $(document).ajaxStop(function () {
+            if (refreshNeeded) {
+              window.location.reload();
+            }
+          });
+
+          $('#sortable').bind('sortstart', function (event, ui) {
+            $('.ui-state-highlight').append('<span class="textFloating">  </span>');
+          });
+
+          $('.sortable2').bind('sortstart', function (event, ui) {
+            $('.ui-state-highlight2').append('<span class="textFloating">  </span>');
+          });
+
+        });
+
+        function deleteElement(item) {
+          var params = {};
+          values = item.split(',')
+          params.item = values[0]
+          params.portal_type = values[1]
+          params.action = 'delete';
+          $.ajax({
+            type: 'POST',
+            url: '@@removeElement',
+            data: params,
+            success: function () {
+              refreshNeeded = true;
+            },
+          });
+          $(document).ajaxStop(function () {
+            if (refreshNeeded) {
+              window.location.reload();
+            }
+          });
+        }
+
+        function hideAgreement(item) {
+          $.ajax({
+            type: 'GET',
+            url: item + '/@@hideAgreement',
+            success: function () {
+              refreshNeeded = true;
+            },
+          });
+          $(document).ajaxStop(function () {
+            if (refreshNeeded) {
+              window.location.reload();
+            }
+          });
+        }
+
+      </script>
+
+      <script type="text/javascript">
+        function printButlletiPage() {
+          if ($("iframe").length == 0) {
+            $("<iframe name='iframe' id='iframe' width='1' height='1' src='butlleti'>").appendTo("body");
+          }
+          window.frames["iframe"].focus();
+          setTimeout(function () {
+            window.frames["iframe"].print();
+          }, 1000);
+        }
+      </script>
+
+      <div class="documentDescription description"></div>
+
+      <tal:block tal:condition="view/hasFirma">
+        <span style="margin-top: 10px;" tal:define="estatFirma view/estatFirma"
+          tal:attributes="class string:badge badge-pill estatFirma ${estatFirma/class}">
+          <tal:block i18n:translate="">Acta: </tal:block>
+          <tal:block tal:content="estatFirma/text">PENDENT_SIGNANTS</tal:block>
+        </span>
+      </tal:block>
+
+      <div class="sessionActions" tal:define="showOpenQuorum view/showOpenQuorum">
+
+        <div class="containerIcons" tal:condition="view/showOrdreDiaIAssistencia">
+          <a href="excusar_assist_sessio" i18n:attributes="title excusa_assistencia; alt excusa_assistencia">
+            <i class="fa fa-minus fa-3x" style="font-size:1.1em" aria-hidden="true"></i>
+            <i class="fa fa-user fa-3x" aria-hidden="true"></i>
+            <br /><span i18n:translate="">Excusa l'assistencia</span>
+          </a>
+        </div>
+
+        <div class="containerIcons" tal:condition="view/showEnviarButton">
+          <a href="mail_message" i18n:attributes="title envia_missatge; alt envia_missatge">
+            <i class="fa fa-envelope fa-3x" aria-hidden="true"></i>
+            <br /><span i18n:translate="">Envia missatge</span>
+          </a>
+        </div>
+
+        <div class="containerIcons" tal:condition="view/showPresentacionButton">
+          <a i18n:attributes="title Presentacio; alt Presentacio" href="presentation">
+            <i class="fa fa-play-circle-o fa-3x" aria-hidden="true"></i>
+            <br /><span i18n:translate="">Presentacio</span>
+          </a>
+        </div>
+
+        <div class="containerIcons" tal:condition="view/showPublicarButton">
+          <a href="mail_informar" i18n:attributes="title informa_sessio; alt informa_sessio">
+            <i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i>
+            <br /><span i18n:translate="">Informa sessio</span>
+          </a>
+        </div>
+
+        <div class="containerIcons">
+          <a href="javascript:printButlletiPage();" i18n:attributes="title printOrdreDia; alt printOrdreDia">
+            <i class="fa fa-print fa-3x" aria-hidden="true"></i>
+            <br /><span i18n:translate="">Print</span>
+          </a>
+        </div>
+
+        <div class="containerIcons">
+          <a href="exportCSV" i18n:attributes="title exportOrdreDia; alt exportOrdreDia">
+            <i class="fa fa-download fa-3x" aria-hidden="true"></i>
+            <br /><span i18n:translate="">Export</span>
+          </a>
+        </div>
+
+        <tal:block tal:condition="canViewManageQuorumButtons">
+          <div class="containerIcons" tal:condition="showOpenQuorum">
+            <a class="openQuorum" href="#" i18n:attributes="title open_quorum; alt open_quorum;">
+              <i class="fa fa-pluse fa-3x" style="font-size:1.1em" aria-hidden="true"></i>
+              <i class="fa fa-users fa-3x" aria-hidden="true"></i>
+              <br /><span i18n:translate="">Obrir quorum</span>
+            </a>
+          </div>
+
+          <div class="containerIcons" tal:condition="not:showOpenQuorum">
+            <a class="closeQuorum" href="#" i18n:attributes="title close_quorum; alt close_quorum;">
+              <i class="fa fa-minus fa-3x" style="font-size:1.1em" aria-hidden="true"></i>
+              <i class="fa fa-users fa-3x" aria-hidden="true"></i>
+              <br /><span i18n:translate="">Tancar quorum</span>
+            </a>
+          </div>
+        </tal:block>
+
+        <tal:block tal:condition="canViewAddQuorumButtons">
+          <div class="containerIcons" tal:condition="not:showOpenQuorum"
+            tal:define="checkHasQuorum view/checkHasQuorum">
+            <a tal:condition="not:checkHasQuorum" class="addQuorum" href="#"
+              i18n:attributes="title add_quorum; alt add_quorum;">
+              <i class="fa fa-plus fa-3x" aria-hidden="true"></i>
+              <br /><span i18n:translate="">Control quorum</span>
+            </a>
+
+            <span tal:condition="checkHasQuorum" class="addQuorumChecked"
+              i18n:attributes="title add_quorum; alt add_quorum;">
+              <i class="fa fa-check fa-3x" aria-hidden="true"></i>
+              <br /><span i18n:translate="">Control quorum</span>
+            </span>
+          </div>
+        </tal:block>
+
+        <tal:block tal:condition="view/canViewSignButton">
+          <div class="containerIcons mgDOC">
+            <a href="signSessio" alt="Gestió signatura i arxiu gDOC" title="Gestió signatura i arxiu gDOC">
+              <i class="fa fa-pencil fa-3x" aria-hidden="true"></i>
+              <br /><span i18n:translate="">Gestió signatura i arxiu gDOC</span>
+            </a>
+          </div>
+        </tal:block>
+
       </div>
-    </div>
-  </div>
-</div>
 
-<!-- El resto del contenido de la plantilla, incluyendo tablas, listados y bloques, debe adaptarse a Bootstrap 5 usando 'table', 'table-striped', 'table-bordered', 'table-responsive', etc. -->
-<!-- Por ejemplo: -->
-<div class="table-responsive">
-  <table class="table table-striped table-bordered">
-    <tal:block tal:replace="structure context/table_content" />
-  </table>
-</div>
+      <div class="clearfix"></div>
 
-<!-- Mantener la lógica TAL y la funcionalidad original en el resto de la plantilla. -->
+      <div id="contentSessio">
 
+        <ul id="tabs" class="nav nav-tabs visible-tablet hidden-phone visible-desktop" data-tabs="tabs">
+          <li class="active"><a href="#dadesTab" data-toggle="tab">
+              <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag
+                  i18n:translate="">Convocatoria</tal:omit-tag></i></a></li>
+          <li tal:condition="hihaPersones"><a href="#assistentsTab" data-toggle="tab">
+              <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag
+                  i18n:translate="">Assistents</tal:omit-tag></i></a></li>
+          <li tal:condition="actesInside"><a href="#actaTab" data-toggle="tab">
+              <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag
+                  i18n:translate="">Acta</tal:omit-tag></i></a></li>
+          <li tal:condition="acordsInside"><a href="#acordsTab" data-toggle="tab">
+              <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements
+                  list</tal:omit-tag></i></a></li>
+          <li tal:condition="python:loginfo and viewHistory"><a href="#notificationsTab" data-toggle="tab">
+              <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag
+                  i18n:translate="">Historial</tal:omit-tag></i></a></li>
+          <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
+              <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info
+                  excusats</tal:omit-tag></i></a></li>
+          <tal:block tal:condition="canViewResultsVote">
+            <li tal:condition="python: getAllResultsVotes or getInfoQuorums"><a href="#resultsVotesTab"
+                data-toggle="tab">
+                <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions
+                    / Quorums</tal:omit-tag></i></a></li>
+          </tal:block>
+        </ul>
+        <ul id="tabs" class="nav nav-tabs nav-stacked hidden-tablet visible-phone hidden-desktop" data-tabs="tabs">
+          <li class="active"><a href="#dadesTab" data-toggle="tab">
+              <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag
+                  i18n:translate="">Convocatoria</tal:omit-tag></i></a></li>
+          <li tal:condition="hihaPersones"><a href="#assistentsTab" data-toggle="tab">
+              <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag
+                  i18n:translate="">Assistents</tal:omit-tag></i></a></li>
+          <li tal:condition="actesInside"><a href="#actaTab" data-toggle="tab">
+              <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag
+                  i18n:translate="">Acta</tal:omit-tag></i></a></li>
+          <li tal:condition="acordsInside"><a href="#acordsTab" data-toggle="tab">
+              <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements
+                  list</tal:omit-tag></i></a></li>
+          <li tal:condition="python:loginfo and viewHistory"><a href="#notificationsTab" data-toggle="tab">
+              <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag
+                  i18n:translate="">Historial</tal:omit-tag></i></a></li>
+          <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
+              <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info
+                  excusats</tal:omit-tag></i></a></li>
+          <tal:block tal:condition="canViewResultsVote">
+            <li tal:condition="python: getAllResultsVotes or getInfoQuorums"><a href="#resultsVotesTab"
+                data-toggle="tab">
+                <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions
+                    / Quorums</tal:omit-tag></i></a></li>
+          </tal:block>
+        </ul>
+
+        <div id="sessionTabs" class="tab-content">
+          <div class="tab-pane active" id="dadesTab" tal:define="item view/valuesTable">
+            <ul tal:define="llocConvocatoria item/llocConvocatoria;
+                        linkSala item/linkSala;
+                        modality item/modality;
+                        organTitle item/organTitle;
+                        horaInici item/horaInici;
+                        horaFi item/horaFi;
+                        sessionNumber item/sessionNumber;
+                        status item/status" class="ul-session">
+              <li tal:condition="horaInici">
+                <b i18n:translate="">Session start date and time</b>:
+                <span tal:content="horaInici"></span>
+              </li>
+              <li tal:condition="horaFi">
+                <b i18n:translate="">Session end date and time</b>:
+                <span tal:content="horaFi"></span>
+              </li>
+              <li tal:condition="modality">
+                <b i18n:translate="">Modality of meet</b>:
+                <span i18n:translate="" tal:content="modality"></span>
+              </li>
+              <li tal:condition="llocConvocatoria">
+                <b i18n:translate="">Session location</b>:
+                <span tal:content="llocConvocatoria"></span>
+              </li>
+              <tal:block tal:condition="linkSala">
+                <li tal:condition="view/canViewLinkSala">
+                  <b i18n:translate="">Enllac a la sala</b>:
+                  <span>
+                    <a tal:attributes="href linkSala" tal:content="linkSala" target="_blank"></a>
+                  </span>
+                </li>
+              </tal:block>
+              <li tal:condition="organTitle">
+                <b i18n:translate="">Organ de govern</b>:
+                <span tal:content="organTitle"></span>
+                <div class="clearfix"></div>
+              </li>
+              <li tal:condition="sessionNumber">
+                <b i18n:translate="">Session number</b>:
+                <span tal:content="sessionNumber"></span>
+              </li>
+              <li>
+                <b i18n:translate="">Estat de la sessio</b>:
+                <span i18n:domain="genweb" i18n:translate="" tal:content="status"></span>
+              </li>
+            </ul>
+          </div>
+          <div class="tab-pane" id="assistentsTab" tal:condition="hihaPersones">
+            <div class="panel with-nav-tabs panel-primary">
+              <div class="panel-heading">
+                <ul class="nav nav-tabs">
+                  <li tal:condition="membresConvocats" class="active">
+                    <a href="#tab1primary" data-toggle="tab" i18n:translate="">Incoming members list</a>
+                  </li>
+                  <li tal:condition="membresConvidats">
+                    <a href="#tab2primary" data-toggle="tab" i18n:translate="">Invited members</a>
+                  </li>
+                  <li tal:condition="llistaExcusats">
+                    <a href="#tab3primary" data-toggle="tab" i18n:translate="">Excused members</a>
+                  </li>
+                  <li tal:condition="assistents">
+                    <a href="#tab4primary" data-toggle="tab" i18n:translate="">Si assistents</a>
+                  </li>
+                  <li tal:condition="noAssistents">
+                    <a href="#tab5primary" data-toggle="tab" i18n:translate="">No assistents</a>
+                  </li>
+
+                </ul>
+              </div>
+              <div class="panel-body">
+                <div class="tab-content">
+                  <div tal:condition="membresConvocats" class="tab-pane fade in active" id="tab1primary">
+                    <span tal:replace="structure membresConvocats" />
+                  </div>
+                  <div tal:condition="membresConvidats" class="tab-pane fade" id="tab2primary">
+                    <span tal:replace="structure membresConvidats" />
+                  </div>
+                  <div tal:condition="llistaExcusats" class="tab-pane fade" id="tab3primary">
+                    <span tal:replace="structure llistaExcusats" />
+                  </div>
+                  <div tal:condition="assistents" class="tab-pane fade" id="tab4primary">
+                    <span tal:replace="structure assistents" />
+                  </div>
+                  <div tal:condition="noAssistents" class="tab-pane fade" id="tab5primary">
+                    <span tal:replace="structure noAssistents" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="actaTab" tal:define="actes actesInside" tal:condition="actesInside">
+            <div class="clearfix">
+              <b i18n:translate="">Actes de la sessio:</b>
+              <table>
+                <tbody>
+                  <tal:documents repeat="item actes">
+                    <tr tal:define="date item/date|nothing">
+                      <td><i class="fa fa-file-text-o" aria-hidden="true" style="padding-left: 20px;"></i>
+                        <a href="#" tal:attributes="href item/absolute_url;" tal:content="item/title">
+                          Item Title
+                        </a>&nbsp;
+                        <span tal:condition="date">(<span tal:content="date">
+                            Item Data
+                          </span>)</span>
+                      </td>
+                    </tr>
+                  </tal:documents>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="acordsTab" tal:define="acords acordsInside" tal:condition="acordsInside">
+            <div class="clearfix">
+              <div class="scrollit">
+                <table class="table table-bordered table-condensed table-hover logFont">
+                  <thead>
+                    <tr>
+                      <th>
+                        <tal:data i18n:translate="">Titol</tal:data>
+                      </th>
+                      <th style="text-align:center;">
+                        <tal:data i18n:translate="">Agreement</tal:data>
+                      </th>
+                      <th style="text-align:center;">
+                        <tal:data i18n:translate="">State</tal:data>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tal:documents repeat="item acords">
+                      <tr>
+                        <td style="vertical-align: middle;">
+                          <i class="fa fa-check" aria-hidden="true"></i>
+                          <a href="#" tal:attributes="href item/absolute_url;" tal:content="item/title">
+                            Item Title
+                          </a>
+                        </td>
+                        <td style="text-align:center; vertical-align: middle;">
+                          <span tal:content="item/agreement">
+                            Numero Acord
+                          </span>
+                        </td>
+                        <td style="text-align:center; min-width: 100px; vertical-align: middle;">
+                          <span class="estatpunt">
+                            <i class="fa fa-circle boletaGran" aria-hidden="true"
+                              tal:attributes="style string:color:${item/color};"></i>&nbsp;<span
+                              tal:content="item/estatsLlista"></span>
+                          </span>
+                        </td>
+                      </tr>
+                    </tal:documents>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="notificationsTab" tal:condition="python:loginfo and viewHistory">
+            <div class="scrollit">
+              <table class="table table-bordered table-condensed table-hover logFont">
+                <thead>
+                  <tr>
+                    <th>
+                      <tal:data>#</tal:data>
+                    </th>
+                    <th>
+                      <tal:data i18n:translate="">Data i hora</tal:data>
+                    </th>
+                    <th>
+                      <tal:data i18n:translate="">Accio</tal:data>
+                    </th>
+                    <th>
+                      <tal:data i18n:translate="">Notificador</tal:data>
+                    </th>
+                    <th>
+                      <tal:data i18n:translate="">Destinataris</tal:data>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tal:documents repeat="data loginfo">
+                    <tr>
+                      <td tal:content="data/index|nothing"></td>
+                      <td tal:content="data/dateMail"></td>
+                      <td tal:content="data/message"></td>
+                      <td tal:content="data/fromMail"></td>
+                      <td tal:content="data/toMail"></td>
+                    </tr>
+                  </tal:documents>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="excusesTab" tal:condition="python:excuses and viewExcusesAndPoints">
+            <div class="scrollit">
+              <table class="table table-bordered table-condensed table-hover logFont">
+                <thead>
+                  <tr>
+                    <th>
+                      <tal:data>#</tal:data>
+                    </th>
+                    <th>
+                      <tal:data i18n:translate="">Data i hora</tal:data>
+                    </th>
+                    <th>
+                      <tal:data i18n:translate="">Nom</tal:data>
+                    </th>
+                    <th>
+                      <tal:data i18n:translate="">Email</tal:data>
+                    </th>
+                    <th>
+                      <tal:data i18n:translate="">Descripcio del problema</tal:data>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tal:documents repeat="data excuses">
+                    <tr>
+                      <td tal:content="data/index|nothing"></td>
+                      <td tal:content="data/date"></td>
+                      <td tal:content="data/name"></td>
+                      <td tal:content="data/email"></td>
+                      <td tal:content="data/message"></td>
+                    </tr>
+                  </tal:documents>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+          <div class="tab-pane" id="resultsVotesTab" tal:condition="canViewResultsVote">
+            <div class="scrollit" tal:define="votes getAllResultsVotes; quorums getInfoQuorums;">
+
+              <table tal:condition="votes" class="table table-bordered table-condensed table-hover logFont">
+                <thead>
+                  <tr i18n:domain="genweb.organs">
+                    <th width="36%" i18n:translate="">Acord / Esmena</th>
+                    <tal tal:condition="not:canViewManageVote">
+                      <th width="14%" style="text-align:center;" i18n:translate="">A favor</th>
+                      <th width="14%" style="text-align:center;" i18n:translate="">En contra</th>
+                      <th width="14%" style="text-align:center;" i18n:translate="">En blanc</th>
+                      <th width="14%" style="text-align:center;" i18n:translate="">Vots emesos</th>
+                      <th width="8%" style="text-align:center;" i18n:translate=""></th>
+
+                    </tal>
+                    <tal tal:condition="canViewManageVote">
+                      <th width="12%" style="text-align:center;" i18n:translate="">A favor</th>
+                      <th width="12%" style="text-align:center;" i18n:translate="">En contra</th>
+                      <th width="12%" style="text-align:center;" i18n:translate="">En blanc</th>
+                      <th width="12%" style="text-align:center;" i18n:translate="">Vots emesos</th>
+                      <th width="8%" style="text-align:center;" i18n:translate="">State</th>
+                      <th width="8%" style="text-align:center;" i18n:translate=""></th>
+                    </tal>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tal:block tal:repeat="vote votes">
+                    <tr tal:condition="not:vote/isPublic" tal:attributes="id string:vote-${vote/UID}">
+                      <tal:block tal:condition="not:vote/isEsmena">
+                        <td>
+                          <span tal:content="string:${vote/title} [${vote/code}]"></span>
+                        </td>
+                      </tal:block>
+                      <tal:block tal:condition="vote/isEsmena">
+                        <td>
+                          <span class="separacioEsmena"></span><span tal:content="vote/title"></span>
+                        </td>
+                      </tal:block>
+                      <tal:block tal:condition="not:vote/isOpen">
+                        <td class="vote-favorVote" style="text-align:center;" tal:content="vote/favorVote"></td>
+                        <td class="vote-againstVote" style="text-align:center;" tal:content="vote/againstVote"></td>
+                        <td class="vote-whiteVote" style="text-align:center;" tal:content="vote/whiteVote"></td>
+                        <td class="vote-totalVote" style="text-align:center;" tal:content="vote/totalVote"></td>
+                      </tal:block>
+                      <tal:block tal:condition="vote/isOpen">
+                        <td class="vote-favorVote" style="text-align:center;"></td>
+                        <td class="vote-againstVote" style="text-align:center;"></td>
+                        <td class="vote-whiteVote" style="text-align:center;"></td>
+                        <td class="vote-totalVote" style="text-align:center;" tal:content="vote/totalVote"></td>
+                      </tal:block>
+                      <td style="text-align:center;" tal:condition="canViewManageVote" tal:content="vote/state"></td>
+                      <td style="text-align:center;">
+                        <tal:block tal:condition="canViewManageVote">
+                          <span tal:condition="vote/canReopen" class="fa fa-pencil-square-o reopenVote"
+                            tal:attributes="data-url vote/URL" i18n:attributes="title reopen_vote"></span>
+                        </tal:block>
+                        <tal:block tal:condition="vote/isOpen">
+                          <span tal:attributes="data-uid vote/UID" class="refreshVote fa fa-refresh"
+                            aria-hidden="true"></span>
+                        </tal:block>
+                        <tal:block tal:condition="vote/hourOpen">
+                          <span tal:condition="not:vote/hourClose" class="fa fa-info-circle"
+                            tal:attributes="title string:Inici: ${vote/hourOpen}"></span>
+                          <span tal:condition="vote/hourClose" class="fa fa-info-circle" tal:attributes="title string:Inici: ${vote/hourOpen}
+Fi: ${vote/hourClose}"></span>
+                        </tal:block>
+                        <tal:block tal:condition="canViewManageVote">
+                          <span tal:condition="vote/isVote" class="fa fa-trash removeVote"
+                            tal:attributes="data-url vote/URL"></span>
+                        </tal:block>
+                      </td>
+                    </tr>
+                    <tal:block tal:condition="vote/isPublic">
+                      <tr class="openInfo" tal:attributes="data-open string:#${vote/UID};
+                                                       id string:vote-${vote/UID}">
+                        <td>
+                          <tal:block tal:condition="not:vote/isEsmena">
+                            <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
+                            <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
+                            <span class="vote-title" tal:content="string:${vote/title} [${vote/code}]"></span>
+                          </tal:block>
+                          <tal:block tal:condition="vote/isEsmena">
+                            <span class="separacioEsmena"></span>
+                            <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
+                            <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
+                            <span class="vote-title esmena" tal:content="vote/title"></span>
+                          </tal:block>
+                        </td>
+                        <tal:block tal:condition="not:vote/isOpen">
+                          <td class="vote-favorVote" style="text-align:center;" tal:content="vote/favorVote"></td>
+                          <td class="vote-againstVote" style="text-align:center;" tal:content="vote/againstVote"></td>
+                          <td class="vote-whiteVote" style="text-align:center;" tal:content="vote/whiteVote"></td>
+                          <td class="vote-totalVote" style="text-align:center;" tal:content="vote/totalVote"></td>
+                        </tal:block>
+                        <tal:block tal:condition="vote/isOpen">
+                          <td class="vote-favorVote" style="text-align:center;"></td>
+                          <td class="vote-againstVote" style="text-align:center;"></td>
+                          <td class="vote-whiteVote" style="text-align:center;"></td>
+                          <td class="vote-totalVote" style="text-align:center;" tal:content="vote/totalVote"></td>
+                        </tal:block>
+                        <td class="vote-state" style="text-align:center;" tal:condition="canViewManageVote"
+                          tal:content="vote/state"></td>
+                        <td style="text-align:center;">
+                          <tal:block tal:condition="canViewManageVote">
+                            <span tal:condition="vote/canReopen" class="fa fa-pencil-square-o reopenVote"
+                              tal:attributes="data-url vote/URL" i18n:attributes="title reopen_vote"></span>
+                          </tal:block>
+                          <tal:block tal:condition="vote/isOpen">
+                            <span tal:attributes="data-uid vote/UID" class="refreshVote fa fa-refresh"
+                              aria-hidden="true"></span>
+                          </tal:block>
+                          <tal:block tal:condition="vote/hourOpen">
+                            <span tal:condition="not:vote/hourClose" class="fa fa-info-circle"
+                              tal:attributes="title string:Inici: ${vote/hourOpen}"></span>
+                            <span tal:condition="vote/hourClose" class="fa fa-info-circle" tal:attributes="title string:Inici: ${vote/hourOpen}
+Fi: ${vote/hourClose}"></span>
+                          </tal:block>
+                          <span tal:condition="canViewManageVote" class="fa fa-trash removeVote"
+                            tal:attributes="data-url vote/URL"></span>
+                        </td>
+                      </tr>
+                      <tr class="infovotes" tal:attributes="id vote/UID">
+                        <td></td>
+                        <tal:block tal:condition="not:vote/isOpen">
+                          <td class="vote-users-favorVote" style="text-align:center;">
+                            <p tal:repeat="user vote/favorVoteList" tal:content="user"></p>
+                          </td>
+                          <td class="vote-users-againstVote" style="text-align:center;">
+                            <p tal:repeat="user vote/againstVoteList" tal:content="user"></p>
+                          </td>
+                          <td class="vote-users-whiteVote" style="text-align:center;">
+                            <p tal:repeat="user vote/whiteVoteList" tal:content="user"></p>
+                          </td>
+                          <td style="text-align:center;"></td>
+                        </tal:block>
+                        <tal:block tal:condition="vote/isOpen">
+                          <td class="vote-users-favorVote" style="text-align:center;"></td>
+                          <td class="vote-users-againstVote" style="text-align:center;"></td>
+                          <td class="vote-users-whiteVote" style="text-align:center;"></td>
+                          <td class="vote-users-totalVote" style="text-align:center;">
+                            <p tal:repeat="user vote/totalVoteList" tal:content="user"></p>
+                          </td>
+                        </tal:block>
+                        <td style="text-align:center;" tal:condition="canViewManageVote"></td>
+                        <td style="text-align:center;" tal:condition="canViewManageVote"></td>
+                      </tr>
+                    </tal:block>
+                  </tal:block>
+                </tbody>
+              </table>
+
+              <table tal:condition="quorums" class="table table-bordered table-condensed table-hover logFont"
+                style="width: 40% !important;">
+                <thead i18n:domain="genweb.organs">
+                  <tr>
+                    <th colspan="3" i18n:translate="">Nombre de membres assistents</th>
+                  </tr>
+                  <tr>
+                    <th width="45%" i18n:translate="">Inici</th>
+                    <th width="45%" i18n:translate="">Fi</th>
+                    <th width="10%" style="text-align:center;" i18n:translate="">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr tal:repeat="quorum quorums">
+                    <tal:block tal:define="quorumInfo python: quorums[quorum]">
+                      <td tal:content="quorumInfo/start"></td>
+                      <td tal:content="quorumInfo/end"></td>
+                      <td style="text-align:center;" tal:content="quorumInfo/total"></td>
+                    </tal:block>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <tal:buttons tal:condition="canModify">
+        <div class="modal fade" id="modalPunts" tabindex="-1" role="dialog" aria-labelledby="modalMassive">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalMassive" i18n:translate="">Importar llista de punts i subpunts</h4>
+              </div>
+              <div class="modal-body"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="modalPunt" tabindex="-1" role="dialog" aria-labelledby="modalAddPunt">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalAddPunt" i18n:translate="">Nou punt</h4>
+              </div>
+              <div class="modal-body">
+                <form name="addPunt">
+                  <div class="form-group">
+                    <label for="message-text" class="control-label" i18n:translate="">Title</label>
+                    <textarea class="form-control" id="message-text"></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary createPunt" i18n:translate="">Envia</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" i18n:translate="">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="modalAcord" tabindex="-1" role="dialog" aria-labelledby="modalAddAcord">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalAddAcord" i18n:translate="">Nou acord</h4>
+              </div>
+              <div class="modal-body">
+                <form name="addAcord">
+                  <div class="form-group">
+                    <label for="message-text" class="control-label" i18n:translate="">Titol del punt</label>
+                    <textarea class="form-control" id="message-text"></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary createAcord" i18n:translate="">Envia</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" i18n:translate="">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sessionCustomActions visible-tablet hidden-phone visible-desktop">
+          <a class="btn btn-info" data-toggle="modal" data-target="#modalPunt"><i class="fa fa-plus"
+              aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
+          <a class="btn btn-info" data-toggle="modal" data-target="#modalAcord"><i class="fa fa-plus"
+              aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou acord</span></a>
+          <a class="btn btn-info" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i
+              class="fa fa-database" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
+          <a class="btn btn-info" href="updatePoints"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span
+              i18n:translate="">Recalcula punts</span></a>
+          <a class="btn btn-info" href="updateAcords"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span
+              i18n:translate="">Recalcula punts/acords</span></a>
+        </div>
+
+        <div style="margin-right: 30px;"
+          class="hidden-tablet visible-phone hidden-desktop btn-group btn-group-vertical">
+          <a class="btn btn-info" data-toggle="modal" data-target="#modalPunt"><i class="fa fa-plus"
+              aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
+          <a class="btn btn-info" data-toggle="modal" data-target="#modalAcord"><i class="fa fa-plus"
+              aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou acord</span></a>
+          <a class="btn btn-info" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i
+              class="fa fa-database" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
+          <a class="btn btn-info" href="updatePoints"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span
+              i18n:translate="">Recalcula punts</span></a>
+          <a class="btn btn-info" href="updateAcords"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span
+              i18n:translate="">Recalcula punts/acords</span></a>
+          <br />
+        </div>
+        <div class="clearfix"></div>
+      </tal:buttons>
+
+      <div class="clearfix"></div>
+
+      <div tal:condition="view/hihaPunts">
+        <div tal:condition="items" class="DADES">
+          <h2 class="sessionOrdreDia" i18n:translate="">Ordre del dia</h2>
+          <!-- <div style="float:left; padding-top: 10px;" class="btn-group visible-tablet hidden-phone visible-desktop" role="group" aria-label="Show as" tal:condition="canModify">
+        <button class="label dropdown-toggle"
+            type="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" i18n:translate="">
+            Veure com...
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+          <li><a tabindex="-1" href="view_as_role?id=Member"><span i18n:translate="">Membre</span></a></li>
+          <li><a tabindex="-1" href="view_as_role?id=Affected"><span i18n:translate="">Afectat</span></a></li>
+          <li><a tabindex="-1" href="view_as_role?id=Other"><span i18n:translate="">Altres</span></a></li>
+        </ul>
+      </div> -->
+
+          <div style="float:right; padding-top: 10px;" class="documentDescription">
+            <span id="expandAll" i18n:translate="">Desplega tot <i style="color: #557c95" class="fa fa-chevron-down"
+                aria-hidden="true"></i></span>
+            <span id="collapseAll" i18n:translate="">Plega tot <i style="color: #557c95" class="fa fa-chevron-up"
+                aria-hidden="true"></i></span>
+          </div>
+          <div class="clearfix"></div>
+          <ul id="sortable">
+            <tal:documents repeat="item items">
+              <tal:block tal:define="agreement item/agreement;
+                                 isAcord item/isAcord">
+                <li class="ui-state-grey" tal:attributes="id item/id; class item/classe">
+                  <td tal:condition="item/show">
+                    <div class="span6 einesSpan">
+                      <tal:editActions tal:condition="python: view.canModifyPunt(item)">
+                        <div style="float: right;" aria-label="Edit actions">
+                          <tal:block tal:condition="isAcord">
+                            <button type="button" class="hide-agreement label label-important" data-container="body"
+                              data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus"
+                              title="Esborra número acord" data-original-title="Esborra número acord"
+                              tal:condition="not:item/omitAgreement" tal:attributes="data-item item/absolute_url">
+                              <i class="fa fa-undo" aria-hidden="true"></i>
+                            </button>
+                          </tal:block>
+                          <button type="button" class="edit label label-info" title="Edit" data-original-title="Edit">
+                            <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                          <button type="button" class="remove label label-important" data-container="body"
+                            data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus"
+                            title="Esborra" data-original-title="Esborra"
+                            tal:attributes="data-item item/id; data-type item/portal_type">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                        <div class="btn-group" role="group" style="float: right;" aria-label="Add element">
+                          <button class="label dropdown-toggle" type="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            +
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                            <li tal:condition="item/isPunt"><a tabindex="-1"
+                                tal:attributes="href string:${item/id}/++add++genweb.organs.subpunt"><span><i
+                                    class="fa fa-list"></i>&nbsp;&nbsp;<tal:omit-tag
+                                    i18n:translate="">Subpunt</tal:omit-tag></span></a></li>
+                            <li tal:condition="item/isPunt"><a tabindex="-1"
+                                tal:attributes="href string:${item/id}/++add++genweb.organs.acord"><span><i
+                                    class="fa fa-check"></i>&nbsp;&nbsp;<tal:omit-tag
+                                    i18n:translate="">Acord</tal:omit-tag></span></a></li>
+                            <li><a tabindex="-1"
+                                tal:attributes="href string:${item/id}/++add++genweb.organs.file"><span><i
+                                    class="fa fa-file-pdf-o"></i>&nbsp;&nbsp;<tal:omit-tag
+                                    i18n:translate="">File</tal:omit-tag></span></a></li>
+                            <li><a tabindex="-1"
+                                tal:attributes="href string:${item/id}/++add++genweb.organs.document"><span><i
+                                    class="fa fa-file-text-o"></i>&nbsp;&nbsp;<tal:omit-tag
+                                    i18n:translate="">Document</tal:omit-tag></span></a></li>
+                          </ul>
+                        </div>
+                        <div class="btn-group" role="group" style="float: right;" aria-label="Change current state">
+                          <tal:block tal:condition="item/state">
+                            <button class="label dropdown-toggle bullet-toggle" type="button" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-circle" aria-hidden="true"
+                                tal:attributes="style string:color:${item/css}"></i>
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu estatsToggle" role="menu" aria-labelledby="estats">
+                              <tal:block repeat="estat item/estats">
+                                <li class="defaultValue">
+                                  <a tabindex="-1"
+                                    tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}">
+                                    <i class="fa fa-circle" aria-hidden="true"
+                                      tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span
+                                      tal:content="estat/title"></span>
+                                  </a>
+                                </li>
+                              </tal:block>
+                            </ul>
+                          </tal:block>
+                        </div>
+
+                        <tal:block tal:condition="isAcord">
+                          <tal:block tal:condition="canViewManageVote">
+                            <div class="btn-group votes" role="group" style="float: right;" aria-label="Open vote"
+                              tal:condition="item/canOpenVote">
+                              <button class="label dropdown-toggle" type="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                                <li class="openOtherPublicVote" tal:attributes="data-id item/id;
+                                                                            data-title getTitlePrompt;
+                                                                            data-error getErrorPrompt;">
+                                  <a tabindex="-1" data-type="openOther">
+                                    <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
+                                        i18n:translate="">Other Public</tal:omit-tag></span>
+                                  </a>
+                                </li>
+                                <li class="openPublicVote" tal:attributes="data-id item/id">
+                                  <a tabindex="-1" data-type="open">
+                                    <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
+                                        i18n:translate="">Public</tal:omit-tag></span>
+                                  </a>
+                                </li>
+                                <!-- <li class="openSecretVote" tal:attributes="data-id item/id">
+                              <a tabindex="-1" data-type="private">
+                                <span><i class="fa fa-user-secret"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Secret</tal:omit-tag></span>
+                              </a>
+                            </li> -->
+                              </ul>
+                            </div>
+
+                            <div class="btn-group votes" role="group" style="float: right;" aria-label="Close vote"
+                              tal:condition="item/canCloseVote">
+                              <button class="label dropdown-toggle" type="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i tal:attributes="class item/classVote" aria-hidden="true"></i>
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                                <li class="closeVote" tal:attributes="data-id item/id">
+                                  <a tabindex="-1" data-type="open">
+                                    <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
+                                        i18n:translate="">Close</tal:omit-tag></span>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+
+                            <div class="btn-group votes" role="group" style="float: right;" aria-label="Close vote"
+                              tal:condition="item/canRecloseVote">
+                              <button class="label dropdown-toggle" type="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i tal:attributes="class item/classVote" aria-hidden="true"></i>
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                                <li class="recloseVote" tal:attributes="data-id item/canRecloseVote">
+                                  <a tabindex="-1" data-type="open">
+                                    <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
+                                        i18n:translate="">Close</tal:omit-tag></span>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+
+                          </tal:block>
+                        </tal:block>
+
+                      </tal:editActions>
+                      <div tal:condition="python: not view.canModifyPunt(item)" style="float: right;">
+                        <tal:block tal:condition="item/state">
+                          <button class="btn label disabled" style="padding:3px;">
+                            <i class="fa fa-circle" aria-hidden="true"
+                              tal:attributes="style string:color:${item/css}"></i>
+                            <span tal:content="item/state"></span>
+                          </button>
+                        </tal:block>
+                      </div>
+                    </div>
+
+                    <tal:block-contenidos tal:define="files python:view.filesinsidePunt(item);
+                                                  subpunts python:view.SubpuntsInside(item)">
+                      <div class="puntTitle span12" tal:define="contenidos python:files or subpunts">
+                        <div class="span1 fletxaSpan visible-tablet hidden-phone visible-desktop">
+                          <button type="button" class="expand" tal:condition="contenidos" data-original-title="Expand">
+                            <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
+                          </button>
+                          <button type="button" class="notexpand" tal:condition="contenidos"
+                            data-original-title="Collapse">
+                            <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                        <div class="span1 numberSpan visible-tablet hidden-phone visible-desktop">
+                          <span class="proposalNumber " style="text-align: right; float:right;"
+                            tal:content="item/proposalPoint"></span>
+                        </div>
+
+                        <div class="hidden-tablet visible-phone hidden-desktop">
+                          <span class="proposalNumber" style="text-align: right; float:left; padding-left:10px;"
+                            tal:content="item/proposalPoint"></span>
+                          <button type="button" class="expand" tal:condition="contenidos" data-original-title="Expand">
+                            <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
+                          </button>
+                          <button type="button" class="notexpand" tal:condition="contenidos"
+                            data-original-title="Collapse">
+                            <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
+                          </button>
+                          <br />
+                        </div>
+
+                        <div class="span9 titleSpan">
+                          <a tal:attributes="data-pk item/id; href item/absolute_url" data-url="changeTitle"
+                            class="editTitle editable titleSize">
+                            <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                          </a>
+                          <span tal:condition="agreement" class="agreementClass">
+                            [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag
+                              tal:content="agreement">Acord code </tal:omit-tag>]
+                          </span>
+                          <tal:block tal:condition="canViewResultsVote">
+                            <span tal:condition="item/canRecloseVote" class="editTitle editable subtitleSize">
+                              <br />
+                              <tal:omit-tag i18n:translate="">Vote</tal:omit-tag>:
+                              <tal:omit-tag tal:content="item/titleEsmena"></tal:omit-tag>
+                            </span>
+                          </tal:block>
+                        </div>
+                        <div class="span1 boleta" tal:define="estat item/state">
+                          <!--                     <tal:block tal:condition="canModify">
+                      <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
+                    </tal:block> -->
+                          <span class="btn label disabled labelString">
+                            <i class="fa fa-circle" aria-hidden="true"
+                              tal:attributes="style string:color:${item/css}"></i>&nbsp;<span
+                              tal:content="estat"></span>
+                          </span>
+                        </div>
+                        <tal:files>
+                          <div class="span12" tal:condition="files">
+                            <ul class="listFiles">
+                              <tal:documents repeat="file_item files">
+                                <li class="filesinTable" style="width:98% !important;">
+                                  <i tal:attributes="class file_item/classCSS"></i>
+                                  <a tal:attributes="href file_item/absolute_url;" tal:condition="file_item/new_tab"
+                                    target="_blank">
+                                    <tal:omit-tag tal:content="file_item/title"> Doc title</tal:omit-tag>
+                                  </a>
+                                  <a tal:attributes="href file_item/absolute_url;"
+                                    tal:condition="not:file_item/new_tab">
+                                    <tal:omit-tag tal:content="file_item/title"> Doc title</tal:omit-tag>
+                                  </a>
+                                  <div style="float:right; display: inline-table;"
+                                    tal:condition="python: view.canModifyPunt(item)">
+                                    <button type="button" class="remove label label-important" data-container="body"
+                                      data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus"
+                                      title="Esborra" data-original-title="Esborra"
+                                      tal:attributes="data-file_item file_item/id; data-type file_item/portal_type">
+                                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </button>
+                                  </div>
+                                </li>
+                              </tal:documents>
+                            </ul>
+                          </div>
+                        </tal:files>
+                      </div>
+                      <tal:block tal:condition="canViewVoteButtons">
+                        <div class="puntVoteButtons span12" tal:condition="item/canCloseVote">
+                          <span class="span2"></span>
+                          <div class="span10">
+                            <a class="btn btn-notvote span4 favor" tal:attributes="data-id item/id"
+                              tal:condition="not: item/favorVote" i18n:translate="">A favor</a>
+                            <a class="btn btn-info span4" tal:condition="item/favorVote" i18n:translate="">A favor</a>
+                            <a class="btn btn-notvote span4 against" tal:attributes="data-id item/id"
+                              tal:condition="not: item/againstVote" i18n:translate="">En contra</a>
+                            <a class="btn btn-info span4" tal:condition="item/againstVote" i18n:translate="">En
+                              contra</a>
+                            <a class="btn btn-notvote span4 white" tal:attributes="data-id item/id"
+                              tal:condition="not: item/whiteVote" i18n:translate="">En blanc</a>
+                            <a class="btn btn-info span4" tal:condition="item/whiteVote" i18n:translate="">En blanc</a>
+                          </div>
+                        </div>
+                        <div class="puntVoteButtons span12" tal:condition="item/canRecloseVote">
+                          <span class="span2"></span>
+                          <div class="span10">
+                            <a class="btn btn-notvote span4 favor" tal:attributes="data-id item/canRecloseVote"
+                              tal:condition="not: item/favorVote" i18n:translate="">A favor</a>
+                            <a class="btn btn-info span4" tal:condition="item/favorVote" i18n:translate="">A favor</a>
+                            <a class="btn btn-notvote span4 against" tal:attributes="data-id item/canRecloseVote"
+                              tal:condition="not: item/againstVote" i18n:translate="">En contra</a>
+                            <a class="btn btn-info span4" tal:condition="item/againstVote" i18n:translate="">En
+                              contra</a>
+                            <a class="btn btn-notvote span4 white" tal:attributes="data-id item/canRecloseVote"
+                              tal:condition="not: item/whiteVote" i18n:translate="">En blanc</a>
+                            <a class="btn btn-info span4" tal:condition="item/whiteVote" i18n:translate="">En blanc</a>
+                          </div>
+                        </div>
+                      </tal:block>
+                      <div tal:condition="subpunts" class="sortable2">
+                        <tal:subpunts repeat="itemSubpunt subpunts">
+                          <ol class="li_subgrups" tal:attributes="id itemSubpunt/id" tal:define="agreement itemSubpunt/agreement;
+                                     itemSubpunt_id itemSubpunt/id;
+                                     isAcord itemSubpunt/isAcord">
+                            <div class="span6 agreementSpan"></div>
+                            <div class="span6 einesSpan">
+
+                              <div style="float: right;" aria-label="Edit actions"
+                                tal:condition="python: view.canModifyPunt(itemSubpunt)">
+                                <tal:block tal:condition="isAcord">
+                                  <button type="button" class="hide-agreement label label-important"
+                                    data-container="body" data-toggle="popover" data-placement="left" data-html="true"
+                                    data-trigger="focus" title="Esborra número acord"
+                                    data-original-title="Esborra número acord"
+                                    tal:condition="not:itemSubpunt/omitAgreement"
+                                    tal:attributes="data-item itemSubpunt/absolute_url">
+                                    <i class="fa fa-undo" aria-hidden="true"></i>
+                                  </button>
+                                </tal:block>
+                                <button type="button" class="edit2 label label-info" title="Edit"
+                                  data-original-title="Edit">
+                                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="remove label label-important" data-container="body"
+                                  data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus"
+                                  title="Esborra" data-original-title="Esborra"
+                                  tal:attributes="data-item itemSubpunt_id; data-type itemSubpunt/portal_type">
+                                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </button>
+                              </div>
+                              <tal:editActions tal:condition="python: view.canModifyPunt(itemSubpunt)">
+                                <div class="btn-group" role="group" style="float: right;" aria-label="Add element">
+                                  <button class="label dropdown-toggle" type="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    +
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                                    <li><a tabindex="-1"
+                                        tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.file"><span><i
+                                            class="fa fa-file-pdf-o"></i>&nbsp;&nbsp;<tal:omit-tag
+                                            i18n:translate="">File</tal:omit-tag></span></a></li>
+                                    <li><a tabindex="-1"
+                                        tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.document"><span><i
+                                            class="fa fa-file-text-o"></i>&nbsp;&nbsp;<tal:omit-tag
+                                            i18n:translate="">Document</tal:omit-tag></span></a></li>
+                                  </ul>
+                                </div>
+                                <div class="btn-group" role="group" style="float: right;"
+                                  aria-label="Change current state">
+                                  <tal:block tal:condition="itemSubpunt/state">
+                                    <button class="label dropdown-toggle bullet-toggle" id="estats" type="button"
+                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      <i class="fa fa-circle" aria-hidden="true"
+                                        tal:attributes="style string:color:${itemSubpunt/css}"></i>
+                                      <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu estatsToggle" role="menu" aria-labelledby="estats">
+                                      <tal:block repeat="estat itemSubpunt/estats">
+                                        <li class="defaultValue"><a tabindex="-1"
+                                            tal:attributes="href string:changeSubpuntState?estat=${estat/title}&id=${itemSubpunt_id}"><i
+                                              class="fa fa-circle" aria-hidden="true"
+                                              tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span
+                                              tal:content="estat/title"></span></a></li>
+                                      </tal:block>
+                                    </ul>
+                                  </tal:block>
+                                </div>
+
+                                <tal:block tal:condition="isAcord">
+                                  <tal:block tal:condition="canViewManageVote">
+                                    <div class="btn-group votes" role="group" style="float: right;"
+                                      aria-label="Open vote" tal:condition="itemSubpunt/canOpenVote">
+
+                                      <button class="label dropdown-toggle" type="button" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                                        <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                                        <li class="openOtherPublicVote" tal:attributes="data-id itemSubpunt/id;
+                                                                                  data-title getTitlePrompt;
+                                                                                  data-error getErrorPrompt;">
+                                          <a tabindex="-1" data-type="openOther">
+                                            <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
+                                                i18n:translate="">Other Public</tal:omit-tag></span>
+                                          </a>
+                                        </li>
+                                        <li class="openPublicVote" tal:attributes="data-id itemSubpunt/id">
+                                          <a tabindex="-1" data-type="open">
+                                            <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
+                                                i18n:translate="">Public</tal:omit-tag></span>
+                                          </a>
+                                        </li>
+                                        <!-- <li class="openSecretVote" tal:attributes="data-id item/id">
+                                    <a tabindex="-1" data-type="private">
+                                      <span><i class="fa fa-user-secret"></i>&nbsp;&nbsp;<tal:omit-tag i18n:translate="">Secret</tal:omit-tag></span>
+                                    </a>
+                                  </li> -->
+                                      </ul>
+                                    </div>
+
+                                    <div class="btn-group votes" role="group" style="float: right;"
+                                      aria-label="Close vote" tal:condition="itemSubpunt/canCloseVote">
+                                      <button class="label dropdown-toggle" type="button" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i tal:attributes="class itemSubpunt/classVote" aria-hidden="true"></i>
+                                        <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                                        <li class="closeVote" tal:attributes="data-id itemSubpunt/id">
+                                          <a tabindex="-1" data-type="open">
+                                            <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
+                                                i18n:translate="">Close</tal:omit-tag></span>
+                                          </a>
+                                        </li>
+                                      </ul>
+                                    </div>
+
+                                    <div class="btn-group votes" role="group" style="float: right;"
+                                      aria-label="Close vote" tal:condition="itemSubpunt/canRecloseVote">
+                                      <button class="label dropdown-toggle" type="button" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i tal:attributes="class itemSubpunt/classVote" aria-hidden="true"></i>
+                                        <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                                        <li class="recloseVote" tal:attributes="data-id itemSubpunt/canRecloseVote">
+                                          <a tabindex="-1" data-type="open">
+                                            <span><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
+                                                i18n:translate="">Close</tal:omit-tag></span>
+                                          </a>
+                                        </li>
+                                      </ul>
+                                    </div>
+
+                                  </tal:block>
+                                </tal:block>
+                              </tal:editActions>
+
+                              <div tal:condition="not:python: view.canModifyPunt(itemSubpunt)" style="float: right;">
+                                <tal:block tal:condition="itemSubpunt/state">
+                                  <button class="btn label disabled " style="padding:3px;">
+                                    <i class="fa fa-circle" aria-hidden="true"
+                                      tal:attributes="style string:color:${itemSubpunt/css}"></i>
+                                    <span tal:content="itemSubpunt/state"></span>
+                                  </button>
+                                </tal:block>
+                              </div>
+                            </div>
+                            <div class="subpuntTitle">
+                              <div class="span1">
+                                <span class="proposalNumberSubpunt" tal:content="itemSubpunt/proposalPoint"></span>
+                              </div>
+                              <div class="span9">
+                                <a tal:attributes="data-pk itemSubpunt_id; href itemSubpunt/absolute_url"
+                                  data-type="text" data-url="changeTitle" class="editTitle editable subtitleSize">
+                                  <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
+                                </a>
+                                <span tal:condition="agreement" class="agreementClass">
+                                  [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag
+                                    tal:content="agreement">Acord code </tal:omit-tag>]
+                                </span>
+                                <tal:block tal:condition="canViewVoteButtons">
+                                  <span tal:condition="itemSubpunt/canRecloseVote"
+                                    class="editTitle editable subtitleSize">
+                                    <br />
+                                    <tal:omit-tag i18n:translate="">Vote</tal:omit-tag>:
+                                    <tal:omit-tag tal:content="itemSubpunt/titleEsmena"></tal:omit-tag>
+                                  </span>
+                                </tal:block>
+                              </div>
+                              <div class="span2 boleta" tal:define="estat itemSubpunt/state">
+                                <!--                           <tal:block tal:condition="canModify" tal:define="estat itemSubpunt/state">
+                            <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${itemSubpunt/css}"></i>
+                          </tal:block> -->
+                                <span class="btn label disabled" style="float: right;">
+                                  <i class="fa fa-circle" aria-hidden="true"
+                                    tal:attributes="style string:color:${itemSubpunt/css}"></i>&nbsp;<span
+                                    tal:content="estat"></span>
+                                </span>
+                              </div>
+                              <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
+                                <div class="span12" tal:condition="files">
+                                  <ul style="list-style: none;" tal:condition="files">
+                                    <tal:documents repeat="item files">
+                                      <li class="filesinTable" style="width: 92% !important;">
+                                        <i tal:attributes="class item/classCSS"></i>
+                                        <a tal:attributes="href item/absolute_url;" tal:condition="item/new_tab"
+                                          target="_blank">
+                                          <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                        </a>
+                                        <a tal:attributes="href item/absolute_url;" tal:condition="not:item/new_tab">
+                                          <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                        </a>
+                                        <div style="float:right; display: inline-table;"
+                                          tal:condition="python: view.canModifyPunt(itemSubpunt)">
+                                          <button type="button" class="remove label label-important"
+                                            data-container="body" data-toggle="popover" data-placement="left"
+                                            data-html="true" data-trigger="focus" title="Esborra"
+                                            data-original-title="Esborra"
+                                            tal:attributes="data-item item/id; data-type item/portal_type">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                        </div>
+                                      </li>
+                                    </tal:documents>
+                                  </ul>
+                                </div>
+                              </tal:files>
+                            </div>
+                            <tal:block tal:condition="canViewVoteButtons">
+                              <div class="puntVoteButtons span12" tal:condition="itemSubpunt/canCloseVote">
+                                <span class="span2"></span>
+                                <div class="span10 hasVote">
+                                  <a class="btn btn-notvote span4 favor" tal:attributes="data-id itemSubpunt_id"
+                                    tal:condition="not: itemSubpunt/favorVote" i18n:translate="">A favor</a>
+                                  <a class="btn btn-info span4" tal:condition="itemSubpunt/favorVote"
+                                    i18n:translate="">A favor</a>
+                                  <a class="btn btn-notvote span4 against" tal:attributes="data-id itemSubpunt_id"
+                                    tal:condition="not: itemSubpunt/againstVote" i18n:translate="">En contra</a>
+                                  <a class="btn btn-info span4" tal:condition="itemSubpunt/againstVote"
+                                    i18n:translate="">En contra</a>
+                                  <a class="btn btn-notvote span4 white" tal:attributes="data-id itemSubpunt_id"
+                                    tal:condition="not: itemSubpunt/whiteVote" i18n:translate="">En blanc</a>
+                                  <a class="btn btn-info span4" tal:condition="itemSubpunt/whiteVote"
+                                    i18n:translate="">En blanc</a>
+                                </div>
+                              </div>
+                              <div class="puntVoteButtons span12" tal:condition="itemSubpunt/canRecloseVote">
+                                <span class="span2"></span>
+                                <div class="span10 hasVote">
+                                  <a class="btn btn-notvote span4 favor"
+                                    tal:attributes="data-id itemSubpunt/canRecloseVote"
+                                    tal:condition="not: itemSubpunt/favorVote" i18n:translate="">A favor</a>
+                                  <a class="btn btn-info span4" tal:condition="itemSubpunt/favorVote"
+                                    i18n:translate="">A favor</a>
+                                  <a class="btn btn-notvote span4 against"
+                                    tal:attributes="data-id itemSubpunt/canRecloseVote"
+                                    tal:condition="not: itemSubpunt/againstVote" i18n:translate="">En contra</a>
+                                  <a class="btn btn-info span4" tal:condition="itemSubpunt/againstVote"
+                                    i18n:translate="">En contra</a>
+                                  <a class="btn btn-notvote span4 white"
+                                    tal:attributes="data-id itemSubpunt/canRecloseVote"
+                                    tal:condition="not: itemSubpunt/whiteVote" i18n:translate="">En blanc</a>
+                                  <a class="btn btn-info span4" tal:condition="itemSubpunt/whiteVote"
+                                    i18n:translate="">En blanc</a>
+                                </div>
+                              </div>
+                            </tal:block>
+
+                          </ol>
+                        </tal:subpunts>
+                      </div>
+                    </tal:block-contenidos>
+                  </td>
+                </li>
+              </tal:block>
+            </tal:documents>
+          </ul>
+        </div>
+
+        <script type="text/javascript">
+          $(function () {
+            $(this).find('.sortable2').hide()
+            $(this).find('.listFiles').hide()
+            $(this).find('.notexpand').hide()
+            $('.expand').click(function (e) {
+              e.stopPropagation();
+              $(this).parent().parent().find('.expand').hide()
+              $(this).parent().parent().find('.expand').slideUp()
+              $(this).parent().parent().find('.notexpand').show()
+              $(this).parent().parent().parent().find('.sortable2').slideDown()
+              $(this).parent().parent().parent().find('.listFiles').slideDown()
+            });
+
+            $('.notexpand').click(function (e) {
+              e.stopPropagation();
+              $(this).parent().parent().find('.notexpand').hide()
+              $(this).parent().parent().find('.expand').show()
+              $(this).parent().parent().parent().find('.sortable2').slideUp()
+              $(this).parent().parent().parent().find('.listFiles').slideUp()
+            });
+          });
+        </script>
+
+        <script type="text/javascript" tal:condition="canModify">
+          $(function () {
+            var reloadEdit = false;
+            $.fn.editable.defaults.mode = 'popup';
+            $.fn.editable.defaults.showbuttons = true;
+            $.fn.editable.defaults.type = 'text';
+            $.fn.editable.defaults.toggle = 'manual';
+            $.fn.editable.defaults.emptytext = '';
+            $(this).find('.sortable2').hide()
+            $(this).find('.listFiles').hide()
+            $(this).find('.notexpand').hide()
+
+            $('.editTitle').editable({
+              inputclass: function (e, f) {
+                $("a[aria-describedby=" + $(this).closest(".ui-tooltip").prop("id") + "]").data("shared", this);
+              },
+              validate: function (value) {
+                if (!value) return 'Camp obligatori';
+              },
+              success: function () {
+                reloadEdit = true;
+              },
+            });
+
+            $('.agreement').editable({
+              toggle: 'click',
+              inputclass: function (e, f) {
+                $("a[aria-describedby=" + $(this).closest(".ui-tooltip").prop("id") + "]").data("shared", this);
+              },
+            });
+
+            $(document).ajaxStop(function () {
+              if (reloadEdit) {
+                window.location.reload();
+              }
+            });
+
+            $('.edit').click(function (e) {
+              e.stopPropagation();
+              $(this).parent().parent().parent('li:first').find('a.titleSize').editable('toggle')
+            });
+
+            $('.edit2').click(function (e) {
+              e.stopPropagation();
+              $(this).parent().parent().parent('ol:first').find('a.subtitleSize').editable('toggle')
+            });
+
+            $('button.remove').on('click', function (e) {
+              $('[data-toggle="popover"]').each(function () {
+                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                  $(this).popover('hide');
+                } else {
+                  var name = $(this).data()['item'];
+                  var portal_type = $(this).data()['type'];
+                  var message = "<a class='btn btn-info'> No </a>&nbsp;<a class='btn btn-danger' onclick=&quot;deleteElement('" + name + "," + portal_type + "')&quot;> Si </a>";
+                  $(this).attr('data-content', message);
+                  $(this).popover('show');
+                }
+              });
+            });
+
+            $('button.hide-agreement').on('click', function (e) {
+              $('[data-toggle="popover"]').each(function () {
+                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                  $(this).popover('hide');
+                } else {
+                  var url = $(this).data()['item'];
+                  var message = "<a class='btn btn-info'> No </a>&nbsp;<a class='btn btn-danger' onclick=\"hideAgreement('" + url + "')\"> Si </a>";
+                  $(this).attr('data-content', message);
+                  $(this).popover('show');
+                }
+              });
+            });
+
+            $("li.defaultValue").on('click', function () {
+              var colorSelected = $(this).find('.fa').css('color');
+              $(this).parent().parent().parent().parent().find('.bullet-toggle > i').css({ 'color': colorSelected });
+              $(this).parent().parent().parent().parent().find('.boleta > i').css({ 'color': colorSelected });
+            });
+
+          })
+        </script>
+      </div>
+
+      <div style="margin-bottom:20px;"></div>
+
+      <script type="text/javascript">
+        var refreshNeeded = false;
+      </script>
+
+      <script type="text/javascript" tal:condition="canViewManageVote">
+
+        $(".reopenVote").on('click', function () {
+          $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-url') + '/reopenVote',
+            success: function (result) {
+              result = JSON.parse(result)
+              if (result.status == "success") {
+                refreshNeeded = true;
+              } else {
+                alert(result.msg);
+                refreshNeeded = true;
+              }
+            },
+          });
+        });
+
+        $(".removeVote").on('click', function () {
+          if (confirm("Est\u00e0s segur de voler eliminar la votaci\u00f3?")) {
+            $.ajax({
+              type: 'POST',
+              url: $(this).attr('data-url') + '/removeVote',
+              success: function () {
+                refreshNeeded = true;
+              },
+            });
+          }
+        });
+
+        $(".closeVote").on('click', function () {
+          $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/closeVote',
+            success: function () {
+              refreshNeeded = true;
+            },
+          });
+        });
+
+        $(".recloseVote").on('click', function () {
+          $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/closeVote',
+            success: function () {
+              refreshNeeded = true;
+            },
+          });
+        });
+
+        $(".openPublicVote").on('click', function () {
+          $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/openPublicVote',
+            success: function () {
+              refreshNeeded = true;
+            },
+          });
+        });
+
+
+        $(".openOtherPublicVote").on('click', function () {
+          let titolVotacio = prompt($(this).attr('data-title'), "");
+          if (titolVotacio && confirm('T\u00edtol: ' + titolVotacio + '\n\nEst\xE0s segur que vols obrir aquesta esmena?')) {
+            $.ajax({
+              type: 'POST',
+              data: { 'title': titolVotacio },
+              url: $(this).attr('data-id') + '/openOtherPublicVote',
+              success: function () {
+                refreshNeeded = true;
+              },
+            });
+          }
+        });
+
+        $(".refreshVote").on('click', function () {
+          uid = $(this).attr('data-uid');
+          $.ajax({
+            type: 'GET',
+            data: { 'UID': uid },
+            url: 'reloadVoteStats',
+            success: function (result) {
+              data = $.parseJSON(result)
+              $('#vote-' + uid + ' .vote-totalVote').html(data.totalVote);
+              $('#' + uid + ' .vote-users-totalVote').html(data.totalVoteListHTML);
+              $('#vote-' + uid + ' .vote-state').html(data.state);
+              if (data.open) {
+                $('#vote-' + uid + ' .fa-info-circle').attr('title', 'Inici: ' + data.hourOpen);
+              } else {
+                $('#vote-' + uid + ' .vote-favorVote').html(data.favorVote);
+                $('#vote-' + uid + ' .vote-againstVote').html(data.againstVote);
+                $('#vote-' + uid + ' .vote-whiteVote').html(data.whiteVote);
+                $('#' + uid + ' .vote-users-favorVote').html(data.favorVoteListHTML);
+                $('#' + uid + ' .vote-users-againstVote').html(data.againstVoteListHTML);
+                $('#' + uid + ' .vote-users-whiteVote').html(data.whiteVoteListHTML);
+                $('#vote-' + uid + ' .fa-info-circle').attr('title', 'Inici: ' + data.hourOpen + '\nFi: ' + data.hourClose);
+                $('#vote-' + uid + ' .refreshVote').remove();
+              }
+            },
+          });
+        });
+
+        /*$(".openSecretVote").on('click', function(){
+          $.ajax({
+                  type: 'POST',
+                  url: $(this).attr('data-id') + '/openSecretVote',
+                  success: function(){
+                    refreshNeeded = true;
+                  },
+          });
+        });*/
+
+
+        /*$(".openOtherSecretVote").on('click', function(){
+          var titolVotacio = prompt($(this).attr('data-title'), "");
+          if (titolVotacio) {
+            $.ajax({
+                    type: 'POST',
+                    data: {'title': titolVotacio}
+                    url: $(this).attr('data-id') + '/openOtherSecretVote',
+                    success: function(){
+                      refreshNeeded = true;
+                    },
+            });
+          }
+        });*/
+
+      </script>
+
+      <script type="text/javascript" tal:condition="canViewVoteButtons">
+        var refreshNeeded = false;
+
+        $(".btn-notvote.favor").on('click', function () {
+          $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/favorVote',
+            success: function (result) {
+              result = JSON.parse(result)
+              if (result.status == "success") {
+                refreshNeeded = true;
+              } else {
+                alert(result.msg);
+                refreshNeeded = true;
+              }
+            },
+          });
+        });
+
+        $(".btn-notvote.against").on('click', function () {
+          $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/againstVote',
+            success: function (result) {
+              result = JSON.parse(result)
+              if (result.status == "success") {
+                refreshNeeded = true;
+              } else {
+                alert(result.msg);
+                refreshNeeded = true;
+              }
+            },
+          });
+        });
+
+        $(".btn-notvote.white").on('click', function () {
+          $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/whiteVote',
+            success: function (result) {
+              result = JSON.parse(result)
+              if (result.status == "success") {
+                refreshNeeded = true;
+              } else {
+                alert(result.msg);
+                refreshNeeded = true;
+              }
+            },
+          });
+        });
+
+      </script>
+
+      <script type="text/javascript" tal:condition="canViewManageQuorumButtons">
+
+        $(".openQuorum").on('click', function () {
+          $.ajax({
+            type: 'POST',
+            url: 'openQuorum',
+            success: function () {
+              refreshNeeded = true;
+            },
+          });
+        });
+
+        $(".closeQuorum").on('click', function () {
+          $.ajax({
+            type: 'POST',
+            url: 'closeQuorum',
+            success: function () {
+              refreshNeeded = true;
+            },
+          });
+        });
+
+      </script>
+
+      <script type="text/javascript" tal:condition="canViewAddQuorumButtons">
+
+        $(".addQuorum").on('click', function () {
+          $.ajax({
+            type: 'POST',
+            url: 'addQuorum',
+            success: function () {
+              refreshNeeded = true;
+            },
+          });
+        });
+
+      </script>
+
+      <script type="text/javascript" tal:condition="canModify">
+        var refreshNeeded = false;
+        $(".createPunt").on('click', function () {
+          var value = $("#modalPunt #message-text").val()
+          var params = {};
+          params.action = 'createPunt';
+          params.name = value;
+          $.ajax({
+            type: 'POST',
+            url: '@@createElement',
+            data: params,
+            success: function () {
+              refreshNeeded = true;
+            },
+          });
+        });
+
+        $(".createAcord").on('click', function () {
+          var value = $("#modalAcord #message-text").val()
+          var params = {};
+          params.action = 'createAcord';
+          params.name = value;
+          $.ajax({
+            type: 'POST',
+            url: '@@createElement',
+            data: params,
+            success: function () {
+              refreshNeeded = true;
+            },
+          });
+        });
+
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+          $('.fa-info-circle').on('click', function () {
+            alert($(this).attr('title'));
+          });
+        }
+
+        $(document).ajaxStop(function () {
+          if (refreshNeeded) {
+            setTimeout(function () { window.location.reload(); }, 1000);
+          }
+        });
+
+
+        function mouseHandler(e) {
+          if (!$(this).hasClass('picked')) {
+            $(".picked").removeClass('picked');
+            $(".show").addClass('einesSpan');
+            $(".show").addClass('show');
+            $('.boleta').show();
+            field = $(this)[0].getElementsByClassName('einesSpan');
+            $(this).addClass('picked');
+            $(field).addClass('show');
+            $(field).removeClass('einesSpan');
+            $(this).find('.boleta').hide();
+          }
+        }
+        function init_li_selected() {
+          // Bind all li to make them clickable
+          $('.ui-sortable li').bind('click', mouseHandler);
+        }
+        $(document).ready(init_li_selected);
+
+        $(function () {
+          var $win = $(window);
+          var $box = $("#sortable");
+          var $boxeines = $("show");
+          $win.on("click.Bst", function (event) {
+            if ($box.has(event.target).length == 0 && !$box.is(event.target)) {
+              $(".picked").removeClass('picked');
+              $(".show").addClass('einesSpan');
+              $(".show").removeClass('show');
+              $('.boleta').show();
+            }
+          });
+        });
+
+      </script>
+
+
+      <script type="text/javascript">
+        $("#collapseAll").hide()
+        $("#expandAll").click(function () {
+          $(".expand").parent().parent().parent().slideDown();
+          $(".expand").hide();
+          $(".notexpand").show();
+          $(".expand").parent().parent().parent().find('.sortable2').slideDown();
+          $(".expand").parent().parent().parent().find('.listFiles').slideDown();
+          $("#expandAll").hide();
+          $("#collapseAll").show();
+        });
+
+        $("#collapseAll").click(function () {
+          $(".notexpand").slideUp();
+          $(".notexpand").hide();
+          $(".expand").show();
+
+          $(".expand").parent().parent().parent().find('.sortable2').slideUp();
+          $(".expand").parent().parent().parent().find('.listFiles').slideUp();
+          $("#expandAll").show();
+          $("#collapseAll").hide();
+        });
+
+        $(".openInfo").click(function () {
+          $(this).toggleClass("opened");
+          $($(this).attr("data-open")).toggleClass("opened");
+        });
+
+        $(document).ajaxStop(function () {
+          if (refreshNeeded) {
+            window.location.reload();
+          }
+        });
+
+      </script>
+
+
+    </tal:main-macro>
+  </metal:main>
 </body>
+
 </html>

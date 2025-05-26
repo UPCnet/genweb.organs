@@ -20,7 +20,7 @@
 
     /*.header-image {
         //background-size: auto !important;
-        background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs@2x.jpg") !important;
+        background-image: url("/++theme++genweb.organs/img/capcalera_organs@2x.jpg") !important;
     }*/
 
     #viewlet-above-content-title,
@@ -1859,9 +1859,9 @@ dd.actionMenuContent.actionMenuContentColor {
 /* End problems cleantheme */
 .template-signsessio .modal-body {overflow-y: auto !important;}
 
-/*.header-image {
-  background-image: url("++resource++genweb.organs.stylesheets/capcalera_organs@2x.jpg") !important;
-}*/
+.header-image {
+  background-image: url("/++theme++genweb.organs/img/capcalera_organs@2x.jpg") !important;
+}
 
 
 
