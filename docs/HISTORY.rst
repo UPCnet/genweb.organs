@@ -1,11 +1,13 @@
 Changelog
 =========
 
-0.73 (unreleased)
+0.73 (2025-05-26)
 -----------------
 
-- Nothing changed yet.
-
+* [ADD] Añadir vista para eliminar la info de una session firmada para poder volverla a firmar si se ha denegado [«Iago]
+* [UPD] Cambiar fotos organs pagina principal [«Iago]
+* [UPD] Permitir firmar session sin documentacion, con solo la acta [«Iago]
+* [UPD] Solo comprobar si se puede cerrar en caso de pasar de estado realizada [Iago López]
 
 0.72 (2025-03-28)
 -----------------
