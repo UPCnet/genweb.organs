@@ -13,6 +13,7 @@ from genweb.organs import utils
 from genweb.organs.firma_documental.views.general import downloadGDoc
 # from genweb.organs.firma_documental.views.general import downloadCopiaAutentica, viewCopiaAutentica
 from genweb.organs.firma_documental.views.general import viewGDoc
+from genweb.organs.firma_documental.utils import hasFirmaActa, estatFirmaActa
 from genweb.organs.firma_documental.webservices import ClientFirma, ClientFirmaException, uploadFileGdoc
 
 import ast
@@ -579,3 +580,57 @@ class ViewFile(BrowserView):
 
 class DownloadFile(ViewFile):
     _obtain_file_method_ = downloadGDoc
+
+
+class ResetFirm(BrowserView):
+
+    def estatFirma(self):
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        actes = portal_catalog.searchResults(
+            portal_type=['genweb.organs.acta'],
+            sort_on='created',
+            sort_order='reverse',
+            path={'query': folder_path, 'depth': 1}
+        )
+        for acta in actes:
+            acta_obj = acta.getObject()
+            if hasFirmaActa(acta_obj):
+                return estatFirmaActa(acta_obj)
+
+        return None
+
+    def __call__(self):
+        estat_firma = self.estatFirma()
+        if estat_firma and estat_firma['class'] != 'rebutjada':
+            self.context.plone_utils.addPortalMessage(_(u'No es pot reiniciar la firma d\'una sessió que no està rebutjada'), 'error')
+            return self.request.response.redirect(self.context.absolute_url())
+
+        try:
+            portal_catalog = api.portal.get_tool(name='portal_catalog')
+            folder_path = '/'.join(self.context.getPhysicalPath())
+            values = portal_catalog.unrestrictedSearchResults(
+                portal_type=['genweb.organs.acord',
+                            'genweb.organs.acta',
+                            'genweb.organs.punt',
+                            'genweb.organs.subpunt',
+                            'genweb.organs.file',],
+                path={'query': folder_path,
+                    'depth': 3})
+
+            for brain in values:
+                obj = brain.getObject()
+                obj.info_firma = {}
+                obj.id_firma = ''
+                obj.estat_firma = ''
+                obj.reindexObject()
+
+            self.context.plone_utils.addPortalMessage(_(u'S\'ha reiniciat la firma d\'aquesta sessio'), 'success')
+            logger.info('S\'ha reiniciat la firma d\'aquesta sessio: %s', self.context.absolute_url())
+            utils.addEntryLog(self.context, None, _(u'S\'ha reiniciat la firma d\'aquesta sessio'), self.context.absolute_url())
+        except Exception as e:
+            self.context.plone_utils.addPortalMessage(_(u'Error al reiniciar la firma'), 'error')
+            logger.error('Error al reiniciar la firma en %s: %s', self.context.absolute_url(), str(e))
+
+        transaction.commit()
+        return self.request.response.redirect(self.context.absolute_url())
