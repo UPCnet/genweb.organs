@@ -3644,39 +3644,20 @@ body.portaltype-genweb-organs-votacioacord input#form-widgets-title {
   margin-bottom: 5px;
 }
 
-/* line 3069, ../scss/_genweb_organs.scss */
-.titling-line {
-  font-size: 1.6rem;
-  color: #007bc0;
-  font-weight: 700;
-  margin-bottom: 24px;
-  margin-top: 0;
-}
-/* line 3075, ../scss/_genweb_organs.scss */
-.titling-line::after {
-  background: #007bc0;
-  height: 3px;
-  box-shadow: none;
-  width: 60px;
-  left: 0;
-  margin-left: 16px;
-  top: 60%;
-}
-
 /* Tarjetas de accesos directos */
-/* line 3087, ../scss/_genweb_organs.scss */
+/* line 3070, ../scss/_genweb_organs.scss */
 .list-agenda {
   display: flex;
   gap: 32px;
   justify-content: flex-start;
   margin-bottom: 32px;
 }
-/* line 3092, ../scss/_genweb_organs.scss */
+/* line 3075, ../scss/_genweb_organs.scss */
 .list-agenda li {
   flex: 1 1 0;
   min-width: 0;
 }
-/* line 3095, ../scss/_genweb_organs.scss */
+/* line 3078, ../scss/_genweb_organs.scss */
 .list-agenda li .card {
   border-radius: 16px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.07);
@@ -3684,29 +3665,29 @@ body.portaltype-genweb-organs-votacioacord input#form-widgets-title {
   overflow: hidden;
   transition: box-shadow 0.2s, transform 0.2s;
 }
-/* line 3101, ../scss/_genweb_organs.scss */
+/* line 3084, ../scss/_genweb_organs.scss */
 .list-agenda li .card:hover {
   box-shadow: 0 8px 32px 0 rgba(0, 123, 192, 0.13);
   transform: translateY(-2px) scale(1.01);
 }
-/* line 3105, ../scss/_genweb_organs.scss */
+/* line 3088, ../scss/_genweb_organs.scss */
 .list-agenda li .card .card-img-top {
   height: 140px;
   object-fit: cover;
   width: 100%;
 }
-/* line 3110, ../scss/_genweb_organs.scss */
+/* line 3093, ../scss/_genweb_organs.scss */
 .list-agenda li .card .card-body {
   padding: 18px 20px 12px 20px;
 }
-/* line 3113, ../scss/_genweb_organs.scss */
+/* line 3096, ../scss/_genweb_organs.scss */
 .list-agenda li .card .card-title {
   color: #007bc0;
   font-weight: 700;
   font-size: 1.2rem;
   margin-bottom: 8px;
 }
-/* line 3119, ../scss/_genweb_organs.scss */
+/* line 3102, ../scss/_genweb_organs.scss */
 .list-agenda li .card .icon {
   background: #fff;
   color: #007bc0;
@@ -3724,7 +3705,7 @@ body.portaltype-genweb-organs-votacioacord input#form-widgets-title {
 }
 
 /* Buscador y filtros */
-/* line 3139, ../scss/_genweb_organs.scss */
+/* line 3122, ../scss/_genweb_organs.scss */
 section.mb-4 {
   background: #fff;
   border-radius: 12px;
@@ -3733,16 +3714,16 @@ section.mb-4 {
   margin-bottom: 32px !important;
 }
 
-/* line 3148, ../scss/_genweb_organs.scss */
+/* line 3131, ../scss/_genweb_organs.scss */
 form[role="search"] .row.mb-3.g-2.align-items-end {
   margin-bottom: 1.5rem !important;
 }
-/* line 3150, ../scss/_genweb_organs.scss */
+/* line 3133, ../scss/_genweb_organs.scss */
 form[role="search"] .row.mb-3.g-2.align-items-end .col-10, form[role="search"] .row.mb-3.g-2.align-items-end .col-2 {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
-/* line 3154, ../scss/_genweb_organs.scss */
+/* line 3137, ../scss/_genweb_organs.scss */
 form[role="search"] .row.mb-3.g-2.align-items-end .form-control {
   border-radius: 6px 0 0 6px;
   border: 1px solid #bcdff6;
@@ -3750,7 +3731,7 @@ form[role="search"] .row.mb-3.g-2.align-items-end .form-control {
   font-size: 1rem;
   height: 48px;
 }
-/* line 3161, ../scss/_genweb_organs.scss */
+/* line 3144, ../scss/_genweb_organs.scss */
 form[role="search"] .row.mb-3.g-2.align-items-end .btn-primary {
   border-radius: 0 6px 6px 0;
   height: 48px;
@@ -3758,91 +3739,91 @@ form[role="search"] .row.mb-3.g-2.align-items-end .btn-primary {
   font-weight: 700;
   width: 100%;
 }
-/* line 3169, ../scss/_genweb_organs.scss */
+/* line 3152, ../scss/_genweb_organs.scss */
 form[role="search"] .row.mb-3.g-2 {
   margin-bottom: 1.5rem !important;
 }
-/* line 3171, ../scss/_genweb_organs.scss */
+/* line 3154, ../scss/_genweb_organs.scss */
 form[role="search"] .row.mb-3.g-2 .col-md-4 {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
-/* line 3174, ../scss/_genweb_organs.scss */
+/* line 3157, ../scss/_genweb_organs.scss */
 form[role="search"] .row.mb-3.g-2 .col-md-4 .form-label {
   font-weight: 700;
   color: #007bc0;
   margin-bottom: 8px;
   font-size: 1.05rem;
 }
-/* line 3180, ../scss/_genweb_organs.scss */
+/* line 3163, ../scss/_genweb_organs.scss */
 form[role="search"] .row.mb-3.g-2 .col-md-4 .form-check {
   margin-bottom: 8px;
 }
-/* line 3183, ../scss/_genweb_organs.scss */
+/* line 3166, ../scss/_genweb_organs.scss */
 form[role="search"] .row.mb-3.g-2 .col-md-4 .form-check-input {
   border-radius: 4px;
   border: 1.5px solid #bcdff6;
   margin-right: 6px;
 }
-/* line 3188, ../scss/_genweb_organs.scss */
+/* line 3171, ../scss/_genweb_organs.scss */
 form[role="search"] .row.mb-3.g-2 .col-md-4 .form-check-label {
   font-size: 1rem;
   color: #222;
   font-weight: 500;
 }
-/* line 3195, ../scss/_genweb_organs.scss */
+/* line 3178, ../scss/_genweb_organs.scss */
 form[role="search"] .card.mt-3 {
   margin-top: 2rem !important;
 }
 
 @media (max-width: 900px) {
-  /* line 3201, ../scss/_genweb_organs.scss */
+  /* line 3184, ../scss/_genweb_organs.scss */
   section.mb-4 {
     padding: 16px 4vw 12px 4vw;
   }
 
-  /* line 3204, ../scss/_genweb_organs.scss */
+  /* line 3187, ../scss/_genweb_organs.scss */
   form[role="search"] .row.mb-3.g-2.align-items-end {
     flex-direction: column;
   }
-  /* line 3206, ../scss/_genweb_organs.scss */
+  /* line 3189, ../scss/_genweb_organs.scss */
   form[role="search"] .row.mb-3.g-2.align-items-end .col-10, form[role="search"] .row.mb-3.g-2.align-items-end .col-2 {
     width: 100%;
     margin-bottom: 8px;
   }
-  /* line 3210, ../scss/_genweb_organs.scss */
+  /* line 3193, ../scss/_genweb_organs.scss */
   form[role="search"] .row.mb-3.g-2.align-items-end .form-control, form[role="search"] .row.mb-3.g-2.align-items-end .btn-primary {
     border-radius: 6px !important;
   }
 
-  /* line 3214, ../scss/_genweb_organs.scss */
+  /* line 3197, ../scss/_genweb_organs.scss */
   form[role="search"] .row.mb-3.g-2 {
     flex-direction: column;
   }
-  /* line 3216, ../scss/_genweb_organs.scss */
+  /* line 3199, ../scss/_genweb_organs.scss */
   form[role="search"] .row.mb-3.g-2 .col-md-4 {
     width: 100%;
     margin-bottom: 16px;
   }
 }
-/* line 3223, ../scss/_genweb_organs.scss */
+/* line 3206, ../scss/_genweb_organs.scss */
 .row.mt-4 > .card {
   margin-top: 2rem !important;
 }
 
 /* Resultados */
-/* line 3228, ../scss/_genweb_organs.scss */
+/* line 3211, ../scss/_genweb_organs.scss */
 .card {
   border-radius: 12px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.07);
   border: none;
   margin-bottom: 24px;
 }
-/* line 3233, ../scss/_genweb_organs.scss */
+/* line 3216, ../scss/_genweb_organs.scss */
 .card .card-body {
   padding: 18px 20px 12px 20px;
 }
-/* line 3236, ../scss/_genweb_organs.scss */
+/* line 3219, ../scss/_genweb_organs.scss */
 .card .card-title {
   color: #007bc0;
   font-weight: 700;
@@ -3850,7 +3831,7 @@ form[role="search"] .card.mt-3 {
   margin-bottom: 8px;
 }
 
-/* line 3244, ../scss/_genweb_organs.scss */
+/* line 3227, ../scss/_genweb_organs.scss */
 .list-group-item {
   border: none;
   border-bottom: 1px solid #eaeaea;
@@ -3858,15 +3839,15 @@ form[role="search"] .card.mt-3 {
   padding: 14px 18px;
   font-size: 1.05rem;
 }
-/* line 3250, ../scss/_genweb_organs.scss */
+/* line 3233, ../scss/_genweb_organs.scss */
 .list-group-item:last-child {
   border-bottom: none;
 }
-/* line 3253, ../scss/_genweb_organs.scss */
+/* line 3236, ../scss/_genweb_organs.scss */
 .list-group-item .fw-bold {
   color: #007bc0;
 }
-/* line 3256, ../scss/_genweb_organs.scss */
+/* line 3239, ../scss/_genweb_organs.scss */
 .list-group-item .badge {
   background: #e5f3fa;
   color: #007bc0;
@@ -3877,12 +3858,12 @@ form[role="search"] .card.mt-3 {
 }
 
 @media (max-width: 1200px) {
-  /* line 3267, ../scss/_genweb_organs.scss */
+  /* line 3250, ../scss/_genweb_organs.scss */
   #content-core {
     padding: 12px 2vw;
   }
 
-  /* line 3270, ../scss/_genweb_organs.scss */
+  /* line 3253, ../scss/_genweb_organs.scss */
   .list-agenda {
     flex-direction: column;
     gap: 18px;

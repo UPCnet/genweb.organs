@@ -4,8 +4,6 @@
 
 <head>
   <metal:block metal:fill-slot="head_slot">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-    <!-- <link rel="stylesheet" href="++theme++genweb.organs/theme/stylesheets/genweb_organs.css" /> -->
 
     <link rel="alternate" title="RSS 1.0" type="application/rss+xml"
       tal:define="here_url context/@@plone_context_state/object_url;" tal:condition="request/SearchableText|nothing" />
@@ -82,6 +80,10 @@
     <div class="clearfix"></div>
 
     <!-- Caja principal de Eines -->
+    <div class="titling-line-container">
+      <h2 class="titling-line" i18n:domain="genweb.organs" i18n:translate=""> Eines </h2>
+    </div>
+
     <section class="mb-4">
       <form method="GET" action="" role="search">
         <div class="row mb-3 g-2 align-items-end">

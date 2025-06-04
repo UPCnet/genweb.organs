@@ -3066,23 +3066,6 @@ body.portaltype-genweb-organs-votacioacord input#form-widgets-title {
     margin-bottom: 5px;
 }
 
-.titling-line {
-  font-size: 1.6rem;
-  color: #007bc0;
-  font-weight: 700;
-  margin-bottom: 24px;
-  margin-top: 0;
-  &::after {
-    background: #007bc0;
-    height: 3px;
-    box-shadow: none;
-    width: 60px;
-    left: 0;
-    margin-left: 16px;
-    top: 60%;
-  }
-}
-
 /* Tarjetas de accesos directos */
 .list-agenda {
   display: flex;

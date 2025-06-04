@@ -1462,7 +1462,7 @@ Fi: ${vote/hourClose}"></span>
                 } else {
                   var name = $(this).data()['item'];
                   var portal_type = $(this).data()['type'];
-                  var message = "<a class='btn btn-info'> No </a>&nbsp;<a class='btn btn-danger' onclick=&quot;deleteElement('" + name + "," + portal_type + "')&quot;> Si </a>";
+                  var message = "&lt;a class='btn btn-info'&gt; No &lt;/a&gt;&nbsp;&lt;a class='btn btn-danger' onclick=&quot;deleteElement('" + name + "," + portal_type + "')&quot;&gt; Si &lt;/a&gt;";
                   $(this).attr('data-content', message);
                   $(this).popover('show');
                 }
@@ -1475,7 +1475,7 @@ Fi: ${vote/hourClose}"></span>
                   $(this).popover('hide');
                 } else {
                   var url = $(this).data()['item'];
-                  var message = "<a class='btn btn-info'> No </a>&nbsp;<a class='btn btn-danger' onclick=\"hideAgreement('" + url + "')\"> Si </a>";
+                  var message = "&lt;a class='btn btn-info'&gt; No &lt;/a&gt;&nbsp;&lt;a class='btn btn-danger' onclick=\"hideAgreement('" + url + "')\"&gt; Si &lt;/a&gt;";
                   $(this).attr('data-content', message);
                   $(this).popover('show');
                 }
