@@ -264,61 +264,88 @@
 
       <div id="contentSessio">
 
-        <ul id="tabs" class="nav nav-tabs visible-tablet hidden-phone visible-desktop" data-tabs="tabs">
-          <li class="active"><a href="#dadesTab" data-toggle="tab">
-              <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag
-                  i18n:translate="">Convocatoria</tal:omit-tag></i></a></li>
-          <li tal:condition="hihaPersones"><a href="#assistentsTab" data-toggle="tab">
-              <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag
-                  i18n:translate="">Assistents</tal:omit-tag></i></a></li>
-          <li tal:condition="actesInside"><a href="#actaTab" data-toggle="tab">
-              <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag
-                  i18n:translate="">Acta</tal:omit-tag></i></a></li>
-          <li tal:condition="acordsInside"><a href="#acordsTab" data-toggle="tab">
-              <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements
-                  list</tal:omit-tag></i></a></li>
-          <li tal:condition="python:loginfo and viewHistory"><a href="#notificationsTab" data-toggle="tab">
-              <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag
-                  i18n:translate="">Historial</tal:omit-tag></i></a></li>
-          <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
-              <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info
-                  excusats</tal:omit-tag></i></a></li>
+        <!-- TABS: Migración a Bootstrap 5 -->
+        <ul id="tabs" class="nav nav-tabs d-none d-md-flex" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="dadesTab-tab" data-bs-toggle="tab" data-bs-target="#dadesTab" type="button" role="tab" aria-controls="dadesTab" aria-selected="true">
+              <i class="bi bi-list"></i>&nbsp;<tal:omit-tag i18n:translate="">Convocatoria</tal:omit-tag>
+            </button>
+          </li>
+          <li tal:condition="hihaPersones" class="nav-item" role="presentation">
+            <button class="nav-link" id="assistentsTab-tab" data-bs-toggle="tab" data-bs-target="#assistentsTab" type="button" role="tab" aria-controls="assistentsTab" aria-selected="false">
+              <i class="bi bi-people"></i>&nbsp;<tal:omit-tag i18n:translate="">Assistents</tal:omit-tag>
+            </button>
+          </li>
+          <li tal:condition="actesInside" class="nav-item" role="presentation">
+            <button class="nav-link" id="actaTab-tab" data-bs-toggle="tab" data-bs-target="#actaTab" type="button" role="tab" aria-controls="actaTab" aria-selected="false">
+              <i class="bi bi-file-earmark-text"></i>&nbsp;<tal:omit-tag i18n:translate="">Acta</tal:omit-tag>
+            </button>
+          </li>
+          <li tal:condition="acordsInside" class="nav-item" role="presentation">
+            <button class="nav-link" id="acordsTab-tab" data-bs-toggle="tab" data-bs-target="#acordsTab" type="button" role="tab" aria-controls="acordsTab" aria-selected="false">
+              <i class="bi bi-check2"></i>&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag>
+            </button>
+          </li>
+          <li tal:condition="python:loginfo and viewHistory" class="nav-item" role="presentation">
+            <button class="nav-link" id="notificationsTab-tab" data-bs-toggle="tab" data-bs-target="#notificationsTab" type="button" role="tab" aria-controls="notificationsTab" aria-selected="false">
+              <i class="bi bi-table"></i>&nbsp;<tal:omit-tag i18n:translate="">Historial</tal:omit-tag>
+            </button>
+          </li>
+          <li tal:condition="python:excuses and viewExcusesAndPoints" class="nav-item" role="presentation">
+            <button class="nav-link" id="excusesTab-tab" data-bs-toggle="tab" data-bs-target="#excusesTab" type="button" role="tab" aria-controls="excusesTab" aria-selected="false">
+              <i class="bi bi-table"></i>&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag>
+            </button>
+          </li>
           <tal:block tal:condition="canViewResultsVote">
-            <li tal:condition="python: getAllResultsVotes or getInfoQuorums"><a href="#resultsVotesTab"
-                data-toggle="tab">
-                <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions
-                    / Quorums</tal:omit-tag></i></a></li>
+            <li tal:condition="python: getAllResultsVotes or getInfoQuorums" class="nav-item" role="presentation">
+              <button class="nav-link" id="resultsVotesTab-tab" data-bs-toggle="tab" data-bs-target="#resultsVotesTab" type="button" role="tab" aria-controls="resultsVotesTab" aria-selected="false">
+                <i class="bi bi-pie-chart"></i>&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions / Quorums</tal:omit-tag>
+              </button>
+            </li>
           </tal:block>
         </ul>
-        <ul id="tabs" class="nav nav-tabs nav-stacked hidden-tablet visible-phone hidden-desktop" data-tabs="tabs">
-          <li class="active"><a href="#dadesTab" data-toggle="tab">
-              <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag
-                  i18n:translate="">Convocatoria</tal:omit-tag></i></a></li>
-          <li tal:condition="hihaPersones"><a href="#assistentsTab" data-toggle="tab">
-              <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag
-                  i18n:translate="">Assistents</tal:omit-tag></i></a></li>
-          <li tal:condition="actesInside"><a href="#actaTab" data-toggle="tab">
-              <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag
-                  i18n:translate="">Acta</tal:omit-tag></i></a></li>
-          <li tal:condition="acordsInside"><a href="#acordsTab" data-toggle="tab">
-              <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements
-                  list</tal:omit-tag></i></a></li>
-          <li tal:condition="python:loginfo and viewHistory"><a href="#notificationsTab" data-toggle="tab">
-              <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag
-                  i18n:translate="">Historial</tal:omit-tag></i></a></li>
-          <li tal:condition="python:excuses and viewExcusesAndPoints"><a href="#excusesTab" data-toggle="tab">
-              <i class="fa fa-table" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Info
-                  excusats</tal:omit-tag></i></a></li>
+        <!-- TABS MOBILE: d-md-none -->
+        <ul id="tabs" class="nav nav-tabs flex-column d-md-none" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="dadesTab-tab" data-bs-toggle="tab" data-bs-target="#dadesTab" type="button" role="tab" aria-controls="dadesTab" aria-selected="true">
+              <i class="bi bi-list"></i>&nbsp;<tal:omit-tag i18n:translate="">Convocatoria</tal:omit-tag>
+            </button>
+          </li>
+          <li tal:condition="hihaPersones" class="nav-item" role="presentation">
+            <button class="nav-link" id="assistentsTab-tab" data-bs-toggle="tab" data-bs-target="#assistentsTab" type="button" role="tab" aria-controls="assistentsTab" aria-selected="false">
+              <i class="bi bi-people"></i>&nbsp;<tal:omit-tag i18n:translate="">Assistents</tal:omit-tag>
+            </button>
+          </li>
+          <li tal:condition="actesInside" class="nav-item" role="presentation">
+            <button class="nav-link" id="actaTab-tab" data-bs-toggle="tab" data-bs-target="#actaTab" type="button" role="tab" aria-controls="actaTab" aria-selected="false">
+              <i class="bi bi-file-earmark-text"></i>&nbsp;<tal:omit-tag i18n:translate="">Acta</tal:omit-tag>
+            </button>
+          </li>
+          <li tal:condition="acordsInside" class="nav-item" role="presentation">
+            <button class="nav-link" id="acordsTab-tab" data-bs-toggle="tab" data-bs-target="#acordsTab" type="button" role="tab" aria-controls="acordsTab" aria-selected="false">
+              <i class="bi bi-check2"></i>&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag>
+            </button>
+          </li>
+          <li tal:condition="python:loginfo and viewHistory" class="nav-item" role="presentation">
+            <button class="nav-link" id="notificationsTab-tab" data-bs-toggle="tab" data-bs-target="#notificationsTab" type="button" role="tab" aria-controls="notificationsTab" aria-selected="false">
+              <i class="bi bi-table"></i>&nbsp;<tal:omit-tag i18n:translate="">Historial</tal:omit-tag>
+            </button>
+          </li>
+          <li tal:condition="python:excuses and viewExcusesAndPoints" class="nav-item" role="presentation">
+            <button class="nav-link" id="excusesTab-tab" data-bs-toggle="tab" data-bs-target="#excusesTab" type="button" role="tab" aria-controls="excusesTab" aria-selected="false">
+              <i class="bi bi-table"></i>&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag>
+            </button>
+          </li>
           <tal:block tal:condition="canViewResultsVote">
-            <li tal:condition="python: getAllResultsVotes or getInfoQuorums"><a href="#resultsVotesTab"
-                data-toggle="tab">
-                <i class="fa fa-pie-chart" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions
-                    / Quorums</tal:omit-tag></i></a></li>
+            <li tal:condition="python: getAllResultsVotes or getInfoQuorums" class="nav-item" role="presentation">
+              <button class="nav-link" id="resultsVotesTab-tab" data-bs-toggle="tab" data-bs-target="#resultsVotesTab" type="button" role="tab" aria-controls="resultsVotesTab" aria-selected="false">
+                <i class="bi bi-pie-chart"></i>&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions / Quorums</tal:omit-tag>
+              </button>
+            </li>
           </tal:block>
         </ul>
-
         <div id="sessionTabs" class="tab-content">
-          <div class="tab-pane active" id="dadesTab" tal:define="item view/valuesTable">
+          <div class="tab-pane fade show active" id="dadesTab" role="tabpanel" aria-labelledby="dadesTab-tab" tal:define="item view/valuesTable">
             <ul tal:define="llocConvocatoria item/llocConvocatoria;
                         linkSala item/linkSala;
                         modality item/modality;
@@ -366,29 +393,38 @@
               </li>
             </ul>
           </div>
-          <div class="tab-pane" id="assistentsTab" tal:condition="hihaPersones">
-            <div class="panel with-nav-tabs panel-primary">
-              <div class="panel-heading">
-                <ul class="nav nav-tabs">
-                  <li tal:condition="membresConvocats" class="active">
-                    <a href="#tab1primary" data-toggle="tab" i18n:translate="">Incoming members list</a>
+          <div class="tab-pane fade" id="assistentsTab" tal:condition="hihaPersones">
+            <div class="card mb-3">
+              <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="assistentsTabs" role="tablist">
+                  <li tal:condition="membresConvocats" class="nav-item" role="presentation">
+                    <button class="nav-link active" id="tab1primary-tab" data-bs-toggle="tab" data-bs-target="#tab1primary" type="button" role="tab" aria-controls="tab1primary" aria-selected="true">
+                      <i class="bi bi-list"></i>&nbsp;<tal:omit-tag i18n:translate="">Incoming members list</tal:omit-tag>
+                    </button>
                   </li>
                   <li tal:condition="membresConvidats">
-                    <a href="#tab2primary" data-toggle="tab" i18n:translate="">Invited members</a>
+                    <button class="nav-link" id="tab2primary-tab" data-bs-toggle="tab" data-bs-target="#tab2primary" type="button" role="tab" aria-controls="tab2primary" aria-selected="false">
+                      <i class="bi bi-people"></i>&nbsp;<tal:omit-tag i18n:translate="">Invited members</tal:omit-tag>
+                    </button>
                   </li>
                   <li tal:condition="llistaExcusats">
-                    <a href="#tab3primary" data-toggle="tab" i18n:translate="">Excused members</a>
+                    <button class="nav-link" id="tab3primary-tab" data-bs-toggle="tab" data-bs-target="#tab3primary" type="button" role="tab" aria-controls="tab3primary" aria-selected="false">
+                      <i class="bi bi-people"></i>&nbsp;<tal:omit-tag i18n:translate="">Excused members</tal:omit-tag>
+                    </button>
                   </li>
                   <li tal:condition="assistents">
-                    <a href="#tab4primary" data-toggle="tab" i18n:translate="">Si assistents</a>
+                    <button class="nav-link" id="tab4primary-tab" data-bs-toggle="tab" data-bs-target="#tab4primary" type="button" role="tab" aria-controls="tab4primary" aria-selected="false">
+                      <i class="bi bi-people"></i>&nbsp;<tal:omit-tag i18n:translate="">Si assistents</tal:omit-tag>
+                    </button>
                   </li>
                   <li tal:condition="noAssistents">
-                    <a href="#tab5primary" data-toggle="tab" i18n:translate="">No assistents</a>
+                    <button class="nav-link" id="tab5primary-tab" data-bs-toggle="tab" data-bs-target="#tab5primary" type="button" role="tab" aria-controls="tab5primary" aria-selected="false">
+                      <i class="bi bi-people"></i>&nbsp;<tal:omit-tag i18n:translate="">No assistents</tal:omit-tag>
+                    </button>
                   </li>
-
                 </ul>
               </div>
-              <div class="panel-body">
+              <div class="card-body">
                 <div class="tab-content">
                   <div tal:condition="membresConvocats" class="tab-pane fade in active" id="tab1primary">
                     <span tal:replace="structure membresConvocats" />
@@ -410,7 +446,7 @@
             </div>
           </div>
 
-          <div class="tab-pane" id="actaTab" tal:define="actes actesInside" tal:condition="actesInside">
+          <div class="tab-pane fade" id="actaTab" tal:define="actes actesInside" tal:condition="actesInside">
             <div class="clearfix">
               <b i18n:translate="">Actes de la sessio:</b>
               <table>
@@ -432,7 +468,7 @@
             </div>
           </div>
 
-          <div class="tab-pane" id="acordsTab" tal:define="acords acordsInside" tal:condition="acordsInside">
+          <div class="tab-pane fade" id="acordsTab" tal:define="acords acordsInside" tal:condition="acordsInside">
             <div class="clearfix">
               <div class="scrollit">
                 <table class="table table-bordered table-condensed table-hover logFont">
@@ -478,7 +514,7 @@
             </div>
           </div>
 
-          <div class="tab-pane" id="notificationsTab" tal:condition="python:loginfo and viewHistory">
+          <div class="tab-pane fade" id="notificationsTab" tal:condition="python:loginfo and viewHistory">
             <div class="scrollit">
               <table class="table table-bordered table-condensed table-hover logFont">
                 <thead>
@@ -515,7 +551,7 @@
             </div>
           </div>
 
-          <div class="tab-pane" id="excusesTab" tal:condition="python:excuses and viewExcusesAndPoints">
+          <div class="tab-pane fade" id="excusesTab" tal:condition="python:excuses and viewExcusesAndPoints">
             <div class="scrollit">
               <table class="table table-bordered table-condensed table-hover logFont">
                 <thead>
@@ -553,7 +589,7 @@
           </div>
 
 
-          <div class="tab-pane" id="resultsVotesTab" tal:condition="canViewResultsVote">
+          <div class="tab-pane fade" id="resultsVotesTab" tal:condition="canViewResultsVote">
             <div class="scrollit" tal:define="votes getAllResultsVotes; quorums getInfoQuorums;">
 
               <table tal:condition="votes" class="table table-bordered table-condensed table-hover logFont">
@@ -735,89 +771,78 @@ Fi: ${vote/hourClose}"></span>
       </div>
 
       <tal:buttons tal:condition="canModify">
-        <div class="modal fade" id="modalPunts" tabindex="-1" role="dialog" aria-labelledby="modalMassive">
-          <div class="modal-dialog" role="document">
+        <!-- MODAL: Importar llista de punts i subpunts -->
+        <div class="modal fade" id="modalPunts" tabindex="-1" aria-labelledby="modalMassive" aria-hidden="true">
+          <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                    aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modalMassive" i18n:translate="">Importar llista de punts i subpunts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="modalMassive" i18n:translate="">Importar llista de punts i subpunts</h5>
               </div>
               <div class="modal-body"></div>
             </div>
           </div>
         </div>
-        <div class="modal fade" id="modalPunt" tabindex="-1" role="dialog" aria-labelledby="modalAddPunt">
-          <div class="modal-dialog" role="document">
+        <!-- MODAL: Nou punt -->
+        <div class="modal fade" id="modalPunt" tabindex="-1" aria-labelledby="modalAddPunt" aria-hidden="true">
+          <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                    aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modalAddPunt" i18n:translate="">Nou punt</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="modalAddPunt" i18n:translate="">Nou punt</h5>
               </div>
               <div class="modal-body">
                 <form name="addPunt">
-                  <div class="form-group">
-                    <label for="message-text" class="control-label" i18n:translate="">Title</label>
+                  <div class="mb-3">
+                    <label for="message-text" class="form-label" i18n:translate="">Title</label>
                     <textarea class="form-control" id="message-text"></textarea>
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary createPunt" i18n:translate="">Envia</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" i18n:translate="">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" i18n:translate="">Cancel</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="modal fade" id="modalAcord" tabindex="-1" role="dialog" aria-labelledby="modalAddAcord">
-          <div class="modal-dialog" role="document">
+        <!-- MODAL: Nou acord -->
+        <div class="modal fade" id="modalAcord" tabindex="-1" aria-labelledby="modalAddAcord" aria-hidden="true">
+          <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                    aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modalAddAcord" i18n:translate="">Nou acord</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="modalAddAcord" i18n:translate="">Nou acord</h5>
               </div>
               <div class="modal-body">
                 <form name="addAcord">
-                  <div class="form-group">
-                    <label for="message-text" class="control-label" i18n:translate="">Titol del punt</label>
+                  <div class="mb-3">
+                    <label for="message-text" class="form-label" i18n:translate="">Titol del punt</label>
                     <textarea class="form-control" id="message-text"></textarea>
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary createAcord" i18n:translate="">Envia</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" i18n:translate="">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" i18n:translate="">Cancel</button>
               </div>
             </div>
           </div>
         </div>
+        <!-- BOTONES para abrir modales: Bootstrap 5 usa data-bs-toggle y data-bs-target -->
         <div class="sessionCustomActions visible-tablet hidden-phone visible-desktop">
-          <a class="btn btn-info" data-toggle="modal" data-target="#modalPunt"><i class="fa fa-plus"
-              aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
-          <a class="btn btn-info" data-toggle="modal" data-target="#modalAcord"><i class="fa fa-plus"
-              aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou acord</span></a>
-          <a class="btn btn-info" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i
-              class="fa fa-database" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
-          <a class="btn btn-info" href="updatePoints"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span
-              i18n:translate="">Recalcula punts</span></a>
-          <a class="btn btn-info" href="updateAcords"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span
-              i18n:translate="">Recalcula punts/acords</span></a>
+          <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalPunt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
+          <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAcord"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou acord</span></a>
+          <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalPunts"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
+          <a class="btn btn-info" href="updatePoints"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts</span></a>
+          <a class="btn btn-info" href="updateAcords"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts/acords</span></a>
         </div>
-
-        <div style="margin-right: 30px;"
-          class="hidden-tablet visible-phone hidden-desktop btn-group btn-group-vertical">
-          <a class="btn btn-info" data-toggle="modal" data-target="#modalPunt"><i class="fa fa-plus"
-              aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
-          <a class="btn btn-info" data-toggle="modal" data-target="#modalAcord"><i class="fa fa-plus"
-              aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou acord</span></a>
-          <a class="btn btn-info" data-toggle="modal" href="manualStructureCreation" data-target="#modalPunts"><i
-              class="fa fa-database" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
-          <a class="btn btn-info" href="updatePoints"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span
-              i18n:translate="">Recalcula punts</span></a>
-          <a class="btn btn-info" href="updateAcords"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span
-              i18n:translate="">Recalcula punts/acords</span></a>
+        <div style="margin-right: 30px;" class="hidden-tablet visible-phone hidden-desktop btn-group-vertical">
+          <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalPunt"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou punt</span></a>
+          <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAcord"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Nou acord</span></a>
+          <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalPunts"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Llista punts</span></a>
+          <a class="btn btn-info" href="updatePoints"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts</span></a>
+          <a class="btn btn-info" href="updateAcords"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<span i18n:translate="">Recalcula punts/acords</span></a>
           <br />
         </div>
         <div class="clearfix"></div>
