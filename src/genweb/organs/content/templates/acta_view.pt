@@ -89,21 +89,21 @@
     <tal:block tal:condition="hasFirma">
 
       <span tal:define="estatFirma view/estatFirma"
-            tal:attributes="class string:badge badge-pill estatFirma ${estatFirma/class}">
+            tal:attributes="class string:badge rounded-pill estatFirma ${estatFirma/class}">
         <tal:block i18n:translate="">Acta: </tal:block>
         <tal:block tal:content="estatFirma/text">PENDENT_SIGNANTS</tal:block>
       </span>
 
     </tal:block>
 
-    <a class="btn btn-info btnActa" style="float:right;"
+    <a class="btn btn btn-info btnActa" style="float:right;"
     tal:attributes="href string:javascript:printPage(iframe);">
-        <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
+        <i class="bi bi-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
     </a>
     <button data-target="#previewModal" role="button" tal:condition="view/viewPrintButon"
-       class="btn btn-info d-none d-md-block" data-toggle="modal"
+       class="btn btn btn-info d-none d-md-block" data-toggle="modal"
        style="float:right; margin-right:10px;">
-       <i class="fa fa-eye"></i>&nbsp;<span i18n:translate=""> Preview Acta </span></button>
+       <i class="bi bi-eye"></i>&nbsp;<span i18n:translate=""> Preview Acta </span></button>
   </tal:omit-tag>
 
   <div class="clearfix documentDescription"></div>
@@ -111,9 +111,9 @@
   <div id="contentActa">
     <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
       <li class="active"><a href="#dadesTab" data-toggle="tab">
-        <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Dades</tal:omit-tag></i></a></li>
+        <i class="bi bi-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Dades</tal:omit-tag></i></a></li>
       <li><a href="#assistentsTab" data-toggle="tab">
-        <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Relacio Assistents</tal:omit-tag></i></a></li>
+        <i class="bi bi-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Relacio Assistents</tal:omit-tag></i></a></li>
     </ul>
 
     <div id="actaTabs" class="tab-content">
@@ -144,7 +144,7 @@
             <b i18n:translate="">Audio de la sessio</b>
               <tal:documents repeat="item audio">
                 <ol style="float:right;">
-                  <i class="fa fa-file-audio-o" aria-hidden="true"></i>
+                  <i class="bi bi-file-audio-o" aria-hidden="true"></i>
                   <tal:audio tal:define="content_type item/content_type|nothing;
                                          download_url item/download_url">
                     <a href="#"
@@ -227,13 +227,13 @@
                          public_file_view_url string:${item/absolute_url}/@@display-file/file/;">
           <p>
             <a tal:attributes="href public_file_view_url">
-              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+              <i class="bi bi-file-pdf-o" aria-hidden="true"></i>
               <tal:name tal:content="item/filename">Filename</tal:name>
             </a>
             <span class="discreet">
               &mdash; <span tal:replace="item/sizeKB" /> KB</span>
               <a tal:attributes="href public_file_download_url">
-                <i class="fa fa-download" aria-hidden="true"></i>
+                <i class="bi bi-download" aria-hidden="true"></i>
               </a>
           </p>
         </div>
@@ -247,7 +247,7 @@
         <h3 tal:condition="view/isSigned" i18n:translate="">Acta signada</h3>
         <p>
           <a tal:attributes="href public_acta_view_url">
-            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+            <i class="bi bi-file-pdf-o" aria-hidden="true"></i>
             <tal:name tal:content="context/acta/filename">Filename</tal:name>
           </a>
           <span class="discreet"
@@ -255,7 +255,7 @@
                           kb python:size/1024">
             &mdash; <span tal:replace="context/acta/getSize" /> KB</span>
             <a tal:attributes="href public_acta_download_url">
-              <i class="fa fa-download" aria-hidden="true"></i>
+              <i class="bi bi-download" aria-hidden="true"></i>
             </a>
         </p>
       </div>
@@ -273,13 +273,13 @@
                          public_file_view_url item/absolute_url">
           <p>
             <a tal:attributes="href public_file_view_url">
-              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+              <i class="bi bi-file-pdf-o" aria-hidden="true"></i>
               <tal:name tal:content="item/filename">Filename</tal:name>
             </a>
             <span class="discreet">
               &mdash; <span tal:replace="item/sizeKB" /> KB</span>
               <a tal:attributes="href public_file_download_url">
-                <i class="fa fa-download" aria-hidden="true"></i>
+                <i class="bi bi-download" aria-hidden="true"></i>
               </a>
           </p>
         </div>
@@ -292,14 +292,14 @@
       <h3 tal:condition="view/isSigned" i18n:translate="">Acta signada</h3>
       <p>
         <a tal:attributes="href public_acta_view_url">
-          <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+          <i class="bi bi-file-pdf-o" aria-hidden="true"></i>
           <tal:name tal:content="acta/filename">Filename</tal:name>
         </a>
         <span class="discreet"
             tal:define="kb acta/sizeKB">
           &mdash; <span tal:replace="kb" /> KB</span>
           <a tal:attributes="href public_acta_download_url">
-            <i class="fa fa-download" aria-hidden="true"></i>
+            <i class="bi bi-download" aria-hidden="true"></i>
           </a>
       </p>
     </div>

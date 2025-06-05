@@ -37,7 +37,7 @@
           </div>
 
           <button data-target="#myModal" role="button"
-             class="btn btn-primary" data-toggle="modal">
+             class="btn btn btn-primary" data-toggle="modal">
              <i class="icon icon-copy icon-white"></i>&nbsp;<span i18n:translate=""> Vista previa dels punts </span>
            </button>
 

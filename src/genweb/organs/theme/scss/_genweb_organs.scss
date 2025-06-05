@@ -1,3 +1,4 @@
+@use "bootstrap/scss/bootstrap";
 /* genweb_organs.css */
 /* Personalizaciones para la vista organgovern_view.pt */
 
@@ -250,10 +251,7 @@ section.mb-4 {
 form[role="search"] {
   .row.mb-3.g-2.align-items-end {
     margin-bottom: 1.5rem !important;
-    .col-10, .col-2 {
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-    }
+    .col-10,
     .form-control {
       border-radius: 6px 0 0 6px;
       border: 1px solid #bcdff6;
@@ -261,13 +259,7 @@ form[role="search"] {
       font-size: 1rem;
       height: 48px;
     }
-    .btn-primary {
-      border-radius: 0 6px 6px 0;
-      height: 48px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      width: 100%;
-    }
+
   }
   .row.mb-3.g-2 {
     margin-bottom: 1.5rem !important;
@@ -306,14 +298,7 @@ form[role="search"] {
   }
   form[role="search"] .row.mb-3.g-2.align-items-end {
     flex-direction: column;
-    .col-10, .col-2 {
-      width: 100%;
-      margin-bottom: 8px;
-    }
-    .form-control, .btn-primary {
-      border-radius: 6px !important;
-    }
-  }
+    .col-10,
   form[role="search"] .row.mb-3.g-2 {
     flex-direction: column;
     .col-md-4 {
@@ -355,14 +340,7 @@ form[role="search"] {
   .fw-bold {
     color: #007bc0;
   }
-  .badge {
-    background: #e5f3fa;
-    color: #007bc0;
-    font-weight: 600;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    padding: 6px 12px;
-  }
+
 }
 
 @media (max-width: 1200px) {
@@ -448,10 +426,7 @@ ul#tabs.nav.nav-tabs {
     float: right;
 }
 
-.btn-export {
-    margin-bottom: 20px !important;
-    float: right;
-}
+
 
 .sessionOrdreDia{
     margin-top: 0px;
@@ -761,10 +736,7 @@ label.label.label-default {
 
 label.label.label-default{padding: 2px 4px!important;}
 
-.btn-group {
-    margin-top: 0px;
-    margin-right: 5px;
-}
+
 
 .btn-group a {
     margin: 1px;
@@ -830,9 +802,7 @@ a.remove{background-color: #e8003d!important}
     vertical-align: top;
 }
 
-.DADES .btn-info {
-    color: #fff;
-}
+.DADES
 
 .DADES .btn-info.btn-send-confirm[disabled] {
     filter: brightness(80%);
@@ -872,11 +842,7 @@ a.remove{background-color: #e8003d!important}
     border-color: transparent;
     color: #fff;
 }
-#sortable .dropdown-menu {
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    z-index: 10000!important;
-}
+#sortable
 #sortable .dropdown-menu li{
     border:0;
     border-bottom: 1px solid #ddd;
@@ -1039,10 +1005,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     padding-bottom: 10px;
 }
 
-.bodyPresentation .btn-group.open .dropdown-toggle {
-    width: 35px;
-    height: 30px;
-}
+.bodyPresentation .btn-group.open
 
 .bodyPresentation .DADES button {
     height: 30px;
@@ -1080,9 +1043,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     color: #aaa;
 }
 
-.bodyPresentation .label.dropdown-toggle {
-    font-size: 15px;
-}
+.bodyPresentation .label
 
 .bodyPresentation .titleSize {
     line-height: 30px;
@@ -1096,12 +1057,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     margin-top: 0px;
      }
 
-.bodyPresentation .dropdown-menu {
-    margin: 0px;
-    padding:  0px;
-    box-shadow:  none;
-    width: 100%;
-}
+.bodyPresentation
 
 .bodyPresentation .bannerOrgansPresentation.clearfix {
     height: 91%;
@@ -1159,9 +1115,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     font-size: 20px;
 }
 
-.bodyPresentation .btn-group {
-    margin-right: 0px;
-}
+.bodyPresentation
 
 .bodyPresentation .label.dropdown-toggle > a {
     color: #002237;
@@ -1198,12 +1152,7 @@ background-image: linear-gradient(to bottom, #006fae, #007bc0);
     font-weight: bold;
 }
 
-.bodyPresentation #sortable .dropdown-menu{
-    padding-top: 0px;
-    padding-bottom: 0px;
-    margin-top: 0px;
-    width: auto;
-}
+.bodyPresentation #sortable
 
 .bodyPresentation #sortable .dropdown-menu li{
     margin-top: 0px !important;
@@ -1224,8 +1173,7 @@ padding: 0px 0px 32px 0px !important;
 .portaltype-genweb-organs-acta a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-audio a#plone-contentmenu-workflow.dropdown-toggle,
 .portaltype-genweb-organs-annex a#plone-contentmenu-workflow.dropdown-toggle,
-.portaltype-genweb-organs-acord a#plone-contentmenu-workflow.dropdown-toggle
- {display: none;}
+.portaltype-genweb-organs-acord a#plone-contentmenu-workflow
 
 .portaltype-genweb-organs-organsfolder a#plone-contentmenu-multilingual.dropdown-toggle,
 .portaltype-genweb-organs-organgovern a#plone-contentmenu-multilingual.dropdown-toggle,
@@ -1237,8 +1185,7 @@ padding: 0px 0px 32px 0px !important;
 .portaltype-genweb-organs-acta a#plone-contentmenu-multilingual.dropdown-toggle,
 .portaltype-genweb-organs-audio a#plone-contentmenu-multilingual.dropdown-toggle,
 .portaltype-genweb-organs-annex a#plone-contentmenu-multilingual.dropdown-toggle,
-.portaltype-genweb-organs-acord a#plone-contentmenu-multilingual.dropdown-toggle
- {display: none;}
+.portaltype-genweb-organs-acord a#plone-contentmenu-multilingual
 
 .popover {
     z-index: 2060 !important;
@@ -1533,22 +1480,11 @@ ul.nav.nav-tabs {margin-bottom: 0px;}
 div.tab-pane.fade.active.in {background-color: white;
 border: 1px solid #b2b2b2;}
 
-.panel-title {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 16px;
-    color: inherit;
-}
 
-.panel-default>.panel-heading {
-    color: #333;
-    background-color: #f5f5f5;
-    border-color: #ddd;
-}
 
-.panel-default {
-    border-color: #ddd;
-    }
+.panel-default>
+
+
 
 span.agreementClassPunt {
     font-size: 11px;
@@ -1849,9 +1785,7 @@ span.barra {
     font-weight: 500!important;
  }
 
-.bodyPresentation ul.dropdown-menu {
-    text-align: left;
-}
+.bodyPresentation ul
 
 .bodyPresentation .puntTitle.span12 > .span1 {
     text-align: left;
@@ -2288,10 +2222,7 @@ td.organevent.cal_has_events .popover-content a {
     border-bottom: 0px solid transparent;
 }
 
-.list-agenda .row {
-    margin-left: -15px;
-    margin-right: -15px;
-}
+.list-agenda
 
 .list-agenda .event-time {
     opacity: 0.9;
@@ -2715,12 +2646,7 @@ body.template-allsessions #portal-column-content table tr:not(.breakline) td:las
 /* END DEFAULT CSS NO MEDIA QUERY */
 
 
-.panel-bordered {
-    background-color: #f9f9f9;
-    border: 1px solid #eee;
-    min-height: 10px!important;
-    padding: 10px 10px 10px 10px;
-}
+
 
 .link-ext {
     background-color: #007BC1;
@@ -2831,17 +2757,13 @@ body.template-allsessions #portal-column-content table tr:not(.breakline) td:las
     margin-bottom: 0px !important;
 }
 
-.btn-group + .btn-group {
-    margin-left: 0px !important;
-}
+.btn-group +
 
 .btn-group.votes li a:hover {
     cursor: pointer;
 }
 
-.hasVote a.btn.btn-info {
-    cursor: initial;
-}
+.hasVote a.btn
 
 #resultsVotesTab td {
     vertical-align: middle;
@@ -3107,10 +3029,7 @@ section.mb-4 {
 form[role="search"] {
   .row.mb-3.g-2.align-items-end {
     margin-bottom: 1.5rem !important;
-    .col-10, .col-2 {
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-    }
+    .col-10,
     .form-control {
       border-radius: 6px 0 0 6px;
       border: 1px solid #bcdff6;
@@ -3118,13 +3037,7 @@ form[role="search"] {
       font-size: 1rem;
       height: 48px;
     }
-    .btn-primary {
-      border-radius: 0 6px 6px 0;
-      height: 48px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      width: 100%;
-    }
+
   }
   .row.mb-3.g-2 {
     margin-bottom: 1.5rem !important;
@@ -3163,14 +3076,7 @@ form[role="search"] {
   }
   form[role="search"] .row.mb-3.g-2.align-items-end {
     flex-direction: column;
-    .col-10, .col-2 {
-      width: 100%;
-      margin-bottom: 8px;
-    }
-    .form-control, .btn-primary {
-      border-radius: 6px !important;
-    }
-  }
+    .col-10,
   form[role="search"] .row.mb-3.g-2 {
     flex-direction: column;
     .col-md-4 {
@@ -3213,14 +3119,7 @@ form[role="search"] {
   .fw-bold {
     color: #007bc0;
   }
-  .badge {
-    background: #e5f3fa;
-    color: #007bc0;
-    font-weight: 600;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    padding: 6px 12px;
-  }
+
 }
 
 @media (max-width: 1200px) {
@@ -3231,4 +3130,6 @@ form[role="search"] {
     flex-direction: column;
     gap: 18px;
   }
+}
+}
 }

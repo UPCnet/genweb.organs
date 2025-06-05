@@ -107,23 +107,23 @@
     <ul class="affix nav" style="z-index:2; right:0; top:170px;" tal:condition="not:anonim">
       <li>
         <a href="" title="Tornar a la sessió" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Close">
-          <i class="fa fa-home fa-3x" aria-hidden="true"></i></a>
+          <i class="bi bi-home fs-3" aria-hidden="true"></i></a>
       </li>
       <li>
         <a data-scroll data-options='{ "easing": "easeInOutCubic" }' href="presentation#home" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Home">
-          <i class="fa fa-arrow-up fa-3x" aria-hidden="true"></i></a>
+          <i class="bi bi-arrow-up fs-3" aria-hidden="true"></i></a>
       </li>
       <li style="cursor: pointer;">
         <a id="scrollUp" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
-          <i class="fa fa-chevron-up fa-3x" aria-hidden="true"></i></a>
+          <i class="bi bi-chevron-up fs-3" aria-hidden="true"></i></a>
       </li>
       <li style="cursor: pointer;">
         <a id="scrollDown" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
-          <i class="fa fa-chevron-down fa-3x" aria-hidden="true"></i></a>
+          <i class="bi bi-chevron-down fs-3" aria-hidden="true"></i></a>
       </li>
       <li>
         <a data-scroll data-options='{ "easing": "easeInOutCubic" }'  href="presentation#end" title="" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="End">
-          <i class="fa fa-arrow-down fa-3x" aria-hidden="true"></i></a>
+          <i class="bi bi-arrow-down fs-3" aria-hidden="true"></i></a>
       </li>
     </ul>
 
@@ -138,8 +138,8 @@
       <hr style="margin-bottom:0px;"/>
 
           <div style="float:right;" class="documentDescription">
-      <span id="expandAll" i18n:translate="">Desplega tot <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i></span>
-      <span id="collapseAll" i18n:translate="">Plega tot <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i></span>
+      <span id="expandAll" i18n:translate="">Desplega tot <i style="color: #557c95" class="bi bi-chevron-down" aria-hidden="true"></i></span>
+      <span id="collapseAll" i18n:translate="">Plega tot <i style="color: #557c95" class="bi bi-chevron-up" aria-hidden="true"></i></span>
     </div>
       <ul id="sortable" class="ui-sortable">
 
@@ -149,11 +149,11 @@
               <div class="col-1 fletxaSpan">
                 <button type="button" class="expand" tal:condition="item/items_inside"
                   data-original-title="Expand">
-                  <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
+                  <i style="color: #557c95" class="bi bi-chevron-down" aria-hidden="true"></i>
                   </button>
                 <button type="button" class="notexpand" tal:condition="item/items_inside"
                   data-original-title="Collapse">
-                  <i  style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
+                  <i  style="color: #557c95" class="bi bi-chevron-up" aria-hidden="true"></i>
                   </button>
               </div>
               <div class="col-1 numberSpan">
@@ -167,13 +167,13 @@
                     <button class="badge bg-secondary dropdown-toggle bullet-toggle"
                         type="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-circle" aria-hidden="true" class='selectedColor' tal:attributes="style string:color:${item/css}"></i>
+                        <i class="bi bi-circle" aria-hidden="true" class='selectedColor' tal:attributes="style string:color:${item/css}"></i>
                       <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
                       <tal:block repeat="estat item/estats">
                         <li class="defaultValue">
-                          <a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;&nbsp;<span tal:content="estat/title"></span></a>
+                          <a tabindex="-1" tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}"><i class="bi bi-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;&nbsp;<span tal:content="estat/title"></span></a>
                         </li>
                       </tal:block>
                     </ul>
@@ -230,13 +230,13 @@
                             <button class="badge bg-secondary dropdown-toggle estatJS"
                                 type="button" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
+                                <i class="bi bi-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
                               <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="estats">
                               <tal:block repeat="estat item/estats">
                                 <li class="defaultValue">
-                                  <a tabindex="-1" tal:attributes="href string:changeSubpuntState?estat=${estat/title}&id=${item/id}"><i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<tal:omit-tag tal:content="estat/title"></tal:omit-tag></a>
+                                  <a tabindex="-1" tal:attributes="href string:changeSubpuntState?estat=${estat/title}&id=${item/id}"><i class="bi bi-circle" aria-hidden="true" tal:attributes="style string:color:${estat/color}"></i>&nbsp;<tal:omit-tag tal:content="estat/title"></tal:omit-tag></a>
                                 </li>
                               </tal:block>
                             </ul>
@@ -363,7 +363,7 @@
         } else {
           var title=$(this).data()['originalTitle'];
           var content=$(this).data()['content'];
-          $('<div class="modal fade" tabindex="-1" role="dialog">\
+          $('<div class="modal fade" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">\
               <div class="modal-dialog" role="document">\
                 <div class="modal-content">\
                   <div class="modal-header">\
@@ -374,7 +374,7 @@
                   ' + content + '\
                   </div>\
                   <div class="modal-footer">\
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" i18n:domain="genweb.organs" i18n:translate="">Tanca</button>\
+                    <button type="button" class="btn btn btn-primary" data-dismiss="modal" i18n:domain="genweb.organs" i18n:translate="">Tanca</button>\
                   </div>\
                 </div>\
               </div>\

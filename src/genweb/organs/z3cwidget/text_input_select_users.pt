@@ -118,7 +118,7 @@
                 field += "<td class='email'>" + value['email'] + "</td>";
                 field += "<td class='actions'>";
                 field += "<a class='label add' i18n:attributes='alt add' onclick='addUser(this)'>";
-                field += "<span class='fa fa-plus' aria-hidden='true'></span>";
+                field += "<span class='bi bi-plus' aria-hidden='true'></span>";
                 field += "</a>";
                 field += "</td>";
                 field += "</tr>";

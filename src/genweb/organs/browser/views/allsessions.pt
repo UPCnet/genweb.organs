@@ -22,9 +22,9 @@
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSessions">
-          <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Mostra sessions anteriors</tal:omit-tag></button>
+          <i style="color: #557c95" class="bi bi-chevron-down" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Mostra sessions anteriors</tal:omit-tag></button>
         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSessions">
-          <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Amaga sessions anteriors</tal:omit-tag></button>
+          <i style="color: #557c95" class="bi bi-chevron-up" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Amaga sessions anteriors</tal:omit-tag></button>
       </h2>
       <div id="collapseSessions" class="accordion-collapse collapse">
  <div class="panel-group">
@@ -32,9 +32,9 @@
       <div>
         <h4 class="panel-title" style="text-align: right;">
           <a id="expandAll" data-toggle="collapse" href="#collapseSessions">
-            <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Mostra sessions anteriors</tal:omit-tag></a>
+            <i style="color: #557c95" class="bi bi-chevron-down" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Mostra sessions anteriors</tal:omit-tag></a>
           <a id="collapseAll" data-toggle="collapse" href="#collapseSessions">
-            <i style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Amaga sessions anteriors</tal:omit-tag></a>
+            <i style="color: #557c95" class="bi bi-chevron-up" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Amaga sessions anteriors</tal:omit-tag></a>
         </h4>
       </div>
       <div id="collapseSessions" class="panel-collapse collapse">
@@ -56,7 +56,7 @@
           <tal:objects repeat="item sessions/past">
             <tr tal:attributes="class item/id">
               <td style="vertical-align: middle;">
-                <i class="fa fa-list"></i>&nbsp;
+                <i class="bi bi-list"></i>&nbsp;
                   <a tal:attributes="href item/url;" tal:content="item/title" style="color:#007BC0; font-size: 14px;"> Item Title </a>
               </td>
               <td style="text-align: center; vertical-align: middle;">
@@ -96,7 +96,7 @@
     <tal:objects repeat="item sessions/future">
       <tr tal:attributes="class item/id">
         <td style="vertical-align: middle;">
-          <i class="fa fa-list"></i>&nbsp;
+          <i class="bi bi-list"></i>&nbsp;
             <a tal:attributes="href item/url;" tal:content="item/title" style="color:#007BC0; font-size: 14px;"> Item Title </a>
         </td>
         <td style="text-align: center; vertical-align: middle;">

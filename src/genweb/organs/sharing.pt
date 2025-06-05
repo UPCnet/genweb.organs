@@ -58,7 +58,7 @@
                        id="sharing-search-button"
                        name="form.button.Search"
                        value="Search"
-                       class="btn btn-info searchButton allowMultiSubmit mb-2"
+                       class="btn btn btn-info searchButton allowMultiSubmit mb-2"
                        i18n:attributes="value label_search"
                        />
             </div>
@@ -165,7 +165,7 @@
             </div>
         </div>
 
-            <input id="sharing-save-button" class="btn btn-primary context allowMultiSubmit me-2" type="submit" name="form.button.Save" value="Save" i18n:attributes="value label_save" />
+            <input id="sharing-save-button" class="btn btn btn-primary context allowMultiSubmit me-2" type="submit" name="form.button.Save" value="Save" i18n:attributes="value label_save" />
             <input class="btn btn-secondary standalone" type="submit" name="form.button.Cancel" value="Cancel" i18n:attributes="value label_cancel"/>
 
             <input tal:replace="structure context/@@authenticator/authenticator" />

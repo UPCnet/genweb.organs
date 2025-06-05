@@ -73,7 +73,7 @@
           </div>
           <div class="tab-pane" id="assistentsTab" tal:condition="hihaPersones">
             <div class="panel with-nav-tabs panel-primary">
-              <div class="panel-heading">
+              <div class="card-header">
                 <ul class="nav nav-tabs">
                   <li tal:condition="context/membresConvocats" class="active">
                     <a href="#tab1primary" data-toggle="tab" i18n:translate="">Incoming members list</a>
@@ -89,7 +89,7 @@
                   </li>
                 </ul>
               </div>
-              <div class="panel-body">
+              <div class="card-body">
                 <div class="tab-content">
                   <div tal:condition="context/membresConvocats" class="tab-pane fade in active" id="tab1primary">
                     <span tal:replace="structure context/membresConvocats" />
@@ -114,7 +114,7 @@
                 <tbody>
                   <tal:documents repeat="item actes">
                     <tr>
-                      <td><i class="fa fa-file-text-o" aria-hidden="true" style="padding-left: 20px;"></i>
+                      <td><i class="bi bi-file-text-o" aria-hidden="true" style="padding-left: 20px;"></i>
                         <a href="#"
                            tal:attributes="href item/absolute_url;"
                            tal:content="item/title">
@@ -146,11 +146,11 @@
                       <div class="col-1 fletxaSpan">
                         <button type="button" class="expand" tal:condition="item/items_inside"
                           data-original-title="Expand" style="font-size:20px;">
-                          <i style="color: #557c95" class="fa fa-chevron-down" aria-hidden="true"></i>
+                          <i style="color: #557c95" class="bi bi-chevron-down" aria-hidden="true"></i>
                         </button>
                         <button type="button" class="notexpand" tal:condition="item/items_inside"
                           data-original-title="Collapse" style="font-size:20px;">
-                          <i  style="color: #557c95" class="fa fa-chevron-up" aria-hidden="true"></i>
+                          <i  style="color: #557c95" class="bi bi-chevron-up" aria-hidden="true"></i>
                         </button>
                       </div>
                       <div class="col-1 numberSpan">
@@ -167,7 +167,7 @@
                       </div>
                       <div class="col-1 boleta">
                         <span class="btn badge bg-secondary disabled" style="padding:3px; margin-right:1px; float:right;">
-                          <i class="fa fa-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
+                          <i class="bi bi-circle" aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
                           <span  tal:content="item/state"></span>
                         </span>
                       </div>
@@ -207,7 +207,7 @@
                               </div>
                             <div class="col-2" >
                                 <span class="btn badge bg-secondary disabled" style="padding:3px; margin-right:10px; float:right;">
-                                <i class="fa fa-circle" aria-hidden="true"  tal:attributes="style string:color:${itemSubpunt/css}"></i>
+                                <i class="bi bi-circle" aria-hidden="true"  tal:attributes="style string:color:${itemSubpunt/css}"></i>
                                 <span  tal:content="itemSubpunt/state"></span>
                                 </span>
                             </div>

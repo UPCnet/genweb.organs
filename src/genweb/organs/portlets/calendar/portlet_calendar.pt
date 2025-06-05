@@ -60,7 +60,7 @@
       </div>
     </article>
     <div class="allSessions my-2">
-      <a href="" class="btn btn-outline-primary btn-sm w-100" tal:attributes="href string:${portal_url}/allsessions"><i class="fa fa-plus"></i>&nbsp;<tal:omit-tag i18n:translate="" i18n:domain="genweb.organs">veure totes les sessions</tal:omit-tag></a>
+      <a href="" class="btn btn-outline-primary btn-sm w-100" tal:attributes="href string:${portal_url}/allsessions"><i class="bi bi-plus"></i>&nbsp;<tal:omit-tag i18n:translate="" i18n:domain="genweb.organs">veure totes les sessions</tal:omit-tag></a>
     </div>
     <ul class="icons-ul list-unstyled">
       <tal:block tal:repeat="event view/getDayEventsGroup">
@@ -71,7 +71,7 @@
               <tal:event content="event/title"> Event Title </tal:event></a>
           </p>
           <p class="mb-1">
-            <i class="fa fa-calendar"></i>&nbsp;<tal:event content="event/start"> 07/12 </tal:event>
+            <i class="bi bi-calendar"></i>&nbsp;<tal:event content="event/start"> 07/12 </tal:event>
             <tal:event content="event/starthour"> 07/12 </tal:event>
             <span tal:condition="event/end">
               <span i18n:translate="" i18n:domain="genweb.organs"> to </span>
@@ -80,7 +80,7 @@
             </span>
           </p>
           <span class="text2">
-            <i class="fa fa-thumb-tack"></i>
+            <i class="bi bi-thumb-tack"></i>
             <a tal:attributes="href event/organ_url" tal:content="event/organ_title"></a>
           </span>
         </li>

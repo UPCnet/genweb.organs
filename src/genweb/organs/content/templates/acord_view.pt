@@ -28,7 +28,7 @@
     <tal:omit-tag tal:content="context/Title"></tal:omit-tag>
     <tal:omit-tag tal:content="view/AcordTitle"></tal:omit-tag>
     <span class="estatpunt">
-      <i class="fa fa-circle boletaGran" aria-hidden="true" tal:attributes="style string:color:${view/getColor};
+      <i class="bi bi-circle boletaGran" aria-hidden="true" tal:attributes="style string:color:${view/getColor};
          title estatsLlista; alt estatsLlista"></i>&nbsp;<span tal:content="estatsLlista"></span>
     </span>
   </h1>
@@ -44,7 +44,7 @@
   <tal:block tal:condition="view/hasFirma">
 
     <span tal:define="estatFirma view/estatFirma"
-          tal:attributes="class string:badge badge-pill estatFirma ${estatFirma}"
+          tal:attributes="class string:badge rounded-pill estatFirma ${estatFirma}"
           tal:content="estatFirma">PENDENT_SIGNANTS</span>
 
   </tal:block>

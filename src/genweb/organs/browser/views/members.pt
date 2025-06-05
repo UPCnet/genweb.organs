@@ -10,7 +10,7 @@
 <metal:content-core fill-slot="content">
 
   	<div class="link-banner">
-		<i class="fa fa-group"></i>&nbsp;<tal:omit-tag i18n:translate=""> Composicio </tal:omit-tag>
+		<i class="bi bi-group"></i>&nbsp;<tal:omit-tag i18n:translate=""> Composicio </tal:omit-tag>
     	<span tal:content="view/getTitle"> Consell Academic </span>
   	</div>
 

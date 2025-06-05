@@ -95,11 +95,11 @@
                 </td>
                 <td class="centerMiddle">
                     <span class="estatpunt" tal:condition="acord/estatsLlista">
-                      <i class="fa fa-circle boletaGran" aria-hidden="true" tal:attributes="style string:color:${acord/color};"></i>&nbsp;<span tal:content="acord/estatsLlista"></span>
+                      <i class="bi bi-circle boletaGran" aria-hidden="true" tal:attributes="style string:color:${acord/color};"></i>&nbsp;<span tal:content="acord/estatsLlista"></span>
                     </span>
                 </td>
                 <td class="centerMiddle" style="text-align:left;">
-                  <i class="fa fa-check" aria-hidden="True"></i>&nbsp;
+                  <i class="bi bi-check" aria-hidden="True"></i>&nbsp;
                     <a tal:condition="acord/title" href="" tal:content="acord/title" tal:attributes="href acord/path"></a>
                 </td>
               </tr>

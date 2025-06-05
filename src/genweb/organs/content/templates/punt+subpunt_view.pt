@@ -31,7 +31,7 @@
   <tal:block tal:condition="view/hasFirma">
 
     <span tal:define="estatFirma view/estatFirma"
-          tal:attributes="class string:badge badge-pill estatFirma ${estatFirma}"
+          tal:attributes="class string:badge rounded-pill estatFirma ${estatFirma}"
           tal:content="estatFirma">PENDENT_SIGNANTS</span>
 
   </tal:block>
@@ -103,7 +103,7 @@
                     </div>
                     <div class="col-1" style="padding-top: 10px;">
                       <span class="btn badge bg-secondary disabled" style="float:right;">
-                        <i class="fa fa-circle " aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
+                        <i class="bi bi-circle " aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
                         <span  tal:content="item/state"></span>
                       </span>
                     </div>

@@ -18,7 +18,7 @@
     </div>
     <div class="col text-end d-md-none">
       <button id='eines-menu' class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#nav-eines-mobile" aria-controls="nav-eines-mobile" aria-expanded="false" aria-label="Menú">
-        <i class="fa fa-bars"></i>
+        <i class="bi bi-bars"></i>
       </button>
     </div>
     <div class="col d-none d-md-block">
@@ -27,36 +27,36 @@
           <a class="nav-link" href="//serveistic.upc.edu/ca/organs-de-govern"
              i18n:domain="genweb.organs"
              i18n:attributes="title Info_del_Servei; alt Info_del_Servei">
-              <i class="fa fa-info-circle"></i> Info
+              <i class="bi bi-info-circle"></i> Info
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" accesskey="4"
                tal:attributes="href string:${portal_url}/${lang}/sitemap">
-               <i class="fa fa-sitemap"></i>&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Site Map">Site Map</tal:bk>
+               <i class="bi bi-sitemap"></i>&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Site Map">Site Map</tal:bk>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" accesskey="6"
                tal:attributes="href string:${portal_https}/${lang}/contact">
-               <i class="fa fa-envelope"></i>&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Contact">Contact</tal:bk>
+               <i class="bi bi-envelope"></i>&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Contact">Contact</tal:bk>
           </a>
         </li>
         <li class="nav-item" tal:condition="viewlet/show_login">
-            <a class="nav-link" href="" data-bs-toggle="modal" data-bs-target="#loginModal"
+            <button type="button" class="nav-link" href="" data-bs-toggle="modal" data-bs-target="#loginModal"
                tal:attributes="href string:${portal_url}/popup_login_form?came_from=${context/absolute_url}">
-              <i class="fa fa-lock"></i>&nbsp;<tal:bk i18n:domain="genweb" i18n:translate="identificat">
+              <i class="bi bi-lock"></i>&nbsp;<tal:bk i18n:domain="genweb" i18n:translate="identificat">
                Identifica't</tal:bk>
-            </a>
+            </button>
         </li>
         <li class="nav-item" tal:condition="not: viewlet/show_login">
             <a class="nav-link" tal:attributes="href string:${portal_url}/cas_logout">
-              <i class="fa fa-sign-out"></i>&nbsp;<tal:bk i18n:domain="genweb.organs" i18n:translate="">
+              <i class="bi bi-sign-out"></i>&nbsp;<tal:bk i18n:domain="genweb.organs" i18n:translate="">
                Logout </tal:bk>
             </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" tal:attributes="href string:${portal_url}/${lang}/search"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;<tal:bk i18n:translate="" i18n:domain="genweb.organs">Cercador</tal:bk></a>
+          <a class="nav-link" tal:attributes="href string:${portal_url}/${lang}/search"><i class="bi bi-search" aria-hidden="true"></i>&nbsp;<tal:bk i18n:translate="" i18n:domain="genweb.organs">Cercador</tal:bk></a>
         </li>
       </ul>
     </div>
@@ -69,36 +69,36 @@
             <a class="nav-link" href="//serveistic.upc.edu/ca/organs-de-govern"
                i18n:domain="genweb.organs"
                i18n:attributes="title Info_del_Servei; alt Info_del_Servei">
-               <i class="fa fa-info-circle"></i> Info
+               <i class="bi bi-info-circle"></i> Info
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" accesskey="4"
                  tal:attributes="href string:${portal_url}/${lang}/sitemap">
-                 <i class="fa fa-sitemap"></i>&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Site Map">Site Map</tal:bk>
+                 <i class="bi bi-sitemap"></i>&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Site Map">Site Map</tal:bk>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" accesskey="6"
                  tal:attributes="href string:${portal_url}/${lang}/contact">
-                 <i class="fa fa-envelope"></i>&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Contact">Contact</tal:bk>
+                 <i class="bi bi-envelope"></i>&nbsp;<tal:bk i18n:domain="plone" i18n:translate="Contact">Contact</tal:bk>
             </a>
           </li>
           <li class="nav-item" tal:condition="viewlet/show_login">
-              <a class="nav-link" href="" data-bs-toggle="modal" data-bs-target="#loginModal"
+              <button type="button" class="nav-link" href="" data-bs-toggle="modal" data-bs-target="#loginModal"
                  tal:attributes="href string:${portal_url}/popup_login_form?came_from=${context/absolute_url}">
-                <i class="fa fa-lock"></i>&nbsp;<tal:bk i18n:domain="genweb" i18n:translate="identificat">
+                <i class="bi bi-lock"></i>&nbsp;<tal:bk i18n:domain="genweb" i18n:translate="identificat">
                  Identifica't</tal:bk>
-              </a>
+              </button>
           </li>
           <li class="nav-item" tal:condition="not: viewlet/show_login">
               <a class="nav-link" tal:attributes="href string:${portal_url}/cas_logout">
-                <i class="fa fa-sign-out"></i>&nbsp;<tal:bk i18n:domain="genweb.organs" i18n:translate="">
+                <i class="bi bi-sign-out"></i>&nbsp;<tal:bk i18n:domain="genweb.organs" i18n:translate="">
                  Logout </tal:bk>
               </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" tal:attributes="href string:${portal_url}/${lang}/search"><i class="fa fa-search"></i>&nbsp;<tal:bk i18n:translate="" i18n:domain="genweb.organs">Cercador</tal:bk></a>
+            <a class="nav-link" tal:attributes="href string:${portal_url}/${lang}/search"><i class="bi bi-search"></i>&nbsp;<tal:bk i18n:translate="" i18n:domain="genweb.organs">Cercador</tal:bk></a>
           </li>
         </ul>
       </div>

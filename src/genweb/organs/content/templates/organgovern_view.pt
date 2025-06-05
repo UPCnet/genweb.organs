@@ -40,33 +40,33 @@
 
     <ul id="tabs" class="nav nav-tabs d-none d-md-block" data-tabs="tabs">
       <li tal:condition="sessions" class="active"><a href="#sessionsTab" data-toggle="tab">
-        <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Sessions</tal:omit-tag></i></a></li>
+        <i class="bi bi-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Sessions</tal:omit-tag></i></a></li>
       <li tal:condition="hihaPersones"><a href="#membresTab" data-toggle="tab">
-        <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Organ Govern members</tal:omit-tag></i></a></li>
+        <i class="bi bi-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Organ Govern members</tal:omit-tag></i></a></li>
       <li id="tabAcords"><a href="#acordsTab" data-toggle="tab">
-        <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
+        <i class="bi bi-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
       <li tal:condition="viewActes" id="tabActes"><a href="#actasTab" data-toggle="tab">
-        <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Actes</tal:omit-tag></i></a></li>
+        <i class="bi bi-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Actes</tal:omit-tag></i></a></li>
       <li tal:condition="faqs"><a href="#faqTab" data-toggle="tab">
-        <i class="fa fa-question-circle" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">FAQ membres</tal:omit-tag></i></a></li>
+        <i class="bi bi-question-circle" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">FAQ membres</tal:omit-tag></i></a></li>
     </ul>
 
     <ul id="tabs" class="nav nav-tabs nav-stacked d-block d-md-none" data-tabs="tabs">
       <li tal:condition="sessions" class="active"><a href="#sessionsTab" data-toggle="tab">
-        <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Sessions</tal:omit-tag></i></a></li>
+        <i class="bi bi-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Sessions</tal:omit-tag></i></a></li>
       <li tal:condition="hihaPersones"><a href="#membresTab" data-toggle="tab">
-        <i class="fa fa-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Organ Govern members</tal:omit-tag></i></a></li>
+        <i class="bi bi-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Organ Govern members</tal:omit-tag></i></a></li>
       <li id="tabAcords"><a href="#acordsTab" data-toggle="tab">
-        <i class="fa fa-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
+        <i class="bi bi-check" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag></i></a></li>
       <li tal:condition="viewActes" id="tabActes"><a href="#actasTab" data-toggle="tab">
-        <i class="fa fa-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Actes</tal:omit-tag></i></a></li>
+        <i class="bi bi-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Actes</tal:omit-tag></i></a></li>
       <li tal:condition="faqs"><a href="#faqTab" data-toggle="tab">
-        <i class="fa fa-question-circle" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">FAQ membres</tal:omit-tag></i></a></li>
+        <i class="bi bi-question-circle" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">FAQ membres</tal:omit-tag></i></a></li>
     </ul>
 
     <div tal:condition="viewOrdena" class="reorder">
       <a href="orderSessions">
-        <i class="fa fa-refresh" aria-hidden="True">&nbsp;<tal:omit-tag>Numera sessions</tal:omit-tag></i></a>
+        <i class="bi bi-refresh" aria-hidden="True">&nbsp;<tal:omit-tag>Numera sessions</tal:omit-tag></i></a>
     </div>
 
     <div id="organTabs" class="tab-content" >
@@ -92,7 +92,7 @@
             <tal:objects repeat="item sessions">
               <tr>
                 <td style="vertical-align: middle;">
-                    <i class="fa fa-list" aria-hidden="True">&nbsp;
+                    <i class="bi bi-list" aria-hidden="True">&nbsp;
                     <a tal:attributes="href item/absolute_url;" tal:content="item/title" style="color:#007BC0; font-size: 14px;"> Item Title </a>
                     [<span tal:content="item/sessionNumber" style="font-size: 13px;">
                             Session Number
@@ -127,7 +127,7 @@
       </div>
       <div class="tab-pane" id="membresTab">
         <div class="panel with-nav-tabs panel-primary" tal:condition="multipleTab">
-          <div class="panel-heading">
+          <div class="card-header">
             <ul class="nav nav-tabs">
               <li tal:condition="membresOrgan" tal:attributes="class string:${activeClassMembres}">
                 <a href="#tab1primary" data-toggle="tab" i18n:translate="">Incoming members list</a>
@@ -137,7 +137,7 @@
               </li>
             </ul>
           </div>
-          <div class="panel-body">
+          <div class="card-body">
             <div class="tab-content">
               <div tal:condition="membresOrgan" tal:attributes="class string:tab-pane fade ${activeClassMembres}" id="tab1primary">
                 <span tal:replace="structure membresOrgan" />
@@ -181,7 +181,7 @@
           </div>
         </div>
         <div class="btn-export-acords" tal:condition="expAcords">
-            <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/exportAcordsCSV" data-toggle="" data-target=""><i class="fa fa-download" aria-hidden="true"></i>&nbsp;<span>Exportar acords</span></a>
+            <a class="btn btn btn-info" tal:attributes="href string:${context/absolute_url}/exportAcordsCSV" data-toggle="" data-target=""><i class="bi bi-download" aria-hidden="true"></i>&nbsp;<span>Exportar acords</span></a>
         </div>
       </div>
       <div class="tab-pane" id="actasTab" tal:condition="viewActes">
@@ -223,7 +223,7 @@
           $.each(data, function(key, value){
             var acordHTML = '<tr>';
             acordHTML += '<td style="vertical-align: middle;">';
-            acordHTML += '<i class="fa fa-check" aria-hidden="True"></i>';
+            acordHTML += '<i class="bi bi-check" aria-hidden="True"></i>';
             acordHTML += '<a href="' + value['absolute_url'] + '" style="color: #007BC0; font-size: 14px;">';
             acordHTML += value['title'];
             acordHTML += '</a>';
@@ -237,7 +237,7 @@
             acordHTML += '</td>';
             acordHTML += '<td style="text-align:center; min-width: 100px; vertical-align: middle;">';
             acordHTML += '<span class="estatpunt">';
-            acordHTML += '<i class="fa fa-circle boletaGran" aria-hidden="true" style="color: ' + value['color'] + ';"></i> ';
+            acordHTML += '<i class="bi bi-circle boletaGran" aria-hidden="true" style="color: ' + value['color'] + ';"></i> ';
             acordHTML += '<span> ';
             acordHTML += value['estatsLlista'];
             acordHTML += '</span>';
@@ -260,7 +260,7 @@
           $.each(data, function(key, value){
             var actaHTML = '<tr>';
             actaHTML += '<td>';
-            actaHTML += '<i class="fa fa-file-text-o" aria-hidden="true"></i>';
+            actaHTML += '<i class="bi bi-file-text-o" aria-hidden="true"></i>';
             actaHTML += '<a href="' + value['absolute_url'] + '" style="color: #007BC0; font-size: 14px;">';
             actaHTML += value['title'];
             actaHTML += '</a>';
