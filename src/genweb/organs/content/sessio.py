@@ -2,7 +2,7 @@
 from AccessControl import Unauthorized
 from io import StringIO
 
-from collective import dexteritytextindexer
+from plone.app.dexterity import textindexer
 from operator import itemgetter
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
@@ -102,7 +102,7 @@ class ISessio(model.Schema):
              fields=['bodyMail', 'signatura'],
              )
 
-    dexteritytextindexer.searchable('title')
+    textindexer.searchable('title')
     title = schema.TextLine(
         title=_(u'Session Title'),
         required=True,
@@ -172,7 +172,7 @@ class ISessio(model.Schema):
 
     directives.mode(IAddForm, membresConvocats='display')
     directives.widget(membresConvocats=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('membresConvocats')
+    textindexer.searchable('membresConvocats')
     membresConvocats = schema.Text(
         title=_(u"Incoming members list"),
         description=_(u"Incoming members list help"),
@@ -181,7 +181,7 @@ class ISessio(model.Schema):
 
     directives.mode(IAddForm, membresConvidats='display')
     directives.widget(membresConvidats=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('membresConvidats')
+    textindexer.searchable('membresConvidats')
     membresConvidats = schema.Text(
         title=_(u"Invited members"),
         description=_(u"Invited members help"),
@@ -190,7 +190,7 @@ class ISessio(model.Schema):
 
     directives.mode(IAddForm, llistaExcusats='display')
     directives.widget(llistaExcusats=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('llistaExcusats')
+    textindexer.searchable('llistaExcusats')
     llistaExcusats = schema.Text(
         title=_(u"Excused members"),
         description=_(u"Excused members help"),
@@ -199,7 +199,7 @@ class ISessio(model.Schema):
 
     directives.mode(IAddForm, assistents='display')
     directives.widget(assistents=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('assistents')
+    textindexer.searchable('assistents')
     assistents = schema.Text(
         title=_(u"Assistants"),
         description=_(u"Assistants help"),
@@ -208,7 +208,7 @@ class ISessio(model.Schema):
 
     directives.mode(IAddForm, noAssistents='display')
     directives.widget(noAssistents=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('noAssistents')
+    textindexer.searchable('noAssistents')
     noAssistents = schema.Text(
         title=_(u"No assistents"),
         description=_(u"No assistents help"),
@@ -216,7 +216,7 @@ class ISessio(model.Schema):
     )
 
     directives.widget(bodyMail=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('bodyMail')
+    textindexer.searchable('bodyMail')
     bodyMail = schema.Text(
         title=_(u"Body Mail"),
         description=_(u"Body Mail convoquing description"),
@@ -225,7 +225,7 @@ class ISessio(model.Schema):
     )
 
     directives.widget(signatura=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('signatura')
+    textindexer.searchable('signatura')
     signatura = schema.Text(
         title=_(u"Signatura"),
         description=_(u"Signatura description"),

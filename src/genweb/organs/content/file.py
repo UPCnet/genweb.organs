@@ -4,7 +4,7 @@ import ast
 from AccessControl import Unauthorized
 from Products.statusmessages.interfaces import IStatusMessage
 
-from collective import dexteritytextindexer
+from plone.app.dexterity import textindexer
 from plone import api
 from Products.CMFPlone import PloneMessageFactory as _PMF
 from z3c.form import form
@@ -58,14 +58,14 @@ class IFile(model.Schema):
              fields=['title', 'description', 'visiblefile', 'hiddenfile']
              )
 
-    dexteritytextindexer.searchable('title')
+    textindexer.searchable('title')
     title = schema.TextLine(
         title=_PMF(u'label_title', default=u'Title'),
         required=True,
         defaultFactory=title_default_factory
     )
 
-    dexteritytextindexer.searchable('description')
+    textindexer.searchable('description')
     description = schema.Text(
         title=_PMF(u'label_description', default=u'Summary'),
         description=_PMF(

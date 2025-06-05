@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
 
-from collective import dexteritytextindexer
+from plone.app.dexterity import textindexer
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
@@ -80,7 +80,7 @@ class ISubpunt(model.Schema):
              fields=['title', 'proposalPoint', 'defaultContent', 'estatsLlista']
              )
 
-    dexteritytextindexer.searchable('title')
+    textindexer.searchable('title')
     title = schema.TextLine(
         title=_(u'Subpunt Title'),
         required=True
@@ -94,7 +94,7 @@ class ISubpunt(model.Schema):
     )
 
     directives.widget(defaultContent=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('defaultContent')
+    textindexer.searchable('defaultContent')
     defaultContent = schema.Text(
         title=_(u"Proposal description"),
         required=False,

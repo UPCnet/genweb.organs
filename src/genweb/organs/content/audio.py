@@ -7,7 +7,7 @@ from zope.component import getMultiAdapter
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.MimeTypeItem import guess_icon_path
-from collective import dexteritytextindexer
+from plone.app.dexterity import textindexer
 from Products.CMFPlone import PloneMessageFactory as _PMF
 from AccessControl import Unauthorized
 from plone.supermodel.directives import fieldset
@@ -49,13 +49,13 @@ class IAudio(model.Schema):
              fields=['title', 'description', 'file']
              )
 
-    dexteritytextindexer.searchable('title')
+    textindexer.searchable('title')
     title = schema.TextLine(
         title=_PMF(u'label_title', default=u'Title'),
         required=True
     )
 
-    dexteritytextindexer.searchable('description')
+    textindexer.searchable('description')
     description = schema.Text(
         title=_PMF(u'label_description', default=u'Summary'),
         description=_PMF(

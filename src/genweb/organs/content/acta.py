@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
 
-from collective import dexteritytextindexer
+from plone.app.dexterity import textindexer
 from plone import api
 from Products.CMFPlone import PloneMessageFactory as _PMF
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
@@ -69,7 +69,7 @@ class IActa(model.Schema):
              fields=['membresConvocats', 'membresConvidats', 'llistaExcusats', 'llistaNoAssistens']
              )
 
-    dexteritytextindexer.searchable('title')
+    textindexer.searchable('title')
     title = schema.TextLine(
         title=_PMF(u'label_title', default=u'Title'),
         required=True,
@@ -95,7 +95,7 @@ class IActa(model.Schema):
     )
 
     directives.widget(membresConvocats=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('membresConvocats')
+    textindexer.searchable('membresConvocats')
     membresConvocats = schema.Text(
         title=_(u"Assistants"),
         description=_(u"Assistants help"),
@@ -104,7 +104,7 @@ class IActa(model.Schema):
     )
 
     directives.widget(membresConvidats=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('membresConvidats')
+    textindexer.searchable('membresConvidats')
     membresConvidats = schema.Text(
         title=_(u"Invited members"),
         description=_(u"Invited members help"),
@@ -113,7 +113,7 @@ class IActa(model.Schema):
     )
 
     directives.widget(llistaExcusats=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('llistaExcusats')
+    textindexer.searchable('llistaExcusats')
     llistaExcusats = schema.Text(
         title=_(u"Excused members"),
         description=_(u"Excused members help"),
@@ -122,7 +122,7 @@ class IActa(model.Schema):
     )
 
     directives.widget(llistaNoAssistens=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('llistaNoAssistens')
+    textindexer.searchable('llistaNoAssistens')
     llistaNoAssistens = schema.Text(
         title=_(u"No assistents"),
         description=_(u"No assistents help"),
@@ -131,7 +131,7 @@ class IActa(model.Schema):
     )
 
     directives.widget(ordenDelDia=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('ordenDelDia')
+    textindexer.searchable('ordenDelDia')
     ordenDelDia = schema.Text(
         title=_(u"Session order"),
         description=_(u"Session order description"),

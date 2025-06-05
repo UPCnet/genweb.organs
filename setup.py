@@ -45,7 +45,6 @@ setup(
         'plone.app.contenttypes',
         'plone.app.registry',
         'plone.api',
-        'collective.dexteritytextindexer',
         'pdfkit',
     ],
     extras_require={

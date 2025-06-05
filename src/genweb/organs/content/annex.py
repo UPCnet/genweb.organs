@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
 
-from collective import dexteritytextindexer
+from plone.app.dexterity import textindexer
 from zope import schema
 from zope.schema import ValidationError
 
@@ -48,13 +48,13 @@ class IAnnex(model.Schema):
              fields=['title', 'description', 'file']
              )
 
-    dexteritytextindexer.searchable('title')
+    textindexer.searchable('title')
     title = schema.TextLine(
         title=_PMF(u'label_title', default=u'Title'),
         required=True
     )
 
-    dexteritytextindexer.searchable('description')
+    textindexer.searchable('description')
     description = schema.Text(
         title=_PMF(u'label_description', default=u'Summary'),
         description=_PMF(

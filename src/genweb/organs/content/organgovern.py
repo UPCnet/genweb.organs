@@ -3,7 +3,7 @@ from AccessControl import Unauthorized
 from Products.statusmessages.interfaces import IStatusMessage
 from io import StringIO
 
-from collective import dexteritytextindexer
+from plone.app.dexterity import textindexer
 from operator import itemgetter
 from plone import api
 from plone.app.textfield import RichText as RichTextField
@@ -69,20 +69,20 @@ class IOrgangovern(model.Schema):
              fields=['visiblegdoc', 'serie', 'signants', 'author'],
              )
 
-    dexteritytextindexer.searchable('title')
+    textindexer.searchable('title')
     title = schema.TextLine(
         title=_(u'Organ Title'),
         required=True
     )
 
-    dexteritytextindexer.searchable('acronim')
+    textindexer.searchable('acronim')
     acronim = schema.TextLine(
         title=_(u'Acronym'),
         description=_(u"Acronym Description"),
         required=True
     )
 
-    dexteritytextindexer.searchable('descripcioOrgan')
+    textindexer.searchable('descripcioOrgan')
     directives.widget(descripcioOrgan=WysiwygFieldWidget)
     descripcioOrgan = schema.Text(
         title=_(u"Organ Govern description"),
@@ -175,7 +175,7 @@ class IOrgangovern(model.Schema):
     )
 
     directives.widget(footer=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('footer')
+    textindexer.searchable('footer')
     footer = schema.Text(
         title=_(u"Footer"),
         description=_(u"Footer help"),

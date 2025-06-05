@@ -2,7 +2,7 @@
 from zope import schema
 from z3c.form import form
 from genweb.organs import _
-from collective import dexteritytextindexer
+from plone.app.dexterity import textindexer
 from plone.autoform import directives
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone import api
@@ -28,14 +28,14 @@ class IDocument(model.Schema):
              fields=['title', 'description', 'defaultContent', 'alternateContent']
              )
 
-    dexteritytextindexer.searchable('title')
+    textindexer.searchable('title')
     title = schema.TextLine(
         title=_PMF(u'label_title', default=u'Title'),
         required=True,
         defaultFactory=title_default_factory
     )
 
-    dexteritytextindexer.searchable('title')
+    textindexer.searchable('title')
     description = schema.Text(
         title=_PMF(u'label_description', default=u'Summary'),
         description=_PMF(
@@ -47,7 +47,7 @@ class IDocument(model.Schema):
     )
 
     directives.widget(defaultContent=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('defaultContent')
+    textindexer.searchable('defaultContent')
     defaultContent = schema.Text(
         title=_(u"Contingut public"),
         description=_(u"Default content shown in the document view"),
@@ -55,7 +55,7 @@ class IDocument(model.Schema):
     )
 
     directives.widget(alternateContent=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('alternateContent')
+    textindexer.searchable('alternateContent')
     alternateContent = schema.Text(
         title=_(u"Alternate description"),
         description=_(u"Content used to hide protected content"),

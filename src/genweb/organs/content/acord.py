@@ -6,7 +6,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 
 from html import escape
-from collective import dexteritytextindexer
+from plone.app.dexterity import textindexer
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from plone import api
@@ -110,7 +110,7 @@ class IAcord(model.Schema):
              fields=['title', 'proposalPoint', 'agreement', 'defaultContent', 'estatsLlista']
              )
 
-    dexteritytextindexer.searchable('title')
+    textindexer.searchable('title')
     title = schema.TextLine(
         title=_(u'Acord Title'),
         required=True
@@ -123,7 +123,7 @@ class IAcord(model.Schema):
     )
 
     directives.mode(agreement='hidden')
-    dexteritytextindexer.searchable('agreement')
+    textindexer.searchable('agreement')
     agreement = schema.TextLine(
         title=_(u'Agreement number'),
         required=False,
@@ -137,7 +137,7 @@ class IAcord(model.Schema):
     )
 
     directives.widget(defaultContent=WysiwygFieldWidget)
-    dexteritytextindexer.searchable('defaultContent')
+    textindexer.searchable('defaultContent')
     defaultContent = schema.Text(
         title=_(u"Proposal description"),
         required=False,
