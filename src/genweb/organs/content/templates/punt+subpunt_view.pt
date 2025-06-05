@@ -102,7 +102,7 @@
                       </a>
                     </div>
                     <div class="col-1" style="padding-top: 10px;">
-                      <span class="btn label disabled" style="float:right;">
+                      <span class="btn badge bg-secondary disabled" style="float:right;">
                         <i class="fa fa-circle " aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
                         <span  tal:content="item/state"></span>
                       </span>

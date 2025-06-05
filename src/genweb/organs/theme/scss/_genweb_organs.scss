@@ -745,16 +745,6 @@ div#modalSession.modal.fade.modalSession.in {
 }
 
 
-.fa {
-    font-family: Arial, Helvetica, sans-serif!important;
-}
-
-
-.fa:before {
-    content: "\f067";
-    font-family: FontAwesome;
-}
-
 .editable-click, a.editable-click, a.editable-click:hover {
     text-decoration: none;
     border-bottom: dotted 1px #2c95b4 !important;
@@ -1948,19 +1938,6 @@ span.barra {
     min-height: 30px!important;
 }
 
-.show {
-    position: absolute!important;
-    right: 9px!important;
-    background: rgba(229,247,255,0);
-    background: -moz-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(229,247,255,0)), color-stop(50%, rgba(229,247,255,1)), color-stop(100%, rgba(229,247,255,1)));
-    background: -webkit-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-    background: -o-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-    background: -ms-linear-gradient(left, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-    background: linear-gradient(to right, rgba(229,247,255,0) 0%, rgba(229,247,255,1) 50%, rgba(229,247,255,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f7ff', endColorstr='#e5f7ff', GradientType=1 );
-    display: block!important;
-}
 
 .subpuntTitle.span12 .span1 {
     width: 5%!important;

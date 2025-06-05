@@ -38,7 +38,7 @@
 
   <div id="contentOrgan">
 
-    <ul id="tabs" class="nav nav-tabs visible-tablet hidden-phone visible-desktop" data-tabs="tabs">
+    <ul id="tabs" class="nav nav-tabs d-none d-md-block" data-tabs="tabs">
       <li tal:condition="sessions" class="active"><a href="#sessionsTab" data-toggle="tab">
         <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Sessions</tal:omit-tag></i></a></li>
       <li tal:condition="hihaPersones"><a href="#membresTab" data-toggle="tab">
@@ -51,7 +51,7 @@
         <i class="fa fa-question-circle" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">FAQ membres</tal:omit-tag></i></a></li>
     </ul>
 
-    <ul id="tabs" class="nav nav-tabs nav-stacked hidden-tablet visible-phone hidden-desktop" data-tabs="tabs">
+    <ul id="tabs" class="nav nav-tabs nav-stacked d-block d-md-none" data-tabs="tabs">
       <li tal:condition="sessions" class="active"><a href="#sessionsTab" data-toggle="tab">
         <i class="fa fa-list" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Sessions</tal:omit-tag></i></a></li>
       <li tal:condition="hihaPersones"><a href="#membresTab" data-toggle="tab">

@@ -101,7 +101,7 @@
         <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
     </a>
     <button data-target="#previewModal" role="button" tal:condition="view/viewPrintButon"
-       class="btn btn-info visible-tablet hidden-phone visible-desktop" data-toggle="modal"
+       class="btn btn-info d-none d-md-block" data-toggle="modal"
        style="float:right; margin-right:10px;">
        <i class="fa fa-eye"></i>&nbsp;<span i18n:translate=""> Preview Acta </span></button>
   </tal:omit-tag>
