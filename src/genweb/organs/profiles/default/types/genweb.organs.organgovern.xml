@@ -24,12 +24,11 @@
  <property name="klass">plone.dexterity.content.Container</property>
 
  <property name="behaviors">
-  <element value="plone.app.dexterity.behaviors.metadata.ICategorization"/>
-  <element value="plone.app.content.interfaces.INameFromTitle"/>
-  <element value="plone.app.relationfield.behavior.IRelatedItems"/>
-  <element value="plone.app.multilingual.dx.interfaces.IDexterityTranslatable" />
   <element value="plone.textindexer" />
-  <element value="plone.app.referenceablebehavior.referenceable.IReferenceable" />
+  <element value="plone.categorization" />
+  <element value="plone.namefromtitle" />
+  <element value="plone.relateditems" />
+  <element value="plone.translatable" />
  </property>
 
  <property name="schema">genweb.organs.content.organgovern.IOrgangovern</property>

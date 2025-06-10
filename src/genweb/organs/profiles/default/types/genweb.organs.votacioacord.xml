@@ -19,12 +19,11 @@
  <property name="klass">genweb.organs.content.VotacioAcord</property>
 
  <property name="behaviors">
-  <element value="plone.app.content.interfaces.INameFromTitle"/>
-  <element value="plone.app.multilingual.dx.interfaces.IDexterityTranslatable"/>
+  <element value="plone.namefromtitle"/>
+  <element value="plone.translatable"/>
   <element value="plone.textindexer" />
-  <element value="plone.app.referenceablebehavior.referenceable.IReferenceable" />
-  <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation" />
-  <element value="Products.CMFPlone.interfaces.constrains.ISelectableConstrainTypes" />
+  <element value="plone.excludefromnavigation" />
+  <element value="plone.constraintypes" />
  </property>
 
  <property name="schema">genweb.organs.content.votacio_acord.IVotacioAcord</property>

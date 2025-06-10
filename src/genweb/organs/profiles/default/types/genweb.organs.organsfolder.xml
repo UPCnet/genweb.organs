@@ -25,13 +25,12 @@
  <property name="klass">plone.dexterity.content.Container</property>
 
  <property name="behaviors">
-  <element value="plone.app.dexterity.behaviors.metadata.IBasic" />
-  <element value="plone.app.content.interfaces.INameFromTitle" />
-  <element value="plone.app.multilingual.dx.interfaces.IDexterityTranslatable" />
   <element value="plone.textindexer" />
-  <element value="plone.app.dexterity.behaviors.metadata.ICategorization" />
-  <element value="plone.app.relationfield.behavior.IRelatedItems" />
-  <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation" />
+  <element value="plone.categorization" />
+  <element value="plone.namefromtitle" />
+  <element value="plone.relateditems" />
+  <element value="plone.translatable" />
+  <element value="plone.excludefromnavigation" />
  </property>
 
  <property
