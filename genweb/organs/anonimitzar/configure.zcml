@@ -1,0 +1,25 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="genweb.organs">
+
+    <include package=".views" />
+
+    <!-- Controlpanel -->
+
+    <browser:page
+        name="organs-anonimitzar-settings"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".controlpanel.AnonimitzarControlPanel"
+        permission="cmf.ManagePortal" 
+    />
+
+    <browser:page
+        name="clean_pdfs"
+        for="zope.interface.Interface"
+        permission="cmf.ManagePortal"
+        class=".clean_pdfs.CleanPDFsView"
+        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+</configure>

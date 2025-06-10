@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="genweb.organs">
+
+
+    <browser:page
+        name="anonimitzar"
+        for="*"
+        class="genweb.organs.anonimitzar.views.anonimitzar.AnonimitzarView"
+        template="templates/anonimitzar.pt"
+        permission="zope2.View"
+        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+</configure>
