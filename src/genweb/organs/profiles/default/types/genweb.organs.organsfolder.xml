@@ -4,7 +4,7 @@
 
     <property name="title" i18n:translate="">Organ Folder</property>
     <property name="description"></property>
-    <property name="icon_expr">string:book-fill</property>
+    <property name="icon_expr">string:folder-fill</property>
     <property name="allow_discussion">False</property>
     <property name="global_allow">True</property>
     <property name="filter_content_types">True</property>
@@ -22,6 +22,7 @@
     <property name="schema_policy">dexterity</property>
 
     <property name="behaviors">
+        <element value="plone.basic" />
         <element value="plone.textindexer" />
         <element value="plone.categorization" />
         <element value="plone.namefromtitle" />
