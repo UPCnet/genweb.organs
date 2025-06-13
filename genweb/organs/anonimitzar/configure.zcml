@@ -22,4 +22,10 @@
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     />
 
+    <subscriber
+        for="plone.dexterity.interfaces.IDexterityContent
+             zope.lifecycleevent.interfaces.IObjectAddedEvent"
+        handler="genweb.organs.subscribers.clean_pdf_on_upload"
+        />
+
 </configure>
