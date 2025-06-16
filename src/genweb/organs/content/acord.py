@@ -4,13 +4,14 @@ from Acquisition import aq_chain
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from html import escape
 from plone.app.dexterity import textindexer
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from plone import api
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from plone.dexterity.utils import createContentInContainer
 from z3c.form import form
@@ -23,6 +24,7 @@ from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 from plone.supermodel import model
+from plone.app.textfield import RichText as RichTextField
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -30,9 +32,6 @@ from genweb.organs.content.sessio import ISessio
 from genweb.organs.utils import addEntryLog
 from genweb.organs.firma_documental.utils import UtilsFirmaDocumental
 from genweb.organs.utils import checkHasOpenVote
-
-from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 import ast
 import datetime
@@ -136,9 +135,8 @@ class IAcord(model.Schema):
         default=False
     )
 
-    directives.widget(defaultContent=WysiwygFieldWidget)
     textindexer.searchable('defaultContent')
-    defaultContent = schema.Text(
+    defaultContent = RichTextField(
         title=_(u"Proposal description"),
         required=False,
     )

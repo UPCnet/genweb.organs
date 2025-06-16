@@ -3,7 +3,6 @@ from AccessControl import Unauthorized
 
 from plone.app.dexterity import textindexer
 from plone import api
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.indexer import indexer
@@ -16,6 +15,7 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.supermodel import model
 from z3c.form import form
+from plone.app.textfield import RichText as RichTextField
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -93,9 +93,8 @@ class ISubpunt(model.Schema):
         defaultFactory=proposal_point_default,
     )
 
-    directives.widget(defaultContent=WysiwygFieldWidget)
     textindexer.searchable('defaultContent')
-    defaultContent = schema.Text(
+    defaultContent = RichTextField(
         title=_(u"Proposal description"),
         required=False,
     )

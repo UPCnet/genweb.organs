@@ -4,9 +4,7 @@ from z3c.form import form
 from genweb.organs import _
 from plone.app.dexterity import textindexer
 from plone.autoform import directives
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone import api
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from Products.CMFPlone import PloneMessageFactory as _PMF
 from plone.supermodel.directives import fieldset
 from AccessControl import Unauthorized
@@ -14,6 +12,7 @@ from genweb.organs import utils
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.supermodel import model
+from plone.app.textfield import RichText as RichTextField
 
 # Define la función defaultFactory para el campo 'title'
 def title_default_factory(context):
@@ -35,8 +34,8 @@ class IDocument(model.Schema):
         defaultFactory=title_default_factory
     )
 
-    textindexer.searchable('title')
-    description = schema.Text(
+    textindexer.searchable('description')
+    description = RichTextField(
         title=_PMF(u'label_description', default=u'Summary'),
         description=_PMF(
             u'help_description',
@@ -46,17 +45,15 @@ class IDocument(model.Schema):
         missing_value=u'',
     )
 
-    directives.widget(defaultContent=WysiwygFieldWidget)
     textindexer.searchable('defaultContent')
-    defaultContent = schema.Text(
+    defaultContent = RichTextField(
         title=_(u"Contingut public"),
         description=_(u"Default content shown in the document view"),
         required=False,
     )
 
-    directives.widget(alternateContent=WysiwygFieldWidget)
     textindexer.searchable('alternateContent')
-    alternateContent = schema.Text(
+    alternateContent = RichTextField(
         title=_(u"Alternate description"),
         description=_(u"Content used to hide protected content"),
         required=False,

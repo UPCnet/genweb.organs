@@ -3,19 +3,17 @@ from AccessControl import Unauthorized
 
 from plone.app.dexterity import textindexer
 from plone import api
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from z3c.form import form
 from plone.indexer import indexer
 from plone.supermodel.directives import fieldset
 from plone.supermodel import model
-
-
 from zope import schema
 from zope.interface import directlyProvides, implementer, provider
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.interfaces import IContextSourceBinder
 from plone.autoform.interfaces import IFormFieldProvider
+from plone.app.textfield import RichText as RichTextField
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -71,9 +69,8 @@ class IPunt(model.Schema):
         defaultFactory=lambda context: proposal_point_default(context)
     )
 
-    directives.widget(defaultContent=WysiwygFieldWidget)
     textindexer.searchable('defaultContent')
-    defaultContent = schema.Text(
+    defaultContent = RichTextField(
         title=_(u"Proposal description"),
         required=False,
     )

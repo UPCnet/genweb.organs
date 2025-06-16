@@ -8,7 +8,6 @@ from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
 from plone.autoform import directives
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope import schema
 from z3c.form.interfaces import DISPLAY_MODE
 from genweb.organs.utils import addEntryLog
@@ -17,6 +16,7 @@ from plone.event.interfaces import IEventAccessor
 from genweb.organs import utils
 import unicodedata
 from plone.supermodel import model
+from plone.app.textfield import RichText as RichTextField
 
 
 class IMessage(model.Schema):
@@ -37,8 +37,7 @@ class IMessage(model.Schema):
         title=_(u"From"),
         required=True)
 
-    directives.widget(message=WysiwygFieldWidget)
-    message = schema.Text(
+    message = RichTextField(
         title=_(u"Message"),
         required=True,
     )

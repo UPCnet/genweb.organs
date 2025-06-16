@@ -5,7 +5,6 @@ from genweb.organs import _
 from plone.app.dexterity import textindexer
 from Products.CMFCore.utils import getToolByName
 from plone.autoform import directives
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.interfaces import IContextSourceBinder
 from zope.interface import directlyProvides
@@ -18,6 +17,8 @@ from plone.namedfile.field import NamedBlobFile
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.supermodel import model
+from plone.app.textfield import RichText as RichTextField
+
 
 class IPropostapunt(model.Schema):
     """
@@ -32,8 +33,7 @@ class IPropostapunt(model.Schema):
         required=False,
     )
 
-    directives.widget(text=WysiwygFieldWidget)
-    text = schema.Text(
+    text = RichTextField(
         title=_(u"Text"),
         required=False)
 

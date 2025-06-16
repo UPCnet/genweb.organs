@@ -8,7 +8,6 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="genweb.organs">
 
-
     <subscriber for=".acord.IAcord zope.container.interfaces.IObjectAddedEvent" handler="genweb.organs.hooks.acordAdded" />
     <subscriber for=".acta.IActa zope.container.interfaces.IObjectAddedEvent" handler="genweb.organs.hooks.actaAdded" />
     <subscriber for=".punt.IPunt zope.container.interfaces.IObjectAddedEvent" handler="genweb.organs.hooks.puntAdded" />

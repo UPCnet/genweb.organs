@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
+from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
 from plone import api
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from z3c.form import form
 from plone.event.interfaces import IEventAccessor
@@ -12,6 +12,7 @@ from z3c.form.interfaces import DISPLAY_MODE
 from zope import schema
 from zope.schema import TextLine
 from plone.supermodel import model
+from plone.app.textfield import RichText as RichTextField
 
 from genweb.organs import _
 from genweb.organs.utils import addEntryLog
@@ -40,8 +41,7 @@ class IMessage(model.Schema):
         title=_(u"From"),
         required=True)
 
-    directives.widget(message=WysiwygFieldWidget)
-    message = schema.Text(
+    message = RichTextField(
         title=_(u"Message"),
         required=True,
     )
@@ -161,14 +161,15 @@ class Message(form.Form):
 
         sender = self.context.aq_parent.fromMail
         try:
-            self.context.MailHost.send(
+            mailhost = getToolByName(self.context, 'MailHost')
+            mailhost.send(
                 body,
                 mto=formData['recipients'],
                 mfrom=sender,
                 subject=formData['fromTitle'],
                 encode=None,
                 immediate=False,
-                charset='utf8',
+                charset=api.portal.get_registry_record('plone.email_charset'),
                 msg_type='text/html')
 
             addEntryLog(self.context, None, _(u'Sending mail informar sessio'), formData['recipients'])

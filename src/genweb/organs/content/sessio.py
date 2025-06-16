@@ -5,7 +5,6 @@ from io import StringIO
 from plone.app.dexterity import textindexer
 from operator import itemgetter
 from plone import api
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.app.uuid.utils import uuidToObject
 from plone.autoform import directives
 from z3c.form import form
@@ -25,6 +24,7 @@ from plone.supermodel import model
 from plone.supermodel import directives as model_directives
 from zope.schema.interfaces import IContextAwareDefaultFactory
 from zope.interface import provider
+from plone.app.textfield import RichText as RichTextField
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -171,62 +171,55 @@ class ISessio(model.Schema):
     )
 
     directives.mode(IAddForm, membresConvocats='display')
-    directives.widget(membresConvocats=WysiwygFieldWidget)
     textindexer.searchable('membresConvocats')
-    membresConvocats = schema.Text(
+    membresConvocats = RichTextField(
         title=_(u"Incoming members list"),
         description=_(u"Incoming members list help"),
         required=False,
     )
 
     directives.mode(IAddForm, membresConvidats='display')
-    directives.widget(membresConvidats=WysiwygFieldWidget)
     textindexer.searchable('membresConvidats')
-    membresConvidats = schema.Text(
+    membresConvidats = RichTextField(
         title=_(u"Invited members"),
         description=_(u"Invited members help"),
         required=False,
     )
 
     directives.mode(IAddForm, llistaExcusats='display')
-    directives.widget(llistaExcusats=WysiwygFieldWidget)
     textindexer.searchable('llistaExcusats')
-    llistaExcusats = schema.Text(
+    llistaExcusats = RichTextField(
         title=_(u"Excused members"),
         description=_(u"Excused members help"),
         required=False,
     )
 
     directives.mode(IAddForm, assistents='display')
-    directives.widget(assistents=WysiwygFieldWidget)
     textindexer.searchable('assistents')
-    assistents = schema.Text(
+    assistents = RichTextField(
         title=_(u"Assistants"),
         description=_(u"Assistants help"),
         required=False,
     )
 
     directives.mode(IAddForm, noAssistents='display')
-    directives.widget(noAssistents=WysiwygFieldWidget)
     textindexer.searchable('noAssistents')
-    noAssistents = schema.Text(
+    noAssistents = RichTextField(
         title=_(u"No assistents"),
         description=_(u"No assistents help"),
         required=False,
     )
 
-    directives.widget(bodyMail=WysiwygFieldWidget)
     textindexer.searchable('bodyMail')
-    bodyMail = schema.Text(
+    bodyMail = RichTextField(
         title=_(u"Body Mail"),
         description=_(u"Body Mail convoquing description"),
         required=False,
         defaultFactory=bodyMail
     )
 
-    directives.widget(signatura=WysiwygFieldWidget)
     textindexer.searchable('signatura')
-    signatura = schema.Text(
+    signatura = RichTextField(
         title=_(u"Signatura"),
         description=_(u"Signatura description"),
         required=False,

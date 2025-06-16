@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
+from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
 from plone import api
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
+from z3c.form import field
 from z3c.form import form
 from plone.event.interfaces import IEventAccessor
 from time import strftime
@@ -13,6 +14,8 @@ from z3c.form.interfaces import DISPLAY_MODE
 from zope import schema
 from zope.i18n import translate
 from zope.schema import TextLine
+from plone.app.textfield import RichText as RichTextField
+from plone.app.textfield.value import RichTextValue
 
 from plone.supermodel import model
 from genweb.organs import _
@@ -43,21 +46,18 @@ class IMessage(model.Schema):
         title=_(u"From"),
         required=True)
 
-    directives.widget(message=WysiwygFieldWidget)
-    message = schema.Text(
+    message = RichTextField(
         title=_(u"Message"),
         required=True,
     )
 
-    directives.widget(membresConvocats=WysiwygFieldWidget)
-    membresConvocats = schema.Text(
+    membresConvocats = RichTextField(
         title=_(u"Incoming members list"),
         description=_(u"Incoming members list help"),
         required=False,
     )
 
-    directives.widget(membresConvidats=WysiwygFieldWidget)
-    membresConvidats = schema.Text(
+    membresConvidats = RichTextField(
         title=_(u"Invited members"),
         description=_(u"Invited members help"),
         required=False,
@@ -72,7 +72,7 @@ class IMessage(model.Schema):
 
 class Message(form.Form):
     ignoreContext = True
-    schema = IMessage
+    fields = field.Fields(IMessage)
 
     # Disable the view if no roles in username
     def update(self):
@@ -99,20 +99,20 @@ class Message(form.Form):
         if session.signatura is None:
             signatura = ''
         else:
-            signatura = str(session.signatura.encode('utf-8'))
+            signatura = session.signatura.raw
 
         if session.llocConvocatoria is None:
             place = ''
         else:
-            place = str(session.llocConvocatoria.encode('utf-8'))
+            place = session.llocConvocatoria
 
         if session.bodyMail is None:
             customBody = ''
         else:
-            customBody = str(session.bodyMail.encode('utf-8'))
+            customBody = session.bodyMail.raw
 
         html_content = ''
-        sessiontitle = str(session.Title())
+        sessiontitle = session.Title()
 
         acc = IEventAccessor(self.context)
         if acc.start is None:
@@ -134,7 +134,7 @@ class Message(form.Form):
         lang = self.context.language
         if lang == 'ca':
             titleText = "Convocatòria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
-            fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
+            fromMessage = unicodedata.normalize('NFKD', titleText)
             introData = "<p>Podeu consultar la convocatòria i la documentació de la sessió aquí: <a href=" + \
                         sessionLink + ">" + sessiontitle + "</a></p>" +\
                         "<p>Podeu excusar l'absència a la sessió aquí: <a href=" +\
@@ -158,7 +158,7 @@ class Message(form.Form):
 
         if lang == 'es':
             titleText = "Convocatoria " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
-            fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
+            fromMessage = unicodedata.normalize('NFKD', titleText)
             introData = "<p>Puede consultar la convocatoria y la documentación de la sesión aquí: <a href=" + \
                         sessionLink + ">" + sessiontitle + "</a></p>" +\
                         "<p>Puedes escusar tu ausencia a la sesión aquí: <a href=" +\
@@ -182,7 +182,7 @@ class Message(form.Form):
 
         if lang == 'en':
             titleText = "Call " + sessiontitle + ' - ' + sessiondate + ' - ' + starthour
-            fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
+            fromMessage = unicodedata.normalize('NFKD', titleText)
             introData = "<p>Information regarding the call and the documentation can be found here: <a href=" + \
                         sessionLink + ">" + sessiontitle + "</a></p>" +\
                         "<p>You can apologise for you absence here: <a href=" +\
@@ -205,14 +205,14 @@ class Message(form.Form):
             bodyMail = str(moreData) + str(introData)
 
         self.widgets["sender"].mode = DISPLAY_MODE
-        self.widgets["sender"].value = str(organ.fromMail) if organ.fromMail else ""
+        self.widgets["sender"].value = organ.fromMail if organ.fromMail else ""
         self.widgets["fromTitle"].value = fromMessage
-        self.widgets["recipients"].value = str(organ.adrecaLlista) if organ.adrecaLlista else ""
-        self.widgets["message"].value = bodyMail
+        self.widgets["recipients"].value = organ.adrecaLlista if organ.adrecaLlista else ""
+        self.widgets["message"].value = RichTextValue(bodyMail, "text/html", "text/x-html-safe")
 
-        self.widgets["membresConvocats"].value = str(organ.membresOrgan) if organ.membresOrgan else ""
-        self.widgets["membresConvidats"].value = str(organ.convidatsPermanentsOrgan) if organ.convidatsPermanentsOrgan else ""
-        self.widgets["adrecaAfectatsLlista"].value = str(organ.adrecaAfectatsLlista) if organ.adrecaAfectatsLlista else ""
+        self.widgets["membresConvocats"].value = organ.membresOrgan if organ.membresOrgan else ""
+        self.widgets["membresConvidats"].value = organ.convidatsPermanentsOrgan if organ.convidatsPermanentsOrgan else ""
+        self.widgets["adrecaAfectatsLlista"].value = organ.adrecaAfectatsLlista if organ.adrecaAfectatsLlista else ""
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):
@@ -232,21 +232,22 @@ class Message(form.Form):
             IStatusMessage(self.request).addStatusMessage(message, type="error")
             return
         # replace hidden fields to maintain correct urls...
-        body = formData['message'].replace('----@@----http:/', 'http://').replace('----@@----https:/', 'https://').encode('utf-8')
+        body = formData['message'].raw.replace('----@@----http:/', 'http://').replace('----@@----https:/', 'https://')
 
         root_url = api.portal.get().absolute_url() + "/" + lang
         body = body.replace('resolveuid/', root_url + "/resolveuid/")
 
         sender = self.context.aq_parent.fromMail
         try:
-            self.context.MailHost.send(
+            mailhost = getToolByName(self.context, 'MailHost')
+            mailhost.send(
                 body,
                 mto=formData['recipients'],
                 mfrom=sender,
                 subject=formData['fromTitle'],
                 encode=None,
                 immediate=False,
-                charset='utf8',
+                charset=api.portal.get_registry_record('plone.email_charset'),
                 msg_type='text/html')
 
             api.content.transition(obj=self.context, transition='convocar')

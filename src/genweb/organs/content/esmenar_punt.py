@@ -8,7 +8,6 @@ from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
 from plone.autoform import directives
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from zope import schema
 from z3c.form.interfaces import DISPLAY_MODE
 from genweb.organs.utils import addEntryLog

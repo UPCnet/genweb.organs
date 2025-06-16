@@ -3,11 +3,11 @@ from AccessControl import Unauthorized
 from Products.statusmessages.interfaces import IStatusMessage
 
 from plone import api
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from z3c.form import button, form
 from zope import schema
 from plone.supermodel import model
+from plone.app.textfield import RichText as RichTextField
 
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
@@ -23,8 +23,7 @@ class IMessage(model.Schema):
     """ Modal used to create massive punts: /manualStructureCreation
     """
 
-    directives.widget(message=WysiwygFieldWidget)
-    message = schema.Text(
+    message = RichTextField(
         title=_(u"Manual Import"),
         description=_("Add content separated by -- and they will by added as Agreements."),
         required=False,

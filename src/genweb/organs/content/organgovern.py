@@ -8,7 +8,6 @@ from operator import itemgetter
 from plone import api
 from plone.app.textfield import RichText as RichTextField
 from plone.app.users.schema import checkEmailAddress
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from plone.indexer import indexer
 from plone.namedfile.field import NamedBlobImage
@@ -83,8 +82,7 @@ class IOrgangovern(model.Schema):
     )
 
     textindexer.searchable('descripcioOrgan')
-    directives.widget(descripcioOrgan=WysiwygFieldWidget)
-    descripcioOrgan = schema.Text(
+    descripcioOrgan = RichTextField(
         title=_(u"Organ Govern description"),
         description=_(u"Organ Govern description help"),
         required=False,
@@ -98,15 +96,13 @@ class IOrgangovern(model.Schema):
         required=True,
     )
 
-    directives.widget(membresOrgan=WysiwygFieldWidget)
-    membresOrgan = schema.Text(
+    membresOrgan = RichTextField(
         title=_(u"Organ Govern members"),
         description=_(u"Organ Govern members Description"),
         required=False,
     )
 
-    directives.widget(convidatsPermanentsOrgan=WysiwygFieldWidget)
-    convidatsPermanentsOrgan = schema.Text(
+    convidatsPermanentsOrgan = RichTextField(
         title=_(u"Invited members"),
         description=_(u"Organ permanently invited people description."),
         required=False,
@@ -145,38 +141,33 @@ class IOrgangovern(model.Schema):
 
     directives.write_permission(estatsLlista='genweb.organs.add.organs')
     directives.write_permission(estatsLlista='genweb.organs.add.organs')
-    directives.widget(estatsLlista=WysiwygFieldWidget)
-    estatsLlista = schema.Text(
+    estatsLlista = RichTextField(
         title=_(u"Agreement and document labels"),
         description=_(u"Enter labels, separated by commas."),
         default=defaultEstats,
         required=False,
     )
 
-    directives.widget(bodyMailconvoquing=WysiwygFieldWidget)
-    bodyMailconvoquing = schema.Text(
+    bodyMailconvoquing = RichTextField(
         title=_(u"Body Mail"),
         description=_(u"Body Mail convoquing description"),
         required=False,
     )
 
-    directives.widget(bodyMailSend=WysiwygFieldWidget)
-    bodyMailSend = schema.Text(
+    bodyMailSend = RichTextField(
         title=_(u"Body Mail send"),
         description=_(u"Body Mail send description"),
         required=False,
     )
 
-    directives.widget(footerMail=WysiwygFieldWidget)
-    footerMail = schema.Text(
+    footerMail = RichTextField(
         title=_(u"footerMail"),
         description=_(u"footerMail description"),
         required=False,
     )
 
-    directives.widget(footer=WysiwygFieldWidget)
     textindexer.searchable('footer')
-    footer = schema.Text(
+    footer = RichTextField(
         title=_(u"Footer"),
         description=_(u"Footer help"),
         required=False,

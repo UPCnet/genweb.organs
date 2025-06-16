@@ -18,6 +18,7 @@ from genweb.organs import utils
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.supermodel import model
+from plone.app.textfield import RichText as RichTextField
 
 from zope.interface import Invalid
 from z3c.form.validator import SimpleFieldValidator
@@ -56,7 +57,7 @@ class IAudio(model.Schema):
     )
 
     textindexer.searchable('description')
-    description = schema.Text(
+    description = RichTextField(
         title=_PMF(u'label_description', default=u'Summary'),
         description=_PMF(
             u'help_description',

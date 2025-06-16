@@ -4,7 +4,6 @@ from AccessControl import Unauthorized
 from plone.app.dexterity import textindexer
 from plone import api
 from Products.CMFPlone import PloneMessageFactory as _PMF
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from z3c.form import form
 from plone.event.interfaces import IEventAccessor
@@ -12,6 +11,7 @@ from plone.namedfile.field import NamedBlobFile
 from plone.supermodel.directives import fieldset
 from zope import schema
 from plone.supermodel import model
+from plone.app.textfield import RichText as RichTextField
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -94,45 +94,40 @@ class IActa(model.Schema):
         defaultFactory=lloc_convocatoria_default_factory
     )
 
-    directives.widget(membresConvocats=WysiwygFieldWidget)
     textindexer.searchable('membresConvocats')
-    membresConvocats = schema.Text(
+    membresConvocats = RichTextField(
         title=_(u"Assistants"),
         description=_(u"Assistants help"),
         required=False,
         defaultFactory=membres_convocats_default_factory
     )
 
-    directives.widget(membresConvidats=WysiwygFieldWidget)
     textindexer.searchable('membresConvidats')
-    membresConvidats = schema.Text(
+    membresConvidats = RichTextField(
         title=_(u"Invited members"),
         description=_(u"Invited members help"),
         required=False,
         defaultFactory=membres_convidats_default_factory
     )
 
-    directives.widget(llistaExcusats=WysiwygFieldWidget)
     textindexer.searchable('llistaExcusats')
-    llistaExcusats = schema.Text(
+    llistaExcusats = RichTextField(
         title=_(u"Excused members"),
         description=_(u"Excused members help"),
         required=False,
         defaultFactory=llista_excuses_default_factory
     )
 
-    directives.widget(llistaNoAssistens=WysiwygFieldWidget)
     textindexer.searchable('llistaNoAssistens')
-    llistaNoAssistens = schema.Text(
+    llistaNoAssistens = RichTextField(
         title=_(u"No assistents"),
         description=_(u"No assistents help"),
         required=False,
         defaultFactory=llista_no_assistens_default_factory
     )
 
-    directives.widget(ordenDelDia=WysiwygFieldWidget)
     textindexer.searchable('ordenDelDia')
-    ordenDelDia = schema.Text(
+    ordenDelDia = RichTextField(
         title=_(u"Session order"),
         description=_(u"Session order description"),
         required=False,
