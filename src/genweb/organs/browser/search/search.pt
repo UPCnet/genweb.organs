@@ -1,88 +1,94 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:tal="http://xml.zope.org/namespaces/tal"
-  xmlns:metal="http://xml.zope.org/namespaces/metal" xmlns:i18n="http://xml.zope.org/namespaces/i18n" lang="ca"
-  metal:use-macro="context/main_template/macros/master" i18n:domain="genweb.organs">
-
-<head>
-  <metal:block metal:fill-slot="head_slot">
-
-    <link rel="alternate" title="RSS 1.0" type="application/rss+xml"
-      tal:define="here_url context/@@plone_context_state/object_url;" tal:condition="request/SearchableText|nothing" />
-    <link rel="home" title="Home" tal:attributes="href view/navroot_url" />
-
-  </metal:block>
-
-  <metal:block fill-slot="top_slot" tal:define="dummy python:request.set('disable_border',1);" />
-</head>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xml:lang="en"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  lang="ca"
+  metal:use-macro="context/main_template/macros/master"
+  i18n:domain="genweb.organs">
 
 <body>
 
-  <div id="content-core" metal:fill-slot="main" class="container-fluid">
+  <div id="content-core" metal:fill-slot="main">
 
-    <div class="titling-line-container">
-      <h2 class="titling-line" i18n:translate="">Sessions i acords dels òrgans col·legiats</h2>
+    <h2 i18n:translate="">Sessions i acords dels òrgans col·legiats</h2>
+
+    <div class="row mb-5 list-agenda"
+        tal:define="organ_govern view/getLatestCDG;
+                    consell_social view/getLatestCS;
+                    claustre view/getLatestCU">
+
+      <div class="col-md-4" tal:condition="organ_govern">
+        <a tal:attributes="href organ_govern/url" class="card card-organ text-bg-light text-decoration-none">
+          <img src="++theme++genweb.organs/img/foto_consell_govern.jpg" class="card-img-top" alt="Consell de Govern" />
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div class="card-txt">
+              <h3 class="card-title h5">Consell de Govern</h3>
+              <p class="card-text" tal:content="organ_govern/title">Last session</p>
+            </div>
+            <div class="card-ic">
+              <i class="bi bi-arrow-right-circle text-primary" aria-hidden="true"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-md-4" tal:condition="consell_social">
+        <a tal:attributes="href consell_social/url" class="card card-organ text-bg-light text-decoration-none">
+          <img src="++theme++genweb.organs/img/foto_consell_social.jpg" class="card-img-top" alt="Consell Social" />
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div class="card-txt">
+              <h3 class="card-title h5">Consell Social</h3>
+              <p class="card-text" tal:content="consell_social/title">Last session</p>
+            </div>
+            <div class="card-ic">
+              <i class="bi bi-arrow-right-circle text-primary" aria-hidden="true"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-md-4" tal:condition="claustre">
+        <a tal:attributes="href claustre/url" class="card card-organ text-bg-light text-decoration-none">
+          <img src="++theme++genweb.organs/img/foto_claustre.jpg" class="card-img-top" alt="Claustre Universitari" />
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div class="card-txt">
+              <h3 class="card-title h5">Claustre Universitari</h3>
+              <p class="card-text" tal:content="claustre/title">Last session</p>
+            </div>
+            <div class="card-ic">
+              <i class="bi bi-arrow-right-circle text-primary" aria-hidden="true"></i>
+            </div>
+          </div>
+        </a>
+      </div>
     </div>
 
-    <ol class="list-agenda">
-      <li tal:condition="view/getLatestCDG">
-        <a tal:attributes="href view/getLatestCDG/url" class="card text-decoration-none position-relative">
-          <img src="++theme++genweb.organs/img/foto_consell_govern.jpg" class="card-img-top" alt="Consell de Govern" />
-          <div class="card-body">
-            <h2 class="card-title h5">Consell de Govern</h2>
-            <p class="card-text" tal:content="view/getLatestCDG/title">Last session</p>
-          </div>
-          <span class="icon"><i class="bi bi-arrow-right" aria-hidden="true"></i></span>
-        </a>
-      </li>
-      <li tal:condition="view/getLatestCS">
-        <a tal:attributes="href view/getLatestCS/url" class="card text-decoration-none position-relative">
-          <img src="++theme++genweb.organs/img/foto_consell_social.jpg" class="card-img-top" alt="Consell Social" />
-          <div class="card-body">
-            <h2 class="card-title h5">Consell Social</h2>
-            <p class="card-text" tal:content="view/getLatestCS/title">Last session</p>
-          </div>
-          <span class="icon"><i class="bi bi-arrow-right" aria-hidden="true"></i></span>
-        </a>
-      </li>
-      <li tal:condition="view/getLatestCU">
-        <a tal:attributes="href view/getLatestCU/url" class="card text-decoration-none position-relative">
-          <img src="++theme++genweb.organs/img/foto_claustre.jpg" class="card-img-top" alt="Claustre Universitari" />
-          <div class="card-body">
-            <h2 class="card-title h5">Claustre Universitari</h2>
-            <p class="card-text" tal:content="view/getLatestCU/title">Last session</p>
-          </div>
-          <span class="icon"><i class="bi bi-arrow-right" aria-hidden="true"></i></span>
-        </a>
-      </li>
-    </ol>
-
-    <div class="clearfix"></div>
-
     <tal:block tal:define="organs view/getOwnOrgans;" tal:condition="organs">
-      <div class="titling-line-container">
-        <h2 class="titling-line" i18n:translate="">La meva vinculació amb els òrgans de govern</h2>
-      </div>
-      <div class="box box-gradient">
-        <p tal:repeat="organ organs">
-          <tal:roles tal:repeat="role organ/role">
-            <span class="badge bg-primary me-1">
-              <tal:omit-tag tal:content="role" i18n:translate="">Secretari</tal:omit-tag>
-            </span>
-          </tal:roles>
-          <span tal:attributes="style string:background-color:${organ/color};">&nbsp;</span>
-          <span class="icon-genweb-organs-organgovern"></span>
-          <a tal:attributes="href organ/url;" class="ms-1">
-            <tal:event content="organ/title">Organ Title</tal:event>
-          </a>
-        </p>
+      <h2 i18n:translate="">La meva vinculació amb els òrgans de govern</h2>
+      <div class="border rounded-3 text-bg-light p-3 meva-vinculacio">
+        <tal:organs tal:repeat="organ organs">
+          <div class="d-flex align-items-center">
+            <span tal:attributes="style string:background-color:${organ/color};">&nbsp;</span>
+            <i class="bi bi-journal ms-2"></i>
+            <a tal:attributes="href organ/url;" class="mx-2">
+              <tal:event content="organ/title">Organ Title</tal:event>
+            </a>
+            <div class="ms-auto badges" tal:condition="organ/role">
+              <tal:roles tal:repeat="role organ/role">
+                <span class="badge bg-primary me-1">
+                  <tal:omit-tag tal:content="role" i18n:translate="">Secretari</tal:omit-tag>
+                </span>
+              </tal:roles>
+            </div>
+          </div>
+        </tal:organs>
       </div>
     </tal:block>
 
-    <div class="clearfix"></div>
-
     <!-- Caja principal de Eines -->
-    <div class="titling-line-container">
-      <h2 class="titling-line" i18n:domain="genweb.organs" i18n:translate=""> Eines </h2>
-    </div>
+    <h2 i18n:translate=""> Eines </h2>
 
     <section class="mb-4">
       <form method="GET" action="" role="search">
@@ -172,8 +178,6 @@
       </form>
     </section>
 
-    <div class="clearfix"></div>
-
     <tal:banners>
       <div class="row">
         <ol class="list-banners row list-unstyled">
@@ -199,17 +203,8 @@
       </div>
     </tal:banners>
 
-    <!-- <div class="clearfix"></div>
-
-    <div class="titling-line-container">
-      <h2 class="titling-line" i18n:domain="genweb.organs" i18n:translate=""> Sobre Govern UPC </h2>
-    </div>
-
-    <div tal:content="structure view/getPage"></div> -->
-
   </div>
 
-  <script src="/++theme++genweb.organs/bootstrap5/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

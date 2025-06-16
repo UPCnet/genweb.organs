@@ -4,7 +4,7 @@
 
     <property name="title" i18n:translate="">Organ Govern</property>
     <property name="description"></property>
-    <property name="icon_expr">string:book-fill</property>
+    <property name="icon_expr">string:journal</property>
     <property name="allow_discussion">False</property>
     <property name="global_allow">False</property>
     <property name="filter_content_types">True</property>

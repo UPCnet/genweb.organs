@@ -1,6 +1,7 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
 <body i18n:domain="plone"
       tal:define="b_start python:0;
                   b_start request/b_start | b_start;
@@ -16,8 +17,9 @@
 
     <strong id="updated-search-results-number-batch"
             tal:content="batch/sequence_length|string:0">234</strong>
-        <strong id="updated-search-results-number-old-batch"
-            tal:content="batch_old/sequence_length|string:0">234</strong>
+
+    <strong id="updated-search-results-number-old-batch"
+        tal:content="batch_old/sequence_length|string:0">234</strong>
 
     <metal:results use-macro="context/@@search/search_results" />
 

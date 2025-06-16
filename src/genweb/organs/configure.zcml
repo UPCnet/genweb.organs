@@ -95,7 +95,6 @@
         name="genweb.organs"
     />
 
-
     <include package="z3c.jbot" file="meta.zcml" />
 
     <!-- <browser:jbot
@@ -120,13 +119,5 @@
         layer=".interfaces.IGenwebOrgansLayer"
         permission="zope2.View"
     /> -->
-
-    <browser:page
-        name="gw_type_ahead_search"
-        for="*"
-        class=".search.TypeAheadSearch"
-        permission="zope2.View"
-    />
-
 
 </configure>

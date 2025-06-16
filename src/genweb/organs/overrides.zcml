@@ -26,26 +26,6 @@
         factory=".rss_custom.FolderFeed"
         for="Products.CMFCore.interfaces._content.IFolderish" />
 
-    <!-- modified search to hide organs types based on state and role in searches
-         and search only in organs types -->
-    <browser:page
-        name="searchorgans"
-        class=".search.Search"
-        permission="zope2.View"
-        for="*"
-        template="search.pt"
-        layer=".interfaces.IGenwebOrgansLayer"
-        />
-
-    <browser:page
-        name="updated_search"
-        class=".search.Search"
-        permission="zope2.View"
-        for="Products.CMFCore.interfaces.IFolderish"
-        template="updated_search.pt"
-        layer=".interfaces.IGenwebOrgansLayer"
-        />
-
     <!-- Modified download file to pass the session state -->
     <browser:page
         name="download"
