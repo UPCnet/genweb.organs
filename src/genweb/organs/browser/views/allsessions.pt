@@ -18,68 +18,56 @@
     <p>Si vols que al teu calendari apareguin totes aquestes reunions et pots subscriure al calendari de Reunions d'òrgans de govern, representació i consulta de la UPC al següent <a href="https://calendar.google.com/calendar/u/0?cid=dXBjLmVkdV9qZzhuNjU4ZTNwMzc5cjJjNWd1OGhxOG42NEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" target="_blank">enllaç</a>.</p>
   </div>
 
- <div class="accordion">
+  <div class="accordion mb-4" id="accordionSessions">
     <div class="accordion-item">
       <h2 class="accordion-header">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSessions">
-          <i style="color: #557c95" class="bi bi-chevron-down" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Mostra sessions anteriors</tal:omit-tag></button>
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSessions">
-          <i style="color: #557c95" class="bi bi-chevron-up" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Amaga sessions anteriors</tal:omit-tag></button>
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSessions" aria-expanded="false" aria-controls="collapseSessions">
+          <span class="sessions-show"><i class="bi bi-chevron-down me-2"></i>Mostra sessions anteriors</span>
+          <span class="sessions-hide d-none"><i class="bi bi-chevron-up me-2"></i>Amaga sessions anteriors</span>
+        </button>
       </h2>
-      <div id="collapseSessions" class="accordion-collapse collapse">
- <div class="panel-group">
-    <div class="panel panel-bordered">
-      <div>
-        <h4 class="panel-title" style="text-align: right;">
-          <a id="expandAll" data-toggle="collapse" href="#collapseSessions">
-            <i style="color: #557c95" class="bi bi-chevron-down" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Mostra sessions anteriors</tal:omit-tag></a>
-          <a id="collapseAll" data-toggle="collapse" href="#collapseSessions">
-            <i style="color: #557c95" class="bi bi-chevron-up" aria-hidden="true"></i>&nbsp;<tal:omit-tag i18n:translate="">Amaga sessions anteriors</tal:omit-tag></a>
-        </h4>
-      </div>
-      <div id="collapseSessions" class="panel-collapse collapse">
-        <table class="table table-bordered table-condensed table-hover logFont">
-          <br/>
-          <thead>
-            <tr>
-              <th style="vertical-align: middle;">
-                <span i18n:translate="">Organ</span>
-              </th>
-              <th style="text-align: center; vertical-align: middle;" width="110px">
-                <tal:head i18n:translate="">Data sessio</tal:head>
-              </th>
-              <th style="text-align: center; vertical-align: middle;" width="110px">
-                <tal:head i18n:translate="">Horari</tal:head>
-              </th>
-            </tr>
-          </thead>
-          <tal:objects repeat="item sessions/past">
-            <tr tal:attributes="class item/id">
-              <td style="vertical-align: middle;">
-                <i class="bi bi-list"></i>&nbsp;
-                  <a tal:attributes="href item/url;" tal:content="item/title" style="color:#007BC0; font-size: 14px;"> Item Title </a>
-              </td>
-              <td style="text-align: center; vertical-align: middle;">
-                <span tal:content="item/date"> Data </span>
-              </td>
-              <td style="text-align: center; vertical-align: middle;">
-                <span tal:content="string:${item/start}-${item/end}"> Horari </span>
-              </td>
-            </tr>
-            <tr tal:condition="item/breakline" class="breakline">
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tal:objects>
-        </table>
+      <div id="collapseSessions" class="accordion-collapse collapse" data-bs-parent="#accordionSessions">
+        <div class="accordion-body p-0">
+          <table class="table table-bordered table-hover mb-0">
+            <thead>
+              <tr>
+                <th style="vertical-align: middle;">
+                  <span i18n:translate="">Organ</span>
+                </th>
+                <th style="text-align: center; vertical-align: middle;" width="110px">
+                  <tal:head i18n:translate="">Data sessio</tal:head>
+                </th>
+                <th style="text-align: center; vertical-align: middle;" width="110px">
+                  <tal:head i18n:translate="">Horari</tal:head>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tal:objects repeat="item sessions/past">
+                <tr tal:attributes="class item/id">
+                  <td style="vertical-align: middle;">
+                    <i class="bi bi-list"></i>&nbsp;
+                    <a tal:attributes="href item/url;" tal:content="item/title" style="color:#007BC0;"> Item Title </a>
+                  </td>
+                  <td style="text-align: center; vertical-align: middle;">
+                    <span tal:content="item/date"> Data </span>
+                  </td>
+                  <td style="text-align: center; vertical-align: middle;">
+                    <span tal:content="string:${item/start}-${item/end}"> Horari </span>
+                  </td>
+                </tr>
+                <tr tal:condition="item/breakline" class="breakline">
+                  <td colspan="3"></td>
+                </tr>
+              </tal:objects>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="documentDescription"></div>
-
-  <table class="table table-bordered table-condensed table-hover logFont">
+  <table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th style="vertical-align: middle;">
@@ -93,37 +81,43 @@
         </th>
       </tr>
     </thead>
-    <tal:objects repeat="item sessions/future">
-      <tr tal:attributes="class item/id">
-        <td style="vertical-align: middle;">
-          <i class="bi bi-list"></i>&nbsp;
-            <a tal:attributes="href item/url;" tal:content="item/title" style="color:#007BC0; font-size: 14px;"> Item Title </a>
-        </td>
-        <td style="text-align: center; vertical-align: middle;">
-          <span tal:content="item/date"> Data </span>
-        </td>
-        <td style="text-align: center; vertical-align: middle;">
-          <span tal:content="string:${item/start}-${item/end}"> Horari </span>
-        </td>
-      </tr>
-      <tr tal:condition="item/breakline" class="breakline">
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tal:objects>
+    <tbody>
+      <tal:objects repeat="item sessions/future">
+        <tr tal:attributes="class item/id">
+          <td style="vertical-align: middle;">
+            <i class="bi bi-list"></i>&nbsp;
+            <a tal:attributes="href item/url;" tal:content="item/title" style="color:#007BC0;"> Item Title </a>
+          </td>
+          <td style="text-align: center; vertical-align: middle;">
+            <span tal:content="item/date"> Data </span>
+          </td>
+          <td style="text-align: center; vertical-align: middle;">
+            <span tal:content="string:${item/start}-${item/end}"> Horari </span>
+          </td>
+        </tr>
+        <tr tal:condition="item/breakline" class="breakline">
+          <td colspan="3"></td>
+        </tr>
+      </tal:objects>
+    </tbody>
   </table>
 
-  <script type="text/javascript">
-    $("#collapseAll").hide()
-    $("#expandAll").click(function(){
-      $("#expandAll").hide();
-      $("#collapseAll").show();
-    })
-    $("#collapseAll").click(function(){
-      $("#expandAll").show();
-      $("#collapseAll").hide();
-    })
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const collapse = document.getElementById('collapseSessions');
+      const showText = document.querySelector('.sessions-show');
+      const hideText = document.querySelector('.sessions-hide');
+
+      collapse.addEventListener('show.bs.collapse', function () {
+        showText.classList.add('d-none');
+        hideText.classList.remove('d-none');
+      });
+
+      collapse.addEventListener('hide.bs.collapse', function () {
+        showText.classList.remove('d-none');
+        hideText.classList.add('d-none');
+      });
+    });
   </script>
 
 </metal:content-core>
