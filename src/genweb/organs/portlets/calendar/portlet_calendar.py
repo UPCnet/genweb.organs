@@ -1,82 +1,157 @@
-# -*- coding: utf-8 -*-
 from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
-from datetime import datetime
-from plone import api
+from ComputedAttribute import ComputedAttribute
+from plone.app.contenttypes.behaviors.collection import ISyndicatableCollection
+from plone.app.contenttypes.interfaces import IFolder
+from plone.app.event import _
+from plone.app.event.base import _prepare_range
 from plone.app.event.base import construct_calendar
+from plone.app.event.base import expand_events
 from plone.app.event.base import first_weekday
+from plone.app.event.base import get_events
 from plone.app.event.base import localized_today
+from plone.app.event.base import RET_MODE_OBJECTS
+from plone.app.event.base import start_end_query
 from plone.app.event.base import wkday_to_mon1
 from plone.app.event.portlets import get_calendar_url
-from plone.app.portlets import PloneMessageFactory as _
 from plone.app.portlets.portlets import base
-from plone.event.interfaces import IEvent
+from plone.app.querystring import queryparser
+from plone.app.uuid.utils import uuidToObject
+from plone.app.vocabularies.catalog import CatalogSource
 from plone.event.interfaces import IEventAccessor
 from plone.portlets.interfaces import IPortletDataProvider
+from Products.CMFCore.utils import getToolByName
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zExceptions import NotFound
+from zope import schema
+from zope.component.hooks import getSite
 from zope.i18nmessageid import MessageFactory
 from zope.interface import implementer
+from datetime import datetime
+from plone import api
+from plone.event.interfaces import IEvent
+from plone.event.interfaces import IEventAccessor
 
 import calendar
+import json
 
 
-PLMF = MessageFactory('plonelocales')
+search_base_uid_source = CatalogSource(
+    object_provides={
+        "query": [ISyndicatableCollection.__identifier__, IFolder.__identifier__],
+        "operator": "or",
+    }
+)
+
+PLMF = MessageFactory("plonelocales")
 
 
 class ICalendarOrgansPortlet(IPortletDataProvider):
-    """A portlet displaying a calendar
-    """
+    """A portlet displaying a calendar"""
+
+    state = schema.Tuple(
+        title=_("Workflow state"),
+        description=_("Items in which workflow state to show."),
+        default=None,
+        required=False,
+        value_type=schema.Choice(vocabulary="plone.app.vocabularies.WorkflowStates"),
+    )
+
+    search_base_uid = schema.Choice(
+        title=_("portlet_label_search_base", default="Search base"),
+        description=_(
+            "portlet_help_search_base",
+            default="Select search base Folder or Collection to search for "
+            "events. The URL to to this item will also be used to "
+            "link to in calendar searches. If empty, the whole site "
+            "will be searched and the event listing view will be "
+            "called on the site root.",
+        ),
+        required=False,
+        source=search_base_uid_source,
+    )
 
 
 @implementer(ICalendarOrgansPortlet)
 class Assignment(base.Assignment):
     title = _(u'Organs Calendar')
 
+    # reduce upgrade pain
+    state = None
+
+    def __init__(self, state=None, search_base_uid=None):
+        self.state = state
+        self.search_base_uid = search_base_uid
+
+    def _uid(self):
+        # This is only called if the instance doesn't have a search_base_uid
+        # attribute, which is probably because it has an old
+        # 'search_base' attribute that needs to be converted.
+        path = self.search_base
+        try:
+            search_base = getSite().unrestrictedTraverse(path.lstrip("/"))
+        except (AttributeError, KeyError, TypeError, NotFound):
+            return
+        return search_base.UID()
+
+    search_base_uid = ComputedAttribute(_uid, 1)
+
 
 class Renderer(base.Renderer):
-    render = ViewPageTemplateFile('portlet_calendar.pt')
+    render = ViewPageTemplateFile("portlet_calendar.pt")
+    _search_base = None
+
+    @property
+    def search_base(self):
+        if not self._search_base and self.data.search_base_uid:
+            self._search_base = uuidToObject(self.data.search_base_uid)
+        return aq_inner(self._search_base) if self._search_base else None
+
+    @property
+    def search_base_path(self):
+        return (
+            "/".join(self.search_base.getPhysicalPath()) if self.search_base else None
+        )  # noqa
 
     def update(self):
         context = aq_inner(self.context)
 
-        self.calendar_url = get_calendar_url(context, None)
+        self.calendar_url = get_calendar_url(context, self.search_base_path)
 
         self.year, self.month = year, month = self.year_month_display()
-        self.prev_year, self.prev_month = prev_year, prev_month = (
-            self.get_previous_month(year, month))
-        self.next_year, self.next_month = next_year, next_month = (
-            self.get_next_month(year, month))
-        # TODO: respect current url-query string
-        self.prev_query = '?month=%s&year=%s' % (prev_month, prev_year)
-        self.next_query = '?month=%s&year=%s' % (next_month, next_year)
+        self.prev_year, self.prev_month = (
+            prev_year,
+            prev_month,
+        ) = self.get_previous_month(year, month)
+        self.next_year, self.next_month = next_year, next_month = self.get_next_month(
+            year, month
+        )
+        self.prev_query = f"?month={prev_month}&year={prev_year}"
+        self.next_query = f"?month={next_month}&year={next_year}"
 
         self.cal = calendar.Calendar(first_weekday())
-        self._ts = getToolByName(context, 'translation_service')
+        self._ts = getToolByName(context, "translation_service")
         self.month_name = PLMF(
-            self._ts.month_msgid(month),
-            default=self._ts.month_english(month)
+            self._ts.month_msgid(month), default=self._ts.month_english(month)
         )
 
         # strftime %w interprets 0 as Sunday unlike the calendar.
-        strftime_wkdays = [
-            wkday_to_mon1(day) for day in self.cal.iterweekdays()
-        ]
+        strftime_wkdays = [wkday_to_mon1(day) for day in self.cal.iterweekdays()]
         self.weekdays = [
-            PLMF(self._ts.day_msgid(day, format='s'),
-                 default=self._ts.weekday_english(day, format='a'))
+            PLMF(
+                self._ts.day_msgid(day, format="s"),
+                default=self._ts.weekday_english(day, format="a"),
+            )
             for day in strftime_wkdays
         ]
 
     def year_month_display(self):
-        """ Return the year and month to display in the calendar.
-        """
+        """Return the year and month to display in the calendar."""
         context = aq_inner(self.context)
         request = self.request
 
         # Try to get year and month from request
-        year = request.get('year', None)
-        month = request.get('month', None)
+        year = request.get("year", None)
+        month = request.get("month", None)
 
         # Or use current date
         today = localized_today(context)
@@ -107,6 +182,9 @@ class Renderer(base.Renderer):
         else:
             month += 1
         return (year, month)
+
+    def date_events_url(self, date):
+        return f"{self.calendar_url}?mode=day&date={date}"
 
     def get_public_organs_fields(self):
         visibleItems = api.content.find(
@@ -171,20 +249,24 @@ class Renderer(base.Renderer):
         return filter_events
 
     def getDayEventsGroup(self):
-        results = []
-        list_events = self.getDayEvents(self.getDateEvents())
-        for event in list_events:
-            results.append(dict(
-                title=event['title'],
-                url=event['url'],
-                organ_title=event['organ_title'],
-                organ_url=event['organ_url'],
-                start=event['start'],
-                starthour=event['starthour'],
-                end=event['end'],
-                endhour=event['endhour'],
-                color=event['color']))
-        return results
+        request = self.request
+        if 'day' in request.form:
+            return self.getDayEvents(self.getDateEvents())  # Solo si hay día seleccionado
+        else:
+            # Lógica para mostrar todos los eventos del mes
+            year, month = self.year_month_display()
+            monthdates = [dat for dat in self.cal.itermonthdates(year, month)]
+            cal_dict = self.getCalendarDict()
+            events_dict = {}  # Para evitar duplicados
+            for dat in monthdates:
+                isodat = dat.strftime('%Y-%m-%d')
+                if isodat in cal_dict:
+                    events = self.filterOccurrenceEvents(cal_dict[isodat])
+                    for event in events:
+                        if event.UID() not in events_dict:
+                            events_dict[event.UID()] = self.getEventCalendarDict(event)
+            results = list(events_dict.values())
+            return results
 
     def getDayEvents(self, date):
         events = self.getCalendarDict()
@@ -203,19 +285,18 @@ class Renderer(base.Renderer):
 
         date_range_query = {'query': (start, end), 'range': 'min:max'}
         portal_catalog = api.portal.get_tool(name='portal_catalog')
+        events = []
         if api.user.is_anonymous():
             items = portal_catalog.unrestrictedSearchResults(
                 portal_type='genweb.organs.sessio',
                 start=date_range_query,
                 path=self.get_public_organs_fields())
-            events = []
             for event in items:
                 events.append(event._unrestrictedGetObject())
         else:
             items = portal_catalog.unrestrictedSearchResults(
                 portal_type='genweb.organs.sessio',
                 start=date_range_query)
-            events = []
             username = api.user.get_current().id
             for event in items:
                 session = event._unrestrictedGetObject()
@@ -289,8 +370,39 @@ class Renderer(base.Renderer):
                  'events': date_events})
         return caldata
 
+    def nav_pattern_options(self, year, month):
+        val = self.hash
+        if isinstance(val, bytes):
+            val = val.decode("utf-8")
 
-class AddForm(base.NullAddForm):
+        return json.dumps(
+            {
+                "url": "%s/@@render-portlet?portlethash=%s&year=%s&month=%s"
+                % (getSite().absolute_url(), val, year, month),
+                "target": "#portletwrapper-%s > *" % val,
+            }
+        )
 
-    def create(self):
-        return Assignment()
+    @property
+    def hash(self):
+        return self.request.form.get(
+            "portlethash", getattr(self, "__portlet_metadata__", {}).get("hash", "")
+        )
+
+
+class AddForm(base.AddForm):
+    schema = ICalendarOrgansPortlet
+    label = _("Add Calendar Portlet")
+    description = _("This portlet displays events in a calendar.")
+
+    def create(self, data):
+        return Assignment(
+            state=data.get("state", None),
+            search_base_uid=data.get("search_base_uid", None),
+        )
+
+
+class EditForm(base.EditForm):
+    schema = ICalendarOrgansPortlet
+    label = _("Edit Calendar Portlet")
+    description = _("This portlet displays events in a calendar.")
