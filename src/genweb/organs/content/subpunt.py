@@ -9,7 +9,7 @@ from plone.indexer import indexer
 from plone.supermodel.directives import fieldset
 from zope import schema
 from zope.interface import directlyProvides, provider
-from zope.schema.interfaces import IContextSourceBinder
+from zope.schema.interfaces import IContextSourceBinder, IContextAwareDefaultFactory
 from zope.schema.vocabulary import SimpleVocabulary
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -22,26 +22,45 @@ from genweb.organs import utils
 from genweb.organs.firma_documental.utils import UtilsFirmaDocumental
 
 import unicodedata
+from lxml import html
 
 
 def llistaEstats(context):
-    """ Create vocabulary from Estats Organ """
-    terms = []
-    # Al ser SUBPUNT els agafo 2 nivells per damunt
-    values = context.aq_parent.aq_parent.estatsLlista
-    literals = []
-    for value in values.split('</p>'):
-        if value != '':
-            item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
-            estat = ' '.join(item_net.split()[:-1]).lstrip()
-            literals.append(estat)
+    """ Create vocabulary from Estats Organ. """
+    organ = utils.get_organ(context)
+    if not organ:
+        return SimpleVocabulary([])
 
-    for item in literals:
-        if isinstance(item, str):
-            flattened = unicodedata.normalize('NFKD', item).encode('ascii', errors='ignore')
+    # estatsLlista is a RichTextField on the Organ content type.
+    estats_field = getattr(organ, 'estatsLlista', None)
+    if not estats_field or not getattr(estats_field, 'raw', None):
+        return SimpleVocabulary([])
+
+    raw_html = estats_field.raw
+    terms = []
+    try:
+        # Use lxml to safely parse the HTML from the RichText field
+        root = html.fromstring(f"<div>{raw_html}</div>")
+        lines = [p.text_content().strip() for p in root.xpath('//p')]
+        if not lines and raw_html.strip():
+            lines = [line.strip() for line in raw_html.splitlines() if line.strip()]
+
+    except (html.etree.ParserError, html.etree.XMLSyntaxError):
+        lines = [line.strip() for line in raw_html.splitlines() if line.strip()]
+
+    for line in lines:
+        if not line:
+            continue
+        # Convention: "State Name #ColorCode" or "State Name"
+        parts = line.split()
+        if len(parts) > 1 and parts[-1].isalnum():
+            term_title = ' '.join(parts[:-1])
         else:
-            flattened = unicodedata.normalize('NFKD', item).encode('ascii', errors='ignore')
-        terms.append(SimpleVocabulary.createTerm(item, flattened, item))
+            term_title = line
+
+        if term_title:
+            token = unicodedata.normalize('NFKD', term_title).encode('ascii', 'ignore').decode('ascii')
+            terms.append(SimpleVocabulary.createTerm(term_title, token, term_title))
 
     return SimpleVocabulary(terms)
 
@@ -49,6 +68,7 @@ def llistaEstats(context):
 directlyProvides(llistaEstats, IContextSourceBinder)
 
 
+@provider(IContextAwareDefaultFactory)
 def proposal_point_default(context):
     portal = api.portal.get()
     request = portal.REQUEST
@@ -129,13 +149,27 @@ class View(BrowserView, UtilsFirmaDocumental):
 
     def getColor(self):
         estat = self.context.estatsLlista
-        values = self.context.aq_parent.aq_parent.aq_parent.estatsLlista
+        organ = utils.get_organ(self.context)
+        if not organ or not getattr(organ, 'estatsLlista', None) or not organ.estatsLlista.raw:
+            return '#777777'
+
+        raw_html = organ.estatsLlista.raw
         color = '#777777'
-        for value in values.split('</p>'):
-            if value != '':
-                item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
-                if estat == ' '.join(item_net.split()[:-1]).lstrip():
-                    return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
+        try:
+            root = html.fromstring(f"<div>{raw_html}</div>")
+            lines = [p.text_content().strip() for p in root.xpath('//p')]
+            if not lines and raw_html.strip():
+                lines = [line.strip() for line in raw_html.splitlines() if line.strip()]
+        except (html.etree.ParserError, html.etree.XMLSyntaxError):
+            lines = [line.strip() for line in raw_html.splitlines() if line.strip()]
+
+        for line in lines:
+            parts = line.split()
+            if len(parts) > 1:
+                line_state = ' '.join(parts[:-1])
+                line_color = parts[-1]
+                if estat == line_state:
+                    return line_color
         return color
 
     def canView(self):

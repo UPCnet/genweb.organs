@@ -63,10 +63,11 @@ class createElement(BrowserView):
         if itemid == '':
             pass
         else:
+            # Inicializar path antes del try para evitar UnboundLocalError
+            path = '/'.join(self.context.getPhysicalPath())
             try:
                 value = ' '.join(self.context.estatsLlista.split('</p>')[0].rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '').split(' ')[:-1])
                 estat = unicodedata.normalize("NFKD", value).encode('utf-8')
-                path = '/'.join(self.context.getPhysicalPath())
             except:
                 estat = ''
             if action == 'createPunt':
@@ -148,7 +149,7 @@ class Delete(BrowserView):
                         subvalue = 1
                         for value in subpunts:
                             newobjecte = value.getObject()
-                            newobjecte.proposalPoint = str(index) + str('.') + str(subvalue)
+                            newobjecte.proposalPoint = index
                             newobjecte.reindexObject()
                             subvalue = subvalue + 1
                     index = index + 1
@@ -194,7 +195,7 @@ class Move(BrowserView):
             index = 1
             for item in puntsOrdered:
                 objecte = item.getObject()
-                objecte.proposalPoint = unicode(str(index))
+                objecte.proposalPoint = str(index)
                 addEntryLog(self.context, None, _(u'Changed punt number with drag&drop'), str(objecte.id) + ' → ' + str(objecte.proposalPoint))
                 objecte.reindexObject()
 
@@ -207,7 +208,7 @@ class Move(BrowserView):
                     subvalue = 1
                     for value in subpunts:
                         newobjecte = value.getObject()
-                        newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
+                        newobjecte.proposalPoint = str(index) + str('.') + str(subvalue)
                         newobjecte.reindexObject()
                         subvalue = subvalue + 1
                 index = index + 1
@@ -240,7 +241,7 @@ class Move(BrowserView):
             for item in subpuntsOrdered:
                 if item.portal_type == 'genweb.organs.subpunt' or item.portal_type == 'genweb.organs.acord':
                     objecteSubPunt = item.getObject()
-                    objecteSubPunt.proposalPoint = unicode(str(puntnumber) + '.' + str(subvalue))
+                    objecteSubPunt.proposalPoint = str(puntnumber) + '.' + str(subvalue)
                     addEntryLog(self.context, None, _(u'Moved subpunt by drag&drop'), str(objecteSubPunt.id) + ' → ' + str(objecteSubPunt.proposalPoint))
                     objecteSubPunt.reindexObject()
                     subvalue = subvalue + 1
@@ -460,7 +461,7 @@ class ReloadPoints(BrowserView):
         index = 1
         for item in puntsOrdered:
             objecte = item.getObject()
-            objecte.proposalPoint = unicode(str(index))
+            objecte.proposalPoint = str(index)
             objecte.reindexObject()
 
             if len(objecte.items()) > 0:
@@ -472,7 +473,7 @@ class ReloadPoints(BrowserView):
                 subvalue = 1
                 for value in subpunts:
                     newobjecte = value.getObject()
-                    newobjecte.proposalPoint = unicode(str(index) + str('.') + str(subvalue))
+                    newobjecte.proposalPoint = str(index) + str('.') + str(subvalue)
                     newobjecte.reindexObject()
                     subvalue = subvalue + 1
 
@@ -809,12 +810,12 @@ class findFileProperties(BrowserView):
                 organType=item.organType,
                 path=item.getPath(),
                 id=item.id))
-        for item in acord:
+        for item in acords:
             acords.append(dict(
                 organType=item.organType,
                 path=item.getPath(),
                 id=item.id))
-        for item in punt:
+        for item in punts:
             punts.append(dict(
                 organType=item.organType,
                 path=item.getPath(),

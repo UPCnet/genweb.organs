@@ -790,9 +790,9 @@
                             class="bi bi-plus"></i>&nbsp;<span i18n:translate="">Nou acord</span></button>
           <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalPunts"><i
                             class="bi bi-database"></i>&nbsp;<span i18n:translate="">Llista punts</span></button>
-                        <a class="btn btn-info" href="updatePoints"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span
+                        <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updatePoints"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span
               i18n:translate="">Recalcula punts</span></a>
-                        <a class="btn btn-info" href="updateAcords"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span
+                        <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updateAcords"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span
               i18n:translate="">Recalcula punts/acords</span></a>
         </div>
         <div style="margin-right: 30px;" class="d-block d-md-none btn-group-vertical">
@@ -802,9 +802,9 @@
                             class="bi bi-plus"></i>&nbsp;<span i18n:translate="">Nou acord</span></button>
           <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalPunts"><i
                             class="bi bi-database"></i>&nbsp;<span i18n:translate="">Llista punts</span></button>
-                        <a class="btn btn-info" href="updatePoints"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span
+                        <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updatePoints"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span
               i18n:translate="">Recalcula punts</span></a>
-                        <a class="btn btn-info" href="updateAcords"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span
+                        <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updateAcords"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span
               i18n:translate="">Recalcula punts/acords</span></a>
           <br />
         </div>
@@ -821,12 +821,12 @@
                                 <button id="expandAll" class="btn btn-outline-primary">
                                     <i class="bi bi-arrows-expand"></i>
                                     <span i18n:translate="">Desplega tot</span>
-                                </button>
+        </button>
                                 <button id="collapseAll" class="btn btn-outline-primary">
                                     <i class="bi bi-arrows-collapse"></i>
                                     <span i18n:translate="">Plega tot</span>
                                 </button>
-                            </div>
+          </div>
                         </div>
 
           <div class="clearfix"></div>
@@ -989,7 +989,7 @@
                                     aria-expanded="false">
                                 <i style="color: #557c95" class="bi bi-chevron-down"></i>
                                 <i style="color: #557c95" class="bi bi-chevron-up"></i>
-                            </button>
+                          </button>
                         </div>
                         <div class="col-1 numberSpan d-none d-md-block">
                           <span class="proposalNumber " style="text-align: right; float:right;"
@@ -1005,7 +1005,7 @@
                                     aria-expanded="false">
                                 <i style="color: #557c95" class="bi bi-chevron-down"></i>
                                 <i style="color: #557c95" class="bi bi-chevron-up"></i>
-                            </button>
+                          </button>
                           <br />
                         </div>
 
@@ -1062,88 +1062,88 @@
                             </ul>
                           </div>
                         </tal:files>
-                        <tal:block tal:condition="canViewVoteButtons">
-                          <div class="puntVoteButtons col-12" tal:condition="item/canCloseVote">
-                            <span class="col-2"></span>
-                            <div class="col-10">
-                              <a class="btn btn-notvote span4 favor" tal:attributes="data-id item/id"
-                                tal:condition="not: item/favorVote" i18n:translate="">A favor</a>
-                              <a class="btn btn-info span4" tal:condition="item/favorVote" i18n:translate="">A favor</a>
-                              <a class="btn btn-notvote span4 against" tal:attributes="data-id item/id"
-                                tal:condition="not: item/againstVote" i18n:translate="">En contra</a>
-                              <a class="btn btn-info span4" tal:condition="item/againstVote" i18n:translate="">En
-                                contra</a>
-                              <a class="btn btn-notvote span4 white" tal:attributes="data-id item/id"
-                                tal:condition="not: item/whiteVote" i18n:translate="">En blanc</a>
-                              <a class="btn btn-info span4" tal:condition="item/whiteVote" i18n:translate="">En blanc</a>
-                            </div>
+                      <tal:block tal:condition="canViewVoteButtons">
+                        <div class="puntVoteButtons col-12" tal:condition="item/canCloseVote">
+                          <span class="col-2"></span>
+                          <div class="col-10">
+                            <a class="btn btn-notvote span4 favor" tal:attributes="data-id item/id"
+                              tal:condition="not: item/favorVote" i18n:translate="">A favor</a>
+                            <a class="btn btn-info span4" tal:condition="item/favorVote" i18n:translate="">A favor</a>
+                            <a class="btn btn-notvote span4 against" tal:attributes="data-id item/id"
+                              tal:condition="not: item/againstVote" i18n:translate="">En contra</a>
+                            <a class="btn btn-info span4" tal:condition="item/againstVote" i18n:translate="">En
+                              contra</a>
+                            <a class="btn btn-notvote span4 white" tal:attributes="data-id item/id"
+                              tal:condition="not: item/whiteVote" i18n:translate="">En blanc</a>
+                            <a class="btn btn-info span4" tal:condition="item/whiteVote" i18n:translate="">En blanc</a>
                           </div>
-                          <div class="puntVoteButtons col-12" tal:condition="item/canRecloseVote">
-                            <span class="col-2"></span>
-                            <div class="col-10">
-                              <a class="btn btn-notvote span4 favor" tal:attributes="data-id item/canRecloseVote"
-                                tal:condition="not: item/favorVote" i18n:translate="">A favor</a>
-                              <a class="btn btn-info span4" tal:condition="item/favorVote" i18n:translate="">A favor</a>
-                              <a class="btn btn-notvote span4 against" tal:attributes="data-id item/canRecloseVote"
-                                tal:condition="not: item/againstVote" i18n:translate="">En contra</a>
-                              <a class="btn btn-info span4" tal:condition="item/againstVote" i18n:translate="">En
-                                contra</a>
-                              <a class="btn btn-notvote span4 white" tal:attributes="data-id item/canRecloseVote"
-                                tal:condition="not: item/whiteVote" i18n:translate="">En blanc</a>
-                              <a class="btn btn-info span4" tal:condition="item/whiteVote" i18n:translate="">En blanc</a>
-                            </div>
+                        </div>
+                        <div class="puntVoteButtons col-12" tal:condition="item/canRecloseVote">
+                          <span class="col-2"></span>
+                          <div class="col-10">
+                            <a class="btn btn-notvote span4 favor" tal:attributes="data-id item/canRecloseVote"
+                              tal:condition="not: item/favorVote" i18n:translate="">A favor</a>
+                            <a class="btn btn-info span4" tal:condition="item/favorVote" i18n:translate="">A favor</a>
+                            <a class="btn btn-notvote span4 against" tal:attributes="data-id item/canRecloseVote"
+                              tal:condition="not: item/againstVote" i18n:translate="">En contra</a>
+                            <a class="btn btn-info span4" tal:condition="item/againstVote" i18n:translate="">En
+                              contra</a>
+                            <a class="btn btn-notvote span4 white" tal:attributes="data-id item/canRecloseVote"
+                              tal:condition="not: item/whiteVote" i18n:translate="">En blanc</a>
+                            <a class="btn btn-info span4" tal:condition="item/whiteVote" i18n:translate="">En blanc</a>
                           </div>
-                        </tal:block>
-                        <div tal:condition="subpunts" class="sortable2">
-                          <tal:subpunts repeat="itemSubpunt subpunts">
-                            <ol class="li_subgrups" tal:attributes="id itemSubpunt/id" tal:define="agreement itemSubpunt/agreement;
+                        </div>
+                      </tal:block>
+                      <div tal:condition="subpunts" class="sortable2">
+                        <tal:subpunts repeat="itemSubpunt subpunts">
+                          <ol class="li_subgrups" tal:attributes="id itemSubpunt/id" tal:define="agreement itemSubpunt/agreement;
                                      itemSubpunt_id itemSubpunt/id;
                                      isAcord itemSubpunt/isAcord">
-                              <div class="col-6 agreementSpan"></div>
-                              <div class="col-6 einesSpan">
+                            <div class="col-6 agreementSpan"></div>
+                            <div class="col-6 einesSpan">
 
-                                <div style="float: right;" aria-label="Edit actions"
-                                  tal:condition="python: view.canModifyPunt(itemSubpunt)">
-                                  <tal:block tal:condition="isAcord">
+                              <div style="float: right;" aria-label="Edit actions"
+                                tal:condition="python: view.canModifyPunt(itemSubpunt)">
+                                <tal:block tal:condition="isAcord">
                                                                               <button type="button" class="hide-agreement badge bg-danger"
                                                                                       title="Esborra número acord"
-                                      tal:condition="not:itemSubpunt/omitAgreement"
-                                      tal:attributes="data-item itemSubpunt/absolute_url">
+                                    tal:condition="not:itemSubpunt/omitAgreement"
+                                    tal:attributes="data-item itemSubpunt/absolute_url">
                                                                                   <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
-                                    </button>
-                                  </tal:block>
-                                  <button type="button" class="edit2 badge bg-info" title="Edit"
+                                  </button>
+                                </tal:block>
+                                <button type="button" class="edit2 badge bg-info" title="Edit"
                                                                               tal:attributes="data-id itemSubpunt_id; data-title itemSubpunt/title">
                                                                               <i class="bi bi-pencil" aria-hidden="true"></i>
-                                  </button>
+                                </button>
                                                                           <button type="button" class="remove badge bg-danger"
                                                                                   title="Esborra"
-                                    tal:attributes="data-item itemSubpunt_id; data-type itemSubpunt/portal_type">
+                                  tal:attributes="data-item itemSubpunt_id; data-type itemSubpunt/portal_type">
                                                                               <i class="bi bi-trash" aria-hidden="true"></i>
-                                  </button>
-                                </div>
-                                <tal:editActions tal:condition="python: view.canModifyPunt(itemSubpunt)">
-                                  <div class="btn-group" role="group" style="float: right;" aria-label="Add element">
-                                    <button class="badge bg-secondary dropdown-toggle" type="button"
+                                </button>
+                              </div>
+                              <tal:editActions tal:condition="python: view.canModifyPunt(itemSubpunt)">
+                                <div class="btn-group" role="group" style="float: right;" aria-label="Add element">
+                                  <button class="badge bg-secondary dropdown-toggle" type="button"
                                                                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      +
-                                      <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                                      <li><a tabindex="-1"
-                                          tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.file"><span><i
+                                    +
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                                    <li><a tabindex="-1"
+                                        tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.file"><span><i
                                                                                           class="bi bi-file-earmark-pdf"></i>&nbsp;&nbsp;<tal:omit-tag
-                                              i18n:translate="">File</tal:omit-tag></span></a></li>
-                                      <li><a tabindex="-1"
-                                          tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.document"><span><i
+                                            i18n:translate="">File</tal:omit-tag></span></a></li>
+                                    <li><a tabindex="-1"
+                                        tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.document"><span><i
                                                                                           class="bi bi-file-earmark-text"></i>&nbsp;&nbsp;<tal:omit-tag
-                                              i18n:translate="">Document</tal:omit-tag></span></a></li>
-                                    </ul>
-                                  </div>
-                                  <div class="btn-group" role="group" style="float: right;"
-                                    aria-label="Change current state">
-                                    <tal:block tal:condition="itemSubpunt/state">
-                                      <button class="badge bg-secondary dropdown-toggle bullet-toggle" id="estats"
+                                            i18n:translate="">Document</tal:omit-tag></span></a></li>
+                                  </ul>
+                                </div>
+                                <div class="btn-group" role="group" style="float: right;"
+                                  aria-label="Change current state">
+                                  <tal:block tal:condition="itemSubpunt/state">
+                                    <button class="badge bg-secondary dropdown-toggle bullet-toggle" id="estats"
                                                                                           type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                                       <i class="bi bi-circle-fill" aria-hidden="true"
                                         tal:attributes="style string:color:${itemSubpunt/css}"></i>
@@ -1396,7 +1396,7 @@
                             type: 'POST',
                             url: '@@createElement',
                             data: { action: 'createPunt', name: value },
-                            success: function () {
+              success: function () {
                                 const modal = bootstrap.Modal.getInstance(modalPunt);
                                 if (modal) modal.hide();
                                 refreshNeeded = true;
@@ -1473,7 +1473,7 @@
                         // Delegación de eventos para los botones de editar
                         $('#sortable').on('click', '.edit, .edit2, a.editTitle', function(e) {
                             e.preventDefault();
-                            e.stopPropagation();
+              e.stopPropagation();
                             const pk = $(this).data('id');
                             const currentTitle = $(this).is('a') ? $(this).text().trim() : $(this).data('title');
                             $('#edit-title-input').val(currentTitle);
@@ -1499,9 +1499,9 @@
                                 },
                                 error: function() {
                                     alert('Hi ha hagut un error al desar el títol.');
-                                }
-                            });
-                        });
+                }
+              });
+            });
                     }
 
                     /*
@@ -1541,7 +1541,7 @@
                     /*
                     * ESTADOS DE PUNTO (COLOR)
                     */
-                    $("li.defaultValue").on('click', function () {
+            $("li.defaultValue").on('click', function () {
                         const colorSelected = $(this).find('.bi-circle-fill').css('color');
                         const $buttonGroup = $(this).closest('.btn-group');
                         $buttonGroup.find('.bullet-toggle > i').css({ 'color': colorSelected });
@@ -1576,11 +1576,11 @@
                         }
                     });
                 }
-            </script>
+        </script>
 
-            <div style="margin-bottom:20px;"></div>
+      <div style="margin-bottom:20px;"></div>
 
-            <script type="text/javascript" tal:condition="canViewManageVote">
+      <script type="text/javascript" tal:condition="canViewManageVote">
                 document.addEventListener('DOMContentLoaded', function () {
                     "use strict";
                     let refreshNeeded = false;
@@ -1590,57 +1590,57 @@
                         if (refreshNeeded) { setTimeout(() => window.location.reload(), 500); }
                     });
 
-                    $(".reopenVote").on('click', function () {
-                        $.ajax({
-                            type: 'POST',
-                            url: $(this).attr('data-url') + '/reopenVote',
-                            success: function (result) {
+        $(".reopenVote").on('click', function () {
+          $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-url') + '/reopenVote',
+            success: function (result) {
                                 result = JSON.parse(result);
                                 if (result.status !== "success") { alert(result.msg); }
-                                refreshNeeded = true;
-                            },
-                        });
-                    });
+                refreshNeeded = true;
+            },
+          });
+        });
 
-                    $(".removeVote").on('click', function () {
+        $(".removeVote").on('click', function () {
                         // Este modal ahora lo gestiona el sistema genérico
                     });
 
                     $(".closeVote, .recloseVote").on('click', function () {
-                        $.ajax({
-                            type: 'POST',
-                            url: $(this).attr('data-id') + '/closeVote',
+          $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/closeVote',
                             success: function () { refreshNeeded = true; },
-                        });
-                    });
+          });
+        });
 
-                    $(".openPublicVote").on('click', function () {
-                        $.ajax({
-                            type: 'POST',
-                            url: $(this).attr('data-id') + '/openPublicVote',
+        $(".openPublicVote").on('click', function () {
+          $.ajax({
+            type: 'POST',
+            url: $(this).attr('data-id') + '/openPublicVote',
                             success: function () { refreshNeeded = true; },
-                        });
-                    });
+          });
+        });
 
-                    $(".openOtherPublicVote").on('click', function () {
-                        let titolVotacio = prompt($(this).attr('data-title'), "");
-                        if (titolVotacio && confirm('T\u00edtol: ' + titolVotacio + '\n\nEst\xE0s segur que vols obrir aquesta esmena?')) {
-                            $.ajax({
-                                type: 'POST',
-                                data: { 'title': titolVotacio },
-                                url: $(this).attr('data-id') + '/openOtherPublicVote',
+        $(".openOtherPublicVote").on('click', function () {
+          let titolVotacio = prompt($(this).attr('data-title'), "");
+          if (titolVotacio && confirm('T\u00edtol: ' + titolVotacio + '\n\nEst\xE0s segur que vols obrir aquesta esmena?')) {
+            $.ajax({
+              type: 'POST',
+              data: { 'title': titolVotacio },
+              url: $(this).attr('data-id') + '/openOtherPublicVote',
                                 success: function () { refreshNeeded = true; },
-                            });
-                        }
-                    });
+            });
+          }
+        });
 
-                    $(".refreshVote").on('click', function () {
+        $(".refreshVote").on('click', function () {
                         const uid = $(this).attr('data-uid');
-                        $.ajax({
-                            type: 'GET',
-                            data: { 'UID': uid },
-                            url: 'reloadVoteStats',
-                            success: function (result) {
+          $.ajax({
+            type: 'GET',
+            data: { 'UID': uid },
+            url: 'reloadVoteStats',
+            success: function (result) {
                                 const data = $.parseJSON(result);
                                 const voteRow = $('#vote-' + uid);
                                 const infoRow = $('#' + uid);
@@ -1650,9 +1650,9 @@
                                 voteRow.find('.vote-state').html(data.state);
 
                                 const infoIcon = voteRow.find('.bi-info-circle');
-                                if (data.open) {
+              if (data.open) {
                                     infoIcon.attr('title', 'Inici: ' + data.hourOpen);
-                                } else {
+              } else {
                                     voteRow.find('.vote-favorVote').html(data.favorVote);
                                     voteRow.find('.vote-againstVote').html(data.againstVote);
                                     voteRow.find('.vote-whiteVote').html(data.whiteVote);
@@ -1661,14 +1661,14 @@
                                     infoRow.find('.vote-users-whiteVote').html(data.whiteVoteListHTML);
                                     infoIcon.attr('title', 'Inici: ' + data.hourOpen + '\nFi: ' + data.hourClose);
                                     voteRow.find('.refreshVote').remove();
-                                }
-                            },
-                        });
-                    });
+              }
+            },
+          });
+        });
                 });
-            </script>
+      </script>
 
-            <script type="text/javascript" tal:condition="canViewVoteButtons">
+      <script type="text/javascript" tal:condition="canViewVoteButtons">
                 document.addEventListener('DOMContentLoaded', function () {
                     "use strict";
                     let refreshNeeded = false;
@@ -1680,15 +1680,15 @@
 
                     function voteHandler(type) {
                         return function() {
-                            $.ajax({
-                                type: 'POST',
+          $.ajax({
+            type: 'POST',
                                 url: $(this).attr('data-id') + '/' + type + 'Vote',
-                                success: function (result) {
+            success: function (result) {
                                     result = JSON.parse(result);
                                     if (result.status !== "success") { alert(result.msg); }
-                                    refreshNeeded = true;
-                                },
-                            });
+                refreshNeeded = true;
+            },
+          });
                         };
                     }
 
@@ -1696,7 +1696,7 @@
                     $(".btn-notvote.against").on('click', voteHandler('against'));
                     $(".btn-notvote.white").on('click', voteHandler('white'));
                 });
-            </script>
+      </script>
 
             <script type="text/javascript" tal:condition="python: canViewManageQuorumButtons or canViewAddQuorumButtons">
                 document.addEventListener('DOMContentLoaded', function () {
@@ -1712,7 +1712,7 @@
                     $(".closeQuorum").on('click', function () { $.post('closeQuorum', () => { refreshNeeded = true; }); });
                     $(".addQuorum").on('click', function () { $.post('addQuorum', () => { refreshNeeded = true; }); });
                 });
-            </script>
+      </script>
 
             <script type="text/javascript">
                 document.addEventListener('DOMContentLoaded', function() {
@@ -1720,18 +1720,18 @@
                     const $ = jQuery;
                     let refreshNeeded = false;
 
-                     $(document).ajaxStop(function () {
-                        if (refreshNeeded) {
+        $(document).ajaxStop(function () {
+          if (refreshNeeded) {
                             window.location.reload();
                         }
                     });
 
                     // Para el desplegable de información de voto público
-                     $(".openInfo").click(function () {
-                        $(this).toggleClass("opened");
-                        $($(this).attr("data-open")).toggleClass("opened");
-                    });
-                });
-            </script>
-        </metal:main>
-        </html>
+        $(".openInfo").click(function () {
+          $(this).toggleClass("opened");
+          $($(this).attr("data-open")).toggleClass("opened");
+        });
+        });
+      </script>
+  </metal:main>
+</html>

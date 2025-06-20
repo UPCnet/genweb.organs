@@ -76,11 +76,15 @@ def numSessioShowOnly(context):
 
 @provider(IContextAwareDefaultFactory)
 def bodyMail(context):
-    return context.bodyMailconvoquing
+    if hasattr(context, 'bodyMailconvoquing') and getattr(context.bodyMailconvoquing, 'raw', None):
+        return context.bodyMailconvoquing.raw
+    return getattr(context, 'bodyMailconvoquing', '')
 
 @provider(IContextAwareDefaultFactory)
 def signatura(context):
-    return context.footerMail
+    if hasattr(context, 'footerMail') and getattr(context.footerMail, 'raw', None):
+        return context.footerMail.raw
+    return getattr(context, 'footerMail', '')
 
 
 class ISessio(model.Schema):
@@ -609,8 +613,19 @@ class View(BrowserView):
 
     def canModifyPunt(self, item):
         # If send to sign or signed, it can't be modified
-        if item['info_firma'] and item['info_firma'].get('fitxers', None):
-            return False
+        info_firma = item.get('info_firma')
+        if info_firma:
+            # Si info_firma es un string (JSON), convertirlo a diccionario
+            if isinstance(info_firma, str):
+                try:
+                    info_firma = ast.literal_eval(info_firma)
+                except (ValueError, SyntaxError):
+                    # Si no se puede parsear, asumir que no hay fitxers
+                    info_firma = {}
+
+            # Ahora verificar si tiene fitxers
+            if isinstance(info_firma, dict) and info_firma.get('fitxers', None):
+                return False
         # else check if can modify session
         return self.canModify()
 

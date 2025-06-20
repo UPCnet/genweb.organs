@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
+from Products.CMFPlone.utils import safe_unicode
+from html import escape
 
 from plone.app.dexterity import textindexer
 from plone import api
@@ -12,6 +14,8 @@ from plone.supermodel.directives import fieldset
 from zope import schema
 from plone.supermodel import model
 from plone.app.textfield import RichText as RichTextField
+from zope.schema.interfaces import IContextAwareDefaultFactory
+from zope.interface import provider
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -25,32 +29,47 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 # Define las funciones defaultFactory para cada campo
+@provider(IContextAwareDefaultFactory)
 def title_default_factory(context):
     return 'Acta - ' + context.Title()
 
+def get_richtext_content(field_value):
+    """Safely get content from a RichText or Text field."""
+    if hasattr(field_value, 'raw'):
+        return field_value.raw
+    return field_value or ''
+
+@provider(IContextAwareDefaultFactory)
 def membres_convidats_default_factory(context):
-    return context.membresConvidats
+    return get_richtext_content(context.membresConvidats)
 
+@provider(IContextAwareDefaultFactory)
 def membres_convocats_default_factory(context):
-    return context.assistents
+    return get_richtext_content(context.assistents)
 
+@provider(IContextAwareDefaultFactory)
 def llista_excuses_default_factory(context):
-    return context.llistaExcusats
+    return get_richtext_content(context.llistaExcusats)
 
+@provider(IContextAwareDefaultFactory)
 def llista_no_assistens_default_factory(context):
-    return context.noAssistents
+    return get_richtext_content(context.noAssistents)
 
+@provider(IContextAwareDefaultFactory)
 def lloc_convocatoria_default_factory(context):
     return context.llocConvocatoria
 
+@provider(IContextAwareDefaultFactory)
 def hora_inici_default_factory(context):
     acc = IEventAccessor(context)
     return acc.start
 
+@provider(IContextAwareDefaultFactory)
 def hora_fi_default_factory(context):
     acc = IEventAccessor(context)
     return acc.end
 
+@provider(IContextAwareDefaultFactory)
 def orden_del_dia_default_factory(context):
     return Punts2Acta(context)
 
@@ -140,7 +159,7 @@ class IActa(model.Schema):
         required=False,
     )
 
-    directives.mode(acta='hidden')
+    directives.omitted('acta')
     acta = NamedBlobFile(
         title=_(u"Acta PDF"),
         description=_(u"Acta PDF file description"),
@@ -207,32 +226,35 @@ class IActa(model.Schema):
 #     return Punts2Acta(data)
 
 
-def Punts2Acta(self):
+def Punts2Acta(context):
     """ Retorna els punt en format text per mostrar a l'ordre
-        del dia de les actes
+        del dia de les actes.
+        Refactored for Python 3 and Plone 6.
     """
     portal_catalog = api.portal.get_tool(name='portal_catalog')
-    folder_path = '/'.join(self.context.getPhysicalPath())
+    folder_path = '/'.join(context.getPhysicalPath())
     values = portal_catalog.searchResults(
         portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
         sort_on='getObjPositionInParent',
         path={'query': folder_path,
               'depth': 1})
 
-    results = []
-    results.append('<div class="num_acta">')
+    results = ['<div class="num_acta">']
     for obj in values:
-        # value = obj.getObject()
         value = obj._unrestrictedGetObject()
+        title = escape(safe_unicode(obj.Title))
+        proposal_point = escape(safe_unicode(value.proposalPoint))
+        agreement_text = ''
+
         if value.portal_type == 'genweb.organs.acord':
             if value.agreement:
-                agreement = ' [Acord ' + str(value.agreement) + ']'
-            else:
-                agreement = _(u"[Acord sense numerar]")  if not getattr(value, 'omitAgreement', False) else ''
-        else:
-            agreement = ''
-        results.append('<p>' + str(value.proposalPoint) + '. ' + str(obj.Title) + ' ' + str(agreement) + '</p>')
+                agreement_text = f' [Acord {escape(safe_unicode(value.agreement))}]'
+            elif not getattr(value, 'omitAgreement', False):
+                agreement_text = f' [{_("Acord sense numerar")}]'
 
+        results.append(f'<p>{proposal_point}. {title}{agreement_text}</p>')
+
+        # Check for sub-items
         if len(value.objectIds()) > 0:
             valuesInside = portal_catalog.searchResults(
                 portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
@@ -242,14 +264,17 @@ def Punts2Acta(self):
 
             for item in valuesInside:
                 subpunt = item.getObject()
+                sub_title = escape(safe_unicode(item.Title))
+                sub_proposal_point = escape(safe_unicode(subpunt.proposalPoint))
+                sub_agreement_text = ''
+
                 if subpunt.portal_type == 'genweb.organs.acord':
                     if subpunt.agreement:
-                        agreement = ' [Acord ' + str(subpunt.agreement) + ']'
-                    else:
-                        agreement = _("[Acord sense numerar]") if not getattr(subpunt, 'omitAgreement', False) else ''
-                else:
-                    agreement = ''
-                results.append('<p style="padding-left: 30px;">' + str(subpunt.proposalPoint) + '. ' + str(item.Title) + ' ' + str(agreement) + '</p>')
+                        sub_agreement_text = f' [Acord {escape(safe_unicode(subpunt.agreement))}]'
+                    elif not getattr(subpunt, 'omitAgreement', False):
+                        sub_agreement_text = f' [{_("Acord sense numerar")}]'
+
+                results.append(f'<p style="padding-left: 30px;">{sub_proposal_point}. {sub_title}{sub_agreement_text}</p>')
 
     results.append('</div>')
     return ''.join(results)

@@ -491,6 +491,10 @@ def estatsCanvi(self):
     # Returns real names from estats
     organ = get_organ(self._unrestrictedGetObject())
     values = organ.estatsLlista
+    # Soporte Plone 6: si es RichTextValue, usar .raw
+    from plone.app.textfield.value import RichTextValue
+    if isinstance(values, RichTextValue):
+        values = values.raw
     items = []
     for value in values.split('</p>'):
         if value != '':
