@@ -8,6 +8,7 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from html import escape
+from lxml import html
 from plone.app.dexterity import textindexer
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -39,32 +40,56 @@ import json
 import transaction
 import unicodedata
 
+from zope.schema.interfaces import IContextAwareDefaultFactory
+from zope.interface import provider
+
 
 def llistaEstats(context):
     """ Create vocabulary from Estats Organ. """
+    # The context for a vocabulary is the content object where the field is.
+    # In add forms, this is the container, in edit forms, the object itself.
+    organ = utils.get_organ(context)
+    if not organ:
+        return SimpleVocabulary([])
+
+    # estatsLlista is a RichTextField on the Organ content type.
+    estats_field = getattr(organ, 'estatsLlista', None)
+    if not estats_field or not getattr(estats_field, 'raw', None):
+        return SimpleVocabulary([])
+
+    raw_html = estats_field.raw
     terms = []
-    # Els ACORDS NOMES van dintre de sessio o de punt
-    # Al ser acord he de mirar si està dintre d'una sessio o d'un punt
 
-    # En mode add or en mode edit, mirar 1nivell(SESSIO) o 2nivells(PUNT)
-    if context.aq_parent.portal_type == 'genweb.organs.sessio' or context.portal_type == 'genweb.organs.sessio':
-        values = context.aq_parent.estatsLlista
-    if context.aq_parent.portal_type == 'genweb.organs.punt' or context.portal_type == 'genweb.organs.punt':
-        values = context.aq_parent.aq_parent.estatsLlista
+    try:
+        # Use lxml to safely parse the HTML from the RichText field
+        # The .raw attribute might not have a single root element
+        root = html.fromstring(f"<div>{raw_html}</div>")
+        lines = [p.text_content().strip() for p in root.xpath('//p')]
+        if not lines and raw_html.strip():
+            # Fallback for plain text without <p> tags
+            lines = [line.strip() for line in raw_html.splitlines() if line.strip()]
 
-    literals = []
-    for value in values.split('</p>'):
-        if value != '':
-            item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
-            estat = ' '.join(item_net.split()[:-1]).lstrip().encode('utf-8')
-            literals.append(estat)
+    except (html.etree.ParserError, html.etree.XMLSyntaxError):
+        # If parsing fails, it might be plain text.
+        lines = [line.strip() for line in raw_html.splitlines() if line.strip()]
 
-    for item in literals:
-        if isinstance(item, str):
-            flattened = unicodedata.normalize('NFKD', item.decode('utf-8')).encode('ascii', errors='ignore')
-        else:
-            flattened = unicodedata.normalize('NFKD', item).encode('ascii', errors='ignore')
-        terms.append(SimpleVocabulary.createTerm(item, flattened, item))
+    for line in lines:
+        if not line:
+            continue
+
+        # Convention: "State Name #ColorCode"
+        # The state name is all but the last word.
+        parts = line.split()
+        if len(parts) >= 2:
+            term_title = ' '.join(parts[:-1])
+            # The value for the vocabulary term is the state name.
+            # The token must be a unique, ASCII-safe string.
+            # We use the term_title to create a safe token.
+            token = unicodedata.normalize('NFKD', term_title).encode('ascii', 'ignore').decode('ascii')
+
+            # createTerm(value, token, title)
+            # Both value and title will be the state name string.
+            terms.append(SimpleTerm(value=term_title, token=token, title=term_title))
 
     return SimpleVocabulary(terms)
 
@@ -83,6 +108,7 @@ llistaTipusVotacio = SimpleVocabulary(
 )
 
 # Define la función defaultFactory para el campo 'proposalPoint'
+@provider(IContextAwareDefaultFactory)
 def proposal_point_default_factory(context):
     """Genera el valor predeterminado para el campo 'proposalPoint'."""
     portal_catalog = api.portal.get_tool(name='portal_catalog')

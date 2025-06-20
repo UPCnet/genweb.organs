@@ -29,39 +29,39 @@
       <div id="collapseSessions" class="accordion-collapse collapse" data-bs-parent="#accordionSessions">
         <div class="accordion-body p-0">
           <table class="table table-bordered table-hover mb-0">
-            <thead>
-              <tr>
-                <th style="vertical-align: middle;">
-                  <span i18n:translate="">Organ</span>
-                </th>
-                <th style="text-align: center; vertical-align: middle;" width="110px">
-                  <tal:head i18n:translate="">Data sessio</tal:head>
-                </th>
-                <th style="text-align: center; vertical-align: middle;" width="110px">
-                  <tal:head i18n:translate="">Horari</tal:head>
-                </th>
-              </tr>
-            </thead>
+          <thead>
+            <tr>
+              <th style="vertical-align: middle;">
+                <span i18n:translate="">Organ</span>
+              </th>
+              <th style="text-align: center; vertical-align: middle;" width="110px">
+                <tal:head i18n:translate="">Data sessio</tal:head>
+              </th>
+              <th style="text-align: center; vertical-align: middle;" width="110px">
+                <tal:head i18n:translate="">Horari</tal:head>
+              </th>
+            </tr>
+          </thead>
             <tbody>
-              <tal:objects repeat="item sessions/past">
-                <tr tal:attributes="class item/id">
-                  <td style="vertical-align: middle;">
-                    <i class="bi bi-list"></i>&nbsp;
+          <tal:objects repeat="item sessions/past">
+            <tr tal:attributes="class item/id">
+              <td style="vertical-align: middle;">
+                <i class="bi bi-list"></i>&nbsp;
                     <a tal:attributes="href item/url;" tal:content="item/title" style="color:#007BC0;"> Item Title </a>
-                  </td>
-                  <td style="text-align: center; vertical-align: middle;">
-                    <span tal:content="item/date"> Data </span>
-                  </td>
-                  <td style="text-align: center; vertical-align: middle;">
-                    <span tal:content="string:${item/start}-${item/end}"> Horari </span>
-                  </td>
-                </tr>
-                <tr tal:condition="item/breakline" class="breakline">
+              </td>
+              <td style="text-align: center; vertical-align: middle;">
+                <span tal:content="item/date"> Data </span>
+              </td>
+              <td style="text-align: center; vertical-align: middle;">
+                <span tal:content="string:${item/start}-${item/end}"> Horari </span>
+              </td>
+            </tr>
+            <tr tal:condition="item/breakline" class="breakline">
                   <td colspan="3"></td>
-                </tr>
-              </tal:objects>
+            </tr>
+          </tal:objects>
             </tbody>
-          </table>
+        </table>
         </div>
       </div>
     </div>
@@ -82,23 +82,23 @@
       </tr>
     </thead>
     <tbody>
-      <tal:objects repeat="item sessions/future">
-        <tr tal:attributes="class item/id">
-          <td style="vertical-align: middle;">
-            <i class="bi bi-list"></i>&nbsp;
+    <tal:objects repeat="item sessions/future">
+      <tr tal:attributes="class item/id">
+        <td style="vertical-align: middle;">
+          <i class="bi bi-list"></i>&nbsp;
             <a tal:attributes="href item/url;" tal:content="item/title" style="color:#007BC0;"> Item Title </a>
-          </td>
-          <td style="text-align: center; vertical-align: middle;">
-            <span tal:content="item/date"> Data </span>
-          </td>
-          <td style="text-align: center; vertical-align: middle;">
-            <span tal:content="string:${item/start}-${item/end}"> Horari </span>
-          </td>
-        </tr>
-        <tr tal:condition="item/breakline" class="breakline">
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+          <span tal:content="item/date"> Data </span>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+          <span tal:content="string:${item/start}-${item/end}"> Horari </span>
+        </td>
+      </tr>
+      <tr tal:condition="item/breakline" class="breakline">
           <td colspan="3"></td>
-        </tr>
-      </tal:objects>
+      </tr>
+    </tal:objects>
     </tbody>
   </table>
 

@@ -690,21 +690,19 @@ class View(BrowserView):
     def getAnnotations(self):
         """ Get send mail annotations
         """
-        if api.user.is_anonymous():
-            return False
-        else:
+        try:
+            if api.user.is_anonymous():
+                return []
             annotations = IAnnotations(self.context)
-            # This is used to remove log entries manually
-            # import ipdb;ipdb.set_trace()
-            # aaa = annotations['genweb.organs.logMail']
-            # pp(aaa)       # Search the desired entry position
-            # aaa.pop(0)    # remove the entry
-            # annotations['genweb.organs.logMail'] = aaa
             try:
-                items = annotations['genweb.organs.logMail']
+                items = annotations.get('genweb.organs.logMail', [])
+                if not items:
+                    return []
                 return sorted(items, key=itemgetter('index'), reverse=True)
-            except:
-                return False
+            except (KeyError, AttributeError):
+                return []
+        except:
+            return []
 
     def getAnnotationsExcuse(self):
 
