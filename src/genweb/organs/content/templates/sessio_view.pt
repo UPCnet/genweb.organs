@@ -850,7 +850,12 @@
                                                             <i class="bi bi-pencil"></i></button>
                                                         <button type="button" class="remove badge bg-danger"
                                                                 title="Esborra"
-                            tal:attributes="data-item item/id; data-type item/portal_type">
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#modalConfirm"
+                                                                data-modal-title="Confirmar eliminació"
+                                                                data-modal-body="Estàs segur que vols eliminar aquest element?"
+                                                                data-modal-action="delete"
+                                                                tal:attributes="data-item item/id; data-type item/portal_type">
                                                             <i class="bi bi-trash"></i>
                           </button>
                         </div>
@@ -1053,6 +1058,11 @@
                                     tal:condition="python: view.canModifyPunt(item)">
                                                                             <button type="button" class="remove badge bg-danger"
                                                                                     title="Esborra"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#modalConfirm"
+                                                                                    data-modal-title="Confirmar eliminació"
+                                                                                    data-modal-body="Estàs segur que vols eliminar aquest element?"
+                                                                                    data-modal-action="delete"
                                                                                     tal:attributes="data-item file_item/id; data-type file_item/portal_type">
                                                                                 <i class="bi bi-trash" aria-hidden="true"></i>
                                     </button>
@@ -1118,7 +1128,12 @@
                                 </button>
                                                                           <button type="button" class="remove badge bg-danger"
                                                                                   title="Esborra"
-                                  tal:attributes="data-item itemSubpunt_id; data-type itemSubpunt/portal_type">
+                                                                                  data-bs-toggle="modal"
+                                                                                  data-bs-target="#modalConfirm"
+                                                                                  data-modal-title="Confirmar eliminació"
+                                                                                  data-modal-body="Estàs segur que vols eliminar aquest element?"
+                                                                                  data-modal-action="delete"
+                                                                                  tal:attributes="data-item itemSubpunt_id; data-type itemSubpunt/portal_type">
                                                                               <i class="bi bi-trash" aria-hidden="true"></i>
                                 </button>
                               </div>
@@ -1283,7 +1298,12 @@
                                           tal:condition="python: view.canModifyPunt(itemSubpunt)">
                                                                                             <button type="button" class="remove badge bg-danger"
                                                                                                     title="Esborra"
-                                            tal:attributes="data-item item/id; data-type item/portal_type">
+                                                                                                    data-bs-toggle="modal"
+                                                                                                    data-bs-target="#modalConfirm"
+                                                                                                    data-modal-title="Confirmar eliminació"
+                                                                                                    data-modal-body="Estàs segur que vols eliminar aquest element?"
+                                                                                                    data-modal-action="delete"
+                                                                                                    tal:attributes="data-item item/id; data-type item/portal_type">
                                                                                                 <i class="bi bi-trash" aria-hidden="true"></i></button>
                                         </div>
                                       </li>
@@ -1394,7 +1414,7 @@
                         }
                         $.ajax({
                             type: 'POST',
-                            url: '@@createElement',
+                            url: window.location.href.split('?')[0].replace(/\/$/, "") + '/@@createElement',
                             data: { action: 'createPunt', name: value },
               success: function () {
                                 const modal = bootstrap.Modal.getInstance(modalPunt);
@@ -1418,7 +1438,7 @@
                         }
                         $.ajax({
                             type: 'POST',
-                            url: '@@createElement',
+                            url: window.location.href.split('?')[0].replace(/\/$/, "") + '/@@createElement',
                             data: { action: 'createAcord', name: value },
                             success: function () {
                                 const modal = bootstrap.Modal.getInstance(modalAcord);
@@ -1451,8 +1471,8 @@
                             // Limpiamos eventos anteriores para evitar ejecuciones múltiples
                             $(confirmButton).off('click').on('click', function() {
                                 if (action === 'delete') {
-                                    const itemId = button.getAttribute('data-item-id');
-                                    const itemType = button.getAttribute('data-item-type');
+                                    const itemId = button.getAttribute('data-item');
+                                    const itemType = button.getAttribute('data-type');
                                     deleteElement(itemId, itemType);
                                 } else if (action === 'hideAgreement') {
                                     const url = button.getAttribute('data-item-url');
@@ -1565,7 +1585,7 @@
                     const id = CSS.escape(name);
                     jQuery.ajax({
                         type: 'POST',
-                        url: 'deleteElement',
+                        url: window.location.href.split('?')[0].replace(/\/$/, "") + '/deleteElement',
                         data: { id: name, type: portal_type },
                         success: function(){
                             jQuery('#' + id).fadeOut('slow', function() { $(this).remove(); });

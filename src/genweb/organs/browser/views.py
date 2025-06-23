@@ -28,6 +28,7 @@ import DateTime
 import json
 import transaction
 import unicodedata
+import time
 
 # Disable CSRF
 try:
@@ -65,12 +66,24 @@ class createElement(BrowserView):
         else:
             # Inicializar path antes del try para evitar UnboundLocalError
             path = '/'.join(self.context.getPhysicalPath())
-            try:
-                value = ' '.join(self.context.estatsLlista.split('</p>')[0].rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '').split(' ')[:-1])
-                estat = unicodedata.normalize("NFKD", value).encode('utf-8')
-            except:
-                estat = ''
+            # Obtenim els estats de la sessio
+            organ = utils.get_organ(self.context)
+            # a organ guardem el objecte organ
+            estatsLlista = organ.estatsLlista
+            if estatsLlista:
+                if hasattr(estatsLlista, 'raw'):
+                    valor_cru = estatsLlista.raw
+                else:
+                    valor_cru = estatsLlista
+                # Default state value is the first value in the list
+                estat = valor_cru.split('</p>')[0]
+                default_estat = unicodedata.normalize("NFKD", estat).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\\r\\n', '')
+                default_estat = ' '.join(default_estat.split()[:-1]).lstrip()
+            else:
+                default_estat = None
+
             if action == 'createPunt':
+                new_id = str(int(time.time()))
                 items = portal_catalog.searchResults(
                     portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
                     path={'query': path,
@@ -81,9 +94,10 @@ class createElement(BrowserView):
                         title=itemid,
                         type='genweb.organs.punt',
                         container=self.context)
-                obj.estatsLlista = estat
+                obj.estatsLlista = default_estat
                 obj.proposalPoint = index + 1
             elif action == 'createAcord':
+                new_id = str(int(time.time()))
                 items = portal_catalog.searchResults(
                     portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
                     path={'query': path,
@@ -94,7 +108,7 @@ class createElement(BrowserView):
                         title=itemid,
                         type='genweb.organs.acord',
                         container=self.context)
-                obj.estatsLlista = estat
+                obj.estatsLlista = default_estat
                 obj.proposalPoint = index + 1
             else:
                 pass

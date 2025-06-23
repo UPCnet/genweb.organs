@@ -78,6 +78,18 @@ def llistaEstats(context):
 
 directlyProvides(llistaEstats, IContextSourceBinder)
 
+@provider(IContextAwareDefaultFactory)
+def proposal_point_default(context):
+    portal_catalog = api.portal.get_tool(name='portal_catalog')
+    path_url = context.getPhysicalPath()[1:]
+    folder_path = ""
+    for path in path_url:
+        folder_path += '/' + path
+    values = portal_catalog.searchResults(
+        portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
+        path={'query': folder_path,
+              'depth': 1})
+    return str(len(values) + 1)
 
 @provider(IFormFieldProvider)
 class IPunt(model.Schema):
@@ -98,7 +110,7 @@ class IPunt(model.Schema):
     proposalPoint = schema.TextLine(
         title=_(u'Proposal point number'),
         required=False,
-        defaultFactory=lambda context: proposal_point_default(context)
+        defaultFactory=proposal_point_default
     )
 
     textindexer.searchable('defaultContent')
@@ -112,21 +124,6 @@ class IPunt(model.Schema):
         source=llistaEstats,
         required=True,
     )
-
-
-@provider(IContextAwareDefaultFactory)
-def proposal_point_default(context):
-    portal_catalog = api.portal.get_tool(name='portal_catalog')
-    path_url = context.getPhysicalPath()[1:]
-    folder_path = ""
-    for path in path_url:
-        folder_path += '/' + path
-    values = portal_catalog.searchResults(
-        portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
-        path={'query': folder_path,
-              'depth': 1})
-    return str(len(values) + 1)
-
 
 @indexer(IPunt)
 def proposalPoint(obj):
@@ -142,6 +139,14 @@ class View(BrowserView, UtilsFirmaDocumental):
 
     def __call__(self):
         return self.index()
+
+    def title(self):
+        return self.context.title
+
+    def message(self):
+        if self.context.defaultContent:
+            return self.context.defaultContent.output
+        return None
 
     def FilesandDocumentsInside(self):
         return utils.FilesandDocumentsInside(self)
