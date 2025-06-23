@@ -31,7 +31,7 @@
           <tal:documents repeat="item OrgansInside">
             <tr>
               <td>
-                <span class="icon-genweb-organs-organgovern"></span>
+                <i class="bi bi-journal ms-2"></i>
                 <a tal:attributes="href item/absolute_url;"
                    tal:content="item/title">
                         Item Title

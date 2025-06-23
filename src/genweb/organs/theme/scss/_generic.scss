@@ -1,0 +1,66 @@
+.convocada,
+.label-convocada,
+.tancada,
+.label-tancada,
+.realitzada,
+.label-realitzada,
+.open_organ,
+.label-open_organ,
+.Públic,
+.Obert,
+.label-Obert,
+.planificada,
+.label-planificada,
+.restricted_to_affected_organ,
+.label-restricted_to_affected_organ,
+.en_correccio,
+.label-en_correccio,
+.restricted_to_members_organ,
+.label-restricted_to_members_organ {
+  padding: 1px 4px 2px !important;
+  border-radius: 3px !important;
+  font-weight: bold !important;
+  line-height: 14px !important;
+  color: white !important;
+  vertical-align: baseline !important;
+  white-space: nowrap !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+  text-align: center !important;
+}
+
+.convocada,
+.label-convocada {
+  background-color: #8952ab !important;
+}
+
+.tancada,
+.label-tancada {
+  background-color: #007bc0 !important;
+}
+
+.realitzada,
+.label-realitzada,
+.open_organ,
+.label-open_organ,
+.Públic,
+.Obert,
+.label-Obert {
+  background-color: #456211 !important;
+}
+
+.planificada,
+.label-planificada {
+  background-color: #FFA500 !important;
+}
+
+.restricted_to_affected_organ,
+.label-restricted_to_affected_organ {
+  background-color: #FF5733 !important;
+}
+
+.en_correccio,
+.label-en_correccio,
+.restricted_to_members_organ,
+.label-restricted_to_members_organ {
+  background-color:  #a62e1f !important;
+}
