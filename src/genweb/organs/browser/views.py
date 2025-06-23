@@ -55,63 +55,73 @@ class createElement(BrowserView):
     """ This code is executed when pressing the two buttons in session view,
         to create an acord or a point at first level of the session """
     def __call__(self):
-        # TODO: Al anadir el estado con espacio y acento lo pone mal
-        # En crear el objeto no hace falta poner el log, porque
-        # ya salta el HOOK y lo hace
         portal_catalog = api.portal.get_tool(name='portal_catalog')
         action = self.request.form.get('action')
         itemid = self.request.form.get('name')
-        if itemid == '':
-            pass
-        else:
-            # Inicializar path antes del try para evitar UnboundLocalError
-            path = '/'.join(self.context.getPhysicalPath())
-            # Obtenim els estats de la sessio
+
+        if not itemid:
+            return
+
+        # Get default state (Plone 6 compatible) and path
+        default_estat = None
+        path = '/'.join(self.context.getPhysicalPath())
+        try:
             organ = utils.get_organ(self.context)
-            # a organ guardem el objecte organ
             estatsLlista = organ.estatsLlista
             if estatsLlista:
                 if hasattr(estatsLlista, 'raw'):
                     valor_cru = estatsLlista.raw
                 else:
                     valor_cru = estatsLlista
-                # Default state value is the first value in the list
-                estat = valor_cru.split('</p>')[0]
-                default_estat = unicodedata.normalize("NFKD", estat).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\\r\\n', '')
-                default_estat = ' '.join(default_estat.split()[:-1]).lstrip()
-            else:
-                default_estat = None
+                estat_tag = valor_cru.split('</p>')[0]
+                estat_text = unicodedata.normalize("NFKD", estat_tag).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\\r\\n', '')
+                default_estat = ' '.join(estat_text.split()[:-1]).lstrip()
+        except Exception:
+            # If anything fails, default_estat remains None, which is fine.
+            pass
 
-            if action == 'createPunt':
-                new_id = str(int(time.time()))
-                items = portal_catalog.searchResults(
-                    portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
-                    path={'query': path,
-                          'depth': 1})
-                index = len(items)
-                with api.env.adopt_roles(['OG1-Secretari']):
-                    obj = api.content.create(
-                        title=itemid,
-                        type='genweb.organs.punt',
-                        container=self.context)
-                obj.estatsLlista = default_estat
-                obj.proposalPoint = index + 1
-            elif action == 'createAcord':
-                new_id = str(int(time.time()))
-                items = portal_catalog.searchResults(
-                    portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
-                    path={'query': path,
-                          'depth': 1})
-                index = len(items)
-                with api.env.adopt_roles(['OG1-Secretari']):
-                    obj = api.content.create(
-                        title=itemid,
-                        type='genweb.organs.acord',
-                        container=self.context)
-                obj.estatsLlista = default_estat
-                obj.proposalPoint = index + 1
-            else:
-                pass
+        # Calculate proposalPoint based on existing items, respecting permissions
+        items = portal_catalog.searchResults(
+            portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
+            path={'query': path, 'depth': 1})
+        proposal_point_number = str(len(items) + 1)
+
+        if action == 'createPunt':
+            with api.env.adopt_roles(['OG1-Secretari', 'Manager']):
+                new_obj = api.content.create(
+                    type='genweb.organs.punt',
+                    title=itemid,
+                    container=self.context,
+                    safe_id=True,
+                    proposalPoint=proposal_point_number
+                )
+            if default_estat:
+                new_obj.estatsLlista = default_estat
+
+        elif action == 'createAcord':
+            acords_p = portal_catalog.searchResults(
+                portal_type=['genweb.organs.acord'],
+                path={'query': path, 'depth': 1})
+            agreement_count = str(len(acords_p) + 1)
+            year = str(datetime.date.today().year)
+            agreement_number = f"{agreement_count}/{year}"
+
+            with api.env.adopt_roles(['OG1-Secretari', 'Manager']):
+                new_obj = api.content.create(
+                    type='genweb.organs.acord',
+                    title=itemid,
+                    container=self.context,
+                    safe_id=True,
+                    agreement=agreement_number,
+                    proposalPoint=proposal_point_number
+                )
+            if default_estat:
+                new_obj.estatsLlista = default_estat
+        else:
+            return
+
+        new_obj.reindexObject()
+        return self.request.response.redirect(self.context.absolute_url())
 
 
 class Delete(BrowserView):

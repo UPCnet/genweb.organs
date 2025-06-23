@@ -1371,6 +1371,7 @@
                 document.addEventListener('DOMContentLoaded', function () {
                     "use strict";
 
+                    const context_url = <tal:block tal:content="string:'${view/context_base_url}'" />;
                     let refreshNeeded = false;
                     const $ = jQuery; // Para mantener la compatibilidad con el código existente.
 
@@ -1414,7 +1415,7 @@
                         }
                         $.ajax({
                             type: 'POST',
-                            url: window.location.href.split('?')[0].replace(/\/$/, "") + '/@@createElement',
+                            url: context_url + '/@@createElement',
                             data: { action: 'createPunt', name: value },
               success: function () {
                                 const modal = bootstrap.Modal.getInstance(modalPunt);
@@ -1438,7 +1439,7 @@
                         }
                         $.ajax({
                             type: 'POST',
-                            url: window.location.href.split('?')[0].replace(/\/$/, "") + '/@@createElement',
+                            url: context_url + '/@@createElement',
                             data: { action: 'createAcord', name: value },
                             success: function () {
                                 const modal = bootstrap.Modal.getInstance(modalAcord);
@@ -1585,7 +1586,7 @@
                     const id = CSS.escape(name);
                     jQuery.ajax({
                         type: 'POST',
-                        url: window.location.href.split('?')[0].replace(/\/$/, "") + '/deleteElement',
+                        url: context_url + '/deleteElement',
                         data: { id: name, type: portal_type },
                         success: function(){
                             jQuery('#' + id).fadeOut('slow', function() { $(this).remove(); });
