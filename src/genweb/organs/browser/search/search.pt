@@ -24,8 +24,8 @@
           <img src="++theme++genweb.organs/img/foto_consell_govern.jpg" class="card-img-top" alt="Consell de Govern" />
           <div class="card-body d-flex justify-content-between align-items-center">
             <div class="card-txt">
-              <h3 class="card-title h5">Consell de Govern</h3>
-              <p class="card-text" tal:content="organ_govern/title">Last session</p>
+              <h3 class="card-title h5" i18n:translate="">Consell de Govern</h3>
+              <p class="card-text fs-xs" tal:content="organ_govern/title">Last session</p>
             </div>
             <div class="card-ic">
               <i class="bi bi-arrow-right-circle text-primary" aria-hidden="true"></i>
@@ -39,8 +39,8 @@
           <img src="++theme++genweb.organs/img/foto_consell_social.jpg" class="card-img-top" alt="Consell Social" />
           <div class="card-body d-flex justify-content-between align-items-center">
             <div class="card-txt">
-              <h3 class="card-title h5">Consell Social</h3>
-              <p class="card-text" tal:content="consell_social/title">Last session</p>
+              <h3 class="card-title h5" i18n:translate="">Consell Social</h3>
+              <p class="card-text fs-xs" tal:content="consell_social/title">Last session</p>
             </div>
             <div class="card-ic">
               <i class="bi bi-arrow-right-circle text-primary" aria-hidden="true"></i>
@@ -54,8 +54,8 @@
           <img src="++theme++genweb.organs/img/foto_claustre.jpg" class="card-img-top" alt="Claustre Universitari" />
           <div class="card-body d-flex justify-content-between align-items-center">
             <div class="card-txt">
-              <h3 class="card-title h5">Claustre Universitari</h3>
-              <p class="card-text" tal:content="claustre/title">Last session</p>
+              <h3 class="card-title h5" i18n:translate="">Claustre Universitari</h3>
+              <p class="card-text fs-xs" tal:content="claustre/title">Last session</p>
             </div>
             <div class="card-ic">
               <i class="bi bi-arrow-right-circle text-primary" aria-hidden="true"></i>
@@ -88,91 +88,108 @@
     </tal:block>
 
     <!-- Caja principal de Eines -->
-    <h2 i18n:translate=""> Eines </h2>
+
+    <h2 i18n:translate="">Eines</h2>
 
     <section class="mb-4">
-      <form method="GET" action="" role="search">
+      <form name="searchform" action="@@search" role="search" class="border rounded-3 text-bg-light p-3">
+        <input type="hidden" name="advanced_search" value="False" />
+        <input type="hidden" name="created.range:record" value="min" />
         <div class="row mb-3 g-2 align-items-end">
           <div class="col-10">
             <input type="text" class="form-control" id="searchText" name="SearchableText" placeholder="Cercar..."
               tal:attributes="value request/SearchableText|nothing" />
           </div>
           <div class="col-2">
-            <button type="submit" class="btn btn btn-primary w-100"><i class="bi bi-search me-2"></i>Cerca</button>
+            <button type="submit" class="btn btn btn-primary w-100">
+              <i class="bi bi-search me-2"></i>
+              <span i18n:translate="">Cerca</span>
+            </button>
           </div>
         </div>
         <div class="row mb-3 g-2">
           <div class="col-md-4">
-            <label class="form-label">Tipus de document</label>
+            <label class="form-label" i18n:translate="">Tipus de document</label>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="genweb.organs.acord" id="acordCheck"
-                name="portal_type:list" checked="checked" />
-              <label class="form-check-label" for="acordCheck">Acord</label>
+                     name="portal_type:list" checked="checked" />
+              <label class="form-check-label" for="acordCheck" i18n:translate="">Acord</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="genweb.organs.punt" id="puntCheck"
-                name="portal_type:list" checked="checked" />
-              <label class="form-check-label" for="puntCheck">Punt informatiu</label>
+                     name="portal_type:list" />
+              <label class="form-check-label" for="puntCheck" i18n:translate="">Punt informatiu</label>
             </div>
           </div>
-          <div class="col-md-4">
-            <label class="form-label">Òrgan col·legiat</label>
+          <div class="col-md-4" tal:define="root_path view/root_path">
+            <label class="form-label" i18n:translate="">Òrgan col·legiat</label>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="govern" id="governCheck" name="organ:list"
-                checked="checked" />
-              <label class="form-check-label" for="governCheck">Consell de Govern</label>
+              <input class="form-check-input" type="checkbox" id="vinculatsCheck" name="path"
+                     checked="checked" tal:attributes="value string:$root_path/not_anon_my_organs/" />
+              <label class="form-check-label" for="vinculatsCheck" i18n:translate="">Òrgans vinculats amb mi</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="social" id="socialCheck" name="organ:list"
-                checked="checked" />
-              <label class="form-check-label" for="socialCheck">Consell Social</label>
+              <input class="form-check-input" type="checkbox" id="governCheck" name="path"
+                     checked="checked" tal:attributes="value string:$root_path/ca/consell-de-govern/consell-de-govern/" />
+              <label class="form-check-label" for="governCheck" i18n:translate="">Consell de Govern</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="claustre" id="claustreCheck" name="organ:list"
-                checked="checked" />
-              <label class="form-check-label" for="claustreCheck">Claustre Universitari</label>
+              <input class="form-check-input" type="checkbox" id="socialCheck" name="path"
+                     checked="checked" tal:attributes="value string:$root_path/ca/cs/ple-del-consell-social/" />
+              <label class="form-check-label" for="socialCheck" i18n:translate="">Consell Social</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="claustreCheck" name="path"
+                     checked="checked" tal:attributes="value string:$root_path/ca/claustre-universitari/claustre-universitari/" />
+              <label class="form-check-label" for="claustreCheck" i18n:translate="">Claustre Universitari</label>
             </div>
           </div>
-          <div class="col-md-4">
-            <label class="form-label">Període</label>
+          <div class="col-md-4"
+               tal:define="DateTime python:modules['DateTime'].DateTime;
+                           today python:DateTime().earliestTime();
+                           lastyear python:(today-365).Date();
+                           ever string:1970-01-02;
+                           checked python:request.get('created', []);
+                           checked python:(len(checked) == 1) and checked[0] or ever">
+            <label class="form-label" i18n:translate="">Període</label>
             <div class="form-check">
-              <input class="form-check-input" type="radio" value="any" id="periodeAny" name="period"
-                checked="checked" />
-              <label class="form-check-label" for="periodeAny">Qualsevol data</label>
+              <input class="form-check-input" type="radio" value="any" id="periodeAny" name="created.query:record:list:date"
+                     tal:attributes="value ever;
+                                     checked python:checked==ever and 'checked' or '';"/>
+              <label class="form-check-label" for="periodeAny" i18n:translate="">Qualsevol data</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" value="darrer" id="periodeDarrer" name="period" />
-              <label class="form-check-label" for="periodeDarrer">Darrer any</label>
+              <input class="form-check-input" type="radio" value="darrer" id="periodeDarrer" name="created.query:record:list:date"
+                     tal:attributes="value lastyear;
+                                     checked python:checked==lastyear and 'checked' or '';"/>
+              <label class="form-check-label" for="periodeDarrer" i18n:translate="">Darrer any</label>
             </div>
+            <input type="hidden" name="sort_on" value="Date" />
           </div>
         </div>
         <!-- Resultados de búsqueda -->
         <div class="row">
           <div class="col-12">
-            <div class="card mt-3">
-              <div class="card-body">
-                <h5 class="card-title">Resultats de la cerca</h5>
-                <tal:block tal:define="results view/results">
-                  <tal:block tal:condition="results">
-                    <div class="list-group">
-                      <tal:documents repeat="item results">
-                        <a tal:attributes="href item/getURL"
-                          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                          <span>
-                            <span class="fw-bold" tal:content="item/Title">Títol</span>
-                            <span class="text-muted small ms-2" tal:content="item/portal_type">Tipus</span>
-                          </span>
-                          <span class="badge bg-secondary" tal:content="item/created|nothing"></span>
-                        </a>
-                      </tal:documents>
-                    </div>
-                  </tal:block>
-                  <tal:block tal:condition="not:results">
-                    <p class="text-muted">No s'han trobat resultats.</p>
-                  </tal:block>
-                </tal:block>
-              </div>
-            </div>
+            <h3 class="h5" i18n:translate="">Resultats de la cerca</h3>
+            <tal:block tal:define="results view/results">
+              <tal:block tal:condition="results">
+                <div class="list-group">
+                  <tal:documents repeat="item results">
+                    <a tal:attributes="href item/getURL"
+                      class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                      <span>
+                        <span class="fw-bold" tal:content="item/Title">Títol</span>
+                        <span class="text-muted small ms-2" tal:content="item/portal_type">Tipus</span>
+                      </span>
+                      <span class="badge bg-secondary" tal:content="item/created|nothing"></span>
+                    </a>
+                  </tal:documents>
+                </div>
+              </tal:block>
+              <tal:block tal:condition="not:results">
+                <p class="text-muted" i18n:translate="">No s'han trobat resultats.</p>
+              </tal:block>
+            </tal:block>
           </div>
         </div>
       </form>
@@ -180,26 +197,28 @@
 
     <tal:banners>
       <div class="row">
-        <ol class="list-banners row list-unstyled">
-          <li class="col-md-6 mb-3">
-            <a href="https://governhistoric.upc.edu/ca/benvingut" target="_blank"
-              class="card h-100 text-decoration-none">
-              <div class="card-body">
-                <h2 class="card-title h5">Hemeroteca i documentació d'òrgans d'anys anteriors</h2>
-              </div>
-              <i class="icon bi bi-external-link position-absolute end-0 bottom-0 m-3" aria-hidden="true"></i>
-            </a>
-          </li>
-          <li class="col-md-6 mb-3">
-            <a href="https://www.upc.edu/slt/ca/recursos-redaccio/models-documents/governupc" target="_blank"
-              class="card h-100 text-decoration-none">
-              <div class="card-body">
-                <h2 class="card-title h5">Pautes per a l'elaboració de documents</h2>
-              </div>
-              <i class="icon bi bi-external-link position-absolute end-0 bottom-0 m-3" aria-hidden="true"></i>
-            </a>
-          </li>
-        </ol>
+        <div class="col-md-6 mb-3">
+          <a href="https://governhistoric.upc.edu/ca/benvingut" target="_blank"
+            class="card card-organ text-bg-light h-100 text-decoration-none d-flex flex-row justify-content-between align-items-center wrapper-img-link">
+            <div class="card-body">
+              <h2 class="card-title h5 mb-0" i18n:translate="">Hemeroteca i documentació d'òrgans d'anys anteriors</h2>
+            </div>
+            <div class="card-ic-circle flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle border border-2 border-primary me-3">
+              <i class="bi bi-box-arrow-up-right text-primary" aria-hidden="true"></i>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-6 mb-3">
+          <a href="https://www.upc.edu/slt/ca/recursos-redaccio/models-documents/governupc" target="_blank"
+            class="card card-organ text-bg-light h-100 text-decoration-none d-flex flex-row justify-content-between align-items-center wrapper-img-link">
+            <div class="card-body">
+              <h2 class="card-title h5 mb-0" i18n:translate="">Pautes per a l'elaboració de documents</h2>
+            </div>
+            <div class="card-ic-circle flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle border border-2 border-primary me-3">
+              <i class="bi bi-box-arrow-up-right text-primary" aria-hidden="true"></i>
+            </div>
+          </a>
+        </div>
       </div>
     </tal:banners>
 

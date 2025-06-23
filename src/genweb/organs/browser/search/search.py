@@ -167,15 +167,6 @@ class Search(BrowserView):
             types = [types]
         return plone_utils.getUserFriendlyTypes(types)
 
-    def types_list(self):
-        # only show the types of Organs de Govern
-        # removed subpunt because visually is the same that punt.
-        # Subpunt is added in other part of code
-        # catalog = api.portal.get_tool(name='portal_catalog')
-        # used_types = catalog._catalog.getIndex('portal_type').uniqueValues()
-        used_types = ('genweb.organs.acord', 'genweb.organs.punt')
-        return sorted(self.filter_types(list(used_types)))
-
     def sort_options(self):
         """ Sorting options for search results view. """
         return (
@@ -212,14 +203,6 @@ class Search(BrowserView):
         path = '/'.join(api.portal.get().getPhysicalPath())
         return path
 
-    def getPage(self):
-        """ Retorna la pagina benvingut """
-        portal_catalog = api.portal.get_tool(name='portal_catalog')
-        item = portal_catalog.searchResults(
-            portal_type=['Document'], id='benvingut')
-        if item:
-            return item[0].getObject().text.output
-
 
 class SortOption(object):
 
@@ -248,8 +231,8 @@ class SortOption(object):
         # After the AJAX call the request is changed and thus the URL part of
         # it as well. In this case we need to tweak the URL to point to have
         # correct URLs
-        if '@@updated_search' in base_url:
-            base_url = base_url.replace('@@updated_search', '@@search')
+        if '@@updated_searchorgans' in base_url:
+            base_url = base_url.replace('@@updated_searchorgans', '@@searchorgans')
         return base_url + '?' + make_query(q)
 
 

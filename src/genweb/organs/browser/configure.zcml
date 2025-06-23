@@ -314,7 +314,7 @@
     />
 
   <browser:page
-    name="updated_search"
+    name="updated_searchorgans"
     class=".search.search.Search"
     permission="zope2.View"
     for="Products.CMFCore.interfaces.IFolderish"

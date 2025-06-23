@@ -40,11 +40,20 @@ body.template-searchorgans .card-organ:hover {
 body.template-searchorgans .card-organ .card-ic i.bi {
   font-size: 2.25rem;
 }
-/* line 24, ../scss/_homepage.scss */
+/* line 21, ../scss/_homepage.scss */
+body.template-searchorgans .card-organ .card-ic-circle {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+/* line 25, ../scss/_homepage.scss */
+body.template-searchorgans .card-organ .card-ic-circle i.bi::before {
+  font-weight: 600 !important;
+}
+/* line 33, ../scss/_homepage.scss */
 body.template-searchorgans .meva-vinculacio a {
   text-decoration: none;
 }
-/* line 27, ../scss/_homepage.scss */
+/* line 36, ../scss/_homepage.scss */
 body.template-searchorgans .meva-vinculacio a:hover {
   text-decoration: underline;
 }

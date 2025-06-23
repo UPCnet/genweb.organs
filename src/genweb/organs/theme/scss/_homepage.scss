@@ -17,6 +17,15 @@ body.template-searchorgans {
         font-size: 2.25rem;
       }
     }
+
+    .card-ic-circle {
+      width: 2.5rem;
+      height: 2.5rem;
+
+      i.bi::before {
+        font-weight: 600 !important;
+      }
+    }
   }
 
   .meva-vinculacio {
