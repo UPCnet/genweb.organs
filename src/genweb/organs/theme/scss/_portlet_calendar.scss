@@ -1,116 +1,61 @@
-// Estilos para el portlet de calendario clásico
-.portlet-calendar {
-  .table {
-    border: none;
-    background: transparent;
-    th, td {
-      text-align: center;
-      vertical-align: middle;
-      border: none;
-      padding: 0.25rem 0.2rem;
-      background: transparent;
-    }
-    th {
-      color: #337ab7;
-      font-weight: 600;
-      background: transparent;
-      border-bottom: 1px solid #e5e5e5;
-    }
-    td.event {
-      min-width: 2.2em;
-      min-height: 2.2em;
-      position: relative;
-      &.today {
-        border: 2px solid #337ab7;
-        border-radius: 50%;
-      }
-      &.cal_has_events {
-        border-radius: 6px;
-        font-weight: 600;
-        opacity: 0.85;
-        transition: opacity 0.2s ease-in-out;
-        &:hover {
-          opacity: 1;
+.portlet.portlet-calendar {
+
+  .card-body{
+
+    table {
+      border: 0px solid transparent !important;
+      border-spacing: 2px !important;
+
+      td,
+      th {
+        padding: .35rem .25rem !important;
+
+        &.cal_has_events {
+          color: white;
+          border-top: 0px solid transparent !important;
+          border-bottom: 0px solid transparent !important;
+
+          button {
+            color: white;
+            text-decoration: none;
+          }
+
+          &:hover {
+            filter: brightness(80%);
+          }
+
+          .event-multiple::before {
+            content: "+";
+            position: absolute;
+            font-size: 1rem;
+            bottom: -12px;
+            right: -10px;
+          }
         }
-        .calendar-events {
-          margin-top: 0.2em;
-          background: #f5f5f5;
-          border-radius: 6px;
-          padding: 0.2em 0.4em;
-          box-shadow: 0 1px 2px rgba(0,0,0,0.03);
-        }
-        a, button {
-          color: #333;
-          font-weight: 700;
-        }
-        .event-time {
-          color: #888;
-          font-size: 0.95em;
-          font-weight: 400;
-        }
-      }
-      &.cal_next_month, &.cal_prev_month {
-        color: #bfc9d1;
-        background: #f8f9fa !important;
       }
     }
   }
-  .calendar-events {
-    font-size: 0.95em;
-    text-align: left;
-    li {
-      margin-bottom: 0.1em;
-      a {
-        font-weight: 600;
-        color: #333;
-      }
-      .event-time {
-        color: #888;
-        font-size: 0.95em;
-        font-weight: 400;
-      }
+
+  .text-end {
+
+    i::before {
+      font-weight: 600 !important;
     }
   }
-  .btn-link {
-    color: #337ab7;
-    text-decoration: underline;
-    font-size: 1em;
-    font-weight: 600;
-    &:hover {
-      color: #23527c;
-    }
-  }
+
+  .text-end,
   .calendar-event-list {
-    margin-top: 1rem;
-    .event-item {
-      border-left: 5px solid #337ab7;
-      background: #fff;
-      margin-bottom: 0.7em;
-      padding: 0.7em 1em 0.7em 0.8em;
-      border-radius: 6px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-      font-size: 1em;
-      .fw-bold {
-        font-weight: 700;
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
       }
-      .text2 {
-        color: #888;
-        font-size: 0.95em;
-      }
-      .bi-calendar {
-        color: #888;
-        margin-right: 0.3em;
-      }
-      .fa-thumb-tack {
-        color: #bbb;
-        margin-right: 0.3em;
+
+      &.text-dark {
+        color: #212529 !important;
       }
     }
-    // Colores por tipo/órgano (ejemplo)
-    .event-item[data-color='orange'] { border-left-color: #f39c12; }
-    .event-item[data-color='green'] { border-left-color: #27ae60; }
-    .event-item[data-color='blue'] { border-left-color: #2980b9; }
-    .event-item[data-color='red'] { border-left-color: #e74c3c; }
-    .event-item[data-color='gray'] { border-left-color: #888; }
   }
 }

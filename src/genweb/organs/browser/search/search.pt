@@ -121,9 +121,10 @@
               <label class="form-check-label" for="puntCheck" i18n:translate="">Punt informatiu</label>
             </div>
           </div>
-          <div class="col-md-4" tal:define="root_path view/root_path">
+          <div class="col-md-4" tal:define="root_path view/root_path;
+                                            isAnon context/@@plone_portal_state/anonymous;">
             <label class="form-label" i18n:translate="">Òrgan col·legiat</label>
-            <div class="form-check">
+            <div class="form-check" tal:condition="not:isAnon">
               <input class="form-check-input" type="checkbox" id="vinculatsCheck" name="path"
                      checked="checked" tal:attributes="value string:$root_path/not_anon_my_organs/" />
               <label class="form-check-label" for="vinculatsCheck" i18n:translate="">Òrgans vinculats amb mi</label>

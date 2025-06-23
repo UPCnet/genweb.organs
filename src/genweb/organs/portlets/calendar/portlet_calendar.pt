@@ -70,8 +70,11 @@
                 <input type="hidden" name="month" tal:attributes="value month" />
                 <input type="hidden" name="day" tal:attributes="value day/day" />
                 <button type="submit" class="btn btn-link p-0 m-0 align-baseline bold-day-number"
-                        tal:content="python:str(day['day']) + ('+' if events and len(events) > 1 else '')"
-                        tal:attributes="title string:Events">31</button>
+                        tal:content="day/day"
+                        tal:attributes="title string:Events;
+                                        class python:'btn btn-link p-0 m-0 align-baseline bold-day-number' + (' event-multiple position-relative' if events and len(events) > 1 else '')">
+                  31
+                </button>
               </form>
             </td>
           </tal:block>
@@ -80,27 +83,30 @@
     </table>
   </div>
 
-  <div class="text-end mt-2">
-    <a class="btn btn-link btn-sm" tal:attributes="href string:${portal_url}/allsessions">veure totes les sessions</a>
+  <div class="text-end">
+    <a class="btn btn-link btn-sm" tal:attributes="href string:${portal_url}/allsessions">
+      <i class="bi bi-plus text-primary fw-bold"></i>
+      <span i18n:translate="">veure totes les sessions</span>
+    </a>
   </div>
 
 
   <!-- Listado de eventos debajo del calendario -->
   <ul class="icons-ul list-unstyled calendar-event-list">
     <tal:block tal:repeat="event view/getDayEventsGroup">
-      <li class="event-item d-flex flex-column gap-1 mb-3" tal:define="licolor event/color" tal:attributes="style string:border-left: 5px solid ${licolor}">
-        <div class="d-flex align-items-center gap-2">
+      <li class="event-item d-flex flex-column mb-2" tal:define="licolor event/color" tal:attributes="style string:border-left: 5px solid ${licolor}">
+        <div class="d-flex align-items-center gap-1 ms-2">
           <a tal:attributes="href event/url; style string:color:${event/color}; class string:fw-bold" tal:content="event/title"> Event Title </a>
         </div>
-        <div class="d-flex align-items-center gap-2 text-secondary small">
+        <div class="d-flex align-items-center gap-1 text-dark small ms-2">
           <i class="bi bi-calendar"></i>
           <span tal:content="event/start">23/06/2025</span>
           <span tal:content="event/starthour">16:00</span>
           <span tal:condition="event/end"> - <span tal:content="event/end">23/06/2025</span> <span tal:content="event/endhour">17:00</span></span>
         </div>
-        <div class="d-flex align-items-center gap-2 text-muted small">
+        <div class="d-flex align-items-center gap-1 text-dark small ms-2">
           <i class="bi bi-pin-fill"></i>
-          <a tal:attributes="href event/organ_url" tal:content="event/organ_title"></a>
+          <a class="text-dark" tal:attributes="href event/organ_url" tal:content="event/organ_title"></a>
         </div>
       </li>
     </tal:block>
