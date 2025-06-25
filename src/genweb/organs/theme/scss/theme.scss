@@ -1,5 +1,8 @@
 @import "edicio";
 @import "homepage";
-@import "portlet_calendar";
-@import "sessio";
 @import "generic";
+
+@import "portlets/portlet_calendar";
+
+@import "content/organgovern";
+@import "content/sessio";

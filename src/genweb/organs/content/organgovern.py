@@ -247,15 +247,31 @@ class View(BrowserView):
 
     def activeClassMembres(self):
         if self.context.membresOrgan and self.context.convidatsPermanentsOrgan is None:
-            return 'in active'
+            return ' active'
         elif self.context.membresOrgan and self.context.convidatsPermanentsOrgan:
-            return 'in active'
+            return ' active'
+        else:
+            return ''
+
+    def activeClassMembresTab(self):
+        if self.context.membresOrgan and self.context.convidatsPermanentsOrgan is None:
+            return ' show active'
+        elif self.context.membresOrgan and self.context.convidatsPermanentsOrgan:
+            return ' show active'
         else:
             return ''
 
     def activeClassConvidats(self):
         if self.context.membresOrgan is None and self.context.convidatsPermanentsOrgan:
-            return 'in active'
+            return ' active'
+        elif self.context.membresOrgan and self.context.convidatsPermanentsOrgan:
+            return ''
+        else:
+            return ''
+
+    def activeClassConvidatsTab(self):
+        if self.context.membresOrgan is None and self.context.convidatsPermanentsOrgan:
+            return ' show active'
         elif self.context.membresOrgan and self.context.convidatsPermanentsOrgan:
             return ''
         else:

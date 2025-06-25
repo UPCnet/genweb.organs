@@ -29,7 +29,8 @@ module.exports = function (grunt) {
         watch: {
             css: {
                 files: [
-                    'scss/*'
+                    'scss/*',
+                    'scss/**/*'
                 ],
                 tasks: ['compass:css', 'concat:css', 'cssmin:css']
             },
@@ -37,6 +38,8 @@ module.exports = function (grunt) {
         uglify: {
             js: {
                 files: {
+                    'js/content/organgovern_view.min.js':
+                        '../../../../../genweb.organs/src/genweb/organs/content/templates/organgovern_view.js',
                 }
             }
         },
