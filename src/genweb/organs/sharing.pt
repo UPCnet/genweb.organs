@@ -58,7 +58,7 @@
                        id="sharing-search-button"
                        name="form.button.Search"
                        value="Search"
-                       class="btn btn btn-info searchButton allowMultiSubmit mb-2"
+                       class="btn btn-info searchButton allowMultiSubmit mb-2"
                        i18n:attributes="value label_search"
                        />
             </div>

@@ -64,7 +64,7 @@
                     aria-hidden="true"></i></span>
               </div>
               <tal:block tal:condition="view/canFirm">
-                <button class="btn btn btn-info btn-send-confirm" style="float:right; padding: 5px 8px;"
+                <button class="btn btn-info btn-send-confirm" style="float:right; padding: 5px 8px;"
                         tal:condition="checkSerieGDoc/valid_serie">
                   <i class="bi bi-arrow-right"></i>&nbsp;<span i18n:translate="">Signatura electrònica automatitzada</span>
                 </button>
@@ -492,7 +492,7 @@
                     <tal:block tal:condition="view/canFirm">
                       <tal:block tal:condition="not:hasFirma">
                         <!-- <tal:block tal:condition="checkSerieGDoc/visible_gdoc"> -->
-                          <button id="signActa" class="btn btn btn-info btnActa" style="float:right;"
+                          <button id="signActa" class="btn btn-info btnActa" style="float:right;"
                             tal:condition="checkSerieGDoc/valid_serie"
                             tal:attributes="data-sign-url string:${acta/absolute_url}/signActa">
                               <i class="bi bi-arrow-right"></i>&nbsp;<span i18n:translate="">Enviar acta a signar</span>
@@ -500,12 +500,12 @@
                         <!-- </tal:block> -->
                       </tal:block>
 
-                      <!-- <a class="btn btn btn-info btnActa" style="float:right;"
+                      <!-- <a class="btn btn-info btnActa" style="float:right;"
                       tal:attributes="href string:javascript:printPage(iframe);">
                           <i class="bi bi-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
                       </a> -->
                       <button data-target="#previewModal" role="button"
-                        class="btn btn btn-info visible-tablet hidden-phone visible-desktop" data-toggle="modal"
+                        class="btn btn-info visible-tablet hidden-phone visible-desktop" data-toggle="modal"
                         style="float:right; margin-right:10px;">
                         <i class="bi bi-eye"></i>&nbsp;<span i18n:translate=""> Preview Acta </span></button>
 

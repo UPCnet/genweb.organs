@@ -96,12 +96,12 @@
 
     </tal:block>
 
-    <a class="btn btn btn-info btnActa" style="float:right;"
+    <a class="btn btn-info btnActa" style="float:right;"
     tal:attributes="href string:javascript:printPage(iframe);">
         <i class="bi bi-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
     </a>
     <button data-target="#previewModal" role="button" tal:condition="view/viewPrintButon"
-       class="btn btn btn-info d-none d-md-block" data-toggle="modal"
+       class="btn btn-info d-none d-md-block" data-toggle="modal"
        style="float:right; margin-right:10px;">
        <i class="bi bi-eye"></i>&nbsp;<span i18n:translate=""> Preview Acta </span></button>
   </tal:omit-tag>

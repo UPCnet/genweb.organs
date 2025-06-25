@@ -72,7 +72,8 @@
     </ul>
 
     <div tal:condition="viewOrdena" class="reorder position-relative text-end">
-      <a href="orderSessions" class="position-absolute end-0 text-decoration-none">
+      <a class="position-absolute end-0 text-decoration-none"
+         tal:attributes="href string:${context/absolute_url}/orderSessions">
         <i class="bi bi-arrow-clockwise" aria-hidden="True"></i>
         <tal:omit-tag>Numera sessions</tal:omit-tag>
       </a>
@@ -193,8 +194,8 @@
             </table>
           </div>
         </div>
-        <div class="btn-export-acords" tal:condition="expAcords">
-            <a class="btn btn btn-info" tal:attributes="href string:${context/absolute_url}/exportAcordsCSV" data-toggle="" data-target=""><i class="bi bi-download" aria-hidden="true"></i>&nbsp;<span>Exportar acords</span></a>
+        <div class="btn-export-acords text-center" tal:condition="expAcords">
+          <a class="btn btn-primary" tal:attributes="href string:${context/absolute_url}/exportAcordsCSV" data-toggle="" data-target=""><i class="bi bi-download" aria-hidden="true"></i>&nbsp;<span>Exportar acords</span></a>
         </div>
       </div>
       <div class="tab-pane fade" id="actas-tab-panel" tal:condition="viewActes" role="tabpanel" aria-labelledby="actas-tab" tabindex="0">
