@@ -511,7 +511,7 @@ class View(BrowserView):
         return utils.checkhasRol(['Manager', 'OG1-Secretari'], roles)
 
 
-class exportActas(BrowserView):
+class exportAcords(BrowserView):
     # Registrar en ZCML: name='exportAcordsCSV', for='genweb.organs.content.organgovern.IOrgangovern', permission='cmf.ManagePortal'
     data_header_columns = [
         "Titol",
@@ -520,10 +520,10 @@ class exportActas(BrowserView):
         "Contingut",
         "Fitxers"]
 
-    def render(self):
+    def __call__(self):
         output_file = StringIO()
         # Write the BOM of the text stream to make its charset explicit
-        output_file.write(u'\ufeff'.encode('utf8'))
+        output_file.write(u'\ufeff')
         self.write_data(output_file)
 
         header_content_type = 'text/csv'
@@ -581,7 +581,7 @@ class exportActas(BrowserView):
                     num = any = ''
 
                 sons_string = ""
-                for son in value.getChildNodes():
+                for son in value.objectValues():
                     sons_string += "- " + son.Title() + "\n"
 
                 results.append(dict(title=value.title,

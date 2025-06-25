@@ -1,7 +1,7 @@
 $("#acords-tab").on("click", function(){
   $.ajax({
     type: 'GET',
-    url: 'getAcordsOrgangovern',
+    url: $(location).attr('href') + '/getAcordsOrgangovern',
     success: function(result){
       data = $.parseJSON(result);
       $.each(data, function(key, value){
@@ -38,7 +38,7 @@ $("#acords-tab").on("click", function(){
 $("#actes-tab").on("click", function(){
   $.ajax({
     type: 'GET',
-    url: 'getActesOrgangovern',
+    url: $(location).attr('href') + '/getActesOrgangovern',
     success: function(result){
       data = $.parseJSON(result);
       $.each(data, function(key, value){
