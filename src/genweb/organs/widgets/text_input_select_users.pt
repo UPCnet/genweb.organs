@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     tal:omit-tag=""
+     i18n:domain="genweb.organs">
+
+  <input type="text" autocomplete="no" readonly
+         class="form-control text-widget textline-field mb-3"
+         id="form-widgets-select_users"
+         tal:attributes="id view/id;
+                           name view/name;
+                           class string:form-control mb-3 ${view/klass};
+                           style view/style;
+                           title view/title;
+                           lang view/lang;
+                           onclick view/onclick;
+                           ondblclick view/ondblclick;
+                           onmousedown view/onmousedown;
+                           onmouseup view/onmouseup;
+                           onmouseover view/onmouseover;
+                           onmousemove view/onmousemove;
+                           onmouseout view/onmouseout;
+                           onkeypress view/onkeypress;
+                           onkeydown view/onkeydown;
+                           onkeyup view/onkeyup;
+                           value view/value;
+                           disabled view/disabled;
+                           tabindex view/tabindex;
+                           onfocus view/onfocus;
+                           onblur view/onblur;
+                           onchange view/onchange;
+                           alt view/alt;
+                           accesskey view/accesskey;
+                           onselect view/onselect;
+                           size view/size;
+                           maxlength view/maxlength;
+                           placeholder view/placeholder;
+                           autocapitalize view/autocapitalize;" />
+
+  <input id="form-widgets-select_users-btn-modal" type="button"
+         class="btn btn-primary"
+         data-bs-toggle="modal" data-bs-target="#form-widgets-select_users-modal"
+         value="Cerca"/>
+
+  <input id="form-widgets-select_users-btn-clear" type="button"
+         class="btn btn-secondary"
+         value="Eliminar"/>
+
+  <div id="form-widgets-select_users-modal" class="modal fade" role="dialog" data-bs-backdrop="static"
+       data-bs-keyboard="false" tabindex="-1" aria-labelledby="select_users-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="select_users-modal-label" i18n:translate="">Cerca usuari</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input id="form-widgets-select_users-input" type="text" autocomplete="no"
+                 class="form-control text-widget textline-field mb-2"
+                 placeholder="nom.cognoms"/>
+
+          <p id="form-widgets-select_users-error" class="mb-2" i18n:translate="">
+            <b>Error:</b> El format es incorrecte. <b>nom.cognom</b>
+          </p>
+
+          <input id="form-widgets-select_users-btn" type="button"
+                 class="btn btn-primary mb-3"
+                 value="Cerca"/>
+
+          <p id="form-widgets-select_users-warn" i18n:translate="">
+            No hi ha resultats.
+          </p>
+
+          <div class="table-responsive">
+            <table class="table" id="form-widgets-select_users-hint">
+              <thead>
+                <th i18n:translate="">Usuari</th>
+                <th i18n:translate="">Nom complet</th>
+                <th i18n:translate="">Correu</th>
+                <th></th>
+              </thead>
+              <tbody>
+                <tr><td></td><td></td><td></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="++theme++genweb.organs/js/widgets/text_input_select_users.min.js"></script>
+
+</html>

@@ -19,7 +19,7 @@ from z3c.form import form
 
 from genweb.organs import _
 from genweb.organs import utils
-from genweb.organs.z3cwidget import SelectUsersInputFieldWidget
+from genweb.organs.widgets import SelectUsersInputFieldWidget
 
 import csv
 import transaction

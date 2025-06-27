@@ -54,7 +54,7 @@
     <include package=".content" />
     <include package=".portlets" />
     <include package=".firma_documental" />
-    <include package=".z3cwidget" />
+    <include package=".widgets" />
 
     <include file="upgrades.zcml" />
 

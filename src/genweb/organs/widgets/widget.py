@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from plone.formwidget.autocomplete.widget import AutocompleteSelectionWidget
-
 import z3c.form.browser.text
 import z3c.form.interfaces
 import z3c.form.widget
@@ -13,7 +11,7 @@ class ISelectUsersInputWidget(z3c.form.interfaces.ITextWidget):
     pass
 
 @implementer(ISelectUsersInputWidget)
-class SelectUsersInputWidget(z3c.form.browser.text.TextWidget, AutocompleteSelectionWidget):
+class SelectUsersInputWidget(z3c.form.browser.text.TextWidget):
 
     klass = u'teacher-input-widget'
 
