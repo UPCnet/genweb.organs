@@ -968,7 +968,6 @@ class View(BrowserView):
         results = []
         portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
-
         values = portal_catalog.unrestrictedSearchResults(
             portal_type=['genweb.organs.acord'],
             sort_on='modified',

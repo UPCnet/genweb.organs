@@ -31,6 +31,9 @@
                 acordsInside view/AcordsInside;
                 actesInside view/ActesInside">
 
+            <!-- Token CSRF para formularios AJAX -->
+            <tal:csrf tal:replace="structure context/@@authenticator" />
+
             <!-- Estado de firma -->
       <tal:block tal:condition="view/hasFirma">
                 <div class="mb-3" tal:define="estatFirma view/estatFirma">
@@ -719,16 +722,52 @@
         </div>
       </div>
 
-        <!-- MODAL: Importar llista de punts i subpunts -->
+        <!-- MODAL: Creació àgil de punts/acords -->
         <div class="modal fade" id="modalPunts" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
           aria-labelledby="modalMassive" aria-hidden="true">
-          <div class="modal-dialog">
+          <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
+                <h5 class="modal-title" id="modalMassive" i18n:translate="">Creació àgil</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <h5 class="modal-title" id="modalMassive" i18n:translate="">Importar llista de punts i subpunts</h5>
               </div>
-              <div class="modal-body"></div>
+              <div class="modal-body">
+                <div class="alert alert-info">
+                  <h6 class="alert-heading" i18n:translate="">Creació àgil de punts informatius i/o acords a partir d'una llista</h6>
+                  <p class="mb-0">
+                    El format ha de ser un punt/subpunt/acord per línia i sense el número ja que es calcula automàticament.<br />
+                    Davant de cada punt/subpunt ha d'anar una <strong>P</strong>. I davant de cada acord una <strong>A</strong>.<br />
+                    Els subpunts han de començar per espais en blanc. Dintre d'un punt (P) poden haver subpunts (P) o acords (A).<br />
+                    Dintre d'un acord no pot haver res.<br />
+                  </p>
+            </div>
+
+                <!-- Formulario real -->
+                <form tal:attributes="action string:${context/absolute_url}/manualStructureCreation; method string:post; enctype string:multipart/form-data">
+                  <div class="mb-3">
+                    <label for="form-widgets-message" class="form-label" i18n:translate="">Contingut</label>
+                    <div class="fieldErrorBox" tal:condition="python: False">
+                      <div class="error">Error</div>
+                    </div>
+                    <textarea class="form-control" name="form.widgets.message" id="form-widgets-message" rows="10"></textarea>
+                  </div>
+
+                  <div class="alert alert-secondary">
+                    <h6 class="alert-heading" i18n:translate="">Exemple de format</h6>
+                    <pre class="mb-0"><code>P Informe del rector
+P Comissió Econòmica
+      A Aprovació de l'estat de tresoreria
+      P Aprovació de l'expedient 03/23
+A Discutir tema central
+P Conclusions</code></pre>
+                  </div>
+
+                  <div class="formControls">
+                    <input id="form-buttons-send" name="form.buttons.send" class="btn btn-primary" value="Envia" type="submit" i18n:attributes="value">
+                    <input id="form-buttons-cancel" name="form.buttons.cancel" class="btn btn-secondary" value="Cancel·la" type="submit" i18n:attributes="value">
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -788,24 +827,18 @@
                             class="bi bi-plus"></i>&nbsp;<span i18n:translate="">Nou punt</span></button>
           <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAcord"><i
                             class="bi bi-plus"></i>&nbsp;<span i18n:translate="">Nou acord</span></button>
-          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalPunts"><i
-                            class="bi bi-database"></i>&nbsp;<span i18n:translate="">Llista punts</span></button>
-                        <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updatePoints"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span
-              i18n:translate="">Recalcula punts</span></a>
-                        <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updateAcords"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span
-              i18n:translate="">Recalcula punts/acords</span></a>
+          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalPunts"><i class="bi bi-database"></i>&nbsp;<span i18n:translate="">Creació àgil</span></button>
+          <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updatePoints"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span i18n:translate="">Numera punts</span></a>
+          <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updateAcords"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span i18n:translate="">Numera acords</span></a>
         </div>
         <div style="margin-right: 30px;" class="d-block d-md-none btn-group-vertical">
           <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalPunt"><i
                             class="bi bi-plus"></i>&nbsp;<span i18n:translate="">Nou punt</span></button>
           <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAcord"><i
                             class="bi bi-plus"></i>&nbsp;<span i18n:translate="">Nou acord</span></button>
-          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalPunts"><i
-                            class="bi bi-database"></i>&nbsp;<span i18n:translate="">Llista punts</span></button>
-                        <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updatePoints"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span
-              i18n:translate="">Recalcula punts</span></a>
-                        <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updateAcords"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span
-              i18n:translate="">Recalcula punts/acords</span></a>
+          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalPunts"><i class="bi bi-database"></i>&nbsp;<span i18n:translate="">Creació àgil</span></button>
+          <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updatePoints"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span i18n:translate="">Numera punts</span></a>
+          <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updateAcords"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span i18n:translate="">Numera acords</span></a>
           <br />
         </div>
         <div class="clearfix"></div>
@@ -855,7 +888,7 @@
                                                                 data-modal-title="Confirmar eliminació"
                                                                 data-modal-body="Estàs segur que vols eliminar aquest element?"
                                                                 data-modal-action="delete"
-                                                                tal:attributes="data-item item/id; data-type item/portal_type">
+                            tal:attributes="data-item item/id; data-type item/portal_type">
                                                             <i class="bi bi-trash"></i>
                           </button>
                         </div>
@@ -1133,7 +1166,7 @@
                                                                                   data-modal-title="Confirmar eliminació"
                                                                                   data-modal-body="Estàs segur que vols eliminar aquest element?"
                                                                                   data-modal-action="delete"
-                                                                                  tal:attributes="data-item itemSubpunt_id; data-type itemSubpunt/portal_type">
+                                  tal:attributes="data-item itemSubpunt_id; data-type itemSubpunt/portal_type">
                                                                               <i class="bi bi-trash" aria-hidden="true"></i>
                                 </button>
                               </div>
@@ -1303,7 +1336,7 @@
                                                                                                     data-modal-title="Confirmar eliminació"
                                                                                                     data-modal-body="Estàs segur que vols eliminar aquest element?"
                                                                                                     data-modal-action="delete"
-                                                                                                    tal:attributes="data-item item/id; data-type item/portal_type">
+                                            tal:attributes="data-item item/id; data-type item/portal_type">
                                                                                                 <i class="bi bi-trash" aria-hidden="true"></i></button>
                                         </div>
                                       </li>
@@ -1371,7 +1404,6 @@
                 document.addEventListener('DOMContentLoaded', function () {
                     "use strict";
 
-                    const context_url = <tal:block tal:content="string:'${view/context_base_url}'" />;
                     let refreshNeeded = false;
                     const $ = jQuery; // Para mantener la compatibilidad con el código existente.
 
@@ -1415,7 +1447,7 @@
                         }
                         $.ajax({
                             type: 'POST',
-                            url: context_url + '/@@createElement',
+                            url: window.location.href.split('?')[0].replace(/\/$/, "") + '/@@createElement',
                             data: { action: 'createPunt', name: value },
               success: function () {
                                 const modal = bootstrap.Modal.getInstance(modalPunt);
@@ -1439,7 +1471,7 @@
                         }
                         $.ajax({
                             type: 'POST',
-                            url: context_url + '/@@createElement',
+                            url: window.location.href.split('?')[0].replace(/\/$/, "") + '/@@createElement',
                             data: { action: 'createAcord', name: value },
                             success: function () {
                                 const modal = bootstrap.Modal.getInstance(modalAcord);
@@ -1568,6 +1600,51 @@
                         $buttonGroup.find('.bullet-toggle > i').css({ 'color': colorSelected });
                         $buttonGroup.closest('.einesSpan').parent().find('.boleta > span > i').css({ 'color': colorSelected });
                     });
+
+                    /*
+                    * IMPORTACIÓN MASIVA DE PUNTOS Y ACUERDOS
+                    */
+                    $('#importPointsButton').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const content = $("#manual-import-text").val();
+                        if (!content || content.trim() === '') {
+                            alert('El contingut no pot estar buit.');
+                            return;
+                        }
+
+                        // Crear un formulario temporal para enviar los datos
+                        const form = $('<form>', {
+                            'method': 'POST',
+                            'action': window.location.href.split('?')[0].replace(/\/$/, "") + '/manualStructureCreation'
+                        });
+
+                        form.append($('<input>', {
+                            'type': 'hidden',
+                            'name': 'form.widgets.message',
+                            'value': content
+                        }));
+
+                        form.append($('<input>', {
+                            'type': 'hidden',
+                            'name': 'form.buttons.send',
+                            'value': 'Send'
+                        }));
+
+                        // No CSRF token añadido
+
+                        $('body').append(form);
+                        form.submit();
+                    });
+
+                    // Limpiar el textarea cuando se cierra el modal de importación
+                    const modalPunts = document.getElementById('modalPunts');
+                    if(modalPunts) {
+                        modalPunts.addEventListener('hidden.bs.modal', () => {
+                            const textarea = modalPunts.querySelector('#manual-import-text');
+                            if(textarea) textarea.value = '';
+                        });
+                    }
                 });
 
                 /*
@@ -1575,7 +1652,7 @@
                 */
                 function hideAgreement(url) {
                     jQuery.ajax({
-                        type: 'POST',
+              type: 'POST',
                         url: url + '/hide-agreement',
                         success: function() { window.location.reload(); },
                         error: function() { alert('Error en l\'operació'); }
@@ -1585,9 +1662,9 @@
                 function deleteElement(name, portal_type) {
                     const id = CSS.escape(name);
                     jQuery.ajax({
-                        type: 'POST',
-                        url: context_url + '/deleteElement',
-                        data: { id: name, type: portal_type },
+              type: 'POST',
+                        url: window.location.href.split('?')[0].replace(/\/$/, "") + '/deleteElement',
+                        data: { action: 'delete', id: name, type: portal_type },
                         success: function(){
                             jQuery('#' + id).fadeOut('slow', function() { $(this).remove(); });
                         },
@@ -1618,7 +1695,7 @@
             success: function (result) {
                                 result = JSON.parse(result);
                                 if (result.status !== "success") { alert(result.msg); }
-                refreshNeeded = true;
+              refreshNeeded = true;
             },
           });
         });

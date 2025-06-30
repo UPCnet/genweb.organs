@@ -121,7 +121,10 @@ class createElement(BrowserView):
             return
 
         new_obj.reindexObject()
-        return self.request.response.redirect(self.context.absolute_url())
+
+        # Return JSON response for AJAX calls
+        self.request.response.setHeader('Content-Type', 'application/json')
+        return json.dumps({'status': 'success', 'id': new_obj.id})
 
 
 class Delete(BrowserView):
@@ -129,54 +132,68 @@ class Delete(BrowserView):
     def __call__(self):
         portal_catalog = api.portal.get_tool(name='portal_catalog')
         action = self.request.form.get('action')
-        itemid = self.request.form.get('item')
-        portal_type = self.request.form.get('portal_type')
-        if action == 'delete':
+        itemid = self.request.form.get('id')  # Changed from 'item' to 'id' to match JavaScript
+        portal_type = self.request.form.get('type')  # Changed from 'portal_type' to 'type' to match JavaScript
 
-            if '/' in itemid:
-                # Es tracta de subpunt i inclou punt/subpunt a itemid (segon nivell)
-                folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + str('/'.join(itemid.split('/')[:-1]))
-                itemid = str(''.join(itemid.split('/')[-1:]))
-            else:
-                # L'objecte a esborrar es a primer nivell
-                folder_path = '/'.join(self.context.getPhysicalPath())
+        if action == 'delete' and itemid and portal_type:
+            try:
+                if '/' in itemid:
+                    # Es tracta de subpunt i inclou punt/subpunt a itemid (segon nivell)
+                    folder_path = '/'.join(self.context.getPhysicalPath()) + '/' + str('/'.join(itemid.split('/')[:-1]))
+                    itemid = str(''.join(itemid.split('/')[-1:]))
+                else:
+                    # L'objecte a esborrar es a primer nivell
+                    folder_path = '/'.join(self.context.getPhysicalPath())
 
-            element = portal_catalog.searchResults(
-                portal_type=portal_type,
-                path={'query': folder_path, 'depth': 1},
-                id=itemid)
+                element = portal_catalog.searchResults(
+                    portal_type=portal_type,
+                    path={'query': folder_path, 'depth': 1},
+                    id=itemid)
 
-            if element:
-                deleteItem = element[0].getObject()
-                with api.env.adopt_roles(['OG1-Secretari']):
-                    api.content.delete(deleteItem)
-                portal_catalog = api.portal.get_tool(name='portal_catalog')
-                addEntryLog(self.context, None, _(u'Deleted via javascript'), deleteItem.Title() + ' - (' + self.request.form.get('item') + ')')
-                folder_path = '/'.join(self.context.getPhysicalPath())
-                puntsOrdered = portal_catalog.searchResults(
-                    portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
-                    sort_on='getObjPositionInParent',
-                    path={'query': folder_path,
-                          'depth': 1})
-                index = 1
-                for item in puntsOrdered:
-                    objecte = item.getObject()
-                    objecte.proposalPoint = index
-                    objecte.reindexObject()
+                if element:
+                    deleteItem = element[0].getObject()
+                    with api.env.adopt_roles(['OG1-Secretari']):
+                        api.content.delete(deleteItem)
+                    portal_catalog = api.portal.get_tool(name='portal_catalog')
+                    addEntryLog(self.context, None, _(u'Deleted via javascript'), deleteItem.Title() + ' - (' + itemid + ')')
+                    folder_path = '/'.join(self.context.getPhysicalPath())
+                    puntsOrdered = portal_catalog.searchResults(
+                        portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
+                        sort_on='getObjPositionInParent',
+                        path={'query': folder_path,
+                              'depth': 1})
+                    index = 1
+                    for item in puntsOrdered:
+                        objecte = item.getObject()
+                        objecte.proposalPoint = index
+                        objecte.reindexObject()
 
-                    if len(objecte.items()) > 0:
-                        search_path = '/'.join(objecte.getPhysicalPath())
-                        subpunts = portal_catalog.searchResults(
-                            portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
-                            sort_on='getObjPositionInParent',
-                            path={'query': search_path, 'depth': 1})
-                        subvalue = 1
-                        for value in subpunts:
-                            newobjecte = value.getObject()
-                            newobjecte.proposalPoint = index
-                            newobjecte.reindexObject()
-                            subvalue = subvalue + 1
-                    index = index + 1
+                        if len(objecte.items()) > 0:
+                            search_path = '/'.join(objecte.getPhysicalPath())
+                            subpunts = portal_catalog.searchResults(
+                                portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
+                                sort_on='getObjPositionInParent',
+                                path={'query': search_path, 'depth': 1})
+                            subvalue = 1
+                            for value in subpunts:
+                                newobjecte = value.getObject()
+                                newobjecte.proposalPoint = index
+                                newobjecte.reindexObject()
+                                subvalue = subvalue + 1
+                        index = index + 1
+
+                    # Return JSON response for AJAX calls
+                    self.request.response.setHeader('Content-Type', 'application/json')
+                    return json.dumps({'status': 'success'})
+                else:
+                    self.request.response.setHeader('Content-Type', 'application/json')
+                    return json.dumps({'status': 'error', 'message': 'Element not found'})
+            except Exception as e:
+                self.request.response.setHeader('Content-Type', 'application/json')
+                return json.dumps({'status': 'error', 'message': str(e)})
+        else:
+            self.request.response.setHeader('Content-Type', 'application/json')
+            return json.dumps({'status': 'error', 'message': 'Invalid parameters'})
 
 
 class Move(BrowserView):

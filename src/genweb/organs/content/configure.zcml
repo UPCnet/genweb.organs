@@ -267,7 +267,6 @@
         for=".sessio.ISessio"
         name="manualStructureCreation"
         class=".manualimport.Message"
-        template="templates/manualimport_view.pt"
         permission="zope2.View"
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />

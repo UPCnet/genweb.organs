@@ -111,21 +111,14 @@ llistaTipusVotacio = SimpleVocabulary(
 @provider(IContextAwareDefaultFactory)
 def proposal_point_default_factory(context):
     """Genera el valor predeterminado para el campo 'proposalPoint'."""
-    portal_catalog = api.portal.get_tool(name='portal_catalog')
-    path_url = context.getPhysicalPath()[1:]
-    folder_path = "/" + "/".join(path_url)
-
-    values = portal_catalog.searchResults(
-        portal_type=['genweb.organs.punt', 'genweb.organs.acord', 'genweb.organs.subpunt'],
-        path={'query': folder_path, 'depth': 1}
-    )
-    subpunt_id = len(values) + 1
-
-    if context.portal_type == 'genweb.organs.sessio':
-        return str(subpunt_id)
-    else:
-        punt_id = getattr(context, 'proposalPoint', 1) or 1
-        return f"{punt_id}.{subpunt_id}"
+    parent = getattr(context, '__parent__', None)
+    if not parent:
+        return "1"
+    siblings = [
+        obj for obj in getattr(parent, 'objectValues', lambda: [])()
+        if getattr(obj, 'portal_type', '') in ('genweb.organs.punt', 'genweb.organs.acord', 'genweb.organs.subpunt')
+    ]
+    return str(len(siblings) + 1)
 
 class IAcord(model.Schema):
     """ Acord """
@@ -273,6 +266,8 @@ class View(BrowserView, UtilsFirmaDocumental):
         # assign custom colors on organ states
         estat = self.context.estatsLlista
         values = self.context.aq_parent.aq_parent.estatsLlista
+        if hasattr(values, 'raw'):
+            values = values.raw
         color = '#777777'
         for value in values.split('</p>'):
             if value != '':

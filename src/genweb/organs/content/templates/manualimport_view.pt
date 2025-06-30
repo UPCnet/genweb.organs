@@ -1,7 +1,0 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <metal:block use-macro="context/@@ploneform-macros/titlelessform"></metal:block>
-    </div>
-  </div>
-</div>

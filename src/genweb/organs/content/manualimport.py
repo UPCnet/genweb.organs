@@ -3,11 +3,7 @@ from AccessControl import Unauthorized
 from Products.statusmessages.interfaces import IStatusMessage
 
 from plone import api
-from plone.autoform import directives
-from z3c.form import button, form
-from zope import schema
-from plone.supermodel import model
-from plone.app.textfield import RichText as RichTextField
+from Products.Five.browser import BrowserView
 
 from genweb.organs import _
 from genweb.organs.content.sessio import ISessio
@@ -19,55 +15,37 @@ import transaction
 import unicodedata
 
 
-class IMessage(model.Schema):
-    """ Modal used to create massive punts: /manualStructureCreation
+class Message(BrowserView):
+    """ Browser view for manual structure creation
     """
 
-    message = RichTextField(
-        title=_(u"Manual Import"),
-        description=_("Add content separated by -- and they will by added as Agreements."),
-        required=False,
-    )
-
-
-class Message(form.Form):
-    ignoreContext = True
-    schema = IMessage
-
-    # This trick hides the editable border and tabs in Plone
-    def update(self):
-        """ Return true if user is Editor or Manager, but if the session """
-        """ came from the previous version, then make impossible to """
-        """ create new elements """
+    def __call__(self):
+        """ Process the form submission """
+        # Check permissions
         migrated_property = hasattr(self.context, 'migrated')
-        if migrated_property:
-            if self.context.migrated is True:
-                raise Unauthorized
+        if migrated_property and self.context.migrated is True:
+            raise Unauthorized
 
         try:
             username = api.user.get_current().id
             roles = api.user.get_roles(username=username, obj=self.context)
-            if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
-                self.request.set('disable_border', True)
-                super(Message, self).update()
-            else:
+            if not utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
                 raise Unauthorized
         except:
             raise Unauthorized
 
-    def updateWidgets(self):
-        super(Message, self).updateWidgets()
+        # Get form data
+        message = self.request.form.get('form.widgets.message', '')
+        action = self.request.form.get('form.buttons.send', '')
 
-    @button.buttonAndHandler(_("Send"))
-    def action_send(self, action):
-        """ Send the email to the configured mail address
-            in properties and redirect to the
-            front page, showing a status message to say
-            the message was received. """
-        formData, errors = self.extractData()
-        lang = self.context.language
-        if formData['message'] is None:
+        if action == 'Cancel·la' or not action:
+            message = _(u"Operation Cancelled.")
+            IStatusMessage(self.request).addStatusMessage(message, type="warning")
+            return self.request.response.redirect(self.context.absolute_url())
+
+        if not message or message.strip() == '':
             message = 'Falten els valors dels punts. Cap canvi realitzat.'
+            lang = self.context.language
             if lang == 'es':
                 message = "Faltan los valores de los puntos. No se ha realizado ningún cambio."
             if lang == 'en':
@@ -79,12 +57,25 @@ class Message(form.Form):
         addEntryLog(self.context, None, _(u'Massive agreements imported'), '')
 
         # Creating new objects
-        text = formData['message']
+        text = message
 
-        values = self.aq_parent.aq_parent.estatsLlista
+        # Obtener el órgano usando utils.get_organ como en createElement
+        organ = utils.get_organ(self.context)
+        print(f"DEBUG: organ encontrado = {organ}")
+
+        values = organ.estatsLlista
+        if hasattr(values, 'raw'):
+            values = values.raw
         value = values.split('</p>')[0]
         item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
         defaultEstat = ' '.join(item_net.split()[:-1]).lstrip()
+
+        # --- Numeración de acuerdos ---
+        acronim = getattr(organ, 'acronim', '') or ''
+        any = str(self.context.start.year) if hasattr(self.context, 'start') else str(api.portal.get_localized_time())[:4]
+        numsessio = getattr(self.context, 'numSessio', '01')
+        idacord = 1
+        # ---
 
         portal_catalog = api.portal.get_tool(name='portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
@@ -114,6 +105,11 @@ class Message(form.Form):
                                 type='genweb.organs.acord',
                                 title=line,
                                 container=self.context)
+                        # Numerar acuerdo
+                        printid = '{0}'.format(str(idacord).zfill(2))
+                        obj.agreement = f"{acronim}/{any}/{numsessio}/{printid}"
+                        obj.omitAgreement = False
+                        idacord += 1
                     elif str(portal_type) == 'P':  # Es tracta d'un punt
                         line = ' '.join(line.lstrip().rstrip().split(' ')[1:])
                         with api.env.adopt_roles(['OG1-Secretari']):
@@ -145,6 +141,11 @@ class Message(form.Form):
                                     type='genweb.organs.acord',
                                     title=line,
                                     container=previousPuntContainer)
+                            # Numerar acuerdo
+                            printid = '{0}'.format(str(idacord).zfill(2))
+                            newobj.agreement = f"{acronim}/{any}/{numsessio}/{printid}"
+                            newobj.omitAgreement = False
+                            idacord += 1
                         elif str(portal_type) == 'P':  # Es tracta d'un punt
                             line = ' '.join(line.lstrip().rstrip().split(' ')[1:])
                             with api.env.adopt_roles(['OG1-Secretari']):
@@ -160,7 +161,7 @@ class Message(form.Form):
                                     title=line,
                                     container=previousPuntContainer)
 
-                        newobj.proposalPoint = str(index - 1) + str('.') + str(subindex)
+                        newobj.proposalPoint = str(index - 1) + '.' + str(subindex)
                         newobj.estatsLlista = defaultEstat
                         newobj.reindexObject()
                         subindex = subindex + 1
@@ -176,15 +177,10 @@ class Message(form.Form):
             return self.request.response.redirect(self.context.absolute_url())
         else:
             message = "S'han creats els punts indicats."
+            lang = self.context.language
             if lang == 'es':
                 message = "Se han creado los puntos indicados."
             if lang == 'en':
                 message = "Indicated fields have been created."
             IStatusMessage(self.request).addStatusMessage(message, type="success")
             return self.request.response.redirect(self.context.absolute_url())
-
-    @button.buttonAndHandler(_('Cancel'))
-    def handleCancel(self, action):
-        message = _(u"Operation Cancelled.")
-        IStatusMessage(self.request).addStatusMessage(message, type="warning")
-        return self.request.response.redirect(self.context.absolute_url())
