@@ -64,3 +64,24 @@
 .label-restricted_to_members_organ {
   background-color:  #a62e1f !important;
 }
+
+#workflow-transition-convocar {
+  display: none;
+}
+
+.portaltype-genweb-organs-organsfolder,
+.portaltype-genweb-organs-organgovern,
+.portaltype-genweb-organs-punt,
+.portaltype-genweb-organs-subpunt,
+.portaltype-genweb-organs-file,
+.portaltype-genweb-organs-documen,
+.portaltype-genweb-organs-acta,
+.portaltype-genweb-organs-audio,
+.portaltype-genweb-organs-annex,
+.portaltype-genweb-organs-acord {
+
+  li#plone-contentmenu-workflow,
+  li#plone-contentmenu-multilingual {
+    display: none;
+  }
+}

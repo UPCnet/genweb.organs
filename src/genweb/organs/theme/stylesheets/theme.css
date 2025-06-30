@@ -132,6 +132,35 @@ body.template-searchorgans .meva-vinculacio a:hover {
   background-color: #a62e1f !important;
 }
 
+/* line 68, ../scss/_generic.scss */
+#workflow-transition-convocar {
+  display: none;
+}
+
+/* line 83, ../scss/_generic.scss */
+.portaltype-genweb-organs-organsfolder li#plone-contentmenu-workflow,
+.portaltype-genweb-organs-organsfolder li#plone-contentmenu-multilingual,
+.portaltype-genweb-organs-organgovern li#plone-contentmenu-workflow,
+.portaltype-genweb-organs-organgovern li#plone-contentmenu-multilingual,
+.portaltype-genweb-organs-punt li#plone-contentmenu-workflow,
+.portaltype-genweb-organs-punt li#plone-contentmenu-multilingual,
+.portaltype-genweb-organs-subpunt li#plone-contentmenu-workflow,
+.portaltype-genweb-organs-subpunt li#plone-contentmenu-multilingual,
+.portaltype-genweb-organs-file li#plone-contentmenu-workflow,
+.portaltype-genweb-organs-file li#plone-contentmenu-multilingual,
+.portaltype-genweb-organs-documen li#plone-contentmenu-workflow,
+.portaltype-genweb-organs-documen li#plone-contentmenu-multilingual,
+.portaltype-genweb-organs-acta li#plone-contentmenu-workflow,
+.portaltype-genweb-organs-acta li#plone-contentmenu-multilingual,
+.portaltype-genweb-organs-audio li#plone-contentmenu-workflow,
+.portaltype-genweb-organs-audio li#plone-contentmenu-multilingual,
+.portaltype-genweb-organs-annex li#plone-contentmenu-workflow,
+.portaltype-genweb-organs-annex li#plone-contentmenu-multilingual,
+.portaltype-genweb-organs-acord li#plone-contentmenu-workflow,
+.portaltype-genweb-organs-acord li#plone-contentmenu-multilingual {
+  display: none;
+}
+
 /* line 5, ../scss/portlets/_portlet_calendar.scss */
 .portlet.portlet-calendar .card-body table {
   border: 0px solid transparent !important;
