@@ -57,6 +57,7 @@
     <include package=".widgets" />
 
     <include file="upgrades.zcml" />
+    <include file="overrides.zcml" />
 
     <genericsetup:registerProfile
         name="default"
@@ -119,5 +120,6 @@
         layer=".interfaces.IGenwebOrgansLayer"
         permission="zope2.View"
     /> -->
+
 
 </configure>

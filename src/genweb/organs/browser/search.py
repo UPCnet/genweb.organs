@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.PloneBatch import Batch
@@ -14,9 +15,9 @@ from zope.component import getMultiAdapter
 from zope.i18nmessageid import MessageFactory
 from zope.interface import Interface
 from zope.publisher.browser import BrowserView
-from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.CMFPlone.browser.search import Search as PloneSearch
 
-from genweb6.core.utils import pref_lang
 from genweb.organs import permissions
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs import utils
@@ -47,11 +48,12 @@ def quote_chars(s):
     return s
 
 
-class Search(BrowserView):
+class CustomSearchView(PloneSearch):
     """
     Vista de búsqueda para órganos, sesiones y acuerdos.
     Compatible con Plone 6 y el nuevo template search.pt (Bootstrap 5).
     """
+    __call__ = ViewPageTemplateFile('templates/search.pt')
 
     def getOwnOrgans(self):
         if api.user.is_anonymous():
@@ -189,7 +191,7 @@ class Search(BrowserView):
             return None
         if len(breadcrumbs) > 3:
             # if we have too long breadcrumbs, emit the middle elements
-            empty = {'absolute_url': '', 'Title': unicode('…', 'utf-8')}
+            empty = {'absolute_url': '', 'Title': '…'}
             breadcrumbs = [breadcrumbs[0], empty] + breadcrumbs[-2:]
         return breadcrumbs
 
@@ -231,8 +233,8 @@ class SortOption(object):
         # After the AJAX call the request is changed and thus the URL part of
         # it as well. In this case we need to tweak the URL to point to have
         # correct URLs
-        if '@@updated_searchorgans' in base_url:
-            base_url = base_url.replace('@@updated_searchorgans', '@@searchorgans')
+        if '@@updated_search' in base_url:
+            base_url = base_url.replace('@@updated_search', '@@search')
         return base_url + '?' + make_query(q)
 
 
@@ -292,7 +294,7 @@ class TypeAheadSearch(BrowserView):
         else:
             params['path'] = path
 
-        params["Language"] = pref_lang()
+        params["Language"] = api.portal.get_current_language()
         # search limit+1 results to know if limit is exceeded
         results = catalog(**params)
 

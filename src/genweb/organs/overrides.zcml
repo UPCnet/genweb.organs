@@ -22,27 +22,43 @@
         />
 
     <!-- modified RSS to hide organs types based on state and role -->
-    <adapter
+    <!-- <adapter
         factory=".rss_custom.FolderFeed"
-        for="Products.CMFCore.interfaces._content.IFolderish" />
+        for="Products.CMFCore.interfaces._content.IFolderish" /> -->
 
     <!-- Modified download file to pass the session state -->
-    <browser:page
+    <!-- <browser:page
         name="download"
         for="*"
         class=".namedfilebrowser.Download"
         permission="zope2.View"
-        />
+        /> -->
 
     <!-- Modified download file to pass the session state -->
-    <browser:page
+    <!-- <browser:page
         name="display-file"
         for="*"
         class=".namedfilebrowser.DisplayFile"
         permission="zope2.View"
+        /> -->
+
+    <!-- modified search to hide organs types based on state and role in searches
+         and search only in organs types -->
+    <browser:page
+        name="search"
+        for="plone.app.layout.navigation.interfaces.INavigationRoot"
+        class=".browser.search.CustomSearchView"
+        template="browser/templates/search.pt"
+        permission="zope2.View"
+        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
 
 
-
+    <!-- <browser:page
+        name="gw_type_ahead_search"
+        class=".browser.search.TypeAheadSearch"
+        permission="zope2.View"
+        for="*"
+        /> -->
 
 </configure>

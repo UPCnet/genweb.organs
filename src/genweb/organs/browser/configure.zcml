@@ -305,29 +305,27 @@
   <browser:page
     name="gw_type_ahead_search"
     for="*"
-    class=".search.search.TypeAheadSearch"
+    class=".search.TypeAheadSearch"
     permission="zope2.View"
     />
 
   <!-- modified search to hide organs types based on state and role in searches
       and search only in organs types -->
-  <browser:page
-    name="searchorgans"
-    class=".search.search.Search"
+  <!-- <browser:page
+    name="search"
+    class=".search.CustomSearchView"
     permission="zope2.View"
     for="*"
-    template="search/search.pt"
-    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    template="templates/search.pt"
     />
 
   <browser:page
-    name="updated_searchorgans"
-    class=".search.search.Search"
+    name="updated_search"
+    class=".search.CustomSearchView"
     permission="zope2.View"
     for="Products.CMFCore.interfaces.IFolderish"
-    template="search/updated_search.pt"
-    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-    />
+    template="templates/search.pt"
+    /> -->
 
   <!-- <browser:page
     for="genweb.organs.content.sessio.ISessio"
