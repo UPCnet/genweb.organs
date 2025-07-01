@@ -231,8 +231,8 @@ class SortOption(object):
         # After the AJAX call the request is changed and thus the URL part of
         # it as well. In this case we need to tweak the URL to point to have
         # correct URLs
-        if '@@updated_searchorgans' in base_url:
-            base_url = base_url.replace('@@updated_searchorgans', '@@searchorgans')
+        if '@@updated_search' in base_url:
+            base_url = base_url.replace('@@updated_search', '@@search')
         return base_url + '?' + make_query(q)
 
 

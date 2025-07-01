@@ -312,16 +312,16 @@
   <!-- modified search to hide organs types based on state and role in searches
       and search only in organs types -->
   <browser:page
-    name="searchorgans"
+    name="search"
     class=".search.search.Search"
     permission="zope2.View"
-    for="*"
+    for="plone.app.layout.navigation.interfaces.INavigationRoot"
     template="search/search.pt"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     />
 
   <browser:page
-    name="updated_searchorgans"
+    name="updated_search"
     class=".search.search.Search"
     permission="zope2.View"
     for="Products.CMFCore.interfaces.IFolderish"
