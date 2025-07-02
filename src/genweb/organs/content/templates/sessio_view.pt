@@ -159,196 +159,209 @@
       </tal:block>
     </div>
 
-      <div id="contentSessio">
-                <!-- TABS -->
-                <ul class="nav nav-tabs mb-3" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="dadesTab-tab" data-bs-toggle="tab" data-bs-target="#dadesTab"
-              type="button" role="tab" aria-controls="dadesTab" aria-selected="true">
-              <i class="bi bi-list"></i>&nbsp;<tal:omit-tag i18n:translate="">Convocatoria</tal:omit-tag>
+    <div id="contentSessio" class="mb-4">
+      <!-- TABS -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="dadesTab-tab" data-bs-toggle="tab" data-bs-target="#dadesTab"
+                  type="button" role="tab" aria-controls="dadesTab" aria-selected="true">
+            <i class="bi bi-list"></i>&nbsp;<tal:omit-tag i18n:translate="">Convocatoria</tal:omit-tag>
+          </button>
+        </li>
+        <li tal:condition="hihaPersones" class="nav-item" role="presentation">
+          <button class="nav-link" id="assistentsTab-tab" data-bs-toggle="tab" data-bs-target="#assistentsTab"
+                  type="button" role="tab" aria-controls="assistentsTab" aria-selected="false">
+            <i class="bi bi-people"></i>&nbsp;<tal:omit-tag i18n:translate="">Assistents</tal:omit-tag>
+          </button>
+        </li>
+        <li tal:condition="actesInside" class="nav-item" role="presentation">
+          <button class="nav-link" id="actaTab-tab" data-bs-toggle="tab" data-bs-target="#actaTab" type="button"
+                  role="tab" aria-controls="actaTab" aria-selected="false">
+            <i class="bi bi-file-earmark-text"></i>&nbsp;<tal:omit-tag i18n:translate="">Acta</tal:omit-tag>
+          </button>
+        </li>
+        <li tal:condition="acordsInside" class="nav-item" role="presentation">
+          <button class="nav-link" id="acordsTab-tab" data-bs-toggle="tab" data-bs-target="#acordsTab" type="button"
+                  role="tab" aria-controls="acordsTab" aria-selected="false">
+            <i class="bi bi-check2"></i>&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag>
+          </button>
+        </li>
+        <li tal:condition="python:loginfo and viewHistory" class="nav-item" role="presentation">
+          <button class="nav-link" id="notificationsTab-tab" data-bs-toggle="tab" data-bs-target="#notificationsTab"
+                  type="button" role="tab" aria-controls="notificationsTab" aria-selected="false">
+            <i class="bi bi-table"></i>&nbsp;<tal:omit-tag i18n:translate="">Historial</tal:omit-tag>
+          </button>
+        </li>
+        <li tal:condition="python:excuses and viewExcusesAndPoints" class="nav-item" role="presentation">
+          <button class="nav-link" id="excusesTab-tab" data-bs-toggle="tab" data-bs-target="#excusesTab" type="button"
+                  role="tab" aria-controls="excusesTab" aria-selected="false">
+            <i class="bi bi-table"></i>&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag>
+          </button>
+        </li>
+        <tal:block tal:condition="canViewResultsVote">
+          <li tal:condition="python: getAllResultsVotes or getInfoQuorums" class="nav-item" role="presentation">
+            <button class="nav-link" id="resultsVotesTab-tab" data-bs-toggle="tab" data-bs-target="#resultsVotesTab"
+                    type="button" role="tab" aria-controls="resultsVotesTab" aria-selected="false">
+              <i class="bi bi-pie-chart"></i>&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions /
+                Quorums</tal:omit-tag>
             </button>
           </li>
-          <li tal:condition="hihaPersones" class="nav-item" role="presentation">
-            <button class="nav-link" id="assistentsTab-tab" data-bs-toggle="tab" data-bs-target="#assistentsTab"
-              type="button" role="tab" aria-controls="assistentsTab" aria-selected="false">
-              <i class="bi bi-people"></i>&nbsp;<tal:omit-tag i18n:translate="">Assistents</tal:omit-tag>
-            </button>
-          </li>
-          <li tal:condition="actesInside" class="nav-item" role="presentation">
-            <button class="nav-link" id="actaTab-tab" data-bs-toggle="tab" data-bs-target="#actaTab" type="button"
-              role="tab" aria-controls="actaTab" aria-selected="false">
-              <i class="bi bi-file-earmark-text"></i>&nbsp;<tal:omit-tag i18n:translate="">Acta</tal:omit-tag>
-            </button>
-          </li>
-          <li tal:condition="acordsInside" class="nav-item" role="presentation">
-            <button class="nav-link" id="acordsTab-tab" data-bs-toggle="tab" data-bs-target="#acordsTab" type="button"
-              role="tab" aria-controls="acordsTab" aria-selected="false">
-              <i class="bi bi-check2"></i>&nbsp;<tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag>
-            </button>
-          </li>
-          <li tal:condition="python:loginfo and viewHistory" class="nav-item" role="presentation">
-            <button class="nav-link" id="notificationsTab-tab" data-bs-toggle="tab" data-bs-target="#notificationsTab"
-              type="button" role="tab" aria-controls="notificationsTab" aria-selected="false">
-              <i class="bi bi-table"></i>&nbsp;<tal:omit-tag i18n:translate="">Historial</tal:omit-tag>
-            </button>
-          </li>
-          <li tal:condition="python:excuses and viewExcusesAndPoints" class="nav-item" role="presentation">
-            <button class="nav-link" id="excusesTab-tab" data-bs-toggle="tab" data-bs-target="#excusesTab" type="button"
-              role="tab" aria-controls="excusesTab" aria-selected="false">
-              <i class="bi bi-table"></i>&nbsp;<tal:omit-tag i18n:translate="">Info excusats</tal:omit-tag>
-            </button>
-          </li>
-          <tal:block tal:condition="canViewResultsVote">
-            <li tal:condition="python: getAllResultsVotes or getInfoQuorums" class="nav-item" role="presentation">
-              <button class="nav-link" id="resultsVotesTab-tab" data-bs-toggle="tab" data-bs-target="#resultsVotesTab"
-                type="button" role="tab" aria-controls="resultsVotesTab" aria-selected="false">
-                <i class="bi bi-pie-chart"></i>&nbsp;<tal:omit-tag i18n:translate="">Resultats votacions /
-                  Quorums</tal:omit-tag>
-              </button>
-            </li>
-          </tal:block>
-        </ul>
+        </tal:block>
+      </ul>
 
-                <div class="tab-content">
-          <div class="tab-pane fade show active" id="dadesTab" role="tabpanel" aria-labelledby="dadesTab-tab"
-            tal:define="item view/valuesTable">
-                        <div class="card">
-                            <div class="card-body">
-                                <dl class="row mb-0" tal:define="llocConvocatoria item/llocConvocatoria;
-                        linkSala item/linkSala;
-                        modality item/modality;
-                        organTitle item/organTitle;
-                        horaInici item/horaInici;
-                        horaFi item/horaFi;
-                        sessionNumber item/sessionNumber;
-                                        status item/status">
-                                    <dt class="col-sm-4" tal:condition="horaInici">
-                                        <i class="bi bi-calendar-event text-primary me-2"></i>
-                                        <span i18n:translate="">Session start date and time</span>
-                                    </dt>
-                                    <dd class="col-sm-8" tal:condition="horaInici">
-                <span tal:content="horaInici"></span>
-                                    </dd>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="dadesTab" role="tabpanel" aria-labelledby="dadesTab-tab"
+             tal:define="item view/valuesTable">
+          <div class="card mb-3">
+            <div class="card-body">
+              <dl class="row mb-0"
+                  tal:define="llocConvocatoria item/llocConvocatoria;
+                              linkSala item/linkSala;
+                              canViewLinkSala view/canViewLinkSala;
+                              modality item/modality;
+                              organTitle item/organTitle;
+                              horaInici item/horaInici;
+                              horaFi item/horaFi;
+                              sessionNumber item/sessionNumber;
+                              status item/status">
 
-                                    <dt class="col-sm-4" tal:condition="horaFi">
-                                        <i class="bi bi-calendar-check text-primary me-2"></i>
-                                        <span i18n:translate="">Session end date and time</span>
-                                    </dt>
-                                    <dd class="col-sm-8" tal:condition="horaFi">
-                <span tal:content="horaFi"></span>
-                                    </dd>
+                <dt class="col-sm-4" tal:condition="horaInici">
+                  <i class="bi bi-calendar-event text-primary me-2"></i>
+                  <span i18n:translate="">Session start date and time</span>
+                </dt>
+                <dd class="col-sm-8 text-end" tal:condition="horaInici">
+                  <span tal:content="horaInici"></span>
+                </dd>
 
-                                    <dt class="col-sm-4" tal:condition="modality">
-                                        <i class="bi bi-camera-video text-primary me-2"></i>
-                                        <span i18n:translate="">Modality of meet</span>
-                                    </dt>
-                                    <dd class="col-sm-8" tal:condition="modality">
-                <span i18n:translate="" tal:content="modality"></span>
-                                    </dd>
+                <dt class="col-sm-4" tal:condition="horaFi">
+                  <i class="bi bi-calendar-check text-primary me-2"></i>
+                  <span i18n:translate="">Session end date and time</span>
+                </dt>
+                <dd class="col-sm-8 text-end" tal:condition="horaFi">
+                  <span tal:content="horaFi"></span>
+                </dd>
 
-                                    <dt class="col-sm-4" tal:condition="llocConvocatoria">
-                                        <i class="bi bi-geo-alt text-primary me-2"></i>
-                                        <span i18n:translate="">Session location</span>
-                                    </dt>
-                                    <dd class="col-sm-8" tal:condition="llocConvocatoria">
-                <span tal:content="llocConvocatoria"></span>
-                                    </dd>
+                <dt class="col-sm-4" tal:condition="modality">
+                  <i class="bi bi-camera-video text-primary me-2"></i>
+                  <span i18n:translate="">Modality of meet</span>
+                </dt>
+                <dd class="col-sm-8 text-end" tal:condition="modality">
+                  <span i18n:translate="" tal:content="modality"></span>
+                </dd>
 
-              <tal:block tal:condition="linkSala">
-                                        <dt class="col-sm-4" tal:condition="view/canViewLinkSala">
-                                            <i class="bi bi-link text-primary me-2"></i>
-                                            <span i18n:translate="">Enllac a la sala</span>
-                                        </dt>
-                                        <dd class="col-sm-8" tal:condition="view/canViewLinkSala">
+                <dt class="col-sm-4" tal:condition="llocConvocatoria">
+                  <i class="bi bi-geo-alt text-primary me-2"></i>
+                  <span i18n:translate="">Session location</span>
+                </dt>
+                <dd class="col-sm-8 text-end" tal:condition="llocConvocatoria">
+                  <span tal:content="llocConvocatoria"></span>
+                </dd>
+
+                <tal:block tal:condition="linkSala">
+                  <dt class="col-sm-4" tal:condition="canViewLinkSala">
+                    <i class="bi bi-link text-primary me-2"></i>
+                    <span i18n:translate="">Enllac a la sala</span>
+                  </dt>
+                  <dd class="col-sm-8 text-end" tal:condition="canViewLinkSala">
                     <a tal:attributes="href linkSala" tal:content="linkSala" target="_blank"></a>
-                                        </dd>
-              </tal:block>
+                  </dd>
+                </tal:block>
 
-                                    <dt class="col-sm-4" tal:condition="organTitle">
-                                        <i class="bi bi-building text-primary me-2"></i>
-                                        <span i18n:translate="">Organ de govern</span>
-                                    </dt>
-                                    <dd class="col-sm-8" tal:condition="organTitle">
-                <span tal:content="organTitle"></span>
-                                    </dd>
+                <dt class="col-sm-4" tal:condition="organTitle">
+                  <i class="bi bi-building text-primary me-2"></i>
+                  <span i18n:translate="">Organ de govern</span>
+                </dt>
+                <dd class="col-sm-8 text-end" tal:condition="organTitle">
+                  <span tal:content="organTitle"></span>
+                </dd>
 
-                                    <dt class="col-sm-4" tal:condition="sessionNumber">
-                                        <i class="bi bi-hash text-primary me-2"></i>
-                                        <span i18n:translate="">Session number</span>
-                                    </dt>
-                                    <dd class="col-sm-8" tal:condition="sessionNumber">
-                <span tal:content="sessionNumber"></span>
-                                    </dd>
+                <dt class="col-sm-4" tal:condition="sessionNumber">
+                  <i class="bi bi-hash text-primary me-2"></i>
+                  <span i18n:translate="">Session number</span>
+                </dt>
+                <dd class="col-sm-8 text-end" tal:condition="sessionNumber">
+                  <span tal:content="sessionNumber"></span>
+                </dd>
 
-                                    <dt class="col-sm-4">
-                                        <i class="bi bi-info-circle text-primary me-2"></i>
-                                        <span i18n:translate="">Estat de la sessio</span>
-                                    </dt>
-                                    <dd class="col-sm-8">
-                <span i18n:domain="genweb" i18n:translate="" tal:content="status"></span>
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-          </div>
-          <div class="tab-pane fade" id="assistentsTab" tal:condition="hihaPersones">
-                        <div class="card">
-              <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs" id="assistentsTabs" role="tablist">
-                                    <li class="nav-item" role="presentation" tal:condition="membresConvocats">
-                                        <button class="nav-link active" id="tab1primary-tab" data-bs-toggle="tab" data-bs-target="#tab1primary"
-                                                type="button" role="tab" aria-controls="tab1primary" aria-selected="true">
-                                            <i class="bi bi-people-fill"></i>&nbsp;<tal:omit-tag i18n:translate="">Incoming members list</tal:omit-tag>
-                    </button>
-                  </li>
-                                    <li class="nav-item" role="presentation" tal:condition="membresConvidats">
-                    <button class="nav-link" id="tab2primary-tab" data-bs-toggle="tab" data-bs-target="#tab2primary"
-                      type="button" role="tab" aria-controls="tab2primary" aria-selected="false">
-                                            <i class="bi bi-person-plus"></i>&nbsp;<tal:omit-tag i18n:translate="">Invited members</tal:omit-tag>
-                    </button>
-                  </li>
-                                    <li class="nav-item" role="presentation" tal:condition="llistaExcusats">
-                    <button class="nav-link" id="tab3primary-tab" data-bs-toggle="tab" data-bs-target="#tab3primary"
-                      type="button" role="tab" aria-controls="tab3primary" aria-selected="false">
-                                            <i class="bi bi-person-x"></i>&nbsp;<tal:omit-tag i18n:translate="">Excused members</tal:omit-tag>
-                    </button>
-                  </li>
-                                    <li class="nav-item" role="presentation" tal:condition="assistents">
-                    <button class="nav-link" id="tab4primary-tab" data-bs-toggle="tab" data-bs-target="#tab4primary"
-                      type="button" role="tab" aria-controls="tab4primary" aria-selected="false">
-                                            <i class="bi bi-person-check"></i>&nbsp;<tal:omit-tag i18n:translate="">Si assistents</tal:omit-tag>
-                    </button>
-                  </li>
-                                    <li class="nav-item" role="presentation" tal:condition="noAssistents">
-                    <button class="nav-link" id="tab5primary-tab" data-bs-toggle="tab" data-bs-target="#tab5primary"
-                      type="button" role="tab" aria-controls="tab5primary" aria-selected="false">
-                                            <i class="bi bi-person-x"></i>&nbsp;<tal:omit-tag i18n:translate="">No assistents</tal:omit-tag>
-                    </button>
-                  </li>
-                </ul>
+                <dt class="col-sm-4">
+                  <i class="bi bi-info-circle text-primary me-2"></i>
+                  <span i18n:translate="">Estat de la sessio</span>
+                </dt>
+                <dd class="col-sm-8 text-end">
+                  <span i18n:domain="genweb" i18n:translate="" tal:content="status"></span>
+                </dd>
+                </dl>
               </div>
-              <div class="card-body">
-                <div class="tab-content">
-                                    <div class="tab-pane fade show active" id="tab1primary" role="tabpanel" tal:condition="membresConvocats">
-                    <span tal:replace="structure membresConvocats" />
-                  </div>
-                                    <div class="tab-pane fade" id="tab2primary" role="tabpanel" tal:condition="membresConvidats">
-                    <span tal:replace="structure membresConvidats" />
-                  </div>
-                                    <div class="tab-pane fade" id="tab3primary" role="tabpanel" tal:condition="llistaExcusats">
-                    <span tal:replace="structure llistaExcusats" />
-                  </div>
-                                    <div class="tab-pane fade" id="tab4primary" role="tabpanel" tal:condition="assistents">
-                    <span tal:replace="structure assistents" />
-                  </div>
-                                    <div class="tab-pane fade" id="tab5primary" role="tabpanel" tal:condition="noAssistents">
-                    <span tal:replace="structure noAssistents" />
-                  </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="assistentsTab" tal:condition="hihaPersones">
+          <div class="card mb-3">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs" id="assistentsTabs" role="tablist">
+                <li class="nav-item" role="presentation" tal:condition="membresConvocats">
+                  <button class="nav-link active" id="tab1primary-tab" data-bs-toggle="tab" data-bs-target="#tab1primary"
+                          type="button" role="tab" aria-controls="tab1primary" aria-selected="true">
+                    <i class="bi bi-people-fill"></i>&nbsp;<tal:omit-tag i18n:translate="">Incoming members list</tal:omit-tag>
+                  </button>
+                </li>
+
+                <li class="nav-item" role="presentation" tal:condition="membresConvidats">
+                  <button class="nav-link" id="tab2primary-tab" data-bs-toggle="tab" data-bs-target="#tab2primary"
+                          type="button" role="tab" aria-controls="tab2primary" aria-selected="false">
+                    <i class="bi bi-person-plus"></i>&nbsp;<tal:omit-tag i18n:translate="">Invited members</tal:omit-tag>
+                  </button>
+                </li>
+
+                <li class="nav-item" role="presentation" tal:condition="llistaExcusats">
+                  <button class="nav-link" id="tab3primary-tab" data-bs-toggle="tab" data-bs-target="#tab3primary"
+                          type="button" role="tab" aria-controls="tab3primary" aria-selected="false">
+                    <i class="bi bi-person-x"></i>&nbsp;<tal:omit-tag i18n:translate="">Excused members</tal:omit-tag>
+                  </button>
+                </li>
+
+                <li class="nav-item" role="presentation" tal:condition="assistents">
+                  <button class="nav-link" id="tab4primary-tab" data-bs-toggle="tab" data-bs-target="#tab4primary"
+                          type="button" role="tab" aria-controls="tab4primary" aria-selected="false">
+                    <i class="bi bi-person-check"></i>&nbsp;<tal:omit-tag i18n:translate="">Si assistents</tal:omit-tag>
+                  </button>
+                </li>
+
+                <li class="nav-item" role="presentation" tal:condition="noAssistents">
+                  <button class="nav-link" id="tab5primary-tab" data-bs-toggle="tab" data-bs-target="#tab5primary"
+                          type="button" role="tab" aria-controls="tab5primary" aria-selected="false">
+                    <i class="bi bi-person-x"></i>&nbsp;<tal:omit-tag i18n:translate="">No assistents</tal:omit-tag>
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="tab-pane fade show active" id="tab1primary" role="tabpanel" tal:condition="membresConvocats">
+                  <span tal:replace="structure membresConvocats/output"></span>
+                </div>
+
+                <div class="tab-pane fade" id="tab2primary" role="tabpanel" tal:condition="membresConvidats">
+                  <span tal:replace="structure membresConvidats/output"></span>
+                </div>
+
+                <div class="tab-pane fade" id="tab3primary" role="tabpanel" tal:condition="llistaExcusats">
+                  <span tal:replace="structure llistaExcusats/output"></span>
+                </div>
+
+                <div class="tab-pane fade" id="tab4primary" role="tabpanel" tal:condition="assistents">
+                  <span tal:replace="structure assistents/output"></span>
+                </div>
+
+                <div class="tab-pane fade" id="tab5primary" role="tabpanel" tal:condition="noAssistents">
+                  <span tal:replace="structure noAssistents/output"></span>
                 </div>
               </div>
             </div>
           </div>
-          <div class="tab-pane fade" id="actaTab" tal:define="actes actesInside" tal:condition="actesInside">
+        </div>
+        <div class="tab-pane fade" id="actaTab" tal:define="actes actesInside" tal:condition="actesInside">
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title mb-0" i18n:translate="">Actes de la sessio</h5>
@@ -849,13 +862,13 @@ P Conclusions</code></pre>
           <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updateAcords"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span i18n:translate="">Numera acords</span></a>
           <br />
         </div>
-        <div class="clearfix"></div>
+
       </tal:buttons>
 
-      <div class="clearfix"></div>
+
 
       <div tal:condition="view/hihaPunts">
-        <div tal:condition="items" class="DADES">
+        <div tal:condition="items" class="dades mt-4">
           <h2 class="sessionOrdreDia" i18n:translate="">Ordre del dia</h2>
                         <div class="d-flex justify-content-end mb-3">
                             <div class="btn-group">
@@ -870,7 +883,7 @@ P Conclusions</code></pre>
           </div>
                         </div>
 
-          <div class="clearfix"></div>
+
           <ul id="sortable">
             <tal:documents repeat="item items">
                                 <tal:block tal:define="agreement item/agreement; isAcord item/isAcord">
