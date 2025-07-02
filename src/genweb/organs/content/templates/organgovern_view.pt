@@ -34,7 +34,7 @@
     <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan" />
   </div>
 
-  <div class="documentDescription description" tal:content="structure descripcioOrgan/output"></div>
+  <div class="documentDescription description" tal:content="structure view/descripcioOrgan_output"></div>
 
   <div id="contentOrgan">
 
