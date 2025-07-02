@@ -640,11 +640,3 @@ def getFilesSessio(context):
                 files.append(file.getObject())
 
     return files
-
-@ram.cache(lambda *args: time() // (60 * 60))
-def packages_installed():
-    portal = getSite()
-
-    qi_tool = getToolByName(portal, 'portal_quickinstaller')
-    installed = [p['id'] for p in qi_tool.listInstalledProducts()]
-    return installed

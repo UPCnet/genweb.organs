@@ -1,14 +1,13 @@
 from Acquisition import aq_inner
 from Products.CMFPlone import utils
-from Products.CMFPlone.browser.navigation import get_view_url
+from Products.CMFPlone.browser.navigation import get_view_url, check_default_page_via_view
 from Products.CMFPlone.interfaces import IHideFromBreadcrumbs
 from Products.CMFPlone.CatalogTool import is_default_page
 
 from plone.app.layout.navigation.root import getNavigationRoot
 from zope.component import getMultiAdapter
 
-from genweb.organs.utils import packages_installed
-
+from plone.base.utils import get_installer
 
 from plone.app.multilingual.interfaces import ITranslationManager
 from Products.CMFCore.utils import getToolByName
@@ -45,18 +44,25 @@ def breadcrumbs(self):
 
     # don't show default pages in breadcrumbs or pages above the navigation
     # root
+    qi = get_installer(context)
 
-    # installed = packages_installed()
-    # if 'genweb.organs' in installed:
-    isDefaultPage = is_default_page(self.context)
-    if (not isDefaultPage or context.portal_type == 'genweb.organs.organsfolder') \
-            and not rootPath.startswith(itemPath):
-        base += ({'absolute_url': item_url,
-                'Title': utils.pretty_title_or_id(context, context), },)
-    # else:
-    #     if not utils.isDefaultPage(context, request) and not rootPath.startswith(itemPath):
-    #         base += ({'absolute_url': item_url,
-    #                   'Title': utils.pretty_title_or_id(context, context), },)
+    if qi.is_product_installed('genweb.organs'):
+        if (not check_default_page_via_view(context, request) or context.portal_type == 'genweb.organs.organsfolder') \
+                and not rootPath.startswith(itemPath):
+            entry = {
+                'absolute_url': item_url,
+                'Title': utils.pretty_title_or_id(context, context),
+            }
+            self.customize_entry(entry, context)
+            base += (entry,)
+    else:
+        if not check_default_page_via_view(context, request) and not rootPath.startswith(itemPath):
+            entry = {
+                'absolute_url': item_url,
+                'Title': utils.pretty_title_or_id(context, context),
+            }
+            self.customize_entry(entry, context)
+            base += (entry,)
 
     return base
 

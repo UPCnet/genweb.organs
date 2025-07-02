@@ -24,7 +24,7 @@ from zope.interface import implementer, Interface
 from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.component import queryMultiAdapter
 
-from genweb.organs.utils import packages_installed
+from plone.base.utils import get_installer
 from genweb.organs import utils
 
 
@@ -186,8 +186,10 @@ class FolderFeed(BaseFeedData):
                 filtered_items.append(item)
 
 
-        installed = packages_installed()
-        if 'genweb.organs' in installed:
+        qi = get_installer(self.context)
+        plone_utils = getToolByName(self.context, 'plone_utils')
+
+        if qi.is_product_installed('genweb.organs'):
             return sorted(filtered_items, key=itemgetter('start'), reverse=True)
         else:
             return sorted(filtered_items, key=itemgetter('Date'), reverse=True)
