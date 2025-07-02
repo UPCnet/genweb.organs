@@ -1,16 +1,29 @@
 body.portaltype-genweb-organs-sessio {
 
-    /* Estilos para mostrar/ocultar el icono correcto en el botón de colapso */
-    .btn-expand-collapse .bi-chevron-up { display: none; }
-    .btn-expand-collapse[aria-expanded="true"] .bi-chevron-up { display: inline-block; }
-    .btn-expand-collapse[aria-expanded="true"] .bi-chevron-down { display: none; }
+  .sessionActions {
 
-    /* Estilo para que el botón no parezca un botón y tenga el cursor correcto */
-    .btn-expand-collapse {
-        background: none;
-        border: none;
-        padding: 0;
-        color: #557c95;
-        cursor: pointer;
+    a {
+      font-weight: normal !important;
+      max-width: 130px;
+
+      i::before {
+        font-size: 2rem;
+      }
     }
+  }
+
+
+  /* Estilos para mostrar/ocultar el icono correcto en el botón de colapso */
+  .btn-expand-collapse .bi-chevron-up { display: none; }
+  .btn-expand-collapse[aria-expanded="true"] .bi-chevron-up { display: inline-block; }
+  .btn-expand-collapse[aria-expanded="true"] .bi-chevron-down { display: none; }
+
+  /* Estilo para que el botón no parezca un botón y tenga el cursor correcto */
+  .btn-expand-collapse {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #557c95;
+    cursor: pointer;
+  }
 }

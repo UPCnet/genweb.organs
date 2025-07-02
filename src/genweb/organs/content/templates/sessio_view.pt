@@ -6,150 +6,158 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="genweb.organs">
 
-      <metal:main fill-slot="main" tal:condition="view/canView"
-                 tal:define="loginfo view/getAnnotations;
-                excuses view/getAnnotationsExcuse;
-                canModify view/canModify;
-                items view/PuntsInside;
-                hihaPersones view/hihaPersones;
-                membresConvocats context/membresConvocats;
-                membresConvidats context/membresConvidats;
-                llistaExcusats context/llistaExcusats;
-                assistents context/assistents;
-                noAssistents context/noAssistents;
-                viewHistory view/viewHistory;
-                getAllResultsVotes view/getAllResultsVotes;
-                getInfoQuorums view/getInfoQuorums;
-                viewExcusesAndPoints view/viewExcusesAndPoints;
-                getTitlePrompt view/getTitlePrompt;
-                getErrorPrompt view/getErrorPrompt;
-                canViewVoteButtons view/canViewVoteButtons;
-                canViewAddQuorumButtons view/canViewAddQuorumButtons;
-                canViewManageQuorumButtons view/canViewManageQuorumButtons;
-                canViewManageVote view/canViewManageVote;
-                canViewResultsVote view/canViewResultsVote;
-                acordsInside view/AcordsInside;
-                actesInside view/ActesInside">
+  <metal:main fill-slot="content-core" tal:condition="view/canView"
+              tal:define="absolute_url context/absolute_url;
+                          loginfo view/getAnnotations;
+                          excuses view/getAnnotationsExcuse;
+                          canModify view/canModify;
+                          items view/PuntsInside;
+                          hihaPersones view/hihaPersones;
+                          membresConvocats context/membresConvocats;
+                          membresConvidats context/membresConvidats;
+                          llistaExcusats context/llistaExcusats;
+                          assistents context/assistents;
+                          noAssistents context/noAssistents;
+                          viewHistory view/viewHistory;
+                          getAllResultsVotes view/getAllResultsVotes;
+                          getInfoQuorums view/getInfoQuorums;
+                          viewExcusesAndPoints view/viewExcusesAndPoints;
+                          getTitlePrompt view/getTitlePrompt;
+                          getErrorPrompt view/getErrorPrompt;
+                          canViewVoteButtons view/canViewVoteButtons;
+                          canViewAddQuorumButtons view/canViewAddQuorumButtons;
+                          canViewManageQuorumButtons view/canViewManageQuorumButtons;
+                          canViewManageVote view/canViewManageVote;
+                          canViewResultsVote view/canViewResultsVote;
+                          acordsInside view/AcordsInside;
+                          actesInside view/ActesInside">
 
-            <!-- Token CSRF para formularios AJAX -->
-            <tal:csrf tal:replace="structure context/@@authenticator" />
+    <!-- Token CSRF para formularios AJAX -->
+    <tal:csrf tal:replace="structure context/@@authenticator" />
 
-            <!-- Estado de firma -->
-      <tal:block tal:condition="view/hasFirma">
-                <div class="mb-3" tal:define="estatFirma view/estatFirma">
-                    <span tal:attributes="class string:badge bg-${estatFirma/class}">
+    <!-- Estado de firma -->
+    <tal:block tal:condition="view/hasFirma">
+      <div class="mb-3" tal:define="estatFirma view/estatFirma">
+        <span tal:attributes="class stringpy-2 px-3 rounded-pill text-bg-${estatFirma/class} fw-bold">
           <tal:block i18n:translate="">Acta: </tal:block>
           <tal:block tal:content="estatFirma/text">PENDENT_SIGNANTS</tal:block>
         </span>
-                </div>
+      </div>
+    </tal:block>
+
+    <!-- Barra de acciones -->
+    <div class="mb-4 d-flex justify-content-end column-gap-2 sessionActions" role="toolbar">
+
+      <!-- Excusar asistencia -->
+      <div tal:condition="view/showOrdreDiaIAssistencia">
+        <a tal:attributes="href string:${absolute_url}/excusar_assist_sessio"
+           class="btn btn-outline-primary border-0 d-flex flex-column"
+           i18n:attributes="title excusa_assistencia; alt excusa_assistencia">
+          <i class="bi bi-person-dash"></i>
+          <span i18n:translate="">Excusa l'assistencia</span>
+        </a>
+      </div>
+
+      <!-- Enviar mensaje -->
+      <div tal:condition="view/showEnviarButton">
+        <a tal:attributes="href string:${absolute_url}/mail_message"
+           class="btn btn-outline-primary border-0 d-flex flex-column"
+           i18n:attributes="title envia_missatge; alt envia_missatge">
+            <i class="bi bi-envelope"></i>
+            <span i18n:translate="">Envia missatge</span>
+        </a>
+      </div>
+
+      <!-- Presentación -->
+      <div tal:condition="view/showPresentacionButton">
+        <a tal:attributes="href string:${absolute_url}/presentation"
+           class="btn btn-outline-primary border-0 d-flex flex-column"
+           i18n:attributes="title Presentacio; alt Presentacio">
+          <i class="bi bi-play-circle"></i>
+          <span i18n:translate="">Presentacio</span>
+        </a>
+      </div>
+
+      <!-- Publicar -->
+      <div tal:condition="view/showPublicarButton">
+        <a tal:attributes="href string:${absolute_url}/mail_informar"
+           class="btn btn-outline-primary border-0 d-flex flex-column"
+           i18n:attributes="title informa_sessio; alt informa_sessio">
+          <i class="bi bi-newspaper"></i>
+          <span i18n:translate="">Informa sessio</span>
+        </a>
+      </div>
+
+      <!-- Imprimir -->
+      <div>
+        <a href="javascript:printButlletiPage();" class="btn btn-outline-primary border-0 d-flex flex-column"
+           i18n:attributes="title printOrdreDia; alt printOrdreDia">
+          <i class="bi bi-printer"></i>
+          <span i18n:translate="">Print</span>
+        </a>
+      </div>
+
+      <!-- Exportar -->
+      <div>
+        <a tal:attributes="href string:${absolute_url}/exportCSV"
+           class="btn btn-outline-primary border-0 d-flex flex-column"
+           i18n:attributes="title exportOrdreDia; alt exportOrdreDia">
+          <i class="bi bi-download"></i>
+          <span i18n:translate="">Export</span>
+        </a>
+      </div>
+
+      <!-- Quorum -->
+      <tal:block tal:condition="canViewManageQuorumButtons">
+        <div tal:condition="view/showOpenQuorum">
+          <a href="#" class="btn btn-outline-primary border-0 openQuorum d-flex flex-column"
+             i18n:attributes="title open_quorum; alt open_quorum">
+            <i class="bi bi-people-fill"></i>
+            <span i18n:translate="">Obrir quorum</span>
+          </a>
+        </div>
+
+        <div tal:condition="not:view/showOpenQuorum">
+          <a href="#" class="btn btn-outline-primary border-0 closeQuorum d-flex flex-column"
+             i18n:attributes="title close_quorum; alt close_quorum">
+            <i class="bi bi-people-fill"></i>
+            <span i18n:translate="">Tancar quorum</span>
+          </a>
+        </div>
       </tal:block>
 
-            <!-- Barra de acciones -->
-            <div class="btn-toolbar mb-4" role="toolbar">
-                <!-- Excusar asistencia -->
-                <div class="btn-group me-2" tal:condition="view/showOrdreDiaIAssistencia">
-                    <a href="excusar_assist_sessio" class="btn btn-outline-primary"
-                        i18n:attributes="title excusa_assistencia; alt excusa_assistencia">
-                        <i class="bi bi-person-dash"></i>
-                        <span i18n:translate="">Excusa l'assistencia</span>
+      <!-- Control quorum -->
+      <tal:block tal:condition="canViewAddQuorumButtons">
+        <div tal:condition="not:view/showOpenQuorum"
+             tal:define="checkHasQuorum view/checkHasQuorum">
+          <a tal:condition="not:checkHasQuorum" href="#"
+             class="btn btn-outline-primary border-0 addQuorum d-flex flex-column"
+             i18n:attributes="title add_quorum; alt add_quorum">
+            <i class="bi bi-person-plus"></i>
+            <span i18n:translate="">Control quorum</span>
+          </a>
+
+          <span tal:condition="checkHasQuorum"
+                class="btn btn-success addQuorumChecked d-flex flex-column"
+                i18n:attributes="title add_quorum; alt add_quorum">
+            <i class="bi bi-check2-circle"></i>
+            <span i18n:translate="">Control quorum</span>
+          </span>
+        </div>
+      </tal:block>
+
+     <!-- Gestión firma -->
+      <tal:block tal:condition="view/canViewSignButton">
+        <div>
+          <a tal:attributes="href string:${absolute_url}/signSessio"
+             class="btn btn-outline-primary border-0 mgDOC d-flex flex-column"
+             alt="Gestió signatura i arxiu gDOC" title="Gestió signatura i arxiu gDOC">
+            <i class="bi bi-pen"></i>
+            <span i18n:translate="">Gestió signatura i arxiu gDOC</span>
           </a>
         </div>
-
-                <!-- Enviar mensaje -->
-                <div class="btn-group me-2" tal:condition="view/showEnviarButton">
-                    <a href="mail_message" class="btn btn-outline-primary"
-                        i18n:attributes="title envia_missatge; alt envia_missatge">
-                        <i class="bi bi-envelope"></i>
-                        <span i18n:translate="">Envia missatge</span>
-          </a>
-        </div>
-
-                <!-- Presentación -->
-                <div class="btn-group me-2" tal:condition="view/showPresentacionButton">
-                    <a href="presentation" class="btn btn-outline-primary"
-                        i18n:attributes="title Presentacio; alt Presentacio">
-                        <i class="bi bi-play-circle"></i>
-                        <span i18n:translate="">Presentacio</span>
-          </a>
-        </div>
-
-                <!-- Publicar -->
-                <div class="btn-group me-2" tal:condition="view/showPublicarButton">
-                    <a href="mail_informar" class="btn btn-outline-primary"
-                        i18n:attributes="title informa_sessio; alt informa_sessio">
-                        <i class="bi bi-newspaper"></i>
-                        <span i18n:translate="">Informa sessio</span>
-          </a>
-        </div>
-
-                <!-- Imprimir -->
-                <div class="btn-group me-2">
-                    <a href="javascript:printButlletiPage();" class="btn btn-outline-primary"
-                        i18n:attributes="title printOrdreDia; alt printOrdreDia">
-                        <i class="bi bi-printer"></i>
-                        <span i18n:translate="">Print</span>
-          </a>
-        </div>
-
-                <!-- Exportar -->
-                <div class="btn-group me-2">
-                    <a href="exportCSV" class="btn btn-outline-primary"
-                        i18n:attributes="title exportOrdreDia; alt exportOrdreDia">
-                        <i class="bi bi-download"></i>
-                        <span i18n:translate="">Export</span>
-          </a>
-        </div>
-
-                <!-- Quorum -->
-        <tal:block tal:condition="canViewManageQuorumButtons">
-                    <div class="btn-group me-2" tal:condition="view/showOpenQuorum">
-                        <a href="#" class="btn btn-outline-primary openQuorum"
-                            i18n:attributes="title open_quorum; alt open_quorum">
-                            <i class="bi bi-people-fill"></i>
-                            <span i18n:translate="">Obrir quorum</span>
-            </a>
-          </div>
-
-                    <div class="btn-group me-2" tal:condition="not:view/showOpenQuorum">
-                        <a href="#" class="btn btn-outline-primary closeQuorum"
-                            i18n:attributes="title close_quorum; alt close_quorum">
-                            <i class="bi bi-people-fill"></i>
-                            <span i18n:translate="">Tancar quorum</span>
-            </a>
-          </div>
-        </tal:block>
-
-                <!-- Control quorum -->
-        <tal:block tal:condition="canViewAddQuorumButtons">
-                    <div class="btn-group me-2" tal:condition="not:view/showOpenQuorum"
-            tal:define="checkHasQuorum view/checkHasQuorum">
-                        <a tal:condition="not:checkHasQuorum" href="#"
-                            class="btn btn-outline-primary addQuorum"
-                            i18n:attributes="title add_quorum; alt add_quorum">
-                            <i class="bi bi-person-plus"></i>
-                            <span i18n:translate="">Control quorum</span>
-                        </a>
-
-                        <span tal:condition="checkHasQuorum"
-                                class="btn btn-success addQuorumChecked"
-                                i18n:attributes="title add_quorum; alt add_quorum">
-                            <i class="bi bi-check2-circle"></i>
-                            <span i18n:translate="">Control quorum</span>
-            </span>
-          </div>
-        </tal:block>
-
-                <!-- Gestión firma -->
-        <tal:block tal:condition="view/canViewSignButton">
-                    <div class="btn-group me-2">
-                        <a href="signSessio" class="btn btn-outline-primary mgDOC"
-                            alt="Gestió signatura i arxiu gDOC" title="Gestió signatura i arxiu gDOC">
-                            <i class="bi bi-pen"></i>
-                            <span i18n:translate="">Gestió signatura i arxiu gDOC</span>
-            </a>
-          </div>
-        </tal:block>
-      </div>
+      </tal:block>
+    </div>
 
       <div id="contentSessio">
                 <!-- TABS -->
@@ -1072,7 +1080,7 @@ P Conclusions</code></pre>
                           </span>
                         </div>
                       </div>
-                      <div class="collapse multi-collapse-points" tal:attributes="id string:collapse-${item/id}" tal:condition="contenidos">
+                      <!-- <div class="collapse multi-collapse-points" tal:attributes="id string:collapse-${item/id}" tal:condition="contenidos"> -->
                         <tal:files>
                           <div class="col-12" tal:condition="files">
                             <ul class="listFiles">

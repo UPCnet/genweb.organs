@@ -161,6 +161,24 @@ body.template-searchorgans .meva-vinculacio a:hover {
   display: none;
 }
 
+/* line 89, ../scss/_generic.scss */
+.text-bg-signada {
+  color: #fff !important;
+  background-color: RGBA(var(--bs-success-rgb), var(--bs-bg-opacity, 1)) !important;
+}
+
+/* line 94, ../scss/_generic.scss */
+.text-bg-pendent {
+  color: #fff !important;
+  background-color: RGBA(var(--bs-warning-rgb), var(--bs-bg-opacity, 1)) !important;
+}
+
+/* line 99, ../scss/_generic.scss */
+.text-bg-rebutjada {
+  color: #fff !important;
+  background-color: RGBA(var(--bs-danger-rgb), var(--bs-bg-opacity, 1)) !important;
+}
+
 /* line 5, ../scss/portlets/_portlet_calendar.scss */
 .portlet.portlet-calendar .card-body table {
   border: 0px solid transparent !important;
@@ -233,19 +251,28 @@ body.portaltype-genweb-organs-sessio {
   /* Estilos para mostrar/ocultar el icono correcto en el botón de colapso */
   /* Estilo para que el botón no parezca un botón y tenga el cursor correcto */
 }
-/* line 4, ../scss/content/_sessio.scss */
+/* line 5, ../scss/content/_sessio.scss */
+body.portaltype-genweb-organs-sessio .sessionActions a {
+  font-weight: normal !important;
+  max-width: 130px;
+}
+/* line 9, ../scss/content/_sessio.scss */
+body.portaltype-genweb-organs-sessio .sessionActions a i::before {
+  font-size: 2rem;
+}
+/* line 17, ../scss/content/_sessio.scss */
 body.portaltype-genweb-organs-sessio .btn-expand-collapse .bi-chevron-up {
   display: none;
 }
-/* line 5, ../scss/content/_sessio.scss */
+/* line 18, ../scss/content/_sessio.scss */
 body.portaltype-genweb-organs-sessio .btn-expand-collapse[aria-expanded="true"] .bi-chevron-up {
   display: inline-block;
 }
-/* line 6, ../scss/content/_sessio.scss */
+/* line 19, ../scss/content/_sessio.scss */
 body.portaltype-genweb-organs-sessio .btn-expand-collapse[aria-expanded="true"] .bi-chevron-down {
   display: none;
 }
-/* line 9, ../scss/content/_sessio.scss */
+/* line 22, ../scss/content/_sessio.scss */
 body.portaltype-genweb-organs-sessio .btn-expand-collapse {
   background: none;
   border: none;
