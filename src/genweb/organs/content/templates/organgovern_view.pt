@@ -138,9 +138,9 @@
         </div>
       </div>
       <div class="tab-pane fade" id="membres-tab-panel" role="tabpanel" aria-labelledby="membres-tab" tabindex="0">
-        <div class="panel with-nav-tabs panel-primary mt-3" tal:condition="multipleTab">
+        <div class="card" tal:condition="multipleTab">
           <div class="card-header">
-            <ul id="tabsSessions" class="nav nav-tabs" role="tablist">
+            <ul id="tabsSessions" class="nav nav-tabs card-header-tabs" role="tablist">
               <li role="presentation" tal:condition="membresOrgan">
                 <button tal:attributes="class string:nav-link${activeClassMembres}" id="tab1primary-tab" data-bs-toggle="tab" data-bs-target="#tab1primary-tab-panel" type="button" role="tab" aria-controls="tab1primary-tab-panel" aria-selected="true" i18n:translate="">Incoming members list</button>
               </li>
