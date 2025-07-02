@@ -242,15 +242,9 @@ class Edit(form.EditForm):
 class View(BrowserView):
     """ Organ de govern VIEW form """
     index = ViewPageTemplateFile('templates/organgovern_view.pt')
+
     def __call__(self):
         return self.index()
-
-    def descripcioOrgan_output(self):
-        """Devuelve el output del campo descripcioOrgan de forma segura"""
-        val = getattr(self.context, 'descripcioOrgan', None)
-        if val and hasattr(val, 'output'):
-            return val.output
-        return ''
 
     def activeClassMembres(self):
         if self.context.membresOrgan and self.context.convidatsPermanentsOrgan is None:

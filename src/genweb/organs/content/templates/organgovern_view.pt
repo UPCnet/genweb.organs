@@ -34,7 +34,9 @@
     <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan" />
   </div>
 
-  <div class="documentDescription description" tal:content="structure view/descripcioOrgan_output"></div>
+  <div class="documentDescription description"
+       tal:condition="descripcioOrgan"
+       tal:content="structure descripcioOrgan/output"></div>
 
   <div id="contentOrgan">
 
@@ -53,7 +55,7 @@
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="acords-tab" data-bs-toggle="tab" data-bs-target="#acords-tab-panel" type="button" role="tab" aria-controls="acords-tab-panel" aria-selected="false">
-          <i class="bi bi-check me-2" aria-hidden="true"></i>
+          <i class="bi bi-check" aria-hidden="true"></i>
           <tal:omit-tag i18n:translate="">Agreements list</tal:omit-tag>
         </button>
       </li>
