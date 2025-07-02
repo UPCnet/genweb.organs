@@ -38,6 +38,8 @@ module.exports = function (grunt) {
         uglify: {
             js: {
                 files: {
+                    'js/views/search.min.js':
+                        '../../../../../genweb.organs/src/genweb/organs/browser/search/search.js',
                     'js/content/organgovern_view.min.js':
                         '../../../../../genweb.organs/src/genweb/organs/content/templates/organgovern_view.js',
                     'js/widgets/text_input_select_users.min.js':
