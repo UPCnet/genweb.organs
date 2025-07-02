@@ -172,19 +172,41 @@
         <div class="row">
           <div class="col-12">
             <h3 class="h5" i18n:translate="">Resultats de la cerca</h3>
-            <tal:block tal:define="results view/results">
+            <tal:block tal:define="results view/results;
+                                   toLocalizedTime nocall:context/@@plone/toLocalizedTime">
               <tal:block tal:condition="results">
-                <div class="list-group">
-                  <tal:documents repeat="item results">
-                    <a tal:attributes="href item/getURL"
-                      class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                      <span>
-                        <span class="fw-bold" tal:content="item/Title">Títol</span>
-                        <span class="text-muted small ms-2" tal:content="item/portal_type">Tipus</span>
-                      </span>
-                      <span class="badge bg-secondary" tal:content="item/created|nothing"></span>
-                    </a>
-                  </tal:documents>
+                <div class="searchResults">
+                  <tal:items repeat="item results">
+                    <div class="mb-3">
+                      <i class="bi bi-file-earmark-text me-2 text-secondary"></i>
+                      <a tal:attributes="href item/getURL" tal:content="item/Title" class="fw-bold text-decoration-none"></a>
+                      <div class="text-muted small" tal:define="portal_url context/portal_url;
+                                                  lang request/LANGUAGE|string:ca;
+                                                  creator item/Creator;
+                                                  author_url string:${portal_url}/${lang}/author/${creator}">
+                        <span i18n:translate="">per</span>
+                        <a tal:attributes="href author_url" tal:content="creator" class="text-decoration-none"></a>
+                        —
+                        <span i18n:translate="">darrera modificació</span>
+                        <tal:block tal:replace="python:toLocalizedTime(item.modified if hasattr(item,'modified') else item.created, long_format=True)" />
+                      </div>
+                      <cite class="documentLocation link-location text-muted small"
+                            tal:define="breadcrumbs python:view.breadcrumbs(item); is_rtl context/@@plone_portal_state/is_rtl;"
+                            tal:condition="breadcrumbs">
+                        <span i18n:translate="text_searchitem_location">Ubicat a</span>
+                        <span tal:repeat="crumb breadcrumbs"
+                              tal:attributes="dir python:is_rtl and 'rtl' or 'ltr';">
+                          <tal:item tal:define="is_last repeat/crumb/end; url crumb/absolute_url; title crumb/Title">
+                            <a tal:omit-tag="not: url"
+                               tal:attributes="href url"
+                               tal:content="title"
+                               class="text-decoration-none" />
+                            <span class="breadcrumbSeparator" tal:condition="not: is_last">/</span>
+                          </tal:item>
+                        </span>
+                      </cite>
+                    </div>
+                  </tal:items>
                 </div>
               </tal:block>
               <tal:block tal:condition="not:results">

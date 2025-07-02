@@ -105,28 +105,25 @@ class Search(BrowserView):
     def results(self, query=None, batch=True, b_size=100, b_start=0, old=False):
         if query is None:
             query = {}
+        # Si no hay parámetros de búsqueda no devolvemos nada
         if not self.request.form and not query:
             return []
+
+        # Paginación
         if batch:
-            query['b_start'] = b_start = int(b_start)
+            query['b_start'] = int(b_start)
             query['b_size'] = b_size
+
+        # Construcción del query final
         query = self.filter_query(query)
         if not query or query.get('path') == '/empty_path/':
             return []
-        query['sort_order'] = 'reverse'
-        portal_catalog = api.portal.get_tool(name='portal_catalog')
-        results = portal_catalog(**query)
-        # Adaptar los resultados para el frontend Bootstrap
-        output = []
-        for res in results:
-            obj = res.getObject()
-            output.append({
-                'Title': res.Title,
-                'getURL': res.getURL(),
-                'portal_type': res.portal_type,
-                'created': getattr(res, 'created', ''),
-            })
-        return output
+
+        # Orden descendente por defecto
+        query.setdefault('sort_order', 'reverse')
+
+        catalog = api.portal.get_tool(name='portal_catalog')
+        return catalog(**query)
 
     def filter_query(self, query):
         # Solo filtra si hay texto o algún filtro
@@ -180,16 +177,20 @@ class Search(BrowserView):
     def breadcrumbs(self, item):
         obj = item.getObject()
         view = getMultiAdapter((obj, self.request), name='breadcrumbs_view')
-        # cut off the item itself
-        breadcrumbs = list(view.breadcrumbs())[:-1]
-        # Fixed to Remove Unit OG Folder Name
-        breadcrumbs = breadcrumbs[1:]
-        if len(breadcrumbs) == 0:
-            # don't show breadcrumbs if we only have a single element
-            return None
+        breadcrumbs = list(view.breadcrumbs())[:-1]  # quita el propio objeto
+        # Si hay más de un elemento, elimina el primero (la raíz)
+        if len(breadcrumbs) > 1:
+            breadcrumbs = breadcrumbs[1:]
+        # Si tras el corte queda vacío, devuelve al menos el padre inmediato o la raíz
+        if not breadcrumbs:
+            parent = getattr(obj, 'aq_parent', None)
+            if parent and hasattr(parent, 'absolute_url') and hasattr(parent, 'Title'):
+                return [{'absolute_url': parent.absolute_url(), 'Title': parent.Title()}]
+            navroot = self.navroot_url()
+            return [{'absolute_url': navroot, 'Title': 'Inici'}]
+        # Si hay muchos, acorta como antes
         if len(breadcrumbs) > 3:
-            # if we have too long breadcrumbs, emit the middle elements
-            empty = {'absolute_url': '', 'Title': unicode('…', 'utf-8')}
+            empty = {'absolute_url': '', 'Title': '…'}
             breadcrumbs = [breadcrumbs[0], empty] + breadcrumbs[-2:]
         return breadcrumbs
 
