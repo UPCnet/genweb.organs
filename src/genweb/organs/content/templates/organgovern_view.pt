@@ -126,7 +126,7 @@
                 </td>
                 <td class="text-center align-middle">
                   <span tal:content="item/review_state"
-                        tal:attributes="class item/review_state"
+                        tal:attributes="class string:label-${item/review_state}"
                         i18n:translate=""
                         i18n:domain="genweb">
                          Item State

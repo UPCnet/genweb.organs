@@ -59,24 +59,15 @@ body.template-searchorgans .meva-vinculacio a:hover {
 }
 
 /* line 1, ../scss/_generic.scss */
-.convocada,
 .label-convocada,
-.tancada,
 .label-tancada,
-.realitzada,
 .label-realitzada,
-.open_organ,
 .label-open_organ,
-.Públic,
-.Obert,
+.label-Públic,
 .label-Obert,
-.planificada,
 .label-planificada,
-.restricted_to_affected_organ,
 .label-restricted_to_affected_organ,
-.en_correccio,
 .label-en_correccio,
-.restricted_to_members_organ,
 .label-restricted_to_members_organ {
   padding: 1px 4px 2px;
   border-radius: 3px !important;
@@ -89,55 +80,46 @@ body.template-searchorgans .meva-vinculacio a:hover {
   text-align: center !important;
 }
 
-/* line 31, ../scss/_generic.scss */
-.convocada,
+/* line 22, ../scss/_generic.scss */
 .label-convocada {
   background-color: #8952ab !important;
 }
 
-/* line 36, ../scss/_generic.scss */
-.tancada,
+/* line 26, ../scss/_generic.scss */
 .label-tancada {
   background-color: #007bc0 !important;
 }
 
-/* line 41, ../scss/_generic.scss */
-.realitzada,
+/* line 30, ../scss/_generic.scss */
 .label-realitzada,
-.open_organ,
 .label-open_organ,
-.Públic,
-.Obert,
+.label-Públic,
 .label-Obert {
   background-color: #456211 !important;
 }
 
-/* line 51, ../scss/_generic.scss */
-.planificada,
+/* line 37, ../scss/_generic.scss */
 .label-planificada {
   background-color: #FFA500 !important;
 }
 
-/* line 56, ../scss/_generic.scss */
-.restricted_to_affected_organ,
+/* line 41, ../scss/_generic.scss */
 .label-restricted_to_affected_organ {
   background-color: #FF5733 !important;
 }
 
-/* line 61, ../scss/_generic.scss */
-.en_correccio,
+/* line 45, ../scss/_generic.scss */
 .label-en_correccio,
-.restricted_to_members_organ,
 .label-restricted_to_members_organ {
   background-color: #a62e1f !important;
 }
 
-/* line 68, ../scss/_generic.scss */
+/* line 50, ../scss/_generic.scss */
 #workflow-transition-convocar {
   display: none;
 }
 
-/* line 83, ../scss/_generic.scss */
+/* line 65, ../scss/_generic.scss */
 .portaltype-genweb-organs-organsfolder li#plone-contentmenu-workflow,
 .portaltype-genweb-organs-organsfolder li#plone-contentmenu-multilingual,
 .portaltype-genweb-organs-organgovern li#plone-contentmenu-workflow,
@@ -161,19 +143,19 @@ body.template-searchorgans .meva-vinculacio a:hover {
   display: none;
 }
 
-/* line 89, ../scss/_generic.scss */
+/* line 71, ../scss/_generic.scss */
 .text-bg-signada {
   color: #fff !important;
   background-color: RGBA(var(--bs-success-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 
-/* line 94, ../scss/_generic.scss */
+/* line 76, ../scss/_generic.scss */
 .text-bg-pendent {
   color: #fff !important;
   background-color: RGBA(var(--bs-warning-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 
-/* line 99, ../scss/_generic.scss */
+/* line 81, ../scss/_generic.scss */
 .text-bg-rebutjada {
   color: #fff !important;
   background-color: RGBA(var(--bs-danger-rgb), var(--bs-bg-opacity, 1)) !important;
