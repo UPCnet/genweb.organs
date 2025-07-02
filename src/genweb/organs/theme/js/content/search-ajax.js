@@ -1,20 +1,22 @@
 // Búsqueda AJAX para Plone 6 sin jQuery
-// Actualiza los resultados dinámicamente al cambiar filtros o escribir
+// Solo busca al pulsar Intro o el botón, no en cada letra del input de texto
 
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.querySelector('#search-form');
   const resultsBlock = document.querySelector('#search-results');
+  const searchInput = form ? form.querySelector('input[name="SearchableText"]') : null;
 
   if (!form || !resultsBlock) return;
 
-  // Escucha cambios en cualquier input del formulario
+  // Escucha cambios en los filtros (checkboxes, radios, selects)
   form.addEventListener('input', function (e) {
-    if (['INPUT', 'SELECT', 'TEXTAREA'].includes(e.target.tagName)) {
+    if (e.target === searchInput) return; // Ignora el input de texto
+    if (["INPUT", "SELECT", "TEXTAREA"].includes(e.target.tagName)) {
       fetchResults();
     }
   });
 
-  // Evita el submit tradicional
+  // Solo busca al hacer submit (Intro o botón)
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     fetchResults();
