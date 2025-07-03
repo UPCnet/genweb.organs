@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ca"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
@@ -8,116 +8,82 @@
 <body>
 
 <div metal:fill-slot="main">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <tal:main-macro metal:define-macro="main">
-          <h1 class="documentFirstHeading" tal:content="view/title">Punt/Subpunt</h1>
-          <div tal:content="structure view/message">Contingut</div>
-        </tal:main-macro>
-      </div>
+  <div class="container my-4">
+
+    <!-- Título principal -->
+    <h1 class="documentFirstHeading d-flex align-items-center mb-4">
+      <span class="me-2 text-primary fw-bold" style="font-size:2rem;" tal:content="context/proposalPoint">1</span>
+      <span class="fw-bold" tal:content="view/title">Títol del punt</span>
+      <span class="ms-3 badge rounded-pill px-3 py-2 align-middle" tal:define="color view/getColor" tal:attributes="style string:background-color:${color};" tal:content="context/estatsLlista"></span>
+    </h1>
+
+    <!-- Descripció -->
+    <div tal:condition="view/message" class="mb-4">
+      <div class="alert alert-light border" tal:content="structure view/message">Descripció</div>
     </div>
+
+    <!-- Fitxers i documents relacionats -->
+    <div class="table-responsive mb-5" tal:condition="view/FilesandDocumentsInside">
+      <table class="table table-striped table-bordered filesanddocs">
+        <thead>
+          <tr>
+            <th i18n:translate="">Fitxers i documents</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <ul class="list-unstyled m-0">
+                <tal:documents repeat="item view/FilesandDocumentsInside">
+                  <li class="mb-1">
+                    <a tal:define="title item/title"
+                       tal:attributes="href item/absolute_url; target python:item.get('new_tab') and '_blank' or None; title title; alt title"
+                       class="text-decoration-none d-flex align-items-center">
+                      <i tal:attributes="class item/classCSS" class="bi bi-file-earmark-text me-2"></i>
+                      <span tal:content="title">Nom fitxer</span>
+                    </a>
+                  </li>
+                </tal:documents>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Subpunts / Acords -->
+    <div class="table-responsive" tal:condition="view/SubPuntsInside">
+      <table class="table table-striped table-bordered subpunts">
+        <thead>
+          <tr>
+            <th i18n:translate="">Subpunts informatius / acords</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <ul class="list-unstyled m-0">
+                <tal:subpunts repeat="item view/SubPuntsInside">
+                  <li class="mb-1">
+                    <div class="d-flex align-items-center">
+                      <span class="me-2 text-primary fw-bold" tal:content="item/proposalPoint">1.1</span>
+                      <a class="flex-grow-1 text-decoration-none" tal:attributes="href item/absolute_url;">
+                        <span tal:content="item/title">Títol subpunt</span>
+                        <span tal:condition="item/agreement" class="ms-2 text-muted small">[<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <span tal:content="item/agreement"></span>]</span>
+                      </a>
+                      <span class="badge rounded-pill ms-2" tal:attributes="style string:background-color:${item/css};" tal:content="item/state"></span>
+                    </div>
+                  </li>
+                </tal:subpunts>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 </div>
-
-<metal:content-core fill-slot="content-core"
-    tal:define="filesanddocs view/FilesandDocumentsInside;
-                subpunts view/SubPuntsInside;
-                estatsLlista context/estatsLlista;
-                defaultContent context/defaultContent;">
-
-  <div class="clearfix"></div><br/>
-
-  <tal:block tal:condition="view/hasFirma">
-
-    <span tal:define="estatFirma view/estatFirma"
-          tal:attributes="class string:badge rounded-pill estatFirma ${estatFirma}"
-          tal:content="estatFirma">PENDENT_SIGNANTS</span>
-
-  </tal:block>
-
-  <div tal:condition="defaultContent" style="padding-bottom:20px;">
-    <span tal:replace="structure defaultContent" />
-  </div>
-  <div class="clearfix"></div>
-  <div class="table-responsive">
-    <table class="table table-striped table-bordered filesanddocs" tal:condition="filesanddocs">
-      <thead>
-        <tr>
-          <th>
-            <tal:data i18n:translate="">Fitxers i documents</tal:data>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <ul class="ul_items">
-              <tal:documents repeat="item filesanddocs">
-                <li class="listFiles">
-                  <tal:block tal:condition="item/new_tab">
-                    <a tal:attributes="href item/absolute_url; title item/title; alt item/title" target="_blank">
-                      <i tal:attributes="class item/classCSS"></i>&nbsp;
-                      <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag></a>
-                  </tal:block>
-                  <tal:block tal:condition="not:item/new_tab">
-                    <a tal:attributes="href item/absolute_url; title item/title; alt item/title">
-                      <i tal:attributes="class item/classCSS"></i>&nbsp;
-                      <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag></a>
-                  </tal:block>
-                </li>
-              </tal:documents>
-            </ul>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="clearfix"></div>
-
-  <div class="table-responsive">
-    <table class="table table-striped table-bordered subpunts" tal:condition="subpunts">
-      <thead>
-        <tr>
-          <th>
-            <tal:data i18n:translate="">Subpunts informatius / acords</tal:data>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <ul class="ul_items">
-              <tal:subpunts repeat="item subpunts">
-                <li class="listFiles" tal:define="agreementSubpunt item/agreement">
-                  <div class="subpuntTitle" style="padding-left: 15px !important;">
-                    <div class="col-1">
-                      <span class="proposalNumberSubpunt" tal:content="item/proposalPoint"></span>.
-                    </div>
-                    <div class="col-10" style="padding-right:10px;">
-                      <a class="editTitle editable subtitleSize" tal:attributes="href item/absolute_url;">
-                         <span tal:content="item/title">Doc title</span>
-                       <span tal:condition="agreementSubpunt" class="agreementClass">[<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <span tal:content="agreementSubpunt"></span>]</span>
-                      </a>
-                    </div>
-                    <div class="col-1" style="padding-top: 10px;">
-                      <span class="btn badge bg-secondary disabled" style="float:right;">
-                        <i class="bi bi-circle " aria-hidden="true" tal:attributes="style string:color:${item/css}"></i>
-                        <span  tal:content="item/state"></span>
-                      </span>
-                    </div>
-                  </div>
-                </li>
-              </tal:subpunts>
-            </ul>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-</metal:content-core>
 
 </body>
 </html>
