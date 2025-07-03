@@ -2,21 +2,28 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      xml:lang="en" lang="en"
+      xml:lang="ca" lang="ca"
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="genweb.organs">
 <body>
-<div metal:fill-slot="main">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <tal:main-macro metal:define-macro="main">
-          <h1 class="documentFirstHeading" tal:content="view/title">Document</h1>
-          <div tal:content="structure view/message">Document</div>
-        </tal:main-macro>
-      </div>
-    </div>
+
+<div metal:fill-slot="main" tal:condition="view/canView">
+  <div class="container my-4">
+    <h1 class="documentFirstHeading mb-4" tal:condition="view/showTitle" tal:content="view/title">Document</h1>
+
+    <!-- Contingut restringit (només per usuaris amb permís) -->
+    <tal:block tal:condition="view/viewDocumentReserved">
+      <h3 class="h5 fw-semibold mb-2" i18n:translate="">Contingut restringit</h3>
+      <div class="alert alert-warning border" tal:condition="context/alternateContent" tal:content="structure context/alternateContent/output">Contingut restringit</div>
+    </tal:block>
+
+    <!-- Contingut públic -->
+    <tal:block tal:condition="view/viewDocumentPublic">
+      <h3 class="h5 fw-semibold mt-4 mb-2" i18n:translate="">Contingut públic</h3>
+      <div class="alert alert-light border" tal:condition="context/defaultContent" tal:content="structure context/defaultContent/output">Contingut públic</div>
+    </tal:block>
   </div>
 </div>
+
 </body>
 </html>

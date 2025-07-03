@@ -379,4 +379,14 @@
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
 
+    <!-- Vista per defecte de Document -->
+    <browser:page
+        for=".document.IDocument"
+        name="view"
+        class=".document.View"
+        template="templates/document_view.pt"
+        permission="zope2.View"
+        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+        />
+
 </configure>

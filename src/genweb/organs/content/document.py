@@ -13,8 +13,11 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.supermodel import model
 from plone.app.textfield import RichText as RichTextField
+from zope.interface import provider
+from zope.schema.interfaces import IContextAwareDefaultFactory
 
-# Define la función defaultFactory para el campo 'title'
+# Devuelve por defecto el mismo título que el contenedor (Punt/Subpunt/Acord)
+@provider(IContextAwareDefaultFactory)
 def title_default_factory(context):
     """Genera el valor predeterminado para el campo 'title'."""
     return context.Title()
@@ -35,7 +38,7 @@ class IDocument(model.Schema):
     )
 
     textindexer.searchable('description')
-    description = RichTextField(
+    description = schema.Text(
         title=_PMF(u'label_description', default=u'Summary'),
         description=_PMF(
             u'help_description',
@@ -237,3 +240,18 @@ class View(BrowserView):
                 return True
             else:
                 raise Unauthorized
+
+    # ------------------------------------------------------------------
+    # Contenido a renderizar en la plantilla
+    # ------------------------------------------------------------------
+
+    def title(self):
+        return self.context.title
+
+    def message(self):
+        """Devuelve HTML (ya safe) según permisos."""
+        if self.viewDocumentReserved() and self.context.alternateContent:
+            return self.context.alternateContent.output
+        if self.viewDocumentPublic() and self.context.defaultContent:
+            return self.context.defaultContent.output
+        return None
