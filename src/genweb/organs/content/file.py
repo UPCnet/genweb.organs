@@ -26,6 +26,8 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form.validator import SimpleFieldValidator
 from zope.component import adapter
 from plone.dexterity.interfaces import IDexterityContent
+from zope.interface import provider
+from zope.schema.interfaces import IContextAwareDefaultFactory
 
 
 class InvalidPDFFile(ValidationError):
@@ -44,6 +46,7 @@ class VisibleFileValidator(SimpleFieldValidator):
                 raise InvalidPDFFile(mimetype)
 
 # Define la función defaultFactory para el campo 'title'
+@provider(IContextAwareDefaultFactory)
 def title_default_factory(context):
     """Genera el valor predeterminado para el campo 'title'."""
     return context.Title()
@@ -177,20 +180,25 @@ class View(BrowserView):
         return self.index()
 
     def icon_type(self):
+        """Devuelve el sufijo de Bootstrap Icon según mimetype."""
+        ct = None
         if self.context.hiddenfile:
             ct = self.context.hiddenfile.contentType
-            if 'application/pdf' in ct:
-                return 'fa-file-pdf-o'
-            elif 'audio/' in ct:
-                return 'fa-file-audio-o'
-            elif 'video/' in ct:
-                return 'fa-file-video-o'
-            elif 'image/' in ct:
-                return 'fa-file-image-o'
-            else:
-                return 'fa-file-text-o'
-        else:
-            return None
+        elif self.context.visiblefile:
+            ct = self.context.visiblefile.contentType
+
+        if not ct:
+            return 'file-earmark'
+
+        if 'application/pdf' in ct:
+            return 'file-earmark-pdf'
+        if 'audio/' in ct:
+            return 'file-earmark-music'
+        if 'video/' in ct:
+            return 'file-earmark-play'
+        if 'image/' in ct:
+            return 'file-earmark-image'
+        return 'file-earmark-text'
 
     def pdf_reserved(self):
         if self.context.hiddenfile:
@@ -496,6 +504,19 @@ class View(BrowserView):
 
     def sessionIsClosed(self):
         return utils.session_wf_state(self) == 'tancada'
+
+    # ------------------------------------------------------------------
+    # Outputs usados en la plantilla
+    # ------------------------------------------------------------------
+
+    def title(self):
+        """Título a mostrar en la cabecera cuando procede."""
+        return self.context.Title()
+
+    def message(self):
+        """Por ahora no se muestra contenido adicional, pero devolvemos
+        cadena vacía para evitar LocationError en la plantilla."""
+        return ""
 
 
 class VisibleToHidden(BrowserView):

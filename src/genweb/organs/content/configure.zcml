@@ -389,4 +389,14 @@
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
 
+    <!-- Vista per defecte de File -->
+    <browser:page
+        for=".file.IFile"
+        name="view"
+        class=".file.View"
+        template="templates/file_view.pt"
+        permission="zope2.View"
+        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+        />
+
 </configure>

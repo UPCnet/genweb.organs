@@ -39,7 +39,7 @@
                     <a tal:define="title item/title"
                        tal:attributes="href item/absolute_url; target python:item.get('new_tab') and '_blank' or None; title title; alt title"
                        class="text-decoration-none d-flex align-items-center">
-                      <i tal:attributes="class item/classCSS" class="bi bi-file-earmark-text me-2"></i>
+                      <i class="bi bi-file-earmark-text me-2"></i>
                       <span tal:content="title">Nom fitxer</span>
                     </a>
                   </li>
