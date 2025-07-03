@@ -296,29 +296,48 @@ class ActaPrintView(BrowserView):
 
     __call__ = ViewPageTemplateFile('views/acta_print.pt')
 
+    # Helpers seguros para navegar la jerarquía sin depender de aq_* en la vista
+    def _sessio(self):
+        """Devuelve el objeto sesión (parent inmediato del acta)."""
+        return getattr(self.context, 'aq_parent', None)
+
+    def _organgovern(self):
+        """Devuelve el órgano de govern (dos niveles arriba)."""
+        sessio = self._sessio()
+        return getattr(sessio, 'aq_parent', None)
+
+    def _unitat(self):
+        """Devuelve la unitat contenedora (tres/cuatro niveles arriba)."""
+        organ = self._organgovern()
+        return getattr(organ, 'aq_parent', None)
+
     def unitatTitle(self):
-        """ Get organGovern Title used for printing the acta """
-        return self.aq_parent.aq_parent.aq_parent.aq_parent.Title()
+        """Título de la unitat para impresión del acta."""
+        unitat = self._unitat()
+        return unitat.Title() if unitat is not None else ''
 
     def organGovernTitle(self):
-        """ Get organGovern Title used for printing the acta """
-        return self.aq_parent.aq_parent.aq_parent.Title()
+        organ = self._organgovern()
+        return organ.Title() if organ is not None else ''
 
     def sessionTitle(self):
-        """ Get organGovern Title used for printing the acta """
-        return self.aq_parent.aq_parent.Title()
+        sessio = self._sessio()
+        return sessio.Title() if sessio is not None else ''
 
     def sessionModality(self):
-        """ Get organGovern Title used for printing the acta """
-        return self.aq_parent.aq_parent.modality
+        sessio = self._sessio()
+        return getattr(sessio, 'modality', None)
 
     def getActaLogo(self):
-        """ Getlogo to use in print("""
-        try:
-            self.context.aq_parent.aq_parent.logoOrgan.filename
-            return self.context.aq_parent.aq_parent.absolute_url() + '/@@images/logoOrgan'
-        except:
-            return None
+        """Devuelve la URL del logo del òrgan si existe."""
+        organ = self._organgovern()
+        if organ is not None and getattr(organ, 'logoOrgan', None):
+            try:
+                organ.logoOrgan.filename  # Asegura que hay imagen
+                return organ.absolute_url() + '/@@images/logoOrgan'
+            except Exception:
+                return None
+        return None
 
     def signatura(self):
         return self.context.aq_parent.aq_parent.footer

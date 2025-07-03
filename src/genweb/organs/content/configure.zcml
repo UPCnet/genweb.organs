@@ -399,4 +399,14 @@
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
 
+    <!-- Vista per defecte de Acta -->
+    <browser:page
+        for=".acta.IActa"
+        name="view"
+        class=".acta.View"
+        template="templates/acta_view.pt"
+        permission="zope2.View"
+        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+        />
+
 </configure>

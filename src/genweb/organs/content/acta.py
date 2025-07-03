@@ -13,9 +13,9 @@ from plone.namedfile.field import NamedBlobFile
 from plone.supermodel.directives import fieldset
 from zope import schema
 from plone.supermodel import model
-from plone.app.textfield import RichText as RichTextField
 from zope.schema.interfaces import IContextAwareDefaultFactory
 from zope.interface import provider
+from plone.app.textfield import RichText as RichTextField
 
 from genweb.organs import _
 from genweb.organs import utils

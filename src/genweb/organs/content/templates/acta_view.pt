@@ -1,340 +1,180 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ca"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="ca"
       metal:use-macro="context/main_template/macros/master"
-      lang="en"
       i18n:domain="genweb.organs">
 <body>
 
-<div metal:fill-slot="main">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <tal:main-macro metal:define-macro="main">
-          <h1 class="documentFirstHeading" tal:content="view/title">Acta</h1>
-          <div tal:content="structure view/message">Acta</div>
-        </tal:main-macro>
-      </div>
-    </div>
-  </div>
-</div>
+<div metal:fill-slot="main" tal:condition="view/canView"
+     tal:define="membresConvocats context/membresConvocats;
+                 membresConvidats context/membresConvidats;
+                 llistaExcusats context/llistaExcusats;
+                 llistaNoAssistens context/llistaNoAssistens;
+                 assistents context/assistents;
+                 ordenDelDia context/ordenDelDia;
+                 llocConvocatoria context/llocConvocatoria;
+                 horaFi view/horaFi;
+                 horaInici view/horaInici;
+                 audio view/AudioInside;
+                 annexes view/AnnexInside;
+                 enllacVideo context/enllacVideo;
+                 absolute_url context/absolute_url;
+                 hasFirma view/hasFirma;
+                 checkSerieGDoc view/checkSerieGDoc;">
 
-<metal:content-core fill-slot="content-core"
-  tal:define="membresConvocats context/membresConvocats;
-              membresConvidats context/membresConvidats;
-              llistaExcusats context/llistaExcusats;
-              llistaNoAssistens context/llistaNoAssistens;
-              assistents context/assistents;
-              ordenDelDia context/ordenDelDia;
-              llocConvocatoria context/llocConvocatoria;
-              horaFi view/horaFi;
-              horaInici view/horaInici;
-              audio view/AudioInside;
-              annexes view/AnnexInside;
-              enllacVideo context/enllacVideo;
-              absolute_url context/absolute_url;
-              hasFirma view/hasFirma;
-              checkSerieGDoc view/checkSerieGDoc;">
-
-<tal:block tal:condition="view/canView">
-
-  <script type="text/javascript">
-    function printPage(newWindow){
-      newWindow.focus('printActa');
-      newWindow.print('printActa');
-    }
-  </script>
-
- <iframe name="iframe" id="iframe" width="1" height="1" src="printActa"></iframe>
-
-  <tal:omit-tag>
-
-    <tal:block tal:condition="checkSerieGDoc/visible_gdoc">
-      <div class="alert alert-error" role="alert" tal:condition="not:checkSerieGDoc/valid_serie">
-        <button data-dismiss="alert" class="close" type="button">×</button>
-        <strong>Error</strong>
-        <span tal:content="checkSerieGDoc/msg_error"></span>
-      </div>
-    </tal:block>
-
-    <tal:block tal:condition="not:checkSerieGDoc/visible_gdoc">
-      <div class="alert alert-error" role="alert" tal:condition="checkSerieGDoc/msg_error">
-        <button data-dismiss="alert" class="close" type="button">×</button>
-        <strong>Error</strong>
-        <span tal:content="checkSerieGDoc/msg_error"></span>
-      </div>
-    </tal:block>
-
-    <div id="infoSend" class="alert alert-warning" role="alert">
-      <button data-dismiss="alert" class="close" type="button">×</button>
-      <strong>Info</strong>
-      <span>Aquesta acció pot trigar una estona. El procés de signatura continuarà independentment de que aquesta pantalla pugui donar timeout. Si en uns minuts torneu a aquesta pàgina apareixerà l'estat de l'acta ja processada en el portafirmes.</span>
+  <div class="container my-4">
+    <!-- Barra d'accions -->
+    <div class="d-flex justify-content-end mb-3 gap-2">
+      <a class="btn btn-outline-secondary btn-sm" tal:condition="view/viewPrintButon" tal:attributes="href string:javascript:window.print();">
+        <i class="bi bi-printer"></i> <span i18n:translate="">Imprimir</span>
+      </a>
+      <a id="previewActaBtn" class="btn btn-outline-secondary btn-sm" tal:condition="view/viewPrintButon" tal:attributes="data-url string:${absolute_url}/previewActa" href="#">
+        <i class="bi bi-eye"></i> <span i18n:translate="">Previsualitza</span>
+      </a>
     </div>
 
-    <div class="modal fade hide previewModal" id="previewModal" tabindex="-1" role="dialog"
-         aria-labelledby="previewModalLabel" aria-hidden="true" data-remote="previewActa">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="previewModalLabel"><span i18n:translate="">Previsualitzacio de l'acta</span></h3>
-      </div>
-      <div class="modal-body">
-        <p>Acta</p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true"><span i18n:translate="">Tancar</span></button>
-      </div>
+    <!-- Estat firma -->
+    <div tal:condition="hasFirma" class="mb-3">
+      <span tal:define="estat view/estatFirma" tal:attributes="class string:badge rounded-pill bg-primary">Acta: <tal:replace="estat/text"/></span>
     </div>
 
-    <tal:block tal:condition="hasFirma">
-
-      <span tal:define="estatFirma view/estatFirma"
-            tal:attributes="class string:badge rounded-pill estatFirma ${estatFirma/class}">
-        <tal:block i18n:translate="">Acta: </tal:block>
-        <tal:block tal:content="estatFirma/text">PENDENT_SIGNANTS</tal:block>
-      </span>
-
-    </tal:block>
-
-    <a class="btn btn-info btnActa" style="float:right;"
-    tal:attributes="href string:javascript:printPage(iframe);">
-        <i class="bi bi-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
-    </a>
-    <button data-target="#previewModal" role="button" tal:condition="view/viewPrintButon"
-       class="btn btn-info d-none d-md-block" data-toggle="modal"
-       style="float:right; margin-right:10px;">
-       <i class="bi bi-eye"></i>&nbsp;<span i18n:translate=""> Preview Acta </span></button>
-  </tal:omit-tag>
-
-  <div class="clearfix documentDescription"></div>
-
-  <div id="contentActa">
-    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-      <li class="active"><a href="#dadesTab" data-toggle="tab">
-        <i class="bi bi-file-text-o" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Dades</tal:omit-tag></i></a></li>
-      <li><a href="#assistentsTab" data-toggle="tab">
-        <i class="bi bi-users" aria-hidden="True">&nbsp;<tal:omit-tag i18n:translate="">Relacio Assistents</tal:omit-tag></i></a></li>
+    <!-- Pestanyes Bootstrap 5 -->
+    <ul class="nav nav-tabs" id="actaTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="dades-tab" data-bs-toggle="tab" data-bs-target="#dades" type="button" role="tab">Dades</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="assistents-tab" data-bs-toggle="tab" data-bs-target="#assistents" type="button" role="tab">Assistents</button>
+      </li>
     </ul>
+    <div class="tab-content border border-top-0 p-3" id="actaTabContent">
+      <!-- Dades -->
+      <div class="tab-pane fade show active" id="dades" role="tabpanel" aria-labelledby="dades-tab">
+        <ul class="list-unstyled">
+          <li tal:condition="horaInici"><strong i18n:translate="">Inici:</strong> <span tal:content="horaInici" /></li>
+          <li tal:condition="horaFi"><strong i18n:translate="">Fi:</strong> <span tal:content="horaFi" /></li>
+          <li tal:condition="llocConvocatoria"><strong i18n:translate="">Lloc:</strong> <span tal:content="llocConvocatoria" /></li>
+          <li tal:condition="enllacVideo"><strong i18n:translate="">Vídeo:</strong> <a tal:attributes="href enllacVideo; target string:_blank">link</a></li>
+        </ul>
 
-    <div id="actaTabs" class="tab-content">
-      <div class="tab-pane active" id="dadesTab">
-        <ul>
-          <li tal:condition="horaInici">
-            <b i18n:translate="">Session start time</b>
-            <span style="float:right"
-                  tal:content="horaInici"></span>
+        <!-- Audios -->
+        <div tal:condition="audio">
+          <h5 class="mt-3" i18n:translate="">Àudios</h5>
+          <ul class="list-unstyled">
+            <tal:repeat repeat="item audio">
+              <li class="mb-2">
+                <i class="bi bi-file-earmark-music"></i>
+                <a tal:attributes="href item/absolute_url" tal:content="item/title">audio</a>
+                <audio class="d-block mt-1 w-100" controls tal:attributes="src item/download_url"></audio>
+              </li>
+            </tal:repeat>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Assistents -->
+      <div class="tab-pane fade" id="assistents" role="tabpanel" aria-labelledby="assistents-tab">
+        <!-- Sub-pestañas para la relación d'assistents -->
+        <ul class="nav nav-pills mb-3" id="assistSubTabs" role="tablist">
+          <li class="nav-item" tal:condition="membresConvocats" role="presentation">
+            <button class="nav-link active" id="tab-assistents" data-bs-toggle="pill" data-bs-target="#pane-assistents" type="button" role="tab">Assistents</button>
           </li>
-          <li tal:condition="horaFi">
-            <b i18n:translate="">Session end time</b>
-            <span style="float:right"
-                  tal:content="horaFi"></span>
+          <li class="nav-item" tal:condition="membresConvidats" role="presentation">
+            <button class="nav-link" id="tab-convidats" data-bs-toggle="pill" data-bs-target="#pane-convidats" type="button" role="tab">Convidats</button>
           </li>
-          <li tal:condition="llocConvocatoria">
-            <b i18n:translate="">Lloc</b>
-            <span style="float:right"
-                  tal:content="llocConvocatoria"></span>
+          <li class="nav-item" tal:condition="llistaExcusats" role="presentation">
+            <button class="nav-link" id="tab-excusats" data-bs-toggle="pill" data-bs-target="#pane-excusats" type="button" role="tab">Excusats</button>
           </li>
-          <li tal:condition="enllacVideo">
-            <b i18n:translate="">Video link</b>
-            <span style="float: right">
-              <a tal:attributes="href enllacVideo" target="_blank"><span i18n:translate="">Video</span></a>
-            </span>
-          </li>
-          <li tal:condition="audio">
-            <b i18n:translate="">Audio de la sessio</b>
-              <tal:documents repeat="item audio">
-                <ol style="float:right;">
-                  <i class="bi bi-file-audio-o" aria-hidden="true"></i>
-                  <tal:audio tal:define="content_type item/content_type|nothing;
-                                         download_url item/download_url">
-                    <a href="#"
-                      tal:attributes="href item/absolute_url;"
-                      tal:content="item/title">Audio filename
-                    </a>
-                    <div class="clearfix"></div>
-                    <audio controls="controls">
-                      <source tal:attributes="src download_url; type content_type"></source>
-                    </audio>
-                  </tal:audio>
-                </ol>
-                <div class="clearfix"></div>
-              </tal:documents>
+          <li class="nav-item" tal:condition="llistaNoAssistens" role="presentation">
+            <button class="nav-link" id="tab-noassist" data-bs-toggle="pill" data-bs-target="#pane-noassist" type="button" role="tab">No assistents</button>
           </li>
         </ul>
-      </div>
 
-      <div class="tab-pane" id="assistentsTab">
-        <div class="card">
-          <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
-                <li tal:condition="membresConvocats" class="nav-item">
-                  <a class="nav-link active" href="#tab1primary" data-toggle="tab" i18n:translate="">Assistants</a>
-                </li>
-                <li tal:condition="membresConvidats" class="nav-item">
-                  <a class="nav-link" href="#tab2primary" data-toggle="tab" i18n:translate="">Invited members</a>
-                </li>
-                <li tal:condition="llistaExcusats" class="nav-item">
-                  <a class="nav-link" href="#tab3primary" data-toggle="tab" i18n:translate="">Excused members</a>
-                </li>
-                <li tal:condition="llistaNoAssistens" class="nav-item">
-                  <a class="nav-link" href="#tab5primary" data-toggle="tab" i18n:translate="">No assistents</a>
-                </li>
-            </ul>
+        <div class="tab-content border border-top-0 p-3" id="assistSubTabContent">
+          <div class="tab-pane fade show active" id="pane-assistents" role="tabpanel" aria-labelledby="tab-assistents" tal:condition="membresConvocats">
+            <span tal:replace="structure membresConvocats/output"/>
           </div>
-          <div class="card-body">
-            <div class="tab-content">
-              <div tal:condition="membresConvocats" class="tab-pane fade in active" id="tab1primary">
-                <span tal:replace="structure membresConvocats" />
-              </div>
-              <div tal:condition="membresConvidats" class="tab-pane fade" id="tab2primary">
-                <span tal:replace="structure membresConvidats" />
-              </div>
-              <div tal:condition="llistaExcusats" class="tab-pane fade" id="tab3primary">
-                <span tal:replace="structure llistaExcusats" />
-              </div>
-              <div tal:condition="assistents" class="tab-pane fade" id="tab4primary">
-                <span tal:replace="structure assistents" />
-              </div>
-              <div tal:condition="llistaNoAssistens" class="tab-pane fade" id="tab5primary">
-                <span tal:replace="structure llistaNoAssistens" />
-              </div>
-            </div>
+          <div class="tab-pane fade" id="pane-convidats" role="tabpanel" aria-labelledby="tab-convidats" tal:condition="membresConvidats">
+            <span tal:replace="structure membresConvidats/output"/>
+          </div>
+          <div class="tab-pane fade" id="pane-excusats" role="tabpanel" aria-labelledby="tab-excusats" tal:condition="llistaExcusats">
+            <span tal:replace="structure llistaExcusats/output"/>
+          </div>
+          <div class="tab-pane fade" id="pane-noassist" role="tabpanel" aria-labelledby="tab-noassist" tal:condition="llistaNoAssistens">
+            <span tal:replace="structure llistaNoAssistens/output"/>
           </div>
         </div>
       </div>
-
     </div>
 
-  </div>
+    <!-- Ordre del dia -->
+    <div class="mt-4" tal:condition="ordenDelDia" tal:content="structure ordenDelDia/output"></div>
 
-  <div class="clearfix"></div>
+    <!-- Annexes & Acta PDF -->
+    <div class="mt-4" tal:condition="annexes">
+      <h5 i18n:translate="">Fitxers adjunts</h5>
+      <ul class="list-unstyled">
+        <tal:repeat repeat="item annexes">
+          <li>
+            <i class="bi bi-paperclip"></i>
+            <a tal:attributes="href item/absolute_url" tal:content="item/filename">annex</a>
+            <span class="text-muted small ms-2">(<tal:replace="item/sizeKB"/> KB)</span>
+            <a tal:attributes="href item/download_url" class="ms-1"><i class="bi bi-download"></i></a>
+          </li>
+        </tal:repeat>
+      </ul>
+    </div>
 
-  <div class="documentDescription description"></div>
-  <tal:block tal:condition="ordenDelDia">
-    <div tal:content="structure ordenDelDia"></div>
-  </tal:block>
-
-  <br/>
-
-  <tal:block tal:condition="not:hasFirma">
-    <ta:block tal:condition="annexes">
-      <tal:block tal:define="multiple_annexes python:len(annexes)>1">
-        <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
-        <h3 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
-      </tal:block>
-      <tal:documents repeat="item annexes">
-        <div tal:define="public_file_download_url string:${item/absolute_url}/@@download/file/${item/filename};
-                         public_file_view_url string:${item/absolute_url}/@@display-file/file/;">
-          <p>
-            <a tal:attributes="href public_file_view_url">
-              <i class="bi bi-file-pdf-o" aria-hidden="true"></i>
-              <tal:name tal:content="item/filename">Filename</tal:name>
-            </a>
-            <span class="discreet">
-              &mdash; <span tal:replace="item/sizeKB" /> KB</span>
-              <a tal:attributes="href public_file_download_url">
-                <i class="bi bi-download" aria-hidden="true"></i>
-              </a>
-          </p>
-        </div>
-      </tal:documents>
-    </ta:block>
-
-    <ta:block tal:condition="context/acta">
-      <div tal:define="public_acta_download_url string:${absolute_url}/@@download/acta/${context/acta/filename};
-                       public_acta_view_url string:${absolute_url}/@@display-file/acta/;">
-        <h3 tal:condition="not:view/isSigned" i18n:translate="">Acta PDF</h3>
-        <h3 tal:condition="view/isSigned" i18n:translate="">Acta signada</h3>
-        <p>
-          <a tal:attributes="href public_acta_view_url">
-            <i class="bi bi-file-pdf-o" aria-hidden="true"></i>
-            <tal:name tal:content="context/acta/filename">Filename</tal:name>
-          </a>
-          <span class="discreet"
-              tal:define="size context/acta/getSize;
-                          kb python:size/1024">
-            &mdash; <span tal:replace="context/acta/getSize" /> KB</span>
-            <a tal:attributes="href public_acta_download_url">
-              <i class="bi bi-download" aria-hidden="true"></i>
-            </a>
-        </p>
-      </div>
-    </ta:block>
-  </tal:block>
-
-  <tal:block tal:condition="hasFirma" tal:define="acta view/getPFDActa">
-    <ta:block tal:condition="annexes">
-      <tal:block tal:define="multiple_annexes python:len(annexes)>1">
-        <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
-        <h3 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
-      </tal:block>
-      <tal:documents repeat="item annexes">
-        <div tal:define="public_file_download_url item/download_url;
-                         public_file_view_url item/absolute_url">
-          <p>
-            <a tal:attributes="href public_file_view_url">
-              <i class="bi bi-file-pdf-o" aria-hidden="true"></i>
-              <tal:name tal:content="item/filename">Filename</tal:name>
-            </a>
-            <span class="discreet">
-              &mdash; <span tal:replace="item/sizeKB" /> KB</span>
-              <a tal:attributes="href public_file_download_url">
-                <i class="bi bi-download" aria-hidden="true"></i>
-              </a>
-          </p>
-        </div>
-      </tal:documents>
-    </ta:block>
-
-    <div tal:define="public_acta_download_url string:${absolute_url}/downloadActa;
-                     public_acta_view_url string:${absolute_url}/viewActa;">
-      <h3 tal:condition="not:view/isSigned" i18n:translate="">Acta PDF</h3>
-      <h3 tal:condition="view/isSigned" i18n:translate="">Acta signada</h3>
+    <div class="mt-4" tal:condition="context/acta">
+      <h5 i18n:translate="">Acta PDF</h5>
       <p>
-        <a tal:attributes="href public_acta_view_url">
-          <i class="bi bi-file-pdf-o" aria-hidden="true"></i>
-          <tal:name tal:content="acta/filename">Filename</tal:name>
-        </a>
-        <span class="discreet"
-            tal:define="kb acta/sizeKB">
-          &mdash; <span tal:replace="kb" /> KB</span>
-          <a tal:attributes="href public_acta_download_url">
-            <i class="bi bi-download" aria-hidden="true"></i>
-          </a>
+        <i class="bi bi-file-earmark-pdf"></i>
+        <a tal:attributes="href string:${absolute_url}/@@display-file/acta/; target string:_blank" tal:content="context/acta/filename">acta</a>
+        <span class="text-muted small ms-2">(<tal:define="size context/acta/getSize; kb python:size//1024"><tal:replace="kb"/> KB)</span>
+        <a tal:attributes="href string:${absolute_url}/@@download/acta/${context/acta/filename}" class="ms-1"><i class="bi bi-download"></i></a>
       </p>
     </div>
-  </tal:block>
 
-  <div id="miniLoaderScreen">
-    <div class="loaderBorder">
-      <div class="loader"></div>
+  </div> <!-- container -->
+
+  <!-- Modal Previsualització Acta -->
+  <div class="modal fade" id="previewActaModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" i18n:translate="">Previsualització de l'acta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="previewActaBody">
+          <!-- Contingut carregat via AJAX -->
+        </div>
+      </div>
     </div>
   </div>
 
-  <script type="text/javascript">
-    $('#signActa').on('click', function(){
-      $('#infoSend').show();
-      $('#miniLoaderScreen').show();
-      $.ajax({
-        url: 'signActa',
-        type: 'POST',
-        success: function(data){
-          $('#miniLoaderScreen').hide();
-          $('#infoSend').hide();
-          window.location.reload();
-        },
-        error: function(){
-          $('#miniLoaderScreen').hide();
-          $('#infoSend').hide();
-          window.location.reload();
-        }
-      })
-      $('#ajax-spinner').hide();
+  <script tal:attributes="type string:text/javascript">
+  document.addEventListener('DOMContentLoaded', function () {
+    var btn = document.getElementById('previewActaBtn');
+    if (!btn) return;
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var url = btn.getAttribute('data-url');
+      fetch(url, {credentials: 'same-origin'})
+        .then(function (r) { return r.text(); })
+        .then(function (html) {
+          var bodyEl = document.getElementById('previewActaBody');
+          bodyEl.innerHTML = html;
+          var modalEl = document.getElementById('previewActaModal');
+          var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+          modal.show();
+        });
     });
+  });
   </script>
 
-</tal:block>
-</metal:content-core>
+</div>
 
 </body>
 </html>

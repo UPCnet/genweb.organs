@@ -47,28 +47,26 @@
     </div>
     <div class="clearfix"></div>
     <hr/>
-    <div>
-      <div class="col-12" style="margin-bottom: 0px; padding-left:0px !important; margin-left:0px !important;">
-        <div class="caixa col-6" tal:condition="membresConvocats">
-          <h4 i18n:translate=""> Assistants </h4>
-          <div tal:replace="structure membresConvocats"></div>
-        </div>
-        <div class="caixa col-6">
-          <tal:block tal:condition="membresConvidats">
-            <h4 i18n:translate=""> Invited members </h4>
-            <span tal:replace="structure membresConvidats"></span>
-            <br/>
-          </tal:block>
-          <tal:block tal:condition="llistaExcusats">
-            <h4 i18n:translate=""> Excused members </h4>
-            <span tal:replace="structure llistaExcusats"></span>
-            <br/>
-          </tal:block>
-          <tal:block tal:condition="llistaNoAssistens">
-            <h4  i18n:translate=""> Missing members </h4>
-            <span tal:replace="structure llistaNoAssistens"></span>
-          </tal:block>
-        </div>
+    <div class="row g-3">
+      <div class="col-12 col-md-6" tal:condition="membresConvocats">
+        <h4 i18n:translate=""> Assistents </h4>
+        <div tal:replace="structure membresConvocats/output"></div>
+      </div>
+      <div class="col-12 col-md-6">
+        <tal:block tal:condition="membresConvidats">
+          <h4 i18n:translate=""> Invited members </h4>
+          <span tal:replace="structure membresConvidats/output"></span>
+          <br/>
+        </tal:block>
+        <tal:block tal:condition="llistaExcusats">
+          <h4 i18n:translate=""> Excused members </h4>
+          <span tal:replace="structure llistaExcusats/output"></span>
+          <br/>
+        </tal:block>
+        <tal:block tal:condition="llistaNoAssistens">
+          <h4  i18n:translate=""> Missing members </h4>
+          <span tal:replace="structure llistaNoAssistens/output"></span>
+        </tal:block>
       </div>
     </div>
     <div class="clearfix"></div>
@@ -81,7 +79,7 @@
     <hr/>
     <div tal:condition="ordenDelDia">
        <h3 style="padding-bottom: 15px;" i18n:translate=""> Desenvolupament de la sessio </h3>
-      <span tal:replace="structure ordenDelDia"></span>
+      <span tal:replace="structure ordenDelDia/output"></span>
     </div>
     <tal:block tal:condition="signatura">
       <br/>
