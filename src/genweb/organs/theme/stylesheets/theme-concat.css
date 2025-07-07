@@ -161,6 +161,185 @@ body.template-searchorgans .meva-vinculacio a:hover {
   background-color: RGBA(var(--bs-danger-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 
+@media print {
+  /* line 3, ../scss/_print.scss */
+  body {
+    width: 210mm;
+    height: 297mm;
+    margin: 0mm 2mm 20mm 5mm;
+  }
+
+  /* line 9, ../scss/_print.scss */
+  html, body {
+    font-size: 15pt !important;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 130% !important;
+  }
+
+  /* line 15, ../scss/_print.scss */
+  li {
+    line-height: 130% !important;
+  }
+
+  /* line 19, ../scss/_print.scss */
+  #portal-header {
+    padding-bottom: 50px;
+  }
+
+  /* line 23, ../scss/_print.scss */
+  nav#portal-breadcrumbs,
+  .nav-collapse-eines,
+  #portal-personaltools-wrapper,
+  #portal-globalnav,
+  #portal-column-one,
+  .alert,
+  #edit-bar,
+  #viewlet-below-content-title,
+  #viewlet-above-content-title,
+  .header-image,
+  #cookies,
+  .extraInfo,
+  #commenting,
+  #viewlet-below-content > a,
+  input[type="submit"],
+  #content-core > button,
+  .linkNotificacions,
+  .btnActa,
+  #peu > div > div.row-fluid,
+  .reply-to-comment-button,
+  .bannerOrgans,
+  .sessionActions,
+  #expandAll,
+  #collapseAll,
+  button.label.dropdown-toggle,
+  button.remove.label.label-important,
+  div.sessionCustomActions,
+  .template-printacta header#portal-header,
+  .template-printdocument header#portal-header,
+  .template-printdocument footer {
+    display: none;
+  }
+
+  /* line 56, ../scss/_print.scss */
+  #portal-column-content {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  /* line 61, ../scss/_print.scss */
+  #peu .span8 {
+    width: 100% !important;
+  }
+
+  /* line 65, ../scss/_print.scss */
+  div.pageBreak {
+    page-break-before: always !important;
+  }
+
+  /* line 69, ../scss/_print.scss */
+  #portal-breadcrumbs {
+    display: inline !important;
+  }
+
+  /* line 73, ../scss/_print.scss */
+  a {
+    text-decoration: underline;
+    color: black;
+  }
+  /* line 77, ../scss/_print.scss */
+  a:hover {
+    text-decoration: none;
+  }
+
+  /* line 82, ../scss/_print.scss */
+  .plain a {
+    color: #555555;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+  }
+
+  /* line 88, ../scss/_print.scss */
+  h1,
+  h2,
+  h3 {
+    color: #557C95;
+    margin-top: 27px;
+  }
+
+  /* line 95, ../scss/_print.scss */
+  h1 {
+    font-size: 24pt;
+  }
+  /* line 98, ../scss/_print.scss */
+  h1 > span {
+    color: #557C95;
+  }
+  /* line 102, ../scss/_print.scss */
+  h1.h1Print {
+    text-align: left;
+    font-size: 24pt;
+  }
+
+  /* line 108, ../scss/_print.scss */
+  h2 {
+    margin-bottom: 20px !important;
+    font-size: 20pt;
+  }
+
+  /* line 113, ../scss/_print.scss */
+  h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18pt;
+  }
+
+  /* line 118, ../scss/_print.scss */
+  h4 {
+    font-size: 15pt !important;
+  }
+
+  /* line 122, ../scss/_print.scss */
+  .h4Print {
+    color: #557C95;
+  }
+
+  /* line 126, ../scss/_print.scss */
+  .caixa {
+    width: 9cm;
+    vertical-align: top;
+  }
+
+  /* line 131, ../scss/_print.scss */
+  table {
+    font-size: 15pt !important;
+    line-height: 120% !important;
+  }
+  /* line 135, ../scss/_print.scss */
+  table tbody {
+    font-size: 15pt !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    line-height: 130% !important;
+  }
+  /* line 140, ../scss/_print.scss */
+  table tbody > tr {
+    height: auto !important;
+  }
+
+  /* line 146, ../scss/_print.scss */
+  header#portal-header,
+  footer#peu {
+    border: 0px;
+  }
+
+  /* line 151, ../scss/_print.scss */
+  section#content-area {
+    margin-top: 0px;
+  }
+
+  /* line 155, ../scss/_print.scss */
+  .h2butlleti {
+    line-height: inherit;
+  }
+}
 /* line 5, ../scss/portlets/_portlet_calendar.scss */
 .portlet.portlet-calendar .card-body table {
   border: 0px solid transparent !important;
