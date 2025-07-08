@@ -16,10 +16,11 @@
     line-height: 130% !important;
   }
 
-  #portal-header {
+  #content-header {
     padding-bottom: 50px;
   }
 
+  #hero,
   nav#portal-breadcrumbs,
   .nav-collapse-eines,
   #portal-personaltools-wrapper,
@@ -47,9 +48,9 @@
   button.label.dropdown-toggle,
   button.remove.label.label-important,
   div.sessionCustomActions,
-  .template-printacta header#portal-header,
-  .template-printdocument header#portal-header,
-  .template-printdocument footer {
+  .template-printacta #content-header,
+  .template-printdocument #content-header,
+  .template-printdocument #portal-footer-wrapper {
     display: none;
   }
 
@@ -58,7 +59,7 @@
     width: 100% !important;
   }
 
-  #peu .span8 {
+  #peu .col-md-8 {
     width: 100% !important;
   }
 
@@ -143,8 +144,8 @@
     }
   }
 
-  header#portal-header,
-  footer#peu {
+  #portal-header,
+  #portal-footer-wrapper {
     border: 0px;
   }
 

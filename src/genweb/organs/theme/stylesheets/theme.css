@@ -182,11 +182,12 @@ body.template-searchorgans .meva-vinculacio a:hover {
   }
 
   /* line 19, ../scss/_print.scss */
-  #portal-header {
+  #content-header {
     padding-bottom: 50px;
   }
 
   /* line 23, ../scss/_print.scss */
+  #hero,
   nav#portal-breadcrumbs,
   .nav-collapse-eines,
   #portal-personaltools-wrapper,
@@ -214,51 +215,51 @@ body.template-searchorgans .meva-vinculacio a:hover {
   button.label.dropdown-toggle,
   button.remove.label.label-important,
   div.sessionCustomActions,
-  .template-printacta header#portal-header,
-  .template-printdocument header#portal-header,
-  .template-printdocument footer {
+  .template-printacta #content-header,
+  .template-printdocument #content-header,
+  .template-printdocument #portal-footer-wrapper {
     display: none;
   }
 
-  /* line 56, ../scss/_print.scss */
+  /* line 57, ../scss/_print.scss */
   #portal-column-content {
     margin: 0 !important;
     width: 100% !important;
   }
 
-  /* line 61, ../scss/_print.scss */
-  #peu .span8 {
+  /* line 62, ../scss/_print.scss */
+  #peu .col-md-8 {
     width: 100% !important;
   }
 
-  /* line 65, ../scss/_print.scss */
+  /* line 66, ../scss/_print.scss */
   div.pageBreak {
     page-break-before: always !important;
   }
 
-  /* line 69, ../scss/_print.scss */
+  /* line 70, ../scss/_print.scss */
   #portal-breadcrumbs {
     display: inline !important;
   }
 
-  /* line 73, ../scss/_print.scss */
+  /* line 74, ../scss/_print.scss */
   a {
     text-decoration: underline;
     color: black;
   }
-  /* line 77, ../scss/_print.scss */
+  /* line 78, ../scss/_print.scss */
   a:hover {
     text-decoration: none;
   }
 
-  /* line 82, ../scss/_print.scss */
+  /* line 83, ../scss/_print.scss */
   .plain a {
     color: #555555;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12pt;
   }
 
-  /* line 88, ../scss/_print.scss */
+  /* line 89, ../scss/_print.scss */
   h1,
   h2,
   h3 {
@@ -266,76 +267,76 @@ body.template-searchorgans .meva-vinculacio a:hover {
     margin-top: 27px;
   }
 
-  /* line 95, ../scss/_print.scss */
+  /* line 96, ../scss/_print.scss */
   h1 {
     font-size: 24pt;
   }
-  /* line 98, ../scss/_print.scss */
+  /* line 99, ../scss/_print.scss */
   h1 > span {
     color: #557C95;
   }
-  /* line 102, ../scss/_print.scss */
+  /* line 103, ../scss/_print.scss */
   h1.h1Print {
     text-align: left;
     font-size: 24pt;
   }
 
-  /* line 108, ../scss/_print.scss */
+  /* line 109, ../scss/_print.scss */
   h2 {
     margin-bottom: 20px !important;
     font-size: 20pt;
   }
 
-  /* line 113, ../scss/_print.scss */
+  /* line 114, ../scss/_print.scss */
   h3 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18pt;
   }
 
-  /* line 118, ../scss/_print.scss */
+  /* line 119, ../scss/_print.scss */
   h4 {
     font-size: 15pt !important;
   }
 
-  /* line 122, ../scss/_print.scss */
+  /* line 123, ../scss/_print.scss */
   .h4Print {
     color: #557C95;
   }
 
-  /* line 126, ../scss/_print.scss */
+  /* line 127, ../scss/_print.scss */
   .caixa {
     width: 9cm;
     vertical-align: top;
   }
 
-  /* line 131, ../scss/_print.scss */
+  /* line 132, ../scss/_print.scss */
   table {
     font-size: 15pt !important;
     line-height: 120% !important;
   }
-  /* line 135, ../scss/_print.scss */
+  /* line 136, ../scss/_print.scss */
   table tbody {
     font-size: 15pt !important;
     font-family: Arial, Helvetica, sans-serif !important;
     line-height: 130% !important;
   }
-  /* line 140, ../scss/_print.scss */
+  /* line 141, ../scss/_print.scss */
   table tbody > tr {
     height: auto !important;
   }
 
-  /* line 146, ../scss/_print.scss */
-  header#portal-header,
-  footer#peu {
+  /* line 147, ../scss/_print.scss */
+  #portal-header,
+  #portal-footer-wrapper {
     border: 0px;
   }
 
-  /* line 151, ../scss/_print.scss */
+  /* line 152, ../scss/_print.scss */
   section#content-area {
     margin-top: 0px;
   }
 
-  /* line 155, ../scss/_print.scss */
+  /* line 156, ../scss/_print.scss */
   .h2butlleti {
     line-height: inherit;
   }

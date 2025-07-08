@@ -41,12 +41,17 @@
                       ordenDelDia context/ordenDelDia;
                       acta view/getActaContent">
 
-    <div style="float:left;" tal:condition="getActaLogo">
-      <img style="height:67px;" tal:attributes="src getActaLogo" />
+    <div class="row mb-4">
+      <div class="col-md-6" tal:condition="getActaLogo">
+        <img style="height:67px;" tal:attributes="src getActaLogo" />
+      </div>
+      <div class="col-md-6">
+        <h1 class="text-end" style="margin-top: 0px;">
+          <img width="207px" height="46px" tal:attributes="src string:${portal_url}/++theme++genweb.organs/img/logoUPC.png"/>
+        </h1>
+      </div>
     </div>
-    <h1 class="pull-right" style="margin-top: 0px;">
-      <img width="207px" height="46px" tal:attributes="src string:${portal_url}/++theme++genweb.organs/img/logoUPC.png"/>
-    </h1>
+
     <div class="clearfix"></div>
     <h1 class="h1Print"><tal:omit-tag tal:content="view/unitatTitle">UNITAT</tal:omit-tag> -
     <tal:omit-tag tal:content="view/organGovernTitle">CONSELL DE GOVERN</tal:omit-tag></h1>
