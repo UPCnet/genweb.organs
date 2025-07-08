@@ -25,6 +25,8 @@
                  checkSerieGDoc view/checkSerieGDoc;">
 
   <div class="container my-4">
+    <h1 class="documentFirstHeading mb-4" tal:content="view/title">Annex</h1>
+
     <!-- Barra d'accions -->
     <div class="d-flex justify-content-end mb-3 gap-2">
       <a id="printActaBtn" class="btn btn-outline-secondary btn-sm" tal:condition="view/viewPrintButon" href="#">

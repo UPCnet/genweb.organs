@@ -409,4 +409,14 @@
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
 
+    <!-- Vista per defecte de Annex -->
+    <browser:page
+        for=".annex.IAnnex"
+        name="view"
+        class=".annex.View"
+        template="templates/annex_view.pt"
+        permission="zope2.View"
+        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+        />
+
 </configure>

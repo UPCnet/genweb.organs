@@ -286,6 +286,11 @@ class View(BrowserView, UtilsFirmaDocumental):
     def __call__(self):
         return self.index()
 
+    @property
+    def title(self):
+        """Devuelve el título del anexo."""
+        return getattr(self.context, 'title', '')
+
     def canView(self):
         # Permissions to view acta
         roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
