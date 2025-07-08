@@ -27,9 +27,10 @@
   <div class="container my-4">
     <!-- Barra d'accions -->
     <div class="d-flex justify-content-end mb-3 gap-2">
-      <a class="btn btn-outline-secondary btn-sm" tal:condition="view/viewPrintButon" tal:attributes="href string:javascript:window.print();">
+      <a id="printActaBtn" class="btn btn-outline-secondary btn-sm" tal:condition="view/viewPrintButon" href="#">
         <i class="bi bi-printer"></i> <span i18n:translate="">Imprimir</span>
       </a>
+      <iframe id="printActaIframe" name="printActaIframe" style="display:none;width:0;height:0;border:0;" src=""></iframe>
       <a id="previewActaBtn" class="btn btn-outline-secondary btn-sm" tal:condition="view/viewPrintButon" tal:attributes="data-url string:${absolute_url}/previewActa" href="#">
         <i class="bi bi-eye"></i> <span i18n:translate="">Previsualitza</span>
       </a>
@@ -172,6 +173,26 @@
         });
     });
   });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var btn = document.getElementById('printActaBtn');
+      var iframe = document.getElementById('printActaIframe');
+      if (btn && iframe) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          // Cargar la URL de printActa en el iframe
+          iframe.src = window.location.pathname + '/printActa';
+          iframe.onload = function() {
+            setTimeout(function() {
+              iframe.contentWindow.focus();
+              iframe.contentWindow.print();
+            }, 200);
+          };
+        });
+      }
+    });
   </script>
 
 </div>
