@@ -218,7 +218,7 @@ body.template-searchorgans .meva-vinculacio a:hover {
   .template-printacta #content-header,
   .template-printdocument #content-header,
   .template-printdocument #portal-footer-wrapper {
-    display: none;
+    display: none !important;
   }
 
   /* line 57, ../scss/_print.scss */

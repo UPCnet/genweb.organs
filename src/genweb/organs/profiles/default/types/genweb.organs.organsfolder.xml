@@ -12,7 +12,7 @@
         <element value="genweb.organs.organgovern"/>
     </property>
 
-    <property name="schema">genweb.organs.content.organsfolder.IOrgansfolder</property>
+    <property name="schema">genweb.organs.content.organsfolder.organsfolder.IOrgansfolder</property>
     <property name="klass">plone.dexterity.content.Container</property>
     <property name="add_permission">cmf.AddPortalContent</property>
     <property name="factory">genweb.organs.organsfolder</property>

@@ -241,7 +241,7 @@ class Edit(form.EditForm):
 
 class View(BrowserView):
     """ Organ de govern VIEW form """
-    index = ViewPageTemplateFile('templates/organgovern_view.pt')
+    index = ViewPageTemplateFile('organgovern.pt')
 
     def __call__(self):
         return self.index()
@@ -513,7 +513,7 @@ class View(BrowserView):
 
 
 class exportAcords(BrowserView):
-    # Registrar en ZCML: name='exportAcordsCSV', for='genweb.organs.content.organgovern.IOrgangovern', permission='cmf.ManagePortal'
+    # Registrar en ZCML: name='exportAcordsCSV', for='genweb.organs.content.organgovern.organgovern.IOrgangovern', permission='cmf.ManagePortal'
     data_header_columns = [
         "Titol",
         "NumAcord",

@@ -51,11 +51,11 @@
   .template-printacta #content-header,
   .template-printdocument #content-header,
   .template-printdocument #portal-footer-wrapper {
-    display: none;
+    display: none !important;
   }
 
   #portal-column-content {
-    margin:0 !important;
+    margin: 0 !important;
     width: 100% !important;
   }
 

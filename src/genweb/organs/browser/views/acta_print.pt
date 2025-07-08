@@ -5,25 +5,15 @@
       metal:use-macro="context/main_template/macros/master"
       lang="en"
       i18n:domain="genweb.organs">
-<head>
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-  <style>
-    /* Oculta barra lateral, cabecera y menús cuando se ve en pantalla (no print) */
-    @media screen {
-      header, nav, aside, .plone-toolbar, .documentFirstHeading, #portal-header, #portal-breadcrumbs-wrapper, #viewlet-below-content, #portal-footer { display:none !important; }
-      body { margin:0 20px; }
-    }
-  </style>
-  <script>window.addEventListener('DOMContentLoaded',function(){window.print();});</script>
-</head>
+
 <body>
 
 <metal:column_one fill-slot="column_one_slot" />
 <metal:content-core fill-slot="main">
 
-<tal:print tal:define="portal_state context/@@plone_portal_state; portal_url portal_state/portal_url;">
+<tal:print tal:define="portal_state context/@@plone_portal_state; 
+                       portal_url portal_state/portal_url;">
 
-<link rel="stylesheet" media="print" tal:attributes="href string:${portal_url}/++theme++genweb.organs/stylesheets/print.css" />
 
   <tal:block i18n:domain="genweb.organs" tal:condition="view/canView"
            tal:define="getActaLogo view/getActaLogo;
@@ -41,11 +31,11 @@
                       ordenDelDia context/ordenDelDia;
                       acta view/getActaContent">
 
-    <div class="row mb-4">
-      <div class="col-md-6" tal:condition="getActaLogo">
+    <div class="row mb-4 mt-3">
+      <div class="col-6" tal:condition="getActaLogo">
         <img style="height:67px;" tal:attributes="src getActaLogo" />
       </div>
-      <div class="col-md-6">
+      <div class="col-6">
         <h1 class="text-end" style="margin-top: 0px;">
           <img width="207px" height="46px" tal:attributes="src string:${portal_url}/++theme++genweb.organs/img/logoUPC.png"/>
         </h1>

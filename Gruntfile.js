@@ -40,8 +40,10 @@ module.exports = function (grunt) {
                 files: {
                     'js/views/search.min.js':
                         '../../../../../genweb.organs/src/genweb/organs/browser/search/search.js',
-                    'js/content/organgovern_view.min.js':
-                        '../../../../../genweb.organs/src/genweb/organs/content/templates/organgovern_view.js',
+                    'js/content/acta.min.js':
+                        '../../../../../genweb.organs/src/genweb/organs/content/acta/acta.js',
+                    'js/content/organgovern.min.js':
+                        '../../../../../genweb.organs/src/genweb/organs/content/organgovern/organgovern.js',
                     'js/widgets/text_input_select_users.min.js':
                         '../../../../../genweb.organs/src/genweb/organs/widgets/text_input_select_users.js',
                 }

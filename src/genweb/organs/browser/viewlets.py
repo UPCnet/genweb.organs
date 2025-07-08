@@ -10,7 +10,7 @@ from genweb6.core import HAS_PAM
 # from genweb6.core.utils import genweb_config
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from plone.app.layout.navigation.root import getNavigationRootObject
-from genweb.organs.content.organsfolder import IOrgansfolder
+from genweb.organs.content.organsfolder.organsfolder import IOrgansfolder
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets.common import ViewletBase

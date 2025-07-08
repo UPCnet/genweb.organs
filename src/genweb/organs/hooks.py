@@ -11,7 +11,7 @@ from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 
 from genweb.organs import _
 from genweb.organs.content.acord import IAcord
-from genweb.organs.content.acta import IActa
+from genweb.organs.content.acta.acta import IActa
 from genweb.organs.content.punt import IPunt
 from genweb.organs.content.subpunt import ISubpunt
 from genweb.organs.utils import addEntryLog

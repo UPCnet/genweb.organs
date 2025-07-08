@@ -9,77 +9,92 @@
     i18n_domain="genweb.organs">
 
     <subscriber
-        for=".acord.IAcord zope.container.interfaces.IObjectAddedEvent"
+        for=".acord.IAcord
+             zope.container.interfaces.IObjectAddedEvent"
         handler="genweb.organs.hooks.acordAdded"
         />
 
     <subscriber
-        for=".acta.IActa zope.container.interfaces.IObjectAddedEvent"
+        for=".acta.acta.IActa
+             zope.container.interfaces.IObjectAddedEvent"
         handler="genweb.organs.hooks.actaAdded"
         />
 
     <subscriber
-        for=".punt.IPunt zope.container.interfaces.IObjectAddedEvent"
+        for=".punt.IPunt
+             zope.container.interfaces.IObjectAddedEvent"
         handler="genweb.organs.hooks.puntAdded"
         />
 
     <subscriber
-        for=".subpunt.ISubpunt zope.container.interfaces.IObjectAddedEvent"
+        for=".subpunt.ISubpunt
+             zope.container.interfaces.IObjectAddedEvent"
         handler="genweb.organs.hooks.subpuntAdded"
         />
 
     <subscriber
-        for=".acta.IActa zope.container.interfaces.IObjectRemovedEvent"
+        for=".acta.acta.IActa
+             zope.container.interfaces.IObjectRemovedEvent"
         handler="genweb.organs.hooks.actaDeleted"
         />
 
     <subscriber
-        for=".acord.IAcord zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        for=".acord.IAcord
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler="genweb.organs.hooks.acordModified"
         />
 
     <subscriber
-        for=".acta.IActa zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        for=".acta.acta.IActa
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler="genweb.organs.hooks.actaModified"
         />
 
     <subscriber
-        for=".punt.IPunt zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        for=".punt.IPunt
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler="genweb.organs.hooks.puntModified"
         />
 
     <subscriber
-        for=".subpunt.ISubpunt zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        for=".subpunt.ISubpunt
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler="genweb.organs.hooks.subpuntModified"
         />
 
     <subscriber
-        for=".organgovern.IOrgangovern zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+        for=".organgovern.organgovern.IOrgangovern
+             zope.lifecycleevent.interfaces.IObjectRemovedEvent"
         handler="genweb.organs.subscribers.update_indicators_on_organ_deletion"
         />
 
     <subscriber
-        for=".organgovern.IOrgangovern zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+        for=".organgovern.organgovern.IOrgangovern
+             zope.lifecycleevent.interfaces.IObjectCreatedEvent"
         handler="genweb.organs.subscribers.update_indicators_on_organ_review_state_change"
         />
 
     <subscriber
-        for=".sessio.ISessio zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+        for=".sessio.ISessio
+             zope.lifecycleevent.interfaces.IObjectRemovedEvent"
         handler="genweb.organs.subscribers.update_indicators_on_sessio_deletion"
         />
 
     <subscriber
-        for=".sessio.ISessio Products.CMFCore.interfaces.IActionSucceededEvent"
+        for=".sessio.ISessio
+             Products.CMFCore.interfaces.IActionSucceededEvent"
         handler="genweb.organs.subscribers.update_indicators_on_sessio_review_state_change"
         />
 
     <subscriber
-        for=".acord.IAcord zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+        for=".acord.IAcord
+             zope.lifecycleevent.interfaces.IObjectRemovedEvent"
         handler="genweb.organs.subscribers.update_indicators_on_acord_deletion"
         />
 
     <subscriber
-        for=".acord.IAcord zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+        for=".acord.IAcord
+             zope.lifecycleevent.interfaces.IObjectCreatedEvent"
         handler="genweb.organs.subscribers.update_indicators_on_acord_review_state_change"
         />
 
@@ -93,9 +108,9 @@
 
     <browser:page
         name="acta_view"
-        for=".acta.IActa"
-        class=".acta.View"
-        template="templates/acta_view.pt"
+        for=".acta.acta.IActa"
+        class=".acta.acta.View"
+        template="acta/acta.pt"
         permission="zope2.View"
         />
 
@@ -210,10 +225,10 @@
         /> -->
 
     <browser:page
-        for=".organsfolder.IOrgansfolder"
+        for=".organsfolder.organsfolder.IOrgansfolder"
         name="view"
-        class=".organsfolder.View"
-        template="templates/organsfolder_view.pt"
+        class=".organsfolder.organsfolder.View"
+        template="organsfolder/organsfolder.pt"
         permission="zope2.View"
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
@@ -272,18 +287,18 @@
         />
 
     <browser:page
-        for=".organgovern.IOrgangovern"
+        for=".organgovern.organgovern.IOrgangovern"
         name="view"
-        class=".organgovern.View"
-        template="templates/organgovern_view.pt"
+        class=".organgovern.organgovern.View"
+        template="organgovern/organgovern.pt"
         permission="zope2.View"
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
 
     <browser:page
-        for=".organgovern.IOrgangovern"
+        for=".organgovern.organgovern.IOrgangovern"
         name="exportAcordsCSV"
-        class=".organgovern.exportAcords"
+        class=".organgovern.organgovern.exportAcords"
         permission="cmf.ManagePortal"
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
@@ -401,10 +416,10 @@
 
     <!-- Vista per defecte de Acta -->
     <browser:page
-        for=".acta.IActa"
+        for=".acta.acta.IActa"
         name="view"
-        class=".acta.View"
-        template="templates/acta_view.pt"
+        class=".acta.acta.View"
+        template="acta/acta.pt"
         permission="zope2.View"
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />

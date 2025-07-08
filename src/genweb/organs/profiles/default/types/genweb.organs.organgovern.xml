@@ -12,7 +12,7 @@
         <element value="genweb.organs.sessio"/>
     </property>
 
-    <property name="schema">genweb.organs.content.organgovern.IOrgangovern</property>
+    <property name="schema">genweb.organs.content.organgovern.organgovern.IOrgangovern</property>
     <property name="klass">plone.dexterity.content.Container</property>
     <property name="add_permission">genweb.organs.add.organs</property>
     <property name="factory">genweb.organs.organgovern</property>

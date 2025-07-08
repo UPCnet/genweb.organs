@@ -8,7 +8,6 @@
 
 <body>
 
-
   <metal:content-core fill-slot="content-core">
     <metal:listingmacro define-macro="listing"
                         tal:define="OrgansInside view/OrgansInside;

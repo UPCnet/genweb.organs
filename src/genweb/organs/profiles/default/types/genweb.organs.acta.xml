@@ -13,7 +13,7 @@
         <element value="genweb.organs.annex"/>
     </property>
 
-    <property name="schema">genweb.organs.content.acta.IActa</property>
+    <property name="schema">genweb.organs.content.acta.acta.IActa</property>
     <property name="klass">plone.dexterity.content.Container</property>
     <property name="add_permission">cmf.AddPortalContent</property>
     <property name="factory">genweb.organs.acta</property>

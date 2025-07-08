@@ -530,7 +530,7 @@ def get_settings_property(property_id):
 
 
 def get_organ(context):
-    from genweb.organs.content.organgovern import IOrgangovern
+    from genweb.organs.content.organgovern.organgovern import IOrgangovern
     if IOrgangovern.providedBy(context):
         return context
     else:

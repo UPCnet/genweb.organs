@@ -2,12 +2,12 @@
 from zope.interface import implementer
 from plone.dexterity.content import Item
 
-from genweb.organs.content.organgovern import IOrgangovern
+from genweb.organs.content.organgovern.organgovern import IOrgangovern
 from genweb.organs.content.sessio import ISessio
 from genweb.organs.content.punt import IPunt
 from genweb.organs.content.subpunt import ISubpunt
-from genweb.organs.content.acta import IActa
-from genweb.organs.content.organsfolder import IOrgansfolder
+from genweb.organs.content.acta.acta import IActa
+from genweb.organs.content.organsfolder.organsfolder import IOrgansfolder
 from genweb.organs.content.file import IFile
 from genweb.organs.content.document import IDocument
 from genweb.organs.content.audio import IAudio

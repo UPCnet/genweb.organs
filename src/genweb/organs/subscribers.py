@@ -3,7 +3,7 @@ from zope.lifecycleevent.interfaces import IObjectCreatedEvent
 from Products.CMFCore.interfaces import IActionSucceededEvent
 
 from genweb.organs.utils import get_settings_property
-from genweb.organs.content.organgovern import IOrgangovern
+from genweb.organs.content.organgovern.organgovern import IOrgangovern
 from genweb.organs.content.sessio import ISessio
 from genweb.organs.content.acord import IAcord
 from genweb.organs.indicators.updating import (

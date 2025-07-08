@@ -281,7 +281,7 @@ def Punts2Acta(context):
 
 
 class View(BrowserView, UtilsFirmaDocumental):
-    index = ViewPageTemplateFile("templates/acta_view.pt")
+    index = ViewPageTemplateFile("acta.pt")
 
     def __call__(self):
         return self.index()

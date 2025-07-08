@@ -298,7 +298,7 @@ class Presentation(form.Form):
             return False
 
     def getTitle(self):
-        from genweb.organs.content.organsfolder import IOrgansfolder
+        from genweb.organs.content.organsfolder.organsfolder import IOrgansfolder
         if IOrgansfolder.providedBy(self.context):
             if self.context.customImage:
                 return 'Govern UPC - ' + str(self.context.title)
@@ -324,7 +324,7 @@ class Presentation(form.Form):
                         return 'Govern UPC'
 
     def getLogo(self):
-        from genweb.organs.content.organsfolder import IOrgansfolder
+        from genweb.organs.content.organsfolder.organsfolder import IOrgansfolder
         if IOrgansfolder.providedBy(self.context):
             try:
                 if self.context.customImage:

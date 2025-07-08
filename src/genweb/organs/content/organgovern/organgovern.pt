@@ -229,7 +229,7 @@
     </div>
   </div>
 
-  <script type="text/javascript" src="++theme++genweb.organs/js/content/organgovern_view.min.js" ></script>
+  <script type="text/javascript" src="++theme++genweb.organs/js/content/organgovern.min.js" ></script>
 
 </metal:content-core>
 

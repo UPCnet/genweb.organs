@@ -15,28 +15,28 @@
 
   <browser:page
     name="signActa"
-    for="genweb.organs.content.acta.IActa"
+    for="genweb.organs.content.acta.acta.IActa"
     class=".firmes.SignActa"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     permission="genweb.organs.firmadocumental.sign" />
 
   <browser:page
     name="viewActa"
-    for="genweb.organs.content.acta.IActa"
+    for="genweb.organs.content.acta.acta.IActa"
     class=".acta.ViewActa"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     permission="zope2.View" />
 
   <browser:page
     name="downloadActa"
-    for="genweb.organs.content.acta.IActa"
+    for="genweb.organs.content.acta.acta.IActa"
     class=".acta.DownloadActa"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     permission="zope2.View" />
 
   <browser:page
     name="viewFile"
-    for="genweb.organs.content.acta.IActa"
+    for="genweb.organs.content.acta.acta.IActa"
     class=".firmes.ViewFile"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     permission="zope2.View" />
@@ -77,21 +77,21 @@
 
   <browser:page
     name="downloadFile"
-    for="genweb.organs.content.acta.IActa"
+    for="genweb.organs.content.acta.acta.IActa"
     class=".acta.DownloadFile"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     permission="zope2.View" />
 
   <browser:page
     name="viewAudio"
-    for="genweb.organs.content.acta.IActa"
+    for="genweb.organs.content.acta.acta.IActa"
     class=".acta.ViewAudio"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     permission="zope2.View" />
 
   <browser:page
     name="downloadAudio"
-    for="genweb.organs.content.acta.IActa"
+    for="genweb.organs.content.acta.acta.IActa"
     class=".acta.DownloadAudio"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     permission="zope2.View" />
