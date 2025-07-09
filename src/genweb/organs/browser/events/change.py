@@ -43,7 +43,7 @@ def sessio_changed(session, event):
             organ = get_organ(session)
             if organ.visiblegdoc:
                 estat_firma = estatFirma(session)
-                if not estat_firma or estat_firma['class'] != 'signada':
+                if event.status['review_state'] == 'realitzada' and (not estat_firma or estat_firma['class'] != 'signada'):
                     IStatusMessage(getRequest()).addStatusMessage(
                         _(u'No es pot tancar la sessió si no està signada l\'acta.'), 'alert')
                     raise Redirect(session.absolute_url())
