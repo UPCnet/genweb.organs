@@ -359,6 +359,28 @@ class SignActa(BrowserView, FirmesMixin):
 
             # logger.info('3.1. S\'ha creat correctament la serie documental')
 
+            if not sessio.unitatDocumental:
+                logger.info('1. Iniciant firma de l\'acta - ' + self.context.title)
+
+                sign_step = "getCodiExpedient"
+                logger.info('2. Demanant codi del expedient al servei generadorcodiexpedient')
+                content_codi = client.getCodiExpedient(organ.serie)
+                logger.info('2.1. S\'ha obtingut correctament el codi del expedient')
+
+                now = datetime.datetime.now()
+                codi_expedient = now.strftime("%Y") + '-' + content_codi['codi']
+
+                sign_step = "createSerieDocumental"
+                logger.info('3. Creació de la serie documental en gDOC')
+                content_exp = client.createSerieDocumental(
+                    serie=organ.serie,
+                    expedient=codi_expedient,
+                    titolPropi=codi_expedient + ' - ' + self.context.title
+                )
+                sessio.unitatDocumental = str(content_exp['idElementCreat'])
+                sessio.reindexObject()
+                logger.info('3.1. S\'ha creat correctament la serie documental')            
+
             files_sessio = utils.getFilesSessio(sessio)
             if any(not self.fileUploaded(file) for file in files_sessio):
                 self.context.plone_utils.addPortalMessage(_(u'Hi ha fitxers de la sessió que no s\'han pujat al Gestor Documental'), 'error')
