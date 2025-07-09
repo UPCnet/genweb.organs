@@ -6,24 +6,12 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="genweb.organs">
 <body>
-<div metal:fill-slot="main">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <tal:main-macro metal:define-macro="main">
-          <h1 class="documentFirstHeading" tal:content="view/title">Audio</h1>
-          <div tal:content="structure view/message">Audio</div>
-        </tal:main-macro>
-      </div>
-    </div>
-  </div>
-</div>
 
-<metal:content-core fill-slot="content-core">
+<div metal:fill-slot="main" tal:condition="view/canView">
 
-<tal:block tal:condition="view/canView">
+  <h1 class="documentFirstHeading mb-4" tal:content="view/title">Annex</h1>
 
-    <metal:block define-macro="content-core"
+    <div class="container my-4"
         tal:define="content_type context/file/contentType|nothing;
                     download_url string:${context/absolute_url}/@@download/file/${context/file/filename}">
       <p>
@@ -55,11 +43,9 @@
         <pre tal:content="context/file/data|nothing"></pre>
       </div>
 
-    </metal:block>
+    </div>
 
-</tal:block>
-
-</metal:content-core>
+</div>
 
 </body>
 </html>

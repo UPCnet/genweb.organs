@@ -434,4 +434,14 @@
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
 
+    <!-- Vista per defecte de Audio -->
+    <browser:page
+        for=".audio.IAudio"
+        name="view"
+        class=".audio.View"
+        template="templates/audio_view.pt"
+        permission="zope2.View"
+        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+        />
+
 </configure>

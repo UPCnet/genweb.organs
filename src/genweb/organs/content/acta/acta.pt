@@ -46,35 +46,45 @@
     <!-- Pestanyes Bootstrap 5 -->
     <ul class="nav nav-tabs" id="actaTabs" role="tablist">
       <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="dades-tab" data-bs-toggle="tab" data-bs-target="#dades" type="button" role="tab">Dades</button>
+        <button class="nav-link active" id="dades-tab" data-bs-toggle="tab" data-bs-target="#dades" type="button" role="tab"><span i18n:translate="">Dades</span></button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="assistents-tab" data-bs-toggle="tab" data-bs-target="#assistents" type="button" role="tab">Assistents</button>
+        <button class="nav-link" id="assistents-tab" data-bs-toggle="tab" data-bs-target="#assistents" type="button" role="tab"><span i18n:translate="">Relacio Assistents</span></button>
       </li>
     </ul>
     <div class="tab-content border border-top-0 p-3" id="actaTabContent">
       <!-- Dades -->
       <div class="tab-pane fade show active" id="dades" role="tabpanel" aria-labelledby="dades-tab">
         <ul class="list-unstyled">
-          <li tal:condition="horaInici"><strong i18n:translate="">Inici:</strong> <span tal:content="horaInici" /></li>
-          <li tal:condition="horaFi"><strong i18n:translate="">Fi:</strong> <span tal:content="horaFi" /></li>
-          <li tal:condition="llocConvocatoria"><strong i18n:translate="">Lloc:</strong> <span tal:content="llocConvocatoria" /></li>
-          <li tal:condition="enllacVideo"><strong i18n:translate="">Vídeo:</strong> <a tal:attributes="href enllacVideo; target string:_blank">link</a></li>
+          <li tal:condition="horaInici">
+            <strong i18n:translate="Session start time">Session start time</strong>:
+            <span tal:content="horaInici" />
+          </li>
+          <li tal:condition="horaFi">
+            <strong i18n:translate="Session end time">Session end time</strong>:
+            <span tal:content="horaFi" />
+          </li>
+          <li tal:condition="llocConvocatoria">
+            <strong i18n:translate="">Lloc</strong>:
+            <span tal:content="llocConvocatoria" />
+          </li>
+          <li tal:condition="enllacVideo">
+            <strong i18n:translate="Video link">Video link</strong>:
+            <a tal:attributes="href enllacVideo; target string:_blank"><span i18n:translate="">Video</span></a>
+          </li>
+          <li tal:condition="audio">
+            <strong i18n:translate="Audio de la sessio">Audio de la sessio</strong>:
+            <ul class="list-unstyled">
+              <tal:repeat repeat="item audio">
+                <li class="mb-2">
+                  <i class="bi bi-file-earmark-music"></i>
+                  <a tal:attributes="href item/absolute_url" tal:content="item/title">audio</a>
+                  <audio class="d-block mt-1 w-100" controls tal:attributes="src item/download_url"></audio>
+                </li>
+              </tal:repeat>
+            </ul>
+          </li>
         </ul>
-
-        <!-- Audios -->
-        <div tal:condition="audio">
-          <h5 class="mt-3" i18n:translate="">Àudios</h5>
-          <ul class="list-unstyled">
-            <tal:repeat repeat="item audio">
-              <li class="mb-2">
-                <i class="bi bi-file-earmark-music"></i>
-                <a tal:attributes="href item/absolute_url" tal:content="item/title">audio</a>
-                <audio class="d-block mt-1 w-100" controls tal:attributes="src item/download_url"></audio>
-              </li>
-            </tal:repeat>
-          </ul>
-        </div>
       </div>
 
       <!-- Assistents -->
@@ -82,16 +92,16 @@
         <!-- Sub-pestañas para la relación d'assistents -->
         <ul class="nav nav-pills mb-3" id="assistSubTabs" role="tablist">
           <li class="nav-item" tal:condition="membresConvocats" role="presentation">
-            <button class="nav-link active" id="tab-assistents" data-bs-toggle="pill" data-bs-target="#pane-assistents" type="button" role="tab">Assistents</button>
+            <button class="nav-link active" id="tab-assistents" data-bs-toggle="pill" data-bs-target="#pane-assistents" type="button" role="tab"><span i18n:translate="">Assistants</span></button>
           </li>
           <li class="nav-item" tal:condition="membresConvidats" role="presentation">
-            <button class="nav-link" id="tab-convidats" data-bs-toggle="pill" data-bs-target="#pane-convidats" type="button" role="tab">Convidats</button>
+            <button class="nav-link" id="tab-convidats" data-bs-toggle="pill" data-bs-target="#pane-convidats" type="button" role="tab"><span i18n:translate="">Invited members</span></button>
           </li>
           <li class="nav-item" tal:condition="llistaExcusats" role="presentation">
-            <button class="nav-link" id="tab-excusats" data-bs-toggle="pill" data-bs-target="#pane-excusats" type="button" role="tab">Excusats</button>
+            <button class="nav-link" id="tab-excusats" data-bs-toggle="pill" data-bs-target="#pane-excusats" type="button" role="tab"><span i18n:translate="">Excused members</span></button>
           </li>
           <li class="nav-item" tal:condition="llistaNoAssistens" role="presentation">
-            <button class="nav-link" id="tab-noassist" data-bs-toggle="pill" data-bs-target="#pane-noassist" type="button" role="tab">No assistents</button>
+            <button class="nav-link" id="tab-noassist" data-bs-toggle="pill" data-bs-target="#pane-noassist" type="button" role="tab"><span i18n:translate="">No assistents</span></button>
           </li>
         </ul>
 
