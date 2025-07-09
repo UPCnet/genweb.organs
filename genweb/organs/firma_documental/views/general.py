@@ -42,7 +42,7 @@ def viewCopiaAutentica(self, uuid, contentType, filename):
         copia_autentica = getCopiaAutentica(self, uuid)
         if copia_autentica:
             self.request.response.setHeader('content-type', contentType)
-            self.request.response.setHeader('content-disposition', 'inline; filename=' + str(filename))
+            self.request.response.setHeader('content-disposition', 'inline; filename="' + str(filename) + '"')
             return copia_autentica
 
         return self.request.response.redirect(self.context.absolute_url())
@@ -54,7 +54,7 @@ def downloadCopiaAutentica(self, uuid, contentType, filename):
         copia_autentica = getCopiaAutentica(self, uuid)
         if copia_autentica:
             self.request.response.setHeader('content-type', contentType)
-            self.request.response.setHeader('content-disposition', 'attachment; filename=' + str(filename))
+            self.request.response.setHeader('content-disposition', 'attachment; filename="' + str(filename) + '"')
             return copia_autentica
 
         return self.request.response.redirect(self.context.absolute_url())
@@ -76,7 +76,7 @@ def viewGDoc(self, uuid, contentType, filename):
         copia_autentica = getGDoc(self, uuid)
         if copia_autentica:
             self.request.response.setHeader('content-type', contentType)
-            self.request.response.setHeader('content-disposition', 'inline; filename=' + str(filename))
+            self.request.response.setHeader('content-disposition', 'inline; filename="' + str(filename) + '"')
             return copia_autentica
 
         return self.request.response.redirect(self.context.absolute_url())
@@ -91,7 +91,7 @@ def downloadGDoc(self, uuid, contentType, filename):
             copia_autentica = getGDoc(self, uuid)
         if copia_autentica:
             self.request.response.setHeader('content-type', contentType)
-            self.request.response.setHeader('content-disposition', 'attachment; filename=' + str(filename))
+            self.request.response.setHeader('content-disposition', 'attachment; filename="' + str(filename) + '"')
             return copia_autentica
 
         return self.request.response.redirect(self.context.absolute_url())
