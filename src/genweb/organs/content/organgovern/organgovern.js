@@ -7,7 +7,7 @@ $("#acords-tab").on("click", function(){
       $.each(data, function(key, value){
         var acordHTML = '<tr>';
         acordHTML += '<td style="vertical-align: middle;">';
-        acordHTML += '<i class="bi bi-check me-2" aria-hidden="True"></i>';
+        acordHTML += '<i class="bi bi-check me-1" aria-hidden="True"></i>';
         acordHTML += '<a href="' + value['absolute_url'] + '">';
         acordHTML += value['title'];
         acordHTML += '</a>';
@@ -21,7 +21,7 @@ $("#acords-tab").on("click", function(){
         acordHTML += '</td>';
         acordHTML += '<td style="min-width: 100px" class="text-center align-middle">';
         acordHTML += '<span class="estatpunt">';
-        acordHTML += '<i class="bi bi-circle boletaGran" aria-hidden="true" style="color: ' + value['color'] + ';"></i> ';
+        acordHTML += '<i class="bi bi-circle-fill boletaGran" aria-hidden="true" style="color: ' + value['color'] + ';"></i> ';
         acordHTML += '<span> ';
         acordHTML += value['estatsLlista'];
         acordHTML += '</span>';
@@ -44,12 +44,12 @@ $("#actes-tab").on("click", function(){
       $.each(data, function(key, value){
         var actaHTML = '<tr>';
         actaHTML += '<td>';
-        actaHTML += '<i class="bi bi-file-text-o me-2" aria-hidden="true"></i>';
+        actaHTML += '<i class="bi bi-file-text me-1" aria-hidden="true"></i>';
         actaHTML += '<a href="' + value['absolute_url'] + '">';
         actaHTML += value['title'];
         actaHTML += '</a>';
         actaHTML += '</td>';
-        actaHTML += '<td class="align-middle">';
+        actaHTML += '<td class="text-center">';
         if (value['data']){
           actaHTML += '<span>';
           actaHTML += value['data'];
