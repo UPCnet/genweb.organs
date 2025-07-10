@@ -116,7 +116,7 @@ body.template-search .meva-vinculacio a:hover {
 
 /* line 50, ../scss/_generic.scss */
 #workflow-transition-convocar {
-  display: none;
+  display: none !important;
 }
 
 /* line 65, ../scss/_generic.scss */

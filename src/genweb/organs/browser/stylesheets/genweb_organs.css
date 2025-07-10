@@ -1194,7 +1194,7 @@ span.agreementClassPunt {
 }
 
 #workflow-transition-convocar {
-    display: none;
+    display: none !important;
 }
 
 #contentActionMenus li ul li.actionSeparator {display: none;}
