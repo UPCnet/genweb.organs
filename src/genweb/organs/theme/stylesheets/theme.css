@@ -24,6 +24,11 @@ b.form-label {
   font-weight: 700;
 }
 
+/* line 29, ../scss/_edicio.scss */
+body.template-excusar_assist_sessio #social_tags {
+  display: none !important;
+}
+
 /* line 3, ../scss/_homepage.scss */
 body.template-search .card-organ {
   transition: all .25s ease-out;
