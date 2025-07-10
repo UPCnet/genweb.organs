@@ -25,11 +25,11 @@ b.form-label {
 }
 
 /* line 3, ../scss/_homepage.scss */
-body.template-searchorgans .card-organ {
+body.template-search .card-organ {
   transition: all .25s ease-out;
 }
 /* line 6, ../scss/_homepage.scss */
-body.template-searchorgans .card-organ:hover {
+body.template-search .card-organ:hover {
   transform: perspective(1px) scale(1.00775, 1.00775) translateZ(0px);
   -webkit-font-smoothing: subpixel-antialiased;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px, rgba(0, 0, 0, 0.1) 0px 5px 10px, rgba(0, 0, 0, 0.05) 0px 10px 20px !important;
@@ -37,24 +37,24 @@ body.template-searchorgans .card-organ:hover {
   text-decoration: none;
 }
 /* line 16, ../scss/_homepage.scss */
-body.template-searchorgans .card-organ .card-ic i.bi {
+body.template-search .card-organ .card-ic i.bi {
   font-size: 2.25rem;
 }
 /* line 21, ../scss/_homepage.scss */
-body.template-searchorgans .card-organ .card-ic-circle {
+body.template-search .card-organ .card-ic-circle {
   width: 2.5rem;
   height: 2.5rem;
 }
 /* line 25, ../scss/_homepage.scss */
-body.template-searchorgans .card-organ .card-ic-circle i.bi::before {
+body.template-search .card-organ .card-ic-circle i.bi::before {
   font-weight: 600 !important;
 }
 /* line 33, ../scss/_homepage.scss */
-body.template-searchorgans .meva-vinculacio a {
+body.template-search .meva-vinculacio a {
   text-decoration: none;
 }
 /* line 36, ../scss/_homepage.scss */
-body.template-searchorgans .meva-vinculacio a:hover {
+body.template-search .meva-vinculacio a:hover {
   text-decoration: underline;
 }
 
