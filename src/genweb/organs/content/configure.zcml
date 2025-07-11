@@ -75,13 +75,13 @@
         />
 
     <subscriber
-        for=".sessio.ISessio
+        for=".sessio.sessio.ISessio
              zope.lifecycleevent.interfaces.IObjectRemovedEvent"
         handler="genweb.organs.subscribers.update_indicators_on_sessio_deletion"
         />
 
     <subscriber
-        for=".sessio.ISessio
+        for=".sessio.sessio.ISessio
              Products.CMFCore.interfaces.IActionSucceededEvent"
         handler="genweb.organs.subscribers.update_indicators_on_sessio_review_state_change"
         />
@@ -234,7 +234,7 @@
         />
 
     <browser:page
-        for=".sessio.ISessio"
+        for=".sessio.sessio.ISessio"
         name="excusar_assist_sessio"
         class=".excusar_assist.Message"
         template="templates/excusarassist_view.pt"
@@ -243,7 +243,7 @@
         />
 
     <browser:page
-        for=".sessio.ISessio"
+        for=".sessio.sessio.ISessio"
         name="view_as_role"
         class=".impersonate_as.ShowSessionAs"
         template="templates/impersonate_as.pt"
@@ -252,7 +252,7 @@
         />
 
     <browser:page
-        for=".sessio.ISessio"
+        for=".sessio.sessio.ISessio"
         name="mail_convocar"
         class=".mail_convocar.Message"
         template="templates/mail_convocar.pt"
@@ -261,7 +261,7 @@
         />
 
     <browser:page
-        for=".sessio.ISessio"
+        for=".sessio.sessio.ISessio"
         name="mail_informar"
         class=".mail_informar.Message"
         template="templates/informar_view.pt"
@@ -270,7 +270,7 @@
         />
 
     <browser:page
-        for=".sessio.ISessio"
+        for=".sessio.sessio.ISessio"
         name="mail_message"
         class=".mail_message.Message"
         template="templates/message_view.pt"
@@ -279,7 +279,7 @@
         />
 
     <browser:page
-        for=".sessio.ISessio"
+        for=".sessio.sessio.ISessio"
         name="manualStructureCreation"
         class=".manualimport.Message"
         permission="zope2.View"
@@ -304,7 +304,7 @@
         />
 
     <browser:page
-        for=".sessio.ISessio"
+        for=".sessio.sessio.ISessio"
         name="presentation"
         class=".presentation.Presentation"
         template="templates/presentation.pt"
@@ -313,7 +313,7 @@
         />
 
     <browser:page
-        for=".sessio.ISessio"
+        for=".sessio.sessio.ISessio"
         name="proposa_punt_od"
         class=".proposar_punt.Message"
         template="templates/proposarpunt_view.pt"
@@ -331,50 +331,50 @@
         />
 
     <browser:page
-        for=".sessio.ISessio"
+        for=".sessio.sessio.ISessio"
         name="view"
-        class=".sessio.View"
-        template="templates/sessio_view.pt"
+        class=".sessio.sessio.View"
+        template="sessio/sessio.pt"
         permission="zope2.View"
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
 
     <browser:page
-        for=".sessio.ISessio"
+        for=".sessio.sessio.ISessio"
         name="openQuorum"
-        class=".sessio.OpenQuorum"
+        class=".sessio.sessio.OpenQuorum"
         permission="genweb.organs.manage.quorum"
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
 
     <browser:page
-        for=".sessio.ISessio"
+        for=".sessio.sessio.ISessio"
         name="closeQuorum"
-        class=".sessio.CloseQuorum"
+        class=".sessio.sessio.CloseQuorum"
         permission="genweb.organs.manage.quorum"
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
 
     <browser:page
-        for=".sessio.ISessio"
+        for=".sessio.sessio.ISessio"
         name="removeQuorums"
-        class=".sessio.RemoveQuorums"
+        class=".sessio.sessio.RemoveQuorums"
         permission="genweb.organs.remove.quorum"
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
 
     <browser:page
-        for=".sessio.ISessio"
+        for=".sessio.sessio.ISessio"
         name="addQuorum"
-        class=".sessio.AddQuorum"
+        class=".sessio.sessio.AddQuorum"
         permission="genweb.organs.add.quorum"
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
 
     <browser:page
-        for=".sessio.ISessio"
+        for=".sessio.sessio.ISessio"
         name="exportCSV"
-        class=".sessio.ExportCSV"
+        class=".sessio.sessio.ExportCSV"
         permission="zope2.View"
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />

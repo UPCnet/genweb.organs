@@ -16,7 +16,7 @@ from plone.supermodel import model
 from plone.autoform import directives
 
 from genweb.organs import _
-from genweb.organs.content.sessio import ISessio
+from genweb.organs.content.sessio.sessio import ISessio
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs.utils import addPoint
 from genweb.organs import utils

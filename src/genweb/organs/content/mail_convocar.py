@@ -19,7 +19,7 @@ from plone.app.textfield.value import RichTextValue
 
 from plone.supermodel import model
 from genweb.organs import _
-from genweb.organs.content.sessio import ISessio
+from genweb.organs.content.sessio.sessio import ISessio
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs.utils import addEntryLog
 from genweb.organs import utils

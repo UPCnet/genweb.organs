@@ -5,7 +5,7 @@ from genweb.organs.interfaces import IGenwebOrgansLayer
 import json
 import transaction
 from Products.statusmessages.interfaces import IStatusMessage
-from genweb.organs.content.sessio import ISessio
+from genweb.organs.content.sessio.sessio import ISessio
 from plone.namedfile.file import NamedBlobFile
 from zope.interface import Interface
 import requests

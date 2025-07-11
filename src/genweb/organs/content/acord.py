@@ -29,7 +29,7 @@ from plone.app.textfield import RichText as RichTextField
 
 from genweb.organs import _
 from genweb.organs import utils
-from genweb.organs.content.sessio import ISessio
+from genweb.organs.content.sessio.sessio import ISessio
 from genweb.organs.utils import addEntryLog
 from genweb.organs.firma_documental.utils import UtilsFirmaDocumental
 from genweb.organs.utils import checkHasOpenVote

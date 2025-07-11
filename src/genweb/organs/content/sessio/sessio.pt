@@ -111,7 +111,8 @@
       <tal:block tal:condition="canViewManageQuorumButtons">
         <div tal:condition="view/showOpenQuorum">
           <a href="#" class="btn btn-outline-primary border-0 openQuorum d-flex flex-column"
-             i18n:attributes="title open_quorum; alt open_quorum">
+             tal:attributes=" data-url string:${absolute_url}"
+             i18n:attributes="title open_quorum; alt open_quorum;">
             <i class="bi bi-people-fill"></i>
             <span i18n:translate="">Obrir quorum</span>
           </a>
@@ -119,7 +120,8 @@
 
         <div tal:condition="not:view/showOpenQuorum">
           <a href="#" class="btn btn-outline-primary border-0 closeQuorum d-flex flex-column"
-             i18n:attributes="title close_quorum; alt close_quorum">
+             tal:attributes=" data-url string:${absolute_url}"
+             i18n:attributes="title close_quorum; alt close_quorum;">
             <i class="bi bi-people-fill"></i>
             <span i18n:translate="">Tancar quorum</span>
           </a>
@@ -132,14 +134,16 @@
              tal:define="checkHasQuorum view/checkHasQuorum">
           <a tal:condition="not:checkHasQuorum" href="#"
              class="btn btn-outline-primary border-0 addQuorum d-flex flex-column"
-             i18n:attributes="title add_quorum; alt add_quorum">
+             tal:attributes=" data-url string:${absolute_url}"
+             i18n:attributes="title add_quorum; alt add_quorum;">
             <i class="bi bi-person-plus"></i>
             <span i18n:translate="">Control quorum</span>
           </a>
 
           <span tal:condition="checkHasQuorum"
                 class="btn btn-success addQuorumChecked d-flex flex-column"
-                i18n:attributes="title add_quorum; alt add_quorum">
+                tal:attributes=" data-url string:${absolute_url}"
+                i18n:attributes="title add_quorum; alt add_quorum;">
             <i class="bi bi-check2-circle"></i>
             <span i18n:translate="">Control quorum</span>
           </span>
@@ -472,383 +476,389 @@
           </div>
         </div>
 
-          <div class="tab-pane fade" id="resultsVotesTab" tal:condition="canViewResultsVote">
-                        <div class="card" tal:define="votes getAllResultsVotes; quorums getInfoQuorums;">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0" i18n:translate="">Resultats votacions / Quorums</h5>
-                            </div>
-                            <div class="card-body">
-                                <!-- Tabla de votos -->
-                                <div class="table-responsive mb-4" tal:condition="votes">
-                                    <table class="table table-striped table-hover align-middle mb-0">
-                <thead>
-                  <tr i18n:domain="genweb.organs">
-                    <th width="36%" i18n:translate="">Acord / Esmena</th>
-                    <tal tal:condition="not:canViewManageVote">
-                                                    <th width="14%" class="text-center" i18n:translate="">A favor</th>
-                                                    <th width="14%" class="text-center" i18n:translate="">En contra</th>
-                                                    <th width="14%" class="text-center" i18n:translate="">En blanc</th>
-                                                    <th width="14%" class="text-center" i18n:translate="">Vots emesos</th>
-                                                    <th width="8%" class="text-center" i18n:translate=""></th>
-                    </tal>
-                    <tal tal:condition="canViewManageVote">
-                                                    <th width="12%" class="text-center" i18n:translate="">A favor</th>
-                                                    <th width="12%" class="text-center" i18n:translate="">En contra</th>
-                                                    <th width="12%" class="text-center" i18n:translate="">En blanc</th>
-                                                    <th width="12%" class="text-center" i18n:translate="">Vots emesos</th>
-                                                    <th width="8%" class="text-center" i18n:translate="">State</th>
-                                                    <th width="8%" class="text-center" i18n:translate=""></th>
-                    </tal>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tal:block tal:repeat="vote votes">
-                    <tr tal:condition="not:vote/isPublic" tal:attributes="id string:vote-${vote/UID}">
-                      <tal:block tal:condition="not:vote/isEsmena">
-                        <td>
-                          <span tal:content="string:${vote/title} [${vote/code}]"></span>
-                        </td>
-                      </tal:block>
-                      <tal:block tal:condition="vote/isEsmena">
-                        <td>
-                                                            <div class="ps-4">
-                                                                <span tal:content="vote/title"></span>
-                                                            </div>
-                        </td>
-                      </tal:block>
-                      <tal:block tal:condition="not:vote/isOpen">
-                                                        <td class="vote-favorVote text-center" tal:content="vote/favorVote"></td>
-                                                        <td class="vote-againstVote text-center" tal:content="vote/againstVote"></td>
-                                                        <td class="vote-whiteVote text-center" tal:content="vote/whiteVote"></td>
-                                                        <td class="vote-totalVote text-center" tal:content="vote/totalVote"></td>
-                      </tal:block>
-                      <tal:block tal:condition="vote/isOpen">
-                                                        <td class="vote-favorVote text-center"></td>
-                                                        <td class="vote-againstVote text-center"></td>
-                                                        <td class="vote-whiteVote text-center"></td>
-                                                        <td class="vote-totalVote text-center" tal:content="vote/totalVote"></td>
-                      </tal:block>
-                                                    <td class="text-center" tal:condition="canViewManageVote" tal:content="vote/state"></td>
-                                                    <td class="text-center">
-                                                        <div class="d-flex justify-content-center gap-2">
+        <div class="tab-pane fade" id="resultsVotesTab" tal:condition="canViewResultsVote"
+             tal:define="votes getAllResultsVotes; 
+                         quorums getInfoQuorums;">
+          <!-- Tabla de votos -->
+          <div class="table-responsive mb-3" tal:condition="votes">
+            <table class="table table-striped table-bordered align-middle mb-0">
+              <thead>
+                <tr i18n:domain="genweb.organs">
+                  <th width="36%" i18n:translate="">Acord / Esmena</th>
+                  <tal tal:condition="not:canViewManageVote">
+                    <th width="14%" class="text-center" i18n:translate="">A favor</th>
+                    <th width="14%" class="text-center" i18n:translate="">En contra</th>
+                    <th width="14%" class="text-center" i18n:translate="">En blanc</th>
+                    <th width="14%" class="text-center" i18n:translate="">Vots emesos</th>
+                    <th width="8%" class="text-center" i18n:translate=""></th>
+                  </tal>
+                  <tal tal:condition="canViewManageVote">
+                    <th width="12%" class="text-center" i18n:translate="">A favor</th>
+                    <th width="12%" class="text-center" i18n:translate="">En contra</th>
+                    <th width="12%" class="text-center" i18n:translate="">En blanc</th>
+                    <th width="12%" class="text-center" i18n:translate="">Vots emesos</th>
+                    <th width="8%" class="text-center" i18n:translate="">State</th>
+                    <th width="8%" class="text-center" i18n:translate=""></th>
+                  </tal>
+                </tr>
+              </thead>
+              <tbody>
+                <tal:block tal:repeat="vote votes">
+                  <tr tal:condition="not:vote/isPublic" tal:attributes="id string:vote-${vote/UID}">
+                    <tal:block tal:condition="not:vote/isEsmena">
+                      <td>
+                        <span tal:content="string:${vote/title} [${vote/code}]"></span>
+                      </td>
+                    </tal:block>
+                    <tal:block tal:condition="vote/isEsmena">
+                      <td>
+                        <div class="ps-4">
+                          <span tal:content="vote/title"></span>
+                        </div>
+                      </td>
+                    </tal:block>
+                    <tal:block tal:condition="not:vote/isOpen">
+                      <td class="vote-favorVote text-center" tal:content="vote/favorVote"></td>
+                      <td class="vote-againstVote text-center" tal:content="vote/againstVote"></td>
+                      <td class="vote-whiteVote text-center" tal:content="vote/whiteVote"></td>
+                      <td class="vote-totalVote text-center" tal:content="vote/totalVote"></td>
+                    </tal:block>
+                    <tal:block tal:condition="vote/isOpen">
+                      <td class="vote-favorVote text-center"></td>
+                      <td class="vote-againstVote text-center"></td>
+                      <td class="vote-whiteVote text-center"></td>
+                      <td class="vote-totalVote text-center" tal:content="vote/totalVote"></td>
+                    </tal:block>
+                    <td class="text-center" tal:condition="canViewManageVote" tal:content="vote/state"></td>
+                    <td class="text-center">
+                      <div class="d-flex justify-content-center gap-2">
                         <tal:block tal:condition="canViewManageVote">
-                                                                <button tal:condition="vote/canReopen" class="btn btn-sm btn-outline-primary reopenVote"
-                                                                        tal:attributes="data-url vote/URL" i18n:attributes="title reopen_vote">
-                                                                    <i class="bi bi-pencil-square"></i>
-                                                                </button>
+                          <button tal:condition="vote/canReopen" class="btn btn-sm btn-outline-primary reopenVote"
+                                  tal:attributes="data-url vote/URL" i18n:attributes="title reopen_vote">
+                            <i class="bi bi-pencil-square"></i>
+                          </button>
                         </tal:block>
                         <tal:block tal:condition="vote/isOpen">
-                                                                <button class="btn btn-sm btn-outline-secondary refreshVote"
-                                                                        tal:attributes="data-uid vote/UID">
-                                                                    <i class="bi bi-arrow-clockwise"></i>
-                                                                </button>
+                          <button class="btn btn-sm btn-outline-secondary refreshVote"
+                                  tal:attributes="data-uid vote/UID">
+                              <i class="bi bi-arrow-clockwise"></i>
+                          </button>
                         </tal:block>
                         <tal:block tal:condition="vote/hourOpen">
-                                                                <button tal:condition="not:vote/hourClose" class="btn btn-sm btn-outline-info"
-                                                                        tal:attributes="title string:Inici: ${vote/hourOpen}">
-                                                                    <i class="bi bi-info-circle"></i>
-                                                                </button>
-                                                                <button tal:condition="vote/hourClose" class="btn btn-sm btn-outline-info"
-                                                                        tal:attributes="title string:Inici: ${vote/hourOpen} Fi: ${vote/hourClose}">
-                                                                    <i class="bi bi-info-circle"></i>
-                                                                </button>
+                          <button tal:condition="not:vote/hourClose" class="btn btn-sm btn-outline-info"
+                                  tal:attributes="title string:Inici: ${vote/hourOpen}">
+                            <i class="bi bi-info-circle"></i>
+                          </button>
+                          <button tal:condition="vote/hourClose" class="btn btn-sm btn-outline-info"
+                                  tal:attributes="title string:Inici: ${vote/hourOpen} Fi: ${vote/hourClose}">
+                            <i class="bi bi-info-circle"></i>
+                          </button>
                         </tal:block>
                         <tal:block tal:condition="canViewManageVote">
-                                                                <button tal:condition="vote/isVote" class="btn btn-sm btn-outline-danger removeVote"
-                                                                        tal:attributes="data-url vote/URL">
-                                                                    <i class="bi bi-trash"></i>
-                                                                </button>
+                          <button tal:condition="vote/isVote" class="btn btn-sm btn-outline-danger removeVote"
+                                  tal:attributes="data-url vote/URL">
+                            <i class="bi bi-trash"></i>
+                          </button>
                         </tal:block>
-                                                    </div>
-                      </td>
-                    </tr>
-                    <tal:block tal:condition="vote/isPublic">
-                                                <tr class="openInfo" tal:attributes="data-open string:#${vote/UID}; id string:vote-${vote/UID}">
-                        <td>
-                          <tal:block tal:condition="not:vote/isEsmena">
-                                                            <div class="d-flex align-items-center gap-2">
-                                                                <i class="bi bi-chevron-down text-primary"></i>
-                                                                <i class="bi bi-chevron-up text-primary"></i>
+                      </div>
+                    </td>
+                  </tr>
+                  <tal:block tal:condition="vote/isPublic">
+                    <tr class="openInfo" tal:attributes="data-open string:#${vote/UID}; id string:vote-${vote/UID}">
+                      <td>
+                        <tal:block tal:condition="not:vote/isEsmena">
+                          <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-chevron-down text-primary"></i>
+                            <i class="bi bi-chevron-up text-primary"></i>
                             <span class="vote-title" tal:content="string:${vote/title} [${vote/code}]"></span>
-                                                            </div>
-                          </tal:block>
-                          <tal:block tal:condition="vote/isEsmena">
-                                                            <div class="d-flex align-items-center gap-2 ps-4">
-                                                                <i class="bi bi-chevron-down text-primary"></i>
-                                                                <i class="bi bi-chevron-up text-primary"></i>
+                          </div>
+                        </tal:block>
+                        <tal:block tal:condition="vote/isEsmena">
+                          <div class="d-flex align-items-center gap-2 ps-4">
+                            <i class="bi bi-chevron-down text-primary"></i>
+                            <i class="bi bi-chevron-up text-primary"></i>
                             <span class="vote-title esmena" tal:content="vote/title"></span>
-                                                            </div>
-                          </tal:block>
-                        </td>
-                        <tal:block tal:condition="not:vote/isOpen">
-                                                        <td class="vote-favorVote text-center" tal:content="vote/favorVote"></td>
-                                                        <td class="vote-againstVote text-center" tal:content="vote/againstVote"></td>
-                                                        <td class="vote-whiteVote text-center" tal:content="vote/whiteVote"></td>
-                                                        <td class="vote-totalVote text-center" tal:content="vote/totalVote"></td>
+                          </div>
                         </tal:block>
-                        <tal:block tal:condition="vote/isOpen">
-                                                        <td class="vote-favorVote text-center"></td>
-                                                        <td class="vote-againstVote text-center"></td>
-                                                        <td class="vote-whiteVote text-center"></td>
-                                                        <td class="vote-totalVote text-center" tal:content="vote/totalVote"></td>
-                        </tal:block>
-                                                    <td class="vote-state text-center" tal:condition="canViewManageVote"
+                      </td>
+                      <tal:block tal:condition="not:vote/isOpen">
+                        <td class="vote-favorVote text-center" tal:content="vote/favorVote"></td>
+                        <td class="vote-againstVote text-center" tal:content="vote/againstVote"></td>
+                        <td class="vote-whiteVote text-center" tal:content="vote/whiteVote"></td>
+                        <td class="vote-totalVote text-center" tal:content="vote/totalVote"></td>
+                      </tal:block>
+                      <tal:block tal:condition="vote/isOpen">
+                        <td class="vote-favorVote text-center"></td>
+                        <td class="vote-againstVote text-center"></td>
+                        <td class="vote-whiteVote text-center"></td>
+                        <td class="vote-totalVote text-center" tal:content="vote/totalVote"></td>
+                      </tal:block>
+                      <td class="vote-state text-center" tal:condition="canViewManageVote"
                           tal:content="vote/state"></td>
-                                                    <td class="text-center">
-                                                        <div class="d-flex justify-content-center gap-2">
+                      <td class="text-center">
+                        <div class="d-flex justify-content-center gap-2">
                           <tal:block tal:condition="canViewManageVote">
-                                                                <button tal:condition="vote/canReopen" class="btn btn-sm btn-outline-primary reopenVote"
-                                                                        tal:attributes="data-url vote/URL" i18n:attributes="title reopen_vote">
-                                                                    <i class="bi bi-pencil-square"></i>
-                                                                </button>
+                        <button tal:condition="vote/canReopen" class="btn btn-sm btn-outline-primary reopenVote"
+                            tal:attributes="data-url vote/URL" i18n:attributes="title reopen_vote">
+                          <i class="bi bi-pencil-square"></i>
+                        </button>
                           </tal:block>
                           <tal:block tal:condition="vote/isOpen">
-                                                                <button class="btn btn-sm btn-outline-secondary refreshVote"
-                                                                        tal:attributes="data-uid vote/UID">
-                                                                    <i class="bi bi-arrow-clockwise"></i>
-                                                                </button>
+                        <button class="btn btn-sm btn-outline-secondary refreshVote"
+                            tal:attributes="data-uid vote/UID">
+                          <i class="bi bi-arrow-clockwise"></i>
+                        </button>
                           </tal:block>
                           <tal:block tal:condition="vote/hourOpen">
-                                                                <button tal:condition="not:vote/hourClose" class="btn btn-sm btn-outline-info"
-                                                                        tal:attributes="title string:Inici: ${vote/hourOpen}">
-                                                                    <i class="bi bi-info-circle"></i>
-                                                                </button>
-                                                                <button tal:condition="vote/hourClose" class="btn btn-sm btn-outline-info"
-                                                                        tal:attributes="title string:Inici: ${vote/hourOpen} Fi: ${vote/hourClose}">
-                                                                    <i class="bi bi-info-circle"></i>
-                                                                </button>
+                        <button tal:condition="not:vote/hourClose" class="btn btn-sm btn-outline-info"
+                            tal:attributes="title string:Inici: ${vote/hourOpen}">
+                          <i class="bi bi-info-circle"></i>
+                        </button>
+                        <button tal:condition="vote/hourClose" class="btn btn-sm btn-outline-info"
+                            tal:attributes="title string:Inici: ${vote/hourOpen} Fi: ${vote/hourClose}">
+                          <i class="bi bi-info-circle"></i>
+                        </button>
                           </tal:block>
-                                                            <button tal:condition="canViewManageVote" class="btn btn-sm btn-outline-danger removeVote"
-                                                                    tal:attributes="data-url vote/URL">
-                                                                <i class="bi bi-trash"></i>
-                                                            </button>
-                                                        </div>
-                        </td>
-                      </tr>
-                      <tr class="infovotes" tal:attributes="id vote/UID">
-                        <td></td>
-                        <tal:block tal:condition="not:vote/isOpen">
-                                                        <td class="vote-users-favorVote text-center">
-                            <p tal:repeat="user vote/favorVoteList" tal:content="user"></p>
-                          </td>
-                                                        <td class="vote-users-againstVote text-center">
-                            <p tal:repeat="user vote/againstVoteList" tal:content="user"></p>
-                          </td>
-                                                        <td class="vote-users-whiteVote text-center">
-                            <p tal:repeat="user vote/whiteVoteList" tal:content="user"></p>
-                          </td>
-                                                        <td class="text-center"></td>
-                        </tal:block>
-                        <tal:block tal:condition="vote/isOpen">
-                                                        <td class="vote-users-favorVote text-center"></td>
-                                                        <td class="vote-users-againstVote text-center"></td>
-                                                        <td class="vote-users-whiteVote text-center"></td>
-                                                        <td class="vote-users-totalVote text-center">
-                            <p tal:repeat="user vote/totalVoteList" tal:content="user"></p>
-                          </td>
-                        </tal:block>
-                                                    <td class="text-center" tal:condition="canViewManageVote"></td>
-                                                    <td class="text-center" tal:condition="canViewManageVote"></td>
-                      </tr>
-                    </tal:block>
-                  </tal:block>
-                </tbody>
-              </table>
-                            </div>
-
-                            <!-- Tabla de quorums -->
-                            <div class="table-responsive" tal:condition="quorums">
-                                <table class="table table-striped table-hover align-middle mb-0" style="max-width: 40%;">
-                <thead i18n:domain="genweb.organs">
-                  <tr>
-                    <th colspan="3" i18n:translate="">Nombre de membres assistents</th>
-                  </tr>
-                  <tr>
-                    <th width="45%" i18n:translate="">Inici</th>
-                    <th width="45%" i18n:translate="">Fi</th>
-                                            <th width="10%" class="text-center" i18n:translate="">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr tal:repeat="quorum quorums">
-                    <tal:block tal:define="quorumInfo python: quorums[quorum]">
-                      <td tal:content="quorumInfo/start"></td>
-                      <td tal:content="quorumInfo/end"></td>
-                                                <td class="text-center" tal:content="quorumInfo/total"></td>
-                    </tal:block>
-                  </tr>
-                </tbody>
-              </table>
-                            </div>
+                          <button tal:condition="canViewManageVote" class="btn btn-sm btn-outline-danger removeVote"
+                          tal:attributes="data-url vote/URL">
+                        <i class="bi bi-trash"></i>
+                          </button>
                         </div>
-                    </div>
-                </div>
-
-                <tal:buttons tal:condition="canModify">
-                    <!-- MODAL: Edició de títol -->
-                    <div class="modal fade" id="modalEditTitle" tabindex="-1" aria-labelledby="modalEditTitleLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalEditTitleLabel" i18n:translate="">Editar Títol</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="mb-3">
-                                            <label for="edit-title-input" class="form-label" i18n:translate="">Títol</label>
-                                            <textarea class="form-control" id="edit-title-input" rows="3"></textarea>
-                                            <input type="hidden" id="edit-title-pk" />
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" i18n:translate="">Cancel·la</button>
-                                    <button type="button" class="btn btn-primary" id="saveTitleButton" i18n:translate="">Desa els canvis</button>
-                                </div>
-                            </div>
-            </div>
+                      </td>
+                    </tr>
+                    <tr class="infovotes" tal:attributes="id vote/UID">
+                      <td></td>
+                      <tal:block tal:condition="not:vote/isOpen">
+                        <td class="vote-users-favorVote text-center">
+                          <p tal:repeat="user vote/favorVoteList" tal:content="user"></p>
+                        </td>
+                        <td class="vote-users-againstVote text-center">
+                          <p tal:repeat="user vote/againstVoteList" tal:content="user"></p>
+                        </td>
+                        <td class="vote-users-whiteVote text-center">
+                          <p tal:repeat="user vote/whiteVoteList" tal:content="user"></p>
+                        </td>
+                        <td class="text-center"></td>
+                      </tal:block>
+                      <tal:block tal:condition="vote/isOpen">
+                        <td class="vote-users-favorVote text-center"></td>
+                        <td class="vote-users-againstVote text-center"></td>
+                        <td class="vote-users-whiteVote text-center"></td>
+                        <td class="vote-users-totalVote text-center">
+                          <p tal:repeat="user vote/totalVoteList" tal:content="user"></p>
+                        </td>
+                      </tal:block>
+                      <td class="text-center" tal:condition="canViewManageVote"></td>
+                      <td class="text-center" tal:condition="canViewManageVote"></td>
+                    </tr>
+                  </tal:block>
+                </tal:block>
+              </tbody>
+            </table>
           </div>
 
-                    <!-- MODAL: Confirmació genèrica -->
-                    <div class="modal fade" id="modalConfirm" tabindex="-1" aria-labelledby="modalConfirmLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="modalConfirmLabel"></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" i18n:translate="">Cancel·la</button>
-                            <button type="button" class="btn btn-danger" id="modalConfirmButton" i18n:translate="">Accepta</button>
-                            </div>
-                        </div>
+          <!-- Tabla de quorums -->
+          <div class="table-responsive mb-3" tal:condition="quorums">
+            <table class="table table-striped table-bordered align-middle mb-0" style="max-width: 40%;">
+              <thead i18n:domain="genweb.organs">
+                <tr>
+                  <th colspan="3" i18n:translate="">Nombre de membres assistents</th>
+                </tr>
+                <tr>
+                  <th width="45%" i18n:translate="">Inici</th>
+                  <th width="45%" i18n:translate="">Fi</th>
+                  <th width="10%" class="text-center" i18n:translate="">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr tal:repeat="quorum quorums">
+                  <tal:block tal:define="quorumInfo python: quorums[quorum]">
+                    <td tal:content="quorumInfo/start"></td>
+                    <td tal:content="quorumInfo/end"></td>
+                    <td class="text-center" tal:content="quorumInfo/total"></td>
+                  </tal:block>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <tal:buttons tal:condition="canModify">
+
+      <!-- MODAL: Edició de títol -->
+      <div class="modal fade" id="modalEditTitle" tabindex="-1" aria-labelledby="modalEditTitleLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalEditTitleLabel" i18n:translate="">Editar Títol</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="edit-title-input" class="form-label" i18n:translate="">Títol</label>
+                  <textarea class="form-control" id="edit-title-input" rows="3"></textarea>
+                  <input type="hidden" id="edit-title-pk" />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" i18n:translate="">Cancel·la</button>
+              <button type="button" class="btn btn-primary" id="saveTitleButton" i18n:translate="">Desa els canvis</button>
+            </div>
+          </div>
         </div>
       </div>
 
-        <!-- MODAL: Creació àgil de punts/acords -->
-        <div class="modal fade" id="modalPunts" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-          aria-labelledby="modalMassive" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="modalMassive" i18n:translate="">Creació àgil</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="alert alert-info">
-                  <h6 class="alert-heading" i18n:translate="">Creació àgil de punts informatius i/o acords a partir d'una llista</h6>
-                  <p class="mb-0">
-                    El format ha de ser un punt/subpunt/acord per línia i sense el número ja que es calcula automàticament.<br />
-                    Davant de cada punt/subpunt ha d'anar una <strong>P</strong>. I davant de cada acord una <strong>A</strong>.<br />
-                    Els subpunts han de començar per espais en blanc. Dintre d'un punt (P) poden haver subpunts (P) o acords (A).<br />
-                    Dintre d'un acord no pot haver res.<br />
-                  </p>
+      <!-- MODAL: Confirmació genèrica -->
+      <div class="modal fade" id="modalConfirm" tabindex="-1" aria-labelledby="modalConfirmLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalConfirmLabel"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" i18n:translate="">Cancel·la</button>
+              <button type="button" class="btn btn-danger" id="modalConfirmButton" i18n:translate="">Accepta</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-                <!-- Formulario real -->
-                <form tal:attributes="action string:${context/absolute_url}/manualStructureCreation; method string:post; enctype string:multipart/form-data">
-                  <div class="mb-3">
-                    <label for="form-widgets-message" class="form-label" i18n:translate="">Contingut</label>
-                    <div class="fieldErrorBox" tal:condition="python: False">
-                      <div class="error">Error</div>
-                    </div>
-                    <textarea class="form-control" name="form.widgets.message" id="form-widgets-message" rows="10"></textarea>
+      <!-- MODAL: Creació àgil de punts/acords -->
+      <div class="modal fade" id="modalPunts" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+           aria-labelledby="modalMassive" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalMassive" i18n:translate="">Creació àgil</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="alert alert-info">
+                <h6 class="alert-heading fs-xl" i18n:translate="">Creació àgil de punts informatius i/o acords a partir d'una llista</h6>
+                <p class="mb-0">
+                  El format ha de ser un punt/subpunt/acord per línia i sense el número ja que es calcula automàticament.<br />
+                  Davant de cada punt/subpunt ha d'anar una <strong>P</strong>. I davant de cada acord una <strong>A</strong>.<br />
+                  Els subpunts han de començar per espais en blanc. Dintre d'un punt (P) poden haver subpunts (P) o acords (A).<br />
+                  Dintre d'un acord no pot haver res.<br />
+                </p>
+              </div>
+
+              <!-- Formulario real -->
+              <form tal:attributes="action string:${context/absolute_url}/manualStructureCreation; method string:post; enctype string:multipart/form-data">
+                <div class="mb-3">
+                  <label for="form-widgets-message" class="form-label" i18n:translate="">Contingut</label>
+                  <div class="fieldErrorBox" tal:condition="python: False">
+                    <div class="error">Error</div>
                   </div>
+                  <textarea class="form-control" name="form.widgets.message" id="form-widgets-message" rows="10"></textarea>
+                </div>
 
-                  <div class="alert alert-secondary">
-                    <h6 class="alert-heading" i18n:translate="">Exemple de format</h6>
-                    <pre class="mb-0"><code>P Informe del rector
+                <div class="alert alert-secondary">
+                  <h6 class="alert-heading mb-3" i18n:translate="">Exemple de format</h6>
+                  <pre class="mb-0">
+                    <code>P Informe del rector
 P Comissió Econòmica
       A Aprovació de l'estat de tresoreria
       P Aprovació de l'expedient 03/23
 A Discutir tema central
-P Conclusions</code></pre>
-                  </div>
+P Conclusions</code>
+                  </pre>
+                </div>
 
-                  <div class="formControls">
-                    <input id="form-buttons-send" name="form.buttons.send" class="btn btn-primary" value="Envia" type="submit" i18n:attributes="value">
-                    <input id="form-buttons-cancel" name="form.buttons.cancel" class="btn btn-secondary" value="Cancel·la" type="submit" i18n:attributes="value">
-                  </div>
-                </form>
-              </div>
+                <div class="formControls">
+                  <input id="form-buttons-send" name="form.buttons.send" class="btn btn-primary" value="Envia" type="submit" i18n:attributes="value">
+                  <input id="form-buttons-cancel" name="form.buttons.cancel" class="btn btn-secondary" value="Cancel·la" type="submit" i18n:attributes="value">
+                </div>
+              </form>
             </div>
           </div>
-        </div>
-        <!-- MODAL: Nou punt -->
-        <div class="modal fade" id="modalPunt" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-          aria-labelledby="modalAddPunt" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <h5 class="modal-title" id="modalAddPunt" i18n:translate="">Nou punt</h5>
-              </div>
-              <div class="modal-body">
-                <form name="addPunt">
-                  <div class="mb-3">
-                                    <label for="new-punt-title" class="form-label" i18n:translate="">Title</label>
-                                    <textarea class="form-control" id="new-punt-title"></textarea>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary createPunt" i18n:translate="">Envia</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                  i18n:translate="">Cancel</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- MODAL: Nou acord -->
-        <div class="modal fade" id="modalAcord" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-          aria-labelledby="modalAddAcord" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <h5 class="modal-title" id="modalAddAcord" i18n:translate="">Nou acord</h5>
-              </div>
-              <div class="modal-body">
-                <form name="addAcord">
-                  <div class="mb-3">
-                                    <label for="new-acord-title" class="form-label" i18n:translate="">Titol del punt</label>
-                                    <textarea class="form-control" id="new-acord-title"></textarea>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary createAcord" i18n:translate="">Envia</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                  i18n:translate="">Cancel</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- BOTONES para abrir modales: Bootstrap 5 usa data-bs-toggle y data-bs-target -->
-        <div class="sessionCustomActions d-none d-md-block">
-          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalPunt"><i
-                            class="bi bi-plus"></i>&nbsp;<span i18n:translate="">Nou punt</span></button>
-          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAcord"><i
-                            class="bi bi-plus"></i>&nbsp;<span i18n:translate="">Nou acord</span></button>
-          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalPunts"><i class="bi bi-database"></i>&nbsp;<span i18n:translate="">Creació àgil</span></button>
-          <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updatePoints"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span i18n:translate="">Numera punts</span></a>
-          <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updateAcords"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span i18n:translate="">Numera acords</span></a>
-        </div>
-        <div style="margin-right: 30px;" class="d-block d-md-none btn-group-vertical">
-          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalPunt"><i
-                            class="bi bi-plus"></i>&nbsp;<span i18n:translate="">Nou punt</span></button>
-          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAcord"><i
-                            class="bi bi-plus"></i>&nbsp;<span i18n:translate="">Nou acord</span></button>
-          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalPunts"><i class="bi bi-database"></i>&nbsp;<span i18n:translate="">Creació àgil</span></button>
-          <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updatePoints"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span i18n:translate="">Numera punts</span></a>
-          <a class="btn btn-info" tal:attributes="href string:${context/absolute_url}/updateAcords"><i class="bi bi-arrow-clockwise"></i>&nbsp;<span i18n:translate="">Numera acords</span></a>
-          <br />
-        </div>
+        </div>  
+      </div> 
 
-      </tal:buttons>
+      <!-- MODAL: Nou punt -->
+      <div class="modal fade" id="modalPunt" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalAddPunt" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalAddPunt" i18n:translate="">Nou punt</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form name="addPunt">
+                <div class="mb-3">
+                  <label for="new-punt-title" class="form-label" i18n:translate="">Title</label>
+                  <textarea class="form-control" id="new-punt-title"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary createPunt" i18n:translate="">Envia</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                      i18n:translate="">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL: Nou acord -->
+      <div class="modal fade" id="modalAcord" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalAddAcord" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalAddAcord" i18n:translate="">Nou acord</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form name="addAcord">
+                <div class="mb-3">
+                  <label for="new-acord-title" class="form-label" i18n:translate="">Titol del punt</label>
+                  <textarea class="form-control" id="new-acord-title"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary createAcord" i18n:translate="">Envia</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                      i18n:translate="">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTONES para abrir modales: Bootstrap 5 usa data-bs-toggle y data-bs-target -->
+      <div class="sessionCustomActions d-flex justify-content-end gap-2 mb-3">
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalPunt">
+          <i class="bi bi-plus"></i>
+          <span i18n:translate="">Nou punt</span>
+        </button>
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalAcord">
+          <i class="bi bi-plus"></i>
+          <span i18n:translate="">Nou acord</span>
+        </button>
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalPunts">
+          <i class="bi bi-database"></i>
+          <span i18n:translate="">Creació àgil</span>
+        </button>
+        <a class="btn btn-outline-primary" tal:attributes="href string:${context/absolute_url}/updatePoints">
+          <i class="bi bi-arrow-clockwise"></i>
+          <span i18n:translate="">Numera punts</span>
+        </a>
+        <a class="btn btn-outline-primary" tal:attributes="href string:${context/absolute_url}/updateAcords">
+          <i class="bi bi-arrow-clockwise"></i>
+          <span i18n:translate="">Numera acords</span>
+        </a>
+      </div>
+
+    </tal:buttons>
 
 
 
@@ -1402,440 +1412,10 @@ P Conclusions</code></pre>
           </ul>
                         </div>
                     </div>
-                </div>
-        </div>
 
-            <script type="text/javascript" tal:condition="canModify">
-                // Script unificado para la página de sesión
-                document.addEventListener('DOMContentLoaded', function () {
-                    "use strict";
+    <script type="text/javascript"
+            src="++theme++genweb.organs/js/content/sessio_quorum.min.js"
+            tal:condition="python: canViewManageQuorumButtons or canViewAddQuorumButtons"></script>
 
-                    let refreshNeeded = false;
-                    const $ = jQuery; // Para mantener la compatibilidad con el código existente.
-
-                    // Recargar la página si es necesario después de una llamada AJAX
-                    $(document).ajaxStop(function () {
-                        if (refreshNeeded) {
-                            // Usamos un pequeño retardo para asegurar que el servidor ha procesado todo
-                            setTimeout(() => window.location.reload(), 500);
-                        }
-                    });
-
-                    /*
-                    * MANEJO DE MODALES
-                    */
-
-                    // Limpiar formularios cuando se cierran los modales
-                    const modalPunt = document.getElementById('modalPunt');
-                    if(modalPunt) {
-                        modalPunt.addEventListener('hidden.bs.modal', () => {
-                            const title = modalPunt.querySelector('#new-punt-title');
-                            if(title) title.value = '';
-                        });
-                    }
-
-                    const modalAcord = document.getElementById('modalAcord');
-                    if(modalAcord) {
-                        modalAcord.addEventListener('hidden.bs.modal', () => {
-                            const title = modalAcord.querySelector('#new-acord-title');
-                            if(title) title.value = '';
-                        });
-                    }
-
-                    // Creación de Punts
-                    $('.createPunt').on('click', function (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const value = $("#new-punt-title").val();
-                        if (!value || value.trim() === '') {
-                            alert('El títol no pot estar buit.');
-                            return;
-                        }
-                        $.ajax({
-                            type: 'POST',
-                            url: window.location.href.split('?')[0].replace(/\/$/, "") + '/@@createElement',
-                            data: { action: 'createPunt', name: value },
-              success: function () {
-                                const modal = bootstrap.Modal.getInstance(modalPunt);
-                                if (modal) modal.hide();
-                                refreshNeeded = true;
-                            },
-                            error: function() {
-                                alert('Hi ha hagut un error al crear el punt.');
-                            }
-                        });
-                    });
-
-                    // Creación de Acords
-                    $('.createAcord').on('click', function (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const value = $("#new-acord-title").val();
-                        if (!value || value.trim() === '') {
-                            alert('El títol no pot estar buit.');
-                            return;
-                        }
-                        $.ajax({
-                            type: 'POST',
-                            url: window.location.href.split('?')[0].replace(/\/$/, "") + '/@@createElement',
-                            data: { action: 'createAcord', name: value },
-                            success: function () {
-                                const modal = bootstrap.Modal.getInstance(modalAcord);
-                                if (modal) modal.hide();
-                                refreshNeeded = true;
-                            },
-                            error: function() {
-                                alert('Hi ha hagut un error al crear l\'acord.');
-                            }
-                        });
-                    });
-
-                    /*
-                    * MODAL DE CONFIRMACIÓN GENÉRICO (Bootstrap 5 way)
-                    */
-                    const confirmModal = document.getElementById('modalConfirm');
-                    if (confirmModal) {
-                        confirmModal.addEventListener('show.bs.modal', event => {
-                            const button = event.relatedTarget; // Botón que disparó el modal
-                            // Extraer información de los atributos data-*
-                            const title = button.getAttribute('data-modal-title');
-                            const body = button.getAttribute('data-modal-body');
-                            const action = button.getAttribute('data-modal-action');
-
-                            confirmModal.querySelector('.modal-title').textContent = title;
-                            confirmModal.querySelector('.modal-body').textContent = body;
-
-                            const confirmButton = confirmModal.querySelector('#modalConfirmButton');
-
-                            // Limpiamos eventos anteriores para evitar ejecuciones múltiples
-                            $(confirmButton).off('click').on('click', function() {
-                                if (action === 'delete') {
-                                    const itemId = button.getAttribute('data-item');
-                                    const itemType = button.getAttribute('data-type');
-                                    deleteElement(itemId, itemType);
-                                } else if (action === 'hideAgreement') {
-                                    const url = button.getAttribute('data-item-url');
-                                    hideAgreement(url);
-                                }
-                                bootstrap.Modal.getInstance(confirmModal).hide();
-                            });
-                        });
-                    }
-
-
-                    /*
-                    * EDICIÓN DE TÍTULOS
-                    */
-                    const editTitleModalEl = document.getElementById('modalEditTitle');
-                    if (editTitleModalEl) {
-                        const editTitleModal = new bootstrap.Modal(editTitleModalEl);
-                        // Delegación de eventos para los botones de editar
-                        $('#sortable').on('click', '.edit, .edit2, a.editTitle', function(e) {
-                            e.preventDefault();
-              e.stopPropagation();
-                            const pk = $(this).data('id');
-                            const currentTitle = $(this).is('a') ? $(this).text().trim() : $(this).data('title');
-                            $('#edit-title-input').val(currentTitle);
-                            $('#edit-title-pk').val(pk);
-                            editTitleModal.show();
-                        });
-
-                        $('#saveTitleButton').on('click', function() {
-                            const pk = $('#edit-title-pk').val();
-                            const newTitle = $('#edit-title-input').val();
-                            if (!newTitle) {
-                                alert('El títol no pot estar buit.');
-                                return;
-                            }
-                            $.ajax({
-                                url: 'changeTitle',
-                                type: 'POST',
-                                data: { pk: pk, value: newTitle },
-                                success: function() {
-                                    $('a.editTitle[data-id="' + pk + '"]').text(newTitle);
-                                    $('button.edit[data-id="' + pk + '"], button.edit2[data-id="' + pk + '"]').data('title', newTitle);
-                                    editTitleModal.hide();
-                                },
-                                error: function() {
-                                    alert('Hi ha hagut un error al desar el títol.');
-                }
-              });
-            });
-                    }
-
-                    /*
-                    * LÓGICA DE SELECCIÓN DE PUNTO (PICKING)
-                    */
-                    function mouseHandler(e) {
-                        const currentLi = $(this);
-                        if (!currentLi.hasClass('picked')) {
-                            // Deseleccionar cualquier otro
-                            $('.ui-sortable li.picked').each(function() {
-                                $(this).removeClass('picked')
-                                    .find('.einesSpan, .show').toggleClass('einesSpan show');
-                                $(this).find('.boleta').show();
-                            });
-                            // Seleccionar el actual
-                            currentLi.addClass('picked');
-                            currentLi.find('.einesSpan').toggleClass('einesSpan show');
-                            currentLi.find('.boleta').hide();
-                        }
-                    }
-
-                    $('.ui-sortable li').on('click', mouseHandler);
-
-                    // Click fuera de la lista para deseleccionar
-                    $(window).on("click.Bst", function (event) {
-                        if ($(event.target).closest('.modal').length > 0) return; // No hacer nada si el click es en un modal
-                        if ($(event.target).closest('#sortable').length === 0) {
-                             $('.ui-sortable li.picked').each(function() {
-                                $(this).removeClass('picked')
-                                    .find('.einesSpan, .show').toggleClass('einesSpan show');
-                                $(this).find('.boleta').show();
-                            });
-                        }
-                    });
-
-
-                    /*
-                    * ESTADOS DE PUNTO (COLOR)
-                    */
-            $("li.defaultValue").on('click', function () {
-                        const colorSelected = $(this).find('.bi-circle-fill').css('color');
-                        const $buttonGroup = $(this).closest('.btn-group');
-                        $buttonGroup.find('.bullet-toggle > i').css({ 'color': colorSelected });
-                        $buttonGroup.closest('.einesSpan').parent().find('.boleta > span > i').css({ 'color': colorSelected });
-                    });
-
-                    /*
-                    * IMPORTACIÓN MASIVA DE PUNTOS Y ACUERDOS
-                    */
-                    $('#importPointsButton').on('click', function (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const content = $("#manual-import-text").val();
-                        if (!content || content.trim() === '') {
-                            alert('El contingut no pot estar buit.');
-                            return;
-                        }
-
-                        // Crear un formulario temporal para enviar los datos
-                        const form = $('<form>', {
-                            'method': 'POST',
-                            'action': window.location.href.split('?')[0].replace(/\/$/, "") + '/manualStructureCreation'
-                        });
-
-                        form.append($('<input>', {
-                            'type': 'hidden',
-                            'name': 'form.widgets.message',
-                            'value': content
-                        }));
-
-                        form.append($('<input>', {
-                            'type': 'hidden',
-                            'name': 'form.buttons.send',
-                            'value': 'Send'
-                        }));
-
-                        // No CSRF token añadido
-
-                        $('body').append(form);
-                        form.submit();
-                    });
-
-                    // Limpiar el textarea cuando se cierra el modal de importación
-                    const modalPunts = document.getElementById('modalPunts');
-                    if(modalPunts) {
-                        modalPunts.addEventListener('hidden.bs.modal', () => {
-                            const textarea = modalPunts.querySelector('#manual-import-text');
-                            if(textarea) textarea.value = '';
-                        });
-                    }
-                });
-
-                /*
-                * FUNCIONES GLOBALES (usadas en los manejadores de eventos)
-                */
-                function hideAgreement(url) {
-                    jQuery.ajax({
-              type: 'POST',
-                        url: url + '/hide-agreement',
-                        success: function() { window.location.reload(); },
-                        error: function() { alert('Error en l\'operació'); }
-                    });
-                }
-
-                function deleteElement(name, portal_type) {
-                    const id = CSS.escape(name);
-                    jQuery.ajax({
-              type: 'POST',
-                        url: window.location.href.split('?')[0].replace(/\/$/, "") + '/deleteElement',
-                        data: { action: 'delete', id: name, type: portal_type },
-                        success: function(){
-                            jQuery('#' + id).fadeOut('slow', function() { $(this).remove(); });
-                        },
-                        error: function() {
-                            alert('Error on deleting element');
-                            window.location.reload();
-                        }
-                    });
-                }
-        </script>
-
-      <div style="margin-bottom:20px;"></div>
-
-      <script type="text/javascript" tal:condition="canViewManageVote">
-                document.addEventListener('DOMContentLoaded', function () {
-                    "use strict";
-                    let refreshNeeded = false;
-                    const $ = jQuery;
-
-                    $(document).ajaxStop(function () {
-                        if (refreshNeeded) { setTimeout(() => window.location.reload(), 500); }
-                    });
-
-        $(".reopenVote").on('click', function () {
-          $.ajax({
-            type: 'POST',
-            url: $(this).attr('data-url') + '/reopenVote',
-            success: function (result) {
-                                result = JSON.parse(result);
-                                if (result.status !== "success") { alert(result.msg); }
-              refreshNeeded = true;
-            },
-          });
-        });
-
-        $(".removeVote").on('click', function () {
-                        // Este modal ahora lo gestiona el sistema genérico
-                    });
-
-                    $(".closeVote, .recloseVote").on('click', function () {
-          $.ajax({
-            type: 'POST',
-            url: $(this).attr('data-id') + '/closeVote',
-                            success: function () { refreshNeeded = true; },
-          });
-        });
-
-        $(".openPublicVote").on('click', function () {
-          $.ajax({
-            type: 'POST',
-            url: $(this).attr('data-id') + '/openPublicVote',
-                            success: function () { refreshNeeded = true; },
-          });
-        });
-
-        $(".openOtherPublicVote").on('click', function () {
-          let titolVotacio = prompt($(this).attr('data-title'), "");
-          if (titolVotacio && confirm('T\u00edtol: ' + titolVotacio + '\n\nEst\xE0s segur que vols obrir aquesta esmena?')) {
-            $.ajax({
-              type: 'POST',
-              data: { 'title': titolVotacio },
-              url: $(this).attr('data-id') + '/openOtherPublicVote',
-                                success: function () { refreshNeeded = true; },
-            });
-          }
-        });
-
-        $(".refreshVote").on('click', function () {
-                        const uid = $(this).attr('data-uid');
-          $.ajax({
-            type: 'GET',
-            data: { 'UID': uid },
-            url: 'reloadVoteStats',
-            success: function (result) {
-                                const data = $.parseJSON(result);
-                                const voteRow = $('#vote-' + uid);
-                                const infoRow = $('#' + uid);
-
-                                voteRow.find('.vote-totalVote').html(data.totalVote);
-                                infoRow.find('.vote-users-totalVote').html(data.totalVoteListHTML);
-                                voteRow.find('.vote-state').html(data.state);
-
-                                const infoIcon = voteRow.find('.bi-info-circle');
-              if (data.open) {
-                                    infoIcon.attr('title', 'Inici: ' + data.hourOpen);
-              } else {
-                                    voteRow.find('.vote-favorVote').html(data.favorVote);
-                                    voteRow.find('.vote-againstVote').html(data.againstVote);
-                                    voteRow.find('.vote-whiteVote').html(data.whiteVote);
-                                    infoRow.find('.vote-users-favorVote').html(data.favorVoteListHTML);
-                                    infoRow.find('.vote-users-againstVote').html(data.againstVoteListHTML);
-                                    infoRow.find('.vote-users-whiteVote').html(data.whiteVoteListHTML);
-                                    infoIcon.attr('title', 'Inici: ' + data.hourOpen + '\nFi: ' + data.hourClose);
-                                    voteRow.find('.refreshVote').remove();
-              }
-            },
-          });
-        });
-                });
-      </script>
-
-      <script type="text/javascript" tal:condition="canViewVoteButtons">
-                document.addEventListener('DOMContentLoaded', function () {
-                    "use strict";
-                    let refreshNeeded = false;
-                    const $ = jQuery;
-
-                    $(document).ajaxStop(function () {
-                        if (refreshNeeded) { setTimeout(() => window.location.reload(), 500); }
-                    });
-
-                    function voteHandler(type) {
-                        return function() {
-          $.ajax({
-            type: 'POST',
-                                url: $(this).attr('data-id') + '/' + type + 'Vote',
-            success: function (result) {
-                                    result = JSON.parse(result);
-                                    if (result.status !== "success") { alert(result.msg); }
-                refreshNeeded = true;
-            },
-          });
-                        };
-                    }
-
-                    $(".btn-notvote.favor").on('click', voteHandler('favor'));
-                    $(".btn-notvote.against").on('click', voteHandler('against'));
-                    $(".btn-notvote.white").on('click', voteHandler('white'));
-                });
-      </script>
-
-            <script type="text/javascript" tal:condition="python: canViewManageQuorumButtons or canViewAddQuorumButtons">
-                document.addEventListener('DOMContentLoaded', function () {
-                    "use strict";
-                    let refreshNeeded = false;
-                    const $ = jQuery;
-
-                    $(document).ajaxStop(function () {
-                        if (refreshNeeded) { setTimeout(() => window.location.reload(), 500); }
-                    });
-
-                    $(".openQuorum").on('click', function () { $.post('openQuorum', () => { refreshNeeded = true; }); });
-                    $(".closeQuorum").on('click', function () { $.post('closeQuorum', () => { refreshNeeded = true; }); });
-                    $(".addQuorum").on('click', function () { $.post('addQuorum', () => { refreshNeeded = true; }); });
-                });
-      </script>
-
-            <script type="text/javascript">
-                document.addEventListener('DOMContentLoaded', function() {
-                    "use strict";
-                    const $ = jQuery;
-                    let refreshNeeded = false;
-
-        $(document).ajaxStop(function () {
-          if (refreshNeeded) {
-                            window.location.reload();
-                        }
-                    });
-
-                    // Para el desplegable de información de voto público
-        $(".openInfo").click(function () {
-          $(this).toggleClass("opened");
-          $($(this).attr("data-open")).toggleClass("opened");
-        });
-        });
-      </script>
   </metal:main>
 </html>

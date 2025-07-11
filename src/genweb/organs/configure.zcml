@@ -82,7 +82,7 @@
         />
 
     <subscriber
-      for=".content.sessio.ISessio
+      for=".content.sessio.sessio.ISessio
            Products.DCWorkflow.interfaces.IBeforeTransitionEvent"
       handler=".browser.events.change.sessio_changed"
     />

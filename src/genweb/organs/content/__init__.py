@@ -3,7 +3,7 @@ from zope.interface import implementer
 from plone.dexterity.content import Item
 
 from genweb.organs.content.organgovern.organgovern import IOrgangovern
-from genweb.organs.content.sessio import ISessio
+from genweb.organs.content.sessio.sessio import ISessio
 from genweb.organs.content.punt import IPunt
 from genweb.organs.content.subpunt import ISubpunt
 from genweb.organs.content.acta.acta import IActa

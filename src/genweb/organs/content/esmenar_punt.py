@@ -6,7 +6,7 @@ from z3c.form import form
 from Products.statusmessages.interfaces import IStatusMessage
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs import _
-from genweb.organs.content.sessio import ISessio
+from genweb.organs.content.sessio.sessio import ISessio
 from plone.autoform import directives
 from zope import schema
 from z3c.form.interfaces import DISPLAY_MODE

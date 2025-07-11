@@ -507,7 +507,7 @@ def estatsCanvi(self):
 
 def session_wf_state(self):
     # Returns session state. Check it recurring all path...
-    from genweb.organs.content.sessio import ISessio
+    from genweb.organs.content.sessio.sessio import ISessio
     if ISessio.providedBy(self.context):
         portal_state = api.content.get_state(obj=self.context)
         return portal_state
@@ -547,7 +547,7 @@ def get_organ(context):
 
 
 def get_session(context):
-    from genweb.organs.content.sessio import ISessio
+    from genweb.organs.content.sessio.sessio import ISessio
     if ISessio.providedBy(context):
         return context
     else:

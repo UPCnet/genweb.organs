@@ -44,6 +44,8 @@ module.exports = function (grunt) {
                         '../../../../../genweb.organs/src/genweb/organs/content/acta/acta.js',
                     'js/content/organgovern.min.js':
                         '../../../../../genweb.organs/src/genweb/organs/content/organgovern/organgovern.js',
+                    'js/content/sessio_quorum.min.js':
+                        '../../../../../genweb.organs/src/genweb/organs/content/sessio/sessio_quorum.js',
                     'js/widgets/text_input_select_users.min.js':
                         '../../../../../genweb.organs/src/genweb/organs/widgets/text_input_select_users.js',
                 }

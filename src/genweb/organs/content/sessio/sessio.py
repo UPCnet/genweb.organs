@@ -45,10 +45,12 @@ sessionModalities = SimpleVocabulary(
      SimpleTerm(value=u'asynchronous', title=_(u'asynchronous'))]
 )
 
+
 def is_numeric(value):
     if not value.isdigit():
         raise Invalid(_(u'El valor ha de ser numèric.'))
     return True
+
 
 @provider(IContextAwareDefaultFactory)
 def numSessio(context):
@@ -62,6 +64,7 @@ def numSessio(context):
             total = total + 1
     return '{0}'.format(str(total + 1).zfill(2))
 
+
 @provider(IContextAwareDefaultFactory)
 def numSessioShowOnly(context):
     sessions = api.content.find(
@@ -74,11 +77,13 @@ def numSessioShowOnly(context):
             total = total + 1
     return '{0}'.format(str(total + 1).zfill(2))
 
+
 @provider(IContextAwareDefaultFactory)
 def bodyMail(context):
     if hasattr(context, 'bodyMailconvoquing') and getattr(context.bodyMailconvoquing, 'raw', None):
         return context.bodyMailconvoquing.raw
     return getattr(context, 'bodyMailconvoquing', '')
+
 
 @provider(IContextAwareDefaultFactory)
 def signatura(context):
@@ -242,6 +247,7 @@ class ISessio(model.Schema):
         default=u''
     )
 
+
 class Edit(form.EditForm):
     """ Session edit form
     """
@@ -264,8 +270,9 @@ class Edit(form.EditForm):
 
 
 class View(BrowserView):
-    index = ViewPageTemplateFile('templates/sessio_view.pt')
-    def __call__(self):
+    index = ViewPageTemplateFile('sessio.pt')
+
+    def render(self):
         return self.index()
 
     def viewHistory(self):
@@ -1329,7 +1336,8 @@ class View(BrowserView):
 
 
 class OpenQuorum(BrowserView):
-    def render(self):
+
+    def __call__(self):
         if not isinstance(self.context.infoQuorums, dict):
             self.context.infoQuorums = ast.literal_eval(self.context.infoQuorums)
 
@@ -1362,7 +1370,8 @@ class OpenQuorum(BrowserView):
 
 
 class CloseQuorum(BrowserView):
-    def render(self):
+
+    def __call__(self):
         if not isinstance(self.context.infoQuorums, dict):
             self.context.infoQuorums = ast.literal_eval(self.context.infoQuorums)
 
@@ -1375,14 +1384,16 @@ class CloseQuorum(BrowserView):
 
 
 class RemoveQuorums(BrowserView):
-    def render(self):
+
+    def __call__(self):
         self.context.infoQuorums = {}
         self.context.reindexObject()
         transaction.commit()
 
 
 class AddQuorum(BrowserView):
-    def render(self):
+
+    def __call__(self):
         if not isinstance(self.context.infoQuorums, dict):
             self.context.infoQuorums = ast.literal_eval(self.context.infoQuorums)
 
@@ -1398,7 +1409,8 @@ class AddQuorum(BrowserView):
 
 
 class ExportCSV(BrowserView):
-    def render(self):
+
+    def __call__(self):
         output_file = StringIO()
         # Write the BOM of the text stream to make its charset explicit
         output_file.write(u'\ufeff'.encode('utf8'))
