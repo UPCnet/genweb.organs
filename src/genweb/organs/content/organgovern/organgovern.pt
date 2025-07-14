@@ -40,7 +40,7 @@
 
   <div id="contentOrgan">
 
-    <ul id="tabs" class="nav nav-tabs" role="tablist">
+    <ul id="tabs" class="nav nav-tabs mb-2" role="tablist">
       <li class="nav-item" role="presentation" tal:condition="sessions">
         <button class="nav-link active" id="sessions-tab" data-bs-toggle="tab" data-bs-target="#sessions-tab-panel" type="button" role="tab" aria-controls="sessions-tab-panel" aria-selected="true">
           <i class="bi bi-list" aria-hidden="True"></i>
@@ -140,7 +140,7 @@
       <div class="tab-pane fade" id="membres-tab-panel" role="tabpanel" aria-labelledby="membres-tab" tabindex="0">
         <div class="card" tal:condition="multipleTab">
           <div class="card-header">
-            <ul id="tabsSessions" class="nav nav-tabs card-header-tabs" role="tablist">
+            <ul id="tabsSessions" class="nav nav-tabs mb-2 card-header-tabs" role="tablist">
               <li role="presentation" tal:condition="membresOrgan">
                 <button tal:attributes="class string:nav-link${activeClassMembres}" id="tab1primary-tab" data-bs-toggle="tab" data-bs-target="#tab1primary-tab-panel" type="button" role="tab" aria-controls="tab1primary-tab-panel" aria-selected="true" i18n:translate="">Incoming members list</button>
               </li>

@@ -166,6 +166,13 @@ body.template-search .meva-vinculacio a:hover {
   background-color: RGBA(var(--bs-danger-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 
+/* line 88, ../scss/_generic.scss */
+.nav-tabs .nav-link.active {
+  color: white !important;
+  background: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+}
+
 @media print {
   /* line 3, ../scss/_print.scss */
   body {

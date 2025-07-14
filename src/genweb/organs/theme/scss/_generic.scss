@@ -82,3 +82,12 @@
   color: #fff !important;
   background-color: RGBA(var(--bs-danger-rgb), var(--bs-bg-opacity, 1)) !important;
 }
+
+.nav-tabs {
+
+  .nav-link.active {
+    color: white !important;
+    background: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+  }
+}

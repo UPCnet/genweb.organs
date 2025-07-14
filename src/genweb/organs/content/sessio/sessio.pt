@@ -165,7 +165,7 @@
 
     <div id="contentSessio" class="mb-4">
       <!-- TABS -->
-      <ul class="nav nav-tabs" role="tablist">
+      <ul class="nav nav-tabs mb-2" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id="dadesTab-tab" data-bs-toggle="tab" data-bs-target="#dadesTab"
                   type="button" role="tab" aria-controls="dadesTab" aria-selected="true">
@@ -302,7 +302,7 @@
         <div class="tab-pane fade" id="assistentsTab" tal:condition="hihaPersones">
           <div class="card mb-3">
             <div class="card-header">
-              <ul class="nav nav-tabs card-header-tabs" id="assistentsTabs" role="tablist">
+              <ul class="nav nav-tabs mb-2 card-header-tabs" id="assistentsTabs" role="tablist">
                 <li class="nav-item" role="presentation" tal:condition="membresConvocats">
                   <button class="nav-link active" id="tab1primary-tab" data-bs-toggle="tab" data-bs-target="#tab1primary"
                           type="button" role="tab" aria-controls="tab1primary" aria-selected="true">
