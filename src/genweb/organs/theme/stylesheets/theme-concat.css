@@ -167,7 +167,7 @@ body.template-search .meva-vinculacio a:hover {
 }
 
 /* line 88, ../scss/_generic.scss */
-.nav-tabs .nav-link.active {
+.nav-tabs:not(.card-header-tabs) .nav-link.active {
   color: white !important;
   background: var(--bs-primary) !important;
   border-color: var(--bs-primary) !important;

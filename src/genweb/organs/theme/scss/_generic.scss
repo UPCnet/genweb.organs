@@ -83,7 +83,7 @@
   background-color: RGBA(var(--bs-danger-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 
-.nav-tabs {
+.nav-tabs:not(.card-header-tabs) {
 
   .nav-link.active {
     color: white !important;
