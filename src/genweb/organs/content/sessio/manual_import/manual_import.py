@@ -15,7 +15,7 @@ import transaction
 import unicodedata
 
 
-class Message(BrowserView):
+class ManualImport(BrowserView):
     """ Browser view for manual structure creation
     """
 

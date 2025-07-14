@@ -4,8 +4,10 @@ from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
 from plone import api
+from plone.app.textfield.value import RichTextValue
 from plone.autoform import directives
 from z3c.form import form
+from z3c.form import field
 from plone.event.interfaces import IEventAccessor
 from z3c.form import button
 from z3c.form.interfaces import DISPLAY_MODE
@@ -49,7 +51,7 @@ class IMessage(model.Schema):
 
 class Message(form.Form):
     ignoreContext = True
-    schema = IMessage
+    fields = field.Fields(IMessage)
 
     # Disable the view if no roles in username
     def update(self):
@@ -95,21 +97,21 @@ class Message(form.Form):
         if organ.footerMail is None:
             signatura = ''
         else:
-            signatura = organ.footerMail.encode('utf-8')
+            signatura = organ.footerMail.raw
 
         if session.llocConvocatoria is None:
             place = ''
         else:
-            place = session.llocConvocatoria.encode('utf-8')
+            place = session.llocConvocatoria
 
         lang = self.context.language
 
-        sessiontitle = unicodedata.normalize('NFKD', session.Title().decode('utf-8'))
+        sessiontitle = unicodedata.normalize('NFKD', session.Title())
         fromMessage = _(u"Resultat. ") + sessiontitle + ' (' + sessiondate + ')'
         self.widgets["fromTitle"].value = fromMessage
 
         if lang == 'es':
-            text = unicodedata.normalize('NFKD', 'Resumen de la sesión'.decode('utf-8'))
+            text = unicodedata.normalize('NFKD', 'Resumen de la sesión')
             moreData = '<p><strong>' + sessiontitle + \
                 '</strong><br/></p>Lugar: ' + place + "<br/>Data: " + sessiondate + \
                 "<br/>Hora de inicio: " + starthour + \
@@ -124,16 +126,21 @@ class Message(form.Form):
                 '<br/><br/><p><strong> Sesison summary </strong></p>'
         else:
             # lang = ca or another...
-            text = unicodedata.normalize('NFKD', 'Resum de la sessió'.decode('utf-8'))
+            text = unicodedata.normalize('NFKD', 'Resum de la sessió')
             moreData = '<p><strong>' + sessiontitle + \
                 "</strong><br/></p>Lloc: " + place + "<br/>Data: " + sessiondate + \
                 "<br/>Hora d'inici: " + starthour + \
                 "<br/>Hora de fi: " + endHour + \
                 "<br/><br/><p><strong>" + text + "</strong></p>"
-        punts = unicodedata.normalize('NFKD', self.Punts2Acta().decode('utf-8'))
-        signatura = unicodedata.normalize('NFKD', signatura.decode('utf-8'))
 
-        self.widgets["message"].value = moreData + punts + '<br/>' + signatura
+        punts = unicodedata.normalize('NFKD', self.Punts2Acta())
+        signatura = unicodedata.normalize('NFKD', signatura)
+
+        self.widgets["message"].value = RichTextValue(
+            moreData + punts + '<br/>' + signatura,
+            'text/html',
+            'text/x-html-safe'
+        )
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):
@@ -154,7 +161,7 @@ class Message(form.Form):
             return
 
         # replace hidden fields to maintain correct urls...
-        body = formData['message'].replace('----@@----http:/', 'http://').replace('----@@----https:/', 'https://').encode('utf-8')
+        body = formData['message'].raw.replace('----@@----http:/', 'http://').replace('----@@----https:/', 'https://')
 
         root_url = api.portal.get().absolute_url() + "/" + lang
         body = body.replace('resolveuid/', root_url + "/resolveuid/")

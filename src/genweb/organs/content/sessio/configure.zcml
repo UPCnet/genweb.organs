@@ -64,6 +64,50 @@
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     />
 
+  <browser:page
+    for=".sessio.ISessio"
+    name="mail_convocar"
+    class=".mail_convocar.mail_convocar.Message"
+    template="mail_convocar/mail_convocar.pt"
+    permission="zope2.View"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <browser:page
+    for=".sessio.ISessio"
+    name="mail_informar"
+    class=".mail_informar.mail_informar.Message"
+    template="mail_informar/mail_informar.pt"
+    permission="zope2.View"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <browser:page
+    for=".sessio.ISessio"
+    name="excusar_assist_sessio"
+    class=".excusar_assist.excusar_assist.Message"
+    template="excusar_assist/excusar_assist.pt"
+    permission="zope2.View"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <browser:page
+    for=".sessio.ISessio"
+    name="presentation"
+    class=".presentation.presentation.Presentation"
+    template="presentation/presentation.pt"
+    permission="zope2.View"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <browser:page
+    for=".sessio.ISessio"
+    name="manualStructureCreation"
+    class=".manual_import.manual_import.ManualImport"
+    permission="zope2.View"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
   <subscriber
     for=".sessio.ISessio
           zope.lifecycleevent.interfaces.IObjectRemovedEvent"

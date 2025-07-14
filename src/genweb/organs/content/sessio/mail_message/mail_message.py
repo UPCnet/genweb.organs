@@ -3,6 +3,7 @@ from plone import api
 from zope.schema import TextLine
 from z3c.form import button
 from z3c.form import form
+from z3c.form import field
 from Products.statusmessages.interfaces import IStatusMessage
 from genweb.organs.interfaces import IGenwebOrgansLayer
 from genweb.organs import _
@@ -16,9 +17,9 @@ from plone.event.interfaces import IEventAccessor
 from genweb.organs import utils
 import unicodedata
 from plone.supermodel import model
-from plone.autoform.form import AutoExtensibleForm
 from plone.app.textfield import RichText as RichTextField
 from plone.app.textfield.value import RichTextValue
+
 
 class IMessage(model.Schema):
     """ Enviar missatge als membres /mail_message
@@ -44,9 +45,9 @@ class IMessage(model.Schema):
     )
 
 
-class Message(AutoExtensibleForm, form.EditForm):
+class Message(form.Form):
     ignoreContext = True
-    schema = IMessage
+    fields = field.Fields(IMessage)
 
     def update(self):
         """  Disable the view if username has no roles.
@@ -165,7 +166,7 @@ class Message(AutoExtensibleForm, form.EditForm):
                 subject=formData['fromTitle'],
                 encode=None,
                 immediate=True,
-                charset='utf-8',
+                charset=api.portal.get_registry_record('plone.email_charset'),
                 msg_type='text/html')
 
             addEntryLog(self.context, None, _(u'Sending mail new message'), formData['recipients'])

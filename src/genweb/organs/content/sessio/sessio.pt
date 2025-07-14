@@ -71,7 +71,7 @@
       <!-- Presentación -->
       <div tal:condition="view/showPresentacionButton">
         <a tal:attributes="href string:${absolute_url}/presentation"
-           class="btn btn-outline-primary border-0 d-flex flex-column"
+           class="btn btn-warning border-0 d-flex flex-column"
            i18n:attributes="title Presentacio; alt Presentacio">
           <i class="bi bi-play-circle"></i>
           <span i18n:translate="">Presentacio</span>

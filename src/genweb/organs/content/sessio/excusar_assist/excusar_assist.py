@@ -4,12 +4,11 @@ from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
 from plone import api
-from z3c.form import form, button
+from z3c.form import form, button, field
 from z3c.form.interfaces import DISPLAY_MODE
 from zope import schema
 from zope.schema import TextLine
 from plone.autoform import directives
-from plone.autoform.form import AutoExtensibleForm
 from plone.supermodel import model
 
 from genweb.organs import _
@@ -36,10 +35,10 @@ class IExcusar(model.Schema):
     )
 
 
-class Message(AutoExtensibleForm, form.EditForm):
+class Message(form.Form):
     label = _(u"Excusar l'assistència a la sessió")
     ignoreContext = True
-    schema = IExcusar
+    fields = field.Fields(IExcusar)
 
     def update(self):
         """  Disable the view if username has no roles.

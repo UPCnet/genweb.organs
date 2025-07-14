@@ -224,50 +224,6 @@
         />
 
     <browser:page
-        for=".sessio.sessio.ISessio"
-        name="excusar_assist_sessio"
-        class=".excusar_assist.Message"
-        template="templates/excusarassist_view.pt"
-        permission="zope2.View"
-        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-        />
-
-    <browser:page
-        for=".sessio.sessio.ISessio"
-        name="view_as_role"
-        class=".impersonate_as.ShowSessionAs"
-        template="templates/impersonate_as.pt"
-        permission="zope2.View"
-        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-        />
-
-    <browser:page
-        for=".sessio.sessio.ISessio"
-        name="mail_convocar"
-        class=".mail_convocar.Message"
-        template="templates/mail_convocar.pt"
-        permission="zope2.View"
-        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-        />
-
-    <browser:page
-        for=".sessio.sessio.ISessio"
-        name="mail_informar"
-        class=".mail_informar.Message"
-        template="templates/informar_view.pt"
-        permission="zope2.View"
-        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-        />
-
-    <browser:page
-        for=".sessio.sessio.ISessio"
-        name="manualStructureCreation"
-        class=".manualimport.Message"
-        permission="zope2.View"
-        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-        />
-
-    <browser:page
         for=".organgovern.organgovern.IOrgangovern"
         name="view"
         class=".organgovern.organgovern.View"
@@ -281,24 +237,6 @@
         name="exportAcordsCSV"
         class=".organgovern.organgovern.exportAcords"
         permission="cmf.ManagePortal"
-        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-        />
-
-    <browser:page
-        for=".sessio.sessio.ISessio"
-        name="presentation"
-        class=".presentation.Presentation"
-        template="templates/presentation.pt"
-        permission="zope2.View"
-        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-        />
-
-    <browser:page
-        for=".sessio.sessio.ISessio"
-        name="proposa_punt_od"
-        class=".proposar_punt.Message"
-        template="templates/proposarpunt_view.pt"
-        permission="zope2.View"
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
 
