@@ -761,12 +761,13 @@
                 </div>
 
                 <div class="alert alert-secondary">
-                  <h6 class="alert-heading mb-3" i18n:translate="">Exemple de format</h6>
+                  <h6 class="alert-heading mb-2" i18n:translate="">Exemple de format</h6>
                   <pre class="mb-0">
-                    <code>P Informe del rector
+                    <code>
+P Informe del rector
 P Comissió Econòmica
-      A Aprovació de l'estat de tresoreria
-      P Aprovació de l'expedient 03/23
+  A Aprovació de l'estat de tresoreria
+  P Aprovació de l'expedient 03/23
 A Discutir tema central
 P Conclusions</code>
                   </pre>
@@ -1414,8 +1415,27 @@ P Conclusions</code>
                     </div>
 
     <script type="text/javascript"
-            src="++theme++genweb.organs/js/content/sessio_quorum.min.js"
-            tal:condition="python: canViewManageQuorumButtons or canViewAddQuorumButtons"></script>
+            src="++theme++genweb.organs/js/content/sessio.min.js"></script>    
+
+    <script type="text/javascript"
+            src="++theme++genweb.organs/js/content/sessio_modify.min.js"
+            tal:condition="canModify"></script>    
+
+    <script type="text/javascript"
+            src="++theme++genweb.organs/js/content/sessio_quorum_manage.min.js"
+            tal:condition="canViewManageQuorumButtons"></script>
+
+    <script type="text/javascript"
+            src="++theme++genweb.organs/js/content/sessio_quorum_add.min.js"
+            tal:condition="canViewAddQuorumButtons"></script>
+
+    <script type="text/javascript"
+            src="++theme++genweb.organs/js/content/sessio_vote_manage.min.js"
+            tal:condition="canViewManageVote"></script>
+
+    <script type="text/javascript"
+            src="++theme++genweb.organs/js/content/sessio_vote_view.min.js"
+            tal:condition="canViewVoteButtons"></script>
 
   </metal:main>
 </html>

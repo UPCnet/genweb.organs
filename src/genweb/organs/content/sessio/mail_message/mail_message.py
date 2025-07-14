@@ -16,8 +16,9 @@ from plone.event.interfaces import IEventAccessor
 from genweb.organs import utils
 import unicodedata
 from plone.supermodel import model
+from plone.autoform.form import AutoExtensibleForm
 from plone.app.textfield import RichText as RichTextField
-
+from plone.app.textfield.value import RichTextValue
 
 class IMessage(model.Schema):
     """ Enviar missatge als membres /mail_message
@@ -43,7 +44,7 @@ class IMessage(model.Schema):
     )
 
 
-class Message(form.Form):
+class Message(AutoExtensibleForm, form.EditForm):
     ignoreContext = True
     schema = IMessage
 
@@ -82,49 +83,54 @@ class Message(form.Form):
         lang = self.context.language
         if lang == 'ca':
             titleText = "Missatge de la sessió: " + sessiontitle + ' (' + sessiondate + ')'
-            fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
+            fromMessage = unicodedata.normalize('NFKD', titleText)
             self.widgets["fromTitle"].value = fromMessage
             if self.context.aq_parent.bodyMailSend is None:
                 bodyMailOrgan = '<br/>'
             else:
-                bodyMailOrgan = self.context.aq_parent.bodyMailSend + '<br/>'
+                bodyMailOrgan = self.context.aq_parent.bodyMailSend.raw + '<br/>'
             if self.context.signatura is None:
                 footerOrgan = '<br/>'
             else:
-                footerOrgan = self.context.signatura + '<br/>'
+                footerOrgan = self.context.signatura.raw + '<br/>'
             introData = "<p>Podeu consultar la convocatòria i la documentació de la sessió aquí: <a href=" + \
                 sessionLink + ">" + sessiontitle + "</a></p><br/>"
 
         if lang == 'es':
             titleText = "Mensaje de la sesión: " + sessiontitle + ' (' + sessiondate + ')'
-            fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
+            fromMessage = unicodedata.normalize('NFKD', titleText)
             self.widgets["fromTitle"].value = fromMessage
             if self.context.aq_parent.bodyMailSend is None:
                 bodyMailOrgan = '<br/>'
             else:
-                bodyMailOrgan = self.context.aq_parent.bodyMailSend + '<br/>'
+                bodyMailOrgan = self.context.aq_parent.bodyMailSend.raw + '<br/>'
             if self.context.signatura is None:
                 footerOrgan = '<br/>'
             else:
-                footerOrgan = self.context.signatura + '<br/>'
+                footerOrgan = self.context.signatura.raw + '<br/>'
             introData = "<p>Puede consultar la convocatoria y la documentación de la sesión aquí: <a href=" + \
                 sessionLink + ">" + sessiontitle + "</a></p><br/>"
 
         if lang == 'en':
             titleText = "Message from session: " + sessiontitle + ' (' + sessiondate + ')'
-            fromMessage = unicodedata.normalize('NFKD', titleText.decode('utf-8'))
+            fromMessage = unicodedata.normalize('NFKD', titleText)
             self.widgets["fromTitle"].value = fromMessage
             if self.context.aq_parent.bodyMailSend is None:
                 bodyMailOrgan = '<br/>'
             else:
-                bodyMailOrgan = self.context.aq_parent.bodyMailSend + '<br/>'
+                bodyMailOrgan = self.context.aq_parent.bodyMailSend.raw + '<br/>'
             if self.context.signatura is None:
                 footerOrgan = '<br/>'
             else:
-                footerOrgan = self.context.signatura + '<br/>'
+                footerOrgan = self.context.signatura.raw + '<br/>'
             introData = "<p>Information regarding the call and the documentation can be found here: <a href=" + \
                 sessionLink + ">" + sessiontitle + "</a></p><br/>"
-        self.widgets["message"].value = bodyMailOrgan.encode('utf-8') + introData + footerOrgan.encode('utf-8')
+
+        self.widgets["message"].value = RichTextValue(
+            bodyMailOrgan + introData + footerOrgan,
+            'text/html',
+            'text/x-html-safe'
+        )
 
     @button.buttonAndHandler(_("Send"))
     def action_send(self, action):
@@ -145,7 +151,7 @@ class Message(form.Form):
             return
 
         # Replace hidden fields to maintain correct urls...
-        body = formData['message'].replace('----@@----http:/', 'http://').replace('----@@----https:/', 'https://').encode('utf-8')
+        body = formData['message'].raw.replace('----@@----http:/', 'http://').replace('----@@----https:/', 'https://')
 
         root_url = api.portal.get().absolute_url() + "/" + lang
         body = body.replace('resolveuid/', root_url + "/resolveuid/")
@@ -159,7 +165,7 @@ class Message(form.Form):
                 subject=formData['fromTitle'],
                 encode=None,
                 immediate=True,
-                charset='utf8',
+                charset='utf-8',
                 msg_type='text/html')
 
             addEntryLog(self.context, None, _(u'Sending mail new message'), formData['recipients'])

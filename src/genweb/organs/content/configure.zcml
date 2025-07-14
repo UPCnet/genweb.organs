@@ -8,6 +8,8 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="genweb.organs">
 
+    <include package=".sessio" />
+
     <subscriber
         for=".acord.IAcord
              zope.container.interfaces.IObjectAddedEvent"
@@ -72,18 +74,6 @@
         for=".organgovern.organgovern.IOrgangovern
              zope.lifecycleevent.interfaces.IObjectCreatedEvent"
         handler="genweb.organs.subscribers.update_indicators_on_organ_review_state_change"
-        />
-
-    <subscriber
-        for=".sessio.sessio.ISessio
-             zope.lifecycleevent.interfaces.IObjectRemovedEvent"
-        handler="genweb.organs.subscribers.update_indicators_on_sessio_deletion"
-        />
-
-    <subscriber
-        for=".sessio.sessio.ISessio
-             Products.CMFCore.interfaces.IActionSucceededEvent"
-        handler="genweb.organs.subscribers.update_indicators_on_sessio_review_state_change"
         />
 
     <subscriber
@@ -271,15 +261,6 @@
 
     <browser:page
         for=".sessio.sessio.ISessio"
-        name="mail_message"
-        class=".mail_message.Message"
-        template="templates/message_view.pt"
-        permission="zope2.View"
-        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-        />
-
-    <browser:page
-        for=".sessio.sessio.ISessio"
         name="manualStructureCreation"
         class=".manualimport.Message"
         permission="zope2.View"
@@ -326,55 +307,6 @@
         name="view"
         class=".punt.View"
         template="templates/punt+subpunt_view.pt"
-        permission="zope2.View"
-        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-        />
-
-    <browser:page
-        for=".sessio.sessio.ISessio"
-        name="view"
-        class=".sessio.sessio.View"
-        template="sessio/sessio.pt"
-        permission="zope2.View"
-        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-        />
-
-    <browser:page
-        for=".sessio.sessio.ISessio"
-        name="openQuorum"
-        class=".sessio.sessio.OpenQuorum"
-        permission="genweb.organs.manage.quorum"
-        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-        />
-
-    <browser:page
-        for=".sessio.sessio.ISessio"
-        name="closeQuorum"
-        class=".sessio.sessio.CloseQuorum"
-        permission="genweb.organs.manage.quorum"
-        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-        />
-
-    <browser:page
-        for=".sessio.sessio.ISessio"
-        name="removeQuorums"
-        class=".sessio.sessio.RemoveQuorums"
-        permission="genweb.organs.remove.quorum"
-        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-        />
-
-    <browser:page
-        for=".sessio.sessio.ISessio"
-        name="addQuorum"
-        class=".sessio.sessio.AddQuorum"
-        permission="genweb.organs.add.quorum"
-        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
-        />
-
-    <browser:page
-        for=".sessio.sessio.ISessio"
-        name="exportCSV"
-        class=".sessio.sessio.ExportCSV"
         permission="zope2.View"
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />

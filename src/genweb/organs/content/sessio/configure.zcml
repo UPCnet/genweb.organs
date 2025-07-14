@@ -1,0 +1,79 @@
+
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:i18n="http://namespaces.zope.org/i18n"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="genweb.organs">
+  
+  <browser:page
+    for=".sessio.ISessio"
+    name="view"
+    class=".sessio.View"
+    template="sessio.pt"
+    permission="zope2.View"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <browser:page
+    for=".sessio.ISessio"
+    name="openQuorum"
+    class=".sessio.OpenQuorum"
+    permission="genweb.organs.manage.quorum"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <browser:page
+    for=".sessio.ISessio"
+    name="closeQuorum"
+    class=".sessio.CloseQuorum"
+    permission="genweb.organs.manage.quorum"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <browser:page
+    for=".sessio.ISessio"
+    name="removeQuorums"
+    class=".sessio.RemoveQuorums"
+    permission="genweb.organs.remove.quorum"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <browser:page
+    for=".sessio.ISessio"
+    name="addQuorum"
+    class=".sessio.AddQuorum"
+    permission="genweb.organs.add.quorum"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <browser:page
+    for=".sessio.ISessio"
+    name="exportCSV"
+    class=".sessio.ExportCSV"
+    permission="zope2.View"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <browser:page
+    for=".sessio.ISessio"
+    name="mail_message"
+    class=".mail_message.mail_message.Message"
+    template="mail_message/mail_message.pt"
+    permission="zope2.View"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <subscriber
+    for=".sessio.ISessio
+          zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+    handler="genweb.organs.subscribers.update_indicators_on_sessio_deletion"
+    />
+
+  <subscriber
+    for=".sessio.ISessio
+          Products.CMFCore.interfaces.IActionSucceededEvent"
+    handler="genweb.organs.subscribers.update_indicators_on_sessio_review_state_change"
+    />
+
+</configure>

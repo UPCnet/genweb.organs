@@ -1,10 +1,5 @@
-document.addEventListener('DOMContentLoaded', function(){
+$(document).ready(function(){
   "use strict";
-  let refreshNeeded = false;
-
-  $(document).ajaxStop(function(){
-    if (refreshNeeded) { setTimeout(() => window.location.reload(), 500); }
-  });
 
   $(".openQuorum").on('click', function(){ 
     $.post($(this).data('url') + '/openQuorum', () => { refreshNeeded = true; }); 

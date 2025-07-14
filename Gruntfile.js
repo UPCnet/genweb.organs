@@ -38,14 +38,24 @@ module.exports = function (grunt) {
         uglify: {
             js: {
                 files: {
-                    'js/views/search.min.js':
-                        '../../../../../genweb.organs/src/genweb/organs/browser/search/search.js',
                     'js/content/acta.min.js':
                         '../../../../../genweb.organs/src/genweb/organs/content/acta/acta.js',
                     'js/content/organgovern.min.js':
                         '../../../../../genweb.organs/src/genweb/organs/content/organgovern/organgovern.js',
-                    'js/content/sessio_quorum.min.js':
-                        '../../../../../genweb.organs/src/genweb/organs/content/sessio/sessio_quorum.js',
+                    'js/content/sessio.min.js':
+                        '../../../../../genweb.organs/src/genweb/organs/content/sessio/js/sessio.js',
+                    'js/content/sessio_modify.min.js':
+                        '../../../../../genweb.organs/src/genweb/organs/content/sessio/js/sessio_modify.js',
+                    'js/content/sessio_quorum_add.min.js':
+                        '../../../../../genweb.organs/src/genweb/organs/content/sessio/js/sessio_quorum_add.js',
+                    'js/content/sessio_quorum_manage.min.js':
+                        '../../../../../genweb.organs/src/genweb/organs/content/sessio/js/sessio_quorum_manage.js',
+                    'js/content/sessio_vote_manage.min.js':
+                        '../../../../../genweb.organs/src/genweb/organs/content/sessio/js/sessio_vote_manage.js',
+                    'js/content/sessio_vote_view.min.js':
+                        '../../../../../genweb.organs/src/genweb/organs/content/sessio/js/sessio_vote_view.js',
+                    'js/views/search.min.js':
+                        '../../../../../genweb.organs/src/genweb/organs/browser/search/search.js',
                     'js/widgets/text_input_select_users.min.js':
                         '../../../../../genweb.organs/src/genweb/organs/widgets/text_input_select_users.js',
                 }

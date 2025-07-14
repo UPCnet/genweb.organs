@@ -6,6 +6,8 @@ Se basa en la implementación de ``punt.py`` pero con ligeras variaciones:
 """
 
 from AccessControl import Unauthorized
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone.app.dexterity import textindexer
 from plone import api
@@ -27,9 +29,6 @@ from genweb.organs.firma_documental.utils import UtilsFirmaDocumental
 
 import unicodedata
 from lxml import html
-
-from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 
 # -----------------------------------------------------------------------------
@@ -83,7 +82,6 @@ def proposal_point_default(context):
     # En los formularios de alta, *context* apunta al contenedor donde se
     # añade el subpunt (normalmente un objeto Punt). En edición, *context*
     # será el propio Subpunt. Cubrimos ambos casos.
-
     if hasattr(context, 'portal_type') and context.portal_type == 'genweb.organs.subpunt':
         # Ya somos un subpunt (modo edición): el número ya existe.
         return getattr(context, 'proposalPoint', '1.1') or '1.1'
@@ -111,18 +109,34 @@ def proposal_point_default(context):
 class ISubpunt(model.Schema):
     """Esquema Dexterity para Subpunt."""
 
-    fieldset('subpunt', label=_(u'Tab subpunt'), fields=['title', 'proposalPoint', 'defaultContent', 'estatsLlista'])
+    fieldset('subpunt', 
+             label=_(u'Tab subpunt'), 
+             fields=['title', 'proposalPoint', 'defaultContent', 'estatsLlista'])
 
     textindexer.searchable('title')
-    title = schema.TextLine(title=_(u'Subpunt Title'), required=True)
+    title = schema.TextLine(
+        title=_(u'Subpunt Title'), 
+        required=True
+    )
 
     directives.mode(proposalPoint='hidden')
-    proposalPoint = schema.TextLine(title=_(u'Proposal point number'), required=False, defaultFactory=proposal_point_default)
+    proposalPoint = schema.TextLine(
+        title=_(u'Proposal point number'), 
+        required=False, 
+        defaultFactory=proposal_point_default
+    )
 
     textindexer.searchable('defaultContent')
-    defaultContent = RichTextField(title=_(u"Proposal description"), required=False)
+    defaultContent = RichTextField(
+        title=_(u"Proposal description"), 
+        required=False
+    )
 
-    estatsLlista = schema.Choice(title=_(u"Agreement and document label"), source=llistaEstats, required=True)
+    estatsLlista = schema.Choice(
+        title=_(u"Agreement and document label"), 
+        source=llistaEstats, 
+        required=True
+    )
 
 
 @indexer(ISubpunt)

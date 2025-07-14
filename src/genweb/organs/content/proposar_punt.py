@@ -242,7 +242,7 @@ class Message(form.Form):
                 subject="Nova proposta de punt",
                 encode=None,
                 immediate=True,
-                charset='utf8',
+                charset='utf-8',
                 msg_type='text/html')
 
             # Mail to sender, to confirm
@@ -253,7 +253,7 @@ class Message(form.Form):
                 subject="Proposta punt enviada correctament",
                 encode=None,
                 immediate=True,
-                charset='utf8',
+                charset='utf-8',
                 msg_type='text/html')
 
             self.context.plone_utils.addPortalMessage(
