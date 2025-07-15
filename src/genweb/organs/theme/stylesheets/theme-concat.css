@@ -178,27 +178,29 @@ body.template-search .meva-vinculacio a:hover {
   body {
     width: 210mm;
     height: 297mm;
-    margin: 0mm 2mm 20mm 5mm;
+    margin-top: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+    padding-left: 0rem !important;
   }
 
-  /* line 9, ../scss/_print.scss */
+  /* line 11, ../scss/_print.scss */
   html, body {
     font-size: 15pt !important;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 130% !important;
   }
 
-  /* line 15, ../scss/_print.scss */
+  /* line 17, ../scss/_print.scss */
   li {
     line-height: 130% !important;
   }
 
-  /* line 19, ../scss/_print.scss */
+  /* line 21, ../scss/_print.scss */
   #content-header {
     padding-bottom: 50px;
   }
 
-  /* line 23, ../scss/_print.scss */
+  /* line 25, ../scss/_print.scss */
   #hero,
   nav#portal-breadcrumbs,
   .nav-collapse-eines,
@@ -209,6 +211,7 @@ body.template-search .meva-vinculacio a:hover {
   #edit-bar,
   #viewlet-below-content-title,
   #viewlet-above-content-title,
+  #content-header,
   .header-image,
   #cookies,
   .extraInfo,
@@ -233,122 +236,114 @@ body.template-search .meva-vinculacio a:hover {
     display: none !important;
   }
 
-  /* line 57, ../scss/_print.scss */
+  /* line 60, ../scss/_print.scss */
   #portal-column-content {
     margin: 0 !important;
     width: 100% !important;
   }
 
-  /* line 62, ../scss/_print.scss */
+  /* line 65, ../scss/_print.scss */
   #peu .col-md-8 {
     width: 100% !important;
   }
 
-  /* line 66, ../scss/_print.scss */
+  /* line 69, ../scss/_print.scss */
   div.pageBreak {
     page-break-before: always !important;
   }
 
-  /* line 70, ../scss/_print.scss */
+  /* line 73, ../scss/_print.scss */
   #portal-breadcrumbs {
     display: inline !important;
   }
 
-  /* line 74, ../scss/_print.scss */
+  /* line 77, ../scss/_print.scss */
   a {
     text-decoration: underline;
     color: black;
   }
-  /* line 78, ../scss/_print.scss */
+  /* line 81, ../scss/_print.scss */
   a:hover {
     text-decoration: none;
   }
 
-  /* line 83, ../scss/_print.scss */
+  /* line 86, ../scss/_print.scss */
   .plain a {
     color: #555555;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 12pt;
+    font-size: 0.8rem;
   }
 
-  /* line 89, ../scss/_print.scss */
-  h1,
+  /* line 92, ../scss/_print.scss */
   h2,
   h3 {
     color: #557C95;
-    margin-top: 27px;
   }
 
-  /* line 96, ../scss/_print.scss */
+  /* line 97, ../scss/_print.scss */
   h1 {
-    font-size: 24pt;
-  }
-  /* line 99, ../scss/_print.scss */
-  h1 > span {
-    color: #557C95;
-  }
-  /* line 103, ../scss/_print.scss */
-  h1.h1Print {
-    text-align: left;
-    font-size: 24pt;
+    font-size: 1.6rem !important;
+    margin-top: 0px !important;
   }
 
-  /* line 109, ../scss/_print.scss */
+  /* line 102, ../scss/_print.scss */
   h2 {
-    margin-bottom: 20px !important;
-    font-size: 20pt;
+    font-size: 1.4rem !important;
+    margin-bottom: 0.8rem !important;
   }
 
-  /* line 114, ../scss/_print.scss */
+  /* line 107, ../scss/_print.scss */
   h3 {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 18pt;
+    font-size: 1.3rem !important;
   }
 
-  /* line 119, ../scss/_print.scss */
+  /* line 112, ../scss/_print.scss */
   h4 {
-    font-size: 15pt !important;
+    font-size: 1.2rem !important;
   }
 
-  /* line 123, ../scss/_print.scss */
+  /* line 116, ../scss/_print.scss */
   .h4Print {
     color: #557C95;
   }
 
-  /* line 127, ../scss/_print.scss */
+  /* line 120, ../scss/_print.scss */
   .caixa {
     width: 9cm;
     vertical-align: top;
   }
 
-  /* line 132, ../scss/_print.scss */
+  /* line 125, ../scss/_print.scss */
   table {
-    font-size: 15pt !important;
+    font-size: 0.8rem !important;
     line-height: 120% !important;
   }
-  /* line 136, ../scss/_print.scss */
+  /* line 129, ../scss/_print.scss */
+  table thead {
+    border-bottom: 5px solid var(--bs-primary) !important;
+  }
+  /* line 133, ../scss/_print.scss */
   table tbody {
-    font-size: 15pt !important;
-    font-family: Arial, Helvetica, sans-serif !important;
     line-height: 130% !important;
   }
-  /* line 141, ../scss/_print.scss */
+  /* line 136, ../scss/_print.scss */
   table tbody > tr {
     height: auto !important;
   }
 
-  /* line 147, ../scss/_print.scss */
+  /* line 142, ../scss/_print.scss */
   #portal-header,
   #portal-footer-wrapper {
     border: 0px;
   }
 
-  /* line 152, ../scss/_print.scss */
+  /* line 147, ../scss/_print.scss */
   section#content-area {
     margin-top: 0px;
   }
 
-  /* line 156, ../scss/_print.scss */
+  /* line 151, ../scss/_print.scss */
   .h2butlleti {
     line-height: inherit;
   }

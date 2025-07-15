@@ -3,7 +3,9 @@
   body {
     width: 210mm; 
     height: 297mm;
-    margin: 0mm 2mm 20mm 5mm;
+    margin-top: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+    padding-left: 0rem !important;
   }
 
   html, body {
@@ -30,6 +32,7 @@
   #edit-bar,
   #viewlet-below-content-title,
   #viewlet-above-content-title,
+  #content-header,
   .header-image,
   #cookies,
   .extraInfo,
@@ -83,41 +86,31 @@
   .plain a {
     color: #555555;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 12pt;
+    font-size: 0.8rem;
   }
 
-  h1, 
   h2, 
   h3 {
     color: #557C95;
-    margin-top: 27px;
   }
 
   h1 {
-    font-size: 24pt;
-
-    & > span {
-      color: #557C95;
-    }
-
-    &.h1Print {
-      text-align: left;
-      font-size: 24pt;
-    }
+    font-size: 1.6rem !important;
+    margin-top: 0px !important;
   }
 
   h2 {
-    margin-bottom: 20px !important;
-    font-size: 20pt;
+    font-size: 1.4rem !important;
+    margin-bottom: 0.8rem !important;
   }
 
   h3 {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 18pt;
+    font-size: 1.3rem !important;
   }
 
   h4 {
-    font-size:15pt !important;
+    font-size: 1.2rem !important;
   }
 
   .h4Print {
@@ -130,12 +123,14 @@
   }
 
   table {
-    font-size: 15pt !important;
+    font-size: 0.8rem !important;
     line-height: 120% !important;
 
+    thead {
+      border-bottom: 5px solid var(--bs-primary) !important;
+    }
+
     tbody {
-      font-size: 15pt !important;
-      font-family: Arial, Helvetica, sans-serif !important;
       line-height: 130% !important;
 
       & > tr {

@@ -90,11 +90,13 @@
 
       <!-- Imprimir -->
       <div>
-        <a href="javascript:printButlletiPage();" class="btn btn-outline-primary border-0 d-flex flex-column"
+        <a id="printButlletiBtn" class="btn btn-outline-primary border-0 d-flex flex-column"
+           tal:attributes="data-url string:${absolute_url}"
            i18n:attributes="title printOrdreDia; alt printOrdreDia">
           <i class="bi bi-printer"></i>
           <span i18n:translate="">Print</span>
         </a>
+        <iframe id="printButlletiIframe" name="printButlletiIframe" style="display:none;width:0;height:0;border:0;" src=""></iframe>
       </div>
 
       <!-- Exportar -->

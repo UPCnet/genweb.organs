@@ -25,14 +25,6 @@
 
   <browser:page
     for="*"
-    name="butlleti"
-    class=".views.Butlleti"
-    layer="..interfaces.IGenwebOrgansLayer"
-    permission="zope2.Public"
-    />
-
-  <browser:page
-    for="*"
     name="allsessions"
     class=".views.allSessions"
     layer="..interfaces.IGenwebOrgansLayer"

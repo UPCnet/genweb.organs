@@ -1,0 +1,90 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master"
+      lang="en"
+      i18n:domain="genweb.organs">
+
+<body>
+
+<metal:column_one fill-slot="column_one_slot" />
+<metal:content-core fill-slot="main">
+
+<tal:block i18n:domain="genweb.organs" tal:condition="view/canView">
+
+  <div class="row" tal:condition="context/logoOrgan">
+    <div class="col-8">
+      <h1>
+        <span tal:content="view/getOrganTitle">Butlletin Session Title</span>
+      </h1>
+    </div>
+    <div class="col-4">
+      <div class="text-end">
+        <img tal:attributes="src string:${context/absolute_url}/@@images/logoOrgan" />
+      </div>
+    </div>
+    <h2 tal:content="view/getTitle" class="h2butlleti">Butlletin Session Title</h2>
+  </div>
+
+
+  <tal:block tal:condition="not:context/logoOrgan">
+    <h1>
+      <span tal:content="view/getUnitat"></span> -
+      <span tal:content="view/getOrganTitle">Butlletin Session Title</span>
+    </h1>
+    <h2 tal:content="view/getTitle" class="h2butlleti">Butlletin Session Title</h2>
+  </tal:block>
+
+  <div class="text-end mb-3">
+    <span i18n:translate="">Estat de la sessio</span>:&nbsp;
+    <span i18n:domain="genweb" i18n:translate="" tal:content="view/status"
+          tal:attributes="class string:label label-${view/status}">
+      Session status
+    </span>
+  </div>
+
+  <div class="clearfix"></div>
+  <div class="documentDescription"></div>
+
+  <table id="newsletterContent"
+        cellpadding="0"
+        cellspacing="0"
+        align="center">
+    <tr>
+      <td style="width:1%;">
+        <table class="table table-bordered table-condensed table-striped"
+              align="center"
+              width="100%;"
+              cellpadding="0"
+              cellspacing="0">
+          <thead>
+            <tr>
+              <th class="align-middle text-center" style="width: 15%;" i18n:translate="">Punt</th>
+              <th class="align-middle text-center w-25" i18n:translate="">Agreement</th>
+              <th class="align-middle" i18n:translate="">Titol</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr vertical-align="top" valign="top"
+                tal:repeat="row view/PuntsOrdreDelDia">
+              <td class="text-end" style="width: 15%;">
+                <span tal:condition="row/punt" tal:content="row/punt"></span>
+              </td>
+              <td class="text-end w-25">
+                <span tal:condition="row/acord" tal:content="row/acord"></span>
+              </td>
+              <td>
+                <a tal:condition="row/Title" href="" tal:content="row/Title" tal:attributes="href row/url"></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</tal:block>
+</metal:content-core>
+</body>
+</html>
