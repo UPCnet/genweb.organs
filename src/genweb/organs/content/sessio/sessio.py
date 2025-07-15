@@ -1410,10 +1410,21 @@ class AddQuorum(BrowserView):
 
 class ExportCSV(BrowserView):
 
+    data_header_columns = [
+        "Tipus d'unitat",
+        "Unitat",
+        "Nom de l'òrgan",
+        "Tipus d'òrgan de govern",
+        "Secretaris",
+        "Editors",
+        "Membres",
+        "Afectats",
+        "Sessions obertes l'últim any"]
+
     def __call__(self):
         output_file = StringIO()
         # Write the BOM of the text stream to make its charset explicit
-        output_file.write(u'\ufeff'.encode('utf8'))
+        output_file.write(u'\ufeff')
         self.write_data(output_file)
 
         header_content_type = 'text/csv'
