@@ -421,27 +421,40 @@ body.portaltype-genweb-organs-sessio {
   /* Estilo para que el botón no parezca un botón y tenga el cursor correcto */
 }
 /* line 5, ../scss/content/_sessio.scss */
+body.portaltype-genweb-organs-sessio .sessionActions span,
 body.portaltype-genweb-organs-sessio .sessionActions a {
   font-weight: normal !important;
   max-width: 130px;
 }
-/* line 9, ../scss/content/_sessio.scss */
+/* line 10, ../scss/content/_sessio.scss */
+body.portaltype-genweb-organs-sessio .sessionActions span i::before,
 body.portaltype-genweb-organs-sessio .sessionActions a i::before {
   font-size: 2rem;
 }
+/* line 14, ../scss/content/_sessio.scss */
+body.portaltype-genweb-organs-sessio .sessionActions span.btn-success,
+body.portaltype-genweb-organs-sessio .sessionActions a.btn-success {
+  cursor: default;
+}
 /* line 17, ../scss/content/_sessio.scss */
+body.portaltype-genweb-organs-sessio .sessionActions span.btn-success:hover,
+body.portaltype-genweb-organs-sessio .sessionActions a.btn-success:hover {
+  background-color: var(--bs-btn-bg) !important;
+  border-color: var(--bs-btn-border-color) !important;
+}
+/* line 27, ../scss/content/_sessio.scss */
 body.portaltype-genweb-organs-sessio .btn-expand-collapse .bi-chevron-up {
   display: none;
 }
-/* line 18, ../scss/content/_sessio.scss */
+/* line 28, ../scss/content/_sessio.scss */
 body.portaltype-genweb-organs-sessio .btn-expand-collapse[aria-expanded="true"] .bi-chevron-up {
   display: inline-block;
 }
-/* line 19, ../scss/content/_sessio.scss */
+/* line 29, ../scss/content/_sessio.scss */
 body.portaltype-genweb-organs-sessio .btn-expand-collapse[aria-expanded="true"] .bi-chevron-down {
   display: none;
 }
-/* line 22, ../scss/content/_sessio.scss */
+/* line 32, ../scss/content/_sessio.scss */
 body.portaltype-genweb-organs-sessio .btn-expand-collapse {
   background: none;
   border: none;

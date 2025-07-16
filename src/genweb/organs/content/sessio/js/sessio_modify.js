@@ -38,7 +38,7 @@ $(document).ready(function(){
       success: function () {
         const modal = bootstrap.Modal.getInstance(modalPunt);
         if (modal) modal.hide();
-        refreshNeeded = true;
+        setTimeout(() => window.location.reload(), 500);
       },
       error: function () {
         alert('Hi ha hagut un error al crear el punt.');
@@ -62,7 +62,7 @@ $(document).ready(function(){
       success: function () {
         const modal = bootstrap.Modal.getInstance(modalAcord);
         if (modal) modal.hide();
-        refreshNeeded = true;
+        setTimeout(() => window.location.reload(), 500);
       },
       error: function () {
         alert('Hi ha hagut un error al crear l\'acord.');

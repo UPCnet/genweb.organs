@@ -1,12 +1,6 @@
 $(document).ready(function(){
   "use strict";
 
-  let refreshNeeded = false;
-
-  $(document).ajaxStop(function(){
-    if (refreshNeeded) { setTimeout(() => window.location.reload(), 500); }
-  });
-
   // Print Acta
   var $btnPrint = $('#printButlletiBtn');
   var $iframe = $('#printButlletiIframe');

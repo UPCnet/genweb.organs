@@ -1759,6 +1759,10 @@ msgstr ""
 msgid "add_quorum"
 msgstr ""
 
+#: ./genweb/organs/content/templates/sessio_view.pt:238
+msgid "added_quorum"
+msgstr ""
+
 #: ./genweb/organs/search.py:420
 msgid "alphabetically"
 msgstr ""

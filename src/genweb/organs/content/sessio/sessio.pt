@@ -145,7 +145,7 @@
           <span tal:condition="checkHasQuorum"
                 class="btn btn-success addQuorumChecked d-flex flex-column"
                 tal:attributes=" data-url string:${absolute_url}"
-                i18n:attributes="title add_quorum; alt add_quorum;">
+                i18n:attributes="title added_quorum; alt added_quorum;">
             <i class="bi bi-check2-circle"></i>
             <span i18n:translate="">Control quorum</span>
           </span>

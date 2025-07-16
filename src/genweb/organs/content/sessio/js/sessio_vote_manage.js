@@ -8,7 +8,7 @@ $(document).ready(function(){
       success: function (result) {
         result = JSON.parse(result);
         if (result.status !== "success") { alert(result.msg); }
-        refreshNeeded = true;
+        setTimeout(() => window.location.reload(), 500);
       },
     });
   });
@@ -21,7 +21,7 @@ $(document).ready(function(){
     $.ajax({
       type: 'POST',
       url: $(this).attr('data-id') + '/closeVote',
-      success: function () { refreshNeeded = true; },
+      success: function () { setTimeout(() => window.location.reload(), 500); },
     });
   });
 
@@ -29,7 +29,7 @@ $(document).ready(function(){
     $.ajax({
       type: 'POST',
       url: $(this).attr('data-id') + '/openPublicVote',
-      success: function () { refreshNeeded = true; },
+      success: function () { setTimeout(() => window.location.reload(), 500); },
     });
   });
 
@@ -40,7 +40,7 @@ $(document).ready(function(){
         type: 'POST',
         data: { 'title': titolVotacio },
         url: $(this).attr('data-id') + '/openOtherPublicVote',
-        success: function () { refreshNeeded = true; },
+        success: function () { setTimeout(() => window.location.reload(), 500); },
       });
     }
   });

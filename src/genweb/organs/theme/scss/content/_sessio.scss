@@ -2,12 +2,22 @@ body.portaltype-genweb-organs-sessio {
 
   .sessionActions {
 
+    span,
     a {
       font-weight: normal !important;
       max-width: 130px;
 
       i::before {
         font-size: 2rem;
+      }
+
+      &.btn-success {
+        cursor: default;
+
+        &:hover {
+          background-color: var(--bs-btn-bg) !important;
+          border-color: var(--bs-btn-border-color) !important;
+        }
       }
     }
   }

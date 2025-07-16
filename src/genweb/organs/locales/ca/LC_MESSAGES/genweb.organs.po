@@ -1744,6 +1744,10 @@ msgstr "Acord"
 msgid "add_quorum"
 msgstr "Afegir Assistència"
 
+#: ./genweb/organs/content/templates/sessio_view.pt:238
+msgid "added_quorum"
+msgstr "Assistència Afegida"
+
 #: ./genweb/organs/search.py:420
 msgid "alphabetically"
 msgstr "alfabèticament"

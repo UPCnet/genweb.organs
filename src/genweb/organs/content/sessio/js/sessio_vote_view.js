@@ -11,7 +11,7 @@ $(document).ready(function() {
           if (result.status !== "success") {
             alert(result.msg);
           }
-          refreshNeeded = true;
+          setTimeout(() => window.location.reload(), 500);
         },
       });
     };
