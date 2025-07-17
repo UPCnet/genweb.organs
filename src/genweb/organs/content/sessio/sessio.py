@@ -409,7 +409,7 @@ class View(BrowserView):
                 # add actas to view_template for ordering but dont show them
                 item = obj._unrestrictedGetObject()
                 results.append(dict(id=obj.id,
-                                    classe='hidden',
+                                    classe='d-none',
                                     show=False,
                                     isAcord=False,
                                     agreement=False))

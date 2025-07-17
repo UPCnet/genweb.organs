@@ -1,6 +1,88 @@
 $(document).ready(function(){
   "use strict";
 
+  $('#sortable').sortable({
+    placeholder: 'ui-state-highlight',
+    opacity: 0.5,
+    scroll: false,
+    start: function(event, ui){
+      start = ui.item.index();
+    },
+    update: function(event, ui){
+      var params = {};
+      params.itemid = ui.item.attr('id');
+      params.action = 'movepunt';
+      params.delta = ui.item.index() - start
+      $.ajax({
+        type: 'POST',
+        url: '@@fcmoveTable',
+        data: params,
+        success: function(){
+          setTimeout(() => window.location.reload(), 500);
+        },
+      });
+    },
+  }).disableSelection();
+
+  $('.sortable2').sortable({
+    placeholder: 'ui-state-highlight2',
+    opacity: 0.5,
+    scroll: false,
+    start: function(event, ui){
+      start = ui.item.index();
+    },
+    update: function(event, ui){
+      var params = {};
+      params.itemid = ui.item.attr('id');
+      params.action = 'movesubpunt';
+      params.delta = ui.item.index() - start
+      $.ajax({
+        type: 'POST',
+        url: '@@fcmoveTable',
+        data: params,
+        success: function(){
+          setTimeout(() => window.location.reload(), 500);
+        },
+      });
+    },
+  }).disableSelection();
+
+  /*
+  * LÓGICA DE SELECCIÓN DE PUNTO (PICKING)
+  */
+  function mouseHandler(e) {
+    const currentLi = $(this);
+    if (!currentLi.hasClass('picked')) {
+      // Deseleccionar cualquier otro
+      $('.ui-sortable li.picked').each(function () {
+        $(this).removeClass('picked')
+          .find('.einesSpan').toggleClass('d-none');
+        $(this).find('.boleta').show();
+      });
+      // Seleccionar el actual
+      currentLi.addClass('picked');
+      currentLi.find('.einesSpan').toggleClass('d-none');
+      currentLi.find('.boleta').hide();
+    }
+  }
+
+  $('.ui-sortable li').on('click', mouseHandler);
+
+  // Click fuera de la lista para deseleccionar
+  $(window).on("click.Bst", function (event) {
+    if ($(event.target).closest('.modal').length > 0) return; // No hacer nada si el click es en un modal
+    if ($(event.target).closest('#sortable').length === 0) {
+      $('.ui-sortable li.picked').each(function () {
+        $(this).removeClass('picked')
+          .find('.einesSpan').toggleClass('d-none');
+        $(this).find('.boleta').show();
+      });
+    }
+  });
+
+
+
+
   /*
   * MANEJO DE MODALES
   */
@@ -142,38 +224,7 @@ $(document).ready(function(){
     });
   }
 
-  /*
-  * LÓGICA DE SELECCIÓN DE PUNTO (PICKING)
-  */
-  function mouseHandler(e) {
-    const currentLi = $(this);
-    if (!currentLi.hasClass('picked')) {
-      // Deseleccionar cualquier otro
-      $('.ui-sortable li.picked').each(function () {
-        $(this).removeClass('picked')
-          .find('.einesSpan, .show').toggleClass('einesSpan show');
-        $(this).find('.boleta').show();
-      });
-      // Seleccionar el actual
-      currentLi.addClass('picked');
-      currentLi.find('.einesSpan').toggleClass('einesSpan show');
-      currentLi.find('.boleta').hide();
-    }
-  }
 
-  $('.ui-sortable li').on('click', mouseHandler);
-
-  // Click fuera de la lista para deseleccionar
-  $(window).on("click.Bst", function (event) {
-    if ($(event.target).closest('.modal').length > 0) return; // No hacer nada si el click es en un modal
-    if ($(event.target).closest('#sortable').length === 0) {
-      $('.ui-sortable li.picked').each(function () {
-        $(this).removeClass('picked')
-          .find('.einesSpan, .show').toggleClass('einesSpan show');
-        $(this).find('.boleta').show();
-      });
-    }
-  });
 
   /*
   * ESTADOS DE PUNTO (COLOR)

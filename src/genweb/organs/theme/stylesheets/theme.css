@@ -415,11 +415,6 @@ body.portaltype-genweb-organs-organgovern #contentOrgan .reorder a:hover {
   font-weight: 700 !important;
 }
 
-/* line 1, ../scss/content/_sessio.scss */
-body.portaltype-genweb-organs-sessio {
-  /* Estilos para mostrar/ocultar el icono correcto en el botón de colapso */
-  /* Estilo para que el botón no parezca un botón y tenga el cursor correcto */
-}
 /* line 5, ../scss/content/_sessio.scss */
 body.portaltype-genweb-organs-sessio .sessionActions span,
 body.portaltype-genweb-organs-sessio .sessionActions a {
@@ -442,23 +437,43 @@ body.portaltype-genweb-organs-sessio .sessionActions a.btn-success:hover {
   background-color: var(--bs-btn-bg) !important;
   border-color: var(--bs-btn-border-color) !important;
 }
-/* line 27, ../scss/content/_sessio.scss */
-body.portaltype-genweb-organs-sessio .btn-expand-collapse .bi-chevron-up {
-  display: none;
-}
-/* line 28, ../scss/content/_sessio.scss */
-body.portaltype-genweb-organs-sessio .btn-expand-collapse[aria-expanded="true"] .bi-chevron-up {
-  display: inline-block;
-}
-/* line 29, ../scss/content/_sessio.scss */
-body.portaltype-genweb-organs-sessio .btn-expand-collapse[aria-expanded="true"] .bi-chevron-down {
-  display: none;
-}
-/* line 32, ../scss/content/_sessio.scss */
-body.portaltype-genweb-organs-sessio .btn-expand-collapse {
-  background: none;
-  border: none;
+/* line 25, ../scss/content/_sessio.scss */
+body.portaltype-genweb-organs-sessio #sortable {
+  list-style-type: none;
+  margin: 0;
   padding: 0;
-  color: #557c95;
-  cursor: pointer;
+  width: auto;
+}
+/* line 31, ../scss/content/_sessio.scss */
+body.portaltype-genweb-organs-sessio #sortable .ui-state-grey,
+body.portaltype-genweb-organs-sessio #sortable .ui-state-grey-not_move,
+body.portaltype-genweb-organs-sessio #sortable .ui-state-grey-impersonate {
+  border: 1px solid #eee;
+  position: relative;
+  font-weight: normal;
+  color: black;
+}
+/* line 42, ../scss/content/_sessio.scss */
+body.portaltype-genweb-organs-sessio #sortable .ui-state-grey:hover {
+  background: #f9f9f9 none repeat scroll 0 0;
+  cursor: move;
+  position: relative;
+}
+/* line 47, ../scss/content/_sessio.scss */
+body.portaltype-genweb-organs-sessio #sortable .ui-state-grey:hover:before {
+  cursor: move;
+  color: #007BC0;
+  position: absolute;
+  font-size: 15px;
+  bottom: 10px;
+  left: 10px;
+}
+/* line 57, ../scss/content/_sessio.scss */
+body.portaltype-genweb-organs-sessio #sortable .ui-state-grey.picked {
+  background: #e5f7ff !important;
+}
+/* line 62, ../scss/content/_sessio.scss */
+body.portaltype-genweb-organs-sessio #sortable .ui-state-grey-file:hover {
+  background: #f9f9f9 none repeat scroll 0 0 !important;
+  position: relative;
 }

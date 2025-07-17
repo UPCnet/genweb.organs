@@ -18,6 +18,27 @@ $(document).ready(function(){
     });
   }
 
+
+  $("#expandAll").click(function(){
+    // $(".expand").parent().parent().parent().slideDown();
+    // $(".expand").hide();
+    // $(".notexpand").show();
+    // $(".expand").parent().parent().parent().find('.sortable2').slideDown();
+    // $(".expand").parent().parent().parent().find('.listFiles').slideDown();
+    $("#expandAll").toggleClass('d-none');
+    $("#collapseAll").toggleClass('d-none');
+  });
+
+  $("#collapseAll").click(function(){
+    // $(".notexpand").slideUp();
+    // $(".notexpand").hide();
+    // $(".expand").show();
+    // $(".expand").parent().parent().parent().find('.sortable2').slideUp();
+    // $(".expand").parent().parent().parent().find('.listFiles').slideUp();
+    $("#expandAll").toggleClass('d-none');
+    $("#collapseAll").toggleClass('d-none');
+  });
+
   // Para el desplegable de información de voto público
   //$(".openInfo").click(function () {
   //  $(this).toggleClass("opened");

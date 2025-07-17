@@ -16,7 +16,10 @@ module.exports = function (grunt) {
                 separator: '',
             },
             css: {
-                src: ['stylesheets/theme.css'],
+                src: [
+                    'stylesheets/theme.css',
+                    'stylesheets/jquery-ui.css'
+                ],
                 dest: 'stylesheets/theme-concat.css',
             }
         },
@@ -30,7 +33,8 @@ module.exports = function (grunt) {
             css: {
                 files: [
                     'scss/*',
-                    'scss/**/*'
+                    'scss/**/*',
+                    'stylesheets/jquery-ui.css'
                 ],
                 tasks: ['compass:css', 'concat:css', 'cssmin:css']
             },
