@@ -73,7 +73,6 @@ directlyProvides(llistaEstats, IContextSourceBinder)
 # Default factories
 # -----------------------------------------------------------------------------
 
-@provider(IContextAwareDefaultFactory)
 def proposal_point_default(context):
     """Genera automáticamente el número de subpunt.
 
@@ -109,32 +108,32 @@ def proposal_point_default(context):
 class ISubpunt(model.Schema):
     """Esquema Dexterity para Subpunt."""
 
-    fieldset('subpunt', 
-             label=_(u'Tab subpunt'), 
+    fieldset('subpunt',
+             label=_(u'Tab subpunt'),
              fields=['title', 'proposalPoint', 'defaultContent', 'estatsLlista'])
 
     textindexer.searchable('title')
     title = schema.TextLine(
-        title=_(u'Subpunt Title'), 
+        title=_(u'Subpunt Title'),
         required=True
     )
 
     directives.mode(proposalPoint='hidden')
     proposalPoint = schema.TextLine(
-        title=_(u'Proposal point number'), 
-        required=False, 
+        title=_(u'Proposal point number'),
+        required=False,
         defaultFactory=proposal_point_default
     )
 
     textindexer.searchable('defaultContent')
     defaultContent = RichTextField(
-        title=_(u"Proposal description"), 
+        title=_(u"Proposal description"),
         required=False
     )
 
     estatsLlista = schema.Choice(
-        title=_(u"Agreement and document label"), 
-        source=llistaEstats, 
+        title=_(u"Agreement and document label"),
+        source=llistaEstats,
         required=True
     )
 
