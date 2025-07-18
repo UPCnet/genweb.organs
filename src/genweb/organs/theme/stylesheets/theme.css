@@ -173,6 +173,11 @@ body.template-search .meva-vinculacio a:hover {
   border-color: var(--bs-primary) !important;
 }
 
+/* line 97, ../scss/_generic.scss */
+.card-header .mb-0 {
+  margin-bottom: 0 !important;
+}
+
 @media print {
   /* line 3, ../scss/_print.scss */
   body {
