@@ -697,7 +697,10 @@ class showMembersOrgan(BrowserView):
 
     def getMembers(self):
         if self.context.portal_type == 'genweb.organs.organgovern':
-            return self.context.membresOrgan
+            if self.context.membresOrgan is not None:
+                return self.context.membresOrgan.output
+            else:
+                return '<p class="text-muted">No hi ha membres definits.</p>'
 
     def getTitle(self):
         if self.context.portal_type == 'genweb.organs.organgovern':

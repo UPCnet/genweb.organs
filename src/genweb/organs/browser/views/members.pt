@@ -9,14 +9,28 @@
 
 <metal:content-core fill-slot="content">
 
-  	<div class="link-banner">
-		<i class="bi bi-group"></i>&nbsp;<tal:omit-tag i18n:translate=""> Composicio </tal:omit-tag>
-    	<span tal:content="view/getTitle"> Consell Academic </span>
-  	</div>
+  <div class="container my-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary bg-opacity-10 border-primary">
+            <h1 class="h3 mb-0">
+              <i class="bi bi-people-fill text-primary me-2"></i>
+              <tal:omit-tag i18n:translate="">Composició</tal:omit-tag>
+              <span tal:content="view/getTitle" class="fw-bold">Consell Academic</span>
+            </h1>
+          </div>
+          <div class="card-body">
+            <div class="documentDescription mb-3"></div>
+            <div class="members-content" tal:content="structure view/getMembers">
+              <!-- Contenido de membres -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-	<div class="documentDescription"></div>
-
-  	<span tal:content="structure view/getMembers"></span>
 
 </metal:content-core>
 
