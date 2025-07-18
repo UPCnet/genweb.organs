@@ -1208,7 +1208,7 @@ class allOrgansEstatsLlista(BrowserView):
                 'id': brain.id,
                 'title': brain.Title,
                 'url': brain.getURL(),
-                'estats': brain.getObject().estatsLlista.replace('<p>', '').replace('</p>', '').split('\r\n')
+                'estats': getattr(brain.getObject().estatsLlista, 'raw', '').replace('<p>', '').replace('</p>', '').split('\r\n') if brain.getObject().estatsLlista else []
             })
 
         return results
