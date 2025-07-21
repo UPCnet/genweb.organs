@@ -289,7 +289,7 @@
     />
 
   <subscriber
-    for="genweb.organs.content.acord.IAcord
+    for="genweb.organs.content.acord.acord.IAcord
          zope.lifecycleevent.interfaces.IObjectRemovedEvent"
     handler=".events.removeObject.removeAcord"
     />

@@ -18,8 +18,8 @@ from plone.supermodel import model
 
 from genweb.organs import _
 from genweb.organs import utils
-from genweb.organs.content.acord import llistaEstatsVotacio
-from genweb.organs.content.acord import llistaTipusVotacio
+from genweb.organs.content.acord.acord import llistaEstatsVotacio
+from genweb.organs.content.acord.acord import llistaTipusVotacio
 from genweb.organs.utils import addEntryLog
 from genweb.organs.utils import checkHasOpenVote
 
@@ -54,13 +54,15 @@ class IVotacioAcord(model.Schema):
 
 
 class Edit(form.EditForm):
+
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
 
 
 class VotacioAcordView(BrowserView):
+
     def render(self):
-        self.template = ViewPageTemplateFile('templates/votacio_acord.pt')
+        self.template = ViewPageTemplateFile('votacio_acord.pt')
         return self.template(self)
 
     def canView(self):
@@ -81,7 +83,8 @@ class VotacioAcordView(BrowserView):
 
 
 class ReopenVote(BrowserView):
-    def render(self):
+
+    def __call__(self):
         if checkHasOpenVote(self.context):
             return json.dumps({"status": 'error', "msg": _(u'Ja hi ha una votació oberta, no se\'n pot obrir una altra.')})
 
@@ -94,7 +97,8 @@ class ReopenVote(BrowserView):
 
 
 class CloseVote(BrowserView):
-    def render(self):
+
+    def __call__(self):
         self.context.estatVotacio = 'close'
         self.context.horaFiVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
         self.context.reindexObject()
@@ -103,7 +107,8 @@ class CloseVote(BrowserView):
 
 
 class FavorVote(BrowserView):
-    def render(self):
+
+    def __call__(self):
         if self.context.estatVotacio == 'close':
             return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
 
@@ -119,7 +124,8 @@ class FavorVote(BrowserView):
 
 
 class AgainstVote(BrowserView):
-    def render(self):
+
+    def __call__(self):
         if self.context.estatVotacio == 'close':
             return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
 
@@ -135,7 +141,8 @@ class AgainstVote(BrowserView):
 
 
 class WhiteVote(BrowserView):
-    def render(self):
+
+    def __call__(self):
         if self.context.estatVotacio == 'close':
             return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
 
@@ -222,7 +229,7 @@ def sendRemoveVoteEmail(context):
     user_emails = []
 
     infoVotacio = context.infoVotacio
-    if isinstance(infoVotacio, str) or isinstance(infoVotacio, unicode):
+    if isinstance(infoVotacio, str):
         infoVotacio = ast.literal_eval(infoVotacio)
 
     for key, value in infoVotacio.items():
@@ -275,7 +282,8 @@ def sendRemoveVoteEmail(context):
 
 
 class RemoveVote(BrowserView):
-    def render(self):
+    
+    def __call__(self):
         estatSessio = utils.session_wf_state(self)
         if estatSessio not in ['realitzada', 'tancada', 'en_correccio']:
             sendRemoveVoteEmail(self.context)

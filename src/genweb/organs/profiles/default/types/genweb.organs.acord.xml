@@ -14,7 +14,7 @@
         <element value="genweb.organs.votacioacord"/>
     </property>
 
-    <property name="schema">genweb.organs.content.acord.IAcord</property>
+    <property name="schema">genweb.organs.content.acord.acord.IAcord</property>
     <property name="klass">plone.dexterity.content.Container</property>
     <property name="add_permission">cmf.AddPortalContent</property>
     <property name="factory">genweb.organs.acord</property>

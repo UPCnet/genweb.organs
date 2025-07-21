@@ -14,7 +14,15 @@ $(document).ready(function(){
   });
 
   $(".removeVote").on('click', function () {
-    // Este modal ahora lo gestiona el sistema genérico
+    if(confirm("Est\u00e0s segur de voler eliminar la votaci\u00f3?")){
+      $.ajax({
+        type: 'POST',
+        url: $(this).attr('data-url') + '/removeVote',
+        success: function(){
+          setTimeout(() => window.location.reload(), 500);
+        },
+      });
+    }
   });
 
   $(".closeVote, .recloseVote").on('click', function () {

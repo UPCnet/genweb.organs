@@ -1141,7 +1141,7 @@ class View(BrowserView):
                 canReopen = data['canReopen']
 
                 infoVotacio = acordObj.infoVotacio
-                if isinstance(infoVotacio, str) or isinstance(infoVotacio, unicode):
+                if isinstance(infoVotacio, str):
                     infoVotacio = ast.literal_eval(infoVotacio)
 
                 if data['isPublic']:
@@ -1221,7 +1221,7 @@ class View(BrowserView):
                         'canReopen': canReopen }
 
                 infoVotacio = esmenaObj.infoVotacio
-                if isinstance(infoVotacio, str) or isinstance(infoVotacio, unicode):
+                if isinstance(infoVotacio, str):
                     infoVotacio = ast.literal_eval(infoVotacio)
 
                 if data['isPublic']:

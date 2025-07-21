@@ -571,7 +571,7 @@ def getLdapUserData(user, typology=None):
 
 
 def get_acord(context):
-    from genweb.organs.content.acord import IAcord
+    from genweb.organs.content.acord.acord import IAcord
     for obj in aq_chain(context):
         if IAcord.providedBy(obj):
             return obj

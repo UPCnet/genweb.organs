@@ -4,7 +4,7 @@ from zope.globalrequest import getRequest
 from zope.lifecycleevent.interfaces import IObjectRemovedEvent
 
 from genweb.organs import _
-from genweb.organs.content.acord import IAcord
+from genweb.organs.content.acord.acord import IAcord
 from genweb.organs.content.punt import IPunt
 from genweb.organs.content.subpunt import ISubpunt
 from genweb.organs.utils import addEntryLog

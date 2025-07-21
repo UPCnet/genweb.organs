@@ -10,7 +10,7 @@ from zope.interface import alsoProvides
 from zope.interface import implementer
 
 from genweb.organs import _
-from genweb.organs.content.acord import IAcord
+from genweb.organs.content.acord.acord import IAcord
 from genweb.organs.content.acta.acta import IActa
 from genweb.organs.content.punt import IPunt
 from genweb.organs.content.subpunt import ISubpunt

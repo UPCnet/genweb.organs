@@ -10,7 +10,7 @@
     <property name="filter_content_types">True</property>
     <property name="allowed_content_types"></property>
 
-    <property name="schema">genweb.organs.content.votacioacord.IVotacioAcord</property>
+    <property name="schema">genweb.organs.content.votacio_acord.votacio_acord.IVotacioAcord</property>
     <property name="klass">genweb.organs.content.VotacioAcord</property>
     <property name="add_permission">cmf.AddPortalContent</property>
     <property name="factory">genweb.organs.votacioacord</property>

@@ -986,7 +986,7 @@ class ReloadVoteStats(BrowserView):
             lang = self.context.language
 
             infoVotacio = votacio.infoVotacio
-            if isinstance(infoVotacio, str) or isinstance(infoVotacio, unicode):
+            if isinstance(infoVotacio, str):
                 infoVotacio = ast.literal_eval(infoVotacio)
 
             if votacio.estatVotacio == 'open':

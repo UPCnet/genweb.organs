@@ -40,8 +40,13 @@ $(document).ready(function(){
   });
 
   // Para el desplegable de información de voto público
-  //$(".openInfo").click(function () {
-  //  $(this).toggleClass("opened");
-  //  $($(this).attr("data-open")).toggleClass("opened");
-  //});
+  $(".openInfo").click(function () {
+    const toggleVoteInfo = $(this).data("open");
+    $(toggleVoteInfo).toggleClass("d-none");
+    $(this).find(".bi-chevron-down").toggleClass("d-none");
+    $(this).find(".bi-chevron-up").toggleClass("d-none");
+  });
+  
+
+
 });

@@ -5,7 +5,7 @@ from Products.CMFCore.interfaces import IActionSucceededEvent
 from genweb.organs.utils import get_settings_property
 from genweb.organs.content.organgovern.organgovern import IOrgangovern
 from genweb.organs.content.sessio.sessio import ISessio
-from genweb.organs.content.acord import IAcord
+from genweb.organs.content.acord.acord import IAcord
 from genweb.organs.indicators.updating import (
     update_indicators,
     update_indicators_if_state)

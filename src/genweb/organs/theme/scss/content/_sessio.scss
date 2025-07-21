@@ -1,5 +1,16 @@
 body.portaltype-genweb-organs-sessio {
 
+  .openInfo {
+    cursor: pointer;
+  }
+
+  #resultsVotesTab {
+    
+    .btn-outline-info {
+      cursor: help !important;
+    }
+  }
+
   .sessionActions {
 
     span,

@@ -56,7 +56,7 @@
     permission="zope2.View" />
   <!-- <browser:page
     name="viewFile"
-    for="genweb.organs.content.acord.IAcord"
+    for="genweb.organs.content.acord.acord.IAcord"
     class=".acta.ViewFile"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     permission="zope2.View" />

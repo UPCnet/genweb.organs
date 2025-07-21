@@ -223,12 +223,14 @@ def estatVotacio(obj):
 
 
 class Edit(form.EditForm):
+
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
 
 
 class View(BrowserView, UtilsFirmaDocumental):
-    index = ViewPageTemplateFile("templates/acord_view.pt")
+    index = ViewPageTemplateFile("acord.pt")
+
     def __call__(self):
         return self.index()
 
@@ -339,7 +341,7 @@ class View(BrowserView, UtilsFirmaDocumental):
 
 class OpenPublicVote(BrowserView):
     
-    def render(self):
+    def __call__(self):
         self.context.estatVotacio = 'open'
         self.context.tipusVotacio = 'public'
         self.context.horaIniciVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
@@ -350,7 +352,7 @@ class OpenPublicVote(BrowserView):
 
 class OpenOtherPublicVote(BrowserView):
     
-    def render(self):
+    def __call__(self):
         if 'title' in self.request.form and self.request.form['title'] and self.request.form['title'] != '':
             item = createContentInContainer(self.context, "genweb.organs.votacioacord", title=self.request.form['title'])
             item.estatVotacio = 'open'
@@ -363,7 +365,7 @@ class OpenOtherPublicVote(BrowserView):
 
 # class OpenSecretVote(BrowserView):
 
-#     def render(self):
+#     def __call__(self):
 #         self.context.estatVotacio = 'open'
 #         self.context.tipusVotacio = 'secret'
 #         self.context.horaIniciVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
@@ -373,7 +375,7 @@ class OpenOtherPublicVote(BrowserView):
 
 # class OpenSecretPublicVote(BrowserView):
 
-#     def render(self):
+#     def __call__(self):
 #         if 'title' in self.request.form and self.request.form['title'] and self.request.form['title'] != '':
 #             item = createContentInContainer(self.context, "genweb.organs.votacioacord", title=self.request.form['title'])
 #             item.estatVotacio = 'open'
@@ -385,7 +387,7 @@ class OpenOtherPublicVote(BrowserView):
 
 class ReopenVote(BrowserView):
     
-    def render(self):
+    def __call__(self):
         if checkHasOpenVote(self.context):
             return json.dumps({"status": 'error', "msg": _(u'Ja hi ha una votació oberta, no se\'n pot obrir una altra.')})
 
@@ -399,7 +401,7 @@ class ReopenVote(BrowserView):
 
 class CloseVote(BrowserView):
     
-    def render(self):
+    def __call__(self):
         self.context.estatVotacio = 'close'
         self.context.horaFiVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
         self.context.reindexObject()
@@ -409,7 +411,7 @@ class CloseVote(BrowserView):
 
 class FavorVote(BrowserView):
     
-    def render(self):
+    def __call__(self):
         if self.context.estatVotacio == 'close':
             return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
 
@@ -425,7 +427,7 @@ class FavorVote(BrowserView):
 
 class AgainstVote(BrowserView):
     
-    def render(self):
+    def __call__(self):
         if self.context.estatVotacio == 'close':
             return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
 
@@ -442,7 +444,7 @@ class AgainstVote(BrowserView):
 
 class WhiteVote(BrowserView):
     
-    def render(self):
+    def __call__(self):
         if self.context.estatVotacio == 'close':
             return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
 
@@ -527,7 +529,7 @@ def sendRemoveVoteEmail(context):
     user_emails = []
 
     infoVotacio = context.infoVotacio
-    if isinstance(infoVotacio, str) or isinstance(infoVotacio, unicode):
+    if isinstance(infoVotacio, str):
         infoVotacio = ast.literal_eval(infoVotacio)
 
     for key, value in infoVotacio.items():
@@ -579,7 +581,8 @@ def sendRemoveVoteEmail(context):
 
 
 class RemoveVote(BrowserView):
-    def render(self):
+
+    def __call__(self):
         estatSessio = utils.session_wf_state(self)
         if estatSessio not in ['realitzada', 'tancada', 'en_correccio']:
             sendRemoveVoteEmail(self.context)
@@ -596,6 +599,7 @@ class RemoveVote(BrowserView):
 
 
 class HideAgreement(BrowserView):
+
     def getSessio(self, context):
         for obj in aq_chain(context):
             if ISessio.providedBy(obj):
@@ -634,6 +638,7 @@ class HideAgreement(BrowserView):
 
 
 class ShowAgreement(BrowserView):
+
     def render(self):
         self.context.omitAgreement = False
         self.context.reindexObject()

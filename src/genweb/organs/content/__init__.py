@@ -12,8 +12,8 @@ from genweb.organs.content.file import IFile
 from genweb.organs.content.document import IDocument
 from genweb.organs.content.audio import IAudio
 from genweb.organs.content.annex import IAnnex
-from genweb.organs.content.acord import IAcord
-from genweb.organs.content.votacio_acord import IVotacioAcord
+from genweb.organs.content.acord.acord import IAcord
+from genweb.organs.content.votacio_acord.votacio_acord import IVotacioAcord
 
 
 @implementer(IOrgangovern)
