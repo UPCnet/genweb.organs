@@ -758,7 +758,7 @@
               </div>
 
               <!-- Formulario real -->
-              <form tal:attributes="action string:${context/absolute_url}/manualStructureCreation; method string:post; enctype string:multipart/form-data">
+              <form tal:attributes="action string:${absolute_url}/manualStructureCreation; method string:post; enctype string:multipart/form-data">
                 <div class="mb-3">
                   <label for="form-widgets-message" class="form-label" i18n:translate="">Contingut</label>
                   <div class="fieldErrorBox" tal:condition="python: False">
@@ -853,15 +853,15 @@ P Conclusions</code>
           <span i18n:translate="">Nou acord</span>
         </button>
         <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalPunts">
-          <i class="bi bi-database"></i>
+          <i class="bi bi-database me-1"></i>
           <span i18n:translate="">Creació àgil</span>
         </button>
-        <a class="btn btn-outline-primary" tal:attributes="href string:${context/absolute_url}/updatePoints">
-          <i class="bi bi-arrow-clockwise"></i>
+        <a class="btn btn-outline-primary" tal:attributes="href string:${absolute_url}/updatePoints">
+          <i class="bi bi-arrow-clockwise me-1"></i>
           <span i18n:translate="">Numera punts</span>
         </a>
-        <a class="btn btn-outline-primary" tal:attributes="href string:${context/absolute_url}/updateAcords">
-          <i class="bi bi-arrow-clockwise"></i>
+        <a class="btn btn-outline-primary" tal:attributes="href string:${absolute_url}/updateAcords">
+          <i class="bi bi-arrow-clockwise me-1"></i>
           <span i18n:translate="">Numera acords</span>
         </a>
       </div>
@@ -874,11 +874,11 @@ P Conclusions</code>
           <h2 class="sessionOrdreDia mb-0" i18n:translate="">Ordre del dia</h2>
           <div class="d-flex text-end">
             <button id="expandAll" class="btn btn-outline-primary">
-              <i class="bi bi-arrows-expand"></i>
+              <i class="bi bi-arrows-expand me-1"></i>
               <span i18n:translate="">Desplega tot</span>
             </button>
             <button id="collapseAll" class="btn btn-outline-primary d-none">
-              <i class="bi bi-arrows-collapse"></i>
+              <i class="bi bi-arrows-collapse me-1"></i>
               <span i18n:translate="">Plega tot</span>
             </button>
           </div>
@@ -888,23 +888,23 @@ P Conclusions</code>
           <tal:documents repeat="item items">
             <tal:block tal:define="agreement item/agreement; isAcord item/isAcord">
               <li tal:attributes="id item/id; class item/classe">
-                <div class="row px-3 py-2" tal:condition="item/show">
-                  <div class="col-6 einesSpan d-none">
+                <div class="row px-3 py-2 justify-content-end" tal:condition="item/show">
+                  <div class="col-6 einesSpan d-none d-flex flex-row-reverse justify-content-start align-items-center column-gap-2">
                     <tal:editActions tal:condition="python: view.canModifyPunt(item)">
-                      <div class="float-end" aria-label="Edit actions">
+                      <div class="d-flex column-gap-2" aria-label="Edit actions">
                         <tal:block tal:condition="isAcord">
-                          <button type="button" class="hide-agreement badge bg-danger"
+                          <button type="button" class="hide-agreement badge btn btn-secondary fs-xxxs px-2 py-2"
                                   title="Esborra número acord"
                                   tal:condition="not:item/omitAgreement" 
                                   tal:attributes="data-item item/absolute_url">
                             <i class="bi bi-arrow-counterclockwise"></i>
                           </button>
                         </tal:block>
-                        <button type="button" class="edit badge bg-info" title="Edit"
+                        <button type="button" class="edit badge btn btn-primary fs-xxxs px-2 py-2" title="Edit"
                                 tal:attributes="data-id item/id; data-title item/title">
                           <i class="bi bi-pencil"></i>
                         </button>
-                        <button type="button" class="remove badge bg-danger"
+                        <button type="button" class="remove badge btn btn-danger fs-xxxs px-2 py-2"
                                 title="Esborra"
                                 data-bs-toggle="modal"
                                 data-bs-target="#modalConfirm"
@@ -916,17 +916,17 @@ P Conclusions</code>
                         </button>
                       </div>
 
-                      <div class="btn-group float-end" role="group" aria-label="Add element">
-                        <button class="badge bg-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                      <div class="btn-group" role="group" aria-label="Add element">
+                        <button class="badge btn btn-outline-secondary fs-xxxs px-2 py-2 text-dark dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                           +
                           <span class="caret"></span>
                         </button>
 
-                        <ul class="dropdown-menu px-2" role="menu" aria-labelledby="types">
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="types">
                           <li tal:condition="item/isPunt">
-                            <a tabindex="-1"
-                               tal:attributes="href string:${item/id}/++add++genweb.organs.subpunt">
+                            <a tabindex="-1" class="dropdown-item"
+                               tal:attributes="href string:${absolute_url}/${item/id}/++add++genweb.organs.subpunt">
                               <span>
                                 <i class="bi bi-list-ul me-1"></i>
                                 <tal:omit-tag i18n:translate="">Subpunt</tal:omit-tag>
@@ -935,8 +935,8 @@ P Conclusions</code>
                           </li>
 
                           <li tal:condition="item/isPunt">
-                            <a tabindex="-1"
-                               tal:attributes="href string:${item/id}/++add++genweb.organs.acord">
+                            <a tabindex="-1" class="dropdown-item"
+                               tal:attributes="href string:${absolute_url}/${item/id}/++add++genweb.organs.acord">
                               <span>
                                 <i class="bi bi-check me-1"></i>
                                 <tal:omit-tag i18n:translate="">Acord</tal:omit-tag>
@@ -945,8 +945,8 @@ P Conclusions</code>
                           </li>
 
                           <li>
-                            <a tabindex="-1"
-                               tal:attributes="href string:${item/id}/++add++genweb.organs.file">
+                            <a tabindex="-1" class="dropdown-item"
+                               tal:attributes="href string:${absolute_url}/${item/id}/++add++genweb.organs.file">
                               <span>
                                 <i class="bi bi-file-earmark-text-fill me-1"></i>
                                 <tal:omit-tag i18n:translate="">File</tal:omit-tag>
@@ -955,8 +955,8 @@ P Conclusions</code>
                           </li>
 
                           <li>
-                            <a tabindex="-1"
-                               tal:attributes="href string:${item/id}/++add++genweb.organs.document">
+                            <a tabindex="-1" class="dropdown-item"
+                               tal:attributes="href string:${absolute_url}/${item/id}/++add++genweb.organs.document">
                               <span>
                                 <i class="bi bi-file-earmark-text-fill me-1"></i>
                                 <tal:omit-tag i18n:translate="">Document</tal:omit-tag>
@@ -966,22 +966,22 @@ P Conclusions</code>
                         </ul>
                       </div>
 
-                      <div class="btn-group" role="group" style="float: right;" aria-label="Change current state">
+                      <div class="btn-group" role="group" aria-label="Change current state">
                         <tal:block tal:condition="item/state">
-                          <button class="badge bg-secondary dropdown-toggle bullet-toggle" type="button"
-                                                              data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                              <i class="bi bi-circle-fill" aria-hidden="true"
-                              tal:attributes="style string:color:${item/css}"></i>
+                          <button class="badge btn btn-outline-secondary fs-xxxs px-2 py-2 text-dark dropdown-toggle bullet-toggle" type="button"
+                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bi bi-circle-fill me-1" aria-hidden="true"
+                               tal:attributes="style string:color:${item/css}"></i>
                             <span class="caret"></span>
                           </button>
-                          <ul class="dropdown-menu px-2 estatsToggle" role="menu" aria-labelledby="estats">
+                          <ul class="dropdown-menu estatsToggle" role="menu" aria-labelledby="estats">
                             <tal:block repeat="estat item/estats">
                               <li class="defaultValue">
-                                <a tabindex="-1"
-                                  tal:attributes="href string:changeActualState?estat=${estat/title}&id=${item/item_path}">
-                                                                          <i class="bi bi-circle-fill" aria-hidden="true"
-                                    tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span
-                                    tal:content="estat/title"></span>
+                                <a tabindex="-1" class="dropdown-item"
+                                   tal:attributes="href string:${absolute_url}/changeActualState?estat=${estat/title}&id=${item/item_path}">
+                                  <i class="bi bi-circle-fill me-1" aria-hidden="true"
+                                     tal:attributes="style string:color:${estat/color}"></i>
+                                  <span tal:content="estat/title"></span>
                                 </a>
                               </li>
                             </tal:block>
@@ -991,231 +991,153 @@ P Conclusions</code>
 
                       <tal:block tal:condition="isAcord">
                         <tal:block tal:condition="canViewManageVote">
-                          <div class="btn-group votes" role="group" style="float: right;" aria-label="Open vote"
-                            tal:condition="item/canOpenVote">
-                                                              <button class="badge bg-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                              aria-haspopup="true" aria-expanded="false">
-                                                                  <i class="bi bi-pie-chart" aria-hidden="true"></i>
+                          <div class="btn-group votes" role="group" aria-label="Open vote"
+                               tal:condition="item/canOpenVote">
+                            <button class="badge btn btn-outline-secondary fs-xxxs px-2 py-2 text-dark dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                              <i class="bi bi-pie-chart me-1" aria-hidden="true"></i>
                               <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu px-2" role="menu" aria-labelledby="types">
-                              <li class="openOtherPublicVote" tal:attributes="data-id item/id;
-                                                                          data-title getTitlePrompt;
-                                                                          data-error getErrorPrompt;">
-                                <a tabindex="-1" data-type="openOther">
-                                                                          <span><i class="bi bi-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
-                                      i18n:translate="">Other Public</tal:omit-tag></span>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                              <li class="openOtherPublicVote" 
+                                  tal:attributes="data-id string:${absolute_url}/${item/id};
+                                                  data-title getTitlePrompt;
+                                                  data-error getErrorPrompt;">
+                                <a tabindex="-1" data-type="openOther" class="dropdown-item">
+                                  <span>
+                                    <i class="bi bi-pie-chart me-1"></i>
+                                    <tal:omit-tag i18n:translate="">Other Public</tal:omit-tag>
+                                  </span>
                                 </a>
                               </li>
-                              <li class="openPublicVote" tal:attributes="data-id item/id">
-                                <a tabindex="-1" data-type="open">
-                                                                          <span><i class="bi bi-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
-                                      i18n:translate="">Public</tal:omit-tag></span>
+                              <li class="openPublicVote" tal:attributes="data-id string:${absolute_url}/${item/id}">
+                                <a tabindex="-1" data-type="open" class="dropdown-item">
+                                  <span>
+                                    <i class="bi bi-pie-chart me-1"></i>
+                                    <tal:omit-tag i18n:translate="">Public</tal:omit-tag>
+                                  </span>
                                 </a>
                               </li>
                             </ul>
                           </div>
 
-                          <div class="btn-group votes" role="group" style="float: right;" aria-label="Close vote"
-                            tal:condition="item/canCloseVote">
-                                                              <button class="badge bg-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                              aria-haspopup="true" aria-expanded="false">
-                              <i tal:attributes="class item/classVote" aria-hidden="true"></i>
+                          <div class="btn-group votes" role="group" aria-label="Close vote"
+                               tal:condition="item/canCloseVote">
+                            <button class="badge bg-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                              <i tal:attributes="class string:${item/classVote} me-1" aria-hidden="true"></i>
                               <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu px-2" role="menu" aria-labelledby="types">
-                              <li class="closeVote" tal:attributes="data-id item/id">
-                                <a tabindex="-1" data-type="open">
-                                                                          <span><i class="bi bi-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
-                                      i18n:translate="">Close</tal:omit-tag></span>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                              <li class="closeVote" tal:attributes="data-id string:${absolute_url}/${item/id}">
+                                <a tabindex="-1" data-type="open" class="dropdown-item">
+                                  <span>
+                                    <i class="bi bi-pie-chart me-1"></i>
+                                    <tal:omit-tag i18n:translate="">Close</tal:omit-tag>
+                                  </span>
                                 </a>
                               </li>
                             </ul>
                           </div>
 
-                          <div class="btn-group votes" role="group" style="float: right;" aria-label="Close vote"
-                            tal:condition="item/canRecloseVote">
-                                                              <button class="badge bg-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                              aria-haspopup="true" aria-expanded="false">
-                              <i tal:attributes="class item/classVote" aria-hidden="true"></i>
+                          <div class="btn-group votes" role="group" aria-label="Close vote"
+                               tal:condition="item/canRecloseVote">
+                            <button class="badge bg-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                              <i tal:attributes="class string:${item/classVote} me-1" aria-hidden="true"></i>
                               <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu px-2" role="menu" aria-labelledby="types">
-                              <li class="recloseVote" tal:attributes="data-id item/canRecloseVote">
-                                <a tabindex="-1" data-type="open">
-                                                                          <span><i class="bi bi-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
-                                      i18n:translate="">Close</tal:omit-tag></span>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                              <li class="recloseVote" tal:attributes="data-id string:${absolute_url}/${item/canRecloseVote}">
+                                <a tabindex="-1" data-type="open" class="dropdown-item">
+                                  <span>
+                                    <i class="bi bi-pie-chart me-1"></i>
+                                    <tal:omit-tag i18n:translate="">Close</tal:omit-tag>
+                                  </span>
                                 </a>
                               </li>
                             </ul>
                           </div>
-
                         </tal:block>
                       </tal:block>
-
                     </tal:editActions>
-                    <div tal:condition="python: not view.canModifyPunt(item)" style="float: right;">
+
+                    <div tal:condition="python: not view.canModifyPunt(item)">
                       <tal:block tal:condition="item/state">
-                        <button class="btn badge bg-secondary disabled" style="padding:3px;">
-                                                          <i class="bi bi-circle-fill" aria-hidden="true"
-                            tal:attributes="style string:color:${item/css}"></i>
+                        <button class="btn badge bg-secondary disabled">
+                          <i class="bi bi-circle-fill me-1" aria-hidden="true"
+                             tal:attributes="style string:color:${item/css}"></i>
                           <span tal:content="item/state"></span>
                         </button>
                       </tal:block>
                     </div>
                   </div>
+                <tal:block-contenidos tal:define="files python:view.filesinsidePunt(item);
+                                                  subpunts python:view.SubpuntsInside(item);
+                                                  contenidos python:files or subpunts">
+                  <div class="puntTitle col-12 d-flex flex-nowrap align-items-center"
+                       tal:attributes="id string:punt-${item/id}">
+                    <div class="fletxaSpan">
+                      <button type="button" class="btn-expand-collapse collapsed" tal:condition="contenidos"
+                              data-bs-toggle="collapse"
+                              tal:attributes="data-bs-target string:#collapse-${item/id}"
+                              aria-expanded="false">
+                        <i style="color: #557c95" class="bi bi-chevron-down"></i>
+                        <i style="color: #557c95" class="bi bi-chevron-up"></i>
+                      </button>
+                    </div>
 
-
-
-
-
-
-
-
-
-                  <tal:block-contenidos tal:define="files python:view.filesinsidePunt(item);
-                                                    subpunts python:view.SubpuntsInside(item);
-                                                    contenidos python:files or subpunts">
-                      <div class="puntTitle col-12 row">
-                        <div class="col-1 fletxaSpan d-none d-md-block">
-                            <button type="button" class="btn-expand-collapse collapsed" tal:condition="contenidos"
-                                    data-bs-toggle="collapse"
-                                    tal:attributes="data-bs-target string:#collapse-${item/id}"
-                                    aria-expanded="false">
-                                <i style="color: #557c95" class="bi bi-chevron-down"></i>
-                                <i style="color: #557c95" class="bi bi-chevron-up"></i>
-                          </button>
-                        </div>
-                        <div class="col-1 numberSpan d-none d-md-block">
-                          <span class="proposalNumber " style="text-align: right; float:right;"
+                    <div class="numberSpan">
+                      <span class="proposalNumber text-end float-end"
                             tal:content="item/proposalPoint"></span>
-                        </div>
+                    </div>
 
-                        <div class="d-block d-md-none">
-                          <span class="proposalNumber" style="text-align: right; float:left; padding-left:10px;"
-                            tal:content="item/proposalPoint"></span>
-                            <button type="button" class="btn-expand-collapse collapsed" tal:condition="contenidos"
-                                    data-bs-toggle="collapse"
-                                    tal:attributes="data-bs-target string:#collapse-${item/id}"
-                                    aria-expanded="false">
-                                <i style="color: #557c95" class="bi bi-chevron-down"></i>
-                                <i style="color: #557c95" class="bi bi-chevron-up"></i>
-                          </button>
+                    <div class="titleSpan w-auto">
+                      <a tal:attributes="data-id item/id; 
+                                         href item/absolute_url" 
+                         data-url="changeTitle"
+                         class="editTitle titleSize">
+                        <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
+                      </a>
+                      <span tal:condition="agreement" class="agreementClass">
+                        [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag
+                                       tal:content="agreement">Acord code </tal:omit-tag>]
+                      </span>
+                      <tal:block tal:condition="canViewResultsVote">
+                        <span tal:condition="item/canRecloseVote" class="subtitleSize">
                           <br />
-                        </div>
-
-                        <div class="col-9 titleSpan">
-                                                        <a tal:attributes="data-id item/id; href item/absolute_url" data-url="changeTitle"
-                                                            class="editTitle titleSize">
-                            <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
-                          </a>
-                          <span tal:condition="agreement" class="agreementClass">
-                            [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag
-                              tal:content="agreement">Acord code </tal:omit-tag>]
-                          </span>
-                          <tal:block tal:condition="canViewResultsVote">
-                                                            <span tal:condition="item/canRecloseVote" class="subtitleSize">
-                              <br />
-                              <tal:omit-tag i18n:translate="">Vote</tal:omit-tag>:
-                              <tal:omit-tag tal:content="item/titleEsmena"></tal:omit-tag>
-                            </span>
-                          </tal:block>
-                        </div>
-                        <div class="col-1 boleta" tal:define="estat item/state">
-                          <span class="btn badge bg-secondary disabled badge bg-secondaryString fs-xxs">
-                                                            <i class="bi bi-circle-fill" aria-hidden="true"
-                              tal:attributes="style string:color:${item/css}"></i>&nbsp;<span
-                              tal:content="estat"></span>
-                          </span>
-                        </div>
-                      </div>
-                      <!-- <div class="collapse multi-collapse-points" tal:attributes="id string:collapse-${item/id}" tal:condition="contenidos"> -->
-                        <tal:files>
-                          <div class="col-12" tal:condition="files">
-                            <ul class="listFiles">
-                              <tal:documents repeat="file_item files">
-                                <li class="filesinTable" style="width:98% !important;">
-                                  <i tal:attributes="class file_item/classCSS"></i>
-                                  <a tal:attributes="href file_item/absolute_url;" tal:condition="file_item/new_tab"
-                                    target="_blank">
-                                    <tal:omit-tag tal:content="file_item/title"> Doc title</tal:omit-tag>
-                                  </a>
-                                  <a tal:attributes="href file_item/absolute_url;"
-                                    tal:condition="not:file_item/new_tab">
-                                    <tal:omit-tag tal:content="file_item/title"> Doc title</tal:omit-tag>
-                                  </a>
-                                  <div style="float:right; display: inline-table;"
-                                    tal:condition="python: view.canModifyPunt(item)">
-                                                                            <button type="button" class="remove badge bg-danger"
-                                                                                    title="Esborra"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#modalConfirm"
-                                                                                    data-modal-title="Confirmar eliminació"
-                                                                                    data-modal-body="Estàs segur que vols eliminar aquest element?"
-                                                                                    data-modal-action="delete"
-                                                                                    tal:attributes="data-item file_item/id; data-type file_item/portal_type">
-                                                                                <i class="bi bi-trash" aria-hidden="true"></i>
-                                    </button>
-                                  </div>
-                                </li>
-                              </tal:documents>
-                            </ul>
-                          </div>
-                        </tal:files>
-                      <tal:block tal:condition="canViewVoteButtons">
-                        <div class="puntVoteButtons col-12" tal:condition="item/canCloseVote">
-                          <span class="col-2"></span>
-                          <div class="col-10">
-                            <a class="btn btn-notvote span4 favor" tal:attributes="data-id item/id"
-                              tal:condition="not: item/favorVote" i18n:translate="">A favor</a>
-                            <a class="btn btn-info span4" tal:condition="item/favorVote" i18n:translate="">A favor</a>
-                            <a class="btn btn-notvote span4 against" tal:attributes="data-id item/id"
-                              tal:condition="not: item/againstVote" i18n:translate="">En contra</a>
-                            <a class="btn btn-info span4" tal:condition="item/againstVote" i18n:translate="">En
-                              contra</a>
-                            <a class="btn btn-notvote span4 white" tal:attributes="data-id item/id"
-                              tal:condition="not: item/whiteVote" i18n:translate="">En blanc</a>
-                            <a class="btn btn-info span4" tal:condition="item/whiteVote" i18n:translate="">En blanc</a>
-                          </div>
-                        </div>
-                        <div class="puntVoteButtons col-12" tal:condition="item/canRecloseVote">
-                          <span class="col-2"></span>
-                          <div class="col-10">
-                            <a class="btn btn-notvote span4 favor" tal:attributes="data-id item/canRecloseVote"
-                              tal:condition="not: item/favorVote" i18n:translate="">A favor</a>
-                            <a class="btn btn-info span4" tal:condition="item/favorVote" i18n:translate="">A favor</a>
-                            <a class="btn btn-notvote span4 against" tal:attributes="data-id item/canRecloseVote"
-                              tal:condition="not: item/againstVote" i18n:translate="">En contra</a>
-                            <a class="btn btn-info span4" tal:condition="item/againstVote" i18n:translate="">En
-                              contra</a>
-                            <a class="btn btn-notvote span4 white" tal:attributes="data-id item/canRecloseVote"
-                              tal:condition="not: item/whiteVote" i18n:translate="">En blanc</a>
-                            <a class="btn btn-info span4" tal:condition="item/whiteVote" i18n:translate="">En blanc</a>
-                          </div>
-                        </div>
+                          <tal:omit-tag i18n:translate="">Vote</tal:omit-tag>:
+                          <tal:omit-tag tal:content="item/titleEsmena"></tal:omit-tag>
+                        </span>
                       </tal:block>
-                      <div tal:condition="subpunts" class="sortable2">
-                        <tal:subpunts repeat="itemSubpunt subpunts">
-                          <ol class="li_subgrups" tal:attributes="id itemSubpunt/id" tal:define="agreement itemSubpunt/agreement;
-                                     itemSubpunt_id itemSubpunt/id;
-                                     isAcord itemSubpunt/isAcord">
-                            <div class="col-6 agreementSpan"></div>
-                            <div class="col-6 einesSpan">
+                    </div>
 
-                              <div style="float: right;" aria-label="Edit actions"
-                                tal:condition="python: view.canModifyPunt(itemSubpunt)">
-                                <tal:block tal:condition="isAcord">
-                                                                              <button type="button" class="hide-agreement badge bg-danger"
-                                                                                      title="Esborra número acord"
-                                    tal:condition="not:itemSubpunt/omitAgreement"
-                                    tal:attributes="data-item itemSubpunt/absolute_url">
-                                                                                  <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
-                                  </button>
-                                </tal:block>
-                                <button type="button" class="edit2 badge bg-info" title="Edit"
-                                                                              tal:attributes="data-id itemSubpunt_id; data-title itemSubpunt/title">
-                                                                              <i class="bi bi-pencil" aria-hidden="true"></i>
-                                </button>
+                    <div class="boleta" tal:define="estat item/state">
+                      <span class="btn badge bg-secondary disabled badge bg-secondaryString fs-xxs">
+                        <i class="bi bi-circle-fill me-1" aria-hidden="true"
+                           tal:attributes="style string:color:${item/css}"></i>
+                        <span tal:content="estat"></span>
+                      </span>
+                    </div>
+                  </div>
+
+                    <!-- <div class="collapse multi-collapse-points" tal:attributes="id string:collapse-${item/id}" tal:condition="contenidos"> -->
+                      <tal:files>
+                        <div class="col-12" tal:condition="files">
+                          <ul class="listFiles">
+                            <tal:documents repeat="file_item files">
+                              <li class="filesinTable" style="width:98% !important;">
+                                <i tal:attributes="class file_item/classCSS"></i>
+                                <a tal:attributes="href file_item/absolute_url;" tal:condition="file_item/new_tab"
+                                  target="_blank">
+                                  <tal:omit-tag tal:content="file_item/title"> Doc title</tal:omit-tag>
+                                </a>
+                                <a tal:attributes="href file_item/absolute_url;"
+                                  tal:condition="not:file_item/new_tab">
+                                  <tal:omit-tag tal:content="file_item/title"> Doc title</tal:omit-tag>
+                                </a>
+                                <div style="float:right; display: inline-table;"
+                                  tal:condition="python: view.canModifyPunt(item)">
                                                                           <button type="button" class="remove badge bg-danger"
                                                                                   title="Esborra"
                                                                                   data-bs-toggle="modal"
@@ -1223,236 +1145,305 @@ P Conclusions</code>
                                                                                   data-modal-title="Confirmar eliminació"
                                                                                   data-modal-body="Estàs segur que vols eliminar aquest element?"
                                                                                   data-modal-action="delete"
-                                  tal:attributes="data-item itemSubpunt_id; data-type itemSubpunt/portal_type">
+                                                                                  tal:attributes="data-item file_item/id; data-type file_item/portal_type">
                                                                               <i class="bi bi-trash" aria-hidden="true"></i>
+                                  </button>
+                                </div>
+                              </li>
+                            </tal:documents>
+                          </ul>
+                        </div>
+                      </tal:files>
+                    <tal:block tal:condition="canViewVoteButtons">
+                      <div class="puntVoteButtons col-12" tal:condition="item/canCloseVote">
+                        <span class="col-2"></span>
+                        <div class="col-10">
+                          <a class="btn btn-notvote span4 favor" tal:attributes="data-id item/id"
+                            tal:condition="not: item/favorVote" i18n:translate="">A favor</a>
+                          <a class="btn btn-info span4" tal:condition="item/favorVote" i18n:translate="">A favor</a>
+                          <a class="btn btn-notvote span4 against" tal:attributes="data-id item/id"
+                            tal:condition="not: item/againstVote" i18n:translate="">En contra</a>
+                          <a class="btn btn-info span4" tal:condition="item/againstVote" i18n:translate="">En
+                            contra</a>
+                          <a class="btn btn-notvote span4 white" tal:attributes="data-id item/id"
+                            tal:condition="not: item/whiteVote" i18n:translate="">En blanc</a>
+                          <a class="btn btn-info span4" tal:condition="item/whiteVote" i18n:translate="">En blanc</a>
+                        </div>
+                      </div>
+                      <div class="puntVoteButtons col-12" tal:condition="item/canRecloseVote">
+                        <span class="col-2"></span>
+                        <div class="col-10">
+                          <a class="btn btn-notvote span4 favor" tal:attributes="data-id item/canRecloseVote"
+                            tal:condition="not: item/favorVote" i18n:translate="">A favor</a>
+                          <a class="btn btn-info span4" tal:condition="item/favorVote" i18n:translate="">A favor</a>
+                          <a class="btn btn-notvote span4 against" tal:attributes="data-id item/canRecloseVote"
+                            tal:condition="not: item/againstVote" i18n:translate="">En contra</a>
+                          <a class="btn btn-info span4" tal:condition="item/againstVote" i18n:translate="">En
+                            contra</a>
+                          <a class="btn btn-notvote span4 white" tal:attributes="data-id item/canRecloseVote"
+                            tal:condition="not: item/whiteVote" i18n:translate="">En blanc</a>
+                          <a class="btn btn-info span4" tal:condition="item/whiteVote" i18n:translate="">En blanc</a>
+                        </div>
+                      </div>
+                    </tal:block>
+                    <div tal:condition="subpunts" class="sortable2">
+                      <tal:subpunts repeat="itemSubpunt subpunts">
+                        <ol class="li_subgrups" tal:attributes="id itemSubpunt/id" tal:define="agreement itemSubpunt/agreement;
+                                    itemSubpunt_id itemSubpunt/id;
+                                    isAcord itemSubpunt/isAcord">
+                          <div class="col-6 agreementSpan"></div>
+                          <div class="col-6 einesSpan">
+
+                            <div style="float: right;" aria-label="Edit actions"
+                              tal:condition="python: view.canModifyPunt(itemSubpunt)">
+                              <tal:block tal:condition="isAcord">
+                                                                            <button type="button" class="hide-agreement badge bg-danger"
+                                                                                    title="Esborra número acord"
+                                  tal:condition="not:itemSubpunt/omitAgreement"
+                                  tal:attributes="data-item itemSubpunt/absolute_url">
+                                                                                <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
                                 </button>
+                              </tal:block>
+                              <button type="button" class="edit2 badge bg-info" title="Edit"
+                                                                            tal:attributes="data-id itemSubpunt_id; data-title itemSubpunt/title">
+                                                                            <i class="bi bi-pencil" aria-hidden="true"></i>
+                              </button>
+                                                                        <button type="button" class="remove badge bg-danger"
+                                                                                title="Esborra"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#modalConfirm"
+                                                                                data-modal-title="Confirmar eliminació"
+                                                                                data-modal-body="Estàs segur que vols eliminar aquest element?"
+                                                                                data-modal-action="delete"
+                                tal:attributes="data-item itemSubpunt_id; data-type itemSubpunt/portal_type">
+                                                                            <i class="bi bi-trash" aria-hidden="true"></i>
+                              </button>
+                            </div>
+                            <tal:editActions tal:condition="python: view.canModifyPunt(itemSubpunt)">
+                              <div class="btn-group" role="group" style="float: right;" aria-label="Add element">
+                                <button class="badge bg-secondary dropdown-toggle" type="button"
+                                                                                      data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  +
+                                  <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                                  <li><a tabindex="-1" class="dropdown-item"
+                                      tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.file"><span><i
+                                                                                        class="bi bi-file-earmark-pdf"></i>&nbsp;&nbsp;<tal:omit-tag
+                                          i18n:translate="">File</tal:omit-tag></span></a></li>
+                                  <li><a tabindex="-1" class="dropdown-item"
+                                      tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.document"><span><i
+                                                                                        class="bi bi-file-earmark-text"></i>&nbsp;&nbsp;<tal:omit-tag
+                                          i18n:translate="">Document</tal:omit-tag></span></a></li>
+                                </ul>
                               </div>
-                              <tal:editActions tal:condition="python: view.canModifyPunt(itemSubpunt)">
-                                <div class="btn-group" role="group" style="float: right;" aria-label="Add element">
-                                  <button class="badge bg-secondary dropdown-toggle" type="button"
-                                                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    +
+                              <div class="btn-group" role="group" style="float: right;"
+                                aria-label="Change current state">
+                                <tal:block tal:condition="itemSubpunt/state">
+                                  <button class="badge bg-secondary dropdown-toggle bullet-toggle" id="estats"
+                                                                                        type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                    <i class="bi bi-circle-fill" aria-hidden="true"
+                                      tal:attributes="style string:color:${itemSubpunt/css}"></i>
                                     <span class="caret"></span>
                                   </button>
-                                  <ul class="dropdown-menu px-2" role="menu" aria-labelledby="types">
-                                    <li><a tabindex="-1"
-                                        tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.file"><span><i
-                                                                                          class="bi bi-file-earmark-pdf"></i>&nbsp;&nbsp;<tal:omit-tag
-                                            i18n:translate="">File</tal:omit-tag></span></a></li>
-                                    <li><a tabindex="-1"
-                                        tal:attributes="href string:${itemSubpunt_id}/++add++genweb.organs.document"><span><i
-                                                                                          class="bi bi-file-earmark-text"></i>&nbsp;&nbsp;<tal:omit-tag
-                                            i18n:translate="">Document</tal:omit-tag></span></a></li>
+                                  <ul class="dropdown-menu estatsToggle" role="menu" aria-labelledby="estats">
+                                    <tal:block repeat="estat itemSubpunt/estats">
+                                      <li class="defaultValue"><a tabindex="-1" class="dropdown-item"
+                                          tal:attributes="href string:changeSubpuntState?estat=${estat/title}&id=${itemSubpunt_id}"><i
+                                                                                              class="bi bi-circle-fill" aria-hidden="true"
+                                            tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span
+                                            tal:content="estat/title"></span></a></li>
+                                    </tal:block>
                                   </ul>
-                                </div>
-                                <div class="btn-group" role="group" style="float: right;"
-                                  aria-label="Change current state">
-                                  <tal:block tal:condition="itemSubpunt/state">
-                                    <button class="badge bg-secondary dropdown-toggle bullet-toggle" id="estats"
-                                                                                          type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                                      <i class="bi bi-circle-fill" aria-hidden="true"
-                                        tal:attributes="style string:color:${itemSubpunt/css}"></i>
+                                </tal:block>
+                              </div>
+
+                              <tal:block tal:condition="isAcord">
+                                <tal:block tal:condition="canViewManageVote">
+                                  <div class="btn-group votes" role="group" style="float: right;"
+                                    aria-label="Open vote" tal:condition="itemSubpunt/canOpenVote">
+
+                                    <button class="badge bg-secondary dropdown-toggle" type="button"
+                                                                                          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                      <i class="bi bi-pie-chart" aria-hidden="true"></i>
                                       <span class="caret"></span>
                                     </button>
-                                    <ul class="dropdown-menu px-2 estatsToggle" role="menu" aria-labelledby="estats">
-                                      <tal:block repeat="estat itemSubpunt/estats">
-                                        <li class="defaultValue"><a tabindex="-1"
-                                            tal:attributes="href string:changeSubpuntState?estat=${estat/title}&id=${itemSubpunt_id}"><i
-                                                                                                class="bi bi-circle-fill" aria-hidden="true"
-                                              tal:attributes="style string:color:${estat/color}"></i>&nbsp;<span
-                                              tal:content="estat/title"></span></a></li>
-                                      </tal:block>
-                                    </ul>
-                                  </tal:block>
-                                </div>
-
-                                <tal:block tal:condition="isAcord">
-                                  <tal:block tal:condition="canViewManageVote">
-                                    <div class="btn-group votes" role="group" style="float: right;"
-                                      aria-label="Open vote" tal:condition="itemSubpunt/canOpenVote">
-
-                                      <button class="badge bg-secondary dropdown-toggle" type="button"
-                                                                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                                        <i class="bi bi-pie-chart" aria-hidden="true"></i>
-                                        <span class="caret"></span>
-                                      </button>
-                                      <ul class="dropdown-menu px-2" role="menu" aria-labelledby="types">
-                                        <li class="openOtherPublicVote" tal:attributes="data-id itemSubpunt/id;
-                                                                                  data-title getTitlePrompt;
-                                                                                  data-error getErrorPrompt;">
-                                          <a tabindex="-1" data-type="openOther">
-                                                                                                <span><i class="bi bi-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
-                                                i18n:translate="">Other Public</tal:omit-tag></span>
-                                          </a>
-                                        </li>
-                                        <li class="openPublicVote" tal:attributes="data-id itemSubpunt/id">
-                                          <a tabindex="-1" data-type="open">
-                                                                                                <span><i class="bi bi-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
-                                                i18n:translate="">Public</tal:omit-tag></span>
-                                          </a>
-                                        </li>
-                                      </ul>
-                                    </div>
-
-                                    <div class="btn-group votes" role="group" style="float: right;"
-                                      aria-label="Close vote" tal:condition="itemSubpunt/canCloseVote">
-                                      <button class="badge bg-secondary dropdown-toggle" type="button"
-                                                                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i tal:attributes="class itemSubpunt/classVote" aria-hidden="true"></i>
-                                        <span class="caret"></span>
-                                      </button>
-                                      <ul class="dropdown-menu px-2" role="menu" aria-labelledby="types">
-                                        <li class="closeVote" tal:attributes="data-id itemSubpunt/id">
-                                          <a tabindex="-1" data-type="open">
-                                                                                                <span><i class="bi bi-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
-                                                i18n:translate="">Close</tal:omit-tag></span>
-                                          </a>
-                                        </li>
-                                      </ul>
-                                    </div>
-
-                                    <div class="btn-group votes" role="group" style="float: right;"
-                                      aria-label="Close vote" tal:condition="itemSubpunt/canRecloseVote">
-                                      <button class="badge bg-secondary dropdown-toggle" type="button"
-                                                                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i tal:attributes="class itemSubpunt/classVote" aria-hidden="true"></i>
-                                        <span class="caret"></span>
-                                      </button>
-                                      <ul class="dropdown-menu px-2" role="menu" aria-labelledby="types">
-                                        <li class="recloseVote" tal:attributes="data-id itemSubpunt/canRecloseVote">
-                                          <a tabindex="-1" data-type="open">
-                                                                                                <span><i class="bi bi-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
-                                                i18n:translate="">Close</tal:omit-tag></span>
-                                          </a>
-                                        </li>
-                                      </ul>
-                                    </div>
-
-                                  </tal:block>
-                                </tal:block>
-                              </tal:editActions>
-
-                              <div tal:condition="not:python: view.canModifyPunt(itemSubpunt)" style="float: right;">
-                                <tal:block tal:condition="itemSubpunt/state">
-                                  <button class="btn badge bg-secondary disabled fs-xxs">
-                                                                                <i class="bi bi-circle-fill" aria-hidden="true"
-                                      tal:attributes="style string:color:${itemSubpunt/css}"></i>
-                                    <span tal:content="itemSubpunt/state"></span>
-                                  </button>
-                                </tal:block>
-                              </div>
-                            </div>
-                            <div class="subpuntTitle">
-                              <div class="col-1">
-                                <span class="proposalNumberSubpunt" tal:content="itemSubpunt/proposalPoint"></span>
-                              </div>
-                              <div class="col-9">
-                                                                        <a tal:attributes="data-id itemSubpunt_id; href itemSubpunt/absolute_url"
-                                                                           data-type="text" data-url="changeTitle" class="editTitle subtitleSize">
-                                  <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
-                                </a>
-                                <span tal:condition="agreement" class="agreementClass">
-                                  [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag
-                                    tal:content="agreement">Acord code </tal:omit-tag>]
-                                </span>
-                                <tal:block tal:condition="canViewVoteButtons">
-                                  <span tal:condition="itemSubpunt/canRecloseVote"
-                                            class="subtitleSize">
-                                    <br />
-                                    <tal:omit-tag i18n:translate="">Vote</tal:omit-tag>:
-                                    <tal:omit-tag tal:content="itemSubpunt/titleEsmena"></tal:omit-tag>
-                                  </span>
-                                </tal:block>
-                              </div>
-                              <div class="col-2 boleta" tal:define="estat itemSubpunt/state">
-                                <span class="btn badge bg-secondary disabled" style="float: right;">
-                                      <i class="bi bi-circle-fill" aria-hidden="true"
-                                    tal:attributes="style string:color:${itemSubpunt/css}"></i>&nbsp;<span
-                                    tal:content="estat"></span>
-                                </span>
-                              </div>
-                              <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
-                                <div class="col-12" tal:condition="files">
-                                  <ul style="list-style: none;" tal:condition="files">
-                                    <tal:documents repeat="item files">
-                                      <li class="filesinTable" style="width: 92% !important;">
-                                        <i tal:attributes="class item/classCSS"></i>
-                                        <a tal:attributes="href item/absolute_url;" tal:condition="item/new_tab"
-                                          target="_blank">
-                                          <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                                      <li class="openOtherPublicVote" tal:attributes="data-id itemSubpunt/id;
+                                                                                data-title getTitlePrompt;
+                                                                                data-error getErrorPrompt;">
+                                        <a tabindex="-1" data-type="openOther" class="dropdown-item">
+                                                                                              <span><i class="bi bi-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
+                                              i18n:translate="">Other Public</tal:omit-tag></span>
                                         </a>
-                                        <a tal:attributes="href item/absolute_url;" tal:condition="not:item/new_tab">
-                                          <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
-                                        </a>
-                                        <div style="float:right; display: inline-table;"
-                                          tal:condition="python: view.canModifyPunt(itemSubpunt)">
-                                                                                            <button type="button" class="remove badge bg-danger"
-                                                                                                    title="Esborra"
-                                                                                                    data-bs-toggle="modal"
-                                                                                                    data-bs-target="#modalConfirm"
-                                                                                                    data-modal-title="Confirmar eliminació"
-                                                                                                    data-modal-body="Estàs segur que vols eliminar aquest element?"
-                                                                                                    data-modal-action="delete"
-                                            tal:attributes="data-item item/id; data-type item/portal_type">
-                                                                                                <i class="bi bi-trash" aria-hidden="true"></i></button>
-                                        </div>
                                       </li>
-                                    </tal:documents>
-                                  </ul>
-                                </div>
-                              </tal:files>
-                            </div>
-                            <tal:block tal:condition="canViewVoteButtons">
-                              <div class="puntVoteButtons col-12" tal:condition="itemSubpunt/canCloseVote">
-                                <span class="col-2"></span>
-                                <div class="col-10 hasVote">
-                                  <a class="btn btn-notvote span4 favor" tal:attributes="data-id itemSubpunt_id"
-                                    tal:condition="not: itemSubpunt/favorVote" i18n:translate="">A favor</a>
-                                  <a class="btn btn-info span4" tal:condition="itemSubpunt/favorVote"
-                                    i18n:translate="">A favor</a>
-                                  <a class="btn btn-notvote span4 against" tal:attributes="data-id itemSubpunt_id"
-                                    tal:condition="not: itemSubpunt/againstVote" i18n:translate="">En contra</a>
-                                  <a class="btn btn-info span4" tal:condition="itemSubpunt/againstVote"
-                                    i18n:translate="">En contra</a>
-                                  <a class="btn btn-notvote span4 white" tal:attributes="data-id itemSubpunt_id"
-                                    tal:condition="not: itemSubpunt/whiteVote" i18n:translate="">En blanc</a>
-                                  <a class="btn btn-info span4" tal:condition="itemSubpunt/whiteVote"
-                                    i18n:translate="">En blanc</a>
-                                </div>
-                              </div>
-                              <div class="puntVoteButtons col-12" tal:condition="itemSubpunt/canRecloseVote">
-                                <span class="col-2"></span>
-                                <div class="col-10 hasVote">
-                                  <a class="btn btn-notvote span4 favor"
-                                    tal:attributes="data-id itemSubpunt/canRecloseVote"
-                                    tal:condition="not: itemSubpunt/favorVote" i18n:translate="">A favor</a>
-                                  <a class="btn btn-info span4" tal:condition="itemSubpunt/favorVote"
-                                    i18n:translate="">A favor</a>
-                                  <a class="btn btn-notvote span4 against"
-                                    tal:attributes="data-id itemSubpunt/canRecloseVote"
-                                    tal:condition="not: itemSubpunt/againstVote" i18n:translate="">En contra</a>
-                                  <a class="btn btn-info span4" tal:condition="itemSubpunt/againstVote"
-                                    i18n:translate="">En contra</a>
-                                  <a class="btn btn-notvote span4 white"
-                                    tal:attributes="data-id itemSubpunt/canRecloseVote"
-                                    tal:condition="not: itemSubpunt/whiteVote" i18n:translate="">En blanc</a>
-                                  <a class="btn btn-info span4" tal:condition="itemSubpunt/whiteVote"
-                                    i18n:translate="">En blanc</a>
-                                </div>
-                              </div>
-                            </tal:block>
+                                      <li class="openPublicVote" tal:attributes="data-id itemSubpunt/id">
+                                        <a tabindex="-1" data-type="open" class="dropdown-item">
+                                                                                              <span><i class="bi bi-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
+                                              i18n:translate="">Public</tal:omit-tag></span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </div>
 
-                          </ol>
-                        </tal:subpunts>
-                      </div>
-                    </tal:block-contenidos>
-                                            </div>
-                </li>
-              </tal:block>
-            </tal:documents>
-          </ul>
-                        </div>
+                                  <div class="btn-group votes" role="group" style="float: right;"
+                                    aria-label="Close vote" tal:condition="itemSubpunt/canCloseVote">
+                                    <button class="badge bg-secondary dropdown-toggle" type="button"
+                                                                                          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      <i tal:attributes="class itemSubpunt/classVote" aria-hidden="true"></i>
+                                      <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                                      <li class="closeVote" tal:attributes="data-id itemSubpunt/id">
+                                        <a tabindex="-1" data-type="open" class="dropdown-item">
+                                                                                              <span><i class="bi bi-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
+                                              i18n:translate="">Close</tal:omit-tag></span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </div>
+
+                                  <div class="btn-group votes" role="group" style="float: right;"
+                                    aria-label="Close vote" tal:condition="itemSubpunt/canRecloseVote">
+                                    <button class="badge bg-secondary dropdown-toggle" type="button"
+                                                                                          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      <i tal:attributes="class itemSubpunt/classVote" aria-hidden="true"></i>
+                                      <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="types">
+                                      <li class="recloseVote" tal:attributes="data-id itemSubpunt/canRecloseVote">
+                                        <a tabindex="-1" data-type="open" class="dropdown-item">
+                                                                                              <span><i class="bi bi-pie-chart"></i>&nbsp;&nbsp;<tal:omit-tag
+                                              i18n:translate="">Close</tal:omit-tag></span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </div>
+
+                                </tal:block>
+                              </tal:block>
+                            </tal:editActions>
+
+                            <div tal:condition="not:python: view.canModifyPunt(itemSubpunt)" style="float: right;">
+                              <tal:block tal:condition="itemSubpunt/state">
+                                <button class="btn badge bg-secondary disabled fs-xxs">
+                                                                              <i class="bi bi-circle-fill" aria-hidden="true"
+                                    tal:attributes="style string:color:${itemSubpunt/css}"></i>
+                                  <span tal:content="itemSubpunt/state"></span>
+                                </button>
+                              </tal:block>
+                            </div>
+                          </div>
+                          <div class="subpuntTitle">
+                            <div class="col-1">
+                              <span class="proposalNumberSubpunt" tal:content="itemSubpunt/proposalPoint"></span>
+                            </div>
+                            <div class="col-9">
+                                                                      <a tal:attributes="data-id itemSubpunt_id; href itemSubpunt/absolute_url"
+                                                                          data-type="text" data-url="changeTitle" class="editTitle subtitleSize">
+                                <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
+                              </a>
+                              <span tal:condition="agreement" class="agreementClass">
+                                [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag
+                                  tal:content="agreement">Acord code </tal:omit-tag>]
+                              </span>
+                              <tal:block tal:condition="canViewVoteButtons">
+                                <span tal:condition="itemSubpunt/canRecloseVote"
+                                          class="subtitleSize">
+                                  <br />
+                                  <tal:omit-tag i18n:translate="">Vote</tal:omit-tag>:
+                                  <tal:omit-tag tal:content="itemSubpunt/titleEsmena"></tal:omit-tag>
+                                </span>
+                              </tal:block>
+                            </div>
+                            <div class="col-2 boleta" tal:define="estat itemSubpunt/state">
+                              <span class="btn badge bg-secondary disabled" style="float: right;">
+                                    <i class="bi bi-circle-fill" aria-hidden="true"
+                                  tal:attributes="style string:color:${itemSubpunt/css}"></i>&nbsp;<span
+                                  tal:content="estat"></span>
+                              </span>
+                            </div>
+                            <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
+                              <div class="col-12" tal:condition="files">
+                                <ul style="list-style: none;" tal:condition="files">
+                                  <tal:documents repeat="item files">
+                                    <li class="filesinTable" style="width: 92% !important;">
+                                      <i tal:attributes="class item/classCSS"></i>
+                                      <a tal:attributes="href item/absolute_url;" tal:condition="item/new_tab"
+                                        target="_blank">
+                                        <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                      </a>
+                                      <a tal:attributes="href item/absolute_url;" tal:condition="not:item/new_tab">
+                                        <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
+                                      </a>
+                                      <div style="float:right; display: inline-table;"
+                                        tal:condition="python: view.canModifyPunt(itemSubpunt)">
+                                                                                          <button type="button" class="remove badge bg-danger"
+                                                                                                  title="Esborra"
+                                                                                                  data-bs-toggle="modal"
+                                                                                                  data-bs-target="#modalConfirm"
+                                                                                                  data-modal-title="Confirmar eliminació"
+                                                                                                  data-modal-body="Estàs segur que vols eliminar aquest element?"
+                                                                                                  data-modal-action="delete"
+                                          tal:attributes="data-item item/id; data-type item/portal_type">
+                                                                                              <i class="bi bi-trash" aria-hidden="true"></i></button>
+                                      </div>
+                                    </li>
+                                  </tal:documents>
+                                </ul>
+                              </div>
+                            </tal:files>
+                          </div>
+                          <tal:block tal:condition="canViewVoteButtons">
+                            <div class="puntVoteButtons col-12" tal:condition="itemSubpunt/canCloseVote">
+                              <span class="col-2"></span>
+                              <div class="col-10 hasVote">
+                                <a class="btn btn-notvote span4 favor" tal:attributes="data-id itemSubpunt_id"
+                                  tal:condition="not: itemSubpunt/favorVote" i18n:translate="">A favor</a>
+                                <a class="btn btn-info span4" tal:condition="itemSubpunt/favorVote"
+                                  i18n:translate="">A favor</a>
+                                <a class="btn btn-notvote span4 against" tal:attributes="data-id itemSubpunt_id"
+                                  tal:condition="not: itemSubpunt/againstVote" i18n:translate="">En contra</a>
+                                <a class="btn btn-info span4" tal:condition="itemSubpunt/againstVote"
+                                  i18n:translate="">En contra</a>
+                                <a class="btn btn-notvote span4 white" tal:attributes="data-id itemSubpunt_id"
+                                  tal:condition="not: itemSubpunt/whiteVote" i18n:translate="">En blanc</a>
+                                <a class="btn btn-info span4" tal:condition="itemSubpunt/whiteVote"
+                                  i18n:translate="">En blanc</a>
+                              </div>
+                            </div>
+                            <div class="puntVoteButtons col-12" tal:condition="itemSubpunt/canRecloseVote">
+                              <span class="col-2"></span>
+                              <div class="col-10 hasVote">
+                                <a class="btn btn-notvote span4 favor"
+                                  tal:attributes="data-id itemSubpunt/canRecloseVote"
+                                  tal:condition="not: itemSubpunt/favorVote" i18n:translate="">A favor</a>
+                                <a class="btn btn-info span4" tal:condition="itemSubpunt/favorVote"
+                                  i18n:translate="">A favor</a>
+                                <a class="btn btn-notvote span4 against"
+                                  tal:attributes="data-id itemSubpunt/canRecloseVote"
+                                  tal:condition="not: itemSubpunt/againstVote" i18n:translate="">En contra</a>
+                                <a class="btn btn-info span4" tal:condition="itemSubpunt/againstVote"
+                                  i18n:translate="">En contra</a>
+                                <a class="btn btn-notvote span4 white"
+                                  tal:attributes="data-id itemSubpunt/canRecloseVote"
+                                  tal:condition="not: itemSubpunt/whiteVote" i18n:translate="">En blanc</a>
+                                <a class="btn btn-info span4" tal:condition="itemSubpunt/whiteVote"
+                                  i18n:translate="">En blanc</a>
+                              </div>
+                            </div>
+                          </tal:block>
+                        </ol>
+                      </tal:subpunts>
                     </div>
+                  </tal:block-contenidos>
+                </div>
+              </li>
+            </tal:block>
+          </tal:documents>
+        </ul>
+      </div>
+    </div>
 
     <script type="text/javascript"
             src="++theme++genweb.organs/js/jquery-ui.min.js"></script>    

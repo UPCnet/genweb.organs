@@ -338,6 +338,7 @@ class View(BrowserView, UtilsFirmaDocumental):
 
 
 class OpenPublicVote(BrowserView):
+    
     def render(self):
         self.context.estatVotacio = 'open'
         self.context.tipusVotacio = 'public'
@@ -348,6 +349,7 @@ class OpenPublicVote(BrowserView):
 
 
 class OpenOtherPublicVote(BrowserView):
+    
     def render(self):
         if 'title' in self.request.form and self.request.form['title'] and self.request.form['title'] != '':
             item = createContentInContainer(self.context, "genweb.organs.votacioacord", title=self.request.form['title'])
@@ -360,6 +362,7 @@ class OpenOtherPublicVote(BrowserView):
 
 
 # class OpenSecretVote(BrowserView):
+
 #     def render(self):
 #         self.context.estatVotacio = 'open'
 #         self.context.tipusVotacio = 'secret'
@@ -369,6 +372,7 @@ class OpenOtherPublicVote(BrowserView):
 
 
 # class OpenSecretPublicVote(BrowserView):
+
 #     def render(self):
 #         if 'title' in self.request.form and self.request.form['title'] and self.request.form['title'] != '':
 #             item = createContentInContainer(self.context, "genweb.organs.votacioacord", title=self.request.form['title'])
@@ -380,6 +384,7 @@ class OpenOtherPublicVote(BrowserView):
 
 
 class ReopenVote(BrowserView):
+    
     def render(self):
         if checkHasOpenVote(self.context):
             return json.dumps({"status": 'error', "msg": _(u'Ja hi ha una votació oberta, no se\'n pot obrir una altra.')})
@@ -393,6 +398,7 @@ class ReopenVote(BrowserView):
 
 
 class CloseVote(BrowserView):
+    
     def render(self):
         self.context.estatVotacio = 'close'
         self.context.horaFiVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
@@ -402,6 +408,7 @@ class CloseVote(BrowserView):
 
 
 class FavorVote(BrowserView):
+    
     def render(self):
         if self.context.estatVotacio == 'close':
             return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
@@ -417,6 +424,7 @@ class FavorVote(BrowserView):
         return json.dumps({"status": 'success', "msg": ''})
 
 class AgainstVote(BrowserView):
+    
     def render(self):
         if self.context.estatVotacio == 'close':
             return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
@@ -433,6 +441,7 @@ class AgainstVote(BrowserView):
 
 
 class WhiteVote(BrowserView):
+    
     def render(self):
         if self.context.estatVotacio == 'close':
             return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})

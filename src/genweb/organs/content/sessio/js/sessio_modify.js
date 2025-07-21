@@ -80,27 +80,23 @@ $(document).ready(function(){
     }
   });
 
-
-
-
   /*
   * MANEJO DE MODALES
   */
-
   // Limpiar formularios cuando se cierran los modales
-  const modalPunt = document.getElementById('modalPunt');
-  if (modalPunt) {
-    modalPunt.addEventListener('hidden.bs.modal', () => {
-      const title = modalPunt.querySelector('#new-punt-title');
-      if (title) title.value = '';
+  const $modalPunt = $('#modalPunt');
+  if ($modalPunt.length) {
+    $modalPunt.on('hidden.bs.modal', function () {
+      const $title = $modalPunt.find('#new-punt-title');
+      if ($title.length) $title.val('');
     });
   }
 
-  const modalAcord = document.getElementById('modalAcord');
-  if (modalAcord) {
-    modalAcord.addEventListener('hidden.bs.modal', () => {
-      const title = modalAcord.querySelector('#new-acord-title');
-      if (title) title.value = '';
+  const $modalAcord = $('#modalAcord');
+  if ($modalAcord.length) {
+    $modalAcord.on('hidden.bs.modal', function () {
+      const $title = $modalAcord.find('#new-acord-title');
+      if ($title.length) $title.val('');
     });
   }
 
@@ -118,8 +114,7 @@ $(document).ready(function(){
       url: window.location.href.split('?')[0].replace(/\/$/, "") + '/@@createElement',
       data: { action: 'createPunt', name: value },
       success: function () {
-        const modal = bootstrap.Modal.getInstance(modalPunt);
-        if (modal) modal.hide();
+        if ($modalPunt.length) $modalPunt.modal('hide');
         setTimeout(() => window.location.reload(), 500);
       },
       error: function () {
@@ -142,8 +137,7 @@ $(document).ready(function(){
       url: window.location.href.split('?')[0].replace(/\/$/, "") + '/@@createElement',
       data: { action: 'createAcord', name: value },
       success: function () {
-        const modal = bootstrap.Modal.getInstance(modalAcord);
-        if (modal) modal.hide();
+        if ($modalAcord.length) $modalAcord.modal('hide');
         setTimeout(() => window.location.reload(), 500);
       },
       error: function () {
@@ -155,31 +149,28 @@ $(document).ready(function(){
   /*
   * MODAL DE CONFIRMACIÓN GENÉRICO (Bootstrap 5 way)
   */
-  const confirmModal = document.getElementById('modalConfirm');
-  if (confirmModal) {
-    confirmModal.addEventListener('show.bs.modal', event => {
-      const button = event.relatedTarget; // Botón que disparó el modal
-      // Extraer información de los atributos data-*
-      const title = button.getAttribute('data-modal-title');
-      const body = button.getAttribute('data-modal-body');
-      const action = button.getAttribute('data-modal-action');
+  const $confirmModal = $('#modalConfirm');
+  if ($confirmModal.length) {
+    $confirmModal.on('show.bs.modal', function (event) {
+      const button = event.relatedTarget;
+      const title = $(button).attr('data-modal-title');
+      const body = $(button).attr('data-modal-body');
+      const action = $(button).attr('data-modal-action');
 
-      confirmModal.querySelector('.modal-title').textContent = title;
-      confirmModal.querySelector('.modal-body').textContent = body;
+      $confirmModal.find('.modal-title').text(title);
+      $confirmModal.find('.modal-body').text(body);
 
-      const confirmButton = confirmModal.querySelector('#modalConfirmButton');
-
-      // Limpiamos eventos anteriores para evitar ejecuciones múltiples
-      $(confirmButton).off('click').on('click', function () {
+      const $confirmButton = $confirmModal.find('#modalConfirmButton');
+      $confirmButton.off('click').on('click', function () {
         if (action === 'delete') {
-          const itemId = button.getAttribute('data-item');
-          const itemType = button.getAttribute('data-type');
+          const itemId = $(button).attr('data-item');
+          const itemType = $(button).attr('data-type');
           deleteElement(itemId, itemType);
         } else if (action === 'hideAgreement') {
-          const url = button.getAttribute('data-item-url');
+          const url = $(button).attr('data-item-url');
           hideAgreement(url);
         }
-        bootstrap.Modal.getInstance(confirmModal).hide();
+        $confirmModal.modal('hide');
       });
     });
   }
@@ -187,9 +178,8 @@ $(document).ready(function(){
   /*
   * EDICIÓN DE TÍTULOS
   */
-  const editTitleModalEl = document.getElementById('modalEditTitle');
-  if (editTitleModalEl) {
-    const editTitleModal = new bootstrap.Modal(editTitleModalEl);
+  const $editTitleModalEl = $('#modalEditTitle');
+  if ($editTitleModalEl.length) {
     // Delegación de eventos para los botones de editar
     $('#sortable').on('click', '.edit, .edit2, a.editTitle', function (e) {
       e.preventDefault();
@@ -198,7 +188,7 @@ $(document).ready(function(){
       const currentTitle = $(this).is('a') ? $(this).text().trim() : $(this).data('title');
       $('#edit-title-input').val(currentTitle);
       $('#edit-title-pk').val(pk);
-      editTitleModal.show();
+      $editTitleModalEl.modal('show');
     });
 
     $('#saveTitleButton').on('click', function () {
@@ -215,7 +205,7 @@ $(document).ready(function(){
         success: function () {
           $('a.editTitle[data-id="' + pk + '"]').text(newTitle);
           $('button.edit[data-id="' + pk + '"], button.edit2[data-id="' + pk + '"]').data('title', newTitle);
-          editTitleModal.hide();
+          $editTitleModalEl.modal('hide');
         },
         error: function () {
           alert('Hi ha hagut un error al desar el títol.');
@@ -224,16 +214,17 @@ $(document).ready(function(){
     });
   }
 
-
-
   /*
-  * ESTADOS DE PUNTO (COLOR)
+  * ESTADOS DE PUNTO (COLOR + TEXTO)
   */
   $("li.defaultValue").on('click', function () {
     const colorSelected = $(this).find('.bi-circle-fill').css('color');
     const $buttonGroup = $(this).closest('.btn-group');
     $buttonGroup.find('.bullet-toggle > i').css({ 'color': colorSelected });
     $buttonGroup.closest('.einesSpan').parent().find('.boleta > span > i').css({ 'color': colorSelected });
+
+    const textSelected = $(this).find('span').text();
+    $buttonGroup.closest('.einesSpan').parent().find('.boleta > span > span').text(textSelected);
   });
 
   /*
@@ -249,18 +240,18 @@ $(document).ready(function(){
     }
 
     // Crear un formulario temporal para enviar los datos
-    const form = $('<form>', {
+    const $form = $('<form>', {
       'method': 'POST',
       'action': window.location.href.split('?')[0].replace(/\/$/, "") + '/manualStructureCreation'
     });
 
-    form.append($('<input>', {
+    $form.append($('<input>', {
       'type': 'hidden',
       'name': 'form.widgets.message',
       'value': content
     }));
 
-    form.append($('<input>', {
+    $form.append($('<input>', {
       'type': 'hidden',
       'name': 'form.buttons.send',
       'value': 'Send'
@@ -268,44 +259,16 @@ $(document).ready(function(){
 
     // No CSRF token añadido
 
-    $('body').append(form);
-    form.submit();
+    $('body').append($form);
+    $form.submit();
   });
 
   // Limpiar el textarea cuando se cierra el modal de importación
-  const modalPunts = document.getElementById('modalPunts');
-  if (modalPunts) {
-    modalPunts.addEventListener('hidden.bs.modal', () => {
-      const textarea = modalPunts.querySelector('#manual-import-text');
-      if (textarea) textarea.value = '';
+  const $modalPunts = $('#modalPunts');
+  if ($modalPunts.length) {
+    $modalPunts.on('hidden.bs.modal', function () {
+      const $textarea = $modalPunts.find('#manual-import-text');
+      if ($textarea.length) $textarea.val('');
     });
   }
 });
-
-/*
-* FUNCIONES GLOBALES (usadas en los manejadores de eventos)
-*/
-function hideAgreement(url) {
-  jQuery.ajax({
-    type: 'POST',
-    url: url + '/hide-agreement',
-    success: function () { window.location.reload(); },
-    error: function () { alert('Error en l\'operació'); }
-  });
-}
-
-function deleteElement(name, portal_type) {
-  const id = CSS.escape(name);
-  jQuery.ajax({
-    type: 'POST',
-    url: window.location.href.split('?')[0].replace(/\/$/, "") + '/deleteElement',
-    data: { action: 'delete', id: name, type: portal_type },
-    success: function () {
-      jQuery('#' + id).fadeOut('slow', function () { $(this).remove(); });
-    },
-    error: function () {
-      alert('Error on deleting element');
-      window.location.reload();
-    }
-  });
-}
