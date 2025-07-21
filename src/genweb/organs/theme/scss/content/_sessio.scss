@@ -79,6 +79,13 @@ body.portaltype-genweb-organs-sessio {
       position: absolute;
       background: linear-gradient(to right, rgba(229, 247, 255, 0) 0%, rgba(229, 247, 255, 1) 30%, rgba(229, 247, 255, 1) 100%);
     }
+
+    .puntVoteButtons {
+
+      .btn.disabled {
+        cursor: not-allowed;
+      }
+    }
   }
 }
 

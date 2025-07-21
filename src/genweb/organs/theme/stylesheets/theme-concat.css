@@ -495,6 +495,10 @@ body.portaltype-genweb-organs-sessio #sortable .einesSpan {
   position: absolute;
   background: linear-gradient(to right, rgba(229, 247, 255, 0) 0%, #e5f7ff 30%, #e5f7ff 100%);
 }
+/* line 85, ../scss/content/_sessio.scss */
+body.portaltype-genweb-organs-sessio #sortable .puntVoteButtons .btn.disabled {
+  cursor: not-allowed;
+}
 /*! jQuery UI - v1.14.1 - 2024-10-30
 * https://jqueryui.com
 * Includes: core.css, accordion.css, autocomplete.css, menu.css, button.css, controlgroup.css, checkboxradio.css, datepicker.css, dialog.css, draggable.css, resizable.css, progressbar.css, selectable.css, selectmenu.css, slider.css, sortable.css, spinner.css, tabs.css, tooltip.css, theme.css
