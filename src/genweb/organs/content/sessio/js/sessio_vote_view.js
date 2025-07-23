@@ -5,7 +5,7 @@ $(document).ready(function() {
     return function() {
       $.ajax({
         type: 'POST',
-        url: $(this).attr('data-id') + '/' + type + 'Vote',
+        url: $(this).data('id') + '/' + type + 'Vote',
         success: function(result) {
           if (result.status !== "success") {
             alert(result.msg);

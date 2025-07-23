@@ -9,8 +9,8 @@ $(document).ready(function(){
       e.preventDefault();
       var url = $btnPrint.data('url');
       $iframe.attr('src', url + '/butlleti');
-      $iframe.off('load').on('load', function () {
-        setTimeout(function () {
+      $iframe.off('load').on('load', function(){
+        setTimeout(function(){
           $iframe[0].contentWindow.focus();
           $iframe[0].contentWindow.print();
         }, 200);
@@ -35,7 +35,7 @@ $(document).ready(function(){
   });
 
   // Para el desplegable de información de voto público
-  $(".openInfo").click(function () {
+  $(".openInfo").click(function(){
     const toggleVoteInfo = $(this).data("open");
     $(toggleVoteInfo).toggleClass("d-none");
     $(this).find(".bi-chevron-down").toggleClass("d-none");

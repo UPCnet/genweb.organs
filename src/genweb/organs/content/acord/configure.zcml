@@ -38,6 +38,13 @@
     />
 
   <browser:page
+    name="hideAgreement"
+    for=".acord.IAcord"
+    class=".acord.HideAgreement"
+    permission="genweb.webmaster"
+    />
+    
+  <browser:page
     name="openPublicVote"
     for=".acord.IAcord"
     class=".acord.OpenPublicVote"

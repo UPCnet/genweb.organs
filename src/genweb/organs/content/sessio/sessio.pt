@@ -412,16 +412,16 @@
               <tbody>
                 <tal:documents repeat="item acords">
                   <tr>
-                    <td>
-                      <i class="bi bi-check me-1"></i>
+                    <td class="w-auto">
+                      <i class="bi bi-check"></i>
                       <a href="#" tal:attributes="href item/absolute_url" tal:content="item/title">Item Title</a>
                     </td>
                     <td class="text-center">
                       <span tal:content="item/agreement">Numero Acord</span>
                     </td>
-                    <td class="text-center w-100">
-                      <div class="d-flex align-items-center justify-content-center gap-2">
-                        <i class="bi bi-circle-fill" tal:attributes="style string:color:${item/color}"></i>
+                    <td class="text-center">
+                      <div class="btn badge bg-secondary disabled badge bg-secondaryString fs-xxs">
+                        <i class="bi bi-circle-fill me-1" tal:attributes="style string:color:${item/color}"></i>
                         <span tal:content="item/estatsLlista"></span>
                       </div>
                     </td>
@@ -715,7 +715,8 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" i18n:translate="">Cancel·la</button>
-              <button type="button" class="btn btn-primary" id="saveTitleButton" i18n:translate="">Desa els canvis</button>
+              <button type="button" class="btn btn-primary" id="saveTitleButton" i18n:translate=""
+                      tal:attributes="data-url absolute_url">Desa els canvis</button>
             </div>
           </div>
         </div>
@@ -891,12 +892,17 @@ P Conclusions</code>
             <tal:block tal:define="agreement item/agreement; isAcord item/isAcord">
               <li tal:attributes="id item/id; class item/classe">
                 <div class="row px-3 py-2 justify-content-end" tal:condition="item/show">
-                  <div class="col-6 einesSpan d-none d-flex flex-row-reverse justify-content-start align-items-center column-gap-2">
+                  <div class="col-6 einesSpan d-none d-flex flex-row-reverse justify-content-start align-items-baseline column-gap-2">
                     <tal:editActions tal:condition="python: view.canModifyPunt(item)">
                       <div class="d-flex column-gap-2" aria-label="Edit actions">
                         <tal:block tal:condition="isAcord">
                           <button type="button" class="hide-agreement badge btn btn-secondary fs-xxxs px-2 py-2"
                                   title="Esborra número acord"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#modalConfirm"
+                                  data-modal-title="Confirmar eliminació del número d'acord"
+                                  data-modal-body="Estàs segur que vols eliminar el número d'acord?"
+                                  data-modal-action="hideAgreement"
                                   tal:condition="not:item/omitAgreement" 
                                   tal:attributes="data-item item/absolute_url">
                             <i class="bi bi-arrow-counterclockwise"></i>
@@ -913,7 +919,9 @@ P Conclusions</code>
                                 data-modal-title="Confirmar eliminació"
                                 data-modal-body="Estàs segur que vols eliminar aquest element?"
                                 data-modal-action="delete"
-                                tal:attributes="data-item item/id; data-type item/portal_type">
+                                tal:attributes="data-url absolute_url;
+                                                data-item item/id; 
+                                                data-type item/portal_type">
                           <i class="bi bi-trash"></i>
                         </button>
                       </div>
@@ -1077,7 +1085,7 @@ P Conclusions</code>
                 <tal:block-contenidos tal:define="files python:view.filesinsidePunt(item);
                                                   subpunts python:view.SubpuntsInside(item);
                                                   contenidos python:files or subpunts">
-                  <div class="puntTitle col-12 d-flex flex-nowrap align-items-center"
+                  <div class="puntTitle col-12 d-flex flex-nowrap align-items-baseline"
                        tal:attributes="id string:punt-${item/id}">
                     <div class="fletxaSpan me-2 w-3">
                       <button type="button" class="btn px-0 py-0 btn-expand-collapse collapsed" 
@@ -1125,7 +1133,7 @@ P Conclusions</code>
                   </div>
 
                   <tal:block tal:condition="canViewVoteButtons">
-                    <div class="puntVoteButtons col-12 row mt-3" tal:condition="item/canCloseVote">
+                    <div class="puntVoteButtons col-12 row mt-2" tal:condition="item/canCloseVote">
                       <span class="col-1"></span>
                       <div class="col-11 row">
                         <div class="col-4" tal:condition="not:item/favorVote">
@@ -1192,9 +1200,7 @@ P Conclusions</code>
                       <ul class="listFiles list-unstyled">
                         <tal:documents repeat="file_item files">
                           <li class="filesinTable w-100">
-                            <div class="me-2 w-3"></div>
-                            <div class="me-2 w-5"></div>
-                            <div class="w-auto titleSpan">
+                            <div class="titleSpan">
                               <i tal:attributes="class string:${file_item/classCSS} me-1"></i>
                               <a tal:attributes="href file_item/absolute_url;" 
                                  tal:condition="file_item/new_tab"
@@ -1216,7 +1222,8 @@ P Conclusions</code>
                                         data-modal-title="Confirmar eliminació"
                                         data-modal-body="Estàs segur que vols eliminar aquest element?"
                                         data-modal-action="delete"
-                                        tal:attributes="data-item string:${absolute_url}/${file_item/id}; 
+                                        tal:attributes="data-url absolute_url;
+                                                        data-item file_item/id; 
                                                         data-type file_item/portal_type">
                                   <i class="bi bi-trash" aria-hidden="true"></i>
                                 </button>

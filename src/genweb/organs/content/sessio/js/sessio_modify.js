@@ -54,7 +54,7 @@ $(document).ready(function(){
     const currentLi = $(this);
     if (!currentLi.hasClass('picked')) {
       // Deseleccionar cualquier otro
-      $('.ui-sortable li.picked').each(function () {
+      $('.ui-sortable li.picked').each(function(){
         $(this).removeClass('picked')
           .find('.einesSpan').toggleClass('d-none');
         $(this).find('.boleta').show();
@@ -72,7 +72,7 @@ $(document).ready(function(){
   $(window).on("click.Bst", function (event) {
     if ($(event.target).closest('.modal').length > 0) return; // No hacer nada si el click es en un modal
     if ($(event.target).closest('#sortable').length === 0) {
-      $('.ui-sortable li.picked').each(function () {
+      $('.ui-sortable li.picked').each(function(){
         $(this).removeClass('picked')
           .find('.einesSpan').toggleClass('d-none');
         $(this).find('.boleta').show();
@@ -86,7 +86,7 @@ $(document).ready(function(){
   // Limpiar formularios cuando se cierran los modales
   const $modalPunt = $('#modalPunt');
   if ($modalPunt.length) {
-    $modalPunt.on('hidden.bs.modal', function () {
+    $modalPunt.on('hidden.bs.modal', function(){
       const $title = $modalPunt.find('#new-punt-title');
       if ($title.length) $title.val('');
     });
@@ -94,7 +94,7 @@ $(document).ready(function(){
 
   const $modalAcord = $('#modalAcord');
   if ($modalAcord.length) {
-    $modalAcord.on('hidden.bs.modal', function () {
+    $modalAcord.on('hidden.bs.modal', function(){
       const $title = $modalAcord.find('#new-acord-title');
       if ($title.length) $title.val('');
     });
@@ -113,11 +113,11 @@ $(document).ready(function(){
       type: 'POST',
       url: window.location.href.split('?')[0].replace(/\/$/, "") + '/@@createElement',
       data: { action: 'createPunt', name: value },
-      success: function () {
+      success: function(){
         if ($modalPunt.length) $modalPunt.modal('hide');
         setTimeout(() => window.location.reload(), 500);
       },
-      error: function () {
+      error: function(){
         alert('Hi ha hagut un error al crear el punt.');
       }
     });
@@ -136,11 +136,11 @@ $(document).ready(function(){
       type: 'POST',
       url: window.location.href.split('?')[0].replace(/\/$/, "") + '/@@createElement',
       data: { action: 'createAcord', name: value },
-      success: function () {
+      success: function(){
         if ($modalAcord.length) $modalAcord.modal('hide');
         setTimeout(() => window.location.reload(), 500);
       },
-      error: function () {
+      error: function(){
         alert('Hi ha hagut un error al crear l\'acord.');
       }
     });
@@ -153,21 +153,22 @@ $(document).ready(function(){
   if ($confirmModal.length) {
     $confirmModal.on('show.bs.modal', function (event) {
       const button = event.relatedTarget;
-      const title = $(button).attr('data-modal-title');
-      const body = $(button).attr('data-modal-body');
-      const action = $(button).attr('data-modal-action');
+      const title = $(button).data('modal-title');
+      const body = $(button).data('modal-body');
+      const action = $(button).data('modal-action');
 
       $confirmModal.find('.modal-title').text(title);
       $confirmModal.find('.modal-body').text(body);
 
       const $confirmButton = $confirmModal.find('#modalConfirmButton');
-      $confirmButton.off('click').on('click', function () {
+      $confirmButton.off('click').on('click', function(){
         if (action === 'delete') {
-          const itemId = $(button).attr('data-item');
-          const itemType = $(button).attr('data-type');
-          deleteElement(itemId, itemType);
+          const itemId = $(button).data('item');
+          const itemType = $(button).data('type');
+          const itemUrl = $(button).data('url');
+          deleteElement(itemUrl, itemId, itemType);
         } else if (action === 'hideAgreement') {
-          const url = $(button).attr('data-item-url');
+          const url = $(button).data('item');
           hideAgreement(url);
         }
         $confirmModal.modal('hide');
@@ -191,7 +192,7 @@ $(document).ready(function(){
       $editTitleModalEl.modal('show');
     });
 
-    $('#saveTitleButton').on('click', function () {
+    $('#saveTitleButton').on('click', function(){
       const pk = $('#edit-title-pk').val();
       const newTitle = $('#edit-title-input').val();
       if (!newTitle) {
@@ -199,15 +200,15 @@ $(document).ready(function(){
         return;
       }
       $.ajax({
-        url: 'changeTitle',
+        url: $(this).data('url') + '/changeTitle',
         type: 'POST',
         data: { pk: pk, value: newTitle },
-        success: function () {
+        success: function(){
           $('a.editTitle[data-id="' + pk + '"]').text(newTitle);
           $('button.edit[data-id="' + pk + '"], button.edit2[data-id="' + pk + '"]').data('title', newTitle);
           $editTitleModalEl.modal('hide');
         },
-        error: function () {
+        error: function(){
           alert('Hi ha hagut un error al desar el títol.');
         }
       });
@@ -217,7 +218,7 @@ $(document).ready(function(){
   /*
   * ESTADOS DE PUNTO (COLOR + TEXTO)
   */
-  $("li.defaultValue").on('click', function () {
+  $("li.defaultValue").on('click', function(){
     const colorSelected = $(this).find('.bi-circle-fill').css('color');
     const $buttonGroup = $(this).closest('.btn-group');
     $buttonGroup.find('.bullet-toggle > i').css({ 'color': colorSelected });
@@ -266,9 +267,34 @@ $(document).ready(function(){
   // Limpiar el textarea cuando se cierra el modal de importación
   const $modalPunts = $('#modalPunts');
   if ($modalPunts.length) {
-    $modalPunts.on('hidden.bs.modal', function () {
+    $modalPunts.on('hidden.bs.modal', function(){
       const $textarea = $modalPunts.find('#manual-import-text');
       if ($textarea.length) $textarea.val('');
     });
   }
 });
+
+/*
+ * FUNCIONES GLOBALES (usadas en los manejadores de eventos)
+ */
+function hideAgreement(url){
+  $.ajax({
+    type: 'POST',
+    url: url + '/hideAgreement',
+    success: function(){
+      setTimeout(() => window.location.reload(), 500);
+    }
+  });
+}
+
+function deleteElement(url, name, portal_type){
+  const id = CSS.escape(name);
+  $.ajax({
+    type: 'POST',
+    url: url + '/deleteElement',
+    data: { action: 'delete', id: name, type: portal_type },
+    success: function(){
+      setTimeout(() => window.location.reload(), 500);
+    }
+  });
+}

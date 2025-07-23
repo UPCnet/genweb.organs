@@ -1,10 +1,10 @@
 $(document).ready(function(){
   "use strict";
 
-  $(".reopenVote").on('click', function () {
+  $(".reopenVote").on('click', function(){
     $.ajax({
       type: 'POST',
-      url: $(this).attr('data-url') + '/reopenVote',
+      url: $(this).data('url') + '/reopenVote',
       success: function (result) {
         result = JSON.parse(result);
         if (result.status !== "success") { alert(result.msg); }
@@ -13,11 +13,11 @@ $(document).ready(function(){
     });
   });
 
-  $(".removeVote").on('click', function () {
+  $(".removeVote").on('click', function(){
     if(confirm("Est\u00e0s segur de voler eliminar la votaci\u00f3?")){
       $.ajax({
         type: 'POST',
-        url: $(this).attr('data-url') + '/removeVote',
+        url: $(this).data('url') + '/removeVote',
         success: function(){
           setTimeout(() => window.location.reload(), 500);
         },
@@ -25,36 +25,36 @@ $(document).ready(function(){
     }
   });
 
-  $(".closeVote, .recloseVote").on('click', function () {
+  $(".closeVote, .recloseVote").on('click', function(){
     $.ajax({
       type: 'POST',
-      url: $(this).attr('data-id') + '/closeVote',
-      success: function () { setTimeout(() => window.location.reload(), 500); },
+      url: $(this).data('id') + '/closeVote',
+      success: function(){ setTimeout(() => window.location.reload(), 500); },
     });
   });
 
-  $(".openPublicVote").on('click', function () {
+  $(".openPublicVote").on('click', function(){
     $.ajax({
       type: 'POST',
-      url: $(this).attr('data-id') + '/openPublicVote',
-      success: function () { setTimeout(() => window.location.reload(), 500); },
+      url: $(this).data('id') + '/openPublicVote',
+      success: function(){ setTimeout(() => window.location.reload(), 500); },
     });
   });
 
-  $(".openOtherPublicVote").on('click', function () {
-    let titolVotacio = prompt($(this).attr('data-title'), "");
+  $(".openOtherPublicVote").on('click', function(){
+    let titolVotacio = prompt($(this).data('title'), "");
     if (titolVotacio && confirm('T\u00edtol: ' + titolVotacio + '\n\nEst\xE0s segur que vols obrir aquesta esmena?')) {
       $.ajax({
         type: 'POST',
         data: { 'title': titolVotacio },
-        url: $(this).attr('data-id') + '/openOtherPublicVote',
-        success: function () { setTimeout(() => window.location.reload(), 500); },
+        url: $(this).data('id') + '/openOtherPublicVote',
+        success: function(){ setTimeout(() => window.location.reload(), 500); },
       });
     }
   });
 
-  $(".refreshVote").on('click', function () {
-    const uid = $(this).attr('data-uid');
+  $(".refreshVote").on('click', function(){
+    const uid = $(this).data('uid');
     $.ajax({
       type: 'GET',
       data: { 'UID': uid },

@@ -632,7 +632,8 @@ class HideAgreement(BrowserView):
             value = True
         return value or 'Manager' in roles
 
-    def render(self):
+    @json_response
+    def __call__(self):
         if not self.canModify():
             raise Unauthorized
 
@@ -640,7 +641,7 @@ class HideAgreement(BrowserView):
         self.context.omitAgreement = True
         self.context.reindexObject()
         transaction.commit()
-        return {"message": "OK"}, 200
+        return {"message": "OK"}
 
 
 class ShowAgreement(BrowserView):

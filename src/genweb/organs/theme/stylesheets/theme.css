@@ -520,10 +520,10 @@ body.portaltype-genweb-organs-sessio #sortable .titleSpan a:hover {
   text-decoration: underline;
 }
 /* line 95, ../scss/content/_sessio.scss */
+body.portaltype-genweb-organs-sessio #sortable .filesinTable .titleSpan {
+  margin-left: calc(8% + 1rem);
+}
+/* line 102, ../scss/content/_sessio.scss */
 body.portaltype-genweb-organs-sessio #sortable .puntVoteButtons .btn.disabled {
   cursor: not-allowed;
-}
-/* line 100, ../scss/content/_sessio.scss */
-body.portaltype-genweb-organs-sessio #sortable .listFiles {
-  padding-left: 10%;
 }
