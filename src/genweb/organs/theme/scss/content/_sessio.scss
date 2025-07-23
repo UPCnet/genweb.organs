@@ -80,11 +80,25 @@ body.portaltype-genweb-organs-sessio {
       background: linear-gradient(to right, rgba(229, 247, 255, 0) 0%, rgba(229, 247, 255, 1) 30%, rgba(229, 247, 255, 1) 100%);
     }
 
+    .titleSpan {
+
+      a {
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
     .puntVoteButtons {
 
       .btn.disabled {
         cursor: not-allowed;
       }
+    }
+
+    .listFiles {
+      padding-left: 10%;
     }
   }
 }

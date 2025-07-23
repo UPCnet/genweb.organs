@@ -152,7 +152,7 @@ class Presentation(form.Form):
             file = obj.getObject()
             if anonymous:
                 if obj.portal_type == 'genweb.organs.file':
-                    classCSS = 'fa fa-file-pdf-o'
+                    classCSS = 'bi bi-file-earmark-pdf'
                     abs_path = file.absolute_url_path()
                     isGOFile = True
                     if file.visiblefile and file.hiddenfile:
@@ -168,7 +168,7 @@ class Presentation(form.Form):
                         listFile = True
                         hiddenUrl = ''
                 if obj.portal_type == 'genweb.organs.document':
-                    classCSS = 'fa fa-file-text-o'
+                    classCSS = 'bi bi-file-earmark-text'
                     abs_path = None
                     isGODocument = True
                     if file.alternateContent and file.defaultContent:
@@ -204,62 +204,62 @@ class Presentation(form.Form):
                     raw_content = None
                     abs_path = file.absolute_url_path()
                     roles = api.user.get_roles(username=username, obj=self.context)
-                    classCSS = 'fa fa-file-pdf-o'
+                    classCSS = 'bi bi-file-earmark-pdf'
                     if file.visiblefile and file.hiddenfile:
                         if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             hasPublic = False
                             hasPrivate = True
                             visibleUrl = ''
                             hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/' + file.hiddenfile.filename
-                            classCSS = 'fa fa-file-pdf-o text-success double-icon'
+                            classCSS = 'bi bi-file-earmark-pdf text-success double-icon'
                         elif 'OG4-Afectat' in roles:
                             hasPublic = True
                             hasPrivate = False
                             visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/' + file.visiblefile.filename
                             hiddenUrl = ''
-                            classCSS = 'fa fa-file-pdf-o text-success'
+                            classCSS = 'bi bi-file-earmark-pdf text-success'
                     elif file.hiddenfile:
                         if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             hasPublic = False
                             hasPrivate = True
                             visibleUrl = ''
                             hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/' + file.hiddenfile.filename
-                            classCSS = 'fa fa-file-pdf-o text-error'
+                            classCSS = 'bi bi-file-earmark-pdf text-error'
                     elif file.visiblefile:
                         hasPublic = True
                         hasPrivate = False
                         visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/' + file.visiblefile.filename
                         hiddenUrl = ''
-                        classCSS = 'fa fa-file-pdf-o text-success'
+                        classCSS = 'bi bi-file-earmark-pdf text-success'
 
                 if obj.portal_type == 'genweb.organs.document':
                     isGODocument = True
                     abs_path = None
                     roles = api.user.get_roles(username=username, obj=self.context)
-                    classCSS = 'fa fa-file-text-o'
+                    classCSS = 'bi bi-file-earmark-text'
                     if file.alternateContent and file.defaultContent:
                         if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             hasPublic = False
                             hasPrivate = True
                             raw_content = file.alternateContent
-                            classCSS = 'fa fa-file-text-o text-success double-icon'
+                            classCSS = 'bi bi-file-earmark-text text-success double-icon'
                         elif 'OG4-Afectat' in roles:
                             hasPublic = True
                             hasPrivate = False
                             raw_content = file.defaultContent
-                            classCSS = 'fa fa-file-text-o text-success'
+                            classCSS = 'bi bi-file-earmark-text text-success'
                     elif file.defaultContent:
                         if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             hasPublic = False
                             hasPrivate = True
                             raw_content = file.defaultContent
-                            classCSS = 'fa fa-file-text-o text-success'
+                            classCSS = 'bi bi-file-earmark-text text-success'
                     elif file.alternateContent:
                         if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             hasPublic = False
                             hasPrivate = True
                             raw_content = file.alternateContent
-                            classCSS = 'fa fa-file-text-o text-error'
+                            classCSS = 'bi bi-file-earmark-text text-error'
 
                 results.append(dict(title=obj.Title,
                                     path=abs_path,

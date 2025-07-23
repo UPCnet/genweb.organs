@@ -7,7 +7,6 @@ $(document).ready(function() {
         type: 'POST',
         url: $(this).attr('data-id') + '/' + type + 'Vote',
         success: function(result) {
-          result = JSON.parse(result);
           if (result.status !== "success") {
             alert(result.msg);
           }

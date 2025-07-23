@@ -16,6 +16,8 @@ from zope import schema
 from zope.schema import TextLine
 from plone.supermodel import model
 
+from genweb6.core.utils import json_response
+
 from genweb.organs import _
 from genweb.organs import utils
 from genweb.organs.content.acord.acord import llistaEstatsVotacio
@@ -25,7 +27,6 @@ from genweb.organs.utils import checkHasOpenVote
 
 import ast
 import datetime
-import json
 import transaction
 
 
@@ -84,16 +85,17 @@ class VotacioAcordView(BrowserView):
 
 class ReopenVote(BrowserView):
 
+    @json_response
     def __call__(self):
         if checkHasOpenVote(self.context):
-            return json.dumps({"status": 'error', "msg": _(u'Ja hi ha una votació oberta, no se\'n pot obrir una altra.')})
+            return {"status": 'error', "msg": _(u'Ja hi ha una votació oberta, no se\'n pot obrir una altra.')}
 
         if self.context.estatVotacio == 'close':
             self.context.estatVotacio = 'open'
             self.context.reindexObject()
             transaction.commit()
             addEntryLog(self.context.__parent__.__parent__, None, _(u'Reoberta votacio esmena'), self.context.__parent__.absolute_url())
-            return json.dumps({"status": 'success', "msg": ''})
+            return {"status": 'success', "msg": ''}
 
 
 class CloseVote(BrowserView):
@@ -108,9 +110,10 @@ class CloseVote(BrowserView):
 
 class FavorVote(BrowserView):
 
+    @json_response
     def __call__(self):
         if self.context.estatVotacio == 'close':
-            return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
+            return {"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')}
 
         if not isinstance(self.context.infoVotacio, dict):
             self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
@@ -120,14 +123,15 @@ class FavorVote(BrowserView):
         self.context.reindexObject()
         transaction.commit()
         sendVoteEmail(self.context, 'a favor')
-        return json.dumps({"status": 'success', "msg": ''})
+        return {"status": 'success', "msg": ''}
 
 
 class AgainstVote(BrowserView):
 
+    @json_response
     def __call__(self):
         if self.context.estatVotacio == 'close':
-            return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
+            return {"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')}
 
         if not isinstance(self.context.infoVotacio, dict):
             self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
@@ -137,14 +141,15 @@ class AgainstVote(BrowserView):
         self.context.reindexObject()
         transaction.commit()
         sendVoteEmail(self.context, 'en contra')
-        return json.dumps({"status": 'success', "msg": ''})
+        return {"status": 'success', "msg": ''}
 
 
 class WhiteVote(BrowserView):
 
+    @json_response
     def __call__(self):
         if self.context.estatVotacio == 'close':
-            return json.dumps({"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')})
+            return {"status": 'error', "msg": _(u'La votació ja està tancada, el seu vot no s\'ha registrat.')}
 
         if not isinstance(self.context.infoVotacio, dict):
             self.context.infoVotacio = ast.literal_eval(self.context.infoVotacio)
@@ -154,7 +159,7 @@ class WhiteVote(BrowserView):
         self.context.reindexObject()
         transaction.commit()
         sendVoteEmail(self.context, 'en blanc')
-        return json.dumps({"status": 'success', "msg": ''})
+        return {"status": 'success', "msg": ''}
 
 
 def sendVoteEmail(context, vote):

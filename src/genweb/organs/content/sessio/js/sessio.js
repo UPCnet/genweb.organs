@@ -18,25 +18,20 @@ $(document).ready(function(){
     });
   }
 
+  $(".btn-expand-collapse").click(function(){
+    $(this).find(".bi-chevron-down, .bi-chevron-up").toggleClass('d-none');
+  });
 
   $("#expandAll").click(function(){
-    // $(".expand").parent().parent().parent().slideDown();
-    // $(".expand").hide();
-    // $(".notexpand").show();
-    // $(".expand").parent().parent().parent().find('.sortable2').slideDown();
-    // $(".expand").parent().parent().parent().find('.listFiles').slideDown();
-    $("#expandAll").toggleClass('d-none');
-    $("#collapseAll").toggleClass('d-none');
+    $(".btn-expand-collapse.collapsed").click();
+    $(".btn-expand-collapse.collapsed .bi-chevron-down, .btn-expand-collapse.collapsed .bi-chevron-up").toggleClass('d-none');
+    $("#expandAll, #collapseAll").toggleClass('d-none');
   });
 
   $("#collapseAll").click(function(){
-    // $(".notexpand").slideUp();
-    // $(".notexpand").hide();
-    // $(".expand").show();
-    // $(".expand").parent().parent().parent().find('.sortable2').slideUp();
-    // $(".expand").parent().parent().parent().find('.listFiles').slideUp();
-    $("#expandAll").toggleClass('d-none');
-    $("#collapseAll").toggleClass('d-none');
+    $(".btn-expand-collapse:not(.collapsed)").click();
+    $(".btn-expand-collapse:not(.collapsed) .bi-chevron-down, .btn-expand-collapse:not(.collapsed) .bi-chevron-up").toggleClass('d-none');
+    $("#expandAll, #collapseAll").toggleClass('d-none');
   });
 
   // Para el desplegable de información de voto público
@@ -46,7 +41,4 @@ $(document).ready(function(){
     $(this).find(".bi-chevron-down").toggleClass("d-none");
     $(this).find(".bi-chevron-up").toggleClass("d-none");
   });
-  
-
-
 });

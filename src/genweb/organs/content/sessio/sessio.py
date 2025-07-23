@@ -476,12 +476,12 @@ class View(BrowserView):
                         whiteVote = votacio.infoVotacio[currentUser] == 'white'
 
                     if votacio.estatVotacio == None:
-                        classVote = 'fa fa-bar-chart'
+                        classVote = 'bi bi-bar-chart'
                     else:
                         if votacio.tipusVotacio == 'public':
-                            classVote = 'fa fa-pie-chart'
+                            classVote = 'bi bi-pie-chart'
                         else:
-                            classVote = 'fa fa-user-chart'
+                            classVote = 'bi bi-graph-up-arrow'
 
                 else:
                     agreement = False
@@ -583,12 +583,12 @@ class View(BrowserView):
                     whiteVote = votacio.infoVotacio[currentUser] == 'white'
 
                 if votacio.estatVotacio == None:
-                    classVote = 'fa fa-bar-chart'
+                    classVote = 'bi bi-bar-chart'
                 else:
                     if votacio.tipusVotacio == 'public':
-                        classVote = 'fa fa-pie-chart'
+                        classVote = 'bi bi-pie-chart'
                     else:
-                        classVote = 'fa fa-user-chart'
+                        classVote = 'bi bi-graph-up-arrow'
             else:
                 agreement = False
                 isAcord = False
@@ -796,6 +796,7 @@ class View(BrowserView):
                       modality=self.context.modality,
                       organTitle=self.context.aq_parent.Title(),
                       sessionNumber=sessionNumber,
+                      state=value,
                       status=status,
                       )
         return values
@@ -834,7 +835,7 @@ class View(BrowserView):
         #     ):
         #         results = []
         #         for pos, file in item['info_firma']['fitxers'].items():
-        #             class_css = 'fa fa-file-pdf-o ' + ('text-success' if file['public'] else 'text-error')
+        #             class_css = 'bi bi-file-earmark-pdf ' + ('text-success' if file['public'] else 'text-error')
         #             if file['public'] or 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:
         #                 results.append(dict(title=file['title'],
         #                                     absolute_url=item['absolute_url'] + '/viewFile?pos=' + str(pos),
@@ -858,21 +859,21 @@ class View(BrowserView):
             if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
                 # Editor i Secretari veuen contingut. NO obren en finestra nova
                 if obj.portal_type == 'genweb.organs.file':
-                    classCSS = 'fa fa-file-pdf-o'  # Es un file
+                    classCSS = 'bi bi-file-earmark-pdf'  # Es un file
                     if value.visiblefile and value.hiddenfile:
-                        classCSS = 'fa fa-file-pdf-o text-success double-icon'
+                        classCSS = 'bi bi-file-earmark-pdf text-success double-icon'
                     elif value.hiddenfile:
-                        classCSS = 'fa fa-file-pdf-o text-error'
+                        classCSS = 'bi bi-file-earmark-pdf text-error'
                     elif value.visiblefile:
-                        classCSS = 'fa fa-file-pdf-o text-success'
+                        classCSS = 'bi bi-file-earmark-pdf text-success'
                 else:
-                    classCSS = 'fa fa-file-text-o'  # Es un DOC
+                    classCSS = 'bi bi-file-earmark-text'  # Es un DOC
                     if value.defaultContent and value.alternateContent:
-                        classCSS = 'fa fa-file-text-o text-success double-icon'
+                        classCSS = 'bi bi-file-earmark-text text-success double-icon'
                     elif value.alternateContent:
-                        classCSS = 'fa fa-file-text-o text-error'
+                        classCSS = 'bi bi-file-earmark-text text-error'
                     elif value.defaultContent:
-                        classCSS = 'fa fa-file-text-o text-success'
+                        classCSS = 'bi bi-file-earmark-text text-success'
                 # si està validat els mostrem tots
                 results.append(dict(title=obj.Title,
                                     portal_type=obj.portal_type,
@@ -884,7 +885,7 @@ class View(BrowserView):
                 # Anonim / Afectat / Membre veuen obrir en finestra nova dels fitxers.
                 # Es un document, mostrem part publica si la té
                 if obj.portal_type == 'genweb.organs.document':
-                    classCSS = 'fa fa-file-text-o'
+                    classCSS = 'bi bi-file-earmark-text'
                     if value.defaultContent and value.alternateContent:
                         if 'OG3-Membre' in roles:
                             results.append(dict(title=obj.Title,
@@ -921,7 +922,7 @@ class View(BrowserView):
                     if not isinstance(info_firma, dict):
                         info_firma = ast.literal_eval(info_firma)
 
-                    classCSS = 'fa fa-file-pdf-o'
+                    classCSS = 'bi bi-file-earmark-pdf'
                     if value.visiblefile and value.hiddenfile:
                         if 'OG3-Membre' in roles:
                             if info_firma.get('private', {}).get('uploaded', False):
