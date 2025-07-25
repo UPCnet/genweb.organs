@@ -146,3 +146,17 @@
     }
   }
 }
+
+#social_tags {
+  display: flex;
+  align-items: center;
+  margin-top: 0.4rem !important;
+
+  a:not(#copy-universal-link) {
+    display: none !important;
+  }
+
+  p {
+    margin-right: 0.5rem;
+  }
+}

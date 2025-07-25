@@ -24,7 +24,7 @@ b.form-label {
   font-weight: 700;
 }
 
-/* line 29, ../scss/_edicio.scss */
+/* line 27, ../scss/_edicio.scss */
 body.template-excusar_assist_sessio #social_tags {
   display: none !important;
 }
@@ -221,6 +221,21 @@ body.template-search .meva-vinculacio a:hover {
 /* line 144, ../scss/_generic.scss */
 .picked .bi-file-earmark-pdf.double-icon:after {
   background-color: #e5f7ff !important;
+}
+
+/* line 150, ../scss/_generic.scss */
+#social_tags {
+  display: flex;
+  align-items: center;
+  margin-top: 0.4rem !important;
+}
+/* line 155, ../scss/_generic.scss */
+#social_tags a:not(#copy-universal-link) {
+  display: none !important;
+}
+/* line 159, ../scss/_generic.scss */
+#social_tags p {
+  margin-right: 0.5rem;
 }
 
 @media print {
