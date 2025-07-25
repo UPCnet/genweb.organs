@@ -29,6 +29,8 @@ from genweb.organs.firma_documental.utils import UtilsFirmaDocumental
 
 import unicodedata
 from lxml import html
+from zope.component.hooks import getSite
+from zope.globalrequest import getRequest
 
 
 # -----------------------------------------------------------------------------
@@ -73,6 +75,7 @@ directlyProvides(llistaEstats, IContextSourceBinder)
 # Default factories
 # -----------------------------------------------------------------------------
 
+@provider(IContextAwareDefaultFactory)
 def proposal_point_default(context):
     """Genera automáticamente el número de subpunt.
 
@@ -100,6 +103,25 @@ def proposal_point_default(context):
     return f"{punt_number}.{len(brains) + 1}"
 
 
+def proposal_point_default_factory(context=None):
+    """Wrapper para evitar recursión infinita cuando se usa como defaultFactory."""
+    try:
+        if context is None:
+            # Si no hay contexto, intentar obtenerlo de la request actual
+            request = getRequest()
+            if request is not None:
+                # Obtener el contexto desde PARENTS[0] que es el punt padre
+                parents = request.get('PARENTS', [])
+                if parents:
+                    context = parents[0]
+            else:
+                return "1.1"
+        return proposal_point_default(context)
+    except (RecursionError, AttributeError):
+        # Fallback seguro si hay problemas de recursión
+        return "1.1"
+
+
 # -----------------------------------------------------------------------------
 # Dexterity schema
 # -----------------------------------------------------------------------------
@@ -122,7 +144,7 @@ class ISubpunt(model.Schema):
     proposalPoint = schema.TextLine(
         title=_(u'Proposal point number'),
         required=False,
-        defaultFactory=proposal_point_default
+        defaultFactory=proposal_point_default_factory
     )
 
     textindexer.searchable('defaultContent')
