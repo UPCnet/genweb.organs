@@ -285,7 +285,7 @@ def FilesandDocumentsInside(self):
     #       and acta.estat_firma.lower() in ['pendent', 'signada']
     #     ):
     #         for pos, file in self.context.info_firma['fitxers'].items():
-    #             class_css = 'bi bi-file-earmark-pdf fs-2 text-success' if file['public'] else 'bi bi-file-earmark-pdf fs-2 text-error'
+    #             class_css = 'bi bi-file-earmark-pdf fs-2 text-success' if file['public'] else 'bi bi-file-earmark-pdf fs-2 text-danger'
     #             roles_to_check = ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat']
     #             if organ_tipus == 'open_organ':
     #                 roles_to_check.append('OG4-Afectat')
@@ -316,14 +316,14 @@ def FilesandDocumentsInside(self):
                 elif value.visiblefile:
                     class_css = 'bi bi-file-earmark-pdf fs-2 text-success'
                 elif value.hiddenfile:
-                    class_css = 'bi bi-file-earmark-pdf fs-2 text-error'
+                    class_css = 'bi bi-file-earmark-pdf fs-2 text-danger'
             else:
                 if value.defaultContent and value.alternateContent:
                     class_css = 'bi bi-file-earmark-text fs-2 text-success double-icon'
                 elif value.defaultContent:
                     class_css = 'bi bi-file-earmark-text fs-2 text-success'
                 elif value.alternateContent:
-                    class_css = 'bi bi-file-earmark-text fs-2 text-error'
+                    class_css = 'bi bi-file-earmark-text fs-2 text-danger'
 
             # si està validat els mostrem tots
             results.append(dict(title=obj.Title,

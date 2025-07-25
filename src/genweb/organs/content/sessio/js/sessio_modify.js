@@ -182,7 +182,7 @@ $(document).ready(function(){
   const $editTitleModalEl = $('#modalEditTitle');
   if ($editTitleModalEl.length) {
     // Delegación de eventos para los botones de editar
-    $('#sortable').on('click', '.edit, .edit2, a.editTitle', function (e) {
+    $('#sortable').on('click', '.edit, .edit2', function (e) {
       e.preventDefault();
       e.stopPropagation();
       const pk = $(this).data('id');
@@ -282,7 +282,12 @@ function hideAgreement(url){
     type: 'POST',
     url: url + '/hideAgreement',
     success: function(){
-      setTimeout(() => window.location.reload(), 500);
+      const $agreement = $('.titleSpan span[data-agreement="' + url + '"]');
+      if ($agreement.length === 0) {
+        setTimeout(() => window.location.reload(), 500);
+      } else {
+        $agreement.remove();
+      }
     }
   });
 }

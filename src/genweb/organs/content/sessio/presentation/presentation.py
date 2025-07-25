@@ -224,7 +224,7 @@ class Presentation(form.Form):
                             hasPrivate = True
                             visibleUrl = ''
                             hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/' + file.hiddenfile.filename
-                            classCSS = 'bi bi-file-earmark-pdf text-error'
+                            classCSS = 'bi bi-file-earmark-pdf text-danger'
                     elif file.visiblefile:
                         hasPublic = True
                         hasPrivate = False
@@ -259,7 +259,7 @@ class Presentation(form.Form):
                             hasPublic = False
                             hasPrivate = True
                             raw_content = file.alternateContent
-                            classCSS = 'bi bi-file-earmark-text text-error'
+                            classCSS = 'bi bi-file-earmark-text text-danger'
 
                 results.append(dict(title=obj.Title,
                                     path=abs_path,

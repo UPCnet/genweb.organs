@@ -203,7 +203,7 @@ class SignSessioView(BrowserView, utilsFD.UtilsFirmaDocumental):
         #     ):
         #         results = []
         #         for pos, file in item['info_firma']['fitxers'].items():
-        #             class_css = 'bi bi-file-earmark-pdf ' + ('text-success' if file['public'] else 'text-error')
+        #             class_css = 'bi bi-file-earmark-pdf ' + ('text-success' if file['public'] else 'text-danger')
         #             if file['public'] or 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:
         #                 results.append(dict(title=file['title'],
         #                                     absolute_url=item['absolute_url'] + '/viewFile?pos=' + str(pos),
@@ -227,7 +227,7 @@ class SignSessioView(BrowserView, utilsFD.UtilsFirmaDocumental):
             for attr in ['visiblefile', 'hiddenfile']:
                 classCSS = 'bi bi-file-earmark-pdf'  # Es un file
                 if getattr(value, attr, None):
-                    classCSS += ' text-success' if attr == 'visiblefile' else ' text-error'
+                    classCSS += ' text-success' if attr == 'visiblefile' else ' text-danger'
                     visibility = 'public' if attr == 'visiblefile' else 'private'
                     info_firma = getattr(obj.getObject(), 'info_firma', None)
                     if not info_firma:

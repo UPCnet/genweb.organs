@@ -890,7 +890,8 @@ P Conclusions</code>
         <ul id="sortable">
           <tal:documents repeat="item items">
             <tal:block tal:define="agreement item/agreement; isAcord item/isAcord">
-              <li tal:attributes="id item/id; class item/classe">
+              <li tal:attributes="id item/id; 
+                                  class item/classe">
                 <div class="row px-3 py-2 justify-content-end" tal:condition="item/show">
                   <div class="col-6 einesSpan d-none d-flex flex-row-reverse justify-content-start align-items-baseline column-gap-2">
                     <tal:editActions tal:condition="python: view.canModifyPunt(item)">
@@ -1110,7 +1111,8 @@ P Conclusions</code>
                          class="editTitle titleSize text-dark">
                         <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                       </a>
-                      <span tal:condition="agreement" class="text-muted fs-s">
+                      <span tal:condition="agreement" class="text-muted fs-s"
+                            tal:attributes="data-agreement string:${item/absolute_url}">
                         [<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <tal:omit-tag
                                        tal:content="agreement">Acord code </tal:omit-tag>]
                       </span>
@@ -1193,13 +1195,13 @@ P Conclusions</code>
                     </div>
                   </tal:block>
 
-                  <div class="collapse multi-collapse-points mt-2" 
+                  <div class="collapse multi-collapse-points" 
                        tal:attributes="id string:collapse-${item/id}" 
                        tal:condition="contenidos">
                     <tal:files tal:condition="files">
                       <ul class="listFiles list-unstyled">
                         <tal:documents repeat="file_item files">
-                          <li class="filesinTable w-100">
+                          <li class="filesinTable w-100 mt-2">
                             <div class="titleSpan">
                               <i tal:attributes="class string:${file_item/classCSS} me-1"></i>
                               <a tal:attributes="href file_item/absolute_url;" 

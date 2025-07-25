@@ -835,7 +835,7 @@ class View(BrowserView):
         #     ):
         #         results = []
         #         for pos, file in item['info_firma']['fitxers'].items():
-        #             class_css = 'bi bi-file-earmark-pdf ' + ('text-success' if file['public'] else 'text-error')
+        #             class_css = 'bi bi-file-earmark-pdf ' + ('text-success' if file['public'] else 'text-danger')
         #             if file['public'] or 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:
         #                 results.append(dict(title=file['title'],
         #                                     absolute_url=item['absolute_url'] + '/viewFile?pos=' + str(pos),
@@ -863,7 +863,7 @@ class View(BrowserView):
                     if value.visiblefile and value.hiddenfile:
                         classCSS = 'bi bi-file-earmark-pdf text-success double-icon'
                     elif value.hiddenfile:
-                        classCSS = 'bi bi-file-earmark-pdf text-error'
+                        classCSS = 'bi bi-file-earmark-pdf text-danger'
                     elif value.visiblefile:
                         classCSS = 'bi bi-file-earmark-pdf text-success'
                 else:
@@ -871,7 +871,7 @@ class View(BrowserView):
                     if value.defaultContent and value.alternateContent:
                         classCSS = 'bi bi-file-earmark-text text-success double-icon'
                     elif value.alternateContent:
-                        classCSS = 'bi bi-file-earmark-text text-error'
+                        classCSS = 'bi bi-file-earmark-text text-danger'
                     elif value.defaultContent:
                         classCSS = 'bi bi-file-earmark-text text-success'
                 # si està validat els mostrem tots
