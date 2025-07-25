@@ -199,7 +199,7 @@ body.template-search .meva-vinculacio a:hover {
 }
 
 /* line 120, ../scss/_generic.scss */
-.bi-file-earmark-pdf.double-icon:after {
+.bi.double-icon:after {
   display: inline-block;
   font-family: bootstrap-icons !important;
   font-style: normal;
@@ -209,7 +209,6 @@ body.template-search .meva-vinculacio a:hover {
   line-height: 1;
   vertical-align: -.125em;
   -webkit-font-smoothing: antialiased;
-  content: "\f63e";
   color: var(--bs-danger);
   background-color: var(--bs-body-bg);
   position: relative;
@@ -217,23 +216,31 @@ body.template-search .meva-vinculacio a:hover {
   left: -7px;
   top: 4px;
 }
+/* line 141, ../scss/_generic.scss */
+.bi.double-icon.bi-file-earmark-pdf:after {
+  content: "\f63e";
+}
+/* line 148, ../scss/_generic.scss */
+.bi.double-icon.bi-file-earmark-text:after {
+  content: "\f38b";
+}
 
-/* line 144, ../scss/_generic.scss */
-.picked .bi-file-earmark-pdf.double-icon:after {
+/* line 158, ../scss/_generic.scss */
+.picked .bi.double-icon:after {
   background-color: #e5f7ff !important;
 }
 
-/* line 150, ../scss/_generic.scss */
+/* line 164, ../scss/_generic.scss */
 #social_tags {
   display: flex;
   align-items: center;
   margin-top: 0.4rem !important;
 }
-/* line 155, ../scss/_generic.scss */
+/* line 169, ../scss/_generic.scss */
 #social_tags a:not(#copy-universal-link) {
   display: none !important;
 }
-/* line 159, ../scss/_generic.scss */
+/* line 173, ../scss/_generic.scss */
 #social_tags p {
   margin-right: 0.5rem;
 }
