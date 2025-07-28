@@ -1166,7 +1166,7 @@ P Conclusions</code>
                           </div>
                         </div>
                       </div>
-                      <div class="puntVoteButtons col-12 row mt-3" tal:condition="item/canRecloseVote">
+                      <div class="puntVoteButtons col-12 row mt-2" tal:condition="item/canRecloseVote">
                         <span class="col-1"></span>
                         <div class="col-11 row">
                           <div class="col-4" tal:condition="not:item/favorVote">
@@ -1450,68 +1450,68 @@ P Conclusions</code>
                                   <span tal:content="estat"></span>
                                 </span>
                               </div>
-
-                              <tal:block tal:condition="canViewVoteButtons">
-                                <div class="puntVoteButtons col-12 row mt-2" tal:condition="itemSubpunt/canCloseVote">
-                                  <span class="col-1"></span>
-                                  <div class="col-11 hasVote row">
-                                    <div class="col-4" tal:condition="not:itemSubpunt/favorVote">
-                                      <a class="btn btn-outline-primary btn-notvote favord w-100" 
-                                         tal:attributes="data-id string:${absolute_url}/${itemSubpunt_id}"
-                                         i18n:translate="">A favor</a>
-                                    </div>
-                                    <div class="col-4" tal:condition="itemSubpunt/favorVote">
-                                      <a class="btn btn-primary disabled w-100 disabled w-100" i18n:translate="">A favor</a>
-                                    </div>
-                                    <div class="col-4" tal:condition="not:itemSubpunt/againstVote">
-                                      <a class="btn btn-outline-primary btn-notvote againstd w-100" 
-                                        tal:attributes="data-id string:${absolute_url}/${itemSubpunt_id}"
-                                        i18n:translate="">En contra</a>
-                                    </div>
-                                    <div class="col-4" tal:condition="itemSubpunt/againstVote">
-                                      <a class="btn btn-primary disabled w-100" i18n:translate="">En contra</a>
-                                    </div>
-                                    <div class="col-4" tal:condition="not:itemSubpunt/whiteVote">
-                                      <a class="btn btn-outline-primary btn-notvote whited w-100" 
-                                        tal:attributes="data-id string:${absolute_url}/${itemSubpunt_id}"
-                                        i18n:translate="">En blanc</a>
-                                    </div>
-                                    <div class="col-4" tal:condition="itemSubpunt/whiteVote">
-                                      <a class="btn btn-primary disabled w-100" i18n:translate="">En blanc</a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="puntVoteButtons col-12 row mt-3" tal:condition="itemSubpunt/canRecloseVote">
-                                  <span class="col-1"></span>
-                                  <div class="col-11 hasVote row">
-                                    <div class="col-4" tal:condition="not:itemSubpunt/favorVote">
-                                      <a class="btn btn-outline-primary btn-notvote favord w-100"
-                                        tal:attributes="data-id string:${absolute_url}/${itemSubpunt/canRecloseVote}"
-                                        i18n:translate="">A favor</a>
-                                    </div>
-                                    <div class="col-4" tal:condition="itemSubpunt/favorVote">
-                                      <a class="btn btn-primary disabled w-100" i18n:translate="">A favor</a>
-                                    </div>
-                                    <div class="col-4" tal:condition="not:itemSubpunt/againstVote">
-                                      <a class="btn btn-outline-primary btn-notvote againstd w-100"
-                                        tal:attributes="data-id string:${absolute_url}/${itemSubpunt/canRecloseVote}"
-                                        i18n:translate="">En contra</a>
-                                    </div>
-                                    <div class="col-4" tal:condition="itemSubpunt/againstVote">
-                                      <a class="btn btn-primary disabled w-100" i18n:translate="">En contra</a>
-                                    </div>
-                                    <div class="col-4" tal:condition="not:itemSubpunt/whiteVote">
-                                      <a class="btn btn-outline-primary btn-notvote whited w-100"
-                                        tal:attributes="data-id string:${absolute_url}/${itemSubpunt/canRecloseVote}"
-                                        i18n:translate="">En blanc</a>
-                                    </div>
-                                    <div class="col-4" tal:condition="itemSubpunt/whiteVote">
-                                      <a class="btn btn-primary disabled w-100" i18n:translate="">En blanc</a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </tal:block>
                             </div>
+                            
+                            <tal:block tal:condition="canViewVoteButtons">
+                              <div class="puntVoteButtons col-12 row mt-2" tal:condition="itemSubpunt/canCloseVote">
+                                <span class="col-1"></span>
+                                <div class="col-11 hasVote row">
+                                  <div class="col-4" tal:condition="not:itemSubpunt/favorVote">
+                                    <a class="btn btn-outline-primary btn-notvote favord w-100" 
+                                        tal:attributes="data-id string:${absolute_url}/${itemSubpunt_id}"
+                                        i18n:translate="">A favor</a>
+                                  </div>
+                                  <div class="col-4" tal:condition="itemSubpunt/favorVote">
+                                    <a class="btn btn-primary disabled w-100 disabled w-100" i18n:translate="">A favor</a>
+                                  </div>
+                                  <div class="col-4" tal:condition="not:itemSubpunt/againstVote">
+                                    <a class="btn btn-outline-primary btn-notvote againstd w-100" 
+                                      tal:attributes="data-id string:${absolute_url}/${itemSubpunt_id}"
+                                      i18n:translate="">En contra</a>
+                                  </div>
+                                  <div class="col-4" tal:condition="itemSubpunt/againstVote">
+                                    <a class="btn btn-primary disabled w-100" i18n:translate="">En contra</a>
+                                  </div>
+                                  <div class="col-4" tal:condition="not:itemSubpunt/whiteVote">
+                                    <a class="btn btn-outline-primary btn-notvote whited w-100" 
+                                      tal:attributes="data-id string:${absolute_url}/${itemSubpunt_id}"
+                                      i18n:translate="">En blanc</a>
+                                  </div>
+                                  <div class="col-4" tal:condition="itemSubpunt/whiteVote">
+                                    <a class="btn btn-primary disabled w-100" i18n:translate="">En blanc</a>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="puntVoteButtons col-12 row mt-2" tal:condition="itemSubpunt/canRecloseVote">
+                                <span class="col-1"></span>
+                                <div class="col-11 hasVote row">
+                                  <div class="col-4" tal:condition="not:itemSubpunt/favorVote">
+                                    <a class="btn btn-outline-primary btn-notvote favord w-100"
+                                      tal:attributes="data-id string:${absolute_url}/${itemSubpunt/canRecloseVote}"
+                                      i18n:translate="">A favor</a>
+                                  </div>
+                                  <div class="col-4" tal:condition="itemSubpunt/favorVote">
+                                    <a class="btn btn-primary disabled w-100" i18n:translate="">A favor</a>
+                                  </div>
+                                  <div class="col-4" tal:condition="not:itemSubpunt/againstVote">
+                                    <a class="btn btn-outline-primary btn-notvote againstd w-100"
+                                      tal:attributes="data-id string:${absolute_url}/${itemSubpunt/canRecloseVote}"
+                                      i18n:translate="">En contra</a>
+                                  </div>
+                                  <div class="col-4" tal:condition="itemSubpunt/againstVote">
+                                    <a class="btn btn-primary disabled w-100" i18n:translate="">En contra</a>
+                                  </div>
+                                  <div class="col-4" tal:condition="not:itemSubpunt/whiteVote">
+                                    <a class="btn btn-outline-primary btn-notvote whited w-100"
+                                      tal:attributes="data-id string:${absolute_url}/${itemSubpunt/canRecloseVote}"
+                                      i18n:translate="">En blanc</a>
+                                  </div>
+                                  <div class="col-4" tal:condition="itemSubpunt/whiteVote">
+                                    <a class="btn btn-primary disabled w-100" i18n:translate="">En blanc</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </tal:block>
 
                             <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
                               <ul class="listFiles list-unstyled ps-4" tal:condition="files">
