@@ -91,6 +91,7 @@ def proposal_point_default(context):
               'depth': 1})
     return str(len(values) + 1)
 
+
 @provider(IFormFieldProvider)
 class IPunt(model.Schema):
     """ Punt

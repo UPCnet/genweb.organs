@@ -194,11 +194,21 @@ body.template-search .meva-vinculacio a:hover {
 }
 
 /* line 114, ../scss/_generic.scss */
+.w-72 {
+  width: 72% !important;
+}
+
+/* line 118, ../scss/_generic.scss */
 .w-75 {
   width: 75% !important;
 }
 
-/* line 120, ../scss/_generic.scss */
+/* line 122, ../scss/_generic.scss */
+.mw-50 {
+  max-width: 50% !important;
+}
+
+/* line 128, ../scss/_generic.scss */
 .bi.double-icon:after {
   display: inline-block;
   font-family: bootstrap-icons !important;
@@ -216,31 +226,31 @@ body.template-search .meva-vinculacio a:hover {
   left: -7px;
   top: 4px;
 }
-/* line 141, ../scss/_generic.scss */
+/* line 149, ../scss/_generic.scss */
 .bi.double-icon.bi-file-earmark-pdf:after {
   content: "\f63e";
 }
-/* line 148, ../scss/_generic.scss */
+/* line 156, ../scss/_generic.scss */
 .bi.double-icon.bi-file-earmark-text:after {
   content: "\f38b";
 }
 
-/* line 158, ../scss/_generic.scss */
+/* line 166, ../scss/_generic.scss */
 .picked .bi.double-icon:after {
   background-color: #e5f7ff !important;
 }
 
-/* line 164, ../scss/_generic.scss */
+/* line 172, ../scss/_generic.scss */
 #social_tags {
   display: flex;
   align-items: center;
   margin-top: 0.4rem !important;
 }
-/* line 169, ../scss/_generic.scss */
+/* line 177, ../scss/_generic.scss */
 #social_tags a:not(#copy-universal-link) {
   display: none !important;
 }
-/* line 173, ../scss/_generic.scss */
+/* line 181, ../scss/_generic.scss */
 #social_tags p {
   margin-right: 0.5rem;
 }
@@ -570,7 +580,11 @@ body.portaltype-genweb-organs-sessio #sortable .titleSpan a:hover {
 body.portaltype-genweb-organs-sessio #sortable .filesinTable .titleSpan {
   margin-left: calc(8% + 1rem);
 }
-/* line 102, ../scss/content/_sessio.scss */
+/* line 100, ../scss/content/_sessio.scss */
+body.portaltype-genweb-organs-sessio #sortable .li_subgrups {
+  padding-left: calc(8% + 1rem);
+}
+/* line 106, ../scss/content/_sessio.scss */
 body.portaltype-genweb-organs-sessio #sortable .puntVoteButtons .btn.disabled {
   cursor: not-allowed;
 }

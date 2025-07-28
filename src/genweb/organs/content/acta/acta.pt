@@ -133,7 +133,7 @@
           <li>
             <i class="bi bi-paperclip"></i>
             <a tal:attributes="href item/absolute_url" tal:content="item/filename">annex</a>
-            <span class="text-muted small ms-2">(<tal:replace="item/sizeKB"/> KB)</span>
+            <span class="text-muted fs-s ms-2">(<tal:replace="item/sizeKB"/> KB)</span>
             <a tal:attributes="href item/download_url" class="ms-1"><i class="bi bi-download"></i></a>
           </li>
         </tal:repeat>
@@ -145,7 +145,7 @@
       <p>
         <i class="bi bi-file-earmark-pdf"></i>
         <a tal:attributes="href string:${absolute_url}/@@display-file/acta/; target string:_blank" tal:content="context/acta/filename">acta</a>
-        <span class="text-muted small ms-2">(<tal:define="size context/acta/getSize; kb python:size//1024"><tal:replace="kb"/> KB)</span>
+        <span class="text-muted fs-s ms-2">(<tal:define="size context/acta/getSize; kb python:size//1024"><tal:replace="kb"/> KB)</span>
         <a tal:attributes="href string:${absolute_url}/@@download/acta/${context/acta/filename}" class="ms-1"><i class="bi bi-download"></i></a>
       </p>
     </div>

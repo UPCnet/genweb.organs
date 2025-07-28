@@ -69,7 +69,7 @@
                       <span class="me-2 text-primary fw-bold" tal:content="item/proposalPoint">1.1</span>
                       <a class="flex-grow-1 text-decoration-none" tal:attributes="href item/absolute_url;">
                         <span tal:content="item/title">Títol subpunt</span>
-                        <span tal:condition="item/agreement" class="ms-2 text-muted small">[<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <span tal:content="item/agreement"></span>]</span>
+                        <span tal:condition="item/agreement" class="ms-2 text-muted fs-s">[<tal:omit-tag i18n:translate="">acord</tal:omit-tag> <span tal:content="item/agreement"></span>]</span>
                       </a>
                       <span class="badge rounded-pill ms-2" tal:attributes="style string:background-color:${item/css};" tal:content="item/state"></span>
                     </div>

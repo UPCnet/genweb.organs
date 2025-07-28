@@ -61,7 +61,7 @@
                 <tal:name tal:content="context/hiddenfile/filename">Filename</tal:name>
               </a>
             </tal:block>
-            <span class="text-muted small ms-2"
+            <span class="text-muted fs-s ms-2"
                   tal:define="size context/hiddenfile/getSize; kb python:size//1024">(<tal:replace="kb"/> KB)</span>
             <a tal:attributes="href reserved_file_download_url"
                class="ms-2" title="Descarrega"><i class="bi bi-download"></i></a>
@@ -113,7 +113,7 @@
                 <tal:name tal:content="context/visiblefile/filename">Filename</tal:name>
               </a>
             </tal:block>
-            <span class="text-muted small ms-2"
+            <span class="text-muted fs-s ms-2"
                   tal:define="size context/visiblefile/getSize; kb python:size//1024">(<tal:replace="kb"/> KB)</span>
             <a tal:attributes="href public_file_download_url"
                class="ms-2" title="Descarrega"><i class="bi bi-download"></i></a>

@@ -181,7 +181,7 @@
                       <div class="mb-3">
                         <i class="bi bi-file-earmark-text me-2 text-secondary"></i>
                         <a tal:attributes="href item/getURL" tal:content="item/Title" class="fw-bold text-decoration-none"></a>
-                        <div class="text-muted small" tal:define="portal_url context/portal_url;
+                        <div class="text-muted fs-s" tal:define="portal_url context/portal_url;
                                                     lang request/LANGUAGE|string:ca;
                                                     creator item/Creator;
                                                     author_url string:${portal_url}/${lang}/author/${creator}">
@@ -191,7 +191,7 @@
                           <span i18n:translate="">darrera modificació</span>
                           <tal:block tal:replace="python:toLocalizedTime(item.modified if hasattr(item,'modified') else item.created, long_format=True)" />
                         </div>
-                        <cite class="documentLocation link-location text-muted small"
+                        <cite class="documentLocation link-location text-muted fs-s"
                               tal:define="breadcrumbs python:view.breadcrumbs(item); is_rtl context/@@plone_portal_state/is_rtl;"
                               tal:condition="breadcrumbs">
                           <span i18n:translate="text_searchitem_location">Ubicat a</span>
