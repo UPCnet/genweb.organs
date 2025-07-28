@@ -892,7 +892,8 @@ P Conclusions</code>
         <ul id="sortable">
           <tal:documents repeat="item items">
             <tal:block tal:define="agreement item/agreement; isAcord item/isAcord">
-              <li tal:attributes="id item/id; 
+              <li tal:attributes="id item/id;
+                                  data-url absolute_url;
                                   class item/classe">
                 <div class="row px-3 py-2 justify-content-end" tal:condition="item/show">
                   <div class="col-6 einesSpan d-none d-flex flex-row-reverse justify-content-start align-items-baseline column-gap-2">
@@ -1241,7 +1242,8 @@ P Conclusions</code>
                       <div tal:condition="subpunts" class="sortable2">
                         <tal:subpunts repeat="itemSubpunt subpunts">
                           <div class="li_subgrups row mt-2 justify-content-end" 
-                               tal:attributes="id itemSubpunt/id" 
+                               tal:attributes="id itemSubpunt/id;
+                                               data-url absolute_url" 
                                tal:define="agreement itemSubpunt/agreement;
                                            itemSubpunt_id itemSubpunt/id;
                                            isAcord itemSubpunt/isAcord">
@@ -1451,7 +1453,7 @@ P Conclusions</code>
                                 </span>
                               </div>
                             </div>
-                            
+
                             <tal:block tal:condition="canViewVoteButtons">
                               <div class="puntVoteButtons col-12 row mt-2" tal:condition="itemSubpunt/canCloseVote">
                                 <span class="col-1"></span>

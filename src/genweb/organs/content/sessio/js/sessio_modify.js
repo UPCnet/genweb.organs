@@ -1,5 +1,6 @@
 $(document).ready(function(){
   "use strict";
+  let start;
 
   $('#sortable').sortable({
     placeholder: 'ui-state-highlight',
@@ -15,7 +16,7 @@ $(document).ready(function(){
       params.delta = ui.item.index() - start
       $.ajax({
         type: 'POST',
-        url: '@@fcmoveTable',
+        url: ui.item.data('url') + '/@@fcmoveTable',
         data: params,
         success: function(){
           setTimeout(() => window.location.reload(), 500);
@@ -38,7 +39,7 @@ $(document).ready(function(){
       params.delta = ui.item.index() - start
       $.ajax({
         type: 'POST',
-        url: '@@fcmoveTable',
+        url: ui.item.data('url') + '/@@fcmoveTable',
         data: params,
         success: function(){
           setTimeout(() => window.location.reload(), 500);
