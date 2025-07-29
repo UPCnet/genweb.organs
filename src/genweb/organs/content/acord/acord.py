@@ -112,14 +112,33 @@ llistaTipusVotacio = SimpleVocabulary(
 @provider(IContextAwareDefaultFactory)
 def proposal_point_default_factory(context):
     """Genera el valor predeterminado para el campo 'proposalPoint'."""
+    portal_catalog = api.portal.get_tool(name='portal_catalog')
     parent = getattr(context, '__parent__', None)
     if not parent:
         return "1"
-    siblings = [
-        obj for obj in getattr(parent, 'objectValues', lambda: [])()
-        if getattr(obj, 'portal_type', '') in ('genweb.organs.punt', 'genweb.organs.acord', 'genweb.organs.subpunt')
-    ]
-    return str(len(siblings) + 1)
+    # Obtener la ruta del contexto padre
+    path_url = context.getPhysicalPath()[1:]
+    folder_path = ""
+    for path in path_url:
+        folder_path += '/' + path
+
+    # Buscar objetos existentes usando el catálogo
+    values = portal_catalog.searchResults(
+        portal_type=['genweb.organs.punt', 'genweb.organs.acord', 'genweb.organs.subpunt'],
+        path={'query': folder_path, 'depth': 1})
+
+    subpunt_id = int(len(values)) + 1
+
+    # Si el contexto padre es una sessio, devolver solo el número
+    if context.portal_type == 'genweb.organs.sessio':
+        return str(subpunt_id)
+    else:
+        # Si es un subpunt, calcular con punto
+        if getattr(context, 'proposalPoint', None) is None:
+            punt_id = 1
+        else:
+            punt_id = context.proposalPoint
+        return str(punt_id) + '.' + str(subpunt_id)
 
 class IAcord(model.Schema):
     """ Acord """
@@ -181,32 +200,6 @@ class IAcord(model.Schema):
 
     directives.omitted('infoVotacio')
     infoVotacio = schema.Text(title=u'', required=False, default=u'{}')
-
-
-# @form.default_value(field=IAcord['proposalPoint'])
-# def proposalPointDefaultValue(data):
-#     # assign default proposalPoint value to Punt
-#     portal_catalog = api.portal.get_tool(name='portal_catalog')
-#     path_url = data.context.getPhysicalPath()[1:]
-#     folder_path = ""
-#     for path in path_url:
-#         folder_path += '/' + path
-
-#     values = portal_catalog.searchResults(
-#         portal_type=['genweb.organs.punt', 'genweb.organs.acord', 'genweb.organs.subpunt'],
-#         path={'query': folder_path,
-#               'depth': 1})
-#     subpunt_id = int(len(values)) + 1
-#     if data.context.portal_type == 'genweb.organs.sessio':
-#         return subpunt_id
-#     else:
-#         if data.context.proposalPoint is None:
-#             data.context.proposalPoint = 1
-#             punt_id = 1
-#         else:
-#             punt_id = data.context.proposalPoint
-#         return str(punt_id) + '.' + str(subpunt_id)
-
 
 @indexer(IAcord)
 def index_proposalPoint(obj):
