@@ -177,7 +177,7 @@ class Delete(BrowserView):
                             subvalue = 1
                             for value in subpunts:
                                 newobjecte = value.getObject()
-                                newobjecte.proposalPoint = index
+                                newobjecte.proposalPoint = str(index) + str('.') + str(subvalue)
                                 newobjecte.reindexObject()
                                 subvalue = subvalue + 1
                         index = index + 1

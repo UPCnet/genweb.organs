@@ -235,4 +235,18 @@
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
 
+    <adapter
+        factory=".punt.index_proposalPoint"
+        name="index_proposalPoint"
+        />
+
+    <adapter
+        factory=".subpunt.index_proposalPoint"
+        name="index_proposalPoint"
+        />
+
+    <adapter
+        factory=".acord.acord.index_proposalPoint"
+        name="index_proposalPoint"
+        />
 </configure>

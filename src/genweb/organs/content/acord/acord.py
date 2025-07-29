@@ -209,8 +209,11 @@ class IAcord(model.Schema):
 
 
 @indexer(IAcord)
-def proposalPoint(obj):
-    return obj.proposalPoint
+def index_proposalPoint(obj):
+    value = getattr(obj, 'proposalPoint', None)
+    if value is None:
+        return None
+    return str(value)
 
 
 @indexer(IAcord)
@@ -341,7 +344,7 @@ class View(BrowserView, UtilsFirmaDocumental):
 
 
 class OpenPublicVote(BrowserView):
-    
+
     def __call__(self):
         self.context.estatVotacio = 'open'
         self.context.tipusVotacio = 'public'
@@ -352,7 +355,7 @@ class OpenPublicVote(BrowserView):
 
 
 class OpenOtherPublicVote(BrowserView):
-    
+
     def __call__(self):
         if 'title' in self.request.form and self.request.form['title'] and self.request.form['title'] != '':
             item = createContentInContainer(self.context, "genweb.organs.votacioacord", title=self.request.form['title'])
@@ -387,7 +390,7 @@ class OpenOtherPublicVote(BrowserView):
 
 
 class ReopenVote(BrowserView):
-    
+
     @json_response
     def __call__(self):
         if checkHasOpenVote(self.context):
@@ -402,7 +405,7 @@ class ReopenVote(BrowserView):
 
 
 class CloseVote(BrowserView):
-    
+
     def __call__(self):
         self.context.estatVotacio = 'close'
         self.context.horaFiVotacio = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
@@ -412,7 +415,7 @@ class CloseVote(BrowserView):
 
 
 class FavorVote(BrowserView):
-    
+
     @json_response
     def __call__(self):
         if self.context.estatVotacio == 'close':
@@ -430,7 +433,7 @@ class FavorVote(BrowserView):
 
 
 class AgainstVote(BrowserView):
-    
+
     @json_response
     def __call__(self):
         if self.context.estatVotacio == 'close':
@@ -448,7 +451,7 @@ class AgainstVote(BrowserView):
 
 
 class WhiteVote(BrowserView):
-    
+
     @json_response
     def __call__(self):
         if self.context.estatVotacio == 'close':

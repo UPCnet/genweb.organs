@@ -32,7 +32,6 @@ def remove_punt_acord(trans, obj=None, parent=None):
             objecte.proposalPoint = str(sufix) + str('.') + str(index)
         else:
             objecte.proposalPoint = index
-
         if len(objecte.items()) > 0:
             search_path = '/'.join(objecte.getPhysicalPath())
             values = portal_catalog.searchResults(
@@ -70,7 +69,9 @@ def remove_subpunt(trans, obj=None, parent=None):
     index = 1
     # Assign proposalPoints to acord and subpunts
     if items:
-        sufix = str(items[0].proposalPoint).split('.')[0]
+        # Get the real object, not the catalog brain
+        first_item = items[0].getObject()
+        sufix = str(first_item.proposalPoint).split('.')[0]
         for item in items:
             newobjecte = item.getObject()
             newobjecte.proposalPoint = str(sufix) + str('.') + str(index)
@@ -78,42 +79,50 @@ def remove_subpunt(trans, obj=None, parent=None):
         addEntryLog(obj.aq_parent.aq_parent, None, _(u'Deleted subpunt'), str(obj.Title()))
         transaction.commit()
 
-
 def deletion_confirmed():
-    """Check if we are in the context of a delete confirmation event.
-    We need to be sure we're in the righ event to process it, as
-    `IObjectRemovedEvent` is raised up to three times: the first one
-    when the delete confirmation window is shown; the second when we
-    select the 'Delete' button; and the last, as part of the
-    redirection request to the parent container. Why? I have absolutely
-    no idea. If we select 'Cancel' after the first event, then no more
-    events are fired.
+    """
+    Check if the current request is a confirmed deletion en Plone 6.
     """
     request = getRequest()
-    is_delete_confirmation = 'delete_confirmation' in request.URL
+    # Detecta URLs de borrado modernas y legacy
+    is_delete_confirmation = (
+        'delete_confirmation' in request.URL or
+        'deleteElement' in request.URL or
+        'delete' in request.URL
+    )
     is_post = request.REQUEST_METHOD == 'POST'
-    form_being_submitted = 'form.submitted' in request.form
+
+    # Plone 6: el form puede tener solo 'action': 'delete' y no 'form.submitted' ni 'form.button.Delete'
+    form_being_submitted = (
+        request.form.get('action') == 'delete'
+    )
     form_cancelled = 'form.button.Cancel' in request.form
-    form_delete = 'form.button.Delete' in request.form
-    return is_delete_confirmation and is_post and form_being_submitted and not form_cancelled or form_delete
+    # En Plone 6, no siempre hay 'form.button.Delete', así que lo quitamos del check
+
+    # Solo es true si es un borrado confirmado y no cancelado
+    return (
+        is_delete_confirmation and
+        is_post and
+        form_being_submitted and
+        not form_cancelled
+    )
 
 
 def removePunt(obj, event):
     """ When the Punt is deleted, reorder proposalPoint field """
     if deletion_confirmed():
-        kwargs = dict(obj=obj, parent=event.oldParent)
-        transaction.get().addAfterCommitHook(remove_punt_acord, kws=kwargs)
+        remove_punt_acord(None, obj=obj, parent=event.oldParent)
 
 
 def removeSubpunt(obj, event):
     """ When the Subpunt is deleted, reorder proposalPoint field """
     if deletion_confirmed():
-        kwargs = dict(obj=obj, parent=event.oldParent)
-        transaction.get().addAfterCommitHook(remove_subpunt, kws=kwargs)
+        # kwargs = dict(obj=obj, parent=event.oldParent)
+        # transaction.get().addAfterCommitHook(remove_subpunt, kws=kwargs)
+        remove_subpunt(None, obj=obj, parent=event.oldParent)
 
 
 def removeAcord(obj, event):
     """ When the Acord is deleted, reorder proposalPoint field """
     if deletion_confirmed():
-        kwargs = dict(obj=obj, parent=event.oldParent)
-        transaction.get().addAfterCommitHook(remove_punt_acord, kws=kwargs)
+        remove_punt_acord(None, obj=obj, parent=event.oldParent)

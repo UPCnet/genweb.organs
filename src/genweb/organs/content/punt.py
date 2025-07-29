@@ -127,8 +127,11 @@ class IPunt(model.Schema):
     )
 
 @indexer(IPunt)
-def proposalPoint(obj):
-    return obj.proposalPoint
+def index_proposalPoint(obj):
+    value = getattr(obj, 'proposalPoint', None)
+    if value is None:
+        return None
+    return str(value)
 
 
 class Edit(form.EditForm):

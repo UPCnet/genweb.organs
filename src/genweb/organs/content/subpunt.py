@@ -161,8 +161,11 @@ class ISubpunt(model.Schema):
 
 
 @indexer(ISubpunt)
-def proposalPoint_index(obj):
-    return obj.proposalPoint
+def index_proposalPoint(obj):
+    value = getattr(obj, 'proposalPoint', None)
+    if value is None:
+        return None
+    return str(value)
 
 
 # -----------------------------------------------------------------------------
