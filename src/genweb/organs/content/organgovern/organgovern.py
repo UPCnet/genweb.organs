@@ -215,7 +215,10 @@ class IOrgangovern(model.Schema):
 
 @indexer(IOrgangovern)
 def organType(obj):
-    return obj.organType
+    value = getattr(obj, 'organType', None)
+    if value is None:
+        return None
+    return str(value)
 
 
 class Edit(form.EditForm):

@@ -255,4 +255,14 @@
         name="index_agreement"
         />
 
+    <adapter
+        factory=".organgovern.organgovern.organType"
+        name="organType"
+        />
+
+    <adapter
+        factory=".acord.acord.index_estatVotacio"
+        name="index_estatVotacio"
+        />
+
 </configure>

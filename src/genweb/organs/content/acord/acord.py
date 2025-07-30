@@ -218,8 +218,11 @@ def index_agreement(obj):
 
 
 @indexer(IAcord)
-def estatVotacio(obj):
-    return obj.estatVotacio
+def index_estatVotacio(obj):
+    value = getattr(obj, 'estatVotacio', None)
+    if value is None:
+        return None
+    return str(value)
 
 
 class Edit(form.EditForm):
