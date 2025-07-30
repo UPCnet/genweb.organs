@@ -249,4 +249,10 @@
         factory=".acord.acord.index_proposalPoint"
         name="index_proposalPoint"
         />
+
+    <adapter
+        factory=".acord.acord.index_agreement"
+        name="index_agreement"
+        />
+
 </configure>

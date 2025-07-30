@@ -210,8 +210,11 @@ def index_proposalPoint(obj):
 
 
 @indexer(IAcord)
-def agreement(obj):
-    return obj.agreement
+def index_agreement(obj):
+    value = getattr(obj, 'agreement', None)
+    if value is None:
+        return None
+    return str(value)
 
 
 @indexer(IAcord)
