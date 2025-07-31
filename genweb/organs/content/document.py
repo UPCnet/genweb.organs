@@ -100,11 +100,6 @@ class View(grok.View):
                     return True
                 else:
                     return False
-        else:
-            if not self.context.defaultContent and not self.context.alternateContent:
-                return None
-            else:
-                raise Unauthorized
 
     def viewDocumentReserved(self):
         """ Cuando se muestra la parte privada del documento
@@ -128,11 +123,6 @@ class View(grok.View):
                     return True
                 else:
                     return False
-        else:
-            if not self.context.defaultContent and not self.context.alternateContent:
-                return None
-            else:
-                raise Unauthorized
 
     def canView(self):
         # Permissions to view DOCUMENT
