@@ -821,149 +821,120 @@ class View(grok.View):
     def filesinsidePunt(self, item):
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
-        # if item['info_firma'] and item['info_firma'].get('fitxers', None):
-        #     acta = uuidToObject(item['info_firma'].get('related_acta', None))
-        #     if (
-        #       acta and getattr(acta, 'info_firma', None)
-        #       and acta.info_firma.get('enviatASignar', False)
-        #       and acta.estat_firma.lower() in ['pendent', 'signada']
-        #     ):
-        #         results = []
-        #         for pos, file in item['info_firma']['fitxers'].items():
-        #             class_css = 'fa fa-file-pdf-o ' + ('text-success' if file['public'] else 'text-error')
-        #             if file['public'] or 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:
-        #                 results.append(dict(title=file['title'],
-        #                                     absolute_url=item['absolute_url'] + '/viewFile?pos=' + str(pos),
-        #                                     classCSS=class_css,
-        #                                     new_tab=True,
-        #                                     id=file['uuid'],
-        #                                     portal_type='genweb.organs.file'))
-        #         return results
+
+        organ = utils.get_organ(self.context)
+        organ_type = organ.organType
+
         session_path = '/'.join(self.context.getPhysicalPath()) + '/' + item['id']
         portal_catalog = api.portal.get_tool(name='portal_catalog')
 
         values = portal_catalog.searchResults(
             portal_type=['genweb.organs.file', 'genweb.organs.document'],
             sort_on='getObjPositionInParent',
-            path={'query': session_path,
-                  'depth': 1})
+            path={'query': session_path, 'depth': 1}
+        )
         results = []
+
+        can_edit = utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
+        can_see_both = utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles)
+        is_afectat = utils.checkhasRol(['OG4-Afectat'], roles)
+        is_anon = api.user.is_anonymous()
+
+        def has_file(file):
+            return True if file else False
+
         for obj in values:
             value = obj.getObject()
+            show_public = False
+            show_private = False
+            has_defaultContent = False
+            has_alternateContent = False
 
-            if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles:
-                # Editor i Secretari veuen contingut. NO obren en finestra nova
-                if obj.portal_type == 'genweb.organs.file':
-                    classCSS = 'fa fa-file-pdf-o'  # Es un file
-                    if value.visiblefile and value.hiddenfile:
-                        classCSS = 'fa fa-file-pdf-o text-success double-icon'
-                    elif value.hiddenfile:
-                        classCSS = 'fa fa-file-pdf-o text-error'
-                    elif value.visiblefile:
-                        classCSS = 'fa fa-file-pdf-o text-success'
+            if obj.portal_type == 'genweb.organs.document':
+                has_defaultContent = has_file(value.defaultContent)
+                has_alternateContent = has_file(value.alternateContent)
+
+            if obj.portal_type == 'genweb.organs.file':
+                has_defaultContent = has_file(value.visiblefile)
+                has_alternateContent = has_file(value.hiddenfile)
+
+            # Permisos según tipo de órgano
+            if organ_type == 'open_organ':
+                if can_see_both or is_afectat:
+                    show_public = has_defaultContent
+                    show_private = has_alternateContent
+                elif is_anon:
+                    show_public = has_defaultContent
+            elif organ_type == 'restricted_to_members_organ':
+                if can_see_both:
+                    show_public = has_defaultContent
+                    show_private = has_alternateContent
+            elif organ_type == 'restricted_to_affected_organ':
+                if can_see_both:
+                    show_public = has_defaultContent
+                    show_private = has_alternateContent
+                elif is_afectat:
+                    show_public = has_defaultContent
+
+            # Documentos
+            if obj.portal_type == 'genweb.organs.document':
+                if show_public and show_private:
+                    classCSS = 'fa fa-file-text-o text-success double-icon'
+                elif show_private:
+                    classCSS = 'fa fa-file-text-o text-error'
+                elif show_public:
+                    classCSS = 'fa fa-file-text-o text-success'
                 else:
-                    classCSS = 'fa fa-file-text-o'  # Es un DOC
-                    if value.defaultContent and value.alternateContent:
-                        classCSS = 'fa fa-file-text-o text-success double-icon'
-                    elif value.alternateContent:
-                        classCSS = 'fa fa-file-text-o text-error'
-                    elif value.defaultContent:
-                        classCSS = 'fa fa-file-text-o text-success'
-                # si està validat els mostrem tots
-                results.append(dict(title=obj.Title,
-                                    portal_type=obj.portal_type,
-                                    absolute_url=obj.getURL(),
-                                    new_tab=False,
-                                    classCSS=classCSS,
-                                    id=str(item['id']) + '/' + obj.id))
-            else:
-                # Anonim / Afectat / Membre veuen obrir en finestra nova dels fitxers.
-                # Es un document, mostrem part publica si la té
-                if obj.portal_type == 'genweb.organs.document':
                     classCSS = 'fa fa-file-text-o'
-                    if value.defaultContent and value.alternateContent:
-                        if 'OG3-Membre' in roles:
-                            results.append(dict(title=obj.Title,
-                                                portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL(),
-                                                new_tab=True,
-                                                classCSS=classCSS,
-                                                id=str(item['id']) + '/' + obj.id))
-                        else:
-                            results.append(dict(title=obj.Title,
-                                                portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL(),
-                                                new_tab=True,
-                                                classCSS=classCSS,
-                                                id=str(item['id']) + '/' + obj.id))
-                    elif value.defaultContent:
-                        results.append(dict(title=obj.Title,
-                                            portal_type=obj.portal_type,
-                                            absolute_url=obj.getURL(),
-                                            new_tab=True,
-                                            classCSS=classCSS,
-                                            id=str(item['id']) + '/' + obj.id))
-                    elif value.alternateContent:
-                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:
-                            results.append(dict(title=obj.Title,
-                                                portal_type=obj.portal_type,
-                                                absolute_url=obj.getURL(),
-                                                new_tab=True,
-                                                classCSS=classCSS,
-                                                id=str(item['id']) + '/' + obj.id))
-                # es un fitxer, mostrem part publica si la té
-                if obj.portal_type == 'genweb.organs.file':
-                    info_firma = getattr(value, 'info_firma', None) or {}
-                    if not isinstance(info_firma, dict):
-                        info_firma = ast.literal_eval(info_firma)
 
+                if show_public or show_private:
+                    results.append(dict(
+                        title=obj.Title,
+                        portal_type=obj.portal_type,
+                        absolute_url=obj.getURL(),
+                        new_tab=(show_public and show_private) or can_edit,
+                        classCSS=classCSS,
+                        id=str(item['id']) + '/' + obj.id
+                    ))
+
+            # Archivos
+            if obj.portal_type == 'genweb.organs.file':
+                info_firma = getattr(value, 'info_firma', None) or {}
+                if not isinstance(info_firma, dict):
+                    info_firma = ast.literal_eval(info_firma)
+                if show_public and show_private:
+                    classCSS = 'fa fa-file-pdf-o text-success double-icon'
+                elif show_private:
+                    classCSS = 'fa fa-file-pdf-o text-error'
+                elif show_public:
+                    classCSS = 'fa fa-file-pdf-o text-success'
+                else:
                     classCSS = 'fa fa-file-pdf-o'
-                    if value.visiblefile and value.hiddenfile:
-                        if 'OG3-Membre' in roles:
-                            if info_firma.get('private', {}).get('uploaded', False):
-                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
-                            else:
-                                absolute_url = obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename
-                            results.append(dict(title=obj.Title,
-                                                portal_type=obj.portal_type,
-                                                absolute_url=absolute_url,
-                                                new_tab=True,
-                                                classCSS=classCSS,
-                                                id=str(item['id']) + '/' + obj.id))
-                        else:
-                            if info_firma.get('public', {}).get('uploaded', False):
-                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
-                            else:
-                                absolute_url = obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename
-                            results.append(dict(title=obj.Title,
-                                                portal_type=obj.portal_type,
-                                                absolute_url=absolute_url,
-                                                new_tab=True,
-                                                classCSS=classCSS,
-                                                id=str(item['id']) + '/' + obj.id))
-                    elif value.visiblefile:
-                        if info_firma.get('public', {}).get('uploaded', False):
-                            absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
-                        else:
-                            absolute_url = obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename
-                        results.append(dict(title=obj.Title,
-                                            portal_type=obj.portal_type,
-                                            absolute_url=absolute_url,
-                                            new_tab=True,
-                                            classCSS=classCSS,
-                                            id=str(item['id']) + '/' + obj.id))
-                    elif value.hiddenfile:
-                        if 'Manager' in roles or 'OG1-Secretari' in roles or 'OG2-Editor' in roles or 'OG3-Membre' in roles or 'OG5-Convidat' in roles:
-                            if info_firma.get('private', {}).get('uploaded', False):
-                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
-                            else:
-                                absolute_url = obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename
-                            results.append(dict(title=obj.Title,
-                                                portal_type=obj.portal_type,
-                                                absolute_url=absolute_url,
-                                                new_tab=True,
-                                                classCSS=classCSS,
-                                                id=str(item['id']) + '/' + obj.id))
+
+                absolute_url = None
+                if ((show_public and show_private) or can_edit):
+                    absolute_url = obj.getURL()
+                elif show_public:
+                    if info_firma.get('public', {}).get('uploaded', False):
+                        absolute_url = obj.getURL() + '/viewFileGDoc?visibility=public'
+                    else:
+                        absolute_url = obj.getURL() + '/@@display-file/visiblefile/' + value.visiblefile.filename
+                elif show_private:
+                    if info_firma.get('private', {}).get('uploaded', False):
+                        absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
+                    else:
+                        absolute_url = obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename
+
+                if absolute_url:
+                    results.append(dict(
+                        title=obj.Title,
+                        portal_type=obj.portal_type,
+                        absolute_url=absolute_url,
+                        new_tab=(show_public and show_private) or can_edit,
+                        classCSS=classCSS,
+                        id=str(item['id']) + '/' + obj.id
+                    ))
+
         return results
 
     def AcordsInside(self):

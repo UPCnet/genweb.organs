@@ -263,41 +263,7 @@ class View(grok.View):
 
         organ_tipus = self.context.organType
 
-        if self.context.visiblefile and self.context.hiddenfile:
-            if organ_tipus == 'open_organ':
-                if utils.checkhasRol(['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
-                    return False
-                else:
-                    return True
-            elif organ_tipus == 'restricted_to_members_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
-                    return True
-                else:
-                    return False
-            elif organ_tipus == 'restricted_to_affected_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG4-Afectat'], roles):
-                    return True
-                else:
-                    return False
-
-        elif self.context.hiddenfile:
-            if organ_tipus == 'open_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
-                    return True
-                else:
-                    return False
-            elif organ_tipus == 'restricted_to_members_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                    return True
-                else:
-                    return False
-            elif organ_tipus == 'restricted_to_affected_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                    return True
-                else:
-                    return False
-
-        elif self.context.visiblefile:
+        if self.context.visiblefile:
             if organ_tipus == 'open_organ':
                 return True
             elif organ_tipus == 'restricted_to_members_organ':
@@ -306,7 +272,7 @@ class View(grok.View):
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
@@ -330,7 +296,7 @@ class View(grok.View):
 
         organ_tipus = self.context.organType
 
-        if self.context.visiblefile and self.context.hiddenfile:
+        if self.context.hiddenfile:
             if organ_tipus == 'open_organ':
                 if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                     return True
@@ -346,25 +312,6 @@ class View(grok.View):
                     return True
                 else:
                     return False
-        elif self.context.hiddenfile:
-            if organ_tipus == 'open_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
-                    return True
-                else:
-                    return False
-            elif organ_tipus == 'restricted_to_members_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                    return True
-                else:
-                    return False
-            elif organ_tipus == 'restricted_to_affected_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                    return True
-                else:
-                    return False
-        elif self.context.visiblefile:
-            if organ_tipus == 'open_organ':
-                return True
         else:
             if not self.context.visiblefile and not self.context.hiddenfile:
                 return None

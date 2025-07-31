@@ -87,39 +87,7 @@ class View(grok.View):
 
         organ_tipus = self.context.organType
 
-        if self.context.defaultContent and self.context.alternateContent:
-            if organ_tipus == 'open_organ':
-                if utils.checkhasRol(['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
-                    return False
-                else:
-                    return True
-            elif organ_tipus == 'restricted_to_members_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
-                    return True
-                else:
-                    return False
-            elif organ_tipus == 'restricted_to_affected_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG4-Afectat'], roles):
-                    return True
-                else:
-                    return False
-        elif self.context.alternateContent:
-            if organ_tipus == 'open_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
-                    return True
-                else:
-                    return False
-            elif organ_tipus == 'restricted_to_members_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                    return True
-                else:
-                    return False
-            elif organ_tipus == 'restricted_to_affected_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                    return True
-                else:
-                    return False
-        elif self.context.defaultContent:
+        if self.context.defaultContent:
             if organ_tipus == 'open_organ':
                 return True
             elif organ_tipus == 'restricted_to_members_organ':
@@ -133,7 +101,10 @@ class View(grok.View):
                 else:
                     return False
         else:
-            raise Unauthorized
+            if not self.context.defaultContent and not self.context.alternateContent:
+                return None
+            else:
+                raise Unauthorized
 
     def viewDocumentReserved(self):
         """ Cuando se muestra la parte privada del documento
@@ -144,43 +115,24 @@ class View(grok.View):
 
         organ_tipus = self.context.organType
 
-        if self.context.defaultContent and self.context.alternateContent:
+        if self.context.alternateContent:
             if organ_tipus == 'open_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
-                    return True
-                else:
-                    return False
+                return True
             elif organ_tipus == 'restricted_to_members_organ':
                 if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                    return True
-                else:
-                    return False
-        elif self.context.alternateContent:
-            if organ_tipus == 'open_organ':
                 if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
-            elif organ_tipus == 'restricted_to_members_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                    return True
-                else:
-                    return False
-            elif organ_tipus == 'restricted_to_affected_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                    return True
-                else:
-                    return False
-        elif self.context.defaultContent:
-            if organ_tipus == 'open_organ':
-                    return True
         else:
-            raise Unauthorized
+            if not self.context.defaultContent and not self.context.alternateContent:
+                return None
+            else:
+                raise Unauthorized
 
     def canView(self):
         # Permissions to view DOCUMENT

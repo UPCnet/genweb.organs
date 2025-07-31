@@ -207,68 +207,90 @@ class Presentation(form.SchemaForm):
             else:
                 # user is validated
                 username = api.user.get_current().id
+                organ = utils.get_organ(self.context)
+                organ_type = organ.organType
+                roles = api.user.get_roles(username=username, obj=self.context)
+
+                # --- para FILES ---
                 if obj.portal_type == 'genweb.organs.file':
-                    # Tractem els files i fiquem colors...
                     isGOFile = True
-                    raw_content = None
                     abs_path = file.absolute_url_path()
-                    roles = api.user.get_roles(username=username, obj=self.context)
                     classCSS = 'fa fa-file-pdf-o'
-                    if file.visiblefile and file.hiddenfile:
+                    show_public = False
+                    show_private = False
+
+                    if organ_type == 'open_organ':
+                        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+                            show_public = True
+                            show_private = True
+                    elif organ_type == 'restricted_to_members_organ':
                         if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                            hasPublic = False
-                            hasPrivate = True
-                            visibleUrl = ''
-                            hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/' + file.hiddenfile.filename
-                            classCSS = 'fa fa-file-pdf-o text-success double-icon'
-                        elif 'OG4-Afectat' in roles:
-                            hasPublic = True
-                            hasPrivate = False
-                            visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/' + file.visiblefile.filename
-                            hiddenUrl = ''
-                            classCSS = 'fa fa-file-pdf-o text-success'
-                    elif file.hiddenfile:
+                            show_public = True
+                            show_private = True
+                    elif organ_type == 'restricted_to_affected_organ':
                         if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                            hasPublic = False
-                            hasPrivate = True
-                            visibleUrl = ''
-                            hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/' + file.hiddenfile.filename
-                            classCSS = 'fa fa-file-pdf-o text-error'
-                    elif file.visiblefile:
+                            show_public = True
+                            show_private = True
+                        elif utils.checkhasRol(['OG4-Afectat'], roles):
+                            show_public = True
+
+                    if file.visiblefile and file.hiddenfile and show_public and show_private:
+                        hasPublic = True
+                        hasPrivate = True
+                        visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/' + file.visiblefile.filename
+                        hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/' + file.hiddenfile.filename
+                        classCSS = 'fa fa-file-pdf-o text-success double-icon'
+                    elif file.hiddenfile and show_private:
+                        hasPublic = False
+                        hasPrivate = True
+                        visibleUrl = ''
+                        hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/' + file.hiddenfile.filename
+                        classCSS = 'fa fa-file-pdf-o text-error'
+                    elif file.visiblefile and show_public:
                         hasPublic = True
                         hasPrivate = False
                         visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/' + file.visiblefile.filename
                         hiddenUrl = ''
                         classCSS = 'fa fa-file-pdf-o text-success'
 
+                # --- para DOCUMENTS ---
                 if obj.portal_type == 'genweb.organs.document':
                     isGODocument = True
                     abs_path = None
-                    roles = api.user.get_roles(username=username, obj=self.context)
                     classCSS = 'fa fa-file-text-o'
-                    if file.alternateContent and file.defaultContent:
+                    show_public = False
+                    show_private = False
+
+                    if organ_type == 'open_organ':
+                        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+                            show_public = True
+                            show_private = True
+                    elif organ_type == 'restricted_to_members_organ':
                         if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                            hasPublic = False
-                            hasPrivate = True
-                            raw_content = file.alternateContent
-                            classCSS = 'fa fa-file-text-o text-success double-icon'
-                        elif 'OG4-Afectat' in roles:
-                            hasPublic = True
-                            hasPrivate = False
-                            raw_content = file.defaultContent
-                            classCSS = 'fa fa-file-text-o text-success'
-                    elif file.defaultContent:
+                            show_public = True
+                            show_private = True
+                    elif organ_type == 'restricted_to_affected_organ':
                         if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                            hasPublic = False
-                            hasPrivate = True
-                            raw_content = file.defaultContent
-                            classCSS = 'fa fa-file-text-o text-success'
-                    elif file.alternateContent:
-                        if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                            hasPublic = False
-                            hasPrivate = True
-                            raw_content = file.alternateContent
-                            classCSS = 'fa fa-file-text-o text-error'
+                            show_public = True
+                            show_private = True
+                        elif utils.checkhasRol(['OG4-Afectat'], roles):
+                            show_public = True
+
+                    if file.defaultContent and file.alternateContent and show_public and show_private:
+                        hasPublic = True
+                        hasPrivate = True
+                        raw_content = file.defaultContent
+                        classCSS = 'fa fa-file-text-o text-success double-icon'
+                    elif file.alternateContent and show_private:
+                        hasPublic = False
+                        hasPrivate = True
+                        raw_content = file.alternateContent
+                        classCSS = 'fa fa-file-text-o text-error'
+                    elif file.defaultContent and show_public:
+                        hasPublic = True
+                        hasPrivate = False
+                        raw_content = file.defaultContent
+                        classCSS = 'fa fa-file-text-o text-success'
 
                 results.append(dict(title=obj.Title,
                                     path=abs_path,
