@@ -279,7 +279,7 @@ class Presentation(form.SchemaForm):
                     if file.defaultContent and file.alternateContent and show_public and show_private:
                         hasPublic = True
                         hasPrivate = True
-                        raw_content = file.defaultContent
+                        raw_content = '<p><strong>Contingut restringit</strong></p>' + str(file.alternateContent) + '<br><p><strong>Contingut públic</strong></p>' + str(file.defaultContent)
                         classCSS = 'fa fa-file-text-o text-success double-icon'
                     elif file.alternateContent and show_private:
                         hasPublic = False
