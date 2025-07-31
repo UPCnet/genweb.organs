@@ -1370,9 +1370,13 @@ ol.li_subgrups {
     margin-bottom: 8px!important;
     }
 
-.bodyPresentation #sortable .filesinTable a{
+.bodyPresentation #sortable .filesinTable a {
 	color:#555!important;
-	    font-weight: 300!important;
+	font-weight: 300!important;
+}
+
+.bodyPresentation #sortable .filesinTable a +a {
+    margin-left: 1rem;
 }
 
 .bodyPresentation #sortable .filesinTable a:hover {

@@ -188,11 +188,11 @@
                         <tal:block tal:condition="item/isGOFile">
                           <tal:block tal:condition="item/reservedURL">
                               <a tal:attributes="href item/reservedURL;" target="_blank">
-                                <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span></a>
+                                <i class="fa fa-file-pdf-o text-error"></i><span tal:content="item/title"></span></a>
                           </tal:block>
                           <tal:block tal:condition="item/publicURL">
                               <a tal:attributes="href item/publicURL;" target="_blank">
-                                <i tal:attributes="class item/classCSS"></i><span tal:content="item/title"></span></a>
+                                <i class="fa fa-file-pdf-o text-success"></i><span tal:content="item/title"></span></a>
                           </tal:block>
                         </tal:block>
                         <tal:block tal:condition="item/isGODocument">
