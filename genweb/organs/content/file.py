@@ -276,6 +276,7 @@ class View(grok.View):
                     return True
                 else:
                     return False
+        return False
 
     def showTitle(self):
         if api.user.is_anonymous():
@@ -307,6 +308,7 @@ class View(grok.View):
                     return True
                 else:
                     return False
+        return False
 
     def changeReserved(self):
         roles = utils.getUserRoles(self, self.context, api.user.get_current().id)

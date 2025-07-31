@@ -100,6 +100,7 @@ class View(grok.View):
                     return True
                 else:
                     return False
+        return False
 
     def viewDocumentReserved(self):
         """ Cuando se muestra la parte privada del documento
@@ -112,17 +113,21 @@ class View(grok.View):
 
         if self.context.alternateContent:
             if organ_tipus == 'open_organ':
-                return True
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+                    return True
+                else:
+                    return False
             elif organ_tipus == 'restricted_to_members_organ':
                 if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
             elif organ_tipus == 'restricted_to_affected_organ':
-                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+                if utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                     return True
                 else:
                     return False
+        return False
 
     def canView(self):
         # Permissions to view DOCUMENT
