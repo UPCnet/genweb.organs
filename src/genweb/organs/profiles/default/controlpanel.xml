@@ -4,10 +4,10 @@
         title="Organs"
         action_id="genweb.organs"
         appId="genweb.organs"
-        category="Products"
+        category="genweb-advanced"
         condition_expr=""
         url_expr="string:${portal_url}/organs-settings"
-        icon_expr="string:${portal_url}/++resource++cpgenweb.png"
+        icon_expr="string:gear"
         visible="True">
         <permission>Manage Portal</permission>
     </configlet>
@@ -16,10 +16,10 @@
         title="Organs Firma Documental"
         action_id="genweb.organs.firmadocumental"
         appId="genweb.organs.firmadocumental"
-        category="Products"
+        category="genweb-advanced"
         condition_expr=""
         url_expr="string:${portal_url}/organs-firmadocumental-settings"
-        icon_expr="string:${portal_url}/++resource++cpgenweb.png"
+        icon_expr="string:gear"
         visible="True">
         <permission>Manage Portal</permission>
     </configlet>
