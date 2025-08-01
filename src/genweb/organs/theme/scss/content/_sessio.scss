@@ -1,3 +1,4 @@
+body.template-signsessio,
 body.portaltype-genweb-organs-sessio {
 
   .openInfo {
@@ -90,22 +91,22 @@ body.portaltype-genweb-organs-sessio {
       }
     }
 
-    .filesinTable {
-
-      .titleSpan {
-        margin-left: calc(8% + 1rem)
-      }
-    }
-
-    .li_subgrups {
-      padding-left: calc(8% + 1rem)
-    }
-
     .puntVoteButtons {
 
       .btn.disabled {
         cursor: not-allowed;
       }
     }
+  }
+
+  .filesinTable {
+
+    .titleSpan {
+      margin-left: calc(8% + 1rem)
+    }
+  }
+
+  .li_subgrups {
+    padding-left: calc(8% + 1rem)
   }
 }

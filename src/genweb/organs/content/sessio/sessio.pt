@@ -1090,7 +1090,7 @@ P Conclusions</code>
                                                     subpunts python:view.SubpuntsInside(item);
                                                     contenidos python:files or subpunts">
                     <div class="puntTitle col-12 d-flex flex-nowrap align-items-baseline"
-                        tal:attributes="id string:punt-${item/id}">
+                         tal:attributes="id string:punt-${item/id}">
                       <div class="fletxaSpan me-2 w-3">
                         <button type="button" class="btn px-0 py-0 btn-expand-collapse collapsed" 
                                 tal:condition="contenidos"
