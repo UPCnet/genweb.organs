@@ -24,7 +24,8 @@ b.form-label {
   font-weight: 700;
 }
 
-/* line 27, ../scss/_edicio.scss */
+/* line 28, ../scss/_edicio.scss */
+body.template-signsessio #social_tags,
 body.template-excusar_assist_sessio #social_tags {
   display: none !important;
 }
@@ -253,6 +254,19 @@ body.template-search .meva-vinculacio a:hover {
 /* line 181, ../scss/_generic.scss */
 #social_tags p {
   margin-right: 0.5rem;
+}
+
+/* line 186, ../scss/_generic.scss */
+.spinner-block {
+  z-index: 1055;
+  pointer-events: all;
+}
+/* line 190, ../scss/_generic.scss */
+.spinner-block .spinner-border {
+  --bs-spinner-animation-speed: 1.5s;
+  --bs-spinner-border-width: 0.5em;
+  --bs-spinner-width: 4rem;
+  --bs-spinner-height: 4rem;
 }
 
 @media print {
@@ -610,4 +624,24 @@ body.portaltype-genweb-organs-sessio .filesinTable .titleSpan {
 body.template-signsessio .li_subgrups,
 body.portaltype-genweb-organs-sessio .li_subgrups {
   padding-left: calc(8% + 1rem);
+}
+/* line 112, ../scss/content/_sessio.scss */
+body.template-signsessio .li_subgrups .listFiles,
+body.portaltype-genweb-organs-sessio .li_subgrups .listFiles {
+  padding-left: calc(5% + 1rem);
+}
+/* line 121, ../scss/content/_sessio.scss */
+body.template-signsessio #previewDocModal .filesinTable .titleSpan,
+body.portaltype-genweb-organs-sessio #previewDocModal .filesinTable .titleSpan {
+  margin-left: calc(5% + 1rem);
+}
+/* line 126, ../scss/content/_sessio.scss */
+body.template-signsessio #previewDocModal .li_subgrups,
+body.portaltype-genweb-organs-sessio #previewDocModal .li_subgrups {
+  padding-left: calc(5% + 1rem);
+}
+/* line 129, ../scss/content/_sessio.scss */
+body.template-signsessio #previewDocModal .li_subgrups .listFiles,
+body.portaltype-genweb-organs-sessio #previewDocModal .li_subgrups .listFiles {
+  padding-left: calc(5% + 1rem);
 }

@@ -102,11 +102,33 @@ body.portaltype-genweb-organs-sessio {
   .filesinTable {
 
     .titleSpan {
-      margin-left: calc(8% + 1rem)
+      margin-left: calc(8% + 1rem);
     }
   }
 
   .li_subgrups {
-    padding-left: calc(8% + 1rem)
+    padding-left: calc(8% + 1rem);
+
+    .listFiles {
+      padding-left: calc(5% + 1rem);
+    }
+  }
+
+  #previewDocModal {
+
+    .filesinTable {
+
+      .titleSpan {
+        margin-left: calc(5% + 1rem);
+      }
+    }
+
+    .li_subgrups {
+      padding-left: calc(5% + 1rem);
+
+      .listFiles {
+        padding-left: calc(5% + 1rem);
+      }
+    }
   }
 }

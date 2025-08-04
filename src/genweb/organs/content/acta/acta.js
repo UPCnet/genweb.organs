@@ -10,7 +10,7 @@ if ($btnPreview.length) {
       xhrFields: { withCredentials: true },
       success: function (html) {
         $('#previewActaBody').html(html);
-        var modalEl = document.getElementById('previewActaModal');
+        var modalEl = $('previewActaModal');
         var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
         modal.show();
       }

@@ -1516,7 +1516,7 @@ P Conclusions</code>
                             </tal:block>
 
                             <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
-                              <ul class="listFiles list-unstyled ps-4" tal:condition="files">
+                              <ul class="listFiles list-unstyled" tal:condition="files">
                                 <tal:documents repeat="item files">
                                   <li class="filesinTable w-100 mt-2">
                                     <i tal:attributes="class string:${item/classCSS} me-1"></i>
@@ -1567,6 +1567,9 @@ P Conclusions</code>
 
     <script type="text/javascript"
             src="++theme++genweb.organs/js/content/sessio.min.js"></script>    
+
+    <script type="text/javascript"
+            src="++theme++genweb.organs/js/content/sessio_collapse.min.js"></script>    
 
     <script type="text/javascript"
             src="++theme++genweb.organs/js/content/sessio_modify.min.js"

@@ -182,3 +182,15 @@
     margin-right: 0.5rem;
   }
 }
+
+.spinner-block {
+  z-index: 1055; 
+  pointer-events: all;
+
+  .spinner-border {
+    --bs-spinner-animation-speed: 1.5s;
+    --bs-spinner-border-width: 0.5em;
+    --bs-spinner-width: 4rem;
+    --bs-spinner-height: 4rem;
+  }
+}
