@@ -183,7 +183,7 @@
                                         tal:content="itemSubpunt/proposalPoint"></span>
                                 </div>
 
-                                <div class="titleSpan me-2 w-75">
+                                <div class="titleSpan me-2 w-95">
                                   <a tal:attributes="data-id itemSubpunt_id; 
                                                      href itemSubpunt/absolute_url"
                                     data-type="text" data-url="changeTitle" 
@@ -472,7 +472,7 @@
                         </ul>
                       </tal:files>
 
-                      <div tal:condition="subpunts">
+                      <div class="container-subpunts" tal:condition="subpunts">
                         <tal:subpunts repeat="itemSubpunt subpunts">
                           <div class="li_subgrups row mt-2 justify-content-end" 
                               tal:condition="python:view.hasUnsentFiles(itemSubpunt)"
@@ -486,7 +486,7 @@
                                       tal:content="itemSubpunt/proposalPoint"></span>
                               </div>
 
-                              <div class="titleSpan me-2 w-75">
+                              <div class="titleSpan me-2 w-95">
                                 <a tal:attributes="data-id itemSubpunt_id; 
                                                   href itemSubpunt/absolute_url"
                                   data-type="text" data-url="changeTitle" 
@@ -530,7 +530,6 @@
       </div>
     </div>
   </div>
-
 
   <script type="text/javascript"
           src="++theme++genweb.organs/js/content/sessio.min.js"></script>    

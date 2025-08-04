@@ -205,11 +205,16 @@ body.template-search .meva-vinculacio a:hover {
 }
 
 /* line 122, ../scss/_generic.scss */
+.w-95 {
+  width: 95% !important;
+}
+
+/* line 126, ../scss/_generic.scss */
 .mw-50 {
   max-width: 50% !important;
 }
 
-/* line 128, ../scss/_generic.scss */
+/* line 132, ../scss/_generic.scss */
 .bi.double-icon:after {
   display: inline-block;
   font-family: bootstrap-icons !important;
@@ -227,41 +232,41 @@ body.template-search .meva-vinculacio a:hover {
   left: -7px;
   top: 4px;
 }
-/* line 149, ../scss/_generic.scss */
+/* line 153, ../scss/_generic.scss */
 .bi.double-icon.bi-file-earmark-pdf:after {
   content: "\f63e";
 }
-/* line 156, ../scss/_generic.scss */
+/* line 160, ../scss/_generic.scss */
 .bi.double-icon.bi-file-earmark-text:after {
   content: "\f38b";
 }
 
-/* line 166, ../scss/_generic.scss */
+/* line 170, ../scss/_generic.scss */
 .picked .bi.double-icon:after {
   background-color: #e5f7ff !important;
 }
 
-/* line 172, ../scss/_generic.scss */
+/* line 176, ../scss/_generic.scss */
 #social_tags {
   display: flex;
   align-items: center;
   margin-top: 0.4rem !important;
 }
-/* line 177, ../scss/_generic.scss */
+/* line 181, ../scss/_generic.scss */
 #social_tags a:not(#copy-universal-link) {
   display: none !important;
 }
-/* line 181, ../scss/_generic.scss */
+/* line 185, ../scss/_generic.scss */
 #social_tags p {
   margin-right: 0.5rem;
 }
 
-/* line 186, ../scss/_generic.scss */
+/* line 190, ../scss/_generic.scss */
 .spinner-block {
   z-index: 1055;
   pointer-events: all;
 }
-/* line 190, ../scss/_generic.scss */
+/* line 194, ../scss/_generic.scss */
 .spinner-block .spinner-border {
   --bs-spinner-animation-speed: 1.5s;
   --bs-spinner-border-width: 0.5em;
