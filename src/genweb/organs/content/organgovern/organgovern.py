@@ -16,6 +16,7 @@ from zope import schema
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from plone.supermodel import model
 from z3c.form import form
+from plone.dexterity.browser import edit
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -221,7 +222,7 @@ def organType(obj):
     return str(value)
 
 
-class Edit(form.EditForm):
+class Edit(edit.DefaultEditForm):
     """ Organ de govern EDIT form
     """
 

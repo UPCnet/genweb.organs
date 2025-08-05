@@ -17,6 +17,14 @@
 
   <browser:page
     for=".sessio.ISessio"
+    name="edit"
+    class=".sessio.Edit"
+    permission="cmf.ModifyPortalContent"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <browser:page
+    for=".sessio.ISessio"
     name="openQuorum"
     class=".sessio.OpenQuorum"
     permission="genweb.organs.manage.quorum"

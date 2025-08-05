@@ -25,6 +25,7 @@ from plone.supermodel import directives as model_directives
 from zope.schema.interfaces import IContextAwareDefaultFactory
 from zope.interface import provider
 from plone.app.textfield import RichText as RichTextField
+from plone.dexterity.browser import edit
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -248,25 +249,26 @@ class ISessio(model.Schema):
     )
 
 
-class Edit(form.EditForm):
+class Edit(edit.DefaultEditForm):
     """ Session edit form
     """
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
-        self.widgets["numSessioShowOnly"].mode = HIDDEN_MODE
+        self.widgets['numSessioShowOnly'].mode = HIDDEN_MODE
         review_state = api.content.get_state(self.context)
         if review_state == 'planificada':
-            self.groups[0].fields._data['assistents'].mode = DISPLAY_MODE
-            self.groups[0].fields._data["adrecaLlista"].mode = DISPLAY_MODE
-            self.groups[0].fields._data["membresConvocats"].mode = DISPLAY_MODE
-            self.groups[0].fields._data["membresConvidats"].mode = DISPLAY_MODE
-            self.groups[0].fields._data["llistaExcusats"].mode = DISPLAY_MODE
-            self.groups[0].fields._data["assistents"].mode = DISPLAY_MODE
-            self.groups[0].fields._data["noAssistents"].mode = DISPLAY_MODE
-            self.groups[1].fields._data["adrecaAfectatsLlista"].mode = DISPLAY_MODE
+            self.groups[0].fields.get('assistents').mode = DISPLAY_MODE
+            self.groups[0].fields.get('adrecaLlista').mode = DISPLAY_MODE
+            self.groups[0].fields.get('membresConvocats').mode = DISPLAY_MODE
+            self.groups[0].fields.get('membresConvidats').mode = DISPLAY_MODE
+            self.groups[0].fields.get('llistaExcusats').mode = DISPLAY_MODE
+            self.groups[0].fields.get('assistents').mode = DISPLAY_MODE
+            self.groups[0].fields.get('noAssistents').mode = DISPLAY_MODE
+            self.groups[1].fields.get('adrecaAfectatsLlista').mode = DISPLAY_MODE
         else:
-            self.groups[1].fields._data['infoAfectats'].mode = HIDDEN_MODE
-            self.groups[0].fields._data['infoAssistents'].mode = HIDDEN_MODE
+            import ipdb; ipdb.set_trace()
+            self.groups[1].fields.get('infoAfectats').mode = HIDDEN_MODE
+            self.groups[0].fields.get('infoAssistents').mode = HIDDEN_MODE
 
 
 class View(BrowserView):
