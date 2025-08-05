@@ -184,7 +184,7 @@ class Edit(edit.DefaultEditForm):
 
 
 class View(BrowserView):
-    index = ViewPageTemplateFile("templates/file_view.pt")
+    index = ViewPageTemplateFile("file.pt")
 
     def __call__(self):
         return self.index()

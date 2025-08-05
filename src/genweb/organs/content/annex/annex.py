@@ -30,6 +30,7 @@ class InvalidAnnexFile(ValidationError):
     """Exception for invalid annex file"""
     __doc__ = _(u"Invalid annex file")
 
+
 # @adapter(IField, IDexterityContent, IField)
 class AnnexFileValidator(SimpleFieldValidator):
     def validate(self, value):
@@ -39,6 +40,7 @@ class AnnexFileValidator(SimpleFieldValidator):
             mimetype = get_contenttype(value)
             if mimetype != 'application/pdf':
                 raise InvalidAnnexFile(mimetype)
+
 
 class IAnnex(model.Schema):
     """ Annex: only annex files are permitted """
@@ -51,7 +53,7 @@ class IAnnex(model.Schema):
     textindexer.searchable('title')
     title = schema.TextLine(
         title=_PMF(u'label_title', default=u'Title'),
-        required=True
+        required=True,
     )
 
     textindexer.searchable('description')
@@ -86,7 +88,7 @@ class Edit(form.EditForm):
 
 
 class View(BrowserView):
-    index = ViewPageTemplateFile("templates/annex_view.pt")
+    index = ViewPageTemplateFile("annex.pt")
 
     def __call__(self):
         return self.index()

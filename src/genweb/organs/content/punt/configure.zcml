@@ -1,0 +1,60 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:i18n="http://namespaces.zope.org/i18n"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="genweb.organs">
+
+  <browser:page
+    for=".punt.IPunt"
+    name="view"
+    class=".punt.View"
+    template="punt+subpunt.pt"
+    permission="zope2.View"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+    
+  <browser:page
+    for=".subpunt.ISubpunt"
+    name="view"
+    class=".subpunt.View"
+    template="punt+subpunt.pt"
+    permission="zope2.View"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <adapter
+    factory=".punt.index_proposalPoint"
+    name="index_proposalPoint"
+    />
+
+  <adapter
+    factory=".subpunt.index_proposalPoint"
+    name="index_proposalPoint"
+    />
+
+  <subscriber
+    for=".punt.IPunt
+          zope.container.interfaces.IObjectAddedEvent"
+    handler="genweb.organs.hooks.puntAdded"
+    />
+
+  <subscriber
+    for=".subpunt.ISubpunt
+          zope.container.interfaces.IObjectAddedEvent"
+    handler="genweb.organs.hooks.subpuntAdded"
+    />
+
+  <subscriber
+    for=".punt.IPunt
+          zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    handler="genweb.organs.hooks.puntModified"
+    />
+
+  <subscriber
+    for=".subpunt.ISubpunt
+          zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    handler="genweb.organs.hooks.subpuntModified"
+    />
+
+</configure>

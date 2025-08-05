@@ -30,6 +30,7 @@ class InvalidAudioFile(ValidationError):
     """Exception for invalid audio file"""
     __doc__ = _(u"Invalid audio file")
 
+
 # @adapter(schema.interfaces.IField, IDexterityContent, schema.interfaces.IField)
 class AudioFileValidator(SimpleFieldValidator):
     def validate(self, value):
@@ -41,6 +42,7 @@ class AudioFileValidator(SimpleFieldValidator):
                 # Permitir archivos OPUS
                 if value.filename.split('.')[-1:][0] != 'opus' and get_contenttype(value) != 'application/octet-stream':
                     raise InvalidAudioFile(mimetype)
+
 
 class IAudio(model.Schema):
     """ Audio: only audio files are permitted """
@@ -90,7 +92,7 @@ class Edit(form.EditForm):
 
 
 class View(BrowserView):
-    index = ViewPageTemplateFile("templates/audio_view.pt")
+    index = ViewPageTemplateFile("audio.pt")
 
     def __call__(self):
         return self.index()

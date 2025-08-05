@@ -1,0 +1,35 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:i18n="http://namespaces.zope.org/i18n"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="genweb.organs">
+
+  <browser:page
+    for=".acta.IActa"
+    name="view"
+    class=".acta.View"
+    template="acta.pt"
+    permission="zope2.View"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <subscriber
+    for=".acta.IActa
+          zope.container.interfaces.IObjectAddedEvent"
+    handler="genweb.organs.hooks.actaAdded"
+    />
+    
+  <subscriber
+    for=".acta.IActa
+          zope.container.interfaces.IObjectRemovedEvent"
+    handler="genweb.organs.hooks.actaDeleted"
+    />
+
+  <subscriber
+    for=".acta.IActa
+          zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    handler="genweb.organs.hooks.actaModified"
+    />
+
+</configure>

@@ -277,13 +277,13 @@
     />
 
   <subscriber
-    for="genweb.organs.content.punt.IPunt
-          zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+    for="genweb.organs.content.punt.punt.IPunt
+         zope.lifecycleevent.interfaces.IObjectRemovedEvent"
     handler=".events.removeObject.removePunt"
     />
 
   <subscriber
-    for="genweb.organs.content.subpunt.ISubpunt
+    for="genweb.organs.content.punt.subpunt.ISubpunt
          zope.lifecycleevent.interfaces.IObjectRemovedEvent"
     handler=".events.removeObject.removeSubpunt"
     />

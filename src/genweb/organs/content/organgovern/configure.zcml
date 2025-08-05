@@ -1,0 +1,50 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:i18n="http://namespaces.zope.org/i18n"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="genweb.organs">
+
+  <browser:page
+    for=".organgovern.IOrgangovern"
+    name="view"
+    class=".organgovern.View"
+    template="organgovern.pt"
+    permission="zope2.View"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <browser:page
+    for=".organgovern.IOrgangovern"
+    name="edit"
+    class=".organgovern.Edit"
+    permission="cmf.ModifyPortalContent"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />    
+
+  <browser:page
+    for=".organgovern.IOrgangovern"
+    name="exportAcordsCSV"
+    class=".organgovern.exportAcords"
+    permission="cmf.ManagePortal"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+    />
+
+  <subscriber
+    for=".organgovern.IOrgangovern
+          zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+    handler="genweb.organs.subscribers.update_indicators_on_organ_deletion"
+    />
+
+  <subscriber
+    for=".organgovern.IOrgangovern
+          zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+    handler="genweb.organs.subscribers.update_indicators_on_organ_review_state_change"
+    />
+
+  <adapter
+    factory=".organgovern.organType"
+    name="organType"
+    />
+
+</configure>

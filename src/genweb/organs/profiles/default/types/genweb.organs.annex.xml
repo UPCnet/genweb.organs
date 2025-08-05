@@ -13,7 +13,7 @@
         <element value="genweb.organs.document"/>
     </property>
 
-    <property name="schema">genweb.organs.content.annex.IAnnex</property>
+    <property name="schema">genweb.organs.content.annex.annex.IAnnex</property>
     <property name="klass">genweb.organs.content.Annex</property>
     <property name="add_permission">cmf.AddPortalContent</property>
     <property name="factory">genweb.organs.annex</property>

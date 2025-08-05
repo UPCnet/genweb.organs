@@ -97,11 +97,6 @@
 
     <include package="z3c.jbot" file="meta.zcml" />
 
-    <!-- <browser:jbot
-        directory="genweb.organs.content.templates"
-        layer=".interfaces.IGenwebOrgansLayer"
-    /> -->
-
     <browser:page
         name="organs-settings"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"

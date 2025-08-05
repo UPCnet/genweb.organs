@@ -75,7 +75,7 @@ class Edit(form.EditForm):
 
 
 class View(BrowserView):
-    index = ViewPageTemplateFile("templates/document_view.pt")
+    index = ViewPageTemplateFile("document.pt")
 
     def __call__(self):
         return self.index()

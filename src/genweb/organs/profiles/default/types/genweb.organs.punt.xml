@@ -15,7 +15,7 @@
         <element value="genweb.organs.document"/>
     </property>
 
-    <property name="schema">genweb.organs.content.punt.IPunt</property>
+    <property name="schema">genweb.organs.content.punt.punt.IPunt</property>
     <property name="klass">plone.dexterity.content.Container</property>
     <property name="add_permission">cmf.AddPortalContent</property>
     <property name="factory">genweb.organs.punt</property>

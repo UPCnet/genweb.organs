@@ -43,17 +43,18 @@
 
   <browser:page
     name="viewFileGDoc"
-    for="genweb.organs.content.file.IFile"
+    for="genweb.organs.content.file.file.IFile"
     class=".firmes.ViewFile"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     permission="zope2.View" />
 
   <browser:page
     name="downloadFileGDoc"
-    for="genweb.organs.content.file.IFile"
+    for="genweb.organs.content.file.file.IFile"
     class=".firmes.DownloadFile"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     permission="zope2.View" />
+
   <!-- <browser:page
     name="viewFile"
     for="genweb.organs.content.acord.acord.IAcord"
@@ -63,14 +64,14 @@
 
   <browser:page
     name="viewFile"
-    for="genweb.organs.content.punt.IPunt"
+    for="genweb.organs.content.punt.punt.IPunt"
     class=".acta.ViewFile"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     permission="zope2.View" />
 
   <browser:page
     name="viewFile"
-    for="genweb.organs.content.subpunt.ISubpunt"
+    for="genweb.organs.content.punt.subpunt.ISubpunt"
     class=".acta.ViewFile"
     layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     permission="zope2.View" /> -->

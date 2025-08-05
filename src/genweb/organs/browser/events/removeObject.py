@@ -5,8 +5,8 @@ from zope.lifecycleevent.interfaces import IObjectRemovedEvent
 
 from genweb.organs import _
 from genweb.organs.content.acord.acord import IAcord
-from genweb.organs.content.punt import IPunt
-from genweb.organs.content.subpunt import ISubpunt
+from genweb.organs.content.punt.punt import IPunt
+from genweb.organs.content.punt.subpunt import ISubpunt
 from genweb.organs.utils import addEntryLog
 
 import transaction

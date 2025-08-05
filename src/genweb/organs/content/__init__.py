@@ -4,14 +4,14 @@ from plone.dexterity.content import Item
 
 from genweb.organs.content.organgovern.organgovern import IOrgangovern
 from genweb.organs.content.sessio.sessio import ISessio
-from genweb.organs.content.punt import IPunt
-from genweb.organs.content.subpunt import ISubpunt
+from genweb.organs.content.punt.punt import IPunt
+from genweb.organs.content.punt.subpunt import ISubpunt
 from genweb.organs.content.acta.acta import IActa
 from genweb.organs.content.organsfolder.organsfolder import IOrgansfolder
-from genweb.organs.content.file import IFile
-from genweb.organs.content.document import IDocument
-from genweb.organs.content.audio import IAudio
-from genweb.organs.content.annex import IAnnex
+from genweb.organs.content.file.file import IFile
+from genweb.organs.content.document.document import IDocument
+from genweb.organs.content.audio.audio import IAudio
+from genweb.organs.content.annex.annex import IAnnex
 from genweb.organs.content.acord.acord import IAcord
 from genweb.organs.content.votacio_acord.votacio_acord import IVotacioAcord
 

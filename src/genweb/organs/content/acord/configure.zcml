@@ -114,4 +114,19 @@
     permission="genweb.organs.manage.vote"
     />
 
+  <adapter
+    factory=".acord.index_proposalPoint"
+    name="index_proposalPoint"
+    />
+
+  <adapter
+    factory=".acord.index_agreement"
+    name="index_agreement"
+    />
+
+  <adapter
+    factory=".acord.index_estatVotacio"
+    name="index_estatVotacio"
+    />
+
 </configure>

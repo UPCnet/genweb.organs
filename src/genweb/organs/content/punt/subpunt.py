@@ -1,5 +1,13 @@
 # -*- coding: utf-8 -*-
+"""Subpunt content type (migrated to Plone 6 / Python 3).
+Se basa en la implementación de ``punt.py`` pero con ligeras variaciones:
+* El número de punto se calcula concatenando el del punt padre con un índice.
+* No puede contener otros subpunts, así que ``SubPuntsInside`` devuelve una lista vacía.
+"""
+
 from AccessControl import Unauthorized
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone.app.dexterity import textindexer
 from plone import api
@@ -10,9 +18,8 @@ from plone.supermodel.directives import fieldset
 from plone.supermodel import model
 from zope import schema
 from zope.interface import directlyProvides, implementer, provider
-from zope.schema.interfaces import IContextAwareDefaultFactory
+from zope.schema.interfaces import IContextAwareDefaultFactory, IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary
-from zope.schema.interfaces import IContextSourceBinder
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.app.textfield import RichText as RichTextField
 
@@ -22,88 +29,114 @@ from genweb.organs.firma_documental.utils import UtilsFirmaDocumental
 
 import unicodedata
 from lxml import html
+from zope.component.hooks import getSite
+from zope.globalrequest import getRequest
 
-from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
+# -----------------------------------------------------------------------------
+# Helper utilities
+# -----------------------------------------------------------------------------
 
 def llistaEstats(context):
-    """ Create vocabulary from Estats Organ. """
-    # The context for a vocabulary is the content object where the field is.
-    # In add forms, this is the container, in edit forms, the object itself.
-    # This list is on the parent of the parent (Organ a Punt)
+    """Devuelve un vocabulario con los estados configurados en el órgano padre.
+    A diferencia del punt, el subpunt tiene el órgano a **dos niveles** por
+    encima (punt → sessio → organ). Sin embargo, utilizamos ``utils.get_organ``
+    que ya sube por la cadena hasta encontrarlo, por lo que no necesitamos
+    lógica adicional aquí.
+    """
     organ = utils.get_organ(context)
-    if not organ:
+    if not organ or not getattr(organ, 'estatsLlista', None) or not organ.estatsLlista.raw:
         return SimpleVocabulary([])
 
-    # estatsLlista is a RichTextField on the Organ content type.
-    estats_field = getattr(organ, 'estatsLlista', None)
-    if not estats_field or not getattr(estats_field, 'raw', None):
-        return SimpleVocabulary([])
-
-    raw_html = estats_field.raw
+    raw_html = organ.estatsLlista.raw
     terms = []
     try:
-        # Use lxml to safely parse the HTML from the RichText field
-        # The .raw attribute might not have a single root element
         root = html.fromstring(f"<div>{raw_html}</div>")
         lines = [p.text_content().strip() for p in root.xpath('//p')]
         if not lines and raw_html.strip():
-            # Fallback for plain text without <p> tags
             lines = [line.strip() for line in raw_html.splitlines() if line.strip()]
-
     except (html.etree.ParserError, html.etree.XMLSyntaxError):
-        # If parsing fails, it might be plain text.
         lines = [line.strip() for line in raw_html.splitlines() if line.strip()]
 
     for line in lines:
-        if not line:
-            continue
-        # Convention: "State Name #ColorCode" or "State Name"
-        # The state name is all but the last word if a color is present
         parts = line.split()
-        if len(parts) > 1 and parts[-1].isalnum():
-             term_title = ' '.join(parts[:-1])
-        else:
-            term_title = line
-
-        if term_title:
-            # The value for the vocabulary term is the state name.
-            # The token must be a unique, ASCII-safe string.
-            token = unicodedata.normalize('NFKD', term_title).encode('ascii', 'ignore').decode('ascii')
-            terms.append(SimpleVocabulary.createTerm(term_title, token, term_title))
+        if not parts:
+            continue
+        label = ' '.join(parts[:-1]) if len(parts) > 1 and parts[-1].isalnum() else line
+        token = unicodedata.normalize('NFKD', label).encode('ascii', 'ignore').decode('ascii')
+        terms.append(SimpleVocabulary.createTerm(label, token, label))
 
     return SimpleVocabulary(terms)
 
-
 directlyProvides(llistaEstats, IContextSourceBinder)
+
+
+# -----------------------------------------------------------------------------
+# Default factories
+# -----------------------------------------------------------------------------
 
 @provider(IContextAwareDefaultFactory)
 def proposal_point_default(context):
-    portal_catalog = api.portal.get_tool(name='portal_catalog')
-    path_url = context.getPhysicalPath()[1:]
-    folder_path = ""
-    for path in path_url:
-        folder_path += '/' + path
-    values = portal_catalog.searchResults(
-        portal_type=['genweb.organs.punt', 'genweb.organs.acord'],
-        path={'query': folder_path,
-              'depth': 1})
-    return str(len(values) + 1)
+    """Genera automáticamente el número de subpunt.
 
+    Se calcula como «<número punt>.<posición dentro del punt>».
+    """
+    # En los formularios de alta, *context* apunta al contenedor donde se
+    # añade el subpunt (normalmente un objeto Punt). En edición, *context*
+    # será el propio Subpunt. Cubrimos ambos casos.
+    if hasattr(context, 'portal_type') and context.portal_type == 'genweb.organs.subpunt':
+        # Ya somos un subpunt (modo edición): el número ya existe.
+        return getattr(context, 'proposalPoint', '1.1') or '1.1'
+
+    # Caso habitual: estamos en el Punt que actuará como contenedor
+    punt = context
+
+    # Número del punt (puede ser vacío si el punt aún no lo tiene)
+    punt_number = getattr(punt, 'proposalPoint', None) or '1'
+
+    # Contamos los subpunts y acords existentes para asignar el siguiente índice
+    catalog = api.portal.get_tool(name='portal_catalog')
+    folder_path = '/'.join(punt.getPhysicalPath())
+    brains = catalog.searchResults(portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
+                                   path={'query': folder_path, 'depth': 1})
+
+    return f"{punt_number}.{len(brains) + 1}"
+
+
+def proposal_point_default_factory(context=None):
+    """Wrapper para evitar recursión infinita cuando se usa como defaultFactory."""
+    try:
+        if context is None:
+            # Si no hay contexto, intentar obtenerlo de la request actual
+            request = getRequest()
+            if request is not None:
+                # Obtener el contexto desde PARENTS[0] que es el punt padre
+                parents = request.get('PARENTS', [])
+                if parents:
+                    context = parents[0]
+            else:
+                return "1.1"
+        return proposal_point_default(context)
+    except (RecursionError, AttributeError):
+        # Fallback seguro si hay problemas de recursión
+        return "1.1"
+
+
+# -----------------------------------------------------------------------------
+# Dexterity schema
+# -----------------------------------------------------------------------------
 
 @provider(IFormFieldProvider)
-class IPunt(model.Schema):
-    """ Punt
-    """
-    fieldset('punt',
-             label=_(u'Tab punt'),
-             fields=['title', 'proposalPoint', 'defaultContent', 'estatsLlista']
-             )
+class ISubpunt(model.Schema):
+    """Esquema Dexterity para Subpunt."""
+
+    fieldset('subpunt',
+             label=_(u'Tab subpunt'),
+             fields=['title', 'proposalPoint', 'defaultContent', 'estatsLlista'])
 
     textindexer.searchable('title')
     title = schema.TextLine(
-        title=_(u'Punt Title'),
+        title=_(u'Subpunt Title'),
         required=True
     )
 
@@ -111,22 +144,23 @@ class IPunt(model.Schema):
     proposalPoint = schema.TextLine(
         title=_(u'Proposal point number'),
         required=False,
-        defaultFactory=proposal_point_default
+        defaultFactory=proposal_point_default_factory
     )
 
     textindexer.searchable('defaultContent')
     defaultContent = RichTextField(
         title=_(u"Proposal description"),
-        required=False,
+        required=False
     )
 
     estatsLlista = schema.Choice(
         title=_(u"Agreement and document label"),
         source=llistaEstats,
-        required=True,
+        required=True
     )
 
-@indexer(IPunt)
+
+@indexer(ISubpunt)
 def index_proposalPoint(obj):
     value = getattr(obj, 'proposalPoint', None)
     if value is None:
@@ -134,15 +168,27 @@ def index_proposalPoint(obj):
     return str(value)
 
 
+# -----------------------------------------------------------------------------
+# Edit form (no cambios)
+# -----------------------------------------------------------------------------
+
 class Edit(form.EditForm):
     pass
 
 
+# -----------------------------------------------------------------------------
+# Browser view
+# -----------------------------------------------------------------------------
+
 class View(BrowserView, UtilsFirmaDocumental):
-    index = ViewPageTemplateFile('templates/punt+subpunt_view.pt')
+    """Vista principal del Subpunt reutilizando la plantilla punt+subpunt."""
+
+    index = ViewPageTemplateFile('punt+subpunt.pt')
 
     def __call__(self):
         return self.index()
+
+    # Métodos expuestos en la plantilla --------------------------------------
 
     def title(self):
         return self.context.title
@@ -155,16 +201,18 @@ class View(BrowserView, UtilsFirmaDocumental):
     def FilesandDocumentsInside(self):
         return utils.FilesandDocumentsInside(self)
 
+    def SubPuntsInside(self):
+        """Un subpunt no contiene más subpunts, así que devolvemos lista vacía."""
+        return []
+
     def getColor(self):
-        # assign custom colors on organ states
+        """Devuelve el color asociado al estado seleccionado."""
         estat = self.context.estatsLlista
-        # Only 1 level
         organ = utils.get_organ(self.context)
         if not organ or not getattr(organ, 'estatsLlista', None) or not organ.estatsLlista.raw:
             return '#777777'
 
         raw_html = organ.estatsLlista.raw
-        color = '#777777'
         try:
             root = html.fromstring(f"<div>{raw_html}</div>")
             lines = [p.text_content().strip() for p in root.xpath('//p')]
@@ -180,43 +228,13 @@ class View(BrowserView, UtilsFirmaDocumental):
                 line_color = parts[-1]
                 if estat == line_state:
                     return line_color
-        return color
+        return '#777777'
 
-    def SubPuntsInside(self):
-        """ Retorna les sessions d'aquí dintre (sense tenir compte estat)
-        """
-        portal_catalog = api.portal.get_tool(name='portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        values = portal_catalog.searchResults(
-            portal_type=['genweb.organs.subpunt', 'genweb.organs.acord'],
-            sort_on='getObjPositionInParent',
-            path={'query': folder_path,
-                  'depth': 1})
-
-        results = []
-        if values:
-            for obj in values:
-                item = obj.getObject()
-                if item.portal_type == 'genweb.organs.acord':
-                    if item.agreement:
-                        agreement = item.agreement
-                    else:
-                        agreement = _(u"sense numeracio") if not getattr(item, 'omitAgreement', False) else ''
-                else:
-                    agreement = ''
-                results.append(dict(title=obj.Title,
-                                    portal_type=obj.portal_type,
-                                    absolute_url=item.absolute_url(),
-                                    proposalPoint=item.proposalPoint,
-                                    item_path=item.absolute_url_path(),
-                                    state=item.estatsLlista,
-                                    agreement=agreement,
-                                    css=utils.getColor(obj)))
-        return results
+    # ---------------------------------------------------------------------
+    # Permisos de visualización (idénticos a punt)
+    # ---------------------------------------------------------------------
 
     def canView(self):
-        # Permissions to view PUNTS
-        # If manager Show all
         roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
         if 'Manager' in roles:
             return True
@@ -265,3 +283,6 @@ class View(BrowserView, UtilsFirmaDocumental):
                 return True
             else:
                 raise Unauthorized
+
+        # Si no coincide con ninguno de los casos anteriores
+        raise Unauthorized
