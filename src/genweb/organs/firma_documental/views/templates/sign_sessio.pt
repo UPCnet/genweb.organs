@@ -157,10 +157,10 @@
                                           tal:content="file_item/info_firma/message"></span>
                                     <i title="Enviat i desat a gDOC"
                                         tal:condition="file_item/info_firma/sent"
-                                        tal:attributes="class string:bi bi-circle-fill ${file_item/info_firma/cssClass} me-1">
+                                        tal:attributes="class string:bi bi-circle-fill ${file_item/info_firma/cssClass} ms-1">
                                     </i>
                                     <tal:block tal:condition="view/canFirm">
-                                      <input class="form-check-input mt-0" type="checkbox" autocomplete="off"
+                                      <input class="form-check-input mt-0 ms-1" type="checkbox" autocomplete="off"
                                               tal:condition="not:file_item/info_firma/success"
                                               tal:attributes="name python:'check:'+file_item['uuid']; value file_item/uuid" 
                                               checked="checked" />
@@ -221,10 +221,10 @@
                                               tal:content="item/info_firma/message"></span>
                                         <i title="Enviat i desat a gDOC"
                                           tal:condition="item/info_firma/sent"
-                                          tal:attributes="class string:bi bi-circle-fill ${item/info_firma/cssClass} me-1">
+                                          tal:attributes="class string:bi bi-circle-fill ${item/info_firma/cssClass} ms-1">
                                         </i>
                                         <tal:block tal:condition="view/canFirm">
-                                          <input class="form-check-input mt-0" type="checkbox" autocomplete="off"
+                                          <input class="form-check-input mt-0 ms-1" type="checkbox" autocomplete="off"
                                                 tal:condition="not:item/info_firma/success"
                                                 tal:attributes="name python:'check:'+item['uuid']; value item/uuid" 
                                                 checked="checked" />

@@ -205,6 +205,14 @@
         layer="genweb.organs.interfaces.IGenwebOrgansLayer"
         />
 
+    <browser:page
+        for=".file.IFile"
+        name="edit"
+        class=".file.Edit"
+        permission="cmf.ModifyPortalContent"
+        layer="genweb.organs.interfaces.IGenwebOrgansLayer"
+        />
+
     <!-- Vista per defecte de Acta -->
     <browser:page
         for=".acta.acta.IActa"

@@ -15,6 +15,8 @@ from zope import schema
 from zope.schema import ValidationError
 from z3c.form import button
 from plone.supermodel import model
+from plone.dexterity.browser import edit
+from z3c.form.interfaces import NOT_CHANGED
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -106,7 +108,7 @@ class IFile(model.Schema):
 #     return data.context.Title()
 
 
-class Edit(form.EditForm):
+class Edit(edit.DefaultEditForm):
     """A standard edit form. """
 
     # def update(self):
@@ -122,16 +124,21 @@ class Edit(form.EditForm):
         """ Custom handleApply for save button
             If the file is replaced, the uploaded flag is set to False (for gDOC coherence)
         """
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+
         super(Edit, self).handleApply.func(self, action)
-        w_visiblefile = self.getWidget('visiblefile')
-        w_hiddenfile = self.getWidget('hiddenfile')
 
         info_firma = getattr(self.context, 'info_firma', None) or {}
         if not isinstance(info_firma, dict):
             info_firma = ast.literal_eval(info_firma)
 
         if info_firma.get('public', {}).get('uploaded', False):
-            if w_visiblefile.action() == 'replace':
+            old_visiblefile = getattr(self.context, 'visiblefile', None)
+            new_visiblefile = data.get('visiblefile', None)
+            if new_visiblefile is not NOT_CHANGED and (not old_visiblefile or new_visiblefile != old_visiblefile):
                 info_firma['public'].update({  # hará que aparezca el check de subir a gDOC con estado amarillo
                     'replaced': True,
                     'uploaded': False,
@@ -142,11 +149,13 @@ class Edit(form.EditForm):
                 )
                 # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gDOC automáticamente
                 # genweb.organs.firmadocumental.webservices.uploadFileGDoc
-            elif w_visiblefile.action() == 'remove':
-                info_firma.pop('public', None)
-
+            elif new_visiblefile is None:
+                info_firma.pop('private', None)
+                
         if info_firma.get('private', {}).get('uploaded', False):
-            if w_hiddenfile.action() == 'replace':
+            old_hiddenfile = getattr(self.context, 'hiddenfile', None)
+            new_hiddenfile = data.get('hiddenfile', None)     
+            if new_hiddenfile is not NOT_CHANGED and (not old_hiddenfile or new_hiddenfile != old_hiddenfile):           
                 info_firma['private'].update({  # hará que aparezca el check de subir a gDOC con estado amarillo
                     'replaced': True,
                     'uploaded': False,
@@ -157,8 +166,9 @@ class Edit(form.EditForm):
                 )
                 # Si las de organs quieren aquí podemos llamar la función para subir los ficheros a gDOC
                 # genweb.organs.firmadocumental.webservices.uploadFileGDoc
-            elif w_hiddenfile.action() == 'remove':
+            elif new_hiddenfile is None:
                 info_firma.pop('private', None)
+
         self.context.info_firma = str(info_firma)
         transaction.commit()
 
