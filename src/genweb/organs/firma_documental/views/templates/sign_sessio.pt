@@ -63,7 +63,7 @@
               </div>
               <div class="legend-sign-item">
                 <i class="bi bi-circle-fill me-1 estatFirmaFile text-danger"></i>
-                <span>No s'ha pogut enviar el fitxer a gDOC. Normalment, és un problema temporal i es resol intentant pujar el fitxer de nou al cap d'una estona.</span>
+                <span>No s'ha pogut enviar el fitxer a gDOC. Normalment, és un problema temporal i es resol al intentar pujar el fitxer de nou al cap d'una estona.</span>
               </div>
             </div>
           </div>
@@ -152,14 +152,15 @@
                                     <tal:omit-tag tal:content="file_item/title"> Doc title</tal:omit-tag>
                                   </a>
                                   <div class="float-end d-flex align-items-center">
-                                    <span tal:condition="not:file_item/info_firma/success" 
+                                    <span class="text-danger-emphasis"
+                                          tal:condition="not:file_item/info_firma/success" 
                                           tal:content="file_item/info_firma/message"></span>
                                     <i title="Enviat i desat a gDOC"
                                         tal:condition="file_item/info_firma/sent"
-                                        tal:attributes="class string:bi bi-circle-fill ${file_item/info_firma/cssClass}">
+                                        tal:attributes="class string:bi bi-circle-fill ${file_item/info_firma/cssClass} me-1">
                                     </i>
                                     <tal:block tal:condition="view/canFirm">
-                                      <input class="form-check-input" type="checkbox" autocomplete="off"
+                                      <input class="form-check-input mt-0" type="checkbox" autocomplete="off"
                                               tal:condition="not:file_item/info_firma/success"
                                               tal:attributes="name python:'check:'+file_item['uuid']; value file_item/uuid" 
                                               checked="checked" />
@@ -215,14 +216,15 @@
                                         <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                                       </a>
                                       <div class="float-end d-flex align-items-center">
-                                        <span tal:condition="not:item/info_firma/success" 
+                                        <span class="text-danger-emphasis"
+                                              tal:condition="not:item/info_firma/success" 
                                               tal:content="item/info_firma/message"></span>
                                         <i title="Enviat i desat a gDOC"
                                           tal:condition="item/info_firma/sent"
-                                          tal:attributes="class string:bi bi-circle-fill ${item/info_firma/cssClass}">
+                                          tal:attributes="class string:bi bi-circle-fill ${item/info_firma/cssClass} me-1">
                                         </i>
                                         <tal:block tal:condition="view/canFirm">
-                                          <input class="form-check-input" type="checkbox" autocomplete="off"
+                                          <input class="form-check-input mt-0" type="checkbox" autocomplete="off"
                                                 tal:condition="not:item/info_firma/success"
                                                 tal:attributes="name python:'check:'+item['uuid']; value item/uuid" 
                                                 checked="checked" />

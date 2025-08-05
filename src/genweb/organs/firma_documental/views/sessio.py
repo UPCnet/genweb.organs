@@ -223,13 +223,13 @@ class SignSessioView(BrowserView, utilsFD.UtilsFirmaDocumental):
                         'success': info_firma and info_firma.get('uploaded', False),
                         'failed': info_firma and not info_firma.get('uploaded', False) and not info_firma.get('replaced', False),
                         'replaced': info_firma and not info_firma.get('uploaded', False) and info_firma.get('replaced', False),
-                        'cssClass': 'estatFirmaFile uploaded',
+                        'cssClass': 'estatFirmaFile text-success',
                         'message': info_firma.get('error', "")
                     }
                     if firma_status['replaced']:
-                        firma_status['cssClass'] = 'estatFirmaFile replaced'
+                        firma_status['cssClass'] = 'estatFirmaFile text-warning'
                     elif firma_status['failed']:
-                        firma_status['cssClass'] = 'estatFirmaFile failed'
+                        firma_status['cssClass'] = 'estatFirmaFile text-danger'
 
                     results.append(dict(
                         title=obj.Title,

@@ -73,7 +73,7 @@ class ClientFirma(object):
         fitxer['fitxer'][0] = ''.join(
             [
                 c if ord(c) < 128 else ' '
-                for c in unicodedata.normalize('NFD', unicode(filename))
+                for c in unicodedata.normalize('NFD', filename)
                 if unicodedata.category(c) != 'Mn'
             ]
         )

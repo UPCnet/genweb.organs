@@ -110,7 +110,7 @@ class UploadFiles(BrowserView, FirmesMixin):
             filename = 'Restringit - ' + filename_append + file.Title()
 
         try:
-            info_file = uploadFileGdoc(author, self.context.unitatDocumental, file_content, filename.decode('utf-8'))
+            info_file = uploadFileGdoc(author, self.context.unitatDocumental, file_content, filename)
             info_file['uploaded'] = True
             info_file['error'] = None
 
