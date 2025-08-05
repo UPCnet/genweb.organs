@@ -157,8 +157,6 @@ class ISessio(model.Schema):
         required=True,
     )
 
-    directives.mode(IAddForm, infoAfectats='display')
-    directives.mode(IEditForm, infoAfectats='display')
     infoAfectats = schema.Text(
         title=_(u"Informació"),
         description=_(u"Aquestes dades podran ser omplertes una vegada convocada la sessió."),
@@ -172,8 +170,6 @@ class ISessio(model.Schema):
         required=False,
     )
 
-    directives.mode(IAddForm, infoAssistents='display')
-    directives.mode(IEditForm, infoAssistents='display')
     infoAssistents = schema.Text(
         title=_(u"Informació"),
         description=_(u"Aquestes dades podran ser omplertes una vegada convocada la sessió."),
