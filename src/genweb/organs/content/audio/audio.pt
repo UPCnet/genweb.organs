@@ -9,43 +9,46 @@
 
 <div metal:fill-slot="main" tal:condition="view/canView">
 
-  <h1 class="documentFirstHeading mb-4" tal:content="view/title">Annex</h1>
+  <div class="content-core"        
+       tal:define="content_type context/file/contentType|nothing;
+                   download_url string:${context/absolute_url}/@@download/file/${context/file/filename}">
 
-    <div class="container my-4"
-        tal:define="content_type context/file/contentType|nothing;
-                    download_url string:${context/absolute_url}/@@download/file/${context/file/filename}">
-      <p>
-        <a tal:attributes="href download_url">
-          <img tal:attributes="src view/get_mimetype_icon;
-                               alt content_type;" border="0" />
-          <tal:name tal:content="context/file/filename">Filename</tal:name>
-        </a>
-        <span class="discreet"
-            tal:define="size context/file/getSize;
-                        kb python:size/1024">
-          &mdash; <span tal:replace="kb" /> KB</span>
-      </p>
+    <h1 class="documentFirstHeading mb-3" tal:content="view/title">Annex</h1>
 
-      <video tal:condition="view/is_opusfile" controls="" name="media" style="height:30px; width: 300px;">
-        <source tal:attributes="src download_url;" type="audio/ogg"></source>
-      </video>
-
-      <video tal:condition="view/is_videotype" controls="controls">
-        <source tal:attributes="src download_url; type content_type"></source>
-      </video>
-
-      <audio tal:condition="view/is_audiotype" controls="controls">
-        <source tal:attributes="src download_url; type content_type"></source>
-      </audio>
-
-      <div tal:condition="python: content_type.startswith('text')">
-        <h2 i18n:translate="">File contents</h2>
-        <pre tal:content="context/file/data|nothing"></pre>
-      </div>
-
+    <div tal:condition="context/description" class="mb-3">
+      <div tal:content="structure context/description">Descripció</div>
     </div>
 
-</div>
+    <p class="mb-3">
+      <i class="bi bi-file-earmark-music text-info me-1" aria-hidden="true"></i>
+      <a tal:attributes="href download_url;" target="_blank">
+        <tal:name tal:content="context/file/filename">Filename</tal:name>
+      </a>
+      <span class="text-muted fs-s ms-2"
+            tal:define="size context/file/getSize; 
+                        kb python:round(size/1024, 2)">
+        (<span tal:replace="kb"></span> KB)
+      </span>
+    </p>
 
+    <video tal:condition="view/is_opusfile" controls="" name="media" style="height:30px; width: 300px;">
+      <source tal:attributes="src download_url;" type="audio/ogg"></source>
+    </video>
+
+    <video tal:condition="view/is_videotype" controls="controls">
+      <source tal:attributes="src download_url; type content_type"></source>
+    </video>
+
+    <audio tal:condition="view/is_audiotype" controls="controls">
+      <source tal:attributes="src download_url; type content_type"></source>
+    </audio>
+
+    <div tal:condition="python: content_type.startswith('text')">
+      <h2 i18n:translate="">File contents</h2>
+      <pre tal:content="context/file/data|nothing"></pre>
+    </div>
+
+  </div>
+</div>
 </body>
 </html>

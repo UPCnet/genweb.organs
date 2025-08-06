@@ -16,6 +16,10 @@
                     public_file_view_url string:${absolute_url}/@@display-file/file/${context/file/filename};">
 
     <h1 class="documentFirstHeading mb-3" tal:content="view/title">Annex</h1>
+    
+    <div tal:condition="context/description" class="mb-3">
+      <div tal:content="structure context/description">Descripció</div>
+    </div>
 
     <p class="mb-3">
       <i class="bi bi-file-earmark-pdf text-info me-1" aria-hidden="true"></i>
