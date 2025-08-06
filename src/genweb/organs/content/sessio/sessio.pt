@@ -43,7 +43,7 @@
     <!-- Estado de firma -->
     <tal:block tal:condition="view/hasFirma">
       <div class="mb-3" tal:define="estatFirma view/estatFirma">
-        <span tal:attributes="class stringpy-2 px-3 rounded-pill text-bg-${estatFirma/class} fw-bold">
+        <span tal:attributes="class string:py-2 px-3 rounded-pill text-bg-${estatFirma/class} fw-bold  fs-xs">
           <tal:block i18n:translate="">Acta: </tal:block>
           <tal:block tal:content="estatFirma/text">PENDENT_SIGNANTS</tal:block>
         </span>
