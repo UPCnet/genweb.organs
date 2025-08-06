@@ -198,3 +198,13 @@
     --bs-spinner-height: 4rem;
   }
 }
+
+table.table-bordered {
+
+  thead {
+
+    th {
+      background-color: var(--bs-secondary-bg) !important;
+    }
+  }
+}

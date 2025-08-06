@@ -973,6 +973,8 @@ class ReorderSessions(BrowserView):
 
 class ReloadVoteStats(BrowserView):
     """ Retorna el valor necessaris per refrescar les dades d'una votació"""
+
+    @json_response
     def __call__(self):
         portal_catalog = api.portal.get_tool(name='portal_catalog')
         results = portal_catalog.unrestrictedSearchResults(
@@ -1029,7 +1031,7 @@ class ReloadVoteStats(BrowserView):
                         if viewList:
                             data['whiteVoteListHTML'] += '<p>' + key + '</p>'
 
-            return json.dumps(data)
+            return data
 
         return False
 

@@ -25,7 +25,7 @@
 
     <!-- Contingut públic -->
     <div tal:condition="view/viewDocumentPublic">
-      <h3 class="h5 fw-semibold mt-4 mb-2" i18n:translate="">Contingut públic</h3>
+      <h3 class="h5 fw-semibold mt-3 mb-2" i18n:translate="">Contingut públic</h3>
       <div tal:condition="context/defaultContent" tal:content="structure context/defaultContent/output">Contingut públic</div>
     </div>
   </div>

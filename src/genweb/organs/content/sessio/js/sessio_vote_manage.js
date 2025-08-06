@@ -6,7 +6,7 @@ $(document).ready(function(){
       type: 'POST',
       url: $(this).data('url') + '/reopenVote',
       success: function (result) {
-        result = JSON.parse(result);
+        result = $.parseJSON(result);
         if (result.status !== "success") { alert(result.msg); }
         setTimeout(() => window.location.reload(), 500);
       },
@@ -59,8 +59,7 @@ $(document).ready(function(){
       type: 'GET',
       data: { 'UID': uid },
       url: 'reloadVoteStats',
-      success: function (result) {
-        const data = $.parseJSON(result);
+      success: function (data) {
         const voteRow = $('#vote-' + uid);
         const infoRow = $('#' + uid);
 

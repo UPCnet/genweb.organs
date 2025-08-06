@@ -285,6 +285,11 @@ body.template-search .meva-vinculacio a:hover {
   --bs-spinner-height: 4rem;
 }
 
+/* line 206, ../scss/_generic.scss */
+table.table-bordered thead th {
+  background-color: var(--bs-secondary-bg) !important;
+}
+
 @media print {
   /* line 3, ../scss/_print.scss */
   body {
