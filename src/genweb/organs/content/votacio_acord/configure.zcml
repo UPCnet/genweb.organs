@@ -6,52 +6,60 @@
   i18n_domain="genweb.organs">
 
   <browser:page
-    name="view"
     for=".votacio_acord.IVotacioAcord"
+    name="view"
     class=".votacio_acord.VotacioAcordView"
+    template="votacio_acord.pt"
     permission="zope2.View"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     />
 
   <browser:page
-    name="reopenVote"
     for=".votacio_acord.IVotacioAcord"
+    name="reopenVote"
     class=".votacio_acord.ReopenVote"
     permission="genweb.organs.manage.vote"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     />
 
   <browser:page
-    name="closeVote"
     for=".votacio_acord.IVotacioAcord"
+    name="closeVote"
     class=".votacio_acord.CloseVote"
     permission="genweb.organs.manage.vote"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     />
 
   <browser:page
-    name="favorVote"
     for=".votacio_acord.IVotacioAcord"
+    name="favorVote"
     class=".votacio_acord.FavorVote"
     permission="genweb.organs.add.vote"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     />
 
   <browser:page
-    name="againstVote"
     for=".votacio_acord.IVotacioAcord"
+    name="againstVote"
     class=".votacio_acord.AgainstVote"
     permission="genweb.organs.add.vote"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     />
 
   <browser:page
-    name="whiteVote"
     for=".votacio_acord.IVotacioAcord"
+    name="whiteVote"
     class=".votacio_acord.WhiteVote"
     permission="genweb.organs.add.vote"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     />
 
   <browser:page
-    name="removeVote"
     for=".votacio_acord.IVotacioAcord"
+    name="removeVote"
     class=".votacio_acord.RemoveVote"
     permission="genweb.organs.manage.vote"
+    layer="genweb.organs.interfaces.IGenwebOrgansLayer"
     />
         
 </configure>
