@@ -59,7 +59,7 @@ class IAudio(model.Schema):
     )
 
     textindexer.searchable('description')
-    description = RichTextField(
+    description = schema.Text(
         title=_PMF(u'label_description', default=u'Summary'),
         description=_PMF(
             u'help_description',

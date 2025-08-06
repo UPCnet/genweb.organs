@@ -39,7 +39,7 @@
       <source tal:attributes="src download_url; type content_type"></source>
     </video>
 
-    <audio tal:condition="view/is_audiotype" controls="controls">
+    <audio class="w-100" tal:condition="view/is_audiotype" controls="controls">
       <source tal:attributes="src download_url; type content_type"></source>
     </audio>
 
