@@ -32,6 +32,11 @@
     <!-- Título de la página -->
     <h1 class="documentFirstHeading mb-3" tal:content="view/title">Fitxer</h1>
 
+    <!-- Descripció -->
+    <div tal:condition="context/description" class="mb-3">
+      <div tal:content="structure context/description">Descripció</div>
+    </div>
+
     <!-- Bloque reservat -->
     <section tal:condition="viewReserved"
              class="mb-3">
