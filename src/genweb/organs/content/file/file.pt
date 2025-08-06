@@ -64,7 +64,7 @@
                 </a>
               </tal:block>
               <span class="text-muted fs-s ms-2"
-                    tal:define="size python:context.hiddenfile.getSize(); 
+                    tal:define="size context/hiddenfile/getSize; 
                                 kb python:round(size/1024, 2)">
                 (<span tal:replace="kb"></span> KB)
               </span>
@@ -125,7 +125,7 @@
                 </a>
               </tal:block>
               <span class="text-muted fs-s ms-2"
-                    tal:define="size python:context.visiblefile.getSize(); 
+                    tal:define="size context/visiblefile/getSize; 
                                 kb python:round(size/1024, 2)">
                 (<span tal:replace="kb"></span> KB)
               </span>
