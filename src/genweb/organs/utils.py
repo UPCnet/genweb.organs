@@ -272,31 +272,8 @@ def addPoint(context, names, title, justification, path):
 
 
 def FilesandDocumentsInside(self):
-    # Return files and docs found inside the session object
     organ_tipus = self.context.organType
-    # roles = getUserRoles(self, self.context, api.user.get_current().id)
 
-    # if getattr(self.context, 'info_firma', None) and self.context.info_firma.get('fitxers', None):
-    #     results = []
-    #     acta = uuidToObject(self.context.info_firma.get('related_acta', None))
-    #     if (
-    #       acta and getattr(acta, 'info_firma', None)
-    #       and acta.info_firma.get('enviatASignar', None)
-    #       and acta.estat_firma.lower() in ['pendent', 'signada']
-    #     ):
-    #         for pos, file in self.context.info_firma['fitxers'].items():
-    #             class_css = 'bi bi-file-earmark-pdf fs-2 text-success' if file['public'] else 'bi bi-file-earmark-pdf fs-2 text-danger'
-    #             roles_to_check = ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat']
-    #             if organ_tipus == 'open_organ':
-    #                 roles_to_check.append('OG4-Afectat')
-    #             if not file['public'] and not checkhasRol(roles_to_check, roles):
-    #                 continue
-    #             results.append(dict(title=file['title'],
-    #                                 absolute_url=self.context.absolute_url() + '/viewFile?pos=' + str(pos),
-    #                                 classCSS=class_css,
-    #                                 new_tab=True,
-    #                                 ))
-    #         return results
     portal_catalog = api.portal.get_tool(name='portal_catalog')
     folder_path = '/'.join(self.context.getPhysicalPath())
     values = portal_catalog.unrestrictedSearchResults(
@@ -309,21 +286,21 @@ def FilesandDocumentsInside(self):
         value = obj.getObject()
         roles = getUserRoles(self, value, api.user.get_current().id)
         if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles):
-            class_css = 'bi bi-file-earmark-pdf fs-2'
+            class_css = 'bi bi-file-earmark-pdf'
             if obj.portal_type == 'genweb.organs.file':
                 if value.visiblefile and value.hiddenfile:
-                    class_css = 'bi bi-file-earmark-pdf fs-2 text-success double-icon'
+                    class_css = 'bi bi-file-earmark-pdf text-success double-icon'
                 elif value.visiblefile:
-                    class_css = 'bi bi-file-earmark-pdf fs-2 text-success'
+                    class_css = 'bi bi-file-earmark-pdf text-success'
                 elif value.hiddenfile:
-                    class_css = 'bi bi-file-earmark-pdf fs-2 text-danger'
+                    class_css = 'bi bi-file-earmark-pdf text-danger'
             else:
                 if value.defaultContent and value.alternateContent:
-                    class_css = 'bi bi-file-earmark-text fs-2 text-success double-icon'
+                    class_css = 'bi bi-file-earmark-text text-success double-icon'
                 elif value.defaultContent:
-                    class_css = 'bi bi-file-earmark-text fs-2 text-success'
+                    class_css = 'bi bi-file-earmark-text text-success'
                 elif value.alternateContent:
-                    class_css = 'bi bi-file-earmark-text fs-2 text-danger'
+                    class_css = 'bi bi-file-earmark-text text-danger'
 
             # si està validat els mostrem tots
             results.append(dict(title=obj.Title,
@@ -335,7 +312,7 @@ def FilesandDocumentsInside(self):
             # Anonim / Afectat / Membre veuen obrir en finestra nova dels fitxers.
             # Es un document/fitxer, mostrem part publica si la té
             if obj.portal_type == 'genweb.organs.document':
-                class_css = 'bi bi-file-earmark-text fs-2'
+                class_css = 'bi bi-file-earmark-text'
                 if value.defaultContent and value.alternateContent:
                     if checkhasRol(['OG3-Membre', 'OG5-Convidat'], roles):
                         results.append(dict(title=obj.Title,
@@ -368,7 +345,7 @@ def FilesandDocumentsInside(self):
                 if not isinstance(info_firma, dict):
                     info_firma = ast.literal_eval(info_firma)
 
-                class_css = 'bi bi-file-earmark-pdf fs-2'
+                class_css = 'bi bi-file-earmark-pdf'
                 if value.visiblefile and value.hiddenfile:
                     if organ_tipus == 'open_organ':
                         if checkhasRol(['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
