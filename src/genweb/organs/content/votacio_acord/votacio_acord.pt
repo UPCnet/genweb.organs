@@ -10,7 +10,7 @@
 
   <metal:content-core fill-slot="content-core">
     <metal:block define-macro="content-core" tal:condition="view/canView">
-      <div class="container">
+      <div class="content-core">
         <div class="row">
           <div class="col-12">
             <!-- Aquí iría el contenido de la votación si lo hubiera -->

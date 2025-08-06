@@ -12,7 +12,7 @@
                  filesanddocs view/FilesandDocumentsInside;
                  votacions view/VotacionsInside;">
 
-  <div class="container">
+  <div class="content-core">
 
     <!-- Título principal -->
     <div class="d-flex align-items-center mb-3">

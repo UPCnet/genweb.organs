@@ -8,20 +8,26 @@
 <body>
 
 <div metal:fill-slot="main" tal:condition="view/canView">
-  <div class="container my-4">
-    <h1 class="documentFirstHeading mb-4" tal:condition="view/showTitle" tal:content="view/title">Document</h1>
+  <div class="content-core">
+    <h1 class="documentFirstHeading mb-3" 
+        tal:condition="view/showTitle" 
+        tal:content="view/title">Document</h1>
+
+    <div tal:condition="context/description" class="mb-3">
+      <div tal:content="structure context/description">Descripció</div>
+    </div>
 
     <!-- Contingut restringit (només per usuaris amb permís) -->
-    <tal:block tal:condition="view/viewDocumentReserved">
+    <div class="mb-3" tal:condition="view/viewDocumentReserved">
       <h3 class="h5 fw-semibold mb-2" i18n:translate="">Contingut restringit</h3>
-      <div class="alert alert-warning border" tal:condition="context/alternateContent" tal:content="structure context/alternateContent/output">Contingut restringit</div>
-    </tal:block>
+      <div tal:condition="context/alternateContent" tal:content="structure context/alternateContent/output">Contingut restringit</div>
+    </div>
 
     <!-- Contingut públic -->
-    <tal:block tal:condition="view/viewDocumentPublic">
+    <div tal:condition="view/viewDocumentPublic">
       <h3 class="h5 fw-semibold mt-4 mb-2" i18n:translate="">Contingut públic</h3>
-      <div class="alert alert-light border" tal:condition="context/defaultContent" tal:content="structure context/defaultContent/output">Contingut públic</div>
-    </tal:block>
+      <div tal:condition="context/defaultContent" tal:content="structure context/defaultContent/output">Contingut públic</div>
+    </div>
   </div>
 </div>
 

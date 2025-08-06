@@ -27,7 +27,7 @@
                  publicFileUploadedGdoc view/publicFileUploadedGdoc;
                  sessionIsClosed view/sessionIsClosed;">
 
-  <div class="container">
+  <div class="content-core">
 
     <!-- Título de la página -->
     <h1 class="documentFirstHeading mb-3" tal:content="view/title">Fitxer</h1>
