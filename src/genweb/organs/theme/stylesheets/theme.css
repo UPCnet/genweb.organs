@@ -216,16 +216,21 @@ body.template-search .meva-vinculacio a:hover {
 }
 
 /* line 122, ../scss/_generic.scss */
+.w-92 {
+  width: 92% !important;
+}
+
+/* line 126, ../scss/_generic.scss */
 .w-95 {
   width: 95% !important;
 }
 
-/* line 126, ../scss/_generic.scss */
+/* line 130, ../scss/_generic.scss */
 .mw-50 {
   max-width: 50% !important;
 }
 
-/* line 132, ../scss/_generic.scss */
+/* line 136, ../scss/_generic.scss */
 .bi.double-icon:after {
   display: inline-block;
   font-family: bootstrap-icons !important;
@@ -243,41 +248,41 @@ body.template-search .meva-vinculacio a:hover {
   left: -7px;
   top: 4px;
 }
-/* line 153, ../scss/_generic.scss */
+/* line 157, ../scss/_generic.scss */
 .bi.double-icon.bi-file-earmark-pdf:after {
   content: "\f63e";
 }
-/* line 160, ../scss/_generic.scss */
+/* line 164, ../scss/_generic.scss */
 .bi.double-icon.bi-file-earmark-text:after {
   content: "\f38b";
 }
 
-/* line 170, ../scss/_generic.scss */
+/* line 174, ../scss/_generic.scss */
 .picked .bi.double-icon:after {
   background-color: #e5f7ff !important;
 }
 
-/* line 176, ../scss/_generic.scss */
+/* line 180, ../scss/_generic.scss */
 #social_tags {
   display: flex;
   align-items: center;
   margin-top: 0.4rem !important;
 }
-/* line 181, ../scss/_generic.scss */
+/* line 185, ../scss/_generic.scss */
 #social_tags a:not(#copy-universal-link) {
   display: none !important;
 }
-/* line 185, ../scss/_generic.scss */
+/* line 189, ../scss/_generic.scss */
 #social_tags p {
   margin-right: 0.5rem;
 }
 
-/* line 190, ../scss/_generic.scss */
+/* line 194, ../scss/_generic.scss */
 .spinner-block {
   z-index: 1055;
   pointer-events: all;
 }
-/* line 194, ../scss/_generic.scss */
+/* line 198, ../scss/_generic.scss */
 .spinner-block .spinner-border {
   --bs-spinner-animation-speed: 1.5s;
   --bs-spinner-border-width: 0.5em;
@@ -285,7 +290,7 @@ body.template-search .meva-vinculacio a:hover {
   --bs-spinner-height: 4rem;
 }
 
-/* line 206, ../scss/_generic.scss */
+/* line 210, ../scss/_generic.scss */
 table.table-bordered thead th {
   background-color: var(--bs-secondary-bg) !important;
 }
@@ -532,17 +537,21 @@ body.portaltype-genweb-organs-organgovern #contentOrgan .reorder a:hover {
   font-weight: 700 !important;
 }
 
-/* line 4, ../scss/content/_sessio.scss */
+/* line 5, ../scss/content/_sessio.scss */
+body.template-presentation .openInfo,
 body.template-signsessio .openInfo,
 body.portaltype-genweb-organs-sessio .openInfo {
   cursor: pointer;
 }
-/* line 10, ../scss/content/_sessio.scss */
+/* line 11, ../scss/content/_sessio.scss */
+body.template-presentation #resultsVotesTab .btn-outline-info,
 body.template-signsessio #resultsVotesTab .btn-outline-info,
 body.portaltype-genweb-organs-sessio #resultsVotesTab .btn-outline-info {
   cursor: help !important;
 }
-/* line 17, ../scss/content/_sessio.scss */
+/* line 18, ../scss/content/_sessio.scss */
+body.template-presentation .sessionActions span,
+body.template-presentation .sessionActions a,
 body.template-signsessio .sessionActions span,
 body.template-signsessio .sessionActions a,
 body.portaltype-genweb-organs-sessio .sessionActions span,
@@ -550,21 +559,27 @@ body.portaltype-genweb-organs-sessio .sessionActions a {
   font-weight: normal !important;
   max-width: 130px;
 }
-/* line 22, ../scss/content/_sessio.scss */
+/* line 23, ../scss/content/_sessio.scss */
+body.template-presentation .sessionActions span i::before,
+body.template-presentation .sessionActions a i::before,
 body.template-signsessio .sessionActions span i::before,
 body.template-signsessio .sessionActions a i::before,
 body.portaltype-genweb-organs-sessio .sessionActions span i::before,
 body.portaltype-genweb-organs-sessio .sessionActions a i::before {
   font-size: 2rem;
 }
-/* line 26, ../scss/content/_sessio.scss */
+/* line 27, ../scss/content/_sessio.scss */
+body.template-presentation .sessionActions span.btn-success,
+body.template-presentation .sessionActions a.btn-success,
 body.template-signsessio .sessionActions span.btn-success,
 body.template-signsessio .sessionActions a.btn-success,
 body.portaltype-genweb-organs-sessio .sessionActions span.btn-success,
 body.portaltype-genweb-organs-sessio .sessionActions a.btn-success {
   cursor: default;
 }
-/* line 29, ../scss/content/_sessio.scss */
+/* line 30, ../scss/content/_sessio.scss */
+body.template-presentation .sessionActions span.btn-success:hover,
+body.template-presentation .sessionActions a.btn-success:hover,
 body.template-signsessio .sessionActions span.btn-success:hover,
 body.template-signsessio .sessionActions a.btn-success:hover,
 body.portaltype-genweb-organs-sessio .sessionActions span.btn-success:hover,
@@ -572,7 +587,8 @@ body.portaltype-genweb-organs-sessio .sessionActions a.btn-success:hover {
   background-color: var(--bs-btn-bg) !important;
   border-color: var(--bs-btn-border-color) !important;
 }
-/* line 37, ../scss/content/_sessio.scss */
+/* line 38, ../scss/content/_sessio.scss */
+body.template-presentation #sortable,
 body.template-signsessio #sortable,
 body.portaltype-genweb-organs-sessio #sortable {
   list-style-type: none;
@@ -580,7 +596,10 @@ body.portaltype-genweb-organs-sessio #sortable {
   padding: 0;
   width: auto;
 }
-/* line 43, ../scss/content/_sessio.scss */
+/* line 44, ../scss/content/_sessio.scss */
+body.template-presentation #sortable .ui-state-grey,
+body.template-presentation #sortable .ui-state-grey-not_move,
+body.template-presentation #sortable .ui-state-grey-impersonate,
 body.template-signsessio #sortable .ui-state-grey,
 body.template-signsessio #sortable .ui-state-grey-not_move,
 body.template-signsessio #sortable .ui-state-grey-impersonate,
@@ -592,14 +611,16 @@ body.portaltype-genweb-organs-sessio #sortable .ui-state-grey-impersonate {
   font-weight: normal;
   color: black;
 }
-/* line 54, ../scss/content/_sessio.scss */
+/* line 55, ../scss/content/_sessio.scss */
+body.template-presentation #sortable .ui-state-grey:hover,
 body.template-signsessio #sortable .ui-state-grey:hover,
 body.portaltype-genweb-organs-sessio #sortable .ui-state-grey:hover {
   background: #f9f9f9 none repeat scroll 0 0;
   cursor: move;
   position: relative;
 }
-/* line 59, ../scss/content/_sessio.scss */
+/* line 60, ../scss/content/_sessio.scss */
+body.template-presentation #sortable .ui-state-grey:hover:before,
 body.template-signsessio #sortable .ui-state-grey:hover:before,
 body.portaltype-genweb-organs-sessio #sortable .ui-state-grey:hover:before {
   cursor: move;
@@ -609,60 +630,94 @@ body.portaltype-genweb-organs-sessio #sortable .ui-state-grey:hover:before {
   bottom: 10px;
   left: 10px;
 }
-/* line 69, ../scss/content/_sessio.scss */
+/* line 70, ../scss/content/_sessio.scss */
+body.template-presentation #sortable .ui-state-grey.picked,
 body.template-signsessio #sortable .ui-state-grey.picked,
 body.portaltype-genweb-organs-sessio #sortable .ui-state-grey.picked {
   background: #e5f7ff !important;
 }
-/* line 74, ../scss/content/_sessio.scss */
+/* line 75, ../scss/content/_sessio.scss */
+body.template-presentation #sortable .ui-state-grey-file:hover,
 body.template-signsessio #sortable .ui-state-grey-file:hover,
 body.portaltype-genweb-organs-sessio #sortable .ui-state-grey-file:hover {
   background: #f9f9f9 none repeat scroll 0 0 !important;
   position: relative;
 }
-/* line 79, ../scss/content/_sessio.scss */
+/* line 80, ../scss/content/_sessio.scss */
+body.template-presentation #sortable .einesSpan,
 body.template-signsessio #sortable .einesSpan,
 body.portaltype-genweb-organs-sessio #sortable .einesSpan {
   position: absolute;
   background: linear-gradient(to right, rgba(229, 247, 255, 0) 0%, #e5f7ff 30%, #e5f7ff 100%);
 }
-/* line 88, ../scss/content/_sessio.scss */
+/* line 89, ../scss/content/_sessio.scss */
+body.template-presentation #sortable .titleSpan a:hover,
 body.template-signsessio #sortable .titleSpan a:hover,
 body.portaltype-genweb-organs-sessio #sortable .titleSpan a:hover {
   text-decoration: underline;
 }
-/* line 96, ../scss/content/_sessio.scss */
+/* line 97, ../scss/content/_sessio.scss */
+body.template-presentation #sortable .puntVoteButtons .btn.disabled,
 body.template-signsessio #sortable .puntVoteButtons .btn.disabled,
 body.portaltype-genweb-organs-sessio #sortable .puntVoteButtons .btn.disabled {
   cursor: not-allowed;
 }
-/* line 104, ../scss/content/_sessio.scss */
+/* line 105, ../scss/content/_sessio.scss */
+body.template-presentation .filesinTable .titleSpan,
 body.template-signsessio .filesinTable .titleSpan,
 body.portaltype-genweb-organs-sessio .filesinTable .titleSpan {
   margin-left: calc(8% + 1rem);
 }
-/* line 109, ../scss/content/_sessio.scss */
+/* line 110, ../scss/content/_sessio.scss */
+body.template-presentation .li_subgrups,
 body.template-signsessio .li_subgrups,
 body.portaltype-genweb-organs-sessio .li_subgrups {
   padding-left: calc(8% + 1rem);
 }
-/* line 112, ../scss/content/_sessio.scss */
+/* line 113, ../scss/content/_sessio.scss */
+body.template-presentation .li_subgrups .listFiles,
 body.template-signsessio .li_subgrups .listFiles,
 body.portaltype-genweb-organs-sessio .li_subgrups .listFiles {
   padding-left: calc(5% + 1rem);
 }
-/* line 121, ../scss/content/_sessio.scss */
+/* line 122, ../scss/content/_sessio.scss */
+body.template-presentation #previewDocModal .filesinTable .titleSpan,
 body.template-signsessio #previewDocModal .filesinTable .titleSpan,
 body.portaltype-genweb-organs-sessio #previewDocModal .filesinTable .titleSpan {
   margin-left: calc(5% + 1rem);
 }
-/* line 126, ../scss/content/_sessio.scss */
+/* line 127, ../scss/content/_sessio.scss */
+body.template-presentation #previewDocModal .li_subgrups,
 body.template-signsessio #previewDocModal .li_subgrups,
 body.portaltype-genweb-organs-sessio #previewDocModal .li_subgrups {
   padding-left: calc(5% + 1rem);
 }
-/* line 129, ../scss/content/_sessio.scss */
+/* line 130, ../scss/content/_sessio.scss */
+body.template-presentation #previewDocModal .li_subgrups .listFiles,
 body.template-signsessio #previewDocModal .li_subgrups .listFiles,
 body.portaltype-genweb-organs-sessio #previewDocModal .li_subgrups .listFiles {
   padding-left: calc(5% + 1rem);
+}
+
+/* line 1, ../scss/content/_presentation.scss */
+body.template-presentation {
+  padding-left: 0 !important;
+}
+/* line 4, ../scss/content/_presentation.scss */
+body.template-presentation #back-to-top,
+body.template-presentation #portal-navbar,
+body.template-presentation #portal-searchbox,
+body.template-presentation #portal-navbar-mobile,
+body.template-presentation #portal-footer-wrapper,
+body.template-presentation #portal-breadcrumbs,
+body.template-presentation #edit-bar {
+  display: none !important;
+}
+/* line 14, ../scss/content/_presentation.scss */
+body.template-presentation a.icon-hover:hover {
+  color: var(--bs-primary-hover);
+}
+/* line 18, ../scss/content/_presentation.scss */
+body.template-presentation ul.items {
+  font-size: 1.75em;
 }

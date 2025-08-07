@@ -116,7 +116,7 @@
                                 tal:content="item/proposalPoint"></span>
                         </div>
 
-                        <div class="titleSpan me-2 w-72">
+                        <div class="titleSpan me-2 w-92">
                           <a tal:attributes="data-id item/id; 
                                             href item/absolute_url" 
                             data-url="changeTitle"

@@ -1567,9 +1567,6 @@ P Conclusions</code>
             src="++theme++genweb.organs/js/content/sessio.min.js"></script>    
 
     <script type="text/javascript"
-            src="++theme++genweb.organs/js/content/sessio_collapse.min.js"></script>    
-
-    <script type="text/javascript"
             src="++theme++genweb.organs/js/content/sessio_modify.min.js"
             tal:condition="canModify"></script>    
 

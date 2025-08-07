@@ -1,0 +1,97 @@
+
+<script tal:condition="not:anonim" type="text/javascript">
+
+$("li.defaultValue").on('click', function(){
+    var colorSelected = $(this).find('.fa').css('color');
+    $(this).parent().parent().parent().parent().parent().find('.dropdown-toggle > i').css({'color': colorSelected});
+});
+
+// Mouse Handler select on click
+function mouseHandler(e){
+  // Add Picked Class
+  if ($(this).hasClass('picked')) {
+    $(this).removeClass('picked');
+  } else {
+    $(".picked").removeClass('picked');
+    $(this).addClass('picked');
+  }
+}
+function init_li_selected(){
+  // Bind all li to make them clickable
+  $('.ui-sortable li').bind('click', mouseHandler);
+}
+$(document).ready(init_li_selected);
+
+</script>
+
+<script type="text/javascript">
+$(function() {
+
+  var $win = $(window);
+  var $box = $("#sortable");
+  var $boxFiles = $(".showDocContent");
+  $win.on("click.Bst", function(event){
+    if ($box.has(event.target).length == 0 && !$box.is(event.target))
+    {
+      $(".picked").removeClass('picked');
+    }
+    if ($boxFiles.has(event.target).length == 0 && !$boxFiles.is(event.target))
+    {
+      $('.popover').removeClass('in')
+    }
+   });
+});
+
+$('a.showDocContent').on('click', function (e) {
+  $('[data-toggle="modal"]').each(function () {
+    if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.modal').has(e.target).length === 0) {
+        $(this).modal('hide');
+    } else {
+      var title=$(this).data()['originalTitle'];
+      var content=$(this).data()['content'];
+      $('<div class="modal fade" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">\
+          <div class="modal-dialog" role="document">\
+            <div class="modal-content">\
+              <div class="modal-header">\
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
+                <h4 class="modal-title">' + title + '</h4>\
+              </div>\
+              <div class="modal-body">\
+              ' + content + '\
+              </div>\
+              <div class="modal-footer">\
+                <button type="button" class="btn btn btn-primary" data-dismiss="modal" i18n:domain="genweb.organs" i18n:translate="">Tanca</button>\
+              </div>\
+            </div>\
+          </div>\
+        </div>').modal('show');
+    }
+});
+});
+
+</script>
+
+<script type="text/javascript">
+$("#collapseAll").hide()
+$("#expandAll").click(function(){
+$(".expand").parent().parent().parent().slideDown();
+$(".expand").hide();
+$(".notexpand").show();
+$(".expand").parent().parent().parent().find('.sortable2').slideDown();
+$(".expand").parent().parent().parent().find('.listFiles').slideDown();
+$("#expandAll").hide();
+$("#collapseAll").show();
+})
+
+$("#collapseAll").click(function(){
+$(".notexpand").slideUp();
+$(".notexpand").hide();
+$(".expand").show();
+
+$(".expand").parent().parent().parent().find('.sortable2').slideUp();
+$(".expand").parent().parent().parent().find('.listFiles').slideUp();
+$("#expandAll").show();
+$("#collapseAll").hide();
+})
+
+</script>

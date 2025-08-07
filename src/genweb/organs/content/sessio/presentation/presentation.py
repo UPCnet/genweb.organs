@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
 from Acquisition import aq_inner
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone import api
 from plone.app.layout.navigation.root import getNavigationRootObject
@@ -13,12 +15,9 @@ from genweb.organs.content.sessio.sessio import ISessio
 from genweb.organs.interfaces import IGenwebOrgansLayer
 
 
-class IPresentation(model.Schema):
-    """ Plantilla del mode presentacio: /presentation
-    """
+class Presentation(BrowserView):
+    __call__ = ViewPageTemplateFile('presentation.pt')
 
-
-class Presentation(form.Form):
     def status(self):
         return api.content.get_state(obj=self.context)
 

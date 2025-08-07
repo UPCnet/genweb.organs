@@ -1,0 +1,21 @@
+body.template-presentation {
+  padding-left: 0 !important;
+
+  #back-to-top,
+  #portal-navbar,
+  #portal-searchbox,
+  #portal-navbar-mobile,
+  #portal-footer-wrapper,
+  #portal-breadcrumbs,
+  #edit-bar {
+    display: none !important;
+  }
+
+  a.icon-hover:hover {
+    color: var(--bs-primary-hover);
+  }
+
+  ul.items {
+    font-size: 1.75em;
+  }
+}
