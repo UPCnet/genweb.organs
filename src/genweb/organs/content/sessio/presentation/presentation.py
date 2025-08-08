@@ -145,6 +145,8 @@ class Presentation(BrowserView):
         for obj in values:
             visibleUrl = ''
             hiddenUrl = ''
+            visibleRaw = None
+            hiddenRaw = None
             hasPublic = hasPrivate = isGODocument = isGOFile = file = raw_content = listFile = False
             visibleUrl = obj.getObject().absolute_url()
             anonymous = api.user.is_anonymous()
@@ -174,12 +176,14 @@ class Presentation(BrowserView):
                         hasPublic = True
                         hasPrivate = False
                         listFile = True
-                        raw_content = file.defaultContent
+                        visibleRaw = file.defaultContent
+                        hiddenRaw = None
                     elif file.defaultContent:
                         hasPublic = True
                         hasPrivate = False
                         listFile = True
-                        raw_content = file.defaultContent
+                        visibleRaw = file.defaultContent
+                        hiddenRaw = None
 
                 if listFile:
                     results.append(dict(title=obj.Title,
@@ -192,7 +196,8 @@ class Presentation(BrowserView):
                                         reservedURL=hiddenUrl,
                                         isGOFile=isGOFile,
                                         isGODocument=isGODocument,
-                                        raw_content=raw_content,
+                                        publicRaw=visibleRaw,
+                                        reservedRaw=hiddenRaw,
                                         id=obj.id))
             else:
                 # user is validated
@@ -206,9 +211,9 @@ class Presentation(BrowserView):
                     classCSS = 'bi bi-file-earmark-pdf'
                     if file.visiblefile and file.hiddenfile:
                         if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                            hasPublic = False
+                            hasPublic = True
                             hasPrivate = True
-                            visibleUrl = ''
+                            visibleUrl = file.absolute_url() + '/@@display-file/visiblefile/' + file.visiblefile.filename
                             hiddenUrl = file.absolute_url() + '/@@display-file/hiddenfile/' + file.hiddenfile.filename
                             classCSS = 'bi bi-file-earmark-pdf text-success double-icon'
                         elif 'OG4-Afectat' in roles:
@@ -238,26 +243,30 @@ class Presentation(BrowserView):
                     classCSS = 'bi bi-file-earmark-text'
                     if file.alternateContent and file.defaultContent:
                         if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
-                            hasPublic = False
+                            hasPublic = True
                             hasPrivate = True
-                            raw_content = file.alternateContent
+                            visibleRaw = file.defaultContent
+                            hiddenRaw = file.alternateContent
                             classCSS = 'bi bi-file-earmark-text text-success double-icon'
                         elif 'OG4-Afectat' in roles:
                             hasPublic = True
                             hasPrivate = False
-                            raw_content = file.defaultContent
+                            visibleRaw = file.defaultContent
+                            hiddenRaw = None
                             classCSS = 'bi bi-file-earmark-text text-success'
                     elif file.defaultContent:
                         if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             hasPublic = False
                             hasPrivate = True
-                            raw_content = file.defaultContent
+                            visibleRaw = file.defaultContent
+                            hiddenRaw = None
                             classCSS = 'bi bi-file-earmark-text text-success'
                     elif file.alternateContent:
                         if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                             hasPublic = False
                             hasPrivate = True
-                            raw_content = file.alternateContent
+                            visibleRaw = None
+                            hiddenRaw = file.alternateContent
                             classCSS = 'bi bi-file-earmark-text text-danger'
 
                 results.append(dict(title=obj.Title,
@@ -270,7 +279,8 @@ class Presentation(BrowserView):
                                     reservedURL=hiddenUrl,
                                     isGOFile=isGOFile,
                                     isGODocument=isGODocument,
-                                    raw_content=raw_content,
+                                    publicRaw=visibleRaw,
+                                    reservedRaw=hiddenRaw,
                                     id=obj.id))
         return results
 

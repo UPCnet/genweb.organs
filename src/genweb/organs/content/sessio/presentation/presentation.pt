@@ -109,7 +109,7 @@
 
                     <div class="btn-group" role="group" aria-label="Change current state" tal:condition="view/changeEstat">
                       <tal:block tal:condition="item/state">
-                        <button class="badge btn btn-outline-secondary px-2 py-2 text-dark dropdown-toggle bullet-toggle" type="button"
+                        <button class="badge btn btn-outline-secondary ms-2 px-2 py-2 text-dark dropdown-toggle bullet-toggle" type="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <i class="bi bi-circle-fill me-1" aria-hidden="true"
                              tal:attributes="style string:color:${item/css}"></i>
@@ -145,6 +145,50 @@
                                class="text-dark">
                               <tal:omit-tag tal:content="file_item/title"> Doc title</tal:omit-tag>
                             </a>
+                            <tal:block tal:condition="file_item/isGODocument">
+                              <a class="btn btn-outline-success btn-sm ms-2"
+                                 tal:condition="file_item/publicRaw"
+                                 href="#"
+                                 data-bs-toggle="modal"
+                                 data-bs-target="#documentContentModal"
+                                 tal:attributes="data-content file_item/publicRaw/output;
+                                                 data-title string:Contingut públic"
+                                 i18n:translate="">
+                                Contingut públic
+                              </a> 
+                              <a class="btn btn-outline-danger btn-sm ms-2"
+                                 tal:condition="file_item/reservedRaw"
+                                 href="#"
+                                 data-bs-toggle="modal"
+                                 data-bs-target="#documentContentModal"
+                                 tal:attributes="data-content file_item/reservedRaw/output;
+                                                 data-title string:Contingut restringit"
+                                i18n:translate="">
+                                Contingut restringit
+                              </a>
+                            </tal:block>
+                            <tal:block tal:condition="file_item/isGOFile">
+                              <a class="btn btn-outline-success btn-sm ms-2"
+                                 tal:condition="file_item/publicURL"
+                                 href="#"
+                                 data-bs-toggle="modal"
+                                 data-bs-target="#fileContentModal"
+                                 tal:attributes="data-url file_item/publicURL;
+                                                 data-title string:Fitxer públic"
+                                 i18n:translate="">
+                                Fitxer públic
+                              </a> 
+                              <a class="btn btn-outline-danger btn-sm ms-2"
+                                 tal:condition="file_item/reservedURL"
+                                 href="#"
+                                 data-bs-toggle="modal"
+                                 data-bs-target="#fileContentModal"
+                                 tal:attributes="data-url file_item/reservedURL;
+                                                 data-title string:Fitxer restringit"
+                                 i18n:translate="">
+                                Fitxer restringit
+                              </a> 
+                            </tal:block>
                           </div>
                         </li>
                       </tal:documents>
@@ -177,7 +221,7 @@
                             </span>
                             <div class="btn-group" role="group" aria-label="Change current state" tal:condition="view/changeEstat">
                               <tal:block tal:condition="itemSubpunt/state">
-                                <button class="badge btn btn-outline-secondary px-2 py-2 text-dark dropdown-toggle bullet-toggle" type="button"
+                                <button class="badge btn btn-outline-secondary ms-2 px-2 py-2 text-dark dropdown-toggle bullet-toggle" type="button"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                   <i class="bi bi-circle-fill me-1" aria-hidden="true"
                                      tal:attributes="style string:color:${itemSubpunt/css}"></i>
@@ -209,6 +253,50 @@
                                     class="text-dark">
                                   <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                                 </a>
+                                <tal:block tal:condition="item/isGODocument">
+                                  <a class="btn btn-outline-success btn-sm ms-2"
+                                     tal:condition="item/publicRaw"
+                                     href="#"
+                                     data-bs-toggle="modal"
+                                     data-bs-target="#documentContentModal"
+                                     tal:attributes="data-content item/publicRaw/output;
+                                                     data-title string:Contingut públic"
+                                     i18n:translate="">
+                                    Contingut públic
+                                  </a> 
+                                  <a class="btn btn-outline-danger btn-sm ms-2"
+                                     tal:condition="item/reservedRaw"
+                                     href="#"
+                                     data-bs-toggle="modal"
+                                     data-bs-target="#documentContentModal"
+                                     tal:attributes="data-content item/reservedRaw/output;
+                                                     data-title string:Contingut restringit"
+                                     i18n:translate="">
+                                    Contingut restringit
+                                  </a>
+                                </tal:block>
+                                <tal:block tal:condition="item/isGOFile">
+                                  <a class="btn btn-outline-success btn-sm ms-2"
+                                     tal:condition="item/publicURL"
+                                     data-bs-toggle="modal"
+                                     data-bs-target="#fileContentModal"
+                                     tal:attributes="data-url item/publicURL;
+                                                     data-title string:Fitxer públic"
+                                     href="#"
+                                     i18n:translate="">
+                                    Fitxer públic
+                                  </a> 
+                                  <a class="btn btn-outline-danger btn-sm ms-2"
+                                     tal:condition="item/reservedURL"
+                                     data-bs-toggle="modal"
+                                     data-bs-target="#fileContentModal"
+                                     tal:attributes="data-url item/reservedURL;
+                                                     data-title string:Fitxer restringit"
+                                     href="#"
+                                     i18n:translate="">
+                                    Fitxer restringit
+                                  </a> 
+                                </tal:block>
                               </li>
                             </tal:documents>
                           </ul>
@@ -223,6 +311,40 @@
         </tal:block>
       </tal:documents>
     </ul>
+
+    <!-- Modal document -->
+    <div class="modal fade" id="documentContentModal" tabindex="-1" 
+         aria-labelledby="documentContentModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="documentContentModalLabel"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="documentContentModalBody">
+            <!-- El contingut es carregarà aquí -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal file -->
+    <div class="modal fade" id="fileContentModal" tabindex="-1" 
+         aria-labelledby="fileContentModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="fileContentModalLabel"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="fileContentModalBody">
+            <!-- El contingut es carregarà aquí -->
+            <object id="fileContentModalObject" type="application/pdf" class="w-100" height="720" data="#"></object>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
   </div>
 
