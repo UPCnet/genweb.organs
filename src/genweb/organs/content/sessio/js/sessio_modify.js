@@ -223,8 +223,8 @@ $(document).ready(function(){
     const colorSelected = $(this).find('.bi-circle-fill').css('color');
     const $buttonGroup = $(this).closest('.btn-group');
     $buttonGroup.find('.bullet-toggle > i').css({ 'color': colorSelected });
+    $('#collapse-' + $buttonGroup.parent().parent().parent().attr('id') + ' button.bullet-toggle > i').css({ 'color': colorSelected });
     $buttonGroup.closest('.einesSpan').parent().find('.boleta > span > i').css({ 'color': colorSelected });
-
     const textSelected = $(this).find('span').text();
     $buttonGroup.closest('.einesSpan').parent().find('.boleta > span > span').text(textSelected);
   });

@@ -60,6 +60,8 @@ module.exports = function (grunt) {
                         '../../../../../genweb.organs/src/genweb/organs/content/sessio/js/sessio_vote_view.js',
                     'js/content/presentation.min.js':
                         '../../../../../genweb.organs/src/genweb/organs/content/sessio/presentation/presentation.js',
+                    'js/content/presentation_modify.min.js':
+                        '../../../../../genweb.organs/src/genweb/organs/content/sessio/presentation/presentation_modify.js',
                     'js/content/file.min.js':
                         '../../../../../genweb.organs/src/genweb/organs/content/file/file.js',
                     'js/content/sign_sessio.min.js':

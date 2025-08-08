@@ -27,7 +27,7 @@
 
   <!-- ACCIONES -->
   <div tal:condition="not:anonim" 
-       class="position-fixed top-50 end-0 translate-middle-y me-4 z-3 d-flex flex-column align-items-center gap-1">
+       class="eines-lateral position-fixed top-50 end-0 translate-middle-y me-4 z-3 d-flex flex-column align-items-center gap-1">
 
     <a href="." title="Tornar a la sessió" class="text-secondary icon-hover">
       <i class="bi bi-house-fill fs-1"></i>
@@ -51,10 +51,10 @@
 
   </div>
 
-  <div tal:condition="items">
+  <div tal:condition="items" tal:define="sessionURL view/getSessionURL">
 
     <!-- EXPAND ALL / COLLAPSE ALL -->
-    <div class="d-flex justify-content-end mb-3">
+    <div class="d-flex justify-content-end">
       <button id="expandAll" class="btn btn-outline-primary">
         <i class="bi bi-arrows-expand me-1"></i>
         <span i18n:translate="">Desplega tot</span>
@@ -69,7 +69,8 @@
     <ul class="list-unstyled fs-3">
       <tal:documents repeat="item items">
         <tal:block tal:define="agreement item/agreement">
-          <li tal:attributes="id item/id">
+          <li tal:attributes="id item/id"
+              class="border-bottom">
             <div class="row px-3 py-2 justify-content-end">
               <tal:block-contenidos tal:define="files python:view.filesinside(item);
                                                 subpunts python:view.SubpuntsInside(item);
@@ -99,11 +100,35 @@
                       class="editTitle titleSize text-dark">
                       <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
                     </a>
+                    
                     <span tal:condition="agreement" class="text-muted fs-4"
-                          tal:attributes="data-agreement string:${item/absolute_url}"
-                          tal:content="agreement">
+                      tal:attributes="data-agreement string:${item/absolute_url}"
+                      tal:content="agreement">
                       [ACORD]
                     </span>
+
+                    <div class="btn-group" role="group" aria-label="Change current state" tal:condition="view/changeEstat">
+                      <tal:block tal:condition="item/state">
+                        <button class="badge btn btn-outline-secondary px-2 py-2 text-dark dropdown-toggle bullet-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="bi bi-circle-fill me-1" aria-hidden="true"
+                             tal:attributes="style string:color:${item/css}"></i>
+                          <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu estatsToggle" role="menu" aria-labelledby="estats">
+                          <tal:block repeat="estat item/estats">
+                            <li class="defaultValue">
+                              <a tabindex="-1" class="dropdown-item"
+                                 tal:attributes="href string:${sessionURL}/changeActualState?estat=${estat/title}&id=${item/item_path}">
+                                <i class="bi bi-circle-fill me-1" aria-hidden="true"
+                                   tal:attributes="style string:color:${estat/color}"></i>
+                                <span tal:content="estat/title"></span>
+                              </a>
+                            </li>
+                          </tal:block>
+                        </ul>
+                      </tal:block>
+                    </div>
                   </div>
 
                 </div>
@@ -150,6 +175,28 @@
                                   tal:content="agreement">
                               [ACORD]
                             </span>
+                            <div class="btn-group" role="group" aria-label="Change current state" tal:condition="view/changeEstat">
+                              <tal:block tal:condition="itemSubpunt/state">
+                                <button class="badge btn btn-outline-secondary px-2 py-2 text-dark dropdown-toggle bullet-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i class="bi bi-circle-fill me-1" aria-hidden="true"
+                                     tal:attributes="style string:color:${itemSubpunt/css}"></i>
+                                  <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu estatsToggle" role="menu" aria-labelledby="estats">
+                                  <tal:block repeat="estat itemSubpunt/estats">
+                                    <li class="defaultValue">
+                                      <a tabindex="-1" class="dropdown-item"
+                                         tal:attributes="href string:${sessionURL}/changeSubpuntState?estat=${estat/title}&id=${itemSubpunt/id}">
+                                        <i class="bi bi-circle-fill me-1" aria-hidden="true"
+                                           tal:attributes="style string:color:${estat/color}"></i>
+                                        <span tal:content="estat/title"></span>
+                                      </a>
+                                    </li>
+                                  </tal:block>
+                                </ul>
+                              </tal:block>
+                            </div>
                           </div>
 
                         </div>
@@ -181,9 +228,13 @@
 
   <script type="text/javascript"
           src="++theme++genweb.organs/js/content/sessio.min.js"></script>   
-
+          
   <script type="text/javascript"
           src="++theme++genweb.organs/js/content/presentation.min.js"></script>    
+  
+  <script type="text/javascript"
+          src="++theme++genweb.organs/js/content/presentation_modify.min.js"
+          tal:condition="view/changeEstat"></script>
 
 </tal:block>
 </metal:content-core>

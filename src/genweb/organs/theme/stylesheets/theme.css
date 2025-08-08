@@ -721,3 +721,7 @@ body.template-presentation a.icon-hover:hover {
 body.template-presentation ul.items {
   font-size: 1.75em;
 }
+/* line 22, ../scss/content/_presentation.scss */
+body.template-presentation .eines-lateral {
+  z-index: 1035;
+}

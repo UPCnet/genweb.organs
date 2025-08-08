@@ -578,10 +578,12 @@ class changeActualState(BrowserView):
                     else:
                         addEntryLog(self.context, None, _(u'Changed recursive color state of acord inside punt'), objecte.absolute_url_path() + ' -> ' + estat)  # add log
                 currentitem.estatsLlista = estat
+                transaction.commit()
                 addEntryLog(self.context, None, _(u'Changed punt color state'), itemid + ' → ' + estat)  # add log
             else:
                 # És un acord. Només es canvia aquest ja que dintre no conté elements
                 currentitem.estatsLlista = estat
+                transaction.commit()
                 addEntryLog(self.context, None, _(u'Changed acord color state'), itemid + ' → ' + estat)  # add log
         except:
             pass
@@ -609,6 +611,7 @@ class changeSubpuntState(BrowserView):
                   'depth': 1})
         if currentitem:
             currentitem[0].getObject().estatsLlista = estat
+            transaction.commit()
             if currentitem[0].portal_type == 'genweb.organs.subpunt':
                 addEntryLog(self.context, None, _(u'Changed subpunt intern state color'), currentitem[0].getPath() + ' → ' + estat)  # add log
             else:

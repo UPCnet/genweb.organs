@@ -275,8 +275,12 @@ class Presentation(BrowserView):
         return results
 
     def getSessionTitle(self):
-        # obtenir titlo de la session
+        # obtenir titlo de la sessio
         return self.context.Title()
+
+    def getSessionURL(self):
+        # obtenir URL de la sessio
+        return self.context.absolute_url()
 
     def getColor(self, data):
         # assign custom colors on organ states
