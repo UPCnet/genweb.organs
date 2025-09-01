@@ -2,6 +2,7 @@
 from Products.Five.browser import BrowserView
 
 from plone import api
+from plone.event.interfaces import IEventAccessor
 
 from genweb.organs import _
 from genweb.organs import utils
@@ -17,6 +18,7 @@ from plone.namedfile.file import NamedBlobFile
 
 #import Acquisition.ImplicitAcquisitionWrapper
 from Acquisition import ImplicitAcquisitionWrapper
+from Products.statusmessages.interfaces import IStatusMessage
 
 import ast
 import datetime
@@ -31,7 +33,48 @@ logger = logging.getLogger(__name__)
 
 
 class SignSessioView(BrowserView, utilsFD.UtilsFirmaDocumental):
+
     def canView(self):
+        if utils.isManager(self):
+            return True
+
+        organ = utils.get_organ(self.context)
+        carpeta_unitat = organ.aq_parent 
+
+        if carpeta_unitat.id == 'consell-de-govern':
+            if organ.id in ['consell-de-govern', 'comissio-de-desenvolupament-estatutari', 'comissio-de-docencia-i-politica-academica', 
+                            'comissio-deconomia-i-infraestructures', 'comissio-de-personal-i-accio-social', 
+                            'comissio-permanent-del-consell-de-govern', 'comissio-de-politica-linguistica', 
+                            'comissio-de-recerca', 'comissio-de-politica-academica-docent-i-linguistica' ]:
+                return True
+
+        elif carpeta_unitat.id == 'claustre-universitari':
+            if organ.id in ['claustre-universitari', 'mesa-del-claustre-universitari']:
+                return True
+
+        elif carpeta_unitat.id == 'consell-academic':
+            if organ.id in ['consell-academic']:
+                return True
+
+        elif carpeta_unitat.id == 'junta-electoral-duniversitat':
+            if organ.id in ['junta-electoral-duniversitat']:
+                return True
+
+        elif carpeta_unitat.id == 'cs':
+            if organ.id in ['ple-del-consell-social', 'comissio-economica-del-consell-social', 'comissio-academica-del-consell-social']:
+                return True
+
+        session = utils.get_session(self.context)
+        acc = IEventAccessor(session)
+        if acc.end is not None:
+            fecha_limite = datetime.datetime(2025, 9, 1, tzinfo=acc.end.tzinfo)
+            if acc.end < fecha_limite:
+                IStatusMessage(self.request).addStatusMessage(
+                    u"No es pot enviar a signar i desar documentació de sessions anteriors a 01/09/2025 a través d'aquesta funcionalitat. En cas necessari contacta amb Secretaria General",
+                    type="warning"
+                )
+                return self.request.response.redirect(session.absolute_url())
+
         return True
 
     def canModify(self):
