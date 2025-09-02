@@ -62,7 +62,8 @@ class Search(BrowserView):
         lang = api.portal.get_tool('portal_languages').getDefaultLanguage()
         values = portal_catalog.searchResults(
             portal_type=['genweb.organs.organgovern'],
-            path=f'{root_path}/{lang}'
+            path=f'{root_path}/{lang}',
+            sort_on='sortable_title'
         )
         username = api.user.get_current().id
         for obj in values:
