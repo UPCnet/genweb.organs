@@ -212,3 +212,17 @@ table.table-bordered {
     }
   }
 }
+
+#header { 
+
+  .navbar-nav {
+
+    .nav-item {
+      display: none;
+
+      &:first-child {
+        display: block;
+      }
+    }
+  }
+}

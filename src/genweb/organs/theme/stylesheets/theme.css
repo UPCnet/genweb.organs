@@ -295,6 +295,15 @@ table.table-bordered thead th {
   background-color: var(--bs-secondary-bg) !important;
 }
 
+/* line 220, ../scss/_generic.scss */
+#header .navbar-nav .nav-item {
+  display: none;
+}
+/* line 223, ../scss/_generic.scss */
+#header .navbar-nav .nav-item:first-child {
+  display: block;
+}
+
 @media print {
   /* line 3, ../scss/_print.scss */
   body {
