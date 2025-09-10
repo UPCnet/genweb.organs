@@ -27,7 +27,7 @@ import traceback
 
 logger = logging.getLogger(__name__)
 
-TMP_FOLDER = '/Dades/plone/genweb6.buildout/tmp/'
+TMP_FOLDER = '/tmp/'
 
 
 class FirmesMixin(object):
