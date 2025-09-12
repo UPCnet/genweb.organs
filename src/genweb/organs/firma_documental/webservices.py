@@ -40,7 +40,7 @@ class ClientFirma(object):
         self.timeout = timeout
 
     def deleteSerieDocumental(self, unitatDocumental):
-        url = self.settings.gdoc_url + '/api/udch/' + unitatDocumental + '/esborrar?&hash=' + self.settings.gdoc_hash
+        url = self.settings.gdoc_url + '/api/udch/' + unitatDocumental + '/esborrar?fonsId=' + self.settings.gdoc_fons_id + '&hash=' + self.settings.gdoc_hash
         return json.loads(
             self._request('DELETE', url, timeout=self.timeout).content
         )
@@ -56,7 +56,7 @@ class ClientFirma(object):
         )
 
     def createSerieDocumental(self, serie, expedient, titolPropi):
-        url = self.settings.gdoc_url + '/api/serie/' + serie + '/udch?uid=' + self.settings.gdoc_user + '&hash=' + self.settings.gdoc_hash
+        url = self.settings.gdoc_url + '/api/serie/' + serie + '/udch?uid=' + self.settings.gdoc_user + '&fonsId=' + self.settings.gdoc_fons_id + '&hash=' + self.settings.gdoc_hash
         data_exp = {
             'expedient': expedient,
             'titolPropi': titolPropi
@@ -81,7 +81,7 @@ class ClientFirma(object):
 
         fitxer['fitxer'][0] = fitxer['fitxer'][0][:196].strip() + ('...' if len(fitxer['fitxer'][0]) > 196 else '')
 
-        url = self.settings.gdoc_url + '/api/pare/' + str(expedient) + '/doce?uid=' + self.settings.gdoc_user + '&hash=' + self.settings.gdoc_hash
+        url = self.settings.gdoc_url + '/api/pare/' + str(expedient) + '/doce?uid=' + self.settings.gdoc_user + '&fonsId=' + self.settings.gdoc_fons_id + '&hash=' + self.settings.gdoc_hash
         data = {
             'tipusDocumental': "452" if is_acta else '906340',
             'idioma': 'CA',
@@ -95,7 +95,7 @@ class ClientFirma(object):
         )
 
     def getInfoElement(self, idElement):
-        url = self.settings.gdoc_url + '/api/doce/' + str(idElement) + '/consulta?hash=' + self.settings.gdoc_hash
+        url = self.settings.gdoc_url + '/api/doce/' + str(idElement) + '/consulta?fonsId=' + self.settings.gdoc_fons_id + '&hash=' + self.settings.gdoc_hash
         return json.loads(
             self._request('GET', url, timeout=self.timeout).content
         )
