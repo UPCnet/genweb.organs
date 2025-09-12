@@ -40,7 +40,7 @@ class ClientFirma(object):
         self.timeout = timeout
 
     def deleteSerieDocumental(self, unitatDocumental):
-        url = self.settings.gdoc_url + '/api/udch/' + unitatDocumental + '/esborrar?fonsId=' + self.settings.gdoc_fons_id + '?&hash=' + self.settings.gdoc_hash
+        url = self.settings.gdoc_url + '/api/udch/' + unitatDocumental + '/esborrar?fonsId=' + self.settings.gdoc_fons_id + '&hash=' + self.settings.gdoc_hash
         return json.loads(
             self._request('DELETE', url, timeout=self.timeout).content
         )
