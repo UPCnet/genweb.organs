@@ -19,7 +19,7 @@ def is_valid_serie_gdoc(self):
     if organ.visiblegdoc:
         firma_settings = get_settings_firma_documental()
         try:
-            result = requests.get(firma_settings.gdoc_url + '/api/serie/' + organ.serie + '?hash=' + firma_settings.gdoc_hash, timeout=10)
+            result = requests.get(firma_settings.gdoc_url + '/api/serie/' + organ.serie + '?fonsId=' + firma_settings.gdoc_fons_id + '&hash=' + firma_settings.gdoc_hash, timeout=10)
             if result.status_code == 200:
                 return {'visible_gdoc': True,
                         'valid_serie': True,

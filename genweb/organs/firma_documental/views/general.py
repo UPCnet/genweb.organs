@@ -28,7 +28,7 @@ def getCopiaAutentica(self, uuid):
 
 def getGDoc(self, uuid):
     fd_settings = utilsFD.get_settings_firma_documental()
-    result = requests.get(fd_settings.gdoc_url + '/api/documentelectronic/' + uuid + '?uid=' + fd_settings.gdoc_user + '&hash=' + fd_settings.gdoc_hash)
+    result = requests.get(fd_settings.gdoc_url + '/api/documentelectronic/' + uuid + '?fonsId=' + fd_settings.gdoc_fons_id + '&uid=' + fd_settings.gdoc_user + '&hash=' + fd_settings.gdoc_hash)
     if result.status_code == 200:
         return result.content
     else:
