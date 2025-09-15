@@ -1,11 +1,18 @@
 Changelog
 =========
 
-0.74 (unreleased)
+0.74 (2025-09-15)
 -----------------
 
-- Nothing changed yet.
-
+* [FIX] Nuevo campo controlpanel para las peticiones a gdoc [Iago López]
+* [ADD] Nuevo campo controlpanel para las peticiones a gdoc [Iago López]
+* [UPD] Limitar quien puede acceder a la vista de signSessio [Iago López]
+* [UPD] Presentacion permisos [Iago López]
+* [FIX] Permisos [Iago López]
+* [FIX] Permisos [Iago López]
+* [UPD] Mejora presentacion [Iago López]
+* [UPD] Cambio de permisos de los ficheros y documentos [Iago López]
+* [FIX] No se obtenian correctamente de gdoc ficheros con , [Iago]
 
 0.73 (2025-05-26)
 -----------------
