@@ -19,6 +19,10 @@ class IFirmaDocumentalSettings(model.Schema):
     gdoc_hash = schema.TextLine(
         title=_(u'Hash gDOC'),
         required=False)
+        
+    gdoc_fons_id = schema.TextLine(
+        title=_(u'Fons ID gDOC'),
+        required=False)   
 
     codiexpedient_url = schema.TextLine(
         title=_(u'URL Generar codi expedient'),
