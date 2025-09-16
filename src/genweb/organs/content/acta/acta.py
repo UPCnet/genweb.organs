@@ -41,33 +41,50 @@ def get_richtext_content(field_value):
 
 @provider(IContextAwareDefaultFactory)
 def membres_convidats_default_factory(context):
-    return get_richtext_content(context.membresConvidats)
+    parent = getattr(context, 'aq_parent', None) or getattr(context, '__parent__', None)
+    source = getattr(parent, 'membresConvidats', None)
+    return get_richtext_content(source)
 
 @provider(IContextAwareDefaultFactory)
 def membres_convocats_default_factory(context):
-    return get_richtext_content(context.assistents)
+    parent = getattr(context, 'aq_parent', None) or getattr(context, '__parent__', None)
+    source = getattr(parent, 'assistents', None)
+    return get_richtext_content(source)
 
 @provider(IContextAwareDefaultFactory)
 def llista_excuses_default_factory(context):
-    return get_richtext_content(context.llistaExcusats)
+    parent = getattr(context, 'aq_parent', None) or getattr(context, '__parent__', None)
+    source = getattr(parent, 'llistaExcusats', None)
+    return get_richtext_content(source)
 
 @provider(IContextAwareDefaultFactory)
 def llista_no_assistens_default_factory(context):
-    return get_richtext_content(context.noAssistents)
+    parent = getattr(context, 'aq_parent', None) or getattr(context, '__parent__', None)
+    source = getattr(parent, 'noAssistents', None)
+    return get_richtext_content(source)
 
 @provider(IContextAwareDefaultFactory)
 def lloc_convocatoria_default_factory(context):
-    return context.llocConvocatoria
+    parent = getattr(context, 'aq_parent', None) or getattr(context, '__parent__', None)
+    return getattr(parent, 'llocConvocatoria', None)
 
 @provider(IContextAwareDefaultFactory)
 def hora_inici_default_factory(context):
-    acc = IEventAccessor(context)
-    return acc.start
+    parent = getattr(context, 'aq_parent', None) or getattr(context, '__parent__', None)
+    try:
+        acc = IEventAccessor(parent)
+        return acc.start
+    except Exception:
+        return None
 
 @provider(IContextAwareDefaultFactory)
 def hora_fi_default_factory(context):
-    acc = IEventAccessor(context)
-    return acc.end
+    parent = getattr(context, 'aq_parent', None) or getattr(context, '__parent__', None)
+    try:
+        acc = IEventAccessor(parent)
+        return acc.end
+    except Exception:
+        return None
 
 @provider(IContextAwareDefaultFactory)
 def orden_del_dia_default_factory(context):
