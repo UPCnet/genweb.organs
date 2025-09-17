@@ -340,7 +340,10 @@ class ActaPrintView(BrowserView):
         return None
 
     def signatura(self):
-        return self.context.aq_parent.aq_parent.footer
+        footer = self.context.aq_parent.aq_parent.footer
+        if hasattr(footer, 'output'):
+            return footer.output
+        return footer
 
     def getActaContent(self):
         """ Retorna els punt en format text per mostrar a l'ordre
