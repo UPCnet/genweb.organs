@@ -308,65 +308,79 @@
         </div>
 
         <div class="tab-pane fade" id="assistentsTab" tal:condition="hihaPersones">
-          <div class="card mb-3">
-            <div class="card-header">
-              <ul class="nav nav-tabs mb-2 card-header-tabs" id="assistentsTabs" role="tablist">
-                <li class="nav-item" role="presentation" tal:condition="membresConvocats">
-                  <button class="nav-link active" id="tab1primary-tab" data-bs-toggle="tab" data-bs-target="#tab1primary"
-                          type="button" role="tab" aria-controls="tab1primary" aria-selected="true">
-                    <i class="bi bi-people-fill"></i>&nbsp;<tal:omit-tag i18n:translate="">Incoming members list</tal:omit-tag>
-                  </button>
-                </li>
+          <ul class="nav nav-tabs mb-2" id="assistentsTabs" role="tablist">
+            <li class="nav-item" role="presentation" tal:condition="membresConvocats">
+              <button class="nav-link active" id="tab1primary-tab" data-bs-toggle="tab" data-bs-target="#tab1primary"
+                      type="button" role="tab" aria-controls="tab1primary" aria-selected="true">
+                <i class="bi bi-people-fill"></i>&nbsp;<tal:omit-tag i18n:translate="">Incoming members list</tal:omit-tag>
+              </button>
+            </li>
 
-                <li class="nav-item" role="presentation" tal:condition="membresConvidats">
-                  <button class="nav-link" id="tab2primary-tab" data-bs-toggle="tab" data-bs-target="#tab2primary"
-                          type="button" role="tab" aria-controls="tab2primary" aria-selected="false">
-                    <i class="bi bi-person-plus"></i>&nbsp;<tal:omit-tag i18n:translate="">Invited members</tal:omit-tag>
-                  </button>
-                </li>
+            <li class="nav-item" role="presentation" tal:condition="membresConvidats">
+              <button class="nav-link" id="tab2primary-tab" data-bs-toggle="tab" data-bs-target="#tab2primary"
+                      type="button" role="tab" aria-controls="tab2primary" aria-selected="false">
+                <i class="bi bi-person-plus"></i>&nbsp;<tal:omit-tag i18n:translate="">Invited members</tal:omit-tag>
+              </button>
+            </li>
 
-                <li class="nav-item" role="presentation" tal:condition="llistaExcusats">
-                  <button class="nav-link" id="tab3primary-tab" data-bs-toggle="tab" data-bs-target="#tab3primary"
-                          type="button" role="tab" aria-controls="tab3primary" aria-selected="false">
-                    <i class="bi bi-person-x"></i>&nbsp;<tal:omit-tag i18n:translate="">Excused members</tal:omit-tag>
-                  </button>
-                </li>
+            <li class="nav-item" role="presentation" tal:condition="llistaExcusats">
+              <button class="nav-link" id="tab3primary-tab" data-bs-toggle="tab" data-bs-target="#tab3primary"
+                      type="button" role="tab" aria-controls="tab3primary" aria-selected="false">
+                <i class="bi bi-person-x"></i>&nbsp;<tal:omit-tag i18n:translate="">Excused members</tal:omit-tag>
+              </button>
+            </li>
 
-                <li class="nav-item" role="presentation" tal:condition="assistents">
-                  <button class="nav-link" id="tab4primary-tab" data-bs-toggle="tab" data-bs-target="#tab4primary"
-                          type="button" role="tab" aria-controls="tab4primary" aria-selected="false">
-                    <i class="bi bi-person-check"></i>&nbsp;<tal:omit-tag i18n:translate="">Si assistents</tal:omit-tag>
-                  </button>
-                </li>
+            <li class="nav-item" role="presentation" tal:condition="assistents">
+              <button class="nav-link" id="tab4primary-tab" data-bs-toggle="tab" data-bs-target="#tab4primary"
+                      type="button" role="tab" aria-controls="tab4primary" aria-selected="false">
+                <i class="bi bi-person-check"></i>&nbsp;<tal:omit-tag i18n:translate="">Si assistents</tal:omit-tag>
+              </button>
+            </li>
 
-                <li class="nav-item" role="presentation" tal:condition="noAssistents">
-                  <button class="nav-link" id="tab5primary-tab" data-bs-toggle="tab" data-bs-target="#tab5primary"
-                          type="button" role="tab" aria-controls="tab5primary" aria-selected="false">
-                    <i class="bi bi-person-x"></i>&nbsp;<tal:omit-tag i18n:translate="">No assistents</tal:omit-tag>
-                  </button>
-                </li>
-              </ul>
-            </div>
+            <li class="nav-item" role="presentation" tal:condition="noAssistents">
+              <button class="nav-link" id="tab5primary-tab" data-bs-toggle="tab" data-bs-target="#tab5primary"
+                      type="button" role="tab" aria-controls="tab5primary" aria-selected="false">
+                <i class="bi bi-person-x"></i>&nbsp;<tal:omit-tag i18n:translate="">No assistents</tal:omit-tag>
+              </button>
+            </li>
+          </ul>
 
-            <div class="card-body">
-              <div class="tab-content">
-                <div class="tab-pane fade show active" id="tab1primary" role="tabpanel" tal:condition="membresConvocats">
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="tab1primary" role="tabpanel" tal:condition="membresConvocats">
+              <div class="card mt-3">
+                <div class="card-body">
                   <span tal:replace="structure membresConvocats/output"></span>
                 </div>
+              </div>
+            </div>
 
-                <div class="tab-pane fade" id="tab2primary" role="tabpanel" tal:condition="membresConvidats">
+            <div class="tab-pane fade" id="tab2primary" role="tabpanel" tal:condition="membresConvidats">
+              <div class="card mt-3">
+                <div class="card-body">
                   <span tal:replace="structure membresConvidats/output"></span>
                 </div>
+              </div>
+            </div>
 
-                <div class="tab-pane fade" id="tab3primary" role="tabpanel" tal:condition="llistaExcusats">
+            <div class="tab-pane fade" id="tab3primary" role="tabpanel" tal:condition="llistaExcusats">
+              <div class="card mt-3">
+                <div class="card-body">
                   <span tal:replace="structure llistaExcusats/output"></span>
                 </div>
+              </div>
+            </div>
 
-                <div class="tab-pane fade" id="tab4primary" role="tabpanel" tal:condition="assistents">
+            <div class="tab-pane fade" id="tab4primary" role="tabpanel" tal:condition="assistents">
+              <div class="card mt-3">
+                <div class="card-body">
                   <span tal:replace="structure assistents/output"></span>
                 </div>
+              </div>
+            </div>
 
-                <div class="tab-pane fade" id="tab5primary" role="tabpanel" tal:condition="noAssistents">
+            <div class="tab-pane fade" id="tab5primary" role="tabpanel" tal:condition="noAssistents">
+              <div class="card mt-3">
+                <div class="card-body">
                   <span tal:replace="structure noAssistents/output"></span>
                 </div>
               </div>

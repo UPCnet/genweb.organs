@@ -138,38 +138,45 @@
         </div>
       </div>
       <div class="tab-pane fade" id="membres-tab-panel" role="tabpanel" aria-labelledby="membres-tab" tabindex="0">
-        <div class="card" tal:condition="multipleTab">
-          <div class="card-header">
-            <ul id="tabsSessions" class="nav nav-tabs mb-2 card-header-tabs" role="tablist">
-              <li role="presentation" tal:condition="membresOrgan">
-                <button tal:attributes="class string:nav-link${activeClassMembres}" id="tab1primary-tab" data-bs-toggle="tab" data-bs-target="#tab1primary-tab-panel" type="button" role="tab" aria-controls="tab1primary-tab-panel" aria-selected="true" i18n:translate="">Incoming members list</button>
-              </li>
-              <li role="presentation" tal:condition="convidatsPermanentsOrgan">
-                <button tal:attributes="class string:nav-link${activeClassConvidats}" id="tab2primary-tab" data-bs-toggle="tab" data-bs-target="#tab2primary-tab-panel" type="button" role="tab" aria-controls="tab2primary-tab-panel" aria-selected="false" i18n:translate="">Invited members</button>
-              </li>
-            </ul>
-          </div>
-          <div class="card-body">
-            <div class="tab-content" id="tabsSessionContent">
-              <div tal:condition="membresOrgan" tal:attributes="class string:tab-pane fade${activeClassMembresTab}" id="tab1primary-tab-panel" aria-labelledby="tab1primary-tab" tabindex="0">
-                <div class="mt-3">
-                  <span tal:replace="structure membresOrgan/output"></span>
-                </div>
+        <ul id="tabsSessions" class="nav nav-tabs mb-2" role="tablist" tal:condition="multipleTab">
+          <li role="presentation" tal:condition="membresOrgan">
+            <button tal:attributes="class string:nav-link${activeClassMembres}" id="tab1primary-tab" data-bs-toggle="tab" data-bs-target="#tab1primary-tab-panel" type="button" role="tab" aria-controls="tab1primary-tab-panel" aria-selected="true" i18n:translate="">Incoming members list</button>
+          </li>
+          <li role="presentation" tal:condition="convidatsPermanentsOrgan">
+            <button tal:attributes="class string:nav-link${activeClassConvidats}" id="tab2primary-tab" data-bs-toggle="tab" data-bs-target="#tab2primary-tab-panel" type="button" role="tab" aria-controls="tab2primary-tab-panel" aria-selected="false" i18n:translate="">Invited members</button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="tabsSessionContent">
+          <div tal:condition="membresOrgan" tal:attributes="class string:tab-pane fade${activeClassMembresTab}" id="tab1primary-tab-panel" aria-labelledby="tab1primary-tab" tabindex="0">
+            <div class="card mt-3">
+              <div class="card-body">
+                <span tal:replace="structure membresOrgan/output"></span>
               </div>
-              <div tal:condition="convidatsPermanentsOrgan" tal:attributes="class string:tab-pane fade${activeClassConvidatsTab}" id="tab2primary-tab-panel" aria-labelledby="tab2primary-tab" tabindex="0">
-                <div class="mt-3">
-                  <span tal:replace="structure convidatsPermanentsOrgan/output"></span>
-                </div>
+            </div>
+          </div>
+          <div tal:condition="convidatsPermanentsOrgan" tal:attributes="class string:tab-pane fade${activeClassConvidatsTab}" id="tab2primary-tab-panel" aria-labelledby="tab2primary-tab" tabindex="0">
+            <div class="card mt-3">
+              <div class="card-body">
+                <span tal:replace="structure convidatsPermanentsOrgan/output"></span>
               </div>
             </div>
           </div>
         </div>
         <div class="panel with-nav-tabs panel-primary mt-3" tal:condition="not:multipleTab">
           <div tal:condition="membresOrgan" tal:attributes="class string:tab-pane fade${activeClassMembresTab}" id="tab1primary-tab-panel" aria-labelledby="tab1primary-tab" tabindex="0">
-            <span tal:replace="structure membresOrgan/output"></span>
+            <div class="card mt-3">
+              <div class="card-body">
+                <span tal:replace="structure membresOrgan/output"></span>
+              </div>
+            </div>
           </div>
           <div tal:condition="convidatsPermanentsOrgan" tal:attributes="class string:tab-pane fade${activeClassConvidatsTab}" id="tab2primary-tab-panel" aria-labelledby="tab2primary-tab" tabindex="0">
-            <span tal:replace="structure convidatsPermanentsOrgan/output"></span>
+            <div class="card mt-3">
+              <div class="card-body">
+                <span tal:replace="structure convidatsPermanentsOrgan/output"></span>
+              </div>
+            </div>          
           </div>
         </div>
       </div>
