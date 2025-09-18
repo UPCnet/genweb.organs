@@ -5,7 +5,7 @@
       lang="en"
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="genweb.organs">
-  
+
   <head>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
@@ -445,7 +445,7 @@
                 <tal:documents repeat="data loginfo">
                   <tr>
                     <td tal:content="data/dateMail"></td>
-                    <td tal:content="data/message"></td>
+                    <td i18n:translate="" tal:content="data/message"></td>
                     <td tal:content="data/fromMail"></td>
                     <td tal:content="data/toMail"></td>
                   </tr>
@@ -474,7 +474,7 @@
                     <td tal:content="data/date"></td>
                     <td tal:content="data/name"></td>
                     <td tal:content="data/email"></td>
-                    <td tal:content="data/message"></td>
+                    <td i18n:translate="" tal:content="data/message"></td>
                   </tr>
                 </tal:documents>
               </tbody>
@@ -483,7 +483,7 @@
         </div>
 
         <div class="tab-pane fade" id="resultsVotesTab" tal:condition="canViewResultsVote"
-             tal:define="votes getAllResultsVotes; 
+             tal:define="votes getAllResultsVotes;
                          quorums getInfoQuorums;">
           <!-- Tabla de votos -->
           <div class="table-responsive mb-3" tal:condition="votes">
@@ -571,7 +571,7 @@
                     </td>
                   </tr>
                   <tal:block tal:condition="vote/isPublic">
-                    <tr class="openInfo" tal:attributes="data-open string:#${vote/UID}; 
+                    <tr class="openInfo" tal:attributes="data-open string:#${vote/UID};
                                                          id string:vote-${vote/UID}">
                       <td>
                         <tal:block tal:condition="not:vote/isEsmena">
@@ -790,8 +790,8 @@ P Conclusions</code>
               </form>
             </div>
           </div>
-        </div>  
-      </div> 
+        </div>
+      </div>
 
       <!-- MODAL: Nou punt -->
       <div class="modal fade" id="modalPunt" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -905,7 +905,7 @@ P Conclusions</code>
                                   data-modal-title="Confirmar eliminació del número d'acord"
                                   data-modal-body="Estàs segur que vols eliminar el número d'acord?"
                                   data-modal-action="hideAgreement"
-                                  tal:condition="not:item/omitAgreement" 
+                                  tal:condition="not:item/omitAgreement"
                                   tal:attributes="data-item item/absolute_url">
                             <i class="bi bi-arrow-counterclockwise"></i>
                           </button>
@@ -922,7 +922,7 @@ P Conclusions</code>
                                 data-modal-body="Estàs segur que vols eliminar aquest element?"
                                 data-modal-action="delete"
                                 tal:attributes="data-url absolute_url;
-                                                data-item item/id; 
+                                                data-item item/id;
                                                 data-type item/portal_type">
                           <i class="bi bi-trash"></i>
                         </button>
@@ -1011,7 +1011,7 @@ P Conclusions</code>
                               <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                              <li class="openOtherPublicVote" 
+                              <li class="openOtherPublicVote"
                                   tal:attributes="data-id string:${absolute_url}/${item/id};
                                                   data-title getTitlePrompt;
                                                   data-error getErrorPrompt;">
@@ -1090,7 +1090,7 @@ P Conclusions</code>
                     <div class="puntTitle col-12 d-flex flex-nowrap align-items-baseline"
                          tal:attributes="id string:punt-${item/id}">
                       <div class="fletxaSpan me-2 w-3">
-                        <button type="button" class="btn px-0 py-0 btn-expand-collapse collapsed" 
+                        <button type="button" class="btn px-0 py-0 btn-expand-collapse collapsed"
                                 tal:condition="contenidos"
                                 data-bs-toggle="collapse"
                                 tal:attributes="data-bs-target string:#collapse-${item/id}"
@@ -1106,8 +1106,8 @@ P Conclusions</code>
                       </div>
 
                       <div class="titleSpan me-2 w-72">
-                        <a tal:attributes="data-id item/id; 
-                                          href item/absolute_url" 
+                        <a tal:attributes="data-id item/id;
+                                          href item/absolute_url"
                           data-url="changeTitle"
                           class="editTitle titleSize text-dark">
                           <tal:omit-tag tal:content="item/title">Item Title</tal:omit-tag>
@@ -1140,7 +1140,7 @@ P Conclusions</code>
                         <span class="col-1"></span>
                         <div class="col-11 row">
                           <div class="col-4" tal:condition="not:item/favorVote">
-                            <a class="btn btn-outline-primary btn-notvote favor w-100" 
+                            <a class="btn btn-outline-primary btn-notvote favor w-100"
                                 tal:attributes="data-id string:${absolute_url}/${item/id}"
                                 i18n:translate="">A favor</a>
                           </div>
@@ -1148,15 +1148,15 @@ P Conclusions</code>
                             <a class="btn btn-primary disabled w-100" i18n:translate="">A favor</a>
                           </div>
                           <div class="col-4" tal:condition="not:item/againstVote">
-                            <a class="btn btn-outline-primary btn-notvote against w-100" 
+                            <a class="btn btn-outline-primary btn-notvote against w-100"
                                 tal:attributes="data-id string:${absolute_url}/${item/id}"
                                 i18n:translate="">En contra</a>
                           </div>
-                          <div class="col-4" tal:condition="item/againstVote"> 
+                          <div class="col-4" tal:condition="item/againstVote">
                             <a class="btn btn-primary disabled w-100" i18n:translate="">En contra</a>
                           </div>
                           <div class="col-4" tal:condition="not:item/whiteVote">
-                            <a class="btn btn-outline-primary btn-notvote white w-100" 
+                            <a class="btn btn-outline-primary btn-notvote white w-100"
                                 tal:attributes="data-id string:${absolute_url}/${item/id}"
                                 i18n:translate="">En blanc</a>
                           </div>
@@ -1169,7 +1169,7 @@ P Conclusions</code>
                         <span class="col-1"></span>
                         <div class="col-11 row">
                           <div class="col-4" tal:condition="not:item/favorVote">
-                            <a class="btn btn-outline-primary btn-notvote favor w-100" 
+                            <a class="btn btn-outline-primary btn-notvote favor w-100"
                                 tal:attributes="data-id string:${absolute_url}/${item/canRecloseVote}"
                                 i18n:translate="">A favor</a>
                           </div>
@@ -1177,7 +1177,7 @@ P Conclusions</code>
                             <a class="btn btn-primary disabled w-100" i18n:translate="">A favor</a>
                           </div>
                           <div class="col-4" tal:condition="not:item/againstVote">
-                            <a class="btn btn-outline-primary btn-notvote against w-100" 
+                            <a class="btn btn-outline-primary btn-notvote against w-100"
                                 tal:attributes="data-id string:${absolute_url}/${item/canRecloseVote}"
                                 i18n:translate="">En contra</a>
                           </div>
@@ -1185,7 +1185,7 @@ P Conclusions</code>
                             <a class="btn btn-primary disabled w-100" i18n:translate="">En contra</a>
                           </div>
                           <div class="col-4" tal:condition="not:item/whiteVote">
-                            <a class="btn btn-outline-primary btn-notvote white w-100" 
+                            <a class="btn btn-outline-primary btn-notvote white w-100"
                                 tal:attributes="data-id string:${absolute_url}/${item/canRecloseVote}"
                                 i18n:translate="">En blanc</a>
                           </div>
@@ -1196,8 +1196,8 @@ P Conclusions</code>
                       </div>
                     </tal:block>
 
-                    <div class="collapse multi-collapse-points" 
-                        tal:attributes="id string:collapse-${item/id}" 
+                    <div class="collapse multi-collapse-points"
+                        tal:attributes="id string:collapse-${item/id}"
                         tal:condition="contenidos">
                       <tal:files tal:condition="files">
                         <ul class="listFiles list-unstyled">
@@ -1205,7 +1205,7 @@ P Conclusions</code>
                             <li class="filesinTable w-100 mt-2">
                               <div class="titleSpan">
                                 <i tal:attributes="class string:${file_item/classCSS} me-1"></i>
-                                <a tal:attributes="href file_item/absolute_url;" 
+                                <a tal:attributes="href file_item/absolute_url;"
                                   tal:condition="file_item/new_tab"
                                   target="_blank"
                                   class="text-dark">
@@ -1226,7 +1226,7 @@ P Conclusions</code>
                                           data-modal-body="Estàs segur que vols eliminar aquest element?"
                                           data-modal-action="delete"
                                           tal:attributes="data-url absolute_url;
-                                                          data-item file_item/id; 
+                                                          data-item file_item/id;
                                                           data-type file_item/portal_type">
                                     <i class="bi bi-trash" aria-hidden="true"></i>
                                   </button>
@@ -1239,9 +1239,9 @@ P Conclusions</code>
 
                       <div tal:condition="subpunts" class="sortable2">
                         <tal:subpunts repeat="itemSubpunt subpunts">
-                          <div class="li_subgrups row mt-2 justify-content-end" 
+                          <div class="li_subgrups row mt-2 justify-content-end"
                                tal:attributes="id itemSubpunt/id;
-                                               data-url absolute_url" 
+                                               data-url absolute_url"
                                tal:define="agreement itemSubpunt/agreement;
                                            itemSubpunt_id itemSubpunt/id;
                                            isAcord itemSubpunt/isAcord">
@@ -1273,14 +1273,14 @@ P Conclusions</code>
                                           data-modal-body="Estàs segur que vols eliminar aquest element?"
                                           data-modal-action="delete"
                                           tal:attributes="data-url absolute_url;
-                                                          data-item itemSubpunt_id; 
+                                                          data-item itemSubpunt_id;
                                                           data-type itemSubpunt/portal_type">
                                     <i class="bi bi-trash"></i>
                                   </button>
                                 </div>
-                                
+
                                 <div class="btn-group" role="group" style="float: right;" aria-label="Add element">
-                                  <button class="badge btn btn-outline-secondary fs-xxxs px-2 py-2 text-dark dropdown-toggle" 
+                                  <button class="badge btn btn-outline-secondary fs-xxxs px-2 py-2 text-dark dropdown-toggle"
                                           type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     +
                                     <span class="caret"></span>
@@ -1342,7 +1342,7 @@ P Conclusions</code>
                                         <span class="caret"></span>
                                       </button>
                                       <ul class="dropdown-menu" role="menu" aria-labelledby="types">
-                                        <li class="openOtherPublicVote" 
+                                        <li class="openOtherPublicVote"
                                             tal:attributes="data-id string:${absolute_url}/${itemSubpunt/id};
                                                             data-title getTitlePrompt;
                                                             data-error getErrorPrompt;">
@@ -1383,7 +1383,7 @@ P Conclusions</code>
                                       </ul>
                                     </div>
 
-                                    <div class="btn-group votes" role="group" 
+                                    <div class="btn-group votes" role="group"
                                          aria-label="Close vote" tal:condition="itemSubpunt/canRecloseVote">
                                       <button class="badge btn btn-outline-secondary fs-xxxs px-2 py-2 text-dark dropdown-toggle" type="button"
                                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -1420,13 +1420,13 @@ P Conclusions</code>
                             <div class="subpuntTitle col-12 d-flex flex-nowrap align-items-baseline"
                                  tal:attributes="id string:subpunt-${itemSubpunt/id}">
                               <div class="numberSpan me-2 w-5">
-                                <span class="proposalNumberSubpunt text-primary fw-bold" 
+                                <span class="proposalNumberSubpunt text-primary fw-bold"
                                       tal:content="itemSubpunt/proposalPoint"></span>
                               </div>
                               <div class="titleSpan me-2 w-75">
-                                <a tal:attributes="data-id itemSubpunt_id; 
+                                <a tal:attributes="data-id itemSubpunt_id;
                                                    href itemSubpunt/absolute_url"
-                                   data-type="text" data-url="changeTitle" 
+                                   data-type="text" data-url="changeTitle"
                                    class="editTitle subtitleSize text-dark">
                                   <tal:omit-tag tal:content="itemSubpunt/title">Item Title</tal:omit-tag>
                                 </a>
@@ -1457,7 +1457,7 @@ P Conclusions</code>
                                 <span class="col-1"></span>
                                 <div class="col-11 hasVote row">
                                   <div class="col-4" tal:condition="not:itemSubpunt/favorVote">
-                                    <a class="btn btn-outline-primary btn-notvote favord w-100" 
+                                    <a class="btn btn-outline-primary btn-notvote favord w-100"
                                         tal:attributes="data-id string:${absolute_url}/${itemSubpunt_id}"
                                         i18n:translate="">A favor</a>
                                   </div>
@@ -1465,7 +1465,7 @@ P Conclusions</code>
                                     <a class="btn btn-primary disabled w-100 disabled w-100" i18n:translate="">A favor</a>
                                   </div>
                                   <div class="col-4" tal:condition="not:itemSubpunt/againstVote">
-                                    <a class="btn btn-outline-primary btn-notvote againstd w-100" 
+                                    <a class="btn btn-outline-primary btn-notvote againstd w-100"
                                       tal:attributes="data-id string:${absolute_url}/${itemSubpunt_id}"
                                       i18n:translate="">En contra</a>
                                   </div>
@@ -1473,7 +1473,7 @@ P Conclusions</code>
                                     <a class="btn btn-primary disabled w-100" i18n:translate="">En contra</a>
                                   </div>
                                   <div class="col-4" tal:condition="not:itemSubpunt/whiteVote">
-                                    <a class="btn btn-outline-primary btn-notvote whited w-100" 
+                                    <a class="btn btn-outline-primary btn-notvote whited w-100"
                                       tal:attributes="data-id string:${absolute_url}/${itemSubpunt_id}"
                                       i18n:translate="">En blanc</a>
                                   </div>
@@ -1518,13 +1518,13 @@ P Conclusions</code>
                                 <tal:documents repeat="item files">
                                   <li class="filesinTable w-100 mt-2">
                                     <i tal:attributes="class string:${item/classCSS} me-1"></i>
-                                    <a tal:attributes="href item/absolute_url;" 
+                                    <a tal:attributes="href item/absolute_url;"
                                         tal:condition="item/new_tab"
                                         target="_blank"
                                         class="text-dark">
                                       <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                                     </a>
-                                    <a tal:attributes="href item/absolute_url;" 
+                                    <a tal:attributes="href item/absolute_url;"
                                         tal:condition="not:item/new_tab"
                                         class="text-dark">
                                       <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
@@ -1539,7 +1539,7 @@ P Conclusions</code>
                                               data-modal-body="Estàs segur que vols eliminar aquest element?"
                                               data-modal-action="delete"
                                               tal:attributes="data-url absolute_url;
-                                                              data-item item/id; 
+                                                              data-item item/id;
                                                               data-type item/portal_type">
                                       <i class="bi bi-trash" aria-hidden="true"></i></button>
                                     </div>
@@ -1561,14 +1561,14 @@ P Conclusions</code>
     </div>
 
     <script type="text/javascript"
-            src="++theme++genweb.organs/js/jquery-ui.min.js"></script>    
+            src="++theme++genweb.organs/js/jquery-ui.min.js"></script>
 
     <script type="text/javascript"
-            src="++theme++genweb.organs/js/content/sessio.min.js"></script>    
+            src="++theme++genweb.organs/js/content/sessio.min.js"></script>
 
     <script type="text/javascript"
             src="++theme++genweb.organs/js/content/sessio_modify.min.js"
-            tal:condition="canModify"></script>    
+            tal:condition="canModify"></script>
 
     <script type="text/javascript"
             src="++theme++genweb.organs/js/content/sessio_quorum_manage.min.js"
