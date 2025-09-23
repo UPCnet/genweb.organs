@@ -75,7 +75,8 @@ def hora_inici_default_factory(context):
         acc = IEventAccessor(parent)
         return acc.start
     except Exception:
-        return None
+        acc = IEventAccessor(context)
+        return acc.start
 
 @provider(IContextAwareDefaultFactory)
 def hora_fi_default_factory(context):
@@ -84,7 +85,8 @@ def hora_fi_default_factory(context):
         acc = IEventAccessor(parent)
         return acc.end
     except Exception:
-        return None
+        acc = IEventAccessor(context)
+        return acc.end
 
 @provider(IContextAwareDefaultFactory)
 def orden_del_dia_default_factory(context):
@@ -260,7 +262,10 @@ def Punts2Acta(context):
     for obj in values:
         value = obj._unrestrictedGetObject()
         title = escape(safe_unicode(obj.Title))
-        proposal_point = escape(safe_unicode(value.proposalPoint))
+        try:
+            proposal_point = escape(safe_unicode(value.proposalPoint))
+        except:
+            proposal_point = str(value.proposalPoint)
         agreement_text = ''
 
         if value.portal_type == 'genweb.organs.acord':
