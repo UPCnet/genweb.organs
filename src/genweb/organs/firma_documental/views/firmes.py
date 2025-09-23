@@ -27,7 +27,7 @@ import traceback
 
 logger = logging.getLogger(__name__)
 
-TMP_FOLDER = '/tmp/'
+TMP_FOLDER = os.environ.get('TMPFOLDER', '/tmp/')
 
 
 class FirmesMixin(object):
@@ -263,7 +263,7 @@ class SignActa(BrowserView, FirmesMixin):
     def generateActaPDF(self):
         options = {'cookie': [('__ac', self.request.cookies['__ac']),
                               ('I18N_LANGUAGE', self.request.cookies.get('I18N_LANGUAGE', 'ca'))]}
-        pdfkit.from_url(self.context.absolute_url() + '/printActa', TMP_FOLDER + self.context.id + '.pdf', options=options)
+        pdfkit.from_url(self.context.absolute_url() + '/printActa', TMP_FOLDER + self.context.id + '.pdf', options=options, verbose=True)
         return open(TMP_FOLDER + self.context.id + '.pdf', 'rb')
 
     def removeActaPDF(self):
@@ -276,7 +276,7 @@ class SignActa(BrowserView, FirmesMixin):
         options = {'cookie': [('__ac', self.request.cookies['__ac']),
                               ('I18N_LANGUAGE', self.request.cookies.get('I18N_LANGUAGE', 'ca'))]}
         _filename = filename.replace('/', ' ')
-        pdfkit.from_url(document.absolute_url() + '/printDocument?visibility=' + visibility, TMP_FOLDER + _filename, options=options)
+        pdfkit.from_url(document.absolute_url() + '/printDocument?visibility=' + visibility, TMP_FOLDER + _filename, options=options, verbose=True)
         return open(TMP_FOLDER + _filename, 'rb')
 
     def removeDocumentPDF(self, filename):
