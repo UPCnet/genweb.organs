@@ -387,7 +387,7 @@
         </div>
       </div>
 
-      <div id="actaTab" class="tab-pane" tal:condition="not:acta">
+      <div id="actaTab" tal:attributes="class python: 'tab-pane' + ('' if hihaDocs else ' active')" tal:condition="not:acta">
         <div class="alert alert-warning" role="alert">
           <strong i18n:translate="">Alerta</strong>
           <span i18n:translate="">Encara no s'ha generat cap acta per signar.</span>
