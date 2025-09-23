@@ -262,7 +262,6 @@ class Edit(edit.DefaultEditForm):
             self.groups[0].fields.get('noAssistents').mode = DISPLAY_MODE
             self.groups[1].fields.get('adrecaAfectatsLlista').mode = DISPLAY_MODE
         else:
-            import ipdb; ipdb.set_trace()
             self.groups[1].fields.get('infoAfectats').mode = HIDDEN_MODE
             self.groups[0].fields.get('infoAssistents').mode = HIDDEN_MODE
 
