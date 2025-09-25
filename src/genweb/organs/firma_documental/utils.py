@@ -60,11 +60,11 @@ class UtilsFirmaDocumental():
         info_firma = getattr(self.context, 'info_firma', None)
         if info_firma:
             if not isinstance(info_firma, dict):
-            try:
-                info_firma = ast.literal_eval(info_firma)
-            except:
-                info_firma = json.loads(info_firma)
-                self.context.info_firma = info_firma
+                try:
+                    info_firma = ast.literal_eval(info_firma)
+                except:
+                    info_firma = json.loads(info_firma)
+                    self.context.info_firma = info_firma
 
             return 'unitatDocumental' in info_firma and 'enviatASignar' in info_firma and info_firma['enviatASignar']
         else:
