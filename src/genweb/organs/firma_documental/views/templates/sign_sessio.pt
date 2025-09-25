@@ -248,7 +248,9 @@
         </div>
       </div>
 
-      <div id="actaTab" tal:attributes="class python: 'tab-pane' + ('' if hihaDocs else ' active')" tal:condition="acta">
+      <div id="actaTab" 
+           tal:condition="exists:acta"
+           tal:attributes="class python: 'tab-pane' + ('' if hihaDocs else ' active')">
         <div tal:define="ordenDelDia acta/ordenDelDia;
                          audio python:view.AudioInsideActa(acta);
                          annexes python:view.AnnexInsideActa(acta);
@@ -387,7 +389,9 @@
         </div>
       </div>
 
-      <div id="actaTab" tal:attributes="class python: 'tab-pane' + ('' if hihaDocs else ' active')" tal:condition="not:acta">
+      <div id="actaTab" 
+           tal:attributes="class python: 'tab-pane' + ('' if hihaDocs else ' active')" 
+           tal:condition="exists:not:acta">
         <div class="alert alert-warning" role="alert">
           <strong i18n:translate="">Alerta</strong>
           <span i18n:translate="">Encara no s'ha generat cap acta per signar.</span>
