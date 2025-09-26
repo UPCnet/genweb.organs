@@ -295,7 +295,8 @@ class SignSessioView(BrowserView, utilsFD.UtilsFirmaDocumental):
             portal_type=['genweb.organs.acta'],
             path={'query': folder_path, 'depth': 1},
             sort_on='created',
-            sort_order='reverse')
+            sort_order='reverse',
+            sort_limit=1)
         if values:
             return values[0].getObject()
         else:
