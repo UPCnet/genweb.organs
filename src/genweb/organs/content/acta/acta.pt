@@ -52,10 +52,10 @@
 
     <!-- Estat firma -->
     <div tal:condition="hasFirma" class="mb-3">
-      <span tal:define="estat view/estatFirma" 
+      <span tal:define="estatFirma view/estatFirma" 
             tal:attributes="class string:badge rounded-pill text-bg-${estatFirma/class}">
         <tal:block i18n:translate="">Acta: </tal:block>
-        <tal:block tal:replace="estat/text">PENDENT_SIGNANTS</tal:block>
+        <tal:block tal:replace="estatFirma/text">PENDENT_SIGNANTS</tal:block>
       </span>
     </div>
 
