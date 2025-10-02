@@ -1,4 +1,5 @@
 $("#acords-tab").on("click", function(){
+  $('.spinner-acords-tab').removeClass('d-none');
   $.ajax({
     type: 'GET',
     url: $(location).attr('href') + '/getAcordsOrgangovern',
@@ -30,12 +31,14 @@ $("#acords-tab").on("click", function(){
         acordHTML += '</tr>';
         $("#acordsTbody").append(acordHTML)
       });
+      $('.spinner-acords-tab').addClass('d-none');
     },
   })
   $("#acords-tab").unbind("click");
 });
 
 $("#actes-tab").on("click", function(){
+  $('.spinner-actas-tab').removeClass('d-none');
   $.ajax({
     type: 'GET',
     url: $(location).attr('href') + '/getActesOrgangovern',
@@ -60,6 +63,7 @@ $("#actes-tab").on("click", function(){
 
         $("#actesTbody").append(actaHTML)
       });
+      $('.spinner-actas-tab').addClass('d-none');
     },
   })
   $("#actes-tab").unbind("click");

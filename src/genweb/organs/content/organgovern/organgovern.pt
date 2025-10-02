@@ -201,6 +201,11 @@
 
               </tbody>
             </table>
+            <div class="spinner-acords-tab spinner-block position-fixed top-0 start-0 vw-100 vh-100 d-flex justify-content-center align-items-center bg-dark bg-opacity-25 d-none">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="btn-export-acords text-center" tal:condition="expAcords">
@@ -225,6 +230,11 @@
 
               </tbody>
             </table>
+            <div class="spinner-actas-tab spinner-block position-fixed top-0 start-0 vw-100 vh-100 d-flex justify-content-center align-items-center bg-dark bg-opacity-25 d-none">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
