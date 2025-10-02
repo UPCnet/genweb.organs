@@ -6,7 +6,6 @@ $(document).ready(function(){
       type: 'POST',
       url: $(this).data('url') + '/reopenVote',
       success: function (result) {
-        result = $.parseJSON(result);
         if (result.status !== "success") { alert(result.msg); }
         setTimeout(() => window.location.reload(), 500);
       },
