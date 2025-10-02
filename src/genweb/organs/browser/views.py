@@ -961,7 +961,7 @@ class ReorderSessions(BrowserView):
             if api.content.get_state(obj=ses) == 'planificada':
                 ses.numSessio = num_sessio
                 # then, update acords from the session with the same num
-                for acord in ses.getChildNodes():
+                for acord in ses.objectValues():
                     if acord.getPortalTypeName() == 'genweb.organs.acord':
                         if acord.agreement:
                             aux = acord.agreement.split('/')
