@@ -111,7 +111,10 @@ def hasFirmaActa(acta):
     info_firma = getattr(acta, 'info_firma', None)
     if info_firma:
         if not isinstance(info_firma, dict):
-            info_firma = ast.literal_eval(info_firma)
+            try:
+                info_firma = json.loads(info_firma)
+            except:
+                info_firma = ast.literal_eval(info_firma)
             acta.info_firma = info_firma
 
         return 'unitatDocumental' in info_firma and 'enviatASignar' in info_firma and info_firma['enviatASignar']
