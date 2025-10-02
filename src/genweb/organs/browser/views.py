@@ -635,8 +635,12 @@ class allSessions(BrowserView):
             bypassing security permissions """
 
         today = DateTime.DateTime()   # Today
-        date_previous_events = {'query': (today), 'range': 'max'}
-        date_future_events = {'query': (today), 'range': 'min'}
+
+        first_day_year = DateTime.DateTime(today.year(), 1, 1)
+        date_previous_events = {'query': (first_day_year, today), 'range': 'min:max'}
+
+        last_day_year = DateTime.DateTime(today.year(), 12, 31, 23, 59, 59)
+        date_future_events = {'query': (today, last_day_year), 'range': 'min:max'}
 
         portal_catalog = api.portal.get_tool(name='portal_catalog')
 
@@ -654,24 +658,22 @@ class allSessions(BrowserView):
             end=date_future_events
         )
         past = []
-        current_year = datetime.datetime.now().strftime('%Y')
         for session in previous_sessions:
             obj = session._unrestrictedGetObject()
             roles = utils.getUserRoles(self, obj, api.user.get_current().id)
             if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles) or obj.aq_parent.visiblefields:
                 event = IEventAccessor(obj)
-                if obj.start.strftime('%Y') == current_year:
-                    startDate = event.start.strftime('%d/%m/%Y')
-                    endDate = event.end.strftime('%d/%m/%Y')
-                    past.append(dict(
-                        id=obj.aq_parent.id,
-                        title=obj.aq_parent.title,
-                        date=startDate if startDate == endDate else startDate + " " + endDate,
-                        start=event.start.strftime('%H:%M'),
-                        end=event.end.strftime('%H:%M'),
-                        dateiso=event.start.strftime('%Y%m%d'),
-                        url=session.getPath(),
-                        breakline=obj.aq_parent.id=='ple-del-consell-social'))
+                startDate = event.start.strftime('%d/%m/%Y')
+                endDate = event.end.strftime('%d/%m/%Y')
+                past.append(dict(
+                    id=obj.aq_parent.id,
+                    title=obj.aq_parent.title,
+                    date=startDate if startDate == endDate else startDate + " " + endDate,
+                    start=event.start.strftime('%H:%M'),
+                    end=event.end.strftime('%H:%M'),
+                    dateiso=event.start.strftime('%Y%m%d'),
+                    url=session.getPath(),
+                    breakline=obj.aq_parent.id=='ple-del-consell-social'))
 
         future = []
         current_year = datetime.datetime.now().strftime('%Y')
@@ -680,18 +682,17 @@ class allSessions(BrowserView):
             roles = utils.getUserRoles(self, obj, api.user.get_current().id)
             if utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles) or obj.aq_parent.visiblefields:
                 event = IEventAccessor(obj)
-                if obj.start.strftime('%Y') == current_year:
-                    startDate = event.start.strftime('%d/%m/%Y')
-                    endDate = event.end.strftime('%d/%m/%Y')
-                    future.append(dict(
-                        id=obj.aq_parent.id,
-                        title=obj.aq_parent.title,
-                        date=startDate if startDate == endDate else startDate + " " + endDate,
-                        start=event.start.strftime('%H:%M'),
-                        end=event.end.strftime('%H:%M'),
-                        dateiso=event.start.strftime('%Y%m%d'),
-                        url=session.getPath(),
-                        breakline=obj.aq_parent.id=='ple-del-consell-social'))
+                startDate = event.start.strftime('%d/%m/%Y')
+                endDate = event.end.strftime('%d/%m/%Y')
+                future.append(dict(
+                    id=obj.aq_parent.id,
+                    title=obj.aq_parent.title,
+                    date=startDate if startDate == endDate else startDate + " " + endDate,
+                    start=event.start.strftime('%H:%M'),
+                    end=event.end.strftime('%H:%M'),
+                    dateiso=event.start.strftime('%Y%m%d'),
+                    url=session.getPath(),
+                    breakline=obj.aq_parent.id=='ple-del-consell-social'))
         return dict(
             future=sorted(future, key=itemgetter('dateiso'), reverse=False),
             past=sorted(past, key=itemgetter('dateiso'), reverse=False))
