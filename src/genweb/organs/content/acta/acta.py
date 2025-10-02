@@ -15,6 +15,7 @@ from zope import schema
 from plone.supermodel import model
 from zope.schema.interfaces import IContextAwareDefaultFactory
 from zope.interface import provider
+from zope.component import ComponentLookupError
 from plone.app.textfield import RichText as RichTextField
 
 from genweb.organs import _
@@ -29,9 +30,12 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 # Define las funciones defaultFactory para cada campo
+
+
 @provider(IContextAwareDefaultFactory)
 def title_default_factory(context):
     return 'Acta - ' + context.Title()
+
 
 def get_richtext_content(field_value):
     """Safely get content from a RichText or Text field."""
@@ -39,11 +43,13 @@ def get_richtext_content(field_value):
         return field_value.raw
     return field_value or ''
 
+
 @provider(IContextAwareDefaultFactory)
 def membres_convidats_default_factory(context):
     parent = getattr(context, 'aq_parent', None) or getattr(context, '__parent__', None)
     source = getattr(parent, 'membresConvidats', None)
     return get_richtext_content(source)
+
 
 @provider(IContextAwareDefaultFactory)
 def membres_convocats_default_factory(context):
@@ -51,11 +57,13 @@ def membres_convocats_default_factory(context):
     source = getattr(parent, 'assistents', None)
     return get_richtext_content(source)
 
+
 @provider(IContextAwareDefaultFactory)
 def llista_excuses_default_factory(context):
     parent = getattr(context, 'aq_parent', None) or getattr(context, '__parent__', None)
     source = getattr(parent, 'llistaExcusats', None)
     return get_richtext_content(source)
+
 
 @provider(IContextAwareDefaultFactory)
 def llista_no_assistens_default_factory(context):
@@ -63,30 +71,60 @@ def llista_no_assistens_default_factory(context):
     source = getattr(parent, 'noAssistents', None)
     return get_richtext_content(source)
 
+
 @provider(IContextAwareDefaultFactory)
 def lloc_convocatoria_default_factory(context):
     parent = getattr(context, 'aq_parent', None) or getattr(context, '__parent__', None)
     return getattr(parent, 'llocConvocatoria', None)
 
+
 @provider(IContextAwareDefaultFactory)
 def hora_inici_default_factory(context):
+    """Obtener hora de inicio del contexto padre (sessió).
+
+    Durante la creación o migración, si no hay parent válido,
+    retorna None.
+    """
     parent = getattr(context, 'aq_parent', None) or getattr(context, '__parent__', None)
+    if parent is None:
+        return None
+
     try:
         acc = IEventAccessor(parent)
         return acc.start
-    except Exception:
-        acc = IEventAccessor(context)
-        return acc.start
+    except (TypeError, ComponentLookupError):
+        # Si el parent no es IEventAccessor, intentar con context
+        try:
+            acc = IEventAccessor(context)
+            return acc.start
+        except (TypeError, ComponentLookupError):
+            # Si tampoco funciona, retornar None
+            return None
+
 
 @provider(IContextAwareDefaultFactory)
 def hora_fi_default_factory(context):
+    """Obtener hora de fin del contexto padre (sessió).
+
+    Durante la creación o migración, si no hay parent válido,
+    retorna None.
+    """
     parent = getattr(context, 'aq_parent', None) or getattr(context, '__parent__', None)
+    if parent is None:
+        return None
+
     try:
         acc = IEventAccessor(parent)
         return acc.end
-    except Exception:
-        acc = IEventAccessor(context)
-        return acc.end
+    except (TypeError, ComponentLookupError):
+        # Si el parent no es IEventAccessor, intentar con context
+        try:
+            acc = IEventAccessor(context)
+            return acc.end
+        except (TypeError, ComponentLookupError):
+            # Si tampoco funciona, retornar None
+            return None
+
 
 @provider(IContextAwareDefaultFactory)
 def orden_del_dia_default_factory(context):
@@ -102,10 +140,8 @@ class IActa(model.Schema):
                      'ordenDelDia', 'enllacVideo', 'acta']
              )
 
-    fieldset('assistents',
-             label=_(u'Assistents'),
-             fields=['membresConvocats', 'membresConvidats', 'llistaExcusats', 'llistaNoAssistens']
-             )
+    fieldset('assistents', label=_(u'Assistents'), fields=[
+             'membresConvocats', 'membresConvidats', 'llistaExcusats', 'llistaNoAssistens'])
 
     textindexer.searchable('title')
     title = schema.TextLine(
@@ -174,9 +210,9 @@ class IActa(model.Schema):
 
     enllacVideo = schema.TextLine(
         title=_(u"Video link"),
-        description=_(u"If you want to add a video file, not a url, there is a trick, you must add an Audio Type and leave this field empty."),
-        required=False,
-    )
+        description=_(
+            u"If you want to add a video file, not a url, there is a trick, you must add an Audio Type and leave this field empty."),
+        required=False,)
 
     directives.omitted('acta')
     acta = NamedBlobFile(
@@ -292,11 +328,13 @@ def Punts2Acta(context):
 
                 if subpunt.portal_type == 'genweb.organs.acord':
                     if subpunt.agreement:
-                        sub_agreement_text = f' [Acord {escape(safe_unicode(subpunt.agreement))}]'
+                        agreement_value = escape(safe_unicode(subpunt.agreement))
+                        sub_agreement_text = f' [Acord {agreement_value}]'
                     elif not getattr(subpunt, 'omitAgreement', False):
                         sub_agreement_text = f' [{_("Acord sense numerar")}]'
 
-                results.append(f'<p style="padding-left: 30px;">{sub_proposal_point}. {sub_title}{sub_agreement_text}</p>')
+                results.append(
+                    f'<p style="padding-left: 30px;">{sub_proposal_point}. {sub_title}{sub_agreement_text}</p>')
 
     results.append('</div>')
     return ''.join(results)
@@ -322,7 +360,9 @@ class View(BrowserView, UtilsFirmaDocumental):
         estatSessio = utils.session_wf_state(self)
         organ_tipus = self.context.organType
 
-        if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
+        if estatSessio == 'planificada' and utils.checkhasRol(
+            ['OG1-Secretari', 'OG2-Editor'],
+                roles):
             return True
         elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
             return True
@@ -383,10 +423,14 @@ class View(BrowserView, UtilsFirmaDocumental):
                 results = []
                 for pos in self.context.info_firma['audios']:
                     audio = self.context.info_firma['audios'][pos]
-                    results.append(dict(title=audio['title'],
-                                        absolute_url=self.context.absolute_url() + '/viewAudio?pos=' + str(pos),
-                                        download_url=self.context.absolute_url() + '/downloadAudio?pos=' + str(pos),
-                                        content_type=audio['contentType']))
+                    results.append(
+                        dict(
+                            title=audio['title'],
+                            absolute_url=self.context.absolute_url() +
+                            '/viewAudio?pos=' + str(pos),
+                            download_url=self.context.absolute_url() +
+                            '/downloadAudio?pos=' + str(pos),
+                            content_type=audio['contentType']))
                 return results
 
         return False
@@ -406,22 +450,28 @@ class View(BrowserView, UtilsFirmaDocumental):
                 results = []
                 for obj in values:
                     annex = obj.getObject().file
-                    results.append(dict(title=obj.Title,
-                                        absolute_url=obj.getURL(),
-                                        download_url=self.context.absolute_url() + '/@@download/file/' + annex.filename,
-                                        filename=annex.filename,
-                                        sizeKB=annex.getSize() / 1024))
+                    results.append(
+                        dict(
+                            title=obj.Title, absolute_url=obj.getURL(),
+                            download_url=self.context.absolute_url() +
+                            '/@@download/file/' + annex.filename,
+                            filename=annex.filename, sizeKB=annex.getSize() /
+                            1024))
                 return results
         else:
             if 'adjunts' in self.context.info_firma and self.context.info_firma['adjunts']:
                 results = []
                 for pos in self.context.info_firma['adjunts']:
                     annex = self.context.info_firma['adjunts'][pos]
-                    results.append(dict(title=annex['title'],
-                                        absolute_url=self.context.absolute_url() + '/viewFile?pos=' + str(pos),
-                                        download_url=self.context.absolute_url() + '/downloadFile?pos=' + str(pos),
-                                        filename=annex['filename'],
-                                        sizeKB=annex['sizeKB']))
+                    results.append(
+                        dict(
+                            title=annex['title'],
+                            absolute_url=self.context.absolute_url() +
+                            '/viewFile?pos=' + str(pos),
+                            download_url=self.context.absolute_url() +
+                            '/downloadFile?pos=' + str(pos),
+                            filename=annex['filename'],
+                            sizeKB=annex['sizeKB']))
                 return results
 
         return False
@@ -444,6 +494,7 @@ class View(BrowserView, UtilsFirmaDocumental):
         if self.hasFirma() and estat_firma.lower() == 'signada':
             return True
         return False
+
 
 class Edit(form.EditForm):
     """A standard edit form.
