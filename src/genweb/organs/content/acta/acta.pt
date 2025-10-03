@@ -27,6 +27,28 @@
   <div class="container my-4">
     <h1 class="documentFirstHeading mb-4" tal:content="view/title">Annex</h1>
 
+    <tal:block tal:condition="checkSerieGDoc/visible_gdoc">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert" tal:condition="not:checkSerieGDoc/valid_serie">
+        <strong>Error</strong>
+        <tal:block tal:content="checkSerieGDoc/msg_error"></tal:block>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    </tal:block>
+
+    <tal:block tal:condition="not:checkSerieGDoc/visible_gdoc">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert" tal:condition="checkSerieGDoc/msg_error">
+        <strong>Error</strong>
+        <tal:block tal:content="checkSerieGDoc/msg_error"></tal:block>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    </tal:block>
+
+    <!-- <div id="infoSend" class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Info</strong>
+      <tal:block>Aquesta acció pot trigar una estona. El procés de signatura continuarà independentment de que aquesta pantalla pugui donar timeout. Si en uns minuts torneu a aquesta pàgina apareixerà l'estat de l'acta ja processada en el portafirmes.</tal:block>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div> -->
+
     <!-- Barra d'accions -->
     <div class="d-flex justify-content-end mb-3 gap-2">
       <a id="printActaBtn" 
@@ -182,34 +204,75 @@
     <div class="mt-3" tal:condition="ordenDelDia" tal:content="structure ordenDelDia/output"></div>
 
     <!-- Annexes & Acta PDF -->
-    <div class="mt-3" tal:condition="annexes">
-      <h5 i18n:translate="">Fitxers adjunts</h5>
-      <ul class="list-unstyled">
-        <tal:repeat repeat="item annexes">
-          <li>
-            <i class="bi bi-paperclip"></i>
-            <a tal:attributes="href item/absolute_url" tal:content="item/filename">annex</a>
-            <span class="text-muted fs-s ms-2">(<span tal:replace="python:round(item['sizeKB'], 2)"></span> KB)</span>
-            <a tal:attributes="href item/download_url" class="ms-1"><i class="bi bi-download"></i></a>
-          </li>
-        </tal:repeat>
-      </ul>
-    </div>
+    <tal:block tal:condition="not:hasFirma">
+      <div class="mt-3" tal:condition="annexes">
+        <tal:block tal:define="multiple_annexes python:len(annexes)>1">
+          <h5 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h5>
+          <h5 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h5>
+        </tal:block>
+        <ul class="list-unstyled">
+          <tal:repeat repeat="item annexes">
+            <li>
+              <i class="bi bi-paperclip"></i>
+              <a tal:attributes="href string:${item/absolute_url}/@@display-file/file/" tal:content="item/filename">annex</a>
+              <span class="text-muted fs-s ms-2">(<span tal:replace="python:round(item['sizeKB'], 2)"></span> KB)</span>
+              <a tal:attributes="href string:${item/absolute_url}/@@download/file/${item/filename}" class="ms-1"><i class="bi bi-download"></i></a>
+            </li>
+          </tal:repeat>
+        </ul>
+      </div>
 
-    <div class="mt-3" tal:condition="context/acta">
-      <h5 i18n:translate="">Acta PDF</h5>
-      <p>
-        <i class="bi bi-file-earmark-pdf me-1"></i>
-        <a tal:attributes="href string:${absolute_url}/@@display-file/acta/; target string:_blank" tal:content="context/acta/filename">acta</a>
-        <span class="text-muted fs-s ms-2">
-          (<tal:define="size context/acta/getSize; kb python:round(size/1024, 2)"><span tal:replace="kb"></span> KB)
-        </span>
-        <a tal:attributes="href string:${absolute_url}/@@download/acta/${context/acta/filename}" class="ms-2">
-          <i class="bi bi-download"></i>
-        </a>
-      </p>
-    </div>
+      <div class="mt-3" tal:condition="context/acta">
+        <h5 tal:condition="not:view/isSigned" i18n:translate="">Acta PDF</h5>
+        <h5 tal:condition="view/isSigned" i18n:translate="">Acta signada</h5>
+        <p>
+          <i class="bi bi-file-earmark-pdf me-1"></i>
+          <a tal:attributes="href string:${absolute_url}/@@display-file/acta/; target string:_blank" tal:content="context/acta/filename">acta</a>
+          <span class="text-muted fs-s ms-2" tal:define="size context/acta/getSize; kb python:round(size/1024, 2)">
+            (<span tal:replace="kb"></span> KB)
+          </span>
+          <a tal:attributes="href string:${absolute_url}/@@download/acta/${context/acta/filename}" class="ms-2">
+            <i class="bi bi-download"></i>
+          </a>
+        </p>
+      </div>
+    </tal:block>
 
+    <tal:block tal:condition="hasFirma" tal:define="acta view/getPFDActa">
+      <div class="mt-3" tal:condition="annexes">
+        <tal:block tal:define="multiple_annexes python:len(annexes)>1">
+          <h5 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h5>
+          <h5 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h5>
+        </tal:block>
+        <ul class="list-unstyled">
+          <tal:repeat repeat="item annexes">
+            <li>
+              <i class="bi bi-paperclip"></i>
+              <a tal:attributes="href item/absolute_url" tal:content="item/filename">annex</a>
+              <span class="text-muted fs-s ms-2">
+                (<span tal:replace="python:round(item['sizeKB'], 2)"></span> KB)
+              </span>
+              <a tal:attributes="href item/download_url" class="ms-1"><i class="bi bi-download"></i></a>
+            </li>
+          </tal:repeat>
+        </ul>
+      </div>
+
+      <div class="mt-3" tal:condition="acta">
+        <h5 tal:condition="not:view/isSigned" i18n:translate="">Acta PDF</h5>
+        <h5 tal:condition="view/isSigned" i18n:translate="">Acta signada</h5>
+        <p>
+          <i class="bi bi-file-earmark-pdf me-1"></i>
+          <a tal:attributes="href string:${absolute_url}/viewActa" tal:content="acta/filename">acta</a>
+          <span class="text-muted fs-s ms-2">
+            (<span tal:replace="python:round(acta['sizeKB'], 2)"></span> KB)
+          </span>
+          <a tal:attributes="href string:${absolute_url}/downloadActa;" class="ms-2">
+            <i class="bi bi-download"></i>
+          </a>
+        </p>
+      </div>
+    </tal:block>
   </div>
 
   <!-- Modal Previsualització Acta -->
