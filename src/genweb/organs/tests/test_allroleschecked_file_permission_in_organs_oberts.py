@@ -7,7 +7,7 @@ from plone.app.testing import setRoles
 from AccessControl import Unauthorized
 from genweb.organs.browser import tools
 from plone import api
-from plone.testing.z2 import Browser
+from webtest import TestApp
 from genweb.organs.namedfilebrowser import DisplayFile, Download
 from zope.publisher.browser import TestRequest
 from zope.publisher.interfaces import NotFound
@@ -22,7 +22,7 @@ class FunctionalTestCase(unittest.TestCase):
         self.app = self.layer['app']
         self.portal = self.layer['portal']
         self.request = self.layer['request']
-        self.browser = Browser(self.app)
+        self.browser = TestApp(self.app)
 
         # Create default GW directories
         setupview = getMultiAdapter((self.portal, self.request), name='setup-view')
@@ -39,7 +39,9 @@ class FunctionalTestCase(unittest.TestCase):
 
         # Create Base folder to create base test folders
         try:
-            api.content.delete(obj=self.portal['ca']['testingfolder'], check_linkintegrity=False)
+            api.content.delete(
+                obj=self.portal['ca']['testingfolder'],
+                check_linkintegrity=False)
         except:
             pass
         # Create default Organs Test Folder
@@ -63,1102 +65,3105 @@ class FunctionalTestCase(unittest.TestCase):
         request = TestRequest()
         # Check session state PLANIFICADA
         # PUNT
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.planificada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.planificada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.planificada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.planificada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.planificada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.planificada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.punt.subpunt.restringit,
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.punt.subpunt.restringit,
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.planificada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.planificada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.planificada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.planificada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.planificada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.planificada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.planificada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.planificada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state CONVOCADA
         # PUNT
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.convocada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.convocada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.convocada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.convocada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.convocada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.convocada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state REALITZADA
         # PUNT
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.realitzada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.realitzada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.realitzada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.subpunt.restringit,
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.subpunt.restringit,
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.realitzada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.realitzada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.realitzada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.realitzada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state TANCADA
         # PUNT
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(
+            NotFound,
+            DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.tancada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(
+                request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(
+            NotFound,
+            DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.tancada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state CORRECCIO
         # PUNT
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.correccio.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.correccio.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.correccio.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.correccio.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
 
     def should_view_as_editor(self, root_path):
         request = TestRequest()
         # Check session state PLANIFICADA
         # PUNT
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.planificada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.planificada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.planificada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.planificada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.planificada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.planificada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.punt.subpunt.restringit,
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.punt.subpunt.restringit,
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.planificada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.planificada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.planificada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.planificada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.planificada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.planificada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.planificada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.planificada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.planificada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.planificada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.planificada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state CONVOCADA
         # PUNT
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.convocada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.convocada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.convocada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.convocada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.convocada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.convocada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state REALITZADA
         # PUNT
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.realitzada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.realitzada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.realitzada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.subpunt.restringit,
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.subpunt.restringit,
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.realitzada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.realitzada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.realitzada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.realitzada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state TANCADA
         # PUNT
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(
+            NotFound,
+            DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.tancada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(
+                request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(
+            NotFound,
+            DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.tancada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state CORRECCIO
         # PUNT
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.correccio.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.correccio.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.correccio.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.correccio.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
 
     def should_view_as_membre_or_convidat(self, root_path):
         request = TestRequest()
         # Check session state PLANIFICADA
         # PUNT
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized, DisplayFile(
+            root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(root_path.obert.planificada.punt.public, request).publishTraverse(
+                request, 'visiblefile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.planificada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized, DisplayFile(
+            root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized, Download(
+            root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.planificada.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.planificada.punt['public-restringit'],
+                              request).publishTraverse(request, 'hiddenfile'))
         # PUNT/SUBPUNT
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized, DisplayFile(
+            root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized, Download(
+            root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.planificada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.planificada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          DisplayFile(
+                              root_path.obert.planificada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.planificada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.planificada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.planificada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
         # PUNT/SUBACORD
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized, DisplayFile(
+            root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized, Download(
+            root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.planificada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.planificada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          DisplayFile(
+                              root_path.obert.planificada.punt.acord.restringit,
+                              request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.planificada.punt.acord.restringit,
+                              request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.planificada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.planificada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
         # ACORD
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized, DisplayFile(
+            root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized, Download(
+            root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized, DisplayFile(
+            root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized, Download(
+            root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.planificada.acord['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.planificada.acord['public-restringit'],
+                              request).publishTraverse(request, 'hiddenfile'))
         #
         # Check session state CONVOCADA
         # PUNT
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.convocada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(Unauthorized,
+                          DisplayFile(
+                              root_path.obert.convocada.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.convocada.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.convocada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.convocada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.convocada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.convocada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.convocada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.convocada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.convocada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.convocada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.convocada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.convocada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.convocada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.convocada.acord['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state REALITZADA
         # PUNT
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.realitzada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.realitzada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.realitzada.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.realitzada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.realitzada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.subpunt.restringit,
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.subpunt.restringit,
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.realitzada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.realitzada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.realitzada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.realitzada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.realitzada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.realitzada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.realitzada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.realitzada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.realitzada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.realitzada.acord['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state TANCADA
         # PUNT
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(
+            NotFound,
+            DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.tancada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(
+                request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(Unauthorized,
+                          DisplayFile(
+                              root_path.obert.tancada.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.tancada.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.tancada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.tancada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(
+            NotFound,
+            DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.tancada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(Unauthorized,
+                          DisplayFile(
+                              root_path.obert.tancada.acord['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.tancada.acord['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state CORRECCIO
         # PUNT
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.correccio.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(Unauthorized,
+                          DisplayFile(
+                              root_path.obert.correccio.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.correccio.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.correccio.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.correccio.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.correccio.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.correccio.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.correccio.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.correccio.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.correccio.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.correccio.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.correccio.acord['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
 
     def should_view_as_afectat(self, root_path):
         request = TestRequest()
         # Check session state PLANIFICADA
         # PUNT
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized, DisplayFile(
+            root_path.obert.planificada.punt.public, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(root_path.obert.planificada.punt.public, request).publishTraverse(
+                request, 'visiblefile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.planificada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized, DisplayFile(
+            root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized, Download(
+            root_path.obert.planificada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.planificada.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.planificada.punt['public-restringit'],
+                              request).publishTraverse(request, 'hiddenfile'))
         # PUNT/SUBPUNT
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized, DisplayFile(
+            root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized, Download(
+            root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.planificada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.planificada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          DisplayFile(
+                              root_path.obert.planificada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.planificada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.planificada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.planificada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
         # PUNT/SUBACORD
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized, DisplayFile(
+            root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized, Download(
+            root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.planificada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.planificada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          DisplayFile(
+                              root_path.obert.planificada.punt.acord.restringit,
+                              request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.planificada.punt.acord.restringit,
+                              request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.planificada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.planificada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
         # ACORD
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.planificada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized, DisplayFile(
+            root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized, Download(
+            root_path.obert.planificada.acord.public, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized, DisplayFile(
+            root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized, Download(
+            root_path.obert.planificada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.planificada.acord['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.planificada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.planificada.acord['public-restringit'],
+                              request).publishTraverse(request, 'hiddenfile'))
         #
         # Check session state CONVOCADA
         # PUNT
         self.assertTrue(root_path.obert.convocada.restrictedTraverse('@@view'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertTrue(Download(root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        self.assertTrue(Download(root_path.obert.convocada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.public,
+                        request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(Download(root_path.obert.convocada.punt.public,
+                        request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.convocada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile'))
+        self.assertTrue(Download(root_path.obert.convocada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(Unauthorized,
+                          DisplayFile(
+                              root_path.obert.convocada.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.convocada.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.convocada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.convocada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile'))
+        self.assertTrue(Download(root_path.obert.convocada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.convocada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.convocada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
         # PUNT/SUBCORD
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertTrue(Download(root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        self.assertTrue(Download(root_path.obert.convocada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(Download(root_path.obert.convocada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile'))
+        self.assertTrue(Download(root_path.obert.convocada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.convocada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.convocada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertTrue(Download(root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
-        self.assertTrue(Download(root_path.obert.convocada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.public,
+                        request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(Download(root_path.obert.convocada.acord.public,
+                        request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.convocada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.convocada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.convocada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile'))
+        self.assertTrue(Download(root_path.obert.convocada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.convocada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.convocada.acord['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.convocada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
+        self.assertTrue(
+            Download(
+                root_path.obert.convocada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile'))
         #
         # Check session state REALITZADA
         # PUNT
         self.assertTrue(root_path.obert.realitzada.restrictedTraverse('@@view')())
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.realitzada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.realitzada.punt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.realitzada.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.realitzada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.realitzada.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.subpunt.restringit,
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.subpunt.restringit,
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.realitzada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.realitzada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.realitzada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.realitzada.punt.acord.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.realitzada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.realitzada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.realitzada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.realitzada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.realitzada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.realitzada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.realitzada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.realitzada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.realitzada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.realitzada.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.realitzada.acord['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.realitzada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.realitzada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state TANCADA
         # PUNT
         self.assertTrue(root_path.obert.tancada.restrictedTraverse('@@view')())
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(
+            NotFound,
+            DisplayFile(root_path.obert.tancada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.tancada.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.tancada.punt.restringit, request).publishTraverse(
+                request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(Unauthorized,
+                          DisplayFile(
+                              root_path.obert.tancada.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.tancada.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # SUBPUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.tancada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.tancada.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # SUBPUNT/ACORD
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.tancada.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.tancada.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(
+            NotFound,
+            DisplayFile(root_path.obert.tancada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.tancada.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.tancada.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.tancada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.tancada.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(Unauthorized,
+                          DisplayFile(
+                              root_path.obert.tancada.acord['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.tancada.acord['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.tancada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.tancada.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         #
         # Check session state CORRECCIO
         # PUNT
         self.assertTrue(root_path.obert.correccio.restrictedTraverse('@@view')())
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.correccio.punt.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(Unauthorized,
+                          DisplayFile(
+                              root_path.obert.correccio.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.correccio.punt['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBPUNT
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.subpunt.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound,
+                          DisplayFile(
+                              root_path.obert.correccio.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound,
+                          Download(
+                              root_path.obert.correccio.punt.subpunt.restringit,
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.subpunt.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.correccio.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.correccio.punt.subpunt['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt.subpunt
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # PUNT/SUBACORD
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.punt.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.punt.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.punt.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.correccio.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(
+            Unauthorized,
+            Download(
+                root_path.obert.correccio.punt.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.punt.acord
+                ['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
         # ACORD
-        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertTrue(Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'visiblefile')())
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
-        self.assertRaises(NotFound, DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(NotFound, Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'hiddenfile')())
-        self.assertRaises(Unauthorized, DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertRaises(Unauthorized, Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'visiblefile'))
-        self.assertTrue(DisplayFile(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
-        self.assertTrue(Download(root_path.obert.correccio.acord['public-restringit'], request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertTrue(Download(root_path.obert.correccio.acord.public,
+                        request).publishTraverse(request, 'visiblefile')())
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.acord.public, request).publishTraverse(request, 'hiddenfile'))
+        self.assertRaises(
+            NotFound,
+            Download(root_path.obert.correccio.acord.public, request).publishTraverse(
+                request, 'hiddenfile'))
+        self.assertRaises(NotFound, DisplayFile(
+            root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(NotFound, Download(
+            root_path.obert.correccio.acord.restringit, request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(DisplayFile(root_path.obert.correccio.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(Download(root_path.obert.correccio.acord.restringit,
+                        request).publishTraverse(request, 'hiddenfile')())
+        self.assertRaises(
+            Unauthorized,
+            DisplayFile(
+                root_path.obert.correccio.acord['public-restringit'],
+                request).publishTraverse(request, 'visiblefile'))
+        self.assertRaises(Unauthorized,
+                          Download(
+                              root_path.obert.correccio.acord['public-restringit'],
+                              request).publishTraverse(request, 'visiblefile'))
+        self.assertTrue(
+            DisplayFile(
+                root_path.obert.correccio.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
+        self.assertTrue(
+            Download(
+                root_path.obert.correccio.acord['public-restringit'],
+                request).publishTraverse(request, 'hiddenfile')())
 
     def test_organobert_must_be_shown_as_secretari(self):
         logout()
         root_path = self.portal.ca.testingfolder
-        setRoles(self.portal, TEST_USER_ID, ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat'])
+        setRoles(
+            self.portal, TEST_USER_ID,
+            ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat'])
         login(self.portal, TEST_USER_NAME)
         self.should_view_as_secretari(root_path)
         logout()
-        setRoles(self.portal, TEST_USER_ID, ['OG1-Secretari', 'OG2-Editor', 'OG3-Membre'])
+        setRoles(self.portal, TEST_USER_ID, [
+                 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre'])
         login(self.portal, TEST_USER_NAME)
         self.should_view_as_secretari(root_path)
         logout()
@@ -1174,11 +3179,13 @@ class FunctionalTestCase(unittest.TestCase):
         login(self.portal, TEST_USER_NAME)
         self.should_view_as_secretari(root_path)
         logout()
-        setRoles(self.portal, TEST_USER_ID, ['OG1-Secretari', 'OG2-Editor', 'OG4-Afectat'])
+        setRoles(self.portal, TEST_USER_ID, [
+                 'OG1-Secretari', 'OG2-Editor', 'OG4-Afectat'])
         login(self.portal, TEST_USER_NAME)
         self.should_view_as_secretari(root_path)
         logout()
-        setRoles(self.portal, TEST_USER_ID, ['OG1-Secretari', 'OG3-Membre', 'OG4-Afectat'])
+        setRoles(self.portal, TEST_USER_ID, [
+                 'OG1-Secretari', 'OG3-Membre', 'OG4-Afectat'])
         login(self.portal, TEST_USER_NAME)
         self.should_view_as_secretari(root_path)
         logout()

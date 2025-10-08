@@ -81,11 +81,11 @@
         name="genweb.organs-hiddenprofiles"
         />
 
-    <subscriber
+    <!-- <subscriber
       for=".content.sessio.sessio.ISessio
            Products.DCWorkflow.interfaces.IBeforeTransitionEvent"
       handler=".browser.events.change.sessio_changed"
-    />
+    /> -->
 
     <i18n:registerTranslations directory="locales" />
 

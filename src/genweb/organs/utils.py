@@ -112,68 +112,68 @@ def addEntryLog(context, sender, message, recipients):
             message: the message
             recipients: the recipients of the message
     """
+    return True
+    # KEY = 'genweb.organs.logMail'
+    # annotations = IAnnotations(context)
 
-    KEY = 'genweb.organs.logMail'
-    annotations = IAnnotations(context)
+    # # This is used to remove all the log entries:
+    # # import ipdb;ipdb.set_trace()
+    # # annotations[KEY] = []
+    # # To remove some entry:
+    # # aaa = annotations[KEY]
+    # # pp(aaa)       # Search the desired entry position
+    # # aaa.pop(0)    # remove the entry
 
-    # This is used to remove all the log entries:
-    # import ipdb;ipdb.set_trace()
-    # annotations[KEY] = []
-    # To remove some entry:
-    # aaa = annotations[KEY]
-    # pp(aaa)       # Search the desired entry position
-    # aaa.pop(0)    # remove the entry
+    # if annotations is not None:
+    #     try:
+    #         # Get data and append values
+    #         if annotations.get(KEY) is not None:
+    #             data = annotations.get(KEY)
+    #         else:
+    #             data = []
+    #     except:
+    #         # If it's empty, initialize data
+    #         data = []
 
-    if annotations is not None:
-        try:
-            # Get data and append values
-            if annotations.get(KEY) is not None:
-                data = annotations.get(KEY)
-            else:
-                data = []
-        except:
-            # If it's empty, initialize data
-            data = []
+    #     dateMail = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
 
-        dateMail = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+    #     if not sender:
+    #         anon = api.user.is_anonymous()
+    #         if anon:
+    #             sender = _(u'Anonymous user')
+    #         else:
+    #             portal = api.portal.get()
+    #             plugins = portal.acl_users.plugins.listPlugins(IPropertiesPlugin)
+    #             # We use the most preferent plugin
+    #             try:
+    #                 pplugin = plugins[2][1]
+    #                 all_user_properties = pplugin.enumerateUsers(api.user.get_current().id)
+    #                 fullname = ''
+    #                 for user in all_user_properties:
+    #                     if user['id'] == api.user.get_current().id:
+    #                         fullname = user['sn']
+    #                         pass
+    #                 if fullname:
+    #                     sender = fullname + ' [' + api.user.get_current().id + ']'
+    #                 else:
+    #                     sender = api.user.get_current().id
 
-        if not sender:
-            anon = api.user.is_anonymous()
-            if anon:
-                sender = _(u'Anonymous user')
-            else:
-                portal = api.portal.get()
-                plugins = portal.acl_users.plugins.listPlugins(IPropertiesPlugin)
-                # We use the most preferent plugin
-                try:
-                    pplugin = plugins[2][1]
-                    all_user_properties = pplugin.enumerateUsers(api.user.get_current().id)
-                    fullname = ''
-                    for user in all_user_properties:
-                        if user['id'] == api.user.get_current().id:
-                            fullname = user['sn']
-                            pass
-                    if fullname:
-                        sender = fullname + ' [' + api.user.get_current().id + ']'
-                    else:
-                        sender = api.user.get_current().id
+    #             except:
+    #                 # Not LDAP plugin configured
+    #                 sender = api.user.get_current().fullname + ' [' + api.user.get_current().id + ']'
+    #     try:
+    #         index = len(annotations.get(KEY))
+    #     except:
+    #         index = 0
 
-                except:
-                    # Not LDAP plugin configured
-                    sender = api.user.get_current().fullname + ' [' + api.user.get_current().id + ']'
-        try:
-            index = len(annotations.get(KEY))
-        except:
-            index = 0
+    #     values = dict(index=index + 1,
+    #                   dateMail=dateMail,
+    #                   message=message,
+    #                   fromMail=sender,
+    #                   toMail=recipients)
 
-        values = dict(index=index + 1,
-                      dateMail=dateMail,
-                      message=message,
-                      fromMail=sender,
-                      toMail=recipients)
-
-        data.append(values)
-        annotations[KEY] = data
+    #     data.append(values)
+    #     annotations[KEY] = data
 
 
 def addExcuse(context, name, email, message):

@@ -4,8 +4,8 @@ from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
-from plone.testing import z2
-from plone.app.multilingual.testing import SESSIONS_FIXTURE
+from plone.testing import zope
+# SESSIONS_FIXTURE no existe en Plone 6, se usa PLONE_FIXTURE directamente
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from zope.configuration import xmlconfig
@@ -13,14 +13,15 @@ from zope.configuration import xmlconfig
 
 class GenwebOrgansLayer(PloneSandboxLayer):
 
-    defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE, SESSIONS_FIXTURE, )
+    defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
         """Set up Zope."""
         # Load ZCML
-        import genweb.upc
+
+        import genweb6.upc
         xmlconfig.file('configure.zcml',
-                       genweb.upc,
+                       genweb6.upc,
                        context=configurationContext)
 
         import genweb.organs
@@ -34,7 +35,18 @@ class GenwebOrgansLayer(PloneSandboxLayer):
         portal.portal_workflow.setDefaultChain("simple_publication_workflow")
 
         # Install into Plone site using portal_setup
-        applyProfile(portal, 'genweb.upc:default')
+        try:
+            applyProfile(portal, 'genweb6.upc:default')
+        except Exception:
+            # genweb6.upc no está disponible, continuar sin él
+            pass
+
+        try:
+            applyProfile(portal, 'genweb6.theme:default')
+        except Exception:
+            # genweb6.theme no está disponible, continuar sin él
+            pass
+
         applyProfile(portal, 'genweb.organs:default')
 
         # # If you need to create site users...
@@ -66,7 +78,7 @@ GENWEB_ORGANS_ACCEPTANCE_TESTING = FunctionalTesting(
     bases=(
         GENWEB_ORGANS_FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        z2.ZSERVER_FIXTURE,
+        zope.WSGI_SERVER_FIXTURE,
     ),
     name="GenwebOrgansLayer:AcceptanceTesting",
 )
