@@ -18,12 +18,6 @@ class GenwebOrgansLayer(PloneSandboxLayer):
     def setUpZope(self, app, configurationContext):
         """Set up Zope."""
         # Load ZCML
-
-        import genweb6.upc
-        xmlconfig.file('configure.zcml',
-                       genweb6.upc,
-                       context=configurationContext)
-
         import genweb.organs
         xmlconfig.file('configure.zcml',
                        genweb.organs,
