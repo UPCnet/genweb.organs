@@ -49,6 +49,41 @@ class GenwebOrgansLayer(PloneSandboxLayer):
 
         applyProfile(portal, 'genweb.organs:default')
 
+        # Ensure required Organs roles exist
+        try:
+            acl = portal.acl_users
+            role_manager = getattr(acl, 'portal_role_manager', None)
+            if role_manager is not None:
+                for role_id in (
+                    'OG1-Secretari',
+                    'OG2-Editor',
+                    'OG3-Membre',
+                    'OG4-Afectat',
+                    'OG5-Convidat',
+                ):
+                    try:
+                        if role_id not in role_manager.listRoleIds():
+                            role_manager.addRole(role_id)
+                            print(f"Added role: {role_id}")
+                    except Exception as e:
+                        print(f"Warning: Could not add role {role_id}: {e}")
+        except Exception as e:
+            print(f"Warning: Could not ensure OGx roles exist: {e}")
+
+        # Create 'ca' language folder if it doesn't exist
+        try:
+            if 'ca' not in portal:
+                from plone.api import content
+                content.create(
+                    type='Folder',
+                    id='ca',
+                    title='Catalan',
+                    container=portal
+                )
+                print("Created 'ca' language folder")
+        except Exception as e:
+            print(f"Warning: Could not create 'ca' folder: {e}")
+
         # # If you need to create site users...
         # portal.acl_users.userFolderAddUser('usuari.manager', 'secret', ['Manager'], [])
         # portal.acl_users.userFolderAddUser('usuari.secretari', 'secret', ['OG1-Secretari'], [])
