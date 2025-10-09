@@ -4,20 +4,60 @@ from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
+<<<<<<< Updated upstream
 from plone.testing import zope
 # SESSIONS_FIXTURE no existe en Plone 6, se usa PLONE_FIXTURE directamente
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
+=======
+from plone.app.testing import PLONE_FIXTURE
+from plone.app.testing import login
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_NAME
+>>>>>>> Stashed changes
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
+from plone.testing import zope
 from zope.configuration import xmlconfig
 
 
 class GenwebOrgansLayer(PloneSandboxLayer):
+    """Layer para testing de genweb.organs."""
 
+<<<<<<< Updated upstream
     defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
         """Set up Zope."""
         # Load ZCML
+=======
+    defaultBases = (PLONE_FIXTURE,)
+
+    def setUpZope(self, app, configurationContext):
+        """Set up Zope."""
+        # Load ZCML - IMPORTANTE: cargar genweb6.core ANTES que genweb6.upc
+        # para que los permisos estén disponibles
+
+        try:
+            import genweb6.core
+            xmlconfig.file('configure.zcml',
+                           genweb6.core,
+                           context=configurationContext)
+        except ImportError:
+            # genweb6.core no está disponible, continuar sin él
+            print("Warning: genweb6.core not available")
+            pass
+
+        try:
+            import genweb6.upc
+            xmlconfig.file('configure.zcml',
+                           genweb6.upc,
+                           context=configurationContext)
+        except ImportError:
+            # genweb6.upc no está disponible, continuar sin él
+            print("Warning: genweb6.upc not available")
+            pass
+
+>>>>>>> Stashed changes
         import genweb.organs
         xmlconfig.file('configure.zcml',
                        genweb.organs,
@@ -25,9 +65,14 @@ class GenwebOrgansLayer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         """Set up Plone."""
+        # Set up the test user with Manager role
+        login(portal, TEST_USER_NAME)
+        setRoles(portal, TEST_USER_ID, ['Manager'])
+
         # Needed for PAC not complain about not having one... T_T
         portal.portal_workflow.setDefaultChain("simple_publication_workflow")
 
+<<<<<<< Updated upstream
         # Install into Plone site using portal_setup
         try:
             applyProfile(portal, 'genweb6.upc:default')
@@ -84,6 +129,79 @@ class GenwebOrgansLayer(PloneSandboxLayer):
         # portal.acl_users.userFolderAddUser('usuari.editor', 'secret', ['OG2-Editor'], [])
         # portal.acl_users.userFolderAddUser('usuari.membre', 'secret', ['OG3-Membre'], [])
         # portal.acl_users.userFolderAddUser('usuari.afectat', 'secret', ['OG4-Afectat'], [])
+=======
+        # Install plone.app.multilingual first
+        try:
+            applyProfile(portal, 'plone.app.multilingual:default')
+            print("Successfully applied plone.app.multilingual profile")
+        except Exception as e:
+            print(f"Warning: Could not apply plone.app.multilingual "
+                  f"profile: {e}")
+
+        # Install genweb workflows first
+        try:
+            applyProfile(portal, 'genweb6.core:workflows')
+            print("Successfully applied genweb6.core workflows")
+        except Exception as e:
+            print(f"Warning: Could not apply genweb6.core workflows: {e}")
+
+        # Install into Plone site using portal_setup
+        try:
+            applyProfile(portal, 'genweb6.core:default')
+            print("Successfully applied genweb6.core profile")
+        except Exception as e:
+            # genweb6.core no está disponible, continuar sin él
+            print(f"Warning: Could not apply genweb6.core profile: {e}")
+            pass
+
+        try:
+            applyProfile(portal, 'genweb6.upc:default')
+            print("Successfully applied genweb6.upc profile")
+        except Exception as e:
+            # genweb6.upc no está disponible, continuar sin él
+            print(f"Warning: Could not apply genweb6.upc profile: {e}")
+            pass
+
+        try:
+            applyProfile(portal, 'genweb6.theme:default')
+            print("Successfully applied genweb6.theme profile")
+        except Exception as e:
+            # genweb6.theme no está disponible, continuar sin él
+            print(f"Warning: Could not apply genweb6.theme profile: {e}")
+            pass
+
+        applyProfile(portal, 'genweb.organs:default')
+        print("Successfully applied genweb.organs profile")
+
+        # Create test users for different roles
+        self._create_test_users(portal)
+
+    def _create_test_users(self, portal):
+        """Create test users with different roles."""
+        try:
+            from plone.app.testing import TEST_USER_ID, setRoles
+
+            # Ensure the default test user has Manager role
+            setRoles(portal, TEST_USER_ID, ['Manager'])
+
+            # Create users with genweb.organs specific roles
+            # that are defined in rolemap.xml
+            portal.acl_users.userFolderAddUser(
+                'usuari.manager', 'secret', ['Manager'], [])
+            portal.acl_users.userFolderAddUser(
+                'usuari.secretari', 'secret', ['OG1-Secretari'], [])
+            portal.acl_users.userFolderAddUser(
+                'usuari.editor', 'secret', ['OG2-Editor'], [])
+            portal.acl_users.userFolderAddUser(
+                'usuari.membre', 'secret', ['OG3-Membre'], [])
+            portal.acl_users.userFolderAddUser(
+                'usuari.afectat', 'secret', ['OG4-Afectat'], [])
+            portal.acl_users.userFolderAddUser(
+                'usuari.convidat', 'secret', ['OG5-Convidat'], [])
+            print("Successfully created test users")
+        except Exception as e:
+            print(f"Warning: Could not create test users: {e}")
+>>>>>>> Stashed changes
 
     def tearDownZope(self, app):
         """Tear down Zope."""
@@ -98,10 +216,12 @@ GENWEB_ORGANS_INTEGRATION_TESTING = IntegrationTesting(
     name="GenwebOrgansLayer:Integration",
 )
 
+
 GENWEB_ORGANS_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(GENWEB_ORGANS_FIXTURE,),
     name="GenwebOrgansLayer:Functional",
 )
+
 
 GENWEB_ORGANS_ACCEPTANCE_TESTING = FunctionalTesting(
     bases=(

@@ -24,14 +24,20 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
 def getLoremIpsum(number, length, type_code):
-        """ Returns lorem ipsum text
-        """
-        return requests.get('http://loripsum.net/api/{0}/{1}/{2}'.format(number, type_code, length), verify=False, timeout=10).content
+    """ Returns lorem ipsum text
+    """
+    # Use static text instead of HTTP request for testing
+    if type_code == 'plaintext':
+        return 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    else:  # html
+        return '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>'
 
 
 def getRandomImage(w, h):
     """ Returns dummy image """
-    data = requests.get('http://dummyimage.com/{0}x{1}/aeaeae/ffffff'.format(w, h), verify=False, timeout=10).content
+    # Use a minimal 1x1 pixel PNG image for testing
+    # This is a valid 1x1 transparent PNG
+    data = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00\x1f\x15\xc4\x89\x00\x00\x00\nIDATx\x9cc\x00\x01\x00\x00\x05\x00\x01\r\n-\xdb\x00\x00\x00\x00IEND\xaeB`\x82'
     return NamedBlobImage(data=data,
                           filename=u'image.jpg',
                           contentType='image/jpeg')
@@ -101,7 +107,9 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
     # For working test code. If not added, Plone works, but test dont.
     constraints = ISelectableConstrainTypes(punt)
     constraints.setConstrainTypesMode(1)
-    constraints.setLocallyAllowedTypes(('genweb.organs.subpunt', 'genweb.organs.acord', 'genweb.organs.file', 'genweb.organs.document'))
+    constraints.setLocallyAllowedTypes(
+        ('genweb.organs.subpunt', 'genweb.organs.acord', 'genweb.organs.file',
+         'genweb.organs.document'))
     document_public = api.content.create(
         type='genweb.organs.document',
         id='docpublic',
@@ -177,14 +185,18 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
     api.content.copy(source=document_public, target=subacord, safe_id=True)
     api.content.copy(source=document_restringit, target=subacord, safe_id=True)
     api.content.copy(source=document_both, target=subacord, safe_id=True)
-    pdf_file = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'tests')) + '/testfile.pdf'
+    pdf_file = os.path.abspath(
+        os.path.join(os.path.dirname(__file__),
+                     '..', 'tests')) + '/testfile.pdf'
+    # Create a minimal PDF content for testing
+    pdf_content = b'%PDF-1.4\n1 0 obj\n<<\n/Type /Catalog\n/Pages 2 0 R\n>>\nendobj\n2 0 obj\n<<\n/Type /Pages\n/Kids [3 0 R]\n/Count 1\n>>\nendobj\n3 0 obj\n<<\n/Type /Page\n/Parent 2 0 R\n/MediaBox [0 0 612 792]\n>>\nendobj\nxref\n0 4\n0000000000 65535 f \n0000000009 00000 n \n0000000058 00000 n \n0000000115 00000 n \ntrailer\n<<\n/Size 4\n/Root 1 0 R\n>>\nstartxref\n174\n%%EOF'
     public_file = NamedBlobFile(
-        data=open(pdf_file, 'r').read(),
+        data=pdf_content,
         contentType='application/pdf',
         filename=u'pdf-public.pdf'
     )
     restricted_file = NamedBlobFile(
-        data=open(pdf_file, 'r').read(),
+        data=pdf_content,
         contentType='application/pdf',
         filename=u'pdf-restringit.pdf'
     )
@@ -212,7 +224,9 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
         title='Audio Exemple',
         container=acta)
     audio.description = u'audio mp3 description'
-    mp3_file = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'tests')) + '/testaudio.mp3'
+    mp3_file = os.path.abspath(
+        os.path.join(os.path.dirname(__file__),
+                     '..', 'tests')) + '/testaudio.mp3'
     audio_file = NamedBlobFile(
         data=open(mp3_file, 'r').read(),
         contentType='audio/mpeg',
@@ -249,25 +263,29 @@ def create_organ_content(og_unit, og_type, og_string, og_title, og_id):
     api.content.copy(source=filepunt_2, target=subacord, safe_id=True)
     api.content.copy(source=filepunt_3, target=subacord, safe_id=True)
 
-    sessio_convocada = api.content.copy(source=session_open, target=open_og, id='convocada')
+    sessio_convocada = api.content.copy(
+        source=session_open, target=open_og, id='convocada')
     sessio_convocada.title = 'Sessió Convocada'
     api.content.transition(obj=sessio_convocada, transition='convocar')
     transaction.commit()
 
-    sessio_realitzada = api.content.copy(source=sessio_convocada, target=open_og, id='realitzada')
+    sessio_realitzada = api.content.copy(
+        source=sessio_convocada, target=open_og, id='realitzada')
     sessio_realitzada.title = 'Sessió Realitzada'
     api.content.transition(obj=sessio_realitzada, transition='convocar')
     api.content.transition(obj=sessio_realitzada, transition='realitzar')
     transaction.commit()
 
-    sessio_tancada = api.content.copy(source=sessio_realitzada, target=open_og, id='tancada')
+    sessio_tancada = api.content.copy(
+        source=sessio_realitzada, target=open_og, id='tancada')
     sessio_tancada.title = 'Sessió Tancada'
     api.content.transition(obj=sessio_tancada, transition='convocar')
     api.content.transition(obj=sessio_tancada, transition='realitzar')
     api.content.transition(obj=sessio_tancada, transition='tancar')
     transaction.commit()
 
-    sessio_modificada = api.content.copy(source=sessio_realitzada, target=open_og, id='correccio')
+    sessio_modificada = api.content.copy(
+        source=sessio_realitzada, target=open_og, id='correccio')
     sessio_modificada.title = 'Sessió en Correcció'
     api.content.transition(obj=sessio_modificada, transition='convocar')
     api.content.transition(obj=sessio_modificada, transition='realitzar')
@@ -300,7 +318,9 @@ class changeMigrated(BrowserView):
             else:
                 return
 
-            messages.add('migrated property set to: ' + str(self.request['value']), type='warning')
+            messages.add(
+                'migrated property set to: ' + str(self.request['value']),
+                type='warning')
             self.request.response.redirect(self.context.absolute_url())
         else:
             pass
@@ -334,7 +354,8 @@ class changeMimeType(BrowserView):
         files = api.content.find(path='/', portal_type='genweb.organs.file')
         results = []
         oldvisible = newvisible = oldhidden = newhidden = ''
-        types = ['application/force-download', 'application/x-download', 'application/x-octet-stream']
+        types = ['application/force-download',
+                 'application/x-download', 'application/x-octet-stream']
         for file in files:
             changed = False
             item = file.getObject()
@@ -562,7 +583,8 @@ class showColorOrgans(BrowserView):
     # Registrar en ZCML: name='showColorOrgans', for='plone.dexterity.interfaces.IDexterityContent', permission='cmf.ManagePortal', layer='genweb.organs.interfaces.IGenwebOrgansLayer'
     def render(self):
         path = '/'.join(self.context.getPhysicalPath())
-        all_brains = api.content.find(portal_type='genweb.organs.organgovern', path=path)
+        all_brains = api.content.find(
+            portal_type='genweb.organs.organgovern', path=path)
         results = []
         for brain in all_brains:
             obj = brain.getObject()
@@ -583,7 +605,9 @@ class createTestContent(BrowserView):
         messages = IStatusMessage(self.request)
         portal = api.portal.get()
         try:
-            api.content.delete(obj=portal['ca']['testingfolder'], check_linkintegrity=False)
+            api.content.delete(
+                obj=portal['ca']['testingfolder'],
+                check_linkintegrity=False)
         except:
             pass
 
@@ -593,11 +617,14 @@ class createTestContent(BrowserView):
             title='Organ Tests',
             container=portal['ca'])
 
-        create_organ_content(og_unit, 'open_organ', 'OG.OPEN', 'Organ TEST Obert', 'obert')
+        create_organ_content(og_unit, 'open_organ', 'OG.OPEN',
+                             'Organ TEST Obert', 'obert')
         # create_organ_content(og_unit, 'restricted_to_affected_organ', 'OG.AFFECTED', 'Organ TEST restringit a AFECTATS', 'afectats')
         # create_organ_content(og_unit, 'restricted_to_members_organ', 'OG.MEMBERS', 'Organ TEST restringit a MEMBRES', 'membres')
 
-        messages.add('Created testingfolder with TEST content to check permissions.', type='warning')
+        messages.add(
+            'Created testingfolder with TEST content to check permissions.',
+            type='warning')
         self.request.response.redirect(self.context.absolute_url())
 
 

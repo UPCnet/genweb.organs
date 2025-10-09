@@ -158,6 +158,7 @@ def addEntryLog(context, sender, message, recipients):
     #                 else:
     #                     sender = api.user.get_current().id
 
+<<<<<<< Updated upstream
     #             except:
     #                 # Not LDAP plugin configured
     #                 sender = api.user.get_current().fullname + ' [' + api.user.get_current().id + ']'
@@ -171,6 +172,48 @@ def addEntryLog(context, sender, message, recipients):
     #                   message=message,
     #                   fromMail=sender,
     #                   toMail=recipients)
+=======
+        if not sender:
+            anon = api.user.is_anonymous()
+            if anon:
+                sender = _(u'Anonymous user')
+            else:
+                portal = api.portal.get()
+                plugins = portal.acl_users.plugins.listPlugins(IPropertiesPlugin)
+                # We use the most preferent plugin
+                try:
+                    pplugin = plugins[2][1]
+                    all_user_properties = pplugin.enumerateUsers(
+                        api.user.get_current().id)
+                    fullname = ''
+                    for user in all_user_properties:
+                        if user['id'] == api.user.get_current().id:
+                            fullname = user['sn']
+                            pass
+                    if fullname:
+                        sender = fullname + ' [' + api.user.get_current().id + ']'
+                    else:
+                        sender = api.user.get_current().id
+
+                except:
+                    # Not LDAP plugin configured
+                    try:
+                        # Try to get fullname from user properties
+                        user = api.user.get_current()
+                        fullname = getattr(user, 'fullname', None) or getattr(
+                            user, 'getProperty', lambda x: None)('fullname')
+                        if fullname:
+                            sender = fullname + ' [' + user.id + ']'
+                        else:
+                            sender = user.id
+                    except:
+                        # Fallback to user ID only
+                        sender = api.user.get_current().id
+        try:
+            index = len(annotations.get(KEY))
+        except:
+            index = 0
+>>>>>>> Stashed changes
 
     #     data.append(values)
     #     annotations[KEY] = data
@@ -333,7 +376,10 @@ def FilesandDocumentsInside(self):
                                         new_tab=True,
                                         classCSS=class_css))
                 elif value.alternateContent:
-                    if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+                    if checkhasRol(
+                        ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre',
+                         'OG5-Convidat'],
+                            roles):
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
                                             absolute_url=obj.getURL(),
@@ -348,7 +394,9 @@ def FilesandDocumentsInside(self):
                 class_css = 'bi bi-file-earmark-pdf'
                 if value.visiblefile and value.hiddenfile:
                     if organ_tipus == 'open_organ':
-                        if checkhasRol(['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+                        if checkhasRol(
+                            ['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'],
+                                roles):
                             if info_firma.get('private', {}).get('uploaded', False):
                                 absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
                             else:
@@ -370,7 +418,7 @@ def FilesandDocumentsInside(self):
                                                 classCSS=class_css))
                     else:
                         if info_firma.get('private', {}).get('uploaded', False):
-                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
+                            absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
                         else:
                             absolute_url = obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                         if checkhasRol(['OG3-Membre', 'OG5-Convidat'], roles):
@@ -405,14 +453,20 @@ def FilesandDocumentsInside(self):
                     else:
                         absolute_url = obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                     if organ_tipus == 'open_organ':
-                        if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+                        if checkhasRol(
+                            ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre',
+                             'OG4-Afectat', 'OG5-Convidat'],
+                                roles):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=class_css))
                     else:
-                        if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+                        if checkhasRol(
+                            ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre',
+                             'OG5-Convidat'],
+                                roles):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=absolute_url,
@@ -454,9 +508,13 @@ def getColor(self):
         values = organ.estatsLlista.raw
         for value in values.split('</p>'):
             if value != '':
-                item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
+                item_net = unicodedata.normalize("NFKD", value).rstrip(
+                    ' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
                 if estat == ' '.join(item_net.split()[:-1]).lstrip():
-                    return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
+                    return item_net.split(' ')[
+                        -1:][0].rstrip(' ').replace(
+                        '<p>', '').replace(
+                        '</p>', '').lstrip(' ')
     except:
         pass
     return color
@@ -473,7 +531,8 @@ def estatsCanvi(self):
     items = []
     for value in values.split('</p>'):
         if value != '':
-            item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
+            item_net = unicodedata.normalize("NFKD", value).rstrip(
+                ' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
             estat = ' '.join(item_net.split()[:-1]).lstrip()
             color = ' '.join(item_net.split()[-1:]).lstrip()
             items.append(dict(title=estat, color=color))
@@ -543,7 +602,8 @@ def getLdapUserData(user, typology=None):
     if not typology:
         search_result = acl_users.searchUsers(id=user, exactMatch=True)
     else:
-        search_result = acl_users.searchUsers(id=user, exactMatch=True, typology=typology)
+        search_result = acl_users.searchUsers(
+            id=user, exactMatch=True, typology=typology)
     return search_result
 
 

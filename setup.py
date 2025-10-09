@@ -51,6 +51,13 @@ setup(
         'test': [
             'plone.app.testing',
             'plone.app.robotframework[debug]',
+            'plone.testing',
+            'plone.app.contenttypes[test]',
+            'plone.app.multilingual[test]',
+            'zope.testing',
+            'zope.testrunner',
+            'pytest',
+            'pytest-plone',
         ]
     },
     entry_points="""
