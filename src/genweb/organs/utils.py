@@ -147,7 +147,8 @@ def addEntryLog(context, sender, message, recipients):
                 # We use the most preferent plugin
                 try:
                     pplugin = plugins[2][1]
-                    all_user_properties = pplugin.enumerateUsers(api.user.get_current().id)
+                    all_user_properties = pplugin.enumerateUsers(
+                        api.user.get_current().id)
                     fullname = ''
                     for user in all_user_properties:
                         if user['id'] == api.user.get_current().id:
@@ -160,7 +161,9 @@ def addEntryLog(context, sender, message, recipients):
 
                 except:
                     # Not LDAP plugin configured
-                    sender = api.user.get_current().fullname + ' [' + api.user.get_current().id + ']'
+                    user = api.user.get_current()
+                    sender = user.getProperty(
+                        'fullname') + ' [' + api.user.get_current().id + ']'
         try:
             index = len(annotations.get(KEY))
         except:
@@ -333,7 +336,10 @@ def FilesandDocumentsInside(self):
                                         new_tab=True,
                                         classCSS=class_css))
                 elif value.alternateContent:
-                    if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+                    if checkhasRol(
+                        ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre',
+                         'OG5-Convidat'],
+                            roles):
                         results.append(dict(title=obj.Title,
                                             portal_type=obj.portal_type,
                                             absolute_url=obj.getURL(),
@@ -348,7 +354,9 @@ def FilesandDocumentsInside(self):
                 class_css = 'bi bi-file-earmark-pdf'
                 if value.visiblefile and value.hiddenfile:
                     if organ_tipus == 'open_organ':
-                        if checkhasRol(['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+                        if checkhasRol(
+                            ['OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'],
+                                roles):
                             if info_firma.get('private', {}).get('uploaded', False):
                                 absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
                             else:
@@ -370,7 +378,7 @@ def FilesandDocumentsInside(self):
                                                 classCSS=class_css))
                     else:
                         if info_firma.get('private', {}).get('uploaded', False):
-                                absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
+                            absolute_url = obj.getURL() + '/viewFileGDoc?visibility=private'
                         else:
                             absolute_url = obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                         if checkhasRol(['OG3-Membre', 'OG5-Convidat'], roles):
@@ -405,14 +413,20 @@ def FilesandDocumentsInside(self):
                     else:
                         absolute_url = obj.getURL() + '/@@display-file/hiddenfile/' + value.hiddenfile.filename
                     if organ_tipus == 'open_organ':
-                        if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG4-Afectat', 'OG5-Convidat'], roles):
+                        if checkhasRol(
+                            ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre',
+                             'OG4-Afectat', 'OG5-Convidat'],
+                                roles):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=absolute_url,
                                                 new_tab=True,
                                                 classCSS=class_css))
                     else:
-                        if checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
+                        if checkhasRol(
+                            ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre',
+                             'OG5-Convidat'],
+                                roles):
                             results.append(dict(title=obj.Title,
                                                 portal_type=obj.portal_type,
                                                 absolute_url=absolute_url,
@@ -454,9 +468,13 @@ def getColor(self):
         values = organ.estatsLlista.raw
         for value in values.split('</p>'):
             if value != '':
-                item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
+                item_net = unicodedata.normalize("NFKD", value).rstrip(
+                    ' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
                 if estat == ' '.join(item_net.split()[:-1]).lstrip():
-                    return item_net.split(' ')[-1:][0].rstrip(' ').replace('<p>', '').replace('</p>', '').lstrip(' ')
+                    return item_net.split(' ')[
+                        -1:][0].rstrip(' ').replace(
+                        '<p>', '').replace(
+                        '</p>', '').lstrip(' ')
     except:
         pass
     return color
@@ -473,7 +491,8 @@ def estatsCanvi(self):
     items = []
     for value in values.split('</p>'):
         if value != '':
-            item_net = unicodedata.normalize("NFKD", value).rstrip(' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
+            item_net = unicodedata.normalize("NFKD", value).rstrip(
+                ' ').replace('<p>', '').replace('</p>', '').replace('\r\n', '')
             estat = ' '.join(item_net.split()[:-1]).lstrip()
             color = ' '.join(item_net.split()[-1:]).lstrip()
             items.append(dict(title=estat, color=color))
@@ -543,7 +562,8 @@ def getLdapUserData(user, typology=None):
     if not typology:
         search_result = acl_users.searchUsers(id=user, exactMatch=True)
     else:
-        search_result = acl_users.searchUsers(id=user, exactMatch=True, typology=typology)
+        search_result = acl_users.searchUsers(
+            id=user, exactMatch=True, typology=typology)
     return search_result
 
 

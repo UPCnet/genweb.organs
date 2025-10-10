@@ -98,9 +98,9 @@
       <role name="Manager"/>
       <role name="Owner"/>
     </permission> -->
-    <permission name="Access arbitrary user session data" acquire="True">
+    <!-- <permission name="Access arbitrary user session data" acquire="True">
       <role name="Site Administrator"/>
-    </permission>
+    </permission> -->
     <permission name="Access contents information" acquire="True">
       <role name="Contributor"/>
       <role name="Editor"/>
@@ -112,9 +112,9 @@
       <role name="Owner"/>
       <role name="WebMaster"/>
     </permission>
-    <permission name="Access session data" acquire="True">
+    <!-- <permission name="Access session data" acquire="True">
       <role name="Site Administrator"/>
-    </permission>
+    </permission> -->
     <!-- <permission name="Add Collage content" acquire="True">
       <role name="Contributor"/>
     </permission> -->
