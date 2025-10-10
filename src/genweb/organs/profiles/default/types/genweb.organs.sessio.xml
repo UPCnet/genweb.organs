@@ -16,7 +16,7 @@
 
     <property name="schema">genweb.organs.content.sessio.sessio.ISessio</property>
     <property name="klass">plone.dexterity.content.Container</property>
-    <property name="add_permission">genweb.organs.add.organs</property>
+    <property name="add_permission">genweb.organs.add.sessions</property>
     <property name="factory">genweb.organs.sessio</property>
     <property name="link_target"></property>
     <property name="immediate_view">view</property>
