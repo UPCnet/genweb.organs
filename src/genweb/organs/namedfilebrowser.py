@@ -88,6 +88,11 @@ def _get_file_with_perms(view: Download):
     if file is None:
         raise NotFound(view, view.fieldname, view.request)
 
+    # En Plone 6, NamedBlobFile puede devolver un objeto vacío en lugar de None
+    # Check si el archivo tiene contenido real
+    if hasattr(file, 'data') and not file.data:
+        raise NotFound(view, view.fieldname, view.request)
+
     # 2. Si genweb.organs no define permisos especiales, devolvemos ---------
     #    (En runtime esto siempre es True, pero mantiene compatibilidad).
     try:
@@ -182,6 +187,8 @@ def _get_file_with_perms(view: Download):
                             raise Unauthorized
                     else:
                         return file
+                elif "OG4-Afectat" in roles:
+                    raise Unauthorized
         elif sessio_state in {"realitzada", "tancada", "en_correccio"}:
             if is_acta_or_audio:
                 if utils.checkhasRol(
