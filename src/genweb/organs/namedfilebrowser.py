@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-"""Adaptación a Plone 6 / Python 3 del navegador de ficheros usado por genweb.organs.
+"""Adaptación a Plone 6 / Python 3 del navegador de ficheros.
 
 El módulo proporciona dos vistas:
   • @@download  → descarga el fichero respetando permisos
-  • @@display-file → muestra/embebe el fichero (PDF, audio…) respetando permisos
+  • @@display-file → muestra/embebe el fichero respetando permisos
 
 Cambios sobre la versión de Plone 4:
-  * El check de si *genweb.organs* está instalado ya no usa *portal_quickinstaller* (retirado en Plone 6).
+  * El check de si *genweb.organs* está instalado ya no usa
+    *portal_quickinstaller* (retirado en Plone 6).
     Se comprueba simplemente  importando el paquete.
-  * Se añaden *type hints* y se simplifica la lógica de detección de permisos.
+  * Se añaden *type hints* y se simplifica la lógica de permisos.
 """
 
 from typing import Optional
@@ -69,7 +70,7 @@ class DisplayFile(Download):
 # ---------------------------------------------------------------------
 
 def _get_file_with_perms(view: Download):
-    """Obtiene el objeto *NamedFile* respetando la lógica de permisos de Organs."""
+    """Obtiene NamedFile respetando permisos de Organs."""
 
     # 1. Localizar el campo -------------------------------------------------
     context = view.context  # convenience
@@ -107,29 +108,67 @@ def _get_file_with_perms(view: Download):
     sessio_state = utils.session_wf_state(view)
     organ_type = context.organType
 
-    def has(*rs):
-        return utils.checkhasRol(list(rs), roles)
-
-    # Mapear reglas según organ_type / estado / fieldname ------------------
+    # Mapear reglas según organ_type / estado / fieldname / portal_type ----
     visible = view.fieldname == "visiblefile"
     hidden = view.fieldname == "hiddenfile"
+    is_acta_or_audio = context.portal_type in (
+        "genweb.organs.acta", "genweb.organs.audio")
 
-    if organ_type == "open_organ":
+    # Reglas para ACTAS y AUDIOS
+    if is_acta_or_audio:
+        if sessio_state == "planificada":
+            if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
+                return file
+        elif sessio_state == "convocada":
+            allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
+                       "OG5-Convidat"]
+            if utils.checkhasRol(allowed, roles):
+                return file
+        elif sessio_state == "realitzada":
+            allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
+                       "OG5-Convidat"]
+            if utils.checkhasRol(allowed, roles):
+                return file
+        elif sessio_state == "tancada":
+            if organ_type == "open_organ":
+                allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
+                           "OG4-Afectat", "OG5-Convidat"]
+                if utils.checkhasRol(allowed, roles):
+                    return file
+            else:
+                allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
+                           "OG5-Convidat"]
+                if utils.checkhasRol(allowed, roles):
+                    return file
+        elif sessio_state == "en_correccio":
+            allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
+                       "OG5-Convidat"]
+            if utils.checkhasRol(allowed, roles):
+                return file
+        # Si no coincide con ningún estado permitido para actas/audios
+        raise Unauthorized
+    # Reglas para SESIONES (visiblefile/hiddenfile)
+    elif organ_type == "open_organ":
         if sessio_state in {"convocada", "realitzada", "tancada"}:
             # abierto => todo el mundo puede ver los visibles
             if visible:
                 return file
             # los ocultos solo ciertos roles
-            if hidden and has("OG1-Secretari", "OG2-Editor", "OG3-Membre"):
-                return file
+            if hidden:
+                allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre"]
+                if utils.checkhasRol(allowed, roles):
+                    return file
         elif sessio_state == "planificada":
-            if has("OG1-Secretari", "OG2-Editor"):
+            if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
                 return file
     elif organ_type == "restricted_to_members_organ":
-        if has("OG1-Secretari", "OG2-Editor", "OG3-Membre"):
+        allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre"]
+        if utils.checkhasRol(allowed, roles):
             return file
     elif organ_type == "restricted_to_affected_organ":
-        if has("OG1-Secretari", "OG2-Editor", "OG3-Membre", "OG4-Afectat"):
+        allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
+                   "OG4-Afectat"]
+        if utils.checkhasRol(allowed, roles):
             return file
 
     # Si llegamos aquí no se permite acceso

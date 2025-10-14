@@ -7,6 +7,7 @@ from AccessControl import Unauthorized
 from zope.component import getMultiAdapter
 from plone.api.env import adopt_roles
 import datetime
+import warnings
 
 from genweb.organs.testing import GENWEB_ORGANS_FUNCTIONAL_TESTING
 
@@ -17,6 +18,12 @@ class OrgansFunctionalTestCase(unittest.TestCase):
     layer = GENWEB_ORGANS_FUNCTIONAL_TESTING
 
     def setUp(self):
+        # Suprimir ResourceWarnings de archivos blob no cerrados explícitamente
+        warnings.filterwarnings("ignore", category=ResourceWarning)
+
+        # Suprimir DeprecationWarnings de Plone (opcional, no recomendado)
+        warnings.filterwarnings("ignore", category=DeprecationWarning)
+
         self.app = self.layer['app']
         self.portal = self.layer['portal']
         self.request = self.layer['request']
