@@ -162,14 +162,93 @@ def _get_file_with_perms(view: Download):
             if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
                 return file
     elif organ_type == "restricted_to_members_organ":
-        allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre"]
-        if utils.checkhasRol(allowed, roles):
-            return file
+        if sessio_state == "planificada":
+            if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
+                return file
+        elif sessio_state == "convocada":
+            if is_acta_or_audio:
+                if utils.checkhasRol(
+                    ["OG1-Secretari", "OG2-Editor", "OG3-Membre", "OG5-Convidat"],
+                        roles):
+                    return file
+            else:
+                if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
+                    return file
+                elif utils.checkhasRol(["OG3-Membre", "OG5-Convidat"], roles):
+                    if context.visiblefile and context.hiddenfile:
+                        if hidden:
+                            return file
+                        else:
+                            raise Unauthorized
+                    else:
+                        return file
+        elif sessio_state in {"realitzada", "tancada", "en_correccio"}:
+            if is_acta_or_audio:
+                if utils.checkhasRol(
+                    ["OG1-Secretari", "OG2-Editor", "OG3-Membre", "OG5-Convidat"],
+                        roles):
+                    return file
+            else:
+                if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
+                    return file
+                elif utils.checkhasRol(["OG3-Membre", "OG5-Convidat"], roles):
+                    if context.visiblefile and context.hiddenfile:
+                        if hidden:
+                            return file
+                        else:
+                            raise Unauthorized
+                    else:
+                        return file
+                elif "OG4-Afectat" in roles:
+                    raise Unauthorized
     elif organ_type == "restricted_to_affected_organ":
-        allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
-                   "OG4-Afectat"]
-        if utils.checkhasRol(allowed, roles):
-            return file
+        if sessio_state == "planificada":
+            if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
+                return file
+        elif sessio_state == "convocada":
+            if is_acta_or_audio:
+                if utils.checkhasRol(
+                    ["OG1-Secretari", "OG2-Editor", "OG3-Membre", "OG5-Convidat"],
+                        roles):
+                    return file
+            else:
+                if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
+                    return file
+                elif utils.checkhasRol(["OG3-Membre", "OG5-Convidat"], roles):
+                    if context.visiblefile and context.hiddenfile:
+                        if hidden:
+                            return file
+                        else:
+                            raise Unauthorized
+                    else:
+                        return file
+        elif sessio_state in {"realitzada", "tancada", "en_correccio"}:
+            if is_acta_or_audio:
+                if utils.checkhasRol(
+                    ["OG1-Secretari", "OG2-Editor", "OG3-Membre", "OG5-Convidat"],
+                        roles):
+                    return file
+            else:
+                if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
+                    return file
+                elif utils.checkhasRol(["OG3-Membre", "OG5-Convidat"], roles):
+                    if context.visiblefile and context.hiddenfile:
+                        if hidden:
+                            return file
+                        else:
+                            raise Unauthorized
+                    else:
+                        return file
+                elif "OG4-Afectat" in roles:
+                    if context.visiblefile and context.hiddenfile:
+                        if visible:
+                            return file
+                        else:
+                            raise Unauthorized
+                    elif context.hiddenfile:
+                        raise Unauthorized
+                    elif context.visiblefile:
+                        return file
 
     # Si llegamos aquí no se permite acceso
     raise Unauthorized
