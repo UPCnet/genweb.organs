@@ -280,6 +280,11 @@ class View(grok.View):
     grok.context(ISessio)
     grok.template('sessio_view')
 
+    def isAnon(self):
+        if api.user.is_anonymous():
+            return True
+        return False
+        
     def viewHistory(self):
         # Només els Secretaris i Managers podem veure el LOG
         username = api.user.get_current().id

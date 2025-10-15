@@ -162,13 +162,15 @@
 
   <div class="documentDescription description"></div>
 
-  <tal:block tal:condition="view/hasFirma">
-    <span style="margin-top: 10px;"
-          tal:define="estatFirma view/estatFirma"
-          tal:attributes="class string:badge badge-pill estatFirma ${estatFirma/class}">
-      <tal:block i18n:translate="">Acta: </tal:block>
-      <tal:block tal:content="estatFirma/text">PENDENT_SIGNANTS</tal:block>
-    </span>
+  <tal:block tal:condition="actesInside">
+    <tal:block tal:condition="view/hasFirma">
+      <span style="margin-top: 10px;"
+            tal:define="estatFirma view/estatFirma"
+            tal:attributes="class string:badge badge-pill estatFirma ${estatFirma/class}">
+        <tal:block i18n:translate="">Acta: </tal:block>
+        <tal:block tal:content="estatFirma/text">PENDENT_SIGNANTS</tal:block>
+      </span>
+    </tal:block>
   </tal:block>
 
   <div class="sessionActions" tal:define="showOpenQuorum view/showOpenQuorum">

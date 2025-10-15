@@ -73,24 +73,35 @@
       </div>
     </div>
 
-    <tal:block tal:condition="hasFirma">
+    <tal:block tal:condition="not:view/isAnon">
+      <tal:block tal:condition="hasFirma">
 
-      <span tal:define="estatFirma view/estatFirma"
-            tal:attributes="class string:badge badge-pill estatFirma ${estatFirma/class}">
-        <tal:block i18n:translate="">Acta: </tal:block>
-        <tal:block tal:content="estatFirma/text">PENDENT_SIGNANTS</tal:block>
-      </span>
+        <span tal:define="estatFirma view/estatFirma"
+              tal:attributes="class string:badge badge-pill estatFirma ${estatFirma/class}">
+          <tal:block i18n:translate="">Acta: </tal:block>
+          <tal:block tal:content="estatFirma/text">PENDENT_SIGNANTS</tal:block>
+        </span>
 
+      </tal:block>
     </tal:block>
 
-    <a class="btn btn-info btnActa" style="float:right;"
-    tal:attributes="href string:javascript:printPage(iframe);">
+    <tal:block tal:condition="not:view/isSigned">
+      <a class="btn btn-info btnActa" style="float:right;"
+         tal:attributes="href string:javascript:printPage(iframe);">
         <i class="fa fa-print"></i>&nbsp;<span i18n:translate=""> Print Acta </span>
-    </a>
-    <button data-target="#previewModal" role="button" tal:condition="view/viewPrintButon"
-       class="btn btn-info visible-tablet hidden-phone visible-desktop" data-toggle="modal"
-       style="float:right; margin-right:10px;">
-       <i class="fa fa-eye"></i>&nbsp;<span i18n:translate=""> Preview Acta </span></button>
+      </a>
+      <button data-target="#previewModal" role="button" tal:condition="view/viewPrintButon"
+              class="btn btn-info visible-tablet hidden-phone visible-desktop" data-toggle="modal"
+              style="float:right; margin-right:10px;">
+        <i class="fa fa-eye"></i>&nbsp;<span i18n:translate=""> Preview Acta </span></button>
+    </tal:block>
+
+    <tal:block tal:condition="view/isSigned">
+      <a class="btn btn-info btnActa" style="float:right;"
+         tal:attributes="href string:${absolute_url}/viewActa;">
+        <i class="fa fa-eye"></i>&nbsp;<span i18n:translate=""> Acta firmada </span>
+      </a>
+    </tal:block>
   </tal:omit-tag>
 
   <div class="clearfix documentDescription"></div>
@@ -204,7 +215,7 @@
   <br/>
 
   <tal:block tal:condition="not:hasFirma">
-    <ta:block tal:condition="annexes">
+    <tal:block tal:condition="annexes">
       <tal:block tal:define="multiple_annexes python:len(annexes)>1">
         <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
         <h3 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
@@ -225,9 +236,9 @@
           </p>
         </div>
       </tal:documents>
-    </ta:block>
+    </tal:block>
 
-    <ta:block tal:condition="context/acta">
+    <tal:block tal:condition="context/acta">
       <div tal:define="public_acta_download_url string:${absolute_url}/@@download/acta/${context/acta/filename};
                        public_acta_view_url string:${absolute_url}/@@display-file/acta/;">
         <h3 tal:condition="not:view/isSigned" i18n:translate="">Acta PDF</h3>
@@ -246,11 +257,11 @@
             </a>
         </p>
       </div>
-    </ta:block>
+    </tal:block>
   </tal:block>
 
   <tal:block tal:condition="hasFirma" tal:define="acta view/getPFDActa">
-    <ta:block tal:condition="annexes">
+    <tal:block tal:condition="annexes">
       <tal:block tal:define="multiple_annexes python:len(annexes)>1">
         <h3 tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
         <h3 tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
@@ -271,12 +282,12 @@
           </p>
         </div>
       </tal:documents>
-    </ta:block>
+    </tal:block>
 
-    <div tal:define="public_acta_download_url string:${absolute_url}/downloadActa;
+    <div tal:condition="view/isSigned"
+         tal:define="public_acta_download_url string:${absolute_url}/downloadActa;
                      public_acta_view_url string:${absolute_url}/viewActa;">
-      <h3 tal:condition="not:view/isSigned" i18n:translate="">Acta PDF</h3>
-      <h3 tal:condition="view/isSigned" i18n:translate="">Acta signada</h3>
+      <h3 i18n:translate="">Acta signada</h3>
       <p>
         <a tal:attributes="href public_acta_view_url">
           <i class="fa fa-file-pdf-o" aria-hidden="true"></i>

@@ -225,6 +225,11 @@ class View(dexterity.DisplayForm, UtilsFirmaDocumental):
     grok.context(IActa)
     grok.template('acta_view')
 
+    def isAnon(self):
+        if api.user.is_anonymous():
+            return True
+        return False
+
     def canView(self):
         # Permissions to view acta
         roles = utils.getUserRoles(self, self.context, api.user.get_current().id)
@@ -273,7 +278,7 @@ class View(dexterity.DisplayForm, UtilsFirmaDocumental):
     def AudioInside(self):
         """ Retorna els fitxers d'audio creats aquí dintre (sense tenir compte estat)
         """
-        if not self.hasFirma():
+        if not self.isSigned():
             folder_path = '/'.join(self.context.getPhysicalPath())
             portal_catalog = api.portal.get_tool(name='portal_catalog')
             values = portal_catalog.searchResults(
@@ -306,7 +311,7 @@ class View(dexterity.DisplayForm, UtilsFirmaDocumental):
     def AnnexInside(self):
         """ Retorna els fitxers annexos creats aquí dintre (sense tenir compte estat)
         """
-        if not self.hasFirma():
+        if not self.isSigned():
             folder_path = '/'.join(self.context.getPhysicalPath())
             portal_catalog = api.portal.get_tool(name='portal_catalog')
             values = portal_catalog.searchResults(
