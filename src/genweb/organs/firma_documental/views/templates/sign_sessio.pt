@@ -137,7 +137,7 @@
                         <tal:files tal:condition="files">
                           <ul class="listFiles list-unstyled">
                             <tal:documents repeat="file_item files">
-                              <li class="filesinTable w-100 mt-2">
+                              <li class="filesinTable w-100 mt-2 d-flex">
                                 <div class="titleSpan">
                                   <i tal:attributes="class string:${file_item/classCSS} me-1"></i>
                                   <a tal:attributes="href file_item/absolute_url;" 
@@ -202,7 +202,7 @@
                               <tal:files tal:define="files python:view.filesinsidePunt(itemSubpunt)">
                                 <ul class="listFiles list-unstyled" tal:condition="files">
                                   <tal:documents repeat="item files">
-                                    <li class="filesinTable w-100 mt-2">
+                                    <li class="filesinTable w-100 mt-2 d-flex">
                                       <i tal:attributes="class string:${item/classCSS} me-1"></i>
                                       <a tal:attributes="href item/absolute_url;" 
                                           tal:condition="item/new_tab"
