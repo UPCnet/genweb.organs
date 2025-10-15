@@ -96,11 +96,20 @@ class Search(BrowserView):
             path=f'{root_path}/{lang}/{rel_path}',
             sort_on='created',
             sort_order='reverse')
+            
+        results = []
         for item in items:
             itemObj = item._unrestrictedGetObject()
             estatSessio = api.content.get_state(obj=itemObj)
             if estatSessio != 'planificada':
-                return dict(title=item.Title, url=itemObj.absolute_url())
+                num = itemObj.numSessio.zfill(3)
+                any = itemObj.start.strftime('%Y%m%d')
+                results.append(dict(title=item.Title, url=itemObj.absolute_url(), hiddenOrder=int(any + num)))
+
+        if results:
+            results = sorted(results, key=itemgetter('hiddenOrder'), reverse=True)
+            return dict(title=results[0]['title'], url=results[0]['url'])
+        
         return None
 
     def results(self, query=None, batch=True, b_size=100, b_start=0, old=False):
