@@ -151,7 +151,7 @@
                                     class="text-dark">
                                     <tal:omit-tag tal:content="file_item/title"> Doc title</tal:omit-tag>
                                   </a>
-                                  <div class="float-end d-flex align-items-center">
+                                  <div class="ms-auto d-flex align-items-center">
                                     <span class="text-danger-emphasis"
                                           tal:condition="not:file_item/info_firma/success" 
                                           tal:content="file_item/info_firma/message"></span>
@@ -215,7 +215,7 @@
                                           class="text-dark">
                                         <tal:omit-tag tal:content="item/title"> Doc title</tal:omit-tag>
                                       </a>
-                                      <div class="float-end d-flex align-items-center">
+                                      <div class="ms-auto d-flex align-items-center">
                                         <span class="text-danger-emphasis"
                                               tal:condition="not:item/info_firma/success" 
                                               tal:content="item/info_firma/message"></span>
