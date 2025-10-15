@@ -589,17 +589,17 @@
                                                          id string:vote-${vote/UID}">
                       <td>
                         <tal:block tal:condition="not:vote/isEsmena">
-                          <div class="d-flex align-items-center gap-2">
-                            <i class="bi bi-chevron-down text-primary"></i>
-                            <i class="bi bi-chevron-up d-none text-primary"></i>
-                            <span tal:content="vote/title"></span>
+                          <div>
+                            <i class="bi bi-chevron-down text-primary me-2"></i>
+                            <i class="bi bi-chevron-up d-none text-primary me-2"></i>
+                            <span class="me-2" tal:content="vote/title"></span>
                             <span class="text-muted fs-s" tal:content="string: [${vote/code}]"></span>
                           </div>
                         </tal:block>
                         <tal:block tal:condition="vote/isEsmena">
-                          <div class="d-flex align-items-center gap-2 ps-4">
-                            <i class="bi bi-chevron-down text-primary"></i>
-                            <i class="bi bi-chevron-up d-none text-primary"></i>
+                          <div class="ps-4">
+                            <i class="bi bi-chevron-down text-primary me-2"></i>
+                            <i class="bi bi-chevron-up d-none text-primary me-2"></i>
                             <span class="vote-title esmena" tal:content="vote/title"></span>
                           </div>
                         </tal:block>
@@ -653,13 +653,13 @@
                       <td></td>
                       <tal:block tal:condition="not:vote/isOpen">
                         <td class="vote-users-favorVote text-center">
-                          <p tal:repeat="user vote/favorVoteList" tal:content="user"></p>
+                          <p class="mb-0" tal:repeat="user vote/favorVoteList" tal:content="user"></p>
                         </td>
                         <td class="vote-users-againstVote text-center">
-                          <p tal:repeat="user vote/againstVoteList" tal:content="user"></p>
+                          <p class="mb-0" tal:repeat="user vote/againstVoteList" tal:content="user"></p>
                         </td>
                         <td class="vote-users-whiteVote text-center">
-                          <p tal:repeat="user vote/whiteVoteList" tal:content="user"></p>
+                          <p class="mb-0" tal:repeat="user vote/whiteVoteList" tal:content="user"></p>
                         </td>
                         <td class="text-center"></td>
                       </tal:block>
