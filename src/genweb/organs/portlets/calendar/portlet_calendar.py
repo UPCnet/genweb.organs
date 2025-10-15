@@ -230,7 +230,7 @@ class Renderer(base.Renderer):
                     starthour=starthour,
                     end=end,
                     endhour=endhour,
-                    color=event.aq_parent.eventsColor
+                    color=event.aq_parent.eventsColor if event.aq_parent.eventsColor else '#007BC1'
                     )
 
     def filterOccurrenceEvents(self, events):
@@ -253,20 +253,9 @@ class Renderer(base.Renderer):
         if 'day' in request.form:
             return self.getDayEvents(self.getDateEvents())  # Solo si hay día seleccionado
         else:
-            # Lógica para mostrar todos los eventos del mes
-            year, month = self.year_month_display()
-            monthdates = [dat for dat in self.cal.itermonthdates(year, month)]
-            cal_dict = self.getCalendarDict()
-            events_dict = {}  # Para evitar duplicados
-            for dat in monthdates:
-                isodat = dat.strftime('%Y-%m-%d')
-                if isodat in cal_dict:
-                    events = self.filterOccurrenceEvents(cal_dict[isodat])
-                    for event in events:
-                        if event.UID() not in events_dict:
-                            events_dict[event.UID()] = self.getEventCalendarDict(event)
-            results = list(events_dict.values())
-            return results
+            # Mostrar solo los eventos del día actual como preview
+            today = localized_today(self.context)
+            return self.getDayEvents(today)
 
     def getDayEvents(self, date):
         events = self.getCalendarDict()
