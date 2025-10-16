@@ -4,9 +4,10 @@
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.querySelector('#search-form');
   const resultsBlock = document.querySelector('#search-results');
+  const spinnerBlock = document.querySelector('#search-spinner');
   const searchInput = form ? form.querySelector('input[name="SearchableText"]') : null;
 
-  if (!form || !resultsBlock) return;
+  if (!form || !resultsBlock || !spinnerBlock) return;
 
   // Escucha cambios en los filtros (checkboxes, radios, selects)
   form.addEventListener('input', function (e) {
@@ -27,6 +28,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const params = new URLSearchParams(formData).toString();
     const url = form.action + '?' + params;
 
+    // Mostrar spinner y ocultar resultados
+    spinnerBlock.style.display = 'block';
+    resultsBlock.style.display = 'none';
+
     fetch(url, {
       headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
@@ -39,6 +44,15 @@ document.addEventListener('DOMContentLoaded', function () {
         if (newResults) {
           resultsBlock.innerHTML = newResults.innerHTML;
         }
+      })
+      .catch(error => {
+        console.error('Error en la búsqueda:', error);
+        resultsBlock.innerHTML = '<p class="text-danger">Error en la búsqueda. Intenta-ho de nou.</p>';
+      })
+      .finally(() => {
+        // Ocultar spinner y mostrar resultados
+        spinnerBlock.style.display = 'none';
+        resultsBlock.style.display = 'block';
       });
   }
 });

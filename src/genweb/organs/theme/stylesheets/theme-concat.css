@@ -74,7 +74,25 @@ body.template-search .meva-vinculacio a {
 body.template-search .meva-vinculacio a:hover {
   text-decoration: underline;
 }
-
+/* line 42, ../scss/_homepage.scss */
+body.template-search #search-spinner {
+  position: relative;
+  z-index: 1000;
+}
+/* line 46, ../scss/_homepage.scss */
+body.template-search #search-spinner .spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.3em;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 /* line 1, ../scss/_generic.scss */
 .label-convocada,
 .label-tancada,
