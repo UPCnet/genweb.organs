@@ -79,6 +79,7 @@ class FunctionalTestCase(unittest.TestCase):
             print("  ✓ Verificando permisos como OG1-Secretari")
         request = self.request
         # Check session state PLANIFICADA
+        print("    → Estado PLANIFICADA: Acceso correcto a ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.planificada.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -251,9 +252,9 @@ class FunctionalTestCase(unittest.TestCase):
                 root_path.afectats.planificada.acord
                 ['public-restringit'],
                 request).publishTraverse(request, 'hiddenfile')())
-        print("  ✓ Acceso correcto a archivos en sesión PLANIFICADA")
         #
         # Check session state CONVOCADA
+        print("    → Estado CONVOCADA: Acceso correcto a ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.convocada.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -418,9 +419,9 @@ class FunctionalTestCase(unittest.TestCase):
             Download(
                 root_path.afectats.convocada.acord['public-restringit'],
                 request).publishTraverse(request, 'hiddenfile')())
-        print("  ✓ Acceso correcto a archivos en sesión CONVOCADA")
         #
         # Check session state REALITZADA
+        print("    → Estado REALITZADA: Acceso correcto a ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.realitzada.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -585,9 +586,9 @@ class FunctionalTestCase(unittest.TestCase):
             Download(
                 root_path.afectats.realitzada.acord['public-restringit'],
                 request).publishTraverse(request, 'hiddenfile')())
-        print("  ✓ Acceso correcto a archivos en sesión REALITZADA")
         #
         # Check session state TANCADA
+        print("    → Estado TANCADA: Acceso correcto a ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.tancada.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -749,9 +750,9 @@ class FunctionalTestCase(unittest.TestCase):
             Download(
                 root_path.afectats.tancada.acord['public-restringit'],
                 request).publishTraverse(request, 'hiddenfile')())
-        print("  ✓ Acceso correcto a archivos en sesión TANCADA")
         #
         # Check session state CORRECCIO
+        print("    → Estado CORRECCIO: Acceso correcto a ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.correccio.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -916,7 +917,6 @@ class FunctionalTestCase(unittest.TestCase):
             Download(
                 root_path.afectats.correccio.acord['public-restringit'],
                 request).publishTraverse(request, 'hiddenfile')())
-        print("  ✓ Acceso correcto a archivos en sesión CORRECCIO")
         print("  ✓ Verificación completa como OG1-Secretari")
 
     def should_view_as_editor(self, root_path, roles_info=""):
@@ -1098,9 +1098,9 @@ class FunctionalTestCase(unittest.TestCase):
                 root_path.afectats.planificada.acord
                 ['public-restringit'],
                 request).publishTraverse(request, 'hiddenfile')())
-        print("  ✓ Acceso correcto a archivos en sesión PLANIFICADA")
         #
         # Check session state CONVOCADA
+        print("    → Estado CONVOCADA: Acceso correcto a ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.convocada.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -1266,8 +1266,8 @@ class FunctionalTestCase(unittest.TestCase):
                 root_path.afectats.convocada.acord['public-restringit'],
                 request).publishTraverse(request, 'hiddenfile')())
         #
-        print("  ✓ Acceso correcto a archivos en sesión CONVOCADA")
         # Check session state REALITZADA
+        print("    → Estado REALITZADA: Acceso correcto a ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.realitzada.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -1433,8 +1433,8 @@ class FunctionalTestCase(unittest.TestCase):
                 root_path.afectats.realitzada.acord['public-restringit'],
                 request).publishTraverse(request, 'hiddenfile')())
         #
-        print("  ✓ Acceso correcto a archivos en sesión REALITZADA")
         # Check session state TANCADA
+        print("    → Estado TANCADA: Acceso correcto a ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.tancada.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -1597,8 +1597,8 @@ class FunctionalTestCase(unittest.TestCase):
                 root_path.afectats.tancada.acord['public-restringit'],
                 request).publishTraverse(request, 'hiddenfile')())
         #
-        print("  ✓ Acceso correcto a archivos en sesión TANCADA")
         # Check session state CORRECCIO
+        print("    → Estado CORRECCIO: Acceso correcto a ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.correccio.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -1763,8 +1763,6 @@ class FunctionalTestCase(unittest.TestCase):
             Download(
                 root_path.afectats.correccio.acord['public-restringit'],
                 request).publishTraverse(request, 'hiddenfile')())
-        print("  ✓ Acceso correcto a archivos en sesión CORRECCIO")
-
         print("  ✓ Verificación completa como OG2-Editor")
 
     def should_view_as_membre_or_convidat(self, root_path, roles_info=""):
@@ -1772,6 +1770,7 @@ class FunctionalTestCase(unittest.TestCase):
             print(f"  ✓ Verificando permisos como {roles_info}")
         request = self.request
         # Check session state PLANIFICADA
+        print("    → Estado PLANIFICADA: Sin acceso")
         # PUNT
         with self.assertRaises(Unauthorized):
             DisplayFile(root_path.afectats.planificada.punt.public,
@@ -1955,6 +1954,7 @@ class FunctionalTestCase(unittest.TestCase):
         #
         print("  ✓ Restricciones aplicadas correctamente en sesión PLANIFICADA")
         # Check session state CONVOCADA
+        print("    → Estado CONVOCADA: Solo hiddenfile si hay ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.convocada.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -2124,8 +2124,8 @@ class FunctionalTestCase(unittest.TestCase):
                 root_path.afectats.convocada.acord['public-restringit'],
                 request).publishTraverse(request, 'hiddenfile')())
         #
-        print("  ✓ Acceso permitido a archivos en sesión CONVOCADA")
         # Check session state REALITZADA
+        print("    → Estado REALITZADA: Solo hiddenfile si hay ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.realitzada.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -2295,8 +2295,8 @@ class FunctionalTestCase(unittest.TestCase):
                 root_path.afectats.realitzada.acord['public-restringit'],
                 request).publishTraverse(request, 'hiddenfile')())
         #
-        print("  ✓ Acceso permitido a archivos en sesión REALITZADA")
         # Check session state TANCADA
+        print("    → Estado TANCADA: Solo hiddenfile si hay ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.tancada.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -2463,8 +2463,8 @@ class FunctionalTestCase(unittest.TestCase):
                 root_path.afectats.tancada.acord['public-restringit'],
                 request).publishTraverse(request, 'hiddenfile')())
         #
-        print("  ✓ Acceso permitido a archivos en sesión TANCADA")
         # Check session state CORRECCIO
+        print("    → Estado CORRECCIO: Solo hiddenfile si hay ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.correccio.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -2633,7 +2633,6 @@ class FunctionalTestCase(unittest.TestCase):
             Download(
                 root_path.afectats.correccio.acord['public-restringit'],
                 request).publishTraverse(request, 'hiddenfile')())
-        print("  ✓ Acceso permitido a archivos en sesión CORRECCIO")
 
         print("  ✓ Verificación completa como OG3-Membre o OG5-Convidat")
 
@@ -2822,8 +2821,8 @@ class FunctionalTestCase(unittest.TestCase):
                 request).publishTraverse(
                 request, 'hiddenfile')()
         #
-        print("  ✓ Acceso denegado correctamente en sesión PLANIFICADA")
         # Check session state CONVOCADA
+        print("    → Estado CONVOCADA: Sin acceso")
         # PUNT
         with self.assertRaises(Unauthorized):
             DisplayFile(root_path.afectats.convocada.punt.public,
@@ -3005,8 +3004,8 @@ class FunctionalTestCase(unittest.TestCase):
                 request).publishTraverse(
                 request, 'hiddenfile')()
         #
-        print("  ✓ Acceso denegado correctamente en sesión CONVOCADA")
         # Check session state REALITZADA
+        print("    → Estado REALITZADA: Solo visiblefile si hay ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.realitzada.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -3176,8 +3175,8 @@ class FunctionalTestCase(unittest.TestCase):
                 request).publishTraverse(
                 request, 'hiddenfile')()
         #
-        print("  ✓ Acceso permitido a archivos visibles en sesión REALITZADA")
         # Check session state TANCADA
+        print("    → Estado TANCADA: Solo visiblefile si hay ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.tancada.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -3348,8 +3347,8 @@ class FunctionalTestCase(unittest.TestCase):
                 request).publishTraverse(
                 request, 'hiddenfile')()
         #
-        print("  ✓ Acceso permitido a archivos visibles en sesión TANCADA")
         # Check session state CORRECCIO
+        print("    → Estado CORRECCIO: Solo visiblefile si hay ambos archivos")
         # PUNT
         self.assertTrue(DisplayFile(root_path.afectats.correccio.punt.public,
                         request).publishTraverse(request, 'visiblefile')())
@@ -3518,7 +3517,6 @@ class FunctionalTestCase(unittest.TestCase):
                 root_path.afectats.correccio.acord['public-restringit'],
                 request).publishTraverse(
                 request, 'hiddenfile')()
-        print("  ✓ Acceso permitido a archivos visibles en sesión CORRECCIO")
 
         print("  ✓ Verificación completa como OG4-Afectat")
 
