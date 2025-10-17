@@ -116,64 +116,84 @@ def _get_file_with_perms(view: Download):
     # Mapear reglas según organ_type / estado / fieldname / portal_type ----
     visible = view.fieldname == "visiblefile"
     hidden = view.fieldname == "hiddenfile"
-    is_acta_or_audio = context.portal_type in (
-        "genweb.organs.acta", "genweb.organs.audio")
+    is_acta_audio_or_annex = context.portal_type in (
+        "genweb.organs.acta", "genweb.organs.audio", "genweb.organs.annex")
 
-    # Reglas para ACTAS y AUDIOS
-    if is_acta_or_audio:
+    # Reglas para ACTAS, AUDIOS y ANNEX
+    if is_acta_audio_or_annex:
         if sessio_state == "planificada":
             if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
                 return file
-        elif sessio_state == "convocada":
-            allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
-                       "OG5-Convidat"]
-            if utils.checkhasRol(allowed, roles):
+        elif sessio_state in {"convocada", "realitzada"}:
+            if organ_type == "open_organ":
+                # Órganos públicos: sin afectados + anónimos
+                allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
+                           "OG5-Convidat"]
+                if utils.checkhasRol(allowed, roles):
+                    return file
+                # Si tiene OG4-Afectat, denegar acceso
+                if "OG4-Afectat" in roles:
+                    raise Unauthorized
+                # Anónimos pueden ver actas/audios públicos
                 return file
-        elif sessio_state == "realitzada":
-            allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
-                       "OG5-Convidat"]
-            if utils.checkhasRol(allowed, roles):
-                return file
+            else:
+                # Órganos restringidos: sin afectados ni anónimos
+                allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
+                           "OG5-Convidat"]
+                if utils.checkhasRol(allowed, roles):
+                    return file
         elif sessio_state == "tancada":
             if organ_type == "open_organ":
+                # Órganos públicos: con afectados + anónimos
                 allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
                            "OG4-Afectat", "OG5-Convidat"]
                 if utils.checkhasRol(allowed, roles):
                     return file
+                # Anónimos pueden ver actas/audios públicos
+                return file
             else:
+                # Órganos restringidos: sin afectados ni anónimos
                 allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
                            "OG5-Convidat"]
                 if utils.checkhasRol(allowed, roles):
                     return file
         elif sessio_state == "en_correccio":
+            # En corrección: sin OG4-Afectat ni Anónimos
             allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
                        "OG5-Convidat"]
             if utils.checkhasRol(allowed, roles):
                 return file
         # Si no coincide con ningún estado permitido para actas/audios
         raise Unauthorized
-    # Reglas para SESIONES (visiblefile/hiddenfile)
+    # Reglas para SESIONES (visiblefile/hiddenfile) - órganos abiertos
     elif organ_type == "open_organ":
-        if sessio_state in {"convocada", "realitzada", "tancada"}:
-            # abierto => todo el mundo puede ver los visibles
-            if visible:
-                return file
-            # los ocultos solo ciertos roles
-            if hidden:
-                allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre"]
-                if utils.checkhasRol(allowed, roles):
-                    return file
-        elif sessio_state == "planificada":
+        if sessio_state == "planificada":
+            # Solo Secretari/Editor
             if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
                 return file
+        elif sessio_state in {
+            "convocada", "realitzada", "tancada", "en_correccio"
+        }:
+            # Secretaris/editors/membres/convidats/afectats: ven ambos
+            allowed = ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
+                       "OG4-Afectat", "OG5-Convidat"]
+            if utils.checkhasRol(allowed, roles):
+                return file
+            # Anónimos: solo ven el visible
+            if visible:
+                return file
+            # Si intentan acceder al hidden sin rol: Unauthorized
+            if hidden:
+                raise Unauthorized
     elif organ_type == "restricted_to_members_organ":
         if sessio_state == "planificada":
             if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
                 return file
         elif sessio_state == "convocada":
-            if is_acta_or_audio:
+            if is_acta_audio_or_annex:
                 if utils.checkhasRol(
-                    ["OG1-Secretari", "OG2-Editor", "OG3-Membre", "OG5-Convidat"],
+                    ["OG1-Secretari", "OG2-Editor",
+                     "OG3-Membre", "OG5-Convidat"],
                         roles):
                     return file
             else:
@@ -190,9 +210,10 @@ def _get_file_with_perms(view: Download):
                 elif "OG4-Afectat" in roles:
                     raise Unauthorized
         elif sessio_state in {"realitzada", "tancada", "en_correccio"}:
-            if is_acta_or_audio:
+            if is_acta_audio_or_annex:
                 if utils.checkhasRol(
-                    ["OG1-Secretari", "OG2-Editor", "OG3-Membre", "OG5-Convidat"],
+                    ["OG1-Secretari", "OG2-Editor",
+                     "OG3-Membre", "OG5-Convidat"],
                         roles):
                     return file
             else:
@@ -213,9 +234,10 @@ def _get_file_with_perms(view: Download):
             if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
                 return file
         elif sessio_state == "convocada":
-            if is_acta_or_audio:
+            if is_acta_audio_or_annex:
                 if utils.checkhasRol(
-                    ["OG1-Secretari", "OG2-Editor", "OG3-Membre", "OG5-Convidat"],
+                    ["OG1-Secretari", "OG2-Editor",
+                     "OG3-Membre", "OG5-Convidat"],
                         roles):
                     return file
             else:
@@ -230,9 +252,10 @@ def _get_file_with_perms(view: Download):
                     else:
                         return file
         elif sessio_state in {"realitzada", "tancada", "en_correccio"}:
-            if is_acta_or_audio:
+            if is_acta_audio_or_annex:
                 if utils.checkhasRol(
-                    ["OG1-Secretari", "OG2-Editor", "OG3-Membre", "OG5-Convidat"],
+                    ["OG1-Secretari", "OG2-Editor",
+                     "OG3-Membre", "OG5-Convidat"],
                         roles):
                     return file
             else:
