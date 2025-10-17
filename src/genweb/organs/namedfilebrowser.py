@@ -215,53 +215,121 @@ def _get_file_with_perms(view: Download):
                         raise Unauthorized
     elif organ_type == "restricted_to_affected_organ":
         if sessio_state == "planificada":
+            # Solo Secretari y Editor
             if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
                 return file
         elif sessio_state == "convocada":
             if is_acta_audio_or_annex:
+                # Actas/audios/annex: solo Secretari, Editor, Membre, Convidat
+                # (sin Afectat ni Anónimo)
                 if utils.checkhasRol(
                     ["OG1-Secretari", "OG2-Editor",
                      "OG3-Membre", "OG5-Convidat"],
                         roles):
                     return file
             else:
+                # Sesiones: Secretari, Editor ven todo
                 if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
                     return file
+                # Membre, Convidat: lógica especial con ambos ficheros
                 elif utils.checkhasRol(["OG3-Membre", "OG5-Convidat"], roles):
                     if context.visiblefile and context.hiddenfile:
+                        # Si hay ambos: solo ven hiddenfile
                         if hidden:
                             return file
                         else:
                             raise Unauthorized
                     else:
+                        # Si hay solo uno: lo ven
                         return file
-        elif sessio_state in {"realitzada", "tancada", "en_correccio"}:
+                # Afectat y Anónimo: sin acceso
+        elif sessio_state in {"realitzada", "en_correccio"}:
             if is_acta_audio_or_annex:
+                # Actas/audios/annex: sin Afectat ni Anónimo
                 if utils.checkhasRol(
                     ["OG1-Secretari", "OG2-Editor",
                      "OG3-Membre", "OG5-Convidat"],
                         roles):
                     return file
             else:
+                # Sesiones: Secretari, Editor ven todo
                 if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
                     return file
+                # Membre, Convidat: lógica especial con ambos ficheros
                 elif utils.checkhasRol(["OG3-Membre", "OG5-Convidat"], roles):
                     if context.visiblefile and context.hiddenfile:
+                        # Si hay ambos: solo ven hiddenfile
                         if hidden:
                             return file
                         else:
                             raise Unauthorized
                     else:
+                        # Si hay solo uno: lo ven
                         return file
+                # Afectat: lógica especial
                 elif "OG4-Afectat" in roles:
                     if context.visiblefile and context.hiddenfile:
+                        # Si hay ambos: solo ve visiblefile
                         if visible:
                             return file
                         else:
                             raise Unauthorized
                     elif context.hiddenfile:
+                        # Si solo hay hiddenfile: sin acceso
                         raise Unauthorized
                     elif context.visiblefile:
+                        # Si solo hay visiblefile: lo ve
+                        return file
+        elif sessio_state == "tancada":
+            if is_acta_audio_or_annex:
+                # Actas/audios/annex: incluye Afectat (sin Anónimo)
+                if utils.checkhasRol(
+                    ["OG1-Secretari", "OG2-Editor", "OG3-Membre",
+                     "OG4-Afectat", "OG5-Convidat"],
+                        roles):
+                    return file
+            else:
+                # Sesiones: Secretari, Editor ven todo
+                if utils.checkhasRol(["OG1-Secretari", "OG2-Editor"], roles):
+                    return file
+                # Membre, Convidat: lógica especial con ambos ficheros
+                elif utils.checkhasRol(["OG3-Membre", "OG5-Convidat"], roles):
+                    if context.visiblefile and context.hiddenfile:
+                        # Si hay ambos: solo ven hiddenfile
+                        if hidden:
+                            return file
+                        else:
+                            raise Unauthorized
+                    else:
+                        # Si hay solo uno: lo ven
+                        return file
+                # Afectat: lógica especial (igual que en realitzada/en_correccio)
+                elif "OG4-Afectat" in roles:
+                    if context.visiblefile and context.hiddenfile:
+                        # Si hay ambos: solo ve visiblefile
+                        if visible:
+                            return file
+                        else:
+                            raise Unauthorized
+                    elif context.hiddenfile:
+                        # Si solo hay hiddenfile: sin acceso
+                        raise Unauthorized
+                    elif context.visiblefile:
+                        # Si solo hay visiblefile: lo ve
+                        return file
+                # Anónimos: sin acceso (pero con lógica especial legacy)
+                else:
+                    if context.visiblefile and context.hiddenfile:
+                        # Si hay ambos: solo ven visiblefile
+                        if visible:
+                            return file
+                        else:
+                            raise Unauthorized
+                    elif context.hiddenfile:
+                        # Si solo hay hiddenfile: sin acceso
+                        raise Unauthorized
+                    elif context.visiblefile:
+                        # Si solo hay visiblefile: lo ve
                         return file
 
     # Si llegamos aquí no se permite acceso
