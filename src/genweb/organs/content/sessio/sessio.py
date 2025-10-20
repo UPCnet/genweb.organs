@@ -81,7 +81,9 @@ def numSessioShowOnly(context):
 
 @provider(IContextAwareDefaultFactory)
 def bodyMail(context):
-    if hasattr(context, 'bodyMailconvoquing') and getattr(context.bodyMailconvoquing, 'raw', None):
+    if hasattr(
+            context, 'bodyMailconvoquing') and getattr(
+            context.bodyMailconvoquing, 'raw', None):
         return context.bodyMailconvoquing.raw
     return getattr(context, 'bodyMailconvoquing', '')
 
@@ -97,14 +99,13 @@ class ISessio(model.Schema):
     """ Sessio
     """
 
-    fieldset('assistents',
-             label=_(u'Assistents'),
-             fields=['infoAssistents' ,'membresConvocats', 'membresConvidats', 'llistaExcusats', 'assistents', 'noAssistents', 'adrecaLlista']
-             )
+    fieldset('assistents', label=_(u'Assistents'),
+             fields=['infoAssistents', 'membresConvocats', 'membresConvidats',
+                     'llistaExcusats', 'assistents', 'noAssistents', 'adrecaLlista'])
 
     fieldset('afectats',
              label=_(u'Afectats'),
-             fields=['infoAfectats' ,'adrecaAfectatsLlista'],
+             fields=['infoAfectats', 'adrecaAfectatsLlista'],
              )
 
     fieldset('plantilles',
@@ -159,9 +160,9 @@ class ISessio(model.Schema):
 
     infoAfectats = schema.Text(
         title=_(u"Informació"),
-        description=_(u"Aquestes dades podran ser omplertes una vegada convocada la sessió."),
-        required=False,
-    )
+        description=_(
+            u"Aquestes dades podran ser omplertes una vegada convocada la sessió."),
+        required=False,)
 
     directives.mode(IAddForm, adrecaAfectatsLlista='display')
     adrecaAfectatsLlista = schema.Text(
@@ -172,9 +173,9 @@ class ISessio(model.Schema):
 
     infoAssistents = schema.Text(
         title=_(u"Informació"),
-        description=_(u"Aquestes dades podran ser omplertes una vegada convocada la sessió."),
-        required=False,
-    )
+        description=_(
+            u"Aquestes dades podran ser omplertes una vegada convocada la sessió."),
+        required=False,)
 
     directives.mode(IAddForm, membresConvocats='display')
     textindexer.searchable('membresConvocats')
@@ -248,6 +249,7 @@ class ISessio(model.Schema):
 class Edit(edit.DefaultEditForm):
     """ Session edit form
     """
+
     def updateWidgets(self):
         super(Edit, self).updateWidgets()
         self.widgets['numSessioShowOnly'].mode = HIDDEN_MODE
@@ -268,6 +270,11 @@ class Edit(edit.DefaultEditForm):
 
 class View(BrowserView):
     index = ViewPageTemplateFile('sessio.pt')
+
+    def __init__(self, context, request):
+        super(View, self).__init__(context, request)
+        # Verify permissions when view is instantiated during traversal
+        self.canView()
 
     def render(self):
         return self.index()
@@ -304,7 +311,8 @@ class View(BrowserView):
         value = False
         if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and 'OG1-Secretari' in roles:
             value = True
-        if review_state in ['planificada', 'convocada', 'realitzada'] and 'OG2-Editor' in roles:
+        if review_state in [
+                'planificada', 'convocada', 'realitzada'] and 'OG2-Editor' in roles:
             value = True
         return value or 'Manager' in roles
 
@@ -313,7 +321,8 @@ class View(BrowserView):
         value = False
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
-        has_roles = utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles)
+        has_roles = utils.checkhasRol(
+            ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles)
         if review_state in ['planificada', 'convocada'] and has_roles:
             value = True
         return value
@@ -324,7 +333,8 @@ class View(BrowserView):
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
         has_roles = utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor'], roles)
-        if review_state in ['planificada', 'convocada', 'realitzada', 'en_correccio'] and has_roles:
+        if review_state in [
+                'planificada', 'convocada', 'realitzada', 'en_correccio'] and has_roles:
             value = True
         return value
 
@@ -412,7 +422,7 @@ class View(BrowserView):
                                     agreement=False))
 
             elif obj.portal_type == 'Folder':
-                #la carpeta es pels punts proposats!
+                # la carpeta es pels punts proposats!
                 continue
 
             else:
@@ -433,7 +443,8 @@ class View(BrowserView):
                     if item.agreement:
                         agreement = item.agreement
                     else:
-                        agreement = _(u"sense numeracio") if not getattr(item, 'omitAgreement', False) else False
+                        agreement = _(u"sense numeracio") if not getattr(
+                            item, 'omitAgreement', False) else False
 
                     isPunt = False
                     isAcord = True
@@ -486,32 +497,24 @@ class View(BrowserView):
                     isAcord = False
                     omitAgreement = False
 
-                results.append(dict(title=obj.Title,
-                                    portal_type=obj.portal_type,
-                                    absolute_url=item.absolute_url(),
-                                    item_path=item.absolute_url_path(),
-                                    proposalPoint=item.proposalPoint,
-                                    agreement=agreement,
-                                    omitAgreement=omitAgreement,
-                                    state=item.estatsLlista,
-                                    css=self.getColor(obj),
-                                    estats=self.estatsCanvi(obj),
-                                    id=obj.id,
-                                    show=True,
-                                    isPunt=isPunt,
-                                    isAcord=isAcord,
-                                    classe=classe,
-                                    canOpenVote=canOpenVote,
-                                    canCloseVote=canCloseVote,
-                                    canRecloseVote=canRecloseVote,
-                                    titleEsmena=titleEsmena,
-                                    hasVote=hasVote,
-                                    classVote=classVote,
-                                    favorVote=favorVote,
-                                    againstVote=againstVote,
-                                    whiteVote=whiteVote,
-                                    items_inside=inside,
-                                    info_firma=item.info_firma if hasattr(item, 'info_firma') else None))
+                results.append(
+                    dict(
+                        title=obj.Title, portal_type=obj.portal_type,
+                        absolute_url=item.absolute_url(),
+                        item_path=item.absolute_url_path(),
+                        proposalPoint=item.proposalPoint,
+                        agreement=agreement, omitAgreement=omitAgreement,
+                        state=item.estatsLlista, css=self.getColor(obj),
+                        estats=self.estatsCanvi(obj),
+                        id=obj.id, show=True, isPunt=isPunt, isAcord=isAcord,
+                        classe=classe, canOpenVote=canOpenVote,
+                        canCloseVote=canCloseVote,
+                        canRecloseVote=canRecloseVote,
+                        titleEsmena=titleEsmena, hasVote=hasVote,
+                        classVote=classVote, favorVote=favorVote,
+                        againstVote=againstVote, whiteVote=whiteVote,
+                        items_inside=inside, info_firma=item.info_firma
+                        if hasattr(item, 'info_firma') else None))
         return results
 
     def SubpuntsInside(self, data):
@@ -542,7 +545,8 @@ class View(BrowserView):
                 if item.agreement:
                     agreement = item.agreement
                 else:
-                    agreement = _(u"sense numeracio") if not getattr(item, 'omitAgreement', False) else ''
+                    agreement = _(u"sense numeracio") if not getattr(
+                        item, 'omitAgreement', False) else ''
 
                 isAcord = True
                 omitAgreement = getattr(item, 'omitAgreement', False)
@@ -560,7 +564,8 @@ class View(BrowserView):
 
                 for esmena in esmenas:
                     if esmena.getObject().estatVotacio == 'open':
-                        canRecloseVote = '/'.join(item.absolute_url_path().split('/')[-2:]) + '/' + esmena.id
+                        canRecloseVote = '/'.join(item.absolute_url_path().split('/')
+                                                  [-2:]) + '/' + esmena.id
                         titleEsmena = esmena.Title
                         votacio = esmena.getObject()
                         canOpenVote = False
@@ -643,7 +648,9 @@ class View(BrowserView):
         organ_tipus = self.context.organType
 
         if organ_tipus == 'open_organ':
-            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
+            if estatSessio == 'planificada' and utils.checkhasRol(
+                ['OG1-Secretari', 'OG2-Editor'],
+                    roles):
                 return True
             elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
@@ -656,7 +663,9 @@ class View(BrowserView):
             else:
                 return False
         else:
-            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
+            if estatSessio == 'planificada' and utils.checkhasRol(
+                ['OG1-Secretari', 'OG2-Editor'],
+                    roles):
                 return True
             elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
@@ -966,9 +975,11 @@ class View(BrowserView):
             if value.agreement:
                 if len(value.agreement.split('/')) > 2:
                     try:
-                        num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3) + value.agreement.split('/')[3].zfill(3)
+                        num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[
+                            2].zfill(3) + value.agreement.split('/')[3].zfill(3)
                     except:
-                        num = value.agreement.split('/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3)
+                        num = value.agreement.split(
+                            '/')[1].zfill(3) + value.agreement.split('/')[2].zfill(3)
                     any = value.agreement.split('/')[0]
                 else:
                     num = value.agreement.split('/')[0].zfill(3)
@@ -995,7 +1006,8 @@ class View(BrowserView):
         organ_tipus = self.context.organType
 
         if organ_tipus == 'open_organ':
-            if estatSessio == 'planificada' and ('OG1-Secretari' in roles or 'OG2-Editor' in roles):
+            if estatSessio == 'planificada' and (
+                    'OG1-Secretari' in roles or 'OG2-Editor' in roles):
                 return True
             elif estatSessio == 'convocada':
                 return True
@@ -1009,7 +1021,9 @@ class View(BrowserView):
                 raise Unauthorized
 
         if organ_tipus == 'restricted_to_members_organ':
-            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
+            if estatSessio == 'planificada' and utils.checkhasRol(
+                ['OG1-Secretari', 'OG2-Editor'],
+                    roles):
                 return True
             elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
@@ -1023,7 +1037,9 @@ class View(BrowserView):
                 raise Unauthorized
 
         if organ_tipus == 'restricted_to_affected_organ':
-            if estatSessio == 'planificada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor'], roles):
+            if estatSessio == 'planificada' and utils.checkhasRol(
+                ['OG1-Secretari', 'OG2-Editor'],
+                    roles):
                 return True
             elif estatSessio == 'convocada' and utils.checkhasRol(['OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles):
                 return True
@@ -1049,12 +1065,16 @@ class View(BrowserView):
     def canViewResultsVote(self):
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
-        return 'Manager' in roles or utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre'], roles)
+        return 'Manager' in roles or utils.checkhasRol(
+            ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre'],
+            roles)
 
     def canViewLinkSala(self):
         username = api.user.get_current().id
         roles = utils.getUserRoles(self, self.context, username)
-        return 'Manager' in roles or utils.checkhasRol(['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'], roles)
+        return 'Manager' in roles or utils.checkhasRol(
+            ['Manager', 'OG1-Secretari', 'OG2-Editor', 'OG3-Membre', 'OG5-Convidat'],
+            roles)
 
     def getAllResultsVotes(self):
         portal_catalog = api.portal.get_tool(name='portal_catalog')
@@ -1092,22 +1112,17 @@ class View(BrowserView):
                       'depth': 1})
 
             if acordObj.estatVotacio in ['open', 'close']:
-                data = {'UID': acord.UID,
-                        'URL': acordObj.absolute_url(),
-                        'title': acordObj.title,
-                        'code': acordObj.agreement,
-                        'state': _(u'open') if acordObj.estatVotacio == 'open' else _(u'close'),
+                data = {'UID': acord.UID, 'URL': acordObj.absolute_url(),
+                        'title': acordObj.title, 'code': acordObj.agreement,
+                        'state': _(u'open')
+                        if acordObj.estatVotacio == 'open' else _(u'close'),
                         'isOpen': acordObj.estatVotacio == 'open',
-                        'isPublic': acordObj.tipusVotacio == 'public' and self.canViewManageVote(),
+                        'isPublic': acordObj.tipusVotacio ==
+                        'public' and self.canViewManageVote(),
                         'hourOpen': acordObj.horaIniciVotacio,
-                        'hourClose': acordObj.horaFiVotacio,
-                        'favorVote': 0,
-                        'againstVote': 0,
-                        'whiteVote': 0,
-                        'totalVote': 0,
-                        'isEsmena': False,
-                        'isVote': True,
-                        'canReopen': True }
+                        'hourClose': acordObj.horaFiVotacio, 'favorVote': 0,
+                        'againstVote': 0, 'whiteVote': 0, 'totalVote': 0,
+                        'isEsmena': False, 'isVote': True, 'canReopen': True}
 
                 if acordObj.estatVotacio == 'open':
                     data['canReopen'] = False
@@ -1170,7 +1185,7 @@ class View(BrowserView):
                         'totalVote': '',
                         'isEsmena': False,
                         'isVote': False,
-                        'canReopen': False }
+                        'canReopen': False}
 
                 results.append(data)
 
@@ -1184,21 +1199,16 @@ class View(BrowserView):
             for esmena in esmenas:
                 esmenaObj = esmena._unrestrictedGetObject()
 
-                data = {'UID': esmena.UID,
-                        'URL': esmenaObj.absolute_url(),
-                        'title': esmenaObj.title,
-                        'state': _(u'open') if esmenaObj.estatVotacio == 'open' else _(u'close'),
-                        'isPublic': esmenaObj.tipusVotacio == 'public' and self.canViewManageVote(),
+                data = {'UID': esmena.UID, 'URL': esmenaObj.absolute_url(),
+                        'title': esmenaObj.title, 'state': _(u'open')
+                        if esmenaObj.estatVotacio == 'open' else _(u'close'),
+                        'isPublic': esmenaObj.tipusVotacio ==
+                        'public' and self.canViewManageVote(),
                         'isOpen': esmenaObj.estatVotacio == 'open',
                         'hourOpen': esmenaObj.horaIniciVotacio,
-                        'hourClose': esmenaObj.horaFiVotacio,
-                        'favorVote': 0,
-                        'againstVote': 0,
-                        'whiteVote': 0,
-                        'totalVote': 0,
-                        'isEsmena': True,
-                        'isVote': True,
-                        'canReopen': canReopen }
+                        'hourClose': esmenaObj.horaFiVotacio, 'favorVote': 0,
+                        'againstVote': 0, 'whiteVote': 0, 'totalVote': 0,
+                        'isEsmena': True, 'isVote': True, 'canReopen': canReopen}
 
                 infoVotacio = esmenaObj.infoVotacio
                 if isinstance(infoVotacio, str):
@@ -1264,7 +1274,8 @@ class View(BrowserView):
 
         lenQuorums = len(self.context.infoQuorums)
         if lenQuorums > 0 and not self.context.infoQuorums[lenQuorums]['end']:
-            return api.user.get_current().id in self.context.infoQuorums[lenQuorums]['people']
+            return api.user.get_current().id in self.context.infoQuorums[lenQuorums][
+                'people']
 
         return False
 
@@ -1357,7 +1368,8 @@ class CloseQuorum(BrowserView):
 
         lenQuorums = len(self.context.infoQuorums)
         if lenQuorums > 0 and not self.context.infoQuorums[lenQuorums]['end']:
-            self.context.infoQuorums[lenQuorums]['end'] = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
+            self.context.infoQuorums[lenQuorums]['end'] = datetime.datetime.now().strftime(
+                '%d/%m/%Y %H:%M')
 
         self.context.reindexObject()
         transaction.commit()
@@ -1382,7 +1394,8 @@ class AddQuorum(BrowserView):
             username = api.user.get_current().id
             if username not in self.context.infoQuorums[lenQuorums]['people']:
                 self.context.infoQuorums[lenQuorums]['people'].append(username)
-                self.context.infoQuorums[lenQuorums]['total'] = len(self.context.infoQuorums[lenQuorums]['people'])
+                self.context.infoQuorums[lenQuorums]['total'] = len(
+                    self.context.infoQuorums[lenQuorums]['people'])
 
         self.context.reindexObject()
         transaction.commit()
@@ -1420,12 +1433,14 @@ class ExportCSV(BrowserView):
         writer.writerow(self.data_header_columns)
 
         info = []
-        writer.writerow(['',
-                         self.context.Title(),
-                         self.context.portal_type.split('.')[2].capitalize(),
-                         '',
-                         translate(msgid=api.content.get_state(self.context), domain='genweb', target_language='ca'),
-                         self.context.absolute_url()])
+        writer.writerow(
+            ['', self.context.Title(),
+             self.context.portal_type.split('.')[2].capitalize(),
+             '',
+             translate(
+                 msgid=api.content.get_state(self.context),
+                 domain='genweb', target_language='ca'),
+             self.context.absolute_url()])
 
         writer.writerow(['', '', '', '', '', ''])
 
@@ -1486,11 +1501,11 @@ class ExportCSV(BrowserView):
                 proposalPoint = obj.proposalPoint
                 state = obj.estatsLlista
 
-            writer.writerow([proposalPoint,
-                             title,
-                             brain.portal_type.split('.')[2].capitalize(),
-                             acord,
-                             translate(msgid=state, domain='genweb.organs', target_language='ca'),
-                             obj.absolute_url()])
+            writer.writerow(
+                [proposalPoint, title, brain.portal_type.split('.')[2].capitalize(),
+                 acord,
+                 translate(
+                     msgid=state, domain='genweb.organs', target_language='ca'),
+                 obj.absolute_url()])
 
             self.write_data_inside(obj, output_file, True)

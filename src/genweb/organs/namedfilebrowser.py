@@ -317,20 +317,7 @@ def _get_file_with_perms(view: Download):
                     elif context.visiblefile:
                         # Si solo hay visiblefile: lo ve
                         return file
-                # Anónimos: sin acceso (pero con lógica especial legacy)
-                else:
-                    if context.visiblefile and context.hiddenfile:
-                        # Si hay ambos: solo ven visiblefile
-                        if visible:
-                            return file
-                        else:
-                            raise Unauthorized
-                    elif context.hiddenfile:
-                        # Si solo hay hiddenfile: sin acceso
-                        raise Unauthorized
-                    elif context.visiblefile:
-                        # Si solo hay visiblefile: lo ve
-                        return file
+                # Anónimos en órganos restricted_to_affected: sin acceso nunca
 
     # Si llegamos aquí no se permite acceso
     raise Unauthorized
