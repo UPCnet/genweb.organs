@@ -19,6 +19,7 @@ import unicodedata
 from plone.supermodel import model
 from plone.app.textfield import RichText as RichTextField
 from plone.app.textfield.value import RichTextValue
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 
 class IMessage(model.Schema):
@@ -48,6 +49,7 @@ class IMessage(model.Schema):
 class Message(form.Form):
     ignoreContext = True
     fields = field.Fields(IMessage)
+    template = ViewPageTemplateFile('mail_message.pt')
 
     def update(self):
         """  Disable the view if username has no roles.

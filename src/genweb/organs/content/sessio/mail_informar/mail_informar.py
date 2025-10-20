@@ -15,6 +15,7 @@ from zope import schema
 from zope.schema import TextLine
 from plone.supermodel import model
 from plone.app.textfield import RichText as RichTextField
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from genweb.organs import _
 from genweb.organs.utils import addEntryLog
@@ -52,6 +53,7 @@ class IMessage(model.Schema):
 class Message(form.Form):
     ignoreContext = True
     fields = field.Fields(IMessage)
+    template = ViewPageTemplateFile('mail_informar.pt')
 
     # Disable the view if no roles in username
     def update(self):

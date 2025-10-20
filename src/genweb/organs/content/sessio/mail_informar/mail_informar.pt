@@ -23,25 +23,28 @@
 
           <p i18n:translate="">Llista de punts en el format del butlleti.</p>
 
-          <div class="modal fade hide myModal" id="myModal" tabindex="-1" role="dialog"
-               aria-labelledby="myModalLabel" aria-hidden="true" data-remote="butlleti">
-            <div class="modal-dialog" role="document">
+          <div class="modal fade hide informarModal" id="informarModal" tabindex="-1" role="dialog"
+               aria-labelledby="informarModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                  <h3 id="myModalLabel"><span i18n:translate="">Previsualitzacio dels punts</span></h3>
+                  <h5 class="modal-title" id="informarModalLabel">
+                    <span i18n:translate="">Previsualitzacio dels punts</span>
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body"></div>
               </div>
             </div>
           </div>
 
-          <button data-target="#myModal" role="button"
-             class="btn btn btn-primary" data-toggle="modal">
+          <a data-target="#informarModal" role="button"
+             class="btn btn btn-primary" data-toggle="modal"
+             tal:attributes="href string:${context/absolute_url}/@@butlleti; data-remote string:${context/absolute_url}/@@butlleti">
              <i class="icon icon-copy icon-white"></i>&nbsp;<span i18n:translate=""> Vista previa dels punts </span>
-           </button>
+           </a>
 
-          <div class="documentDescription description"></div>
+          <div class="documentDescription description mb-4"></div>
           <div class="clearfix"></div>
 
           <metal:block use-macro="context/@@ploneform-macros/titlelessform"></metal:block>
@@ -50,6 +53,8 @@
       </div>
     </div>
   </div>
+  <script type="text/javascript"
+          src="++theme++genweb.organs/js/content/mail_informar.min.js"></script>
 </div>
 </body>
 </html>

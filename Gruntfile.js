@@ -70,6 +70,8 @@ module.exports = function (grunt) {
                         '../../../../../genweb.organs/src/genweb/organs/browser/search/search.js',
                     'js/widgets/text_input_select_users.min.js':
                         '../../../../../genweb.organs/src/genweb/organs/widgets/text_input_select_users.js',
+                    'js/content/mail_informar.min.js':
+                        '../../../../../genweb.organs/src/genweb/organs/content/sessio/mail_informar/mail_informar.js',
                 }
             }
         },
