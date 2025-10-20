@@ -46,6 +46,17 @@ body.template-excusar_assist_sessio #social_tags {
   display: none !important;
 }
 
+/* line 49, ../scss/_edicio.scss */
+div.widget-mode-display b {
+  margin-bottom: 0;
+}
+/* line 53, ../scss/_edicio.scss */
+div.widget-mode-display span.form-control {
+  padding: 0;
+  border: 0;
+  color: var(--bs-secondary-color);
+}
+
 /* line 3, ../scss/_homepage.scss */
 body.template-search .card-organ {
   transition: all .25s ease-out;

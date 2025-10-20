@@ -43,3 +43,16 @@ body.template-excusar_assist_sessio {
     display: none !important;
   }
 }
+
+div.widget-mode-display {
+
+  b {
+    margin-bottom: 0;
+  }
+
+  span.form-control {
+    padding: 0;
+    border: 0;
+    color: var(--bs-secondary-color);
+  }
+}
