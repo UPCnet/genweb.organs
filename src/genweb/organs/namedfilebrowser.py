@@ -206,13 +206,7 @@ def _get_file_with_perms(view: Download):
                      "OG3-Membre", "OG5-Convidat"],
                         roles):
                     return file
-                # Afectat solo ve visiblefile
-                if utils.checkhasRol(["OG4-Afectat"], roles):
-                    if visible:
-                        return file
-                    # Si intenta acceder a hiddenfile: Unauthorized
-                    if hidden:
-                        raise Unauthorized
+                # Afectats y anónimos: sin acceso
     elif organ_type == "restricted_to_affected_organ":
         if sessio_state == "planificada":
             # Solo Secretari y Editor
