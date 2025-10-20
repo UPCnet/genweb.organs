@@ -35,7 +35,12 @@ b.form-label {
   color: var(--bs-info-text-emphasis) !important;
 }
 
-/* line 37, ../scss/_edicio.scss */
+/* line 42, ../scss/_edicio.scss */
+body.template-mail_informar #social_tags,
+body.template-mail_convocar #social_tags,
+body.template-mail_message #social_tags,
+body.template-presentation #social_tags,
+body.template-butlleti #social_tags,
 body.template-signsessio #social_tags,
 body.template-excusar_assist_sessio #social_tags {
   display: none !important;
