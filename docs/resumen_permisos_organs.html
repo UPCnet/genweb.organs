@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumen de Permisos - Genweb Organs Plone 6</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 40px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #7f8c8d;
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:hover {
+            background-color: #e8f4f8;
+        }
+        .check {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .cross {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .warning {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        .note {
+            background-color: #fff9e6;
+            border-left: 4px solid #f39c12;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .differences {
+            background-color: #e8f5e9;
+            border-left: 4px solid #27ae60;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .key {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        code {
+            background-color: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        ul {
+            line-height: 1.8;
+        }
+        @media print {
+            body {
+                margin: 20px;
+            }
+            h2 {
+                page-break-before: always;
+            }
+            table {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>📋 Resumen de Permisos - Genweb Organs Plone 6</h1>
+    <p><strong>Fecha:</strong> Octubre 2025 | <strong>Versión:</strong> Plone 6</p>
+
+    <!-- ÓRGANOS PÚBLICOS -->
+    <h2>🌐 ÓRGANOS PÚBLICOS (<code>open_organ</code>)</h2>
+
+    <h3>ACTAS, AUDIOS y ANNEX</h3>
+    <p>Tipos de contenido: <code>genweb.organs.acta</code>, <code>genweb.organs.audio</code>, <code>genweb.organs.annex</code></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Estado</th>
+                <th>Roles con Acceso</th>
+                <th>Anónimos</th>
+                <th>Explicación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>PLANIFICADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor</td>
+                <td class="cross">❌ No</td>
+                <td>Solo personal administrativo</td>
+            </tr>
+            <tr>
+                <td><strong>CONVOCADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, OG5-Convidat <br><span class="cross">⚠️ SIN OG4-Afectat</span></td>
+                <td class="check">✅ Sí</td>
+                <td>Los afectados NO ven actas hasta que se cierra</td>
+            </tr>
+            <tr>
+                <td><strong>REALITZADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, OG5-Convidat <br><span class="cross">⚠️ SIN OG4-Afectat</span></td>
+                <td class="check">✅ Sí</td>
+                <td>Los afectados siguen sin acceso</td>
+            </tr>
+            <tr>
+                <td><strong>TANCADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, <span class="check">OG4-Afectat</span>, OG5-Convidat</td>
+                <td class="check">✅ Sí</td>
+                <td><strong>Ahora los afectados SÍ tienen acceso</strong></td>
+            </tr>
+            <tr>
+                <td><strong>EN_CORRECCIO</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, OG5-Convidat <br><span class="cross">⚠️ SIN OG4-Afectat</span></td>
+                <td class="cross">❌ No</td>
+                <td>En corrección: sin afectados ni anónimos</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>SESIONES (visiblefile/hiddenfile)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Estado</th>
+                <th>Roles con Acceso (ambos archivos)</th>
+                <th>Anónimos</th>
+                <th>Explicación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>PLANIFICADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor</td>
+                <td class="cross">❌ No</td>
+                <td>Solo personal administrativo</td>
+            </tr>
+            <tr>
+                <td><strong>CONVOCADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, OG4-Afectat, OG5-Convidat</td>
+                <td class="check">✅ Solo visiblefile <span class="cross">(❌ hiddenfile)</span></td>
+                <td>Todos los roles ven ambos archivos; anónimos solo el público</td>
+            </tr>
+            <tr>
+                <td><strong>REALITZADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, OG4-Afectat, OG5-Convidat</td>
+                <td class="check">✅ Solo visiblefile <span class="cross">(❌ hiddenfile)</span></td>
+                <td>Todos los roles ven ambos archivos; anónimos solo el público</td>
+            </tr>
+            <tr>
+                <td><strong>TANCADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, OG4-Afectat, OG5-Convidat</td>
+                <td class="check">✅ Solo visiblefile <span class="cross">(❌ hiddenfile)</span></td>
+                <td>Todos los roles ven ambos archivos; anónimos solo el público</td>
+            </tr>
+            <tr>
+                <td><strong>EN_CORRECCIO</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, OG4-Afectat, OG5-Convidat</td>
+                <td class="check">✅ Solo visiblefile <span class="cross">(❌ hiddenfile)</span></td>
+                <td>Todos los roles ven ambos archivos; anónimos solo el público</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ÓRGANOS RESTRINGIDOS A MIEMBROS -->
+    <h2>👥 ÓRGANOS RESTRINGIDOS A MIEMBROS (<code>restricted_to_members_organ</code>)</h2>
+
+    <h3>ACTAS, AUDIOS y ANNEX</h3>
+    <p>Tipos de contenido: <code>genweb.organs.acta</code>, <code>genweb.organs.audio</code>, <code>genweb.organs.annex</code></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Estado</th>
+                <th>Roles con Acceso</th>
+                <th>OG4-Afectat</th>
+                <th>Anónimos</th>
+                <th>Explicación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>PLANIFICADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor</td>
+                <td class="cross">❌ No</td>
+                <td class="cross">❌ No</td>
+                <td>Solo personal administrativo</td>
+            </tr>
+            <tr>
+                <td><strong>CONVOCADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, OG5-Convidat</td>
+                <td class="cross">❌ No</td>
+                <td class="cross">❌ No</td>
+                <td>Sin afectados ni anónimos</td>
+            </tr>
+            <tr>
+                <td><strong>REALITZADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, OG5-Convidat</td>
+                <td class="cross">❌ No</td>
+                <td class="cross">❌ No</td>
+                <td>Sin afectados ni anónimos</td>
+            </tr>
+            <tr>
+                <td><strong>TANCADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, OG5-Convidat</td>
+                <td class="cross">❌ No</td>
+                <td class="cross">❌ No</td>
+                <td>Sin afectados ni anónimos</td>
+            </tr>
+            <tr>
+                <td><strong>EN_CORRECCIO</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, OG5-Convidat</td>
+                <td class="cross">❌ No</td>
+                <td class="cross">❌ No</td>
+                <td>Sin afectados ni anónimos</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>SESIONES (visiblefile/hiddenfile)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Estado</th>
+                <th>OG1-Secretari<br>OG2-Editor</th>
+                <th>OG3-Membre<br>OG5-Convidat</th>
+                <th>OG4-Afectat</th>
+                <th>Anónimos</th>
+                <th>Explicación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>PLANIFICADA</strong></td>
+                <td class="check">✅ Ambos archivos</td>
+                <td class="cross">❌ Sin acceso</td>
+                <td class="cross">❌ Sin acceso</td>
+                <td class="cross">❌ No</td>
+                <td>Solo personal administrativo</td>
+            </tr>
+            <tr>
+                <td><strong>CONVOCADA</strong></td>
+                <td class="check">✅ Ambos archivos</td>
+                <td class="warning">⚠️ Solo hiddenfile*</td>
+                <td class="cross">❌ Sin acceso</td>
+                <td class="cross">❌ No</td>
+                <td>Restricción especial para miembros/convidados</td>
+            </tr>
+            <tr>
+                <td><strong>REALITZADA</strong></td>
+                <td class="check">✅ Ambos archivos</td>
+                <td class="warning">⚠️ Solo hiddenfile*</td>
+                <td class="cross">❌ Sin acceso</td>
+                <td class="cross">❌ No</td>
+                <td>Restricción especial para miembros/convidados</td>
+            </tr>
+            <tr>
+                <td><strong>TANCADA</strong></td>
+                <td class="check">✅ Ambos archivos</td>
+                <td class="warning">⚠️ Solo hiddenfile*</td>
+                <td class="cross">❌ Sin acceso</td>
+                <td class="cross">❌ No</td>
+                <td>Restricción especial para miembros/convidados</td>
+            </tr>
+            <tr>
+                <td><strong>EN_CORRECCIO</strong></td>
+                <td class="check">✅ Ambos archivos</td>
+                <td class="warning">⚠️ Solo hiddenfile*</td>
+                <td class="cross">❌ Sin acceso</td>
+                <td class="cross">❌ No</td>
+                <td>Restricción especial para miembros/convidados</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="note">
+        <strong>* Regla especial OG3-Membre/OG5-Convidat:</strong>
+        <ul>
+            <li>Si existen <strong>visiblefile Y hiddenfile</strong>: solo acceso a <strong>hiddenfile</strong> (Unauthorized en visiblefile)</li>
+            <li>Si solo existe uno de los dos: acceso al que exista</li>
+        </ul>
+    </div>
+
+    <!-- ÓRGANOS RESTRINGIDOS A AFECTADOS -->
+    <h2>🎯 ÓRGANOS RESTRINGIDOS A AFECTADOS (<code>restricted_to_affected_organ</code>)</h2>
+
+    <h3>ACTAS, AUDIOS y ANNEX</h3>
+    <p>Tipos de contenido: <code>genweb.organs.acta</code>, <code>genweb.organs.audio</code>, <code>genweb.organs.annex</code></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Estado</th>
+                <th>Roles con Acceso</th>
+                <th>OG4-Afectat</th>
+                <th>Anónimos</th>
+                <th>Explicación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>PLANIFICADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor</td>
+                <td class="cross">❌ No</td>
+                <td class="cross">❌ No</td>
+                <td>Solo personal administrativo</td>
+            </tr>
+            <tr>
+                <td><strong>CONVOCADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, OG5-Convidat</td>
+                <td class="cross">❌ No</td>
+                <td class="cross">❌ No</td>
+                <td>Sin afectados ni anónimos</td>
+            </tr>
+            <tr>
+                <td><strong>REALITZADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, OG5-Convidat</td>
+                <td class="cross">❌ No</td>
+                <td class="cross">❌ No</td>
+                <td>Sin afectados ni anónimos</td>
+            </tr>
+            <tr>
+                <td><strong>TANCADA</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, OG5-Convidat</td>
+                <td class="cross">❌ No</td>
+                <td class="cross">❌ No</td>
+                <td>Sin afectados ni anónimos</td>
+            </tr>
+            <tr>
+                <td><strong>EN_CORRECCIO</strong></td>
+                <td>OG1-Secretari, OG2-Editor, OG3-Membre, OG5-Convidat</td>
+                <td class="cross">❌ No</td>
+                <td class="cross">❌ No</td>
+                <td>Sin afectados ni anónimos</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>SESIONES (visiblefile/hiddenfile)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Estado</th>
+                <th>OG1-Secretari<br>OG2-Editor</th>
+                <th>OG3-Membre<br>OG5-Convidat</th>
+                <th>OG4-Afectat</th>
+                <th>Anónimos</th>
+                <th>Explicación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>PLANIFICADA</strong></td>
+                <td class="check">✅ Ambos archivos</td>
+                <td class="cross">❌ Sin acceso</td>
+                <td class="cross">❌ Sin acceso</td>
+                <td class="cross">❌ No</td>
+                <td>Solo personal administrativo</td>
+            </tr>
+            <tr>
+                <td><strong>CONVOCADA</strong></td>
+                <td class="check">✅ Ambos archivos</td>
+                <td class="warning">⚠️ Solo hiddenfile*</td>
+                <td class="cross">❌ Sin acceso</td>
+                <td class="cross">❌ No</td>
+                <td>Restricción especial para miembros/convidados</td>
+            </tr>
+            <tr>
+                <td><strong>REALITZADA</strong></td>
+                <td class="check">✅ Ambos archivos</td>
+                <td class="warning">⚠️ Solo hiddenfile*</td>
+                <td class="warning">⚠️ Solo visiblefile**</td>
+                <td class="cross">❌ No</td>
+                <td>Afectados acceden a visibles en realitzada</td>
+            </tr>
+            <tr>
+                <td><strong>TANCADA</strong></td>
+                <td class="check">✅ Ambos archivos</td>
+                <td class="warning">⚠️ Solo hiddenfile*</td>
+                <td class="warning">⚠️ Solo visiblefile**</td>
+                <td class="cross">❌ No</td>
+                <td>Afectados acceden a visibles en tancada</td>
+            </tr>
+            <tr>
+                <td><strong>EN_CORRECCIO</strong></td>
+                <td class="check">✅ Ambos archivos</td>
+                <td class="warning">⚠️ Solo hiddenfile*</td>
+                <td class="warning">⚠️ Solo visiblefile**</td>
+                <td class="cross">❌ No</td>
+                <td>Afectados acceden a visibles en correccio</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="note">
+        <strong>* Regla especial OG3-Membre/OG5-Convidat:</strong>
+        <ul>
+            <li>Si existen <strong>visiblefile Y hiddenfile</strong>: solo acceso a <strong>hiddenfile</strong> (Unauthorized en visiblefile)</li>
+            <li>Si solo existe uno de los dos: acceso al que exista</li>
+        </ul>
+
+        <strong>** Regla especial OG4-Afectat (estados realitzada, tancada, en_correccio):</strong>
+        <ul>
+            <li>Si existen <strong>visiblefile Y hiddenfile</strong>: solo acceso a <strong>visiblefile</strong> (Unauthorized en hiddenfile)</li>
+            <li>Si solo existe <strong>hiddenfile</strong>: sin acceso (Unauthorized)</li>
+            <li>Si solo existe <strong>visiblefile</strong>: acceso permitido</li>
+        </ul>
+    </div>
+
+    <!-- DIFERENCIAS CLAVE -->
+    <h2>🔑 Diferencias Clave entre los Tres Tipos de Órganos</h2>
+
+    <div class="differences">
+        <h3>1. Órganos Públicos (<code>open_organ</code>)</h3>
+        <ul>
+            <li class="check">✅ Anónimos tienen acceso a actas/audios/annex (excepto en planificada y en_correccio)</li>
+            <li class="check">✅ Anónimos tienen acceso a visiblefile en sesiones (estados convocada, realitzada, tancada, en_correccio)</li>
+            <li class="check">✅ OG4-Afectat tiene acceso a actas en estado <strong>tancada</strong> únicamente</li>
+        </ul>
+    </div>
+
+    <div class="differences">
+        <h3>2. Órganos Restringidos a Miembros (<code>restricted_to_members_organ</code>)</h3>
+        <ul>
+            <li class="cross">❌ Sin acceso para anónimos</li>
+            <li class="cross">❌ OG4-Afectat nunca tiene acceso</li>
+            <li class="warning">⚠️ OG3-Membre/OG5-Convidat solo ven <strong>hiddenfile</strong> cuando existen ambos archivos</li>
+        </ul>
+    </div>
+
+    <div class="differences">
+        <h3>3. Órganos Restringidos a Afectados (<code>restricted_to_affected_organ</code>)</h3>
+        <ul>
+            <li class="cross">❌ Sin acceso para anónimos</li>
+            <li class="check">✅ OG4-Afectat tiene acceso a <strong>visiblefile</strong> en estados realitzada, tancada, en_correccio</li>
+            <li class="warning">⚠️ OG3-Membre/OG5-Convidat solo ven <strong>hiddenfile</strong> cuando existen ambos archivos</li>
+            <li class="warning">⚠️ OG4-Afectat solo ve <strong>visiblefile</strong> cuando existen ambos archivos</li>
+        </ul>
+    </div>
+
+    <div class="key">
+        <h3>📌 Notas Importantes</h3>
+        <ul>
+            <li>Los roles <strong>OG1-Secretari</strong> y <strong>OG2-Editor</strong> tienen acceso completo a todos los archivos en todos los estados (excepto planificada para algunos roles)</li>
+            <li>El rol <strong>Manager</strong> siempre tiene acceso completo sin restricciones</li>
+            <li>Las reglas especiales de <code>visiblefile</code>/<code>hiddenfile</code> solo aplican cuando ambos archivos existen simultáneamente</li>
+            <li>Los estados de workflow son: <code>planificada</code>, <code>convocada</code>, <code>realitzada</code>, <code>tancada</code>, <code>en_correccio</code></li>
+        </ul>
+    </div>
+
+    <footer style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #ecf0f1; text-align: center; color: #7f8c8d;">
+        <p><strong>Genweb Organs - Plone 6</strong></p>
+        <p>Documentación generada automáticamente - Octubre 2025</p>
+    </footer>
+</body>
+</html>
