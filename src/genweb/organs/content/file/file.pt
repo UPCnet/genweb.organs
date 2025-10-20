@@ -38,9 +38,9 @@
     </div>
 
     <!-- Bloque reservat -->
-    <section tal:condition="viewReserved"
-             class="mb-3">
-      <div tal:condition="hihaReserved">
+    <section tal:condition="viewReserved">
+      <div tal:condition="hihaReserved"
+           class="mb-3">
         <h2 class="h5 fw-bolder mb-3" i18n:translate=""
             tal:condition="not:privateFileUploadedGdoc">Fitxer restringit</h2>
         <h2 class="h5 fw-bolder mb-3" i18n:translate=""
