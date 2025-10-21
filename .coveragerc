@@ -3,7 +3,7 @@ source = src/genweb/organs
 
 [report]
 include =
-    genweb/organs/*
+    src/genweb/organs/*
 
 omit =
     */test*

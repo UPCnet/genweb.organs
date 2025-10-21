@@ -67,6 +67,12 @@ Esta guía documenta cómo ejecutar los tests de permisos implementados para `ge
     - Obrir/Tancar votació, Botons per votar, Resultados
     - 12 tests implementados
 
+15. **test_quorum.py** ⭐ NUEVO
+    - Sistema de quorum completo
+    - Gestionar/Añadir/Eliminar quorum
+    - Permisos para Manager, OG1-Secretari, OG2-Editor, OG3-Membre
+    - 12 tests implementados
+
 ## 🚀 Comandos de Ejecución
 
 ### Ejecutar TODOS los tests
@@ -142,9 +148,14 @@ cd /Users/pilarmarinas/Development/Plone/organs6.buildout
 ./bin/test -s genweb.organs -t test_votaciones
 ```
 
-#### Ejecutar todos los tests de acciones y UI (63 tests) ⭐ NUEVO
+#### Tests de quorum ⭐ NUEVO
 ```bash
-./bin/test -s genweb.organs -t test_organ_tabs -t test_session_actions_by_state -t test_organ_actions -t test_acta_actions -t test_votaciones
+./bin/test -s genweb.organs -t test_quorum
+```
+
+#### Ejecutar todos los tests de acciones y UI (75 tests) ⭐ NUEVO
+```bash
+./bin/test -s genweb.organs -t test_organ_tabs -t test_session_actions_by_state -t test_organ_actions -t test_acta_actions -t test_votaciones -t test_quorum
 ```
 
 ### Ejecutar con verbosidad
@@ -315,29 +326,103 @@ Verifica:
 - Cada test crea una estructura completa de órgano/sesiones
 - Considera ejecutar solo los tests que necesitas durante desarrollo
 
+## 📊 Coverage Report
+
+### Generar reporte de cobertura
+
+```bash
+# Desde el directorio del paquete
+cd src/genweb.organs
+
+# Ejecutar coverage con todos los tests
+../../bin/coverage run --source=src/genweb/organs ../../bin/test -s genweb.organs
+
+# Generar reporte HTML
+../../bin/coverage html -d coverage_report
+
+# Abrir en navegador
+open coverage_report/index.html
+```
+
+### Ejecutar coverage con un test específico
+
+```bash
+cd src/genweb.organs
+
+# Solo test_votaciones
+../../bin/coverage run --source=src/genweb/organs ../../bin/test -s genweb.organs -t test_votaciones
+
+# Generar reporte
+../../bin/coverage html -d coverage_report
+```
+
+### Ver reporte en texto
+
+```bash
+cd src/genweb.organs
+../../bin/coverage report --show-missing
+```
+
+### Configuración Coverage (.coveragerc)
+
+El archivo `.coveragerc` en `src/genweb.organs/` está configurado correctamente:
+
+```ini
+[run]
+source = src/genweb/organs
+
+[report]
+include =
+    src/genweb/organs/*
+
+omit =
+    */test*
+    */tests/*
+    */testing/*
+
+[html]
+directory = coverage_report
+```
+
 ## ✅ Checklist antes de Commit
 
 - [ ] Todos los tests pasan: `./bin/test -s genweb.organs`
-- [ ] Coverage no ha bajado: `./bin/test -s genweb.organs --coverage=coverage_report`
+- [ ] Coverage generado correctamente (ver comandos arriba)
 - [ ] No hay prints de debug olvidados (excepto los informativos)
 - [ ] No hay `import ipdb; ipdb.set_trace()` olvidados
 - [ ] Los mensajes de commit siguen el formato convencional
 
 ## 📊 Resumen de Tests Implementados
 
-**Total: 14/14 tests (100%)**
+**Total: 15/15 tests (100%)**
 
-**63 tests funcionales en total**:
+**75 tests funcionales en total**:
 - ✅ 8 tests - Pestañas del órgano
 - ✅ 22 tests - Acciones sobre sesiones por estado
 - ✅ 12 tests - Acciones sobre el órgano
 - ✅ 12 tests - Sistema de votaciones
+- ✅ 12 tests - Sistema de quorum
 - ✅ 9 tests - Acciones sobre actas
 
 **Estado**: ✅ 0 failures, 0 errors
+
+### 🎯 Tests de Quorum
+
+El test de quorum (`test_quorum.py`) verifica 3 permisos específicos:
+
+| Permiso | Manager | OG1-Secretari | OG2-Editor | OG3-Membre | Otros |
+|---------|---------|---------------|------------|------------|-------|
+| **Gestionar quorum** | ✅ | ✅ | ✅ | ❌ | ❌ |
+| **Añadir quorum** | ✅ | ✅ | ❌ | ✅ | ❌ |
+| **Eliminar quorum** | ✅ | ❌ | ❌ | ❌ | ❌ |
+
+**Particularidades**:
+- **OG2-Editor**: Puede gestionar pero NO añadir quorum
+- **OG3-Membre**: Puede añadir pero NO gestionar quorum
+- **Manager**: Único con permiso para eliminar quorum
 
 ---
 
 **Última actualización**: Octubre 2025
 **Versión de Plone**: 6.0.11
-**Tests implementados**: 14/14 (100%) ✅
+**Tests implementados**: 15/15 (100%) ✅

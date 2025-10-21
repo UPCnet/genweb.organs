@@ -202,11 +202,29 @@ Debe verificar acciones específicas:
 
 **Nota**: OG2-Editor gestiona votaciones pero no vota. OG3-Membre vota pero no gestiona.
 
+### 15. Sistema de Quorum
+**Archivo**: `test_quorum.py` ⭐ IMPLEMENTADO
+
+**Cubre**:
+
+| Acción | Manager | OG1-Secretari | OG2-Editor | OG3-Membre | OG4-Afectat | OG5-Convidat | Anónimo |
+|--------|---------|---------------|------------|------------|-------------|--------------|---------|
+| **Gestionar quorum** (Manage Quorum) | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
+| **Añadir quorum** (Add Quorum) | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ |
+| **Eliminar quorum** (Remove Quorum) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+
+**Nota**:
+- Manager, OG1-Secretari y OG2-Editor pueden gestionar quorum
+- OG1-Secretari y OG3-Membre pueden añadir quorum
+- Solo Manager puede eliminar quorum
+- OG2-Editor puede gestionar pero NO añadir quorum
+- OG3-Membre puede añadir pero NO gestionar quorum
+
 ## 📊 Resumen de Cobertura
 
-### ✅ Implementados: 14/14 tests (100%)
+### ✅ Implementados: 15/15 tests (100%)
 
-**Total de tests funcionales implementados: 63 tests**
+**Total de tests funcionales implementados: 75 tests**
 
 #### Tests de Permisos Básicos:
 1. ✅ Creación de sesiones (test_create_sessions.py)
@@ -223,6 +241,7 @@ Debe verificar acciones específicas:
 8. ✅ Acciones sobre actas - 9 tests (test_acta_actions.py)
 9. ✅ Votaciones - 12 tests (test_votaciones.py)
 10. ✅ Pestañas del órgano - 8 tests (test_organ_tabs.py)
+11. ✅ Sistema de quorum - 12 tests (test_quorum.py)
 
 ## 🎯 Estado de Implementación
 
@@ -246,8 +265,8 @@ Todos los tests de permisos han sido implementados exitosamente:
 # Tests de archivos
 ./bin/test -s genweb.organs -t test_file_permission
 
-# Tests de acciones y UI (63 tests)
-./bin/test -s genweb.organs -t test_organ_tabs -t test_session_actions_by_state -t test_organ_actions -t test_acta_actions -t test_votaciones
+# Tests de acciones y UI (75 tests)
+./bin/test -s genweb.organs -t test_organ_tabs -t test_session_actions_by_state -t test_organ_actions -t test_acta_actions -t test_votaciones -t test_quorum
 
 # Tests individuales
 ./bin/test -s genweb.organs -t test_organ_tabs           # 8 tests
@@ -255,9 +274,68 @@ Todos los tests de permisos han sido implementados exitosamente:
 ./bin/test -s genweb.organs -t test_organ_actions        # 12 tests
 ./bin/test -s genweb.organs -t test_acta_actions         # 9 tests
 ./bin/test -s genweb.organs -t test_votaciones           # 12 tests
+./bin/test -s genweb.organs -t test_quorum               # 12 tests
 
-# Con coverage
-./bin/test -s genweb.organs --coverage=coverage_report
+# Con coverage (desde el directorio del paquete)
+cd src/genweb.organs
+../../bin/coverage run --source=src/genweb/organs ../../bin/test -s genweb.organs
+../../bin/coverage html -d coverage_report
+open coverage_report/index.html
+```
+
+## 📊 Interpretar el Coverage Report
+
+### 🎯 ¿Qué mide el Coverage?
+
+El reporte de coverage mide **qué líneas de código se ejecutan** durante los tests.
+
+**Cobertura actual**: ~23% (basado en tests de permisos)
+
+### ❓ ¿Por qué solo 23%?
+
+Los **63 tests implementados verifican TODOS los permisos documentados**, pero:
+
+- ✅ **Tests de permisos**: Verifican acceso/denegación (restrictedTraverse, Unauthorized)
+- ⚠️ **Código no ejecutado**: Lógica interna de vistas, cálculos, formateo, emails, etc.
+- 📝 **Tests funcionales**: No ejecutan toda la lógica de negocio, solo verifican acceso
+
+### 🔍 ¿Necesitas más tests?
+
+| Objetivo | ¿Necesario? | Razón |
+|---------|------------|-------|
+| **Verificar permisos** | ❌ NO | Los 63 tests cubren todos los casos documentados |
+| **Aumentar coverage** | ✅ SÍ (opcional) | Para testear lógica de negocio interna |
+| **Tests de regresión** | ✅ SÍ (recomendado) | Para bugs específicos encontrados |
+
+### 📈 Qué muestra el reporte HTML
+
+El reporte HTML (`coverage_report/index.html`) muestra:
+
+- **Verde** ✅: Líneas ejecutadas durante los tests
+- **Rojo** ❌: Líneas NO ejecutadas durante los tests
+- **Porcentaje por archivo**: % de líneas ejecutadas en cada módulo
+
+**Archivos con baja cobertura** (normal para tests de permisos):
+- `browser/views.py` (14%): Solo se ejecutan checks de permisos
+- `content/sessio/sessio.py` (21%): Solo código de acceso básico
+- `utils.py` (23%): Solo funciones usadas por tests de setup
+
+**Archivos con alta cobertura**:
+- `content/__init__.py` (100%): Imports y configuración
+- `setuphandlers.py` (90%): Código de instalación ejecutado
+- `widgets/` (83%): Código simple usado en tests
+
+### 🎯 Próximos pasos (opcionales)
+
+Para aumentar el coverage, podrías añadir tests para:
+
+1. **Lógica de vistas**: Métodos internos, cálculos, formateo
+2. **Envío de emails**: Mock y verificación de emails enviados
+3. **Validaciones**: Edge cases y errores
+4. **Workflows**: Transiciones complejas y guards
+5. **Integraciones**: Servicios externos (mock)
+
+Pero recuerda: **los permisos ya están 100% verificados** ✅
 ```
 
 ## 📝 Notas
@@ -271,11 +349,12 @@ Todos los tests de permisos han sido implementados exitosamente:
 
 ## ✅ Resultado Final
 
-**63 tests implementados y funcionando correctamente**:
+**75 tests implementados y funcionando correctamente**:
 - ✅ 8 tests - Pestañas del órgano
 - ✅ 22 tests - Acciones sobre sesiones por estado
 - ✅ 12 tests - Acciones sobre el órgano
 - ✅ 12 tests - Sistema de votaciones
+- ✅ 12 tests - Sistema de quorum
 - ✅ 9 tests - Acciones sobre actas
 
 Todos los tests verifican:

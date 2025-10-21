@@ -109,7 +109,16 @@
     <div class="key">
         <h3>📑 Índice de Contenidos</h3>
         <ul>
-            <li><a href="#organos-publicos">🌐 Órganos Públicos (open_organ)</a></li>
+            <li><a href="#organos-publicos">🌐 Órganos Públicos (open_organ)</a>
+                <ul>
+                    <li>Permisos sobre el órgano</li>
+                    <li>Acciones y pestañas</li>
+                    <li>Acciones sobre actas</li>
+                    <li>Votaciones</li>
+                    <li>Quorum</li>
+                    <li>Sesiones por estado (PLANIFICADA, CONVOCADA, REALITZADA, TANCADA, EN_CORRECCIO)</li>
+                </ul>
+            </li>
             <li><a href="#organos-miembros">👥 Órganos Restringidos a Miembros (restricted_to_members_organ)</a></li>
             <li><a href="#organos-afectados">🎯 Órganos Restringidos a Afectados (restricted_to_affected_organ)</a></li>
             <li><a href="#diferencias">🔑 Diferencias Clave entre los Tres Tipos</a></li>
@@ -326,8 +335,8 @@
             <tr>
                 <td><strong>Veure botons per votar</strong></td>
                 <td class="check">✅</td>
-                <td class="check">✅</td>
                 <td class="cross">❌</td>
+                <td class="check">✅</td>
                 <td class="cross">❌</td>
                 <td class="cross">❌</td>
                 <td class="cross">❌</td>
@@ -352,6 +361,74 @@
             </tr>
         </tbody>
     </table>
+
+    <div class="note">
+        <strong>⚠️ Nota sobre Votaciones:</strong>
+        <ul>
+            <li><strong>OG1-Secretari</strong>: Puede gestionar votaciones Y votar</li>
+            <li><strong>OG2-Editor</strong>: Puede gestionar votaciones pero NO puede votar</li>
+            <li><strong>OG3-Membre</strong>: Puede votar pero NO puede gestionar votaciones</li>
+        </ul>
+    </div>
+
+    <h3>QUORUM</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Permiso</th>
+                <th>Manager</th>
+                <th>OG1-Secretari</th>
+                <th>OG2-Editor</th>
+                <th>OG3-Membre</th>
+                <th>OG4-Afectat</th>
+                <th>OG5-Convidat</th>
+                <th>Anónimo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Gestionar quorum</strong> (Manage Quorum)</td>
+                <td class="check">✅</td>
+                <td class="check">✅</td>
+                <td class="check">✅</td>
+                <td class="cross">❌</td>
+                <td class="cross">❌</td>
+                <td class="cross">❌</td>
+                <td class="cross">❌</td>
+            </tr>
+            <tr>
+                <td><strong>Añadir quorum</strong> (Add Quorum)</td>
+                <td class="check">✅</td>
+                <td class="check">✅</td>
+                <td class="cross">❌</td>
+                <td class="check">✅</td>
+                <td class="cross">❌</td>
+                <td class="cross">❌</td>
+                <td class="cross">❌</td>
+            </tr>
+            <tr>
+                <td><strong>Eliminar quorum</strong> (Remove Quorum)</td>
+                <td class="check">✅</td>
+                <td class="cross">❌</td>
+                <td class="cross">❌</td>
+                <td class="cross">❌</td>
+                <td class="cross">❌</td>
+                <td class="cross">❌</td>
+                <td class="cross">❌</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="note">
+        <strong>⚠️ Nota sobre Quorum:</strong>
+        <ul>
+            <li><strong>Manager, OG1-Secretari y OG2-Editor</strong>: Pueden gestionar quorum (abrir/cerrar)</li>
+            <li><strong>OG1-Secretari y OG3-Membre</strong>: Pueden añadir asistentes al quorum</li>
+            <li><strong>Solo Manager</strong>: Puede eliminar quorum</li>
+            <li><strong>OG2-Editor</strong>: Puede gestionar pero NO puede añadir quorum</li>
+            <li><strong>OG3-Membre</strong>: Puede añadir pero NO puede gestionar quorum</li>
+        </ul>
+    </div>
 
     <h3>ACTAS, AUDIOS y ANNEX</h3>
     <p>Tipos de contenido: <code>genweb.organs.acta</code>, <code>genweb.organs.audio</code>, <code>genweb.organs.annex</code></p>
