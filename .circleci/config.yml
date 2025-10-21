@@ -1,25 +1,13 @@
-# Python CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-python/ for more details
-#
-version: 2
+# Python CircleCI 2.1 configuration file
+# Updated for Plone 6 + Python 3.11
+version: 2.1
+
 jobs:
   build:
     docker:
-      # specify the version you desire here
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: circleci/python:2.7.14-jessie
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
+      - image: cimg/python:3.11
 
     working_directory: ~/repo
-
-    dependencies:
-        cache_directories:
-          - "*/eggs/*"
 
     steps:
       - checkout
@@ -27,16 +15,41 @@ jobs:
       - run:
           name: Install system dependencies
           command: |
-            sudo apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev
+            sudo apt-get update
+            sudo apt-get install -y libsasl2-dev python3-dev libldap2-dev libssl-dev libxml2-dev libxslt1-dev libjpeg-dev libfreetype6-dev liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev
 
       - run:
-          name: Execute buildout
+          name: Setup Python environment
           command: |
-            python bootstrap.py
-            bin/buildout -N
+            python -m venv venv
+            source venv/bin/activate
+            pip install --upgrade pip setuptools wheel
+
+      - run:
+          name: Install requirements and buildout
+          command: |
+            source venv/bin/activate
+            pip install -r requirements.txt
+            buildout -N -c organs.cfg
+            buildout -N -c organs.cfg
 
       - run:
           name: Run Python tests
           command: |
+            source venv/bin/activate
             bin/test -t genweb.organs
 
+      - run:
+          name: Run coverage
+          command: |
+            source venv/bin/activate
+            bin/coverage run --source=src/genweb.organs bin/test -t genweb.organs
+            bin/coverage report
+            bin/coverage html
+
+      - store_test_results:
+          path: parts/test
+
+      - store_artifacts:
+          path: htmlcov
+          destination: coverage-report

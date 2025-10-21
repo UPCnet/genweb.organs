@@ -1,6 +1,14 @@
+[run]
+source = src/genweb/organs
+
 [report]
 include =
     genweb/organs/*
 
 omit =
     */test*
+    */tests/*
+    */testing/*
+
+[html]
+directory = coverage_report

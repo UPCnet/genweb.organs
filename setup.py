@@ -53,6 +53,7 @@ setup(
             'plone.app.contenttypes',
             'plone.app.multilingual',
             'plone.testing',
+            'coverage',
         ],
     },
     entry_points="""
