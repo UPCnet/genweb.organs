@@ -25,15 +25,19 @@ jobs:
           path: |
             eggs
             parts
+            src
             .installed.cfg
-          key: ${{ runner.os }}-buildout-ci-${{ hashFiles('buildout-ci.cfg', 'requirements.txt') }}
+            .mr.developer.cfg
+          key: ${{ runner.os }}-buildout-ci-v2-${{ hashFiles('buildout-ci.cfg', 'requirements.txt') }}
           restore-keys: |
+            ${{ runner.os }}-buildout-ci-v2-
             ${{ runner.os }}-buildout-ci-
 
       - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
+            git \
             libsasl2-dev \
             python3-dev \
             libldap2-dev \
