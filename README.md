@@ -1,7 +1,9 @@
 # genweb.organs
 Paquet Organs de Govern amb jQuery i que s'integra a Genweb
 
-[![Build Status](https://travis-ci.org/UPCnet/genweb.organs.svg?branch=master)](https://travis-ci.org/UPCnet/genweb.organs)  [![Coverage Status](https://coveralls.io/repos/github/UPCnet/genweb.organs/badge.svg)](https://coveralls.io/github/UPCnet/genweb.organs)
+[![Tests](https://github.com/UPCnet/genweb.organs/actions/workflows/test.yml/badge.svg?branch=pyto3)](https://github.com/UPCnet/genweb.organs/actions/workflows/test.yml)
+[![Python](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3110/)
+[![Plone](https://img.shields.io/badge/plone-6.0.15-blue.svg)](https://plone.org)
 
 
 Installation
