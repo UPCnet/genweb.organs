@@ -26,9 +26,9 @@ jobs:
             eggs
             parts
             .installed.cfg
-          key: ${{ runner.os }}-buildout-${{ hashFiles('buildout.cfg', 'requirements.txt') }}
+          key: ${{ runner.os }}-buildout-ci-${{ hashFiles('buildout-ci.cfg', 'requirements.txt') }}
           restore-keys: |
-            ${{ runner.os }}-buildout-
+            ${{ runner.os }}-buildout-ci-
 
       - name: Install system dependencies
         run: |
@@ -55,8 +55,8 @@ jobs:
 
       - name: Run buildout
         run: |
-          buildout -N
-          buildout -N
+          buildout -c buildout-ci.cfg -N
+          buildout -c buildout-ci.cfg -N
 
       - name: Run tests
         run: |

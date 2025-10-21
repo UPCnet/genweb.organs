@@ -9,6 +9,7 @@ Se ha migrado la configuración de CI/CD de CircleCI a GitHub Actions para aprov
 ### Archivos nuevos:
 - ✅ `.github/workflows/test.yml` - Workflow principal de tests
 - ✅ `.github/workflows/README.md` - Documentación del workflow
+- ✅ `buildout-ci.cfg` - Configuración ligera de buildout para CI
 - ✅ `requirements.txt` - Dependencias Python para CI
 - ✅ `MIGRATION_CI.md` - Este documento
 
@@ -26,10 +27,23 @@ Cuando hagas **push** o crees un **Pull Request** a `pyto3` o `master`:
 1. ✅ Instala Python 3.11
 2. ✅ Cachea buildout (builds más rápidos)
 3. ✅ Instala dependencias del sistema
-4. ✅ Ejecuta buildout dos veces
+4. ✅ Ejecuta buildout con `buildout-ci.cfg` (configuración ligera)
 5. ✅ Ejecuta tests de genweb.organs
 6. ✅ Genera reporte de coverage
 7. ✅ Sube coverage como artifact descargable
+
+### ¿Por qué buildout-ci.cfg?
+
+Se usa una configuración simplificada para CI que solo incluye:
+- `instance` - Instancia de Plone para tests
+- `test` - Runner de tests
+- `i18ndude` - Herramientas de internacionalización
+
+Se excluyen partes que no son necesarias para tests:
+- `releaser` - Solo para hacer releases (requiere cmarkgfm con cmake)
+- `code-analysis` - Análisis de código (opcional)
+- `createcoverage` - Ya usamos coverage directamente
+- `omelette` - Solo para desarrollo local
 
 ## 📊 Ver resultados
 
