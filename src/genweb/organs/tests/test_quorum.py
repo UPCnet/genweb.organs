@@ -261,6 +261,35 @@ class QuorumTestCase(unittest.TestCase):
 
         logout()
 
+    def test_anonymous_cannot_access_quorum(self):
+        """Test que usuario Anónimo NO tiene acceso a quorum."""
+        print("\n❌ Verificando que usuario Anónimo NO tiene acceso a quorum")
+
+        logout()
+
+        # Verificar permisos sin usuario logueado
+        self.assertFalse(
+            api.user.has_permission(
+                'Genweb Organs: Manage Quorum',
+                obj=self.session,
+            )
+        )
+        self.assertFalse(
+            api.user.has_permission(
+                'Genweb Organs: Add Quorum',
+                obj=self.session,
+            )
+        )
+        self.assertFalse(
+            api.user.has_permission(
+                'Genweb Organs: Remove Quorum',
+                obj=self.session,
+            )
+        )
+        print("  ✓ Anónimo NO puede gestionar quorum")
+        print("  ✓ Anónimo NO puede añadir quorum")
+        print("  ✓ Anónimo NO puede eliminar quorum")
+
     def test_manager_can_remove_quorum(self):
         """Test que Manager puede eliminar quorum."""
         print("\n✅ Verificando que Manager puede eliminar quorum")
@@ -324,8 +353,14 @@ class QuorumTestCase(unittest.TestCase):
         print("  ✓ Añadir quorum")
         print("  ✗ NO puede gestionar quorum")
         print()
-        print("OG4-Afectat, OG5-Convidat, Anónimos:")
+        print("OG4-Afectat:")
         print("  ✗ Sin acceso a funcionalidades de quorum")
+        print()
+        print("OG5-Convidat:")
+        print("  ✗ Sin acceso a funcionalidades de quorum")
+        print()
+        print("Usuarios Anónimos:")
+        print("  ✗ Sin ningún permiso de quorum")
         print("=" * 60)
 
         self.assertTrue(True)
