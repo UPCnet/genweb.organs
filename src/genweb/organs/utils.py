@@ -634,4 +634,4 @@ def getFilesSessio(context):
             for file in files_subpunt:
                 files.append(file.getObject())
 
-    return files
+    return [file for file in files if file.visiblefile or file.hiddenfile]
