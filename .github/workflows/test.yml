@@ -70,7 +70,7 @@ jobs:
         run: |
           bin/coverage run --source=src/genweb/organs bin/test
           bin/coverage report
-          bin/coverage html
+          bin/coverage html -d htmlcov
 
       - name: Upload coverage to artifacts
         uses: actions/upload-artifact@v4
