@@ -99,7 +99,7 @@
     <tal:block tal:condition="view/isSigned">
       <a class="btn btn-info btnActa" style="float:right;"
          tal:attributes="href string:${absolute_url}/viewActa;">
-        <i class="fa fa-eye"></i>&nbsp;<span i18n:translate=""> Acta firmada </span>
+        <i class="fa fa-eye"></i>&nbsp;<span i18n:translate=""> Acta signada </span>
       </a>
     </tal:block>
   </tal:omit-tag>
