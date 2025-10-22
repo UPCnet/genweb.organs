@@ -1,14 +1,18 @@
 [run]
 source = src/genweb/organs
+branch = True
+parallel = True
+concurrency = multiprocessing
+dynamic_context = test_function
 
 [report]
 include =
     src/genweb/organs/*
-
 omit =
     */test*
     */tests/*
     */testing/*
+show_missing = True
 
 [html]
 directory = coverage_report

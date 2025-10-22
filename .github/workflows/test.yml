@@ -62,15 +62,20 @@ jobs:
           buildout -c buildout-ci.cfg -N
           buildout -c buildout-ci.cfg -N
 
-      - name: Run tests
-        run: |
-          bin/test
+      # - name: Run tests
+      #   run: |
+      #     bin/test
 
       - name: Generate coverage report
+        env:
+          COVERAGE_PROCESS_START: .coveragerc
         run: |
-          bin/coverage run --source=src/genweb/organs bin/test
+          bin/coverage run --rcfile=.coveragerc bin/test
+          bin/coverage combine
           bin/coverage report
           bin/coverage html -d htmlcov
+
+
 
       - name: Upload coverage to artifacts
         uses: actions/upload-artifact@v4
