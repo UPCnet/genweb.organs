@@ -1,11 +1,12 @@
 Changelog
 =========
 
-0.75 (unreleased)
+0.75 (2025-10-22)
 -----------------
 
-- Nothing changed yet.
-
+* [UPD] No contemplar ficheros sin contenido [Iago López]
+* [UPD] Cambiar literal boton [Iago López]
+* [UPD] Cambios visualizacion de la acta [Iago López]
 
 0.74 (2025-09-15)
 -----------------
