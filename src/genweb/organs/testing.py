@@ -55,9 +55,22 @@ class GenwebOrgansLayer(PloneSandboxLayer):
         # Workflow per defecte
         portal.portal_workflow.setDefaultChain("simple_publication_workflow")
 
-        # Aplicar perfils
-        applyProfile(portal, "genweb6.upc:default")
-        applyProfile(portal, "genweb.organs:default")
+        # Monkeypatch temporal de genweb6.upc.setuphandlers.setupVarious para tests
+        from genweb6.upc import setuphandlers
+        original_setupVarious = setuphandlers.setupVarious
+
+        def mock_setupVarious(context):
+            # Skip setupVarious en tests - evita llamar getRequest().URL
+            pass
+
+        try:
+            setuphandlers.setupVarious = mock_setupVarious
+            # Aplicar perfils
+            applyProfile(portal, "genweb6.upc:default")
+            applyProfile(portal, "genweb.organs:default")
+        finally:
+            # Restaurar función original
+            setuphandlers.setupVarious = original_setupVarious
 
         # Asegurarte que el usuario de testing existe y tenga rol Manager
         setRoles(portal, TEST_USER_ID, ['Manager'])
