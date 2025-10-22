@@ -346,6 +346,9 @@ class View(BrowserView, UtilsFirmaDocumental):
     def __call__(self):
         return self.index()
 
+    def isAnon(self):
+        return api.user.is_anonymous()
+
     @property
     def title(self):
         """Devuelve el título del anexo."""
@@ -401,7 +404,7 @@ class View(BrowserView, UtilsFirmaDocumental):
     def AudioInside(self):
         """ Retorna els fitxers d'audio creats aquí dintre (sense tenir compte estat)
         """
-        if not self.hasFirma():
+        if not self.isSigned():
             folder_path = '/'.join(self.context.getPhysicalPath())
             portal_catalog = api.portal.get_tool(name='portal_catalog')
             values = portal_catalog.searchResults(
@@ -438,7 +441,7 @@ class View(BrowserView, UtilsFirmaDocumental):
     def AnnexInside(self):
         """ Retorna els fitxers annexos creats aquí dintre (sense tenir compte estat)
         """
-        if not self.hasFirma():
+        if not self.isSigned():
             folder_path = '/'.join(self.context.getPhysicalPath())
             portal_catalog = api.portal.get_tool(name='portal_catalog')
             values = portal_catalog.searchResults(

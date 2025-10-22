@@ -250,7 +250,8 @@
 
       <div id="actaTab" 
            tal:condition="acta"
-           tal:attributes="class python: 'tab-pane' + ('' if hihaDocs else ' active')">
+           tal:attributes="class python: 'tab-pane' + ('' if hihaDocs else ' active')"
+           tal:define="isSigned python:view.isSigned(acta)">
         <div tal:define="ordenDelDia acta/ordenDelDia;
                          audio python:view.AudioInsideActa(acta);
                          annexes python:view.AnnexInsideActa(acta);
@@ -272,13 +273,13 @@
 
             <tal:block tal:condition="view/canFirm">
 
-              <a id="previewActaBtn" class="btn btn-outline-secondary me-3" 
-                 tal:attributes="data-url string:${absolute_url}/previewActa" 
-                 href="#">
-                <i class="bi bi-eye"></i> <span i18n:translate="">Previsualitza</span>
-              </a>
-
               <tal:block tal:condition="not:hasFirma">
+                <a id="previewActaBtn" class="btn btn-outline-secondary me-3" 
+                  tal:attributes="data-url string:${absolute_url}/previewActa" 
+                  href="#">
+                  <i class="bi bi-eye"></i> <span i18n:translate="">Previsualitza</span>
+                </a>
+
                 <button id="signActa" class="btn btn-primary btnActa"
                   tal:condition="checkSerieGDoc/valid_serie"
                   tal:attributes="data-sign-url string:${acta/absolute_url}/signActa">
@@ -296,11 +297,11 @@
 
           <br/>
 
-          <tal:block tal:condition="not:hasFirma">
+          <tal:block tal:condition="not:isSigned">
             <tal:block tal:condition="annexes">
               <tal:block tal:define="multiple_annexes python:len(annexes)>1">
-                <h3 class="mb-2" tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
-                <h3 class="mb-2" tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
+                <h2 class="mt-4 mb-2" tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h2>
+                <h2 class="mt-4 mb-2" tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h2>
               </tal:block>
               <tal:documents repeat="item annexes">
                 <div tal:define="public_file_download_url string:${item/absolute_url}/@@download/file/${item/filename};
@@ -322,10 +323,8 @@
 
             <tal:block tal:condition="acta/acta">
               <div tal:define="public_acta_download_url string:${absolute_url}/@@download/acta/${acta/acta/filename};
-                              public_acta_view_url string:${absolute_url}/@@display-file/acta/;
-                              isSigned python:view.isSigned(acta)">
-                <h3 class="mb-2" tal:condition="not:isSigned" i18n:translate="">Acta PDF</h3>
-                <h3 class="mb-2" tal:condition="isSigned" i18n:translate="">Acta signada</h3>
+                              public_acta_view_url string:${absolute_url}/@@display-file/acta/;">
+                <h2 class="mt-4 mb-2" i18n:translate="">Acta PDF</h2>
                 <p>
                   <a tal:attributes="href public_acta_view_url">
                     <i class="bi bi-file-pdf-o" aria-hidden="true"></i>
@@ -343,11 +342,11 @@
             </tal:block>
           </tal:block>
 
-          <tal:block tal:condition="hasFirma" tal:define="actaPDF python:view.getPDFActa(acta)">
+          <tal:block tal:condition="isSigned" tal:define="actaPDF python:view.getPDFActa(acta)">
             <tal:block tal:condition="annexes">
               <tal:block tal:define="multiple_annexes python:len(annexes)>1">
-                <h3 class="mb-2" tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h3>
-                <h3 class="mb-2" tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h3>
+                <h2 class="mt-4 mb-2" tal:condition="multiple_annexes" i18n:translate="">Fitxers adjunts</h2>
+                <h2 class="mt-4 mb-2" tal:condition="not:multiple_annexes" i18n:translate="">Fitxer adjunt</h2>
               </tal:block>
               <tal:documents repeat="item annexes">
                 <div tal:define="public_file_download_url item/download_url;
@@ -370,8 +369,7 @@
             <div tal:define="public_acta_download_url string:${absolute_url}/downloadActa;
                             public_acta_view_url string:${absolute_url}/viewActa;
                             isSigned python:view.isSigned(acta)">
-              <h3 class="mb-2" tal:condition="not:isSigned" i18n:translate="">Acta PDF</h3>
-              <h3 class="mb-2" tal:condition="isSigned" i18n:translate="">Acta signada</h3>
+              <h2 class="mt-4 mb-2" i18n:translate="">Acta signada</h2>
               <p>
                 <a tal:attributes="href public_acta_view_url">
                   <i class="bi bi-file-pdf-o" aria-hidden="true"></i>

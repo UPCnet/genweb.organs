@@ -279,6 +279,9 @@ class View(BrowserView):
     def render(self):
         return self.index()
 
+    def isAnon(self):
+        return api.user.is_anonymous()
+
     def viewHistory(self):
         # Només els Secretaris i Managers poden veure el LOG
         username = api.user.get_current().id
