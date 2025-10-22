@@ -71,7 +71,7 @@ jobs:
         env:
           COVERAGE_PROCESS_START: .coveragerc
         run: |
-          coverage run --rcfile=.coveragerc -m zope.testrunner -c buildout-ci.cfg src/genweb/organs
+          coverage run --rcfile=.coveragerc -m zope.testrunner src/genweb/organs/tests
           coverage combine
           coverage report
           coverage html -d htmlcov

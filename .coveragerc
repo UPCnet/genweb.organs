@@ -9,9 +9,7 @@ dynamic_context = test_function
 include =
     src/genweb/organs/*
 omit =
-    */test*
-    */tests/*
-    */testing/*
+
 show_missing = True
 
 [html]
