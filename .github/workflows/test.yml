@@ -2,9 +2,9 @@ name: Tests
 
 on:
   push:
-    branches: [pyto3, master]
+    branches: [pyto3]
   pull_request:
-    branches: [pyto3, master]
+    branches: [pyto3]
 
 jobs:
   test:
@@ -66,22 +66,22 @@ jobs:
         run: |
           bin/test
 
-      - name: Generate coverage report
-        run: |
-          bin/coverage run --source=src/genweb/organs bin/test -s genweb.organs
-          bin/coverage report
-          bin/coverage html -d htmlcov
+      # - name: Generate coverage report
+      #   run: |
+      #     bin/coverage run --source=src/genweb/organs bin/test -s genweb.organs
+      #     bin/coverage report
+      #     bin/coverage html -d htmlcov
 
-      - name: Upload coverage to artifacts
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: coverage-report
-          path: htmlcov/
-          retention-days: 30
+      # - name: Upload coverage to artifacts
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: coverage-report
+      #     path: htmlcov/
+      #     retention-days: 30
 
-      - name: Comment coverage on PR
-        if: github.event_name == 'pull_request'
-        run: |
-          COVERAGE=$(coverage report | grep TOTAL | awk '{print $4}')
-          echo "Coverage: $COVERAGE"
+      # - name: Comment coverage on PR
+      #   if: github.event_name == 'pull_request'
+      #   run: |
+      #     COVERAGE=$(coverage report | grep TOTAL | awk '{print $4}')
+      #     echo "Coverage: $COVERAGE"
