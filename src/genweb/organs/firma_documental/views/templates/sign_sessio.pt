@@ -137,7 +137,7 @@
                         <tal:files tal:condition="files">
                           <ul class="listFiles list-unstyled">
                             <tal:documents repeat="file_item files">
-                              <li class="filesinTable mt-2">
+                              <li class="filesinTable mt-2 d-flex w-100">
                                 <div class="titleSpan d-flex w-100">
                                   <i tal:attributes="class string:${file_item/classCSS} me-1"></i>
                                   <a tal:attributes="href file_item/absolute_url;" 
